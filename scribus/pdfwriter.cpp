@@ -66,172 +66,239 @@ namespace Pdf
 					break;
 				case 0x01:
 					switch (cell)
-				{
-					case 0x92:
-						result.append(134);
-						break;
-					case 0x41:
-						result.append(149);
-						break;
-					case 0x52:
-						result.append(150);
-						break;
-					case 0x60:
-						result.append(151);
-						break;
-					case 0x78:
-						result.append(152);
-						break;
-					case 0x7d:
-						result.append(153);
-						break;
-					case 0x31:
-						result.append(154);
-						break;
-					case 0x42:
-						result.append(155);
-						break;
-					case 0x53:
-						result.append(156);
-						break;
-					case 0x61:
-						result.append(157);
-						break;
-					case 0x7e:
-						result.append(158);
-						break;
-					default:
-						result.append("?");
-						break;
-				}
-					
+					{
+						case 0x92:
+							result.append(134);
+							break;
+						case 0x41:
+							result.append(149);
+							break;
+						case 0x52:
+							result.append(150);
+							break;
+						case 0x60:
+							result.append(151);
+							break;
+						case 0x78:
+							result.append(152);
+							break;
+						case 0x7d:
+							result.append(153);
+							break;
+						case 0x31:
+							result.append(154);
+							break;
+						case 0x42:
+							result.append(155);
+							break;
+						case 0x53:
+							result.append(156);
+							break;
+						case 0x61:
+							result.append(157);
+							break;
+						case 0x7e:
+							result.append(158);
+							break;
+						default:
+							result.append("?");
+							break;
+					}
+					break;
+
 				case 0x02:
 					switch (cell)
-				{
-					case 0xc7:
-						result.append(25);
-						break;
-					case 0xc6:
-						result.append(26);
-						break;
-					case 0xd8:
-						result.append(24);
-						break;
-					case 0xd9:
-						result.append(27);
-						break;
-					case 0xda:
-						result.append(30);
-						break;
-					case 0xdb:
-						result.append(29);
-						break;
-					case 0xdc:
-						result.append(31);
-						break;
-					case 0xdd:
-						result.append(28);
-						break;
-					default:
-						result.append("?");
-						break;
-				}
+					{
+						case 0xc7:
+							result.append(25);
+							break;
+						case 0xc6:
+							result.append(26);
+							break;
+						case 0xd8:
+							result.append(24);
+							break;
+						case 0xd9:
+							result.append(27);
+							break;
+						case 0xda:
+							result.append(30);
+							break;
+						case 0xdb:
+							result.append(29);
+							break;
+						case 0xdc:
+							result.append(31);
+							break;
+						case 0xdd:
+							result.append(28);
+							break;
+						default:
+							result.append("?");
+							break;
+					}
+					break;
+
 				case 0x20:
 					switch (cell)
-				{
-					case 0x13:
-						result.append(133);
-						break;
-					case 0x14:
-						result.append(132);
-						break;
-					case 0x18:
-						result.append(143);
-						break;
-					case 0x19:
-						result.append(144);
-						break;
-					case 0x1a:
-						result.append(145);
-						break;
-					case 0x1c:
-						result.append(141);
-						break;
-					case 0x1d:
-						result.append(142);
-						break;
-					case 0x1e:
-						result.append(140);
-						break;
-					case 0x20:
-						result.append(129);
-						break;
-					case 0x21:
-						result.append(130);
-						break;
-					case 0x22:
-						result.append(128);
-						break;
-					case 0x26:
-						result.append(131);
-						break;
-					case 0x30:
-						result.append(139);
-						break;
-					case 0x39:
-						result.append(136);
-						break;
-					case 0x3a:
-						result.append(137);
-						break;
-					case 0x44:
-						result.append(135);
-						break;
-					case 0xac:
-						result.append(160);
-						break;
+					{
+						case 0x13:
+							result.append(133);
+							break;
+						case 0x14:
+							result.append(132);
+							break;
+						case 0x18:
+							result.append(143);
+							break;
+						case 0x19:
+							result.append(144);
+							break;
+						case 0x1a:
+							result.append(145);
+							break;
+						case 0x1c:
+							result.append(141);
+							break;
+						case 0x1d:
+							result.append(142);
+							break;
+						case 0x1e:
+							result.append(140);
+							break;
+						case 0x20:
+							result.append(129);
+							break;
+						case 0x21:
+							result.append(130);
+							break;
+						case 0x22:
+							result.append(128);
+							break;
+						case 0x26:
+							result.append(131);
+							break;
+						case 0x30:
+							result.append(139);
+							break;
+						case 0x39:
+							result.append(136);
+							break;
+						case 0x3a:
+							result.append(137);
+							break;
+						case 0x44:
+							result.append(135);
+							break;
+						case 0xac:
+							result.append(160);
+							break;
 						
-					default:
-						result.append("?");
-						break;
-				}
+						default:
+							result.append("?");
+							break;
+					}
+					break;
+
 				case 0x21:
 					switch (cell)
-				{
-					case 0x22:
-						result.append(146);
-						break;
-					default:
-						result.append("?");
-						break;
-				}
+					{
+						case 0x22:
+							result.append(146);
+							break;
+						default:
+							result.append("?");
+							break;
+					}
+					break;
+
 				case 0x22:
 					switch (cell)
-				{
-					case 0x12:
-						result.append(138);
-						break;
-					default:
-						result.append("?");
-						break;
-				}
+					{
+						case 0x12:
+							result.append(138);
+							break;
+						default:
+							result.append("?");
+							break;
+					}
+					break;
+
 				case 0xfb:
 					switch (cell)
-				{
-					case 0x01:
-						result.append(147);
-						break;
-					case 0x02:
-						result.append(148);
-						break;
-					default:
-						result.append("?");
-						break;
-				}
-					
+					{
+						case 0x01:
+							result.append(147);
+							break;
+						case 0x02:
+							result.append(148);
+							break;
+						default:
+							result.append("?");
+							break;
+					}
+					break;
 			}
 		}
 		return result;
+	}
+
+	int fromPDFDocEncoding(int code)
+	{
+		if (code <= 23
+			|| (code >= 32 && code <= 127)
+			|| (code >= 161))
+		{
+			return code;
+		}
+
+		if (code == 24)  return 0x02d8;
+		if (code == 25)  return 0x02c7;
+		if (code == 26)  return 0x02c6;
+		if (code == 27)  return 0x02d9;
+		if (code == 28)  return 0x02dd;
+		if (code == 29)  return 0x02db;
+		if (code == 30)  return 0x02da;
+		if (code == 31)  return 0x02dc;
+
+		if (code == 128) return 0x2022;
+		if (code == 129) return 0x2020;
+
+		if (code == 130) return 0x2021;
+		if (code == 131) return 0x2026;
+		if (code == 132) return 0x2014;
+		if (code == 133) return 0x2013;
+		if (code == 134) return 0x0192;
+		if (code == 135) return 0x2044;
+		if (code == 136) return 0x2039;
+		if (code == 137) return 0x203a;
+		if (code == 138) return 0x2212;
+		if (code == 139) return 0x2030;
+
+		if (code == 140) return 0x201e;
+		if (code == 141) return 0x201c;
+		if (code == 142) return 0x201d;
+		if (code == 143) return 0x2018;
+		if (code == 144) return 0x2019;
+		if (code == 145) return 0x201a;
+		if (code == 146) return 0x2122;
+		if (code == 147) return 0xfb01;
+		if (code == 148) return 0xfb02;
+		if (code == 149) return 0x0141;
+
+		if (code == 150) return 0x0152;
+		if (code == 151) return 0x0160;
+		if (code == 152) return 0x0178;
+		if (code == 153) return 0x017d;
+		if (code == 154) return 0x0131;
+		if (code == 155) return 0x0142;
+		if (code == 156) return 0x0153;
+		if (code == 157) return 0x0161;
+		if (code == 158) return 0x017e;
+
+		if (code == 160) return 0x20ac;
+
+		return 0;
 	}
 	
 	QByteArray toUTF16(QString s)

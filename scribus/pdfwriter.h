@@ -33,6 +33,11 @@ namespace Pdf
 	 convert unicode to 8-Bit PdfDocEncoding, cf. PDF32000-2008, 8.9.2 and Annex D
 	 */
 	QByteArray toPdfDocEncoding(QString s);
+
+	/**
+	 convert 8-Bit PdfDocEncoding to unicode, cf. PDF32000-2008, 8.9.2 and Annex D
+	 */
+	int fromPDFDocEncoding(int code);
 	
 	/**
 	 convert unicode to UTF16BE with byte order marker, cf. PDF32000-2008, 8.9.2

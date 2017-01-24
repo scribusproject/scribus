@@ -75,6 +75,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_symbol.h"
 #include "pagesize.h"
 #include "pagestructs.h"
+#include "pdfwriter.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
@@ -4553,6 +4554,33 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					FPointArray outline(font.glyphOutline(gl.glyph));
 					if (!fontName.isEmpty())
 						Really[fontName].insert(gl.glyph, outline);
+				}
+			}
+		}
+	}
+
+	// Process annotation fonts
+	if (it->isAnnotation() && (it->isTextFrame() || it->isPathText()))
+	{
+		int annotType  = it->annotation().Type();
+		bool requiredFont = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
+		if (it->itemText.length() > 0 || requiredFont)
+		{
+			const ScFace& font = it->itemText.defaultStyle().charStyle().font();
+			QString fontName = font.replacementName();
+
+			if (!Really.contains(fontName) && !fontName.isEmpty())
+				Really.insert(fontName, QMap<uint, FPointArray>());
+
+			for (uint ww = 32; ww < 256; ++ww)
+			{
+				int unicode = Pdf::fromPDFDocEncoding(ww);
+				uint glyph  = font.char2CMap(unicode);
+				if (glyph > 0)
+				{
+					FPointArray outline(font.glyphOutline(glyph));
+					if (!fontName.isEmpty())
+						Really[fontName].insert(glyph, outline);
 				}
 			}
 		}
