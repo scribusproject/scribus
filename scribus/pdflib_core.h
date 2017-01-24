@@ -98,6 +98,8 @@ private:
 	void PDF_Error_MaskLoadFailure(const QString& fileName);
 	void PDF_Error_InsufficientMemory(void);
 
+	int fromPDFDocEncoding(int code);
+
 	QByteArray EncodeUTF16(const QString &in);
 	QString    EncStream(const QString & in, int ObjNum);
 	QString    EncString(const QString & in, int ObjNum);

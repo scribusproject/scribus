@@ -363,7 +363,65 @@ static QString blendMode(int code)
 		default:
 			return "";
 	}
-}	
+}
+
+int PDFLibCore::fromPDFDocEncoding(int code)
+{
+	if (code <= 23
+		|| (code >= 32 && code <= 127)
+		|| (code >= 161))
+	{
+		return code;
+	}
+
+	if (code == 24)  return 0x02d8;
+	if (code == 25)  return 0x02c7;
+	if (code == 26)  return 0x02c6;
+	if (code == 27)  return 0x02d9;
+	if (code == 28)  return 0x02dd;
+	if (code == 29)  return 0x02db;
+	if (code == 30)  return 0x02da;
+	if (code == 31)  return 0x02dc;
+
+	if (code == 128) return 0x2022;
+	if (code == 129) return 0x2020;
+
+	if (code == 130) return 0x2021;
+	if (code == 131) return 0x2026;
+	if (code == 132) return 0x2014;
+	if (code == 133) return 0x2013;
+	if (code == 134) return 0x0192;
+	if (code == 135) return 0x2044;
+	if (code == 136) return 0x2039;
+	if (code == 137) return 0x203a;
+	if (code == 138) return 0x2212;
+	if (code == 139) return 0x2030;
+
+	if (code == 140) return 0x201e;
+	if (code == 141) return 0x201c;
+	if (code == 142) return 0x201d;
+	if (code == 143) return 0x2018;
+	if (code == 144) return 0x2019;
+	if (code == 145) return 0x201a;
+	if (code == 146) return 0x2122;
+	if (code == 147) return 0xfb01;
+	if (code == 148) return 0xfb02;
+	if (code == 149) return 0x0141;
+
+	if (code == 150) return 0x0152;
+	if (code == 151) return 0x0160;
+	if (code == 152) return 0x0178;
+	if (code == 153) return 0x017d;
+	if (code == 154) return 0x0131;
+	if (code == 155) return 0x0142;
+	if (code == 156) return 0x0153;
+	if (code == 157) return 0x0161;
+	if (code == 158) return 0x017e;
+
+	if (code == 160) return 0x20ac;
+
+	return 0;
+}
 
 QByteArray PDFLibCore::EncodeUTF16(const QString &in)
 {
@@ -1066,7 +1124,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
 			PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
 			PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
-			PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+			PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 160 /Euro 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
 			PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
 			PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
 			PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
@@ -1634,7 +1692,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
 				for (int ww = 32; ww < 256; ++ww)
 				{
-					uint glyph = face.char2CMap(QChar(ww));
+					int unicode = fromPDFDocEncoding(ww);
+					uint glyph  = face.char2CMap(QChar(unicode));
 					if (gl.contains(glyph))
 						PutDoc(QString::number(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
 					else
@@ -1665,7 +1724,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
 				PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
 				PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
-				PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+				PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 160 /Euro 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
 				PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
 				PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
 				PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
