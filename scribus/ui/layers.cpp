@@ -576,6 +576,7 @@ void LayerPalette::markLayer()
 			emit LayerChanged();
 		}
 		setActiveLayer(Table->currentRow(), -1);
+		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	}
 }
 
