@@ -566,7 +566,7 @@ void XtgScanner::setXPresOwn()
 
 	unSupported.insert(token+')');
 	//All these tags are unsupported in Scribus, so just ignoring them till we find close paranthesis
-	while (lookAhead() != ')')
+	while (lookAhead() != QChar(')'))
 		top=top+1;
 	top=top+1;//Ignore )
 }
@@ -605,12 +605,12 @@ void XtgScanner::setTabStops()
 {
 	QList<ParagraphStyle::TabRecord> tbs = currentParagraphStyle.tabValues();
 	tbs.clear();
-	if (lookAhead() == '0')
+	if (lookAhead() == QChar('0'))
 	{
 		currentParagraphStyle.setTabValues(tbs);
 		return;
 	}
-	while (lookAhead() != ')')
+	while (lookAhead() != QChar(')'))
 	{
 		token = getToken();
 		double pos = token.toDouble();
@@ -650,7 +650,7 @@ void XtgScanner::setPAttributes()
 	{
 		// We have to discard (P,S)) since it is not yet supported in Scribus
 
-		while (lookAhead() != ')' )
+		while (lookAhead() != QChar(')'))
 			top++;
 	}
 	currentParagraphStyle.setLeftMargin(leftIndent);
@@ -674,24 +674,24 @@ void XtgScanner::setHyphenation()
 void XtgScanner::setPRuleAbove()
 {
 	unSupported.insert(token);
-	if (lookAhead() == '0')
+	if (lookAhead() == QChar('0'))
 	{
 		top++;
 		return;
 	}
-	while (lookAhead() != ')')
+	while (lookAhead() != QChar(')'))
 		top++;
 }
 
 void XtgScanner::setPRuleBelow()
 {
 	unSupported.insert(token);
-	if (lookAhead() == '0')
+	if (lookAhead() == QChar('0'))
 	{
 		top++;
 		return;
 	}
-	while (lookAhead() != ')')
+	while (lookAhead() != QChar(')'))
 		top++;
 }
 
@@ -719,9 +719,9 @@ void XtgScanner::setKeepNextPar()
 
 void XtgScanner::setKeepTogether()
 {
-	if (lookAhead() == '(')
+	if (lookAhead() == QChar('('))
 	{
-		while (lookAhead() != ')')
+		while (lookAhead() != QChar(')'))
 		{
 			token.append( nextSymbol() );
 		}
@@ -897,7 +897,7 @@ void XtgScanner::defHardReturn()
 	/* I saw a strange nature in XPress Tags that every hardreturn is followed by a soft return, hence fixing the
 		new line flag to true */
 	flushText();
-	if (lookAhead() == '\n')
+	if (lookAhead() == QChar('\n'))
 		newlineFlag = true;
 	else
 	{
@@ -958,7 +958,7 @@ void XtgScanner::defAtRate()
 		newStyle.setParent(m_item->itemName() + "_" + sfcName);
 		currentParagraphStyle = newStyle;
 		currentCharStyle = newStyle.charStyle();
-		if (lookAhead() == ':')
+		if (lookAhead() == QChar(':'))
 			top++;
 		enterState(textMode);
 	}
@@ -968,7 +968,7 @@ void XtgScanner::defAtRate()
 		newStyle.setParent(sfcName);
 		currentParagraphStyle = newStyle;
 		currentCharStyle = newStyle.charStyle();
-		if (lookAhead() == ':')
+		if (lookAhead() == QChar(':'))
 			top++;
 		enterState(textMode);
 	}
@@ -1002,7 +1002,7 @@ void XtgScanner::defEquals()	//Token =
 {
 	//define a character stylesheet with the name in sfcName if the next character is not [
 	newlineFlag = false;
-	if (lookAhead() != '[')
+	if (lookAhead() != QChar('['))
 	{
 		define = 1;
 		if (m_prefixName)
@@ -1069,14 +1069,14 @@ void XtgScanner::defColon()
 	newlineFlag = false;
 	enterState(textMode);
 	define = 0;
-	if (!((lookAhead() == '\r') || (lookAhead() == '\n')))
+	if (!((lookAhead() == QChar('\r')) || (lookAhead() == QChar('\n'))))
 		inDef = false;
 }
 
 void XtgScanner::defFontSet()
 {
 	unSupported.insert("[F]");
-	while (lookAhead() != '>' )
+	while (lookAhead() != QChar('>'))
 		top = top+1;
 	top = top-1;
 }
@@ -1087,7 +1087,7 @@ void XtgScanner::defColor()
 	ScColor tmp;
 	enterState(stringMode);
 	token = getToken();
-	while (lookAhead() != '>' )
+	while (lookAhead() != QChar('>'))
 	{
 		token = getToken();
 		if ((token == "CMJN") || (token == "CMYK"))
@@ -1139,19 +1139,19 @@ void XtgScanner::definePStyles()
 		s1 = getToken();
 	else
 	{
-		while (lookAhead() != '\"')
+		while (lookAhead() != QChar('\"'))
 			top++;					//skip the inch
 		top++;
 		s1 = getToken();			//will contain the string 1
 	}
 //	top = top + 2;				//we have to skip comma and next inch character
-	while (lookAhead() != '\"')
+	while (lookAhead() != QChar('\"'))
 		top++;
 	top++;
 	s2 = getToken();
-	if (lookAhead() != ']' )
+	if (lookAhead() != QChar(']'))
 	{
-		while (lookAhead() != '\"')
+		while (lookAhead() != QChar('\"'))
 			top++;
 		top++;
 	//	top = top + 2;
@@ -1223,7 +1223,7 @@ QString XtgScanner::sliceString()
 	QString name;
 	if (Mode == stringMode)
 	{
-		while (lookAhead() != '\"')
+		while (lookAhead() != QChar('\"'))
 		{
 			name.append( nextSymbol() );
 		}
@@ -1231,7 +1231,7 @@ QString XtgScanner::sliceString()
 	}
 	if (Mode == nameMode)
 	{
-		while (lookAhead() != '=' || lookAhead() != ':')
+		while (lookAhead() != QChar('=') || lookAhead() != QChar(':'))
 		{
 			name.append( nextSymbol() );
 		}
@@ -1273,15 +1273,15 @@ QString XtgScanner::getToken()
 		if (temp == '@')
 		{
 			token.append( nextSymbol() ); // this will append @
-			if (lookAhead() == '$')
+			if (lookAhead() == QChar('$'))
 			{
 				token.append( nextSymbol() ); //this will result in @$ if $ is found
-				if (lookAhead() == 'p' )
+				if (lookAhead() == QChar('p'))
 					token.append( nextSymbol() ); //this will result in @$p if p is found
 			}
 			else // to get the name of character stylesheet applied as <@stylesheetname>
 			{
-				while (lookAhead() != '>' )
+				while (lookAhead() != QChar('>'))
 					token.append( nextSymbol() );
 				token.append('>');
 			}
@@ -1289,7 +1289,7 @@ QString XtgScanner::getToken()
 		else if (temp == '*')
 		{
 			token.append( nextSymbol() );
-			if (lookAhead() == 'r' || lookAhead() == 'k')
+			if (lookAhead() == QChar('r') || lookAhead() == QChar('k'))
 			{
 				token.append( nextSymbol() );
 				token.append( nextSymbol() );
@@ -1318,7 +1318,7 @@ QString XtgScanner::getToken()
 			while (lookAhead().isDigit() )
 			{
 				token.append( nextSymbol() );
-				if (lookAhead() == '.' )
+				if (lookAhead() == QChar('.'))
 					token.append( nextSymbol() );
 			}
 		}
@@ -1336,7 +1336,7 @@ QString XtgScanner::getToken()
 		{
 			token.append( nextSymbol() );
 			//check for existence one more $
-			if (lookAhead() == '$' )
+			if (lookAhead() == QChar('$'))
 				token.append( nextSymbol() );
 		}
 		else if (temp == '>')
@@ -1360,11 +1360,11 @@ QString XtgScanner::getToken()
 		/**
 		This mode should return the name of stylesheet (or font set or color) or '=' or ':','[' etc. This mode works with the assumption that a character '@' have occurred prior to it.Hence inorder to obtain the tags like '@$:' or '@:' ,we will append @ symbol initially to the token.
 		*/
-		if ( (lookAhead(-1) == '@') && (temp == ':') ) // get the simplest token @
+		if ( (lookAhead(-1) == QChar('@')) && (temp == ':') ) // get the simplest token @
 		{
 			token.append('@');
 		}
-		else if ( (lookAhead(-1) == '@') && (temp == '$') ) //get the token @$
+		else if ( (lookAhead(-1) == QChar('@')) && (temp == '$') ) //get the token @$
 		{
 			token.append('@');
 			token.append( nextSymbol() );
@@ -1382,17 +1382,17 @@ QString XtgScanner::getToken()
 		{
 			//return [F] or [C] or [Sp or [St
 			token.append( nextSymbol() );
-			if (lookAhead() == 'F' || lookAhead() == 'C' || lookAhead() == 'S')
+			if (lookAhead() == QChar('F') || lookAhead() == QChar('C') || lookAhead() == QChar('S'))
 			{
 				token.append( nextSymbol() );
 				token.append( nextSymbol() ); //append ]
 			}
 		}
-		else if (lookAhead() == '=')
+		else if (lookAhead() == QChar('='))
 			token.append( nextSymbol() );
-		else if (lookAhead() == ':')
+		else if (lookAhead() == QChar(':'))
 			token.append( nextSymbol() );
-		else if (lookAhead() == '<')
+		else if (lookAhead() == QChar('<'))
 		{
 			token.append( nextSymbol() );
 		}
@@ -1517,7 +1517,7 @@ void XtgScanner::xtgParse()
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	currentCharStyle = currentParagraphStyle.charStyle();
-	while (lookAhead() != '\0')
+	while (lookAhead() != QChar('\0'))
 	{
 		token = getToken();
 		QHash<QString,void (XtgScanner::*)(void)> *temp = NULL;
