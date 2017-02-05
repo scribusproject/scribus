@@ -20,6 +20,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\revenge\rawpainter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\cdr\importcdr.h">
@@ -31,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\revenge\rawpainter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,12 +30,15 @@
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.h">
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -49,6 +52,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

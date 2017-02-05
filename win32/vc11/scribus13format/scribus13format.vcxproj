@@ -101,10 +101,12 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader />
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -124,11 +126,12 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -151,10 +154,12 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader />
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -179,11 +184,12 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -200,10 +206,19 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13format.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13formatimpl.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13format.h" />
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13formatimpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

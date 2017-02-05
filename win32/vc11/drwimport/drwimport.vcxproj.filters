@@ -17,6 +17,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\drw\importdrwplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\drw\importdrw.h">
@@ -25,5 +28,10 @@
     <moc Include="..\..\..\scribus\plugins\import\drw\importdrwplugin.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

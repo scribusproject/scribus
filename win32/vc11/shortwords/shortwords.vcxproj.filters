@@ -39,6 +39,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\short-words\ui_swdialog.h">
       <Filter>Generated Form Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

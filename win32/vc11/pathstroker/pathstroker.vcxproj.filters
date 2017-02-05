@@ -21,10 +21,18 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
