@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QFrame>
 #include <QFont>
+#include <QHBoxLayout>
 #include <QIcon>
 #include <QInputDialog>
 #include <QKeyEvent>
@@ -52,12 +53,11 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QPushButton>
 //<<QML testing
-#include <QHBoxLayout>
-#include <QQuickView>
-#include <QQmlEngine>
-#include <QQmlComponent>
-#include <QQuickItem>
-#include <QQmlProperty>
+//#include <QQuickView>
+//#include <QQmlEngine>
+//#include <QQmlComponent>
+//#include <QQuickItem>
+//#include <QQmlProperty>
 //>>
 #include <QRegExp>
 #include <QScopedPointer>
@@ -9997,7 +9997,7 @@ void ScribusMainWindow::setPreviewToolbar()
 }
 
 
-void ScribusMainWindow::testQTQuick2_1()
+/*void ScribusMainWindow::testQTQuick2_1()
 {
 	qDebug()<<"Testing Qt Quick 2.0";
 
@@ -10042,7 +10042,7 @@ void ScribusMainWindow::testQT_slot4()
 	}
 	m_qqview->close();
 	m_qqview->deleteLater();
-}
+}*/
 
 void ScribusMainWindow::changePreviewQuality(int index)
 {

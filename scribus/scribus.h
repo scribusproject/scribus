@@ -566,11 +566,11 @@ public slots:
 	//connected to signal emitted by actions when "Update Marks" menu item is triggered
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
-	void testQTQuick2_1();
-	void testQT_slot1(QString);
-	void testQT_slot2(double);
-	void testQT_slot3(int);
-	void testQT_slot4();
+//	void testQTQuick2_1();
+//	void testQT_slot1(QString);
+//	void testQT_slot2(double);
+//	void testQT_slot3(int);
+//	void testQT_slot4();
 	void changePreviewQuality(int index);
 	void enablePalettes(bool b);
 	void ToggleFrameEdit();
@@ -666,7 +666,7 @@ private:
 	bool m_WasAutoSave;
 	bool m_pagePalVisible;
 
-	QQuickView *m_qqview;
+	//QQuickView *m_qqview;
 };
 
 #endif
