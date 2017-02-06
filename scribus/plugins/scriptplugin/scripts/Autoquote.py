@@ -53,7 +53,7 @@ if scribus.haveDoc() > 0:
     elif (lang == 'sq'):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
-	lead_single = u"\u2018"
+        lead_single = u"\u2018"
         follow_single = u"\u2019"
     elif ((lang == 'be') or (lang == 'ch') or (lang == 'uk') or (lang == 'ru')):
         lead_double = u"\u00ab"
@@ -69,7 +69,7 @@ if scribus.haveDoc() > 0:
         lead_double = u"\u00ab"
         follow_double = u"\u00bb"
         lead_single = u"\u2018"
-	follow_single = u"\u2019"
+        follow_single = u"\u2019"
     elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
@@ -81,10 +81,10 @@ if scribus.haveDoc() > 0:
         lead_single = u"\u2019"
         follow_single = u"\u2018"
     elif ((lang == 'hu') or (lang == 'nl')):
-	lead_double = u"\u201e"
-	follow_double = u"\u201d"
-	lead_single = u"\u00bb"
-	follow_single = u"\u00ab"
+        lead_double = u"\u201e"
+        follow_double = u"\u201d"
+        lead_single = u"\u00bb"
+        follow_single = u"\u00ab"
     else:
         scribus.messageBox('Language Error', 'You need to choose an available language', scribus.ICON_WARNING, scribus.BUTTON_OK)
         sys.exit(2)
