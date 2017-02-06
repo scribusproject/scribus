@@ -1808,6 +1808,9 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->fixParagraphStyles();
 	m_Doc->fixNotesStyles();
 
+	// #14603 : it seems we need this also for some 1.5.x docs
+	m_Doc->fixItemPageOwner();
+
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
 	if (!EffVal.isEmpty())
