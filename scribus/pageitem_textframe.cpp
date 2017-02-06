@@ -5761,7 +5761,9 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 	{
 		if (nF->deleteIt || (nF->isAutoNoteFrame() && !notesMap.keys().contains(nF)))
 		{
-			m_Doc->delNoteFrame(nF,true);
+			m_Doc->delNoteFrame(nF, true);
+			m_notesFramesMap.remove(nF);
+			notesMap.remove(nF);
 			docWasChanged = true;
 		}
 		else

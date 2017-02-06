@@ -18018,7 +18018,7 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 		if (m->isType(MARK2ItemType) && (m->getItemPtr() == nF))
 		{
 			setUndoDelMark(m);
-			eraseMark(m,true);
+			eraseMark(m, true);
 		}
 	}
 	m_Selection->delaySignalsOn();
@@ -18033,6 +18033,19 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 	m_Selection->delaySignalsOff();
 
 	Items->removeOne(nF);
+
+	QList<PageItem*> allItems = *Items;
+	while (allItems.count() > 0)
+	{
+		PageItem* item = allItems.takeFirst();
+		if (item->isGroup() || item->isTable())
+		{
+			allItems = item->getItemList() + allItems;
+			continue;
+		}
+		if (item->isTextFrame())
+			item->asTextFrame()->removeNoteFrame(nF);
+	}
 	setNotesChanged(true);
 	if (forceDeletion)
 		delete nF;
