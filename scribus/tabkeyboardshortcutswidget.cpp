@@ -454,9 +454,14 @@ void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 
 void TabKeyboardShortcutsWidget::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 {
+	if (setKeyButton->isChecked())
+	{
+		releaseKeyboard();
+		setKeyButton->setChecked(false);
+	}
 	if (qlvi!=0 && lviToActionMap.contains(qlvi))
 	{
-		selectedLVI=qlvi;
+		selectedLVI = qlvi;
 		QString actionName=lviToActionMap[qlvi];
 		if (actionName.isEmpty())
 			return;
@@ -470,8 +475,12 @@ void TabKeyboardShortcutsWidget::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*
 	{
 		noKey->setChecked(true);
 		keyDisplay->setText("");
-		selectedLVI=0;
+		selectedLVI = 0;
 	}
+	noKey->setEnabled(selectedLVI != 0);
+	userDef->setEnabled(selectedLVI != 0);
+	setKeyButton->setEnabled(selectedLVI != 0);
+	keyDisplay->setEnabled(selectedLVI != 0);
 }
 
 bool TabKeyboardShortcutsWidget::event( QEvent* ev )
@@ -522,20 +531,24 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 				keyCode |= k->key();
 				keyDisplay->setText(getKeyText(keyCode));
 				releaseKeyboard();
-				if (checkKey(keyCode))
+				if (selectedLVI)
 				{
-					QMessageBox::information(this, CommonStrings::trWarning,
-											tr("This key sequence is already in use"),
-											CommonStrings::tr_OK);
-					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);
-					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence);
-				}
-				else
-				{
-					QKeySequence newKeySequence(keyCode);
-					selectedLVI->setText(1, QString(newKeySequence));
-					keyMap[lviToActionMap[selectedLVI]].keySequence=newKeySequence;
-					userDef->setChecked(true);
+					QString actionName = lviToActionMap[selectedLVI];
+					if (checkKey(keyCode))
+					{
+						QMessageBox::information(this, CommonStrings::trWarning,
+												tr("This key sequence is already in use"),
+												CommonStrings::tr_OK);
+						selectedLVI->setText(1,keyMap[actionName].keySequence);
+						keyDisplay->setText(keyMap[actionName].keySequence);
+					}
+					else
+					{
+						QKeySequence newKeySequence(keyCode);
+						selectedLVI->setText(1, QString(newKeySequence));
+						keyMap[actionName].keySequence = newKeySequence;
+						userDef->setChecked(true);
+					}
 				}
 				setKeyButton->setChecked(false);
 		}
