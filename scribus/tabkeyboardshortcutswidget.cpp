@@ -377,8 +377,17 @@ void TabKeyboardShortcutsWidget::insertActions()
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
+		for (int i = 0; i < itmenu->second.count(); ++i)
 		{
+			QString actionName = itmenu->second.at(i);
+			if (!keyMap.contains(actionName))
+			{
+				qDebug() << "The action " << actionName << " is not defined in shortcut map";
+				continue;
+			}
+			const Keys &actionKeys = keyMap[actionName];
+			if (actionKeys.cleanMenuText.isEmpty())
+				continue;
 			if (first)
 			{
 				currLVI = new QTreeWidgetItem(currMenuLVI);
@@ -387,10 +396,10 @@ void TabKeyboardShortcutsWidget::insertActions()
 			else
 				currLVI = new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
-			lviToActionMap.insert(currLVI, *it);
-			currLVI->setText(0, keyMap[*it].cleanMenuText);
-			currLVI->setText(1, keyMap[*it].keySequence);
-			prevLVI=currLVI;
+			lviToActionMap.insert(currLVI, actionName);
+			currLVI->setText(0, actionKeys.cleanMenuText);
+			currLVI->setText(1, actionKeys.keySequence);
+			prevLVI = currLVI;
 		}
 	}
 	//Non menu actions
@@ -412,8 +421,17 @@ void TabKeyboardShortcutsWidget::insertActions()
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
+		for (int i = 0; i < itmenu->second.count(); ++i)
 		{
+			QString actionName = itmenu->second.at(i);
+			if (!keyMap.contains(actionName))
+			{
+				qDebug() << "The action " << actionName << " is not defined in shortcut map";
+				continue;
+			}
+			const Keys &actionKeys = keyMap[actionName];
+			if (actionKeys.cleanMenuText.isEmpty())
+				continue;
 			if (first)
 			{
 				currLVI=new QTreeWidgetItem(currMenuLVI);
@@ -422,9 +440,9 @@ void TabKeyboardShortcutsWidget::insertActions()
 			else
 				currLVI=new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
-			lviToActionMap.insert(currLVI, *it);
-			currLVI->setText(0, keyMap[*it].cleanMenuText);
-			currLVI->setText(1, keyMap[*it].keySequence);
+			lviToActionMap.insert(currLVI, actionName);
+			currLVI->setText(0, actionKeys.cleanMenuText);
+			currLVI->setText(1, actionKeys.keySequence);
 			prevLVI=currLVI;
 		}
 	}
