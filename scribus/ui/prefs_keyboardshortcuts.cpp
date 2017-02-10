@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include <QDomDocument>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -339,8 +340,17 @@ void Prefs_KeyboardShortcuts::insertActions()
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
+		for (int i = 0; i < itmenu->second.count(); ++i)
 		{
+			QString actionName = itmenu->second.at(i);
+			if (!keyMap.contains(actionName))
+			{
+				qDebug() << "The action " << actionName << " is not defined in shortcut map";
+				continue;
+			}
+			const Keys &actionKeys = keyMap[actionName];
+			if (actionKeys.cleanMenuText.isEmpty())
+				continue;
 			if (first)
 			{
 				currLVI = new QTreeWidgetItem(currMenuLVI);
@@ -349,9 +359,9 @@ void Prefs_KeyboardShortcuts::insertActions()
 			else
 				currLVI = new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
-			lviToActionMap.insert(currLVI, *it);
-			currLVI->setText(0, keyMap[*it].cleanMenuText);
-			currLVI->setText(1, keyMap[*it].keySequence.toString(QKeySequence::NativeText));
+			lviToActionMap.insert(currLVI, actionName);
+			currLVI->setText(0, actionKeys.cleanMenuText);
+			currLVI->setText(1, actionKeys.keySequence.toString(QKeySequence::NativeText));
 			prevLVI=currLVI;
 		}
 	}
@@ -374,8 +384,17 @@ void Prefs_KeyboardShortcuts::insertActions()
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
+		for (int i = 0; i< itmenu->second.count(); ++i)
 		{
+			QString actionName = itmenu->second.at(i);
+			if (!keyMap.contains(actionName))
+			{
+				qDebug() << "The action " << actionName << " is not defined in shortcut map";
+				continue;
+			}
+			const Keys &actionKeys = keyMap[actionName];
+			if (actionKeys.cleanMenuText.isEmpty())
+				continue;
 			if (first)
 			{
 				currLVI=new QTreeWidgetItem(currMenuLVI);
@@ -384,9 +403,9 @@ void Prefs_KeyboardShortcuts::insertActions()
 			else
 				currLVI=new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
-			lviToActionMap.insert(currLVI, *it);
-			currLVI->setText(0, keyMap[*it].cleanMenuText);
-			currLVI->setText(1, keyMap[*it].keySequence.toString(QKeySequence::NativeText));
+			lviToActionMap.insert(currLVI, actionName);
+			currLVI->setText(0, actionKeys.cleanMenuText);
+			currLVI->setText(1, actionKeys.keySequence.toString(QKeySequence::NativeText));
 			prevLVI=currLVI;
 		}
 	}
