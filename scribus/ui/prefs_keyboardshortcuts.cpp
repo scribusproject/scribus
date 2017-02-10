@@ -416,9 +416,14 @@ void Prefs_KeyboardShortcuts::applySearch( const QString & newss )
 
 void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 {
+	if (setKeyButton->isChecked())
+	{
+		releaseKeyboard();
+		setKeyButton->setChecked(false);
+	}
 	if (qlvi!=0 && lviToActionMap.contains(qlvi))
 	{
-		selectedLVI=qlvi;
+		selectedLVI = qlvi;
 		QString actionName=lviToActionMap[qlvi];
 		if (actionName.isEmpty())
 			return;
@@ -432,8 +437,12 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 	{
 		noKey->setChecked(true);
 		keyDisplay->setText("");
-		selectedLVI=0;
+		selectedLVI = 0;
 	}
+	noKey->setEnabled(selectedLVI != 0);
+	userDef->setEnabled(selectedLVI != 0);
+	setKeyButton->setEnabled(selectedLVI != 0);
+	keyDisplay->setEnabled(selectedLVI != 0);
 }
 
 bool Prefs_KeyboardShortcuts::event( QEvent* ev )
@@ -468,21 +477,25 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 				keyCode |= k->key();
 				keyDisplay->setText(getTrKeyText(keyCode));
 				releaseKeyboard();
-				if (checkKey(keyCode))
+				if (selectedLVI)
 				{
-					ScMessageBox::information(this, CommonStrings::trWarning,
-											tr("The %1 key sequence is already in use by \"%2\"")
-												.arg(getTrKeyText(keyCode))
-												.arg(getAction(keyCode)));
-					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence.toString(QKeySequence::NativeText));
-					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence.toString(QKeySequence::NativeText));
-				}
-				else
-				{
-					QKeySequence newKeySequence(keyCode);
-					selectedLVI->setText(1, newKeySequence.toString(QKeySequence::NativeText));
-					keyMap[lviToActionMap[selectedLVI]].keySequence=newKeySequence;
-					userDef->setChecked(true);
+					QString actionName = lviToActionMap[selectedLVI];
+					if (checkKey(keyCode))
+					{
+						ScMessageBox::information(this, CommonStrings::trWarning,
+												tr("The %1 key sequence is already in use by \"%2\"")
+													.arg(getTrKeyText(keyCode))
+													.arg(getAction(keyCode)));
+						selectedLVI->setText(1,keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
+						keyDisplay->setText(keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
+					}
+					else
+					{
+						QKeySequence newKeySequence(keyCode);
+						selectedLVI->setText(1, newKeySequence.toString(QKeySequence::NativeText));
+						keyMap[actionName].keySequence=newKeySequence;
+						userDef->setChecked(true);
+					}
 				}
 				setKeyButton->setChecked(false);
 		}
