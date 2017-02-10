@@ -556,7 +556,7 @@ namespace Pdf
 	{
 		if (encrypted)
 		{
-			QByteArray step1 = ComputeRC4Key(m_ObjCounter);
+			QByteArray step1 = ComputeRC4Key(objId);
 			return new ScRC4EncodeFilter(&m_outStream, step1.data(), qMin(m_KeyLen+5, 16));
 		}
 		else
