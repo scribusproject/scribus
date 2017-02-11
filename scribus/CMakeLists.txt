@@ -1125,9 +1125,18 @@ if (GMAGICK_FOUND)
 endif()
 
 if(HAVE_PODOFO)
+	if(OPENSSL_FOUND)
+		message(STATUS "Including OpenSSL files for PoDoFo >= 0.9.5")
+		include_directories(
+			${OPENSSL_INCLUDE_DIR}
+		)
+    else()
+#		message(STATUS "Not including OpenSSL files because this system's PoDoFo does not require them")
+    endif()
 	include_directories(
-	${LIBPODOFO_INCLUDE_DIR}
+		${LIBPODOFO_INCLUDE_DIR}
 	)
+
 endif()
 
 if(HAVE_HYPHEN)
