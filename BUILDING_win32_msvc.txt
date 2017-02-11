@@ -122,6 +122,7 @@ xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig         %SCRIBUS_INSTALL_PATH%\s
 xcopy %SCRIBUS_SRC_PATH%\resources\iconsets             %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
+xcopy %SCRIBUS_SRC_PATH%\resources\keysets              %SCRIBUS_INSTALL_PATH%\share\keysets /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum           %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\swatches             %SCRIBUS_INSTALL_PATH%\share\swatches /s /y /i /D
