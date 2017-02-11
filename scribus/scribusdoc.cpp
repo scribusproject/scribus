@@ -3914,48 +3914,50 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		
 		if (iafData.positionType==0) // Frame starts at top left of page margins
 		{
-			x1=targetPage->xOffset()+targetPage->Margins.Left;
-			y1=targetPage->yOffset()+targetPage->Margins.Top;
+			x1 = targetPage->xOffset() + targetPage->Margins.Left;
+			y1 = targetPage->yOffset() + targetPage->Margins.Top;
 		}
 		else if (iafData.positionType==1) // Frame starts at top left of page
 		{
-			x1=targetPage->xOffset();
-			y1=targetPage->yOffset();
+			x1 = targetPage->xOffset();
+			y1 = targetPage->yOffset();
 		}
 		else if (iafData.positionType==2) // Frame starts at top left of page - bleeds
 		{
-			x1=targetPage->xOffset()-bleeds.Left;
-			y1=targetPage->yOffset()-bleeds.Top;
+			MarginStruct values;
+			getBleeds(targetPage, bleeds, values);
+			x1 = targetPage->xOffset() - values.Left;
+			y1 = targetPage->yOffset() - values.Top;
 		}
 		else if (iafData.positionType==3) // Frame starts at custom position
 		{
-			x1=targetPage->xOffset()+iafData.x;
-			y1=targetPage->yOffset()+iafData.y;
+			x1 = targetPage->xOffset() + iafData.x;
+			y1 = targetPage->yOffset() + iafData.y;
 		}
 		
 		if (iafData.sizeType==0) // Frame is size of page margins
 		{
-			w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
-			h1=targetPage->height()-targetPage->Margins.Bottom-targetPage->Margins.Top;
+			w1 = targetPage->width() - targetPage->Margins.Right - targetPage->Margins.Left;
+			h1 = targetPage->height() - targetPage->Margins.Bottom - targetPage->Margins.Top;
 		}
 		else if (iafData.sizeType==1) // Frame is size of page
 		{
-			w1=targetPage->width();
-			h1=targetPage->height();
+			w1 = targetPage->width();
+			h1 = targetPage->height();
 		}
 		else if (iafData.sizeType==2) // Frame is size of page + bleed 
 		{
-			w1=targetPage->width()+bleeds.Right+bleeds.Left;
-			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;
+			w1 = targetPage->width() + bleeds.Right + bleeds.Left;
+			h1 = targetPage->height() + bleeds.Bottom + bleeds.Top;
 		}
 		else if (iafData.sizeType==3) //Frame is size of imported image, we resize below when we load it
 		{
-			w1=h1=1;
+			w1 = h1 = 1;
 		}
 		else if (iafData.sizeType==4) // Frame is custom size
 		{
-			w1=iafData.width;
-			h1=iafData.height;
+			w1 = iafData.width;
+			h1 = iafData.height;
 		}
 		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
 		if (z!=-1)
