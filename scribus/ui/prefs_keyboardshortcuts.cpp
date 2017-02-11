@@ -322,8 +322,9 @@ void Prefs_KeyboardShortcuts::insertActions()
 	QTreeWidgetItem *currMenuLVI = NULL;
 	QTreeWidgetItem *prevLVI = NULL;
 	QTreeWidgetItem *prevMenuLVI = NULL;
-	for (QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
+	for (int i = 0; i < defMenus->count(); ++i)
 	{
+		const QPair<QString, QStringList> &actionStrings = defMenus->at(i);
 		if (firstMenu)
 		{
 			currMenuLVI = new QTreeWidgetItem(keyTable);
@@ -333,16 +334,16 @@ void Prefs_KeyboardShortcuts::insertActions()
 			currMenuLVI = new QTreeWidgetItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
-		currMenuLVI->setText(0, itmenu->first);
+		currMenuLVI->setText(0, actionStrings.first);
 		currMenuLVI->setExpanded(true);
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for (int i = 0; i < itmenu->second.count(); ++i)
+		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
-			QString actionName = itmenu->second.at(i);
+			QString actionName = actionStrings.second.at(j);
 			if (!keyMap.contains(actionName))
 			{
 				qDebug() << "The action " << actionName << " is not defined in shortcut map";
@@ -366,8 +367,9 @@ void Prefs_KeyboardShortcuts::insertActions()
 		}
 	}
 	//Non menu actions
-	for (QVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
+	for (int i = 0; i < defNonMenuActions->count(); ++i)
 	{
+		const QPair<QString, QStringList> &actionStrings = defNonMenuActions->at(i);
 		if (firstMenu)
 		{
 			currMenuLVI = new QTreeWidgetItem(keyTable);
@@ -377,16 +379,16 @@ void Prefs_KeyboardShortcuts::insertActions()
 			currMenuLVI = new QTreeWidgetItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
-		currMenuLVI->setText(0, itmenu->first);
+		currMenuLVI->setText(0, actionStrings.first);
 		currMenuLVI->setExpanded(true);
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		for (int i = 0; i< itmenu->second.count(); ++i)
+		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
-			QString actionName = itmenu->second.at(i);
+			QString actionName = actionStrings.second.at(j);
 			if (!keyMap.contains(actionName))
 			{
 				qDebug() << "The action " << actionName << " is not defined in shortcut map";
