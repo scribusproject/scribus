@@ -5448,48 +5448,50 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		
 		if (iafData.positionType==0) // Frame starts at top left of page margins
 		{
-			x1=targetPage->xOffset()+targetPage->Margins.left();
-			y1=targetPage->yOffset()+targetPage->Margins.top();
+			x1 = targetPage->xOffset() + targetPage->Margins.left();
+			y1 = targetPage->yOffset() + targetPage->Margins.top();
 		}
 		else if (iafData.positionType==1) // Frame starts at top left of page
 		{
-			x1=targetPage->xOffset();
-			y1=targetPage->yOffset();
+			x1 = targetPage->xOffset();
+			y1 = targetPage->yOffset();
 		}
 		else if (iafData.positionType==2) // Frame starts at top left of page - bleeds
 		{
-			x1=targetPage->xOffset()-m_docPrefsData.docSetupPrefs.bleeds.left();
-			y1=targetPage->yOffset()-m_docPrefsData.docSetupPrefs.bleeds.top();
+			MarginStruct values;
+			getBleeds(targetPage, m_docPrefsData.docSetupPrefs.bleeds, values);
+			x1 = targetPage->xOffset() - values.left();
+			y1 = targetPage->yOffset() - values.top();
 		}
 		else if (iafData.positionType==3) // Frame starts at custom position
 		{
-			x1=targetPage->xOffset()+iafData.x;
-			y1=targetPage->yOffset()+iafData.y;
+			x1 = targetPage->xOffset() + iafData.x;
+			y1 = targetPage->yOffset() + iafData.y;
 		}
 		
 		if (iafData.sizeType==0) // Frame is size of page margins
 		{
-			w1=targetPage->width()-targetPage->Margins.right()-targetPage->Margins.left();
-			h1=targetPage->height()-targetPage->Margins.bottom()-targetPage->Margins.top();
+			w1 = targetPage->width() - targetPage->Margins.right()- targetPage->Margins.left();
+			h1 = targetPage->height() - targetPage->Margins.bottom()- targetPage->Margins.top();
 		}
 		else if (iafData.sizeType==1) // Frame is size of page
 		{
-			w1=targetPage->width();
-			h1=targetPage->height();
+			w1 = targetPage->width();
+			h1 = targetPage->height();
 		}
 		else if (iafData.sizeType==2) // Frame is size of page + bleed 
 		{
-			w1=targetPage->width()+m_docPrefsData.docSetupPrefs.bleeds.right()+m_docPrefsData.docSetupPrefs.bleeds.left();
-			h1=targetPage->height()+m_docPrefsData.docSetupPrefs.bleeds.bottom()+m_docPrefsData.docSetupPrefs.bleeds.top();
+			w1 = targetPage->width() + m_docPrefsData.docSetupPrefs.bleeds.right() + m_docPrefsData.docSetupPrefs.bleeds.left();
+			h1 = targetPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
 		}
 		else if (iafData.sizeType==3) //Frame is size of imported image, we resize below when we load it
 		{
-			w1=h1=1;
+			w1 = h1 =1;
 		}
 		else if (iafData.sizeType==4) // Frame is custom size
 		{
-			w1=iafData.width;
-			h1=iafData.height;
+			w1 = iafData.width;
+			h1 = iafData.height;
 		}
 		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, m_docPrefsData.itemToolPrefs.shapeLineWidth, CommonStrings::None, m_docPrefsData.itemToolPrefs.textColor);
 		if (z!=-1)
