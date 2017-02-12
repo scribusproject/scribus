@@ -1392,7 +1392,6 @@ static QList<Pdf::Resource> asColorSpace(QList<PdfSpotC> spotMapValues)
 	return result;
 }
 
-
 void PDFLibCore::PDF_WriteStandardFonts()
 {
 	int a = 0;
@@ -1662,6 +1661,25 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QByteArray& font, const QByteArray& 
 	PutDoc("\nendstream");
 	writer.endObj(embeddedFontObject);
 	return embeddedFontObject;
+}
+
+QByteArray PDFLibCore::PDF_GenerateSubsetTag(const QByteArray& fontName, QList<uint> usedGlyphs)
+{
+	uint hash, mod;
+	QVector<uint> glyphVec = usedGlyphs.toVector();
+
+	hash = qHashBits(fontName.constData(), fontName.size(), 0);
+	hash = qHashBits(glyphVec.constData(), glyphVec.size() * sizeof(uint), hash);
+
+	QByteArray subsetTag(6, (char) 0);
+	for (int i = 0; i < 6; ++i)
+	{
+		mod = hash % 26;
+		subsetTag[i] = 'A' + mod;
+		hash = (hash - mod) / 26;
+	}
+
+	return subsetTag;
 }
 
 PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject)
@@ -2043,9 +2061,12 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	glyphs.prepend(0);
 	QByteArray subset = sfnt::subsetFace(font, glyphs);
 	/*dumpFont(face.psName()+"subs.ttf", subset);*/
+	QByteArray baseFont   = sanitizeFontName(face.psName());
+	QByteArray subsetTag  = PDF_GenerateSubsetTag(baseFont, glyphs);
+	QByteArray subsetName = subsetTag + '+' + baseFont;
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
-	PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
-	QByteArray baseFont = sanitizeFontName(face.psName());
+	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
+	
 	ScFace::FaceEncoding fullEncoding, subEncoding;
 	QMap<uint,uint> glyphmap;
 	face.glyphNames(fullEncoding);
@@ -2055,7 +2076,7 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
 	}
 	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, baseFont, fontDes, fullEncoding, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
 	return result;
 }
 
@@ -2084,9 +2105,12 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	glyphs.prepend(0);
 	QByteArray subset = cff::subsetFace(font, glyphs);
 	/*dumpFont(face.psName()+"subs.cff", subset);*/
+	QByteArray baseFont   = sanitizeFontName(face.psName());
+	QByteArray subsetTag  = PDF_GenerateSubsetTag(baseFont, glyphs);
+	QByteArray subsetName = subsetTag + '+' + baseFont;
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
-	PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
-	QByteArray baseFont = sanitizeFontName(face.psName());
+	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
+
 	ScFace::FaceEncoding fullEncoding, subEncoding;
 	QMap<uint,uint> glyphmap;
 	face.glyphNames(fullEncoding);
@@ -2096,7 +2120,7 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
 	}
 	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, baseFont, fontDes, fullEncoding, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
 	return result;
 }
 

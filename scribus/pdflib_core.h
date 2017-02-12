@@ -102,6 +102,7 @@ private:
 	PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
 	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
 	
+	QByteArray PDF_GenerateSubsetTag(const QByteArray& fontName, QList<uint> usedGlyphs);
 	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
 	PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
 	PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
@@ -112,6 +113,7 @@ private:
 	PdfId PDF_EmbedFontObject(const QByteArray& ttf, const QByteArray& subtype);
 	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
 	PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
+
 	void PDF_Begin_Colors();
 	void PDF_Begin_Layers();
 	
