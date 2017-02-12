@@ -40,7 +40,7 @@ rm -rf usr/share/icons/hicolor/48x48/
 
 # FIXME: How to find out which subset of plugins is really needed?
 mkdir -p ./usr/lib/qt5/plugins/
-PLUGINS=/opt/qt57/plugins/
+PLUGINS=/opt/qt58/plugins/
 cp -r $PLUGINS/* ./usr/lib/qt5/plugins/
 
 # Tcl/Tk, Tkinter (for Calendar script)
@@ -49,12 +49,12 @@ ldd usr/_tkinter.so | grep "=>" | awk '{print $3}' | xargs -I '{}' cp -v '{}' ./
 cp -r /usr/lib/tcltk usr/lib/
 cp -r /usr/share/tcltk usr/share/
 
-export LD_LIBRARY_PATH=/opt/qt57/lib/:LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/qt58/lib/:LD_LIBRARY_PATH
 copy_deps
 
 # Move the libraries to usr/bin
 move_lib
-mv ./opt/qt57/lib/* usr/lib ; rm -rf ./opt
+mv ./opt/qt58/lib/* usr/lib ; rm -rf ./opt
 ( cd usr/lib/qt5/plugins/platforms/../../ ; ln -s ../../lib/ . )
 mv usr/lib/x86_64-linux-gnu/* usr/lib/
 
