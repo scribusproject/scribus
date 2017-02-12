@@ -1130,9 +1130,9 @@ if(HAVE_PODOFO)
 		include_directories(
 			${OPENSSL_INCLUDE_DIR}
 		)
-    else()
+	else()
 #		message(STATUS "Not including OpenSSL files because this system's PoDoFo does not require them")
-    endif()
+	endif()
 	include_directories(
 		${LIBPODOFO_INCLUDE_DIR}
 	)
