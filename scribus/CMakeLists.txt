@@ -1270,6 +1270,10 @@ if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
 	target_link_libraries(${EXE_NAME} util execinfo)
 endif()
 
+if(HAIKU)
+	target_link_libraries(${EXE_NAME} execinfo)
+endif(HAIKU)
+
 if(WIN32)
 	target_link_libraries(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
 endif()

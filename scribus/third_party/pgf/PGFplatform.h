@@ -340,9 +340,9 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 
 
 //-------------------------------------------------------------------------------
-// *BSD
+// *BSD and Haiku
 //-------------------------------------------------------------------------------
-#if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
+#if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__)
 #ifndef __POSIX__ 
 #define __POSIX__ 
 #endif 
@@ -355,7 +355,7 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 #define lseek64 lseek 
 #endif 
 
-#endif // __NetBSD__ or __OpenBSD__ or __FreeBSD__
+#endif // __NetBSD__ or __OpenBSD__ or __FreeBSD__ or __HAIKU__
 
 
 //-------------------------------------------------------------------------------
