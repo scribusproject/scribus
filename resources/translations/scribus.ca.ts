@@ -184,7 +184,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="257"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
-        <translation>C-C-T-F equival a C=littlecms C=CUPS T=TIFF support F=Fontconfig support. La darrera lletra és el renderitzador C=cairo o Q=Qt</translation>
+        <translation>C-C-T-F equival a C=littlecms, C=CUPS, T=compatibilitat amb TIFF, F=compatibilitat amb Fontconfig. L&apos;última lletra és el renderitzador, C=cairo o Q=Qt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="258"/>
@@ -5367,7 +5367,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Escala de grisos</translation>
+        <translation type="unfinished">Escala de grisos</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -6429,7 +6429,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="181"/>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
-        <translation>Informació quant als drets que estàn subjectes o sobre el document, p. ex. drets d&apos;autor, patents o marques comercials</translation>
+        <translation>Informació quant als drets que estan subjectes o sobre el document, p. ex. drets d&apos;autor, patents o marques comercials</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="160"/>
@@ -7754,7 +7754,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation>Activar això permet a Scribus usar aquests canvis per perdre permanentment tipus de lletra en tots els formats futurs. Això es pot desfer o canviar en Fitxer &gt; Preferències &gt; Tipus de lletra.</translation>
+        <translation>Habilitar-ho permet a Scribus utilitzar permanentment aquestes substitucions per als tipus de lletra que falten en totes les futures disposicions. Això es pot desfer o canviar en Fitxer &gt; Preferències &gt; Tipus de lletra.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
@@ -11183,12 +11183,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="157"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Distància entre la guia del marge esquerre i la vora de la pàgina. Si es selecciona un disseny de doble cara, es selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
+        <translation>Distància entre la guia del marge esquerre i la vora de la pàgina. Si se selecciona un disseny de doble cara, se selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="158"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Distància entre la guia del marge dret i la vora de la pàgina. Si es selecciona un disseny de doble cara, es selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
+        <translation>Distància entre la guia del marge dret i la vora de la pàgina. Si se selecciona un disseny de doble cara, se selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="145"/>
@@ -11866,12 +11866,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="24"/>
         <source>Scribus - My Plugin</source>
-        <translation>Scribus - el meu connector</translation>
+        <translation>Scribus - El meu connector</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="25"/>
         <source>The plugin worked!</source>
-        <translation>El connector funciona!</translation>
+        <translation>El connector funciona</translation>
     </message>
 </context>
 <context>
@@ -12142,12 +12142,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="87"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Distància entre la guia del marge esquerre i la vora de la pàgina. Si es selecciona un disseny de doble cara, es selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
+        <translation>Distància entre la guia del marge esquerre i la vora de la pàgina. Si se selecciona un disseny de doble cara, se selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="88"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Distància entre la guia del marge dret i la vora de la pàgina. Si es selecciona un disseny de doble cara, es selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
+        <translation>Distància entre la guia del marge dret i la vora de la pàgina. Si se selecciona un disseny de doble cara, se selecciona una disposició de 3 o 4 plecs, aquest espai de marge es pot utilitzar per a assolir els marges correctes per a l&apos;enquadernació.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="97"/>
@@ -12210,7 +12210,7 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1045"/>
         <source>Reset Control Points</source>
-        <translation>Restableix el punts de control</translation>
+        <translation>Restableix els punts de control</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1046"/>
@@ -12625,12 +12625,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Importa fitxers de l&amp;OpenOffice.org Draw...</translation>
+        <translation>Importa fitxers d&apos;&amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="111"/>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation>Importa fitxers de l&apos;OpenOffice.org Draw</translation>
+        <translation>Importa fitxers d&apos;OpenOffice.org Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="112"/>
@@ -13458,7 +13458,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les intensitats de gris que estan compostes per cian, groc i magenta fent servir negre. El UCD afecta parts de les imatges que són neutrals i/o tons foscos que són propers a gris. Fer servir això pot millorar la impressió d&apos;algunes imatges però cal una mica d&apos;experimentació i proves per obtenir resultats bons. El UCR redueix la possibilitat de sobresaturació de tintes CMY.</translation>
+        <translation>Una forma d&apos;apagar algunes de les intensitats de gris que estan compostes per cian, groc i magenta utilitzant negre en lloc seu. UCR afecta més a les parts de les imatges que són neutrals i/o tenen tons foscos que estan a pop del gris. L&apos;ús d&apos;aquest mètode pot millorar la impressió d&apos;algunes imatges però cal una mica d&apos;experimentació i proves per obtenir resultats bons. UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13523,7 +13523,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="355"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement sigui millor deixar-ho habilitat.</translation>
+        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement és millor deixar-ho habilitat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="272"/>
@@ -13690,27 +13690,27 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Cap</translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Booleà</translation>
+        <translation>Booleà</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Enter</translation>
+        <translation>Enter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Número real</translation>
+        <translation>Número real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Cadena</translation>
+        <translation>Cadena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -16621,7 +16621,7 @@ Trieu-ne un altre.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Connector: carregant %1</translation>
+        <translation>Connector: s&apos;està carregant %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16670,7 +16670,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation>Gestor de Connectors</translation>
+        <translation>Gestor de connectors</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
@@ -18715,12 +18715,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="28"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation>So s&apos;habilita la memòria cau d&apos;imatges s&apos;accelerarà significativament la càrrega d&apos;imatges. Habiliteu la memòria cau si esteu treballant sovint en documents de grans amb una gran quantitat d&apos;imatges i si teniu un munt d&apos;espai de disc al vostre directori de dades d&apos;aplicació.</translation>
+        <translation>Si s&apos;habilita la memòria cau d&apos;imatges s&apos;accelerarà significativament la càrrega d&apos;imatges. Habiliteu la memòria cau si esteu treballant sovint en documents de grans amb una gran quantitat d&apos;imatges i si teniu un munt d&apos;espai de disc al vostre directori de dades d&apos;aplicació.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation>Establiu el nivell de compressió per a les les imatges a la memòria cau. Els valors més elevats produiran fitxers de memòria cau més petits, però també fan que l&apos;escriptura a la memòria cau sigui més lenta.</translation>
+        <translation>Establiu el nivell de compressió per a les imatges a la memòria cau. Els valors més elevats produiran fitxers de memòria cau més petits, però també fan que l&apos;escriptura a la memòria cau sigui més lenta.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
@@ -18755,12 +18755,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="29"/>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
-        <translation>Limita la mida total de tots els fitxes al directori de la memòria cau d&apos;imatges a aquesta quantitat</translation>
+        <translation>Limita la mida total de tots els fitxers al directori de la memòria cau d&apos;imatges a aquesta quantitat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="30"/>
         <source>Limit the number of cache entries to this number</source>
-        <translation>Limita el nombre d&apos;entrades a la emòria cau a aquest nombre</translation>
+        <translation>Limita el nombre d&apos;entrades a la memòria cau a aquest nombre</translation>
     </message>
 </context>
 <context>
@@ -19643,7 +19643,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1604"/>
         <source>Facing Pages Left</source>
-        <translation>Pàgines enfrontades equerra</translation>
+        <translation>Pàgines enfrontades esquerra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1611"/>
@@ -19688,7 +19688,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1240"/>
         <source>Information String:</source>
-        <translation>Cadena d&apos;informació</translation>
+        <translation>Cadena d&apos;informació:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1270"/>
@@ -19884,12 +19884,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="65"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>El mètode de compressió a utilitzar per a les imatges. Automàtic permet que Scribus triï el millor mètode. Zip és sense pèrdua i fantàstic per a les imatges amb colors sòlids. JPEG és millor en la creació de fitxers PDF més petits en els quals hi hagin moltes fotos (amb una lleugera pèrdua de la qualitat). Deixeu-ho en automàtic, si no teniu cap necessitat especial quant a les opcions de la compressió.</translation>
+        <translation>El mètode de compressió a utilitzar per a les imatges. Automàtic permet que Scribus triï el millor mètode. Zip és sense pèrdua i fantàstic per a les imatges amb colors sòlids. JPEG és millor en la creació de fitxers PDF més petits en els quals hi hagi moltes fotos (amb una lleugera pèrdua de la qualitat). Deixeu-ho en automàtic, si no teniu cap necessitat especial quant a les opcions de la compressió.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="66"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Els nivells de qualitat de la compressió per als mètodes de compressió sense pèrdua: Mínima (25%), Baixa (50%), Mitjana (75%), Alta (85%), Màxima (95%). S&apos;ha de tenir en compte que el nivell de qualitat no determina directament la mida del resultat final - la mida i la qualitat varien molt entre imatges amb qualsevol nivell de qualitat donat. Fins i tot si es selecciona Màxima, sempre hi ha alguna pèrdua de qualitat amb jpg.</translation>
+        <translation>Els nivells de qualitat de la compressió per als mètodes de compressió sense pèrdua: Mínima (25%), Baixa (50%), Mitjana (75%), Alta (85%), Màxima (95%). S&apos;ha de tenir en compte que el nivell de qualitat no determina directament la mida del resultat final - la mida i la qualitat varien molt entre imatges amb qualsevol nivell de qualitat donat. Fins i tot si se selecciona Màxima, sempre hi ha alguna pèrdua de qualitat amb jpg.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
@@ -19910,11 +19910,6 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="75"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Permet l&apos;afegiment d&apos;anotacions i de camps al PDF. Si està desmarcat, s&apos;impedeix l&apos;edició de les anotacions i dels camps.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Model de color per la sortida del PDF. Trieu Pantalla o web per als PDF que es veuran per pantalla i per a la impressió en impressores d&apos;injecció típiques. Trieu Impressora quan s&apos;imprimirà en una impressora de 4 colors CMYK reals. Trieu Escala de grisos quan vulgueu un PDF en escala de grisos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
@@ -19969,7 +19964,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement sigui millor deixar-ho habilitat.</translation>
+        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement és millor deixar-ho habilitat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
@@ -20378,6 +20373,11 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation>Permet la modificació del PDF. Si està desmarcat, s&apos;impedeix la modificació del PDF.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Model de color per la sortida del PDF. Trieu Pantalla/Web per PDF que es veuran per pantalla i per imprimir en impressores d&apos;injecció. Tria Impressora quan s&apos;imprimirà en una impressora de 4 colors CMYK. Tria Escala de grisos per PDF en escala de grisos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20896,12 +20896,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les intensitats de gris que estan compostes per cian, groc i magenta fent servir negre. El UCD afecta parts de les imatges que són neutrals i/o tons foscos que són propers a gris. Fer servir això pot millorar la impressió d&apos;algunes imatges però cal una mica d&apos;experimentació i proves per obtenir resultats bons. El UCR redueix la possibilitat de sobresaturació de tintes CMY.</translation>
+        <translation>Una forma d&apos;apagar algunes de les intensitats de gris que estan compostes per cian, groc i magenta utilitzant negre en lloc seu. UCR afecta més a les parts de les imatges que són neutrals i/o tenen tons foscos que estan a pop del gris. L&apos;ús d&apos;aquest mètode pot millorar la impressió d&apos;algunes imatges però cal una mica d&apos;experimentació i proves per obtenir resultats bons. UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement sigui millor deixar-ho habilitat.</translation>
+        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement és millor deixar-ho habilitat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="62"/>
@@ -21975,12 +21975,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="406"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Una manera d&apos;apagar algunes de les ombres grises, les quals estan compostes de cian, groc i magenta, és l&apos;ús del negre en seu lloc. Sota l&apos;eliminació del color que afecta majoritàriament a les parts de la imatge que són neutres i/o amb tons foscos propers al gris. Si s&apos;utilitza això, es pot millorar la impressió d&apos;algunes imatges i és necessari alguna experimentació i prova que poden variar segons el cas. L&apos;eliminació el color subjacent redueix la possibilitat de la sobresaturació amb tintes CMYK.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Una forma d&apos;apagar algunes de les intensitats de gris que estan compostes per cian, groc i magenta utilitzant negre en lloc seu. UCR afecta més a les parts de les imatges que són neutrals i/o tenen tons foscos que estan a pop del gris. L&apos;ús d&apos;aquest mètode pot millorar la impressió d&apos;algunes imatges però cal una mica d&apos;experimentació i proves per obtenir resultats bons. UCR redueix la possibilitat de sobresaturació amb tintes CMY.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement sigui millor deixar-ho habilitat.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement és millor deixar-ho habilitat.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="494"/>
@@ -23173,7 +23173,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="706"/>
         <source>Fixed Linespacing</source>
-        <translation>Interlineat fixe</translation>
+        <translation>Interlineat fix</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="707"/>
@@ -24076,7 +24076,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="420"/>
         <source>Ordinals</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordinals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="440"/>
@@ -25595,8 +25595,7 @@ Comprova el nom i el camí.</translation>
 External Links
 </source>
         <translation>
-Enllaços Externs
-
+Enllaços externs
 </translation>
     </message>
     <message>
@@ -26044,7 +26043,7 @@ Enllaços Externs
     <message>
         <location filename="../../scribus/langmgr.cpp" line="428"/>
         <source>Mirandese</source>
-        <translation>mirandes</translation>
+        <translation>mirandès</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="429"/>
@@ -27415,7 +27414,7 @@ Enllaços Externs
     <message>
         <location filename="../../scribus/langmgr.cpp" line="195"/>
         <source>Creek</source>
-        <translation>muskogi</translation>
+        <translation>creek</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="196"/>
@@ -27805,7 +27804,7 @@ Enllaços Externs
     <message>
         <location filename="../../scribus/langmgr.cpp" line="302"/>
         <source>Kabyle</source>
-        <translation>cabil</translation>
+        <translation>cabilenc</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="303"/>
@@ -29820,7 +29819,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
-        <translation type="unfinished"></translation>
+        <translation>Krita</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="89"/>
@@ -30129,7 +30128,7 @@ De tota manera, la imatge pot no ser correcta</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation>Connector del seqüenciador</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
@@ -30149,7 +30148,7 @@ De tota manera, la imatge pot no ser correcta</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Scribus 1.5.0+ Support</source>
-        <translation>Compatibilitat per Scribus 1.3.4+ {1.5.0+?}</translation>
+        <translation>Compatibilitat per Scribus 1.5.0+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
@@ -30702,7 +30701,7 @@ De tota manera, la imatge pot no ser correcta</translation>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
-        <translation>Fitxers de l&apos;OpenOffice.org Draw (*.sxd *.SXD);;Tots els fitxers (*)</translation>
+        <translation>Fitxers d&apos;OpenOffice.org Draw (*.sxd *.SXD);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
@@ -30862,7 +30861,7 @@ De tota manera, la imatge pot no ser correcta</translation>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="98"/>
         <source>WordPerfect Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Gràfics de WordPerfect</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="106"/>
@@ -31870,7 +31869,7 @@ Trieu-ne un altre.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="580"/>
         <source>Fixed Linespacing</source>
-        <translation>Interlineat fixe</translation>
+        <translation>Interlineat fix</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="51"/>
@@ -32758,19 +32757,19 @@ convertint les dades vectorials en un objecte Scribus.</translation>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="122"/>
         <source>Only selected frames processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només s&apos;han processat els marcs actuals</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="123"/>
         <source>Only actual page processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només s&apos;ha processat la pàgina real</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="124"/>
         <source>All items in document processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;han processat tots els ítems del document</translation>
     </message>
 </context>
 <context>
@@ -33600,7 +33599,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="55"/>
         <source>Radio Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó circular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="933"/>
@@ -34327,7 +34326,7 @@ En desar-lo en aquesta versió, no el podreu llegir amb versions més velles de 
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="209"/>
         <source>Initializing Image Cache</source>
-        <translation>Inicialització de la memòria cau d&apos;imatges</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
@@ -35566,7 +35565,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus - Connector del seqüenciador</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37037,7 +37036,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="847"/>
         <source>&amp;Display Duration:</source>
-        <translation>&amp;Durada de la visualització</translation>
+        <translation>&amp;Durada de la visualització:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="827"/>
@@ -37397,6 +37396,11 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
         <translation>Exporta un interval de pàgines a PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Model de color per la sortida del PDF. Trieu Pantalla/Web per PDF que es veuran per pantalla i per imprimir en impressores d&apos;injecció. Tria Impressora quan s&apos;imprimirà en una impressora de 4 colors CMYK. Tria Escala de grisos per PDF en escala de grisos.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Incrusta un perfil de color per als colors sòlids</translation>
@@ -37489,7 +37493,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="277"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement sigui millor deixar-ho habilitat.</translation>
+        <translation>Habilita que els colors plans es converteixin a colors compostos. A menys que tingueu previst imprimir colors plans en una impressió comercial, probablement és millor deixar-ho habilitat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="288"/>
@@ -37640,11 +37644,6 @@ quan el PDF s&apos;obri:</translation>
         <translation>Habilita els efectes de presentació quan s&apos;utilitza Adobe&amp;#174; Reader&amp;#174; i els altres visualitzadors de PDF que en siguin compatibles al mode de pantalla completa.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Model de color per la sortida del PDF. Trieu Pantalla o web per als PDF que es veuran per pantalla i per a la impressió en impressores d&apos;injecció típiques. Trieu Impressora quan s&apos;imprimirà en una impressora de 4 colors CMYK reals. Trieu Escala de grisos quan vulgueu un PDF en escala de grisos.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>No mostris els objectes que estiguin fora dels marges en el fitxer exportat</translation>
@@ -37727,7 +37726,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="224"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>El mètode de compressió a utilitzar per a les imatges. Automàtic permet que Scribus triï el millor mètode. Zip és sense pèrdua i fantàstic per a les imatges amb colors sòlids. JPEG és millor en la creació de fitxers PDF més petits en els quals hi hagin moltes fotos (amb una lleugera pèrdua de la qualitat). Deixeu-ho en automàtic, si no teniu cap necessitat especial quant a les opcions de la compressió.</translation>
+        <translation>El mètode de compressió a utilitzar per a les imatges. Automàtic permet que Scribus triï el millor mètode. Zip és sense pèrdua i fantàstic per a les imatges amb colors sòlids. JPEG és millor en la creació de fitxers PDF més petits en els quals hi hagi moltes fotos (amb una lleugera pèrdua de la qualitat). Deixeu-ho en automàtic, si no teniu cap necessitat especial quant a les opcions de la compressió.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="225"/>
@@ -39157,7 +39156,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="643"/>
         <source>Set start and end arrows</source>
-        <translation>Establiment del començament il&apos;acabament de les fletxes</translation>
+        <translation>Establiment del començament i l&apos;acabament de les fletxes</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="772"/>
@@ -39257,7 +39256,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="750"/>
         <source>Disable text flow around for lower layers</source>
-        <translation>Inhabilitació del fux del text al voltant de les capes baixes</translation>
+        <translation>Inhabilitació del flux del text al voltant de les capes baixes</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="751"/>
@@ -40570,7 +40569,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="48"/>
         <source>Custom Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom personalitzat</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="61"/>
@@ -40595,7 +40594,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="90"/>
         <source>Set zoom to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el zoom al 100%</translation>
     </message>
 </context>
 <context>
@@ -41242,12 +41241,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="233"/>
         <source>Ordinals</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordinals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="265"/>
         <source>Numerals</source>
-        <translation type="unfinished"></translation>
+        <translation>Numerals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="273"/>
@@ -41292,7 +41291,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="359"/>
         <source>Fraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fracció:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="367"/>

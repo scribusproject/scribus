@@ -5377,7 +5377,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Градации серого</translation>
+        <translation type="unfinished">Градации серого</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13466,7 +13466,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на черный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
+        <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на черный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании UCR также снижается вероятность избыточной яркости с красками CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13698,27 +13698,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Логическая</translation>
+        <translation>Логическая</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Переменная</translation>
+        <translation>Переменная</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Число Real</translation>
+        <translation>Число Real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Строковая</translation>
+        <translation>Строковая</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19922,11 +19922,6 @@ Do you want to use this?</source>
         <translation>Разрешить добавление аннотация и полей в файл PDF. Если отключено, изменять аннотации и поля нельзя.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Это отключенные по умолчанию расширенные параметры. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
@@ -20102,7 +20097,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
         <source>Grayscale</source>
-        <translation>В градациях серого</translation>
+        <translation>Градации серого</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="230"/>
@@ -20394,6 +20389,11 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation type="unfinished"></translation>
@@ -20588,7 +20588,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation>ID расширения</translation>
+        <translation>ID модуля</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
@@ -20860,7 +20860,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="390"/>
         <source>Grayscale</source>
-        <translation>В градациях серого</translation>
+        <translation>Градации серого</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="435"/>
@@ -22532,7 +22532,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="689"/>
         <source>Miter Join</source>
-        <translation>Фацетное</translation>
+        <translation>Фацетное соединение</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="690"/>
@@ -37383,6 +37383,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Экспортировать часть страниц в PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Встроить цветовой профиль для сплошных тонов</translation>
@@ -37626,11 +37631,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Включает презентационные эффекты, работающие в Adobe&amp;#174; Reader&amp;#174; и других просмотрщиках PDF-документов, имеющих полноэкранный режим и поддержку этой функции.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

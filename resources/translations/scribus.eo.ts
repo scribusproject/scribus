@@ -2265,7 +2265,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Dismetu la centrojn egaldistance vertikale</translation>
+        <translation>Dismetu la centrojn egaldistance vertiktale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
@@ -5377,7 +5377,7 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Grizgamo</translation>
+        <translation type="unfinished">Grizgamo</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -5585,7 +5585,7 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="327"/>
         <source>Link</source>
-        <translation>bLink</translation>
+        <translation>Ligilo</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="404"/>
@@ -9557,7 +9557,8 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importas la plejparton el la dosieroj de XFig en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
+        <translation>Importas la plejparton el la dosieroj de XFig en la aktualan dokumenton,
+konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -9791,7 +9792,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation>Impozdialogo</translation>
+        <translation>Impoz dialogo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="70"/>
@@ -13712,27 +13713,27 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Neniu</translation>
+        <translation>Neniu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Bulea</translation>
+        <translation>Bulea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Entjera</translation>
+        <translation>Entjera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Reela numero</translation>
+        <translation>Reela numero</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Signovico</translation>
+        <translation>Signovico</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -16700,7 +16701,7 @@ Bonvolu elekti alian.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="353"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Kromprogramo: %1 malsukcesis post-pravalorizo</translation>
+        <translation>Kromprogramo: %1 malsukcesis post pravalorizo</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="232"/>
@@ -19959,11 +19960,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Permesu aldonajn komentojn kaj kampojn al la PDF. Se malmarkita, ne eblas redakti komentojn kaj kampojn.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Kolormodelo por la eligo de via PDF. Elektu Ekrano/TTT por PDF&apos;oj uzataj por montri sur ekrano aŭ por printi per ordinaraj inkprintiloj. Elektu Printilo kiam oni printas al 4-kolora CMYK-printilo. Elektu Grizgamo se vi volas grizgaman PDF&apos;on.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Ĉi tio estas kroma agordaĵo kiu ne estas defaŭlte ebligita. Ĝi devus estis ebligita nur kiam ĝin postulas via printilo kaj oni konas la necesajn detalojn. Alie la eksportita PDF-dosiero povus ne bone funkcii kaj ne esti portebla al aliaj sistemoj.</translation>
@@ -20425,6 +20421,11 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation>Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-dosieron.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Kolormodelo por la eligo de via PDF. Elektu Ekrano/TTT por PDF&apos;oj uzataj por montri sur ekrano aŭ por printi per ordinaraj inkprintiloj. Elektu Printilo kiam oni printas al 4-kolora CMYK-printilo. Elektu Grizgamo se vi volas grizgaman PDF&apos;on.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20893,7 +20894,7 @@ kiam PDF-dokumento estas malfermita:</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="390"/>
         <source>Grayscale</source>
-        <translation>Grizgame</translation>
+        <translation>Grizgamo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="435"/>
@@ -25390,7 +25391,7 @@ qt/&lt;/tt&gt; por kromaj informoj.&lt;/p&gt;</translation>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="229"/>
         <source>Initializing...</source>
-        <translation>Pravalorizo...</translation>
+        <translation>Pravalorizas...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1271"/>
@@ -30183,7 +30184,7 @@ Do, la bildo povas esti ne ĝusta</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation>Skriptila kromprogramo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
@@ -30203,7 +30204,7 @@ Do, la bildo povas esti ne ĝusta</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Scribus 1.5.0+ Support</source>
-        <translation>Subteno por Scribus 1.3.4+ {1.5.0+</translation>
+        <translation type="unfinished">Subteno por Scribus 1.3.4+ {1.5.0+?}</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
@@ -34031,7 +34032,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="80"/>
         <source>InputDialog</source>
-        <translation>InputDialogue</translation>
+        <translation>Enigodialogo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="81"/>
@@ -34381,7 +34382,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="209"/>
         <source>Initializing Image Cache</source>
-        <translation>Pravalorizo de bilda kaŝmemoro</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
@@ -34917,7 +34918,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="418"/>
         <source>Initializing Languages</source>
-        <translation>Pravalorizo de lingvoj</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="589"/>
@@ -35621,7 +35622,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus - Skriptila kromprogramo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37452,6 +37453,11 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Eksportu paĝintervalon al PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Kolormodelo por la eligo de via PDF. Elektu Ekrano/TTT por PDF&apos;oj uzataj por montri sur ekrano aŭ por printi per ordinaraj inkprintiloj. Elektu Printilo kiam oni printas al 4-kolora CMYK-printilo. Elektu Grizgamo se vi volas grizgaman PDF&apos;on.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Enkorpigu kolorprofilon por homogenaj koloroj</translation>
@@ -37693,11 +37699,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Ebligas prezentoefektojn kiam oni uzas Adobe Reader&amp;#174, kaj aliaj PDF-vidigiloj kiuj subtenas tion en tutekrana reĝimo.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Kolormodelo por la eligo de via PDF. Elektu Ekrano/TTT por PDF&apos;oj uzataj por montri sur ekrano aŭ por printi per ordinaraj inkprintiloj. Elektu Printilo kiam oni printas al 4-kolora CMYK-printilo. Elektu Grizgamo se vi volas grizgaman PDF&apos;on.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -39825,7 +39826,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="185"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation>Ne eblis trovi la kromprogramon por importi SVG&apos;on</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -40620,7 +40621,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogujo</translation>
+        <translation>Dialogo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="25"/>
@@ -41179,7 +41180,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>(Mal)grandigebla</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -5357,7 +5357,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Gri Tonlama</translation>
+        <translation type="unfinished">Gri Tonlama</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13651,27 +13651,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Yok</translation>
+        <translation>Yok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Bool</translation>
+        <translation>Bool</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Tamsayı</translation>
+        <translation>Tamsayı</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Gerçek Sayı</translation>
+        <translation>Gerçek Sayı</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Katar</translation>
+        <translation>Katar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19865,11 +19865,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20330,6 +20325,11 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37296,6 +37296,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <translation>Belli aralıktaki sayfaları PDF olarak ihraç et</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="unfinished"></translation>
@@ -37535,11 +37540,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

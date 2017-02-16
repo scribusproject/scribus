@@ -5556,7 +5556,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="327"/>
         <source>Link</source>
-        <translation type="unfinished">رابط</translation>
+        <translation>رابط</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="404"/>
@@ -11949,7 +11949,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newfile.cpp" line="131"/>
         <source>Do not show this dialog again</source>
-        <translation>لا تظهر هذا الحوار مجددا</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newfile.cpp" line="149"/>
@@ -13636,7 +13636,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
@@ -16937,7 +16937,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
         <source>Plugins</source>
-        <translation>ملحقات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
@@ -19849,11 +19849,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20317,6 +20312,11 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation type="unfinished"></translation>
@@ -20486,7 +20486,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation>ملحقات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
@@ -34201,7 +34201,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="187"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>إعداد اختصارات لوحة المفاتيح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="189"/>
@@ -37271,6 +37271,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>تصدير نطاق من الصفحات إلى PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="unfinished"></translation>
@@ -37510,11 +37515,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -5368,7 +5368,7 @@ Nå %2 x %3 ppt</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Gråskala</translation>
+        <translation type="unfinished">Gråskala</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13674,27 +13674,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Boolsk</translation>
+        <translation>Boolsk</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Heltall</translation>
+        <translation>Heltall</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Reelt tall</translation>
+        <translation>Reelt tall</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Streng</translation>
+        <translation>Streng</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19889,11 +19889,6 @@ på at du må endre det, bruk standardvalget: Venstre.</translation>
         <translation>Tillat andre å legge til merknader og felter i PDF-fila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Fargemodell for PDF-fila.Velg «Skjerm/nettside» for PDF-filer som skal vises på en skjerm eller for skrives ut på en vanlig blekkskriver.Velg «Trykk» når du skal skrive ut på en fire fargers CMYK-skriver. Velg gråskala hvis du ikke trenger farger.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Dette er en avansert innstilling som ikke er tilgjengelig som standard. Du bør bare bruke dette hvis trykkeriet ber spesielt om det og du vet nøyaktig hvilke innstillinger du trenger. Hvis du gjør det feil kan det hende pdf-fila ikke kan skrives ut på rett vis, eller at den ikke blir overførbar mellom ulike operativsystemer.</translation>
@@ -20358,6 +20353,11 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Fargemodell for PDF-fila.Velg «Skjerm/nettside» for PDF-filer som skal vises på en skjerm eller for skrives ut på en vanlig blekkskriver.Velg «Trykk» når du skal skrive ut på en fire fargers CMYK-skriver. Velg gråskala hvis du ikke trenger farger.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -37340,6 +37340,11 @@ følge PDF/X-standarden. Det kan være lurt å bruke tittelen på dokumentet.</t
         <translation>Eksporter en sidefølge til PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Fargemodell for PDF-fila.Velg «Skjerm/nettside» for PDF-filer som skal vises på en skjerm eller for skrives ut på en vanlig blekkskriver.Velg «Trykk» når du skal skrive ut på en fire fargers CMYK-skriver. Velg gråskala hvis du ikke trenger farger.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Legg inn en fargeprofil for ensfargede farger</translation>
@@ -37584,11 +37589,6 @@ når dokumentet åpnes:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Bruk presentasjonseffekter når Acrobat Reader, eller andre PDF-visere som støtter det, viser fila i fullskjerm.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Fargemodell for PDF-fila.Velg «Skjerm/nettside» for PDF-filer som skal vises på en skjerm eller for skrives ut på en vanlig blekkskriver.Velg «Trykk» når du skal skrive ut på en fire fargers CMYK-skriver. Velg gråskala hvis du ikke trenger farger.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

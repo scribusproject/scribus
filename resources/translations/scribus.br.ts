@@ -5378,7 +5378,7 @@ bremañ %2 x %3 PDM</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Liveoù louedoù</translation>
+        <translation type="unfinished">Liveoù louedoù</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13722,27 +13722,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Booleat</translation>
+        <translation>Booleat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Kevan</translation>
+        <translation>Kevan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Niver wir</translation>
+        <translation>Niver wir</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Hedad arouezennoù</translation>
+        <translation>Hedad arouezennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19974,11 +19974,6 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <translation>Mar kevasket e vo aotreet ouzhpennañ notennoù ha maeziennoù er restr PDF, dizaotreet mar digevasket.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Un arventenn gempleshoc&apos;h eo homañ nad eo ket gweredekaet dre ziouer. Gweredekaet e tlefe bezañ dre c&apos;houlenn ho mouller hepken ur wech roet deoc&apos;h an doare klok d&apos;ober ganti. Mar bez gweredekaet e c&apos;hallfe ho restr PDF bezañ moullet fall pe ne vo ket treuzkasus d&apos;ur reizhiad betek unan all.</translation>
@@ -20440,6 +20435,11 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation>Mar kevasket e vo aotreet daskemm ar restr PDF, dizaotreet mar digevasket.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -30191,7 +30191,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation>Enlugellad Scripter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
@@ -30211,7 +30211,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Scribus 1.5.0+ Support</source>
-        <translation>Skor Scribus 1.3.4+ {1.5.0+?}</translation>
+        <translation type="unfinished">Skor Scribus 1.3.4+ {1.5.0+?}</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
@@ -34389,7 +34389,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="209"/>
         <source>Initializing Image Cache</source>
-        <translation>Deraouekaat krubuilh ar skeudenn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
@@ -34925,7 +34925,7 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="418"/>
         <source>Initializing Languages</source>
-        <translation>Deraouekaat ar yezhoù</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="589"/>
@@ -35629,7 +35629,7 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus : Enlugellad Scripter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37460,6 +37460,11 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Ezporzhiañ un diuzad bajennadoù da PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Enkorfañ un aelad liv evit al livioù unvan</translation>
@@ -37701,11 +37706,6 @@ pa vez digoret un teul mod PDF :</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Gweredekaat a ra an efedoù kinnig pa vez arveret Adobe&amp;#174;  Reader&amp;#174 hag alberzerioù PDF all a skor an dra-se gant ar mod skrammad a-bezh.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -39833,7 +39833,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="185"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation>N&apos;haller ket kavet enlugelad da enporzhiañ restroù mod SVG.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -41188,7 +41188,7 @@ dibabit unan all, mar plij.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Adventadus</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

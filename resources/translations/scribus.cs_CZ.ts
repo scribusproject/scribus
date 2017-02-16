@@ -5361,7 +5361,7 @@ nyní %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Odstíny šedé</translation>
+        <translation type="unfinished">Odstíny šedé</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -9513,7 +9513,7 @@ converting their vector data into Scribus objects.</source>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Importuje většinu Xfig souborů do aktuálního dokumentu,
-přičemž konvertuje vektorová data na objekty Scribusu.</translation>
+přičemž převede vektorová data na objekty Scribusu.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -13660,27 +13660,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Žádná</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Ano-ne</translation>
+        <translation>Ano-ne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Číslo</translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Reálné číslo</translation>
+        <translation>Reálné číslo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Řetězec</translation>
+        <translation>Řetězec</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -16586,7 +16586,7 @@ Please choose another one.</source>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Modul: nahrávám %1</translation>
+        <translation>Modul: nahrává se %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16610,7 +16610,7 @@ Please choose another one.</source>
         <location filename="../../scribus/pluginmanager.cpp" line="278"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Modul: %1 chyba nahrávání: %2</translation>
+        <translation>Modul: %1 nahrávání selhalo: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
@@ -19874,11 +19874,6 @@ Do you want to use this?</source>
         <translation>Povolit přidávání anotací a polí do PDF. Pokud není zatrženo, úprava anotací a polí není možná.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Barevný model pro výstupní PDF. Vyberte Obrazovka/web pro PDF soubory, které se budou zobrazovat na monitoru a tisknout na běžných inkoustových tiskárnách. Pokud se budou tisknout na CMYK tiskárně, zvolte Tiskárna. Chcete-li PDF v odstínech šedé, zatrhněte Odstíny šedé.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Jedná se o pokročilé nastavení, které není běžně povoleno. Povolte jej pouze v případě, že jej vyžaduje vaše tiskárna a máte přesné instrukce, jak to udělat. Jinak hrozí, že vytvořené PDF nebude možné korektně tisknout a rozhodně jej nebude možné používat na různých systémech.</translation>
@@ -20340,6 +20335,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Barevný model pro výstupní PDF. Vyberte Obrazovka/web pro PDF soubory, které se budou zobrazovat na monitoru a tisknout na běžných inkoustových tiskárnách. Pokud se budou tisknout na CMYK tiskárně, zvolte Tiskárna. Chcete-li PDF v odstínech šedé, zatrhněte Odstíny šedé.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -34403,7 +34403,7 @@ Otočení: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="412"/>
         <source>Initializing Story Editor</source>
-        <translation>Inicializace zápisníku</translation>
+        <translation>Inicializace editoru textů</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="426"/>
@@ -37319,6 +37319,11 @@ můžete zkopírovat do chybového hlášení.</translation>
         <translation>Exportovat interval stránek do PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Barevný model pro výstupní PDF. Vyberte Obrazovka/web pro PDF soubory, které se budou zobrazovat na monitoru a tisknout na běžných inkoustových tiskárnách. Pokud se budou tisknout na CMYK tiskárně, zvolte Tiskárna. Chcete-li PDF v odstínech šedé, zatrhněte Odstíny šedé.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Vložit barevný profil plných barev</translation>
@@ -37560,11 +37565,6 @@ při otevření PDF dokumentu:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Povolí prezentační efekty, pokud se použije Adobe&amp;#174; Reader&amp;#174; nebo jiný PDF prohlížeč, který je v celoobrazovkovém režimu podporuje.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Barevný model pro výstupní PDF. Vyberte Obrazovka/web pro PDF soubory, které se budou zobrazovat na monitoru a tisknout na běžných inkoustových tiskárnách. Pokud se budou tisknout na CMYK tiskárně, zvolte Tiskárna. Chcete-li PDF v odstínech šedé, zatrhněte Odstíny šedé.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

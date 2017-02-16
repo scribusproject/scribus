@@ -5366,7 +5366,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Відтінки сірого</translation>
+        <translation type="unfinished">Відтінки сірого</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13447,8 +13447,9 @@ Please disable experimental PDF and PS embedding and try again.</source>
 жовтого та пурпурового кольорів, і використання чорного кольору натомість.
 UCR найбільше впливає на ті частини зображень, які містять нейтральні чи
 темні відтінки, близькі до сірого кольору. Використання цього методу може
-покращити друк деяких зображень, але в певних випадках може знадобитися
-деяке експериментування та тестування. UCR зменшує ймовірність перенасичення паперу чорнилами CMY.</translation>
+покращити друк деяких зображень, але іноді може знадобитися деяке
+експериментування та тестування. UCR зменшує ймовірність перенасичення 
+паперу чорнилами CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13680,27 +13681,27 @@ UCR найбільше впливає на ті частини зображен�
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Немає</translation>
+        <translation>Немає</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Булеве</translation>
+        <translation>Булеве</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Ціле</translation>
+        <translation>Ціле</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Дійсне число</translation>
+        <translation>Дійсне число</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Рядок</translation>
+        <translation>Рядок</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19900,11 +19901,6 @@ Do you want to use this?</source>
         <translation>Дозволити додавання приміток і полів до PDF. Якщо не вибрано, редагування приміток і полів не дозволяється.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Колірна модель експорту до PDF. Виберіть Екран/Веб для PDF-документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струминних принтерах. Виберіть Принтер для друку на справжньому 4-х колірному CMYK принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Цей додатковий параметр типово не ввімкнений. Його варто вмикати лише на прохання друкаря, використовуючи надані ним параметри. В іншому випадку є ризик, що експортований PDF не буде правильно друкуватися і не буде еквівалентно показаним на різних системах.</translation>
@@ -20367,6 +20363,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Колірна модель експорту до PDF. Виберіть Екран/Веб для PDF-документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струминних принтерах. Виберіть Принтер для друку на справжньому 4-х колірному CMYK принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20890,8 +20891,9 @@ Do you want to use this?</source>
 жовтого та пурпурового кольорів, і використання чорного кольору натомість.
 UCR найбільше впливає на ті частини зображень, які містять нейтральні чи
 темні відтінки, близькі до сірого кольору. Використання цього методу може
-покращити друк деяких зображень, але в певних випадках може знадобитися
-деяке експериментування та тестування. UCR зменшує ймовірність перенасичення паперу чорнилами CMY.</translation>
+покращити друк деяких зображень, але іноді може знадобитися деяке
+експериментування та тестування. UCR зменшує ймовірність перенасичення 
+паперу чорнилами CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -37389,6 +37391,11 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation>Експортувати діапазон сторінок в PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Колірна модель експорту до PDF. Виберіть Екран/Веб для PDF-документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струминних принтерах. Виберіть Принтер для друку на справжньому 4-х колірному CMYK принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Вбудувати колірний профіль для однотонних кольорів</translation>
@@ -37631,11 +37638,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Дозволяє використання презентаційних ефектів при застосуванні Adobe&amp;#174; Reader&amp;#174; та інших програм для перегляду PDF, які дозволяють це в повноекранному режимі.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Колірна модель експорту до PDF. Виберіть Екран/Веб для PDF-документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струминних принтерах. Виберіть Принтер для друку на справжньому 4-х колірному CMYK принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -41112,7 +41114,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Можна змінити розмір</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

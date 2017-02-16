@@ -5369,7 +5369,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Nespalvotai</translation>
+        <translation type="unfinished">Nespalvotai</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13681,27 +13681,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nėra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Loginis</translation>
+        <translation>Loginis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Sveikųjų sk.</translation>
+        <translation>Sveikasis skaičius</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Realiųjų sk.</translation>
+        <translation>Realusis sk.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Eilutės</translation>
+        <translation>Eilutė</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19914,11 +19914,6 @@ Ar naudosite ją?</translation>
         <translation>Leisti įterpti į PDF dokumentą pastabas ir papildomus laukus. Jei nepažymėta – pastabų ir laukų keisti neleidžiama. </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Tai papildomos nuostatos, neleidžiamos numatytuoju atveju. Jas verta leisti tik jei tai yra būtina spausdintuvui ir turite aiškius ir konkrečius nurodymus. Priešingu atveju gali būti keblumų norint spausdinti ar panaudoti kitose programose sukurtą PDF dokumentą.</translation>
@@ -20380,6 +20375,11 @@ Ar naudosite ją?</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20898,7 +20898,7 @@ Ar naudosite ją?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Kai kurių pilkų (achromatinių) tonų, sudarytų iš žydros (C), purpurinės (M) ir geltonos (Y) spalvų, pašalinimo būdas, pakeičiant juos juodais. Juodos spalvos išskyrimu (UCR) paprastai keičiamos neutralios spalvų atžvilgiu paveikslo dalys. Šio metodo taikymas leidžia pagerinti kai kurių paveikslų spaudos kokybę. Tačiau būtina kiekvieną atvejį nagrinėti ypač atidžiai. Vartojant UCR metodą sumažinama CMY dažų per didelio sodrumo tikimybė.</translation>
+        <translation>Kai kurių pilkų (achromatinių) tonų, sudarytų iš žydros (C), purpurinės (M) ir geltonos (Y) spalvų, pašalinimo būdas, pakeičiant juos juodais. Juodos spalvos išskyrimu (UCR) paprastai keičiamos neutralios spalvų atžvilgiu paveikslo dalys. Šio metodo taikymas leidžia pagerinti kai kurių paveikslų spaudos kokybę. Tačiau būtina kiekvieną atvejį nagrinėti ypač atidžiai. Vartojant UCR metodą sumažinama CMY dažų per didelio grynio tikimybė.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -21515,7 +21515,7 @@ Ar naudosite ją?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE aar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE papildinių paieška.</translation>
+        <translation>Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE ar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE priedų paieška.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22520,7 +22520,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="689"/>
         <source>Miter Join</source>
-        <translation>Smailus jungimas</translation>
+        <translation>Įžambi jungtis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="690"/>
@@ -37393,6 +37393,11 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Eksportuoti nurodyto intervalo puslapius į PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Įdėti spalvų profilį grynosioms spalvoms </translation>
@@ -37634,11 +37639,6 @@ atvėrus PDF dokumentą:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Leidžiami pateikčių efektai, jei naudojama Adobe&amp;#174; Reader&amp;#174; ir kitos PDF žiūryklės, palaikančios jų rodymą viso ekrano veiksena.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

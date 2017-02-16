@@ -5363,7 +5363,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>グレースケール</translation>
+        <translation type="unfinished">グレースケール</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13661,27 +13661,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">なし</translation>
+        <translation>なし</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">ブール値</translation>
+        <translation>ブール値</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">整数</translation>
+        <translation>整数</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">実数</translation>
+        <translation>実数</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">文字列</translation>
+        <translation>文字列</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19880,11 +19880,6 @@ Do you want to use this?</source>
         <translation>PDFに注釈とフィールドの追加を許可します。チェックされていなければ、注釈とフィールドの編集を禁止します。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF出力のカラーモデルです。ディスプレイで使用するPDFや一般的なインクジェットで印刷する場合は 画面/Web を選択してください。4色CMYKプリンタで印刷する場合はプリンタを選択してください。グレースケールPDFにしたい場合は、グレースケールを選択してください。</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>これはデフォルトでは有効でない詳細設定です。プリンタから特に求められたり、正確な詳細が必要な場合にのみ有効にすべきです。そうでなければ、エクスポートしたPDFが適切に印刷されなかったり、システム間での真の互換性がなくなります。</translation>
@@ -20346,6 +20341,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF出力のカラーモデルです。ディスプレイで使用するPDFや一般的なインクジェットで印刷する場合は 画面/Web を選択してください。4色CMYKプリンタで印刷する場合はプリンタを選択してください。グレースケールPDFにしたい場合は、グレースケールを選択してください。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -34256,7 +34256,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="209"/>
         <source>Initializing Image Cache</source>
-        <translation>画像キャッシュを初期化しています</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
@@ -37326,6 +37326,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>指定された範囲をPDFにエクスポート</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF出力のカラーモデルです。ディスプレイで使用するPDFや一般的なインクジェットで印刷する場合は 画面/Web を選択してください。4色CMYKプリンタで印刷する場合はプリンタを選択してください。グレースケールPDFにしたい場合は、グレースケールを選択してください。</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>無色のカラープロファイルを埋め込む</translation>
@@ -37569,11 +37574,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>フルスクリーンモードでAdobe&amp;#174; Reader&amp;#174;を使用した時にプレゼンテーションエフェクトを有効にします。</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF出力のカラーモデルです。ディスプレイで使用するPDFや一般的なインクジェットで印刷する場合は 画面/Web を選択してください。4色CMYKプリンタで印刷する場合はプリンタを選択してください。グレースケールPDFにしたい場合は、グレースケールを選択してください。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

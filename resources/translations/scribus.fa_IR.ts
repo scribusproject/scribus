@@ -1435,7 +1435,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;درباره افزونه‌ها</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation>ایتم های منوی افزونه</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -10822,7 +10822,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/loadsaveplugin.cpp" line="176"/>
         <location filename="../../scribus/loadsaveplugin.cpp" line="195"/>
         <source>No File Loader Plugins Found</source>
-        <translation>فایل بارکننده افزونه پیدا نشد</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19851,11 +19851,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20316,6 +20311,11 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37274,6 +37274,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="unfinished"></translation>
@@ -37513,11 +37518,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

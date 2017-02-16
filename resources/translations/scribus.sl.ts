@@ -1586,7 +1586,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation>Menijski ukazi vstavkov</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -5373,7 +5373,7 @@ trenutno %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Sivinsko</translation>
+        <translation>sivinsko</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -7868,7 +7868,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="533"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="567"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="73"/>
@@ -7880,7 +7880,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="107"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="233"/>
         <source>Skew:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagib:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="199"/>
@@ -7896,30 +7896,30 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="274"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="414"/>
         <source>1. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>1. točka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="308"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="448"/>
         <source>2. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>2. točka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="342"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="482"/>
         <source>3. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>3. točka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="376"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="516"/>
         <source>4. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>4. točka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="550"/>
         <source>5. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>5. točka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="598"/>
@@ -8689,12 +8689,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="180"/>
         <source>The PDF Import plugin could not be found</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavka Uvoz PDF ni mogoče najti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="201"/>
         <source>The EPS Import plugin could not be found</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavka Uvoz EPS ni mogoče najti</translation>
     </message>
 </context>
 <context>
@@ -8730,7 +8730,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="159"/>
         <source>The Uniconverter Import plugin could not be found</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavka Uvoz Uniconverter ni mogoče najti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="168"/>
@@ -8894,7 +8894,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="58"/>
         <source>Import Enhanced Metafile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi EMF (Enhanced Metafile) ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
@@ -10777,7 +10777,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="138"/>
         <source>&amp;X Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="148"/>
@@ -10787,7 +10787,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="161"/>
         <source>&amp;Y Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="171"/>
@@ -10817,7 +10817,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
         <source>Ra&amp;dius:</source>
-        <translation>Po&amp;lmer</translation>
+        <translation>Ra&amp;dij:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="217"/>
@@ -10827,7 +10827,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="230"/>
         <source>&amp;Strength:</source>
-        <translation>&amp;Jakost</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="240"/>
@@ -11319,7 +11319,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="65"/>
         <source>Notes Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog opomb:</translation>
     </message>
 </context>
 <context>
@@ -11335,7 +11335,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi spremenljivo besedilo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
@@ -11567,7 +11567,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="54"/>
         <source>&amp;Select...</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;zberi ...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="79"/>
@@ -12477,12 +12477,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="171"/>
         <source>Superscript in text</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadpisano v besedilu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="185"/>
         <source>Superscript in notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpisano v besedilu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="195"/>
@@ -12497,12 +12497,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="239"/>
         <source>Auto Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Samodejna višina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="253"/>
         <source>Auto Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Samodejna širina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="267"/>
@@ -12512,7 +12512,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="281"/>
         <source>Remove if empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani, če je prazno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="298"/>
@@ -12588,7 +12588,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="200"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="255"/>
         <source>default</source>
-        <translation type="unfinished"></translation>
+        <translation>privzeto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="217"/>
@@ -12609,7 +12609,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="418"/>
         <source>Cancel Adding</source>
-        <translation type="unfinished"></translation>
+        <translation>Prekliči dodajanje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="419"/>
@@ -13699,27 +13699,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Dvojiško</translation>
+        <translation>Dvojiško</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Cela števila</translation>
+        <translation>Cela števila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Realno število</translation>
+        <translation>Realno število</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Niz znakov</translation>
+        <translation>Niz znakov</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19918,11 +19918,6 @@ Do you want to use this?</source>
         <translation>Dovolite dodajanje opomb in drugih polj v PDF. Če ne izberete, bo dodajanje polj onemogočeno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Barvni model za izvoz vašega PDF-ja. Izberite Zaslon/splet za PDF-je, ki bodo izpisani na ekranu ali tiskani na običajnih tiskalnikih. Izberite Tiskalnik za tiskanje s tiskalniki CMYK.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>To je napredna nastavitev, ki ni privzeta. Vključite jo le, če jo potrebujete zaradi tiskalnika ali navodil iz tiskarne. Sicer se vaš PDF morda ne bo pravilno natisnil in ne pravilno prikazan na drugih sistemih.</translation>
@@ -20384,6 +20379,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Barvni model za izvoz vašega PDF-ja. Izberite Zaslon/splet za PDF-je, ki bodo izpisani na ekranu ali tiskani na običajnih tiskalnikih. Izberite Tiskalnik za tiskanje s tiskalniki CMYK.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -30126,7 +30126,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation>Vstavek Skripterka</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
@@ -34852,7 +34852,7 @@ Uporabite Končno preverjanje, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="418"/>
         <source>Initializing Languages</source>
-        <translation>Inicializacija jezikov</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="589"/>
@@ -35556,7 +35556,7 @@ Uporabite Končno preverjanje, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus - vstavek Skripterka</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37387,6 +37387,11 @@ Uporabite Končno preverjanje, da jih odpravite</translation>
         <translation>Izvozi obseg strani v PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Barvni model za izvoz vašega PDF-ja. Izberite Zaslon/splet za PDF-je, ki bodo izpisani na ekranu ali tiskani na običajnih tiskalnikih. Izberite Tiskalnik za tiskanje s tiskalniki CMYK.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Vdelaj barvni profil za polne barve</translation>
@@ -37629,11 +37634,6 @@ ko se odpre dokument PDF:
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Omogoči predstavitvene učinke ob uporabi bralnika Adobe&amp;#174; Reader&amp;#174; in ostalih prikazovalnikov PDF, ki to podpirajo v celozaslonskem načinu.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Barvni model za izvoz vašega PDF-ja. Izberite Zaslon/splet za PDF-je, ki bodo izpisani na ekranu ali tiskani na običajnih tiskalnikih. Izberite Tiskalnik za tiskanje s tiskalniki CMYK.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -41111,7 +41111,7 @@ PREDPONA/share/scribus/templates.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Spremenljive velikosti</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

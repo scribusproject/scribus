@@ -1435,7 +1435,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Pluginei buruz</translation>
+        <translation>&amp;Plugin-ei buruz</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
@@ -5378,7 +5378,7 @@ unekoa %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Gris-eskala</translation>
+        <translation>gris-eskala</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -5586,7 +5586,7 @@ unekoa %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="327"/>
         <source>Link</source>
-        <translation>bLink</translation>
+        <translation>Esteka</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="404"/>
@@ -9563,8 +9563,8 @@ ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Xfig fitxategi gehienak uneko dokumentura inportatzen
-ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
+        <translation>Xfig fitxategi gehienak uneko dokumentura inportatzen ditu,
+haien datu bektorialak Scribus objektu bihurtuz.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -10833,7 +10833,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
         <source>Ra&amp;dius:</source>
-        <translation>Erra&amp;dioa</translation>
+        <translation>Erra&amp;dioa:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="217"/>
@@ -10843,7 +10843,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="230"/>
         <source>&amp;Strength:</source>
-        <translation>&amp;Sendotasuna</translation>
+        <translation>&amp;Sendotasuna:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="240"/>
@@ -11628,7 +11628,8 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation>Hautatutako heldulekuak hasierako posiziora berrezartzen ditu. Heldulekurik hautatu ez bada, helduleku guztiak berrezarriko dira.</translation>
+        <translation>Hautatutako heldulekuak hasierako posiziora berrezartzen ditu.
+Heldulekurik hautatu ez bada, helduleku guztiak berrezarriko dira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="86"/>
@@ -11893,12 +11894,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="24"/>
         <source>Scribus - My Plugin</source>
-        <translation>Scribus - Nire plugina</translation>
+        <translation>Scribus - nire plugin-a</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="25"/>
         <source>The plugin worked!</source>
-        <translation>Pluginak funtzionatu du!</translation>
+        <translation>Plugin-ak funtzionatzen du!</translation>
     </message>
 </context>
 <context>
@@ -13490,7 +13491,7 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Grisen itzaldura itzaltzeko modu bat. Itzaldura hau zian, hori eta magenta koloreekin osatua dago, beltzaren ordez erabiliz. UCR metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die batik bat. Honen erabilpenak zenbait irudiren inprimazioa hobetzen du, eta kasuz kasuko esperimentazioa eta probak egin behar izaten dira. UCRek gainsaturazioaren posibilitatea gutxitzen du CMY tintekin.</translation>
+        <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13723,27 +13724,27 @@ berriagoa behar da.</translation>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Bat ere ez</translation>
+        <translation>Bat ere ez</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Boolearra</translation>
+        <translation>Boolearra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Osokoa</translation>
+        <translation>Osokoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Zenbaki erreala</translation>
+        <translation>Zenbaki erreala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Katea</translation>
+        <translation>Katea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -14864,7 +14865,8 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="158"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation>Mozte-lerroak poligonoa zeharkatu behar du eta amaierako puntuek poligonotik kanpo egon behar dute</translation>
+        <translation>Mozte-lerroak poligonoa zeharkatu behar du eta
+ amaierako puntuek poligonotik kanpo egon behar dute</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="74"/>
@@ -16655,7 +16657,7 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="74"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation>Ezin da plugina aurkitu</translation>
+        <translation>Ezin da plugin-a aurkitu</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="63"/>
@@ -16675,7 +16677,7 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Pluginak: %1 kargatzen</translation>
+        <translation>Plugin-a: %1 kargatzen</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16693,13 +16695,13 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation>Pluginak: %1 kargatuta</translation>
+        <translation>Plugin-a: %1 kargatuta</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="278"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Pluginak: %1 ez da ongi kargatu: %2</translation>
+        <translation>Plugin-a: huts egin du %1 kargatzean: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
@@ -16729,7 +16731,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
         <source>Plugin</source>
-        <translation>Plugina</translation>
+        <translation>Plugin-a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="41"/>
@@ -16749,7 +16751,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="56"/>
         <source>Plugin ID</source>
-        <translation>Pluginaren IDa</translation>
+        <translation>Plugin-aren IDa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
@@ -17054,7 +17056,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
         <source>Plugins</source>
-        <translation>Pluginak</translation>
+        <translation>Luzapenak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
@@ -19971,11 +19973,6 @@ Hori erabili nahi duzu?</translation>
         <translation>Baimendu oharpenak eta eremuak PDFan gehitzea. Ez bada aktibatzen, oharpenak eta eremuak editatzea galaraziko da.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDFaren irteerako kolore-eredua. Aukeratu &apos;Pantaila/Web gunea&apos; pantailan bistaratuko diren PDFentzako eta tintaz inprimatzeko. Aukeratu &apos;Inprimagailua&apos; egiazko 4 koloredun CMYK motako inprimagailuan inprimatzeko. Aukeratu &apos;Gris-eskala&apos; PDF dokumentua gris-eskalan egotea nahi denean.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Hau ezarpen aurreratu da, lehenetsi gisa gaitzen ez dena. Ezarpen hau soilik gaitu baldin eta inprimagailuak bereziki eskatzen badu eta behar dituen zehaztasun guztiak ematen baditu. Bestela, esportatutako PDFa ez da ongi inprimatuko eta sistemetan zehar ez da eramangarria izango.</translation>
@@ -20441,6 +20438,11 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Baimendu PDFa eraldatzea. Ez badago aktibatuta, PDFa aldatzea galarazita egongo da.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation>Bistaratzearen efektu-mota</translation>
@@ -20610,12 +20612,12 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation>Pluginak</translation>
+        <translation>Luzapenak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
         <source>Plugin</source>
-        <translation>Plugina</translation>
+        <translation>Plugin-a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="56"/>
@@ -20635,7 +20637,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation>Pluginaren IDa</translation>
+        <translation>Plugin-aren IDa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
@@ -20957,7 +20959,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Grisen itzaldura itzaltzeko modu bat. Itzaldura hau zian, hori eta magenta koloreekin osatua dago, beltzaren ordez erabiliz. UCR metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die bati bat. Honen erabilpenak zenbait irudiren inprimazioa hobetzen du, eta kasuz kasuko esperimentazioa eta probak egin behar izaten dira. UCRek gainsaturazioaren posibilitatea gutxitzen du CMY tintekin.</translation>
+        <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -21575,9 +21577,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Aukeratu leihoen dekorazio eta itxura lehenetsia. Scribus-ek
-erabilgarri dauden KDE edo Qt gaiak jasotzen ditu, baldin eta Qt 
-konfiguratuta badago KDEko pluginak bilatzeko.</translation>
+        <translation>Aukeratu leihoen dekorazio eta itxura lehenetsia. Scribus-ek erabilgarri dauden KDE edo Qt gaiak jasotzen ditu, baldin eta Qt konfiguratuta badago KDEko pluginak bilatzeko.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22041,7 +22041,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko.</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="406"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Zian, magenta eta horiaren konbinazioz sortutako gris-itzal batzuk desaktibatzeko modu bat, haien ordez beltza erabilitz. Azpiko koloreak kentzeko metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die batik bat. Honen erabilerak zenbait irudiren inprimatzea hobetzen du, eta kasuz kasuko esperimentazioa eta probak egin behar izaten dira. Azpiko koloreak kentzeak gainsaturazioaren posibilitatea gutxitzen du CMY tintekin.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Cyan, magenta eta horiaren konbinazioz sortutako gris-itzalak desaktibatzeko modu bat, haien ordez beltza erabilitz. Azpiko koloreak kentzeko metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die batik bat. Honen erabilerak zenbait irudiren inprimatzea hobetzen du, baina kasuz-kasuko esperimentazioa eta probak egin behar izaten dira. Azpiko koloreak kentzeak, CMY tintekin gainsaturaziorik gertatzeko aukera gutxitzen du.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>
@@ -25670,7 +25670,8 @@ garatzeko.&lt;/p&gt;
 External Links
 </source>
         <translation>
-Kanpoko estekak</translation>
+Kanpoko estekak
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
@@ -28803,7 +28804,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/units.cpp" line="209"/>
         <source>Millimeters (mm)</source>
-        <translation>Milimetroak (mm)</translation>
+        <translation>Milimetro (mm)</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="210"/>
@@ -28818,7 +28819,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/units.cpp" line="212"/>
         <source>Centimeters (cm)</source>
-        <translation>Zentimetroak (zm)</translation>
+        <translation>Zentimetro (zm)</translation>
     </message>
     <message>
         <location filename="../../scribus/util.cpp" line="350"/>
@@ -29274,7 +29275,7 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="45"/>
         <source>My Plugin</source>
-        <translation>Nire plugina</translation>
+        <translation>Nire plugin-a</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
@@ -30014,7 +30015,8 @@ Jarraitzea nahi duzu?</translation>
         <location filename="../../scribus/latexhelpers.cpp" line="432"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
-        <translation>%1 konfigurazio-fitxategiaren analisiak huts egin du! Errore motaren arabera markoen errendatzeak ez du zuzen funtzionatuko! %2</translation>
+        <translation>%1 konfigurazio-fitxategiaren analisiak huts egin du! Errore motaren arabera markoen errendatzeak ez du zuzen funtzionatuko!
+ %2</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="93"/>
@@ -30070,7 +30072,10 @@ Jarraitzea nahi duzu?</translation>
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation>%1 letra-tipoak ez daude kapsulatuta edo Scribus-erako erabilgarri. &quot;Courier&quot; tipoaren ordezka daitezke, zure Ghostscript konfigurazioaren arabera. Beraz, irudia agian ez da zuzena</translation>
+        <translation>Letra-tipoa(k):
+%1 ez daude kapsulatuta edo Scribus-erako erabilgarri. 
+&quot;Courier&quot; tipoarekin ordezka daitezke, zure Ghostscript konfigurazioaren arabera. 
+Baliteke irudia zuzena ez izatea</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
@@ -30217,7 +30222,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Scribus 1.5.0+ Support</source>
-        <translation>Scribus 1.3.4+ euskarria {1.5.0+?}</translation>
+        <translation>Scribus 1.5.0+ euskarria</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
@@ -34046,7 +34051,7 @@ gainean erabiliko da.</translation>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="80"/>
         <source>InputDialog</source>
-        <translation>InputDialogue</translation>
+        <translation>SarrerakoElkarrizketa-koadroa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="81"/>
@@ -34386,7 +34391,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="187"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>Teklatuaren laster-teklak hasieratzen</translation>
+        <translation>Laster-teklak hasieratzen</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="189"/>
@@ -34869,7 +34874,8 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="4233"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation>Zure dokumentua aldi baterako fitxategi batera gorde da eta ezin izan da mugitu: %1</translation>
+        <translation>Zure dokumentua aldi baterako fitxategi batera gorde da eta ezin izan da mugitu:
+ %1</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4524"/>
@@ -35600,7 +35606,7 @@ helbidera bidaliko bazenu.</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Python pluginaren konfigurazioak huts egin du. Errorearen xehetasunak stderr-en inprimatu dira.</translation>
+        <translation>Setting up the Python plugin failed. Error details were printed to stderr. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
@@ -37469,6 +37475,11 @@ helbidera bidaliko bazenu.</translation>
         <translation>Esportatu orri-barrutia PDFra</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Kapsulatu kolore solidoen kolore-profila</translation>
@@ -37711,11 +37722,6 @@ PDF dokumentuan irekitzean:</translation>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Aurkezpeneko efektuak gaitzen ditu pantaila osoko modua duten 
 Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDFaren irteerako kolore-eredua. Aukeratu &apos;Pantaila/Web gunea&apos; pantailan bistaratuko diren PDFentzako eta tintaz inprimatzeko. Aukeratu &apos;Inprimagailua&apos; egiazko 4 koloredun CMYK motako inprimagailuan inprimatzeko. Aukeratu &apos;Gris-eskala&apos; PDF dokumentua gris-eskalan egotea nahi denean.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -39842,7 +39848,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="185"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation>Ezin izan da aurkitu SVG inportatzeko plugina</translation>
+        <translation>SVG Import plugina ez da aurkitu</translation>
     </message>
 </context>
 <context>

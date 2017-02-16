@@ -5348,7 +5348,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>धूसरस्केल्</translation>
+        <translation type="unfinished">धूसरस्केल्</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13636,27 +13636,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">किमपि न</translation>
+        <translation>किमपि न</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">बूलियन्</translation>
+        <translation>बूलियन्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">पूर्णाङ्कः</translation>
+        <translation>पूर्णाङ्कः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">रियल् सङ्ख्या</translation>
+        <translation>रियल् सङ्ख्या</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">अक्षरसमूहः</translation>
+        <translation>अक्षरसमूहः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19849,11 +19849,6 @@ Do you want to use this?</source>
         <translation>PDF प्रति टीकानां क्षेत्राणां च सङ्कलनम् अनुमोदस्व। न वृतञ्चेत्, टीकानां क्षेत्राणां च सम्पादनं विवर्जितं भवति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>तव PDF औट्पुट् कृते वर्णप्रतिदर्शः। इङ्क्जेट्स् मध्ये पटप्रदर्शनाय मुद्रणाय च, PDFs कृते पटं/जालकं वृणु। सत्यं 4 वर्णीयं CMYK मुद्रकं प्रति मुद्रणसमये मुद्रकं वृणु। धूसरमापकं PDF यदा वाञ्छसि तदा धूसरमापकं वृणु।</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>एतदेकं प्रौढनिर्धारणं यत् मूलभूततया न प्रकारितम्। यदा तव मुद्रकेण विशिष्टतया प्रार्थितम्, तथा, आवश्यकाः तथ्यनिर्देशाः च दत्ताः, तदैव एतत् प्रकारितव्यम्। अन्यथा, तव निर्यातं PDF समीचीनतया न मुद्रयेत्, सिस्टम्स् उपरि च न वाह्यम्।</translation>
@@ -20315,6 +20310,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>तव PDF औट्पुट् कृते वर्णप्रतिदर्शः। इङ्क्जेट्स् मध्ये पटप्रदर्शनाय मुद्रणाय च, PDFs कृते पटं/जालकं वृणु। सत्यं 4 वर्णीयं CMYK मुद्रकं प्रति मुद्रणसमये मुद्रकं वृणु। धूसरमापकं PDF यदा वाञ्छसि तदा धूसरमापकं वृणु।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -37271,6 +37271,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>PDF प्रति पृष्ठानां गोचरस्य निर्याणं कुरु</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>तव PDF औट्पुट् कृते वर्णप्रतिदर्शः। इङ्क्जेट्स् मध्ये पटप्रदर्शनाय मुद्रणाय च, PDFs कृते पटं/जालकं वृणु। सत्यं 4 वर्णीयं CMYK मुद्रकं प्रति मुद्रणसमये मुद्रकं वृणु। धूसरमापकं PDF यदा वाञ्छसि तदा धूसरमापकं वृणु।</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>पिण्डवर्णेभ्यः वर्णप्रोफैल् अन्तःस्थापय</translation>
@@ -37511,11 +37516,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>ये पूर्णपटप्रकारे एतत् समर्थयन्ति तेषां Adobe&amp;#174; Reader&amp;#174; तथा अन्येषां PDF दर्शकानाम् उपयोगसमये प्रस्तुतिप्रभावान् प्रकारयति।</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>तव PDF औट्पुट् कृते वर्णप्रतिदर्शः। इङ्क्जेट्स् मध्ये पटप्रदर्शनाय मुद्रणाय च, PDFs कृते पटं/जालकं वृणु। सत्यं 4 वर्णीयं CMYK मुद्रकं प्रति मुद्रणसमये मुद्रकं वृणु। धूसरमापकं PDF यदा वाञ्छसि तदा धूसरमापकं वृणु।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

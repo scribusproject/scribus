@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation>Lisäosien valikot</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -5361,7 +5361,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Harmaasävy</translation>
+        <translation type="unfinished">Harmaasävy</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -11180,7 +11180,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Valintaikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="37"/>
@@ -11222,7 +11222,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Valintaikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="42"/>
@@ -11248,7 +11248,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Valintaikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="38"/>
@@ -11269,7 +11269,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Valintaikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="65"/>
@@ -13659,27 +13659,27 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Ei mitään</translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">boolean</translation>
+        <translation>boolean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">kokonaisluku</translation>
+        <translation>kokonaisluku</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">reaaliluku</translation>
+        <translation>reaaliluku</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">merkkijono</translation>
+        <translation>merkkijono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19873,11 +19873,6 @@ Do you want to use this?</source>
         <translation>Salli kenttien ja huomautusten lisääminen PDF-tiedostoon. Jos kohtaa ei valita, kenttien ja huomautusten muokkaus on estetty.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Värimalli tallennettavalle PDF-tiedostolle. Näytölle/Verkkoon sopii näytöltä katsottaville PDF-tiedostoille sekä tulostettavaksi tavallisilla mustesuihkutulostimilla. Valitse Painoon, jos tulostat neliväritulostimelle (CMYK). Jos haluat harmaasävy-PDF:n valitse Harmaasävy.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Tätä asetusta tulisi käyttää ainoastaan, jos paino vaatii sitä ja he ovat antaneet sinulle tarkat arvot asetuksille. Muuten PDF-tiedosto ei välttämättä tulostu oikein eikä ole yhdenmukainen kaikilla järjestelmillä.</translation>
@@ -20339,6 +20334,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Värimalli tallennettavalle PDF-tiedostolle. Näytölle/Verkkoon sopii näytöltä katsottaville PDF-tiedostoille sekä tulostettavaksi tavallisilla mustesuihkutulostimilla. Valitse Painoon, jos tulostat neliväritulostimelle (CMYK). Jos haluat harmaasävy-PDF:n valitse Harmaasävy.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -29713,7 +29713,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/scdocoutput_ps2.cpp" line="115"/>
         <source>An error occurred while initializing icc transforms</source>
-        <translation>Virhe alustettaessa icc-muutoksia</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scdocoutput_ps2.cpp" line="99"/>
@@ -35510,7 +35510,7 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus - Scripter-laajennos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37341,6 +37341,11 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
         <translation>Vie joukko sivuja PDF:ään</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Värimalli tallennettavalle PDF-tiedostolle. Näytölle/Verkkoon sopii näytöltä katsottaville PDF-tiedostoille sekä tulostettavaksi tavallisilla mustesuihkutulostimilla. Valitse Painoon, jos tulostat neliväritulostimelle (CMYK). Jos haluat harmaasävy-PDF:n valitse Harmaasävy.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Upota väriprofiili tasaisille väreille</translation>
@@ -37583,11 +37588,6 @@ yhteydessä suoritettava JavaScript:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Mahdollistaa esitysefektien käytön PDF-lukijaohjelmissa, jotka tukevat niitä kokonäytön tilassa.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Värimalli tallennettavalle PDF-tiedostolle. Näytölle/Verkkoon sopii näytöltä katsottaville PDF-tiedostoille sekä tulostettavaksi tavallisilla mustesuihkutulostimilla. Valitse Painoon, jos tulostat neliväritulostimelle (CMYK). Jos haluat harmaasävy-PDF:n valitse Harmaasävy.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -40503,7 +40503,7 @@ valitse toinen nimi.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Valintaikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="25"/>
@@ -41062,7 +41062,7 @@ valitse toinen nimi.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Koko ei ole lukittu</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

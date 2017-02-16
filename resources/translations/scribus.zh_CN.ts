@@ -5367,7 +5367,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>灰度</translation>
+        <translation type="unfinished">灰度</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13667,27 +13667,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>无</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">布尔型</translation>
+        <translation>布尔型</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">整数</translation>
+        <translation>整数</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">实数</translation>
+        <translation>实数</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">字符串</translation>
+        <translation>字符串</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19885,11 +19885,6 @@ Do you want to use this?</source>
         <translation>允许加入注释和表单域到 PDF。如果不选中，编辑注释和表单会被阻止。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当你想要黑白 PDF 时应用“灰度”模式。</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20351,6 +20346,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当你想要黑白 PDF 时应用“灰度”模式。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -35676,7 +35676,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
         <source>Center</source>
-        <translation>居中对齐</translation>
+        <translation>中</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
@@ -37182,7 +37182,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1362"/>
         <source>Grayscale</source>
-        <translation>灰阶图</translation>
+        <translation>灰度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1380"/>
@@ -37323,6 +37323,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Export a range of pages to PDF</source>
         <translation>导出为 PDF 的页码范围</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当你想要黑白 PDF 时应用“灰度”模式。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
@@ -37566,11 +37571,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>使用 Adobe&amp;#174 Reader&amp;#174 和其它支持全屏模式的 PDF 阅读器时启用演示特效。</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当你想要黑白 PDF 时应用“灰度”模式。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -41047,7 +41047,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>可变</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

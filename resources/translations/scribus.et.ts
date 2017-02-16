@@ -5368,7 +5368,7 @@ praegu %2 x %3 DPI-d</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Halltoonid</translation>
+        <translation type="unfinished">Halltoonid</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13675,27 +13675,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Puudub</translation>
+        <translation>Puudub</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Tõeväärtus</translation>
+        <translation>Tõeväärtus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Täisarv</translation>
+        <translation>Täisarv</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Reaalarv</translation>
+        <translation>Reaalarv</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">String</translation>
+        <translation>String</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19906,11 +19906,6 @@ Do you want to use this?</source>
         <translation>Annotatsioonide ja väljade lisamise lubamine PDF-ile. Märkimatajätmisel on annotatsioonide ja väljade redigeerimine keelatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF-i väljundi värvimudel. Ekraan / veeb sobib PDF-ile, mida kasutatakse ekraanil vaatamiseks ja trükkimiseks tavalistes tindiprinterites. Printer sobib trükkimiseks neljavärvi-CMYK-printeris. Halltoonid sobib halltoonides PDF-i loomiseks.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>See on täppisseadistus, mis ei ole vaikimisi sisse lülitatud. See tuleks sisse lülitada ainult siis, kui trükikoda seda konkreetselt nõuab ja sul on olemas kõik üksikasjad. Vastasel juhtul ei pruugi eksporditud PDF-i trükkimine korralikult välja tulla ning see ei pruugi olla päris porditav erinevates süsteemides.</translation>
@@ -20372,6 +20367,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF-i väljundi värvimudel. Ekraan / veeb sobib PDF-ile, mida kasutatakse ekraanil vaatamiseks ja trükkimiseks tavalistes tindiprinterites. Printer sobib trükkimiseks neljavärvi-CMYK-printeris. Halltoonid sobib halltoonides PDF-i loomiseks.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20890,7 +20890,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY-värvides.</translation>
+        <translation>Asendab tsüaanist, kollasest ja magentast koosnevad halltoonid mustaga. UCR mõjutab eelkõige piltide neid osi, kus on valitsevad neutraalsed või hallilähedased tumedad toonid. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab CMY värvide üleküllastuse võimalust.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -37386,6 +37386,11 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Lehekülgede vahemiku eksport PDF-failina</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF-i väljundi värvimudel. Ekraan / veeb sobib PDF-ile, mida kasutatakse ekraanil vaatamiseks ja trükkimiseks tavalistes tindiprinterites. Printer sobib trükkimiseks neljavärvi-CMYK-printeris. Halltoonid sobib halltoonides PDF-i loomiseks.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Värviprofiili põimimine ühtlaste värvide tarbeks</translation>
@@ -37627,11 +37632,6 @@ käivitatav JavaScript:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Lülitab sisse esitlusefektid, mida saab kasutada Adobe&amp;#174; Reader&amp;#174; ja teiste PDF-näitajate korral, mis toetavad täisekraanirežiimi.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF-i väljundi värvimudel. Ekraan / veeb sobib PDF-ile, mida kasutatakse ekraanil vaatamiseks ja trükkimiseks tavalistes tindiprinterites. Printer sobib trükkimiseks neljavärvi-CMYK-printeris. Halltoonid sobib halltoonides PDF-i loomiseks.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

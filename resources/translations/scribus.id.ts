@@ -1435,7 +1435,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Tentang Plug-ins</translation>
+        <translation>Tentang Plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Item Menu Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -2230,7 +2230,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
         <source>Center on vertical axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Tengahkan pada sumbu vertikal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
@@ -2240,7 +2240,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Center on horizontal axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Tengahkan pada sumbu horizontal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
@@ -2260,12 +2260,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Bagian bagian tengah dengan jarak yang sama secara horisontal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Bagian bagian tengah dengan jarak yang sama secara vertikal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
@@ -5357,7 +5357,7 @@ sekarang %2 x %3 DPI.</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Skala Warna Abu-abu</translation>
+        <translation type="unfinished">Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -6813,7 +6813,7 @@ gagal!</translation>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="861"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="1011"/>
         <source>Grayscale</source>
-        <translation>Skala Warna Abu-abu</translation>
+        <translation>Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="485"/>
@@ -7705,7 +7705,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Font Preview dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog Pratinjau Font</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="68"/>
@@ -10777,7 +10777,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
         <source>Ra&amp;dius:</source>
-        <translation>Ra&amp;dius</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="217"/>
@@ -11836,12 +11836,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="24"/>
         <source>Scribus - My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Pengayaku</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="25"/>
         <source>The plugin worked!</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya yang berfungsi</translation>
     </message>
 </context>
 <context>
@@ -13481,7 +13481,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="275"/>
         <source>Print in Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Cetak dalam Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="281"/>
@@ -13658,17 +13658,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Kosong</translation>
+        <translation>Kosong</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Boolean</translation>
+        <translation>Boolean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Integer</translation>
+        <translation>Integer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
@@ -13678,7 +13678,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">String</translation>
+        <translation>String</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -13796,14 +13796,14 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="392"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="486"/>
         <source>Original PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>PPI Asli:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="113"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="397"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
         <source>Actual PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>PPI Aktual:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="114"/>
@@ -16568,7 +16568,7 @@ Please choose another one.</source>
         <location filename="../../scribus/pluginmanager.cpp" line="74"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tidak bisa menemukan pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="63"/>
@@ -16588,7 +16588,7 @@ Please choose another one.</source>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya: memuat %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16600,31 +16600,31 @@ Please choose another one.</source>
         <location filename="../../scribus/pluginmanager.cpp" line="271"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tipe pengaya tidak dikenal</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya: %1 dimuat</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="278"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya: %1 gagal di muat: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya: %1 inisialisasi ok</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="353"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya: %1 gagal setelah inisialisasi</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="232"/>
@@ -16637,12 +16637,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengatur Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="41"/>
@@ -16662,7 +16662,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="56"/>
         <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
@@ -16964,7 +16964,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
@@ -19876,11 +19876,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20053,7 +20048,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
         <source>Grayscale</source>
-        <translation>Skala Warna Abu-abu</translation>
+        <translation>Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="230"/>
@@ -20344,6 +20339,11 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation type="unfinished"></translation>
@@ -20513,12 +20513,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="56"/>
@@ -20538,7 +20538,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Pengaya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
@@ -20810,7 +20810,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="390"/>
         <source>Grayscale</source>
-        <translation>Skala Warna Abu-abu</translation>
+        <translation>Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="435"/>
@@ -21754,7 +21754,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="321"/>
         <source>Print in Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Cetak dalam Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="354"/>
@@ -25369,7 +25369,7 @@ Periksa lokasi dan nama</translation>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftrcreader.cpp" line="201"/>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="159"/>
         <source>Catalogs</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalog</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="172"/>
@@ -28686,7 +28686,7 @@ External Links
     <message>
         <location filename="../../scribus/units.cpp" line="209"/>
         <source>Millimeters (mm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Millimeter (mm)</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="210"/>
@@ -28701,7 +28701,7 @@ External Links
     <message>
         <location filename="../../scribus/units.cpp" line="212"/>
         <source>Centimeters (cm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sentimeter (cm)</translation>
     </message>
     <message>
         <location filename="../../scribus/util.cpp" line="350"/>
@@ -32900,7 +32900,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="282"/>
         <source>Beveled</source>
-        <translation type="unfinished"></translation>
+        <translation>Beveled</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="287"/>
@@ -33890,12 +33890,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="79"/>
         <source>Input Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog Input</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="80"/>
         <source>InputDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>DialogInput</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="81"/>
@@ -34233,7 +34233,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="187"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Menyalakan Pintasan-Pintasan Kibor</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="189"/>
@@ -34392,7 +34392,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="412"/>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Menyalakan Penyunting Cerita</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="426"/>
@@ -37163,7 +37163,7 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1362"/>
         <source>Grayscale</source>
-        <translation>Skala Warna Abu-abu</translation>
+        <translation>Grayscale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1380"/>
@@ -37303,6 +37303,11 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Export a range of pages to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37545,11 +37550,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -40465,7 +40465,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="25"/>

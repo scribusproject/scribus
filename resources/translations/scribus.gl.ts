@@ -2240,7 +2240,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Center on horizontal axis</source>
-        <translation>Centrar no eixo horizontal</translation>
+        <translation>centrar no eixo horizontal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
@@ -3749,7 +3749,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="494"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Non foi posíbel atopar a cor solicitada. Posibelmente escolleu negro, gris ou branco. Non hai maneira de procesar esta cor.</translation>
+        <translation>Foi imposíbel atopar a cor solicitada. Posibelmente escolleu negro, gris ou branco. Non hai maneira de procesar esta cor.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="16"/>
@@ -5370,7 +5370,7 @@ actualmente %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Escala de grises</translation>
+        <translation type="unfinished">Escala de grises</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -9546,7 +9546,7 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Importa a maioría dos ficheiros do Xfig no documento actual,
-convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
+convertendo os seus datos vectoriais en obxectos do Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -11608,8 +11608,8 @@ un intervalo de páxinas ou un único número de páxina</translation>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation>Restaura os puntos seleccionados á posición orixinal.
-Se non hai ningún seleccionado restáuranse todos.</translation>
+        <translation>Repón os puntos seleccionados á posición orixinal.
+Se non hai ningún seleccionado, repóñense todos.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="86"/>
@@ -13467,8 +13467,7 @@ Desactive a incorporación de PDF e PS experimental e ténteo de novo.</translat
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
-A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, aínda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas de ciano, amarelo e maxenta e usar negro no seu lugar. A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros preto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, aínda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13702,27 +13701,27 @@ relación</translation>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ningunha</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Lóxico</translation>
+        <translation>Lóxico</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Enteiro</translation>
+        <translation>Enteiro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Número real</translation>
+        <translation>Número real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Cadea</translation>
+        <translation>Cadea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -13847,7 +13846,7 @@ relación</translation>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="397"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
         <source>Actual PPI:</source>
-        <translation>PPP reais:</translation>
+        <translation>PPP Reais:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="114"/>
@@ -16633,7 +16632,7 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="74"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation>Non é posíbel atopar o engadido</translation>
+        <translation>Non se atopou o engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="63"/>
@@ -16653,7 +16652,7 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Engadido: a cargar %1</translation>
+        <translation>Extensión: a cargar %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16683,7 +16682,7 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Engadido: %1 inicializada sen problemas </translation>
+        <translation>Engadido: %1 inicializado sen problemas </translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="353"/>
@@ -16694,7 +16693,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="232"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Atopouse un problema ao cargar %1 de %2 engadidos. %3 Isto débese probabelmente a algún tipo de problema de dependencias con engadidos vellos existentes no directorio de instalación. Se limpa o  directorio de instalación e reinstala e aínda así atopa este problema, informe deste problema en bugs.scribus.net.</translation>
+        <translation>Atopouse un problema ao cargar %1 de %2 engadidos. %3 Isto débese probabelmente a algún tipo de problema de dependencias con engadidos vellos existentes no directorio de instalación. Se limpa o  directorio de instalación e reinstala e aínda así atopa este problema, informe del en bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -19946,11 +19945,6 @@ Desexa empregala?</translation>
         <translation>Permite engadir anotacións e campos no PDF. Se non se selecciona impídese modificar as anotacións e os campos.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cores para a saída para o PDF. Escolla Pantalla/Web para PDF que se vaian utilizar para mostrar en pantalla e para imprimir nas impresoras de chorro de tinta normais. Escolla Impresora para imprimir en impresoras de catro cores CMYK verdadeiras. Escolla Escala de grises se o que desexa é un PDF en escala de grises.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Esta é unha configuración avanzada que non se activa por omisión. Só se debería permitir se o require explicitamente a imprenta e lle forneceron os detalles precisos. De non ser así, o PDF exportado pode non imprimirse adecuadamente e con certeza non se poderá portar entre sistemas.</translation>
@@ -20414,6 +20408,11 @@ un intervalo de páxinas ou un único número de páxina</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation>Permitir a modificación do PDF. Se non se escolle, evítase que se modifique o PDF.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cores para a saída para o seu PDF. Escolla Pantalla/Web para PDFs que se vaian utilizar para mostrar en pantalla e para imprimir nas impresoras de chorro de tinta normais. Escolla Impresora para imprimir en impresoras de catro cores CMYK verdadeiras. Escolla a escala de grises se o que quer é un PDF en escala de grises.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -20932,12 +20931,7 @@ un intervalo de páxinas ou un único número de páxina</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Un xeito de apagar algunhas das sombras en gris compostas
-de cian, amarelo e maxenta e usar negro no seu lugar.
-A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros
-preto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes,
-aínda que é preciso experimentar segundo cada caso.
-A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas de ciano, amarelo e maxenta e usar negro no seu lugar. A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros preto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, aínda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -21555,7 +21549,7 @@ A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquera tema dispoñíbel para KDE ou Qt se Qt estiver configurado para buscar os engadidos de KDE.</translation>
+        <translation>Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquera tema dispoñíbel para KDE ou Qt se Qt está configurado para procurar os engadidos do KDE.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22019,10 +22013,10 @@ A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Un xeito de apagar algunhas das sombras en gris compostas
 de cian, amarelo e maxenta e usar negro no seu lugar.
-A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros
-preto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes,
-aínda que é preciso experimentar segundo cada caso.
-A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY&lt;/qt&gt;</translation>
+O UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros
+perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes,
+ainda que é preciso experimentar segundo cada caso.
+O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>
@@ -22567,7 +22561,7 @@ un intervalo de páxinaa ou un único número de páxina</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="689"/>
         <source>Miter Join</source>
-        <translation>Xunta en inglete</translation>
+        <translation>Xunta en bispel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="690"/>
@@ -30045,7 +30039,7 @@ debido a excepcións das funcións chamadas.</translation>
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
         <translation>O(s) tipo(s) de letra:
-%1 non están incorporados ou dispoñíbeis para o Scribus.
+%1 non están incorporadas ou dispoñíbeis para Scribus.
 Poderíanse substituír por «Courier», dependendo de como estea configurado Ghostscript.
 Polo tanto, a imaxe podería non ser correcta</translation>
     </message>
@@ -31884,7 +31878,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/ui/smlinestylewidget.cpp" line="96"/>
         <source>Miter Join</source>
-        <translation>Xunta en inglete</translation>
+        <translation>Xunta en bispel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smlinestylewidget.cpp" line="97"/>
@@ -37443,6 +37437,11 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Exportar un intervalo de páxinas a PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cores para a saída para o seu PDF. Escolla Pantalla/Web para PDFs que se vaian utilizar para mostrar en pantalla e para imprimir nas impresoras de chorro de tinta normais. Escolla Impresora para imprimir en impresoras de catro cores CMYK verdadeiras. Escolla a escala de grises se o que quer é un PDF en escala de grises.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Incorporar un perfil de cores para as cores sólidas</translation>
@@ -37684,11 +37683,6 @@ ao abrir o documento PDF:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Permite os efectos de presentación ao utilizar o Adobe&amp;#174; Reader&amp;#174; e outros lectores de PDF que permitan isto en modo a pantalla completa.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cores para a saída do PDF. Escolla Pantalla/Web para PDF que se vaian utilizar para mostrar en pantalla e para imprimir nas impresoras de chorro de tinta normais. Escolla Impresora para imprimir en impresoras de catro cores CMYK verdadeiras. Escolla Escala de grises se o que quere é un PDF en escala de grises.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

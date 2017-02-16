@@ -5364,7 +5364,7 @@ atualmente %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Tons de cinza</translation>
+        <translation type="unfinished">Tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13656,27 +13656,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Nenhum</translation>
+        <translation>Nenhum</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Boleano</translation>
+        <translation>Boleano</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Numérico</translation>
+        <translation>Numérico</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Número real</translation>
+        <translation>Número real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">String</translation>
+        <translation>String</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19877,11 +19877,6 @@ Seleccione um directório</translation>
         <translation>Permite acrescentar anotações e campos ao PDF. Se desmarcado, a edição de anotações e campos é impedida.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cor para a saída do seu PDF. Seleccione Ecrã/Web para PDF&apos;s que serão exibidos na no ecrã ou enviados para impressoras jato-de-tinta típicas. Selecione Impressora para enviar para uma impressora que suporte 4 cores CMYK. Selecione Tons de Cinza quando desejar um PDF nessa escala.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Essa é uma configuração avançada que não está activada por defeito. Deve ser ativada somente quando especificamente requerido pelo seu impressor e se tiver os detalhes necessários exatos. Caso contrário, o seu PDF exportado poderá não imprimir corretamente e certamente não será portável para outros sistemas.</translation>
@@ -20343,6 +20338,11 @@ Seleccione um directório</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cor para a saída do seu PDF. Seleccione Ecrã/Web para PDF&apos;s que serão exibidos na no ecrã ou enviados para impressoras jato-de-tinta típicas. Selecione Impressora para enviar para uma impressora que suporte 4 cores CMYK. Selecione Tons de Cinza quando desejar um PDF nessa escala.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -37343,6 +37343,11 @@ como artigos PDF</translation>
         <translation>Exportar um intervalo de páginas para PDF </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cor para a saída do seu PDF. Seleccione Ecrã/Web para PDF&apos;s que serão exibidos na no ecrã ou enviados para impressoras jato-de-tinta típicas. Selecione Impressora para enviar para uma impressora que suporte 4 cores CMYK. Selecione Tons de Cinza quando desejar um PDF nessa escala.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Incorpora um perfil de cores para cores sólidas</translation>
@@ -37584,11 +37589,6 @@ quando o PDF estiver aberto:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Activa os efeitos de apresentação quando usado o Adobe&amp;#174; Reader&amp;#174; ou  outro visualizador de PDF que suporte este recurso em modo pleno-no ecrã.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cor para a saída do seu PDF. Seleccione Ecrã/Web para PDF&apos;s que serão exibidos na no ecrã ou enviados para impressoras jato-de-tinta típicas. Selecione Impressora para enviar para uma impressora que suporte 4 cores CMYK. Selecione Tons de Cinza quando desejar um PDF nessa escala.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

@@ -1435,7 +1435,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Sobre os Plug-ins</translation>
+        <translation>Sobre os &amp;Plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation>Plug-in para Itens do Menu</translation>
+        <translation>Itens do Menu de Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -2418,7 +2418,7 @@
     <message>
         <location filename="../../scribus/ui/alignselect.cpp" line="115"/>
         <source>Align Text Center</source>
-        <translation>Alinhar Texto ao Centro</translation>
+        <translation>Alinhar o texto ao centro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/alignselect.cpp" line="116"/>
@@ -5377,7 +5377,7 @@ atualmente %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Tons de Cinza</translation>
+        <translation>Escala de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -6833,7 +6833,7 @@ falhou!</translation>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="861"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="1011"/>
         <source>Grayscale</source>
-        <translation>Tons de Cinza</translation>
+        <translation>Tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="485"/>
@@ -10828,7 +10828,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
         <source>Ra&amp;dius:</source>
-        <translation>&amp;Raio</translation>
+        <translation>&amp;Raio:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="217"/>
@@ -10838,7 +10838,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="230"/>
         <source>&amp;Strength:</source>
-        <translation>&amp;Intensidade</translation>
+        <translation>&amp;Intensidade:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="240"/>
@@ -11623,7 +11623,8 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation>Repõe as alças selecionadas na posição inicial. Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</translation>
+        <translation>Repõe as alças selecionadas na posição inicial.
+Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="86"/>
@@ -13713,27 +13714,27 @@ Por favor desative a opção de embutir experimental de PDF e PostScript e tente
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nenhuma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Boleano</translation>
+        <translation>Boleano</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Numérico</translation>
+        <translation>Numérico</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Número Real</translation>
+        <translation>Número Real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Expressão</translation>
+        <translation>Expressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -13851,14 +13852,14 @@ Por favor desative a opção de embutir experimental de PDF e PostScript e tente
         <location filename="../../scribus/pageitem_imageframe.cpp" line="392"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="486"/>
         <source>Original PPI:</source>
-        <translation>PPP original:</translation>
+        <translation>PPP Original:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="113"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="397"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
         <source>Actual PPI:</source>
-        <translation>PPP atual:</translation>
+        <translation>PPP Atual:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="114"/>
@@ -14842,7 +14843,7 @@ Veja a secção de Editar de Cores da documentação para mais informações.</t
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="127"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Este plugin necessita pelo menos da versão 4.3.3 da biblioteca Qt</translation>
+        <translation>Este plug-in necessita pelo menos da versão 4.3.3 da biblioteca Qt</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="158"/>
@@ -14853,7 +14854,8 @@ Veja a secção de Editar de Cores da documentação para mais informações.</t
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="158"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation>A linha de corte deve atravessar o polígono e ambos os pontos extremos devem estar fora do polígono</translation>
+        <translation>A linha de corte deve atravessar o polígono
+e ambos os pontos extremos devem estar fora do polígono</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="74"/>
@@ -16664,7 +16666,7 @@ Por favor escolha outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Plug-in: a carregar %1</translation>
+        <translation>Plugin: a carregar %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16682,30 +16684,30 @@ Por favor escolha outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation>Plug-in: %1 carregado</translation>
+        <translation>Plugin: %1 carregado</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="278"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Plug-in: %1 falhou o carregamento: %2</translation>
+        <translation>Plugin: %1 falou ao carregar: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Plug-in: %1 iniciado com sucesso</translation>
+        <translation>Plugin: %1 iniciado sem erros</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="353"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Plug-in: %1 falhou após a iniciação</translation>
+        <translation>Plugin: %1 falhou após a iniciação</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="232"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Há um problema ao carregar %1 de %2 plug-ins. %3 Isto é provavelmente causado por algum tipo de problema de dependência ou pela existência de plug-ins antigos na pasta de instalação. Se esvaziar a pasta de instalação e o problema persistir, por favor reporte o problema em bugs.scribus.net.</translation>
+        <translation>Há um problema ao carregar %1 de %2 plugins. %3 Isto é provavelmente causado por algum tipo de problema de dependência ou pela existência de plugins antigos na pasta de instalação. Se esvaziar a pasta de instalação e o problema persistir, por favor reporte o problema em bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -16713,12 +16715,12 @@ Por favor escolha outro.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation>Gestor de Plug-ins</translation>
+        <translation>Gestor de Plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
         <source>Plugin</source>
-        <translation>Plug-in</translation>
+        <translation>Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="41"/>
@@ -16738,7 +16740,7 @@ Por favor escolha outro.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="56"/>
         <source>Plugin ID</source>
-        <translation>ID do Plug-in</translation>
+        <translation>ID do Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
@@ -17043,7 +17045,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
         <source>Plugins</source>
-        <translation>Plug-ins</translation>
+        <translation>Plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
@@ -19958,11 +19960,6 @@ Quer usar isto?</translation>
         <translation>Permite acrescentar anotações e campos ao PDF. Se desativado, não é possível editar anotações e campos.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cor para a saída do PDF. Escolha Ecrã/Web para PDFs que se destinam a serem vistos no ecrã ou enviados para impressoras jato-de-tinta típicas. Escolha Impressora para enviar para uma impressora que suporte 4 cores CMYK. Escolha Tons de Cinza quando pretender um PDF nessa escala.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Isto é uma configuração avançada que não está ativada por defeito. Deve ser ativada apenas quando requisitado especificamente pela gráfica de impressão e se esta tiver fornecido  os detalhes exatos necessários. Caso contrário, o PDF exportado poderá não imprimir corretamente e não é portável entre sistemas.</translation>
@@ -20135,7 +20132,7 @@ Quer usar isto?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
         <source>Grayscale</source>
-        <translation>Tons de Cinza</translation>
+        <translation>Tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="230"/>
@@ -20426,6 +20423,11 @@ Quer usar isto?</translation>
         <translation>Permite alterar o PDF. Se desativado não será possível alterar o PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cor para a saída do PDF. Escolha Ecrã/Web para PDFs que se destinam a serem vistos no ecrã ou enviados para impressoras jato-de-tinta típicas. Escolha Impressora para enviar para uma impressora que suporte 4 cores CMYK. Escolha Tons de Cinza quando pretender um PDF nessa escala.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation>Tipo de feito de visualização</translation>
@@ -20595,12 +20597,12 @@ Quer usar isto?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation>Plug-ins</translation>
+        <translation>Plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
         <source>Plugin</source>
-        <translation>Plug-in</translation>
+        <translation>Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="56"/>
@@ -20620,7 +20622,7 @@ Quer usar isto?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation>ID do Plug-in</translation>
+        <translation>ID do Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
@@ -20892,7 +20894,7 @@ Quer usar isto?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="390"/>
         <source>Grayscale</source>
-        <translation>Tons de Cinza</translation>
+        <translation>Tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="435"/>
@@ -21837,7 +21839,7 @@ Se for definido o nível 1 ou o 2, estes podem originar ficheiros enormes.</tran
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="321"/>
         <source>Print in Grayscale</source>
-        <translation>Imprimir em Tons de Cinza</translation>
+        <translation>Imprimir em tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="354"/>
@@ -25645,8 +25647,8 @@ Verifique o caminho e o nome do ficheiro.</translation>
         <source>
 External Links
 </source>
-        <translation>
-Ligações Externas</translation>
+        <translation>Ligações externas
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
@@ -29251,7 +29253,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="45"/>
         <source>My Plugin</source>
-        <translation>Meu Plug-in</translation>
+        <translation>Meu Plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
@@ -29990,7 +29992,8 @@ fornecidos na documentação da função.
         <location filename="../../scribus/latexhelpers.cpp" line="432"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
-        <translation>O processamento do ficheiro de configuração %1 falhou! Dependendo do tipo de erro, as Caixas de Renderização poderão não funcionar corretamente!%2</translation>
+        <translation>O processamento do ficheiro de configuração %1 falhou! Dependendo do tipo de erro, as Caixas de Renderização poderão não funcionar corretamente!
+%2</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="93"/>
@@ -30046,7 +30049,10 @@ fornecidos na documentação da função.
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation>As Fontes:%1 não estão embutidas ou não estão disponíveis para o Scribus. Elas podem ser substituídas pela fonte &quot;Courier&quot;, dependendo da configuração do Ghostscript. Por isso a imagem pode não estar correta</translation>
+        <translation>As Fontes:
+%1 não estão embutidas ou não estão disponíveis para o Scribus.
+Elas podem ser substituídas pela fonte &quot;Courier&quot;, dependendo da configuração do Ghostscript.
+Por isso a imagem pode não estar correta</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
@@ -30173,7 +30179,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation>Plug-in Scripter</translation>
+        <translation>Plugin Scripter</translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
@@ -30193,7 +30199,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Scribus 1.5.0+ Support</source>
-        <translation>Suporte Scribus 1.3.4+ {1.5.0+?}</translation>
+        <translation>Suporte Scribus 1.5.0+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
@@ -31883,7 +31889,7 @@ Por favor escolha outro.</translation>
     <message>
         <location filename="../../scribus/ui/smlinestylewidget.cpp" line="96"/>
         <source>Miter Join</source>
-        <translation>Junção Angulada</translation>
+        <translation>Junção angulada</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smlinestylewidget.cpp" line="97"/>
@@ -34017,12 +34023,12 @@ convertendo os dados vetoriais em objetos do Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="79"/>
         <source>Input Dialog</source>
-        <translation>Janela de Entrada de Dados</translation>
+        <translation>janela de Entrada</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="80"/>
         <source>InputDialog</source>
-        <translation>JanelaDeEntradaDeDados</translation>
+        <translation>JanelaDeEntrada</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="81"/>
@@ -34357,12 +34363,12 @@ Se o gravar nesta versão, não poderá abri-lo em versões mais antigas do Scri
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="201"/>
         <source>Initializing Plugins</source>
-        <translation>A Iniciar Plug-ins</translation>
+        <translation>A inicializar os plugins</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="187"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>A Iniciar Atalhos de Teclado</translation>
+        <translation>A inicializar os atalhos de teclado</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="189"/>
@@ -34372,7 +34378,7 @@ Se o gravar nesta versão, não poderá abri-lo em versões mais antigas do Scri
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="209"/>
         <source>Initializing Image Cache</source>
-        <translation>A Iniciar a Cache de Imagens</translation>
+        <translation>A Inicializar a Cache de Imagens</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
@@ -34526,7 +34532,7 @@ Rotação: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="412"/>
         <source>Initializing Story Editor</source>
-        <translation>A iniciar o Editor de História</translation>
+        <translation>Iniciando Editor de História</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="426"/>
@@ -34845,12 +34851,13 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="4233"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation>O documento foi gravado num ficheiro temporário e não foi possível mover esse ficheiro: %1</translation>
+        <translation>O documento foi gravado num ficheiro temporário e não foi possível mover esse ficheiro: 
+%1</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4524"/>
         <source>Print engine initialization failed</source>
-        <translation>Falhou a inicialização do motor de impressão</translation>
+        <translation>A inicialização do motor de impressão falhou</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3137"/>
@@ -34907,7 +34914,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="418"/>
         <source>Initializing Languages</source>
-        <translation>A Iniciar os Idiomas</translation>
+        <translation>A Inicializar Idiomas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="589"/>
@@ -35573,7 +35580,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>A configuração do plugin em Python falhou. Detalhes do erro foram impressos no stderr. </translation>
+        <translation>A configuração do plugin Python falhou. Os detalhes do erro foram impressos no stderr. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
@@ -35611,7 +35618,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation>Scribus - Plug-in Scripter</translation>
+        <translation>Scribus - Plugin Scripter</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="332"/>
@@ -37299,7 +37306,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1362"/>
         <source>Grayscale</source>
-        <translation>Tons de Cinza</translation>
+        <translation>Tons de cinza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1380"/>
@@ -37440,6 +37447,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Export a range of pages to PDF</source>
         <translation>Exportar um intervalo de páginas para PDF </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de cor para a saída do PDF. Escolha Ecrã/Web para PDFs que se destinam a serem vistos no ecrã ou enviados para impressoras jato-de-tinta típicas. Escolha Impressora para enviar para uma impressora que suporte 4 cores CMYK. Escolha Tons de Cinza quando pretender um PDF nessa escala.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
@@ -37683,11 +37695,6 @@ quando o PDF estiver aberto:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Ativa os efeitos de apresentação quando usado o Adobe&amp;#174; Reader&amp;#174; ou outros visualizadores de PDF que suportem este recurso no modo de visualização em ecrã total.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de cor para a saída do PDF. Escolha Ecrã/Web para PDFs que se destinam a serem vistos no ecrã ou enviados para impressoras jato-de-tinta típicas. Escolha Impressora para enviar para uma impressora que suporte 4 cores CMYK. Escolha Tons de Cinza quando pretender um PDF nessa escala.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -39815,7 +39822,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="185"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation>O plug-in de importar SVG não foi encontrado</translation>
+        <translation>O plugin Importação SVG não foi encontrado</translation>
     </message>
 </context>
 <context>

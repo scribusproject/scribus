@@ -455,7 +455,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1544"/>
         <source>&amp;Center</source>
-        <translation>&amp;Canol</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1545"/>
@@ -1436,7 +1436,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Ynglŷn â  Ategyn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
@@ -1586,7 +1586,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2400"/>
         <source>Plugin Menu Items</source>
-        <translation>Ategyn Dewislen Eitemau</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2402"/>
@@ -2231,7 +2231,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
         <source>Center on vertical axis</source>
-        <translation>Canoli ar y fertigol echel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
@@ -2241,7 +2241,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Center on horizontal axis</source>
-        <translation>Canoli ar y llorweddol echel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
@@ -2261,12 +2261,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation>Dosbarthu  hafalochrogi  canolfannau llorweddol</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Dosbarthu canolfannau  hafalochrogi croesfertigol</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
@@ -5355,7 +5355,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Graddlwyd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -6813,7 +6813,7 @@ methodd
         <location filename="../../scribus/ui/effectsdialog.cpp" line="861"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="1011"/>
         <source>Grayscale</source>
-        <translation>Graddlwyd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="485"/>
@@ -11178,7 +11178,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="37"/>
@@ -11220,7 +11220,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="42"/>
@@ -11246,7 +11246,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="38"/>
@@ -11267,7 +11267,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="65"/>
@@ -13651,7 +13651,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Dim</translation>
+        <translation>Dim</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
@@ -19867,11 +19867,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
@@ -20044,7 +20039,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
         <source>Grayscale</source>
-        <translation>Graddlwyd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="230"/>
@@ -20332,6 +20327,11 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -20801,7 +20801,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="390"/>
         <source>Grayscale</source>
-        <translation>Graddlwyd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="435"/>
@@ -25543,8 +25543,7 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <source>
 External Links
 </source>
-        <translation>
-Linc Allanol</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
@@ -35645,7 +35644,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
         <source>Center</source>
-        <translation>Canol</translation>
+        <translation>Canoli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
@@ -37154,7 +37153,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1362"/>
         <source>Grayscale</source>
-        <translation>Graddlwyd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1380"/>
@@ -37294,6 +37293,11 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Export a range of pages to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37536,11 +37540,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -40458,7 +40457,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="25"/>
@@ -41017,7 +41016,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Newid maint</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

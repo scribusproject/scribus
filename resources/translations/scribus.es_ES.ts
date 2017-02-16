@@ -2230,7 +2230,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
         <source>Center on vertical axis</source>
-        <translation>Centrar en el eje vertical</translation>
+        <translation>Centrar con el eje vertical</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
@@ -2240,7 +2240,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Center on horizontal axis</source>
-        <translation>Centrar en el eje horizontal</translation>
+        <translation>Centrar con el eje horizontal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
@@ -2260,12 +2260,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation>Distribución homogénea centrada en horizontal</translation>
+        <translation>Distribuir equidistantemente por el centro horizontalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Distribución homogénea centrada en vertical</translation>
+        <translation>Distribuir equidistantemente por el centro verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
@@ -3752,7 +3752,7 @@ Por favor, escoja otro.</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="494"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Imposible encontrar el color requerido. Probablemente, ha seleccionado negro, gris o blanco. No hay modo alguno de procesar este color.</translation>
+        <translation>Imposible encontrar el color requerido. Probablemente, has seleccionado negro, gris o blanco. No hay modo alguno de procesar este color.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="16"/>
@@ -5378,7 +5378,7 @@ resolución actual:  %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Escala de grises</translation>
+        <translation type="unfinished">Escala de grises</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13480,7 +13480,7 @@ Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuev
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Un modo de desactivar algo de los tonos de gris compuestos de cian, amarillo y magenta , usando en su lugar el negro. La UCR afecta principalmente a las partes de la imagen de color neutro y/o tonos oscuros próximos al gris. Usar esta opción podría mejorar la impresión de ciertas imágenes pero se necesita experimentar y comprobarlo caso por caso. UCR reduce la posibilidad de sobresaturación con tintas CMY.</translation>
+        <translation>Un modo de desactivar algunos de los tonos de gris compuestos de cian, amarillo y magenta y usar en su lugar el negro. La eliminación del color subyacente (UCR) afecta principalmente a zonas de color neutro y/o tonos oscuros próximos al gris en las imágenes . El uso de esta opción podría mejorar la impresión de ciertas imágenes pero se necesita experimentar y comprobarlocaso por caso. UCR reduce la posibilidad de sobresaturación con tintas CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13712,27 +13712,27 @@ Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuev
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Booleano</translation>
+        <translation>Booleano</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Entero</translation>
+        <translation>Entero</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Número real</translation>
+        <translation>Número real</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Cadena</translation>
+        <translation>Cadena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -14842,7 +14842,7 @@ Hay más detalles en la sección Editar colores de la documentación.</translati
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="127"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Este conector necesita, al menos, la versión 4.3.3 de la biblioteca Qt</translation>
+        <translation>Esta extensión requiere, al menos, la versión 4.3.3 de la biblioteca Qt</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="158"/>
@@ -16645,7 +16645,7 @@ Por favor, elija otro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="74"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation>Conector no encontrado</translation>
+        <translation>No se encontró la extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="63"/>
@@ -16665,7 +16665,7 @@ Por favor, elija otro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="159"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Cargando conector %1</translation>
+        <translation>Extensión: cargando %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="265"/>
@@ -16677,36 +16677,36 @@ Por favor, elija otro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="271"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation>tipo de conector desconocido</translation>
+        <translation>tipo de extensión desconocido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation>Conector: %1 cargado</translation>
+        <translation>Extensión: %1 cargada</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="278"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Conector: %1 falló la carga: %2</translation>
+        <translation>Extensión: %1 falló al cargar: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="351"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Conector: %1 incializado correctamente </translation>
+        <translation>Extensión: %1 incializada correctamente </translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="353"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Conector: %1 falló post-inicialización</translation>
+        <translation>Extensión: %1 falló post-inicialización</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="232"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Hubo un problema al cargar %1 de %2 conectores. %3 Probablemente eso sucede por algún motivo tipo de problemas con dependencias o conectores antiguos presentes en el directorio de instalación. Si se limpia el directorio de instalación y se reinstala y aún ocurre esto, informe, por favor, en bugs.scribus.net.</translation>
+        <translation>Hubo un problema al cargar %1 de %2 extensiones. %3 Probablemente eso ocurra por algún motivo relacionado con dependencias o antiguas extensiones presentes en el directorio de instalación. Si limpias el directorio de instalación y reinstalar y aún ocurre esto, por favor, informa de ello en bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -16714,12 +16714,12 @@ Por favor, elija otro.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation>Administrador de conectores</translation>
+        <translation>Gestor de extensiones</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
         <source>Plugin</source>
-        <translation>Conector</translation>
+        <translation>Extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="41"/>
@@ -16739,7 +16739,7 @@ Por favor, elija otro.</translation>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="56"/>
         <source>Plugin ID</source>
-        <translation>ID del conector</translation>
+        <translation>ID de extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
@@ -17044,7 +17044,7 @@ Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
         <source>Plugins</source>
-        <translation>Conectores</translation>
+        <translation>Extensiones</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
@@ -19959,11 +19959,6 @@ Do you want to use this?</source>
         <translation>Permite añadir anotaciones y campos al PDF. Si no se marca, se evita la edición de anotaciones y campos.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de color de salida del PDF. Web/Pantalla es para PDF destinados a leerse en pantalla o para imprimirse en dispositivos normales de chorro de tinta. Impresora es para imprimir con un dispositivo de 4 colores CMYK. Escala de grises es para generar un PDF en escala de grises.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Esta es una característica avanzada que no está activada de modo predeterminado. Sólo se debería activar a petición expresa del impresor, que debe proporcionar los detalles exactos. De cualquier otro modo, el PDF exportado podría no ser impreso correctamente y no ser verdaderamente portable entre sistemas.</translation>
@@ -20427,6 +20422,11 @@ Do you want to use this?</source>
         <translation>Permite modificar el PDF. Si no está marcado, impide la modificación del PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de colorde la salida del PDF. Elege la opción Web/Pantalla para los PDF usados en la pantalla y para la impresión con tintas típicas. Elige la impresora para imprimir con una impresora de 4 colores CMYK. Elige escala de grises si quieres un PDF en escala de grises.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Type of the display effect</source>
         <translation>Tipo de efecto de exposición</translation>
@@ -20596,12 +20596,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation>Conectores</translation>
+        <translation>Extensiones</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
         <source>Plugin</source>
-        <translation>Conector</translation>
+        <translation>Extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="56"/>
@@ -20621,7 +20621,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation>ID de conector</translation>
+        <translation>ID de extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
@@ -21561,7 +21561,7 @@ Fijarlo en el nivel 1 or 2 puede crear archivos enormes.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Elige la decoración de ventanas y aspecto predeterminados. Scribus hereda cualquier tema de KDE o Qt si Qt está configurado para buscar conectores KDE.</translation>
+        <translation>Elige la decoración de ventanas y apariencia predeterminada. Scribus hereda cualquier tema de KDE o Qt si Qt está configurado para buscar extensiones KDE.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -29252,7 +29252,7 @@ código Python esta lista no es exhaustiva debido a las excepciones de las funci
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="45"/>
         <source>My Plugin</source>
-        <translation>Mi conector</translation>
+        <translation>Mi extensión</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
@@ -34361,12 +34361,12 @@ Si lo guarda con esta versión ya no será legible para las versiones antiguas d
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="201"/>
         <source>Initializing Plugins</source>
-        <translation>Inicializando conectores</translation>
+        <translation>Inicializando las extensiones</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="187"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>Inicializando atajos de teclado</translation>
+        <translation>Inicializando los atajos de teclado</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="189"/>
@@ -34849,7 +34849,7 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <location filename="../../scribus/scribus.cpp" line="4233"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation>El documento se guardó en un archivo temporal y no se puede mover: 
+        <translation>El documento fue salvado en un archivo temporal y no puede ser movido: 
 %1</translation>
     </message>
     <message>
@@ -35578,7 +35578,7 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Falló la configuración de la extensión Python. Hay más informacion del error en la salida de stderr. </translation>
+        <translation>Falló la configuración de la extensión Python. Más informacion del error en la salida de stderr. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
@@ -35798,7 +35798,7 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
         <source>Center</source>
-        <translation>Centro</translation>
+        <translation>Centrado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
@@ -37447,6 +37447,11 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <translation>Exportar un rango de páginas a PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Modelo de colorde la salida del PDF. Elege la opción Web/Pantalla para los PDF usados en la pantalla y para la impresión con tintas típicas. Elige la impresora para imprimir con una impresora de 4 colores CMYK. Elige escala de grises si quieres un PDF en escala de grises.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Incrustar un perfil de color para colores directos</translation>
@@ -37690,11 +37695,6 @@ se abra el documento PDF:</translation>
         <translation>Activar efectos de presentación al usar Adobe&amp;#174; Reader&amp;#174; y otros visores PDF que soporten el modo a pantalla completa.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Modelo de color de la salida del PDF. Elige la opción Web/Pantalla para los PDF usados en la pantalla y para la impresión con tintas típicas. Elige la impresora para imprimir con una impresora de 4 colores CMYK. Elige escala de grises si quiere un PDF en escala de grises.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>No mostrar objetos fuera de los márgenes en el archivo exportado</translation>
@@ -37913,7 +37913,7 @@ se abra el documento PDF:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="883"/>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation>&amp;Aplica efectos a todas las páginas</translation>
+        <translation>&amp;Aplicar efectos a todas las páginas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="205"/>
@@ -41175,7 +41175,7 @@ por favor escoja otro.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation>Cambiar tamaño</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

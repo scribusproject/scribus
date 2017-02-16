@@ -5368,7 +5368,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>회색톤</translation>
+        <translation type="unfinished">회색톤</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13440,7 +13440,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>검정, 청록, 노랑, 자홍으로 구성된 회색 음영이나 대신 검은색을 이용하는 방법. UCR은 회색에 가까운 중간 또는 어두운 색조의 이미지부분에 영향을 줍니다. 이것은 이미지 출력과 실험방법 및 개별적으로 필요한 테스팅등을 향상시킵니다. UCR은 CMY 잉크의 과도한 채색의 가능성을 감소시켜 줍니다.</translation>
+        <translation>검정, 청록, 노랑, 자홍으로 구성된 회색 음영과 대신 검은 색을 사용하는 방법. UCR은 회색에 가까운 중간 또는 어두운 색조의 이미지 부분에 영향을 줍니다.  이것은 이미지출력과 실험방법 및 개별적으로 필요한 테스팅등을 향상시킵니다. UCR은 CMY 잉크의 과도한 채색의 가능성을 감소시켜 줍니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13495,7 +13495,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="275"/>
         <source>Print in Grayscale</source>
-        <translation>회색톤으로 인쇄</translation>
+        <translation>회색톤 인쇄</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="281"/>
@@ -13672,27 +13672,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">없음</translation>
+        <translation>없음</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">부울식</translation>
+        <translation>부울식</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">정수</translation>
+        <translation>정수</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">실수</translation>
+        <translation>실수</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">문자열</translation>
+        <translation>문자열</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19891,11 +19891,6 @@ Do you want to use this?</source>
         <translation>주석이나 필드를 PDF에 더하기 허용합니다. 미 체크시 주석과 필드 수정이 안됩니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF 인쇄를 위한 색상 모델. 화면 보기와 잉크젯 인쇄를 위한 PDF를 위하여 화면/웹을 선택. 트루 4색상 CMYK 프른터로 인쇄할 때 프린터를 선택. 회색톤 PDF 인쇄 할 때 회색톤 선택합니다.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>기본값으로 사용되지 않는 고급 설정임. 이것은 프린터에 요청할 때만 사용가능하며 필요한 세부사항을 정확히 맞추어야 합니다. 그렇지 않으면 내보낸 PDF가 적당히 출력되지 않습니다. 그리고 시스템 전체에 호환되지 않습니다.</translation>
@@ -20357,6 +20352,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF 인쇄를 위한 색상 모델. 화면 보기와 잉크젯 인쇄를 위한 PDF를 위하여 화면/웹을 선택. 트루 4색상 CMYK 프른터로 인쇄할 때 프린터를 선택. 회색톤 PDF 인쇄 할 때 회색톤 선택합니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -37339,6 +37339,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>페이지 범위를 PDF로 내보내기</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>PDF 인쇄를 위한 색상 모델. 화면 보기와 잉크젯 인쇄를 위한 PDF를 위하여 화면/웹을 선택. 트루 4색상 CMYK 프른터로 인쇄할 때 프린터를 선택. 회색톤 PDF 인쇄 할 때 회색톤 선택합니다.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>단일 색상를 위한 색상 프로파일을 포함시킵니다</translation>
@@ -37580,11 +37585,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>전체 화면 모드로 Adobe &amp;#174; Reader&amp;#174;를 사용했을 때에 프레젠테이션 효과가 가능합니다.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>PDF 인쇄를 위한 색상 모델. 화면 보기와 잉크젯 인쇄를 위한 PDF를 위하여 화면/웹을 선택. 트루 4색상 CMYK 프른터로 인쇄할 때 프린터를 선택. 회색톤 PDF 인쇄 할 때 회색톤 선택합니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>

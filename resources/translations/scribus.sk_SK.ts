@@ -5367,7 +5367,7 @@ aktuálne %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation>Odtiene šedej</translation>
+        <translation type="unfinished">Odtiene šedej</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
@@ -13439,10 +13439,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="353"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené 
-z azúrovej, fialovej a žltej farby namiesto použitia čiernej.
-UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo 
-v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže zlepšiť tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady. UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
+        <translation>Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené z azúrovej, fialovej a žltej farby namiesto použitia čiernej. UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže zlepšiť tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady. UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
@@ -13674,27 +13671,27 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bez akcie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Logická hodnota</translation>
+        <translation>Logická hodnota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Celé číslo</translation>
+        <translation>Celé číslo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Reálne číslo</translation>
+        <translation>Reálne číslo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Reťazec</translation>
+        <translation>Reťazec</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="58"/>
@@ -19894,11 +19891,6 @@ Do you want to use this?</source>
         <translation>Povolí pridávanie anotácií a polí do PDF. Ak nie je zaškrtnuté, úprava anotácií a polí nie je možná.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť povolené len v tom prípade pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné detaily. Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne prenosné medzi systémami.</translation>
@@ -20360,6 +20352,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
@@ -37343,6 +37340,11 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Exportovať rozsah strán do PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Vložiť farebný profil pre plné farby</translation>
@@ -37584,11 +37586,6 @@ pri otvorení PDF dokumentu:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="231"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Povolenie prezentačných efektov pri celoobrazovkovom použití Adobe&amp;#174; Reader&amp;#174. a ostatných PDF prehliadačov, ktoré podporujú celoobrazovkové prezeranie.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
