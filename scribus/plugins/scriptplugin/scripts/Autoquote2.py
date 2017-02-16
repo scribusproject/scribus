@@ -157,7 +157,7 @@ if (lang =='fr'):
                 '1')
 else :
    typeespace = scribus.valueDialog("Inside quote added space", 
-                "Depending on the used fonts, choose the space to be added inside double quotes, in case there is none already.\n0 : never add a space ; 1 : non breaking ; 2 : non breaking thin ; 3 : thin", 
+                "Depending on the used fonts, choose the space to be added inside \ndouble quotes, in case there are none already.\n0 : never add a space ; 1 : non breaking ; 2 : non breaking thin ; 3 : thin", 
                 '0')
 
 if (typeespace == '3'):
@@ -180,7 +180,7 @@ if ((1==1) or (spacenquotes != '')):
                 'O')
     else:
        replace_existing = scribus.valueDialog("What about existing qyotes ?", 
-                "Should the script apply your spaces-choice ALSO on already existing quotes ? Yes : Y ; No : N", 
+                "Should the script ALSO apply your spaces-choice on already existing quotes? Yes : Y ; No : N", 
                 'N')
 
 if ((replace_existing=='y') or (replace_existing=='Y') or (replace_existing=='o') or (replace_existing=='O')):
@@ -207,7 +207,7 @@ textlen = scribus.getTextLength(textbox)
 c = 0
 nbchange = 0
 lastchange = 'close'
-prevchar = ''
+prevchar = ' '
 
 while c <= (textlen -1):
     # si on est à la fin, il faut tricher pour le dernier caractère
@@ -231,7 +231,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillement fermante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops !", 'text is not consistent. Closing doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops !", 'The text is not consistent. Closing doublequote missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange='open'
         if ((replace_existing == 1) and (nextchar != spacenquotes) and (alafin==0)):
@@ -247,7 +247,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillemet ouvrante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops !", 'text is not consistent. Opening doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops !", 'The text is not consistent. Opening doublequote missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange = 'close'
         if ((replace_existing == 1)  and (prevchar != spacenquotes) and (c > 1)):
