@@ -105,6 +105,8 @@
 		</submenuitem>
 		<area text="Help!!" file="help.html" >
 		</area>
+		<area text="Configuration Files" file="configfiles.html" >
+		</area>
 		<area text="File Problems" file="fileproblems.html" >
 		</area>
 	</area>
