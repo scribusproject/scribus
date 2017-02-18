@@ -32,7 +32,9 @@ height="87"/></td>
 		  </ul></p>
 		</xsl:for-each>
 	  </xsl:for-each>
-	
+	<xsl:for-each select="area">
+	  <h3><a href="{@file}" ><xsl:value-of select = "@text" /></a></h3>
+        </xsl:for-each>
 	</xsl:for-each>
       </xsl:for-each>
     </body>
