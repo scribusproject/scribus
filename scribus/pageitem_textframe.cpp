@@ -5882,6 +5882,7 @@ void PageItem_TextFrame::setTextFrameHeight()
 	{
 		textLayout.box()->moveTo(textLayout.box()->x(), 0);
 		double newHeight = textLayout.box()->naturalHeight();
+		newHeight += m_textDistanceMargins.bottom();
 
 		UndoTransaction undoTransaction;
 		if (UndoManager::undoEnabled())
