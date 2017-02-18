@@ -78,4 +78,4 @@ if scribus.haveDoc():
 
 else:
     scribus.messageBox('Export Error', 'You need a Document open, and a frame selected.', \
-                       icon=0, button1=1)
+                       scribus.ICON_NONE, scribus.BUTTON_OK)
