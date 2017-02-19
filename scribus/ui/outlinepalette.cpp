@@ -86,78 +86,147 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 {
 	bool haveLayers = false;
 	QModelIndex id;
-	QTreeWidgetItem* it = NULL;
+	QList<QTreeWidgetItem*> its;
+	QList<OutlineTreeItem*> itemPars;
 	QList<QModelIndex> idxs = selectedIndexes();
-	if (!idxs.isEmpty())
-		id = idxs.at(0);
-	if (id.isValid())
-		it = itemFromIndex(id);
-	OutlineTreeItem *itemPar = (OutlineTreeItem*)it->parent();
-	while (itemPar->type != 2)
+	for (int i = 0; i < idxs.count(); ++i)
 	{
-		if (itemPar->type == 5)
-			haveLayers = true;
-		itemPar = (OutlineTreeItem*)itemPar->parent();
+		id = idxs.at(i);
+		QTreeWidgetItem* it = id.isValid() ? itemFromIndex(id) : 0;
+		OutlineTreeItem *itemPar = it ? (OutlineTreeItem*) it->parent() : 0;
+		while (itemPar && (itemPar->type != 2))
+		{
+			if (itemPar->type == 5)
+				haveLayers = true;
+			itemPar = (OutlineTreeItem*) itemPar->parent();
+		}
+		its.append(it);
+		itemPars.append(itemPar);
 	}
 
 	QTreeWidget::dropEvent(e);
-	if (it == NULL)
-		return;
 
-	OutlineTreeItem *item = (OutlineTreeItem*) it;
-	OutlineTreeItem *itemPl = (OutlineTreeItem*)it->parent();
-	OutlineTreeItem *itemPg;
-	if (itemPl->type == 5)
+	QList<QTreeWidgetItem*> selList;
+	for (int i = 0; i < its.count(); ++i)
 	{
-		itemPg = (OutlineTreeItem*)it->parent()->parent();
-	}
-	else if (itemPl->type == 2)
-	{
-		itemPg = (OutlineTreeItem*)it->parent();
-		if (haveLayers)
+		QTreeWidgetItem* it = its.at(i);
+		if (it == NULL)
+			continue;
+		OutlineTreeItem *itemPar = itemPars.at(i);
+		OutlineTreeItem *item = (OutlineTreeItem*) it;
+		OutlineTreeItem *itemPl = (OutlineTreeItem*)it->parent();
+		OutlineTreeItem *itemPg;
+		if (itemPl->type == 5)
 		{
-			itemPl = (OutlineTreeItem*)itemPg->child(0);
-			itemPg->removeChild(it);
-			itemPl->addChild(it);
+			itemPg = (OutlineTreeItem*)it->parent()->parent();
 		}
-	}
-	else
-	{
-		itemPg = (OutlineTreeItem*)it->parent();
-		while (itemPg->type != 2)
+		else if (itemPl->type == 2)
 		{
-			itemPg = (OutlineTreeItem*)itemPg->parent();
-		}
-	}
-	if (itemPl->indexOfChild(it) != itemPl->childCount() - 1)
-	{
-		OutlineTreeItem *itemBe = (OutlineTreeItem*)itemPl->child(itemPl->indexOfChild(it) + 1);
-		if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
-		{
-			if (item->PageItemObject->isGroupChild())
-				item->DocObject->removeFromGroup(item->PageItemObject);
-			else
-				item->DocObject->Items->removeOne(item->PageItemObject);
-			if (itemBe->PageItemObject->isGroupChild())
+			itemPg = (OutlineTreeItem*)it->parent();
+			if (haveLayers)
 			{
-				PageItem* group = itemBe->PageItemObject->Parent;
-				int d = group->groupItemList.indexOf(itemBe->PageItemObject);
-				double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
-				double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
-				item->PageItemObject->setXYPos(xx, yy);
-				item->DocObject->addToGroup(group, item->PageItemObject);
-				group->groupItemList.insert(d, item->PageItemObject);
-				item->PageItemObject->setLayer(group->LayerID);
+				itemPl = (OutlineTreeItem*) itemPg->child(0);
+				for (int j = 0; j < itemPg->childCount(); ++j)
+				{
+					OutlineTreeItem* childItem = (OutlineTreeItem*) itemPg->child(j);
+					if (item->PageItemObject->LayerID == childItem->LayerID)
+					{
+						itemPl = childItem;
+						break;
+					}
+				}
+				itemPg->removeChild(it);
+				itemPl->addChild(it);
 			}
-			else
+		}
+		else
+		{
+			itemPg = (OutlineTreeItem*)it->parent();
+			while (itemPg->type != 2)
 			{
-				int d = item->DocObject->Items->indexOf(itemBe->PageItemObject);
-				item->DocObject->Items->insert(d+1, item->PageItemObject);
+				itemPg = (OutlineTreeItem*)itemPg->parent();
+			}
+		}
+		if (itemPl->indexOfChild(it) != itemPl->childCount() - 1)
+		{
+			OutlineTreeItem *itemBe = (OutlineTreeItem*)itemPl->child(itemPl->indexOfChild(it) + 1);
+			if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
+			{
+				if (item->PageItemObject->isGroupChild())
+					item->DocObject->removeFromGroup(item->PageItemObject);
+				else
+					item->DocObject->Items->removeOne(item->PageItemObject);
+				if (itemBe->PageItemObject->isGroupChild())
+				{
+					PageItem* group = itemBe->PageItemObject->Parent;
+					int d = group->groupItemList.indexOf(itemBe->PageItemObject);
+					double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
+					double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
+					item->PageItemObject->setXYPos(xx, yy);
+					item->DocObject->addToGroup(group, item->PageItemObject);
+					group->groupItemList.insert(d, item->PageItemObject);
+					item->PageItemObject->setLayer(group->LayerID);
+				}
+				else
+				{
+					int d = item->DocObject->Items->indexOf(itemBe->PageItemObject);
+					item->DocObject->Items->insert(d+1, item->PageItemObject);
+					if (itemPl->type == 5)
+						item->PageItemObject->setLayer(itemPl->LayerID);
+					double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
+					double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
+					item->PageItemObject->setXYPos(xx, yy);
+				}
+				item->PageItemObject->setRedrawBounding();
+				item->DocObject->setModified(true);
+				item->DocObject->scMW()->showLayer();
+				item->DocObject->scMW()->closeActiveWindowMasterPageEditor();
+				if (item->PageItemObject->isGroup())
+				{
+					item->DocObject->GroupOnPage(item->PageItemObject);
+					item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, false);
+				}
+				else
+				{
+					item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
+					item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true);
+				}
+				selList.append(it);
+			}
+		}
+		else
+		{
+	//		itemPl->insertChild(0, itemPl->takeChild(itemPl->indexOfChild(it)));
+			if ((itemPl->type == 2) || (itemPl->type == 5))
+			{
+				if (item->PageItemObject->isGroupChild())
+				{
+					item->DocObject->removeFromGroup(item->PageItemObject);
+					item->DocObject->Items->append(item->PageItemObject);
+				}
 				if (itemPl->type == 5)
 					item->PageItemObject->setLayer(itemPl->LayerID);
 				double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
 				double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
 				item->PageItemObject->setXYPos(xx, yy);
+			}
+			else
+			{
+				OutlineTreeItem *itemBe = (OutlineTreeItem*)it->parent();
+				if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
+				{
+					if (item->PageItemObject->isGroupChild())
+						item->DocObject->removeFromGroup(item->PageItemObject);
+					else
+						item->DocObject->Items->removeOne(item->PageItemObject);
+					PageItem* group = itemBe->PageItemObject;
+					double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
+					double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
+					item->PageItemObject->setXYPos(xx, yy);
+					item->DocObject->addToGroup(group, item->PageItemObject);
+					group->groupItemList.append(item->PageItemObject);
+					item->PageItemObject->setLayer(group->LayerID);
+				}
 			}
 			item->PageItemObject->setRedrawBounding();
 			item->DocObject->setModified(true);
@@ -171,65 +240,12 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 			else
 			{
 				item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
-				item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true);
+				item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true, 1);
 			}
-			QList<QTreeWidgetItem*> selList;
 			selList.append(it);
-			selectItems(selList);
 		}
 	}
-	else
-	{
-//		itemPl->insertChild(0, itemPl->takeChild(itemPl->indexOfChild(it)));
-		if ((itemPl->type == 2) || (itemPl->type == 5))
-		{
-			if (item->PageItemObject->isGroupChild())
-			{
-				item->DocObject->removeFromGroup(item->PageItemObject);
-				item->DocObject->Items->append(item->PageItemObject);
-			}
-			if (itemPl->type == 5)
-				item->PageItemObject->setLayer(itemPl->LayerID);
-			double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
-			double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
-			item->PageItemObject->setXYPos(xx, yy);
-		}
-		else
-		{
-			OutlineTreeItem *itemBe = (OutlineTreeItem*)it->parent();
-			if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
-			{
-				if (item->PageItemObject->isGroupChild())
-					item->DocObject->removeFromGroup(item->PageItemObject);
-				else
-					item->DocObject->Items->removeOne(item->PageItemObject);
-				PageItem* group = itemBe->PageItemObject;
-				double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
-				double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
-				item->PageItemObject->setXYPos(xx, yy);
-				item->DocObject->addToGroup(group, item->PageItemObject);
-				group->groupItemList.append(item->PageItemObject);
-				item->PageItemObject->setLayer(group->LayerID);
-			}
-		}
-		item->PageItemObject->setRedrawBounding();
-		item->DocObject->setModified(true);
-		item->DocObject->scMW()->showLayer();
-		item->DocObject->scMW()->closeActiveWindowMasterPageEditor();
-		if (item->PageItemObject->isGroup())
-		{
-			item->DocObject->GroupOnPage(item->PageItemObject);
-			item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, false);
-		}
-		else
-		{
-			item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
-			item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true, 1);
-		}
-		QList<QTreeWidgetItem*> selList;
-		selList.append(it);
-		selectItems(selList);
-	}
+	selectItems(selList);
 }
 
 void OutlineWidget::keyPressEvent(QKeyEvent *e)
