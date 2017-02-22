@@ -7252,7 +7252,8 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 	if (is)
 	{
 		m_Doc->view()->Deselect(true);
-		if (isUndo){
+		if (isUndo)
+		{
 			int pts = 0;
 			select();
 			for (int i = 0; i < is->getItem().first.size(); ++i)
@@ -7267,8 +7268,13 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 			Segments.clear();
 			FrameType = is->getInt("FRAMETYPE");
 			ClipEdited = is->getBool("CLIPEDITED");
+			bool oldRotMode = doc()->rotationMode();
+			doc()->setRotationMode(0);
 			doc()->adjustItemSize(this);
-		} else {
+			doc()->setRotationMode(oldRotMode);
+		}
+		else
+		{
 			select();
 			for (int i = 0; i < is->getItem().first.size(); ++i)
 				doc()->view()->SelectItem(is->getItem().first.at(i));

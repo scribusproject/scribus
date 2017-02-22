@@ -15419,7 +15419,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			ma2.translate(currItem->xPos(), currItem->yPos());
 			ma2.rotate(currItem->rotation());
 			ma2 = ma2.inverted();
-			ma=ma*ma2;
+			ma = ma * ma2;
 			bb->PoLine.map(ma);
 			m_undoManager->setUndoEnabled(true);
 			if (UndoManager::undoEnabled())
@@ -15428,7 +15428,10 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			currItem->PoLine.setMarker();
 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 		}
+		int oldRotMode = m_rotMode;
+		m_rotMode = 0;
 		adjustItemSize(currItem);
+		m_rotMode = oldRotMode;
 		currItem->ContourLine = currItem->PoLine.copy();
 		m_undoManager->setUndoEnabled(true);
 		//FIXME: stop using m_View
@@ -15461,6 +15464,8 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	if (UndoManager::undoEnabled())
 		transaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SplitItem, "", Um::IGroup);
 	m_undoManager->setUndoEnabled(false);
+	int oldRotMode = m_rotMode;
+	m_rotMode = 0;
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
 		QList< int> itemsList;
@@ -15509,6 +15514,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		}
 		m_undoManager->setUndoEnabled(false);
 	}
+	m_rotMode = oldRotMode;
 	m_undoManager->setUndoEnabled(true);
 	m_Selection->delaySignalsOff();
 	view()->Deselect(true);
