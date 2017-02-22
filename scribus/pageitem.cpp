@@ -5114,13 +5114,19 @@ void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		PoLine = is->getItem().first;
-		doc()->adjustItemSize(this);
+		int oldRotMode = m_Doc->rotationMode();
+		m_Doc->setRotationMode(0);
+		m_Doc->adjustItemSize(this);
+		m_Doc->setRotationMode(oldRotMode);
 		moveBy(is->getDouble("OLDX") - xPos(),is->getDouble("OLDY") - yPos());
 	}
 	else
 	{
 		PoLine = is->getItem().second;
-		doc()->adjustItemSize(this);
+		int oldRotMode = m_Doc->rotationMode();
+		m_Doc->setRotationMode(0);
+		m_Doc->adjustItemSize(this);
+		m_Doc->setRotationMode(oldRotMode);
 		moveBy(is->getDouble("NEWX") - xPos(),is->getDouble("NEWY") - yPos());
 	}
 	OldB2 = width();

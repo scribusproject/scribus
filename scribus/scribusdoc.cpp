@@ -15974,6 +15974,8 @@ Serializer *ScribusDoc::textSerializer()
 
 void ScribusDoc::setRotationMode(const int val)
 {
+	if (m_rotMode == val)
+		return;
 	m_rotMode = val;
 	emit rotationMode(m_rotMode);
 }
