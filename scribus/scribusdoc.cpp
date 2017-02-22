@@ -10822,7 +10822,10 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 		}
 //		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		int oldRotMode = this->RotMode;
+		this->RotMode = 0;
 		AdjustItemSize(currItem);
+		this->RotMode = oldRotMode;
 		currItem->ContourLine = currItem->PoLine.copy();
 		//FIXME: stop using m_View
 		m_View->Deselect(true);
@@ -10838,6 +10841,8 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 {
 	PageItem *bb;
 	m_Selection->delaySignalsOn();
+	int oldRotMode = this->RotMode;
+	this->RotMode = 0;
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
 		PageItem *currItem = m_Selection->itemAt(i);
@@ -10871,6 +10876,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		currItem->ContourLine = currItem->PoLine.copy();
 		currItem->ClipEdited = true;
 	}
+	this->RotMode = oldRotMode;
 	m_Selection->delaySignalsOff();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
