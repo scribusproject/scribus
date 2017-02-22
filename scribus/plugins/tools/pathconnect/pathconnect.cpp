@@ -127,7 +127,10 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			Item1->Frame = false;
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
+			int oldRotMode = currDoc->RotMode;
+			currDoc->RotMode = 0;
 			currDoc->AdjustItemSize(Item1);
+			currDoc->RotMode = oldRotMode;
 			Item1->OldB2 = Item1->width();
 			Item1->OldH2 = Item1->height();
 			Item1->updateClip();
@@ -143,7 +146,10 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
 			Item1->setXYPos(originalXPos, originalYPos);
+			int oldRotMode = currDoc->RotMode;
+			currDoc->RotMode = 0;
 			currDoc->AdjustItemSize(Item1);
+			currDoc->RotMode = oldRotMode;
 			Item1->OldB2 = Item1->width();
 			Item1->OldH2 = Item1->height();
 			Item1->updateClip();
@@ -174,7 +180,10 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 		Item1->ClipEdited = true;
 		Item1->FrameType = 3;
 	}
+	int oldRotMode = currDoc->RotMode;
+	currDoc->RotMode = 0;
 	currDoc->AdjustItemSize(Item1);
+	currDoc->RotMode = oldRotMode;
 	Item1->OldB2 = Item1->width();
 	Item1->OldH2 = Item1->height();
 	Item1->updateClip();
