@@ -130,7 +130,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 		else if (it == 2)
 			item = new QListWidgetItem( tr("Grid"), guidePlacementListBox);
 		else if (it == 1)
-			item = new QListWidgetItem( tr("BaselineGrid"), guidePlacementListBox);
+			item = new QListWidgetItem( tr("Baseline Grid"), guidePlacementListBox);
 		else if (it == 0)
 			item = new QListWidgetItem( tr("Margins"), guidePlacementListBox);
 		if (item)
