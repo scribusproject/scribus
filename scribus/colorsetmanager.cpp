@@ -156,52 +156,52 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 	exts << "acb" << "aco" << "ai" << "ase" << "eps" << "gpl" << "skp" << "sla" << "soc" << "xar" << "xml" << "sbz";
 	QDir dirs(path, "*", QDir::Name,  QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
 	dirs.setSorting(QDir::Name | QDir::DirsFirst);
-	if ((dirs.exists()) && (dirs.count() != 0))
+	if ((!dirs.exists()) || (dirs.count() == 0))
+		return;
+
+	for (uint dc = 0; dc < dirs.count(); ++dc)
 	{
-		for (uint dc = 0; dc < dirs.count(); ++dc)
+		QFileInfo fi(path + dirs[dc]);
+		if (fi.isDir())
 		{
-			QFileInfo fi(path + dirs[dc]);
-			if (fi.isDir())
+			QDir sd(path + dirs[dc], "*", QDir::Name, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
+			if (sd.count() > 0)
 			{
-				QDir sd(path + dirs[dc], "*", QDir::Name, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
-				if (sd.count() > 0)
+				QString setName = fi.baseName();
+				setName.replace("_", " ");
+				if (parent != NULL)
 				{
-					QString setName = fi.baseName();
-					setName.replace("_", " ");
-					if (parent != NULL)
-					{
-						QTreeWidgetItem* item;
-						if (path + dirs[dc] == ScPaths::applicationDataDir()+"swatches/locked")
-							item = parent;
-						else
-						{
-							item = new QTreeWidgetItem(parent);
-							item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/folder.png")));
-							item->setText(0, setName);
-						}
-						searchDir(path + dirs[dc] + "/", pList, item);
-					}
+					QTreeWidgetItem* item;
+					if (path + dirs[dc] == ScPaths::applicationDataDir()+"swatches/locked")
+						item = parent;
 					else
-						searchDir(path + dirs[dc] + "/", pList, parent);
-				}
-			}
-			else
-			{
-				if (exts.contains(fi.suffix().toLower()))
-				{
-					QString setName = fi.baseName();
-					setName.replace("_", " ");
-					pList.insert(fi.absolutePath() + "/" + setName, fi.absoluteFilePath());
-					if (parent != 0)
 					{
-						QTreeWidgetItem* item = new QTreeWidgetItem(parent);
-						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						item = new QTreeWidgetItem(parent);
+						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/folder.png")));
 						item->setText(0, setName);
-						item->setData(0, Qt::UserRole, fi.absolutePath());
-						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked")))
-							item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/lock.png")));
 					}
+					searchDir(path + dirs[dc] + "/", pList, item);
+				}
+				else
+					searchDir(path + dirs[dc] + "/", pList, parent);
+			}
+		}
+		else
+		{
+			if (exts.contains(fi.suffix().toLower()))
+			{
+				QString setName = fi.baseName();
+				setName.replace("_", " ");
+				pList.insert(fi.absolutePath() + "/" + setName, fi.absoluteFilePath());
+				if (parent != 0)
+				{
+					QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+					item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					item->setText(0, setName);
+					item->setData(0, Qt::UserRole, fi.absolutePath());
+					if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked")))
+						item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/lock.png")));
 				}
 			}
 		}
