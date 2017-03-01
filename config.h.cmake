@@ -26,6 +26,7 @@
 #cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_POPPLER 1
 #cmakedefine HAVE_OSG 1
+#cmakedefine HAVE_MEMRCHR 1
 #cmakedefine HAVE_BOOST 1
 #cmakedefine HAVE_SINCOS
 #cmakedefine HAVE_ROUND
