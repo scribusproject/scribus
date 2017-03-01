@@ -99,6 +99,12 @@
              <layout class="QHBoxLayout">
               <item>
                <widget class="QLabel" name="lineSpacingLabel">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>22</width>
@@ -106,7 +112,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string notr="true">TextLabel</string>
+                 <string/>
                 </property>
                 <property name="buddy">
                  <cstring>lineSpacingMode</cstring>
@@ -158,6 +164,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
                <widget class="QLabel" name="spaceAboveLabel">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>22</width>
@@ -165,7 +177,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string notr="true">TextLabel</string>
+                 <string/>
                 </property>
                 <property name="buddy">
                  <cstring>spaceAbove</cstring>
@@ -197,6 +209,12 @@
               </item>
               <item>
                <widget class="QLabel" name="spaceBelowLabel">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>22</width>
@@ -204,7 +222,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string notr="true">TextLabel</string>
+                 <string/>
                 </property>
                 <property name="buddy">
                  <cstring>spaceBelow</cstring>
