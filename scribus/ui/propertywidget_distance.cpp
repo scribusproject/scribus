@@ -125,7 +125,7 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 		textItem = m_item->asTable()->activeCell().textFrame();
 	if (!textItem) return;
 
-	columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
+	//#14427: columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
 	columns->setMinimum(1);
 	columns->setValue(textItem->Cols);
 	columnGap->setMinimum(0);
@@ -249,7 +249,7 @@ void PropertyWidget_Distance::showColumns(int r, double g)
 
 		if (textItem != 0)
 		{
-			columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
+//#14427: columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
 			if (columnGapLabel->currentIndex() == 0)
 			{
 				columnGap->setMaximum(qMax((textItem->width() / textItem->Cols - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
