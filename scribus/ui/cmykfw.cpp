@@ -7,30 +7,31 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmykfw.h"
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QFrame>
-#include <QLineEdit>
+#include <QAction>
+#include <QByteArray>
 #include <QCheckBox>
-#include <QPushButton>
-#include <QStackedWidget>
-#include <QSlider>
-#include <QMenu>
-#include <QPainter>
 #include <QCursor>
+#include <QDomDocument>
 #include <QDir>
 #include <QFileInfo>
+#include <QFrame>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
 #include <QMessageBox>
-#include <QDomDocument>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QStackedWidget>
+#include <QSignalBlocker>
+#include <QSlider>
+#include <QSpacerItem>
 #include <QToolTip>
 #include <QTextStream>
-#include <QSpacerItem>
-#include <QByteArray>
-#include <QPixmap>
-#include <QAction>
 #include <QTreeWidget>
+#include <QVBoxLayout>
 #include <cstdlib>
 
 #include "colorchart.h"
@@ -573,6 +574,8 @@ void CMYKChoose::setSpot()
 
 void CMYKChoose::selModel(const QString& mod)
 {
+	int h, s, v;
+
 	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
@@ -641,8 +644,11 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaSL->setPalette(sliderPix(300));
 		YellowSL->setPalette(sliderPix(60));
 		BlackSL->setPalette(sliderBlack());
-		ColorMap->drawMode = 0;
+		ScColorEngine::getRGBColor(Farbe, m_doc).getHsv(&h, &s, &v);
 		setValues();
+		ColorMap->drawMode = 0;
+		ColorMap->drawPalette(v);
+		ColorMap->setMark(h, s);
 	}
 	else if ((mod == tr("Web Safe RGB")) || (mod == tr("RGB")))
 	{
@@ -704,8 +710,11 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanSL->setPalette(sliderPix(0));
 		MagentaSL->setPalette(sliderPix(120));
 		YellowSL->setPalette(sliderPix(240));
-		ColorMap->drawMode = 0;
+		ScColorEngine::getRGBColor(Farbe, m_doc).getHsv(&h, &s, &v);
 		setValues();
+		ColorMap->drawMode = 0;
+		ColorMap->drawPalette(v);
+		ColorMap->setMark(h, s);
 	}
 	else if (mod == tr("Lab"))
 	{
@@ -1006,14 +1015,15 @@ void CMYKChoose::selFromSwatch(QListWidgetItem* c)
 
 void CMYKChoose::setValues()
 {
-	CyanSp->blockSignals(true);
-	CyanSL->blockSignals(true);
-	MagentaSp->blockSignals(true);
-	MagentaSL->blockSignals(true);
-	YellowSp->blockSignals(true);
-	YellowSL->blockSignals(true);
-	BlackSp->blockSignals(true);
-	BlackSL->blockSignals(true);
+	QSignalBlocker cyanSpBlocker(CyanSp);
+	QSignalBlocker cyanSLBlocker(CyanSL);
+	QSignalBlocker magentaSpBlocker(MagentaSp);
+	QSignalBlocker magentaSLBlocker(MagentaSL);
+	QSignalBlocker yellowSpBlocker(YellowSp);
+	QSignalBlocker yellowSLBlocker(YellowSL);
+	QSignalBlocker blackSpBlocker(BlackSp);
+	QSignalBlocker blackSLBlocker(BlackSL);
+
 	if (Farbe.getColorModel() == colorModelCMYK)
 	{
 		CMYKColor cmyk;
@@ -1090,14 +1100,6 @@ void CMYKChoose::setValues()
 			YellowSL->setPalette(sliderPix(240));
 		}
 	}
-	CyanSp->blockSignals(false);
-	CyanSL->blockSignals(false);
-	MagentaSp->blockSignals(false);
-	MagentaSL->blockSignals(false);
-	YellowSp->blockSignals(false);
-	YellowSL->blockSignals(false);
-	BlackSp->blockSignals(false);
-	BlackSL->blockSignals(false);
 }
 
 void CMYKChoose::showEvent(QShowEvent * event)
