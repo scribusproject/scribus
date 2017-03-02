@@ -155,12 +155,13 @@ void ContextMenu::createMenuItems_Selection()
 	//-->
 
 	//<-- Add Contents Actions
+	//This part only for text frames
 	if (m_actionList.contains("fileImportText"))
 	{
 		addSeparator();
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportText"]);
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportAppendText"]);
-		menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+		menuEditContent->addAction(m_ScMW->scrActions["toolsEditContents"]);
 		menuEditContent->addAction(m_ScMW->scrActions["insertSampleText"]);
 		menuEditContent->addSeparator();
 	}
