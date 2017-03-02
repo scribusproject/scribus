@@ -9611,14 +9611,15 @@ PdfId PDFLibCore::WritePDFString(const QString& cc)
 	QByteArray tmp;
 	for (int i = 0; i < cc.length(); ++i)
 	{
-		if (cc[i].unicode() > 255)
+		uchar pdfChar = Pdf::toPdfDocEncoding(cc[i]);
+		if ((pdfChar != 0) || cc[i].isNull())
+			tmp += pdfChar;
+		else
 		{
 			tmp += "\\u";
 			tmp += toHex(cc[i].row());
 			tmp += toHex(cc[i].cell());
 		}
-		else
-			tmp += cc[i];
 	}
 	return WritePDFStream(tmp);
 }

@@ -32,6 +32,11 @@ namespace Pdf
 	/**
 	 convert unicode to 8-Bit PdfDocEncoding, cf. PDF32000-2008, 8.9.2 and Annex D
 	 */
+	uchar toPdfDocEncoding(QChar c);
+
+	/**
+	 convert unicode to 8-Bit PdfDocEncoding, cf. PDF32000-2008, 8.9.2 and Annex D
+	 */
 	QByteArray toPdfDocEncoding(QString s);
 
 	/**

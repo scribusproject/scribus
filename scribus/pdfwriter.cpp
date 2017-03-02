@@ -42,203 +42,174 @@ namespace Pdf
 	{
 		return !isWhiteSpace(c) && !isDelimiter(c);
 	}
+
+	uchar toPdfDocEncoding(QChar c)
+	{
+		uchar row = c.row();
+		uchar cell = c.cell();
+		switch(row)
+		{
+			case 0:
+				if (cell <= 23
+					|| (cell >= 32 && cell <= 127)
+					|| cell >= 161)
+				{
+					return cell;
+				}
+				else
+				{
+					return 0;
+				}
+				break;
+			case 0x01:
+				switch (cell)
+				{
+					case 0x92:
+						return (134);
+					case 0x41:
+						return (149);
+					case 0x52:
+						return (150);
+					case 0x60:
+						return (151);
+					case 0x78:
+						return (152);
+					case 0x7d:
+						return (153);
+					case 0x31:
+						return (154);
+					case 0x42:
+						return (155);
+					case 0x53:
+						return (156);
+					case 0x61:
+						return (157);
+					case 0x7e:
+						return (158);
+					default:
+						return (0);
+						break;
+				}
+				break;
+
+			case 0x02:
+				switch (cell)
+				{
+					case 0xc7:
+						return (25);
+					case 0xc6:
+						return (26);
+					case 0xd8:
+						return (24);
+					case 0xd9:
+						return (27);
+					case 0xda:
+						return (30);
+					case 0xdb:
+						return (29);
+					case 0xdc:
+						return (31);
+					case 0xdd:
+						return (28);
+					default:
+						return (0);
+						break;
+				}
+				break;
+
+			case 0x20:
+				switch (cell)
+				{
+					case 0x13:
+						return (133);
+					case 0x14:
+						return (132);
+					case 0x18:
+						return (143);
+					case 0x19:
+						return (144);
+					case 0x1a:
+						return (145);
+					case 0x1c:
+						return (141);
+					case 0x1d:
+						return (142);
+					case 0x1e:
+						return (140);
+					case 0x20:
+						return (129);
+					case 0x21:
+						return (130);
+					case 0x22:
+						return (128);
+					case 0x26:
+						return (131);
+					case 0x30:
+						return (139);
+					case 0x39:
+						return (136);
+					case 0x3a:
+						return (137);
+					case 0x44:
+						return (135);
+					case 0xac:
+						return (160);
+						
+					default:
+						return (0);
+						break;
+				}
+				break;
+
+			case 0x21:
+				switch (cell)
+				{
+					case 0x22:
+						return (146);
+					default:
+						return (0);
+						break;
+				}
+				break;
+
+			case 0x22:
+				switch (cell)
+				{
+					case 0x12:
+						return (138);
+					default:
+						return (0);
+						break;
+				}
+				break;
+
+			case 0xfb:
+				switch (cell)
+				{
+					case 0x01:
+						return (147);
+					case 0x02:
+						return (148);
+					default:
+						return (0);
+						break;
+				}
+				break;
+		}
+
+		return 0;
+	}
 	
 	QByteArray toPdfDocEncoding(QString s)
 	{
 		QByteArray result;
 		for (int i = 0; i < s.length(); ++i)
 		{
-			uchar row = s[i].row();
-			uchar cell = s[i].cell();
-			switch(row)
-			{
-				case 0:
-					if (cell <= 23
-					    || (cell >= 32 && cell <= 127)
-					    || cell >= 161)
-					{
-						result.append(cell);
-					}
-					else
-					{
-						result.append("?");
-					}
-					break;
-				case 0x01:
-					switch (cell)
-					{
-						case 0x92:
-							result.append(134);
-							break;
-						case 0x41:
-							result.append(149);
-							break;
-						case 0x52:
-							result.append(150);
-							break;
-						case 0x60:
-							result.append(151);
-							break;
-						case 0x78:
-							result.append(152);
-							break;
-						case 0x7d:
-							result.append(153);
-							break;
-						case 0x31:
-							result.append(154);
-							break;
-						case 0x42:
-							result.append(155);
-							break;
-						case 0x53:
-							result.append(156);
-							break;
-						case 0x61:
-							result.append(157);
-							break;
-						case 0x7e:
-							result.append(158);
-							break;
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-
-				case 0x02:
-					switch (cell)
-					{
-						case 0xc7:
-							result.append(25);
-							break;
-						case 0xc6:
-							result.append(26);
-							break;
-						case 0xd8:
-							result.append(24);
-							break;
-						case 0xd9:
-							result.append(27);
-							break;
-						case 0xda:
-							result.append(30);
-							break;
-						case 0xdb:
-							result.append(29);
-							break;
-						case 0xdc:
-							result.append(31);
-							break;
-						case 0xdd:
-							result.append(28);
-							break;
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-
-				case 0x20:
-					switch (cell)
-					{
-						case 0x13:
-							result.append(133);
-							break;
-						case 0x14:
-							result.append(132);
-							break;
-						case 0x18:
-							result.append(143);
-							break;
-						case 0x19:
-							result.append(144);
-							break;
-						case 0x1a:
-							result.append(145);
-							break;
-						case 0x1c:
-							result.append(141);
-							break;
-						case 0x1d:
-							result.append(142);
-							break;
-						case 0x1e:
-							result.append(140);
-							break;
-						case 0x20:
-							result.append(129);
-							break;
-						case 0x21:
-							result.append(130);
-							break;
-						case 0x22:
-							result.append(128);
-							break;
-						case 0x26:
-							result.append(131);
-							break;
-						case 0x30:
-							result.append(139);
-							break;
-						case 0x39:
-							result.append(136);
-							break;
-						case 0x3a:
-							result.append(137);
-							break;
-						case 0x44:
-							result.append(135);
-							break;
-						case 0xac:
-							result.append(160);
-							break;
-						
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-
-				case 0x21:
-					switch (cell)
-					{
-						case 0x22:
-							result.append(146);
-							break;
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-
-				case 0x22:
-					switch (cell)
-					{
-						case 0x12:
-							result.append(138);
-							break;
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-
-				case 0xfb:
-					switch (cell)
-					{
-						case 0x01:
-							result.append(147);
-							break;
-						case 0x02:
-							result.append(148);
-							break;
-						default:
-							result.append("?");
-							break;
-					}
-					break;
-			}
+			uchar pdfChar = toPdfDocEncoding(s[i]);
+			if ((pdfChar != 0) || s[i].isNull())
+				result += pdfChar;
+			else
+				result += "?";
 		}
 		return result;
 	}
