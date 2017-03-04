@@ -288,6 +288,9 @@ void PageItem_LatexFrame::runApplication()
 	full_command.replace("%dir", QString("\"%1\"").arg(QDir::toNativeSeparators(QDir::tempPath())));
 	latex->setWorkingDirectory(QDir::tempPath());
 
+	QFileInfo fi(doc()->DocName);
+	full_command.replace("$scribus_doc_dir$", fi.dir().absolutePath());
+	
 	double lDpi = realDpi()/72.0;
 	full_command.replace("$scribus_height_px$", QString::number(qRound(m_height*lDpi)));
 	full_command.replace("$scribus_width_px$",  QString::number(qRound(m_width*lDpi)));
