@@ -150,6 +150,12 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	//**********
 
+	localPrefs=prefsData;
+	initPreferenceValues();
+	setupGui();
+	if (!doc)
+		addPlugins();
+
 	if (preferencesTypeList->count()>0)
 	{
 		preferencesTypeList->item(0)->setSelected(true);
@@ -162,12 +168,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
 	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
-
-	localPrefs=prefsData;
-	initPreferenceValues();
-	setupGui();
-	if (!doc)
-		addPlugins();
 }
 
 
