@@ -268,7 +268,9 @@ void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 	QStringList insertTrList(ps.activeSizeTRList());
 
 	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
-	if (insertList.indexOf(prefsPageSizeName) ==-1)
+	if ((prefsPageSizeName != CommonStrings::customPageSize) &&
+		(prefsPageSizeName != CommonStrings::trCustomPageSize) &&
+		(insertList.indexOf(prefsPageSizeName) == -1))
 	{
 		insertList << prefsPageSizeName;
 		insertTrList << prefsPageSizeName;
