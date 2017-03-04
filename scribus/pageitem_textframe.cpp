@@ -902,6 +902,7 @@ struct LineControl {
 		}
 
 		double glyphScale = 1 + glyphExtension;
+		double naturalWidth = 0;
 
 	/*
 		qDebug() << QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces + %5%%; min=%8; glyphs + %6%%; min=%9")
@@ -912,7 +913,10 @@ struct LineControl {
 
 		int startItem = 0;
 		if (glyphs[startItem].hasFlag(ScLayout_DropCap))
+		{
 			startItem++;
+			naturalWidth += glyphs[startItem].width();
+		}
 		// distribute whitespace on spaces and glyphs
 		for (int i = startItem; i < glyphsCount; ++i)
 		{
@@ -936,25 +940,15 @@ struct LineControl {
 			{
 				glyphCluster.extraWidth += trackingAmount;
 			}
-
+			naturalWidth += glyphCluster.width();
 		}
+		lineData.naturalWidth = naturalWidth;
 
 		if ((style.alignment() == ParagraphStyle::Extended) &&
-			(style.direction() == ParagraphStyle::RTL) &&
-			(!trackingInsertion && (spaceExtension == 0)))
+			(style.direction() == ParagraphStyle::RTL))
 		{
-			double naturalWidth = lineData.naturalWidth;
-			if (glyphScale != 1.0)
-			{
-				naturalWidth = 0;
-				for (int i = 0; i < glyphsCount; ++i)
-				{
-					const GlyphCluster& glyphCluster = glyphs.at(i);
-					naturalWidth += glyphCluster.width();
-				}
-			}
-			double offset = lineData.width - naturalWidth;
-			if (offset > 0)
+			double offset = lineData.width - lineData.naturalWidth;
+			if (offset > 1e-6)
 				indentLine(style, offset);
 		}
 	}
