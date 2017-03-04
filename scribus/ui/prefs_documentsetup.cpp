@@ -268,6 +268,8 @@ void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 	QStringList insertTrList(ps.activeSizeTRList());
 
 	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
+	if (prefsPageSizeName == CommonStrings::trCustomPageSize)
+		prefsPageSizeName = CommonStrings::customPageSize;
 	if ((prefsPageSizeName != CommonStrings::customPageSize) &&
 		(prefsPageSizeName != CommonStrings::trCustomPageSize) &&
 		(insertList.indexOf(prefsPageSizeName) == -1))
