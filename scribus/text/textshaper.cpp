@@ -331,7 +331,12 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			}
 		}
 
-		hb_shape(hbFont, hbBuffer, hbFeatures.data(), hbFeatures.length());
+		// #14523: harfbuzz proritize graphite for graphite enabled fonts, however
+		// at the point, shaping with graphite fonts is either buggy (harfbuzz 1.4.2)
+		// or trigger weird results (harfbuzz 1.4.3), so disable graphite for now.
+		// Prevent also use of platform specific shapers for cross-platform reasons
+		const char* shapers[] = { "ot", "fallback", 0 };
+		hb_shape_full(hbFont, hbBuffer, hbFeatures.data(), hbFeatures.length(), shapers);
 
 		unsigned int count = hb_buffer_get_length(hbBuffer);
 		hb_glyph_info_t *glyphs = hb_buffer_get_glyph_infos(hbBuffer, NULL);
