@@ -5656,7 +5656,7 @@ pour la sortie du fichier %1</translation>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="196"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Contenu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="209"/>
