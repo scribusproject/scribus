@@ -146,11 +146,16 @@ void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
 
 void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 {
-	m_ScMW=mw;
-	QPoint p1 = mapToGlobal(pos());
+	m_ScMW = mw;
+
+	// For some reason, the mapToGlobal() / mapFromGlobal() roundtrip
+	// performed below does not give always good results, causing PP to
+	// not display in some situations. Moreover the reparenting is useless 
+	// as PP is already created with ScribusMainWindow as parent.
+	/*QPoint p1 = mapToGlobal(pos());
 	QPoint p2 = m_ScMW->mapFromGlobal(p1);
 	setParent(m_ScMW);
-	move(p2);
+	move(p2);*/
 
 	this->xyzPal->setMainWindow(mw);
 	this->shadowPal->setMainWindow(mw);
