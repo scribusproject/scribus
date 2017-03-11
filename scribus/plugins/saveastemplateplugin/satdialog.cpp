@@ -33,7 +33,7 @@ public:
 				categories.append(cat);
 		}
 		return true;
-	};
+	}
 };
 
 SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
@@ -109,6 +109,8 @@ QString SATDialog::findTemplateXml(QString dir)
 
 void SATDialog::addCategories(const QString& dir)
 {
+	if(dir.isEmpty())
+		return;
 	// Read categories from the dir itself
 	QString tmplFile = findTemplateXml(dir);
 	if (QFile::exists(tmplFile))
@@ -175,11 +177,9 @@ void SATDialog::setupCategories()
 	cats.insert(QString("Signs")      , QObject::tr("Signs"));
 	cats.insert(QString("Text Documents"), QObject::tr("Text Documents"));
 	
-	addCategories(ScPaths::applicationDataDir() + "/templates");
+	addCategories(ScPaths::instance().applicationDataDir() + "/templates");
 	addCategories(ScPaths::instance().templateDir());
-	QString userTemplateDir(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
-	if (!userTemplateDir.isEmpty())
-		addCategories(userTemplateDir);
+	addCategories(ScPaths::instance().userTemplateDir(true));
 
 	QStringList list = cats.values();
 	list.removeDuplicates();

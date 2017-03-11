@@ -83,6 +83,8 @@ public:
 	static QString userHelpFilesDir(bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded palettes */
 	static QString userPaletteFilesDir(bool createIfNotExists);
+	/** @brief Return path to user template dir */
+	static QString userTemplateDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
 	static QString imageCacheDir(void);
 	/** @brief Return path to plugin data dir*/
