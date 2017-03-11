@@ -27,18 +27,18 @@
 /**
  * The TableStyle class represents a style for a table.
  */
-class SCRIBUS_API TableStyle : public Style {
+class SCRIBUS_API TableStyle : public BaseStyle {
 public:
 	/**
 	 * Constructs a new table style with all attributes inherited.
 	 */
-	TableStyle() : Style(), tableStyleProxy(this) {
+	TableStyle() : BaseStyle(), tableStyleProxy(this) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
 #include "tablestyle.attrdefs.cxx"
 #undef ATTRDEF
-    };
+	}
 
 	/**
 	 * Constructs a new table style with values and inheritance states of the
@@ -76,7 +76,7 @@ public:
 	 *
 	 * @param other the other table style.
 	 */
-	bool equiv(const Style& other) const;
+	bool equiv(const BaseStyle& other) const;
 
 	/**
 	 * Resets all non-inherited attributes in this style to their default values.
@@ -165,7 +165,7 @@ private:
 
 inline TableStyle& TableStyle::operator=(const TableStyle& other)
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -175,7 +175,7 @@ inline TableStyle& TableStyle::operator=(const TableStyle& other)
 	return *this;
 }
 
-inline TableStyle::TableStyle(const TableStyle& other) : Style(other), tableStyleProxy(this)
+inline TableStyle::TableStyle(const TableStyle& other) : BaseStyle(other), tableStyleProxy(this)
 {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \

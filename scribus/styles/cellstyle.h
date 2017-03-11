@@ -29,18 +29,18 @@
 /**
  * The CellStyle class represents a style for a table cell.
  */
-class SCRIBUS_API CellStyle : public Style {
+class SCRIBUS_API CellStyle : public BaseStyle {
 public:
 	/**
 	 * Constructs a new cell style with all attributes inherited.
 	 */
-	CellStyle() : Style(), cellStyleProxy(this) {
+	CellStyle() : BaseStyle(), cellStyleProxy(this) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
 #include "cellstyle.attrdefs.cxx"
 #undef ATTRDEF
-    };
+	}
 
 	/**
 	 * Constructs a new cell style with values and inheritance states of the
@@ -78,7 +78,7 @@ public:
 	 *
 	 * @param other the other cell style.
 	 */
-	bool equiv(const Style& other) const;
+	bool equiv(const BaseStyle& other) const;
 
 	/**
 	 * Resets all non-inherited attributes in this style to their default values.
@@ -170,7 +170,7 @@ private:
 
 inline CellStyle& CellStyle::operator=(const CellStyle& other)
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -180,7 +180,7 @@ inline CellStyle& CellStyle::operator=(const CellStyle& other)
 	return *this;
 }
 
-inline CellStyle::CellStyle(const CellStyle& other) : Style(other), cellStyleProxy(this)
+inline CellStyle::CellStyle(const CellStyle& other) : BaseStyle(other), cellStyleProxy(this)
 {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \

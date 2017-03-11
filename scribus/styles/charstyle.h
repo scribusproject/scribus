@@ -77,7 +77,7 @@ public:
 	bool operator!= (const StyleFlagValue right) const;
 };
 
-class SCRIBUS_API CharStyle : public Style {
+class SCRIBUS_API CharStyle : public BaseStyle {
 public:
 
 	static const QString INHERIT;
@@ -93,7 +93,7 @@ public:
 	static const QString ALLCAPS;
 	static const QString SMALLCAPS;
 
-    CharStyle() : Style() {
+	CharStyle() : BaseStyle() {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
@@ -102,7 +102,7 @@ public:
 		m_isDefaultStyle=false;
 	}
 	
-    CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : Style() {
+	CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : BaseStyle() {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
@@ -136,7 +136,7 @@ public:
 		Used for font effects */
 	void updateFeatures();
 	
-	bool equiv(const Style& other) const;	
+	bool equiv(const BaseStyle& other) const;
 	bool equivForShaping(const CharStyle &other) const;
 
 	void applyCharStyle(const CharStyle & other);
@@ -207,7 +207,7 @@ private:
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -219,7 +219,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	return *this;
 }
 
-inline CharStyle::CharStyle(const CharStyle & other) : Style(other) 
+inline CharStyle::CharStyle(const CharStyle & other) : BaseStyle(other)
 {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	m_##attr_NAME = other.m_##attr_NAME; \

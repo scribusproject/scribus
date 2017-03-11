@@ -113,7 +113,7 @@ QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 
 			if (m_tmpStyles[i].hasParent())
 			{
-				const Style* parentStyle = m_tmpStyles[i].parentStyle();
+				const BaseStyle* parentStyle = m_tmpStyles[i].parentStyle();
 				if (parentStyle)
 					parentName = parentStyle->displayName();
 			}
@@ -1954,14 +1954,14 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 	Q_ASSERT(!parent.isNull());
 
 	bool  loop = false, parentLoop = false;
-	const Style* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
+	const BaseStyle* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
 	QStringList sel;
 
 	for (int i = 0; i < m_selection.count(); ++i)
 	{
 		loop = false;
 		// Check if setting parent won't create a loop
-		const Style* pStyle = parentStyle;
+		const BaseStyle* pStyle = parentStyle;
 		while (pStyle)
 		{
 			if (pStyle->hasParent() && (pStyle->parent() == m_selection[i]->name()))
@@ -2149,7 +2149,7 @@ QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 
 			if (m_tmpStyles[i].hasParent())
 			{
-				const Style* parentStyle = m_tmpStyles[i].parentStyle();
+				const BaseStyle* parentStyle = m_tmpStyles[i].parentStyle();
 				if (parentStyle)
 					parentName = parentStyle->displayName();
 			}
@@ -3039,14 +3039,14 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 	Q_ASSERT(!parent.isNull());
 
 	bool  loop = false, parentLoop = false;
-	const Style* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
+	const BaseStyle* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
 	QStringList  sel;
 
 	for (int i = 0; i < m_selection.count(); ++i)
 	{
 		loop = false;
 		// Check if setting parent won't create a loop
-		const Style* pStyle = parentStyle;
+		const BaseStyle* pStyle = parentStyle;
 		while (pStyle)
 		{
 			if (pStyle->hasParent() && (pStyle->parent() == m_selection[i]->name()))

@@ -27,7 +27,7 @@ bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
 	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
 }
 
-ParagraphStyle::ParagraphStyle() : Style(), m_cstyleContext(NULL), m_cstyleContextIsInh(true), m_cstyle()
+ParagraphStyle::ParagraphStyle() : BaseStyle(), m_cstyleContext(NULL), m_cstyleContextIsInh(true), m_cstyle()
 {
 	setParent("");
 	m_cstyleContext.setDefaultStyle( &m_cstyle );
@@ -42,7 +42,7 @@ ParagraphStyle::ParagraphStyle() : Style(), m_cstyleContext(NULL), m_cstyleConte
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), m_cstyleContext(NULL), m_cstyleContextIsInh(other.m_cstyleContextIsInh), m_cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : BaseStyle(other), m_cstyleContext(NULL), m_cstyleContextIsInh(other.m_cstyleContextIsInh), m_cstyle(other.charStyle())
 {
 	if (m_cstyleContextIsInh)
 		m_cstyle.setContext(NULL);
@@ -78,7 +78,7 @@ QString ParagraphStyle::displayName() const
 }
 
 
-bool ParagraphStyle::equiv(const Style& other) const
+bool ParagraphStyle::equiv(const BaseStyle& other) const
 {
 	other.validate();
 	const ParagraphStyle* oth = reinterpret_cast<const ParagraphStyle*> ( & other );
@@ -113,7 +113,7 @@ static void updateAutoLinespacing(ParagraphStyle& that)
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
 
 	other.validate();
 	m_cstyle = other.charStyle();
@@ -142,7 +142,7 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 
 void ParagraphStyle::setContext(const StyleContext* context)
 {
-	Style::setContext(context);
+	BaseStyle::setContext(context);
 //	qDebug() << QString("ParagraphStyle::setContext(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth);
 	repairImplicitCharStyleInheritance();
 }
@@ -164,7 +164,7 @@ void ParagraphStyle::breakImplicitCharStyleInheritance(bool val)
 
 void ParagraphStyle::update(const StyleContext* context)
 {
-	Style::update(context);
+	BaseStyle::update(context);
 	assert ( &m_cstyleContext != m_cstyle.context());
 
 	repairImplicitCharStyleInheritance();
@@ -187,12 +187,12 @@ void ParagraphStyle::update(const StyleContext* context)
 
 void ParagraphStyle::applyStyle(const ParagraphStyle& other) 
 {
-	if (other.hasParent() && (other.parent() != Style::INHERIT_PARENT))
+	if (other.hasParent() && (other.parent() != BaseStyle::INHERIT_PARENT))
 	{
 		setStyle(other);
 		return;
 	}
-	Style::applyStyle(other);
+	BaseStyle::applyStyle(other);
 	m_cstyle.applyCharStyle(other.charStyle());
 	m_cstyleContext.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -206,7 +206,7 @@ void ParagraphStyle::applyStyle(const ParagraphStyle& other)
 void ParagraphStyle::eraseStyle(const ParagraphStyle& other) 
 {
 	other.validate();
-	Style::eraseStyle(other);
+	BaseStyle::eraseStyle(other);
 	m_cstyle.eraseCharStyle(other.charStyle());
 	m_cstyleContext.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -233,7 +233,7 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 
 void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const Style *sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle *sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
 		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
 
@@ -281,7 +281,7 @@ static QString toXMLString(const QList<ParagraphStyle::TabRecord> & )
 void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
-	Style::saxxAttributes(att);
+	BaseStyle::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && strcmp(# attr_NAME, "TabValues") != 0) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
@@ -386,7 +386,7 @@ void ParagraphStyle::desaxeRules(const Xml_string& prefixPattern, Digester& rule
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
 	ruleset.addRule(stylePrefix, IdRef<ParagraphStyle>());
-	Style::desaxeRules<ParagraphStyle>(prefixPattern, ruleset, elemtag);
+	BaseStyle::desaxeRules<ParagraphStyle>(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if ( strcmp(# attr_NAME, "TabValues") != 0) \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));

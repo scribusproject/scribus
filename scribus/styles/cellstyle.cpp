@@ -24,7 +24,7 @@ QString CellStyle::displayName() const
 		return parentStyle()->displayName() + "+";
 }
 
-bool CellStyle::equiv(const Style& other) const
+bool CellStyle::equiv(const BaseStyle& other) const
 {
 	other.validate();
 	const CellStyle *p_other = dynamic_cast<const CellStyle*> (&other);
@@ -50,7 +50,7 @@ void CellStyle::erase()
 
 void CellStyle::update(const StyleContext* context)
 {
-	Style::update(context);
+	BaseStyle::update(context);
 	const CellStyle* parent = dynamic_cast<const CellStyle*>(parentStyle());
 	if (parent) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -64,7 +64,7 @@ void CellStyle::update(const StyleContext* context)
 
 void CellStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const Style* style = parentStyle(); style != NULL; style = style->parentStyle())
+	for (const BaseStyle* style = parentStyle(); style != NULL; style = style->parentStyle())
 		lists.collectCellStyle(style->name());
 	lists.collectColor(fillColor());
 	// TODO: Collect border colors.

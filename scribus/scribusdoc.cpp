@@ -7832,7 +7832,7 @@ void ScribusDoc::itemSelection_SetHyphenChar(uint hyphenChar, Selection *customS
 void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
+	newStyle.setParent(name.isEmpty()? BaseStyle::INHERIT_PARENT : name);
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "NAMED_STYLE");
 }
 
@@ -7841,7 +7841,7 @@ void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection*
 void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
-	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
+	newStyle.setParent(name.isEmpty()? BaseStyle::INHERIT_PARENT : name);
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection, true);
 }
 

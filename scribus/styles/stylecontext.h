@@ -23,7 +23,7 @@
 #include "scribusapi.h"
 #include "observable.h"
 
-class Style;
+class BaseStyle;
 
 
 /**
@@ -60,7 +60,7 @@ public:
 	
 	virtual bool contextContained(const StyleContext* context) const { return context == this; }
 	virtual bool checkConsistency() const { return true; }
-	virtual const Style* resolve(const QString& name) const = 0;
+	virtual const BaseStyle* resolve(const QString& name) const = 0;
 	virtual ~StyleContext() 
 	{
 //		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));

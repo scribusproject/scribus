@@ -13,7 +13,7 @@ using namespace desaxe;
 
 template<class SUBSTYLE>
 inline
-void  Style::desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
+void BaseStyle::desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
 {
 	static QString emptyString;
 	Xml_string stylePrefix(Digester::concat(prefixPattern,elemtag));

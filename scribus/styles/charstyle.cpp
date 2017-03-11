@@ -114,12 +114,12 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
-	if (other.hasParent() && (other.parent() != Style::INHERIT_PARENT))
+	if (other.hasParent() && (other.parent() != BaseStyle::INHERIT_PARENT))
 	{
 		setStyle(other);
 		return;
 	}
-	Style::applyStyle(other);
+	BaseStyle::applyStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (! other.inh_##attr_NAME) \
 		set##attr_NAME(other.m_##attr_NAME);
@@ -131,7 +131,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 void CharStyle::eraseCharStyle(const CharStyle & other)
 {
 	other.validate();
-	Style::eraseStyle(other);
+	BaseStyle::eraseStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (!inh_##attr_NAME && m_##attr_NAME == other.m_##attr_NAME) \
 		reset##attr_NAME();
@@ -150,7 +150,7 @@ void CharStyle::eraseDirectFormatting()
 	updateFeatures();
 }
 
-bool CharStyle::equiv(const Style & other) const
+bool CharStyle::equiv(const BaseStyle & other) const
 {
 	other.validate();
 	const CharStyle * oth = reinterpret_cast<const CharStyle*> ( & other );
@@ -226,7 +226,7 @@ QString CharStyle::asString() const
 
 void CharStyle::update(const StyleContext* context)
 {
-	Style::update(context);
+	BaseStyle::update(context);
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( parentStyle() );
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
@@ -395,7 +395,7 @@ void CharStyle::setStyle(const CharStyle& other)
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
 		lists.collectCharStyle(sty->name());
 	lists.collectColor(fillColor());
 	lists.collectFontfeatures(fontFeatures());
@@ -476,7 +476,7 @@ Xml_string toXMLString(StyleFlag val)
 void CharStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
-	Style::saxxAttributes(att);
+	BaseStyle::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (!inh_##attr_NAME) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
@@ -515,7 +515,7 @@ void CharStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<CharStyle>());
 	ruleset.addRule(stylePrefix, IdRef<CharStyle>());
-	Style::desaxeRules<CharStyle>(prefixPattern, ruleset, elemtag);
+	BaseStyle::desaxeRules<CharStyle>(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, attr_TYPE> ( & CharStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "charstyle.attrdefs.cxx"

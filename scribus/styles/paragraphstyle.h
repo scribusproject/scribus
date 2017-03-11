@@ -24,7 +24,7 @@
 class ResourceCollection;
 
 
-class SCRIBUS_API ParagraphStyle : public Style
+class SCRIBUS_API ParagraphStyle : public BaseStyle
 {
 public:
 	enum LineSpacingMode { 
@@ -88,7 +88,7 @@ public:
 	void setContext(const StyleContext* context);
 	void update(const StyleContext*);
 	
-	bool equiv(const Style& other) const;
+	bool equiv(const BaseStyle& other) const;
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);

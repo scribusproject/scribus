@@ -21,19 +21,19 @@
 #include "style.h"
 #include "styles/stylecontextproxy.h"
 
-class SCRIBUS_API LineStyle : public Style {
+class SCRIBUS_API LineStyle : public BaseStyle {
 public:
 
 	
-    LineStyle() : Style(), lineStyleProxy(this) {
+	LineStyle() : BaseStyle(), lineStyleProxy(this) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
 #include "linestyle.attrdefs.cxx"
 #undef ATTRDEF
-    };
+	}
 	
-    LineStyle(qreal width, const QString& color, qreal shade=100) : Style(), lineStyleProxy(this)  {
+	LineStyle(qreal width, const QString& color, qreal shade=100) : BaseStyle(), lineStyleProxy(this)  {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
@@ -61,7 +61,7 @@ public:
 
 	void update(const StyleContext * b);
 	
-	bool equiv(const Style& other) const;	
+	bool equiv(const BaseStyle& other) const;
 	
 	void applyLineStyle(const LineStyle & other);
 	void eraseLineStyle(const LineStyle & other);
@@ -128,7 +128,7 @@ private:
 
 inline LineStyle & LineStyle::operator=(const LineStyle & other)
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -138,7 +138,7 @@ inline LineStyle & LineStyle::operator=(const LineStyle & other)
 	return *this;
 }
 
-inline LineStyle::LineStyle(const LineStyle & other) : Style(other), lineStyleProxy(this)
+inline LineStyle::LineStyle(const LineStyle & other) : BaseStyle(other), lineStyleProxy(this)
 {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \

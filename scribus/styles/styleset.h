@@ -32,7 +32,7 @@ public:
 
 	inline int find(const QString& name) const;
 
-	inline const Style* resolve(const QString& name) const;
+	inline const BaseStyle* resolve(const QString& name) const;
 	
 	int count() const {
 		return styles.count();
@@ -139,7 +139,7 @@ inline int StyleSet<STYLE>::find(const QString& name) const
 }
 
 template<class STYLE>
-inline const Style* StyleSet<STYLE>::resolve(const QString& name) const
+inline const BaseStyle* StyleSet<STYLE>::resolve(const QString& name) const
 {
 	if (name.isEmpty())
 		return m_default;
