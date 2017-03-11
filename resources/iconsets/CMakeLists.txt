@@ -3,6 +3,7 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
+ADD_SUBDIRECTORY(artwork)
 
 ##################
 
