@@ -41,7 +41,7 @@ int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 			return firstLine->firstChar();
 
 		LineBox* lastLine = dynamic_cast<LineBox*>(m_boxes.last());
-		if (lastLine && (coord.y() > (lastLine->y() + lastLine->naturalHeight())))
+		if (lastLine && (coord.y() > lastLine->y() + lastLine->naturalHeight()))
 			return lastLine->lastChar() + 1;
 	}
 
