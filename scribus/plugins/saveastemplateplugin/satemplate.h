@@ -43,8 +43,8 @@ class MenuSAT : public QObject
 	Q_OBJECT
 
 public:
-	MenuSAT() {};
-    ~MenuSAT() {};
+	MenuSAT() {}
+	~MenuSAT() {}
 
 public slots:
 	void RunSATPlug(ScribusDoc*);

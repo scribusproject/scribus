@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "satdialog.h"
 
 #include "scpaths.h"
+#include "ui/scmessagebox.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -125,16 +126,19 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	QString userTemplatesDir = ScPaths::instance().userTemplateDir(true);
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
-	QString templatesDir = ".";
 	if (userTemplatesDir.isEmpty())
-		templatesDir = ScPaths::instance().templateDir();
-	else
 	{
-		if (userTemplatesDir.right(1) == "/")
-			userTemplatesDir.chop(1);
-		templatesDir = userTemplatesDir;
+		ScMessageBox::warning(doc->scMW(), QObject::tr("No User Template Location Defined"), "<qt>" +
+										QObject::tr("You have not defined a location to save document templates to. Please go to Scribus application Preferences and define a location in the Paths section.") + "</qt>",
+										QMessageBox::Ok,	// GUI default
+										QMessageBox::Ok);	// batch default
+		return;
 	}
-	dirs->set("collect", templatesDir);
+
+	if (userTemplatesDir.right(1) == "/")
+		userTemplatesDir.chop(1);
+
+	dirs->set("collect", userTemplatesDir);
 	if (doc->scMW()->fileCollect().isEmpty())
 		return;
 	if (oldCollect != ".")
