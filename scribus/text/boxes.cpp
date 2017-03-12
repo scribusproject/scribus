@@ -33,6 +33,18 @@ int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 				return result;
 		}
 	}
+
+	if (containsPoint(coord) && (m_boxes.count() > 0))
+	{
+		LineBox* firstLine = dynamic_cast<LineBox*>(m_boxes.first());
+		if (firstLine && (coord.y() < firstLine->y()))
+			return firstLine->firstChar();
+
+		LineBox* lastLine = dynamic_cast<LineBox*>(m_boxes.last());
+		if (lastLine && (coord.y() > (lastLine->y() + lastLine->naturalHeight())))
+			return lastLine->lastChar() + 1;
+	}
+
 	return -1;
 }
 
@@ -165,6 +177,13 @@ int LineBox::pointToPosition(QPointF coord, const StoryText &story) const
 					position = firstChar();
 				else
 					position = lastChar();
+			}
+			if (position == story.length() - 1)
+			{
+				if (m_firstChar == m_lastChar)
+					position = m_lastChar;
+				else if (!SpecialChars::isBreak(story.text(position)))
+					position = story.length();
 			}
 		}
 	}
