@@ -122,12 +122,12 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	QString currentFile(doc->DocName);
 	bool hasName = doc->hasName;
 	bool isModified = doc->isModified();
-	QString userTemplatesDir = PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates;
+	QString userTemplatesDir = ScPaths::instance().userTemplateDir(true);
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
 	if (userTemplatesDir.isEmpty())
-		templatesDir = ScPaths::applicationDataDir() + "templates";
+		templatesDir = ScPaths::instance().templateDir();
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")

@@ -20,11 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "nfttemplate.h"
 #include "nftrcreader.h"
  
-class nftsettings {
+class nftsettings
+{
 private:
-	QString scribusShare;
-	QString scribusUserHome;
-	QString nftHomeDir;
 	QString lang;
 
 	void read();

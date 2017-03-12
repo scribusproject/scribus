@@ -20,10 +20,7 @@ for which a new license (GPL+exception) is in place.
  
 class nftsettings {
 private:
-	QString scribusShare;
-	QString scribusUserHome;
-	QString userTemplateDir;
-	QString nftHomeDir;
+
 	QString lang;
 	nftrcreader* handler;
 	QXmlSimpleReader* reader;

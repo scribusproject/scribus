@@ -15,27 +15,21 @@ for which a new license (GPL+exception) is in place.
 nftsettings::nftsettings(QString guilang)
 {
 	lang = guilang;
-	scribusShare = ScPaths::instance().templateDir();
-	scribusUserHome = QDir::toNativeSeparators(ScPaths::applicationDataDir());
-
 	read();
 }
 
 void nftsettings::read()
 {
-	nftrcreader reader(&templates ,scribusUserHome);
+	nftrcreader reader(&templates, QDir::toNativeSeparators(ScPaths::applicationDataDir()));
 
-	addTemplates(reader, scribusShare);
-	addTemplates(reader, scribusUserHome+"/templates");
-	QString userTemplateDir(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
-	if (userTemplateDir.right(1) == "/")
-		userTemplateDir.chop(1);
-	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
-		addTemplates(reader, userTemplateDir);
+	addTemplates(reader, ScPaths::instance().templateDir());
+	addTemplates(reader, ScPaths::instance().userTemplateDir(true));
 }
 
 void nftsettings::addTemplates(nftrcreader& reader, QString dir) // dir will be searched for a sub folder called templates
 {
+	if (dir.isEmpty())
+		return;
 	// Add templates from the dir itself
 	QString tmplFile = findTemplateXml(dir);
 	QString tmplFilePath = QDir::toNativeSeparators(tmplFile);
