@@ -2788,10 +2788,15 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	PageItem* currItem;
 	if (page->FromMaster.count() != 0)
 	{
-		uint pageFromMasterCount = page->FromMaster.count();
-		for (uint a = 0; a < pageFromMasterCount; ++a)
+		QList<PageItem*> itemList = page->FromMaster;
+		while (itemList.count() > 0)
 		{
-			currItem = page->FromMaster.at(a);
+			currItem = itemList.takeFirst();
+			if (currItem->isGroup())
+			{
+				itemList = currItem->getItemList() + itemList;
+				continue;
+			}
 			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->pixm.imgInfo.lowResType == 0)
@@ -2813,10 +2818,21 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	{
 		FPoint orig = m_canvas->localToCanvas(QPoint(clipx, clipy));
 		QRectF cullingArea = QRectF(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));
-		for (int it = 0; it < Doc->Items->count(); ++it)
+		QList<PageItem*> itemList = *(Doc->Items);
+		while (itemList.count() > 0)
 		{
-			currItem = Doc->Items->at(it);
-			if (!cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+			currItem = itemList.takeFirst();
+			if (currItem->isGroup())
+			{
+				itemList = currItem->getItemList() + itemList;
+				continue;
+			}
+			double w = currItem->visualWidth();
+			double h = currItem->visualHeight();
+			double x = -currItem->visualLineWidth() / 2.0;
+			double y = -currItem->visualLineWidth() / 2.0;
+			QRectF boundingRect = currItem->getTransform().mapRect(QRectF(x, y, w, h));
+			if (!cullingArea.intersects(boundingRect.adjusted(0.0, 0.0, 1.0, 1.0)))
 				continue;
 			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
 				continue;
