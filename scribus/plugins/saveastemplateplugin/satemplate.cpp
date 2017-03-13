@@ -148,30 +148,29 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	QString docName = docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1);
 	docName = docName.left(docName.lastIndexOf(".s"));
 
-	if (currentFile !=  doc->DocName)
+	if (currentFile ==  doc->DocName)
+		return;
+	SATDialog* satdia = new SATDialog(doc->scMW(),docName,
+									  static_cast<int>(doc->pageWidth() + 0.5),
+									  static_cast<int>(doc->pageHeight() + 0.5));
+	if (satdia->exec())
 	{
-		SATDialog* satdia = new SATDialog(doc->scMW(),docName,
-										  static_cast<int>(doc->pageWidth() + 0.5),
-										  static_cast<int>(doc->pageHeight() + 0.5));
-		if (satdia->exec())
-		{
-			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
-			s->createImages();
-			s->createTmplXml();
-			delete s;
-		}
-		// Restore the state that was before ScMW->Collect()
-		doc->DocName = currentFile;
-		doc->hasName = hasName;
-		doc->setModified(isModified);
-		QString newCaption=currentFile;
-		if (isModified)
-			newCaption.append('*');
-		doc->scMW()->updateActiveWindowCaption(newCaption);
-		doc->scMW()->removeRecent(docPath);
-		QDir::setCurrent(currentPath);
-		delete satdia;
+		sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
+		s->createImages();
+		s->createTmplXml();
+		delete s;
 	}
+	// Restore the state that was before ScMW->Collect()
+	doc->DocName = currentFile;
+	doc->hasName = hasName;
+	doc->setModified(isModified);
+	QString newCaption=currentFile;
+	if (isModified)
+		newCaption.append('*');
+	doc->scMW()->updateActiveWindowCaption(newCaption);
+	doc->scMW()->removeRecent(docPath);
+	QDir::setCurrent(currentPath);
+	delete satdia;
 }
 
 // --------------------- CLASS sat ------------------------------------------------//
