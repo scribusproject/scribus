@@ -151,7 +151,7 @@ void ScDockPalette::hideEvent(QHideEvent* hideEvent)
 
 void ScDockPalette::showEvent(QShowEvent *showEvent)
 {
-#if QT_VERSION < 0x050600
+//#13978 related, do not need this: #if QT_VERSION < 0x050600
 	// According to Qt doc, non-spontaneous show events are sent to widgets
 	// immediately before they are shown. We want to restore geometry for those
 	// events as spontaneous events are delivered after dialog has been shown
@@ -202,7 +202,7 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 		storeDockState();
 		storeVisibility(true);
 	}
-#endif
+//#13978 related, do not need this: #endif
 	QDockWidget::showEvent(showEvent);
 }
 
