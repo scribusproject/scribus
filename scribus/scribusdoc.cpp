@@ -6862,8 +6862,8 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 		newSection.name=name;
 		newSection.fromindex=fromindex;
 		newSection.toindex=toindex;
-		if (newSection.toindex>docPageCount-1)
-			newSection.toindex=docPageCount-1;
+		if (newSection.toindex > (uint) docPageCount - 1)
+			newSection.toindex = docPageCount - 1;
 		newSection.type=type;
 		newSection.sectionstartindex=sectionstartindex;
 		newSection.reversed=reversed;
@@ -13673,8 +13673,8 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	assert(itemSelection!=0);
-	int selectedItemCount=itemSelection->count();
+	assert(itemSelection != 0);
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 
@@ -13685,14 +13685,14 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
-	for (int i = 0; i < selectedItemCount; ++i)
+	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
-		if (startArrowID!=-1)
+		if (startArrowID != -1)
 			currItem->setStartArrowIndex(startArrowID);
-		if (endArrowID!=-1)
+		if (endArrowID != -1)
 			currItem->setEndArrowIndex(endArrowID);
 		if (selectedItemCount <= Um::ItemsInvolvedLimit)
 			tooltip += "\t" + currItem->getUName() + "\n";
@@ -13718,8 +13718,8 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	assert(itemSelection != 0);
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 
@@ -13730,7 +13730,7 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
-	for (int i = 0; i < selectedItemCount; ++i)
+	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
