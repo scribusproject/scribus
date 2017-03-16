@@ -828,6 +828,11 @@
         <translation>Çerçevenin İçeriğini Düzenle</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <source>Edit Text with Story Editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
         <translation>Metin Çerçevelerini Bağla</translation>
@@ -997,11 +1002,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Hizala ve Dağıt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
-        <source>Edit Text...</source>
-        <translation>Metni Düzenle...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -25574,8 +25574,18 @@ Dışarı Link</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="255"/>
+        <source>Gondi Southern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="332"/>
+        <source>Kölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27540,11 +27550,6 @@ Dışarı Link</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="255"/>
-        <source>Gondi Southern </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Guarani</source>
         <translation type="unfinished"></translation>
@@ -27877,11 +27882,6 @@ Dışarı Link</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
         <source>Kokni</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="332"/>
-        <source>K ölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35201,12 +35201,12 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <translation>Devredışı</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kullanımda olan öğe dönüştürülemez</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 şu an metin düzenleyici içinde düzenleniyor. İşlem iptal edilecek</translation>
     </message>

@@ -827,6 +827,11 @@
         <translation>Upraviť obsah rámca</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <source>Edit Text with Story Editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
         <translation>Prepojiť textové rámce</translation>
@@ -995,11 +1000,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
         <translation>Z&amp;arovnať a umiestniť</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
-        <source>Edit Text...</source>
-        <translation>Upraviť text...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -25603,8 +25603,18 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="255"/>
+        <source>Gondi Southern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="332"/>
+        <source>Kölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27569,11 +27579,6 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="255"/>
-        <source>Gondi Southern </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Guarani</source>
         <translation type="unfinished"></translation>
@@ -27906,11 +27911,6 @@ Externé odkazy
     <message>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
         <source>Kokni</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="332"/>
-        <source>K ölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35245,12 +35245,12 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Zakázané</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nie je možné konvertovať používanú položku</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Položka %1 práve upravovaná v Story Editore. Operácia konvertovanie na obrysy pre túto položku bude preskočená</translation>
     </message>

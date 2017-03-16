@@ -827,6 +827,11 @@
         <translation>Muokkaa kehyksen sisältöä</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <source>Edit Text with Story Editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
         <translation>Linkitä tekstikehykset</translation>
@@ -995,11 +1000,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Jaa ja tasaa</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
-        <source>Edit Text...</source>
-        <translation>Muokkaa tekstiä...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -25587,8 +25587,18 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="255"/>
+        <source>Gondi Southern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="332"/>
+        <source>Kölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27553,11 +27563,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="255"/>
-        <source>Gondi Southern </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Guarani</source>
         <translation type="unfinished"></translation>
@@ -27890,11 +27895,6 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
         <source>Kokni</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="332"/>
-        <source>K ölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35246,12 +35246,12 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
         <translation>Ei</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Käytössä olevaa kohdetta ei voi muuttaa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Muutosoperaatio peruutetaan.</translation>
     </message>

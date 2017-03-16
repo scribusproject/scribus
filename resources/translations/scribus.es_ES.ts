@@ -827,6 +827,11 @@
         <translation>Editar contenido del marco</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <source>Edit Text with Story Editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
         <translation>Enlazar marcos de texto</translation>
@@ -995,11 +1000,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Alinear y distribuir</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
-        <source>Edit Text...</source>
-        <translation>Editar texto...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -25678,9 +25678,19 @@ Enlaces externos</translation>
         <translation>Efik</translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="255"/>
+        <source>Gondi Southern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
         <translation>Hammer-Banna</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="332"/>
+        <source>Kölsch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="343"/>
@@ -27644,11 +27654,6 @@ Enlaces externos</translation>
         <translation>Gondi del norte</translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="255"/>
-        <source>Gondi Southern </source>
-        <translation>Gondi del sur</translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Guarani</source>
         <translation>Guaraní</translation>
@@ -27982,11 +27987,6 @@ Enlaces externos</translation>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
         <source>Kokni</source>
         <translation>Kokni</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="332"/>
-        <source>K ölsch</source>
-        <translation>K ölsch</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="333"/>
@@ -35352,12 +35352,12 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <translation>Desactivado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>No se puede convertir un objeto en uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>El elemento %1 se está editando en la ventana de edición. La operación de conversión a contornos de este elemento se ignorará</translation>
     </message>

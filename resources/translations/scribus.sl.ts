@@ -827,6 +827,11 @@
         <translation>Uredi vsebino okvira</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <source>Edit Text with Story Editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
         <translation>Poveži besedilne okvire</translation>
@@ -996,11 +1001,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
         <translation>R&amp;azporedi in poravnaj</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
-        <source>Edit Text...</source>
-        <translation>Uredi besedilo ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -25634,8 +25634,18 @@ Zunanje povezave
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="255"/>
+        <source>Gondi Southern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="332"/>
+        <source>Kölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27600,11 +27610,6 @@ Zunanje povezave
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="255"/>
-        <source>Gondi Southern </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Guarani</source>
         <translation type="unfinished"></translation>
@@ -27937,11 +27942,6 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
         <source>Kokni</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="332"/>
-        <source>K ölsch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35296,12 +35296,12 @@ Uporabite Končno preverjanje, da jih odpravite</translation>
         <translation>Izključeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne morete pretvoriti predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3241"/>
+        <location filename="../../scribus/scribusview.cpp" line="3257"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Pretvarjanje v črte je bilo preklicano</translation>
     </message>
