@@ -502,7 +502,8 @@ void ContextMenu::createMenuItems_Selection()
 		menuEdit->addAction(m_ScMW->scrActions["itemDelete"]);
 
 //<<#14678
-	if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() )
+	if ((ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()) &&
+		!m_doc->inAnEditMode())
 	{
 		FPoint fp = m_doc->view()->m_canvas->globalToCanvas(QCursor::pos());
 		m_doc->view()->dragX = fp.x();
