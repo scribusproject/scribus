@@ -24,6 +24,7 @@
 #include <QWidgetAction>
 
 #include "appmodes.h"
+#include "canvas.h"
 #include "canvasmode.h"
 #include "pageitem_textframe.h"
 #include "scmimedata.h"
@@ -499,6 +500,19 @@ void ContextMenu::createMenuItems_Selection()
 		menuEdit->addAction(m_ScMW->scrActions["editPaste"]);
 	if (!currItem->locked() && (m_doc->appMode != modeEdit)  && (m_doc->appMode != modeEditTable) && (!(currItem->isSingleSel)))
 		menuEdit->addAction(m_ScMW->scrActions["itemDelete"]);
+
+//<<#14678
+	if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() )
+	{
+		FPoint fp = m_doc->view()->m_canvas->globalToCanvas(QCursor::pos());
+		m_doc->view()->dragX = fp.x();
+		m_doc->view()->dragY = fp.y();
+		menuEdit->addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
+	}
+//>>#14678
+
+
+
 	//-->
 	//<-- Add undo
 	UndoManager * const undoManager(UndoManager::instance());
