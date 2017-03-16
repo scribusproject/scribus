@@ -1495,7 +1495,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>Edit Text with Story Editor...</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer le texte dans l&apos;éditeur...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
@@ -5721,7 +5721,7 @@ pour la sortie du fichier %1</translation>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="558"/>
         <source>&amp;Paste Here</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Coller</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
