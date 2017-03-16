@@ -161,7 +161,7 @@ void ContextMenu::createMenuItems_Selection()
 		addSeparator();
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportText"]);
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportAppendText"]);
-		menuEditContent->addAction(m_ScMW->scrActions["toolsEditContents"]);
+		menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
 		menuEditContent->addAction(m_ScMW->scrActions["insertSampleText"]);
 		menuEditContent->addSeparator();
 	}

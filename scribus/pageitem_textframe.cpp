@@ -5056,7 +5056,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		return;
 	actionList << "fileImportText";
 	actionList << "fileImportAppendText";
-	actionList << "toolsEditContents";
+	actionList << "toolsEditWithStoryEditor";
 	actionList << "insertSampleText";
 	actionList << "itemPDFIsAnnotation";
 	if (doc()->currentPage()->pageName().isEmpty())
