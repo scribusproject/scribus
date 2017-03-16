@@ -1704,7 +1704,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsZoomIn"]->setTexts( tr("Zoom in"));
 	(*scrActions)["toolsZoomOut"]->setTexts( tr("Zoom out"));
 	(*scrActions)["toolsEditContents"]->setTexts( tr("Edit Contents of Frame"));
-	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text..."));
+	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text with Story Editor..."));
 	(*scrActions)["toolsLinkTextFrame"]->setTexts( tr("Link Text Frames"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts( tr("Unlink Text Frames"));
 	(*scrActions)["toolsUnlinkTextFrameAndCutText"]->setTexts( tr("Unlink Text Frames and Cut Text"));
