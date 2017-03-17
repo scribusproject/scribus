@@ -2987,7 +2987,7 @@ void PageItem_TextFrame::layout()
 		}
 	}
 	MaxChars = itemText.length();
-	if ((verticalAlign > 0) && (NextBox == NULL))
+	if (verticalAlign > 0)
 	{
 		double hAdjust = height() - textLayout.box()->naturalHeight() - m_textDistanceMargins.bottom();
 		if (hAdjust > 0)
@@ -3038,6 +3038,28 @@ NoRoom:
 	invalid = false;
 	
 	adjustParagraphEndings ();
+
+	if (verticalAlign > 0)
+	{
+		double hAdjust = height() - textLayout.box()->naturalHeight() - m_textDistanceMargins.bottom();
+		if (hAdjust > 0)
+		{
+			if (verticalAlign == 1)
+				hAdjust /= 2;
+			if (FrameType == 0) // Rectangular frame
+				textLayout.box()->moveBy(0, hAdjust);
+			else
+			{
+				int vertAlign = verticalAlign;
+				double topDist = m_textDistanceMargins.top();
+				m_textDistanceMargins.setTop(topDist + hAdjust);
+				verticalAlign = 0;
+				layout();
+				verticalAlign = vertAlign;
+				m_textDistanceMargins.setTop(topDist);
+			}
+		}
+	}
 
 	if (!isNoteFrame() && (!m_Doc->notesList().isEmpty() || m_Doc->notesChanged()))
 	{
