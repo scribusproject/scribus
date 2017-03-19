@@ -2706,6 +2706,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								}
 								if (!tmpOut.isEmpty())
 								{
+									PutPage("q\n");
 									if (ite->GrType == 14)
 										PutPage(tmpOut);
 									else
@@ -2714,6 +2715,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 										PutPage(SetClipPath(ite));
 										PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 									}
+									PutPage("Q\n");
 								}
 							}
 							else
@@ -4409,6 +4411,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					}
 					if (!tmpOut.isEmpty())
 					{
+						tmp += "q\n";
 						if (ite->GrType == 14)
 							tmp += tmpOut;
 						else
@@ -4417,6 +4420,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							tmp += SetClipPath(ite);
 							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
+						tmp += "Q\n";
 					}
 				}
 				else
