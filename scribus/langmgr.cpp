@@ -617,7 +617,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("cy",       "cy_GB",    "Welsh",                   QObject::tr("Welsh")));
 	m_langTable.append(LangDef("wle",      "",         "Wolane",                  QObject::tr("Wolane")));
 	m_langTable.append(LangDef("wo",       "",         "Wolof",                   QObject::tr("Wolof")));
-	m_langTable.append(LangDef("xwo",      "",         "Written Oirat (Todo)",    QObject::tr(" Written Oirat (Todo)")));
+	m_langTable.append(LangDef("xwo",      "",         "Written Oirat (Todo)",    QObject::tr("Written Oirat (Todo)")));
 	m_langTable.append(LangDef("xh",       "",         "Xhosa",                   QObject::tr("Xhosa")));
 	m_langTable.append(LangDef("yao",      "",         "Yao",                     QObject::tr("Yao")));
 	m_langTable.append(LangDef("sah",      "",         "Yakut",                   QObject::tr("Yakut")));
