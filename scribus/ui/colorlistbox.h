@@ -114,7 +114,7 @@ class SCRIBUS_API ColorListBox : public QListWidget
 	protected slots:
 		virtual void languageChange();
 	signals:
-		void showContextMenue();
+		void contextMenuRequested();
 	protected:
 		bool viewportEvent(QEvent *event);
 		static int initialized;

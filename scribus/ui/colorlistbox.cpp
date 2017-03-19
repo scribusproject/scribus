@@ -5,22 +5,24 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "colorlistbox.h"
-#include <QPainter>
-#include <QPixmap>
-#include <QBitmap>
+
 #include <cstdlib>
-#include <QToolTip>
+#include <QBitmap>
+#include <QCursor>
 #include <QEvent>
 #include <QHelpEvent>
 #include <QMenu>
-#include <QCursor>
+#include <QPainter>
+#include <QPixmap>
+#include <QSignalBlocker>
+#include <QToolTip>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "util_color.h"
-#include "iconmanager.h"
 
 
 
@@ -204,7 +206,7 @@ ColorListBox::ColorListBox(QWidget * parent)
 		sortRule = 0;
 	initialized = 12345;
 	setPixmapType(ColorListBox::widePixmap);
-	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
+	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
@@ -215,7 +217,7 @@ ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 		sortRule = 0;
 	initialized = 12345;
 	setPixmapType(type);
-	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
+	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 ColorListBox::~ColorListBox()
@@ -303,36 +305,35 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 
 void ColorListBox::slotRightClick()
 {
-	blockSignals(true);
+	QSignalBlocker sigBlocker(this);
 	QString currentSel;
 	QListWidgetItem* itc = currentItem();
 	if (itc)
 		currentSel = itc->text();
 	QListWidgetItem* it = item(0);
-	if (it)
+	if (!it)
+		return;
+
+	QString first;
+	QMenu *pmen = new QMenu();
+	pmen->addAction( tr("Sort by Name"));
+	pmen->addAction( tr("Sort by Color"));
+	pmen->addAction( tr("Sort by Type"));
+	sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+	delete pmen;
+	if (it->text() == CommonStrings::None || it->text() == CommonStrings::tr_NoneColor)
+		first = it->text();
+	clear();
+	reset();
+	if (!first.isEmpty())
+		addItem(first);
+	insertItems( *cList );
+	if (!currentSel.isEmpty())
 	{
-		QString first;
-		QMenu *pmen = new QMenu();
-		pmen->addAction( tr("Sort by Name"));
-		pmen->addAction( tr("Sort by Color"));
-		pmen->addAction( tr("Sort by Type"));
-		sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
-		delete pmen;
-		if (it->text() == CommonStrings::None || it->text() == CommonStrings::tr_NoneColor)
-			first = it->text();
-		clear();
-		reset();
-		if (!first.isEmpty())
-			addItem(first);
-		insertItems( *cList );
-		if (!currentSel.isEmpty())
-		{
-			QList<QListWidgetItem *> items = findItems(currentSel, Qt::MatchExactly);
-			if (items.count() > 0)
-				setCurrentItem(items[0]);
-		}
+		QList<QListWidgetItem *> items = findItems(currentSel, Qt::MatchExactly);
+		if (items.count() > 0)
+			setCurrentItem(items[0]);
 	}
-	blockSignals(false);
 }
 
 void ColorListBox::updateBox(ColorList& list)
@@ -412,54 +413,21 @@ bool ColorListBox::viewportEvent(QEvent *event)
 {
 	if (event != NULL)
 	{
-	/* commented out because of random crashes in the colorcombobox of the gradient editor
-	if (event->type() == QEvent::ToolTip)
-	{
-		if (cList != NULL)
+		if (event->type() == QEvent::MouseButtonPress)
 		{
-			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-			QListWidgetItem* it = itemAt(helpEvent->pos());
-			if (it != NULL)
+			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			if (mouseEvent->button() == Qt::RightButton)
+				return true;
+		}
+		else if (event->type() == QEvent::MouseButtonRelease)
+		{
+			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			if (mouseEvent->button() == Qt::RightButton)
 			{
-				event->accept();
-				QString tipText = "";
-				if (cList->contains(it->text()))
-				{
-					ScColor col = (*cList)[it->text()];
-					if (col.getColorModel() == colorModelCMYK)
-					{
-						int c, m, y, k;
-						col.getCMYK(&c, &m, &y, &k);
-						tipText = QString("C:%1% M:%2% Y:%3% K:%4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
-					}
-					else
-					{
-						int r, g, b;
-						col.getRawRGBColor(&r, &g, &b);
-						tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
-					}
-				}
-				QToolTip::showText(helpEvent->globalPos(), tipText, this);
+				emit contextMenuRequested();
 				return true;
 			}
 		}
-	}
-	else */
-	if (event->type() == QEvent::MouseButtonPress)
-	{
-		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-		if (mouseEvent->button() == Qt::RightButton)
-			return true;
-	}
-	else if (event->type() == QEvent::MouseButtonRelease)
-	{
-		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-		if (mouseEvent->button() == Qt::RightButton)
-		{
-			emit showContextMenue();
-			return true;
-		}
-	}
 	}
 	return QListWidget::viewportEvent(event);
 }
