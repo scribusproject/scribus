@@ -4535,6 +4535,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					}
 					if (!tmpOut.isEmpty())
 					{
+						tmp += "q\n";
 						if (ite->GrType == 14)
 							tmp += tmpOut;
 						else
@@ -4543,6 +4544,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							tmp += SetClipPath(ite);
 							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
+						tmp += "Q\n";
 					}
 				}
 				else
