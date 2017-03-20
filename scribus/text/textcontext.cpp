@@ -74,44 +74,53 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 										 doc->getSectionPageNumberFillCharForPageIndex(m_frame->OwnPage));
 			}
 			return "#";
-			
 		case ExpansionPoint::PageCount:
-		{
-			int key = doc->getSectionKeyForPageIndex(m_frame->OwnPage);
-			if (key == -1)
-				return "%";
-			return QString("%1").arg(getStringFromSequence(doc->sections()[key].type, doc->sections()[key].toindex - doc->sections()[key].fromindex + 1));
-		}
+			{
+				int key = doc->getSectionKeyForPageIndex(m_frame->OwnPage);
+				if (key == -1)
+					return "%";
+				return QString("%1").arg(getStringFromSequence(doc->sections()[key].type, doc->sections()[key].toindex - doc->sections()[key].fromindex + 1));
+			}
 		case ExpansionPoint::MarkCE:
-		{
-			Mark* mark = expansion.getMark();
-			
-			mark->OwnPage = m_frame->OwnPage;
-			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
-			if (!mark->isType(MARK2ItemType))
 			{
-				mark->setItemPtr(m_frame);
-				mark->setItemName(m_frame->itemName());
-			}
-			
-			//anchors and indexes has no visible inserts in text
-			if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
-				return QString();
-			
-			//set note marker charstyle
-			if (mark->isNoteType())
-			{
-				mark->setItemPtr(m_frame);
-				
-				
-				TextNote* note = mark->getNotePtr();
-				if (note == NULL)
+				Mark* mark = expansion.getMark();
+
+				mark->OwnPage = m_frame->OwnPage;
+				//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
+				if (!mark->isType(MARK2ItemType))
+				{
+					mark->setItemPtr(m_frame);
+					mark->setItemName(m_frame->itemName());
+				}
+
+				//anchors and indexes has no visible inserts in text
+				if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
 					return QString();
-				
+
+				//set note marker charstyle
+				if (mark->isNoteType())
+				{
+					mark->setItemPtr(m_frame);
+
+
+					TextNote* note = mark->getNotePtr();
+					if (note == NULL)
+						return QString();
+
+				}
+				if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
+					return mark->getString();
 			}
-			if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
-				return mark->getString();
-		}
+			break;
+		case ExpansionPoint::Invalid:
+		case ExpansionPoint::ListBullet:
+		case ExpansionPoint::ListCounter:
+		case ExpansionPoint::Note:
+		case ExpansionPoint::Anchor:
+		case ExpansionPoint::PageRef:
+		case ExpansionPoint::Lookup:
+		case ExpansionPoint::SectionRef:
+			break;
 	}
 	return QString();
 }

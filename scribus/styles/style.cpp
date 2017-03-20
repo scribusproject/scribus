@@ -79,14 +79,14 @@ bool BaseStyle::canInherit(const QString& parentName) const
 	if (!parentStyle)
 		return false;
 
-	bool  loop = false, parentLoop = false;
+	bool  parentLoop = false;
 
 	const BaseStyle* pStyle = parentStyle;
 	while (pStyle)
 	{
 		if (pStyle->hasParent() && (pStyle->parent() == m_name))
 		{
-			loop = parentLoop = true;
+			parentLoop = true;
 			break;
 		}
 		pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
