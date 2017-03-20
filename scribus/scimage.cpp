@@ -652,8 +652,8 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 	long widthk;
 	double red, green, blue, alpha;
 	double normalize, *normal_kernel;
-	register const double *k;
-	register unsigned int *q;
+	const double *k;
+	unsigned int *q;
 	int x, y, mx, my, sx, sy;
 	long i;
 	int mcx, mcy;
@@ -714,7 +714,7 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 {
 	double normalize, value;
 	long width;
-	register long u;
+	long u;
 	assert(sigma != 0.0);
 	if(radius > 0.0)
 		return((int)(2.0*ceil(radius)+1.0));
@@ -736,7 +736,7 @@ void ScImage::sharpen(double radius, double sigma)
 {
 	double alpha, normalize, *kernel;
 	int widthk;
-	register long i, u, v;
+	long i, u, v;
 	QImage dest;
 	if(sigma == 0.0)
 		return;
@@ -1563,14 +1563,14 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 	QImage dst(nwidth, nheight, QImage::Format_ARGB32);
 	QRgb* xelrow = 0;
 	QRgb* tempxelrow = 0;
-	register QRgb* xP;
-	register QRgb* nxP;
+	QRgb* xP;
+	QRgb* nxP;
 	int rows, cols, rowsread, newrows, newcols;
-	register int row, col, needtoreadrow;
+	int row, col, needtoreadrow;
 	const uchar maxval = 255;
 	double xscale, yscale;
 	long sxscale, syscale;
-	register long fracrowtofill, fracrowleft;
+	long fracrowtofill, fracrowleft;
 	long* as;
 	long* rs;
 	long* gs;
@@ -1647,10 +1647,10 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 				xelrow = (QRgb*)scanLine(rowsread++);
 				needtoreadrow = 0;
 			}
-			register long a=0;
+			long a=0;
 			for ( col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP )
 			{
-				register long r, g, b;
+				long r, g, b;
 				a = as[col] + fracrowtofill * qAlpha( *xP );
 				r = rs[col] + fracrowtofill * qRed( *xP );
 				g = gs[col] + fracrowtofill * qGreen( *xP );
@@ -1678,9 +1678,9 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 			memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols*4);
 		else
 		{
-			register long a, r, g, b;
-			register long fraccoltofill, fraccolleft = 0;
-			register int needcol;
+			long a, r, g, b;
+			long fraccoltofill, fraccolleft = 0;
+			int needcol;
 			nxP = (QRgb*)dst.scanLine(rowswritten++);
 			QRgb *nxPEnd = nxP + newcols;
 			fraccoltofill = SCALE;
@@ -1781,14 +1781,14 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 {
 	unsigned char* xelrow = 0;
 	unsigned char* tempxelrow = 0;
-	register unsigned char* xP;
-	register unsigned char* nxP;
+	unsigned char* xP;
+	unsigned char* nxP;
 	int rows, cols, rowsread, newrows, newcols;
-	register int row, col, needtoreadrow;
+	int row, col, needtoreadrow;
 	const uchar maxval = 255;
 	double xscale, yscale;
 	long sxscale, syscale;
-	register long fracrowtofill, fracrowleft;
+	long fracrowtofill, fracrowleft;
 	long* ps;
 	int rowswritten = 0;
 
@@ -1867,7 +1867,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 					xelrow = scanLine(rowsread++);
 					needtoreadrow = 0;
 				}
-				register long p = 0;
+				long p = 0;
 				xP  = xelrow + chIndex;
 				nxP = tempxelrow + chIndex;
 				for (col = 0; col < cols; ++col, xP += nChannels, nxP += nChannels)
@@ -1892,9 +1892,9 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 			}
 			else
 			{
-				register long p;
-				register long fraccoltofill, fraccolleft = 0;
-				register int needcol;
+				long p;
+				long fraccoltofill, fraccolleft = 0;
+				int needcol;
 				nxP = dst.scanLine(rowswritten++) + chIndex;
 				unsigned char *nxPEnd = nxP + newcols * nChannels;
 				fraccoltofill = SCALE;
