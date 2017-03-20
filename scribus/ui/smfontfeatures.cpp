@@ -43,6 +43,68 @@ SMFontFeatures::SMFontFeatures(QWidget *parent)
 	connect(this->setMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotChange()));
 }
 
+void SMFontFeatures::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+		languageChange();
+	else
+		QWidget::changeEvent(e);
+}
+
+void SMFontFeatures::languageChange()
+{
+	QSignalBlocker blocker01(this->CommonCheck);
+	QSignalBlocker blocker02(this->ContextualCheck);
+	QSignalBlocker blocker03(this->DiscretinoryCheck);
+	QSignalBlocker blocker04(this->HistoricalCheck);
+	QSignalBlocker blocker05(this->SlashedZeroCheck);
+	QSignalBlocker blocker06(this->capitalsComboBox);
+	QSignalBlocker blocker07(this->positionComboBox);
+	QSignalBlocker blocker08(this->numeralComboBox);
+	QSignalBlocker blocker09(this->widthComboBox);
+	QSignalBlocker blocker10(this->fractionComboBox);
+	QSignalBlocker blocker11(this->setMenu);
+
+	QStringList capitalFeatures  = comboboxFeatures(capitalsComboBox);
+	QStringList positionFeatures = comboboxFeatures(positionComboBox);
+	QStringList numeralFeatures  = comboboxFeatures(numeralComboBox);
+	QStringList widthFeatures    = comboboxFeatures(widthComboBox);
+	QStringList fractionFeatures = comboboxFeatures(fractionComboBox);
+
+	int oldCapitalIndex  = capitalsComboBox->currentIndex();
+	int oldPositionIndex = positionComboBox->currentIndex();
+	int oldNumeralIndex  = numeralComboBox->currentIndex();
+	int oldWidthIndex    = widthComboBox->currentIndex();
+	int oldFractionIndex = fractionComboBox->currentIndex();
+
+	retranslateUi(this);
+
+	setupCapitalCombo(capitalFeatures);
+	setupPositionCombo(positionFeatures);
+	setupNumeralStyleCombo(numeralFeatures);
+	setupNumeralWidthCombo(widthFeatures);
+	setupNumeralFractionCombo(fractionFeatures);
+
+	capitalsComboBox->setCurrentIndex(oldCapitalIndex);
+	positionComboBox->setCurrentIndex(oldPositionIndex);
+	numeralComboBox->setCurrentIndex(oldNumeralIndex);
+	widthComboBox->setCurrentIndex(oldWidthIndex);
+	fractionComboBox->setCurrentIndex(oldFractionIndex);
+}
+
+QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo)
+{
+	QStringList features;
+	for (int i = 0; i < combo->count(); ++i)
+	{
+		QVariant varVal = combo->itemData(i);
+		QString value = varVal.toString();
+		if (value.length() > 0)
+			features.append(value);
+	}
+	return features;
+}
+
 void SMFontFeatures::setFontFeatures(QString s, QStringList fontFeaturesList)
 {
 	disconnectSignals();
