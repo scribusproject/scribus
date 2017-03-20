@@ -7,9 +7,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "smfontfeatures.h"
 #include "util.h"
+
+#include <QAction>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QAction>
+#include <QSignalBlocker>
 
 SMFontFeatures::SMFontFeatures(QWidget *parent)
 	: QWidget(parent),
@@ -62,40 +64,40 @@ void SMFontFeatures::setFontFeatures(QString s, QStringList fontFeaturesList)
 		else if (fontFeatures[i] == "+hlig")
 			HistoricalCheck->setChecked(true);
 		// position comboBox
-		else if (fontFeatures[i] == "+subs")
-			setCurrentComboItem(positionComboBox, "Subscript");
-		else if (fontFeatures[i] == "+sups")
-			setCurrentComboItem(positionComboBox, "Superscript");
-		else if (fontFeatures[i] == "+ordn")
-			setCurrentComboItem(positionComboBox, "Ordinal");
+		else if (fontFeatures[i] == "+subs" || 
+		         fontFeatures[i] == "+sups" ||
+		         fontFeatures[i] == "+ordn")
+		{
+			setCurrentComboItemFromData(positionComboBox, fontFeatures[i]);
+		}
 		// Capitals ComboBox
-		else if (fontFeatures[i] == "+smcp")
-			setCurrentComboItem(capitalsComboBox, "Small Capitals");
-		else if (fontFeatures[i] == "+c2sc")
-			setCurrentComboItem(capitalsComboBox, "Small Capitals from Capitals");
-		else if (fontFeatures[i] == "+pcap")
-			setCurrentComboItem(capitalsComboBox, "Petite Capitals");
-		else if (fontFeatures[i] == "+c2pc")
-			setCurrentComboItem(capitalsComboBox, "Petite Capitals from Capitals");
-		else if (fontFeatures[i] == "+unic")
-			setCurrentComboItem(capitalsComboBox, "Unicase");
-		else if (fontFeatures[i] == "+titl")
-			setCurrentComboItem(capitalsComboBox, "Titling");
+		else if (fontFeatures[i] == "+smcp" || 
+		         fontFeatures[i] == "+c2sc" || 
+		         fontFeatures[i] == "+pcap" || 
+		         fontFeatures[i] == "+c2pc" || 
+		         fontFeatures[i] == "+unic" || 
+		         fontFeatures[i] == "+titl")
+		{
+			setCurrentComboItemFromData(capitalsComboBox, fontFeatures[i]);
+		}
 		// Numerals style
-		else if (fontFeatures[i] == "+lnum")
-			setCurrentComboItem(numeralComboBox, "Lining");
-		else if (fontFeatures[i] == "+onum")
-			setCurrentComboItem(numeralComboBox, "Old Style");
+		else if (fontFeatures[i] == "+lnum" || 
+		         fontFeatures[i] == "+onum")
+		{
+			setCurrentComboItemFromData(numeralComboBox, fontFeatures[i]);
+		}
 		// Numerals width
-		else if (fontFeatures[i] == "+pnum")
-			setCurrentComboItem(widthComboBox, "Proportional");
-		else if (fontFeatures[i] == "+tnum")
-			setCurrentComboItem(widthComboBox, "Tabular");
+		else if (fontFeatures[i] == "+pnum" || 
+		         fontFeatures[i] == "+tnum")
+		{
+			setCurrentComboItemFromData(widthComboBox, fontFeatures[i]);
+		}
 		// Numerals Fraction
-		else if (fontFeatures[i] == "+frac")
-			setCurrentComboItem(fractionComboBox, "Diagonal Fractions");
-		else if (fontFeatures[i] == "+afrc")
-			setCurrentComboItem(fractionComboBox, "Stacked Fractions");
+		else if (fontFeatures[i] == "+frac" || 
+		         fontFeatures[i] == "+afrc")
+		{
+			setCurrentComboItemFromData(fractionComboBox, fontFeatures[i]);
+		}
 		// Numerals Zero
 		else if (fontFeatures[i] == "+zero")
 			SlashedZeroCheck->setChecked(true);
@@ -166,43 +168,30 @@ QString SMFontFeatures::fontFeatures()
 	if (HistoricalCheck->isChecked())
 		font_feature << "+hlig";
 	//Position
-	QString vlaue = positionComboBox->currentText();
-	if (vlaue == "Subscript")
-		font_feature << "+subs";
-	else if (vlaue == "Superscript")
-		font_feature <<"+sups";
+	QVariant varVal = positionComboBox->currentData();
+	QString  value = varVal.toString();
+	if (value.length() > 0)
+		font_feature << value;
 	//Capitals
-	vlaue = capitalsComboBox->currentText();
-	if (vlaue == "Small Capitals")
-		font_feature << "+smcp";
-	else if (vlaue == "Small Capitals from Capitals")
-		font_feature << "+c2sc";
-	else if (vlaue == "Petite Capitals")
-		font_feature << "+pcap";
-	else if (vlaue == "Petite Capitals from Capitals")
-		font_feature << "+c2pc";
-	else if (vlaue == "Unicase")
-		font_feature << "+unic";
-	else if (vlaue == "Titling")
-		font_feature << "+titl";
+	varVal = capitalsComboBox->currentData();
+	value = varVal.toString();
+	if (value.length() > 0)
+		font_feature << value;
 	//Numerals style
-	vlaue = numeralComboBox->currentText();
-	if (vlaue == "Lining")
-		font_feature << "+lnum";
-	else if (vlaue == "Old Style")
-		font_feature << "+onum";
+	varVal = numeralComboBox->currentData();
+	value = varVal.toString();
+	if (value.length() > 0)
+		font_feature << value;
 	//Numerals width
-	vlaue = widthComboBox->currentText();
-	if (vlaue == "Proportional")
-		font_feature << "+pnum";
-	else if (vlaue == "Tabular")
-		font_feature << "+tnum";
+	varVal = widthComboBox->currentData();
+	value = varVal.toString();
+	if (value.length() > 0)
+		font_feature << value;
 	//Numerals Fraction
-	vlaue = fractionComboBox->currentText();
-	if (vlaue == "Diagonal Fractions")
-		font_feature << "+frac";
-	else if (vlaue == "Stacked Fractions")
-		font_feature << "+afrc";
+	varVal = fractionComboBox->currentData();
+	value = varVal.toString();
+	if (value.length() > 0)
+		font_feature << value;
 	// Numerals Zero
 	if (SlashedZeroCheck->isChecked())
 		font_feature << "+zero";
@@ -306,37 +295,26 @@ void SMFontFeatures::hideAllFontFeatures()
 	HistoricalCheck->setDisabled(true);
 
 	capitalsLabel->hide();
-	removeComboItem(capitalsComboBox, "Small Capitals");
-	removeComboItem(capitalsComboBox, "Small Capitals from Capitals");
-	removeComboItem(capitalsComboBox, "Petite Capitals");
-	removeComboItem(capitalsComboBox, "Petite Capitals from Capitals");
-	removeComboItem(capitalsComboBox, "Unicase");
-	removeComboItem(capitalsComboBox, "Titling");
 	capitalsComboBox->hide();
-
+	setupCapitalCombo(QStringList());
 
 	positionLabel->hide();
-	removeComboItem(positionComboBox, "Subscript");
-	removeComboItem(positionComboBox, "Superscript");
-	removeComboItem(positionComboBox, "Ordinals");
 	positionComboBox->hide();
+	setupPositionCombo(QStringList());
 	capitalsGroupBox->hide();
 
 	numeralsGroupBox->hide();
 	styleLabel->hide();
-	removeComboItem(numeralComboBox, "Lining");
-	removeComboItem(numeralComboBox, "Old Style");
 	numeralComboBox->hide();
+	setupNumeralStyleCombo(QStringList());
 
 	widthLabel->hide();
-	removeComboItem(widthComboBox, "Proportional");
-	removeComboItem(widthComboBox, "Tabular");
 	widthComboBox->hide();
+	setupNumeralWidthCombo(QStringList());
 
 	fractionLabel->hide();
-	removeComboItem(fractionComboBox, "Diagonal Fractions");
-	removeComboItem(fractionComboBox, "Stacked Fractions");
 	fractionComboBox->hide();
+	setupNumeralFractionCombo(QStringList());
 
 	SlashedZeroCheck->hide();
 	stylisticSetsLabel->hide();
@@ -367,6 +345,12 @@ void SMFontFeatures::enableFontFeatures(QStringList fontFeatures)
 	stylisticSetsLabel->show();
 	commandLinkButton->show();
 
+	setupCapitalCombo(fontFeatures);
+	setupPositionCombo(fontFeatures);
+	setupNumeralStyleCombo(fontFeatures);
+	setupNumeralWidthCombo(fontFeatures);
+	setupNumeralFractionCombo(fontFeatures);
+
 	for (int i = 0; i < fontFeatures.count(); i++)
 	{
 		// Ligatures
@@ -384,41 +368,6 @@ void SMFontFeatures::enableFontFeatures(QStringList fontFeatures)
 			DiscretinoryCheck->setDisabled(false);
 		else if (fontFeatures[i] == "hlig")
 			HistoricalCheck->setDisabled(false);
-		// position comboBox
-		else if (fontFeatures[i] == "subs")
-			positionComboBox->addItem("Subscript");
-		else if (fontFeatures[i] == "sups")
-			positionComboBox->addItem("Superscript");
-		else if (fontFeatures[i] == "ordn")
-			positionComboBox->addItem("Ordinals");
-		// Capitals ComboBox
-		else if (fontFeatures[i] == "smcp")
-			capitalsComboBox->addItem("Small Capitals");
-		else if (fontFeatures[i] == "c2sc")
-			capitalsComboBox->addItem("Small Capitals from Capitals");
-		else if (fontFeatures[i] == "pcap")
-			capitalsComboBox->addItem("Petite Capitals");
-		else if (fontFeatures[i] == "c2pc")
-			capitalsComboBox->addItem("Petite Capitals from Capitals");
-		else if (fontFeatures[i] == "unic")
-			capitalsComboBox->addItem("Unicase");
-		else if (fontFeatures[i] == "titl")
-			capitalsComboBox->addItem("Titling");
-		// Numerals style
-		else if (fontFeatures[i] == "lnum")
-			numeralComboBox->addItem("Lining");
-		else if (fontFeatures[i] == "onum")
-			numeralComboBox->addItem("Old Style");
-		// Numerals width
-		else if (fontFeatures[i] == "pnum")
-			widthComboBox->addItem("Proportional");
-		else if (fontFeatures[i] == "tnum")
-			widthComboBox->addItem("Tabular");
-		// Numerals Fraction
-		else if (fontFeatures[i] == "frac")
-			fractionComboBox->addItem("Diagonal Fractions");
-		else if (fontFeatures[i] == "afrc")
-			fractionComboBox->addItem("Stacked Fractions");
 		// Numerals Zero
 		else if (fontFeatures[i] == "zero")
 			SlashedZeroCheck->show();
@@ -513,6 +462,96 @@ void SMFontFeatures::enableFontFeatures(QStringList fontFeatures)
 			&& numeralsGroupBox && commandLinkButton->isHidden())
 	{
 		statusLabel->show();
+	}
+}
+
+void SMFontFeatures::setupCapitalCombo(QStringList fontFeatures)
+{
+	QSignalBlocker blocker(capitalsComboBox);
+
+	capitalsComboBox->clear();
+	capitalsComboBox->addItem( tr("Default Capitals"));
+
+	for (int i = 0; i < fontFeatures.count(); i++)
+	{
+		if (fontFeatures[i] == "smcp")
+			capitalsComboBox->addItem( tr("Small Capitals"), QVariant("+smcp"));
+		else if (fontFeatures[i] == "c2sc")
+			capitalsComboBox->addItem( tr("Small Capitals from Capitals"), QVariant("+c2sc"));
+		else if (fontFeatures[i] == "pcap")
+			capitalsComboBox->addItem( tr("Petite Capitals"), QVariant("+pcap"));
+		else if (fontFeatures[i] == "c2pc")
+			capitalsComboBox->addItem( tr("Petite Capitals from Capitals"), QVariant("+c2pc"));
+		else if (fontFeatures[i] == "unic")
+			capitalsComboBox->addItem( tr("Unicase"), QVariant("+unic"));
+		else if (fontFeatures[i] == "titl")
+			capitalsComboBox->addItem( tr("Titling"), QVariant("+titl"));
+	}
+}
+
+void SMFontFeatures::setupPositionCombo(QStringList fontFeatures)
+{
+	QSignalBlocker blocker(positionComboBox);
+
+	positionComboBox->clear();
+	positionComboBox->addItem( tr("Default Position"));
+
+	for (int i = 0; i < fontFeatures.count(); i++)
+	{
+		if (fontFeatures[i] == "subs")
+			positionComboBox->addItem( tr("Subscript"), QVariant("+subs"));
+		else if (fontFeatures[i] == "sups")
+			positionComboBox->addItem( tr("Superscript"), QVariant("+sups"));
+		else if (fontFeatures[i] == "ordn")
+			positionComboBox->addItem( tr("Ordinals"), QVariant("+ordn"));
+	}
+}
+
+void SMFontFeatures::setupNumeralStyleCombo(QStringList fontFeatures)
+{
+	QSignalBlocker blocker(numeralComboBox);
+
+	numeralComboBox->clear();
+	numeralComboBox->addItem( tr("Default Numerals"));
+
+	for (int i = 0; i < fontFeatures.count(); i++)
+	{
+		if (fontFeatures[i] == "lnum")
+			numeralComboBox->addItem( tr("Lining"), QVariant("+lnum"));
+		else if (fontFeatures[i] == "onum")
+			numeralComboBox->addItem( tr("Old Style"), QVariant("+onum"));
+	}
+}
+
+void SMFontFeatures::setupNumeralWidthCombo(QStringList fontFeatures)
+{
+	QSignalBlocker blocker(widthComboBox);
+
+	widthComboBox->clear();
+	widthComboBox->addItem( tr("Default Numeral Width"));
+
+	for (int i = 0; i < fontFeatures.count(); i++)
+	{
+		if (fontFeatures[i] == "pnum")
+			widthComboBox->addItem( tr("Proportional"), QVariant("+pnum"));
+		else if (fontFeatures[i] == "tnum")
+			widthComboBox->addItem( tr("Tabular"), QVariant("+tnum"));
+	}
+}
+
+void SMFontFeatures::setupNumeralFractionCombo(QStringList fontFeatures)
+{
+	QSignalBlocker blocker(fractionComboBox);
+
+	fractionComboBox->clear();
+	fractionComboBox->addItem( tr("No Fractions"));
+
+	for (int i = 0; i < fontFeatures.count(); i++)
+	{
+		if (fontFeatures[i] == "frac")
+			fractionComboBox->addItem( tr("Diagonal Fractions"), QVariant("+frac"));
+		else if (fontFeatures[i] == "afrc")
+			fractionComboBox->addItem( tr("Stacked Fractions"), QVariant("+afrc"));
 	}
 }
 

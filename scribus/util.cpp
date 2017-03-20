@@ -801,6 +801,15 @@ void setCurrentComboItem(QComboBox *box, QString text)
 	box->blockSignals(sigBlocked);
 }
 
+void setCurrentComboItemFromData(QComboBox *box, QString data)
+{
+	bool sigBlocked = box->blockSignals(true);
+	int ind = box->findData(data);
+	if (ind > -1)
+		box->setCurrentIndex(ind);
+	box->blockSignals(sigBlocked);
+}
+
 void removeComboItem(QComboBox *box, QString text)
 {
 	bool sigBlocked = box->blockSignals(true);

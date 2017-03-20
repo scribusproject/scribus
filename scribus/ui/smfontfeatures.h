@@ -56,6 +56,11 @@ protected:
 
 private:
 	void hideAllFontFeatures();
+	void setupCapitalCombo(QStringList fontFeatures);
+	void setupPositionCombo(QStringList fontFeatures);
+	void setupNumeralStyleCombo(QStringList fontFeatures);
+	void setupNumeralWidthCombo(QStringList fontFeatures);
+	void setupNumeralFractionCombo(QStringList fontFeatures);
 	bool m_hasParent;
 	bool m_useParentValue;
 	QString m_pValue;
