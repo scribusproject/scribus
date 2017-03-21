@@ -829,7 +829,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>Edit Text with Story Editor...</source>
-        <translation type="unfinished"></translation>
+        <translation>Editatu testua artikulu-editorearekin...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
@@ -3575,12 +3575,6 @@ It is a reserved name for transparent color</translation>
         <translation>Hau hautatuz, kolorea kolore zuzen bihurtuko du, plakak edo banaketak sortzean kolore zuzen bat sortuz. Sarritan aukera hau erabiltzen da logo batek edo beste kolore batek ordezkapen zehatza, CMYK tinten bidez sortu ezin dena, behar duenean. Tinta metaliko eta fluoreszenteak, sidbidez, ezin dira erraz sortu CMYK tinten nahasketekin.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
-        <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Kolore-kudeaketa gaituta badago, triangelu itxurako abisu-adierazle batek zera adierazten du, hautatutako uneko inprimagailu-profilean kolorea beharbada gamaz kanpo dagoela. Horrek esan nahi du kolorea ez dela pantailan agertzen den bezala inprimatuko. Gama-abisu horiei buruzko informazio gehiago, lineako laguntzan, &quot;Kolore-kudeaketa&quot; atalean.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="100"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1108"/>
         <source>HSV Color Map</source>
@@ -3595,6 +3589,12 @@ It is a reserved name for transparent color</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="107"/>
         <source>User Swatches</source>
         <translation>Erabiltzailearen lagin multzoak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
+        <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1117"/>
@@ -4857,17 +4857,17 @@ unekoa %2 x %3 DPI</translation>
 <context>
     <name>ColorListBox</name>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="316"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="319"/>
         <source>Sort by Name</source>
         <translation>Ordenatu izenaren arabera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="317"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="320"/>
         <source>Sort by Color</source>
         <translation>Ordenatu kolorearen arabera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="318"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="321"/>
         <source>Sort by Type</source>
         <translation>Ordenatu motaren arabera</translation>
     </message>
@@ -5635,108 +5635,109 @@ unekoa %2 x %3 DPI</translation>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="299"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="300"/>
         <source>Preview Settings</source>
         <translation>Aurrebistaren ezarpenak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="574"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="589"/>
         <source>Paste File...</source>
         <translation>Itsatsi fitxategia...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="608"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="623"/>
         <source>Delete Page</source>
         <translation>Ezabatu orrialdea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="108"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="147"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="148"/>
         <source>In&amp;fo</source>
         <translation>&amp;Datuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="132"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
         <translation>Inprimatu: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="135"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
         <translation>Gaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="137"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="210"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="211"/>
         <source>Edit 3D Annotation...</source>
         <translation>Editatu 3D oharpena</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="224"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="225"/>
         <source>Insert Mark</source>
         <translation>Txertatu marka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="343"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="344"/>
         <source>Image</source>
         <translation>Irudia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="368"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="369"/>
         <source>Locking</source>
         <translation>Blokeoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="373"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
         <source>Send to</source>
         <translation>Bidali hona</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="375"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="376"/>
         <source>Scrapbook</source>
         <translation>Ebakinen albuma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="406"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="407"/>
         <source>Send to La&amp;yer</source>
         <translation>Bidali &amp;geruzara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="438"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
         <source>Le&amp;vel</source>
         <translation>&amp;Maila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="461"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="462"/>
         <source>Conve&amp;rt to</source>
         <translation>Bihu&amp;rtu:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="477"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="478"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF aukerak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="510"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="525"/>
         <source>Edit</source>
         <translation>Editatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="558"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="511"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>&amp;Paste Here</source>
         <translation>&amp;Itsatsi hemen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="581"/>
         <source>Paste Recent</source>
         <translation>Itsatsi azkena</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="197"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="198"/>
         <source>Content</source>
         <translation>Edukia</translation>
     </message>
@@ -13325,44 +13326,44 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <translation>Qt bertsioak &quot;UTF-16&quot; eta &quot;ISO-10646-UCS-2&quot; testu-kodekak falta ditu, ezin da PDFra esportatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3448"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3450"/>
         <source>Page:</source>
         <translation>Orrialdea:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3458"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3460"/>
         <source>Date:</source>
         <translation>Eguna:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10184"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10190"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Ezin izan da PDFa kapsulatu: %1
 Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11360"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11366"/>
         <source>Failed to load an image : %1</source>
         <translation>Irudi bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11365"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11371"/>
         <source>Failed to write an image : %1</source>
         <translation>Irudi bat idazteak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11370"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11376"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Irudi-maskara bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11375"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11381"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria gutxi irudi bat prozesatzeko</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11355"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11361"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Idazte-errorea gertatu da, begiratu tokirik duzun diskoan</translation>
     </message>
@@ -14111,32 +14112,32 @@ berriagoa behar da.</translation>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Linked Text</source>
         <translation>Estekatutako testua</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4989"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5011"/>
         <source>Text Frame</source>
         <translation>Testu-markoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4993"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Paragraphs: </source>
         <translation>Paragrafoak: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Lines: </source>
         <translation>Lerroak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5007"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5029"/>
         <source>Words: </source>
         <translation>Hitzak: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5037"/>
         <source>Chars: </source>
         <translation>Karak.: </translation>
     </message>
@@ -14397,15 +14398,8 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Kolore-kudeaketa gaituta badago, hiruki formako abisu-adierazle batek kolorea hautatutako inprimagailu-profiletik gamaz kanpo dagoela adieraz dezake. Horrek esan nahi du kolorea agian ez dela inprimatuko pantailan agertzen den moduan. Kolore zuzenak zirkulu gorri batez markatzen dira. Gamari buruzko abisu gehiagori buruzko informazioa, lineako laguntzaren &apos;Kolore-kudeaketa&apos; atalean. Erregistro-koloreek erregistro-marka bat izango dute kolorearen alboan. Erabili erregistroa inprimatze-marketarako eta mozte-marketarako soilik.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
@@ -25705,7 +25699,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="255"/>
         <source>Gondi Southern</source>
-        <translation type="unfinished"></translation>
+        <translation>Hegoaldeko gondia</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
@@ -25715,7 +25709,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="332"/>
         <source>Kölsch</source>
-        <translation type="unfinished"></translation>
+        <translation>Koloniera</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="343"/>
@@ -26843,6 +26837,11 @@ Kanpoko estekak
         <translation>Urdua</translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="620"/>
+        <source>Written Oirat (Todo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="179"/>
         <source>Chinese</source>
         <translation>Txinera</translation>
@@ -26951,11 +26950,6 @@ Kanpoko estekak
         <location filename="../../scribus/langmgr.cpp" line="619"/>
         <source>Wolof</source>
         <translation>Wolofera</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="620"/>
-        <source> Written Oirat (Todo)</source>
-        <translation>Oirat idatzia (Todo)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="621"/>
@@ -29282,11 +29276,11 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="131"/>
         <source>No User Template Location Defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da kokapenik definitu erabiltzaile-txantiloietarako</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="132"/>
-        <source>You have not defined a location to save document templates to. Please go to Scribus application Preferences and define a location in the Paths section.</source>
+        <source>You have not configured where to save document templates.&lt;br&gt;Please go to the Paths section in the Scribus application Preferences to set a location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -31857,6 +31851,109 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/ui/smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation>Erabili letra-tipo gurasoa</translation>
+    </message>
+</context>
+<context>
+    <name>SMFontFeatures</name>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
+        <source>Default Capitals</source>
+        <translation type="unfinished">Maiuskula lehenetsiak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
+        <source>Small Capitals</source>
+        <translation type="unfinished">Maiuskula txikiak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="542"/>
+        <source>Small Capitals from Capitals</source>
+        <translation type="unfinished">Maiuskula txikiak maiuskuletati</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="544"/>
+        <source>Petite Capitals</source>
+        <translation type="unfinished">Petite maiuskulak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="546"/>
+        <source>Petite Capitals from Capitals</source>
+        <translation type="unfinished">Petite maiuskulak maiuskuletatik</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
+        <source>Unicase</source>
+        <translation type="unfinished">Unicase</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
+        <source>Titling</source>
+        <translation type="unfinished">Titulua</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
+        <source>Default Position</source>
+        <translation type="unfinished">Posizio lehenetsia</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
+        <source>Subscript</source>
+        <translation type="unfinished">Azpi-indizea</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
+        <source>Superscript</source>
+        <translation type="unfinished">Goi-indizea</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
+        <source>Ordinals</source>
+        <translation type="unfinished">Ordinalak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
+        <source>Default Numerals</source>
+        <translation type="unfinished">Zenbakizko lehenetsiak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
+        <source>Lining</source>
+        <translation type="unfinished">Lerrokatua</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
+        <source>Old Style</source>
+        <translation type="unfinished">Estilo zaharra</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
+        <source>Default Numeral Width</source>
+        <translation type="unfinished">Zenbakizkoen zabalera lehenetsia</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
+        <source>Proportional</source>
+        <translation type="unfinished">proportzionalki</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
+        <source>Tabular</source>
+        <translation type="unfinished">Tabularra</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
+        <source>No Fractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
+        <source>Diagonal Fractions</source>
+        <translation type="unfinished">Zeharkako zatikiak</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
+        <source>Stacked Fractions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

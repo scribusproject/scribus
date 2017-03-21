@@ -3575,12 +3575,6 @@ Es un nombre reservado para color transparente</translation>
         <translation>Al elegir esto, se convertirá este color a color de tinta plana, obligando a usar otra tinta al tirar planchas o hacer separaciones. Se usa con frecuencia cuando un logotipo u otro objeto necesita una representación exacta o no se puede conseguir con tintas CMYK. Las tintas metálicas y fluorescentes son buenos ejemplos que no pueden ser fácilmente obtenidas con tintas CMYK.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
-        <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Si está activada la gestión de color, el triángulo de emergencia es un aviso de que el color podría estar fuera de gama en el perfil de la impresora actual.Esto significa es que el color podría no imprimirse exactamente como aparece en pantalla. Hay más sugerencias sobre los avisos de gama en la ayuda en línea, sección gestión de color.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="100"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1108"/>
         <source>HSV Color Map</source>
@@ -3595,6 +3589,12 @@ Es un nombre reservado para color transparente</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="107"/>
         <source>User Swatches</source>
         <translation>Muestras de color de usuario</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
+        <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1117"/>
@@ -4857,17 +4857,17 @@ resolución actual:  %2 x %3 DPI</translation>
 <context>
     <name>ColorListBox</name>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="316"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="319"/>
         <source>Sort by Name</source>
         <translation>Ordenar por nombre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="317"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="320"/>
         <source>Sort by Color</source>
         <translation>Ordenar por color</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="318"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="321"/>
         <source>Sort by Type</source>
         <translation>Ordenar por tipo</translation>
     </message>
@@ -5635,108 +5635,109 @@ resolución actual:  %2 x %3 DPI</translation>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="299"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="300"/>
         <source>Preview Settings</source>
         <translation>Configuración de vista preliminar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="574"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="589"/>
         <source>Paste File...</source>
         <translation>Pegar archivo...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="608"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="623"/>
         <source>Delete Page</source>
         <translation>Eliminar página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="108"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="147"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="148"/>
         <source>In&amp;fo</source>
         <translation>In&amp;formación</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="132"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
         <translation>Imprimir: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="135"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
         <translation>Activado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="137"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
         <source>Disabled</source>
         <translation>Desactivado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="210"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="211"/>
         <source>Edit 3D Annotation...</source>
         <translation>Editar Anotación 3D...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="224"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="225"/>
         <source>Insert Mark</source>
         <translation>Insertar Marca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="343"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="344"/>
         <source>Image</source>
         <translation>Imagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="368"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="369"/>
         <source>Locking</source>
         <translation>Bloqueo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="373"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
         <source>Send to</source>
         <translation>Enviar a</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="375"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="376"/>
         <source>Scrapbook</source>
         <translation>Álbum de recortes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="406"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="407"/>
         <source>Send to La&amp;yer</source>
         <translation>E&amp;nviar a capa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="438"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
         <source>Le&amp;vel</source>
         <translation>Nive&amp;l</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="461"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="462"/>
         <source>Conve&amp;rt to</source>
         <translation>Con&amp;vertir a</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="477"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="478"/>
         <source>&amp;PDF Options</source>
         <translation>Opciones de &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="510"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="525"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="558"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="511"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>&amp;Paste Here</source>
         <translation>&amp;Pegar Aqui</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="581"/>
         <source>Paste Recent</source>
         <translation>Pegar reciente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="197"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="198"/>
         <source>Content</source>
         <translation>Contenido</translation>
     </message>
@@ -13314,44 +13315,44 @@ Por favor revíselo e intente de nuevo.</translation>
         <translation>La compilación de QT no dispone de los códecs de texto &quot;UTF-16&quot; e &quot;ISO-10646-UCS-2&quot;, no es posible exportar PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3448"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3450"/>
         <source>Page:</source>
         <translation>Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3458"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3460"/>
         <source>Date:</source>
         <translation>Fecha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10184"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10190"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Falló la incrustación del archivo PDF: %1.
 Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuevo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11360"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11366"/>
         <source>Failed to load an image : %1</source>
         <translation>No se pudo cargar una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11365"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11371"/>
         <source>Failed to write an image : %1</source>
         <translation>No se pudo escribir una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11370"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11376"/>
         <source>Failed to load an image mask : %1</source>
         <translation>No se pudo cargar una máscara de imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11375"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11381"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria insuficiente para procesar una imagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11355"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11361"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Hay un error de escritura, compruebe el espacio disponible en disco</translation>
     </message>
@@ -14099,32 +14100,32 @@ Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuev
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Linked Text</source>
         <translation>Texto enlazado</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4989"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5011"/>
         <source>Text Frame</source>
         <translation>Marco de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4993"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Paragraphs: </source>
         <translation>Párrafos: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Lines: </source>
         <translation>Líneas: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5007"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5029"/>
         <source>Words: </source>
         <translation>Palabras: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5037"/>
         <source>Chars: </source>
         <translation>Caracteres: </translation>
     </message>
@@ -14385,15 +14386,8 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si está activada la gestión del color, aparece un triángulo de aviso indicando que el color puede estar fuera de la gama del perfil de color actual de la impresora. Esto significa que el color no se imprimiría como aparece en pantalla. Las tintas planas se identifican con un círculo rojo. Hay más información sobre avisos de gama en la ayuda en línea, bajo el epígrafe Color Management. Los colores de registro tienen una marca de registro cerca de ellos. El registro se debe usar sólo para las marcas de impresión y corte.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
@@ -26818,6 +26812,11 @@ Enlaces externos</translation>
         <translation>Urdu</translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="620"/>
+        <source>Written Oirat (Todo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="179"/>
         <source>Chinese</source>
         <translation>Chino</translation>
@@ -26926,11 +26925,6 @@ Enlaces externos</translation>
         <location filename="../../scribus/langmgr.cpp" line="619"/>
         <source>Wolof</source>
         <translation>Wolof</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="620"/>
-        <source> Written Oirat (Todo)</source>
-        <translation>Oirat escrito (Todo)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="621"/>
@@ -29263,7 +29257,7 @@ código Python esta lista no es exhaustiva debido a las excepciones de las funci
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="132"/>
-        <source>You have not defined a location to save document templates to. Please go to Scribus application Preferences and define a location in the Paths section.</source>
+        <source>You have not configured where to save document templates.&lt;br&gt;Please go to the Paths section in the Scribus application Preferences to set a location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -31833,6 +31827,109 @@ Elija otro, por favor.</translation>
         <location filename="../../scribus/ui/smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation>Usar tipos del padre</translation>
+    </message>
+</context>
+<context>
+    <name>SMFontFeatures</name>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
+        <source>Default Capitals</source>
+        <translation type="unfinished">Mayúsculas por defecto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
+        <source>Small Capitals</source>
+        <translation type="unfinished">Mayúsculas Pequeñas</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="542"/>
+        <source>Small Capitals from Capitals</source>
+        <translation type="unfinished">Pequeñas mayúsculas de las mayúsculas</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="544"/>
+        <source>Petite Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="546"/>
+        <source>Petite Capitals from Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
+        <source>Unicase</source>
+        <translation type="unfinished">Unicase</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
+        <source>Titling</source>
+        <translation type="unfinished">Titulación</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
+        <source>Default Position</source>
+        <translation type="unfinished">Posición por defecto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
+        <source>Subscript</source>
+        <translation type="unfinished">Subíndice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
+        <source>Superscript</source>
+        <translation type="unfinished">Superíndice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
+        <source>Ordinals</source>
+        <translation type="unfinished">Ordinales</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
+        <source>Default Numerals</source>
+        <translation type="unfinished">Numerales por defecto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
+        <source>Lining</source>
+        <translation type="unfinished">Revestimiento</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
+        <source>Old Style</source>
+        <translation type="unfinished">Estilo anterior</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
+        <source>Default Numeral Width</source>
+        <translation type="unfinished">Ancho del numeral por defecto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
+        <source>Proportional</source>
+        <translation type="unfinished">Proporcional</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
+        <source>Tabular</source>
+        <translation type="unfinished">Tabular</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
+        <source>No Fractions</source>
+        <translation type="unfinished">No hay Fracciones</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
+        <source>Diagonal Fractions</source>
+        <translation type="unfinished">Fracciones Diagonales</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
+        <source>Stacked Fractions</source>
+        <translation type="unfinished">Fracciones Apiladas</translation>
     </message>
 </context>
 <context>

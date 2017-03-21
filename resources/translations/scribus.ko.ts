@@ -3574,12 +3574,6 @@ It is a reserved name for transparent color</source>
         <translation>이것을 선택하는 것은 이 색상을 지정 색상으로 만들며, 평판 생성이나 분리할 때 다른 지정 색상을 생성시킵니다. 이것은 로고 또는 다른 색상을 정확하게 나타낼 때 자주 사용되며, 그렇지 않으면 CMYK 잉크로 복사될 수 없습니다. 메탈릭 또는 형광 잉크는 CMYK 잉크로 쉽게 복사할 수 없는 좋은 예입니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
-        <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>색상관리가 가능하다면, 삼각형 경고 지시자는 색상이 현재 선택된 프린터 프로파일의 색상범위 밖에 있다는 경고입니다. 이 의미는 화면상에서 보이는 것을 정확하게 색상을 출력할 수 없음을 의미합니다. 온라인 도움말 색상 관리 부분에서 경고에 대한 더 많은 정보를 얻을 수 있습니다.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="100"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1108"/>
         <source>HSV Color Map</source>
@@ -3593,6 +3587,12 @@ It is a reserved name for transparent color</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="107"/>
         <source>User Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
+        <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4846,17 +4846,17 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ColorListBox</name>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="316"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="319"/>
         <source>Sort by Name</source>
         <translation>이름에 의한 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="317"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="320"/>
         <source>Sort by Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="318"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="321"/>
         <source>Sort by Type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5625,108 +5625,109 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="299"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="300"/>
         <source>Preview Settings</source>
         <translation>미리보기 설정</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="574"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="589"/>
         <source>Paste File...</source>
         <translation>파일 붙여넣기...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="608"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="623"/>
         <source>Delete Page</source>
         <translation>페이지 삭제</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="108"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="147"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="148"/>
         <source>In&amp;fo</source>
         <translation>정보(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="132"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
         <translation>인쇄:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="135"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
         <translation>가능</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="137"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
         <source>Disabled</source>
         <translation>불가능</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="210"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="211"/>
         <source>Edit 3D Annotation...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="224"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="225"/>
         <source>Insert Mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="343"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="344"/>
         <source>Image</source>
         <translation>이미지</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="368"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="369"/>
         <source>Locking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="373"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
         <source>Send to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="375"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="376"/>
         <source>Scrapbook</source>
         <translation>스크랩북</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="406"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="407"/>
         <source>Send to La&amp;yer</source>
         <translation>레이어로 보내기(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="438"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
         <source>Le&amp;vel</source>
         <translation>레벨(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="461"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="462"/>
         <source>Conve&amp;rt to</source>
         <translation>변환(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="477"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="478"/>
         <source>&amp;PDF Options</source>
         <translation>PDF 설정(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="510"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="525"/>
         <source>Edit</source>
         <translation>편집</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="558"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="511"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>&amp;Paste Here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="581"/>
         <source>Paste Recent</source>
         <translation>최근 내용 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="197"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="198"/>
         <source>Content</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13275,43 +13276,43 @@ Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3448"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3450"/>
         <source>Page:</source>
         <translation>페이지:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3458"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3460"/>
         <source>Date:</source>
         <translation>날짜:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10184"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10190"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11360"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11366"/>
         <source>Failed to load an image : %1</source>
         <translation>이미지 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11365"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11371"/>
         <source>Failed to write an image : %1</source>
         <translation>이미지 쓰는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11370"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11376"/>
         <source>Failed to load an image mask : %1</source>
         <translation>이미지 마스크 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11375"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11381"/>
         <source>Insufficient memory for processing an image</source>
         <translation>이미지 작업처리에 불충분한 메모리</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11355"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11361"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>쓰기 오류 발생, 사용가능한 디스크 공간을 검사하세요</translation>
     </message>
@@ -14059,32 +14060,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Linked Text</source>
         <translation>링크된 문자열</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4989"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5011"/>
         <source>Text Frame</source>
         <translation>문자열 프레임</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4993"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Paragraphs: </source>
         <translation>문단수:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Lines: </source>
         <translation>줄수:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5007"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5029"/>
         <source>Words: </source>
         <translation>단어수:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5037"/>
         <source>Chars: </source>
         <translation>문자수:</translation>
     </message>
@@ -14342,7 +14343,7 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -26742,6 +26743,11 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="620"/>
+        <source>Written Oirat (Todo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="179"/>
         <source>Chinese</source>
         <translation>중국어</translation>
@@ -26849,11 +26855,6 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="619"/>
         <source>Wolof</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="620"/>
-        <source> Written Oirat (Todo)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29158,7 +29159,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="132"/>
-        <source>You have not defined a location to save document templates to. Please go to Scribus application Preferences and define a location in the Paths section.</source>
+        <source>You have not configured where to save document templates.&lt;br&gt;Please go to the Paths section in the Scribus application Preferences to set a location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -31725,6 +31726,109 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation>부모 글꼴 사용</translation>
+    </message>
+</context>
+<context>
+    <name>SMFontFeatures</name>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
+        <source>Default Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
+        <source>Small Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="542"/>
+        <source>Small Capitals from Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="544"/>
+        <source>Petite Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="546"/>
+        <source>Petite Capitals from Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
+        <source>Unicase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
+        <source>Titling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
+        <source>Default Position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
+        <source>Subscript</source>
+        <translation type="unfinished">아래첨자</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
+        <source>Superscript</source>
+        <translation type="unfinished">윗첨자</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
+        <source>Ordinals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
+        <source>Default Numerals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
+        <source>Lining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
+        <source>Old Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
+        <source>Default Numeral Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
+        <source>Proportional</source>
+        <translation type="unfinished">비례</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
+        <source>Tabular</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
+        <source>No Fractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
+        <source>Diagonal Fractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
+        <source>Stacked Fractions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -723,7 +723,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1669"/>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Mostra línia de &amp;base de la graella</translation>
+        <translation>Mostra la graella &amp;base</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1670"/>
@@ -3574,12 +3574,6 @@ It is a reserved name for transparent color</source>
         <translation>Si ho trieu, crearà un color simple, creant-ne així un altre per crear plats o separacions. Això s&apos;utilitza molt freqüentment quan un logotip o un altre color necessita una representació exacta o no pot replicar-se amb tintes CMYK. Les tintes metàl·liques o florescents són bons exemples, les quals no poden replicar-se fàcilment amb tintes CMYK.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
-        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
-        <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Si la gestió de color està habilitada, el triangle indicador d&apos;advertència és una advertència que el color pot estar fora de la gamma de color del perfil de la impressora actualment seleccionada. Això vol dir que el color potser no s&apos;imprimeixi exactament com l&apos;indicat en pantalla. Hi ha més consells sobre les advertències de la gamma en l&apos;ajuda en línia en la gestió de color.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="100"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1108"/>
         <source>HSV Color Map</source>
@@ -3593,6 +3587,12 @@ It is a reserved name for transparent color</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="107"/>
         <source>User Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
+        <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
+        <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4234,7 +4234,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="185"/>
         <source>Font: %2</source>
-        <translation>Tipus de lletra: %2</translation>
+        <translation>Lletra: %2</translation>
     </message>
 </context>
 <context>
@@ -4387,7 +4387,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="19"/>
         <source>&amp;Font:</source>
-        <translation>&amp;Tipus de lletra:</translation>
+        <translation>&amp;Lletra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="45"/>
@@ -4460,7 +4460,7 @@ La tecla Insert insereix un glif dins de la selecció de més avall i la tecla S
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>Glyphs missing</source>
-        <translation>Glifs perduts</translation>
+        <translation>Glifs que falten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
@@ -4475,7 +4475,7 @@ La tecla Insert insereix un glif dins de la selecció de més avall i la tecla S
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>Missing Image</source>
-        <translation>Imatge perduda</translation>
+        <translation>Falta la imatge</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
@@ -4655,7 +4655,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>Imported document contains non-embedded fonts</source>
-        <translation>El document importat conté tipus de lletra no incrustats</translation>
+        <translation>El document importat conté lletres no incrustades</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
@@ -4685,12 +4685,12 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="143"/>
         <source>Annotation uses a non-TrueType font</source>
-        <translation>L&apos;anotació utilitza un tipus de lletra no TrueType</translation>
+        <translation>L&apos;anotació utilitza una lletra no TrueType</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="143"/>
         <source>Annotations support only a standard set of fonts. Choose another one.</source>
-        <translation>Les anotacions només són compatibles amb el conjunt estàndard de tipus de lletra. Trieu-ne una altra.</translation>
+        <translation>Les anotacions només són compatibles amb el conjunt estàndard de lletres. Trieu-ne una altra.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="144"/>
@@ -4706,7 +4706,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>Print/Visible mismatch</source>
-        <translation>Incongruència Visible/Imprimible</translation>
+        <translation>Incongruència visible/imprimible</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
@@ -4816,7 +4816,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/collectforoutput_ui.cpp" line="50"/>
         <source>Collecting Fonts:</source>
-        <translation>Recolliment dels tipus de lletra:</translation>
+        <translation>Recolliment de les lletres:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/collectforoutput_ui.cpp" line="56"/>
@@ -4846,17 +4846,17 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ColorListBox</name>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="316"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="319"/>
         <source>Sort by Name</source>
         <translation>Ordena per nom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="317"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="320"/>
         <source>Sort by Color</source>
         <translation>Ordena per color</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorlistbox.cpp" line="318"/>
+        <location filename="../../scribus/ui/colorlistbox.cpp" line="321"/>
         <source>Sort by Type</source>
         <translation>Ordena per tipus</translation>
     </message>
@@ -5624,108 +5624,109 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="299"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="300"/>
         <source>Preview Settings</source>
         <translation>Ajusts de la vista prèvia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="574"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="589"/>
         <source>Paste File...</source>
         <translation>Enganxa el fitxer...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="608"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="623"/>
         <source>Delete Page</source>
         <translation>Suprimeix la pàgina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="108"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="147"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="148"/>
         <source>In&amp;fo</source>
         <translation>In&amp;formació</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="132"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
         <translation>Impressió: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="135"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
         <translation>Habilitada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="137"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
         <source>Disabled</source>
         <translation>Inhabilitada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="210"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="211"/>
         <source>Edit 3D Annotation...</source>
         <translation>Edita l&apos;anotació 3D...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="224"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="225"/>
         <source>Insert Mark</source>
         <translation>Insereix una marca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="343"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="344"/>
         <source>Image</source>
         <translation>Imatge</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="368"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="369"/>
         <source>Locking</source>
         <translation>Bloqueig</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="373"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
         <source>Send to</source>
         <translation>Envia a</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="375"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="376"/>
         <source>Scrapbook</source>
         <translation>Àlbum de retalls</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="406"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="407"/>
         <source>Send to La&amp;yer</source>
         <translation>Envia a la ca&amp;pa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="438"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
         <source>Le&amp;vel</source>
         <translation>Ni&amp;vell</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="461"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="462"/>
         <source>Conve&amp;rt to</source>
         <translation>Conve&amp;rteix a</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="477"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="478"/>
         <source>&amp;PDF Options</source>
         <translation>Opcions &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="510"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="525"/>
         <source>Edit</source>
         <translation>Edita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="558"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="511"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>&amp;Paste Here</source>
         <translation>&amp;Enganxa-ho aquí</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="581"/>
         <source>Paste Recent</source>
         <translation>Enganxa el recent</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="197"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="198"/>
         <source>Content</source>
         <translation>Contingut</translation>
     </message>
@@ -6165,7 +6166,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="407"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
-        <translation>Inclou els tipus de lletra quan es recullin els fitxers per al document. Assegureu-vos de conèixer i entendre la informació de la llicència per a qualsevol tipus de lletra que recolliu i possiblement redistribuïu.</translation>
+        <translation>Inclou les lletres quan es recullin els fitxers per al document. Assegureu-vos de conèixer i entendre la informació de la llicència per a qualsevol lletra que recolliu i possiblement redistribuïu.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="409"/>
@@ -6575,7 +6576,7 @@ ha fallat!</translation>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="92"/>
         <source>Analyzing PostScript:</source>
-        <translation>Analitzant PostScript:</translation>
+        <translation>Anàlisi de PostScript:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="772"/>
@@ -7467,7 +7468,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="470"/>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Alguns dels tipus de lletra utilitzats en aquest document han estat substituïts:</translation>
+        <translation>Algunes lletres utilitzades en aquest document han estat substituïdes:</translation>
     </message>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="474"/>
@@ -7521,12 +7522,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="152"/>
         <source>Font Family of Selected Text or Text Frame</source>
-        <translation>Família del tipus de lletra del text seleccionat o del marc de text</translation>
+        <translation>Família de la lletra del text seleccionat o del marc de text seleccionat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="153"/>
         <source>Font Style of Selected Text or Text Frame</source>
-        <translation>Estil del tipus de lletra del text seleccionat o del marc de text</translation>
+        <translation>Estil de la lletra del text seleccionat o del marc de text seleccionat</translation>
     </message>
 </context>
 <context>
@@ -7534,12 +7535,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="85"/>
         <source>Font Name</source>
-        <translation>Nom del tipus de lletra</translation>
+        <translation>Nom de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="87"/>
         <source>Use Font</source>
-        <translation>Utilitza el tipus de lletra</translation>
+        <translation>Utilitza la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="140"/>
@@ -7579,12 +7580,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="97"/>
         <source>Used in Doc</source>
-        <translation>Utilitzat al Doc</translation>
+        <translation>Utilitzat al doc.</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="99"/>
         <source>Path to Font File</source>
-        <translation>Camí al tipus de lletra</translation>
+        <translation>Camí a la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="161"/>
@@ -7627,7 +7628,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.cpp" line="112"/>
         <source>Size of the selected font</source>
-        <translation>Mida del tipus de lletra seleccionat</translation>
+        <translation>Mida de la lletra seleccionada</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.cpp" line="44"/>
@@ -7638,7 +7639,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="13"/>
         <source>Fonts Preview</source>
-        <translation>Vista prèvia dels tipus de lletra</translation>
+        <translation>Vista prèvia de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="19"/>
@@ -7648,7 +7649,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="80"/>
         <source>&amp;Font Size:</source>
-        <translation>Mida del &amp;tipus de lletra:</translation>
+        <translation>Mida de la &amp;lletra:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="103"/>
@@ -7688,7 +7689,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
-        <translation>Teclegeu aquí el text que proporciona la cerca ràpida als noms dels tipus de lletra. La cerca no és sensible a les majúscules. El text indicat s&apos;agafa com a subcadena.</translation>
+        <translation>Teclegeu aquí el text que proporciona la cerca ràpida als noms de les lletres. La cerca no distingeix les majúscules de les minúscules. El text indicat s&apos;agafa com a una subcadena.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="136"/>
@@ -7698,7 +7699,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="35"/>
         <source>Show Extended Font Information</source>
-        <translation>Mostra la informació dels tipus de lletra estesos</translation>
+        <translation>Mostra la informació de la lletra estesa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="120"/>
@@ -7711,17 +7712,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="49"/>
         <source>&amp;Font Preview...</source>
-        <translation>Vista prèvia del &amp;tipus de lletra...</translation>
+        <translation>Vista prèvia de les &amp;lletres...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Font Preview dialog</source>
-        <translation>Diàleg de la vista prèvia del tipus de lletra</translation>
+        <translation>Diàleg de la vista prèvia de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="68"/>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation>Ordenació, cerca i navegació dels tipus de lletra disponibles.</translation>
+        <translation>Ordenació, cerca i navegació de les lletres disponibles.</translation>
     </message>
 </context>
 <context>
@@ -7729,17 +7730,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="30"/>
         <source>Font Substitution</source>
-        <translation>Substitució del tipus de lletra</translation>
+        <translation>Substitució de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="45"/>
         <source>Original Font</source>
-        <translation>Tipus de lletra original</translation>
+        <translation>Lletra original</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="46"/>
         <source>Substitution Font</source>
-        <translation>Substitució del tipus de lletra</translation>
+        <translation>Substitució de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="72"/>
@@ -7749,12 +7750,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="40"/>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation>Aquest document conté alguns tipus de lletra que no estan instal·lats al sistema, trieu una substitució adequada per a cadascun. La cancel·lació aturarà la càrrega del document.</translation>
+        <translation>Aquest document conté algunes lletres que no estan instal·lades al sistema, trieu una substitució adequada per a cadascuna. La cancel·lació aturarà la càrrega del document.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation>Habilitar-ho permet a Scribus utilitzar permanentment aquestes substitucions per als tipus de lletra que falten en totes les futures disposicions. Això es pot desfer o canviar en Fitxer &gt; Preferències &gt; Tipus de lletra.</translation>
+        <translation>Habilitar-ho permet a Scribus utilitzar permanentment aquestes substitucions per a les lletres que falten en totes les futures disposicions. Això es pot desfer o canviar en Fitxer &gt; Preferències &gt; Lletres.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
@@ -7777,7 +7778,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="44"/>
         <source>Font</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletra</translation>
     </message>
 </context>
 <context>
@@ -10058,7 +10059,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/insertaframe.cpp" line="134"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, and posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;Insereix un marc d&apos;imatge&lt;/b&gt;&lt;br/&gt;Un marc d&apos;imatge us permet col·locar una imatge dins de la vostra pàgina. Es poden aplicar o combinar diversos efectes d&apos;imatge, incloent-hi transparències, brillantor i reducció de colors que us permetran el retoc o la creació de resultats visuals interessants. Amb les propietats de la paleta es realitzen els escalaments i els ombrejats de la imatge.</translation>
+        <translation>&lt;b&gt;Insereix un marc d&apos;imatge&lt;/b&gt;&lt;br/&gt;Un marc d&apos;imatge us permet col·locar una imatge dins de la vostra pàgina. Es poden aplicar o combinar diversos efectes d&apos;imatge, incloent-hi transparències, brillantor i reducció de colors que us permetran el retoc o la creació de resultats visuals interessants. Amb les propietats de la paleta es realitzen els canvis d&apos;escala i els ombrejats de la imatge.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="41"/>
@@ -11633,12 +11634,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/missing.cpp" line="27"/>
         <source>Missing Font</source>
-        <translation>Tipografia perduda</translation>
+        <translation>Falta la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/missing.cpp" line="35"/>
         <source>The Font %1 is not installed.</source>
-        <translation>La tipografia %1 no està instal·lada.</translation>
+        <translation>La lletra %1 no està instal·lada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/missing.cpp" line="40"/>
@@ -13292,44 +13293,44 @@ Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3448"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3450"/>
         <source>Page:</source>
         <translation>Pàgina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3458"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3460"/>
         <source>Date:</source>
         <translation>Data:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10184"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10190"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>No s&apos;ha pogut incrustar el fitxer PDF: %1.
 Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11360"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11366"/>
         <source>Failed to load an image : %1</source>
         <translation>No s&apos;ha pogut carregar una imatge: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11365"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11371"/>
         <source>Failed to write an image : %1</source>
         <translation>No s&apos;ha pogut escriure una imatge: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11370"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11376"/>
         <source>Failed to load an image mask : %1</source>
         <translation>No s&apos;ha pogut carregar una màscara d&apos;imatge: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11375"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11381"/>
         <source>Insufficient memory for processing an image</source>
         <translation>No hi ha prou memòria per processar una imatge</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11355"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11361"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>S&apos;ha produït un error. Comproveu l&apos;espai disponible en disc</translation>
     </message>
@@ -13448,7 +13449,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="294"/>
         <source>Scaling:</source>
-        <translation>Escalament:</translation>
+        <translation>Canvi d&apos;escala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="322"/>
@@ -13493,7 +13494,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="350"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Permet una millor visualització dels tipus de lletra Type 1 , TrueType , OpenType , EPS, PDF i gràfics de vector a la vista prèvia a canvi d&apos;una previsualització més lenta</translation>
+        <translation>Permet una millor visualització de les lletres Type 1, les lletres TrueType, les lletres OpenType, els EPS, els PDF i els gràfics vectorials a la vista prèvia, a canvi d&apos;una previsualització més lenta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="123"/>
@@ -13872,13 +13873,13 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
         <location filename="../../scribus/pageitem_imageframe.cpp" line="422"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="510"/>
         <source>Embedded Image missing</source>
-        <translation>S&apos;ha perdut la imatge incrustada</translation>
+        <translation>Falta la imatge incrustada</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="426"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="514"/>
         <source>missing</source>
-        <translation>S&apos;ha perdut</translation>
+        <translation>falta</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="431"/>
@@ -13890,7 +13891,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
         <location filename="../../scribus/pageitem_imageframe.cpp" line="424"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="512"/>
         <source>missing or corrupt</source>
-        <translation>perduda o corrupta</translation>
+        <translation>falta o corrupta</translation>
     </message>
 </context>
 <context>
@@ -14077,32 +14078,32 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Linked Text</source>
         <translation>Text enllaçat</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4989"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5011"/>
         <source>Text Frame</source>
         <translation>Marc de text</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4993"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Paragraphs: </source>
         <translation>Paràgrafs:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Lines: </source>
         <translation>Línies: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5007"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5029"/>
         <source>Words: </source>
         <translation>Paraules:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5037"/>
         <source>Chars: </source>
         <translation>Caràcters: </translation>
     </message>
@@ -14360,7 +14361,7 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15147,7 +15148,7 @@ el resultat és una combinació de &quot;Intersecció&quot; i &quot;Exclusió&qu
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="181"/>
         <source>Scaling</source>
-        <translation>Escalament</translation>
+        <translation>Canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="182"/>
@@ -15712,7 +15713,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="188"/>
         <source>Search for a missing image</source>
-        <translation>Cerca una imatge perduda</translation>
+        <translation>Cerca una imatge que falta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="233"/>
@@ -15742,7 +15743,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="367"/>
         <source>Horizontal and vertical scaling applied to the image</source>
-        <translation>Escalament horitzontal i vertical que s&apos;aplica a la imatge</translation>
+        <translation>Canvi d&apos;escala horitzontal i vertical que s&apos;aplica a la imatge</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="402"/>
@@ -16922,7 +16923,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="121"/>
         <source>Fonts</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="139"/>
@@ -17246,7 +17247,7 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="100"/>
         <source>Show Unprintable Area in Margin Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra l&apos;àrea no imprimible al marge de color</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="107"/>
@@ -17291,12 +17292,12 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="266"/>
         <source>Display Scaling</source>
-        <translation>Escalament del monitor</translation>
+        <translation>Canvi d&apos;escala del monitor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="393"/>
         <source>Scratch Space:</source>
-        <translation type="unfinished"></translation>
+        <translation>Espai de suport:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="214"/>
@@ -17341,7 +17342,7 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="407"/>
         <source>Selected Page Border:</source>
-        <translation>Vorell de pàgina seleccionat:</translation>
+        <translation>Contorn de la pàgina seleccionada:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="421"/>
@@ -17371,12 +17372,12 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="491"/>
         <source>Annotation Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcs d&apos;anotacions:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="505"/>
         <source>Text Control Characters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Caràcters de control del text:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="71"/>
@@ -17386,7 +17387,7 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="72"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Marca l&apos;àrea fora de marges amb el color de marge</translation>
+        <translation>Marca l&apos;àrea fora de marges al marge de color</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
@@ -18351,7 +18352,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="27"/>
         <source>Fonts</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="103"/>
@@ -18377,13 +18378,13 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="45"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
         <source>Available Fonts</source>
-        <translation>Tipus de lletra disponibles</translation>
+        <translation>Lletres disponibles</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="67"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
         <source>Font Substitutions</source>
-        <translation>Substitucions de tipus de lletra</translation>
+        <translation>Substitucions de lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="113"/>
@@ -18394,7 +18395,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="56"/>
         <source>Font Name</source>
-        <translation>Nom del tipus de lletra</translation>
+        <translation>Nom de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="57"/>
@@ -18404,7 +18405,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="98"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation>Els camins de cerca als tipus de lletra es poden especificar únicament a Fitxer &gt; Preferències, i només quan no hi ha obert cap document. Tanqueu els documents oberts, després utilitzeu Fitxer &gt; Preferències &gt; Tipus de lletres per canviar el camí de cerca als tipus de lletra.</translation>
+        <translation>Els camins de cerca a les lletres es poden especificar únicament a Fitxer &gt; Preferències, i només quan no hi ha obert cap document. Tanqueu els documents oberts, després utilitzeu Fitxer &gt; Preferències &gt; Lletres, per canviar el camí de cerca a les lletres.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="318"/>
@@ -18467,7 +18468,7 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="65"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="133"/>
         <source>Baseline Grid</source>
-        <translation>Línia de base de la graella</translation>
+        <translation>Graella base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="252"/>
@@ -18477,22 +18478,22 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="280"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Espaiat de la graella secundària:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="290"/>
         <source>Baseline Grid Spacing:</source>
-        <translation>Espaiat de la línia de base de la graella:</translation>
+        <translation>Espaiat de la graella base:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="270"/>
         <source>Major Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Espaiat de la graella principal:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="304"/>
         <source>Baseline Grid Offset:</source>
-        <translation>Desfasament de la línia de base de la graella:</translation>
+        <translation>Desfasament de la graella base:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="443"/>
@@ -18522,7 +18523,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="510"/>
         <source>Baseline Grid:</source>
-        <translation>Línia de base de la graella:</translation>
+        <translation>Graella base:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="84"/>
@@ -18562,12 +18563,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="92"/>
         <source>Color for the margin lines</source>
-        <translation>Color de les línies de marge</translation>
+        <translation>Color per a les línies de marge</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="93"/>
         <source>Color for the baseline grid</source>
-        <translation>Color de la línia de base de la graella</translation>
+        <translation>Color per a la graella base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="94"/>
@@ -18577,12 +18578,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="95"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation>Distància entre les línies de la línia de base de la graella</translation>
+        <translation>Distància entre les línies de la graella base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="96"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation>Distància de la reixa base a la part superior de la pàgina</translation>
+        <translation>Distància des de la part superior de la pàgina per a la primera base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="97"/>
@@ -18608,7 +18609,7 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="59"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="127"/>
         <source>Content Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Objectes de contingut</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="63"/>
@@ -18869,7 +18870,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="435"/>
         <source>Font:</source>
-        <translation>Tipus de lletra:</translation>
+        <translation>Lletra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="455"/>
@@ -18904,22 +18905,22 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="745"/>
         <source>Scaling</source>
-        <translation>Escalament</translation>
+        <translation>Canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="759"/>
         <source>Free Scaling</source>
-        <translation>Escalament lliure</translation>
+        <translation>Canvi d&apos;escala lliure</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="892"/>
         <source>Horizontal Scaling:</source>
-        <translation>Escalament horitzontal:</translation>
+        <translation>Canvi d&apos;escala horitzontal:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="869"/>
         <source>Vertical Scaling:</source>
-        <translation>Escalament vertical:</translation>
+        <translation>Canvi d&apos;escala vertical:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="917"/>
@@ -19052,7 +19053,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtools.cpp" line="60"/>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation>Mantén iguals l&apos;escalament horitzontal i vertical</translation>
+        <translation>Mantén iguals els canvis d&apos;escala horitzontal i vertical</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1415"/>
@@ -19240,7 +19241,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="56"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Pregunta sempre abans de substituir els tipus de lletra quan es carregui un document</translation>
+        <translation>Pregunta sempre abans de substituir les lletres quan es carregui un document</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="63"/>
@@ -19689,7 +19690,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1270"/>
         <source>Fonts</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1346"/>
@@ -19699,7 +19700,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1336"/>
         <source>Fonts to Embed</source>
-        <translation>Tipus de lletra a incrustar</translation>
+        <translation>Lletres a incrustar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1428"/>
@@ -20208,7 +20209,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="651"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Incrusta els tipus de lletra al PDF. La incrustació dels tipus de lletra farà que el document preservi el seu aspecte i la seva disposició.</translation>
+        <translation>Incrusta les lletres al PDF. La incrustació de les lletres farà que el document preservi el seu aspecte i la seva disposició.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="652"/>
@@ -20318,7 +20319,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1317"/>
         <source>Outline All Fonts</source>
-        <translation>Contorneja tots els tipus de lletra</translation>
+        <translation>Contorneja totes les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1322"/>
@@ -20328,7 +20329,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1406"/>
         <source>Fonts to Subset</source>
-        <translation>Tipus de lletra al subconjunt</translation>
+        <translation>Lletres per al subconjunt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1416"/>
@@ -20413,7 +20414,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="661"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation>Incrusta només els tipus de lletra amb glifs que s&apos;utilitzen al document dins del PDF</translation>
+        <translation>Incrusta dins del PDF només les lletres amb els glifs utilitzats al document</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1211"/>
@@ -20684,7 +20685,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Check for placed PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprova si hi ha fitxers PDF posicionats</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="317"/>
@@ -20699,17 +20700,17 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="331"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation>Comprova si hi ha incongruència Visible/Imprimible a les capes</translation>
+        <translation>Comprova si hi ha incongruència visible/imprimible a les capes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="338"/>
         <source>Ignore non-printable layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora les capes no imprimibles</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="249"/>
         <source>Check for part filled image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprova si hi ha marcs d&apos;imatge omplerts parcialment</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="221"/>
@@ -20719,7 +20720,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="345"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprova si la ubicació de la pàgina mestra aplicada és la mateixa que la ubicació de cada pàgina</translation>
     </message>
 </context>
 <context>
@@ -20936,7 +20937,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="63"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation>Manté els ítems copiats permanentment a través de les sessions</translation>
+        <translation>Mantén els ítems copiats permanentment a través de les sessions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="70"/>
@@ -21299,7 +21300,7 @@ Voleu utilitzar-la?</translation>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="184"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="446"/>
         <source>Scaling:</source>
-        <translation>Escalament:</translation>
+        <translation>Canvi d&apos;escala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="145"/>
@@ -21349,48 +21350,48 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="31"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Desplaçament per sota de la línia de base del tipus de lletra normal en una línia</translation>
+        <translation>Desplaçament per sota de la base de la lletra normal en una línia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="32"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Mida relativa del subíndex comparat amb el tipus de lletra normal</translation>
+        <translation>Mida relativa del subíndex en comparació amb la lletra normal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="33"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Desplaçament per sobre de la línia de base del tipus de lletra normal en una línia</translation>
+        <translation>Desplaçament per sobre de la base de la lletra normal en una línia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="34"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Mida relativa del superíndex en comparació al tipus de lletra normal</translation>
+        <translation>Mida relativa del superíndex en comparació amb la lletra normal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="35"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Desplaçament per sota de la línia base del tipus de lletra normal expressat en percentatge de l&apos;eina de decrement dels tipus de lletra</translation>
+        <translation>Desplaçament per sota de la base de la lletra normal expressat en percentatge de l&apos;eina de decrement de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="36"/>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="38"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Amplada de la línia com a percentatge de la mida del tipus de lletra</translation>
+        <translation>Amplada de la línia com a percentatge de la mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="37"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Desplaçament per sobre de la línia base del tipus de lletra normal expressat en percentatge de l&apos;eina d&apos;increment dels tipus de lletra</translation>
+        <translation>Desplaçament per sobre de la base de la lletra normal expressat en percentatge de l&apos;eina d&apos;increment de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="39"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Mida relativa de les majúscules petites comparades amb la mida del tipus de lletra normal</translation>
+        <translation>Mida relativa de les majúscules petites comparades amb la mida de la lletra normal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="40"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Percentatge d&apos;increment sobre la mida del tipus de lletra per a l&apos;interlineat</translation>
+        <translation>Percentatge d&apos;increment sobre la mida de la lletra per a l&apos;interlineat</translation>
     </message>
 </context>
 <context>
@@ -21438,7 +21439,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="163"/>
         <source>Font Sizes</source>
-        <translation>Mides dels tipus de lletra</translation>
+        <translation>Mides de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="179"/>
@@ -21464,7 +21465,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="240"/>
         <source>Font:</source>
-        <translation>Tipus de lletra:</translation>
+        <translation>Lletra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="268"/>
@@ -21519,12 +21520,12 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="58"/>
         <source>Default font size for the menus and windows</source>
-        <translation>Mida predeterminada del tipus de lletra per als menús i les finestres</translation>
+        <translation>Mida predeterminada de la lletra per als menús i les finestres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="59"/>
         <source>Default font size for the tool windows</source>
-        <translation>Mida predeterminada del tipus de lletra per a les finestres de les eines</translation>
+        <translation>Mida predeterminada de la lletra per a les finestres de les eines</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
@@ -22308,7 +22309,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="110"/>
         <source>Scaling</source>
-        <translation>Escalament</translation>
+        <translation>Canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="116"/>
@@ -22333,7 +22334,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>Keep the X and Y scaling the same</source>
-        <translation>Mantén iguals l&apos;escalament X i Y</translation>
+        <translation>Mantén iguals els canvis d&apos;escala X i Y</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
@@ -22349,7 +22350,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="188"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation>PPP efectius en horitzontal de la imatge després de l&apos;escalament</translation>
+        <translation>PPP efectius en horitzontal de la imatge després del canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="195"/>
@@ -22359,7 +22360,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation>PPP efectius en vertical de la imatge després de l&apos;escalament</translation>
+        <translation>PPP efectius en vertical de la imatge després del canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="231"/>
@@ -22369,7 +22370,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="234"/>
         <source>&amp;Free Scaling</source>
-        <translation>Escalament lli&amp;ure</translation>
+        <translation>Canvi d&apos;escala lli&amp;ure</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="241"/>
@@ -22500,7 +22501,7 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="669"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="670"/>
         <source>Scaling:</source>
-        <translation>Escalament:</translation>
+        <translation>Canvi d&apos;escala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="682"/>
@@ -22634,7 +22635,7 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="70"/>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="87"/>
         <source>Scaling:</source>
-        <translation>Escalament:</translation>
+        <translation>Canvi d&apos;escala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="57"/>
@@ -23154,13 +23155,13 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="474"/>
         <source>Baseline</source>
-        <translation>Línia de base</translation>
+        <translation>Base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="103"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
-        <translation>Característiques del tipus de lletra</translation>
+        <translation>Característiques de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="706"/>
@@ -23175,7 +23176,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
-        <translation>Alinea a la línia de base de la graella</translation>
+        <translation>Alinea a la graella base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23207,7 +23208,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
         <source>Font Size</source>
-        <translation>Mida del tipus de lletra</translation>
+        <translation>Mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
@@ -23502,7 +23503,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
-        <translation>Desfasa a la línia base dels caràcters</translation>
+        <translation>Desfasa a la base dels caràcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
@@ -23524,12 +23525,12 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
         <source>Scaling width of characters</source>
-        <translation>Escalament de l&apos;amplada dels caràcters</translation>
+        <translation>Canvi d&apos;escala de l&apos;amplada dels caràcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
         <source>Scaling height of characters</source>
-        <translation>Escalament de l&apos;alçada dels caràcters</translation>
+        <translation>Canvi d&apos;escala de l&apos;alçada dels caràcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
@@ -23800,12 +23801,12 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Estableix l&apos;alçada de la primera línia del marc de text per a utilitzar l&apos;ascens complet dels tipus de lletra en ús</translation>
+        <translation>Estableix l&apos;alçada de la primera línia del marc de text per a utilitzar l&apos;ascens complet de les lletres en ús</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
-        <translation>Ascens del tipus de lletra</translation>
+        <translation>Ascens de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
@@ -23825,7 +23826,7 @@ Transparència</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
-        <translation>Línia de base de la graella</translation>
+        <translation>Graella base</translation>
     </message>
 </context>
 <context>
@@ -25122,12 +25123,12 @@ Comprova el nom i el camí.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="157"/>
         <source>&amp;Font</source>
-        <translation>&amp;Tipus de lletra</translation>
+        <translation>&amp;Lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="158"/>
         <source>Font st&amp;yle</source>
-        <translation>Est&amp;il de tipus de lletra</translation>
+        <translation>Est&amp;il de lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="159"/>
@@ -25187,7 +25188,7 @@ Comprova el nom i el camí.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="170"/>
         <source>Select Font</source>
-        <translation>Selecció del tipus de lletra</translation>
+        <translation>Selecció de la lletra</translation>
     </message>
 </context>
 <context>
@@ -26768,6 +26769,11 @@ Enllaços externs
         <translation>urdú</translation>
     </message>
     <message>
+        <location filename="../../scribus/langmgr.cpp" line="620"/>
+        <source>Written Oirat (Todo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="179"/>
         <source>Chinese</source>
         <translation>xinès</translation>
@@ -26875,11 +26881,6 @@ Enllaços externs
     <message>
         <location filename="../../scribus/langmgr.cpp" line="619"/>
         <source>Wolof</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/langmgr.cpp" line="620"/>
-        <source> Written Oirat (Todo)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -28068,13 +28069,13 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="61"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot obtenir la mida del tipus de lletra d&apos;un marc que no és de text.</translation>
+        <translation>No es pot obtenir la mida de la lletra d&apos;un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="87"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot obtenir la mida del tipus de lletra d&apos;un marc que no és de text.</translation>
+        <translation>No es pot obtenir la mida de la lletra d&apos;un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="113"/>
@@ -28092,7 +28093,7 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es poden obtenir les característiques del tipus de lletra d&apos;un marc que no és de text.</translation>
+        <translation>No es poden obtenir les característiques de la lletra d&apos;un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="193"/>
@@ -28323,7 +28324,7 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="567"/>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation>Tipus de lletra no trobat.</translation>
+        <translation>Lletra no trobada.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="108"/>
@@ -28411,25 +28412,25 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="482"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation>La mida del tipus de lletra està fora dels límits - ha de ser 1 &lt;= mida &lt;= 512.</translation>
+        <translation>La mida de la lletra està fora dels límits - ha de ser 1 &lt;= mida &lt;= 512.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="491"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot establir la mida del tipus de lletra en un marc que no és de text.</translation>
+        <translation>No es pot establir la mida de la lletra en un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="522"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot establir la característica del tipus de lletra en un marc que no és de text.</translation>
+        <translation>No es pot establir la característica de la lletra en un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="551"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot establir el tipus de lletra en un marc que no és de text.</translation>
+        <translation>No es pot establir la lletra en un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="585"/>
@@ -29065,49 +29066,49 @@ detallats exhaustivament per a les funcions cridades.
         <location filename="../../scribus/fonts/ftface.cpp" line="375"/>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="234"/>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation>El tipus de lletra %1 està trencada (read stream), no s&apos;incrusta</translation>
+        <translation>La lletra %1 està trencada (read stream), no s&apos;incrusta</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="149"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>El tipus de lletra %1 té el glyph trencat %2 (codi de caràcter %3)</translation>
+        <translation>La lletra %1 té el glyph trencat %2 (codi de caràcter %3)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ps.h" line="185"/>
         <location filename="../../scribus/fonts/scface_ps.h" line="215"/>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation>No es pot llegir el tipus de lletra %1, no s&apos;incrusta</translation>
+        <translation>No es pot llegir la lletra %1, no s&apos;incrusta</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="673"/>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation>No s&apos;ha pogut carregar el tipus de lletra %1 - tipus desconegut del tipus de lletra</translation>
+        <translation>No s&apos;ha pogut carregar la lletra %1 - tipus de lletra desconegut</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="865"/>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation>Tipus de lletra %1 carregada des de %2 (%3)</translation>
+        <translation>Lletra %1 carregada des de %2 (%3)</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="881"/>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation>El tipus de lletra %1(%2) és un duplicat de %3</translation>
+        <translation>La lletra %1(%2) és un duplicat de %3</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1002"/>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation>Càrrega del tipus de lletra %1 (trobat amb fontconfig)</translation>
+        <translation>Càrrega de la lletra %1 (s&apos;ha trobat amb fontconfig)</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1007"/>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation>No s&apos;ha pogut carregar el tipus de lletra - freetype2 no ha pogut trobar el fitxer del tipus de lletra</translation>
+        <translation>No s&apos;ha pogut carregar una lletra - freetype2 no ha pogut trobar el fitxer de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="115"/>
         <location filename="../../scribus/fonts/sfnt.cpp" line="450"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation>extracció la cara %1 a partir del tipus de lletra %2 (offset=%3, nTables=%4)</translation>
+        <translation>extracció de la tipo %1 a partir de la lletra %2 (offset=%3, nTables=%4)</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="121"/>
@@ -29190,7 +29191,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="59"/>
         <source>Font Preview</source>
-        <translation>Vista prèvia del tipus de lletra</translation>
+        <translation>Vista prèvia de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="45"/>
@@ -29214,7 +29215,7 @@ detallats exhaustivament per a les funcions cridades.
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="132"/>
-        <source>You have not defined a location to save document templates to. Please go to Scribus application Preferences and define a location in the Paths section.</source>
+        <source>You have not configured where to save document templates.&lt;br&gt;Please go to the Paths section in the Scribus application Preferences to set a location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29250,7 +29251,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="655"/>
         <source>Creating Font Cache</source>
-        <translation>Creació de la memòria cau del tipus de lletra</translation>
+        <translation>Creació de la memòria cau de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="664"/>
@@ -29260,7 +29261,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="683"/>
         <source>New Font found, checking...</source>
-        <translation>S&apos;ha trobat un nou tipus de lletra, es comprova...</translation>
+        <translation>S&apos;ha trobat una lletra nova, es comprova...</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="692"/>
@@ -29271,22 +29272,22 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="724"/>
         <source>Modified Font found, checking...</source>
-        <translation>S&apos;ha trobat un tipus de lletra modificat, es comprova...</translation>
+        <translation>S&apos;ha trobat una lletra modificada, es comprova...</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1105"/>
         <source>Reading Font Cache</source>
-        <translation>Lectura de la memòria cau del tipus de lletra</translation>
+        <translation>Lectura de la memòria cau de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1152"/>
         <source>Writing updated Font Cache</source>
-        <translation>Escriptura de la memòria cau del tipus de lletra</translation>
+        <translation>Escriptura de la memòria cau de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1169"/>
         <source>Searching for Fonts</source>
-        <translation>Cerca dels tipus de lletra</translation>
+        <translation>Cerca de les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4136"/>
@@ -29378,7 +29379,7 @@ detallats exhaustivament per a les funcions cridades.
         <location filename="../../scribus/fonts/ftface.cpp" line="72"/>
         <location filename="../../scribus/fonts/ftface.cpp" line="89"/>
         <source>Font %1(%2) is broken</source>
-        <translation>El tipus de lletra %1(%2) està malmesa</translation>
+        <translation>La lletra %1(%2) està malmesa</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="105"/>
@@ -29488,7 +29489,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/fonts/scface_ps.h" line="53"/>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>El tipus de lletra %1 està trencada (no Face), es descarta</translation>
+        <translation>La lletra %1 està malmesa (no Face), es descarta</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="367"/>
@@ -29663,7 +29664,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="197"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation>Els tipus de lletra %1 té els glyph %2 trencats</translation>
+        <translation>La lletra %1 té els glyph %2 malmesos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="151"/>
@@ -29721,7 +29722,7 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/fonts/scface_ps.cpp" line="94"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation>El tipus de lletra %1 té la mètrica trencada en el fitxer %2. S&apos;ignoren les mètriques</translation>
+        <translation>La lletra %1 té la mètrica malmesa al fitxer %2. S&apos;ignoren les mètriques</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="180"/>
@@ -29851,12 +29852,12 @@ detallats exhaustivament per a les funcions cridades.
     <message>
         <location filename="../../scribus/fonts/scface_ps.cpp" line="100"/>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation>S&apos;han trobat mètriques vàlides per al tipus de lletra %1. S&apos;utilitzaran les mètriques al fitxer %2</translation>
+        <translation>S&apos;han trobat mètriques vàlides per a la lletra %1. S&apos;utilitzaran les mètriques al fitxer %2</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ps.cpp" line="107"/>
         <source>No metrics found for font %1, ignoring font</source>
-        <translation>No s&apos;ha trobat mètrica pel tipus de lletra %1 i s&apos;ignorarà</translation>
+        <translation>No s&apos;ha trobat la mètrica per a la lletra %1 i s&apos;ignorarà</translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="104"/>
@@ -30000,8 +30001,8 @@ detallats exhaustivament per a les funcions cridades.
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation>Els tipus de lletra
-%1 no estan incrustats o disponibles per a Scribus.
+        <translation>Les lletres:
+%1 no estan incrustades o disponibles per a Scribus.
 Haurien de substituir-se per &quot;Courier&quot; en funció de la configuració de Ghostscript.
 De tota manera, la imatge pot no ser correcta</translation>
     </message>
@@ -30046,14 +30047,14 @@ De tota manera, la imatge pot no ser correcta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="930"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
-        <translation>L&apos;escalament del caràcter està fora dels límits, ha de ser &gt;= 10</translation>
+        <translation>El canvi d&apos;escala del caràcter està fora dels límits, ha de ser &gt;= 10</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="903"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="938"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>No es pot establir l&apos;escalament del caràcter en un marc que no és de text.</translation>
+        <translation>No es pot establir el canvi d&apos;escala del caràcter en un marc que no és de text.</translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="105"/>
@@ -31077,7 +31078,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="75"/>
         <source>Fonts</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="76"/>
@@ -31575,7 +31576,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="786"/>
         <source>Font Features</source>
-        <translation>Característiques del tipus de lletra</translation>
+        <translation>Característiques de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="102"/>
@@ -31585,27 +31586,27 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="103"/>
         <source>Font Family</source>
-        <translation>Família de tipus de lletra</translation>
+        <translation>Família de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="104"/>
         <source>Font Size</source>
-        <translation>Mida del tipus de lletra</translation>
+        <translation>Mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="107"/>
         <source>Baseline Offset</source>
-        <translation>Desfasament de la línia de base de la graella</translation>
+        <translation>Desfasament de la base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="108"/>
         <source>Horizontal Scaling</source>
-        <translation>Escalament horitzontal</translation>
+        <translation>Canvi d&apos;escala horitzontal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="109"/>
         <source>Vertical Scaling</source>
-        <translation>Escalament vertical</translation>
+        <translation>Canvi d&apos;escala vertical</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="111"/>
@@ -31782,7 +31783,110 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
-        <translation>Utilitza el tipus de lletra primari</translation>
+        <translation>Utilitza la lletra primària</translation>
+    </message>
+</context>
+<context>
+    <name>SMFontFeatures</name>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
+        <source>Default Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
+        <source>Small Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="542"/>
+        <source>Small Capitals from Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="544"/>
+        <source>Petite Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="546"/>
+        <source>Petite Capitals from Capitals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
+        <source>Unicase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
+        <source>Titling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
+        <source>Default Position</source>
+        <translation type="unfinished">Posició predeterminada</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
+        <source>Subscript</source>
+        <translation type="unfinished">Subíndex</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
+        <source>Superscript</source>
+        <translation type="unfinished">Superíndex</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
+        <source>Ordinals</source>
+        <translation type="unfinished">Ordinals</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
+        <source>Default Numerals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
+        <source>Lining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
+        <source>Old Style</source>
+        <translation type="unfinished">Estil antic</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
+        <source>Default Numeral Width</source>
+        <translation type="unfinished">Amplada predeterminada dels números</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
+        <source>Proportional</source>
+        <translation type="unfinished">Proporcional</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
+        <source>Tabular</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
+        <source>No Fractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
+        <source>Diagonal Fractions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
+        <source>Stacked Fractions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31887,7 +31991,7 @@ Trieu-ne un altre.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="247"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Align to Baseline Grid</source>
-        <translation>Alinea a la línia de base de la graella</translation>
+        <translation>Alinea a la graella base</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1098"/>
@@ -32569,27 +32673,27 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1481"/>
         <source>Font of selected text</source>
-        <translation>Tipus de lletra del text seleccionat</translation>
+        <translation>Lletra del text seleccionat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1482"/>
         <source>Font Size</source>
-        <translation>Mida del tipus de lletra</translation>
+        <translation>Mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1483"/>
         <source>Scaling width of characters</source>
-        <translation>Escalament de l&apos;amplada dels caràcters</translation>
+        <translation>Canvi d&apos;escala de l&apos;amplada dels caràcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1430"/>
         <source>Font Settings</source>
-        <translation>Ajusts del tipus de lletra</translation>
+        <translation>Ajusts de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1484"/>
         <source>Scaling height of characters</source>
-        <translation>Escalament de l&apos;alçada dels caràcters</translation>
+        <translation>Canvi d&apos;escala de l&apos;alçada dels caràcters</translation>
     </message>
 </context>
 <context>
@@ -32924,7 +33028,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="126"/>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Tipus de lletra per utilitzar amb PDF 1.3:</translation>
+        <translation>Lletra per utilitzar amb PDF 1.3:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="212"/>
@@ -34333,12 +34437,12 @@ En desar-lo en aquesta versió, no el podreu llegir amb versions més velles de 
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="288"/>
         <source>Searching for Fonts</source>
-        <translation>S&apos;estan cercant els tipus de lletra</translation>
+        <translation>S&apos;estan cercant les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="293"/>
         <source>There are no fonts found on your system.</source>
-        <translation>No s&apos;han trobat tipus de lletra en el sistema.</translation>
+        <translation>No s&apos;ha trobat cap lletra al vostre sistema.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="294"/>
@@ -34353,7 +34457,7 @@ En desar-lo en aquesta versió, no el podreu llegir amb versions més velles de 
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="298"/>
         <source>Font System Initialized</source>
-        <translation>Sistema de tipus de lletra iniciat</translation>
+        <translation>Sistema de lletres iniciat</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="204"/>
@@ -34828,7 +34932,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6905"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation>No hi ha disponible Ghostscript: La vista prèvia de la impressió PostScript no està disponible</translation>
+        <translation>Falta Ghostscript: La vista prèvia de la impressió PostScript no està disponible</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3487"/>
@@ -35118,7 +35222,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="580"/>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Mostra la informació en la consola quan es carreguen els tipus de lletra</translation>
+        <translation>Mostra la informació en la consola quan es carreguen les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="584"/>
@@ -35703,19 +35807,19 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
         <location filename="../../scribus/ui/search.cpp" line="76"/>
         <location filename="../../scribus/ui/search.cpp" line="175"/>
         <source>Font</source>
-        <translation>Tipus de lletra</translation>
+        <translation>Lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="79"/>
         <location filename="../../scribus/ui/search.cpp" line="178"/>
         <source>Font Size</source>
-        <translation>Mida del tipus de lletra</translation>
+        <translation>Mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="82"/>
         <location filename="../../scribus/ui/search.cpp" line="181"/>
         <source>Font Effects</source>
-        <translation>Efectes del tipus de lletra</translation>
+        <translation>Efectes de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="85"/>
@@ -36355,7 +36459,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Fonts Preview...</source>
-        <translation>Vista prèvia dels tipus de lletra...</translation>
+        <translation>Vista prèvia de les lletres...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2041"/>
@@ -36365,7 +36469,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2042"/>
         <source>&amp;Display Font...</source>
-        <translation>&amp;Mostra el tipus de lletra...</translation>
+        <translation>&amp;Mostra la lletra...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1822"/>
@@ -36996,12 +37100,12 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="549"/>
         <source>Fonts to embed:</source>
-        <translation>Tipus de lletra a incrustar:</translation>
+        <translation>Lletra a incrustar:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="467"/>
         <source>&amp;Fonts</source>
-        <translation>&amp;Tipus de lletra</translation>
+        <translation>&amp;Lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="666"/>
@@ -37510,7 +37614,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="230"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Incrusta els tipus de lletra al PDF. La incrustació dels tipus de lletra farà que el document preservi el seu aspecte i la seva disposició.</translation>
+        <translation>Incrusta les lletres dins del PDF. La incrustació de les lletres farà que el document preservi el seu aspecte i la seva disposició.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="237"/>
@@ -37984,7 +38088,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="527"/>
         <source>Outline All Fonts</source>
-        <translation>Contorneja tots els tipus de lletra</translation>
+        <translation>Contorneja totes les lletres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="532"/>
@@ -37994,7 +38098,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="620"/>
         <source>Fonts to subset:</source>
-        <translation>Tipus de lletra al subconjunt:</translation>
+        <translation>Lletra per al subconjunt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="630"/>
@@ -38004,7 +38108,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="232"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation>Incrusta només els tipus de lletra amb glifs que s&apos;utilitzen al document dins del PDF.</translation>
+        <translation>Incrusta dins del PDF només el subconjunt de les lletres amb els glifs utilitzats al document.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="269"/>
@@ -38250,7 +38354,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/transformdialog.cpp" line="52"/>
         <source>Scaling</source>
-        <translation>Escalament</translation>
+        <translation>Canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialog.cpp" line="53"/>
@@ -38337,7 +38441,7 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="131"/>
         <source>Scaling</source>
-        <translation>Escalament</translation>
+        <translation>Canvi d&apos;escala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="141"/>
@@ -38785,38 +38889,38 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="646"/>
         <source>Set font</source>
-        <translation>Establiment del tipus de lletra</translation>
+        <translation>Establiment de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="647"/>
         <location filename="../../scribus/undomanager.cpp" line="650"/>
         <source>Set font size</source>
-        <translation>Establiment de la mida del tipus de lletra</translation>
+        <translation>Establiment de la mida de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="651"/>
         <source>Set font width</source>
-        <translation>Establiment de l&apos;amplada del tipus de lletra</translation>
+        <translation>Establiment de l&apos;amplada de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="658"/>
         <source>Set font fill color</source>
-        <translation>Establiment del color de l&apos;ompliment del tipus de lletra</translation>
+        <translation>Establiment del color de l&apos;ompliment de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="659"/>
         <source>Set font stroke color</source>
-        <translation>Establiment del color del traç del tipus de lletra</translation>
+        <translation>Establiment del color del traç de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="660"/>
         <source>Set font fill color shade</source>
-        <translation>Establiment de la intensitat del color de l&apos;ompliment del tipus de lletra</translation>
+        <translation>Establiment de la intensitat del color de l&apos;ompliment de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="661"/>
         <source>Set font stroke color shade</source>
-        <translation>Establiment de la intensitat del traç del tipus de lletra</translation>
+        <translation>Establiment de la intensitat del traç de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="662"/>
@@ -38846,7 +38950,7 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="667"/>
         <source>Set font effect</source>
-        <translation>Establiment de l&apos;efecte del tipus de lletra</translation>
+        <translation>Establiment de l&apos;efecte de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="668"/>
@@ -38936,7 +39040,7 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Set image scaling</source>
-        <translation>Establiment de l&apos;escalament de la imatge</translation>
+        <translation>Establiment del canvi d&apos;escala de la imatge</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="704"/>
@@ -38946,7 +39050,7 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Free scaling</source>
-        <translation>Escalament lliure</translation>
+        <translation>Canvi d&apos;escala lliure</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="709"/>
@@ -39052,7 +39156,7 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="652"/>
         <source>Set font height</source>
-        <translation>Establiment de l&apos;alçada del tipus de lletra</translation>
+        <translation>Establiment de l&apos;alçada de la lletra</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="678"/>
@@ -40695,7 +40799,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Assegureu-vos que les imatges i els tipus de lletra que utilitzeu puguin utilitzar-se lliurement. Si els tipus de lletra no es poden compartir, no els recolliu quan deseu com a una plantilla.</translation>
+        <translation>Assegureu-vos que les imatges i les lletres que utilitzeu puguin utilitzar-se lliurement. Si les lletres no es poden compartir, no les recolliu quan deseu com a una plantilla.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
@@ -40818,7 +40922,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="188"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Assegureu-vos que les imatges i els tipus de lletra que utilitzeu puguin utilitzar-se lliurement. Si els tipus de lletra no es poden compartir, no els recolliu quan deseu com a una plantilla.</translation>
+        <translation>Assegureu-vos que les imatges i les lletres que utilitzeu puguin utilitzar-se lliurement. Si les lletres no es poden compartir, no les recolliu quan deseu com a una plantilla.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="189"/>
