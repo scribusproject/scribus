@@ -1746,7 +1746,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>Edit Text with Story Editor...</source>
-        <translation type="unfinished"></translation>
+        <translation>Text mit dem Editor bearbeiten...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
@@ -3569,7 +3569,7 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translati
         <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Ausrufezeichen an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1117"/>
@@ -7784,7 +7784,7 @@ Dokumentes</translation>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document</source>
         <translation>Wenn Sie &quot;OK&quot; klicken und speichern, werden diese Schriftersetzungen dauerhaft
-im Dokument gespeichert.</translation>
+im Dokument gespeichert</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="40"/>
@@ -11386,7 +11386,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="40"/>
         <source>Label:</source>
-        <translation type="unfinished">Beschriftung:</translation>
+        <translation>Beschriftung:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="51"/>
@@ -11404,22 +11404,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="52"/>
         <source>Edit</source>
-        <translation type="unfinished">Bearbeiten</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="57"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="101"/>
         <source>Anchors</source>
-        <translation type="unfinished">Anker</translation>
+        <translation>Anker</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="102"/>
         <source>Variable Text</source>
-        <translation type="unfinished">Textvariable</translation>
+        <translation>Textvariable</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="103"/>
@@ -14410,7 +14410,14 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Wenn das Farbmanagement aktiviert ist, zeigt das Ausrufezeichen an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe. Registrierungsfarben zeigen ein Registrierungszeichen neben der Farbe. Verwenden Sie Registrierungsfarben nur für Drucker- und Schneidemarken.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
@@ -18815,7 +18822,7 @@ Möchten Sie diesen verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation>Legt den Kompressionsgrad für Grafiken im Cache fest: je höher der Wert, desto kleiner die Caché-Dateien. Ein höherer Wert verlangsamt aber auch das Schreiben ins Caché.</translation>
+        <translation>Legt den Kompressionsgrad für Grafiken im Cache fest: je höher der Wert, desto kleiner die Cache-Dateien. Ein höherer Wert verlangsamt aber auch das Schreiben ins Cache.</translation>
     </message>
 </context>
 <context>
@@ -23690,7 +23697,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
-        <translation>Vertikale Ausrichtung</translation>
+        <translation>Vertikale Ausrichtung:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23988,12 +23995,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="165"/>
         <source>Unicase (unic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase (unic)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="168"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="178"/>
@@ -24336,12 +24343,12 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
         <source>Don&apos;t separate first:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zusammenhalten der ersten:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="43"/>
         <source>Don&apos;t separate last:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zusammenhalten der letzten:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="50"/>
@@ -31855,102 +31862,102 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
         <source>Default Capitals</source>
-        <translation type="unfinished">Standardgrossbuchstaben</translation>
+        <translation>Standardgrossbuchstaben</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
         <source>Small Capitals</source>
-        <translation type="unfinished">Kapitälchen</translation>
+        <translation>Kapitälchen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="542"/>
         <source>Small Capitals from Capitals</source>
-        <translation type="unfinished">Kapitälchen als Grossbuchstaben</translation>
+        <translation>Kapitälchen als Grossbuchstaben</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="544"/>
         <source>Petite Capitals</source>
-        <translation type="unfinished">Kleine Kapitälchen</translation>
+        <translation>Mitellängenkapitälchen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="546"/>
         <source>Petite Capitals from Capitals</source>
-        <translation type="unfinished">Kleine Kapitälchen als Grossbuchstaben</translation>
+        <translation>Mitellängenkapitälchen als Grossbuchstaben</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
         <source>Titling</source>
-        <translation type="unfinished">Betitelung</translation>
+        <translation>Betitelung</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
         <source>Default Position</source>
-        <translation type="unfinished">Standardposition</translation>
+        <translation>Standardposition</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
         <source>Subscript</source>
-        <translation type="unfinished">Tiefgestellt</translation>
+        <translation>Tiefgestellt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
         <source>Superscript</source>
-        <translation type="unfinished">Hochgestellt</translation>
+        <translation>Hochgestellt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
         <source>Ordinals</source>
-        <translation type="unfinished">Ordinalzeichen</translation>
+        <translation>Ordinalzeichen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
         <source>Default Numerals</source>
-        <translation type="unfinished">Standardziffern</translation>
+        <translation>Standardziffern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
         <source>Lining</source>
-        <translation type="unfinished">Normale Ziffern</translation>
+        <translation>Normale Ziffern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
         <source>Old Style</source>
-        <translation type="unfinished">Mediävalziffern</translation>
+        <translation>Mediävalziffern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished">Standardziffernbreite</translation>
+        <translation>Standardziffernbreite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
         <source>Proportional</source>
-        <translation type="unfinished"></translation>
+        <translation>Proportional</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
         <source>Tabular</source>
-        <translation type="unfinished">Tabellenziffern</translation>
+        <translation>Tabellenziffern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
         <source>No Fractions</source>
-        <translation type="unfinished">Keine Brüche</translation>
+        <translation>Keine Brüche</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished">Diagonalbrüche</translation>
+        <translation>Diagonalbrüche</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished">Vertikale Brüche</translation>
+        <translation>Vertikale Brüche</translation>
     </message>
 </context>
 <context>
@@ -32129,12 +32136,12 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="940"/>
         <source>Numbering Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Numerierungsstil:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="960"/>
         <source>Start with:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beginnen mit:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="994"/>
@@ -34726,7 +34733,7 @@ Drehung: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1018"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished">Leer&amp;zeichen &amp;&amp; Umbrüche</translation>
+        <translation>Leer&amp;zeichen &amp;&amp; Umbrüche</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1085"/>
@@ -34815,7 +34822,7 @@ Drehung: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8512"/>
         <source>The program %1 is missing or failed to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Programm %1 fehlt oder konnte nicht gestartet werden</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8636"/>
@@ -34862,7 +34869,7 @@ Drehung: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="9579"/>
         <location filename="../../scribus/scribus.cpp" line="9816"/>
         <source>Mark with &lt;%1&gt; variable text</source>
-        <translation>Marke mit &lt;1%&gt; Textvariable</translation>
+        <translation>Marke mit &lt;%1&gt; Textvariable</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9587"/>
@@ -34879,7 +34886,7 @@ Drehung: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9785"/>
         <source>Edit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeite %1</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3704"/>
@@ -41049,7 +41056,7 @@ Bitte geben Sie einen anderen ein.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It appears that Scribus crashed with the following files open.&lt;br&gt;Would you like to try to recover them?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offenbar ist Scribus abgestürzt, während die folgenden Dateien geöffnet waren.&lt;br&gt;Möchten Sie versuchen, diese wiederhezustellen?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offenbar ist Scribus abgestürzt, während die folgenden Dateien geöffnet waren.&lt;br&gt;Möchten Sie versuchen, diese wiederherzustellen?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
@@ -41376,7 +41383,7 @@ Bitte geben Sie einen anderen ein.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
