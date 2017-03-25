@@ -77,24 +77,33 @@ void* ScFace::ScFaceData::hbFont()
 {
 	if (!m_hbFont)
 	{
-		if (!ftFace())
+		FT_Face face = ftFace();
+		if (!face)
 			return NULL;
 
-		if (formatCode == ScFace::SFNT || formatCode == ScFace::TTCF || formatCode == ScFace::TYPE42)
+		// #14699: Harfbuzz internal functions apparently do not support font with a single Apple Roman CMap
+		// Force use of FreeType function in such case
+		if ((face->num_charmaps == 1) && (face->charmaps[0]->encoding == FT_ENCODING_APPLE_ROMAN))
+		{
+			m_hbFont = hb_ft_font_create_referenced(face);
+		}
+
+		if (!m_hbFont && (formatCode == ScFace::SFNT || formatCode == ScFace::TTCF || formatCode == ScFace::TYPE42))
 		{
 			// use HarfBuzz internal font functions for formats it supports,
 			// gives us more consistent glyph metrics.
-			FT_Reference_Face(ftFace());
-			hb_face_t *hbFace = hb_face_create_for_tables(referenceTable, ftFace(), (hb_destroy_func_t) FT_Done_Face);
-			hb_face_set_index(hbFace, ftFace()->face_index);
-			hb_face_set_upem(hbFace, ftFace()->units_per_EM);
+			FT_Reference_Face(face);
+			hb_face_t *hbFace = hb_face_create_for_tables(referenceTable, face, (hb_destroy_func_t) FT_Done_Face);
+			hb_face_set_index(hbFace, face->face_index);
+			hb_face_set_upem(hbFace, face->units_per_EM);
 
 			m_hbFont = hb_font_create(hbFace);
 			hb_ot_font_set_funcs(reinterpret_cast<hb_font_t*>(m_hbFont));
 
 			hb_face_destroy(hbFace);
 		}
-		else
+		
+		if (!m_hbFont)
 		{
 			m_hbFont = hb_ft_font_create_referenced(ftFace());
 		}
