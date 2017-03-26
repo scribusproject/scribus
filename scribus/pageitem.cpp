@@ -3343,6 +3343,22 @@ void PageItem::createConicalMesh()
 	double radius = angLin.length();
 	double radius2 = radius * 2.0;
 	QList<VColorStop*> rstops = gradient.colorStops();
+	if (rstops.count() < 2)
+	{
+		const VColorStop* firstStop = rstops.at(0);
+		if (firstStop->rampPoint > 0)
+		{
+			VColorStop* newStop = new VColorStop(*firstStop);
+			newStop->rampPoint = 0;
+			rstops.prepend(newStop);
+		}
+		if (firstStop->rampPoint < 1.0)
+		{
+			VColorStop* newStop = new VColorStop(*firstStop);
+			newStop->rampPoint = 1.0;
+			rstops.append(newStop);
+		}
+	}
 	double stepAngle = 360 * rstops.at(1)->rampPoint;
 	path.arcMoveTo(-radius, -radius, radius2, radius2, 0);
 	path.arcTo(-radius, -radius, radius2, radius2, 0, -stepAngle);
@@ -3397,6 +3413,8 @@ void PageItem::createConicalMesh()
 	for (uint rst = 2; rst < gradient.Stops(); ++rst)
 	{
 		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
+		if (stepAngle <= 0)
+			continue;
 		path = QPainterPath();
 		arcPath.resize(0);
 		path.arcMoveTo(-radius, -radius, radius2, radius2, 0);
