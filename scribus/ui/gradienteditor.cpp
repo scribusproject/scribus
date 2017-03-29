@@ -62,7 +62,7 @@ const VGradient GradientEditor::gradient()
 void GradientEditor::setColors(ColorList &colorList)
 {
 	m_colorList = colorList;
-	stopColor->updateBox(colorList, true);
+	stopColor->setColors(colorList, true);
 }
 
 void GradientEditor::setPos(double p)

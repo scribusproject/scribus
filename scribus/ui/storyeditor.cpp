@@ -1155,15 +1155,8 @@ void SToolBColorF::languageChange()
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 {
-	if (doc!=NULL)
-		TxFill->updateBox(doc->PageColors, true);
-	else
-	{
-		TxFill->clear();
-		TxFill->addItem(CommonStrings::tr_NoneColor);
-	}
-//	if (doc!=NULL)
-//		TxFill->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	ColorList list = doc ? doc->PageColors : ColorList();
+	TxFill->setColors(list, true);
 	resize(minimumSizeHint());
 }
 
@@ -1227,10 +1220,8 @@ void SToolBColorS::languageChange()
 
 void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 {
-	TxStroke->clear();
-	TxStroke->addItem(CommonStrings::tr_NoneColor);
-	if (doc!=NULL)
-		TxStroke->insertItems(doc->PageColors);
+	ColorList list = doc ? doc->PageColors : ColorList();
+	TxStroke->setColors(list, true);
 	resize(minimumSizeHint());
 }
 

@@ -13,10 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <QHelpEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QPersistentModelIndex>
 #include <QPixmap>
 #include <QSignalBlocker>
 #include <QToolTip>
 
+#include "colorlistmodel.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "sccolorengine.h"
@@ -199,35 +201,60 @@ int ColorListBox::initialized;
 int ColorListBox::sortRule;
 
 ColorListBox::ColorListBox(QWidget * parent)
-	: QListWidget(parent)
+	: QListView(parent)
 {
 	cList = NULL;
 	if (initialized != 12345)
 		sortRule = 0;
 	initialized = 12345;
+	QListView::setModel(new ColorListModel(this));
 	setPixmapType(ColorListBox::widePixmap);
+
+	connect(this, SIGNAL(clicked(QModelIndex)),       this, SLOT(emitItemClicked(QModelIndex)));
+	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)),
+            this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            this, SIGNAL(itemSelectionChanged()));
 	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
-	: QListWidget(parent)
+	: QListView(parent)
 {
 	cList = NULL;
 	if (initialized != 12345)
 		sortRule = 0;
 	initialized = 12345;
+	QListView::setModel(new ColorListModel(this));
 	setPixmapType(type);
+
+	connect(this, SIGNAL(clicked(QModelIndex)),       this, SLOT(emitItemClicked(QModelIndex)));
+	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)),
+            this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            this, SIGNAL(itemSelectionChanged()));
 	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 ColorListBox::~ColorListBox()
 {
 	int count = this->count();
-	for(int index = 0; index < count; index++)
-		delete this->item(index);
 	if (itemDelegate())
 		delete itemDelegate();
 	clear();
+}
+
+void ColorListBox::clear()
+{
+	QAbstractItemModel* itemModel = model();
+	itemModel->removeRows(0, itemModel->rowCount());
+}
+
+int ColorListBox::count() const
+{
+	return this->model()->rowCount();
 }
 
 void ColorListBox::changeEvent(QEvent *e)
@@ -237,12 +264,35 @@ void ColorListBox::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
-	QListWidget::changeEvent(e);
+	QListView::changeEvent(e);
+}
+
+void ColorListBox::emitCurrentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+	QPersistentModelIndex persistentCurrent = current;
+
+	QString text = model()->data(current, Qt::DisplayRole).toString();
+	emit currentTextChanged(text);
+	emit currentRowChanged(persistentCurrent.row());
+}
+
+void ColorListBox::emitItemClicked(const QModelIndex &current)
+{
+	QPersistentModelIndex persistentCurrent = current;
+	emit itemClicked(persistentCurrent.row());
+}
+
+void ColorListBox::emitItemDoubleClicked(const QModelIndex &current)
+{
+	QPersistentModelIndex persistentCurrent = current;
+	emit itemDoubleClicked(persistentCurrent.row());
 }
 
 void ColorListBox::languageChange()
 {
-	if (this->count() > 0)
+	// Not needed anymore normally: on language change a paintEvent is sent to widget
+	// and model will return the new translated string for None color
+	/*if (this->count() > 0)
 	{
 		QModelIndexList result;
 		QModelIndex start = model()->index(0, 0, this->rootIndex());
@@ -252,15 +302,127 @@ void ColorListBox::languageChange()
 		int index = result.first().row();
 		QListWidgetItem* item = this->item(index);
 		item->setText(CommonStrings::tr_NoneColor);
-	}
+	}*/
 }
 
 QString ColorListBox::currentColor() const
 {
 	if (currentRow() >= 0)
-		return item(currentRow())->data(Qt::DisplayRole).toString();
+	{
+		QAbstractItemModel* itemModel = model();
+		return itemModel->data(currentIndex(), Qt::DisplayRole).toString();
+	}
 	else
 		return CommonStrings::tr_NoneColor;
+}
+
+int ColorListBox::currentRow() const
+{
+	return currentIndex().row();
+}
+
+QVariant ColorListBox::data(int row, int role) const
+{
+	QModelIndex index = model()->index(row, 0);
+	return model()->data(index, role);
+}
+
+QStringList ColorListBox::findColors(const QString &name, Qt::MatchFlags flags) const
+{
+	QStringList foundColors;
+	QAbstractItemModel* currentModel = model();
+
+	QModelIndex firstIndex = currentModel->index(0, 0, QModelIndex());
+	QModelIndexList indexes = currentModel->match(firstIndex, Qt::DisplayRole, name, -1, flags);
+	for (int i = 0; i < indexes.count(); ++i)
+	{
+		QModelIndex modelIndex = indexes.at(i);
+		QVariant modelData = currentModel->data(modelIndex, Qt::DisplayRole);
+		foundColors.append(modelData.toString());
+	}
+
+	return foundColors;
+}
+
+bool ColorListBox::hasSelection() const
+{
+	return this->selectionModel()->hasSelection();
+}
+
+void ColorListBox::insertItem(int row, const ScColor& color, QString colorName)
+{
+	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	if (!colorListModel)
+		return;
+
+	ScribusDoc* doc = 0;
+	if (cList)
+		doc = cList->document();
+
+	ColorPixmapValue value(color, doc, colorName);
+	colorListModel->insert(row, value);
+}
+
+bool ColorListBox::isNoneColorShown() const
+{
+	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	if (colorListModel)
+		return colorListModel->isNoneColorShown();
+	return false;
+}
+
+void ColorListBox::removeItem(int i)
+{
+	// None color item cannot be removed
+	if (isNoneColorShown() && (i == 0))
+		return;
+
+	model()->removeRow(i);
+}
+
+int ColorListBox::row(QString colorName)
+{
+	QAbstractItemModel* currentModel = model();
+
+	QModelIndex firstIndex = currentModel->index(0, 0, QModelIndex());
+	QModelIndexList indexes = currentModel->match(firstIndex, Qt::DisplayRole, colorName, -1, Qt::MatchExactly);
+	if (indexes.count() > 0)
+	{
+		const QModelIndex& first = indexes.at(0);
+		return first.row();
+	}
+	return -1;
+}
+
+void ColorListBox::setCurrentColor(QString colorName)
+{
+	if (colorName == CommonStrings::None)
+		colorName == CommonStrings::tr_NoneColor;
+
+	QModelIndex firstIndex = model()->index(0, 0, QModelIndex());
+	QModelIndexList indexes = this->model()->match(firstIndex, Qt::DisplayRole, colorName, -1, Qt::MatchExactly);
+	if (indexes.count() > 0)
+		this->selectionModel()->setCurrentIndex(indexes[0], QItemSelectionModel::ClearAndSelect);
+}
+
+void ColorListBox::setColors(ColorList& list, bool insertNone)
+{
+	ColorList::Iterator it;
+	ScribusDoc* doc = list.document();
+
+	ColorListModel* colorModel = dynamic_cast<ColorListModel*>(this->model());
+	if (!colorModel)
+		return;
+
+	cList = &list;
+
+	colorModel->setColorList(list, insertNone);
+}
+
+void ColorListBox::setCurrentRow(int row)
+{
+	QModelIndex index = this->model()->index(row, 0);
+	selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
 }
 
 void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
@@ -303,15 +465,18 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 	}
 }
 
+void ColorListBox::setShowNoneColor(bool showNone)
+{
+	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	if (colorListModel)
+		colorListModel->setShowNoneColor(showNone);
+}
+
 void ColorListBox::slotRightClick()
 {
 	QSignalBlocker sigBlocker(this);
-	QString currentSel;
-	QListWidgetItem* itc = currentItem();
-	if (itc)
-		currentSel = itc->text();
-	QListWidgetItem* it = item(0);
-	if (!it)
+	QString currentSel = currentColor();
+	if (currentSel.isEmpty())
 		return;
 
 	QString first;
@@ -321,92 +486,39 @@ void ColorListBox::slotRightClick()
 	pmen->addAction( tr("Sort by Type"));
 	sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
 	delete pmen;
-	if (it->text() == CommonStrings::None || it->text() == CommonStrings::tr_NoneColor)
-		first = it->text();
-	clear();
-	reset();
-	if (!first.isEmpty())
-		addItem(first);
-	insertItems( *cList );
+
+	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	if (!colorListModel)
+		return;
+
+	if (sortRule == 0)
+		colorListModel->setSortRule(ColorListModel::SortByName);
+	else if (sortRule == 1)
+		colorListModel->setSortRule(ColorListModel::SortByValues);
+	else if (sortRule == 2)
+		colorListModel->setSortRule(ColorListModel::SortByType);
+
 	if (!currentSel.isEmpty())
-	{
-		QList<QListWidgetItem *> items = findItems(currentSel, Qt::MatchExactly);
-		if (items.count() > 0)
-			setCurrentItem(items[0]);
-	}
+		setCurrentColor(currentSel);
+}
+
+QString ColorListBox::text(int row)
+{
+	QVariant varText = data(row, Qt::DisplayRole);
+	return varText.toString();
 }
 
 void ColorListBox::updateBox(ColorList& list)
 {
+	bool showNoneColor = false;
+
 	clear();
 	reset();
-	insertItems(list);
-}
 
-void ColorListBox::insertItems(ColorList& list)
-{
-	ColorList::Iterator it;
-	ScribusDoc* doc = list.document();
-
-	cList = &list;
-
-	if (sortRule > 0)
-	{
-		QMap<QString, QString> sortMap;
-		for (it = list.begin(); it != list.end(); ++it)
-		{
-			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-				continue;
-			if (sortRule == 1)
-			{
-				QColor c = it.value().getRawRGBColor();
-				QString sortString = QString("%1-%2-%3-%4").arg(c.hue(), 3, 10, QChar('0')).arg(c.saturation(), 3, 10, QChar('0')).arg(c.value(), 3, 10, QChar('0')).arg(it.key());
-				sortMap.insert(sortString, it.key());
-			}
-			else if (sortRule == 2)
-			{
-				QString sortString = QString("%1-%2");
-				if (it.value().isRegistrationColor())
-					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
-				else if (it.value().isSpotColor())
-					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
-				else if (it.value().getColorModel() == colorModelCMYK)
-					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
-				else
-					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
-			}
-		}
-
-		QMap<QString, QString>::Iterator itc;
-		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
-		{
-			addItem( new ColorPixmapItem(list[itc.value()], doc, itc.value()) );
-		}
-	}
-	else
-	{
-		for (it = list.begin(); it != list.end(); ++it)
-		{
-			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-				continue;
-			addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
-		}
-	}
-}
-
-void ColorListBox::addItem(ColorPixmapItem* item)
-{
-	QListWidget::addItem(item);
-}
-
-void ColorListBox::addItem(QString text)
-{
-	QListWidget::addItem(text);
-	if (text == CommonStrings::None || text == CommonStrings::tr_NoneColor)
-	{
-		QListWidgetItem* item = this->item(count() - 1);
-		item->setData(Qt::UserRole, CommonStrings::None);
-	}
+	ColorListModel* colorModel = dynamic_cast<ColorListModel*>(this->model());
+	if (colorModel)
+		showNoneColor = colorModel->isNoneColorShown();
+	setColors(list, showNoneColor);
 }
 
 bool ColorListBox::viewportEvent(QEvent *event)
@@ -429,5 +541,5 @@ bool ColorListBox::viewportEvent(QEvent *event)
 			}
 		}
 	}
-	return QListWidget::viewportEvent(event);
+	return QListView::viewportEvent(event);
 }

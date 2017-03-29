@@ -103,8 +103,7 @@ void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorLi
 // 	disconnect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
 	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
 	m_currentStyle = lineStyle;
-	colorCombo->clear();
-	colorCombo->updateBox(colorList, false);
+	colorCombo->setColors(colorList, false);
 	m_colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);

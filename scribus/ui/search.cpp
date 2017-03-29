@@ -135,7 +135,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillVal = new ColorCombo( Search );
 	SFillVal->setEditable(false);
 	SFillVal->setPixmapType(ColorCombo::fancyPixmaps);
-	SFillVal->updateBox(doc->PageColors, true);
+	SFillVal->setColors(doc->PageColors, true);
 	SFillVal->setMinimumWidth(SFillVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(SFillVal, doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
@@ -146,7 +146,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStrokeVal = new ColorCombo( Search );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->setPixmapType(ColorCombo::fancyPixmaps);
-	SStrokeVal->updateBox(doc->PageColors, true);
+	SStrokeVal->setColors(doc->PageColors, true);
 	SStrokeVal->view()->setMinimumWidth(SStrokeVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(SStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
@@ -232,7 +232,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillVal = new ColorCombo( true, Replace );
 	RFillVal->setEditable(false);
 	RFillVal->setPixmapType(ColorCombo::fancyPixmaps);
-	RFillVal->updateBox(doc->PageColors, true);
+	RFillVal->setColors(doc->PageColors, true);
 	RFillVal->view()->setMinimumWidth(RFillVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(RFillVal, doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
@@ -243,7 +243,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStrokeVal = new ColorCombo( true, Replace );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->setPixmapType(ColorCombo::fancyPixmaps);
-	RStrokeVal->updateBox(doc->PageColors, true);
+	RStrokeVal->setColors(doc->PageColors, true);
 	RStrokeVal->view()->setMinimumWidth(RStrokeVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(RStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);

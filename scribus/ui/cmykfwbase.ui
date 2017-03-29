@@ -599,7 +599,7 @@
   </customwidget>
   <customwidget>
    <class>ColorListBox</class>
-   <extends>QListWidget</extends>
+   <extends>QListView</extends>
    <header>ui/colorlistbox.h</header>
   </customwidget>
   <customwidget>

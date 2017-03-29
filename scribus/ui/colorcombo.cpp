@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
  */
 
 #include "colorcombo.h"
+#include "colorlistmodel.h"
 #include "commonstrings.h"
 // #include "qdebug.h"
 
@@ -67,6 +68,19 @@ QString ColorCombo::currentColor() const
 	return colorName;
 }
 
+void ColorCombo::setColors(ColorList& list, bool insertNone)
+{
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
+	if (!clb)
+		return;
+
+	ColorListModel* clm = dynamic_cast<ColorListModel*>(clb->model());
+	if (!clm)
+		return;
+
+	clm->setColorList(list, insertNone);
+}
+
 void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
@@ -81,49 +95,27 @@ void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
 		clb->setPixmapType(ColorListBox::fancyPixmap);
 }
 
-void ColorCombo::updateBox(ColorList& list, bool insertNone)
-{
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if (!clb)
-		return;
-
-	clb->clear();
-	if (insertNone)
-	{
-		clb->addItem(CommonStrings::tr_NoneColor);
-		clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
-	}
-	clb->insertItems(list);
-}
-
-void ColorCombo::insertItems(ColorList& list)
-{
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if (!clb)
-		return;
-
-	clb->insertItems(list);
-}
-
-void ColorCombo::insertItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
-{
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if (clb)
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)));
-}
-
 void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, QString colorValue)
 {
 	clear();
 	setPixmapType(ColorCombo::fancyPixmaps);
-	addItem(CommonStrings::tr_NoneColor, CommonStrings::None);
+	setColors(*colorList, true);
+
 	if (colorValue == CommonStrings::None)
-		setCurrentIndex(count()-1);
+	{
+		setCurrentIndex(0);
+		return;
+	}
+
+	int index = 0;
 	ColorList::Iterator endOfColorList(colorList->end());
 	for (ColorList::Iterator itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		insertItem( itc.value(), doc, itc.key() );
+		++index;
 		if (itc.key() == colorValue)
-			setCurrentIndex(count()-1);
+		{
+			setCurrentIndex(index);
+			break;
+		}
 	}
 }

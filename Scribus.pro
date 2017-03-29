@@ -385,6 +385,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/colorchart.h \
            scribus/ui/colorcombo.h \
            scribus/ui/colorlistbox.h \
+		   scribus/ui/colorlistmodel.h \
            scribus/ui/contextmenu.h \
            scribus/ui/copypagetomasterpagedialog.h \
            scribus/ui/cpalette.h \
@@ -1459,6 +1460,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/colorchart.cpp \
            scribus/ui/colorcombo.cpp \
            scribus/ui/colorlistbox.cpp \
+           scribus/ui/colorlistmodel.cpp \
            scribus/ui/contextmenu.cpp \
            scribus/ui/copypagetomasterpagedialog.cpp \
            scribus/ui/cpalette.cpp \

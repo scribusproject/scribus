@@ -103,15 +103,11 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 
 	ColorList::Iterator cit;
 	BorderC->setPixmapType(ColorCombo::fancyPixmaps);
-	BorderC->addItem(CommonStrings::tr_NoneColor);
+	BorderC->setColors(Farben, true);
 	if (annotation.borderColor() == CommonStrings::None)
-		BorderC->setCurrentIndex(BorderC->count()-1);
-	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
-	{
-		BorderC->insertItem(cit.value(), doc, cit.key());
-		if (cit.key() == annotation.borderColor())
-			BorderC->setCurrentIndex(BorderC->count()-1);
-	}
+		BorderC->setCurrentIndex(0);
+	else
+		BorderC->setCurrentText(annotation.borderColor());
 
 	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
 	QString borders[] = {CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};

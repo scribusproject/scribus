@@ -160,7 +160,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 	else if (item->m_type == PropTreeItem::ColorComboBox)
 	{
 		ColorCombo *editor = new ColorCombo(ColorCombo::fancyPixmaps, parent);
-		editor->updateBox(item->m_colors, false);
+		editor->setColors(item->m_colors, false);
 		edito = editor;
 		edito->setAutoFillBackground(true);
 		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));

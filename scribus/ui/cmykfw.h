@@ -53,7 +53,7 @@ public slots:
 	void selModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);
-	void selFromSwatch(QListWidgetItem* c);
+	void selFromSwatch(int itemIndex);
 	void setValues();
 	void leave();
 

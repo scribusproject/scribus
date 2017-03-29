@@ -152,8 +152,8 @@ void Cpalette::connectSignals()
 	connect(color2Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	connect(color3Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	connect(color4Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
-	connect(colorListFill  , SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
-	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
+	connect(colorListFill  , SIGNAL(currentRowChanged(int)), this, SLOT(selectColorF(int)));
+	connect(colorListStroke, SIGNAL(currentRowChanged(int)), this, SLOT(selectColorS(int)));
 	connect(colorMeshPoint , SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
 	connect(editMeshColors , SIGNAL(clicked()), this, SLOT(editMeshPointColor()));
 	connect(editPatternProps      , SIGNAL(clicked()) , this, SLOT(changePatternProps()));
@@ -212,8 +212,8 @@ void Cpalette::disconnectSignals()
 	disconnect(color2Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	disconnect(color3Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	disconnect(color4Shade    , SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
-	disconnect(colorListFill  , SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
-	disconnect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
+	disconnect(colorListFill  , SIGNAL(currentRowChanged(int)), this, SLOT(selectColorF(int)));
+	disconnect(colorListStroke, SIGNAL(currentRowChanged(int)), this, SLOT(selectColorS(int)));
 	disconnect(colorMeshPoint , SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
 	disconnect(editMeshColors , SIGNAL(clicked()), this, SLOT(editMeshPointColor()));
 	disconnect(editPatternProps      , SIGNAL(clicked()) , this, SLOT(changePatternProps()));
@@ -475,30 +475,24 @@ void Cpalette::updateCList()
 	bool sigBlocked1 = colorListStroke->blockSignals(true);
 	bool sigBlocked2 = colorListFill->blockSignals(true);
 
-	colorListStroke->clear();
-	colorListStroke->addItem(CommonStrings::tr_NoneColor);
-	colorListFill->clear();
-	colorListFill->addItem(CommonStrings::tr_NoneColor);
 	if (displayAllColors->isChecked())
 	{
 		if (currentDoc != NULL)
 			currentDoc->getUsedColors(colorList);
 	}
+	colorListFill->setColors(colorList, true);
+	colorListStroke->setColors(colorList, true);
 	gradEditStroke->setColors(colorList);
 	gradEdit->setColors(colorList);
-	colorPoint1->updateBox(colorList, true);
-	colorPoint2->updateBox(colorList, true);
-	colorPoint3->updateBox(colorList, true);
-	colorPoint4->updateBox(colorList, true);
-	colorMeshPoint->updateBox(colorList, true);
-	colorListFill->insertItems(colorList);
-	colorListStroke->insertItems(colorList);
-	if (colorListFill->currentItem())
-		colorListFill->currentItem()->setSelected(false);
-	if (colorListStroke->currentItem())
-		colorListStroke->currentItem()->setSelected(false);
-	hatchLineColor->updateBox(colorList, false);
-	hatchBackground->updateBox(colorList, true);
+	colorPoint1->setColors(colorList, true);
+	colorPoint2->setColors(colorList, true);
+	colorPoint3->setColors(colorList, true);
+	colorPoint4->setColors(colorList, true);
+	colorMeshPoint->setColors(colorList, true);
+	colorListFill->clearSelection();
+	colorListStroke->clearSelection();
+	hatchLineColor->setColors(colorList, false);
+	hatchBackground->setColors(colorList, true);
 
 	colorListStroke->blockSignals(sigBlocked1);
 	colorListFill->blockSignals(sigBlocked2);
@@ -615,19 +609,11 @@ void Cpalette::showColorValues(QString stroke, QString fill, int sShade, int fSh
 	strokeShade->setValue(sShade);
 	fillShade->setValue(fShade);
 	if ((stroke != CommonStrings::None) && (!stroke.isEmpty()))
-	{
-		QList<QListWidgetItem *> cCol = colorListStroke->findItems(stroke, Qt::MatchExactly);
-		if (cCol.count() != 0)
-			colorListStroke->setCurrentItem(cCol[0]);
-	}
+		colorListStroke->setCurrentColor(stroke);
 	else
 		colorListStroke->setCurrentRow(0);
 	if ((fill != CommonStrings::None) && (!fill.isEmpty()))
-	{
-		QList<QListWidgetItem *> cCol = colorListFill->findItems(fill, Qt::MatchExactly);
-		if (cCol.count() != 0)
-			colorListFill->setCurrentItem(cCol[0]);
-	}
+		colorListFill->setCurrentColor(fill);
 	else
 		colorListFill->setCurrentRow(0);
 
@@ -637,28 +623,38 @@ void Cpalette::showColorValues(QString stroke, QString fill, int sShade, int fSh
 	colorListFill->blockSignals(sigBlocked4);
 }
 
-void Cpalette::selectColorS(QListWidgetItem *item)
+void Cpalette::selectColorS(int row)
 {
 	QString colorName;
-	ColorPixmapItem* c = dynamic_cast<ColorPixmapItem*>(item);
-	if (c != NULL)	
-		colorName = c->colorName();
-	else if (! item->data(Qt::DisplayRole).toString().isEmpty()) 
-		colorName = item->data(Qt::DisplayRole).toString();
+	QVariant varValue = colorListStroke->data(row, Qt::UserRole);
+	if (varValue.canConvert<ColorPixmapValue>())
+	{
+		ColorPixmapValue value(varValue.value<ColorPixmapValue>());
+		colorName = value.m_name;
+	}
 	else
+	{
+		colorName = varValue.toString();
+	}
+	if (colorName.isEmpty())
 		return;
 	emit NewPen(colorName);
 }
 
-void Cpalette::selectColorF(QListWidgetItem *item)
+void Cpalette::selectColorF(int row)
 {
 	QString colorName;
-	ColorPixmapItem* c = dynamic_cast<ColorPixmapItem*>(item);
-	if (c != NULL)	
-		colorName = c->colorName();
-	else if (! item->data(Qt::DisplayRole).toString().isEmpty()) 
-		colorName = item->data(Qt::DisplayRole).toString();
+	QVariant varValue = colorListFill->data(row, Qt::UserRole);
+	if (varValue.canConvert<ColorPixmapValue>())
+	{
+		ColorPixmapValue value(varValue.value<ColorPixmapValue>());
+		colorName = value.m_name;
+	}
 	else
+	{
+		colorName = varValue.toString();
+	}
+	if (colorName.isEmpty())
 		return;
 	emit NewBrush(colorName);
 }

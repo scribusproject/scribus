@@ -98,8 +98,8 @@ public slots:
 	void hideEditedPatterns(QStringList names);
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
-	void selectColorS(QListWidgetItem *c);
-	void selectColorF(QListWidgetItem *c);
+	void selectColorS(int row);
+	void selectColorF(int row);
 	void slotGradStroke(int number);
 	void slotGrad(int nr);
 	void slotGradType(int type);

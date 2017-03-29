@@ -34,11 +34,9 @@ selectDialog::selectDialog(QWidget* parent, ColorList &availableColors, int unit
 	setModal(true);
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	backgroundCombo->setPixmapType(ColorCombo::fancyPixmaps);
-	backgroundCombo->addItem(CommonStrings::tr_NoneColor);
-	backgroundCombo->insertItems(availableColors);
+	backgroundCombo->setColors(availableColors, true);
 	lineCombo->setPixmapType(ColorCombo::fancyPixmaps);
-	lineCombo->addItem(CommonStrings::tr_NoneColor);
-	lineCombo->insertItems(availableColors);
+	lineCombo->setColors(availableColors, true);
 	lineWidthSpin->setNewUnit(unitIndex);
 	lineWidthSpin->setMinimum(0);
 	lineWidthSpin->setMaximum(1000);

@@ -57,8 +57,8 @@ void PropertiesPalette_Table::updateColorList()
 	if (!m_doc)
 		return;
 
-	borderLineColor->updateBox(m_doc->PageColors, ColorCombo::smallPixmaps);
-	fillColor->updateBox(m_doc->PageColors, ColorCombo::smallPixmaps);
+	borderLineColor->setColors(m_doc->PageColors, true);
+	fillColor->setColors(m_doc->PageColors, true);
 }
 
 void PropertiesPalette_Table::setMainWindow(ScribusMainWindow* mainWindow)

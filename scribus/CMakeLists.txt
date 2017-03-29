@@ -334,6 +334,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/colorchart.h
 	ui/colorcombo.h
 	ui/colorlistbox.h
+	ui/colorlistmodel.h
 	ui/contextmenu.h
 	ui/cpalette.h
 	ui/cupsoptions.h
@@ -804,6 +805,7 @@ set(SCRIBUS_SOURCES
 	ui/colorchart.cpp
 	ui/colorcombo.cpp
 	ui/colorlistbox.cpp
+	ui/colorlistmodel.cpp
 	ui/contextmenu.cpp
 	ui/cpalette.cpp
 	ui/cupsoptions.cpp

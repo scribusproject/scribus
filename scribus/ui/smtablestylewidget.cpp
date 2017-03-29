@@ -169,13 +169,7 @@ void SMTableStyleWidget::fillFillColorCombo(ColorList &colors)
 {
 	fillColor->clear();
 
-	fillColor->addItem(CommonStrings::tr_NoneColor);
-	ColorList::Iterator itEnd = colors.end();
-	ScribusDoc* doc = colors.document();
-	for (ColorList::Iterator it = colors.begin(); it != itEnd; ++it)
-	{
-		fillColor->insertItem(it.value(), doc, it.key());
-	}
+	fillColor->setColors(colors, true);
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width()+24);
 }
 

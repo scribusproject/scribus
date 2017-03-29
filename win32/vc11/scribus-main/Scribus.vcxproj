@@ -415,6 +415,7 @@
     <ClInclude Include="..\..\..\scribus\text\textshaper.h" />
     <ClInclude Include="..\..\..\scribus\text\textsource.h" />
     <moc Include="..\..\..\scribus\ui\directionselect.h" />
+    <moc Include="..\..\..\scribus\ui\colorlistmodel.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -1026,6 +1027,7 @@
     <ClCompile Include="..\..\..\scribus\ui\colorlistbox.cpp" />
     <ClCompile Include="..\..\..\scribus\colorsetmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\commonstrings.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp" />

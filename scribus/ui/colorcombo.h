@@ -49,11 +49,9 @@ public:
 
 	QString currentColor() const;
 
+	void setColors(ColorList& list, bool insertNone = true);
 	void setPixmapType(ColorCombo::PixmapType type);
-	void updateBox(ColorList& list, bool insertNone = true);
 
-	void insertItem(const ScColor& col, ScribusDoc* doc, const QString& colName);
-	void insertItems(ColorList& list);
 	void initColorList(ColorList* colorList, ScribusDoc* doc, QString colorValue);
 };
 

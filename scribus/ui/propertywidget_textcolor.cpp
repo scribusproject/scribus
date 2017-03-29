@@ -198,9 +198,9 @@ void PropertyWidget_TextColor::updateColorList()
 	if (m_item)
 		disconnectSignals();
 
-	fillColor->updateBox(m_doc->PageColors, true);
-	strokeColor->updateBox(m_doc->PageColors, false);
-	backColor->updateBox(m_doc->PageColors, true);
+	fillColor->setColors(m_doc->PageColors, true);
+	strokeColor->setColors(m_doc->PageColors, false);
+	backColor->setColors(m_doc->PageColors, true);
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width() + 24);
 	strokeColor->view()->setMinimumWidth(strokeColor->view()->maximumViewportSize().width() + 24);
 	backColor->view()->setMinimumWidth(backColor->view()->maximumViewportSize().width() + 24);

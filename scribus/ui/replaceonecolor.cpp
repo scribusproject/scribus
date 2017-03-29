@@ -34,11 +34,9 @@ replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColo
 	setModal(true);
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png" ));
 	originalColor->setPixmapType(ColorCombo::fancyPixmaps);
-	originalColor->addItem(CommonStrings::tr_NoneColor);
-	originalColor->insertItems(usedColors);
+	originalColor->setColors(usedColors, true);
 	replacementColor->setPixmapType(ColorCombo::fancyPixmaps);
-	replacementColor->addItem(CommonStrings::tr_NoneColor);
-	replacementColor->insertItems(availableColors);
+	replacementColor->setColors(availableColors, true);
 }
 
 const QString replaceColorDialog::getOriginalColor()

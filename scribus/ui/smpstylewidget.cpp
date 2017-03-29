@@ -174,13 +174,7 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 void SMPStyleWidget::fillColorCombo(ColorList &colors)
 {
 	backColor_->clear();
-	backColor_->addItem(CommonStrings::tr_NoneColor);
-	ColorList::Iterator itend=colors.end();
-	ScribusDoc* doc = colors.document();
-	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
-	{
-		backColor_->insertItem(it.value(), doc, it.key());
-	}
+	backColor_->setColors(colors, true);
 	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }
 

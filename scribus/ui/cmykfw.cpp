@@ -233,7 +233,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 //	connect( Swatches, SIGNAL(activated(int)), this, SLOT(selSwatch(int)));
 	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(selSwatch()));
-	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selFromSwatch(QListWidgetItem*) ) );
+	connect(ColorSwatch, SIGNAL(itemClicked(int) ), this, SLOT( selFromSwatch(int) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
@@ -553,9 +553,8 @@ void CMYKChoose::selSwatch()
 			CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
 			CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 		}
-		ColorSwatch->clear();
-		ColorSwatch->insertItems(CurrSwatch);
-		ColorSwatch->setCurrentRow( 0 );
+		ColorSwatch->setColors(CurrSwatch, false);
+		ColorSwatch->setCurrentRow(0);
 		TabStack->setCurrentIndex(1);
 	}
 }
@@ -973,10 +972,11 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 		setValues();
 }
 
-void CMYKChoose::selFromSwatch(QListWidgetItem* c)
+void CMYKChoose::selFromSwatch(int itemIndex)
 {
-	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
-	ScColor tmp = CurrSwatch[c->text()];
+	QSignalBlocker comboBox1Blocker(ComboBox1);
+	QString colorName = ColorSwatch->text(itemIndex);
+	ScColor tmp = CurrSwatch[colorName];
 	if (isRegistration)
 	{
 		if (tmp.getColorModel() != colorModelCMYK)
@@ -1009,8 +1009,7 @@ void CMYKChoose::selFromSwatch(QListWidgetItem* c)
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
 	if ((isNew) && (!ColorName->isModified()))
-		ColorName->setText(c->text());
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+		ColorName->setText(colorName);
 }
 
 void CMYKChoose::setValues()
