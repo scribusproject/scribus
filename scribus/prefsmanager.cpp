@@ -133,19 +133,29 @@ void PrefsManager::setup()
 void PrefsManager::initDefaults()
 {
 	/** Default font and size **/
-	SCFontsIterator it(appPrefs.fontPrefs.AvailFonts);
+	QStringList defaultFonts;
+	defaultFonts << "Arial Regular";
+	defaultFonts << "Times New Roman Regular";
+	defaultFonts << "DejaVu Sans Book";
+	defaultFonts << "DejaVu Sans Condensed";
+	defaultFonts << "Liberation Sans Regular";
+	defaultFonts << "Helvetica Regular";
+	defaultFonts << "Helvetica Neue Regular";
+
 	bool goodFont = false;
-	for ( SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
+	SCFonts& availableFonts = appPrefs.fontPrefs.AvailFonts;
+	for (int i = 0; i < defaultFonts.count(); ++i)
 	{
-		if ((itf.currentKey() == "Arial Regular") || (itf.currentKey() == "Times New Roman Regular"))
+		QString defCandidate = defaultFonts.at(i);
+		if (availableFonts.contains(defCandidate))
 		{
-			appPrefs.itemToolPrefs.textFont = itf.currentKey();
+			appPrefs.itemToolPrefs.textFont = defCandidate;
 			goodFont = true;
 			break;
 		}
 	}
 	if (!goodFont)
-		appPrefs.itemToolPrefs.textFont = it.currentKey();
+		appPrefs.itemToolPrefs.textFont = availableFonts.firstKey();
 	appPrefs.itemToolPrefs.textSize = 120;
 
 	/** Default colours **/
