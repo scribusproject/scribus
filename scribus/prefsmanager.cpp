@@ -136,11 +136,12 @@ void PrefsManager::initDefaults()
 	QStringList defaultFonts;
 	defaultFonts << "Arial Regular";
 	defaultFonts << "Times New Roman Regular";
-	defaultFonts << "DejaVu Sans Book";
-	defaultFonts << "DejaVu Sans Condensed";
-	defaultFonts << "Liberation Sans Regular";
 	defaultFonts << "Helvetica Regular";
 	defaultFonts << "Helvetica Neue Regular";
+	defaultFonts << "DejaVu Sans Book";
+	defaultFonts << "DejaVu Sans Condensed";
+	defaultFonts << "Open Sans Regular";
+	defaultFonts << "Liberation Sans Regular";
 
 	bool goodFont = false;
 	SCFonts& availableFonts = appPrefs.fontPrefs.AvailFonts;
