@@ -290,7 +290,10 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
+	double frameWidth  = width / PrefsManager::instance()->appPrefs.displayPrefs.displayScale;
+	double frameHeight = height / PrefsManager::instance()->appPrefs.displayPrefs.displayScale;
+
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QImage pm(width, height, QImage::Format_ARGB32);
 	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
 	painter->setZoomFactor(PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
@@ -311,7 +314,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->setFillShade(m_bgShade);
 	previewItem->SetRectFrame();
 	previewItem->setSampleItem(true);
-	previewItem->DrawObj(painter, QRect(0, 0, width, height));
+	previewItem->DrawObj(painter, QRect(0, 0, frameWidth, frameHeight));
 	painter->end();
 	delete(painter);
 	delete previewItem;
