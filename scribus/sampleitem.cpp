@@ -317,7 +317,14 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
+	double frameWidth  = width;
+	double frameHeight = height;
+	if (m_Doc->view() != NULL)
+	{
+		frameWidth  /= PrefsManager::instance()->appPrefs.DisScale;
+		frameHeight /= PrefsManager::instance()->appPrefs.DisScale;
+	}
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QImage pm(width, height, QImage::Format_ARGB32);
 	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
 	double sca = 1.0; // original scale to set back at the end...
@@ -349,7 +356,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->setFillShade(bgShade);
 	previewItem->SetRectFrame();
 	previewItem->Frame = false;
-	previewItem->DrawObj(painter, QRect());
+	previewItem->DrawObj(painter, QRect(0, 0, frameWidth, frameHeight));
 	painter->end();
 	delete(painter);
 	delete previewItem;
