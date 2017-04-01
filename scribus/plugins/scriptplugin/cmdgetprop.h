@@ -219,5 +219,12 @@ Returns a list containing the names of all objects on the current page.\n\
 /*! Returns a list with all objects in page */
 PyObject *scribus_getallobj(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_getobjectattributes__doc__,
+QT_TR_NOOP("getObjectAttributes([\"name\"]) -> list\n\
+Returns a list containing all attributes of object \"name\".\n\
+"));
+PyObject *scribus_getobjectattributes(PyObject * /*self*/, PyObject* args);
+
 #endif
 

@@ -204,5 +204,21 @@ May raise NotFoundError if the line style doesn't exist.\n\
 "));
 /*! Set newname */
 PyObject *scribus_setnewname(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setobjectattributes__doc__,
+QT_TR_NOOP("seObjectAttributes(attritbutes, [\"name\"])\n\
+\n\
+Sets attributes of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+attributes is list of dictionary. Each dictionary must have those keys:\n\
+Name, Type, Value, Parameter, Relationship, RelationshipTo, AutoAddTo\n\
+All values must be strings.\n\
+\n\
+May raise NotFoundError if the object doesn't exist.\n\
+"));
+PyObject *scribus_setobjectattributes(PyObject * /*self*/, PyObject* args);
+
 #endif
 

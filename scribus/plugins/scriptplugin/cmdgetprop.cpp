@@ -327,6 +327,47 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	return l;
 }
 
+PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
+{
+	if(!checkHaveDocument())
+		return NULL;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+
+	ObjAttrVector *attributes=item->getObjectAttributes();
+	PyObject *lst;
+	lst = PyList_New(attributes->count());
+	if (!lst)
+		return NULL;
+	int n = 0;
+	for (ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt)
+	{
+		PyObject *tmp;
+		tmp = Py_BuildValue("{ssssssssssssss}",
+				    "Name", objAttrIt->name.toUtf8().data(),
+				    "Type", objAttrIt->type.toUtf8().data(),
+				    "Value", objAttrIt->value.toUtf8().data(),
+				    "Parameter", objAttrIt->parameter.toUtf8().data(),
+				    "Relationship", objAttrIt->relationship.toUtf8().data(),
+				    "RelationshipTo", objAttrIt->relationshipto.toUtf8().data(),
+				    "AutoAddTo", objAttrIt->autoaddto.toUtf8().data());
+		if (tmp)
+			PyList_SetItem(lst, n, tmp);
+		else {
+			// Error string is already set by Py_BuildValue()
+			Py_DECREF(lst);
+			return NULL;
+		}
+		n++;
+	}
+	return lst;
+}
+
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -342,5 +383,6 @@ void cmdgetpropdocwarnings()
 	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
 	  << scribus_getimgscale__doc__ << scribus_getimagefile__doc__ 
 	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
-	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__;
+	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__
+	  << scribus_getobjectattributes__doc__;
 }

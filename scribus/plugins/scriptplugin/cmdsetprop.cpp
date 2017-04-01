@@ -397,6 +397,111 @@ PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
+{
+	if(!checkHaveDocument())
+		return NULL;
+	char *Name = const_cast<char*>("");
+	PyObject *attr;
+	if (!PyArg_ParseTuple(args, "O|es", &attr, "utf-8", &Name))
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+
+	if (!PyList_Check(attr)) {
+		PyErr_SetString(PyExc_TypeError, "argument must be list.");
+		return NULL;
+	}
+
+	ObjAttrVector attributes;
+	int n = PyList_Size(attr);
+	for (int i=0; i<n; ++i) {
+		PyObject *tmp = PyList_GetItem(attr, i);
+		if (!PyDict_Check(tmp)) {
+			PyErr_SetString(PyExc_TypeError, "elemets of 'attr' must be dictionary.");
+			return NULL;
+		}
+		ObjectAttribute blank;
+		PyObject *val;
+		char* data;
+
+		val = PyDict_GetItemString(tmp, "Name");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Name' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.name = QString(data);
+
+		val = PyDict_GetItemString(tmp, "Type");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Type' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.type = QString(data);
+
+		val = PyDict_GetItemString(tmp, "Value");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Value' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.value = QString(data);
+
+		val = PyDict_GetItemString(tmp, "Parameter");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Parameter' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.parameter = QString(data);
+
+		val = PyDict_GetItemString(tmp, "Relationship");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Relationship' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.relationship = QString(data);
+
+		val = PyDict_GetItemString(tmp, "RelationshipTo");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'RelationshipTo' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.relationshipto = QString(data);
+
+		val = PyDict_GetItemString(tmp, "AutoAddTo");
+		if (!val) {
+			PyErr_SetString(PyExc_TypeError, "attribute does not have 'AutoAddTo' key.");
+			return NULL;
+		}
+		data = PyString_AsString(val);
+		if (!data)
+			return NULL;
+		blank.autoaddto = QString(data);
+
+		attributes.append(blank);
+	}
+
+	item->setObjectAttributes(&attributes);
+	Py_RETURN_NONE;
+}
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -412,5 +517,5 @@ void cmdsetpropdocwarnings()
 	  << scribus_setlinejoin__doc__  << scribus_setlinecap__doc__   
 	  << scribus_setlinestyle__doc__ << scribus_setfillshade__doc__ 
 	  << scribus_setcornerrad__doc__ << scribus_setmultiline__doc__
-	  << scribus_setnewname__doc__;
+	  << scribus_setnewname__doc__   << scribus_setobjectattributes__doc__;
 }
