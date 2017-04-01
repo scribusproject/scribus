@@ -1,0 +1,27 @@
+{
+	"app-id": "net.scribus.scribus",
+	"runtime": "org.kde.Platform",
+	"runtime-version": "master",
+	"sdk": "org.kde.Sdk",
+	"command": "scribus",
+	"rename-desktop-file": "scribus.desktop",
+	"rename-appdata-file": "scribus.appdata.xml",
+	"rename-icon": "scribus",
+	"finish-args":[
+		"--share=network",
+		"--socket=x11",
+		"--socket=wayland"
+	],
+	"modules":[
+		{
+			"name": "scribus",
+			"buildsystem": "cmake",
+			"sources":[
+				{
+					"type":"git",
+					"url": "https://github.com/scribusproject/scribus.git"
+				}
+			]
+		}
+	]
+}
