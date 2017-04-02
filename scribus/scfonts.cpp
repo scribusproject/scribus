@@ -1131,6 +1131,12 @@ void SCFonts::ReadCacheList(QString pf)
 	}
 }
 
+void SCFonts::WriteCacheList()
+{
+	QString prefsLocation = PrefsManager::instance()->preferencesLocation();
+	WriteCacheList(prefsLocation);
+}
+
 void SCFonts::WriteCacheList(QString pf)
 {
 	QDomDocument docu("fontcacherc");
@@ -1143,22 +1149,21 @@ void SCFonts::WriteCacheList(QString pf)
 		if (it.value().isChecked)
 		{
 			QDomElement fosu = docu.createElement("Font");
-			fosu.setAttribute("File",it.key());
-			fosu.setAttribute("Status",static_cast<int>(it.value().isOK));
-			fosu.setAttribute("Modified",it.value().lastMod.toString(Qt::ISODate));
+			fosu.setAttribute("File", it.key());
+			fosu.setAttribute("Status", static_cast<int>(it.value().isOK));
+			fosu.setAttribute("Modified", it.value().lastMod.toString(Qt::ISODate));
 			elem.appendChild(fosu);
 		}
 	}
 	ScCore->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 	QFile f(pf + "/checkfonts150.xml");
-	if(f.open(QIODevice::WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
 		QTextStream s(&f);
 		s.setCodec("UTF-8");
-		s<<docu.toString();
+		s << docu.toString();
 		f.close();
 	}
-	checkedFonts.clear();
 }
 
 void SCFonts::GetFonts(QString pf, bool showFontInfo)

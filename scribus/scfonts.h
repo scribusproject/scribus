@@ -50,6 +50,8 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
 		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
 		void removeFont(QString name);
+		/// Write checked fonts file
+		void WriteCacheList();
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
 	private:

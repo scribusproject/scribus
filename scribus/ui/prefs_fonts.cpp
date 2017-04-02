@@ -332,6 +332,7 @@ void Prefs_Fonts::AddPath()
 		QString dir(QDir::fromNativeSeparators(s2));
 		m_availFonts.AddScalableFonts(dir +"/");
 		m_availFonts.updateFontMap();
+		m_availFonts.WriteCacheList();
 		updateFontList();
 	}
 }
