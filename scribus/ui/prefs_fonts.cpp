@@ -316,75 +316,74 @@ void Prefs_Fonts::AddPath()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
-	if (!s.isEmpty())
-	{
-		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
-		if( s.endsWith("/") )
-			s.chop(1);
-		QString s2 = QDir::toNativeSeparators(s);
-		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
-			return;
-		pathListWidget->addItem(s2);
-		//writePaths();
-		changeButton->setEnabled(false);
-		removeButton->setEnabled(false);
-		CurrentPath = s;
-		QString dir(QDir::fromNativeSeparators(s2));
-		m_availFonts.AddScalableFonts(dir +"/");
-		m_availFonts.updateFontMap();
-		m_availFonts.WriteCacheList();
-		updateFontList();
-	}
+	if (s.isEmpty())
+		return;
+
+	dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
+	if (s.endsWith("/"))
+		s.chop(1);
+	QString s2 = QDir::toNativeSeparators(s);
+	if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
+		return;
+	pathListWidget->addItem(s2);
+	//writePaths();
+	changeButton->setEnabled(false);
+	removeButton->setEnabled(false);
+	CurrentPath = s;
+	QString dir(QDir::fromNativeSeparators(s2));
+	m_availFonts.AddScalableFonts(dir +"/");
+	m_availFonts.updateFontMap();
+	m_availFonts.WriteCacheList();
+	updateFontList();
 }
 
 void Prefs_Fonts::ChangePath()
 {
 	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
-	if (!s.isEmpty())
+	if (s.isEmpty())
+		return;
+
+	if (s.endsWith("/"))
+		s.chop(1);
+	QString s2 = QDir::toNativeSeparators(s);
+	if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
+		return;
+	QString path = pathListWidget->currentItem()->text();
+	SCFontsIterator it(m_availFonts);
+	for ( ; it.hasNext(); it.next())
 	{
-		if( s.endsWith("/") )
-			s.chop(1);
-		QString s2 = QDir::toNativeSeparators(s);
-		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
-			return;
-		QString path = pathListWidget->currentItem()->text();
-		SCFontsIterator it(m_availFonts);
-		for ( ; it.hasNext(); it.next())
-		{
-			if (it.current().isNone())
-				continue;
-			QFileInfo fi(it.current().fontFilePath());
-			if (fi.absolutePath() == path)
-				m_availFonts.remove(it.currentKey());
-		}
-		pathListWidget->currentItem()->setText(s2);
-		//writePaths();
-		CurrentPath = s;
-		QString dir = QDir::fromNativeSeparators(s2);
-		m_availFonts.AddScalableFonts(dir +"/");
-		m_availFonts.updateFontMap();
-		updateFontList();
-		changeButton->setEnabled(false);
-		removeButton->setEnabled(false);
+		if (it.current().isNone())
+			continue;
+		QFileInfo fi(it.current().fontFilePath());
+		if (fi.absolutePath() == path)
+			m_availFonts.remove(it.currentKey());
 	}
+	pathListWidget->currentItem()->setText(s2);
+	//writePaths();
+	CurrentPath = s;
+	QString dir = QDir::fromNativeSeparators(s2);
+	m_availFonts.AddScalableFonts(dir +"/");
+	m_availFonts.updateFontMap();
+	updateFontList();
+	changeButton->setEnabled(false);
+	removeButton->setEnabled(false);
 }
 
 void Prefs_Fonts::DelPath()
 {
 	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
 	QFile fx(PrefsManager::instance()->preferencesLocation()+"/scribusfont13.rc");
-	QString path = pathListWidget->currentItem()->text();
-	if (fx.open(QIODevice::WriteOnly))
-	{
-		if (pathListWidget->count() == 1)
-			pathListWidget->clear();
-		else
-			delete pathListWidget->takeItem(pathListWidget->currentRow());
-		//writePaths();
-	}
-	else
+	if (!fx.open(QIODevice::WriteOnly))
 		return;
+
+	QString path = pathListWidget->currentItem()->text();
+	if (pathListWidget->count() == 1)
+		pathListWidget->clear();
+	else
+		delete pathListWidget->takeItem(pathListWidget->currentRow());
+	//writePaths();
+
 	QMutableMapIterator<QString,ScFace> it(m_availFonts);
 	while (it.hasNext())
 	{
