@@ -184,6 +184,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 		QDir dd = QDir(dir);
 		dd.mkdir(QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName())));
 	}
+	QString baseDir = QDir::homePath();
 	QString source = "";
 	QString target = "";
 	bool first = true;
@@ -191,7 +192,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	while(!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
-		if(pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM")
 		{
 			if (first)
 				pg.setAttribute("ANNAME", fid.baseName());
@@ -207,7 +208,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(baseDir+"/"+Pfile)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
@@ -222,7 +223,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile2));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile2)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(baseDir+"/"+Pfile2)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
@@ -237,7 +238,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile3));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile3)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(baseDir+"/"+Pfile3)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
