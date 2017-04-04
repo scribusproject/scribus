@@ -262,13 +262,13 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 		dd.mkdir(QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName())));
 	}
 	QString source = "";
-	QString fileDir = ScPaths::scrapbookDir(true);
+	QString fileDir = ScPaths::applicationDataDir();
 	bool first = true;
 	DOC = elem.firstChild();
 	while(!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
-		if(pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM")
 		{
 			if (first)
 				pg.setAttribute("ANNAME", fid.baseName());
@@ -361,12 +361,12 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 void BibView::checkAndChangeGroups(QDomElement elem, QString dir, QFileInfo fid)
 {
 	QString source = "";
-	QString fileDir = QDir::homePath();
+	QString fileDir = ScPaths::applicationDataDir();
 	QDomNode DOC = elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
-		if(pg.tagName() == "PAGEOBJECT")
+		if (pg.tagName() == "PAGEOBJECT")
 		{
 			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
 			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
