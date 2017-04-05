@@ -6,16 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tffilter.h"
 
-#include <QHBoxLayout>
-#include <QFrame>
-#include <QPixmap>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QBoxLayout>
-#include <QComboBox>
-#include <QPushButton>
-#include <QToolTip>
 #include <QCheckBox>
+#include <QComboBox>
+#include <QFrame>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QToolTip>
+
 #include "scribusapi.h"
 #include "scribuscore.h"
 #include "prefsmanager.h"
@@ -104,14 +105,15 @@ void tfFilter::createWidget()
 	layout->setSpacing(0);
 
 	enableCheck = new QCheckBox(this);
-	enableCheck->setMaximumSize(QSize(25,25));
 	enableCheck->setMinimumSize(QSize(25,25));
 	enableCheck->setChecked(true);
 	enableCheck->setToolTip( tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
+	layout->setAlignment(enableCheck, Qt::AlignTop);
 
 	actionFrame = new QFrame(this);
 	layout->addWidget(actionFrame);
+	layout->setAlignment(actionFrame, Qt::AlignTop);
 
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
 	layout2->setMargin(0);
@@ -137,11 +139,13 @@ void tfFilter::createWidget()
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton);
+	layout->setAlignment(removeButton, Qt::AlignTop);
 	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(addButton);
+	layout->setAlignment(addButton, Qt::AlignTop);
 
 	connect(enableCheck, SIGNAL(toggled(bool)), this, SLOT(enableToggled(bool)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addClick()));
@@ -172,6 +176,7 @@ void tfFilter::firstChanged(int index)
 {
 	currentAction = index;
 	getSecondCombo();
+	emit actionChanged(this);
 }
 
 void tfFilter::secondChanged(int)

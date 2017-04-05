@@ -90,6 +90,7 @@ public:
 	bool isEnabled();
 	bool isRegExp();
 signals:
+	void actionChanged(tfFilter* tff);
 	void removeClicked(tfFilter* tff);
 	void addClicked(tfFilter* tff);
 private slots:

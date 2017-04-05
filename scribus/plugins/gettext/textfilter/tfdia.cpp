@@ -189,6 +189,7 @@ void tfDia::createFilterRow(tfFilter* after)
 	else if (filters.size() == 1)
 		filters[0]->setRemovable(false);
 
+	connect(tmp, SIGNAL(actionChanged(tfFilter*)), this, SLOT(adjustVBoxSize()));
 	connect(tmp, SIGNAL(addClicked(tfFilter*)), this, SLOT(createFilterRow(tfFilter*)));
 	connect(tmp, SIGNAL(removeClicked(tfFilter*)), SLOT(removeRow(tfFilter*)));
 }
@@ -218,6 +219,7 @@ void tfDia::createFilter(PrefsTable* table)
 			vbox->adjustSize();
 			if (filters.size() == 2)
 				filters[0]->setRemovable(true);
+			connect(tmp, SIGNAL(actionChanged(tfFilter*)), this, SLOT(adjustVBoxSize()));
 			connect(tmp, SIGNAL(addClicked(tfFilter*)), this, SLOT(createFilterRow(tfFilter*)));
 			connect(tmp, SIGNAL(removeClicked(tfFilter*)), this, SLOT(removeRow(tfFilter*)));
 		}
@@ -240,8 +242,14 @@ void tfDia::removeRow(tfFilter* tff)
 			++it;
 		}
 	}
+	vbox->adjustSize();
 	if (filters.size() == 1)
 		filters[0]->setRemovable(false);
+}
+
+void tfDia::adjustVBoxSize()
+{
+	vbox->adjustSize();
 }
 
 void tfDia::saveTextChanged(const QString& text)
