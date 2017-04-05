@@ -6,16 +6,18 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tffilter.h"
 
-#include <QHBoxLayout>
-#include <QFrame>
-#include <QPixmap>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QBoxLayout>
+#include <QCheckBox>
 #include <QComboBox>
+#include <QFrame>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
 #include <QPushButton>
 #include <QToolTip>
-#include <QCheckBox>
+#include <QVBoxLayout>
+
 #include "scribusapi.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -105,14 +107,13 @@ void tfFilter::createWidget()
 	layout->setSpacing(0);
 
 	enableCheck = new QCheckBox(this);
-	enableCheck->setMaximumSize(QSize(25,25));
 	enableCheck->setMinimumSize(QSize(25,25));
 	enableCheck->setChecked(true);
 	enableCheck->setToolTip( tr("Disable or enable this filter row"));
-	layout->addWidget(enableCheck);
+	layout->addWidget(enableCheck, 0, Qt::AlignTop);
 
 	actionFrame = new QFrame(this);
-	layout->addWidget(actionFrame);
+	layout->addWidget(actionFrame, 0, Qt::AlignTop);
 
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
 	layout2->setMargin(0);
@@ -137,12 +138,12 @@ void tfFilter::createWidget()
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
-	layout->addWidget(removeButton);
+	layout->addWidget(removeButton, 0, Qt::AlignTop);
 	addButton = new QPushButton(IconManager::instance()->loadIcon("22/list-add.png"), 0, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
-	layout->addWidget(addButton);
+	layout->addWidget(addButton, 0, Qt::AlignTop);
 
 	connect(enableCheck, SIGNAL(toggled(bool)), this, SLOT(enableToggled(bool)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addClick()));
@@ -173,6 +174,7 @@ void tfFilter::firstChanged(int index)
 {
 	currentAction = index;
 	getSecondCombo();
+	emit actionChanged(this);
 }
 
 void tfFilter::secondChanged(int)

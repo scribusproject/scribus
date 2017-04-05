@@ -44,6 +44,7 @@ private:
 	void writeFilterRow(PrefsTable* table, int row, tfFilter* filter);
 	void storeLastFilter();
 private slots:
+	void adjustVBoxSize();
 	void saveTextChanged(const QString& text);
 	void createFilterRow(tfFilter* after);
 	void removeRow(tfFilter* tff);
