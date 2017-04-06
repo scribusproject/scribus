@@ -19,7 +19,7 @@ import scribus
 
 if scribus.haveDoc() > 0:
     c = 0
-    lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, cs, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
+    lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, cs, de, de-g, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
     if (lang == 'en'):
         lead_double = u"\u201c"
         follow_double = u"\u201d"
@@ -28,6 +28,11 @@ if scribus.haveDoc() > 0:
     elif (lang == 'de'):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
+        lead_single = u"\u2019"
+        follow_single = u"\u201a"
+    elif (lang == 'de-g'):      # German with inverted guillemets for double quotes
+        lead_double = u"\u00bb"
+        follow_double = u"\u00ab"
         lead_single = u"\u2019"
         follow_single = u"\u201a"
     elif (lang == 'fr'):      

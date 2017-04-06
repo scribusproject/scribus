@@ -23,6 +23,8 @@ if 'none' is chosen, then existing spaces inside double quotes are deleted
 + take into account already existing doublequotes for the correct choice open / close of next dquote
 + warning if some open/close inconsistency is detected
 for example in « texte " suite »
+5 apr 2017 :
++ added new language choice of de-g: German with inverted guillemets for double quotes
 
 LIMITS
 - it only acts on the currently selected frame
@@ -60,7 +62,7 @@ if scribus.haveDoc() <= 0:
     scribus.messageBox('Error - (fr) Erreur', 'You need a Document open\n(fr) Ouvrez un document avant de lancer le script', scribus.ICON_WARNING, scribus.BUTTON_OK)
     sys.exit(2)
 
-lang = scribus.valueDialog("Language", 'Choose language or country\n(fr) Choisissez la langue du texte ou le pays :\naf, be, ch, cs, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk', 'fr')
+lang = scribus.valueDialog("Language", 'Choose language or country\n(fr) Choisissez la langue du texte ou le pays :\naf, be, ch, cs, de, de-g, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk', 'fr')
 if (lang == 'en'):
     ouvrant_double = u"\u201c" #lead_double
     fermant_double = u"\u201d" #follow_double
@@ -69,6 +71,11 @@ if (lang == 'en'):
 elif (lang == 'de'):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201c"
+    lead_single = u"\u2019"
+    follow_single = u"\u201a"
+elif (lang == 'de-g'):          # German with inverted guillemets for double quote
+    ouvrant_double = u"\u00bb"
+    fermant_double = u"\u00ab"
     lead_single = u"\u2019"
     follow_single = u"\u201a"
 elif (lang == 'fr'):
