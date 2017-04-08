@@ -11,18 +11,20 @@
 CHANGELOGS
 Original script is quotes.py or autoquotes.py
 9 oct 2013 :
-The algorythm has been slightly changed for determining
+The algorithm has been slightly changed for determining
 whether a quote is opening or closing
 + it provides the choice for the type of space to add :
-none or non breaking or thin or non breaking thin
-+ spaces are only aded when not allready there...
+none or non-breaking or thin or non-breaking thin
++ spaces are only added when not already there...
 + a french version of the dialogs is included
 25 oct 2013 :
-choice to change the spaces for allready existing correct doublequotes
-if 'none' is choosen, then existing spaces inside double quotes are deleted
-+ take into account allready existing doublequotes for the correct choice open / close of next dquote
-+ warning if some open/close unconsistency is detected
+choice to change the spaces for already existing correct doublequotes
+if 'none' is chosen, then existing spaces inside double quotes are deleted
++ take into account already existing doublequotes for the correct choice open / close of next dquote
++ warning if some open/close inconsistency is detected
 for example in « texte " suite »
+5 apr 2017 :
++ added new language choice of de-g: German with inverted guillemets for double quotes
 
 LIMITS
 - it only acts on the currently selected frame
@@ -42,7 +44,7 @@ There will be a dialog asking for the language for the quotes,
 Detected errors shut down the script with an appropriate message.
 A dialog then asks what is your choice as for spaces.
 Follow indications and answer 0, 1, 2 or 3 
-Another dialog asks wether you want the script to manage 
+Another dialog asks whether you want the script to manage 
 existing correct doublequotes.
 
 
@@ -60,7 +62,7 @@ if scribus.haveDoc() <= 0:
     scribus.messageBox('Error - (fr) Erreur', 'You need a Document open\n(fr) Ouvrez un document avant de lancer le script', scribus.ICON_WARNING, scribus.BUTTON_OK)
     sys.exit(2)
 
-lang = scribus.valueDialog("Language", 'Choose language or country\n(fr) Choisissez la langue du texte ou le pays :\naf, be, ch, cs, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk', 'fr')
+lang = scribus.valueDialog("Language", 'Choose language or country\n(fr) Choisissez la langue du texte ou le pays :\naf, be, ch, cs, de, de-g, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk', 'fr')
 if (lang == 'en'):
     ouvrant_double = u"\u201c" #lead_double
     fermant_double = u"\u201d" #follow_double
@@ -69,6 +71,11 @@ if (lang == 'en'):
 elif (lang == 'de'):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201c"
+    lead_single = u"\u2019"
+    follow_single = u"\u201a"
+elif (lang == 'de-g'):          # German with inverted guillemets for double quote
+    ouvrant_double = u"\u00bb"
+    fermant_double = u"\u00ab"
     lead_single = u"\u2019"
     follow_single = u"\u201a"
 elif (lang == 'fr'):
@@ -109,20 +116,25 @@ elif (lang == 'uk'):
 elif (lang == 'es'):
     ouvrant_double = u"\u00ab"
     fermant_double = u"\u00bb"
-    fermant_double = u"\u201d"
     lead_single = u"\u2018"
-elif ((lang == 'lt') or (lang == 'mk') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+    follow_double = u"\u2019"
+elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+    ouvrant_double = u"\u201e"
+    fermant_double = u"\u201c"
+    lead_single = u"\u201a"
+    follow_single = u"\u2018"
+elif (lang == 'mk'):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201c"
     lead_single = u"\u2019"
-    follow_single = u"\u201a"
+    follow_single = u"\u2018"
 elif ((lang == 'hu') or (lang == 'nl')):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201d"
     lead_single = u"\u00bb"
     follow_single = u"\u00ab"
 else:
-    scribus.messageBox('Language Error', 'You need to choose an available language', icon=0, button1=1)
+    scribus.messageBox('Language Error', 'You need to choose an available language', scribus.ICON_WARNING, scribus.BUTTON_OK)
     sys.exit(2)
 
 if scribus.selectionCount() == 0:
@@ -152,7 +164,7 @@ if (lang =='fr'):
                 '1')
 else :
    typeespace = scribus.valueDialog("Inside quote added space", 
-                "Depending on the used fonts, choose the space to be added inside double quotes, in case there is none already.\n0 : never add a space ; 1 : non breaking ; 2 : non breaking thin ; 3 : thin", 
+                "Depending on the used fonts, choose the space to be added inside \ndouble quotes, in case there are none already.\n0 : never add a space ; 1 : non breaking ; 2 : non breaking thin ; 3 : thin", 
                 '0')
 
 if (typeespace == '3'):
@@ -175,7 +187,7 @@ if ((1==1) or (spacenquotes != '')):
                 'O')
     else:
        replace_existing = scribus.valueDialog("What about existing qyotes ?", 
-                "Should the script apply your spaces-choice ALSO on already existing quotes ? Yes : Y ; No : N", 
+                "Should the script ALSO apply your spaces-choice on already existing quotes? Yes : Y ; No : N", 
                 'N')
 
 if ((replace_existing=='y') or (replace_existing=='Y') or (replace_existing=='o') or (replace_existing=='O')):
@@ -202,7 +214,7 @@ textlen = scribus.getTextLength(textbox)
 c = 0
 nbchange = 0
 lastchange = 'close'
-prevchar = ''
+prevchar = ' '
 
 while c <= (textlen -1):
     # si on est à la fin, il faut tricher pour le dernier caractère
@@ -226,7 +238,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillement fermante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops !", 'text is not consistent. Closing doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops !", 'The text is not consistent. Closing doublequote missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange='open'
         if ((replace_existing == 1) and (nextchar != spacenquotes) and (alafin==0)):
@@ -242,7 +254,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillemet ouvrante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops !", 'text is not consistent. Opening doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops !", 'The text is not consistent. Opening doublequote missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange = 'close'
         if ((replace_existing == 1)  and (prevchar != spacenquotes) and (c > 1)):
@@ -337,8 +349,8 @@ scribus.setRedraw(1)
 scribus.docChanged(1)
 
 if (lang == 'fr'):
-    scribus.messageBox("Fini", 'La préparation des quillemets et espaces est faite.\n'+str(nbchange)+' occurences ont été remplacées' + debugmessage, 
-                        icon=0,button1=1)
+    scribus.messageBox("Fini", 'La préparation des quillemets et espaces est faite.\n'+str(nbchange)+' occurrences ont été remplacées' + debugmessage, 
+                        icon=scribus.ICON_NONE,button1=scribus.BUTTON_OK)
 else:
     scribus.messageBox("Done", 'Successfully ran script\n'+str(nbchange)+' replacements have occurred' + debugmessage, # Change this message to your liking
-                        icon=0,button1=1)
+                        icon=scribus.ICON_NONE,button1=scribus.BUTTON_OK)
