@@ -28,7 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QFontDatabase>
 #include <QPixmapCache>
+
 #include "scribusapi.h"
+#include "fonts/scface.h"
 
 class QEvent;
 class QFont;
@@ -38,6 +40,7 @@ class QLabel;
 class ScribusDoc;
 class PrefsManager;
 
+
 /**
   *@author Franz Schmid
   */
@@ -46,7 +49,7 @@ class SCRIBUS_API FontCombo : public QComboBox
 {
 public:
 	FontCombo(QWidget* pa);
-	~FontCombo() {};
+	~FontCombo() {}
 	
 	
 
