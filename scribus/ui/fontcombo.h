@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include <QComboBox>
 #include <QFontDatabase>
+#include <QPixmapCache>
 #include "scribusapi.h"
 
 class QEvent;
@@ -65,7 +66,7 @@ class SCRIBUS_API FontComboH : public QWidget
 
 public:
 	FontComboH(QWidget* parent, bool labels=false);
-	~FontComboH() {};
+	~FontComboH() {}
 	
 	virtual void changeEvent(QEvent *e);
 	
@@ -117,5 +118,6 @@ public:
 	QFontDatabase::WritingSystem writingSystem;
 protected:
 	 QFont m_font;
+	 static QPixmapCache pixmapCache;
 };
 #endif

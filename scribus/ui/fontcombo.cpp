@@ -24,11 +24,11 @@ for which a new license (GPL+exception) is in place.
 #include <QAbstractItemView>
 #include <QEvent>
 #include <QFont>
+#include <QFontInfo>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPixmap>
 #include <QStringList>
-#include <QFontInfo>
 
 #include "fontcombo.h"
 #include "iconmanager.h"
@@ -135,9 +135,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 void FontComboH::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
@@ -422,22 +420,17 @@ static QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool
 	if (writingSystems.contains(system))
 		return system;
 
-	if (system == QFontDatabase::TraditionalChinese
-			&& writingSystems.contains(QFontDatabase::SimplifiedChinese)) {
+	if (system == QFontDatabase::TraditionalChinese && writingSystems.contains(QFontDatabase::SimplifiedChinese))
 		return QFontDatabase::SimplifiedChinese;
-	}
 
-	if (system == QFontDatabase::SimplifiedChinese
-			&& writingSystems.contains(QFontDatabase::TraditionalChinese)) {
+	if (system == QFontDatabase::SimplifiedChinese && writingSystems.contains(QFontDatabase::TraditionalChinese))
 		return QFontDatabase::TraditionalChinese;
-	}
 
 	system = writingSystems.last();
 
-	if (!*hasLatin) {
+	if (!*hasLatin)
 		// we need to show something
 		return system;
-	}
 
 	if (writingSystems.count() == 1 && system > QFontDatabase::Cyrillic)
 		return system;
@@ -460,19 +453,15 @@ static const ScFace& getscFace(QString classname, QString text)
 	{
 		QStringList styles = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[text];
 		const ScFace& fon = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text, styles[0]);
-
 		if (!QFontDatabase().families().contains(text))
 			QFontDatabase().addApplicationFont(fon.fontFilePath());
-
 		return fon;
 	}
 	else
 	{
 		const ScFace& scFace = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text);
-
 		if (!QFontDatabase().families().contains(scFace.family()))
 			QFontDatabase().addApplicationFont(scFace.fontFilePath());
-
 		return scFace;
 	}
 
@@ -482,14 +471,33 @@ fontFamilyDelegate::fontFamilyDelegate(QObject *parent)
 	: QAbstractItemDelegate(parent)
 	, writingSystem(QFontDatabase::Any)
 {
+	pixmapCache.setCacheLimit(64*1024);
 }
 
-void fontFamilyDelegate::paint(QPainter *painter,
-							   const QStyleOptionViewItem &option,
-							   const QModelIndex &index) const
+void fontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	QString text = index.data(Qt::DisplayRole).toString();
+	QString text(index.data(Qt::DisplayRole).toString());
+	QString wh=QString("-w%1h%2").arg(option.rect.width()).arg(option.rect.height());
+	QPixmap cachedPixmap;
+	QString cacheKey = text + wh;
+	if (option.state & QStyle::State_Selected)
+		cacheKey += "-selected";
+	if (pixmapCache.find(cacheKey, &cachedPixmap))
+	{
+		painter->drawPixmap(option.rect.x(), option.rect.y(), cachedPixmap);
+		return;
+	}
+
 	const ScFace& scFace = getscFace(this->parent()->metaObject()->className(), text);
+
+	QPixmap  pixmap(option.rect.width(), option.rect.height());
+	QPixmap  invPixmap(option.rect.width(), option.rect.height());
+	QPainter pixPainter(&pixmap);
+	QPainter invpixPainter(&invPixmap);
+
+	QRect r(0, 0, option.rect.width(), option.rect.height());
+	pixPainter.fillRect(r, option.palette.background());
+	invpixPainter.fillRect(r, option.palette.background());
 
 	QFont font = option.font;
 	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2);
@@ -499,58 +507,60 @@ void fontFamilyDelegate::paint(QPainter *painter,
 
 	bool hasLatin;
 	QFontDatabase::WritingSystem system = writingSystemForFont(font2, &hasLatin);
-
 	if (hasLatin)
 		font = font2;
 
-	QRect r = option.rect;
-	if (option.state & QStyle::State_Selected) {
-		painter->save();
-		painter->setBrush(option.palette.highlight());
-		painter->setPen(Qt::NoPen);
-		painter->drawRect(option.rect);
-		painter->setPen(QPen(option.palette.highlightedText(), 0));
-	}
+	invpixPainter.setBrush(option.palette.highlight());
+	invpixPainter.setPen(Qt::NoPen);
+	invpixPainter.drawRect(0, 0, option.rect.width(), option.rect.height());
+	invpixPainter.setPen(QPen(option.palette.highlightedText(), 0));
 
 	QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
-	QSize actualSize = icon.actualSize(r.size());
-	icon.paint(painter, r, Qt::AlignLeft|Qt::AlignVCenter);
+	QSize actualSize(icon.actualSize(r.size()));
+	icon.paint(&pixPainter, r, Qt::AlignLeft|Qt::AlignVCenter);
+	icon.paint(&invpixPainter, r, Qt::AlignLeft|Qt::AlignVCenter);
 	if (option.direction == Qt::RightToLeft)
 		r.setRight(r.right() - actualSize.width() - 4);
 	else
 		r.setLeft(r.left() + actualSize.width() + 4);
 
-	QFont old = painter->font();
-	painter->setFont(font);
-
+	pixPainter.setFont(font);
+	invpixPainter.setFont(font);
 	// If the ascent of the font is larger than the height of the rect,
 	// we will clip the text, so it's better to align the tight bounding rect in this case
 	// This is specifically for fonts where the ascent is very large compared to
 	// the descent, like certain of the Stix family.
 	QFontMetricsF fontMetrics(font);
-	if (fontMetrics.ascent() > r.height()) {
+	if (fontMetrics.ascent() > r.height())
+	{
 		QRectF tbr = fontMetrics.tightBoundingRect(text);
 		QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(),(r.height() + tbr.height()));
-		painter->drawText(rr,Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
-
-	} else {
-		painter->drawText(r, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+		pixPainter.drawText(rr, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+		invpixPainter.drawText(rr, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+	}
+	else
+	{
+		pixPainter.drawText(r, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+		invpixPainter.drawText(r, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
 	}
 
 	if (writingSystem != QFontDatabase::Any)
 		system = writingSystem;
 
-	if (system != QFontDatabase::Any) {
-		int w = painter->fontMetrics().width(text + QLatin1String("  "));
-		painter->setFont(font2);
+	if (system != QFontDatabase::Any)
+	{
+		int w = pixPainter.fontMetrics().width(text + QLatin1String("  "));
+		pixPainter.setFont(font2);
+		invpixPainter.setFont(font2);
 		QString sample = QFontDatabase().writingSystemSample(system);
 		if (system == QFontDatabase::Arabic)
 			sample = "أبجدية عربية";
 
-		if (fontMetrics.ascent() > r.height()) {
+		if (fontMetrics.ascent() > r.height())
+		{
 
 			QRectF tbr = fontMetrics.tightBoundingRect(sample);
-			QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(),(r.height() + tbr.height()));
+			QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(), (r.height() + tbr.height()));
 			if (option.direction == Qt::RightToLeft)
 				rr.setRight(rr.right() - w);
 			else
@@ -558,9 +568,9 @@ void fontFamilyDelegate::paint(QPainter *painter,
 				rr.setRight(rr.right() - 4);
 				rr.setLeft(rr.left() + w);
 			}
-			painter->drawText(rr,Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+			pixPainter.drawText(rr, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+			invpixPainter.drawText(rr, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
 		}
-
 		else
 		{
 			if (option.direction == Qt::RightToLeft)
@@ -570,21 +580,22 @@ void fontFamilyDelegate::paint(QPainter *painter,
 				r.setRight(r.right() - 4);
 				r.setLeft(r.left() + w);
 			}
-			painter->drawText(r, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+			pixPainter.drawText(r, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+			invpixPainter.drawText(r, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
 		}
 	}
-
-	painter->setFont(old);
-
 	if (option.state & QStyle::State_Selected)
-		painter->restore();
-
+		painter->drawPixmap(option.rect.x(), option.rect.y(), invPixmap);
+	else
+		painter->drawPixmap(option.rect.x(), option.rect.y(), pixmap);
+	pixmapCache.insert(cacheKey, pixmap);
+	pixmapCache.insert(cacheKey+"-selected", invPixmap);
 }
 
 QSize fontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
 								   const QModelIndex &index) const
 {
-	QString text = index.data(Qt::DisplayRole).toString();
+	QString text(index.data(Qt::DisplayRole).toString());
 	QFont font(option.font);
 	font.setPointSize(QFontInfo(font).pointSize() * 3/2);
 	QFontMetrics fontMetrics(font);
