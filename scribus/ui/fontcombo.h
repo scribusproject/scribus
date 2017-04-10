@@ -30,15 +30,15 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmapCache>
 
 #include "scribusapi.h"
-#include "fonts/scface.h"
 
 class QEvent;
 class QFont;
 class QGridLayout;
 class QPixmap;
 class QLabel;
-class ScribusDoc;
 class PrefsManager;
+class ScFace;
+class ScribusDoc;
 
 
 /**

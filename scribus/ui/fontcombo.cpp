@@ -39,6 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util.h"
 
+#include "fonts/scface.h"
+
 extern ScribusQApp* ScQApp;
 
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
