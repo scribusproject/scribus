@@ -452,7 +452,16 @@ static const ScFace& getscFace(QString classname, QString text)
 	if (classname == "FontComboH" || classname == "SMFontComboH")
 	{
 		QStringList styles = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[text];
-		const ScFace& fon = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text, styles[0]);
+		QString style = styles[0];
+		if (styles.contains("Regular"))
+			style = "Regular";
+		else if (styles.contains("Roman"))
+			style = "Roman";
+		else if (styles.contains("Medium"))
+			style = "Medium";
+		else if (styles.contains("Book"))
+			style = "Book";
+		const ScFace& fon = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text, style);
 		if (!QFontDatabase().families().contains(text))
 			QFontDatabase().addApplicationFont(fon.fontFilePath());
 		return fon;
