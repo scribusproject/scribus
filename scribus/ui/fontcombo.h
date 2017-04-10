@@ -118,6 +118,10 @@ public:
 	QFontDatabase::WritingSystem writingSystem;
 protected:
 	 QFont m_font;
+
 	 static QPixmapCache pixmapCache;
+
+	 const ScFace& getScFace(QString classname, QString text) const;
+	 QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLatin) const;
 };
 #endif

@@ -21,7 +21,9 @@ for which a new license (GPL+exception) is in place.
 
 #ifndef SCRIBUSAPP_H
 #define SCRIBUSAPP_H
+
 #include <QApplication>
+#include <QFontDatabase>
 #include <QString>
 #include <QStringList>
 
@@ -38,6 +40,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 	public:
 		ScribusQApp( int & argc, char ** argv );
 		~ScribusQApp();
+
 		int init();
 		void initLang();
 		void initDLMgr();
@@ -72,6 +75,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		const QString& currGUILanguage() { return m_GUILang; }
 		const QString& userPrefsDir() { return m_prefsUserDir; }
 		ScDLManager* dlManager() { return m_scDLMgr; }
+		QFontDatabase& qtFontDatabase() { return m_fontDb; }
 		QString pythonScript; // script to be run in python from CLI
 		QStringList pythonScriptArgs; // command line arguments and flags for script from CLI
 
@@ -102,6 +106,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QString m_prefsUserDir;
 		QList<QString> m_filesToLoad;
 		QString m_fileName;
+		QFontDatabase m_fontDb;
 		ScDLManager *m_scDLMgr;
 
 	protected:
