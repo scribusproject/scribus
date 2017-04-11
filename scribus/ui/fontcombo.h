@@ -104,11 +104,11 @@ protected:
 };
 
 // based on Qfontcombobox class from Qt project
-class fontFamilyDelegate : public QAbstractItemDelegate
+class FontFamilyDelegate : public QAbstractItemDelegate
 {
 	Q_OBJECT
 public:
-	explicit fontFamilyDelegate(QObject *parent);
+	explicit FontFamilyDelegate(QObject *parent);
 
 	// painting
 	void paint(QPainter *painter,

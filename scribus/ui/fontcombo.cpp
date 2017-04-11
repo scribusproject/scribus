@@ -51,7 +51,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
 	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	setEditable(true);
-	setItemDelegate(new fontFamilyDelegate(this));
+	setItemDelegate(new FontFamilyDelegate(this));
 	RebuildList(0);
 }
 
@@ -126,7 +126,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	}
 	fontFamily = new ScComboBox(this);
 	fontFamily->setEditable(true);
-	fontFamily->setItemDelegate(new fontFamilyDelegate(this));
+	fontFamily->setItemDelegate(new FontFamilyDelegate(this));
 	fontComboLayout->addWidget(fontFamily,0,col);
 	fontStyle = new ScComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
@@ -482,14 +482,14 @@ const ScFace& getScFace(QString classname, QString text)
 	}
 }
 
-fontFamilyDelegate::fontFamilyDelegate(QObject *parent)
+FontFamilyDelegate::FontFamilyDelegate(QObject *parent)
 	: QAbstractItemDelegate(parent)
 	, writingSystem(QFontDatabase::Any)
 {
 	pixmapCache.setCacheLimit(64*1024);
 }
 
-void fontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QString text(index.data(Qt::DisplayRole).toString());
 	QString wh=QString("-w%1h%2").arg(option.rect.width()).arg(option.rect.height());
@@ -608,7 +608,7 @@ void fontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	pixmapCache.insert(cacheKey+"-selected", invPixmap);
 }
 
-QSize fontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
+QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
 								   const QModelIndex &index) const
 {
 	QString text(index.data(Qt::DisplayRole).toString());
