@@ -409,14 +409,48 @@ static QFontDatabase::WritingSystem writingSystemFromLocale()
 	return writingSystemFromScript(script);
 }
 
-fontFamilyDelegate::fontFamilyDelegate(QObject *parent)
-	: QAbstractItemDelegate(parent)
-	, writingSystem(QFontDatabase::Any)
+QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLatin)
 {
-	pixmapCache.setCacheLimit(64*1024);
+	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
+	QList<QFontDatabase::WritingSystem> writingSystems = fontDb.writingSystems(font.family());
+
+	// this just confuses the algorithm below. Vietnamese is Latin with lots of special chars
+	writingSystems.removeOne(QFontDatabase::Vietnamese);
+	*hasLatin = writingSystems.removeOne(QFontDatabase::Latin);
+
+	if (writingSystems.isEmpty())
+		return QFontDatabase::Any;
+
+	QFontDatabase::WritingSystem system = writingSystemFromLocale();
+
+	if (writingSystems.contains(system))
+		return system;
+
+	if (system == QFontDatabase::TraditionalChinese && writingSystems.contains(QFontDatabase::SimplifiedChinese))
+		return QFontDatabase::SimplifiedChinese;
+
+	if (system == QFontDatabase::SimplifiedChinese && writingSystems.contains(QFontDatabase::TraditionalChinese))
+		return QFontDatabase::TraditionalChinese;
+
+	system = writingSystems.last();
+
+	if (!*hasLatin)
+		// we need to show something
+		return system;
+
+	if (writingSystems.count() == 1 && system > QFontDatabase::Cyrillic)
+		return system;
+
+	if (writingSystems.count() <= 2 && system > QFontDatabase::Armenian && system < QFontDatabase::Vietnamese)
+		return system;
+
+	if (writingSystems.count() <= 5 && system >= QFontDatabase::SimplifiedChinese && system <= QFontDatabase::Korean)
+		return system;
+
+	return QFontDatabase::Any;
 }
 
-const ScFace& fontFamilyDelegate::getScFace(QString classname, QString text) const
+const ScFace& getScFace(QString classname, QString text)
 {
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	PrefsManager* prefsManager = PrefsManager::instance();
@@ -446,6 +480,13 @@ const ScFace& fontFamilyDelegate::getScFace(QString classname, QString text) con
 			QFontDatabase::addApplicationFont(scFace.fontFilePath());
 		return scFace;
 	}
+}
+
+fontFamilyDelegate::fontFamilyDelegate(QObject *parent)
+	: QAbstractItemDelegate(parent)
+	, writingSystem(QFontDatabase::Any)
+{
+	pixmapCache.setCacheLimit(64*1024);
 }
 
 void fontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -577,44 +618,4 @@ QSize fontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
 	return QSize(fontMetrics.width(text), fontMetrics.height() + 5);
 }
 
-QFontDatabase::WritingSystem fontFamilyDelegate::writingSystemForFont(const QFont &font, bool *hasLatin) const
-{
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
-	QList<QFontDatabase::WritingSystem> writingSystems = fontDb.writingSystems(font.family());
-
-	// this just confuses the algorithm below. Vietnamese is Latin with lots of special chars
-	writingSystems.removeOne(QFontDatabase::Vietnamese);
-	*hasLatin = writingSystems.removeOne(QFontDatabase::Latin);
-
-	if (writingSystems.isEmpty())
-		return QFontDatabase::Any;
-
-	QFontDatabase::WritingSystem system = writingSystemFromLocale();
-
-	if (writingSystems.contains(system))
-		return system;
-
-	if (system == QFontDatabase::TraditionalChinese && writingSystems.contains(QFontDatabase::SimplifiedChinese))
-		return QFontDatabase::SimplifiedChinese;
-
-	if (system == QFontDatabase::SimplifiedChinese && writingSystems.contains(QFontDatabase::TraditionalChinese))
-		return QFontDatabase::TraditionalChinese;
-
-	system = writingSystems.last();
-
-	if (!*hasLatin)
-		// we need to show something
-		return system;
-
-	if (writingSystems.count() == 1 && system > QFontDatabase::Cyrillic)
-		return system;
-
-	if (writingSystems.count() <= 2 && system > QFontDatabase::Armenian && system < QFontDatabase::Vietnamese)
-		return system;
-
-	if (writingSystems.count() <= 5 && system >= QFontDatabase::SimplifiedChinese && system <= QFontDatabase::Korean)
-		return system;
-
-	return QFontDatabase::Any;
-}
 
