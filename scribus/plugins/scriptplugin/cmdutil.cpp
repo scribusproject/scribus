@@ -4,7 +4,11 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QMap>
+
 #include "cmdutil.h"
+#include "prefsmanager.h"
+#include "resourcecollection.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -75,94 +79,22 @@ PageItem *GetItem(QString Name)
 
 void ReplaceColor(QString col, QString rep)
 {
-	QColor tmpc;
+	QMap<QString, QString> colorMap;
+	colorMap.insert(col, rep);
 
-	CharStyle fill;
-	CharStyle stroke;
-	CharStyle fill_stroke;
-	fill.setFillColor(rep);
-	stroke.setStrokeColor(rep);
-	fill_stroke.setFillColor(rep);
-	fill_stroke.setStrokeColor(rep);
+	ResourceCollection colorRsc;
+	colorRsc.mapColor(col, rep);
 
-	for (int c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
-	{
-		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
-		if ((ite->itemType() == PageItem::TextFrame) && (ite->prevInChain() == NULL))
-		{
-			for (int d = 0; d < ite->itemText.length(); d++)
-			{
-				//FIXME:NLS  that should work on runs
-				int combi = (col == ite->itemText.charStyle(d).fillColor() ? 1 : 0) +
-							(col == ite->itemText.charStyle(d).strokeColor() ? 2 : 0);
-				switch (combi)
-				{
-				case 1:
-					ite->itemText.applyCharStyle(d, 1, fill);
-					break;
-				case 2:
-					ite->itemText.applyCharStyle(d, 1, stroke);
-					break;
-				case 3:
-					ite->itemText.applyCharStyle(d, 1, fill_stroke);
-					break;
-				}
-			}
-		}
-		if (col == ite->fillColor())
-			ite->setFillColor(rep);
-		if (col == ite->lineColor())
-			ite->setLineColor(rep);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			if (col == cstops.at(cst)->name)
-			{
-				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-				cstops.at(cst)->name = rep;
-			}
-		}
-	}
-	for (int c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
-	{
-		PageItem *ite = ScCore->primaryMainWindow()->doc->MasterItems.at(c);
-		if (ite->itemType() == PageItem::TextFrame)
-		{
-			for (int d = 0; d < ite->itemText.length(); d++)
-			{
-				//FIXME: NLS this should work on runs
-				int combi = (col == ite->itemText.charStyle(d).fillColor() ? 1 : 0) +
-							(col == ite->itemText.charStyle(d).strokeColor() ? 2 : 0);
-				switch (combi)
-				{
-				case 1:
-					ite->itemText.applyCharStyle(d, 1, fill);
-					break;
-				case 2:
-					ite->itemText.applyCharStyle(d, 1, stroke);
-					break;
-				case 3:
-					ite->itemText.applyCharStyle(d, 1, fill_stroke);
-					break;
-				}
-			}
-		}
-		if (col == ite->fillColor())
-			ite->setFillColor(rep);
-		if (col == ite->lineColor())
-			ite->setLineColor(rep);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			if (col == cstops.at(cst)->name)
-			{
-				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-				cstops.at(cst)->name = rep;
-			}
-		}
-	}
+	if (!ScCore->primaryMainWindow()->HaveDoc)
+		return;
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+
+	// Update tools colors
+	PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorRsc.colors());
+	// Update objects and styles colors
+	doc->replaceNamedResources(colorRsc);
+	// Temporary code until LineStyle is effectively used
+	doc->replaceLineStyleColors(colorMap);
 }
 
 /* 04/07/10 returns selection if is not name specified  pv  */
