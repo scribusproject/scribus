@@ -4,7 +4,6 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <QMap>
 
 #include "cmdutil.h"
 #include "prefsmanager.h"
@@ -16,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "tableborder.h"
 #include "units.h"
+
+#include <QMap>
 
 ScribusMainWindow* Carrier;
 ScribusDoc* doc;
