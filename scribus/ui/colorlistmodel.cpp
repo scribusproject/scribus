@@ -66,7 +66,7 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 		{
 			double L, a, b;
 			color.getLab(&L, &a, &b);
-			return tr("L: %1% a: %2% b: %3%").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
+			return tr("L: %1 a: %2 b: %3").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
 		}
 		return QVariant();
 	}
