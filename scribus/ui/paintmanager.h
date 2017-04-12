@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 #ifndef PAINTMANAGER_H
 #define PAINTMANAGER_H
+
 #include "ui_paintmanagerbase.h"
 #include "colorsetmanager.h"
 #include "sccolor.h"
@@ -71,6 +72,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QMap<QString,QString> replaceMapPatterns;
 		QMap<QString,QString> origNamesPatterns;
 		QStringList origPatterns;
+
 	private slots:
 		void leaveDialog();
 		void slotRightClick(QPoint p);
@@ -85,11 +87,13 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void importColorItems();
 		void loadDefaults(QTreeWidgetItem* item);
 		void saveDefaults();
+
 	protected:
 		QTreeWidgetItem* updatePatternList(QString addedName = "");
 		QTreeWidgetItem* updateGradientList(QString addedName = "");
 		QTreeWidgetItem* updateColorList(QString addedName = "");
 		ColorList getGradientColors();
+		QString getColorTooltip(const ScColor& color);
 		bool isMandatoryColor(QString colorName);
 		void loadPatternDir();
 		void loadVectors(QString data);

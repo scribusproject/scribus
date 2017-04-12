@@ -284,13 +284,15 @@ QTreeWidgetItem* PaintManagerDialog::updateColorList(QString addedName)
 		QMap<QString, QString>::Iterator itc;
 		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
 		{
+			const ScColor& color = m_colorList[itc.value()];
 			QTreeWidgetItem *item = new QTreeWidgetItem(colorItems);
 			item->setText(0, itc.value());
 			if (itc.value() == addedName)
 				ret = item;
-			QPixmap* pPixmap = getFancyPixmap(m_colorList[itc.value()], m_doc);
+			QPixmap* pPixmap = getFancyPixmap(color, m_doc);
 			item->setIcon(0, *pPixmap);
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			item->setData(0, Qt::ToolTipRole, getColorTooltip(color));
 		}
 	}
 	else
@@ -298,13 +300,15 @@ QTreeWidgetItem* PaintManagerDialog::updateColorList(QString addedName)
 		ColorList::Iterator it;
 		for (it = m_colorList.begin(); it != m_colorList.end(); ++it)
 		{
+			const ScColor& color = it.value();
 			QTreeWidgetItem *item = new QTreeWidgetItem(colorItems);
 			item->setText(0, it.key());
 			if (it.key() == addedName)
 				ret = item;
-			QPixmap* pPixmap = getFancyPixmap(it.value(), m_doc);
+			QPixmap* pPixmap = getFancyPixmap(color, m_doc);
 			item->setIcon(0, *pPixmap);
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			item->setData(0, Qt::ToolTipRole, getColorTooltip(color));
 		}
 	}
 	return ret;
@@ -1414,6 +1418,30 @@ bool PaintManagerDialog::isMandatoryColor(QString colorName)
 	if (color.isRegistrationColor())
 		return true;
 	return false;
+}
+
+QString PaintManagerDialog::getColorTooltip(const ScColor& color)
+{
+	QString tooltip;
+	if (color.getColorModel() == colorModelRGB)
+	{
+		int r, g, b;
+		color.getRawRGBColor(&r, &g, &b);
+		tooltip = tr("R: %1 G: %2 B: %3").arg(r).arg(g).arg(b);
+	}
+	else if (color.getColorModel() == colorModelCMYK)
+	{
+		int c, m, y, k;
+		color.getCMYK(&c, &m, &y, &k);
+		tooltip = tr("C: %1% M: %2% Y: %3% K: %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+	}
+	else if (color.getColorModel() == colorModelLab)
+	{
+		double L, a, b;
+		color.getLab(&L, &a, &b);
+		tooltip = tr("L: %1 a: %2 b: %3").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
+	}
+	return tooltip;
 }
 
 ColorList PaintManagerDialog::getGradientColors()
