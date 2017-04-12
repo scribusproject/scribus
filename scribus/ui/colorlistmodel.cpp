@@ -54,19 +54,19 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 		{
 			int r, g, b;
 			color.getRawRGBColor(&r, &g, &b);
-			return QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
+			return tr("R: %1 G: %2 B: %3").arg(r).arg(g).arg(b);
 		}
 		else if (color.getColorModel() == colorModelCMYK)
 		{
 			int c, m, y, k;
 			color.getCMYK(&c, &m, &y, &k);
-			return QString("C:%1% M:%2% Y:%3% K:%4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+			return tr("C: %1% M: %2% Y: %3% K: %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
 		}
 		else if (color.getColorModel() == colorModelLab)
 		{
 			double L, a, b;
 			color.getLab(&L, &a, &b);
-			return QString("L:%1% a:%2% b:%3%").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
+			return tr("L: %1% a: %2% b: %3%").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
 		}
 		return QVariant();
 	}
