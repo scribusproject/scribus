@@ -10353,10 +10353,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				{
 					ScImage img3;
 					int components = 0;
-					PdfId embeddedProfile = writer.newObject();
-					writer.startObj(embeddedProfile);
 					QByteArray dataP;
-					PdfICCD dataD;
 					if ((Embedded) && (!Options.EmbeddedI))
 						img3.getEmbeddedProfile(fn, &dataP, &components);
 					if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect) && (components == 1)))
@@ -10400,6 +10397,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					}
 					if (!ICCProfiles.contains(profInUse))
 					{
+						PdfICCD dataD;
+						PdfId embeddedProfile = writer.newObject();
+						writer.startObj(embeddedProfile);
 						PutDoc("<<\n");
 						if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
 						{
