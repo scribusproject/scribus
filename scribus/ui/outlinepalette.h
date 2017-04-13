@@ -109,14 +109,15 @@ protected:
 	QLabel* filterLabel;
 	QLineEdit* filterEdit;
 	ScribusMainWindow* m_MainWindow;
+	QPixmap textIcon;
 	QPixmap imageIcon;
 	QPixmap latexIcon;
-	QPixmap textIcon;
+	QPixmap tableIcon;
 	QPixmap lineIcon;
 	QPixmap polygonIcon;
+	QPixmap arcIcon;
+	QPixmap spiralIcon;
 	QPixmap polylineIcon;
-	QPixmap groupIcon;
-	QPixmap tableIcon;
 	QPixmap buttonIcon;
 	QPixmap radiobuttonIcon;
 	QPixmap textFieldIcon;
@@ -126,6 +127,7 @@ protected:
 	QPixmap annotTextIcon;
 	QPixmap annotLinkIcon;
 	QPixmap annot3DIcon;
+	QPixmap groupIcon;
 	bool selectionTriggered;
 	ScribusDoc *currDoc;
 };

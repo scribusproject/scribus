@@ -472,6 +472,8 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	textIcon = im->loadPixmap("22/insert-text-frame.png");
 	polylineIcon = im->loadPixmap("22/draw-path.png");
 	polygonIcon = im->loadPixmap("22/draw-polygon.png");
+	arcIcon = im->loadPixmap("22/draw-arc.png");
+	spiralIcon = im->loadPixmap("22/draw-spiral.png");
 	tableIcon = im->loadPixmap("22/insert-table.png");
 	groupIcon = im->loadPixmap("u_group.png");
 	buttonIcon = im->loadPixmap("22/insert-button.png");
@@ -850,12 +852,16 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 		item->setIcon( 0, lineIcon );
 		break;
 	case PageItem::Arc:
+		item->setIcon( 0, arcIcon );
+		break;
+	case PageItem::Spiral:
+		item->setIcon( 0, spiralIcon );
+		break;
 	case PageItem::Polygon:
 	case PageItem::RegularPolygon:
 		item->setIcon( 0, polygonIcon );
 		break;
 	case PageItem::PolyLine:
-	case PageItem::Spiral:
 		item->setIcon( 0, polylineIcon );
 		break;
 	case PageItem::PathText:
