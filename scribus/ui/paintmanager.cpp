@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scribus.h"
+#include "scribusview.h"
 #include "scribusXml.h"
 #include "sctextstream.h"
 #include "ui/customfdialog.h"
@@ -1186,37 +1187,35 @@ void PaintManagerDialog::importColorItems()
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString wdir = dirs->get("patterns", ".");
 			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles | fdDisableOk);
-			if (dia.exec() == QDialog::Accepted)
-				fileName = dia.selectedFile();
-			else
+			if (dia.exec() != QDialog::Accepted)
 				return;
-			if (!fileName.isEmpty())
+			fileName = dia.selectedFile();
+			if (fileName.isEmpty())
+				return;
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+			PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
+			QFileInfo fi(fileName);
+			if ((fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
 			{
-				qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-				PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
-				QFileInfo fi(fileName);
-				if ((fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
-				{
-					loadVectors(fileName);
-				}
-				else
-				{
-					QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_doc);
-					pat.setPattern(fileName);
-					if (!dialogPatterns.contains(patNam))
-					{
-						dialogPatterns.insert(patNam, pat);
-						origNamesPatterns.insert(patNam, patNam);
-					}
-				}
-				updateColorList();
-				updateGradientList();
-				updatePatternList();
-				itemSelected(0);
-				qApp->restoreOverrideCursor();
+				loadVectors(fileName);
 			}
+			else
+			{
+				QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
+				ScPattern pat = ScPattern();
+				pat.setDoc(m_doc);
+				pat.setPattern(fileName);
+				if (!dialogPatterns.contains(patNam))
+				{
+					dialogPatterns.insert(patNam, pat);
+					origNamesPatterns.insert(patNam, patNam);
+				}
+			}
+			updateColorList();
+			updateGradientList();
+			updatePatternList();
+			itemSelected(0);
+			qApp->restoreOverrideCursor();
 		}
 	}
 }
@@ -1301,6 +1300,13 @@ void PaintManagerDialog::loadPatternDir()
 
 void PaintManagerDialog::loadVectors(QString data)
 {
+	int storedPageNum = m_doc->currentPageNumber();
+	int storedContentsX = m_doc->view()->contentsX();
+	int storedContentsY = m_doc->view()->contentsY();
+	double storedViewScale = m_doc->view()->scale();
+	FPoint stored_minCanvasCoordinate = m_doc->minCanvasCoordinate;
+	FPoint stored_maxCanvasCoordinate = m_doc->maxCanvasCoordinate;
+
 	m_doc->PageColors = m_colorList;
 	m_doc->docGradients = dialogGradients;
 	UndoManager::instance()->setUndoEnabled(false);
@@ -1408,6 +1414,12 @@ void PaintManagerDialog::loadVectors(QString data)
 	m_colorList = m_doc->PageColors;
 	dialogGradients = m_doc->docGradients;
 	UndoManager::instance()->setUndoEnabled(true);
+
+	m_doc->minCanvasCoordinate = stored_minCanvasCoordinate;
+	m_doc->maxCanvasCoordinate = stored_maxCanvasCoordinate;
+	m_doc->view()->setScale(storedViewScale);
+	m_doc->setCurrentPage(m_doc->DocPages.at(storedPageNum));
+	m_doc->view()->setContentsPos(static_cast<int>(storedContentsX * storedViewScale), static_cast<int>(storedContentsY * storedViewScale));
 }
 
 bool PaintManagerDialog::isMandatoryColor(QString colorName)
