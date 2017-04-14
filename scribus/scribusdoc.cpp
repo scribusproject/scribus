@@ -6578,7 +6578,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			m_Selection->addItem(Items->at(as));
 			Items->at(as)->setLayer(layerID);
 		}
-		moveGroup(addedPage->xOffset(), addedPage->yOffset());
+		QRectF selRect = m_Selection->getVisualGroupRect();
+		moveGroup(addedPage->xOffset() - selRect.x(), addedPage->yOffset() - selRect.y());
 		if (Items->at(0)->isGroup())
 			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
@@ -6660,9 +6661,10 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			currItem->gXpos = currItem->xPos() - minx;
 			currItem->gYpos = currItem->yPos() - miny;
 			currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
-			docPatterns[m_currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
-			docPatterns[m_currentEditedSymbol].width = maxx - minx;
-			docPatterns[m_currentEditedSymbol].height = maxy - miny;
+			ScPattern& currentEditedSymbol = docPatterns[m_currentEditedSymbol];
+			currentEditedSymbol.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+			currentEditedSymbol.width  = maxx - minx;
+			currentEditedSymbol.height = maxy - miny;
 		}
 		if (m_ScMW->patternsDependingOnThis.count() > 1)
 		{
