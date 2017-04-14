@@ -170,7 +170,7 @@ public:
 				m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
 
 				if (!FillColor.isEmpty())
-					m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
+					m_pathBuffer += pdfFont.name + "_gl" + Pdf::toPdf(gl.glyph) + " Do\n";
 				m_pathBuffer += "Q\n";
 			}
 			else
@@ -271,7 +271,7 @@ public:
 				m_pathBuffer += FToStr(qMax(gc.scaleH(), 0.1)) + " 0 0 " + FToStr(qMax(gc.scaleV(), 0.1)) + " 0 0 cm\n";
 
 				if (!FillColor.isEmpty())
-					m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
+					m_pathBuffer += pdfFont.name + "_gl" + Pdf::toPdf(gl.glyph) + " Do\n";
 
 				FPointArray outline = font().glyphOutline(gl.glyph);
 				QTransform mat;
@@ -1637,7 +1637,7 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 			PutDoc("\n/Filter /FlateDecode");
 		PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream");
 		writer.endObj(fontGlyphXForm);
-		pageData.XObjects[fontName + Pdf::toPdf(ig.key())] = fontGlyphXForm;
+		pageData.XObjects[fontName + "_gl" + Pdf::toPdf(ig.key())] = fontGlyphXForm;
 	}
 	return result;
 }
