@@ -455,7 +455,7 @@ namespace Pdf
 	
 	QByteArray toDateString(QDateTime dt)
 	{
-		QString tmp = dt.toString("yyyy:MM:dd:HH:mm");
+		QString tmp = dt.toString("yyyy:MM:dd:HH:mm:ss");
 		tmp = tmp.replace(":", "");
 		return "D:" + tmp.toLatin1() + "Z";
 	}
