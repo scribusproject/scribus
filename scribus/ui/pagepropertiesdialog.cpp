@@ -17,8 +17,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
-#include "pagepropertiesdialog.h"
 #include "marginwidget.h"
+#include "pagepropertiesdialog.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "scpage.h"
