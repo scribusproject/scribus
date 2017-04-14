@@ -1663,7 +1663,7 @@ void AIPlug::processData(QString data)
 						ite->setLocked(itemLocked);
 					
 				}
-				else
+				else if (m_Doc->Items->count() > 0)
 				{
 					ite = m_Doc->Items->last();
 					ite->PoLine.setMarker();
