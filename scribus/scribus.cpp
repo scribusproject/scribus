@@ -188,7 +188,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/javadocs.h"
 #include "ui/layers.h"
 #include "ui/loremipsum.h"
-#include "ui/margindialog.h"
+#include "ui/pagepropertiesdialog.h"
 #include "ui/marginwidget.h"
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
@@ -6260,13 +6260,13 @@ void ScribusMainWindow::changePageProperties()
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	QString currPageMasterPageName(doc->currentPage()->MPageNam);
-	MarginDialog *dia = new MarginDialog(this, doc);
+	PagePropertiesDialog *dia = new PagePropertiesDialog(this, doc);
 	if (dia->exec())
 	{
 		int orientation = dia->getPageOrientation();
 		double pageHeight = dia->getPageHeight();
 		double pageWidth = dia->getPageWidth();
-		QString pageSizeName = dia->getpPrefsPageSizeName();
+		QString pageSizeName = dia->getPrefsPageSizeName();
 		int lp=0;
 		if (doc->masterPageMode() && doc->pagePositioning() != singlePage)
 			lp = dia->pageOrder();

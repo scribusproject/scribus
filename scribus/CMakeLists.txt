@@ -379,7 +379,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/marknote.h
 	ui/marksmanager.h
 	ui/markvariabletext.h
-	ui/margindialog.h
 	ui/marginpresetlayout.h
 	ui/marginwidget.h
 	ui/newmarginwidget.h
@@ -403,6 +402,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/pagepalette_pages.h
 	ui/pagepalette_masterpages.h
 	ui/pagepalette_widgets.h
+	ui/pagepropertiesdialog.h
 	ui/pageselector.h
 	ui/paintmanager.h
 	ui/patternpropsdialog.h
@@ -851,7 +851,6 @@ set(SCRIBUS_SOURCES
 	ui/marknote.cpp
 	ui/marksmanager.cpp
 	ui/markvariabletext.cpp
-	ui/margindialog.cpp
 	ui/marginpresetlayout.cpp
 	ui/marginwidget.cpp
 	ui/newmarginwidget.cpp
@@ -875,6 +874,7 @@ set(SCRIBUS_SOURCES
 	ui/pagepalette_pages.cpp
 	ui/pagepalette_masterpages.cpp
 	ui/pagepalette_widgets.cpp
+	ui/pagepropertiesdialog.cpp
 	ui/pageselector.cpp
 	ui/paintmanager.cpp
 	ui/patternpropsdialog.cpp
