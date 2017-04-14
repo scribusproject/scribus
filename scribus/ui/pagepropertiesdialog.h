@@ -25,7 +25,7 @@ class ScribusDoc;
 
 /*! \brief A dialog to setup the existing document margins.
 In modal mode called from void ScribusMainWindow::changePageProperties() */
-class SCRIBUS_API PagePopertiesDialog : public QDialog
+class SCRIBUS_API PagePropertiesDialog : public QDialog
 {
 	Q_OBJECT
 
@@ -33,8 +33,8 @@ public:
 	/*! \brief GUI setup
 	\param parent Scribus main window in this case
 	\param doc current document */
-	PagePopertiesDialog( QWidget* parent,  ScribusDoc* doc);
-	~PagePopertiesDialog() {}
+	PagePropertiesDialog( QWidget* parent,  ScribusDoc* doc);
+	~PagePropertiesDialog() {}
 
 	/*! \brief Returns recomputed "Links" index/value for facing pages.
 	\retval int 0 for max item, 1 for min. item++ for middle. Why? */
