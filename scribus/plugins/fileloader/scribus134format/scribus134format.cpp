@@ -1166,6 +1166,12 @@ bool Scribus134Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
 	QString name = attrs.valueAsString("NAME");
+	if (name == "All")
+	{
+		color.setSpotColor(true);
+		color.setRegistrationColor(true);
+		color.setColor(255, 255, 255, 255);
+	}
 	colors.insert((name.isEmpty()) ? color.name() : name, color);
 	return true;
 }

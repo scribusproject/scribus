@@ -174,15 +174,26 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 	else if (color_space->getMode() == csSeparation)
 	{
 		GfxCMYK cmyk;
-		color_space->getCMYK(color, &cmyk);
-		int Cc = qRound(colToDbl(cmyk.c) * 255);
-		int Mc = qRound(colToDbl(cmyk.m) * 255);
-		int Yc = qRound(colToDbl(cmyk.y) * 255);
-		int Kc = qRound(colToDbl(cmyk.k) * 255);
+		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
+		int Cc, Mc, Yc, Kc;
+		bool isRegistrationColor = (name == "All");
+		if (!isRegistrationColor)
+		{
+			color_space->getCMYK(color, &cmyk);
+			Cc = qRound(colToDbl(cmyk.c) * 255);
+			Mc = qRound(colToDbl(cmyk.m) * 255);
+			Yc = qRound(colToDbl(cmyk.y) * 255);
+			Kc = qRound(colToDbl(cmyk.k) * 255);
+		}
+		else
+		{
+			Cc = Mc = Yc = Kc = 255;
+			tmp.setRegistrationColor(true);
+			name = "Registration";
+		}
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		tmp.setSpotColor(true);
-		QString nam = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
-		fNam = m_doc->PageColors.tryAddColor(nam, tmp);
+		fNam = m_doc->PageColors.tryAddColor(name, tmp);
 		*shade = qRound(colToDbl(color->c[0]) * 100);
 	}
 	else
@@ -3810,15 +3821,27 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 	else if (color_space->getMode() == csSeparation)
 	{
 		GfxCMYK cmyk;
-		color_space->getCMYK(color, &cmyk);
-		int Cc = qRound(colToDbl(cmyk.c) * 255);
-		int Mc = qRound(colToDbl(cmyk.m) * 255);
-		int Yc = qRound(colToDbl(cmyk.y) * 255);
-		int Kc = qRound(colToDbl(cmyk.k) * 255);
+		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
+		int Cc, Mc, Yc, Kc;
+		bool isRegistrationColor = (name == "All");
+		if (!isRegistrationColor)
+		{
+			color_space->getCMYK(color, &cmyk);
+			Cc = qRound(colToDbl(cmyk.c) * 255);
+			Mc = qRound(colToDbl(cmyk.m) * 255);
+			Yc = qRound(colToDbl(cmyk.y) * 255);
+			Kc = qRound(colToDbl(cmyk.k) * 255);
+		}
+		else
+		{
+			Cc = Mc = Yc = Kc = 255;
+			tmp.setRegistrationColor(true);
+			name = "Registration";
+		}
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		tmp.setSpotColor(true);
-		QString nam = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
-		fNam = m_doc->PageColors.tryAddColor(nam, tmp);
+
+		fNam = m_doc->PageColors.tryAddColor(name, tmp);
 		*shade = qRound(colToDbl(color->c[0]) * 100);
 	}
 	else
