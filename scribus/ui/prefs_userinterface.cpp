@@ -28,7 +28,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 
 	QStringList languageList;
 	languageList <<"";
-	LanguageManager::instance()->fillInstalledGUIStringList(&languageList, false);
+	LanguageManager::instance()->fillInstalledGUIStringList(&languageList);
 	languageComboBox->addItems( languageList );
 
 	// qt styles

@@ -395,7 +395,7 @@ void PropertiesPalette_Text::changeLang(int id)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList, true);
+	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	QString abrv = LanguageManager::instance()->getAbbrevFromLang(languageList.value(id),false);
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item, true);
@@ -443,7 +443,7 @@ void PropertiesPalette_Text::showLanguage(QString w)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	QStringList lang;
-	LanguageManager::instance()->fillInstalledStringList(&lang, true);
+	LanguageManager::instance()->fillInstalledStringList(&lang);
 	QString langName = LanguageManager::instance()->getLangFromAbbrev(w, true);
 
 	bool sigBlocked  = langCombo->blockSignals(true);
@@ -709,7 +709,7 @@ void PropertiesPalette_Text::languageChange()
 	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
 
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList, true);
+	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	int oldLang = langCombo->currentIndex();
 	langCombo->clear();
 	langCombo->addItems(languageList);

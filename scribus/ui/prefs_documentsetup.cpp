@@ -44,7 +44,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	}
 
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	languageList.sort();
 	languageComboBox->addItems( languageList );
 

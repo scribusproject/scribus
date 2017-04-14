@@ -69,7 +69,7 @@ void SMCStyleWidget::changeEvent(QEvent *e)
 void SMCStyleWidget::languageChange()
 {
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList, false);
+	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	fillLangComboFromList(languageList);
 
 	if (fillColor_->count() > 0)
@@ -214,7 +214,7 @@ void SMCStyleWidget::setDoc(ScribusDoc *doc)
 		return;
 
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList, false);
+	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	fillLangComboFromList(languageList);
 	fillColorCombo(m_Doc->PageColors);
 	fontFace_->RebuildList(m_Doc);

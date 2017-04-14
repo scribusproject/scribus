@@ -818,39 +818,45 @@ const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev
 	return "";
 }
 
-void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, bool addDefaults) 
+void LanguageManager::fillInstalledStringList(QStringList *stringListToFill)
 {
-	if (stringListToFill)
-	{
-		for (int i = 0; i < m_langTable.size(); ++i)
-			stringListToFill->append(m_langTable[i].m_transName);
-	}
+	if (!stringListToFill)
+		return;
+	for (int i = 0; i < m_langTable.size(); ++i)
+		stringListToFill->append(m_langTable[i].m_transName);
 }
 
-void LanguageManager::fillInstalledGUIStringList(QStringList *stringListToFill, bool addDefaults)
+void LanguageManager::fillInstalledGUIStringList(QStringList *stringListToFill)
 {
-	if (stringListToFill)
+	if (!stringListToFill)
+		return;
+	for (int i = 0; i < m_langTable.size(); ++i)
 	{
-		for (int i = 0; i < m_langTable.size(); ++i)
-		{
-			//qDebug()<<langTable[i].m_transName<<langTable[i].m_transAvailable;
-			if (m_langTable[i].m_transAvailable)
-				stringListToFill->append(m_langTable[i].m_transName);
-		}
-		stringListToFill->sort();
+		if (m_langTable[i].m_transAvailable)
+			stringListToFill->append(m_langTable[i].m_transName);
 	}
 }
 
 void LanguageManager::fillInstalledHyphStringList(QStringList *stringListToFill)
 {
-	if (stringListToFill)
+	if (!stringListToFill)
+		return;
+	for (int i = 0; i < m_langTable.size(); ++i)
 	{
-		for (int i = 0; i < m_langTable.size(); ++i)
-		{
-			//qDebug()<<langTable[i].m_transName<<langTable[i].m_hyphAvailable;
-			if (m_langTable[i].m_hyphAvailable)
-				stringListToFill->append(m_langTable[i].m_transName);
-		}
+		if (m_langTable[i].m_hyphAvailable)
+			stringListToFill->append(m_langTable[i].m_transName);
+	}
+	stringListToFill->sort();
+}
+
+void LanguageManager::fillInstalledSpellStringList(QStringList *stringListToFill)
+{
+	if (!stringListToFill)
+		return;
+	for (int i = 0; i < m_langTable.size(); ++i)
+	{
+		if (m_langTable[i].m_spellAvailable)
+			stringListToFill->append(m_langTable[i].m_transName);
 	}
 	stringListToFill->sort();
 }

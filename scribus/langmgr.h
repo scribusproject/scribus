@@ -52,9 +52,10 @@ public:
 	const QString getTransLangFromLang(QString lang);
 	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
 	const QString getAlternativeAbbrevfromAbbrev(QString langAbbrev);
-	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
-	void fillInstalledGUIStringList(QStringList *stringListToFill, bool addDefaults);
+	void fillInstalledStringList(QStringList *stringListToFill);
+	void fillInstalledGUIStringList(QStringList *stringListToFill);
 	void fillInstalledHyphStringList(QStringList *stringListToFill);
+	void fillInstalledSpellStringList(QStringList *stringListToFill);
 	void printInstalledList();
 	QString numericSequence(QString seq);
 	bool findSpellingDictionaries(QStringList& sl);

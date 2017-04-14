@@ -31,7 +31,7 @@ class SCRIBUS_API LangDef
 	public:
 		LangDef();
 		LangDef(const QString& pri, const QString& alt, const QString& name, const QString& transName);
-		~LangDef() {};
+		~LangDef() {}
 
 		QString m_priAbbrev;
 		QString m_altAbbrev;
