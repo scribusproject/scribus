@@ -10119,6 +10119,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	bool   bitmapFromGS = false;
 	bool   isEmbeddedPDF = false;
 	bool   hasGrayProfile = false;
+	bool   avoidPDFXOutputIntentProf = false;
 	QString profInUse = Profil;
 	int    afl = Options.Resolution;
 	double ax, ay, a2, a1;
@@ -10395,7 +10396,12 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							components = 3;
 						}
 					}
-					if (!ICCProfiles.contains(profInUse))
+					// PDF-X/4 requires that CMYK images using the same profile as PDF/X output intent
+					// do not be tagged with an ICC profile so they can go through color conversion
+					// pipeline without alteration
+					if (Options.Version == PDFOptions::PDFVersion_X4)
+						avoidPDFXOutputIntentProf = (profInUse == Options.PrintProf);
+					if (!ICCProfiles.contains(profInUse) && !avoidPDFXOutputIntentProf)
 					{
 						PdfICCD dataD;
 						PdfId embeddedProfile = writer.newObject();
@@ -10654,7 +10660,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				outType = ColorSpaceMonochrome;
 			else
 				outType = getOutputType(exportToGrayscale, exportToCMYK);
-			if ((outType != ColorSpaceMonochrome) && (doc.HasCMS) && (Options.UseProfiles2))
+			if ((outType != ColorSpaceMonochrome) && (doc.HasCMS) && (Options.UseProfiles2) && (!avoidPDFXOutputIntentProf))
 			{
 				PutDoc("/ColorSpace "+ICCProfiles[profInUse].ICCArray+"\n");
 				PutDoc("/Intent /");
