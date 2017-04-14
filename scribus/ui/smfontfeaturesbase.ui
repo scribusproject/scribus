@@ -48,7 +48,7 @@
          <string>Common Ligatures (liga)</string>
         </property>
         <property name="text">
-         <string>Common Ligatures</string>
+         <string>Common</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -67,7 +67,7 @@
          <string>Discretionary Ligatures (dlig)</string>
         </property>
         <property name="text">
-         <string>Discretionary Ligatures</string>
+         <string>Discretionary</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -86,7 +86,7 @@
          <string>Contextual Ligatures (clig)</string>
         </property>
         <property name="text">
-         <string>Contextual Ligatures</string>
+         <string>Contextual</string>
         </property>
         <property name="checked">
          <bool>false</bool>
@@ -114,7 +114,7 @@
          <string>Historical Ligatures (hlig)</string>
         </property>
         <property name="text">
-         <string>Historical Ligatures</string>
+         <string>Historical</string>
         </property>
         <property name="checked">
          <bool>false</bool>
