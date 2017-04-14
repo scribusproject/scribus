@@ -53,7 +53,7 @@ public:
 	bool getMoveObjects();
 	/*! \brief Returns prefsPageSizeName value
 	\retval QString prefsPageSizeName property */
-	QString getpPrefsPageSizeName();
+	QString getPrefsPageSizeName();
 	/*! \brief Top Margin
 	\retval double margin size */
 	double top();

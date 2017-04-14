@@ -315,7 +315,7 @@ int PagePropertiesDialog::getPageOrientation()
 	return orientationQComboBox->currentIndex();
 }
 
-QString PagePropertiesDialog::getpPrefsPageSizeName()
+QString PagePropertiesDialog::getPrefsPageSizeName()
 {
 	return prefsPageSizeName;
 }
