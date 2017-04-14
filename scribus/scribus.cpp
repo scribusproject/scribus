@@ -7498,6 +7498,13 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 {
 	if (!HaveDoc || !doc->docPatterns.contains(temp))
 		return;
+	if (doc->symbolEditMode())
+	{
+		QString editedSymbol = doc->getEditedSymbol();
+		if (editedSymbol == temp)
+			return;
+		editSymbolEnd();
+	}
 	m_WasAutoSave = doc->autoSave();
 	if (m_WasAutoSave)
 	{
