@@ -1067,7 +1067,7 @@
     <ClInclude Include="..\..\..\scribus\text\textsource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\colorlistmodel.h">
+    <ClInclude Include="..\..\..\scribus\ui\pagepropertiesdialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1559,9 +1559,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\main_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\margindialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\marginpresetlayout.cpp">
@@ -2668,6 +2665,9 @@
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepropertiesdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -3515,9 +3515,6 @@
     <moc Include="..\..\..\scribus\ui\loremipsum.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\margindialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\marginpresetlayout.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4212,6 +4209,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\textpalette.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorlistmodel.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

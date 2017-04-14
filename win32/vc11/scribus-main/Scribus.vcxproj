@@ -442,7 +442,6 @@
     <moc Include="..\..\..\scribus\loadsaveplugin.h" />
     <ClInclude Include="..\..\..\scribus\localemgr.h" />
     <moc Include="..\..\..\scribus\ui\loremipsum.h" />
-    <moc Include="..\..\..\scribus\ui\margindialog.h" />
     <moc Include="..\..\..\scribus\ui\marginpresetlayout.h" />
     <ClInclude Include="..\..\..\scribus\margins.h" />
     <moc Include="..\..\..\scribus\ui\marginwidget.h" />
@@ -576,6 +575,7 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_pareffect.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_pathtext.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_textcolor.h" />
+    <moc Include="..\..\..\scribus\ui\pagepropertiesdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -1186,7 +1186,6 @@
     <ClCompile Include="..\..\..\scribus\localemgr.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\loremipsum.cpp" />
     <ClCompile Include="..\..\..\scribus\main_win32.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\margindialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marginpresetlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marginwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\mark2item.cpp" />
@@ -1242,6 +1241,7 @@
     <ClCompile Include="..\..\..\scribus\ui\pagepalette_masterpages.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagepalette_pages.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagepalette_widgets.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\pagepropertiesdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pageselector.cpp" />
     <ClCompile Include="..\..\..\scribus\pagesize.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\paintmanager.cpp" />
