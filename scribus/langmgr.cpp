@@ -107,7 +107,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("ar_bh",    "",         "Arabic (Bahrain)",        QObject::tr("Arabic (Bahrain)")));
 	m_langTable.append(LangDef("ar_eg",    "",         "Arabic (Egypt)",          QObject::tr("Arabic (Egypt)")));
 	m_langTable.append(LangDef("ar_iq",    "",         "Arabic (Iraq)",           QObject::tr("Arabic (Iraq)")));
-	m_langTable.append(LangDef("ar_jo",    "",         "Arabic (Jordon)",         QObject::tr("Arabic (Jordon)")));
+	m_langTable.append(LangDef("ar_jo",    "",         "Arabic (Jordan)",         QObject::tr("Arabic (Jordan)")));
 	m_langTable.append(LangDef("ar_kw",    "",         "Arabic (Kuwait)",         QObject::tr("Arabic (Kuwait)")));
 	m_langTable.append(LangDef("ar_lb",    "",         "Arabic (Lebanon)",        QObject::tr("Arabic (Lebanon)")));
 	m_langTable.append(LangDef("ar_ly",    "",         "Arabic (Libya)",          QObject::tr("Arabic (Libya)")));
