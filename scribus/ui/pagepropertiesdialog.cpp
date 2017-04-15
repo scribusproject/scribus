@@ -45,16 +45,16 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7 );
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
 
-	PageSize *ps=new PageSize(doc->currentPage()->m_pageSize);
-	prefsPageSizeName=ps->name();
+	PageSize ps(doc->currentPage()->m_pageSize);
+	prefsPageSizeName=ps.name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
-	QStringList insertList(ps->activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName)==-1)
+	QStringList insertList(ps.activeSizeTRList());
+	if (insertList.indexOf(prefsPageSizeName)==-1 && prefsPageSizeName!=CommonStrings::customPageSize)
 		insertList<<prefsPageSizeName;
 	insertList.sort();
 	insertList<<CommonStrings::trCustomPageSize;
 	sizeQComboBox->addItems(insertList);
-	int sizeIndex = insertList.indexOf(ps->nameTR());
+	int sizeIndex = insertList.indexOf(ps.nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentIndex(sizeIndex);
 	else
@@ -161,17 +161,9 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	setMaximumSize(sizeHint());
 	pageWidth = widthSpinBox->value() / unitRatio;
 	pageHeight = heightSpinBox->value() / unitRatio;
-	if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
-	{
-		heightSpinBox->setEnabled( true );
-		widthSpinBox->setEnabled( true );
-	}
-	else
-	{
-		heightSpinBox->setEnabled( false );
-		widthSpinBox->setEnabled( false );
-	}
-	delete ps;
+	bool isCustom = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
+	heightSpinBox->setEnabled(isCustom);
+	widthSpinBox->setEnabled(isCustom);
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );

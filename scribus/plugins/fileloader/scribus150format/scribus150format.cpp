@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "notesstyles.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_noteframe.h"
+#include "pagesize.h"
 #include "prefsmanager.h"
 #include "qtiocompressor.h"
 #include "scclocale.h"
@@ -3619,24 +3620,38 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	else
 		newPage->setWidth(attrs.valueAsDouble("PAGEWITH"));
 	newPage->setHeight(attrs.valueAsDouble("PAGEHEIGHT"));
+
+	//14704: Double check the page size should not be Custom in case the size doesn't match a standard size
+	if (attrs.hasAttribute("Size"))
+	{
+		QString pageSize(attrs.valueAsString("Size"));
+		PageSize ps(pageSize);
+		if (!compareDouble(ps.width(), newPage->width()) || !compareDouble(ps.height(), newPage->height()))
+			newPage->m_pageSize = CommonStrings::customPageSize;
+		else
+			newPage->m_pageSize = pageSize;
+	}
+
+
+
 	newPage->setInitialHeight(newPage->height());
 	newPage->setInitialWidth(newPage->width());
 	newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BORDERTOP")));
 	newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM")));
 	newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BORDERLEFT")));
 	newPage->initialMargins.setRight(qMax(0.0, attrs.valueAsDouble("BORDERRIGHT")));
-	newPage->marginPreset   = attrs.valueAsInt("PRESET", 0);
+	newPage->marginPreset = attrs.valueAsInt("PRESET", 0);
 	newPage->Margins.setTop(newPage->initialMargins.top());
 	newPage->Margins.setBottom(newPage->initialMargins.bottom());
 	m_Doc->setMasterPageMode(false);
 	//m_Doc->Pages=&m_Doc->DocPages;
 	// guides reading
-	newPage->guides.setHorizontalAutoGap( attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
-	newPage->guides.setVerticalAutoGap  ( attrs.valueAsDouble("AGverticalAutoGap", 0.0));
-	newPage->guides.setHorizontalAutoCount( attrs.valueAsInt("AGhorizontalAutoCount", 0) );
-	newPage->guides.setVerticalAutoCount  ( attrs.valueAsInt("AGverticalAutoCount", 0) );
-	newPage->guides.setHorizontalAutoRefer( attrs.valueAsInt("AGhorizontalAutoRefer", 0) );
-	newPage->guides.setVerticalAutoRefer  ( attrs.valueAsInt("AGverticalAutoRefer", 0) );
+	newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
+	newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
+	newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AGhorizontalAutoCount", 0) );
+	newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AGverticalAutoCount", 0) );
+	newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AGhorizontalAutoRefer", 0) );
+	newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AGverticalAutoRefer", 0) );
 	GuideManagerIO::readVerticalGuides(attrs.valueAsString("VerticalGuides"),
 			newPage,
 			GuideManagerCore::Standard,

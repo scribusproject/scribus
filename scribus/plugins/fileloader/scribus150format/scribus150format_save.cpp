@@ -178,7 +178,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	// Create a random temporary file name
 	srand(time(NULL)); // initialize random sequence each time
-	long     randt = 0, randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
+	long randt = 0;
+	long randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
 	QString  tmpFileName  = QString("%1.%2").arg(fileName).arg(randn);
 	while (QFile::exists(tmpFileName) && (randt < 100))
 	{
@@ -425,7 +426,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writePageSets(docu);
 	writeSections(docu);
 	writePatterns(docu, fileDir);
-	writeContent (docu, fileDir);
+	writeContent(docu, fileDir);
 
 	docu.writeEndElement();
 	docu.writeEndDocument();

@@ -35,14 +35,15 @@ struct PageSizeInfo
 	int pageUnitIndex;
 };
 
-typedef QMap<QString, PageSizeInfo > PageSizeInfoMap;
+typedef QMap<QString, PageSizeInfo> PageSizeInfoMap;
 
 class SCRIBUS_API PageSize
 {
 public:
-	PageSize(const QString);
+	PageSize(const QString&);
 	PageSize(const double, const double);
-		
+	PageSize& operator=(const PageSize& other);
+	void init(const QString&);
 	QString name() const { return m_pageSizeName; }
 	QString nameTR() const { return m_trPageSizeName; }
 	double width() const { return m_width; }
@@ -59,7 +60,7 @@ public:
 	QStringList untransPageSizeList(const QStringList &transList);
 
 private:
-	QMap<QString, PageSizeInfo > m_pageSizeList;
+	PageSizeInfoMap m_pageSizeList;
 	double m_width;
 	double m_height;
 	int m_pageUnitIndex;

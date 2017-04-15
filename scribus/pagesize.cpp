@@ -30,8 +30,32 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 
-PageSize::PageSize(const QString sizeName)
+PageSize::PageSize(const QString& sizeName)
 {
+	init(sizeName);
+}
+
+PageSize::PageSize(const double w, const double h)
+{
+	m_width=w;
+	m_height=h;
+	m_pageUnitIndex=-1;
+	m_pageSizeName=CommonStrings::customPageSize;
+	m_trPageSizeName=CommonStrings::trCustomPageSize;
+}
+
+PageSize&PageSize::operator=(const PageSize& other)
+{
+	init(other.name());
+}
+
+void PageSize::init(const QString& sizeName)
+{
+	m_width=m_height=0.0;
+	m_pageUnitIndex=-1;
+	m_pageSizeName=QString::null;
+	m_trPageSizeName=QString::null;
+
 	bool valuesSet=false;
 	generateSizeList();
 	//Build based on untranslated key value
@@ -61,24 +85,15 @@ PageSize::PageSize(const QString sizeName)
 			}
 		}
 	}
-	
+
 	if (!valuesSet)
 	{
 		//qDebug("Non-existant page size selected");
 		m_width=m_height=0.0;
 		m_pageUnitIndex=-1;
 		m_pageSizeName=CommonStrings::customPageSize;
-		m_trPageSizeName=CommonStrings::trCustomPageSize;	
+		m_trPageSizeName=CommonStrings::trCustomPageSize;
 	}
-}
-
-PageSize::PageSize(const double w, const double h)
-{
-	m_width=w;
-	m_height=h;
-	m_pageUnitIndex=-1;
-	m_pageSizeName=CommonStrings::customPageSize;
-	m_trPageSizeName=CommonStrings::trCustomPageSize;	
 }
 
 QStringList PageSize::sizeList(void) const
