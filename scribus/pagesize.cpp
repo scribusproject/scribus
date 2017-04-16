@@ -44,9 +44,10 @@ PageSize::PageSize(const double w, const double h)
 	m_trPageSizeName=CommonStrings::trCustomPageSize;
 }
 
-PageSize&PageSize::operator=(const PageSize& other)
+PageSize& PageSize::operator=(const PageSize& other)
 {
 	init(other.name());
+	return *this;
 }
 
 void PageSize::init(const QString& sizeName)
