@@ -4879,17 +4879,17 @@ zusammengestellt werden</translation>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="57"/>
         <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>R: %1 G: %2 B: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="63"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished"></translation>
+        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="69"/>
         <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>L: %1 a: %2 b: %3</translation>
     </message>
 </context>
 <context>
@@ -14258,92 +14258,92 @@ Wird oft dazu verwendet, um ein Objekt über mehrere Seiten zu verteilen.</trans
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="32"/>
         <source>Manage Page Properties</source>
-        <translation type="unfinished">Seiteneigenschaften bearbeiten</translation>
+        <translation>Seiteneigenschaften bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="40"/>
         <source>Page Size</source>
-        <translation type="unfinished">Seitenformat</translation>
+        <translation>Seitenformat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="45"/>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Größe:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="65"/>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Au&amp;srichtung:</translation>
+        <translation>Au&amp;srichtung:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="68"/>
         <source>Portrait</source>
-        <translation type="unfinished">Hochformat</translation>
+        <translation>Hochformat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="69"/>
         <source>Landscape</source>
-        <translation type="unfinished">Querformat</translation>
+        <translation>Querformat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="76"/>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Breite:</translation>
+        <translation>&amp;Breite:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="83"/>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Höhe:</translation>
+        <translation>&amp;Höhe:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="88"/>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished">Objekte mit der Seite verschieben</translation>
+        <translation>Objekte mit der Seite verschieben</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="94"/>
         <source>Type:</source>
-        <translation type="unfinished">Typ:</translation>
+        <translation>Typ:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
         <source>Margin Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Ränder</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="122"/>
         <source>Other Settings</source>
-        <translation type="unfinished">Andere Einstellungen</translation>
+        <translation>Andere Einstellungen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="130"/>
         <source>Master Page:</source>
-        <translation type="unfinished">Musterseite:</translation>
+        <translation>Musterseite:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="176"/>
         <source>Size of the inserted pages, either a standard or custom size</source>
-        <translation type="unfinished">Die Größe eingefügter Seiten, entweder ein Standardformat oder eingegebene Werte</translation>
+        <translation>Die Größe eingefügter Seiten, entweder ein Standardformat oder eingegebene Werte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="177"/>
         <source>Orientation of the page(s) to be inserted</source>
-        <translation type="unfinished">Ausrichtung der einzufügenden Seite(n)</translation>
+        <translation>Ausrichtung der einzufügenden Seite(n)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="178"/>
         <source>Width of the page(s) to be inserted</source>
-        <translation type="unfinished">Breite der einzufügenden Seite(n)</translation>
+        <translation>Breite der einzufügenden Seite(n)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="179"/>
         <source>Height of the page(s) to be inserted</source>
-        <translation type="unfinished">Höhe der einzufügenden Seite(n)</translation>
+        <translation>Höhe der einzufügenden Seite(n)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="180"/>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
-        <translation type="unfinished">Wenn eine neue Seite zwischen anderen eingefügt wird, werden Objekte mit ihren Seiten verschoben. Dies ist das Standardverhalten.</translation>
+        <translation>Wenn eine neue Seite zwischen anderen eingefügt wird, werden Objekte mit ihren Seiten verschoben. Dies ist das Standardverhalten.</translation>
     </message>
 </context>
 <context>
@@ -14737,17 +14737,17 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../scribus/ui/paintmanager.cpp" line="1442"/>
         <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>R: %1 G: %2 B: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanager.cpp" line="1448"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished"></translation>
+        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanager.cpp" line="1454"/>
         <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>L: %1 a: %2 b: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
@@ -25748,7 +25748,7 @@ Externe Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="110"/>
         <source>Arabic (Jordan)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Jordanien)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="149"/>
@@ -26689,82 +26689,82 @@ Externe Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="106"/>
         <source>Arabic (Algeria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Algerien)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="107"/>
         <source>Arabic (Bahrain)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Bahrain)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="108"/>
         <source>Arabic (Egypt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Ägypten)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="109"/>
         <source>Arabic (Iraq)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Irak)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="111"/>
         <source>Arabic (Kuwait)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Kuwait)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="112"/>
         <source>Arabic (Lebanon)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Libanon)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="113"/>
         <source>Arabic (Libya)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Libyen)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="114"/>
         <source>Arabic (Morocco)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Marokko)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="115"/>
         <source>Arabic (Oman)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Oman)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="116"/>
         <source>Arabic (Qatar)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Katar)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="117"/>
         <source>Arabic (Saudi Arabia)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Saudi-Arabien)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="118"/>
         <source>Arabic (Sudan)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Sudan)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="119"/>
         <source>Arabic (Syria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Syrien)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="120"/>
         <source>Arabic (Tunisia)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Tunesien)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="121"/>
         <source>Arabic (UAE)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (VAE)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="122"/>
         <source>Arabic (Yemen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabisch (Jemen)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="124"/>
@@ -27345,7 +27345,7 @@ Externe Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="499"/>
         <source>Persian (Afghanistan)</source>
-        <translation type="unfinished"></translation>
+        <translation>Persisch (Afghanistan)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="639"/>
@@ -37831,7 +37831,7 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1373"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertiert Schmuckfarben zu Prozeßfarben</translation>
+        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="385"/>
@@ -41180,7 +41180,7 @@ Bitte geben Sie einen anderen ein.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It appears that Scribus crashed with the following files open.&lt;br&gt;Would you like to try to recover them?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offenbar ist Scribus abgestürzt, während die folgenden Dateien geöffnet waren.&lt;br&gt;Möchten Sie versuchen, diese wiederherzustellen?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Offenbar ist Scribus abgestürzt, während die folgenden Dateien geöffnet waren.&lt;br&gt;Möchten Sie versuchen, diese wiederherzustellen?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
@@ -41502,22 +41502,22 @@ Bitte geben Sie einen anderen ein.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
         <source>Discretionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedingt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="89"/>
         <source>Contextual</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontextabhängig</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="117"/>
         <source>Historical</source>
-        <translation type="unfinished"></translation>
+        <translation>Historisch</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
