@@ -439,7 +439,8 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 	DiscretinoryCheck->hide();
 	HistoricalCheck->hide();
 	line->hide();
-
+	
+	NormalCaRadio->setChecked(true);
 	NormalCaRadio->hide();
 	SmallRadio->hide();
 	SmallFromCRadio->hide();
@@ -448,28 +449,33 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 	UnicaseRadio->hide();
 	TiltingRadio->hide();
 	line_3->hide();
-
+	
+	DefaultStyleRadio->setChecked(true);
 	DefaultStyleRadio->hide();
 	LininRadio->hide();
 	OldStyleRadio->hide();
 	line_5->hide();
-
+	
+	DefaultWidthRadio->setChecked(true);
 	DefaultWidthRadio->hide();
 	ProportionalRadio->hide();
 	TabularRadio->hide();
 	line_2->hide();
-
+	
+	DefaultFractionsRadio->setChecked(true);
 	DefaultFractionsRadio->hide();
 	DiagonalRadio->hide();
 	StackedRadio->hide();
 	line_4->hide();
-
+	
+	NormalRadio->setChecked(true);
 	NormalRadio->hide();
 	SubscriptRadio->hide();
 	SuperscriptRaido->hide();
 	OrdinalCheck->hide();
 	line_6->hide();
-
+	
+	SlashedZeroCheck->setChecked(false);
 	SlashedZeroCheck->hide();
 	line_7->hide();
 
@@ -494,6 +500,27 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 	StyleSet19->hide();
 	StyleSet20->hide();
 	groupBox_7->hide();
+
+	StyleSet01->setChecked(false);
+	StyleSet02->setChecked(false);
+	StyleSet03->setChecked(false);
+	StyleSet04->setChecked(false);
+	StyleSet05->setChecked(false);
+	StyleSet06->setChecked(false);
+	StyleSet07->setChecked(false);
+	StyleSet08->setChecked(false);
+	StyleSet09->setChecked(false);
+	StyleSet10->setChecked(false);
+	StyleSet11->setChecked(false);
+	StyleSet12->setChecked(false);
+	StyleSet13->setChecked(false);
+	StyleSet14->setChecked(false);
+	StyleSet15->setChecked(false);
+	StyleSet16->setChecked(false);
+	StyleSet17->setChecked(false);
+	StyleSet18->setChecked(false);
+	StyleSet19->setChecked(false);
+	StyleSet20->setChecked(false);
 }
 
 void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
