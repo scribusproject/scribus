@@ -128,8 +128,8 @@ xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\s
 xcopy %SCRIBUS_SRC_PATH%\resources\swatches             %SCRIBUS_INSTALL_PATH%\share\swatches /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\templates            %SCRIBUS_INSTALL_PATH%\share\templates /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\scribus\scribus.css            %SCRIBUS_INSTALL_PATH%\libs\scribus.css /y
- copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png      %SCRIBUS_INSTALL_PATH%\share\icons\ /y
- copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png   %SCRIBUS_INSTALL_PATH%\share\icons\ /y
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png      %SCRIBUS_INSTALL_PATH%\share\icons\1_5_1 /y
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png   %SCRIBUS_INSTALL_PATH%\share\icons\1_5_1 /y
 xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts     %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples     %SCRIBUS_INSTALL_PATH%\share\samples /s /y /i /D
 copy  %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog  %SCRIBUS_INSTALL_PATH%\libs\import.prolog
