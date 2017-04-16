@@ -43,6 +43,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 {
 	docu = doc;
 	fontPreview = false;
+	unitRatio = unitGetRatioFromIndex(unitIndex);
 
 	tabToolsLayout = new QHBoxLayout(this);
 	tabToolsLayout->setMargin(0);
@@ -194,7 +195,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3b2t = new QLabel(tr( "Tab Fill Character:" ), subTabText);
 	textLabel3b2t->setBuddy(tabFillCombo);
 	subTabTextLayout->addWidget( textLabel3b2t, 7, 0 );
-	gapTab = new ScrSpinBox( 1, 200, subTabText, unitIndex );
+	gapTab = new ScrSpinBox( 1 * unitRatio, 200, subTabText, unitIndex );
 
 	subTabTextLayout->addWidget( gapTab, 7, 3, Qt::AlignLeft );
 	textLabel3b2t2 = new QLabel(tr( "Tab Width:" ), subTabText);
