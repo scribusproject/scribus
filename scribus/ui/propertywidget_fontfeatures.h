@@ -36,6 +36,8 @@ protected:
 	void setCurrentItem(PageItem *item);
 	virtual void changeEvent(QEvent *e);
 
+	quint64 featureFlags();
+
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *d);
@@ -48,6 +50,9 @@ public slots:
 
 private slots:
 	void handlefontfeatures();
+
+signals:
+	void needsRelayout();
 };
 
 #endif

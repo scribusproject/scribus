@@ -101,6 +101,9 @@ public slots:
 	void handleLineSpacingMode(int id);
 	void handleTextFont(QString);
 
+	// update widget layout
+	void updateTreeLayout();
+
 private slots:
 	void handleAlignment(int a);
 	void handleDirection(int d);

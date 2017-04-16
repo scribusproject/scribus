@@ -498,7 +498,9 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 
 void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 {
+	quint64 oldFlags = featureFlags();
 	disableAllFeatures();
+
 	line->show();
 	line_2->show();
 	line_3->show();
@@ -699,6 +701,99 @@ void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 		line_6->hide();
 	if (SlashedZeroCheck->isHidden() )
 		line_7->hide();
+
+	// Do not trigger item relayout unnecessarily,
+	// that can hurt text typing speed
+	if (oldFlags != featureFlags())
+		emit needsRelayout();
+}
+
+uint64_t PropertyWidget_FontFeatures::featureFlags()
+{
+	uint64_t flags = 0;
+
+	if (ContextualCheck->isVisible())
+		flags |= 1;
+	if (CommonCheck->isVisible())
+		flags |= ((quint64) 1 << 1);
+	if (DiscretinoryCheck->isVisible())
+		flags |= ((quint64) 1 << 2);
+	if (HistoricalCheck->isVisible())
+		flags |= ((quint64) 1 << 3);
+	if (SubscriptRadio->isVisible())
+		flags |= ((quint64) 1 << 4);
+	if (SuperscriptRaido->isVisible())
+		flags |= ((quint64) 1 << 5);
+	if (SmallRadio->isVisible())
+		flags |= ((quint64) 1 << 6);
+	if (SmallFromCRadio->isVisible())
+		flags |= ((quint64) 1 << 7);
+	if (PetiteRadio->isVisible())
+		flags |= ((quint64) 1 << 8);
+	if (PetiteCapRadio->isVisible())
+		flags |= ((quint64) 1 << 9);
+	if (UnicaseRadio->isVisible())
+		flags |= ((quint64) 1 << 10);
+	if (TiltingRadio->isVisible())
+		flags |= ((quint64) 1 << 11);
+	if (LininRadio->isVisible())
+		flags |= ((quint64) 1 << 12);
+	if (OldStyleRadio->isVisible())
+		flags |= ((quint64) 1 << 13);
+	if (ProportionalRadio->isVisible())
+		flags |= ((quint64) 1 << 14);
+	if (TabularRadio->isVisible())
+		flags |= ((quint64) 1 << 15);
+	if (DiagonalRadio->isVisible())
+		flags |= ((quint64) 1 << 16);
+	if (StackedRadio->isVisible())
+		flags |= ((quint64) 1 << 17);
+	if (OrdinalCheck->isVisible())
+		flags |= ((quint64) 1 << 18);
+	if (SlashedZeroCheck->isVisible())
+		flags |= ((quint64) 1 << 19);
+	if (StyleSet01->isVisible())
+		flags |= ((quint64) 1 << 20);
+	if (StyleSet02->isVisible())
+		flags |= ((quint64) 1 << 21);
+	if (StyleSet03->isVisible())
+		flags |= ((quint64) 1 << 22);
+	if (StyleSet04->isVisible())
+		flags |= ((quint64) 1 << 23);
+	if (StyleSet05->isVisible())
+		flags |= ((quint64) 1 << 24);
+	if (StyleSet06->isVisible())
+		flags |= ((quint64) 1 << 25);
+	if (StyleSet07->isVisible())
+		flags |= ((quint64) 1 << 26);
+	if (StyleSet08->isVisible())
+		flags |= ((quint64) 1 << 27);
+	if (StyleSet09->isVisible())
+		flags |= ((quint64) 1 << 28);
+	if (StyleSet10->isVisible())
+		flags |= ((quint64) 1 << 29);
+	if (StyleSet11->isVisible())
+		flags |= ((quint64) 1 << 30);
+	if (StyleSet12->isVisible())
+		flags |= ((quint64) 1 << 31);
+	if (StyleSet13->isVisible())
+		flags |= ((quint64) 1 << 32);
+	if (StyleSet14->isVisible())
+		flags |= ((quint64) 1 << 33);
+	if (StyleSet15->isVisible())
+		flags |= ((quint64) 1 << 34);
+	if (StyleSet16->isVisible())
+		flags |= ((quint64) 1 << 35);
+	if (StyleSet17->isVisible())
+		flags |= ((quint64) 1 << 36);
+	if (StyleSet18->isVisible())
+		flags |= ((quint64) 1 << 37);
+	if (StyleSet19->isVisible())
+		flags |= ((quint64) 1 << 38);
+	if (StyleSet20->isVisible())
+		flags |= ((quint64) 1 << 39);
+
+	return flags;
 }
 
 void PropertyWidget_FontFeatures::configureWidgets(void)

@@ -117,6 +117,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 
 	connect(flopBox->flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(handleFirstLinePolicy(int)));
+	connect(fontfeaturesWidget, SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
 	connect(langCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLang(int)));
@@ -548,6 +549,11 @@ void PropertiesPalette_Text::updateTextStyles()
 {
 	paraStyleCombo->updateFormatList();
 	charStyleCombo->updateFormatList();
+}
+
+void PropertiesPalette_Text::updateTreeLayout()
+{
+	textTree->doItemsLayout();
 }
 
 void PropertiesPalette_Text::showAlignment(int e)
