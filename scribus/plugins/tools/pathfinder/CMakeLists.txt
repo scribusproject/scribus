@@ -9,7 +9,7 @@ install(FILES
 	pathparts.png
 	pathsubtraction.png
 	pathunite.png
-	DESTINATION ${ICONDIR}
+	DESTINATION ${ICONDIR}/1_5_1/
 )
 
 set(PATHFINDER_PLUGIN_UI_SRC

@@ -5,7 +5,7 @@ include_directories(
 
 install(FILES
 	transform-crop-and-resize.png
-	DESTINATION ${ICONDIR}
+	DESTINATION ${ICONDIR}/1_5_1/
 )
 
 set(PATHCUT_PLUGIN_MOC_CLASSES
