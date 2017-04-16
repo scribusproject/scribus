@@ -93,27 +93,7 @@ void SMCStyleWidget::languageChange()
 		backColor_->blockSignals(sigBlocked);
 	}
 
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-// These are for the character style page
-// as in character styles and in paragraph style's character style
-
-	parentCombo->setToolTip(     tr("Parent Style"));
-	fontFace_->setToolTip(       tr("Font Family"));
-	fontSize_->setToolTip(       tr("Font Size"));
-	tracking_->setToolTip(       tr("Tracking"));
-	widthSpaceSpin->setToolTip(  tr("Default width for space"));
-	baselineOffset_->setToolTip( tr("Baseline Offset"));
-	fontHScale_->setToolTip(     tr("Horizontal Scaling"));
-	fontVScale_->setToolTip(     tr("Vertical Scaling"));
-	language_->setToolTip(       tr("Language"));
-	fillColor_->setToolTip(      tr("Fill Color"));
-	fillShade_->setToolTip(      tr("Fill Shade"));
-	strokeColor_->setToolTip(    tr("Stroke Color"));
-	strokeShade_->setToolTip(    tr("Stroke Shade"));
-	backColor_->setToolTip(      tr("Background Color"));
-	backShade_->setToolTip(      tr("Background Shade"));
+	retranslateUi(this);
 
 	fontSizeLabel_->setToolTip(fontSize_->toolTip());
 	trackingLabel_->setToolTip(tracking_->toolTip());
@@ -128,16 +108,6 @@ void SMCStyleWidget::languageChange()
 	backIcon->setToolTip(backColor_->toolTip());
 	backShadeLabel->setToolTip(backShade_->toolTip());
 
-/***********************************/
-/*        End Tooltips             */
-/***********************************/
-
-	basicGroup->setTitle( tr("Basic Formatting"));
-	advGroup->setTitle( tr("Advanced Formatting"));
-	smColorGroup->setTitle( tr("Colors"));
-
-	parentLabel->setText( tr("Based On:"));
-	languageLabel_->setText( tr("Language:"));
 // 	fontVScale_->setSuffix( tr(" %"));
 // 	fontHScale_->setSuffix( tr(" %"));
 // 	baselineOffset_->setSuffix( tr(" %"));

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
+    <width>402</width>
     <height>624</height>
    </rect>
   </property>
@@ -63,6 +63,9 @@
                <horstretch>5</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Parent Style</string>
              </property>
             </widget>
            </item>
@@ -125,6 +128,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="fontSize_">
+                <property name="toolTip">
+                 <string>Font Size</string>
+                </property>
                 <property name="minimum">
                  <number>1</number>
                 </property>
@@ -151,6 +157,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="tracking_">
+                <property name="toolTip">
+                 <string>Tracking</string>
+                </property>
                 <property name="suffix">
                  <string> %</string>
                 </property>
@@ -180,6 +189,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="widthSpaceSpin">
+                <property name="toolTip">
+                 <string>Default width for space</string>
+                </property>
                 <property name="suffix">
                  <string> %</string>
                 </property>
@@ -311,6 +323,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="fontHScale_">
+                <property name="toolTip">
+                 <string>Horizontal Scaling</string>
+                </property>
                 <property name="suffix">
                  <string> %</string>
                 </property>
@@ -346,6 +361,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="fontVScale_">
+                <property name="toolTip">
+                 <string>Vertical Scaling</string>
+                </property>
                 <property name="suffix">
                  <string> %</string>
                 </property>
@@ -381,6 +399,9 @@
               </item>
               <item>
                <widget class="SMScrSpinBox" name="baselineOffset_">
+                <property name="toolTip">
+                 <string>Baseline Offset</string>
+                </property>
                 <property name="suffix">
                  <string> %</string>
                 </property>
@@ -421,6 +442,9 @@
               </item>
               <item>
                <widget class="SMScComboBox" name="language_">
+                <property name="toolTip">
+                 <string>Language</string>
+                </property>
                 <property name="editable">
                  <bool>true</bool>
                 </property>
@@ -461,7 +485,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox">
+          <widget class="QGroupBox" name="hyphenGroup">
            <property name="title">
             <string>Hyphenation</string>
            </property>
@@ -496,7 +520,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
-               <widget class="QLabel" name="label">
+               <widget class="QLabel" name="smallestWordLabel">
                 <property name="text">
                  <string>Smallest Word:</string>
                 </property>
@@ -510,7 +534,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QLabel" name="smallestWordLabel2">
                 <property name="text">
                  <string>Characters</string>
                 </property>
@@ -580,7 +604,11 @@
                </widget>
               </item>
               <item>
-               <widget class="SMColorCombo" name="fillColor_"/>
+               <widget class="SMColorCombo" name="fillColor_">
+                <property name="toolTip">
+                 <string>Fill Color</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QLabel" name="fillShadeLabel">
@@ -606,6 +634,9 @@
               </item>
               <item>
                <widget class="SMShadeButton" name="fillShade_">
+                <property name="toolTip">
+                 <string>Fill Shade</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -651,7 +682,11 @@
                </widget>
               </item>
               <item>
-               <widget class="SMColorCombo" name="strokeColor_"/>
+               <widget class="SMColorCombo" name="strokeColor_">
+                <property name="toolTip">
+                 <string>Stroke Color</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QLabel" name="strokeShadeLabel">
@@ -677,6 +712,9 @@
               </item>
               <item>
                <widget class="SMShadeButton" name="strokeShade_">
+                <property name="toolTip">
+                 <string>Stroke Shade</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -722,7 +760,11 @@
                </widget>
               </item>
               <item>
-               <widget class="SMColorCombo" name="backColor_"/>
+               <widget class="SMColorCombo" name="backColor_">
+                <property name="toolTip">
+                 <string>Background Color</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QLabel" name="backShadeLabel">
@@ -748,6 +790,9 @@
               </item>
               <item>
                <widget class="SMShadeButton" name="backShade_">
+                <property name="toolTip">
+                 <string>Background Shade</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
