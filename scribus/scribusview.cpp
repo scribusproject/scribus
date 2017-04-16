@@ -502,9 +502,10 @@ void ScribusView::requestMode(int appMode)
 	}
 	if (updateNecessary)
 		updateCanvas();
-	setCursorBasedOnAppMode(appMode);
+	//setCursorBasedOnAppMode(appMode);
 }
 
+/*
 void ScribusView::setCursorBasedOnAppMode(int appMode)
 {
 	IconManager* im=IconManager::instance();
@@ -541,7 +542,7 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 		case modeDrawRegularPolygon:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("drawpolylineframe.png"));
+			setCursor(im->loadCursor("drawpolyline.png"));
 			break;
 		case modeMagnifier:
 			if (docSelectionCount!=0)
@@ -592,7 +593,7 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 		break;
 	}
 }
-
+*/
 
 
 /*

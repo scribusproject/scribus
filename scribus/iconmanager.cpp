@@ -287,8 +287,9 @@ QString IconManager::pathForIcon(const QString nam)
 		//qDebug()<<iconFilePath;
 		return iconFilePath;
 	}
-
+#ifdef WANT_DEBUG
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+#endif
 	return "";
 }
 
