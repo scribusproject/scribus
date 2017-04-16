@@ -22,7 +22,7 @@ class PropertyWidget_FontFeatures : public QFrame, Ui::PropertyWidget_FontFeatur
 
 public:
 	PropertyWidget_FontFeatures(QWidget *parent);
-	~PropertyWidget_FontFeatures() {};
+	~PropertyWidget_FontFeatures() {}
 	void enableFeatures(QStringList fontFeatures);
 
 protected:
@@ -43,7 +43,7 @@ public slots:
 	void setDoc(ScribusDoc *d);
 	void handleSelectionChanged();
 	void languageChange();
-	void unitChange() {};
+	void unitChange() {}
 	void showFontFeatures(QString s, QStringList availableFeatures);
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& newCurrent);

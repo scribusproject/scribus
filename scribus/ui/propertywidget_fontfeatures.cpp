@@ -735,9 +735,9 @@ void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 		emit needsRelayout();
 }
 
-uint64_t PropertyWidget_FontFeatures::featureFlags()
+quint64 PropertyWidget_FontFeatures::featureFlags()
 {
-	uint64_t flags = 0;
+	quint64 flags = 0;
 
 	if (ContextualCheck->isVisible())
 		flags |= 1;
