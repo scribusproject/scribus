@@ -1564,6 +1564,7 @@ void PageItem_TextFrame::layout()
 			//set style for paragraph effects
 			if (itemText.isBlockStart(a))
 			{
+				// FIXME: we should avoid calling setCharStyle() in layout()
 				if (style.hasDropCap() || style.hasBullet() || style.hasNum())
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());
@@ -1576,13 +1577,16 @@ void PageItem_TextFrame::layout()
 					itemText.setCharStyle(a, 1 , charStyle);
 				}
 				else if (!style.peCharStyleName().isEmpty())
-				//par effect is cleared but is set dcCharStyleName = clear drop cap char style
 				{
-					const QString& curParent(style.hasParent() ? style.parent() : style.name());
-					if (m_Doc->charStyles().contains(style.peCharStyleName()))
-						charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
-					charStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
-					itemText.setCharStyle(a, 1,charStyle);
+					//par effect is cleared but is set dcCharStyleName = clear drop cap char style
+					if (charStyle.parent() == style.peCharStyleName())
+					{
+						const QString& curParent(style.hasParent() ? style.parent() : style.name());
+						if (m_Doc->charStyles().contains(style.peCharStyleName()))
+							charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
+						charStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
+						itemText.setCharStyle(a, 1,charStyle);
+					}
 				}
 			}
 
