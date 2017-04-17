@@ -852,7 +852,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editEditWithImageEditor", "Edit");
 	scrMenuMgr->addMenuItemString("editEditRenderSource", "Edit");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Edit");
-	scrMenuMgr->addMenuItemString("editColors", "Edit");
+	scrMenuMgr->addMenuItemString("editColorsAndFills", "Edit");
 	scrMenuMgr->addMenuItemString("editReplaceColors", "Edit");
 	scrMenuMgr->addMenuItemString("editStyles", "Edit");
 	scrMenuMgr->addMenuItemString("editMarks", "Edit");
