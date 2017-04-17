@@ -6027,6 +6027,19 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			success = readColor(m_Doc->PageColors, attrs);
 			if (!success) break;
 		}
+		if (tagName == "Gradient" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			VGradient gra;
+			QString grName = attrs.valueAsString("Name");
+			success = readGradient(m_Doc, gra, reader);
+			if (!success)
+				break;
+			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
+			if (!grName.isEmpty())
+			{
+				m_Doc->docGradients.insert(grName, gra);
+			}
+		}
 		if (tagName == "JAVA")
 		{
 			QString name = attrs.valueAsString("NAME");
