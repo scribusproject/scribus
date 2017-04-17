@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>302</width>
-    <height>279</height>
+    <height>277</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -43,7 +43,7 @@
    <item>
     <widget class="GradientEditor" name="editor">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -51,7 +51,7 @@
      <property name="minimumSize">
       <size>
        <width>210</width>
-       <height>120</height>
+       <height>180</height>
       </size>
      </property>
      <property name="frameShape">
