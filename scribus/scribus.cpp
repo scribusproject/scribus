@@ -212,7 +212,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pagepalette.h"
 #include "ui/pagepropertiesdialog.h"
 #include "ui/pageselector.h"
-#include "ui/paintmanager.h"
+#include "ui/colorsandfills.h"
 #include "ui/pdfexportdialog.h"
 #include "ui/pdftoolbar.h"
 #include "ui/picstatus.h"
@@ -9226,7 +9226,7 @@ void ScribusMainWindow::ConvertToSymbol()
 	m_undoManager->setUndoEnabled(true);
 }
 
-void ScribusMainWindow::managePaints()
+void ScribusMainWindow::manageColorsAndFills()
 {
 	ColorList edc;
 	QHash<QString, VGradient> *Gradients;
@@ -9248,7 +9248,7 @@ void ScribusMainWindow::managePaints()
 		doc = m_doc;
 	}
 	m_undoManager->setUndoEnabled(false);
-	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, m_prefsManager->colorSetName(), docPatterns, tmpDoc, this);
+	ColorsAndFillsDialog *dia = new ColorsAndFillsDialog(this, Gradients, edc, m_prefsManager->colorSetName(), docPatterns, tmpDoc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)

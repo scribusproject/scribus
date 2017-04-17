@@ -339,7 +339,7 @@ void CWDialog::addButton_clicked()
 	if (err)
 	{
 		ScMessageBox::information(this, tr("Color Merging"), status);
-		m_Doc->scMW()->managePaints();
+		m_Doc->scMW()->manageColorsAndFills();
 		return;
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();

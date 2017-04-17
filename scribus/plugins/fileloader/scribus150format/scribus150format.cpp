@@ -6027,7 +6027,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			success = readColor(m_Doc->PageColors, attrs);
 			if (!success) break;
 		}
-		if (tagName == "Gradient" && attrs.valueAsString("NAME") != CommonStrings::None)
+		if (tagName == "Gradient" && attrs.valueAsString("Name") != CommonStrings::None)
 		{
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");

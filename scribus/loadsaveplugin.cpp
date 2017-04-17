@@ -525,24 +525,18 @@ void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QStr
 
 bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName) const
 {
-	if (plug && load)
+	if (!plug || !load)
+		return false;
+	plug->clearLastError();
+	bool success = plug->loadPage(fileName, pageNumber, Mpage, renamedPageName);
+	if (!success && plug->hasLastError())
 	{
-		plug->clearLastError();
-		bool success = plug->loadPage(fileName, pageNumber, Mpage, renamedPageName);
-		if (!success && plug->hasLastError())
-		{
-			if (ScCore->usingGUI())
-			{
-				ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, plug->lastError());
-			}
-			else
-			{
-				qDebug() << plug->lastError();
-			}
-		}
-		return success;
+		if (ScCore->usingGUI())
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, plug->lastError());
+		else
+			qDebug() << plug->lastError();
 	}
-	return false;
+	return success;
 }
 
 bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const

@@ -250,7 +250,7 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editEditRenderSource";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="editColors";
+	name="editColorsAndFills";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editReplaceColors";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -285,7 +285,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(triggered()), mainWindow, SLOT(SearchText()) );
 	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editEditRenderSource"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
-	connect( (*scrActions)["editColors"], SIGNAL(triggered()), mainWindow, SLOT(managePaints()) );
+	connect( (*scrActions)["editColorsAndFills"], SIGNAL(triggered()), mainWindow, SLOT(manageColorsAndFills()) );
 	connect( (*scrActions)["editReplaceColors"], SIGNAL(triggered()), mainWindow, SLOT(slotReplaceColors()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(triggered()), mainWindow, SLOT(editMasterPagesStart()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(triggered()), mainWindow, SLOT(ManageJava()) );
@@ -1524,7 +1524,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
 	(*scrActions)["editEditRenderSource"]->setTexts( tr("Edit Source..."));
-	(*scrActions)["editColors"]->setTexts( tr("Colors and Fills..."));
+	(*scrActions)["editColorsAndFills"]->setTexts( tr("Colors and Fills..."));
 	(*scrActions)["editReplaceColors"]->setTexts( tr("Replace Colors..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editMarks"]->setTexts( tr("Marks..."));
@@ -2098,7 +2098,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsEditWithStoryEditor"
 		<< "editEditWithImageEditor"
 		<< "editEditRenderSource"
-		<< "editColors"
+		<< "editColorsAndFills"
 		<< "editReplaceColors"
 		<< "editStyles"
 		<< "editMarks"

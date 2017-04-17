@@ -541,7 +541,7 @@ public slots:
 	//! \brief Transform an item
 	void slotItemTransform();
 	//! \brief manages paints
-	void managePaints();
+	void manageColorsAndFills();
 	//! \brief allow SE to get the SM for edit stlyes
 	StyleManager *styleMgr() const {return m_styleManager;};
 	//! \brief drawnew, call palettes to update for new page layout

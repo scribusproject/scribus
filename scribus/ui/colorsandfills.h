@@ -23,10 +23,10 @@ for which a new license (GPL+exception) is in place.
 *   Free Software Foundation, Inc.,                                       *
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
-#ifndef PAINTMANAGER_H
-#define PAINTMANAGER_H
+#ifndef COLORSANDFILLS_H
+#define COLORSANDFILLS_H
 
-#include "ui_paintmanagerbase.h"
+#include "ui_colorsandfillsbase.h"
 #include "colorsetmanager.h"
 #include "sccolor.h"
 #include "scribusapi.h"
@@ -35,13 +35,13 @@ for which a new license (GPL+exception) is in place.
 #include "vgradient.h"
 #include "scpattern.h"
 
-class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
+class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 {
 	Q_OBJECT
 
 	public:
-		PaintManagerDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
-		~PaintManagerDialog() {}
+		ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
+		~ColorsAndFillsDialog() {}
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
 		QString getColorSetName();

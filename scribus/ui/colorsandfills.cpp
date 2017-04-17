@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 *   Free Software Foundation, Inc.,                                       *
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
-#include "paintmanager.h"
 
 #include <QCheckBox>
 #include <QMessageBox>
@@ -37,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmykfw.h"
 #include "colorlistbox.h"
+#include "colorsandfills.h"
 #include "commonstrings.h"
 #include "dcolor.h"
 #include "fileloader.h"
@@ -66,7 +66,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 
-PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -161,7 +161,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient
 	connect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 }
 
-void PaintManagerDialog::leaveDialog()
+void ColorsAndFillsDialog::leaveDialog()
 {
 /*	if (!mainWin->HaveDoc)
 	{
@@ -176,7 +176,7 @@ void PaintManagerDialog::leaveDialog()
 	accept();
 }
 
-QTreeWidgetItem* PaintManagerDialog::updatePatternList(QString addedName)
+QTreeWidgetItem* ColorsAndFillsDialog::updatePatternList(QString addedName)
 {
 	QList<QTreeWidgetItem*> lg = patternItems->takeChildren();
 	for (int a = 0; a < lg.count(); a++)
@@ -210,7 +210,7 @@ QTreeWidgetItem* PaintManagerDialog::updatePatternList(QString addedName)
 	return ret;
 }
 
-QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
+QTreeWidgetItem* ColorsAndFillsDialog::updateGradientList(QString addedName)
 {
 	QList<QTreeWidgetItem*> lg = gradientItems->takeChildren();
 	for (int a = 0; a < lg.count(); a++)
@@ -249,7 +249,7 @@ QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
 	return ret;
 }
 
-QTreeWidgetItem* PaintManagerDialog::updateColorList(QString addedName)
+QTreeWidgetItem* ColorsAndFillsDialog::updateColorList(QString addedName)
 {
 	QList<QTreeWidgetItem*> lg = colorItems->takeChildren();
 	for (int a = 0; a < lg.count(); a++)
@@ -315,7 +315,7 @@ QTreeWidgetItem* PaintManagerDialog::updateColorList(QString addedName)
 	return ret;
 }
 
-void PaintManagerDialog::slotRightClick(QPoint p)
+void ColorsAndFillsDialog::slotRightClick(QPoint p)
 {
 	QTreeWidgetItem* it = dataTree->itemAt(p);
 	if (it)
@@ -334,7 +334,7 @@ void PaintManagerDialog::slotRightClick(QPoint p)
 	}
 }
 
-void PaintManagerDialog::selEditColor(QTreeWidgetItem *it)
+void ColorsAndFillsDialog::selEditColor(QTreeWidgetItem *it)
 {
 	if ((it) && (!paletteLocked))
 	{
@@ -352,14 +352,14 @@ void PaintManagerDialog::selEditColor(QTreeWidgetItem *it)
 	}
 }
 
-void PaintManagerDialog::itemSelectionChanged()
+void ColorsAndFillsDialog::itemSelectionChanged()
 {
 	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
 	if (selItems.count() > 1)
 		deleteButton->setEnabled(true);
 }
 
-void PaintManagerDialog::itemSelected(QTreeWidgetItem* it)
+void ColorsAndFillsDialog::itemSelected(QTreeWidgetItem* it)
 {
 	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
 	importButton->setText( tr("&Import"));
@@ -438,7 +438,7 @@ void PaintManagerDialog::itemSelected(QTreeWidgetItem* it)
 	}
 }
 
-void PaintManagerDialog::createNew()
+void ColorsAndFillsDialog::createNew()
 {
 	if (paletteLocked)
 		return;
@@ -496,7 +496,7 @@ void PaintManagerDialog::createNew()
 	}
 }
 
-void PaintManagerDialog::editColorItem()
+void ColorsAndFillsDialog::editColorItem()
 {
 	if (paletteLocked)
 		return;
@@ -628,7 +628,7 @@ void PaintManagerDialog::editColorItem()
 	}
 }
 
-void PaintManagerDialog::duplicateColorItem()
+void ColorsAndFillsDialog::duplicateColorItem()
 {
 	if (paletteLocked)
 		return;
@@ -708,7 +708,7 @@ void PaintManagerDialog::duplicateColorItem()
 	}
 }
 
-void PaintManagerDialog::removeColorItem()
+void ColorsAndFillsDialog::removeColorItem()
 {
 	if (paletteLocked)
 		return;
@@ -937,7 +937,7 @@ void PaintManagerDialog::removeColorItem()
 	}
 }
 
-QStringList PaintManagerDialog::getUsedPatternsHelper(QString pattern, QStringList &results)
+QStringList ColorsAndFillsDialog::getUsedPatternsHelper(QString pattern, QStringList &results)
 {
 	ScPattern *pat = &dialogPatterns[pattern];
 	QStringList pats;
@@ -983,7 +983,7 @@ QStringList PaintManagerDialog::getUsedPatternsHelper(QString pattern, QStringLi
 	return results;
 }
 
-void PaintManagerDialog::removeUnusedColorItem()
+void ColorsAndFillsDialog::removeUnusedColorItem()
 {
 	if (paletteLocked)
 		return;
@@ -1016,7 +1016,7 @@ void PaintManagerDialog::removeUnusedColorItem()
 	}
 }
 
-void PaintManagerDialog::importColorItems()
+void ColorsAndFillsDialog::importColorItems()
 {
 	QTreeWidgetItem* it = dataTree->currentItem();
 	if (it)
@@ -1220,7 +1220,7 @@ void PaintManagerDialog::importColorItems()
 	}
 }
 
-void PaintManagerDialog::loadPatternDir()
+void ColorsAndFillsDialog::loadPatternDir()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterndir", ".");
@@ -1298,7 +1298,7 @@ void PaintManagerDialog::loadPatternDir()
 	}
 }
 
-void PaintManagerDialog::loadVectors(QString data)
+void ColorsAndFillsDialog::loadVectors(QString data)
 {
 	int storedPageNum = m_doc->currentPageNumber();
 	int storedContentsX = m_doc->view()->contentsX();
@@ -1422,7 +1422,7 @@ void PaintManagerDialog::loadVectors(QString data)
 	m_doc->view()->setContentsPos(static_cast<int>(storedContentsX * storedViewScale), static_cast<int>(storedContentsY * storedViewScale));
 }
 
-bool PaintManagerDialog::isMandatoryColor(QString colorName)
+bool ColorsAndFillsDialog::isMandatoryColor(QString colorName)
 {
 	if (colorName == "Black" || colorName == "White")
 		return true;
@@ -1432,7 +1432,7 @@ bool PaintManagerDialog::isMandatoryColor(QString colorName)
 	return false;
 }
 
-QString PaintManagerDialog::getColorTooltip(const ScColor& color)
+QString ColorsAndFillsDialog::getColorTooltip(const ScColor& color)
 {
 	QString tooltip;
 	if (color.getColorModel() == colorModelRGB)
@@ -1456,7 +1456,7 @@ QString PaintManagerDialog::getColorTooltip(const ScColor& color)
 	return tooltip;
 }
 
-ColorList PaintManagerDialog::getGradientColors()
+ColorList ColorsAndFillsDialog::getGradientColors()
 {
 	ColorList colorList;
 	QHash<QString,VGradient>::Iterator itg;
@@ -1523,7 +1523,7 @@ ColorList PaintManagerDialog::getGradientColors()
 	return colorList;
 }
 
-void PaintManagerDialog::updateGradientColors(QString newName, QString oldName)
+void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName)
 {
 	QHash<QString,VGradient>::Iterator itg;
 	for (itg = dialogGradients.begin(); itg != dialogGradients.end(); ++itg)
@@ -1609,7 +1609,7 @@ void PaintManagerDialog::updateGradientColors(QString newName, QString oldName)
 	m_doc->PageColors = colorListBack;
 }
 
-void PaintManagerDialog::loadGimpFormat(QString fileName)
+void ColorsAndFillsDialog::loadGimpFormat(QString fileName)
 {
 	QFile f(fileName);
 	if (f.open(QIODevice::ReadOnly))
@@ -1729,7 +1729,7 @@ void PaintManagerDialog::loadGimpFormat(QString fileName)
    */
 }
 
-void PaintManagerDialog::addGimpColor(QString &colorName, double r, double g, double b)
+void ColorsAndFillsDialog::addGimpColor(QString &colorName, double r, double g, double b)
 {
 	ScColor lf = ScColor();
 	bool found = false;
@@ -1758,7 +1758,7 @@ void PaintManagerDialog::addGimpColor(QString &colorName, double r, double g, do
 	}
 }
 
-void PaintManagerDialog::loadScribusFormat(QString fileName)
+void ColorsAndFillsDialog::loadScribusFormat(QString fileName)
 {
 	QFile f(fileName);
 	if(!f.open(QIODevice::ReadOnly))
@@ -1839,7 +1839,7 @@ void PaintManagerDialog::loadScribusFormat(QString fileName)
 	}
 }
 
-void PaintManagerDialog::loadDefaults(QTreeWidgetItem* item)
+void ColorsAndFillsDialog::loadDefaults(QTreeWidgetItem* item)
 {
 	QString txt = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
 	if (!mainWin->HaveDoc)
@@ -1901,7 +1901,7 @@ void PaintManagerDialog::loadDefaults(QTreeWidgetItem* item)
 	itemSelected(0);
 }
 
-void PaintManagerDialog::saveDefaults()
+void ColorsAndFillsDialog::saveDefaults()
 {
 	QTreeWidgetItem* item = LoadColSet->currentItem();
 	QString NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
@@ -1916,7 +1916,7 @@ void PaintManagerDialog::saveDefaults()
 	delete dia;
 }
 
-void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
+void ColorsAndFillsDialog::doSaveDefaults(QString name, bool changed)
 {
 	QString filename = name;
 	filename.replace(" ", "_");
@@ -1952,7 +1952,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 	}
 }
 
-QString PaintManagerDialog::getColorSetName()
+QString ColorsAndFillsDialog::getColorSetName()
 {
 	QString NameK;
 	QTreeWidgetItem* item = LoadColSet->currentItem();
@@ -1963,7 +1963,7 @@ QString PaintManagerDialog::getColorSetName()
 	return NameK;
 }
 
-ScColor PaintManagerDialog::selectedColor()
+ScColor ColorsAndFillsDialog::selectedColor()
 {
 	QTreeWidgetItem* it = dataTree->currentItem();
 	if (it)
@@ -1974,7 +1974,7 @@ ScColor PaintManagerDialog::selectedColor()
 	return ScColor();
 }
 
-QString PaintManagerDialog::selectedColorName()
+QString ColorsAndFillsDialog::selectedColorName()
 {
 	QTreeWidgetItem* it = dataTree->currentItem();
 	if (it)
@@ -1985,7 +1985,7 @@ QString PaintManagerDialog::selectedColorName()
 	return CommonStrings::None;
 }
 
-void PaintManagerDialog::keyPressEvent(QKeyEvent* k)
+void ColorsAndFillsDialog::keyPressEvent(QKeyEvent* k)
 {
 	if (k->modifiers()!=Qt::NoModifier || (k->key()!=Qt::Key_Delete && k->key()!=Qt::Key_Backspace))
 		return;

@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "ui/paintmanager.h"
+#include "ui/colorsandfills.h"
 #include "undomanager.h"
 
 
@@ -673,7 +673,7 @@ void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
 
 void BarcodeGenerator::bgColorButton_pressed()
 {
-	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	ColorsAndFillsDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	bgColor = d.selectedColor();
@@ -684,7 +684,7 @@ void BarcodeGenerator::bgColorButton_pressed()
 
 void BarcodeGenerator::lnColorButton_pressed()
 {
-	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	ColorsAndFillsDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	lnColor = d.selectedColor();
@@ -695,7 +695,7 @@ void BarcodeGenerator::lnColorButton_pressed()
 
 void BarcodeGenerator::txtColorButton_pressed()
 {
-	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	ColorsAndFillsDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	txtColor = d.selectedColor();

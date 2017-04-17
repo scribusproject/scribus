@@ -101,6 +101,7 @@ set(SCRIBUS_UI_SRC
 	ui/cmsprefsbase.ui
 	ui/cmykfwbase.ui
 	ui/colorpalette.ui
+	ui/colorsandfillsbase.ui
 	ui/downloadspalettebase.ui
 	ui/gradientaddedit.ui
 	ui/gradienteditor.ui
@@ -127,7 +128,6 @@ set(SCRIBUS_UI_SRC
 	ui/pageitemattributes.ui
 	ui/pagepalette_pagesbase.ui
 	ui/pagepalette_masterpagesbase.ui
-	ui/paintmanagerbase.ui
 	ui/picsearch.ui
 	ui/picsearchoptions.ui
 	ui/picstatus.ui
@@ -335,6 +335,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/colorcombo.h
 	ui/colorlistbox.h
 	ui/colorlistmodel.h
+	ui/colorsandfills.h
 	ui/contextmenu.h
 	ui/cpalette.h
 	ui/cupsoptions.h
@@ -404,7 +405,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/pagepalette_widgets.h
 	ui/pagepropertiesdialog.h
 	ui/pageselector.h
-	ui/paintmanager.h
 	ui/patternpropsdialog.h
 	ui/pdfexportdialog.h
 	ui/picsearch.h
@@ -806,6 +806,7 @@ set(SCRIBUS_SOURCES
 	ui/colorcombo.cpp
 	ui/colorlistbox.cpp
 	ui/colorlistmodel.cpp
+	ui/colorsandfills.cpp
 	ui/contextmenu.cpp
 	ui/cpalette.cpp
 	ui/cupsoptions.cpp
@@ -876,7 +877,6 @@ set(SCRIBUS_SOURCES
 	ui/pagepalette_widgets.cpp
 	ui/pagepropertiesdialog.cpp
 	ui/pageselector.cpp
-	ui/paintmanager.cpp
 	ui/patternpropsdialog.cpp
 	ui/pdfexportdialog.cpp
 	ui/picsearch.cpp
