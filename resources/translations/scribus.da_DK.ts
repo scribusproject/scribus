@@ -5015,6 +5015,343 @@ for øjeblikket %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
+    <name>ColorsAndFillsBase</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="14"/>
+        <source>Colors and Fills</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="41"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="55"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="65"/>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished">Importer farver til det nuværende sæt fra et eksisterende dokument</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="68"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importer</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="81"/>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Opret en ny farve i det nuværende sæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="84"/>
+        <source>Add</source>
+        <translation type="unfinished">Tilføj</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="91"/>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">Rediger den nuværende valgte farve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="94"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Rediger</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="101"/>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Lav en kopi af den nuværende valgte farve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="104"/>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Dupliker</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="111"/>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">Slet den nuværende valgte farve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="114"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="121"/>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Fjern ubrugte farver fra det nuværende dokuments farvesæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="124"/>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">&amp;Fjern ubrugte</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="131"/>
+        <source>Color Sets</source>
+        <translation type="unfinished">Farvesæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="152"/>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Nuværende farvesæt:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="165"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="175"/>
+        <source>Save the current color set</source>
+        <translation type="unfinished">Gem det nuværende farvesæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="178"/>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">&amp;Gem farvesæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="206"/>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">Lav det nuværende farvesæt til standard farvesættet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="209"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="216"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuller</translation>
+    </message>
+</context>
+<context>
+    <name>ColorsAndFillsDialog</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="83"/>
+        <source>Solid Colors</source>
+        <translation type="unfinished">Massive farver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="85"/>
+        <source>Gradients</source>
+        <translation type="unfinished">Gradienter</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="94"/>
+        <source>Patterns</source>
+        <translation type="unfinished">Mønstre</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="103"/>
+        <source>Scribus Swatches</source>
+        <translation type="unfinished">Scribus Farveprøver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="107"/>
+        <source>User Swatches</source>
+        <translation type="unfinished">Bruger Farveprøver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="115"/>
+        <source>Merge Color Set</source>
+        <translation type="unfinished">Sammenflet farvesæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="327"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Sorter efter navn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="328"/>
+        <source>Sort by Color</source>
+        <translation type="unfinished">Sorter efter farve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="329"/>
+        <source>Sort by Type</source>
+        <translation type="unfinished">Sorter efter type</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="365"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importer</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="366"/>
+        <source>Add</source>
+        <translation type="unfinished">Tilføj</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="367"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Rediger</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="394"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="405"/>
+        <source>Load File</source>
+        <translation type="unfinished">Indlæs fil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="395"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="406"/>
+        <source>Load Set</source>
+        <translation type="unfinished">Indlæs sæt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="396"/>
+        <source>Rename</source>
+        <translation type="unfinished">Nyt navn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="454"/>
+        <source>New Gradient</source>
+        <translation type="unfinished">Ny Gradient</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="472"/>
+        <source>New Color</source>
+        <translation type="unfinished">Ny farve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Navn:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <source>Rename Entry</source>
+        <translation type="unfinished">Omdøb indgang</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="640"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="678"/>
+        <source>Copy of %1</source>
+        <translation type="unfinished">Kopi af %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="758"/>
+        <source>Selected Colors</source>
+        <translation type="unfinished">Valgte farver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="813"/>
+        <source>Do you really want to clear all your gradients?</source>
+        <translation type="unfinished">Ønsker du virkelig at rydde alle dine gradienter?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="836"/>
+        <source>Do you really want to clear all your colors and gradients?</source>
+        <translation type="unfinished">Ønsker du virkelig at rydde alle dine farver og gradienter?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="898"/>
+        <source>Do you really want to clear all your patterns?</source>
+        <translation type="unfinished">Ønsker du virkelig at rydde alle dine mønstre?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1027"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1096"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle understøttede formater</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
+        <translation type="unfinished">Scribus Gradientfiler &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
+        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
+        <translation type="unfinished">Gimp Gradientfiler &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1033"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Alle filer (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1189"/>
+        <source>Open</source>
+        <translation type="unfinished">Åbn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
+        <translation type="unfinished">Alle understøttede formater (%1);;Dokumenter (%2);;Andre Filer (%3);;Alle Filer (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
+        <source>Import Colors</source>
+        <translation type="unfinished">Importer farver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation type="unfinished">Filen %1 indeholder ikke farver, som kan importeres.
+Hvis filen var baseret på PostScript, prøv at importer med Fil -&amp;gt; Importer.
+Ikke alle filer har DSC foreskrevne kommentarer, hvor farve-beskrivelserne er placeret.
+ Dette forhindre import af farver fra nogle filer.
+Se Rediger farver sektionen af dokumentationen for flere detaljer.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1227"/>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Vælg en mappe</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1255"/>
+        <source>Loading Patterns</source>
+        <translation type="unfinished">Indlæser mønstre</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1442"/>
+        <source>R: %1 G: %2 B: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <source>C: %1% M: %2% Y: %3% K: %4%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <source>L: %1 a: %2 b: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Vælg et navn</translation>
+    </message>
+</context>
+<context>
     <name>ColumnResize</name>
     <message>
         <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
@@ -14393,343 +14730,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="787"/>
         <source>Generating Items</source>
         <translation>Genererer elementer</translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerBase</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="14"/>
-        <source>Manage Colors and Fills</source>
-        <translation>Håndter farver og udfyldninger</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="32"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="56"/>
-        <source>Import colors to the current set from an existing document</source>
-        <translation>Importer farver til det nuværende sæt fra et eksisterende dokument</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="59"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Importer</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="72"/>
-        <source>Create a new color within the current set</source>
-        <translation>Opret en ny farve i det nuværende sæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="75"/>
-        <source>Add</source>
-        <translation>Tilføj</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="82"/>
-        <source>Edit the currently selected color</source>
-        <translation>Rediger den nuværende valgte farve</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="85"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Rediger</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="92"/>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Lav en kopi af den nuværende valgte farve</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="95"/>
-        <source>D&amp;uplicate</source>
-        <translation>&amp;Dupliker</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="102"/>
-        <source>Delete the currently selected color</source>
-        <translation>Slet den nuværende valgte farve</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="105"/>
-        <source>&amp;Delete</source>
-        <translation>&amp;Slet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="112"/>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Fjern ubrugte farver fra det nuværende dokuments farvesæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="115"/>
-        <source>&amp;Remove Unused</source>
-        <translation>&amp;Fjern ubrugte</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="122"/>
-        <source>Color Sets</source>
-        <translation>Farvesæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="134"/>
-        <source>Current Color Set:</source>
-        <translation>Nuværende farvesæt:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="147"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="157"/>
-        <source>Save the current color set</source>
-        <translation>Gem det nuværende farvesæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="160"/>
-        <source>&amp;Save Color Set</source>
-        <translation>&amp;Gem farvesæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="188"/>
-        <source>Make the current colorset the default color set</source>
-        <translation>Lav det nuværende farvesæt til standard farvesættet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="191"/>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="198"/>
-        <source>Cancel</source>
-        <translation>Annuller</translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerDialog</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="83"/>
-        <source>Solid Colors</source>
-        <translation>Massive farver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="85"/>
-        <source>Gradients</source>
-        <translation>Gradienter</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="94"/>
-        <source>Patterns</source>
-        <translation>Mønstre</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="103"/>
-        <source>Scribus Swatches</source>
-        <translation>Scribus Farveprøver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="107"/>
-        <source>User Swatches</source>
-        <translation>Bruger Farveprøver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="115"/>
-        <source>Merge Color Set</source>
-        <translation>Sammenflet farvesæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="327"/>
-        <source>Sort by Name</source>
-        <translation>Sorter efter navn</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="328"/>
-        <source>Sort by Color</source>
-        <translation>Sorter efter farve</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="329"/>
-        <source>Sort by Type</source>
-        <translation>Sorter efter type</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="365"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Importer</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="366"/>
-        <source>Add</source>
-        <translation>Tilføj</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="367"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Rediger</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="394"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="405"/>
-        <source>Load File</source>
-        <translation>Indlæs fil</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="395"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="406"/>
-        <source>Load Set</source>
-        <translation>Indlæs sæt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="396"/>
-        <source>Rename</source>
-        <translation>Omdøb</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="454"/>
-        <source>New Gradient</source>
-        <translation>Ny Gradient</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="472"/>
-        <source>New Color</source>
-        <translation>Ny farve</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <source>Rename Entry</source>
-        <translation>Omdøb indgang</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="640"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="678"/>
-        <source>Copy of %1</source>
-        <translation>Kopi af %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="758"/>
-        <source>Selected Colors</source>
-        <translation>Valgte farver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="813"/>
-        <source>Do you really want to clear all your gradients?</source>
-        <translation>Ønsker du virkelig at rydde alle dine gradienter?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="836"/>
-        <source>Do you really want to clear all your colors and gradients?</source>
-        <translation>Ønsker du virkelig at rydde alle dine farver og gradienter?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="898"/>
-        <source>Do you really want to clear all your patterns?</source>
-        <translation>Ønsker du virkelig at rydde alle dine mønstre?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1027"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1096"/>
-        <source>All Supported Formats</source>
-        <translation>Alle understøttede formater</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1031"/>
-        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation>Scribus Gradientfiler &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1032"/>
-        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation>Gimp Gradientfiler &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1033"/>
-        <source>All Files (*)</source>
-        <translation>Alle filer (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1037"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1189"/>
-        <source>Open</source>
-        <translation>Åbn</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1074"/>
-        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
-        <translation>Alle understøttede formater (%1);;Dokumenter (%2);;Andre Filer (%3);;Alle Filer (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1075"/>
-        <source>Import Colors</source>
-        <translation>Importer farver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>Information</source>
-        <translation>Information</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>The file %1 does not contain colors which can be imported.
-If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
-Not all files have DSC conformant comments where the color descriptions are located.
- This prevents importing colors from some files.
-See the Edit Colors section of the documentation for more details.</source>
-        <translation>Filen %1 indeholder ikke farver, som kan importeres.
-Hvis filen var baseret på PostScript, prøv at importer med Fil -&amp;gt; Importer.
-Ikke alle filer har DSC foreskrevne kommentarer, hvor farve-beskrivelserne er placeret.
- Dette forhindre import af farver fra nogle filer.
-Se Rediger farver sektionen af dokumentationen for flere detaljer.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>&amp;Name:</source>
-        <translation>&amp;Navn:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1227"/>
-        <source>Choose a Directory</source>
-        <translation>Vælg en mappe</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1255"/>
-        <source>Loading Patterns</source>
-        <translation>Indlæser mønstre</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1442"/>
-        <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1448"/>
-        <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1454"/>
-        <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>Choose a Name</source>
-        <translation>Vælg et navn</translation>
     </message>
 </context>
 <context>
@@ -29504,7 +29504,7 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3256"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2174"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6070"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6083"/>
         <source>Copy #%1 of </source>
         <translation>Kopi #%1 af </translation>
     </message>
@@ -31742,10 +31742,6 @@ Vælg venligst et andet.</translation>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
         <source>Parent Style</source>
         <translation>Forælderformat</translation>
-    </message>
-    <message>
-        <source>Font Family</source>
-        <translation type="vanished">Skrifttypefamilie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="132"/>
@@ -34566,7 +34562,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <translation>Scribus 1.5.0+ dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6693"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6706"/>
         <source>Copy #%1 of </source>
         <translation>Kopi #%1 af </translation>
     </message>

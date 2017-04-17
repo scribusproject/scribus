@@ -5003,6 +5003,343 @@ praegu %2 x %3 DPI-d</translation>
     </message>
 </context>
 <context>
+    <name>ColorsAndFillsBase</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="14"/>
+        <source>Colors and Fills</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="41"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="55"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="65"/>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished">Impordi olemasolevast dokumendist värvid aktiivsesse värvikomplekti</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="68"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Impordi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="81"/>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Loo aktiivses värvikomplektis uus värv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="84"/>
+        <source>Add</source>
+        <translation type="unfinished">Lisa</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="91"/>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">Redigeeri valitud värvi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="94"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="101"/>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Kopeeri valitud värv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="104"/>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Klooni</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="111"/>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">Kustuta valitud värv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="114"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">K&amp;ustuta</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="121"/>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Eemalda kasutamata värvid dokumendi aktiivsest värvikomplektist</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="124"/>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">&amp;Eemalda kasutud</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="131"/>
+        <source>Color Sets</source>
+        <translation type="unfinished">Värvikomplektid</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="152"/>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Aktiivne värvikomplekt:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="165"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="175"/>
+        <source>Save the current color set</source>
+        <translation type="unfinished">Salvesta aktiivne värvikomplekt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="178"/>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">&amp;Salvesta värvikomplekt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="206"/>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">Muuda aktiivne värvikomplekt vaikimisi värvikomplektiks</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="209"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="216"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorsAndFillsDialog</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="83"/>
+        <source>Solid Colors</source>
+        <translation type="unfinished">Ühtlased värvid:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="85"/>
+        <source>Gradients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="94"/>
+        <source>Patterns</source>
+        <translation type="unfinished">Mustrid</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="103"/>
+        <source>Scribus Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="107"/>
+        <source>User Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="115"/>
+        <source>Merge Color Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="327"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Sorteeri nime järgi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="328"/>
+        <source>Sort by Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="329"/>
+        <source>Sort by Type</source>
+        <translation type="unfinished">Sorteeri tüübi järgi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="365"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Impordi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="366"/>
+        <source>Add</source>
+        <translation type="unfinished">Lisa</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="367"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="394"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="405"/>
+        <source>Load File</source>
+        <translation type="unfinished">Laadi fail</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="395"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="406"/>
+        <source>Load Set</source>
+        <translation type="unfinished">Laadi kogu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="396"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="454"/>
+        <source>New Gradient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="472"/>
+        <source>New Color</source>
+        <translation type="unfinished">Uus värv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Nimi:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <source>Rename Entry</source>
+        <translation type="unfinished">Kirje ümbernimetamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="640"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="678"/>
+        <source>Copy of %1</source>
+        <translation type="unfinished">%1 koopia</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="758"/>
+        <source>Selected Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="813"/>
+        <source>Do you really want to clear all your gradients?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="836"/>
+        <source>Do you really want to clear all your colors and gradients?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="898"/>
+        <source>Do you really want to clear all your patterns?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1027"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1096"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Kõik toetatud vormingud</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
+        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1033"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Kõik failid (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1189"/>
+        <source>Open</source>
+        <translation type="unfinished">Avamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
+        <translation type="unfinished">Kõik toetatud vormingud (%1);;Dokumendid (%2);;Muud failid (%3);;Kõik failid (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
+        <source>Import Colors</source>
+        <translation type="unfinished">Värvide import</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation type="unfinished">Fail %1 ei sisalda värve, mida saaks importida.
+Kui see on PostScripti põhine fail, võiks proovida seda importida (Fail -&amp;gt; Import. 
+Sugugi kõigis failides ei ole DSC-le vastavaid kommentaare, mis sisaldaks värvi kirjeldust.
+See takistab mõnest failist värvide importimist.
+Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1227"/>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Kataloogi valik</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1255"/>
+        <source>Loading Patterns</source>
+        <translation type="unfinished">Mustrite laadimine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1442"/>
+        <source>R: %1 G: %2 B: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <source>C: %1% M: %2% Y: %3% K: %4%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <source>L: %1 a: %2 b: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Nime valik</translation>
+    </message>
+</context>
+<context>
     <name>ColumnResize</name>
     <message>
         <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
@@ -14203,67 +14540,67 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="32"/>
         <source>Manage Page Properties</source>
-        <translation type="unfinished">Lehekülje omaduste haldamine</translation>
+        <translation>Lehekülje omaduste haldamine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="40"/>
         <source>Page Size</source>
-        <translation type="unfinished">Lehekülje suurus</translation>
+        <translation>Lehekülje suurus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="45"/>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Suurus:</translation>
+        <translation>&amp;Suurus:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="65"/>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntatsioon:</translation>
+        <translation>Orie&amp;ntatsioon:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="68"/>
         <source>Portrait</source>
-        <translation type="unfinished">Püstpaigutus</translation>
+        <translation>Püstpaigutus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="69"/>
         <source>Landscape</source>
-        <translation type="unfinished">Rõhtpaigutus</translation>
+        <translation>Rõhtpaigutus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="76"/>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Laius:</translation>
+        <translation>&amp;Laius:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="83"/>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Kõrgus:</translation>
+        <translation>&amp;Kõrgus:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="88"/>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished">Objektide liigutamine koos leheküljega</translation>
+        <translation>Objektide liigutamine koos leheküljega</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="94"/>
         <source>Type:</source>
-        <translation type="unfinished">Tüüp:</translation>
+        <translation>Tüüp:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
         <source>Margin Guides</source>
-        <translation type="unfinished">Veerisejooned</translation>
+        <translation>Veerisejooned</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="122"/>
         <source>Other Settings</source>
-        <translation type="unfinished">Muud seadistused</translation>
+        <translation>Muud seadistused</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="130"/>
         <source>Master Page:</source>
-        <translation type="unfinished">Leheküljetoorik:</translation>
+        <translation>Leheküljetoorik:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="176"/>
@@ -14273,22 +14610,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="177"/>
         <source>Orientation of the page(s) to be inserted</source>
-        <translation type="unfinished">Lisatavate lehekülgede orientatsioon</translation>
+        <translation>Lisatavate lehekülgede orientatsioon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="178"/>
         <source>Width of the page(s) to be inserted</source>
-        <translation type="unfinished">Lisatavate lehekülgede laius</translation>
+        <translation>Lisatavate lehekülgede laius</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="179"/>
         <source>Height of the page(s) to be inserted</source>
-        <translation type="unfinished">Lisatavate lehekülgede kõrgus</translation>
+        <translation>Lisatavate lehekülgede kõrgus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="180"/>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
-        <translation type="unfinished">Uue lehekülje lisamisel teiste vahele liigutatakse objekte koos nende senise leheküljega. Vaikimisi on see sisse lülitatud.</translation>
+        <translation>Uue lehekülje lisamisel teiste vahele liigutatakse objekte koos nende senise leheküljega. Vaikimisi on see sisse lülitatud.</translation>
     </message>
 </context>
 <context>
@@ -14351,343 +14688,6 @@ Please disable experimental PDF and PS embedding and try again.</source>
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerBase</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="32"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="56"/>
-        <source>Import colors to the current set from an existing document</source>
-        <translation>Impordi olemasolevast dokumendist värvid aktiivsesse värvikomplekti</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="59"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Impordi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="72"/>
-        <source>Create a new color within the current set</source>
-        <translation>Loo aktiivses värvikomplektis uus värv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="75"/>
-        <source>Add</source>
-        <translation>Lisa</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="82"/>
-        <source>Edit the currently selected color</source>
-        <translation>Redigeeri valitud värvi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="85"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Redigeeri</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="92"/>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Kopeeri valitud värv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="95"/>
-        <source>D&amp;uplicate</source>
-        <translation>&amp;Klooni</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="102"/>
-        <source>Delete the currently selected color</source>
-        <translation>Kustuta valitud värv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="105"/>
-        <source>&amp;Delete</source>
-        <translation>K&amp;ustuta</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="112"/>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Eemalda kasutamata värvid dokumendi aktiivsest värvikomplektist</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="115"/>
-        <source>&amp;Remove Unused</source>
-        <translation>&amp;Eemalda kasutud</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="122"/>
-        <source>Color Sets</source>
-        <translation>Värvikomplektid</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="134"/>
-        <source>Current Color Set:</source>
-        <translation>Aktiivne värvikomplekt:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="147"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="157"/>
-        <source>Save the current color set</source>
-        <translation>Salvesta aktiivne värvikomplekt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="160"/>
-        <source>&amp;Save Color Set</source>
-        <translation>&amp;Salvesta värvikomplekt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="188"/>
-        <source>Make the current colorset the default color set</source>
-        <translation>Muuda aktiivne värvikomplekt vaikimisi värvikomplektiks</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="191"/>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="198"/>
-        <source>Cancel</source>
-        <translation>Loobu</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="14"/>
-        <source>Manage Colors and Fills</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerDialog</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="83"/>
-        <source>Solid Colors</source>
-        <translation>Ühtlased värvid:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="85"/>
-        <source>Gradients</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="103"/>
-        <source>Scribus Swatches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="107"/>
-        <source>User Swatches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="115"/>
-        <source>Merge Color Set</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="327"/>
-        <source>Sort by Name</source>
-        <translation>Sorteeri nime järgi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="328"/>
-        <source>Sort by Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="329"/>
-        <source>Sort by Type</source>
-        <translation>Sorteeri tüübi järgi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="454"/>
-        <source>New Gradient</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="472"/>
-        <source>New Color</source>
-        <translation>Uus värv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="640"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="678"/>
-        <source>Copy of %1</source>
-        <translation>%1 koopia</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="758"/>
-        <source>Selected Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="813"/>
-        <source>Do you really want to clear all your gradients?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="836"/>
-        <source>Do you really want to clear all your colors and gradients?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1027"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1096"/>
-        <source>All Supported Formats</source>
-        <translation>Kõik toetatud vormingud</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1031"/>
-        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1032"/>
-        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1033"/>
-        <source>All Files (*)</source>
-        <translation>Kõik failid (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1037"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1189"/>
-        <source>Open</source>
-        <translation>Avamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1074"/>
-        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
-        <translation>Kõik toetatud vormingud (%1);;Dokumendid (%2);;Muud failid (%3);;Kõik failid (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1075"/>
-        <source>Import Colors</source>
-        <translation>Värvide import</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>Information</source>
-        <translation>Info</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>The file %1 does not contain colors which can be imported.
-If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
-Not all files have DSC conformant comments where the color descriptions are located.
- This prevents importing colors from some files.
-See the Edit Colors section of the documentation for more details.</source>
-        <translation>Fail %1 ei sisalda värve, mida saaks importida.
-Kui see on PostScripti põhine fail, võiks proovida seda importida (Fail -&amp;gt; Import. 
-Sugugi kõigis failides ei ole DSC-le vastavaid kommentaare, mis sisaldaks värvi kirjeldust.
-See takistab mõnest failist värvide importimist.
-Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>&amp;Name:</source>
-        <translation>&amp;Nimi:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1442"/>
-        <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1448"/>
-        <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1454"/>
-        <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>Choose a Name</source>
-        <translation>Nime valik</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="94"/>
-        <source>Patterns</source>
-        <translation>Mustrid</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="365"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Impordi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="366"/>
-        <source>Add</source>
-        <translation>Lisa</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="367"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Redigeeri</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="394"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="405"/>
-        <source>Load File</source>
-        <translation>Laadi fail</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="395"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="406"/>
-        <source>Load Set</source>
-        <translation>Laadi kogu</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="396"/>
-        <source>Rename</source>
-        <translation>Ümbernimetamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <source>Rename Entry</source>
-        <translation>Kirje ümbernimetamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="898"/>
-        <source>Do you really want to clear all your patterns?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1227"/>
-        <source>Choose a Directory</source>
-        <translation>Kataloogi valik</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1255"/>
-        <source>Loading Patterns</source>
-        <translation>Mustrite laadimine</translation>
     </message>
 </context>
 <context>
@@ -25652,11 +25652,6 @@ Välised lingid
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="110"/>
-        <source>Arabic (Jordan)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="111"/>
         <source>Arabic (Kuwait)</source>
         <translation type="unfinished"></translation>
@@ -27140,6 +27135,11 @@ Välised lingid
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
         <source>Amharic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="110"/>
+        <source>Arabic (Jordan)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29271,7 +29271,7 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3256"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2174"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6070"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6083"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
@@ -31690,10 +31690,6 @@ Palun vali mõni muu nimi.</translation>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
         <source>Parent Style</source>
         <translation>Eellasstiil</translation>
-    </message>
-    <message>
-        <source>Font Family</source>
-        <translation type="vanished">Fondipere</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="132"/>
@@ -34504,7 +34500,7 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
         <translation>Scribus 1.5.0+ dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6693"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6706"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1 - </translation>
     </message>

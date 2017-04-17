@@ -5013,6 +5013,343 @@ bremañ %2 x %3 PDM</translation>
     </message>
 </context>
 <context>
+    <name>ColorsAndFillsBase</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="14"/>
+        <source>Colors and Fills</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="41"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="55"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="65"/>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished">Enporzhiañ livioù un teul all d&apos;ar spletad bremanel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="68"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Enporzhiañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="81"/>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Krouiñ ul liv nevez er spletad bremanel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="84"/>
+        <source>Add</source>
+        <translation type="unfinished">Ouzhpennañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="91"/>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">Daskemmañ al liv diuzet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="94"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Embann</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="101"/>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Ober un eilad eus al liv bet diuzet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="104"/>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">Arre&amp;daoliñ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="111"/>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">Dilemel al liv bet diuzet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="114"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Diverkañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="121"/>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Dilemel al livioù diarver en teuliad bremanel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="124"/>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">&amp;Diverkañ al livioù diarver</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="131"/>
+        <source>Color Sets</source>
+        <translation type="unfinished">Spletadoù livioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="152"/>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Spletad livioù bremanel :</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="165"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="175"/>
+        <source>Save the current color set</source>
+        <translation type="unfinished">Enrollañ ar spletad livioù bremanel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="178"/>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">&amp;Enrollañ ar spletad livioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="206"/>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">Lakaat ar spletad livioù bremanel da vezañ an hini dre ziouer</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="209"/>
+        <source>OK</source>
+        <translation type="unfinished">Mat eo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="216"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorsAndFillsDialog</name>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="83"/>
+        <source>Solid Colors</source>
+        <translation type="unfinished">Livioù unvan</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="85"/>
+        <source>Gradients</source>
+        <translation type="unfinished">Ilrezennoù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="94"/>
+        <source>Patterns</source>
+        <translation type="unfinished">Gousturioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="103"/>
+        <source>Scribus Swatches</source>
+        <translation type="unfinished">Livaouegoù-rod Scribus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="107"/>
+        <source>User Swatches</source>
+        <translation type="unfinished">Livaouegoù-rod an arveriad</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="115"/>
+        <source>Merge Color Set</source>
+        <translation type="unfinished">Toueziañ ar spletadoù livioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="327"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Rummata dre anv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="328"/>
+        <source>Sort by Color</source>
+        <translation type="unfinished">Rummañ dre liv</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="329"/>
+        <source>Sort by Type</source>
+        <translation type="unfinished">Rummañ dre rizh</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="365"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Enporzhiañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="366"/>
+        <source>Add</source>
+        <translation type="unfinished">Ouzhpennañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="367"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Embann</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="394"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="405"/>
+        <source>Load File</source>
+        <translation type="unfinished">Kargañ ur restr</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="395"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="406"/>
+        <source>Load Set</source>
+        <translation type="unfinished">Kargañ an arventennoù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="396"/>
+        <source>Rename</source>
+        <translation type="unfinished">Adenvel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="454"/>
+        <source>New Gradient</source>
+        <translation type="unfinished">Ilrezenn nevez</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="472"/>
+        <source>New Color</source>
+        <translation type="unfinished">Liv nevez</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Anv :</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <source>Rename Entry</source>
+        <translation type="unfinished">Adenvel an enankad</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="640"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="678"/>
+        <source>Copy of %1</source>
+        <translation type="unfinished">Eilad eus %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="758"/>
+        <source>Selected Colors</source>
+        <translation type="unfinished">Livioù diuzet</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="813"/>
+        <source>Do you really want to clear all your gradients?</source>
+        <translation type="unfinished">Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù holl ?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="836"/>
+        <source>Do you really want to clear all your colors and gradients?</source>
+        <translation type="unfinished">Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù hag ho livioù holl ?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="898"/>
+        <source>Do you really want to clear all your patterns?</source>
+        <translation type="unfinished">Ha fellout a ra deoc&apos;h skarzhañ ho kousturioù holl ?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1027"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1096"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">An holl ventrezhoù skoret</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
+        <translation type="unfinished">Restroù mod ilrezenn Scribus &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
+        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
+        <translation type="unfinished">Restroù mod ilrezenn Gimp &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1033"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">An holl restroù (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1189"/>
+        <source>Open</source>
+        <translation type="unfinished">Digeriñ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
+        <translation type="unfinished">An holl ventrezhioù skoret (%1);;Teulioù (%2);;Restroù all (%3);;An holl restroù (*)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
+        <source>Import Colors</source>
+        <translation type="unfinished">Enporzhiañ livioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>Information</source>
+        <translation type="unfinished">Stlennoù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1083"/>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation type="unfinished">Er restr %1 n&apos;eus liv ebet a c&apos;hallfe bezañ enporzhiet
+Ma oa ar restr unan diazezt war PostScript, klaskit hec&apos;h enporzhiañ gant Restr -&amp;gt; Enporzhiañ. 
+N&apos;eus ket askelennoù kenfurm ouzh DSC gant an holl restroù ma vez lec&apos;hiet deskrivadurioù al livioù.
+An dra-se a vir enporzhiadur livioù zo diouzh restroù zo.
+Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1227"/>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Dibab ur c&apos;havlec&apos;hiad</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1255"/>
+        <source>Loading Patterns</source>
+        <translation type="unfinished">Kargadur ar gousturioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1442"/>
+        <source>R: %1 G: %2 B: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <source>C: %1% M: %2% Y: %3% K: %4%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <source>L: %1 a: %2 b: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1909"/>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Dibabit un anv</translation>
+    </message>
+</context>
+<context>
     <name>ColumnResize</name>
     <message>
         <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
@@ -14250,92 +14587,92 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="32"/>
         <source>Manage Page Properties</source>
-        <translation type="unfinished">Ardeiñ perzhioù ar bajennad</translation>
+        <translation>Ardeiñ perzhioù ar bajennad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="40"/>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Ment ar bajenn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="45"/>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Ment :</translation>
+        <translation>&amp;Ment :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="65"/>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Rete&amp;radur :</translation>
+        <translation>Rete&amp;radur :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="68"/>
         <source>Portrait</source>
-        <translation type="unfinished">Poltred</translation>
+        <translation>Poltred</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="69"/>
         <source>Landscape</source>
-        <translation type="unfinished">Gweledva</translation>
+        <translation>Gweledva</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="76"/>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Led :</translation>
+        <translation>&amp;Led :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="83"/>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Sav :</translation>
+        <translation>&amp;Sav :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="88"/>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished">Dilec&apos;hiañ an ergorennoù gant o fajennad</translation>
+        <translation>Dilec&apos;hiañ an ergorennoù gant o fajennad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="94"/>
         <source>Type:</source>
-        <translation type="unfinished">Rizh :</translation>
+        <translation>Rizh :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
         <source>Margin Guides</source>
-        <translation type="unfinished">Dealfoù ar marzioù</translation>
+        <translation>Dealfoù ar marzioù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="122"/>
         <source>Other Settings</source>
-        <translation type="unfinished">Arventennoù all</translation>
+        <translation>Arventennoù all</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="130"/>
         <source>Master Page:</source>
-        <translation type="unfinished">Pajennad vestrez :</translation>
+        <translation>Pajennad vestrez :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="176"/>
         <source>Size of the inserted pages, either a standard or custom size</source>
-        <translation type="unfinished">Ment ar pajennoù enlakaet, pe ur vent skoueriek pe unan personelaet.</translation>
+        <translation>Ment ar pajennoù enlakaet, pe ur vent skoueriek pe unan personelaet.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="177"/>
         <source>Orientation of the page(s) to be inserted</source>
-        <translation type="unfinished">Reteradur ar bajenn (où) da vezañ enlakaet</translation>
+        <translation>Reteradur ar bajenn (où) da vezañ enlakaet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="178"/>
         <source>Width of the page(s) to be inserted</source>
-        <translation type="unfinished">Led ar bajenn (où) da vezañ enlakaet</translation>
+        <translation>Led ar bajenn (où) da vezañ enlakaet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="179"/>
         <source>Height of the page(s) to be inserted</source>
-        <translation type="unfinished">Sav ar bajenn (où) da vezañ enlakaet</translation>
+        <translation>Sav ar bajenn (où) da vezañ enlakaet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="180"/>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
-        <translation type="unfinished">Mar bez enlakaet ur bajenn e-touez ar re all e vo  dilec&apos;hiet an ergorennoù gant o fajennoù bremanel. Ar gwered dre ziouer eo.</translation>
+        <translation>Mar bez enlakaet ur bajenn e-touez ar re all e vo  dilec&apos;hiet an ergorennoù gant o fajennoù bremanel. Ar gwered dre ziouer eo.</translation>
     </message>
 </context>
 <context>
@@ -14401,343 +14738,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 
 Mar plij, kasit ho restr (mar bez tro) da
 Document Liberation Project http://www.documentliberation.org</translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerBase</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="32"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="56"/>
-        <source>Import colors to the current set from an existing document</source>
-        <translation>Enporzhiañ livioù un teul all d&apos;ar spletad bremanel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="59"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Enporzhiañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="72"/>
-        <source>Create a new color within the current set</source>
-        <translation>Krouiñ ul liv nevez er spletad bremanel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="75"/>
-        <source>Add</source>
-        <translation>Ouzhpennañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="82"/>
-        <source>Edit the currently selected color</source>
-        <translation>Daskemmañ al liv diuzet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="85"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Embann</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="92"/>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Ober un eilad eus al liv bet diuzet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="95"/>
-        <source>D&amp;uplicate</source>
-        <translation>Arre&amp;daoliñ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="102"/>
-        <source>Delete the currently selected color</source>
-        <translation>Dilemel al liv bet diuzet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="105"/>
-        <source>&amp;Delete</source>
-        <translation>&amp;Diverkañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="112"/>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Dilemel al livioù diarver en teuliad bremanel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="115"/>
-        <source>&amp;Remove Unused</source>
-        <translation>&amp;Diverkañ al livioù diarver</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="122"/>
-        <source>Color Sets</source>
-        <translation>Spletadoù livioù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="134"/>
-        <source>Current Color Set:</source>
-        <translation>Spletad livioù bremanel :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="147"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="157"/>
-        <source>Save the current color set</source>
-        <translation>Enrollañ ar spletad livioù bremanel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="160"/>
-        <source>&amp;Save Color Set</source>
-        <translation>&amp;Enrollañ ar spletad livioù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="188"/>
-        <source>Make the current colorset the default color set</source>
-        <translation>Lakaat ar spletad livioù bremanel da vezañ an hini dre ziouer</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="191"/>
-        <source>OK</source>
-        <translation>Mat eo</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="198"/>
-        <source>Cancel</source>
-        <translation>Nullañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanagerbase.ui" line="14"/>
-        <source>Manage Colors and Fills</source>
-        <translation>Ardeiñ al livioù hag al leuniadurioù</translation>
-    </message>
-</context>
-<context>
-    <name>PaintManagerDialog</name>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="83"/>
-        <source>Solid Colors</source>
-        <translation>Livioù unvan</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="85"/>
-        <source>Gradients</source>
-        <translation>Ilrezennoù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="103"/>
-        <source>Scribus Swatches</source>
-        <translation>Livaouegoù-rod Scribus</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="107"/>
-        <source>User Swatches</source>
-        <translation>Livaouegoù-rod an arveriad</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="115"/>
-        <source>Merge Color Set</source>
-        <translation>Toueziañ ar spletadoù livioù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="327"/>
-        <source>Sort by Name</source>
-        <translation>Rummata dre anv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="328"/>
-        <source>Sort by Color</source>
-        <translation>Rummañ dre liv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="329"/>
-        <source>Sort by Type</source>
-        <translation>Rummañ dre rizh</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="454"/>
-        <source>New Gradient</source>
-        <translation>Ilrezenn nevez</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="472"/>
-        <source>New Color</source>
-        <translation>Liv nevez</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="640"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="678"/>
-        <source>Copy of %1</source>
-        <translation>Eilad eus %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="758"/>
-        <source>Selected Colors</source>
-        <translation>Livioù diuzet</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="813"/>
-        <source>Do you really want to clear all your gradients?</source>
-        <translation>Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù holl ?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="836"/>
-        <source>Do you really want to clear all your colors and gradients?</source>
-        <translation>Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù hag ho livioù holl ?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1027"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1096"/>
-        <source>All Supported Formats</source>
-        <translation>An holl ventrezhoù skoret</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1031"/>
-        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation>Restroù mod ilrezenn Scribus &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1032"/>
-        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation>Restroù mod ilrezenn Gimp &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1033"/>
-        <source>All Files (*)</source>
-        <translation>An holl restroù (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1037"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1189"/>
-        <source>Open</source>
-        <translation>Digeriñ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1074"/>
-        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
-        <translation>An holl ventrezhioù skoret (%1);;Teulioù (%2);;Restroù all (%3);;An holl restroù (*)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1075"/>
-        <source>Import Colors</source>
-        <translation>Enporzhiañ livioù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>Information</source>
-        <translation>Stlennoù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1083"/>
-        <source>The file %1 does not contain colors which can be imported.
-If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
-Not all files have DSC conformant comments where the color descriptions are located.
- This prevents importing colors from some files.
-See the Edit Colors section of the documentation for more details.</source>
-        <translation>Er restr %1 n&apos;eus liv ebet a c&apos;hallfe bezañ enporzhiet
-Ma oa ar restr unan diazezt war PostScript, klaskit hec&apos;h enporzhiañ gant Restr -&amp;gt; Enporzhiañ. 
-N&apos;eus ket askelennoù kenfurm ouzh DSC gant an holl restroù ma vez lec&apos;hiet deskrivadurioù al livioù.
-An dra-se a vir enporzhiadur livioù zo diouzh restroù zo.
-Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>&amp;Name:</source>
-        <translation>&amp;Anv :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1442"/>
-        <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1448"/>
-        <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1454"/>
-        <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1909"/>
-        <source>Choose a Name</source>
-        <translation>Dibabit un anv</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="94"/>
-        <source>Patterns</source>
-        <translation>Gousturioù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="365"/>
-        <source>&amp;Import</source>
-        <translation>&amp;Enporzhiañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="366"/>
-        <source>Add</source>
-        <translation>Ouzhpennañ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="367"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Embann</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="394"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="405"/>
-        <source>Load File</source>
-        <translation>Kargañ ur restr</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="395"/>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="406"/>
-        <source>Load Set</source>
-        <translation>Kargañ an arventennoù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="396"/>
-        <source>Rename</source>
-        <translation>Adenvel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="585"/>
-        <source>Rename Entry</source>
-        <translation>Adenvel an enankad</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="898"/>
-        <source>Do you really want to clear all your patterns?</source>
-        <translation>Ha fellout a ra deoc&apos;h skarzhañ ho kousturioù holl ?</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1227"/>
-        <source>Choose a Directory</source>
-        <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/paintmanager.cpp" line="1255"/>
-        <source>Loading Patterns</source>
-        <translation>Kargadur ar gousturioù</translation>
     </message>
 </context>
 <context>
@@ -25721,11 +25721,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="110"/>
-        <source>Arabic (Jordan)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/langmgr.cpp" line="111"/>
         <source>Arabic (Kuwait)</source>
         <translation type="unfinished"></translation>
@@ -27209,6 +27204,11 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
         <source>Amharic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/langmgr.cpp" line="110"/>
+        <source>Arabic (Jordan)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29337,7 +29337,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3256"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2174"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6070"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6083"/>
         <source>Copy #%1 of </source>
         <translation>Eilad #%1 eus</translation>
     </message>
@@ -31757,10 +31757,6 @@ Dibabit unan all mar plij.</translation>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
         <source>Parent Style</source>
         <translation>Stil kar</translation>
-    </message>
-    <message>
-        <source>Font Family</source>
-        <translation type="vanished">Familh an nodrezh</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="132"/>
@@ -34571,7 +34567,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <translation>Teul mod Scribus 1.5.0+</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6693"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6706"/>
         <source>Copy #%1 of </source>
         <translation>Eilad #%1 eus </translation>
     </message>
