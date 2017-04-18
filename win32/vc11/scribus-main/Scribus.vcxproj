@@ -416,6 +416,7 @@
     <ClInclude Include="..\..\..\scribus\text\textsource.h" />
     <moc Include="..\..\..\scribus\ui\directionselect.h" />
     <moc Include="..\..\..\scribus\ui\colorlistmodel.h" />
+    <moc Include="..\..\..\scribus\ui\colorsandfills.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -503,7 +504,6 @@
     <moc Include="..\..\..\scribus\ui\pageselector.h" />
     <ClInclude Include="..\..\..\scribus\pagesize.h" />
     <ClInclude Include="..\..\..\scribus\pagestructs.h" />
-    <moc Include="..\..\..\scribus\ui\paintmanager.h" />
     <ClInclude Include="..\..\..\scribus\styles\paragraphstyle.h" />
     <moc Include="..\..\..\scribus\ui\patternpropsdialog.h" />
     <moc Include="..\..\..\scribus\pdf_analyzer.h" />
@@ -596,6 +596,7 @@
     <moc Include="..\..\..\scribus\ui\smlineedit.h" />
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
     <moc Include="..\..\..\scribus\ui\textpalette.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_colorsandfillsbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h" />
@@ -1028,6 +1029,7 @@
     <ClCompile Include="..\..\..\scribus\colorsetmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\commonstrings.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp" />
@@ -1244,7 +1246,6 @@
     <ClCompile Include="..\..\..\scribus\ui\pagepropertiesdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pageselector.cpp" />
     <ClCompile Include="..\..\..\scribus\pagesize.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\paintmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\styles\paragraphstyle.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\patternpropsdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\pdf_analyzer.cpp" />
@@ -1583,6 +1584,7 @@
     <uic Include="..\..\..\scribus\ui\cmsprefsbase.ui" />
     <uic Include="..\..\..\scribus\ui\cmykfwbase.ui" />
     <uic Include="..\..\..\scribus\ui\colorpalette.ui" />
+    <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui" />
     <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui" />
     <uic Include="..\..\..\scribus\ui\createrange.ui" />
     <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui" />
@@ -1614,7 +1616,6 @@
     <uic Include="..\..\..\scribus\ui\pageitemattributes.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_masterpagesbase.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_pagesbase.ui" />
-    <uic Include="..\..\..\scribus\ui\paintmanagerbase.ui" />
     <uic Include="..\..\..\scribus\ui\picsearch.ui" />
     <uic Include="..\..\..\scribus\ui\picsearchoptions.ui" />
     <uic Include="..\..\..\scribus\ui\picstatus.ui" />

@@ -1067,7 +1067,10 @@
     <ClInclude Include="..\..\..\scribus\text\textsource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\pagepropertiesdialog.h">
+    <ClInclude Include="..\..\..\scribus\ui\ui_colorsandfillsbase.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\colorsandfills.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1730,9 +1733,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\pagesize.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\paintmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\styles\paragraphstyle.cpp">
@@ -2668,6 +2668,9 @@
     <ClCompile Include="..\..\..\scribus\ui\pagepropertiesdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2795,9 +2798,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\pagepalette_pagesbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\paintmanagerbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\picsearch.ui">
@@ -3044,6 +3044,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\smfontfeaturesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
@@ -3671,9 +3674,6 @@
     <moc Include="..\..\..\scribus\ui\pageselector.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\paintmanager.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\patternpropsdialog.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4212,6 +4212,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\colorlistmodel.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepropertiesdialog.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
