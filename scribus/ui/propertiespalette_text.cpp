@@ -102,7 +102,6 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	fontfeaturesWidget = new PropertyWidget_FontFeatures(textTree);
 	fontfeaturesWidgetItem = textTree->addItem(fontfeaturesWidget, tr("Font Features"));
 
-
 	pathTextWidgets = new PropertyWidget_PathText(textTree);
 	pathTextItem = textTree->addItem(pathTextWidgets, tr("Path Text Properties"));
 
@@ -117,10 +116,12 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 
 	connect(flopBox->flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(handleFirstLinePolicy(int)));
-	connect(fontfeaturesWidget, SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
 	connect(langCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLang(int)));
+
+	connect(fontfeaturesWidget, SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
+	connect(parEffectWidgets,   SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 
 	m_haveItem = false;
 	setEnabled(false);

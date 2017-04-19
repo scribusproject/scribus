@@ -12,7 +12,7 @@ class ScribusMainWindow;
 
 class PropertyWidget_ParEffect : public QFrame, private Ui::PropertyWidget_ParEffectBase, public PropertyWidgetBase
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	PropertyWidget_ParEffect(QWidget *parent = 0);
@@ -27,6 +27,7 @@ public:
 	CharSelectEnhanced * m_enhanced;
 	
 	void fillNumerationsCombo();
+
 protected:
 	double m_unitRatio;
 	int    m_unitIndex;
@@ -81,15 +82,8 @@ private:
 
 	void fillPECombo();
 
-//	void SMPStyleWidget::fillNumRestartCombo()
-//	{
-//		numRestartCombo->clear();
-//		numRestartCombo->addItem(tr("Document"));
-//		numRestartCombo->addItem(tr("Section"));
-//		numRestartCombo->addItem(tr("Story"));
-//		numRestartCombo->addItem(tr("Page"));
-//		numRestartCombo->addItem(tr("Frame"));
-//	}
+signals:
+	void needsRelayout();
 };
 
 #endif // PROPERTYWIDGET_PAREFFECT_H
