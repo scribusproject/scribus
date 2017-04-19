@@ -4568,10 +4568,12 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	int start = itemText.startOfSelection();
 	int stop = itemText.endOfSelection();
 	int marksNum = 0;
-	if (UndoManager::undoEnabled()) {
+	if (UndoManager::undoEnabled()) 
+	{
 		int lastPos = start;
 		CharStyle lastParent = itemText.charStyle(start);
 		UndoState* state = undoManager->getLastUndo();
+		ScItemState<ParagraphStyle> *ip = NULL;
 		ScItemState<CharStyle> *is = NULL;
 		TransactionState *ts = NULL;
 		bool added = false;
@@ -4608,30 +4610,33 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		//delete text
 		for (int i=start; i <= stop; ++i)
 		{
-			Mark* mark = i < itemText.length() && itemText.hasMark(i)? itemText.mark(i) : NULL;
+			Mark* mark = i < itemText.length() && itemText.hasMark(i) ? itemText.mark(i) : NULL;
 			const CharStyle& curParent = itemText.charStyle(i);
-			if (i==stop || !curParent.equiv(lastParent) || (mark!=NULL && mark->isType(MARKNoteFrameType)))
+			bool needParaAction = ((i < stop) && (itemText.text(i) == SpecialChars::PARSEP));
+			if (i==stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
 			{
 				added = false;
 				lastIsDelete = false;
 				if (is && ts && is->get("ETEA") == "delete_frametext" && lastPos < is->getInt("START"))
 				{
-					if (is->getItem().equiv(lastParent))
+					int oldStart = is->getInt("START");
+					if (is->getItem().equiv(lastParent) && (i - lastPos > 0) && (start + i - lastPos == oldStart))
 					{
 						is->set("START", start);
 						is->set("TEXT_STR", itemText.text(lastPos, i - lastPos) + is->get("TEXT_STR"));
 						added = true;
+						lastIsDelete = true;
 					}
-					lastIsDelete = true;
 				}
 				else if (is && ts && is->get("ETEA") == "delete_frametext"  && lastPos >= is->getInt("START"))
 				{
-					if (is->getItem().equiv(lastParent))
+					int oldStart = is->getInt("START");
+					if (is->getItem().equiv(lastParent) && (i - lastPos > 0) && (oldStart == start))
 					{
 						is->set("TEXT_STR", is->get("TEXT_STR") + itemText.text(lastPos, i - lastPos));
 						added = true;
+						lastIsDelete = true;
 					}
-					lastIsDelete = true;
 				}
 				if (!added)
 				{
@@ -4697,6 +4702,25 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 				}
 				lastPos = i;
 				lastParent = curParent;
+			}
+			if (needParaAction)
+			{
+				UndoObject * undoTarget = this;
+				if (isNoteFrame())
+					undoTarget = m_Doc;
+				ip = new ScItemState<ParagraphStyle>(Um::DeleteText, "", Um::IDelete);
+				ip->set("DELETE_FRAMEPARA");
+				ip->set("START", start);
+				ip->setItem(itemText.paragraphStyle(i));
+				lastPos = i + 1;
+				if (lastPos < itemText.length())
+					lastParent = itemText.charStyle(lastPos);
+				if (ts)
+					ts->pushBack(undoTarget, ip);
+				else
+					undoManager->action(undoTarget, ip);
+				is = NULL;
+				ts = NULL;
 			}
 		}
 		if (trans)

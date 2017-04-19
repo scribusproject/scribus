@@ -1879,6 +1879,12 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			Q_ASSERT(nF != NULL);
 			nF->asNoteFrame()->restoreDeleteNoteText(ss, isUndo);
 		}
+		else if (ss->contains("DELETE_FRAMEPARA"))
+		{
+			PageItem * nF = getItemFromName(ss->get("noteframeName"));
+			Q_ASSERT(nF != NULL);
+			nF->asNoteFrame()->restoreDeleteNoteParagraph(ss, isUndo);
+		}
 		else if (ss->contains("INSERT_FRAMETEXT"))
 		{
 			PageItem * nF = getItemFromName(ss->get("noteframeName"));

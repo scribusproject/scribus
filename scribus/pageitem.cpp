@@ -4908,6 +4908,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				restoreLineShade(ss, isUndo);
 			else if (ss->contains("DELETE_FRAMETEXT"))
 				restoreDeleteFrameText(ss, isUndo);
+			else if (ss->contains("DELETE_FRAMEPARA"))
+				restoreDeleteFrameParagraph(ss, isUndo);
 			else if (ss->contains("INSERT_FRAMETEXT"))
 				restoreInsertFrameText(ss,isUndo);
 			else if (ss->contains("LOREM_FRAMETEXT"))
@@ -6649,6 +6651,27 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 	else
 	{
 		itemText.select(start, text.length());
+		asTextFrame()->deleteSelectedTextFromFrame();
+	}
+	update();
+}
+
+void PageItem::restoreDeleteFrameParagraph(SimpleState *ss, bool isUndo)
+{
+	ScItemState<ParagraphStyle> *is = dynamic_cast<ScItemState<ParagraphStyle> *>(ss);
+	if (!is)
+		qFatal("PageItem::restoreDeleteFrameParagraph: dynamic cast failed");
+	int start = is->getInt("START");
+	if (isUndo)
+	{
+		itemText.insertChars(start, SpecialChars::PARSEP);
+		itemText.applyStyle(start, is->getItem());
+		invalid = true;
+		invalidateLayout();
+	}
+	else
+	{
+		itemText.select(start, 1);
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	update();

@@ -378,6 +378,12 @@ void PageItem_NoteFrame::restoreDeleteNoteText(SimpleState *state, bool isUndo)
 	updateNotesText();
 }
 
+void PageItem_NoteFrame::restoreDeleteNoteParagraph(SimpleState *state, bool isUndo)
+{
+	PageItem::restoreDeleteFrameParagraph(state, isUndo);
+	updateNotesText();
+}
+
 void PageItem_NoteFrame::restoreInsertNoteText(SimpleState *state, bool isUndo)
 {
 	PageItem::restoreInsertFrameText(state, isUndo);

@@ -15,6 +15,7 @@ private:
 	PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle);
 	~PageItem_NoteFrame() { }
+
 public:
 	virtual PageItem_NoteFrame * asNoteFrame() { return this; }
 	virtual bool isNoteFrame() const { return true; }
@@ -49,6 +50,7 @@ public:
 	void removeNote(TextNote* note) { l_notes.removeOne(note); }
 
 	void restoreDeleteNoteText(SimpleState *state, bool isUndo);
+	void restoreDeleteNoteParagraph(SimpleState *state, bool isUndo);
 	void restoreInsertNoteText(SimpleState *state, bool isUndo);
 	//overloaded PageItem::unWeld()
 	void unWeld(bool doUndo=true);
