@@ -14,16 +14,16 @@
 
 SMRadioButton::SMRadioButton ( QWidget * parent )
 		: QRadioButton ( parent ),
-		hasParent_ ( false ),
-		useParentValue_ ( false ),
-		pValue_ ( false )
+		m_hasParent ( false ),
+		m_useParentValue ( false ),
+		m_pValue ( false )
 {
 }
 
 void SMRadioButton::setChecked(bool val)
 {
-	hasParent_ = false;
-	pValue_ = false;
+	m_hasParent = false;
+	m_pValue = false;
 	setFont(false);
 
 	QRadioButton::setChecked(val);
@@ -31,8 +31,8 @@ void SMRadioButton::setChecked(bool val)
 
 void SMRadioButton::setChecked(bool val, bool isParentVal)
 {
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 	setFont(!isParentVal);
 
 	QRadioButton::setChecked(val);
@@ -40,14 +40,14 @@ void SMRadioButton::setChecked(bool val, bool isParentVal)
 
 void SMRadioButton::setParentValue(bool val)
 {
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 }
 
 bool SMRadioButton::useParentValue()
 {
-	bool ret = useParentValue_;
-	useParentValue_ = false;
+	bool ret = m_useParentValue;
+	m_useParentValue = false;
 	return ret;
 }
 

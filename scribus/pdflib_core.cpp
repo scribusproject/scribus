@@ -116,7 +116,7 @@ class PdfPainter: public TextLayoutPainter
 {
 	QByteArray m_glyphBuffer;
 	QByteArray m_pathBuffer;
-	PageItem* m_item;
+//	PageItem* m_item;
 	QMap<QString, PdfFont>  m_UsedFontsP;
 	PDFLibCore *m_pdf;
 	uint m_PNr;
@@ -131,7 +131,7 @@ public:
 	PdfPainter(PageItem *ite, PDFLibCore *pdf, uint num, const ScPage* pag) :
 		m_glyphBuffer(),
 		m_pathBuffer(),
-		m_item(ite),
+//		m_item(ite),
 		m_pdf(pdf),
 		m_PNr(num),
 		m_page(pag)
@@ -1073,7 +1073,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 	{
 		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Pdf::toPdfDocEncoding(Options.openAction)+"\\(\\)) >>\n");
 	}
-	QDateTime dt = QDateTime::currentDateTime().toUTC();
+	QDateTime dt = QDateTime::currentDateTimeUtc();
 	Datum = Pdf::toDateString(dt);
 //    "D:";
 //	tmp.sprintf("%4d", d.year());

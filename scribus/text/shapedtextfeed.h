@@ -26,7 +26,7 @@ class IShapedTextCache;
 class ShapedTextFeed
 {
 	ITextSource* m_textSource;
-	ITextContext* m_context;
+//	ITextContext* m_context;
 	IShapedTextCache* m_cache;
 	TextShaper m_shaper;
 	int m_endChar;

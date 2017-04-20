@@ -48,7 +48,7 @@ int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) c
 void VGradient::inSort( VColorStop* d )
 {
 	int index = 0;
-	register VColorStop *n = m_colorStops.value(index);
+	VColorStop *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
 		++index;

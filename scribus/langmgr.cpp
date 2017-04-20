@@ -973,8 +973,8 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 		dictList.replaceInStrings(".dic","");
 
 		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
-		QString dictName;
-		foreach(dictName, dictList)
+
+		foreach(const QString& dictName, dictList)
 		{
 			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
 				dictList.removeAll(dictName);
@@ -1051,7 +1051,7 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 				dictFilters.append("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic","");
-		foreach(QString dn, dictList)
+		foreach(const QString& dn, dictList)
 		{
 //			qDebug()<<dn;
 			QString dictName;

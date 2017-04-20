@@ -22,7 +22,7 @@ static bool visualGlyphRunComp(const GlyphCluster &r1, const GlyphCluster &r2)
 
 ShapedTextFeed::ShapedTextFeed(ITextSource* source, int firstChar, ITextContext* context, IShapedTextCache* cache) :
     m_textSource(source),
-    m_context(context),
+//    m_context(context),
 	m_cache(cache),
     m_shaper(context, *source, firstChar),
 	m_endChar(firstChar)

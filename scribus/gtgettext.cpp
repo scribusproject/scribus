@@ -246,7 +246,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	gt2ptr fp_GetText2;
 	sdem fp_GetText;
 	// Initialize Path to the "DLL"
-	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), idata.soFilePath);
 	// Attempt to load the plugin, store the pointer in gtplugin
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
 	// If gtplugin is NULL we failed to load the plugin. Report an error to the user and exit the method.
@@ -305,7 +305,7 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	// The actual extensions supported object
 	sdem1 fp_FileExtensions;
 	// Initialise the plugin file path ( with filename )
-	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(name);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), name);
 	// Attempt to load the plugin.
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
 	// if gtplugin is NULL we were unable to load the plugin. Return an error and exit the method.

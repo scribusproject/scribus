@@ -113,7 +113,7 @@ void TOCGenerator::generateDefault()
 				//Second is an incremented counter for the item so multiple per page works
 				//Third is the section based page number which is actually used in the TOC.
 				QString tocID = QString("%1").arg(pageCounter[currentDocItem->OwnPage]++, 3 , 10, QChar('0'));
-				QString key   = QString("%1,%2,%3").arg(pageID).arg(tocID).arg(sectionID);
+				QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
 				tocMap.insert(key, objAttr.value);
 			}
 		}

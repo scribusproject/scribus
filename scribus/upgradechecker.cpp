@@ -153,7 +153,7 @@ bool UpgradeChecker::process()
 	QString data(ts.readAll());
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
 			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
@@ -199,12 +199,12 @@ bool UpgradeChecker::process()
 						}
 						if (newVersion)
 						{
-							QString ver = verA;
-							QString link = e.attribute("link", "");
+							QString ver(verA);
+							QString link(e.attribute("link", ""));
 							if (!link.isEmpty())
 							{
-								QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link).arg(link);
-								ver = QString("%1 : %2").arg(verA).arg(linkStr);
+								QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link, link);
+								ver = QString("%1 : %2").arg(verA, linkStr);
 							}
 							m_updates.append(ver);
 						}

@@ -40,7 +40,7 @@ void sDebug(QString message)
 void tDebug(QString message)
 {
 	QDateTime debugTime;
-	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).toLatin1().constData());
+	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz"), message).toLatin1().constData());
 }
 
 

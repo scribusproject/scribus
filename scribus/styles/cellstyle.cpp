@@ -84,12 +84,12 @@ QString CellStyle::asString() const
 {
 	QString str("cellstyle(");
 	str += QString("displayName=%1,").arg(displayName());
-	str += QString("fillColor=%1%2,").arg(fillColor()).arg(inh_FillColor ? "(inh)" : "");
+	str += QString("fillColor=%1%2,").arg(fillColor(), inh_FillColor ? "(inh)" : "");
 	str += QString("fillShade=%1%2,").arg(fillShade()).arg(inh_FillShade ? "(inh)" : "");
-	str += QString("leftBorder=%1%2,").arg(leftBorder().asString()).arg(inh_LeftBorder ? "(inh)" : "");
-	str += QString("rightBorder=%1%2,").arg(rightBorder().asString()).arg(inh_RightBorder ? "(inh)" : "");
-	str += QString("topBorder=%1%2,").arg(topBorder().asString()).arg(inh_TopBorder ? "(inh)" : "");
-	str += QString("bottomBorder=%1%2,").arg(bottomBorder().asString()).arg(inh_BottomBorder ? "(inh)" : "");
+	str += QString("leftBorder=%1%2,").arg(leftBorder().asString(), inh_LeftBorder ? "(inh)" : "");
+	str += QString("rightBorder=%1%2,").arg(rightBorder().asString(), inh_RightBorder ? "(inh)" : "");
+	str += QString("topBorder=%1%2,").arg(topBorder().asString(), inh_TopBorder ? "(inh)" : "");
+	str += QString("bottomBorder=%1%2,").arg(bottomBorder().asString(), inh_BottomBorder ? "(inh)" : "");
 	str += QString("leftPadding=%1%2,").arg(leftPadding()).arg(inh_LeftPadding ? "(inh)" : "");
 	str += QString("rightPadding=%1%2,").arg(rightPadding()).arg(inh_RightPadding ? "(inh)" : "");
 	str += QString("topPadding=%1%2,").arg(topPadding()).arg(inh_TopPadding ? "(inh)" : "");

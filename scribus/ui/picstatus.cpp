@@ -198,7 +198,7 @@ void PicStatus::sortByName()
 			sorted.insertMulti(fi.fileName(), item);
 		}
 		int counter = 0;
-		foreach (QString i, sorted.uniqueKeys())
+		foreach (const QString& i, sorted.uniqueKeys())
 		{
 			foreach (PicItem* val, sorted.values(i))
 			{

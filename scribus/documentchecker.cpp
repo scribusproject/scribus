@@ -40,12 +40,12 @@ for which a new license (GPL+exception) is in place.
 class MissingGlyphsPainter: public TextLayoutPainter
 {
 	errorCodes& m_itemError;
-	const TextLayout& m_textLayout;
+//	const TextLayout& m_textLayout;
 
 public:
 	MissingGlyphsPainter(errorCodes& itemError, const TextLayout& textLayout)
 		: m_itemError(itemError)
-		, m_textLayout(textLayout)
+//		, m_textLayout(textLayout)
 	{ }
 
 	void drawGlyph(const GlyphCluster& gc)

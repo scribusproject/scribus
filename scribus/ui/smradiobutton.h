@@ -17,9 +17,11 @@
 
 class SMRadioButton : public QRadioButton
 {
+	Q_OBJECT
+
 	public:
 		SMRadioButton(QWidget *parent);
-		~SMRadioButton() {};
+		~SMRadioButton() {}
 
 		void setChecked(bool val);
 		void setChecked(bool val, bool isParentVal);
@@ -29,9 +31,9 @@ class SMRadioButton : public QRadioButton
 		bool useParentValue();
 
 	private:
-		bool   hasParent_;
-		bool   useParentValue_;
-		bool   pValue_;
+		bool m_hasParent;
+		bool m_useParentValue;
+		bool m_pValue;
 		void setFont(bool wantBold);
 
 };

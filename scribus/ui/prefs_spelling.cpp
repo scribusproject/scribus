@@ -94,7 +94,7 @@ void Prefs_Spelling::downloadSpellDicts()
 			{
 				//qDebug()<<d.url<<d.files;
 				QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-				foreach (QString s, plainURLs)
+				foreach (const QString& s, plainURLs)
 				{
 					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation, userDictDir);
 					++i;

@@ -21,10 +21,10 @@ CellArea::CellArea(int row, int column, int width, int height) :
 {
 }
 
-CellArea::CellArea(const CellArea& other) : m_row(other.m_row), m_column(other.m_column),
-	m_width(other.m_width), m_height(other.m_height)
-{
-}
+//CellArea::CellArea(const CellArea& other) : m_row(other.m_row), m_column(other.m_column),
+//	m_width(other.m_width), m_height(other.m_height)
+//{
+//}
 
 bool CellArea::contains(int row, int column) const
 {

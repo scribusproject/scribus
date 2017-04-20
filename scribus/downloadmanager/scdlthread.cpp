@@ -24,7 +24,7 @@ ScDLThread::~ScDLThread()
 
 void ScDLThread::run()
 {
-	emit(runSignal());
+	emit runSignal();
 }
 
 void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location, const QString& destinationLocation)

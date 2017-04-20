@@ -28,8 +28,9 @@ public:
 	/// Constructs an area starting at @a row, @a column with the given @a width and @a height.
 	CellArea(int row, int column, int width, int height);
 
+	//unneeded
 	/// Constructs an area as a copy of the area @a other.
-	CellArea(const CellArea& other);
+	//CellArea(const CellArea& other);
 
 	/// Returns <code>true</code> if the area is valid.
 	bool isValid() const { return m_width >= 1 && m_height >= 1; }

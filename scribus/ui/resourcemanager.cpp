@@ -1023,7 +1023,7 @@ void ResourceManager::downloadFilesFinished()
 							QDir dir(ScPaths::userFontDir(false));
 							if (!dir.exists(fi.baseName()))
 								dir.mkdir(fi.baseName());
-							foreach (QString f2e, zipFileContents)
+							foreach (const QString& f2e, zipFileContents)
 							{
 								fun->extract(f2e, toDir, ScZipHandler::SkipPaths);
 							}
@@ -1109,7 +1109,7 @@ void ResourceManager::downloadFilesFinished()
 								QDir dir(ScPaths::userHelpFilesDir(false));
 								if (!dir.exists(d.lang))
 									dir.mkdir(d.lang);
-								foreach (QString f2e, zipFileContents)
+								foreach (const QString& f2e, zipFileContents)
 								{
 									//qDebug()<<"Unzipping"<<f2e<<"to"<<toDir;
 									fun->extract(f2e, toDir, ScZipHandler::ExtractPaths);
@@ -1222,7 +1222,7 @@ void ResourceManager::startDownload()
 					if (d.filetype=="zip")
 					{
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 //							qDebug()<<"Requesting:"<<d.url+"/"+s;
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder, d.files);
@@ -1234,7 +1234,7 @@ void ResourceManager::startDownload()
 					if (d.filetype=="plain")
 					{
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
 							++dlCount;
@@ -1256,7 +1256,7 @@ void ResourceManager::startDownload()
 					{
 //						qDebug()<<"zip type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
 							++dlCount;
@@ -1268,7 +1268,7 @@ void ResourceManager::startDownload()
 					{
 //						qDebug()<<"plain type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
 							++dlCount;
@@ -1289,7 +1289,7 @@ void ResourceManager::startDownload()
 					{
 //						qDebug()<<"zip type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
 							ScQApp->dlManager()->addURL(d.url+"/"+s+".sha256", true, ScPaths::downloadDir(), destinationFolder);
@@ -1311,7 +1311,7 @@ void ResourceManager::startDownload()
 					{
 //						qDebug()<<"zip type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
-						foreach (QString s, plainURLs)
+						foreach (const QString& s, plainURLs)
 						{
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
 							ScQApp->dlManager()->addURL(d.url+"/"+s+".sha256", true, ScPaths::downloadDir(), destinationFolder);
@@ -1387,7 +1387,7 @@ void ResourceManager::showLicense()
 				case RM_SPELL:
 				case RM_PALETTES:
 */
-			foreach(DownloadItem d, availableList)
+			foreach(const DownloadItem& d, availableList)
 			{
 				if (filesToDownload.contains(d.desc))
 				{

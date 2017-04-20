@@ -124,7 +124,7 @@ void PropertyWidget_ParEffect::fillNumerationsCombo()
 	QStringList numNames;
 	if (m_doc)
 	{
-		foreach (QString numName, m_doc->numerations.keys())
+		foreach (const QString& numName, m_doc->numerations.keys())
 			numNames.append(numName);
 		numNames.sort();
 	}

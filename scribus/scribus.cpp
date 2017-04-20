@@ -7255,7 +7255,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
 				if (!errorMsg.isEmpty())
-					message = QString("%1\n%2").arg(message).arg(errorMsg);
+					message = QString("%1\n%2").arg(message, errorMsg);
 				ScMessageBox::warning(this, CommonStrings::trWarning, message);
 			}
 		}

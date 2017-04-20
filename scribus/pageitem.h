@@ -144,15 +144,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 // 	Q_ENUMS(PenJoinStyle)
 // 	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
 
-	// This property may not hang around for too long, but should be useful
-	// when testing out the pageitem refactoring work.  Setting it is unlikely
-	// to currently have the desired effect.
-	/**
-	 * @brief Item type.
-	 * @warning Do not set this property except for testing and debug purposes.
-	 */
-	Q_ENUMS(ItemType)
-	Q_PROPERTY(ItemType itemType READ itemType WRITE convertTo DESIGNABLE false)
+
 
 public:	// Start enumerator definitions
 
@@ -225,6 +217,16 @@ public:	// Start enumerator definitions
 		Other		= 3
 	};
 		//End enumerator definitions
+
+	// This property may not hang around for too long, but should be useful
+	// when testing out the pageitem refactoring work.  Setting it is unlikely
+	// to currently have the desired effect.
+	/**
+	 * @brief Item type.
+	 * @warning Do not set this property except for testing and debug purposes.
+	 */
+	Q_ENUM(ItemType)
+	Q_PROPERTY(ItemType itemType READ itemType WRITE convertTo DESIGNABLE false)
 
 public: // Start public functions
 

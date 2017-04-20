@@ -198,7 +198,7 @@ void SMPStyleWidget::fillNumFormatCombo()
 void SMPStyleWidget::fillNumerationsCombo()
 {
 	QStringList numNames;
-	foreach (QString numName, m_Doc->numerations.keys())
+	foreach (const QString& numName, m_Doc->numerations.keys())
 		numNames.append(numName);
 	numNames.sort();
 	numComboBox->clear();

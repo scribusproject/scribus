@@ -114,7 +114,7 @@ void SMTableStyle::selected(const QStringList &styleNames)
 	for (int i = 0; i < m_cachedStyles.count(); ++i)
 		tableStyles << m_cachedStyles[i];
 
-	foreach (QString styleName, styleNames)
+	foreach (const QString& styleName, styleNames)
 	{
 		int index = m_cachedStyles.find(styleName);
 		// FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
@@ -273,7 +273,7 @@ void SMTableStyle::setShortcut(const QString &shortcut)
 
 void SMTableStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
-	foreach (RemoveItem removeItem, removeList)
+	foreach (const RemoveItem& removeItem, removeList)
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
 		{

@@ -91,13 +91,13 @@ bool ScFace_postscript::loadFontMetrics(FT_Face face, const QString& fontPath) c
 			metricsFile = fontMetrics.at(i);
 			if (FT_Attach_File(face, metricsFile.toLocal8Bit().constData()))
 			{
-				qDebug() << QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile);
+				qDebug() << QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath, metricsFile);
 				brokenMetric = true;
 			}
 			else
 			{
 				if (brokenMetric)
-					qDebug() << QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile).arg(metricsFile);
+					qDebug() << QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile, metricsFile);
 				metricsFound = true;
 				break;
 			}

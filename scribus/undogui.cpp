@@ -143,8 +143,7 @@ void UndoWidget::redoMenuClicked(QAction *id)
 
 void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 {
-	undoItems.insert(undoItems.begin(), QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
-                                        .arg(target->getUName()).arg(state->getName()));
+	undoItems.insert(undoItems.begin(), QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)")).arg(target->getUName(), state->getName()));
 	clearRedo();
 	updateUndoMenu();
 	updateRedoMenu();
@@ -152,8 +151,7 @@ void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 
 void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 {
-	redoItems.push_back(QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
-                        .arg(target->getUName()).arg(state->getName()));
+	redoItems.push_back(QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)")).arg(target->getUName(), state->getName()));
 	updateRedoMenu();
 	updateUndoMenu();
 }
@@ -542,7 +540,7 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 		}
 		setIcon(pixmap);
 	}
-	setText(tr("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
+	setText(tr("%1 - %2\n%3").arg(targetName, actionName, actionDescription));
 }
 
 //void UndoPalette::UndoItem::paint(QPainter *painter)
