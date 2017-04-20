@@ -28,7 +28,9 @@ class MarginStruct
 		MarginStruct() : m_top(0), m_left(0), m_bottom(0), m_right(0) {}
 		MarginStruct(double top, double left, double bottom, double right) :
 			m_top(top), m_left(left), m_bottom(bottom), m_right(right) {}
-		MarginStruct(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;}
+//unneeded? default compiler generated should suffice
+//		MarginStruct(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;}
+//		MarginStruct& operator=(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;return *this;}
 		void set(double top, double left, double bottom, double right) {m_top=top;m_bottom=bottom;m_left=left;m_right=right;}
 		void resetToZero() {m_top=0.0;m_bottom=0.0;m_left=0.0;m_right=0.0;}
 		bool isNull() const {return qFuzzyIsNull(m_left) && qFuzzyIsNull(m_top) && qFuzzyIsNull(m_right) && qFuzzyIsNull(m_bottom);}
