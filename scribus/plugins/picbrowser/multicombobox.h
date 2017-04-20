@@ -16,6 +16,7 @@ class multiCombobox;
 
 class multiComboboxModel : public QStandardItemModel
 {
+	Q_OBJECT
 	public:
 		multiComboboxModel ( QObject* parent = 0 );
 		Qt::ItemFlags flags ( const QModelIndex& index ) const;
@@ -24,6 +25,7 @@ class multiComboboxModel : public QStandardItemModel
 
 class multiView : public QListView
 {
+	Q_OBJECT
 	public:
 		multiView ( QWidget* parent = 0 );
 		multiView ( multiCombobox* parent );
@@ -36,8 +38,7 @@ class multiView : public QListView
 
 class multiCombobox : public QComboBox
 {
-		Q_OBJECT
-
+	Q_OBJECT
 	public:
 		multiCombobox ( QWidget *parent = 0 );
 

@@ -284,7 +284,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 					if (image->height()-yt < rows)
 						tileH = image->height()-yt;
 					tileW = columns;
-					register uint32 yi;
+					uint32 yi;
 					int chans = image->channels();
 					for (xt = 0; xt < (uint) image->width(); xt += columns)
 					{

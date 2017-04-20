@@ -132,7 +132,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double textToFrameDistBottom READ textToFrameDistBottom WRITE setTextToFrameDistBottom DESIGNABLE false)
 	Q_PROPERTY(double ColGap READ columnGap WRITE setColumnGap DESIGNABLE false)
 	Q_PROPERTY(int Cols READ columns WRITE setColumns DESIGNABLE false)
-	Q_ENUMS(FirstLineOffsetPolicy)
+	Q_ENUM(FirstLineOffsetPolicy)
 	Q_PROPERTY(FirstLineOffsetPolicy firstLineOffset READ firstLineOffset WRITE setFirstLineOffset DESIGNABLE false)
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their

@@ -116,6 +116,7 @@ TODO: colors of the higlited texts. User should set the colors in the
 */
 class SyntaxHighlighter : public QSyntaxHighlighter
 {
+	Q_OBJECT
 	public:
 		SyntaxHighlighter(QTextEdit *textEdit);
 

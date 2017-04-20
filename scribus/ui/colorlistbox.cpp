@@ -240,7 +240,6 @@ ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 
 ColorListBox::~ColorListBox()
 {
-	int count = this->count();
 	if (itemDelegate())
 		delete itemDelegate();
 	clear();
@@ -397,7 +396,7 @@ int ColorListBox::row(QString colorName)
 void ColorListBox::setCurrentColor(QString colorName)
 {
 	if (colorName == CommonStrings::None)
-		colorName == CommonStrings::tr_NoneColor;
+		colorName = CommonStrings::tr_NoneColor;
 
 	QModelIndex firstIndex = model()->index(0, 0, QModelIndex());
 	QModelIndexList indexes = this->model()->match(firstIndex, Qt::DisplayRole, colorName, -1, Qt::MatchExactly);
@@ -408,7 +407,6 @@ void ColorListBox::setCurrentColor(QString colorName)
 void ColorListBox::setColors(ColorList& list, bool insertNone)
 {
 	ColorList::Iterator it;
-	ScribusDoc* doc = list.document();
 
 	ColorListModel* colorModel = dynamic_cast<ColorListModel*>(this->model());
 	if (!colorModel)

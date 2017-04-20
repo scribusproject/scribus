@@ -694,7 +694,7 @@ UnZip::ErrorCode UnzipPrivate::extractFile(const QString& path, const ZipEntryP&
         if (options & UnZip::SkipPaths)
             return UnZip::Ok;
 
-        directory = QString("%1/%2").arg(dir.absolutePath()).arg(QDir::cleanPath(name));
+		directory = QString("%1/%2").arg(dir.absolutePath(), QDir::cleanPath(name));
         if (!createDirectory(directory)) {
             qDebug() << QString("Unable to create directory: %1").arg(directory);
             return UnZip::CreateDirFailed;
@@ -714,7 +714,7 @@ UnZip::ErrorCode UnzipPrivate::extractFile(const QString& path, const ZipEntryP&
         if (options & UnZip::SkipPaths) {
             directory = dir.absolutePath();
         } else {
-            directory = QString("%1/%2").arg(dir.absolutePath()).arg(QDir::cleanPath(dirname));
+			directory = QString("%1/%2").arg(dir.absolutePath(), QDir::cleanPath(dirname));
             if (!createDirectory(directory)) {
                 qDebug() << QString("Unable to create directory: %1").arg(directory);
                 return UnZip::CreateDirFailed;
@@ -733,7 +733,7 @@ UnZip::ErrorCode UnzipPrivate::extractFile(const QString& path, const ZipEntryP&
         }
     }
 
-    name = QString("%1/%2").arg(directory).arg(name);
+	name = QString("%1/%2").arg(directory, name);
 
     QFile outFile(name);
     if (!outFile.open(QIODevice::WriteOnly)) {

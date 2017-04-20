@@ -25,14 +25,14 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include <QCheckBox>
-#include <QMessageBox>
-#include <QDomDocument>
-#include <QMenu>
 #include <QCursor>
-#include <QEventLoop>
-#include <QImageReader>
 #include <QDir>
+#include <QDomDocument>
+#include <QEventLoop>
 #include <QFileDialog>
+#include <QImageReader>
+#include <QMenu>
+#include <QMessageBox>
 
 #include "cmykfw.h"
 #include "colorlistbox.h"

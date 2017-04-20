@@ -162,6 +162,7 @@ protected:
 
 class GroupBox: public Box
 {
+	Q_OBJECT
 public:
 	GroupBox(BoxDirection direction)
 	{
@@ -201,6 +202,7 @@ private:
 
 class LineBox: public GroupBox
 {
+	Q_OBJECT
 public:
 	LineBox()
 		: GroupBox(D_Horizontal)
@@ -232,6 +234,7 @@ protected:
 
 class PathLineBox: public LineBox
 {
+	Q_OBJECT
 public:
 	PathLineBox()
 	{
@@ -245,6 +248,7 @@ protected:
 
 class GlyphBox: public Box
 {
+	Q_OBJECT
 public:
 	GlyphBox(const GlyphCluster& run)
 		: m_glyphRun(run)
@@ -276,6 +280,7 @@ protected:
 
 class ObjectBox: public GlyphBox
 {
+	Q_OBJECT
 public:
 	ObjectBox(const GlyphCluster& run, ITextContext* ctx)
 		: GlyphBox(run)

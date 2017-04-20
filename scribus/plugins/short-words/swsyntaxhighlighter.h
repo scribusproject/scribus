@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
  */
 class SWSyntaxHighlighter : public QSyntaxHighlighter
 {
+	Q_OBJECT
 	public:
 		SWSyntaxHighlighter(QTextEdit *textEdit);
 

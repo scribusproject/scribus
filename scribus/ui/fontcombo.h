@@ -47,6 +47,7 @@ class ScribusDoc;
 
 class SCRIBUS_API FontCombo : public QComboBox
 {
+	Q_OBJECT
 public:
 	FontCombo(QWidget* pa);
 	~FontCombo() {}

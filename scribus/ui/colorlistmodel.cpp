@@ -99,7 +99,6 @@ QModelIndex ColorListModel::index(int row, int column, const QModelIndex &parent
 	if (pColorValue)
 		return QModelIndex();
 
-	int colCount = columnCount();
 	if (row < 0 || (row >= rowCount()) || (column != 0))
 		return QModelIndex();
 

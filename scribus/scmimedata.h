@@ -28,6 +28,7 @@
 
 class SCRIBUS_API ScMimeData
 {
+	Q_OBJECT
 public:
 	static const QString ScribusElemMimeType;
 	static const QString ScribusFragmentMimeType;
@@ -42,15 +43,16 @@ public:
 	static QString clipboardKnownDataExt(void);
 	static QByteArray clipboardKnownDataData(void);
 
-	static QString    clipboardScribusElem(void);
+	static QString clipboardScribusElem(void);
 	static QByteArray clipboardScribusFragment(void);
 	static QByteArray clipboardScribusText(void);
 };
 
 class SCRIBUS_API ScFragmentMimeData : public QMimeData
 {
+	Q_OBJECT
 public:
-	ScFragmentMimeData(void) : QMimeData() {};
+	ScFragmentMimeData(void) : QMimeData() {}
 
 	void setScribusFragment(const QByteArray& fragment) { setData(ScMimeData::ScribusFragmentMimeType, fragment); }
 	QByteArray scribusFragment(void) { return data(ScMimeData::ScribusFragmentMimeType); }
@@ -58,8 +60,9 @@ public:
 
 class SCRIBUS_API ScElemMimeData : public QMimeData
 {
+	Q_OBJECT
 protected:
-	QString     m_scribusElemData;
+	QString m_scribusElemData;
 	QStringList m_formats;
 
 	virtual QVariant retrieveData ( const QString & mimeType, QVariant::Type type ) const;
@@ -76,8 +79,9 @@ public:
 
 class SCRIBUS_API ScTextMimeData : public QMimeData
 {
+	Q_OBJECT
 public:
-	ScTextMimeData(void) : QMimeData() {};
+	ScTextMimeData(void) : QMimeData() {}
 
 	void setScribusText(const QByteArray& scText) { setData(ScMimeData::ScribusTextMimeType, scText); }
 	QByteArray scribusText(void) { return data(ScMimeData::ScribusFragmentMimeType); }

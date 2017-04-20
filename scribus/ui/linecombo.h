@@ -36,9 +36,10 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API LineCombo : public QComboBox
 {
+	Q_OBJECT
 public: 
 	LineCombo(QWidget* pa);
-	~LineCombo() {};
+	~LineCombo() {}
 	void updateList();
 	QPixmap createIcon(int type);
 };

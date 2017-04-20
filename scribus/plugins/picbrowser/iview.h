@@ -21,6 +21,7 @@
 
 class IView: public QGraphicsView
 {
+	Q_OBJECT
 	public:
 		IView ( QWidget* parent );
 		~IView();

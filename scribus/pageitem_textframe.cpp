@@ -5534,8 +5534,8 @@ bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
 		item = firstInChain();
 	while (item != NULL)
 	{
-		QMap<PageItem_NoteFrame*, QList<TextNote*> >::iterator it = m_notesFramesMap.begin();
-		QMap<PageItem_NoteFrame*, QList<TextNote*> >::iterator end = m_notesFramesMap.end();
+		NotesInFrameMap::iterator it = m_notesFramesMap.begin();
+		NotesInFrameMap::iterator end = m_notesFramesMap.end();
 		while (it != end)
 		{
 			if (it.key()->notesStyle() == NS)

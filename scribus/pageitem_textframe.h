@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEMTEXTFRAME_H
 #define PAGEITEMTEXTFRAME_H
 
-#include <QMap>
+#include <QHash>
 #include <QRectF>
 #include <QString>
 #include <QKeyEvent>
@@ -36,7 +36,7 @@ class PageItem_NoteFrame;
 class ScPainter;
 class ScribusDoc;
 
-typedef QMap<PageItem_NoteFrame*, QList<TextNote *> > NotesInFrameMap;
+typedef QHash<PageItem_NoteFrame*, QList<TextNote *> > NotesInFrameMap;
 
 
 //cezaryece: I remove static statement and made it public as this function is used also by PageItem_NoteFrame
@@ -49,7 +49,7 @@ class SCRIBUS_API PageItem_TextFrame : public PageItem
 public:
 	PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	PageItem_TextFrame(const PageItem & p);
-	~PageItem_TextFrame() {};
+	~PageItem_TextFrame() {}
 
 	virtual PageItem_TextFrame * asTextFrame() { return this; }
 	virtual bool isTextFrame() const { return true; }

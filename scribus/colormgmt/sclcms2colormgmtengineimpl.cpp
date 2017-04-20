@@ -48,7 +48,6 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 	if ((!d.exists()) || (d.count() == 0))
 		return profileInfos;
 
-	QString nam = "";
 	cmsHPROFILE hIn = NULL;
 
 	for (uint dc = 0; dc < d.count(); ++dc)
