@@ -59,7 +59,7 @@ Q_DECLARE_METATYPE(LineFormatValue);
 
 
 class SCRIBUS_API LineFormatItem : public QListWidgetItem
-{	
+{
 	enum usrType {
 		LineFormatUserType = UserType + 2
 	};
@@ -82,11 +82,12 @@ public:
 
 class SCRIBUS_API LineFormatItemDelegate : public ScListBoxPixmap<37, 37>
 {
-public:
-	LineFormatItemDelegate() : ScListBoxPixmap<37, 37>() {}
-	virtual int rtti() const { return 148523874; }
-	virtual QString text(const QVariant&) const;
-	virtual void redraw(const QVariant&) const;
+	Q_OBJECT
+	public:
+		LineFormatItemDelegate() : ScListBoxPixmap<37, 37>() {}
+		virtual int rtti() const { return 148523874; }
+		virtual QString text(const QVariant&) const;
+		virtual void redraw(const QVariant&) const;
 };
 
 class SCRIBUS_API NameWidget : public QLineEdit
@@ -95,7 +96,7 @@ class SCRIBUS_API NameWidget : public QLineEdit
 
 public:
 	NameWidget(QWidget* parent);
-	~NameWidget() {};
+	~NameWidget() {}
 
 signals:
 	void Leaved();

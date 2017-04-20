@@ -557,7 +557,7 @@ QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isV
 	{
 		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QString("Internal error: element named <%1> not expected <%2>")
-					.arg(elem.tagName()).arg(name)
+					.arg(elem.tagName(), name)
 			);
 		return QDomNode().toElement();
 	}

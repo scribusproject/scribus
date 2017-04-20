@@ -1425,7 +1425,7 @@ void ScribusMainWindow::setStatusBarTextSelectedItemInfo()
 				break;
 		}
 		QString txtBody = tr("%1 selected").arg(whatSel) + " : " + tr("Size");
-		setStatusBarInfoText( QString("%1 = %3 x %4").arg(txtBody).arg(widthTxt).arg(heightTxt));
+		setStatusBarInfoText( QString("%1 = %3 x %4").arg(txtBody, widthTxt, heightTxt));
 	}
 	else
 	{
@@ -7233,7 +7233,7 @@ void ScribusMainWindow::doSaveAsPDF()
 					qApp->restoreOverrideCursor();
 					QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
 					if (!errorMsg.isEmpty())
-						message = QString("%1\n%2").arg(message).arg(errorMsg);
+						message = QString("%1\n%2").arg(message, errorMsg);
 					ScMessageBox::warning(this, CommonStrings::trWarning, message);
 					return;
 				}
@@ -8238,7 +8238,7 @@ void ScribusMainWindow::initHyphenator()
 	//Grab the language abbreviation from it, get the full language text
 	//Insert the name as key and a new string list into the map
 	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"/hyph/");
-	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
+//	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 //IL	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 //IL	{
 // 		LanguageManager langmgr;
@@ -8312,17 +8312,15 @@ void ScribusMainWindow::initHyphenator()
 
 void ScribusMainWindow::ImageEffects()
 {
-	if (HaveDoc)
-	{
-		if (!doc->m_Selection->isEmpty())
-		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
-			if (dia->exec())
-				doc->itemSelection_ApplyImageEffects(dia->effectsList);
-			delete dia;
-		}
-	}
+	if (!HaveDoc)
+		return;
+	if (doc->m_Selection->isEmpty())
+		return;
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
+	if (dia->exec())
+		doc->itemSelection_ApplyImageEffects(dia->effectsList);
+	delete dia;
 }
 
 QString ScribusMainWindow::fileCollect(bool compress, bool withFonts, const bool withProfiles, const QString& )
@@ -8332,6 +8330,7 @@ QString ScribusMainWindow::fileCollect(bool compress, bool withFonts, const bool
 	CollectForOutput_UI c(this, doc, QString::null, withFonts, withProfiles, compress);
 	QString newFileName;
 	QString errorMsg=c.collect(newFileName);
+	qDebug()<<errorMsg;
 	return newFileName;
 }
 

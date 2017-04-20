@@ -120,7 +120,6 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return false;
-	QString tmp, BBox;
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	QStringList args;

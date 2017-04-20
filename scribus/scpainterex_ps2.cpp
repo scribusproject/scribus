@@ -997,7 +997,6 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	VColorStopEx stop2( *colorStops[0] );
 	RGBColor rgb;
 	FPoint p1, p2;
-	QColor color;
 
 	if ( gradient.Stops() < 2 ) 
 		return;
@@ -1097,7 +1096,6 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 	VColorStopEx stop2( *colorStops[0] );
 	CMYKColor cmyk;
 	FPoint p1, p2;
-	QColor color;
 
 	if ( gradient.Stops() < 2 ) 
 		return;
@@ -1208,7 +1206,6 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
 	RGBColor rgb;
-	QColor color;
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
@@ -1291,7 +1288,6 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
 	CMYKColor cmyk;
-	QColor color;
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();

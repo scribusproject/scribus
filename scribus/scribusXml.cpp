@@ -157,7 +157,6 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	if (selection->count()==0)
 		return "";
 	double xp, yp, wp, hp;
-	QString tmp, tmpy;
 	PageItem *item;
 	QString documentStr = "";
 	item = selection->itemAt(0);

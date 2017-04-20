@@ -223,7 +223,6 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	optimization = OptimizeCompat;
 	usingGUI=ScCore->usingGUI();
 	abortExport=false;
-	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
 	Seiten = 0;
 	User = "";
@@ -1238,7 +1237,6 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	else
 	{
 		ScImage image;
-		QByteArray imgArray;
 		image.imgInfo.valid = false;
 		image.imgInfo.clipPath = "";
 		image.imgInfo.PDSpathData.clear();
@@ -1644,7 +1642,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 				{
 					for (int api = 0; api < Doc->MasterItems.count() && !abortExport; ++api)
 					{
-						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
 						if (usingGUI)
 							ScQApp->processEvents();
@@ -2562,10 +2559,6 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 
 void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool farb)
 {
-	int b;
-//	int h, s, v, k;
-	QByteArray chstrc;
-	QString chstr, chglyph, tmp;
 	PageItem *c;
 	QList<PageItem*> PItems;
 	int Lnr = 0;
@@ -2578,7 +2571,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 		Doc->Layers.levelToLayer(ll, Lnr);
 		if (ll.isPrintable && !abortExport)
 		{
-			for (b = 0; b < PItems.count() && !abortExport; ++b)
+			for (int b = 0; b < PItems.count() && !abortExport; ++b)
 			{
 				c = PItems.at(b);
 				if (usingGUI)

@@ -807,7 +807,6 @@ QByteArray PDFLibCore::EncStream(const QByteArray & in, PdfId ObjNum)
 
 QByteArray PDFLibCore::EncString(const QByteArray & in, PdfId ObjNum)
 {
-	QByteArray tmp;
 	if (in.length() < 1)
 		return "<>";
 	if (!Options.Encrypt)
@@ -980,12 +979,6 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<
 	if (!writer.open(fn))
 		return false;
 	
-	QFileInfo fiBase(fn);
-	QString baseDir = fiBase.absolutePath();
-
-//	QString tmp;
-//	QFileInfo fd;
-//	QString fext;
 	inPattern = 0;
 	Bvie = vi;
 	BookMinUse = false;
@@ -1080,7 +1073,6 @@ void PDFLibCore::PDF_Begin_Catalog()
 	{
 		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Pdf::toPdfDocEncoding(Options.openAction)+"\\(\\)) >>\n");
 	}
-	QString tmp;
 	QDateTime dt = QDateTime::currentDateTime().toUTC();
 	Datum = Pdf::toDateString(dt);
 //    "D:";
@@ -2550,7 +2542,7 @@ void PDFLibCore::PDF_Begin_Layers()
 
 bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 {
-	QByteArray tmp, tmpOut;
+	QByteArray tmpOut;
 	ActPageP = pag;
 	PageItem* ite;
 	QList<PageItem*> PItems;
@@ -6160,7 +6152,6 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 				TransVec.append(a);
 			}
 		}
-		QByteArray TRes("");
 		PdfId patObject = writer.newObject();
 		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
@@ -10110,7 +10101,6 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	ScImage img;
-	QByteArray tmp, tmpy, dummy, cmd1, cmd2;
 	QString BBox;
 	QChar  tc;
 	bool   found = false;

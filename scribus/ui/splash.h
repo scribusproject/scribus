@@ -17,13 +17,14 @@ for which a new license (GPL+exception) is in place.
 //! \brief Scribus splash screen
 class SCRIBUS_API ScSplashScreen : public QSplashScreen
 {
+	Q_OBJECT
 	public:
 		/*!
 		\author Franz Schmid
 		\brief Constructor for SplashScreen
 		 */
 		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0 );
-		~ScSplashScreen() {};
+		~ScSplashScreen() {}
 		/*!
 		\author Franz Schmid
 		\brief Sets new status on SplashScreen and calls for a SplashScreen::repaint afterwards.

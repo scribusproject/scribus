@@ -255,19 +255,15 @@ QString ScPaths::dictDir() const
 QStringList ScPaths::spellDirs() const
 {
 	//dictionaryPaths
-	QString macPortsPath("/opt/local/share/hunspell/");
-	QString finkPath("/sw/share/hunspell/");
-	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
-	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/Resources/extensions");
-	QString linuxLocalPath("/usr/local/share/hunspell/");
-	QString linuxHunspellPath("/usr/share/hunspell/");
-	QString linuxMyspellPath("/usr/share/myspell/");
-	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList spellDirs;
 	spellDirs.append(userDictDir(ScPaths::Spell, false));
 	spellDirs.append(m_shareDir + "dicts/spelling/");
 #ifdef Q_OS_MAC
+	QString macPortsPath("/opt/local/share/hunspell/");
+	QString finkPath("/sw/share/hunspell/");
+	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
+	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/Resources/extensions");
 	d.setPath(macPortsPath);
 	if (d.exists())
 		spellDirs.append(macPortsPath);
@@ -294,6 +290,7 @@ QStringList ScPaths::spellDirs() const
 	}
 
 #elif defined(_WIN32)
+//	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QString progFiles = windowsSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
@@ -305,6 +302,9 @@ QStringList ScPaths::spellDirs() const
 			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
+	QString linuxLocalPath("/usr/local/share/hunspell/");
+	QString linuxHunspellPath("/usr/share/hunspell/");
+	QString linuxMyspellPath("/usr/share/myspell/");
 	d.setPath(linuxHunspellPath);
 	if (d.exists())
 		spellDirs.append(linuxHunspellPath);
