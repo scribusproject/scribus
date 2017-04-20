@@ -16,13 +16,14 @@ for which a new license (GPL+exception) is in place.
 class SWSyntaxHighlighter : public QSyntaxHighlighter
 {
 	Q_OBJECT
-	public:
-		SWSyntaxHighlighter(QTextEdit *textEdit);
 
-		/*! Reimplementation of the Qt highligtion for simple cfg file
-		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
-		 */
-		void highlightBlock(const QString &text);
+public:
+	SWSyntaxHighlighter(QTextEdit *textEdit);
+
+	/*! Reimplementation of the Qt highligtion for simple cfg file
+	\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
+		*/
+	void highlightBlock(const QString &text);
 };
 
 #endif

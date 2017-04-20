@@ -20,6 +20,7 @@ class PreviewImagesModel;
 class PictView : public QListView
 {
 	Q_OBJECT
+
 	public:
 		PictView(QWidget * parent );
 		

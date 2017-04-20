@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API LinkButton : public QToolButton
 {
 	Q_OBJECT
+
 public: 
 	/*!
 	\author Franz Schmid

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScSplashScreen : public QSplashScreen
 {
 	Q_OBJECT
+
 	public:
 		/*!
 		\author Franz Schmid

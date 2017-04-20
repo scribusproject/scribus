@@ -35,6 +35,7 @@ class TransactionSettings;
 class CanvasMode_ObjImport :  public CanvasMode
 {
 	Q_OBJECT
+
 public:
 	explicit CanvasMode_ObjImport(ScribusView* view);
 	virtual ~CanvasMode_ObjImport();

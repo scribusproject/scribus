@@ -17,6 +17,7 @@ class QWidget;
 class SCRIBUS_API ScColorSlider : public QSlider
 {
 	Q_OBJECT
+
 public: 
 	ScColorSlider(QWidget* parent = 0);
 	
