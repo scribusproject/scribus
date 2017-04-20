@@ -358,14 +358,14 @@ public:
 	bool isItalic() const;
 	bool isBold()   const;
 
-	/// deprecated
-	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
+//	/// deprecated
+//	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
 
-	/// deprecated
-	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
+//	/// deprecated
+//	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
 
-	/// deprecated
-	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
+//	/// deprecated
+//	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
 
 	/// returns a map of values used for font dictionaries in PS/PDF
 	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m_m->fontDictionary(sz); }
