@@ -273,13 +273,13 @@ QTreeWidgetItem* ColorsAndFillsDialog::updateColorList(QString addedName)
 			{
 				QString sortString = QString("%1-%2");
 				if (it.value().isRegistrationColor())
-					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
+					sortMap.insert(sortString.arg("A", it.key()), it.key());
 				else if (it.value().isSpotColor())
-					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
+					sortMap.insert(sortString.arg("B", it.key()), it.key());
 				else if (it.value().getColorModel() == colorModelCMYK)
-					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
+					sortMap.insert(sortString.arg("C", it.key()), it.key());
 				else
-					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
+					sortMap.insert(sortString.arg("D", it.key()), it.key());
 			}
 		}
 		QMap<QString, QString>::Iterator itc;

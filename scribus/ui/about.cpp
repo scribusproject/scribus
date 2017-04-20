@@ -121,12 +121,12 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
 
-	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
+	QString built = tr("%1 %2 %3").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR);
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
 	if (BUILD_NAME == "BleedingEdge")
-		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
+		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR, BUILD_TIME, BUILD_TZ);
 
 #if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
 	QString revText;

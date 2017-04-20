@@ -41,7 +41,7 @@ class FileWatcher;
 
 class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 {
-		Q_OBJECT
+	Q_OBJECT
 	public:
 		LatexEditor ( PageItem_LatexFrame * );
 		~LatexEditor();
@@ -92,7 +92,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 
 class SCRIBUS_API DataPushButton : public QPushButton
 {
-		Q_OBJECT
+	Q_OBJECT
 	public:
 		DataPushButton ( QString caption, QObject *data, bool deleteOnDestroy=false ) :
 				QPushButton ( caption ), data ( data ), del ( deleteOnDestroy )
@@ -117,7 +117,7 @@ class SCRIBUS_API DataPushButton : public QPushButton
 
 class SCRIBUS_API StringPushButton : public QPushButton
 {
-		Q_OBJECT
+	Q_OBJECT
 	public:
 		StringPushButton ( QString caption, QString data ) :
 				QPushButton ( caption ), data ( data )

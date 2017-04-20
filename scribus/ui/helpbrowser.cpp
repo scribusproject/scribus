@@ -370,7 +370,6 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 			int cnt = str.count(helpNav->searchingEdit->text(), Qt::CaseInsensitive);
 			if (cnt > 0)
 			{
-				QString fullname = fname;
 				QString toFind(fname.remove(finalBaseDir + "/"));
 				QMapIterator<QString, QString> i(quickHelpIndex);
 				while (i.hasNext())

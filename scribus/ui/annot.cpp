@@ -56,7 +56,6 @@ for which a new license (GPL+exception) is in place.
 ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent )
 {
-	ScribusDoc* doc = Farben.document();
 	m_annotation = it->annotation();
 
 	setupUi(this);

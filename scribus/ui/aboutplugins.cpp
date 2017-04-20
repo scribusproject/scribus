@@ -67,13 +67,13 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 	QString html;
 	html = QString("<html><body><h1>%1</h1>").arg(plugin->fullTrName());
 	html += "<table>";
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.completeBaseName());
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:")).arg(about->version);
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:"), fi.completeBaseName());
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:"), about->version);
 // As we don't allow users to disable plugins, hide this
 //	QString ena;
 //	ena = pluginManager.enabled(name) ? CommonStrings::trYes : CommonStrings::trNo;
 //	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Enabled:")).arg(ena);
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Release Date:")).arg(about->releaseDate.toString());
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Release Date:"), about->releaseDate.toString());
 	html += "</table>";
 	QString desc;
 	if (!about->shortDescription.isNull())
@@ -81,9 +81,9 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 	if (!about->description.isNull())
 		desc += QString("<p>%1</p>").arg(about->description);
 	html += QString("<h2>%1</h2>%2").arg( tr("Description:")).arg(desc);
-	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Author(s):")).arg(htmlize(about->authors));
-	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:")).arg(htmlize(about->copyright));
-	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:")).arg(htmlize(about->license));
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Author(s):"), htmlize(about->authors));
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:"), htmlize(about->copyright));
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:"), htmlize(about->license));
 	html += "</html>";
 	infoBrowser->setHtml(html);
 	// Use the plugin to delete the about info, so we don't

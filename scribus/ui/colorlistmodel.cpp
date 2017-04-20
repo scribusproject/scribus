@@ -257,22 +257,22 @@ bool ColorListModel::compareColorTypes(const ColorPixmapValue& v1, const ColorPi
 	QString sortString2 = QString("%1-%2");
 
 	if (v1.m_color.isRegistrationColor())
-		sortString1 = sortString1.arg("A").arg(v1.m_name);
+		sortString1 = sortString1.arg("A", v1.m_name);
 	else if (v1.m_color.isSpotColor())
-		sortString1 = sortString1.arg("B").arg(v1.m_name);
+		sortString1 = sortString1.arg("B", v1.m_name);
 	else if (v1.m_color.getColorModel() == colorModelCMYK)
-		sortString1 = sortString1.arg("C").arg(v1.m_name);
+		sortString1 = sortString1.arg("C", v1.m_name);
 	else
-		sortString1 = sortString1.arg("D").arg(v1.m_name);
+		sortString1 = sortString1.arg("D", v1.m_name);
 
 	if (v2.m_color.isRegistrationColor())
-		sortString2 = sortString2.arg("A").arg(v2.m_name);
+		sortString2 = sortString2.arg("A", v2.m_name);
 	else if (v2.m_color.isSpotColor())
-		sortString2 = sortString2.arg("B").arg(v2.m_name);
+		sortString2 = sortString2.arg("B", v2.m_name);
 	else if (v2.m_color.getColorModel() == colorModelCMYK)
-		sortString2 = sortString2.arg("C").arg(v2.m_name);
+		sortString2 = sortString2.arg("C", v2.m_name);
 	else
-		sortString2 = sortString2.arg("D").arg(v2.m_name);
+		sortString2 = sortString2.arg("D", v2.m_name);
 
 	return (sortString1 < sortString2);
 }
