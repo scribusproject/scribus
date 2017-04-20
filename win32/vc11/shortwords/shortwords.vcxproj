@@ -226,7 +226,7 @@
     <moc Include="..\..\..\scribus\plugins\short-words\swdialog.h" />
     <moc Include="..\..\..\scribus\plugins\short-words\swprefsgui.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h" />
+    <moc Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h" />
     <ClInclude Include="..\..\..\scribus\plugins\short-words\version.h" />
     <ClInclude Include="..\..\..\scribus\plugins\short-words\ui_swdialog.h" />
   </ItemGroup>

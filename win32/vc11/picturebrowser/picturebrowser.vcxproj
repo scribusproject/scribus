@@ -225,12 +225,12 @@
     <moc Include="..\..\..\scribus\plugins\picbrowser\collection.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\findimage.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\imagedialog.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\iview.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\iview.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\loadimage.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\multicombobox.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\pictview.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\pictview.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h" />
     <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_imagedialog.h" />

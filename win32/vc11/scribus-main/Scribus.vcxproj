@@ -278,7 +278,7 @@
     <moc Include="..\..\..\scribus\ui\bookmwin.h" />
     <moc Include="..\..\..\scribus\ui\buttonicon.h" />
     <moc Include="..\..\..\scribus\canvas.h" />
-    <ClInclude Include="..\..\..\scribus\canvasgesture.h" />
+    <moc Include="..\..\..\scribus\canvasgesture.h" />
     <moc Include="..\..\..\scribus\canvasgesture_cellselect.h" />
     <moc Include="..\..\..\scribus\canvasgesture_columnresize.h" />
     <ClInclude Include="..\..\..\scribus\canvasgesture_linemove.h" />
@@ -306,12 +306,12 @@
     <moc Include="..\..\..\scribus\canvasmode_editweldpoint.h" />
     <moc Include="..\..\..\scribus\canvasmode_eyedropper.h" />
     <moc Include="..\..\..\scribus\canvasmode_framelinks.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_imageimport.h" />
+    <moc Include="..\..\..\scribus\canvasmode_imageimport.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h" />
     <moc Include="..\..\..\scribus\canvasmode_measurements.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_nodeedit.h" />
     <moc Include="..\..\..\scribus\canvasmode_normal.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_objimport.h" />
+    <moc Include="..\..\..\scribus\canvasmode_objimport.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_panning.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h" />
     <ClInclude Include="..\..\..\scribus\cellarea.h" />
@@ -417,7 +417,7 @@
     <moc Include="..\..\..\scribus\ui\directionselect.h" />
     <moc Include="..\..\..\scribus\ui\colorlistmodel.h" />
     <moc Include="..\..\..\scribus\ui\colorsandfills.h" />
-    <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
+    <moc Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
     <moc Include="..\..\..\scribus\ui\hyask.h" />
@@ -439,7 +439,7 @@
     <moc Include="..\..\..\scribus\ui\layers.h" />
     <moc Include="..\..\..\scribus\ui\linecombo.h" />
     <ClInclude Include="..\..\..\scribus\styles\linestyle.h" />
-    <ClInclude Include="..\..\..\scribus\ui\linkbutton.h" />
+    <moc Include="..\..\..\scribus\ui\linkbutton.h" />
     <moc Include="..\..\..\scribus\loadsaveplugin.h" />
     <ClInclude Include="..\..\..\scribus\localemgr.h" />
     <moc Include="..\..\..\scribus\ui\loremipsum.h" />
@@ -591,7 +591,7 @@
     <moc Include="..\..\..\scribus\ui\recoverdialog.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_fontfeatures.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_hyphenation.h" />
-    <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h" />
+    <moc Include="..\..\..\scribus\ui\sccolorslider.h" />
     <moc Include="..\..\..\scribus\ui\smfontfeatures.h" />
     <moc Include="..\..\..\scribus\ui\smlineedit.h" />
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
@@ -611,7 +611,7 @@
     <ClInclude Include="..\..\..\scribus\sccolor.h" />
     <ClInclude Include="..\..\..\scribus\sccolorengine.h" />
     <ClInclude Include="..\..\..\scribus\sccolorshade.h" />
-    <ClInclude Include="..\..\..\scribus\ui\sccombobox.h" />
+    <moc Include="..\..\..\scribus\ui\sccombobox.h" />
     <ClInclude Include="..\..\..\scribus\scconfig.h" />
     <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h" />
     <moc Include="..\..\..\scribus\downloadmanager\scdlthread.h" />
@@ -655,7 +655,7 @@
     <ClInclude Include="..\..\..\scribus\sclockedfile.h" />
     <moc Include="..\..\..\scribus\ui\scmenu.h" />
     <moc Include="..\..\..\scribus\ui\scmessagebox.h" />
-    <ClInclude Include="..\..\..\scribus\scmimedata.h" />
+    <moc Include="..\..\..\scribus\scmimedata.h" />
     <moc Include="..\..\..\scribus\ui\scmwmenumanager.h" />
     <ClInclude Include="..\..\..\scribus\scpage.h" />
     <ClInclude Include="..\..\..\scribus\scpageoutput.h" />
@@ -735,7 +735,7 @@
     <ClInclude Include="..\..\..\scribus\text\specialchars.h" />
     <moc Include="..\..\..\scribus\ui\spiralvectordialog.h" />
     <moc Include="..\..\..\scribus\ui\spiralwidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\splash.h" />
+    <moc Include="..\..\..\scribus\ui\splash.h" />
     <moc Include="..\..\..\scribus\ui\storyeditor.h" />
     <moc Include="..\..\..\scribus\text\storytext.h" />
     <ClInclude Include="..\..\..\scribus\style.h" />

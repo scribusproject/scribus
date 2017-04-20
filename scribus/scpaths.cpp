@@ -290,7 +290,7 @@ QStringList ScPaths::spellDirs() const
 	}
 
 #elif defined(_WIN32)
-//	QString windowsLOPath("LibreOffice 3.5/share/extensions");
+	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QString progFiles = windowsSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())

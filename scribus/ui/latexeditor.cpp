@@ -614,7 +614,6 @@ void LatexEditor::insertButtonClicked(QObject *widget)
 
 class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 {
-	Q_OBJECT
 	public:
 		XmlFontComboBox(I18nXmlStreamReader *xml) : XmlWidget(xml), QFontComboBox()
 		{
@@ -634,7 +633,6 @@ class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 
 class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 {
-	Q_OBJECT
 	public:
 		XmlSpinBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false), QSpinBox() {
 			setRange(
@@ -666,7 +664,6 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 
 class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 {
-	Q_OBJECT
 	public:
 		XmlDoubleSpinBox(I18nXmlStreamReader *xml) :
 			XmlWidget(xml, false), QDoubleSpinBox() {
@@ -700,7 +697,6 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 
 class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 {
-	Q_OBJECT
 	public:
 		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QLineEdit() {
 			fromString(m_defaultValue);
@@ -717,7 +713,6 @@ class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 
 class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 {
-	Q_OBJECT
 	public:
 		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QTextEdit() {
 			fromString(m_defaultValue);
@@ -734,7 +729,6 @@ class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 
 class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 {
-	Q_OBJECT
 	public:
 		XmlColorPicker(I18nXmlStreamReader *xml) :  XmlWidget(xml), 
 			QLabel("Color pickers are not implemented yet!") 
@@ -754,7 +748,6 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 
 class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 {
-	Q_OBJECT
 	public:
 		XmlComboBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false), QComboBox() 
 		{

@@ -28,7 +28,6 @@
 
 class SCRIBUS_API ScMimeData
 {
-	Q_OBJECT
 public:
 	static const QString ScribusElemMimeType;
 	static const QString ScribusFragmentMimeType;
@@ -51,6 +50,7 @@ public:
 class SCRIBUS_API ScFragmentMimeData : public QMimeData
 {
 	Q_OBJECT
+
 public:
 	ScFragmentMimeData(void) : QMimeData() {}
 
@@ -61,6 +61,7 @@ public:
 class SCRIBUS_API ScElemMimeData : public QMimeData
 {
 	Q_OBJECT
+
 protected:
 	QString m_scribusElemData;
 	QStringList m_formats;
@@ -80,6 +81,7 @@ public:
 class SCRIBUS_API ScTextMimeData : public QMimeData
 {
 	Q_OBJECT
+
 public:
 	ScTextMimeData(void) : QMimeData() {}
 
