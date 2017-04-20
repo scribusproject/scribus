@@ -1161,7 +1161,7 @@ void ScImgDataLoader_PICT::createTextPath(QByteArray textString)
 	{
 		QString fontName = m_fontMap[m_currentFontID];
 		textFont = QFont(fontName, m_currentTextSize);
-		QFontInfo inf(textFont);
+//		QFontInfo inf(textFont);
 //		qDebug() << "Using Font" << inf.family() << "for" << fontName;
 	}
 	textFont.setPixelSize(m_currentTextSize);

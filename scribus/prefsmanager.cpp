@@ -1897,8 +1897,7 @@ bool PrefsManager::WritePref(QString ho)
 	QFile f(ho);
 	if(!f.open(QIODevice::WriteOnly))
 	{
-		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
-			.arg(ho).arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
+		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2").arg(ho, qApp->translate("QFile",f.errorString().toLatin1().constData()));
 	}
 	else
 	{
@@ -1908,9 +1907,7 @@ bool PrefsManager::WritePref(QString ho)
 		if (f.error()==QFile::NoError)
 			result = true;
 		else
-			m_lastError = tr("Writing to preferences file \"%1\" failed: "
-							 "QIODevice status code %2")
-				.arg(ho).arg(f.errorString());
+			m_lastError = tr("Writing to preferences file \"%1\" failed: QIODevice status code %2").arg(ho, f.errorString());
 	}
 	if (f.isOpen())
 		f.close();
@@ -1923,8 +1920,7 @@ bool PrefsManager::ReadPref(QString ho)
 	QFile f(ho);
 	if(!f.open(QIODevice::ReadOnly))
 	{
-		m_lastError = tr("Failed to open prefs file \"%1\": %2")
-			.arg(ho).arg( qApp->translate("QFile",f.errorString().toLatin1().constData()) );
+		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(ho, qApp->translate("QFile",f.errorString().toLatin1().constData()) );
 		return false;
 	}
 	QTextStream ts(&f);
@@ -1933,8 +1929,7 @@ bool PrefsManager::ReadPref(QString ho)
 	int errorLine = 0, errorColumn = 0;
 	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
-		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4")
-			.arg(ho).arg(errorMsg).arg(errorLine).arg(errorColumn);
+		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(ho).arg(errorMsg).arg(errorLine).arg(errorColumn);
 		f.close();
 		return false;
 	}

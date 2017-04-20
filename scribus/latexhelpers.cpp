@@ -258,8 +258,8 @@ void LatexConfigParser::parseTab()
 		{
 			if (!itemstab)
 				formatError("Found <item> in a 'settings'-tab!");
-			QString value = xml.attributes().value("value").toString();
-			QString img = xml.attributes().value("image").toString();
+//			QString value = xml.attributes().value("value").toString();
+//			QString img = xml.attributes().value("image").toString();
 			text = xml.readI18nText();
 		}
 		else if (xml.name() == "comment" || xml.name() == "font"
@@ -267,7 +267,7 @@ void LatexConfigParser::parseTab()
 				|| xml.name() == "text" || xml.name() == "list")
 		{
 			//TODO: Store this + attributes in a list
-			QString tagname = xml.name().toString();
+//			QString tagname = xml.name().toString();
 			name = xml.attributes().value("name").toString();
 			default_value = xml.attributes().value("default").toString();
 			if (xml.name() != "list")

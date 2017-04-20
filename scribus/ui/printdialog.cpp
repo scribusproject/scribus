@@ -73,7 +73,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	BleedTop->setMaximum(3000*unitRatio);
 	previewButton->setEnabled(!previewDinUse);
 	// Fill printer list
-	QString Pcap;
 	QString printerName;
 	QStringList printerNames = PrinterUtil::getPrinterNames();
 	int numPrinters = printerNames.count();

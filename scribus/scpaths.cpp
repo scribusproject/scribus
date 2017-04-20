@@ -254,7 +254,6 @@ QString ScPaths::dictDir() const
 
 QStringList ScPaths::spellDirs() const
 {
-	//dictionaryPaths
 	QDir d;
 	QStringList spellDirs;
 	spellDirs.append(userDictDir(ScPaths::Spell, false));
@@ -320,21 +319,15 @@ QStringList ScPaths::spellDirs() const
 
 QStringList ScPaths::hyphDirs() const
 {
-	//dictionaryPaths
-	QString macPortsPath("/opt/local/share/hunspell/");
-	QString finkPath("/sw/share/hunspell/");
-	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
-	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/Resources/extensions");
-	QString linuxLocalPath("/usr/local/share/hunspell/");
-	QString linuxHunspellPath("/usr/share/hunspell/");
-	QString linuxMyspellPath("/usr/share/myspell/");
-	QString linuxHyphen1Path("/usr/share/hyphen/");
-	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList hyphDirs;
 	hyphDirs.append(userDictDir(ScPaths::Hyph, false));
 	hyphDirs.append(m_shareDir + "dicts/hyph/");
 #ifdef Q_OS_MAC
+	QString macPortsPath("/opt/local/share/hunspell/");
+	QString finkPath("/sw/share/hunspell/");
+	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
+	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/Resources/extensions");
 	d.setPath(macPortsPath);
 	if (d.exists())
 		hyphDirs.append(macPortsPath);
@@ -361,6 +354,7 @@ QStringList ScPaths::hyphDirs() const
 	}
 
 #elif defined(_WIN32)
+	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QString progFiles = windowsSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
@@ -372,6 +366,10 @@ QStringList ScPaths::hyphDirs() const
 			hyphDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
+	QString linuxLocalPath("/usr/local/share/hunspell/");
+	QString linuxHunspellPath("/usr/share/hunspell/");
+	QString linuxMyspellPath("/usr/share/myspell/");
+	QString linuxHyphen1Path("/usr/share/hyphen/");
 	d.setPath(linuxHyphen1Path);
 	if (d.exists())
 		hyphDirs.append(linuxHyphen1Path);

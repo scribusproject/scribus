@@ -146,7 +146,7 @@ QString PluginManager::getPluginName(QString fileName)
 int PluginManager::initPlugin(const QString fileName)
 {
 	PluginData pda;
-	pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir()).arg(fileName);
+	pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir(), fileName);
 	pda.pluginName = getPluginName(pda.pluginFile);
 	if (pda.pluginName.isNull())
 		// Couldn't determine plugname from filename. We've already complained, so
@@ -270,13 +270,9 @@ void PluginManager::enablePlugin(PluginData & pda)
 	else
 		failReason = tr("unknown plugin type", "plugin load error");
 	if (pda.enabled || isActionPlugin)
-		ScCore->setSplashStatus(
-				tr("Plugin: %1 loaded", "plugin manager")
-				.arg(pda.plugin->fullTrName()));
+		ScCore->setSplashStatus(tr("Plugin: %1 loaded", "plugin manager").arg(pda.plugin->fullTrName()));
 	else
-		ScCore->setSplashStatus(
-				tr("Plugin: %1 failed to load: %2", "plugin manager")
-				.arg(pda.plugin->fullTrName()).arg(failReason));
+		ScCore->setSplashStatus(tr("Plugin: %1 failed to load: %2", "plugin manager").arg(pda.plugin->fullTrName(), failReason));
 }
 
 bool PluginManager::setupPluginActions(ScribusMainWindow *mw)

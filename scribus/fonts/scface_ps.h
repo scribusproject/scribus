@@ -120,11 +120,11 @@ class ScFace_pfb : public ScFace_postscript
 		{
 			QByteArray bb;
 			RawData(bb);
-			QString tmp2 = "";
+//			QString tmp2 = "";
 			if ((bb.size() > 2) &&  (bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
 			{
-				QString tmp3="";
-				QString tmp4 = "";
+//				QString tmp3="";
+//				QString tmp4 = "";
 				int posi,cxxc=0;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{

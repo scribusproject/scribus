@@ -2504,7 +2504,7 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 	}
 	gx -= m_doc->rulerXoffset;
 	gy -= m_doc->rulerYoffset;
-	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true)).arg(value2String(gy, m_doc->unitIndex(), true, true)), this);
+	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true), value2String(gy, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
@@ -2532,7 +2532,7 @@ void Canvas::displayXYHUD(QPoint m, double x, double y)
 {
 	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
-	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
+	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
@@ -2540,9 +2540,9 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	if (isLine)
-		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, SC_DEGREES, true, true)), this);
+		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)), this);
 	else
-		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
+		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displayRotHUD(QPoint m, double rot)

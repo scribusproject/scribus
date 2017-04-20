@@ -124,7 +124,7 @@ void ResourceManager::readAvailableFonts()
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
 //		qDebug()<<errorMsg<<eline<<ecol;
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
 		else
 			qDebug()<<"Could not open file"<<dataFile.fileName();
@@ -183,7 +183,7 @@ void ResourceManager::readAvailableHelp()
 	dataFile.close();
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
 		else
 			qDebug()<<"Could not open file"<<dataFile.fileName();
@@ -242,7 +242,7 @@ void ResourceManager::readAvailablePalettes()
 	dataFile.close();
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
 		else
 			qDebug()<<"Could not open file"<<dataFile.fileName();
@@ -559,7 +559,7 @@ void ResourceManager::updateAvailableHyph()
 	dataFile.close();
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
 		else
 			qDebug()<<"Could not open file"<<dataFile.fileName();
@@ -660,7 +660,7 @@ void ResourceManager::updateAvailableSpell()
 	dataFile.close();
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
-		if (data.toLower().contains("404 not found"))
+		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
 		else
 			qDebug()<<"Could not open file"<<dataFile.fileName();

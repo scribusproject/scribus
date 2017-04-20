@@ -113,7 +113,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "\n");
 					htmlText.append( tr("Size:") + " " + QString::number(OrigW) + " x " + QString::number(OrigH) + "\n");
 					htmlText.append( tr("Colorspace:") + " ");
-					QString cSpace;
 					QString ext = fi.suffix().toLower();
 					if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
 						htmlText.append( tr("Unknown"));
@@ -486,7 +485,6 @@ QString PageItem_ImageFrame::infoDescription()
 		htmlText.append( tr("Original PPI:") + " " + QString::number(pixm.imgInfo.xres)+" x "+QString::number(pixm.imgInfo.yres) + "<br/>");
 		htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
 		htmlText.append( tr("Colorspace:") + " ");
-		QString cSpace;
 		QString ext = fi.suffix().toLower();
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
 			htmlText.append( tr("Unknown"));

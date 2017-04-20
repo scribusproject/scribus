@@ -2563,7 +2563,7 @@ void PageItem::setItemName(const QString& newName)
 	AutoName=false;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(oldName).arg(newName));
+		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(oldName, newName));
 		ss->set("OLD_NAME", oldName);
 		ss->set("NEW_NAME", newName);
 		undoManager->action(this, ss);
@@ -3678,7 +3678,7 @@ void PageItem::setFillColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFill,
-										  QString(Um::ColorFromTo).arg(fillColorVal).arg(tmp),
+										  QString(Um::ColorFromTo).arg(fillColorVal, tmp),
                                           Um::IFill);
 		ss->set("FILL");
 		ss->set("OLD_FILL", fillColorVal);
@@ -3780,7 +3780,7 @@ void PageItem::setLineColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineColor,
-										  QString(Um::ColorFromTo).arg(lineColorVal).arg(tmp),
+										  QString(Um::ColorFromTo).arg(lineColorVal, tmp),
 										  Um::IFill);
 		ss->set("LINE_COLOR");
 		ss->set("OLD_COLOR", lineColorVal);
@@ -4086,8 +4086,7 @@ void PageItem::setCustomLineStyle(const QString& newStyle)
 		QString oldStyle = NamedLStyle.isEmpty() ? Um::NoStyle : NamedLStyle;
 		QString nStyle   = newStyle.isEmpty() ? Um::NoStyle : newStyle;
 		QString action   = newStyle.isEmpty() ? Um::NoLineStyle : Um::CustomLineStyle;
-		SimpleState *ss = new SimpleState(action,
-				QString(Um::FromTo).arg(oldStyle).arg(nStyle),Um::ILineStyle);
+		SimpleState *ss = new SimpleState(action, QString(Um::FromTo).arg(oldStyle, nStyle), Um::ILineStyle);
 		ss->set("CUSTOM_LINE_STYLE");
 		ss->set("OLD_STYLE", NamedLStyle);
 		ss->set("NEW_STYLE", newStyle);
@@ -4202,7 +4201,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 		QString to = freeScale ? Um::FreeScaling : Um::FrameSize;
 		to += ", ";
 		to += keepRatio ? Um::KeepRatio : Um::BreakRatio;
-		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from).arg(to), Um::IImageScaling);
+		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from, to), Um::IImageScaling);
 		ss->set("SCALE_MODE");
 		if (freeScale != ScaleType)
 		{
@@ -4697,8 +4696,7 @@ void PageItem::moveUndoAction()
 		QString oyString = QString::number(oldYpos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nxString = QString::number(m_xPos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nyString = QString::number(m_yPos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString tooltip  =  QString(Um::MoveFromTo).arg(oxString).arg(oyString).arg(oldp)
-			                                        .arg(nxString).arg(nyString).arg(newp);
+		QString tooltip  =  QString(Um::MoveFromTo).arg(oxString, oyString, oldp, nxString, nyString, newp);
 		SimpleState *ss = new SimpleState(Um::Move, tooltip, Um::IMove);
 		ss->set("ITEM_MOVE");
 		ss->set("OLD_XPOS", oldXpos);
@@ -4731,7 +4729,7 @@ void PageItem::resizeUndoAction()
 		QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString tooltip   = QString(Um::ResizeFromTo).arg(owString).arg(ohString).arg(nwString).arg(nhString);
+		QString tooltip   = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
 		SimpleState *ss = new SimpleState(Um::Resize, tooltip, Um::IResize);
 		ss->set("ITEM_RESIZE");
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
@@ -4820,7 +4818,7 @@ void PageItem::changeImageOffsetUndoAction()
 		QString olyString  = QString::number(oldLocalY * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nlxString  = QString::number(m_imageXOffset * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nlyString  = QString::number(m_imageYOffset * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString tooltip   =  QString(Um::ImageOffsetFromTo).arg(olxString).arg(olyString).arg(nlxString).arg(nlyString);
+		QString tooltip   =  QString(Um::ImageOffsetFromTo).arg(olxString, olyString, nlxString, nlyString);
 		SimpleState *ss = new SimpleState(Um::ImageOffset, tooltip, Um::IMove);
 		ss->set("IMAGE_OFFSET");
 		ss->set("OLD_IMAGEXOFFSET", oldLocalX);

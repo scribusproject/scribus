@@ -78,7 +78,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
-	QString tmp;
 	postscriptPreview = usePostscriptPreview(printer, engine);
 	QString caption = tr("Print Preview");
 #ifdef _WIN32
@@ -527,7 +526,7 @@ void PPreview::scaleBox_valueChanged(int value)
 int PPreview::RenderPreview(int Seite, int Res)
 {
 	int ret = -1;
-	QString cmd1, cmd2, cmd3;
+	QString cmd1;
 	QMap<QString,QMap<uint, FPointArray> > ReallyUsed;
 #if defined _WIN32
 	if (!postscriptPreview)

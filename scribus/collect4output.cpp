@@ -61,7 +61,6 @@ CollectForOutput::CollectForOutput(ScribusDoc* doc, QString outputDirectory, boo
 
 bool CollectForOutput::newDirDialog()
 {
-	QString curDir = QDir::currentPath();
 	if (ScCore->usingGUI())
 	{
 		QString wdir = ".";
@@ -470,7 +469,6 @@ bool CollectForOutput::collectProfiles()
 	ProfilesL::Iterator itend = docProfiles.end();
 	for (ProfilesL::Iterator it = docProfiles.begin(); it != itend; ++it)
 	{
-		QString profileName(it.key());
 		QString oldFile(it.value());
 		QString outFile(m_outputDirectory + "profiles/" + QFileInfo(oldFile).fileName());
 		bool success = copyFileAtomic(oldFile, outFile);
