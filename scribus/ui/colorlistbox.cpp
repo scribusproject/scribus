@@ -477,7 +477,6 @@ void ColorListBox::slotRightClick()
 	if (currentSel.isEmpty())
 		return;
 
-	QString first;
 	QMenu *pmen = new QMenu();
 	pmen->addAction( tr("Sort by Name"));
 	pmen->addAction( tr("Sort by Color"));

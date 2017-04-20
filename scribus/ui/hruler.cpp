@@ -495,7 +495,6 @@ void Hruler::paintEvent(QPaintEvent *e)
 {
 	if (m_doc->isLoading())
 		return;
-	QString tx = "";
 	double sc = m_view->scale();
 	Scaling = sc;
 	QFont ff = font();

@@ -2623,7 +2623,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 	{
 		for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
 		{
-			QString tmps;
 			PageItem *ite = page->FromMaster.at(am);
 			if (usingGUI)
 				ScQApp->processEvents();
@@ -3475,7 +3474,6 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 
 void PSLib::HandleDiamondGradient(PageItem* c)
 {
-	QString GCol;
 	QString hs,ss,vs,ks;
 	int ch,cs,cv,ck;
 	QStringList cols;

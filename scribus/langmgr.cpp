@@ -1063,7 +1063,6 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 			{
 				if (dictName.length()<=2)
 				{
-					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
 					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn+".dic");
 				}
 				if (dictName.length()>2)

@@ -10803,7 +10803,6 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 
 void PDFLibCore::PDF_End_Bookmarks()
 {
-	QByteArray tmp;
 	BookMItem* ip;
 	QByteArray Inhal = "";
 	QMap<int,QByteArray> Inha;

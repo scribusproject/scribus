@@ -7265,11 +7265,10 @@ void ScribusMainWindow::doSaveAsPDF()
 		if (errorMsg.isEmpty() && doc->pdfOptions().openAfterExport && !doc->pdfOptions().doMultiFile)
 		{
 			QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
-			QFileInfo fi(pdfViewer);
 			if (pdfViewer.isEmpty())
 			{
 				pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString::null, QString::null);
-				if (!QFileInfo(pdfViewer).exists())
+				if (!QFileInfo::exists(pdfViewer))
 					pdfViewer="";
 				PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
 			}
@@ -8237,7 +8236,7 @@ void ScribusMainWindow::initHyphenator()
 	//Build our list of hyphenation dictionaries we have in the install dir
 	//Grab the language abbreviation from it, get the full language text
 	//Insert the name as key and a new string list into the map
-	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"/hyph/");
+//	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"/hyph/");
 //	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 //IL	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 //IL	{
@@ -9252,7 +9251,6 @@ void ScribusMainWindow::manageColorsAndFills()
 	{
 		if (HaveDoc)
 		{
-			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->m_colorList;
 			if (dia->replaceColorMap.isEmpty())

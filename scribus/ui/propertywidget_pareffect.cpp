@@ -618,7 +618,7 @@ void PropertyWidget_ParEffect::openEnhanced()
 	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(true);
-	QString styleName = peCharStyleCombo->currentText();
+//	QString styleName = peCharStyleCombo->currentText();
 	setCurrentComboItem(m_enhanced->fontSelector, m_item->currentStyle().charStyle().font().scName());
 	m_enhanced->newFont(m_enhanced->fontSelector->currentIndex());
 	m_enhanced->show();

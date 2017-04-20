@@ -606,7 +606,7 @@ void ScImageCacheManager::sanitizeCache()
 		}
 		else
 		{
-			QFileInfo info(absolutePath(iss.key()));
+//			QFileInfo info(absolutePath(iss.key()));
 			if (!references.contains(ref))
 				references[ref] = 1;
 			else

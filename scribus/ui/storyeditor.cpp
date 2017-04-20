@@ -330,7 +330,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		return;
 	}
 	
-	QString uc = k->text();
+//	QString uc = k->text();
 	if ((k->modifiers() == Qt::ControlModifier) ||
 		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) ||
 		(k->modifiers() == (Qt::ControlModifier | Qt::KeypadModifier)) ||
@@ -701,7 +701,6 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 {
 	setTextColor(Qt::black);
 	setUpdatesEnabled(false);
-	QString Text = "";
 	StyledText.clear();
 	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
 	StyledText.insertChars(0, tx);
@@ -724,7 +723,7 @@ void SEditor::insertUpdate(int position, int len)
 {
 	if (StyledText.length() == 0 || len == 0)
 		return;
-	QString chars, text = "";
+	QString text;
 	++blockContentsChangeHook;
 	setUpdatesEnabled(false);
 	this->blockSignals(true);

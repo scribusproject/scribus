@@ -197,7 +197,6 @@ void Prefs_KeyboardShortcuts::importKeySet(QString filename)
 
 bool Prefs_KeyboardShortcuts::exportKeySet(QString filename)
 {
-	QFileInfo fi = QFileInfo(filename);
 	QString exportFileName;
 	if (filename.endsWith(".xml"))
 		exportFileName = filename;

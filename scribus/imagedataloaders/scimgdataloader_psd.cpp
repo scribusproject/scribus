@@ -534,7 +534,7 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 	short channelType;
 	uchar blendKey[4];
 	uchar opacity, clipping, flags, filler;
-	QString layerName, blend;
+	QString blend;
 	struct PSDLayer lay;
 	s >> layerinfo;
 	s >> numLayers;

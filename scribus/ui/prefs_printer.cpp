@@ -48,7 +48,6 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitChange(docUnitIndex);
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 
-	QString Pcap;
 	QString printerName;
 	QStringList printerNames = PrinterUtil::getPrinterNames();
 	int numPrinters = printerNames.count();

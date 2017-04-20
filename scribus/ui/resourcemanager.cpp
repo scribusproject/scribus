@@ -1046,9 +1046,7 @@ void ResourceManager::downloadFilesFinished()
 					if (d.filetype=="zip")
 					{
 						QString fn(ScPaths::userDictDir(static_cast<ScPaths::DictType>(fileType), true)+d.files);
-						QFile dledFile(fn);
-						QFileInfo fi(dledFile);
-						if (!dledFile.exists())
+						if (!QFileInfo::exists(fn))
 							qDebug()<<"File doesn\'t exist"<<fn;
 						else
 						{

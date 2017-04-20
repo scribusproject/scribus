@@ -463,7 +463,6 @@ void CollapsedTablePainterEx::paintBorder(const TableBorder& border, const QPoin
 	p->setStrokeMode(ScPainterExBase::Solid);
 	p->setFillMode(ScPainterExBase::None);
 
-	QColor lineColor;
 	QPointF lineStart, lineEnd;
 	foreach (const TableBorderLine& line, border.borderLines())
 	{

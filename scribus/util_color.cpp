@@ -631,7 +631,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 		QString ext = fi.suffix().toLower();
 		if (extensionIndicatesEPSorPS(ext))
 		{
-			QString tmp, tmp2, FarNam;
+			QString tmp, FarNam;
 			double c, m, y, k;
 			ScColor cc;
 			QFile f(fileName);
@@ -776,10 +776,10 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 					{
 						quint16 vendor, numcolors, colType;
 						ts >> vendor;
-						QString title		= readAdobeUniCodeString(ts);
-						QString prefix		= readAdobeUniCodeString(ts);
-						QString postfix		= readAdobeUniCodeString(ts);
-						QString description	= readAdobeUniCodeString(ts);
+//						QString title		= readAdobeUniCodeString(ts);
+//						QString prefix		= readAdobeUniCodeString(ts);
+//						QString postfix		= readAdobeUniCodeString(ts);
+//						QString description	= readAdobeUniCodeString(ts);
 						ts >> numcolors;
 						ts.skipRawData(4);
 						ts >> colType;

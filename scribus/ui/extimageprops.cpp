@@ -179,7 +179,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		}
 		opacitySpinBox->setEnabled(true);
 		blendMode->setEnabled(true);
-		QString tmp;
+
 		QList<PSDLayer>::iterator it2;
 		uint counter = 0;
 		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)

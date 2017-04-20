@@ -1533,7 +1533,6 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 	else
 	{
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-		QColor tmp;
 		if (ml[0].Color != CommonStrings::None)
 		{
 			ScColorShade tmp(m_doc->PageColors[ml[0].Color], ml[0].Shade);

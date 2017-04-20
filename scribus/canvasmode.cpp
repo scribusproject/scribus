@@ -1054,7 +1054,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 {
 	int kk = e->key();
 	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
-	QString uc = e->text();
+//	QString uc = e->text();
 	ScribusMainWindow* mainWindow = m_view->m_ScMW;
 	QList<QMdiSubWindow *> windows;
 	

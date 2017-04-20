@@ -1171,7 +1171,6 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
@@ -1307,7 +1306,6 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;

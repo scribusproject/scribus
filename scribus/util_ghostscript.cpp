@@ -411,7 +411,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 {
-	QString tmp, cmd1, cmd2;
+	QString tmp;
 	QString pdfFile = QDir::toNativeSeparators(fn);
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QPixmap pm;

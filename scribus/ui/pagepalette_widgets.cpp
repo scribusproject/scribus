@@ -364,11 +364,9 @@ void SeView::dragLeaveEvent(QDragLeaveEvent *)
 
 void SeView::dragMoveEvent(QDragMoveEvent *e)
 {
-	QString str, tmp;
 	if (e->mimeData()->hasFormat("page/magic"))
 	{
 		e->acceptProposedAction();
-		str = e->mimeData()->text();
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());
 		ClearPix();

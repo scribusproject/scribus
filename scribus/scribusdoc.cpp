@@ -2708,7 +2708,6 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	setCurrentPage(Pages->at(0));
 	ScPage* page = Pages->takeAt(pageNumber);
-	QString oldPageName(page->pageName());
 	delete page;
 	// #10658 : renumber masterpages and masterpage objects
 	// in order to avoid crash after masterpage deletion
@@ -3666,7 +3665,7 @@ bool ScribusDoc::renumberLayer(const int layerID, const int newLayerID)
 //Make the doc delete the items, not the view. TODO: Currently does nada, zilch, zero
 bool ScribusDoc::deleteTaggedItems()
 {
-	QString tooltip = Um::ItemsInvolved + "\n";
+//	QString tooltip = Um::ItemsInvolved + "\n";
 	//Master Items
 	for (int i = 0; i < MasterItems.count(); ++i)
 	{
@@ -4597,7 +4596,6 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 {
 	PageItem* it = NULL;
-	QString profileName;
 	QStringList profileNames;
 	int counter = 0;
 	usedProfiles.clear();
@@ -5771,7 +5769,6 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 	{
 		if (m_hasGUI)
 		{
-			QFileInfo fi(pageItem->Pfile);
 			ScCore->fileWatcher->addFile(pageItem->Pfile);
 		}
 	}

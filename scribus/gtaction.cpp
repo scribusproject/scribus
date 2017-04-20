@@ -264,7 +264,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 	const ParagraphStyle& paraStyle = m_textFrame->doc()->paragraphStyles()[paragraphStyle];
 
 	gtFont* font = style->getFont();
-	QString fontName = validateFont(font).scName();
+//	QString fontName = validateFont(font).scName();
 	CharStyle lastStyle, newStyle;
 	int lastStyleStart = 0;
 	

@@ -471,7 +471,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 
 		for (int mPage = 0; mPage < doc->MasterPages.count(); ++mPage)
 		{
-			QString tmp;
 			hasError = false;
 			pageGraveError = false;
 			QTreeWidgetItem * page=NULL;
