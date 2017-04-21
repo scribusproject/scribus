@@ -2510,6 +2510,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	mskStr->reset();
 	Guchar *mdest = 0;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
+	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
 		mdest = (Guchar *)(mbuffer + y * maskWidth);
@@ -2653,6 +2654,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	Guchar *mdest = 0;
 	int invert_bit = maskInvert ? 1 : 0;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
+	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
 		mdest = (Guchar *)(mbuffer + y * maskWidth);
