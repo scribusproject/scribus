@@ -3152,12 +3152,12 @@ void SlaOutputDev::updateFont(GfxState *state)
 	Object refObj, strObj;
 	GooString *fileName;
 	char *tmpBuf;
-	int tmpBufLen;
+	int tmpBufLen = 0;
 	int *codeToGID;
 	double *textMat;
 	double m11, m12, m21, m22, fontSize;
 	SplashCoord mat[4];
-	int n;
+	int n = 0;
 	int faceIndex = 0;
 	SplashCoord matrix[6];
 
