@@ -264,11 +264,11 @@ void PagePropertiesDialog::setOrientation(int ori)
 	}
 	else
 	{
-		if ((ori != 0) && (ori != oldOri))
+		if ((ori != portraitPage) && (ori != oldOri))
 		{
 			double w = widthSpinBox->value(), h = heightSpinBox->value();
-			widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
-			heightSpinBox->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
+			widthSpinBox->setValue(qMax(w, h));
+			heightSpinBox->setValue(qMin(w, h));
 		}
 	}
 	oldOri = ori;
