@@ -49,7 +49,6 @@ class TablePainter;
 class SCRIBUS_API PageItem_Table : public PageItem
 {
 	Q_OBJECT
-	Q_ENUMS(ResizeStrategy HitTarget)
 
 	Q_PROPERTY(int rows READ rows NOTIFY changed)
 	Q_PROPERTY(int columns READ columns NOTIFY changed)
@@ -79,6 +78,8 @@ public:
 
 	/// The minimum column width.
 	static const double MinimumColumnWidth;
+
+	Q_ENUM(ResizeStrategy HitTarget)
 
 public:
 	/// Construct a new table item with @a numRows rows and @a numColumns columns.

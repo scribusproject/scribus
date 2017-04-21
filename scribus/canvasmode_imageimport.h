@@ -31,8 +31,6 @@ class ScribusMainWindow;
 
 class CanvasMode_ImageImport : public CanvasMode
 {
-	Q_OBJECT
-
 public:
 	explicit CanvasMode_ImageImport(ScribusView* view);
 	virtual ~CanvasMode_ImageImport() {}

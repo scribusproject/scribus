@@ -12,10 +12,12 @@ set(PICTUREBROWSER_PLUGIN_MOC_CLASSES
 	collection.h
 	findimage.h
 	imagedialog.h
+	iview.h
 	loadimage.h
 	multicombobox.h
 	picturebrowserplugin.h
 	picturebrowser.h
+	pictview.h
 	previewimage.h
 )
 

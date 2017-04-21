@@ -46,7 +46,6 @@ class  ScribusView;
  */
 class SCRIBUS_API CanvasGesture : public CanvasMode
 {
-	Q_OBJECT
 
 protected:
 	explicit CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};

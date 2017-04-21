@@ -288,6 +288,7 @@ set(SCRIBUS_MOC_CLASSES
 	scimagecachedir.h
 	scimagecachefile.h
 	scimagecachemanager.h
+	scmimedata.h
 	scplugin.h
 	scprintengine.h
 	scraction.h
@@ -360,6 +361,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/gtfiledialog.h
 	ui/guidemanager.h
 	ui/helpbrowser.h
+	ui/helpnavigation.h
 	ui/hruler.h
 	ui/hyask.h
 	ui/imageinfodialog.h
@@ -372,6 +374,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/javadocs.h
 	ui/latexeditor.h
 	ui/layers.h
+	ui/linecombo.h
+	ui/linkbutton.h
 	ui/loremipsum.h
 	ui/markinsert.h
 	ui/mark2item.h
@@ -472,6 +476,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/resourcemanager.h
 	ui/resourcemanagerlicense.h
 	ui/rulermover.h
+	ui/sccolorslider.h
 	ui/scdockpalette.h
 	ui/scescapecatcher.h
 	ui/scfilewidget.h
@@ -505,6 +510,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/smlinestyle.h
 	ui/smlinestylewidget.h
 	ui/smpstylewidget.h
+	ui/smradiobutton.h
 	ui/smreplacedia.h
 	ui/smsccombobox.h
 	ui/smscrspinbox.h
@@ -519,6 +525,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/spalette.h
 	ui/spiralvectordialog.h
 	ui/spiralwidget.h
+	ui/splash.h
 	ui/storyeditor.h
 	ui/stylemanager.h
 	ui/styleselect.h

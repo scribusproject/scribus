@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 */
 class ScComboBox : public QComboBox
 {
-	Q_OBJECT
+//	Q_OBJECT
 
 public: 
 	ScComboBox( QWidget* parent=0);

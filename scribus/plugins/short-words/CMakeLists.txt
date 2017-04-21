@@ -15,6 +15,7 @@ set(SHORTWORDS_PLUGIN_MOC_CLASSES
 	shortwords.h
 	swprefsgui.h
 	swdialog.h
+	swsyntaxhighlighter.h
 )
 
 set(SHORTWORDS_PLUGIN_SOURCES
