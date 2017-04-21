@@ -79,7 +79,7 @@ public:
 	};
 
 private:
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	QRectF getCBox(int box, int pgNum);
 	QString UnicodeParsedString(GooString *s1);
 	
