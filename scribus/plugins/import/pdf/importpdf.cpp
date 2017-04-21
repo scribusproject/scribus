@@ -190,7 +190,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw = m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -409,7 +409,7 @@ bool PdfPlug::convert(const QString& fn)
 				if (progressDialog)
 					progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				ScribusMainWindow* mw = (m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+				ScribusMainWindow* mw = m_Doc->scMW();
 				bool ok;
 				QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
 				if (ok && !text.isEmpty())
