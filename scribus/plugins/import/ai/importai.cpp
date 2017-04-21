@@ -62,13 +62,57 @@ for which a new license (GPL+exception) is in place.
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
-AIPlug::AIPlug(ScribusDoc* doc, int flags)
+AIPlug::AIPlug(ScribusDoc* doc, int flags) :
+	progressDialog(NULL),
+	meshMode(false),
+	meshXSize(0),
+	meshYSize(0),
+	currentMeshXPos(0),
+	currentMeshYPos(0),
+	meshNodeCounter(0),
+	meshColorMode(0),
+	meshNode1PointX(0.0),
+	meshNode1PointY(0.0),
+	meshNode1Control1X(0.0),
+	meshNode1Control1Y(0.0),
+	meshNode1Control2X(0.0),
+	meshNode1Control2Y(0.0),
+	meshNode2PointX(0.0),
+	meshNode2PointY(0.0),
+	meshNode2Control1X(0.0),
+	meshNode2Control1Y(0.0),
+	meshNode2Control2X(0.0),
+	meshNode2Control2Y(0.0),
+	meshNode3PointX(0.0),
+	meshNode3PointY(0.0),
+	meshNode3Control1X(0.0),
+	meshNode3Control1Y(0.0),
+	meshNode3Control2X(0.0),
+	meshNode3Control2Y(0.0),
+	meshNode4PointX(0.0),
+	meshNode4PointY(0.0),
+	meshNode4Control1X(0.0),
+	meshNode4Control1Y(0.0),
+	meshNode4Control2X(0.0),
+	meshNode4Control2Y(0.0),
+	textMode(0),
+	textSize(0.0),
+	maxWidth(0.0),
+	tempW(0.0),
+	maxHeight(0.0),
+	textKern(0.0),
+	textScaleH(0.0),
+	textScaleV(0.0),
+	startCurrentTextRange(0.0),
+	endCurrentTextRange(0.0),
+	symbolMode(false),
+	dataMode(false),
+	fObjectMode(false)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
 }
 
 QImage AIPlug::readThumbnail(QString fNameIn)
