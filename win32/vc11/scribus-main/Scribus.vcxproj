@@ -824,7 +824,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_notesstyleseditor.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_pageitemattributes.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_pagepalette_masterpagesbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_paintmanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_picsearch.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_picsearchoptions.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_picstatus.h" />
