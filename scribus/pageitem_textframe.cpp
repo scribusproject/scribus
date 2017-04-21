@@ -4710,12 +4710,17 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					undoTarget = m_Doc;
 				ip = new ScItemState<ParagraphStyle>(Um::DeleteText, "", Um::IDelete);
 				ip->set("DELETE_FRAMEPARA");
+				ip->set("ETEA", "delete_framepara");
 				ip->set("START", start);
 				ip->setItem(itemText.paragraphStyle(i));
 				lastPos = i + 1;
 				if (lastPos < itemText.length())
 					lastParent = itemText.charStyle(lastPos);
-				if (ts)
+				QString etea;
+				SimpleState* ss = ts ? dynamic_cast<SimpleState*>(ts->last()) : NULL;
+				if (ss)
+					etea = ss->get("ETEA");
+				if (ts && (etea == "delete_frametext") || (etea == "delete_framepara"))
 					ts->pushBack(undoTarget, ip);
 				else
 					undoManager->action(undoTarget, ip);
