@@ -4720,7 +4720,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 				SimpleState* ss = ts ? dynamic_cast<SimpleState*>(ts->last()) : NULL;
 				if (ss)
 					etea = ss->get("ETEA");
-				if (ts && (etea == "delete_frametext") || (etea == "delete_framepara"))
+				if (ts && ((etea == "delete_frametext") || (etea == "delete_framepara")))
 					ts->pushBack(undoTarget, ip);
 				else
 					undoManager->action(undoTarget, ip);
