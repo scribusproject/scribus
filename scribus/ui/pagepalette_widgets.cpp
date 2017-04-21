@@ -304,7 +304,7 @@ void SeView::dropEvent(QDropEvent * e)
 			int st = str.indexOf(" ");
 			int en = str.indexOf(" ", st+1);
 			tmp = str.mid(en+1);
-			int dr = str.mid(st, en-st).toInt();
+			int dr = str.midRef(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
 			int b = columnAt(e->pos().x());
 			if ((a == -1) || (b == -1))
@@ -547,7 +547,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 		{
 			int st = str.indexOf(" ");
 			int en = str.indexOf(" ", st+1);
-			emit DelPage(str.mid(st, en-st).toInt());
+			emit DelPage(str.midRef(st, en-st).toInt());
 		}
 		if (str.startsWith("1"))
 		{

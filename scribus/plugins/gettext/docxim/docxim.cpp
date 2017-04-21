@@ -681,9 +681,9 @@ QString DocXIm::getFontName(QString name)
 			else
 			{
 				QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
-				slist.sort();
 				if (slist.count() > 0)
 				{
+					slist.sort();
 					int reInd = slist.indexOf("Regular");
 					if (reInd < 0)
 						fontName = it.current().family() + " " + slist[0];
@@ -698,13 +698,11 @@ QString DocXIm::getFontName(QString name)
 	if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		MissingFont *dia = new MissingFont(0, fontName, m_Doc);
-		dia->exec();
-		QString fontNameR = dia->getReplacementFont();
-		delete dia;
+		MissingFont dia(0, fontName, m_Doc);
+		static_cast<void>(dia.exec());
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = fontNameR;
-		fontName = fontNameR;
+		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
+		fontName = dia.getReplacementFont();
 	}
 	else
 		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];

@@ -295,17 +295,17 @@ void ScColor::setNamedColor(QString name)
 	bool ok;
 	if (name.length () == 9)
 	{
-		int c = name.mid(1,2).toInt(&ok, 16);
-		int m = name.mid(3,2).toInt(&ok, 16);
-		int y = name.mid(5,2).toInt(&ok, 16);
-		int k = name.mid(7,2).toInt(&ok, 16);
+		int c = name.midRef(1,2).toInt(&ok, 16);
+		int m = name.midRef(3,2).toInt(&ok, 16);
+		int y = name.midRef(5,2).toInt(&ok, 16);
+		int k = name.midRef(7,2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
 	else if (name.length () == 7)
 	{
-		int r = name.mid(1,2).toInt(&ok, 16);
-		int g = name.mid(3,2).toInt(&ok, 16);
-		int b = name.mid(5,2).toInt(&ok, 16);
+		int r = name.midRef(1,2).toInt(&ok, 16);
+		int g = name.midRef(3,2).toInt(&ok, 16);
+		int b = name.midRef(5,2).toInt(&ok, 16);
 		setColorRGB(r, g, b);
 	}
 }

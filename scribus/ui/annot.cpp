@@ -776,7 +776,7 @@ void ScAnnot::DecodeCalc()
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
-		tm += tm2.mid(1, tm2.length()-2);
+		tm += tm2.midRef(1, tm2.length()-2);
 		for (int cfx = 1; cfx < pfol.count(); ++cfx)
 		{
 			tm2 = pfol[cfx].simplified();
