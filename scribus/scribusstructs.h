@@ -155,10 +155,10 @@ struct Bullet  //used by style reader while importing ODT files
 	double firstLineIndent;
 	double tabPosition;
 	CharStyle* style;
-	Bullet() : name(""), charStr(""), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(NULL) {}
+	Bullet() : indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(NULL) {}
 	Bullet(QString n, QString ch) : name(n), charStr(ch), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(NULL) {}
 	Bullet(QString n, QString ch, double first, double ind, double tab, CharStyle* chStyle)
-		{ name = n; charStr = ch, firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
+	    { name = n; charStr = ch, firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
 };
 
 struct ArrowDesc
@@ -170,7 +170,8 @@ struct ArrowDesc
 
 struct PDFPresentationData
 {
-	PDFPresentationData() {
+	PDFPresentationData()
+	{
 		pageEffectDuration = 1;
 		pageViewDuration = 1;
 		effectType = 0;
@@ -342,17 +343,16 @@ public:
 	QString ParaStyle;
 	LastStyles() {
 		StyleStart = 0;
-		ParaStyle = "";
 	}
 };
 
 class AttributeValue
 {
 	public:
-		AttributeValue() : valid(false),  value("")
+		AttributeValue() : valid(false)
 		{
 		}
-		AttributeValue(QString val)
+		AttributeValue(const QString& val)
 		{
 			if (val.isEmpty() || (val == ""))
 			{

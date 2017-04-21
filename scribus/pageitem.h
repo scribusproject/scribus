@@ -419,9 +419,9 @@ public: // Start public functions
 	void SetQColor(QColor *tmp, QString farbe, double shad);
 	void DrawPolyL(QPainter *p, QPolygon pts);
 	const FPointArray shape() const { return PoLine; }
-	void setShape(FPointArray val) { PoLine = val; }
+	void setShape(const FPointArray& val) { PoLine = val; }
 	const FPointArray contour() const { return ContourLine; }
-	void setContour(FPointArray val) { ContourLine = val; }
+	void setContour(const FPointArray& val) { ContourLine = val; }
 	bool flipPathText() const { return textPathFlipped; }
 	void setFlipPathText(bool val) { textPathFlipped = val; }
 	int pathTextType() const { return textPathType; }
@@ -434,7 +434,7 @@ public: // Start public functions
 	bool useEmbeddedImageProfile() const { return UseEmbedded; }
 	void setUseEmbeddedImageProfile(bool val) { UseEmbedded = val; }
 	QString embeddedImageProfile() const { return EmProfile; }
-	void setEmbeddedImageProfile(QString val) { EmProfile = val; }
+	void setEmbeddedImageProfile(const QString& val) { EmProfile = val; }
 	bool drawFrame() { return ((m_ItemType == TextFrame && !m_sampleItem) || (m_ItemType == ImageFrame) || (m_ItemType == PathText)); }
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(QString val);
@@ -443,13 +443,13 @@ public: // Start public functions
 
 	//FIXME: maybe these should go into annotation?
 	QString fileIconPressed() const { return Pfile2; }
-	void setFileIconPressed(QString val);
+	void setFileIconPressed(const QString& val);
 	QString fileIconRollover() const { return Pfile3; }
-	void setFileIconRollover(QString val);
+	void setFileIconRollover(const QString& val);
 	int  cmsRenderingIntent() const { return IRender; }
 	void setCmsRenderingIntent(eRenderIntent val) { IRender = val; }
 	QString cmsProfile() const { return IProfile; }
-	void setCmsProfile(QString val) { IProfile = val; }
+	void setCmsProfile(const QString& val) { IProfile = val; }
 	void setOverrideCompressionMethod(bool val) { OverrideCompressionMethod = val; }
 	void setCompressionMethodIndex(int val) { CompressionMethodIndex = val; }
 	void setOverrideCompressionQuality(bool val) { OverrideCompressionQuality = val; }
@@ -724,10 +724,10 @@ public: // Start public functions
 	void setFitImageToFrame(bool val) { ScaleType = !val; }
 	bool isImageInline() const { return isInlineImage; }
 	void setImageInline(bool val) { isInlineImage = val; }
-	void setInlineExt(QString val) { inlineExt = val; }
-	void setInlineData(QString data);
+	void setInlineExt(const QString& val) { inlineExt = val; }
+	void setInlineData(const QString& data);
 	void makeImageInline();
-	void makeImageExternal(QString path);
+	void makeImageExternal(const QString& path);
 
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return m_textDistanceMargins.left(); }

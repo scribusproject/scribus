@@ -1544,17 +1544,12 @@ void PctPlug::createTextPath(QByteArray textString)
 		if (!codec)
 			return;
 	}
-	QString string = codec->toUnicode(textString);
+	QString string(codec->toUnicode(textString));
 	QFont textFont;
 	if (!fontMap.contains(currentFontID))
 		textFont = QFont();
 	else
-	{
-		QString fontName = fontMap[currentFontID];
-		textFont = QFont(fontName, currentTextSize);
-		QFontInfo inf(textFont);
-//		qDebug() << "Using Font" << inf.family() << "for" << fontName;
-	}
+		textFont = QFont(fontMap[currentFontID], currentTextSize);
 	textFont.setPixelSize(currentTextSize);
 	if (currentFontStyle & 1)
 		textFont.setBold(true);

@@ -165,16 +165,14 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	if (!uniconv.waitForFinished(120000)) {
 		qDebug() << "Uniconv exit code:" << uniconv.exitCode();
 		ScMessageBox::warning(mw, CommonStrings::trWarning,
-			tr("Uniconvertor did not exit correctly: %1").arg(
-			uniconv.errorString()).arg(QString(uniconv.readAll())));
+			tr("Uniconvertor did not exit correctly: %1").arg(uniconv.errorString(), QString(uniconv.readAll())));
 		delete tempFile;
 		return false;
 	}
 	if (uniconv.exitCode()) {
 		qDebug() << "Uniconv exit code:" << uniconv.exitCode();
 		ScMessageBox::warning(mw, CommonStrings::trWarning,
-			tr("Uniconvertor failed to convert the file: %1").arg(
-				QString(uniconv.readAll())));
+			tr("Uniconvertor failed to convert the file: %1").arg(QString(uniconv.readAll())));
 		delete tempFile;
 		return false;
 	}

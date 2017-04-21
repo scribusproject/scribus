@@ -9642,7 +9642,7 @@ void PageItem::setExternalFile(QString val)
 	}
 }
 
-void PageItem::setFileIconPressed(QString val)
+void PageItem::setFileIconPressed(const QString& val)
 {
 	Pfile2 = val;
 	if (!Pfile2.isEmpty())
@@ -9653,7 +9653,7 @@ void PageItem::setFileIconPressed(QString val)
 	}
 }
 
-void PageItem::setFileIconRollover(QString val)
+void PageItem::setFileIconRollover(const QString& val)
 {
 	Pfile3 = val;
 	if (!Pfile3.isEmpty())
@@ -10324,7 +10324,7 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 	}
 }
 
-void PageItem::setInlineData(QString data)
+void PageItem::setInlineData(const QString& data)
 {
 	QByteArray inlineImageData;
 	inlineImageData.append(data);
@@ -10365,7 +10365,7 @@ void PageItem::makeImageInline()
 	delete tempFile;
 }
 
-void PageItem::makeImageExternal(QString path)
+void PageItem::makeImageExternal(const QString& path)
 {
 	if ((isTempFile) && (isInlineImage) && (!path.isEmpty()))
 	{

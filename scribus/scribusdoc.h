@@ -520,7 +520,7 @@ public:
 	 */
 	void enableCMS(bool enable);
 	
-	const ParagraphStyle& paragraphStyle(QString name) { return m_docParagraphStyles.get(name); }
+	const ParagraphStyle& paragraphStyle(const QString& name) { return m_docParagraphStyles.get(name); }
 	const StyleSet<ParagraphStyle>& paragraphStyles()   { return m_docParagraphStyles; }
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return m_docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
@@ -529,7 +529,7 @@ public:
 	/**
 	 * Returns the table style named @a name.
 	 */
-	const TableStyle& tableStyle(QString name) { return m_docTableStyles.get(name); }
+	const TableStyle& tableStyle(const QString& name) { return m_docTableStyles.get(name); }
 	/**
 	 * Returns the set of table styles in the document.
 	 */
@@ -554,7 +554,7 @@ public:
 	/**
 	 * Returns the table cell style named @a name.
 	 */
-	const CellStyle& cellStyle(QString name) { return m_docCellStyles.get(name); }
+	const CellStyle& cellStyle(const QString& name) { return m_docCellStyles.get(name); }
 	/**
 	 * Returns the set of table cell styles in the document.
 	 */
@@ -621,7 +621,7 @@ public:
 	                                          StyleSet<CharStyle> *tempCharStyles,
 											  QHash<QString, multiLine> *tempLineStyles);
 
-	const CharStyle& charStyle(QString name) { return m_docCharStyles.get(name); }
+	const CharStyle& charStyle(const QString& name) { return m_docCharStyles.get(name); }
 	const StyleSet<CharStyle>& charStyles()  { return m_docCharStyles; }
 	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
 	/**
