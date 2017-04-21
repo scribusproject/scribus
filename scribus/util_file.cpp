@@ -218,7 +218,7 @@ bool fileInPath(const QString& filename)
 	//Get $PATH
 	QStringList env = QProcess::systemEnvironment();
 	QString path;
-	foreach (QString line, env)
+	foreach (const QString& line, env)
 	{
 		if (line.indexOf("PATH") == 0)
 		{
@@ -232,7 +232,7 @@ bool fileInPath(const QString& filename)
 	#else
 		splitpath = path.split(':', QString::SkipEmptyParts);
 	#endif
-	foreach (QString dir, splitpath)
+	foreach (const QString& dir, splitpath)
 	{
 		QFileInfo info(dir, file);
 		if (info.exists())

@@ -63,7 +63,7 @@ void ScDLManager::addURL(const QString &url, bool overwrite, const QString &down
 
 void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QString &downloadLocation, const QString& destinationLocation)
 {
-	foreach(QString s, urlList)
+	foreach(const QString& s, urlList)
 	{
 		DownloadData d;
 		d.id=m_dlID++;

@@ -63,7 +63,7 @@ void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexConfigsListWidget->clear();
 	QStringList configs = prefsData->extToolPrefs.latexConfigs;
 	commands = prefsData->extToolPrefs.latexCommands;
-	foreach (QString config, configs)
+	foreach (const QString& config, configs)
 		insertConfigItem(config);
 	latexConfigsListWidget->setCurrentRow(0);
 	pdfViewerLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.pdfViewerExecutable));
@@ -176,7 +176,7 @@ void Prefs_ExternalTools::rescanForTools()
 				/*Linux */ "kwrite" << "kate" << "gedit" << "gvim" <<
 				/*Windows */ "notepad" <<
 				/*Mac OS*/ "open";
-		foreach (QString editor, editors)
+		foreach (const QString& editor, editors)
 		{
 			if (fileInPath(editor))
 			{

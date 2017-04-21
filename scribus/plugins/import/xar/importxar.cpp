@@ -454,7 +454,6 @@ void XarPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 
 bool XarPlug::convert(QString fn)
 {
-	QString tmp;
 	Coords.resize(0);
 	Coords.svgInit();
 	imageData.resize(0);

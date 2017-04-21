@@ -292,7 +292,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 	numberFormat.setForeground(colors.numberColor);
 	operatorFormat.setForeground(colors.signColor);
 
-	foreach (QString kw, keywords)
+	foreach (const QString& kw, keywords)
 	{
 		rule.pattern = QRegExp("\\b" + kw + "\\b", Qt::CaseInsensitive);
 		rule.format = keywordFormat;

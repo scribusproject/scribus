@@ -1372,8 +1372,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply presentation attribute
 	pdfOptions.PresentMode = self->presentation;
 
-	QList<PDFPresentationData> PresentVals;
-	PresentVals.clear();
 	int tmpnum = PyList_Size(self->effval);
 	for (int i = 0; i < tmpnum; ++i) 
 	{

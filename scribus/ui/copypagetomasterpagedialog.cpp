@@ -31,7 +31,7 @@ CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCo
 		pagePositionComboBox->hide();
 	else
 	{
-		foreach (QString untranslatedPageName, pageLocations)
+		foreach (const QString& untranslatedPageName, pageLocations)
 			pagePositionComboBox->addItem(CommonStrings::translatePageSetLocString(untranslatedPageName));
 		pagePositionComboBox->setCurrentIndex(currentLocation);
 	}

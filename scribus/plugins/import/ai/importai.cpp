@@ -89,7 +89,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		fT.close();
 		if (tempBuf.startsWith("%PDF"))
 		{
-			QString tmp, cmd1, cmd2;
+			QString tmp;
 			QString pdfFile = QDir::toNativeSeparators(fName);
 			QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 			int ret = -1;
@@ -762,7 +762,7 @@ bool AIPlug::decompressAIData(QString &fName)
 
 bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
 {
-	QString tmp, BBox, tmp2, FarNam;
+	QString tmp, BBox, FarNam;
 	ScColor cc;
 	double c, m, yc, k;
 	bool found = false;
@@ -1132,7 +1132,6 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	Code >> m;
 	Code >> y;
 	Code >> k;
-	QString tmpS = data;
 	int an = data.indexOf("(");
 	int en = data.lastIndexOf(")");
 	QString FarNam = data.mid(an+1, en-an-1);
@@ -1188,7 +1187,6 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		meshColorMode = 0;
 	}
-	QString tmpS = data;
 	int an = data.indexOf("(");
 	int en = data.lastIndexOf(")");
 	QString FarNam = data.mid(an+1, en-an-1);
@@ -2647,7 +2645,6 @@ void AIPlug::processGradientData(QString data)
 		command = da2.last();
 		if (command == "Bd")
 		{
-			QString tmpS = Cdata;
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
 			currentGradientName = Cdata.mid(an+1, en-an-1);
@@ -2870,8 +2867,7 @@ void AIPlug::processPattern(QDataStream &ts)
 
 void AIPlug::processSymbol(QDataStream &ts, bool sym)
 {
-	QString tmp = "";
-	QString tmpData = "";
+	QString tmp;
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLinefromDataStream(ts));
@@ -2989,7 +2985,6 @@ void AIPlug::processRaster(QDataStream &ts)
 //		cmyk = true;
 	if (tmp.startsWith("%%BeginData"))
 	{
-		QString dummyS;
 		ScTextStream gVals2(&tmp, QIODevice::ReadOnly);
 		tmp = readLinefromDataStream(ts);
 	}
@@ -3226,7 +3221,6 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	}
 	else if (tmp.startsWith("BeginTextDocument"))
 	{
-		QString dataStringT = "";
 		tmp = removeAIPrefix(readLinefromDataStream(ts));
 		while (!ts.atEnd())
 		{

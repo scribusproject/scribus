@@ -395,7 +395,7 @@ static PyObject *Printer_print(Printer *self)
 		return NULL;
 	}
 // copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp
-	QString fna, prn, cmd, scmd, cc, data, SepName;
+	QString fna, prn, cmd, cc, SepName;
 	QString printcomm;
 	bool fil, PSfile;
 	PSfile = false;

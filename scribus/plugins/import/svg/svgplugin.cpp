@@ -327,7 +327,6 @@ bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int f
 
 bool SVGPlug::loadData(QString fName)
 {
-	QString f("");
 	bool isCompressed = false, success = false;
 	QByteArray bb(3, ' ');
 	QFile fi(fName);
@@ -2388,7 +2387,7 @@ QString SVGPlug::parseColor( const QString &s )
 
 QString SVGPlug::parseIccColor( const QString &s )
 {
-	QColor color, tmpR;
+	QColor color;
 	QString ret;
 	bool iccColorFound = false;
 	int iccColorIndex  = s.indexOf("icc-color");

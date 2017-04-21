@@ -1166,7 +1166,7 @@ public:
 	void rotateGroup(double angle, FPoint RCenter, Selection* customSelection = 0);
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
-	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
+	QHash<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	//! \brief Returns a serializer for this document
 	Serializer *serializer();
 	//! \brief Returns a text serializer for this document, used to paste text chunks

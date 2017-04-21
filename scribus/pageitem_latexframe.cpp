@@ -112,7 +112,8 @@ void PageItem_LatexFrame::deleteImageFile()
 	Q_ASSERT(!fi.fileName().contains("\\"));
 	QStringList files;
 	files = dir.entryList(filter);
-	foreach (QString file, files) {
+	foreach (const QString& file, files)
+	{
 		Q_ASSERT(file.startsWith("scribus_temp"));
 		dir.remove(file);
 	}
@@ -462,7 +463,7 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	{
 		QFileInfo fi;
 		QStringList configs = PrefsManager::instance()->latexConfigs();
-		foreach (QString config, configs)
+		foreach (const QString& config, configs)
 		{
 			fi.setFile(config);
 			if (newConfig == fi.fileName())

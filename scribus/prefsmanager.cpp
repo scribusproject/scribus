@@ -1738,7 +1738,8 @@ bool PrefsManager::WritePref(QString ho)
 	dcExternalTools.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.extToolPrefs.latexForceDpi));
 	dcExternalTools.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.extToolPrefs.latexStartWithEmptyFrames));
 	QStringList configs = latexConfigs();
-	foreach (QString config, configs) {
+	foreach (const QString& config, configs)
+	{
 		QDomElement domConfig = docu.createElement("LatexConfig");
 		domConfig.setAttribute("file", config);
 		domConfig.setAttribute("command", appPrefs.extToolPrefs.latexCommands[config]);

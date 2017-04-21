@@ -407,7 +407,6 @@ void ShapePlug::finishItem(PageItem* ite)
 
 void ShapePlug::parseGroup(QDomNode &DOC)
 {
-	QString tmp = "";
 	QString FillCol = "White";
 	QString StrokeCol = "Black";
 	QString defFillCol = "White";
@@ -666,8 +665,6 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 
 void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck)
 {
-	QString FillCol = "White";
-	QString StrokeCol = "Black";
 	while(!DOC.isNull())
 	{
 		double x1, y1, x2, y2;

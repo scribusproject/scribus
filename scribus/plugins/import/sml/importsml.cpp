@@ -339,7 +339,6 @@ void SmlPlug::parseHeader(QString fName, double &b, double &h)
 
 bool SmlPlug::convert(QString fn)
 {
-	QString tmp;
 	CurrColorFill = "White";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";

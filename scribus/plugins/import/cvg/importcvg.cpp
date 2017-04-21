@@ -333,7 +333,6 @@ void CvgPlug::parseHeader(QString fName, double &b, double &h)
 
 bool CvgPlug::convert(QString fn)
 {
-	QString tmp;
 	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";

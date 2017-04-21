@@ -452,8 +452,6 @@ XfigPlug::~XfigPlug()
 
 bool XfigPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
 {
-	QString tmp, BBox, tmp2, FarNam;
-	ScColor cc;
 	bool found = false;
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))

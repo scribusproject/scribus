@@ -1061,12 +1061,10 @@ void ResourceManager::downloadFilesFinished()
 								QDir dir(toDir);
 								if (dir.exists())
 								{
-									foreach (QString f2e, zipContents)
+									foreach (const QString& f2e, zipContents)
 									{
 										if (extractFiles.contains(f2e))
-										{
 											fun->extract(f2e, toDir, ScZipHandler::SkipPaths);
-										}
 									}
 								}
 							}

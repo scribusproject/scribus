@@ -4235,7 +4235,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (!reader.isStartElement() || reader.name() != "PatternItem") 
 			continue;
 
-		QStringRef tName = reader.name();
 		ScXmlStreamAttributes tAtt = reader.attributes();
 			
 		ItemInfo itemInfo;
@@ -5219,10 +5218,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		{
 			QStringList slRowHeights=rowHeights.split(" ");
 			int i=0;
-			foreach(QString pos, slRowHeights)
-			{
+			foreach(const QString& pos, slRowHeights)
 				tableitem->resizeRow(i++, pos.toDouble());
-			}
 		}
 //		QString colPositions(attrs.valueAsString("ColumnPositions"));
 //		QStringList slColPositions=colPositions.split(" ");
@@ -5230,11 +5227,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if(!colWidths.isEmpty())
 		{
 			QStringList slColWidths=colWidths.split(" ");
-			int j=0;
-			foreach(QString pos, slColWidths)
-			{
-				tableitem->resizeColumn(j++, pos.toDouble());
-			}
+			int i=0;
+			foreach(const QString& pos, slColWidths)
+				tableitem->resizeColumn(i++, pos.toDouble());
 		}
 		QString cellAreas(attrs.valueAsString("CellAreas"));
 		if(!cellAreas.isEmpty())

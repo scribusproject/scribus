@@ -465,7 +465,7 @@ QMap<QString, QString> LatexConfigCache::defaultCommands()
 {
 	QStringList configFiles = PrefsManager::instance()->latexConfigs();
 	QMap<QString, QString> configCmds;
-	foreach (QString configFile, configFiles)
+	foreach (const QString& configFile, configFiles)
 	{
 		LatexConfigParser *config = LatexConfigCache::instance()->parser(configFile);
 		configCmds.insert(configFile, config->executable());

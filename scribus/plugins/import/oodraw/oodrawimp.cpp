@@ -613,7 +613,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 //	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
 	parseStyle(oostyle, e);
-	QString drawID = e.attribute("draw:name");
+//	QString drawID = e.attribute("draw:name");
 //	int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 //	PageItem *neu = m_Doc->Items->at(zn);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())

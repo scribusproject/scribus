@@ -422,7 +422,6 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 
 bool PctPlug::convert(QString fn)
 {
-	QString tmp;
 	CurrColorFill = "White";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";

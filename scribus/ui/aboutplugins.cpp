@@ -80,7 +80,7 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 		desc += QString("<p>%1</p>").arg(about->shortDescription);
 	if (!about->description.isNull())
 		desc += QString("<p>%1</p>").arg(about->description);
-	html += QString("<h2>%1</h2>%2").arg( tr("Description:")).arg(desc);
+	html += QString("<h2>%1</h2>%2").arg( tr("Description:"), desc);
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Author(s):"), htmlize(about->authors));
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:"), htmlize(about->copyright));
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:"), htmlize(about->license));

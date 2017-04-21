@@ -209,7 +209,7 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	iafData.linkToExistingFramePtr=NULL;
 	if (comboBoxLinkToExistingFrameName->count()!=0)
 	{
-		QMapIterator<PageItem*, QString> i(pageItemMap);
+		QHashIterator<PageItem*, QString> i(pageItemMap);
 		while (i.hasNext())
 		{
 			i.next();

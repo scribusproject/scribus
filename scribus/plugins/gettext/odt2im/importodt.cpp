@@ -644,7 +644,6 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 
 void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT &tmpOStyle, int &posC)
 {
-	QString txt = "";
 	ObjStyleODT cStyle = tmpOStyle;
 	if (elem.hasAttribute("text:style-name"))
 		resovleStyle(cStyle, elem.attribute("text:style-name"));

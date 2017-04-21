@@ -343,7 +343,6 @@ DrwPlug::~DrwPlug()
 
 bool DrwPlug::convert(QString fn)
 {
-	QString tmp;
 	Coords.resize(0);
 	Coords.svgInit();
 	importedColors.clear();
@@ -484,7 +483,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	quint8 data8, chData;
 	quint16 data16;
 	int index;
-	QFont font;
 	QString textFont;
 	ds.setByteOrder(QDataStream::LittleEndian);
 	QString cmdText = QString("Record %1 Type: ").arg(recordCount);

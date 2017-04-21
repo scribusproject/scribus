@@ -1367,20 +1367,16 @@ static QByteArray sanitizeFontName(QString fn)
 static QList<Pdf::Resource> asColorSpace(QList<PdfICCD> iccCSlist)
 {
 	QList<Pdf::Resource> result;
-	foreach (Pdf::Resource r, iccCSlist)
-	{
+	foreach (const Pdf::Resource& r, iccCSlist)
 		result.append(r);
-	}
 	return result;
 }
 
 static QList<Pdf::Resource> asColorSpace(QList<PdfSpotC> spotMapValues)
 {
 	QList<Pdf::Resource> result;
-	foreach (Pdf::Resource r, spotMapValues)
-	{
+	foreach (const Pdf::Resource& r, spotMapValues)
 		result.append(r);
-	}
 	return result;
 }
 
@@ -8625,7 +8621,7 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 
 void PDFLibCore::PDF_RadioButtons()
 {
-	QMap<PageItem*, QList<PageItem*> > rbMap;
+	QHash<PageItem*, QList<PageItem*> > rbMap;
 	for (int a = 0; a < pageData.radioButtonList.count(); a++)
 	{
 		PageItem* pa = pageData.radioButtonList[a]->Parent;
@@ -8638,7 +8634,7 @@ void PDFLibCore::PDF_RadioButtons()
 			rbMap.insert(pa, aList);
 		}
 	}
-	QMap<PageItem*, QList<PageItem*> >::Iterator it;
+	QHash<PageItem*, QList<PageItem*> >::Iterator it;
 	for (it = rbMap.begin(); it != rbMap.end(); ++it)
 	{
 		QList<PageItem*> bList = it.value();

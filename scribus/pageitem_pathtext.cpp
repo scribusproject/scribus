@@ -172,7 +172,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	if (glyphRuns.isEmpty())
 		return;
 
-	foreach (const GlyphCluster run, glyphRuns) {
+	foreach (const GlyphCluster& run, glyphRuns)
+	{
 		totalTextLen += run.width();
 		if (run.hasFlag(ScLayout_ExpandingSpace))
 			spaceCount++;

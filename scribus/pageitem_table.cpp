@@ -1353,8 +1353,8 @@ void PageItem_Table::debug() const
 	qDebug() << "m_rowHeights: " <<  m_rowHeights;
 	qDebug() << "m_cellAreas: " <<  m_cellAreas;
 	qDebug() << "m_cellRows: ";
-	foreach(QList<TableCell> cellRow, m_cellRows)
-		foreach(TableCell cell, cellRow)
+	foreach(const QList<TableCell>& cellRow, m_cellRows)
+		foreach(const TableCell& cell, cellRow)
 			qDebug() << cell.asString();
 	qDebug() << "-------------------------------------------------";
 }

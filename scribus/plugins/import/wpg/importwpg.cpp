@@ -683,7 +683,6 @@ WpgPlug::~WpgPlug()
 
 bool WpgPlug::convert(QString fn)
 {
-	QString tmp;
 	importedColors.clear();
 
 	QFile file(fn);

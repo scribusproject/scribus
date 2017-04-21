@@ -15934,9 +15934,9 @@ void ScribusDoc::itemSelection_SetCompressionQuality(int cqIndex, Selection * cu
 	}
 }
 
-QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType)
+QHash<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType)
 {
-	QMap<PageItem*, QString> namesMap;
+	QHash<PageItem*, QString> namesMap;
 	QList<PageItem*> allItems;
 	int docItemsCount = DocItems.count();
 	for (int i = 0; i < docItemsCount; ++i)
@@ -16577,7 +16577,7 @@ void ScribusDoc::setNumerationCounter(QString numName, int level, int number)
 
 bool ScribusDoc::updateLocalNums(StoryText& itemText)
 {
-	QList<Numeration> m_nums;
+	QVector<Numeration> m_nums;
 	QList<int> m_counters;
 	bool needUpdate = false;
 	for (int pos = 0; pos < itemText.length(); ++pos)

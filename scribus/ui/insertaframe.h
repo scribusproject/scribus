@@ -45,7 +45,7 @@ protected:
 	QButtonGroup *pagePlacementButtonGroup;
 	QButtonGroup *framePositionButtonGroup;
 	QButtonGroup *sizeButtonGroup;
-	QMap<PageItem*, QString> pageItemMap;
+	QHash<PageItem*, QString> pageItemMap;
 	
 protected slots:
 	void slotSelectType(int id);

@@ -216,6 +216,7 @@ set(SCRIBUS_MOC_CLASSES
 	actionmanager.h
 	appmodehelper.h
 	canvas.h
+	canvasgesture.h
 	canvasgesture_cellselect.h
 	canvasgesture_columnresize.h
 	canvasgesture_rowresize.h

@@ -365,7 +365,6 @@ void CgmPlug::parseHeader(QString fName, double &b, double &h)
 
 bool CgmPlug::convert(QString fn)
 {
-	QString tmp;
 	Coords.resize(0);
 	Coords.svgInit();
 	importedColors.clear();

@@ -437,9 +437,9 @@ static QString getFamilyName(const FT_Face face)
 	if (!names.isEmpty())
 	{
 		std::sort(names.begin(), names.end(), nameComp);
-		foreach (const FT_SfntName name, names)
+		foreach (const FT_SfntName& name, names)
 		{
-			QString string = decodeNameRecord(name);
+			QString string(decodeNameRecord(name));
 			if (!string.isEmpty())
 			{
 				familyName = string;

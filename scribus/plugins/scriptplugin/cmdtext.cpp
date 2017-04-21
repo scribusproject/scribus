@@ -371,7 +371,6 @@ PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	char *file;
-	QString data;
 
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &file, "utf-8", &name)) {
 		return NULL;

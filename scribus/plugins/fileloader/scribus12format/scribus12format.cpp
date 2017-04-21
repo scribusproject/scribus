@@ -724,11 +724,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	struct ScribusDoc::BookMa bok;
 	int counter;
 	bool newVersion = false;
-	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
+	QString tmp, tmpf, PgNam, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	int x, a;
-//	double xf, xf2;
 	PageItem *Neu;
 	groupRemap.clear();
 	itemRemap.clear();
@@ -1724,14 +1723,13 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 
 void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last)
 {
-	QString tmp2, tmf, tmpf, tmp3;
-	tmp2 = it->attribute("CH");
+	QString tmp2(it->attribute("CH"));
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
-	tmpf = it->attribute("CFONT", doc->itemToolPrefs().textFont);
+	QString tmpf(it->attribute("CFONT", doc->itemToolPrefs().textFont));
 	doc->AllFonts->findFont(tmpf, doc);
 	int size = qRound(ScCLocale::toDoubleC(it->attribute("CSIZE")) * 10);
 	QString fcolor = it->attribute("CCOLOR");
@@ -1828,7 +1826,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
-	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
+	QString tmp, tmpf;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	int x, a, counter; //, baseobj;
@@ -2251,12 +2249,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> * tempParagraphStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou;
 	int fShade, sShade;
 	QString fColor, sColor;
-	QString tmpf, tmf, tmV;
+	QString tmpf;
 	double xf, xf2;
-	fou = false;
+	bool fou = false;
 	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
 	vg->setName(pg->attribute("NAME"));
 	vg->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg->attribute("LINESPMode", "0").toInt()));
@@ -2403,8 +2400,6 @@ bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 {
 	ParagraphStyle pstyle;
 	QDomDocument docu("scridoc");
-	QString tmpf, tmf;
-// 	DoFonts.clear();
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;

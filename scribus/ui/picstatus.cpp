@@ -493,12 +493,11 @@ void PicStatus::doImageExtProp()
 {
 	if (currItem != NULL)
 	{
-		ExtImageProps* dia = new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
-		dia->exec();
+		ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
+		dia.exec();
 		loadPict(currItem->Pfile);
 		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
-		delete dia;
 	}
 }
 

@@ -179,8 +179,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
-	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
-	QFont fo;
+	QString tmp, PgNam, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	QMap<int,int> TableIDM;
@@ -2041,8 +2040,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
-	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
-	QFont fo;
+	QString tmp;
 	ReplacedFonts.clear();
 	newReplacement = false;
 	QMap<int,int> TableID;
@@ -2517,9 +2515,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou;
-	QString tmpf, tmf, tmV;
-	fou = false;
+	bool fou = false;
 	readParagraphStyle(*vg, *pg, doc);
 	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
 	for (int xx=0; xx<docParagraphStyles.count(); ++xx)

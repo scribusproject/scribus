@@ -388,7 +388,7 @@ void StyleManager::slotImport()
 			QStringList neededColors;
 			neededColors.clear();
 
-			foreach (QString aStyle, dia2->paragraphStyles())
+			foreach (const QString& aStyle, dia2->paragraphStyles())
 			{
 				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(aStyle)]);
 				if (dia2->clashRename())
@@ -410,7 +410,7 @@ void StyleManager::slotImport()
 					neededColors.append(sty.charStyle().fillColor());
 			}
 
-			foreach (QString aStyle, dia2->characterStyles())
+			foreach (const QString& aStyle, dia2->characterStyles())
 			{
 				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(/*it.data()*/aStyle)]);
 				if (dia2->clashRename())
@@ -432,7 +432,7 @@ void StyleManager::slotImport()
 					neededColors.append(sty.fillColor());
 			}
 
-			foreach (QString aStyle, dia2->lineStyles())
+			foreach (const QString& aStyle, dia2->lineStyles())
 			{
 				multiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
 				QString styName = aStyle;
