@@ -13,12 +13,14 @@
 *                                                                         *
 ***************************************************************************/
 
+#ifndef CANVASMODE_OBJIMPORT_H
+#define CANVASMODE_OBJIMPORT_H
 
-
-#ifndef CANVAS_MODE_OBJIMPORT_H
-#define CANVAS_MODE_OBJIMPORT_H
-
+#include <QEvent>
+#include <QMimeData>
+#include <QMouseEvent>
 #include <QObject>
+#include <QPainter>
 
 #include "canvasmode.h"
 #include "fpointarray.h"
@@ -34,6 +36,8 @@ class TransactionSettings;
 
 class CanvasMode_ObjImport :  public CanvasMode
 {
+	Q_OBJECT
+
 public:
 	explicit CanvasMode_ObjImport(ScribusView* view);
 	virtual ~CanvasMode_ObjImport();
@@ -56,9 +60,9 @@ public:
 // 	void setResizeCursor(int);
 
 private:
-	QMimeData*          m_mimeData;
+	QMimeData* m_mimeData;
 	TransactionSettings* m_trSettings;
-	double     m_Mxp, m_Myp;
+	double m_Mxp, m_Myp;
 };
 
 

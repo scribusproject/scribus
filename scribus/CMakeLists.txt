@@ -232,8 +232,10 @@ set(SCRIBUS_MOC_CLASSES
 	canvasmode_editweldpoint.h
 	canvasmode_eyedropper.h
 	canvasmode_framelinks.h
+	canvasmode_imageimport.h
 	canvasmode_measurements.h
 	canvasmode_normal.h
+	canvasmode_objimport.h
 	chartablemodel.h
 	chartableview.h
 	collect4output.h
@@ -477,6 +479,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/resourcemanagerlicense.h
 	ui/rulermover.h
 	ui/sccolorslider.h
+	ui/sccombobox.h
 	ui/scdockpalette.h
 	ui/scescapecatcher.h
 	ui/scfilewidget.h

@@ -19,11 +19,8 @@
 #include <QApplication>
 #include <QCursor>
 #include <QDropEvent>
-#include <QEvent>
-#include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
-#include <QMimeData>
 #include <QDebug>
 
 #include "appmodes.h"

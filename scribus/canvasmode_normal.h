@@ -15,8 +15,8 @@
 
 
 
-#ifndef CANVAS_MODE_NORMAL_H
-#define CANVAS_MODE_NORMAL_H
+#ifndef CANVASMODE_NORMAL_H
+#define CANVASMODE_NORMAL_H
 
 #include <QObject>
 #include <QTime>
