@@ -80,9 +80,6 @@
     <ClInclude Include="..\..\..\scribus\annotation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasgesture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasgesture_linemove.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -116,16 +113,10 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_editmeshpatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasmode_imageimport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasmode_nodeedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasmode_objimport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasmode_panning.h">
@@ -4215,6 +4206,15 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\splash.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_imageimport.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_objimport.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

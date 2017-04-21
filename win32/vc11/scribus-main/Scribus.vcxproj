@@ -719,7 +719,7 @@
     <moc Include="..\..\..\scribus\ui\smlinestyle.h" />
     <moc Include="..\..\..\scribus\ui\smlinestylewidget.h" />
     <moc Include="..\..\..\scribus\ui\smpstylewidget.h" />
-    <CustomBuild Include="..\..\..\scribus\ui\smradiobutton.h" />
+    <moc Include="..\..\..\scribus\ui\smradiobutton.h" />
     <moc Include="..\..\..\scribus\ui\smreplacedia.h" />
     <moc Include="..\..\..\scribus\ui\smsccombobox.h" />
     <moc Include="..\..\..\scribus\ui\smscrspinbox.h" />
