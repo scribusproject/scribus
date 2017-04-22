@@ -4006,16 +4006,38 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					conv = 32;
 				if (UndoManager::undoEnabled())
 				{
+					ScItemState<ParagraphStyle> *ip = 0;
 					SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-					if (ss && ss->get("ETEA") == "insert_frametext")
-						ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
+					UndoObject *undoTarget = this;
+					int cursorPos = itemText.cursorPosition();
+					if (conv == SpecialChars::PARSEP.unicode())
+					{
+						ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
+						ip->set("INSERT_FRAMEPARA");
+						ip->set("ETEA", "insert_framepara");
+						ip->set("START", cursorPos);
+						ip->setItem(itemText.paragraphStyle(cursorPos));
+						if (isNoteFrame())
+						{
+							undoTarget = dynamic_cast<UndoObject*>(m_Doc);
+							ip->set("noteframeName", getUName());
+						}
+						undoManager->action(undoTarget, ip);
+					}
+					else if (ss && ss->get("ETEA") == "insert_frametext")
+						ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(QChar(conv)));
 					else {
 						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 						ss->set("INSERT_FRAMETEXT");
 						ss->set("ETEA", QString("insert_frametext"));
 						ss->set("TEXT_STR", QString(QChar(conv)));
 						ss->set("START", itemText.cursorPosition());
-						undoManager->action(this, ss);
+						if (isNoteFrame())
+						{
+							undoTarget = dynamic_cast<UndoObject*>(m_Doc);
+							ss->set("noteframeName", getUName());
+						}
+						undoManager->action(undoTarget, ss);
 					}
 				}
 				itemText.insertChars(QString(QChar(conv)), true);
@@ -4475,20 +4497,36 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (UndoManager::undoEnabled())
 			{
+				ScItemState<ParagraphStyle> *ip = 0;
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-				if (ss && ss->get("ETEA") == "insert_frametext")
+				UndoObject *undoTarget = this;
+				int cursorPos = itemText.cursorPosition();
+				if (uc[0] == SpecialChars::PARSEP)
+				{
+					ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
+					ip->set("INSERT_FRAMEPARA");
+					ip->set("ETEA", "insert_framepara");
+					ip->set("START", cursorPos);
+					ip->setItem(itemText.paragraphStyle(cursorPos));
+					if (isNoteFrame())
+					{
+						undoTarget = dynamic_cast<UndoObject*>(m_Doc);
+						ip->set("noteframeName", getUName());
+					}
+					undoManager->action(undoTarget, ip);
+				}
+				else if (ss && ss->get("ETEA") == "insert_frametext")
 					ss->set("TEXT_STR", ss->get("TEXT_STR") + uc);
 				else
 				{
-					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+					ss = new SimpleState(Um::InsertText, "", Um::ICreate);
 					ss->set("INSERT_FRAMETEXT");
 					ss->set("ETEA", QString("insert_frametext"));
 					ss->set("TEXT_STR", uc);
-					ss->set("START", itemText.cursorPosition());
-					UndoObject * undoTarget = this;
+					ss->set("START", cursorPos);
 					if (isNoteFrame())
 					{
-						undoTarget = m_Doc;
+						undoTarget = dynamic_cast<UndoObject*>(m_Doc);
 						ss->set("noteframeName", getUName());
 					}
 					undoManager->action(undoTarget, ss);

@@ -1580,6 +1580,7 @@ protected: // Start protected functions
 	void restoreImageScaleChange(SimpleState *state, bool isUndo);
 	void restoreImageScaleMode(SimpleState *state, bool isUndo);
 	void restoreInsertFrameText(SimpleState *state, bool isUndo);
+	void restoreInsertFrameParagraph(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
 	void restoreLeftTextFrameDist(SimpleState *state, bool isUndo);
 	void restoreLineColor(SimpleState *state, bool isUndo);

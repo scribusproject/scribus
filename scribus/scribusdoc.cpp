@@ -1891,6 +1891,12 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			Q_ASSERT(nF != NULL);
 			nF->asNoteFrame()->restoreInsertNoteText(ss,isUndo);
 		}
+		else if (ss->contains("INSERT_FRAMEPARA"))
+		{
+			PageItem * nF = getItemFromName(ss->get("noteframeName"));
+			Q_ASSERT(nF != NULL);
+			nF->asNoteFrame()->restoreInsertNoteParagraph(ss,isUndo);
+		}
 		else if (ss->contains("NSTYLE"))
 		{
 			NotesStyle* NS = NULL;

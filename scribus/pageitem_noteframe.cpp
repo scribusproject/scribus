@@ -390,6 +390,12 @@ void PageItem_NoteFrame::restoreInsertNoteText(SimpleState *state, bool isUndo)
 	updateNotesText();
 }
 
+void PageItem_NoteFrame::restoreInsertNoteParagraph(SimpleState *state, bool isUndo)
+{
+	PageItem::restoreInsertFrameParagraph(state, isUndo);
+	updateNotesText();
+}
+
 void PageItem_NoteFrame::unWeld(bool doUndo)
 {
 	if (doUndo)

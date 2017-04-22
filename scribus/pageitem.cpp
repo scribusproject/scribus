@@ -4909,33 +4909,35 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			else if (ss->contains("DELETE_FRAMEPARA"))
 				restoreDeleteFrameParagraph(ss, isUndo);
 			else if (ss->contains("INSERT_FRAMETEXT"))
-				restoreInsertFrameText(ss,isUndo);
+				restoreInsertFrameText(ss, isUndo);
+			else if (ss->contains("INSERT_FRAMEPARA"))
+				restoreInsertFrameParagraph(ss, isUndo);
 			else if (ss->contains("LOREM_FRAMETEXT"))
-				restoreInsertFrameText(ss,isUndo);
+				restoreInsertFrameText(ss, isUndo);
 			else if (ss->contains("APPLY_CHARSTYLE"))
-				restoreCharStyle(ss,isUndo);
+				restoreCharStyle(ss, isUndo);
 			else if (ss->contains("SET_CHARSTYLE"))
-				restoreSetCharStyle(ss,isUndo);
+				restoreSetCharStyle(ss, isUndo);
 			else if (ss->contains("SET_PARASTYLE"))
-				restoreSetParagraphStyle(ss,isUndo);
+				restoreSetParagraphStyle(ss, isUndo);
 			else if (ss->contains("APPLY_PARASTYLE"))
-				restoreParagraphStyle(ss,isUndo);
+				restoreParagraphStyle(ss, isUndo);
 			else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
-				restoreDefaultParagraphStyle(ss,isUndo);
+				restoreDefaultParagraphStyle(ss, isUndo);
 			else if (ss->contains("LEFT_TEXTFRAMEDIST"))
-				restoreLeftTextFrameDist(ss,isUndo);
+				restoreLeftTextFrameDist(ss, isUndo);
 			else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
-				restoreRightTextFrameDist(ss,isUndo);
+				restoreRightTextFrameDist(ss, isUndo);
 			else if (ss->contains("TOP_TEXTFRAMEDIST"))
-				restoreTopTextFrameDist(ss,isUndo);
+				restoreTopTextFrameDist(ss, isUndo);
 			else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
-				restoreBottomTextFrameDist(ss,isUndo);
+				restoreBottomTextFrameDist(ss, isUndo);
 			else if (ss->contains("FIRSTLINEOFFSET"))
-				restoreFirstLineOffset(ss,isUndo);
+				restoreFirstLineOffset(ss, isUndo);
 			else if (ss->contains("PASTE_TEXT"))
-				restorePasteText(ss,isUndo);
+				restorePasteText(ss, isUndo);
 			else if (ss->contains("CORNER_RADIUS"))
-				restoreCornerRadius(ss,isUndo);
+				restoreCornerRadius(ss, isUndo);
 			else if (ss->contains("IMAGEFLIPH"))
 			{
 				select();
@@ -5069,15 +5071,15 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			else if (ss->contains("APPLY_IMAGE_EFFECTS"))
 				restoreImageEffects(ss, isUndo);
 			else if (ss->contains("DROP_LINKS"))
-				restoreDropLinks(ss,isUndo);
+				restoreDropLinks(ss, isUndo);
 			else if (ss->contains("LINK_TEXT_FRAME"))
-				restoreLinkTextFrame(ss,isUndo);
+				restoreLinkTextFrame(ss, isUndo);
 			else if (ss->contains("UNLINK_TEXT_FRAME"))
-				restoreUnlinkTextFrame(ss,isUndo);
+				restoreUnlinkTextFrame(ss, isUndo);
 			else if (ss->contains("CLEAR_IMAGE"))
-				restoreClearImage(ss,isUndo);
+				restoreClearImage(ss, isUndo);
 			else if (ss->contains("PASTE_INLINE"))
-				restorePasteInline(ss,isUndo);
+				restorePasteInline(ss, isUndo);
 			else if (ss->contains("TRANSFORM"))
 				restoreTransform(ss, isUndo);
 			else if (ss->contains("PATH_OPERATION"))
@@ -6687,6 +6689,27 @@ void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
 	}
 	else
 		itemText.insertChars(start, text);
+}
+
+void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
+{
+	ScItemState<ParagraphStyle> *is = dynamic_cast<ScItemState<ParagraphStyle> *>(ss);
+	if (!is)
+		qFatal("PageItem::restoreDeleteFrameParagraph: dynamic cast failed");
+	int start = is->getInt("START");
+	if (isUndo)
+	{
+		itemText.select(start, 1);
+		asTextFrame()->deleteSelectedTextFromFrame();
+		itemText.applyStyle(start, is->getItem());
+	}
+	else
+	{
+		itemText.insertChars(start, SpecialChars::PARSEP);
+		invalid = true;
+		invalidateLayout();
+	}
+	update();
 }
 
 void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)

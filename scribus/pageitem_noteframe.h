@@ -52,6 +52,7 @@ public:
 	void restoreDeleteNoteText(SimpleState *state, bool isUndo);
 	void restoreDeleteNoteParagraph(SimpleState *state, bool isUndo);
 	void restoreInsertNoteText(SimpleState *state, bool isUndo);
+	void restoreInsertNoteParagraph(SimpleState *state, bool isUndo);
 	//overloaded PageItem::unWeld()
 	void unWeld(bool doUndo=true);
 	
