@@ -418,19 +418,21 @@ class LineSpec
 	{
 		x = 0.0;
 		y = 0.0;
-		firstCluster = 0;
-		lastCluster = 0;
-		ascent = 0.0;
-		descent = 0.0;
 		width  = 0.0;
 		height = 0.0;
-		naturalWidth = 0.0;
+		ascent = 0.0;
+		descent = 0.0;
 		colLeft = 0.0;
+		firstCluster = 0;
+		lastCluster = 0;
+		naturalWidth = 0.0;
+		isFirstLine = false;
 	}
 
 	qreal x;
 	qreal y;
 	qreal width;
+	qreal height;
 	qreal ascent;
 	qreal descent;
 	qreal colLeft;
@@ -439,7 +441,6 @@ class LineSpec
 	int lastCluster;
 	qreal naturalWidth;
 	bool isFirstLine;
-	qreal height;
 };
 
 /**
@@ -494,7 +495,6 @@ struct LineControl {
 		colWidth = colwidth;
 		colGap = colgap;
 		hyphenCount = 0;
-
 		isEmpty = true;
 		colLeft = insets.left() + lineCorr;
 		colRight = colLeft + colWidth;
