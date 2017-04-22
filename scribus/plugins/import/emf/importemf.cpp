@@ -428,12 +428,40 @@ for which a new license (GPL+exception) is in place.
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
+	: docWidth(0.0),
+	  docHeight(0.0),
+	  baseX(0.0),
+	  baseY(0.0),
+	  docX(0.0),
+	  docY(0.0),
+	  dpiX(0.0),
+	  dpiY(0.0),
+	  EmfPdpiX(0),
+	  EmfPdpiY(0.0),
+	  m_records(0),
+	  recordCount(0),
+	  viewPextendX(0),
+	  viewPextendY(0),
+	  winPextendX(0),
+	  winPextendY(0),
+	  winOrigX(0),
+	  winOrigY(0),
+	  progressDialog(NULL),
+	  cancel(false),
+	  m_Doc(doc),
+	  importerFlags(flags),
+	  inPath(false),
+	  inEMFPlus(false),
+	  emfPlusDual(false),
+	  emfMixed(false),
+	  emfPlusScale(0.0),
+	  SerializableObject_Valid(false),
+	  m_ObjSize(0),
+	  m_currObjSize(0),
+	  m_objID(0)
 {
 	tmpSel=new Selection(this, false);
-	m_Doc=doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
 }
 
 QImage EmfPlug::readThumbnail(QString fName)
