@@ -23,9 +23,10 @@ TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar,
 { }
 
 TextShaper::TextShaper(ITextSource &story, int firstChar)
-	: m_context(NULL)
-	, m_story(story)
-	, m_firstChar(firstChar)
+	: m_context(NULL),
+	m_contextNeeded(false),
+	m_story(story),
+	m_firstChar(firstChar)
 {
 	for (int i = m_firstChar; i < m_story.length(); ++i)
 	{
