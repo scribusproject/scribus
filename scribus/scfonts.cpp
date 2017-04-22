@@ -981,9 +981,19 @@ void SCFonts::AddFontconfigFonts()
 	// We currently just need FC_FILE, but other info like font family and style
 	// is available - see "man fontconfig".
 	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
+	if (!os)
+	{
+		qFatal("SCFonts::AddFontconfigFonts() FcObjectSet* os failed to build object set");
+		return;
+	}
 	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
 	// matching pattern 'pat'.
 	FcFontSet* fs = FcFontList(config, pat, os);
+	if (!fs)
+	{
+		qFatal("SCFonts::AddFontconfigFonts() FcFontSet* fs failed to create font list");
+		return;
+	}
 	FcConfigDestroy(config);
 	FcObjectSetDestroy(os);
 	FcPatternDestroy(pat);
@@ -992,8 +1002,7 @@ void SCFonts::AddFontconfigFonts()
 	FT_Library library = NULL;
 	FT_Init_FreeType( &library );
 	// Now iterate over the font files and load them
-	int i;
-	for (i = 0; i < fs->nfont; i++) 
+	for (int i = 0; i < fs->nfont; i++)
 	{
 		FcChar8 *file = NULL;
 		if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
@@ -1007,8 +1016,7 @@ void SCFonts::AddFontconfigFonts()
 				sDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
 	}
 	FT_Done_FreeType(library);
-	if (fs)
-		FcFontSetDestroy(fs);
+	FcFontSetDestroy(fs);
 }
 
 #elif defined(Q_OS_LINUX)
