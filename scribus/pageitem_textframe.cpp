@@ -517,6 +517,7 @@ struct LineControl {
 		breakIndex = -1;
 		breakXPos = 0.0;
 		maxShrink = 0.0;
+		maxStretch = 0.0;
 	}
 
 	/// move position to next column
