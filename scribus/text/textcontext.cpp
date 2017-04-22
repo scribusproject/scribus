@@ -84,32 +84,34 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 		case ExpansionPoint::MarkCE:
 			{
 				Mark* mark = expansion.getMark();
-
-				mark->OwnPage = m_frame->OwnPage;
-				//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
-				if (!mark->isType(MARK2ItemType))
+				if (mark != NULL)
 				{
-					mark->setItemPtr(m_frame);
-					mark->setItemName(m_frame->itemName());
-				}
+					mark->OwnPage = m_frame->OwnPage;
+					//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
+					if (!mark->isType(MARK2ItemType))
+					{
+						mark->setItemPtr(m_frame);
+						mark->setItemName(m_frame->itemName());
+					}
 
-				//anchors and indexes has no visible inserts in text
-				if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
-					return QString();
-
-				//set note marker charstyle
-				if (mark->isNoteType())
-				{
-					mark->setItemPtr(m_frame);
-
-
-					TextNote* note = mark->getNotePtr();
-					if (note == NULL)
+					//anchors and indexes has no visible inserts in text
+					if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
 						return QString();
 
+					//set note marker charstyle
+					if (mark->isNoteType())
+					{
+						mark->setItemPtr(m_frame);
+
+
+						TextNote* note = mark->getNotePtr();
+						if (note == NULL)
+							return QString();
+
+					}
+					if (!mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
+						return mark->getString();
 				}
-				if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
-					return mark->getString();
 			}
 			break;
 		case ExpansionPoint::Invalid:
