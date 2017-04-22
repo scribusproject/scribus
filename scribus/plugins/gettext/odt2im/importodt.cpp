@@ -48,6 +48,7 @@ void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bo
 
 ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
+	uz=NULL;
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;
@@ -59,7 +60,7 @@ ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, b
 		QByteArray f;
 		loadRawText(fileName, f);
 		QDomDocument designMapDom;
-		QString errorMsg = "";
+		QString errorMsg;
 		int errorLine = 0;
 		int errorColumn = 0;
 		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -75,53 +76,56 @@ ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, b
 	else
 	{
 		uz = new ScZipHandler();
-		if (!uz->open(fileName))
+		if (uz)
 		{
-			delete uz;
-			QByteArray f;
-			loadRawText(fileName, f);
-			QDomDocument designMapDom;
-			QString errorMsg = "";
-			int errorLine = 0;
-			int errorColumn = 0;
-			if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+			if (!uz->open(fileName))
+			{
+				delete uz;
+				QByteArray f;
+				loadRawText(fileName, f);
+				QDomDocument designMapDom;
+				QString errorMsg;
+				int errorLine = 0;
+				int errorColumn = 0;
+				if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+				{
+					if (textOnly)
+						parseRawDocReferenceXML(designMapDom);
+					else
+						parseDocReferenceXML(designMapDom);
+				}
+				else
+				{
+					qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
+					return;
+				}
+			}
+			else
 			{
 				if (textOnly)
-					parseRawDocReferenceXML(designMapDom);
-				else
-					parseDocReferenceXML(designMapDom);
-			}
-			else
-			{
-				qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-				return;
-			}
-		}
-		else
-		{
-			if (textOnly)
-			{
-				if (uz->contains("content.xml"))
-					parseRawDocReference("content.xml");
-			}
-			else
-			{
-				if (uz->contains("styles.xml"))
 				{
-					if (parseStyleSheets("styles.xml"))
+					if (uz->contains("content.xml"))
+						parseRawDocReference("content.xml");
+				}
+				else
+				{
+					if (uz->contains("styles.xml"))
+					{
+						if (parseStyleSheets("styles.xml"))
+						{
+							if (uz->contains("content.xml"))
+								parseDocReference("content.xml");
+						}
+					}
+					else
 					{
 						if (uz->contains("content.xml"))
 							parseDocReference("content.xml");
 					}
 				}
-				else
-				{
-					if (uz->contains("content.xml"))
-						parseDocReference("content.xml");
-				}
+				uz->close();
+				delete uz;
 			}
-			uz->close();
-			delete uz;
 		}
 	}
 	textItem->itemText.trim();
