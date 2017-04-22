@@ -36,14 +36,15 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 
-PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(parent)
+PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
+	: QWidget(parent),
+	  m_haveDoc(false),
+	  m_haveItem(false),
+	  m_unitRatio(1.0),
+	  m_unitIndex(SC_PT),
+	  m_item(NULL),
+	  m_doc(NULL)
 {
-	m_ScMW = 0;
-	m_doc  = 0;
-	m_haveDoc    = false;
-	m_haveItem   = false;
-	m_unitRatio  = 1.0;
-
 	m_tmpSelection = new Selection(this, false);
 	m_tmpSelection->clear();
 
