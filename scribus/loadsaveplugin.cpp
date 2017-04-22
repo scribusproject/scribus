@@ -475,22 +475,26 @@ QString FileFormat::saveElements(double xp, double yp, double wp, double hp, Sel
 }
 
 FileFormat::FileFormat() :
+	formatId(0),
 	load(false),
 	save(false),
 	thumb(false),
 	colorReading(false),
 	nativeScribus(false),
+	priority(0),
 	plug(0)
 {
 }
 
 FileFormat::FileFormat(LoadSavePlugin* plug) :
+	formatId(0),
 	load(false),
 	save(false),
 	thumb(false),
 	colorReading(false),
 	nativeScribus(false),
-	plug(plug)
+	priority(0),
+	plug(0)
 {
 }
 
