@@ -16,17 +16,19 @@
 
 
 TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar, bool singlePar)
-	: m_context(context)
-	, m_story(story)
-	, m_firstChar(firstChar)
-	, m_singlePar(singlePar)
+	: m_context(context),
+	m_contextNeeded(false),
+	m_story(story),
+	m_firstChar(firstChar),
+	m_singlePar(singlePar)
 { }
 
 TextShaper::TextShaper(ITextSource &story, int firstChar)
 	: m_context(NULL),
 	m_contextNeeded(false),
 	m_story(story),
-	m_firstChar(firstChar)
+	m_firstChar(firstChar),
+	m_singlePar(false)
 {
 	for (int i = m_firstChar; i < m_story.length(); ++i)
 	{
