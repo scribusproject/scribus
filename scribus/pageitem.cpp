@@ -6695,7 +6695,7 @@ void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
 {
 	ScItemState<ParagraphStyle> *is = dynamic_cast<ScItemState<ParagraphStyle> *>(ss);
 	if (!is)
-		qFatal("PageItem::restoreDeleteFrameParagraph: dynamic cast failed");
+		qFatal("PageItem::restoreInsertFrameParagraph: dynamic cast failed");
 	int start = is->getInt("START");
 	if (isUndo)
 	{
