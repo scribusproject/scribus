@@ -40,12 +40,19 @@ for which a new license (GPL+exception) is in place.
 
 
 XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool prefix, bool append)
+	: m_item(item),
+	  importTextOnly(textOnly),
+	  m_prefixName(prefix),
+	  m_append(append),
+	  newlineFlag(false),
+	  xflag(false),
+	  inDef(false),
+	  top(0),
+	  define(0),
+	  m_isBold(false),
+	  m_isItalic(false)
 {
-	m_item = item;
-	importTextOnly = textOnly;
-	m_append = append;
 	loadRawBytes(filename, input_Buffer);
-	top = 0;
 	if ((input_Buffer[0] == '\xFF') && (input_Buffer[1] == '\xFE'))
 	{
 		QByteArray tmpBuf;
@@ -61,18 +68,13 @@ XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool pre
 	initNameMode();
 	initLanguages();
 	prevMode = textMode;
-	textToAppend = "";
-	define = 0;
 	styleEffects = ScStyle_None;
 	m_codecList = QTextCodec::availableCodecs();
 	if (m_codecList.contains("cp1252"))
 		m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
 	else
 		m_codec = QTextCodec::codecForLocale();
-	m_isBold = false;
-	m_isItalic = false;
-	inDef = false;
-	m_prefixName = prefix;
+
 }
 
 /** Initialise a QHash which maps the values of n## to corresponding language strings
