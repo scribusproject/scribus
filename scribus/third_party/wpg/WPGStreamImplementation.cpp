@@ -403,6 +403,8 @@ bool WPGMemoryStream::isOLEStream()
 ::WPXInputStream* WPGMemoryStream::getDocumentOLEStream(const char * name)
 {
 	Storage *tmpStorage = new Storage( d->buffer );
+	if (!tmpStorage)
+		return (::WPXInputStream*)0;
 	Stream tmpStream( tmpStorage, name );
 	if (!tmpStorage || (tmpStorage->result() != Storage::Ok)  || !tmpStream.size())
 	{
