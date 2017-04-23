@@ -159,10 +159,11 @@ void LatexEditor::writeExternalEditorFile()
 	fileWatcher->disconnect(); //Avoid triggering false updates
 
 	//First create a temp file name
-	if (extEditorFile.isEmpty()) {
-		QTemporaryFile *editortempfile = new QTemporaryFile(
-			QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
-		if (!editortempfile->open()) {
+	if (extEditorFile.isEmpty())
+	{
+		QTemporaryFile *editortempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
+		if (!editortempfile->open())
+		{
 			ScMessageBox::critical(0, tr("Error"), "<qt>" + 
 				tr("Could not create a temporary file to run the external editor!")
 				+ "</qt>");
@@ -174,12 +175,15 @@ void LatexEditor::writeExternalEditorFile()
 		fileWatcher->addFile(extEditorFile);
 	}
 	QFile f(extEditorFile);
-	f.open(QIODevice::WriteOnly);
+	if(!f.open(QIODevice::WriteOnly))
+	{
+		qDebug()<<"Unable to open editor file in LatexEditor::writeExternalEditorFile()";
+		return;
+	}
 	f.write(frame->formula().toUtf8());
 	f.close();
 	fileWatcher->forceScan();
-	connect(fileWatcher, SIGNAL(fileChanged(QString)),
-		this, SLOT(extEditorFileChanged(QString)));
+	connect(fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(extEditorFileChanged(QString)));
 	fileWatcher->start();
 }
 
