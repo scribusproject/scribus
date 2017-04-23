@@ -468,13 +468,27 @@ bool PagesPlug::convert(QString fn)
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
 PagesPlug::PagesPlug(ScribusDoc* doc, int flags)
+	: baseX(0.0),
+	  baseY(0.0),
+	  docWidth(0.0),
+	  docHeight(0.0),
+	  m_Doc(doc),
+	  importerFlags(flags),
+	  progressDialog(NULL),
+	  cancel(false),
+	  firstPage(false),
+	  pagecount(0),
+	  mpagecount(0),
+	  topMargin(0.0),
+	  leftMargin(0.0),
+	  rightMargin(0.0),
+	  bottomMargin(0.0),
+	  pgCols(0.0),
+	  pgGap(0.0),
+	  uz(NULL)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	uz = NULL;
 }
 
 QImage PagesPlug::readThumbnail(QString fName)
