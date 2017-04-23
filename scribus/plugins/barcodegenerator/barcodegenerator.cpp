@@ -50,8 +50,12 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	 *
 	 */
 
-	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
-	f.open(QIODevice::ReadOnly);
+	QFile f(ScPaths::instance().shareDir() + QString("/plugins/barcode.ps"));
+	if(!f.open(QIODevice::ReadOnly))
+	{
+		qDebug()<<"Barcodegenerator unable to open "<<f.fileName();
+		return;
+	}
 	QTextStream ts(&f);
 	QString bwipp = ts.readAll();
 	f.close();
@@ -93,8 +97,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 		pos+=len;
 	}
 
-	QString enc;
-	foreach (enc, encoderlist) map[resdescs[enc]] = BarcodeType(enc, resexams[enc], resexops[enc]);
+	foreach (const QString& enc, encoderlist)
+		map[resdescs[enc]] = BarcodeType(enc, resexams[enc], resexops[enc]);
 
 	/*
 	 *  Ultimately all of this static data about the capabilities of each barcode
@@ -143,40 +147,39 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	// Which options checkboxes are enabled for each encoder
 	QStringList includetextAvail=encoderlist;
-	foreach (enc,includetextAvail)
+	foreach (const QString& enc, includetextAvail)
 		resincludetextAvail[enc]=true; 
 
 	QStringList guardwhitespaceAvail;
-	guardwhitespaceAvail << "ean13" << "ean8" << "isbn" << "ismn" << "issn" << "ean13composite";
-	guardwhitespaceAvail << "ean8composite";
-	foreach (enc,guardwhitespaceAvail)
+	guardwhitespaceAvail << "ean13" << "ean8" << "isbn" << "ismn" << "issn" << "ean13composite" << "ean8composite";
+	foreach (const QString& enc, guardwhitespaceAvail)
 		resguardwhitespaceAvail[enc]=true; 
 
 	QStringList includecheckAvail;
-	includecheckAvail << "bc412" << "channelcode" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5";
-	includecheckAvail << "iata2of5" << "industrial2of5" << "matrix2of5" << "code39" << "code39ext";
-	includecheckAvail << "code93" << "code93ext" << "interleaved2of5" << "msi" << "rationalizedCodabar"; 
-	foreach (enc,includecheckAvail)
+	includecheckAvail << "bc412" << "channelcode" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5"
+					  << "iata2of5" << "industrial2of5" << "matrix2of5" << "code39" << "code39ext"
+					  << "code93" << "code93ext" << "interleaved2of5" << "msi" << "rationalizedCodabar";
+	foreach (const QString& enc, includecheckAvail)
 		resincludecheckAvail[enc]=true; 
 
 	QStringList includecheckintextAvail;
-	includecheckintextAvail << "bc412" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5" << "iata2of5";
-	includecheckintextAvail << "industrial2of5" << "matrix2of5" << "code39" << "code39ext" << "interleaved2of5";
-	includecheckintextAvail << "japanpost" << "msi" << "planet" << "plessey" << "postnet" << "rationalizedCodabar" << "royalmail";
-	foreach (enc,includecheckintextAvail)
+	includecheckintextAvail << "bc412" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5" << "iata2of5"
+							<< "industrial2of5" << "matrix2of5" << "code39" << "code39ext" << "interleaved2of5"
+							<< "japanpost" << "msi" << "planet" << "plessey" << "postnet" << "rationalizedCodabar" << "royalmail";
+	foreach (const QString& enc, includecheckintextAvail)
 		resincludecheckintextAvail[enc]=true; 
 
 	QStringList parseAvail;
-	parseAvail << "azteccode" << "azteccodecompact" << "codablockf" << "hibccodablockf" << "code128" << "hibccode128" << "code16k" << "code39ext" << "code49";
-	parseAvail << "code93ext" << "codeone" << "datamatrix" << "hibcdatamatrix" << "maxicode" << "micropdf417" << "hibcmicropdf417" << "pdf417" << "hibcpdf417" << "pdf417compact";
-	parseAvail << "posicode" << "qrcode" << "hibcqrcode" << "microqrcode" << "telepen" << "hanxin";
-	foreach (enc,parseAvail)
+	parseAvail << "azteccode" << "azteccodecompact" << "codablockf" << "hibccodablockf" << "code128" << "hibccode128" << "code16k" << "code39ext" << "code49"
+			   << "code93ext" << "codeone" << "datamatrix" << "hibcdatamatrix" << "maxicode" << "micropdf417" << "hibcmicropdf417" << "pdf417" << "hibcpdf417"
+			   << "pdf417compact" << "posicode" << "qrcode" << "hibcqrcode" << "microqrcode" << "telepen" << "hanxin";
+	foreach (const QString& enc, parseAvail)
 		resparseAvail[enc]=true; 
 
 	QStringList parsefncAvail;
-	parsefncAvail << "codablockf" << "code128" << "code16k" << "code49" << "code93" << "codeone";
-	parsefncAvail << "datamatrix" << "posicode" << "qrcode" << "microqrcode";
-	foreach (enc,parsefncAvail)
+	parsefncAvail << "codablockf" << "code128" << "code16k" << "code49" << "code93" << "codeone"
+				  << "datamatrix" << "posicode" << "qrcode" << "microqrcode";
+	foreach (const QString& enc, parsefncAvail)
 		resparsefncAvail[enc]=true; 
 
 	// Building up the bcFamilyCombo grouping the formats for readablity
@@ -201,58 +204,58 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code";
-	bcNames << "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417" << "Han Xin Code";
+	bcNames << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code"
+			<< "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417" << "Han Xin Code";
 	familyName = tr("Two-dimensional symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "Code 128" << "Code 39" << "Code 39 Extended" << "Code 93" << "Code 93 Extended";
-	bcNames << "Interleaved 2 of 5 (ITF)";
+	bcNames << "Code 128" << "Code 39" << "Code 39 Extended" << "Code 93" << "Code 93 Extended"
+			<< "Interleaved 2 of 5 (ITF)";
 	familyName = tr("One-dimensional symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional";
-	bcNames << "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated";
-	bcNames << "GS1 DataBar Stacked" << "GS1 DataBar Limited";
+	bcNames << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional"
+			<< "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated"
+			<< "GS1 DataBar Stacked" << "GS1 DataBar Limited";
 	familyName = tr("GS1 DataBar family");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "AusPost 4 State Customer Code" << "Deutsche Post Identcode" << "Deutsche Post Leitcode";
-	bcNames << "Japan Post 4 State Customer Code" << "Royal Dutch TPG Post KIX";
-	bcNames << "Royal Mail 4 State Customer Code" << "USPS Intelligent Mail" << "USPS PLANET" << "USPS POSTNET";
+	bcNames << "AusPost 4 State Customer Code" << "Deutsche Post Identcode" << "Deutsche Post Leitcode"
+			<< "Japan Post 4 State Customer Code" << "Royal Dutch TPG Post KIX"
+			<< "Royal Mail 4 State Customer Code" << "USPS Intelligent Mail" << "USPS PLANET" << "USPS POSTNET";
 	familyName = tr("Postal symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "Italian Pharmacode" << "Pharmaceutical Binary Code" << "Two-track Pharmacode";
-	bcNames << "Pharmazentralnummer (PZN)" << "HIBC Codablock F" << "HIBC Code 128" << "HIBC Code 39";
-	bcNames << "HIBC Data Matrix" << "HIBC MicroPDF417" << "HIBC PDF417" << "HIBC QR Code";
+	bcNames << "Italian Pharmacode" << "Pharmaceutical Binary Code" << "Two-track Pharmacode"
+			<< "Pharmazentralnummer (PZN)" << "HIBC Codablock F" << "HIBC Code 128" << "HIBC Code 39"
+			<< "HIBC Data Matrix" << "HIBC MicroPDF417" << "HIBC PDF417" << "HIBC QR Code";
 	familyName = tr("Pharmaceutical symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "Code 11" << "Codabar" << "Code 25" << "COOP 2 of 5" << "Datalogic 2 of 5" << "IATA 2 of 5";
-	bcNames << "Industrial 2 of 5" << "Matrix 2 of 5" << "MSI Modified Plessey" << "Plessey UK";
-	bcNames << "PosiCode" << "Telepen" << "Telepen Numeric"<< "Code 16K" << "Codablock F" << "Code 49";
-	bcNames << "Code One";
+	bcNames << "Code 11" << "Codabar" << "Code 25" << "COOP 2 of 5" << "Datalogic 2 of 5" << "IATA 2 of 5"
+			<< "Industrial 2 of 5" << "Matrix 2 of 5" << "MSI Modified Plessey" << "Plessey UK"
+			<< "PosiCode" << "Telepen" << "Telepen Numeric"<< "Code 16K" << "Codablock F" << "Code 49"
+			<< "Code One";
 	familyName = tr("Less-used symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "EAN-13 Composite" << "EAN-8 Composite" << "UPC-A Composite" << "UPC-E Composite";
-	bcNames << "GS1 DataBar Omnidirectional Composite" << "GS1 DataBar Stacked Omnidirectional Composite";
-	bcNames << "GS1 DataBar Expanded Composite" << "GS1 DataBar Expanded Stacked Composite";
-	bcNames << "GS1 DataBar Truncated Composite" << "GS1 DataBar Stacked Composite";
-	bcNames << "GS1 DataBar Limited Composite" << "GS1-128 Composite";
+	bcNames << "EAN-13 Composite" << "EAN-8 Composite" << "UPC-A Composite" << "UPC-E Composite"
+			<< "GS1 DataBar Omnidirectional Composite" << "GS1 DataBar Stacked Omnidirectional Composite"
+			<< "GS1 DataBar Expanded Composite" << "GS1 DataBar Expanded Stacked Composite"
+			<< "GS1 DataBar Truncated Composite" << "GS1 DataBar Stacked Composite"
+			<< "GS1 DataBar Limited Composite" << "GS1-128 Composite";
 	familyName = tr("GS1 Composite symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
@@ -313,16 +316,14 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 BarcodeGenerator::~BarcodeGenerator()
 {
-	if (paintBarcodeTimer)
-	{
-		delete paintBarcodeTimer;
-		paintBarcodeTimer=NULL;
-	}
+	if (!paintBarcodeTimer)
+		return;
+	delete paintBarcodeTimer;
+	paintBarcodeTimer=NULL;
 }
 
 void BarcodeGenerator::updateOptions()
 {
-
 	QString enc=map[ui.bcCombo->currentText()].command;
 
 	ui.formatLabel->setText(resvlbl[enc]!="" ? resvlbl[enc]+":" : "Version:");
