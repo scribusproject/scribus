@@ -1363,10 +1363,9 @@ void ResourceManager::showLicense()
 		{
 			QString destinationFolder=findDestinationFolder();
 			QFile dataFile(destinationFolder + licenceFileName);
-			if (dataFile.exists())
+			if (dataFile.exists() && dataFile.open(QIODevice::ReadOnly))
 			{
 				QTextStream ts(&dataFile);
-				dataFile.open(QIODevice::ReadOnly);
 				data = ts.readAll();
 				dataFile.close();
 				doDownload=false;
