@@ -20,7 +20,7 @@ class SCRIBUS_API ScDocOutput
 protected:
 	ScDocOutput() {}
 
-	virtual bool begin(void) {}
+	virtual bool begin(void) { return true; }
 	virtual void end(void) {}
 
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return NULL; }
