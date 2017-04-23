@@ -725,7 +725,11 @@ bool AIPlug::decompressAIData(QString &fName)
 	source = fopen(fName.toLocal8Bit().constData(), "rb");
 	if (!source)
 		return false;
-	fseek(source, 20, SEEK_SET);
+	if(!fseek(source, 20, SEEK_SET))
+	{
+		fclose(source);
+		return false;
+	}
 	dest = fopen(f2.toLocal8Bit().constData(), "wb");
 	if (!dest)
 	{
