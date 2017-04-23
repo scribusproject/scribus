@@ -494,7 +494,7 @@ FileFormat::FileFormat(LoadSavePlugin* plug) :
 	colorReading(false),
 	nativeScribus(false),
 	priority(0),
-	plug(0)
+	plug(plug)
 {
 }
 
