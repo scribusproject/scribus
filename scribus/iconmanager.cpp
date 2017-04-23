@@ -90,7 +90,8 @@ void IconManager::readIconConfigFiles()
 			QFile dataFile(file.absoluteFilePath());
 			if (!dataFile.exists())
 				continue;
-			dataFile.open(QIODevice::ReadOnly);
+			if (!dataFile.open(QIODevice::ReadOnly))
+				continue;
 			QTextStream ts(&dataFile);
 			ts.setCodec(QTextCodec::codecForName("UTF-8"));
 			QString errorMsg;
