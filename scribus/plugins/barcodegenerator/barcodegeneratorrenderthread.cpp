@@ -76,20 +76,23 @@ void BarcodeGeneratorRenderThread::run()
 		int gs = callGS(gargs, QString(), fileStdErr, fileStdOut);
 		bool retval = gs==0 && QFile::exists(pngFile);   // GS returns 0 for BWIPP-handled errors
 
-		QString errorMsg="";
-		if (!retval) {
+		QString errorMsg;
+		if (!retval)
+		{
 			errorMsg="Barcode incomplete";
 			if (QFile::exists(fileStdErr))  // Display BWIPP handled error message
 			{
 				QFile f(fileStdErr);
-				f.open(QIODevice::ReadOnly);
-				QTextStream ts(&f);
-				QString err = ts.readAll();
-				f.close();
-				QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
-				rx.setMinimal(true);
-				if (rx.indexIn(err) != -1)
-					errorMsg=rx.cap(1).trimmed();
+				if (f.open(QIODevice::ReadOnly))
+				{
+					QTextStream ts(&f);
+					QString err = ts.readAll();
+					f.close();
+					QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
+					rx.setMinimal(true);
+					if (rx.indexIn(err) != -1)
+						errorMsg=rx.cap(1).trimmed();
+				}
 			}
 		}
 
