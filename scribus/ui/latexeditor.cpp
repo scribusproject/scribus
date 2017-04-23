@@ -408,7 +408,8 @@ void LatexEditor::updateConfigFile()
 
 void LatexEditor::loadSettings()
 {
-	while (tabWidget->count()>1) {
+	while (tabWidget->count()>1)
+	{
 		QWidget *widget = tabWidget->widget(1);
 		tabWidget->removeTab(1);
 		delete widget;
@@ -416,17 +417,27 @@ void LatexEditor::loadSettings()
 	widgetMap.clear();
 	
 	QFile f(LatexConfigParser::absoluteFilename(frame->configFile()));
-	f.open(QIODevice::ReadOnly);
+	if (!f.open(QIODevice::ReadOnly))
+	{
+		qDebug()<<"Unable to open config file in LatexEditor::loadSettings()";
+		return;
+	}
 	I18nXmlStreamReader xml(&f);
-	while (!xml.atEnd()) {
+	while (!xml.atEnd())
+	{
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment()) continue;
-		if (xml.isStartElement() && xml.name() == "tab") {
-			if (xml.attributes().value("type") == "settings") {
+		if (xml.isStartElement() && xml.name() == "tab")
+		{
+			if (xml.attributes().value("type") == "settings")
+			{
 				createNewSettingsTab(&xml);
-			} else if (xml.attributes().value("type") == "items") {
+			} else if (xml.attributes().value("type") == "items")
+			{
 				createNewItemsTab(&xml);
-			} else {
+			}
+			else
+			{
 				qWarning() << "XML-ERROR: " << xml.lineNumber() << ":" 
 						<< xml.columnNumber() << ":" << "Unknow tab type"
 						<< xml.attributes().value("type").toString();
