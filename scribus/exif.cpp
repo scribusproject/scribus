@@ -950,11 +950,11 @@ bool ExifData::isThumbnailSane()
 		ret = false;
 	if ( ExifImageWidth != 0 && ExifImageWidth != Width )
 		ret = false;
-	if ( Thumbnail.width() == 0 || Thumbnail.height() == 0 )
+	double d = 0.0;
+	if ( Thumbnail.width() == 0 || Thumbnail.height() == 0 || Height == 0 || Width == 0 )
 		ret = false;
-	if ( Height == 0 || Width == 0 )
-		ret = false;
-	double d = ( double ) Height/Width*Thumbnail.width() /Thumbnail.height();
+	else
+		d = (double) Height/Width * Thumbnail.width()/Thumbnail.height();
 	if (!(( 1-JPEG_TOL < d ) && ( d < 1+JPEG_TOL )))
 		ret = false;
 	exifDataValid = ret;
