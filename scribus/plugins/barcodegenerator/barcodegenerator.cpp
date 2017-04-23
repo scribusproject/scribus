@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/colorsandfills.h"
 #include "undomanager.h"
 
-
+#include <QDebug>
 #include <QTextStream>
 #include <QStandardItemModel>
 #include <QTimer>
@@ -30,7 +30,8 @@ BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &
 }
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
-	: QDialog(parent)
+	: QDialog(parent),
+	  paintBarcodeTimer(NULL)
 {
 	ui.setupUi(this);
 	setObjectName(name);
