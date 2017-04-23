@@ -252,10 +252,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
-		{
-			success = readColor(m_Doc->PageColors, attrs);
-			if (!success) break;
-		}
+			readColor(m_Doc->PageColors, attrs);
 		if (tagName == "Gradient")
 		{
 			VGradient gra;
@@ -774,10 +771,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
-		{
-			success = readColor(m_Doc->PageColors, attrs);
-			if (!success) break;
-		}
+			readColor(m_Doc->PageColors, attrs);
 		if (tagName == "Gradient")
 		{
 			VGradient gra;
@@ -1357,10 +1351,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
-		{
-			success = readColor(m_Doc->PageColors, attrs);
-			if (!success) break;
-		}
+			readColor(m_Doc->PageColors, attrs);
 		if (tagName == "Gradient")
 		{
 			VGradient gra;
@@ -1370,9 +1361,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				break;
 			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
 			if (!grName.isEmpty())
-			{
 				m_Doc->docGradients.insert(grName, gra);
-			}
 		}
 		if (tagName == "STYLE")
 		{
@@ -2377,7 +2366,7 @@ bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	return true;
 }
 
-bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs)
 {
 	ScColor color;
 	if (attrs.hasAttribute("CMYK"))
@@ -2393,7 +2382,7 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	}
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
-	QString name = attrs.valueAsString("NAME", color.name());
+	QString name(attrs.valueAsString("NAME", color.name()));
 	if (name == "All")
 	{
 		color.setSpotColor(true);
@@ -2405,7 +2394,6 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	// colors.tryAddColor(name, color);
 	if (name.length() > 0 && !colors.contains(name))
 		colors.insert(name, color);
-	return true;
 }
 
 bool Scribus150Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader)
@@ -6018,10 +6006,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
-		{
-			success = readColor(m_Doc->PageColors, attrs);
-			if (!success) break;
-		}
+			readColor(m_Doc->PageColors, attrs);
 		if (tagName == "Gradient" && attrs.valueAsString("Name") != CommonStrings::None)
 		{
 			VGradient gra;
@@ -6739,9 +6724,7 @@ bool Scribus150Format::readColors(const QString& fileName, ColorList & colors)
 		{
 			attrs = reader.scAttributes();
 			if (attrs.valueAsString("NAME") != CommonStrings::None)
-			{
 				readColor(colors, attrs);
-			}
 		}
 	}
 	return success;
