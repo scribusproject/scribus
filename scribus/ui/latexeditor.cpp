@@ -191,10 +191,15 @@ void LatexEditor::loadExternalEditorFile()
 {
 	QString new_formula;
 	QFile f(extEditorFile);
-	f.open(QIODevice::ReadOnly);
+	if(!f.open(QIODevice::ReadOnly))
+	{
+		qDebug()<<"Unable to open editor file in LatexEditor::loadExternalEditorFile()";
+		return;
+	}
 	new_formula = QString::fromUtf8(f.readAll());
 	f.close();
-	if (!new_formula.isEmpty()) {
+	if (!new_formula.isEmpty())
+	{
 		frame->setFormula(new_formula);
 		sourceTextEdit->setPlainText(new_formula);
 	}
@@ -205,7 +210,8 @@ void LatexEditor::extEditorFinished(int exitCode, QProcess::ExitStatus exitStatu
 {
 	externalEditorPushButton->setEnabled(true);
 	externalEditorPushButton->setText( tr("Run External Editor...") );
-	if (exitCode && extEditor) {
+	if (exitCode && extEditor)
+	{
 		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
 			qPrintable(QString(extEditor->readAllStandardOutput()));
 		ScMessageBox::critical(0, tr("Error"), "<qt>" +
