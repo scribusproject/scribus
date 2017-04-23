@@ -428,7 +428,8 @@ for which a new license (GPL+exception) is in place.
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
-	: docWidth(0.0),
+	: clipGroup(NULL),
+	  docWidth(0.0),
 	  docHeight(0.0),
 	  baseX(0.0),
 	  baseY(0.0),
