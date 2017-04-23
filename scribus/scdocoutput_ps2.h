@@ -40,7 +40,7 @@ protected:
 
 	QRect   m_clip;
 
-	virtual void begin(void);
+	virtual bool begin(void);
 	virtual void end(void);
 
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex);

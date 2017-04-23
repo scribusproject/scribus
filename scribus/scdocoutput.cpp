@@ -11,10 +11,11 @@ using namespace std;
 
 bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 {
-	bool  done = true;
-	ScPage* page;
+	if (!begin())
+		return false;
 
-	begin();
+	bool done = true;
+	ScPage* page;
 
 	for (uint index = 0; index < pageNumbers.size(); index++)
 	{
@@ -33,8 +34,6 @@ bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 			break;
 		}
 	}
-
 	end();
-
 	return done;
 }

@@ -35,9 +35,13 @@ ScDocOutput_Ps2::~ScDocOutput_Ps2()
 		m_file.close();
 }
 
-void ScDocOutput_Ps2::begin(void)
+bool ScDocOutput_Ps2::begin(void)
 {
-	m_file.open(QIODevice::WriteOnly);
+	if (!m_file.open(QIODevice::WriteOnly))
+	{
+		qDebug()<<"Unable to open file in ScDocOutput_Ps2::begin";
+		return false;
+	}
 	m_stream.setDevice(&m_file);
 
 	m_stream << "%!PS-Adobe-2.0\n";
@@ -61,6 +65,7 @@ void ScDocOutput_Ps2::begin(void)
 	m_stream << QString("<< /PageSize [ %1 %2 ]\n").arg((int) m_clip.width()).arg((int) m_clip.height());
 	m_stream << ">> setpagedevice\n";
 	m_stream << "%%EndSetup\n";
+	return true;
 }
 
 void ScDocOutput_Ps2::end(void)
