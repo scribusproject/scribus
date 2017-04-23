@@ -826,10 +826,12 @@ void IconBuffer::loadFile(QString filename)
 	if (loadedFiles.contains(filename)) return;
 	loadedFiles << filename;
 	file = new QFile(filename);
-	file->open(QIODevice::ReadOnly);
+	if (!file->open(QIODevice::ReadOnly))
+		return;
 	basePos = 0;
-	while (!file->atEnd()) {
-		QString name = readHeader();
+	while (!file->atEnd())
+	{
+		QString name(readHeader());
 		if (name.isEmpty()) break;
 		if (!len) continue;
 		icons.insert(filename + ":" + name, readData());
