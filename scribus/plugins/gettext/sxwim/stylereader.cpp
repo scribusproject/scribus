@@ -309,7 +309,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::styleStyle(const QXmlAttributes& attrs)
  {
- 	QString name = "";
+	QString name;
  	QString listName = NULL;
 	bool setDefaultStyle = false;
  	bool isParaStyle = false;

@@ -622,7 +622,11 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	bool ret = false;
 #ifdef HAVE_PODOFO
 	QFile outf(outfile);
-	outf.open(QIODevice::WriteOnly);
+	if (!outf.open(QIODevice::WriteOnly))
+	{
+		qDebug()<<"Failed to open QFile outf in AIPlug::extractFromPDF";
+		return false;
+	}
 	try
 	{
 		PoDoFo::PdfError::EnableDebug( false );
