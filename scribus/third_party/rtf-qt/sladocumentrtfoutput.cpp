@@ -724,8 +724,7 @@ namespace RtfReader
 
 	QString SlaDocumentRtfOutput::getFontName(QString name)
 	{
-		QString fontName = name;
-		bool found = false;
+		QString fontName(name);
 		SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 		for ( ; it.hasNext(); it.next())
 		{
@@ -751,24 +750,17 @@ namespace RtfReader
 				}
 			}
 		}
-		if (found)
-			return fontName;
-		else
+		if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 		{
-			if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
-			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(0, fontName, m_Doc);
-				dia->exec();
-				QString fontNameR = dia->getReplacementFont();
-				delete dia;
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-				PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = fontNameR;
-				fontName = fontNameR;
-			}
-			else
-				fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			MissingFont dia(0, fontName, m_Doc);
+			dia.exec();
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
+			fontName = dia.getReplacementFont();
 		}
+		else
+			fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
 		return fontName;
 	}
 
