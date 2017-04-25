@@ -1468,7 +1468,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	if (!item || item->itemText.length() <= 0)
 		return;
 
-	const ParagraphStyle& currPStyle( inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
+	const ParagraphStyle& currPStyle(inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
 	setAlignmentValue(currPStyle.alignment());
 	doc->currentStyle = item->currentStyle();
 	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
