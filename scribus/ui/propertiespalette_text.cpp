@@ -522,6 +522,9 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	showFontSize(charStyle.fontSize());
 	showLanguage(charStyle.language());
 
+	showParStyle(newCurrent.parent());
+	showCharStyle(charStyle.parent());
+
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 

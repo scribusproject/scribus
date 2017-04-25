@@ -238,6 +238,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				m_table->moveTo(m_table->cellAt(canvasPoint));
 				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
 				m_lastCursorPos = m_table->activeCell().textFrame()->itemText.cursorPosition();
+				m_view->m_ScMW->setTBvals(m_table->activeCell().textFrame());
 				makeLongTextCursorBlink();
 				updateCanvas(true);
 				break;
@@ -360,6 +361,7 @@ void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 			m_cellSelectGesture->setup(m_table, activeCell);
 			m_view->startGesture(m_cellSelectGesture);
 		}
+		m_view->m_ScMW->setTBvals(newActiveFrame);
 	}
 	else
 	{

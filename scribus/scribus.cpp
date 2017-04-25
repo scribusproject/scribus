@@ -1470,8 +1470,6 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 
 	const ParagraphStyle& currPStyle( inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
 	setAlignmentValue(currPStyle.alignment());
-	textPalette->textPal->showParStyle(currPStyle.parent());
-	textPalette->textPal->showCharStyle(item->currentCharStyle().parent());
 	doc->currentStyle = item->currentStyle();
 	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
 		item->currentTextProps(doc->currentStyle);
@@ -2809,8 +2807,6 @@ void ScribusMainWindow::HaveNewSel()
 		else
 		{
 			doc->currentStyle = currItem->itemText.defaultStyle();
-			textPalette->textPal->showParStyle(doc->currentStyle.parent());
-			textPalette->textPal->showCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			textPalette->textPal->updateStyle(doc->currentStyle);
@@ -2821,8 +2817,9 @@ void ScribusMainWindow::HaveNewSel()
 		if (doc->appMode == modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
-			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
-			appModeHelper->enableTextActions(true, i2->currentCharStyle().font().scName());
+			PageItem *cellItem = currItem->asTable()->activeCell().textFrame();
+			setTBvals(cellItem);
+			appModeHelper->enableTextActions(true, cellItem->currentCharStyle().font().scName());
 		}
 		break;
 	case PageItem::PathText: //Path Text

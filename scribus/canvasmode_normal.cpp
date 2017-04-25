@@ -289,6 +289,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		{
 			m_view->requestMode(modeEditTable);
 			m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+			m_ScMW->setTBvals(currItem);
 		}
 	}
 }
