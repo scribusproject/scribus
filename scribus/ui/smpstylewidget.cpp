@@ -289,9 +289,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceBelow->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
 		spaceBelow->setParentValue(parent->gapAfter());
 
-
 		alignment->setStyle(pstyle->alignment(), direction->getStyle(), pstyle->isInhAlignment());
 		alignment->setParentItem(parent->alignment(), direction->getStyle());
+
+		direction->setStyle(pstyle->direction());
+		direction->setParentItem(parent->direction());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
 		QList<ParagraphStyle::TabRecord> tabs;
