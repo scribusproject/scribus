@@ -212,7 +212,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
 	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
 	appPrefs.guidesPrefs.renderStackOrder.clear();
-	appPrefs.guidesPrefs.renderStackOrder << 0 << 1 << 2 << 3 << 4;
+	appPrefs.guidesPrefs.renderStackOrder << 2 << 0 << 4 << 1 << 3;
 	appPrefs.guidesPrefs.gridType = 0;
 	appPrefs.typoPrefs.valueSuperScript = 33;
 	appPrefs.typoPrefs.scalingSuperScript = 66;
@@ -2081,7 +2081,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (dc.hasAttribute("renderStack"))
 			{
 				appPrefs.guidesPrefs.renderStackOrder.clear();
-				QString renderStack = dc.attribute("renderStack", "0 1 2 3 4");
+				QString renderStack = dc.attribute("renderStack", "2 0 4 1 3");
 				ScTextStream fp(&renderStack, QIODevice::ReadOnly);
 				QString val;
 				while (!fp.atEnd())
