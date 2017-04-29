@@ -2917,7 +2917,7 @@ void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 	// The default style attribute must be correctly set before trying to assign a parent
 	if (attrs.hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(attrs.valueAsInt("DefaultStyle"));
-	else if (newStyle.name() == CommonStrings::DefaultTableStyle || newStyle.name() == CommonStrings::trDefaultTableStyle)
+	else if (newStyle.name() == CommonStrings::DefaultCellStyle || newStyle.name() == CommonStrings::trDefaultCellStyle)
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
@@ -5757,11 +5757,17 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 		QString fColor = tAtt.valueAsString("FillColor");
 		if ((fColor != CommonStrings::None) && (!fColor.isEmpty()))
 			item->cellAt(row, col).setFillColor(fColor);
-		item->cellAt(row, col).setFillShade(tAtt.valueAsInt("FillShade", 100));
-		item->cellAt(row, col).setLeftPadding(tAtt.valueAsDouble("LeftPadding", 0.0));
-		item->cellAt(row, col).setRightPadding(tAtt.valueAsDouble("RightPadding", 0.0));
-		item->cellAt(row, col).setTopPadding(tAtt.valueAsDouble("TopPadding", 0.0));
-		item->cellAt(row, col).setBottomPadding(tAtt.valueAsDouble("BottomPadding", 0.0));
+		double fShade = tAtt.valueAsDouble("FillShade", -1.0);
+		if (fShade >= 0 && fShade <= 100)
+			item->cellAt(row, col).setFillShade(tAtt.valueAsDouble("FillShade", 100));
+		if (tAtt.hasAttribute("LeftPadding"))
+			item->cellAt(row, col).setLeftPadding(tAtt.valueAsDouble("LeftPadding", 0.0));
+		if (tAtt.hasAttribute("RightPadding"))
+			item->cellAt(row, col).setRightPadding(tAtt.valueAsDouble("RightPadding", 0.0));
+		if (tAtt.hasAttribute("TopPadding"))
+			item->cellAt(row, col).setTopPadding(tAtt.valueAsDouble("TopPadding", 0.0));
+		if (tAtt.hasAttribute("BottomPadding"))
+			item->cellAt(row, col).setBottomPadding(tAtt.valueAsDouble("BottomPadding", 0.0));
 
 		PageItem* newItem = item->cellAt(row, col).textFrame();
 		newItem->Cols   = tAtt.valueAsInt("TextColumns", 1);
