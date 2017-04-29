@@ -5759,7 +5759,7 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 			item->cellAt(row, col).setFillColor(fColor);
 		double fShade = tAtt.valueAsDouble("FillShade", -1.0);
 		if (fShade >= 0 && fShade <= 100)
-			item->cellAt(row, col).setFillShade(tAtt.valueAsDouble("FillShade", 100));
+			item->cellAt(row, col).setFillShade(fShade);
 		if (tAtt.hasAttribute("LeftPadding"))
 			item->cellAt(row, col).setLeftPadding(tAtt.valueAsDouble("LeftPadding", 0.0));
 		if (tAtt.hasAttribute("RightPadding"))
