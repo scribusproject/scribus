@@ -1423,6 +1423,13 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 	result.method = Use_Type3;
 	result.encoding = Encode_256;
 
+	// TrueType font rasterizers use non-zero winding file rule,
+	// vs even-odd for current Postscript font rasterizers
+	// Note: OTF CFF2 will also use non-zero winding rule, so
+	// change code below when adding CCF2 support to Scribus
+	// ref: https://www.microsoft.com/typography/OTSpec/cff2.htm
+	bool useNonZeroRule = (face.type() == ScFace::TTF);
+
 	uint SubFonts = 0;
 	int glyphCount = 0;
 	double minx =  std::numeric_limits<double>::max();
@@ -1468,7 +1475,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 				np2 = gly.point(poi+2);
 				fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
 			}
-			fon += "h f*\n";
+			fon += useNonZeroRule? "h f\n" : "h f*\n";
 			np = getMinClipF(&gly);
 			np1 = getMaxClipF(&gly);
 		}
@@ -1565,6 +1572,13 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 	result.method = Use_XForm;
 	result.encoding = Encode_224;
 
+	// TrueType font rasterizers use non-zero winding file rule,
+	// vs even-odd for current Postscript font rasterizers
+	// Note: OTF CFF2 will also use non-zero winding rule, so
+	// change code below when adding CCF2 support to Scribus
+	// ref: https://www.microsoft.com/typography/OTSpec/cff2.htm
+	bool useNonZeroRule = (face.type() == ScFace::TTF);
+
 	QByteArray fon;
 	QMap<uint,FPointArray>::ConstIterator ig;
 	for (ig = RealGlyphs.cbegin(); ig != RealGlyphs.cend(); ++ig)
@@ -1599,7 +1613,7 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 				FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
 				FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
 			}
-			fon += "h f*\n";
+			fon += useNonZeroRule? "h f\n" : "h f*\n";
 			np = getMinClipF(&gly);
 			np1 = getMaxClipF(&gly);
 		}
