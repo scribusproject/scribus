@@ -1529,7 +1529,8 @@ const ParagraphStyle& PageItem::currentStyle() const
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
 		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
 	}
-	if (frameDisplays(cursorPosition))
+	// Note: cursor position can be past last characters, don't use frameDisplays() here
+	if (cursorPosition >= 0 && cursorPosition <= itemText.length())
 		return itemText.paragraphStyle(cursorPosition);
 	return itemText.defaultStyle();
 }
@@ -1544,7 +1545,8 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
 		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
 	}
-	if (frameDisplays(cursorPosition))
+	// Note: cursor position can be past last characters, don't use frameDisplays() here
+	if (cursorPosition >= 0 && cursorPosition <= itemText.length())
 		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(cursorPosition));
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
@@ -1560,7 +1562,8 @@ const CharStyle& PageItem::currentCharStyle() const
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
 		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
 	}
-	if (frameDisplays(cursorPosition))
+	// Note: cursor position can be past last characters, don't use frameDisplays() here
+	if (cursorPosition >= 0 && cursorPosition <= itemText.length())
 		return itemText.charStyle(cursorPosition);
 	else
 		return itemText.defaultStyle().charStyle();
@@ -1576,7 +1579,8 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 	if (itemText.lengthOfSelection() > 0)
 		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
 
-	if (frameDisplays(position))
+	// Note: cursor position can be past last characters, don't use frameDisplays() here
+	if (position >= 0 && position <= itemText.length())
 	{
 		// Do not use setStyle here otherwise char style properties explicitly
 		// set at paragraph level without using styles might get lost
