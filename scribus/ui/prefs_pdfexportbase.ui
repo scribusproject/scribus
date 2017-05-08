@@ -1279,7 +1279,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Export Range</string>
+          <string>Embedding</string>
          </property>
         </widget>
        </item>
