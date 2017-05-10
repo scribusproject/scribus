@@ -209,6 +209,32 @@ bool SpecialChars::isCJK(uint ch)
 		return false;
 }
 
+
+bool SpecialChars::isLetterRequiringSpaceAroundCJK(uint ch) {
+	return (0x0030 <= ch && ch <= 0x0039) ||  // ASCII digits
+		   (0x0041 <= ch && ch <= 0x005A) ||  // Latin uppercase alphabet
+		   (0x0061 <= ch && ch <= 0x007A) ||  // Latin lowercase alphabet
+		   (0x00C0 <= ch && ch <= 0x00D6) ||  // Letters in Latin-1 Supplement
+		   (0x00D8 <= ch && ch <= 0x00F6) ||  // Letters in Latin-1 Supplement
+		   (0x00F8 <= ch && ch <= 0x00FF) ||  // Letters in Latin-1 Supplement
+		   (0x0100 <= ch && ch <= 0x017F) ||  // Letters in Latin Extended-A
+		   (0x0180 <= ch && ch <= 0x024F) ||  // Letters in Latin Extended-B
+		   (0x0250 <= ch && ch <= 0x02AF) ||  // Letters in IPA Extensions
+		   (0x1D00 <= ch && ch <= 0x1D25) ||  // Letters in Phonetic Extentions
+		   (0x1D6B <= ch && ch <= 0x1D70) ||  // Letters in Phonetic Extentions
+		   (0x1D80 <= ch && ch <= 0x1D9A) ||  // Letters in Phonetic Extentions Supplement
+		   (0x1E02 <= ch && ch <= 0x1EF3) ||  // Letters in Latin Extended Additional
+		   (0x2C60 <= ch && ch <= 0x2C7F) ||  // Letters in Latin Extended-C
+		   (0xA722 <= ch && ch <= 0xA787) ||  // Letters in Latin Extended-D
+		   (0xA78B <= ch && ch <= 0xA7AE) ||  // Letters in Latin Extended-D
+		   (0xA7B0 <= ch && ch <= 0xA7B7) ||  // Letters in Latin Extended-D
+		   (0xA7F7 <= ch && ch <= 0xA7BF) ||  // Letters in Latin Extended-D
+		   (0xAB30 <= ch && ch <= 0xAB5A) ||  // Letters in Latin Extended-D
+		   (0xAB5C <= ch && ch <= 0xAB64) ||  // Letters in Latin Extended-D
+		   (0xFB00 <= ch && ch <= 0xFB06) ;   // Alphabetic Presentation Forms
+}
+
+
 bool SpecialChars::isIgnorableCodePoint(uint ch)
 {
 	// based on list of Default_Ignorable_Code_Point in Unicode 9
