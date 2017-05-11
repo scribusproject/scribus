@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="uk">
 <context>
     <name>AIPlug</name>
     <message>
@@ -336,7 +338,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
         <source>Get Text...</source>
-        <translation>Вставити текст…</translation>
+        <translation>Отримати текст…</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1278"/>
@@ -346,7 +348,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1279"/>
         <source>Get Image...</source>
-        <translation>Вставити зображення…</translation>
+        <translation>Отримати зображення…</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
@@ -734,12 +736,12 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
         <source>&amp;Combine Polygons</source>
-        <translation>Скомбінув&amp;ати полігони</translation>
+        <translation>Скомбінув&amp;ати багатокутники</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1387"/>
         <source>Split &amp;Polygons</source>
-        <translation>Розділ&amp;ити полігони</translation>
+        <translation>Розділ&amp;ити багатокутники</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
@@ -760,7 +762,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1391"/>
         <source>&amp;Polygon</source>
-        <translation>Полі&amp;гон</translation>
+        <translation>Ба&amp;гатокутник</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
@@ -775,7 +777,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1397"/>
         <source>Sample Text</source>
-        <translation>Зразковий текст</translation>
+        <translation>Текст-заповнювач</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1401"/>
@@ -926,7 +928,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
         <source>&amp;Scrapbook</source>
-        <translation>&amp;Чернетка</translation>
+        <translation>&amp;Альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
@@ -1424,7 +1426,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
         <source>Insert &amp;Image Frame</source>
-        <translation>Вставити рамку для &amp;зображення</translation>
+        <translation>Вставити рамку &amp;зображення</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1468"/>
@@ -1439,7 +1441,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
         <source>Insert &amp;Polygon</source>
-        <translation>Вставити &amp;полігон</translation>
+        <translation>Вставити &amp;багатокутник</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1471"/>
@@ -1753,42 +1755,42 @@
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="93"/>
         <source>&amp;Relative to:</source>
-        <translation>В&amp;ідносно до:</translation>
+        <translation>В&amp;ідносно:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
-        <translation>Перший вибраний</translation>
+        <translation>першого вибраного</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="97"/>
         <source>Last Selected</source>
-        <translation>Останній вибраний</translation>
+        <translation>останнього вибраного</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="98"/>
         <source>Page</source>
-        <translation>Сторінка</translation>
+        <translation>сторінки</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="99"/>
         <source>Margins</source>
-        <translation>Поля</translation>
+        <translation>полів</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
-        <translation>Напрямна</translation>
+        <translation>напрямної</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="101"/>
         <source>Selection</source>
-        <translation>Вибірка</translation>
+        <translation>вибірки</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation>&amp;Вирівняти сторони за:</translation>
+        <translation>&amp;Вирівнювання країв:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
@@ -3437,12 +3439,12 @@ Configuration invalid</source>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="663"/>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="702"/>
         <source>Choose a Scrapbook Directory</source>
-        <translation>Виберіть теку для чернетки</translation>
+        <translation>Виберіть теку для альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="742"/>
         <source>Choose a scrapbook file to import</source>
-        <translation>Виберіть файл чернетки для імпорту</translation>
+        <translation>Виберіть файл альбом для імпорту</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="764"/>
@@ -3495,32 +3497,32 @@ Configuration invalid</source>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1457"/>
         <source>Scrapbook</source>
-        <translation>Чернетка</translation>
+        <translation>Альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1458"/>
         <source>Create a new scrapbook page</source>
-        <translation>Створити нову сторінку чернетки</translation>
+        <translation>Створити нову сторінку альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1459"/>
         <source>Load an existing scrapbook</source>
-        <translation>Завантажити наявну чернетку</translation>
+        <translation>Завантажити наявний альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1460"/>
         <source>Save the selected scrapbook</source>
-        <translation>Зберегти вибрану чернетку</translation>
+        <translation>Зберегти вибраний альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1461"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation>Імпортувати файл чернетки зі Scribus &lt;=1.3.2</translation>
+        <translation>Імпортувати файл альбома зі Scribus &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1462"/>
         <source>Close the selected scrapbook</source>
-        <translation>Закрити вибрану чернетку</translation>
+        <translation>Закрити вибраний альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1102"/>
@@ -3530,7 +3532,7 @@ Configuration invalid</source>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="744"/>
         <source>Scrapbook (*.scs *.SCS)</source>
-        <translation>Чернетка (*.scs *.SCS)</translation>
+        <translation>Альбом (*.scs *.SCS)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="836"/>
@@ -3807,7 +3809,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="298"/>
-        <source>Enable 'soft proofing' of how your document colors will print,
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Ввімкнути імітацію друкованих кольорів на моніторі (м&apos;яка перевірка),
 в залежності від вибраного профілю принтера.</translation>
@@ -5023,7 +5025,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
         <source>Tetradic (Double Complementary)</source>
-        <translation>Тетраедрний (подвійно комплементарний)</translation>
+        <translation>Тетрадний (подвійно комплементарний)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
@@ -7296,8 +7298,8 @@ failed!</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Вмістити список елементів, розділених комами, де елемент
-може бути * для всіх сторінок, 1-5 для діапазона сторінок, або
+        <translation>Вмістити список елементів, розділених комами, де елементом
+може бути: * - для всіх сторінок, 1-5 - для діапазону сторінок або
 номер окремої сторінки.</translation>
     </message>
     <message>
@@ -8893,7 +8895,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -9400,7 +9402,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="603"/>
         <source>Source image to load into the inserted image frame</source>
-        <translation>Зображення для завантаження у вставлену графічну рамку</translation>
+        <translation>Зображення для завантаження у вставлену рамку</translation>
     </message>
 </context>
 <context>
@@ -9515,7 +9517,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/latexeditor.ui" line="81"/>
         <source>Automatic</source>
-        <translation>Автоматичний</translation>
+        <translation>Автоматична</translation>
     </message>
     <message>
         <location filename="../../../scribus/latexeditor.ui" line="84"/>
@@ -10598,7 +10600,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="94"/>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="95"/>
         <source>Mesh Distortion of Polygons</source>
-        <translation>Викривлення полігонів сіткою</translation>
+        <translation>Викривлення багатокутників сіткою</translation>
     </message>
 </context>
 <context>
@@ -11031,12 +11033,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="909"/>
         <source>&amp;X-Pos:</source>
-        <translation>Поз. &amp;Х:</translation>
+        <translation>Позиція &amp;X:</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="910"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Поз. &amp;У:</translation>
+        <translation>Позиція &amp;Y:</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="911"/>
@@ -12268,7 +12270,7 @@ UCR найбільше впливає на ті частини зображен�
         <location filename="../../../scribus/pagelayout.cpp" line="268"/>
         <source>Number of pages to show side-by-side on the canvas
 Often used for allowing items to be placed across page spreads</source>
-        <translation>Число сторінок, що виводяться на полотні обабіч.
+        <translation>Число сторінок, що виводяться на полотні поруч.
 Часто використовується для того, щоб розмістити елемент, що виходить на сусідню сторінку</translation>
     </message>
     <message>
@@ -12494,7 +12496,7 @@ Often used for allowing items to be placed across page spreads</source>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
         <translation>Лінія розрізу повинна перетинати багатокутник і обидві
-її кінцеві точки мають лежати за межами багатокутника</translation>
+її кінцеві точки мають лежати за його межами</translation>
     </message>
 </context>
 <context>
@@ -13514,7 +13516,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="40"/>
         <source>Number of corners for polygons</source>
-        <translation>Число кутів полігонів</translation>
+        <translation>Число кутів багатокутників</translation>
     </message>
     <message>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="53"/>
@@ -13525,7 +13527,7 @@ Please choose another one.</source>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="63"/>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="76"/>
         <source>Degrees of rotation for polygons</source>
-        <translation>Кут повороту полігона</translation>
+        <translation>Кут повороту багатокутника</translation>
     </message>
     <message>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="121"/>
@@ -13551,7 +13553,7 @@ Please choose another one.</source>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="171"/>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="187"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation>Від&apos;ємне значення зробить полігон вгнутим (або зіркоподібним), а додатне значення зробить його опуклим</translation>
+        <translation>Від&apos;ємне значення зробить багатокутник вгнутим (або зіркоподібним), а додатне значення зробить його опуклим</translation>
     </message>
     <message>
         <location filename="../../../scribus/polygonwidgetbase.ui" line="174"/>
@@ -13640,7 +13642,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="135"/>
         <source>Scrapbook</source>
-        <translation>Чернетка</translation>
+        <translation>Альбом</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="138"/>
@@ -14270,7 +14272,7 @@ Note: PDF Forms will not be exported.</source>
         <location filename="../../../scribus/propertiespalette.cpp" line="5268"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5383"/>
         <source>&amp;X-Pos:</source>
-        <translation>Поз. &amp;Х:</translation>
+        <translation>Позиція &amp;X:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1960"/>
@@ -14291,7 +14293,7 @@ Note: PDF Forms will not be exported.</source>
         <location filename="../../../scribus/propertiespalette.cpp" line="5269"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5384"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Поз. &amp;У:</translation>
+        <translation>Позиція &amp;Y:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1962"/>
@@ -15435,7 +15437,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="122"/>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation>Пишіть Ваші команди тут. Вибірка буде виконана, як сценарій</translation>
+        <translation>Пишіть команди тут. Вибірка буде виконана як сценарій</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="123"/>
@@ -16770,7 +16772,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="584"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"/>
+        <translation>Ви користуєтесь нестабільною версією Scribus 1.3.x. Відкритий вами документ було створено в Scribus 1.2.x. Якщо ви збережете його в 1.3.x, його буде неможливо відкрити в Scribus 1.2.x. Щоб зберегти можливість відкрити цей документ в 1.2.x, збережіть його під іншою назвою і далі редагуйте тільки новий файл. Справді бажаєте продовжити?</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3785"/>
@@ -17938,18 +17940,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Модуль інтерфейсу Python
@@ -18389,17 +18391,17 @@ External Links
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="91"/>
         <source>PathCutter</source>
-        <translation type="unfinished"/>
+        <translation>Розрізання контуру</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="97"/>
         <source>PathFinder</source>
-        <translation type="unfinished"/>
+        <translation>Логічні операції з контурами</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="88"/>
         <source>PathStroker</source>
-        <translation type="unfinished"/>
+        <translation>Обведення контуру</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="56"/>
@@ -18436,12 +18438,12 @@ External Links
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="86"/>
         <source>MeshDistortion</source>
-        <translation type="unfinished"/>
+        <translation>Деформування сіткою</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="88"/>
         <source>PathAlongPath</source>
-        <translation type="unfinished"/>
+        <translation>Контур за контуром</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformeffect.cpp" line="78"/>
@@ -18490,7 +18492,7 @@ External Links
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="82"/>
         <source>PathConnect</source>
-        <translation type="unfinished"/>
+        <translation>З&apos;єднання контурів</translation>
     </message>
     <message>
         <location filename="../../../scribus/scimgdataloader_ps.cpp" line="515"/>
@@ -20075,7 +20077,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/scinputdialog.cpp" line="81"/>
         <source>InputDialog</source>
-        <translation type="unfinished"/>
+        <translation>InputDialog</translation>
     </message>
     <message>
         <location filename="../../../scribus/scinputdialog.cpp" line="82"/>
@@ -20374,7 +20376,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="350"/>
         <source>Reading Scrapbook</source>
-        <translation>Зчитування чернетки</translation>
+        <translation>Зчитування альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="600"/>
@@ -20473,7 +20475,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="723"/>
         <source>Send to Scrapbook</source>
-        <translation>Надіслати до чернетки</translation>
+        <translation>Надіслати до альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2279"/>
@@ -20753,13 +20755,13 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../../scribus/scribus.cpp" line="1022"/>
         <location filename="../../../scribus/scribus.cpp" line="9536"/>
         <source>X-Pos:</source>
-        <translation>Поз. Х:</translation>
+        <translation>Поз. X:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1023"/>
         <location filename="../../../scribus/scribus.cpp" line="9537"/>
         <source>Y-Pos:</source>
-        <translation>Поз. У:</translation>
+        <translation>Поз. Y:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4386"/>
@@ -21050,7 +21052,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="276"/>
         <source>Send to Scrapbook</source>
-        <translation>Надіслати до чернетки</translation>
+        <translation>Надіслати до альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="297"/>
@@ -23970,7 +23972,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="382"/>
         <source>Maximum</source>
-        <translation>Максимальна</translation>
+        <translation>Найвища</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="383"/>
@@ -23980,7 +23982,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="384"/>
         <source>Medium</source>
-        <translation>Середній</translation>
+        <translation>Середня</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="385"/>
@@ -23990,12 +23992,12 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="386"/>
         <source>Minimum</source>
-        <translation>Мінімальна</translation>
+        <translation>Найнижча</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="388"/>
         <source>Compression &amp;Quality:</source>
-        <translation>Стиснення та &amp;якість:</translation>
+        <translation>&amp;Ступінь стиснення:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="400"/>
@@ -24800,7 +24802,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1340"/>
         <source>InfoString</source>
-        <translation type="unfinished"/>
+        <translation>Інформаційний рядок</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1401"/>
@@ -25053,7 +25055,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="14"/>
         <source>TabPrinterBase</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="46"/>
@@ -25262,17 +25264,17 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="24"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation>Це дозволяє використовувати чернетку як розширення буфера обміну. При копіюванні об&apos;єкти та групи автоматично надсилатимуться до чернетки</translation>
+        <translation>Це дозволяє використовувати альбом як розширення буфера обміну. При копіюванні об&apos;єкти та групи автоматично надсилатимуться до альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="27"/>
         <source>Send Copied Items Automatically to Scrapbook</source>
-        <translation>Автоматично надсилати скопійовані об&apos;єкти до чернетки</translation>
+        <translation>Автоматично надсилати скопійовані об&apos;єкти до альбома</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="34"/>
         <source>This enables copied items to be kept permanently in the scrapbook.</source>
-        <translation>Це дозволить скопійованим елементам постійно зберігатись у чернетці.</translation>
+        <translation>Це дозволить скопійованим елементам постійно зберігатись у альбомі.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="37"/>
@@ -25287,7 +25289,7 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="55"/>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
-        <translation>Число скопійованих об&apos;єктів, що зберігаються в чернетці</translation>
+        <translation>Число скопійованих об&apos;єктів, що зберігаються в альбомі</translation>
     </message>
 </context>
 <context>
@@ -25560,7 +25562,7 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="528"/>
         <source>Polygon Drawing Properties</source>
-        <translation>Властивості рисування полігонів</translation>
+        <translation>Властивості рисування багатокутників</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="529"/>
@@ -26125,12 +26127,12 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="76"/>
         <source>u</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="92"/>
         <source>d</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="133"/>
@@ -26608,7 +26610,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="899"/>
         <source>Image frame</source>
-        <translation>Рамка для зображень</translation>
+        <translation>Рамка зображення</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="900"/>
@@ -26926,7 +26928,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="977"/>
         <source>Clear image frame content</source>
-        <translation>Очистити вміст рамки для зображення</translation>
+        <translation>Очистити вміст рамки зображення</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="978"/>
