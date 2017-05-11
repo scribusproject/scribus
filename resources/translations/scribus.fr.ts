@@ -32878,7 +32878,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="140"/>
         <source>Compress File</source>
-        <translation>Compirmer le fichier</translation>
+        <translation>Compresser le fichier</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="144"/>
