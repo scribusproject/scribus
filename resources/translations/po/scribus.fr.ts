@@ -19803,7 +19803,7 @@ Exprimée en pourcentage de la valeur d&apos;espace courante.</translation>
     <message>
         <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="133"/>
         <source>Compress File</source>
-        <translation>Compirmer le fichier</translation>
+        <translation>Compresser le fichier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="137"/>
