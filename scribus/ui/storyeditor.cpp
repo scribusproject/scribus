@@ -2128,8 +2128,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		Editor->clear();
 		setWindowTitle( tr( "Story Editor" ));
 	}
-	QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
-	if (!data.isNull())
+	if (!QApplication::clipboard()->text(QClipboard::Clipboard).isNull())
 		seActions["editPaste"]->setEnabled(true);
 }
 

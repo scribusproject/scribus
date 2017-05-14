@@ -1013,14 +1013,10 @@ add_subdirectory(resources/translations)
 #Install our READMEs etc.
 install(FILES
 	AUTHORS
-	BUILDING
 	ChangeLog
 	COPYING
 	LINKS
-	NEWS
-	PACKAGING
 	README
-	TODO
 	TRANSLATION
 	DESTINATION ${DOCDIR}
 )
