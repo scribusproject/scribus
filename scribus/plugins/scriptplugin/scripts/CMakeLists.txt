@@ -12,10 +12,6 @@ DirectImageImport.py
 FontSample.py
 InfoBox.py
 Ligatursatz.py
-ChangeLog
-NEWS
-ReadMe
-TODO
 color2csv.py
 csv2color.py
 importcsv2table.py
