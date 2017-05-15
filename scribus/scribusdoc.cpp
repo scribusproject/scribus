@@ -4609,14 +4609,21 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	QList<PageItem*> allItems;
 	profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
 	profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-	if ( profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile) < 0 )
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile);
-	if ( profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile) < 0 )
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile);
-	if ( profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile) < 0 )
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile);
-	if ( profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0 )
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile);
+
+	if (profileNames.indexOf(m_docPrefsData.pdfPrefs.SolidProf) < 0)
+		profileNames.append(m_docPrefsData.pdfPrefs.SolidProf);
+	if (profileNames.indexOf(m_docPrefsData.pdfPrefs.ImageProf) < 0)
+		profileNames.append(m_docPrefsData.pdfPrefs.ImageProf);
+	if (profileNames.indexOf(m_docPrefsData.pdfPrefs.PrintProf) < 0)
+		profileNames.append(m_docPrefsData.pdfPrefs.PrintProf);
 	
 	for (int lc = 0; lc < 2; ++lc)
 	{
