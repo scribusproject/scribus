@@ -3320,14 +3320,21 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 
 	profileNames.append(CMSSettings.DefaultSolidColorRGBProfile);
 	profileNames.append(CMSSettings.DefaultSolidColorCMYKProfile);
-	if( profileNames.indexOf(CMSSettings.DefaultImageRGBProfile) < 0 )
+	if (profileNames.indexOf(CMSSettings.DefaultImageRGBProfile) < 0)
 		profileNames.append(CMSSettings.DefaultImageRGBProfile);
-	if( profileNames.indexOf(CMSSettings.DefaultImageCMYKProfile) < 0 )
+	if (profileNames.indexOf(CMSSettings.DefaultImageCMYKProfile) < 0)
 		profileNames.append(CMSSettings.DefaultImageCMYKProfile);
-	if( profileNames.indexOf(CMSSettings.DefaultMonitorProfile) < 0 )
+	if (profileNames.indexOf(CMSSettings.DefaultMonitorProfile) < 0)
 		profileNames.append(CMSSettings.DefaultMonitorProfile);
-	if( profileNames.indexOf(CMSSettings.DefaultPrinterProfile) < 0 )
+	if (profileNames.indexOf(CMSSettings.DefaultPrinterProfile) < 0)
 		profileNames.append(CMSSettings.DefaultPrinterProfile);
+
+	if (profileNames.indexOf(PDF_Options.SolidProf) < 0)
+		profileNames.append(PDF_Options.SolidProf);
+	if (profileNames.indexOf(PDF_Options.ImageProf) < 0)
+		profileNames.append(PDF_Options.ImageProf);
+	if (profileNames.indexOf(PDF_Options.PrintProf) < 0)
+		profileNames.append(PDF_Options.PrintProf);
 	
 	for (uint lc = 0; lc < 3; ++lc)
 	{
