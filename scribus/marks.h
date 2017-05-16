@@ -34,7 +34,7 @@ struct MarkData
 	QString itemName;
 	MarkType markTyp;
 	
-	MarkData() : strtxt(""), itemPtr(NULL), destmarkName(""), destmarkType(MARKNoType), notePtr(NULL), itemName(""), markTyp(MARKNoType) {}
+	MarkData() : itemPtr(NULL), destmarkType(MARKNoType), notePtr(NULL), markTyp(MARKNoType) {}
 };
 
 class SCRIBUS_API Mark
@@ -44,15 +44,15 @@ class SCRIBUS_API Mark
 	friend class BulNumMark;
 	//only ScribusDoc && ScribusMainWindow can create and delete marks
 private:
-	Mark() : label(""), OwnPage(-1), typ(MARKNoType), data() {}
-	Mark(const Mark& other) : label(other.label), OwnPage(other.OwnPage), typ(other.typ), data(other.data) {}
+	Mark() : OwnPage(-1), typ(MARKNoType), data() {}
+	Mark(const Mark& other);
 
 public:
 	QString label;
 	int OwnPage;
 
-	void setValues(QString l, int p, MarkType t, MarkData d) { label = l; OwnPage = p; typ = t; data = d; }
-	const MarkType getType() { return typ; }
+	void setValues(const QString& l, int p, MarkType t, MarkData d);
+	MarkType getType() { return typ; }
 	void setType(MarkType t) { typ = t; }
 	const MarkData getData() { return data; }
 	void setData(const MarkData d) { data = d; }
@@ -62,7 +62,7 @@ public:
 	void setItemName( const QString name ) { data.itemName = name; }
 
 	//for marks to marks - return label and type of target mark by reference
-	const void getMark(QString &l, MarkType &t) { l = data.destmarkName; t = data.destmarkType; }
+	void getMark(QString& l, MarkType &t);
 	//for marks to marks - set label and type of target mark from mark pointer
 	void setMark(Mark* mP)
 	{
@@ -77,20 +77,20 @@ public:
 			data.destmarkType = mP->getType();
 		}
 	}
-	void setMark(QString l, MarkType t) { data.destmarkName = l; data.destmarkType = t; }
-	const MarkType getMarkType() { return data.markTyp; }
+	void setMark(const QString& l, MarkType t);
+	MarkType getMarkType() { return data.markTyp; }
 	void setMarkType(MarkType t) { data.markTyp = t; }
 	const QString getString();
 	void setString( const QString str );
 	TextNote* getNotePtr() { return data.notePtr; }
-	void setNotePtr(TextNote *note) { data.notePtr = note; }
+	void setNotePtr(TextNote *note);
 
-	bool hasItemPtr() { return data.itemPtr != NULL; }
-	bool hasString() { return !data.strtxt.isEmpty(); }
-	bool hasMark() { return data.destmarkName != ""; }
-	bool isUnique() { return ((typ != MARKVariableTextType) && (typ != MARKIndexType) && (typ != MARKBullNumType)); }
-	bool isNoteType() { return ((typ == MARKNoteMasterType) || (typ==MARKNoteFrameType)); }
-	bool isType(const MarkType t) { return t==typ; }
+	bool hasItemPtr();
+	bool hasString();
+	bool hasMark();
+	bool isUnique();
+	bool isNoteType();
+	bool isType(const MarkType t);
 
     virtual ~Mark() {}
 
@@ -102,7 +102,7 @@ protected:
 class SCRIBUS_API BulNumMark : public Mark
 {
 public:
-	BulNumMark() : Mark() { label = "BullNumMark"; typ = MARKBullNumType; }
+	BulNumMark();
 	~BulNumMark() {}
 };
 
