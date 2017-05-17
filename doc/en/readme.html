@@ -1,17 +1,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>What&rsquo;s New in Scribus 1.5.2<title>
+	<title>What&rsquo;s New in Scribus 1.5.3?</title>
 </head>
 <style>
 @import "manual.css";
 </style>
 <body>
-<h2>What&rsquo;s New in Scribus 1.5.2?</h2>
+<h2>What&rsquo;s New in Scribus 1.5.3?</h2>
 <p>This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.</p>
 
 <p><b><i>Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.5.x files with version 1.4.x or any earlier version.</i></b></p>
-<p>Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.1 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.</p>
+<p>Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.3 to be stable enough to be used for daily work by courageous users. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.</p>
 <br>
 <table width="100%">
   <tbody>
@@ -26,7 +26,7 @@
 <br>
 <h3>General</h3>
 <ul>
-<li><b>Qt 5:</b> As of version 1.5.x, Scribus is being built using version 5 of the Qt toolkit.</li>
+<li><b>Qt 5:</b> As of version 1.5.x, Scribus is being built using version 5 of the Qt toolkit. Scribus 1.5.3 requires at least Qt 5.5.</li>
 <li><b>More dependencies:</b> Scribus 1.5.x makes extensive use of many more external libraries than earlier versions, especially for import filters. In most cases Scribus needs to be explicitly compiled against these libraries, so they become dependencies. In other cases (e.g. UniConvertor), Scribus will detect an installed version automatically. Note that full support for some libraries may not be available on Mac&nbsp;OS&nbsp;X and Windows until the final 1.6.0 release.</li>
 <br>
 <h3>Text and Typography</h3>
@@ -34,6 +34,8 @@
 <ul>
 <li>Vertical alignment of text.</li>
 <li>Orphans and widows control.</li>
+<li>The text layout engine has been completely rewritten and now supports about 500 languages and scripts, including right-to-left scripts like Arabic or Hebrew, and complex Asian scripts like Devanagari.</li>
+<li>Support for advanced OpenType features like automatic ligatures and alternate glyphs.</li>
 </ul>
 
 <h4><b>Text</b></h4>
@@ -79,6 +81,7 @@
   </tbody>
 </table>
 <br>
+<p>It's now possible to create an &ldquo;image queue&rdquo; by selecting multiple images in a file selector while pressing the CTRL key. Images can then be inserted into frames in the order of selection, the cursor turning into a preview of the next image in the queue.</p>
 <h4>Vector Tools</h4>
 <ul>
 <li>New vector types: Arcs and Spirals.</li>
@@ -211,8 +214,9 @@
 <li><b>GraphicsMagick Plug-in:</b> Almost all bitmap formats supported by GraphicsMagick can now be imported into Scribus. Note, though, that to save space in the drop-down menu of the file selectors, the many formats aren&rsquo;t listed separately.</li>
 <li><b>InDesign/InCopy:</b> While the reverse-engineering efforts regarding InDesign&rsquo;s binary format (INDD) by third-party developers haven&rsquo;t reached the stage of producing anything useful yet, Adobe has released a complete specification of the XML version of that format (IDML). Scribus 1.5 is being shipped with a basic import filter for this format, which will be improved and refined over time. It will also import InDesign XML Snippets (IDMS) and some InCopy XML files (ICML).</li>
 <li><b>iWorks Pages (PAGES):</b> Pages is Apple&rsquo;s word processing software, which also provides many DTP features. A native importfilter has been developed to import files created with Pages &rsquo;08 and later versions.</li>
+<li><b>Krita (KRA):</b> This is the native format of the digital painting program Krita.</li>
 <li><b>Macromedia FreeHand (FH*):</b> An experimental import filter using <a href="https://wiki.documentfoundation.org/DLP/Libraries/libfreehand">libfreehand</a> has been added.</li>
-<li><b>Micrografx Draw (DRW):</b> This a file format of the once popular Micrografx Draw graphics software for Windows 3 and 95. Since many vector collections using this format are still around, an import filter has been written.</li>
+<li><b>Micrografx Draw (DRW):</b> This is the file format of the once popular Micrografx Draw graphics software for Windows 3 and 95. Since many vector collections using this format are still around, an import filter has been written.</li>
 <li><b>Microsoft Publisher (PUB):</b> An importer for PUB files has been made possible by the creation of <a href="https://wiki.documentfoundation.org/DLP/Libraries/libmspub">libmspub</a>, wich is also used for Publisher import into LibreOffice. It is supposed to import all Publisher versions.</li>
 </ul>
 <br>
@@ -289,8 +293,9 @@
 <ul>
 <li><b>New icon set:</b> As of version 1.5.1 Scribus uses a new and modern icon set. It's mostly in black and uses color only where necessary.</li>
 <li><b>Docked palettes:</b> All palettes can now be docked to the right or left side of the screen space.</li>
-<li><b>New Properties Palette:</b> The PP has had a lot of functionality added over time due to other improvements. We will be looking to simplify it in coming 1.5.x releases.</li>
-<li><b>Context Menu:</b> The context menu has been redesigned and is now much smaller.</li>
+<li><b>Text Properties Palette:</b> The Properties Palette has become a bit hard to use, due its many addedd funtions. As a first step to simplify it, the &ldquo;Text&rdquo; tab has been removed from it is now available as a separate &ldquo;Text Properties&rdquo; palette.</li>
+<li><b>Menu bar:</b> The menu bar has been restructured and now takes less screen estate, as well as being much more clearly arranged.</li>
+<li><b>Context menu:</b> The context menu has been redesigned and is now much smaller.</li>
 </ul>
 <br>
 <table width="100%">
@@ -305,6 +310,7 @@
 </table>
 <br>
 <ul>
+<li><b>Document Update:</b> Under &ldquo;Extras&rdquo; a new menu entry &ldquo;Update Document&rdquo; has been added, which can be used to update the display of externally edited images.</li>
 <li><b>Document Setup/Preferences:</b> Both settings dialogs have been rewritten from scratch and now offer many more options.</li>
 <li><b>File preview:</b> The preview in file selectors works for all types of output, DTP, vector and bitmap files.</li>
 <li><b>Tabbed view mode:</b> If more than one document is open, users can choose a tabbed view mode for easier access to a particular document.</li>
@@ -330,20 +336,23 @@
 <li><b>Document update:</b> It's now possible to update the display of the whole document via a single menu entry.</li>
 <li><b>Document Outline:</b> Items can now be moved (up and down, in and out of groups) in the Document Outline.</li>
 <li><b>Undo/Redo:</b> The Action History has been completely rewritten and now works for all actions.</li>
-<li><b>Resource Manager:</b> The newly implemented Resource Manager not only enables the download of resources like dictionaries or fonts, but also displays the respective license.</li>
+<li><b>Resource Manager:</b> The newly implemented Resource Manager not only enables the download of resources like dictionaries, color palettes or fonts, but also displays the respective license.</li>
 </ul>
 <br>
 
 <h3>Help System</h3>
 <p>For the 1.5/1.6 series, the online manual now uses a CSS file to control and enhance the appearance of the text. The file is called <code>manual.css</code>, and like many aspects of Scribus can be modified to your liking. If available, the file will choose the typeface <strong>Fontin</strong> for various headings. This is a freely available font which can easily be added to your system.</p>
-<p>Note that the Online Manual will probably not be updated until the release of the stable 1.6.x series.</p>
+<p>Note that the Online Manual will probably not be updated until the release of 1.6.0.</p>
 
+<h3>Miscelleanous</h3>
+<li>Scribus now follows the XDG standard for configuration files. Therefore, the Scribus preference directory has moved from <code>~/.scribus/</code> to a new default location: <code>~/.config/scribus/</code>.</li>
+<li>Some new and useful scripts have been added; others were updated.</li>
 
-<h3>Known Issues in 1.5</h3>
+<h3>Known Issues in 1.5.3</h3>
 <ul>
-<li>Properties Palette functionality has grown significantly and needs to be split into separate palettes later in the 1.5.x series.</li>
+<li>Properties Palette functionality has grown significantly and needs to be split further into separate palettes later in the 1.5.x series.</li>
 <li>Undo/Redo functionality may not be reliable for certain new features yet.</li>
-<li>Certain scripts that come bundled with Scribus may not work.</li>
+<li>Certain older scripts that come bundled with Scribus may not work.</li>
 </ul>
 
 <br>

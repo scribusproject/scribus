@@ -1,17 +1,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Was ist neu in Scribus 1.5.2<title>
+	<title>Was ist neu in Scribus 1.5.3?</title>
 </head>
 <style>
 @import "manual.css";
 </style>
 <body>
-<h2>Was ist neu in Scribus 1.5.2?</h2>
-<p>Dies ist ein kurzer &Uuml;berblick &uuml;ber die wichtigsten &Auml;nderungen in Scribus im Vergleich zur neuesten stabilen Version 1.4.x.</p>
+<h2>Was ist neu in Scribus 1.5.3?</h2>
+<p>Dies ist ein kurzer &Uuml;berblick &uuml;ber die wichtigsten &Auml;nderungen in Scribus im Vergleich zur aktuell stabilen Version 1.4.x.</p>
 
 <p><b><i>Beachten Sie bitte, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht abw&auml;rtskompatibel mit einer anderen stabilen Version (1.4.x oder fr&uuml;her) ist. Genauer gesagt, Sie werden 1.5.x-Dateien nicht mit 1.4.x oder fr&uuml;heren Versionen zu &ouml;ffnen können.</i></b></p>
-<p>Beachten Sie auch, da&szlig; die 1.5.x-Serie keine offiziell stabile Version ist. Alle 1.5.x-Versionen sind Entwicklungsversionen f&uuml;r das kommende offiziell stabile Scribus 1.6.0! Wenn Sie versuchen, wichtige Dokumente mit 1.5.x zu erstellen, so machen Sie dies auf eigene Gefahr! Das Scribus-Team ist dennoch sicher, da&szlig; Scribus 1.5.1 stabil genug f&uuml;r die t&auml;gliche Arbeit ist. Funktionen, die schon in 1.4.x vorhanden sind, arbeiten genauso verl&auml;&szlig;lich und in vielen F&auml;llen sogar besser als in 1.4.x.</p>
+<p>Beachten Sie auch, da&szlig; die 1.5.x-Serie keine offiziell stabile Version ist. Alle 1.5.x-Versionen sind Entwicklungsversionen f&uuml;r das kommende offiziell stabile Scribus 1.6.0! Wenn Sie versuchen, wichtige Dokumente mit 1.5.x zu erstellen, so machen Sie dies auf eigene Gefahr! Das Scribus-Team ist dennoch sicher, da&szlig; Scribus 1.5.3 f&uuml;r mutige Anwender bereits stabil genug f&uuml;r die t&auml;gliche Arbeit ist. Funktionen, die schon in 1.4.x vorhanden sind, arbeiten genauso verl&auml;&szlig;lich und in vielen F&auml;llen sogar besser als in 1.4.x.</p>
 <br>
 <table width="100%">
   <tbody>
@@ -26,7 +26,7 @@
 <br>
 <h3>Allgemein</h3>
 <ul>
-<li><b>Qt 5:</b> Ab Version 1.5.x wird Scribus mit der Version 5 des Qt-Toolkits kompiliert.</li>
+<li><b>Qt 5:</b> Ab Version 1.5.x wird Scribus mit der Version 5 des Qt-Toolkits kompiliert. F&uuml;r Scribus 1.5.3 ist mindestens Qt 5.5 erforderlich.</li>
 <li><b>Mehr Abh&auml;ngigkeiten:</b> Scribus 1.5.x macht Gebrauch von mehr externen Bibliotheken als fr&uuml;here Versionen, speziell f&uuml;r die Importfilter. In den meisten F&auml;llen mu&szlig; Scribus explizit mit diesen Bibliotheken kompiliert werden, so da&szlig; sie Abh&auml;ngigkeiten werden. In anderen F&auml;llen (z.B. UniConverter) erkennt Scribus eine installierte Version automatisch. Beachten Sie, da&szlig; die vollst&auml;ndige Unterst&uuml;tzung f&uuml;r manche Bibliotheken auf Mac&nbsp;OS&nbsp;X und Windows erst mit der Ver&ouml;ffentlichung von 1.6.0 zur Verf&uuml;gung stehen wird.</li>
 <br>
 <h3>Text und Typographie</h3>
@@ -34,6 +34,8 @@
 <ul>
 <li>Vertikales Ausrichten des Textes.</li>
 <li>Hurenkinder und Schusterjungen.</li>
+<li>Der Textlayout-Code wurde komplett neu geschrieben und unterst&uuml;tzt jetzt über 500 Sprachen und Schriftsysteme, darunter auch linksläufige wie Arabisch oder Hebr&auml;isch oder komplexe Schriften wie Devanagari.</li>
+<li>Unterstützung erweiterter OpenType-Funktionen.</li>
 </ul>
 
 <h4><b>Text</b></h4>
@@ -211,6 +213,7 @@
 <li><b>GraphicsMagick Plug-in:</b> Nahezu alle Bitmap-Formate, die von GraphicsMagick unterst&uuml;tzt werden, k&ouml;nnen nun von Scribus importiert werden. Zu beachten ist dabei, da&szlig; die vielen Formate im Auswahlmen&uuml; nicht einzeln aufgef&uuml;hrt werden, um Platz zu sparen.</li>
 <li><b>InDesign/InCopy:</b> W&auml;hrend die Reverse-Engineering-Anstrengungen bez&uuml;glich InDesigns Bin&auml;rformat (INDD) durch Entwickler von dritter Seite noch nichts wirklich Brauchbares erreicht haben, hat Adobe die komplette Spezifikation der XML Version des Formats (IDML) ver&ouml;ffentlicht. Scribus 1.5 kommt mit einem grunds&auml;tzlich funktionierenden, aber noch nicht optimalen Importfilter f&uuml;r dieses Format daher, der mit der Zeit verbessert und verfeinert werden wird. Er importiert auch InDesign XML Snippets (IDMS) und einige InCopy XML Dateien (ICML).</li>
 <li><b>iWorks Pages (PAGES):</b> Pages ist Apples Textverarbeitungssoftware, die auch viele DTP Funktionen zur Verf&uuml;gung stellt. Ein eigener Importfilter wurde entwickelt, um Dateien zu importieren, die mit Pages &rsquo;08 und sp&auml;teren Versionen erstellt wurden.</li>
+<li><b>Krita (KRA):</b> Das native Format des digitalen Zeichenprogrammes Krita.</li>
 <li><b>Macromedia FreeHand (FH*):</b> Ein experimenteller Importfilter, der <a href="https://wiki.documentfoundation.org/DLP/Libraries/libfreehand">libfreehand</a> nutzt, wurde hinzugef&uuml;gt.</li>
 <li><b>Micrografx Draw (DRW):</b> Dies ist ein Dateiformat der einst popul&auml;ren Micrografx Draw Grafiksoftware f&uuml;r Windows 3 und 95. Da es immer noch viele Vektorgrafiksammlungen gibt, die dieses Format nutzen, wurde ein Importfilter geschrieben.</li>
 <li><b>Microsoft Publisher (PUB):</b> Ein Importer f&uuml;r PUB-Dateien wurde m&ouml;glich durch die Nutzung von <a href="https://wiki.documentfoundation.org/DLP/Libraries/libmspub">libmspub</a>, das auch f&uuml;r den Publisher Import bei LibreOffice genutzt wird. Die Bibliothek sollte alle Publisher-Versionen unterst&uuml;tzen.</li>
@@ -289,7 +292,7 @@
 <ul>
 <li><b>Neues Icon-Set:</b> Ab Version 1.5.1 nutzt Scribus neue und moderne Icons. Sie sind haupts&auml;chlich in schwarz und nutzen Farben nur, wenn es unabdingbar ist ist.</li>
 <li><b>Andockbare Fenster:</b> Alle Fenster k&ouml;nnen jetzt an die rechte oder linke Seite des Hauptfensters angedockt werden.</li>
-<li><b>Eigenschaftenpalette:</b> Der Eigenschaftenpalette wurden im Zuge der 1.5.x-Entwicklung jede Menge Funktionalit&auml;ten hinzugef&uuml;gt. Wir werden zusehen, da&szlig; wir sie in den kommenden 1.5.x-Ver&ouml;ffentlichungen drastisch entzerren.</li>
+<li><b>Texteigenschaftenpalette:</b> Die Eigeschaftenpalette war aufgrund der neu hinzugekommenen Textfunktionen nicht mehr zu benutzen. Als erster Scritt wurde daher der &raquo;Text&laquo;-Reiter in eine eigenst&auml;ndige Palette ausgegliedert.</li>
 <li><b>Kontextmenu:</b> Das Kontextmen&uuml; wurde neu gestaltet und ist jetzt wesentlich kleiner.</li>
 </ul>
 <br>
@@ -338,15 +341,15 @@
 <p>F&uuml;r die 1.5/1.6er Serie nutzt Scribus f&uuml;r das Online-Handbuch jetzt eine CSS-Datei, um das Erscheinungsbild des Textes zu kontrollieren und zu verbessern. Die Datei hei&szlig;t <code>manual.css</code> und kann, wie viele Scribus-Optionen, nach Wunsch modifiziert werden. Falls vorhanden, benutzt sie die Schriftart <strong>Fontin</strong> f&uuml;r  &Uuml;berschriften. Dies ist eine frei verf&uuml;gbare Schrift, die leicht zum System hinzugef&uuml;gt werden kann.</p>
 <p>Zu beachten ist, da&szlig; das Online-Handbuch vor der Ver&ouml;ffentlichung der stabilen 1.6.x-Serie nicht immer aktuell sein wird.</p>
 
+<h3>Verschiedenes</h3>
+<li>Scribus folgt nun dem XDG-Standard f&uuml;r Konfigurationsdateien. Daher befindet das Verzeichnis der allgemeinen Einstellungsdateien jetzt nicht mehr unter <code>~/.scribus/</code>, sondern unter <code>~/.config/scribus/</code>.</li>
+<li>Einige neue und n&uuml;tzliche Scripte wurden hinzugef&uuml;gt und bestehende aktualisiert.</li>
 
 <h3>Bekannte Probleme mit Scribus 1.5.x</h3>
 <ul>
 <li>Die Funktionalit&auml;t der Eigenschaftenpalette ist enorm gewachsen, und sie mu&szlig; so schnell wie m&ouml;glich auseinandergenommen werden.</li>
-<li>CTL (Complex Text Layout) wie RTL/CJK wird noch nicht unterst&uuml;tzt (ist aber in Arbeit).</li>
-<li>Diakritische Zeichen im Text-Editor oder direkt in einem Textrahmen k&ouml;nnten nicht m&ouml;glich sein (abh&auml;ngig von Betriebssystem / Distribution).</li>
 <li>Der Aktionsverlauf k&ouml;nnte bei neuen Funktionen noch nicht zuverl&auml;ssig funktionieren.</li>
 <li>Manche Scripts, die mit Scribus mitgeliefert wurden, funktionieren u.U. nicht.</li>
-<li>Trackpads k&ouml;nnen sich u.U. merkwürdig verhalten.</li>
 </ul>
 
 <br>
