@@ -1,6 +1,6 @@
 Begin4
 Title:           Scribus 
-Version:         1.5.3.svn
+Version:         1.5.3
 Entered-date:    2003-10-01
 Description:     Scribus is a Page Layout Program for Linux published under the GNU GPL. 
 Keywords:        desktop publishing, page layout, PDF, text processing, graphics, postscript, SVG, EPS 
@@ -9,6 +9,6 @@ Maintained-by:   franz.schmid@altmuehlnet.de Franz Schmid
 Primary-site:    http://www.scribus.net        
 Alternate-site:  http://www.scribus.org.uk/	        
 Original-site:   http://web2.altmuehlnet.de/fschmid  
-Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.7, Qt >= 5.3+, cairo >= 2.4, freetype2 >=2.1.9
+Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.7, Qt >= 5.5+, cairo >= 2.4, freetype2 >=2.1.9
 Copying-policy:  GNU Public License
 End

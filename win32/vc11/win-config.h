@@ -2,7 +2,7 @@
 #define WINCONFIG_H
 
 /* Version number of package */
-#define VERSION "1.5.3.svn"
+#define VERSION "1.5.3"
 
 /* Are we building win32 native version. */
 #define BUILD_WINDOWS_VERSION 1
