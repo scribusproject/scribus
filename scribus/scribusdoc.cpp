@@ -4282,14 +4282,18 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 	QMap<QString,int> Really;
 	QList<PageItem*> allItems;
 
+	bool wasMasterPageMode = m_masterPageMode;
+
 	for (int i = 0; i < 2; ++i)
 	{
 		switch (i)
 		{
 			case 0:
+				setMasterPageMode(true); // Necessary to avoid crash if some relayouting is necessary
 				allItems = MasterItems;
 				break;
 			case 1:
+				setMasterPageMode(false);
 				allItems = DocItems;
 				break;
 		}
@@ -4304,6 +4308,8 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			}
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
+				if (it->invalid)
+					it->layout();
 				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
 				Really.insert(fontName, UsedFonts[fontName]);
 				int start = it->firstInFrame();
@@ -4319,6 +4325,8 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 		}
 	}
 
+	setMasterPageMode(wasMasterPageMode);
+
 	allItems = FrameItems.values();
 	while (allItems.count() > 0)
 	{
@@ -4330,6 +4338,8 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 		}
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 		{
+			if (it->invalid)
+				it->layout();
 			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
 			Really.insert(fontName, UsedFonts[fontName]);
 			int start = it->firstInFrame();
@@ -4343,7 +4353,6 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			}
 		}
 	}
-
 	QMap<QString,int>::Iterator itfo, itnext;
 	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
 	{
