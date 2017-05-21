@@ -16,5 +16,5 @@
   <release platform="Win32" stability="unstablesvn" version="1.5.4.svn" />
   <release platform="MacOSX" stability="unstablesvn" version="1.5.4.svn" />
   <release platform="OS2" stability="unstablesvn" version="1.5.4.svn" />
-  <message lang="en" > - Scribus 1.4.6 is the latest stable release, released January 12 2016.<![CDATA[<br>]]> - Scribus 1.5.3 is the current development version, release May 20, 2017. </message>
+  <message lang="en" > - Scribus 1.4.6 is the latest stable release, released January 12 2016.<![CDATA[<br>]]> - Scribus 1.5.3 is the current development version, release May 21, 2017. </message>
 </scribus>

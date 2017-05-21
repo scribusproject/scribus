@@ -1,4 +1,4 @@
-Scribus - 1.5.3 (Released 2017-05-20)
+Scribus - 1.5.3 (Released 2017-05-21)
 =========================================
 - 0014803: [Documentation]  Updated readme and specs files for 1.5.3 (EN and DE) (jghali)
 - 0014711: [Build System]  Please don't install code-related files in /doc/ (cbradney)
