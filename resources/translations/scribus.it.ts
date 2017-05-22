@@ -249,7 +249,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="307"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rinnovo del codice per il layout del testo, boxes e CTL, Oman House of Open Source Technology team:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="438"/>
@@ -2765,7 +2765,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="51"/>
         <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
-        <translation type="unfinished">Interfaccia Scribus per elaborare codici a barre in puro PostScript</translation>
+        <translation>Interfaccia di Scribus per elaborare codici a barre in puro PostScript</translation>
     </message>
 </context>
 <context>
@@ -2847,7 +2847,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="71"/>
         <source>Display checksum</source>
-        <translation type="unfinished">Mostra checksum</translation>
+        <translation>Mostra checksum</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="81"/>
@@ -2887,17 +2887,17 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="476"/>
         <source>Version of the symbol</source>
-        <translation type="unfinished">Versione del simbolo</translation>
+        <translation>Versione del simbolo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="489"/>
         <source>Error correction level</source>
-        <translation type="unfinished">Livello correzione errore</translation>
+        <translation>Livello correzione errore</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="289"/>
         <source>&amp;Barcode:</source>
-        <translation type="unfinished">Codice a &amp;Barre:</translation>
+        <translation>Codice a &amp;Barre:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="321"/>
@@ -2927,7 +2927,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="496"/>
         <source>Error correction level:</source>
-        <translation type="unfinished">Livello correzione errore:</translation>
+        <translation>Livello correzione errore:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="104"/>
@@ -3592,7 +3592,7 @@ Si raccomanda di abilitarlo se si hanno foto nel documento.</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="825"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="826"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se la gestione dei colori è attiva, un punto esclamativo indica che il colore potrebbe essere fuori dalla gamma del profilo di stampa selezionato. Ciò significa che il colore potrebbe non essere stampato come viene visualizzato sullo schermo. Altre informazioni sono disponibili nella sezione Gestione del colore nella guida di Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1123"/>
@@ -4536,27 +4536,27 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished">Quando un documento importato utilizza font non incorporati, il rendering di questi sarà errato, a meno che lo stesso font sia installato sul sistema, ma ciò non può essere garantito se il documento è condiviso su diversi sistemi</translation>
+        <translation>Quando un documento importato utilizza font non incorporati, il rendering di questi sarà errato, a meno che lo stesso font sia installato sul sistema, ma ciò non può essere garantito se il documento è condiviso su diversi sistemi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="132"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished">Questa impostazione è definibile dall&apos;utente per evitare immagini con risoluzione troppo elevata, quindi file inutilmente grandi</translation>
+        <translation>Questa impostazione è definibile dall&apos;utente per evitare immagini con risoluzione troppo elevata, quindi file inutilmente grandi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished">L&apos;immagine non occupa tutto lo spazio della cornice. Ciò, se non intenzionalmente eseguito, potrebbe essere causato da un posizionamento errato o dalla scala dell&apos;immagine. Questo comporterà il taglio o la presenza di spazio bianco attorno all&apos;immagine.</translation>
+        <translation>L&apos;immagine non occupa tutto lo spazio della cornice. Ciò, se non intenzionalmente eseguito, potrebbe essere causato da un posizionamento errato o dalla scala dell&apos;immagine. Questo comporterà il taglio o la presenza di spazio bianco attorno all&apos;immagine.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished">Questa impostazione è definibile dall&apos;utente per evitare immagini a bassa risoluzione e quindi output di scarsa qualità</translation>
+        <translation>Questa impostazione è definibile dall&apos;utente per evitare immagini a bassa risoluzione e quindi output di scarsa qualità</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished">Sono presenti uno o più caratteri che non hanno il glifo corrispondente per il font scelto</translation>
+        <translation>Sono presenti uno o più caratteri che non hanno il glifo corrispondente per il font scelto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
@@ -5154,7 +5154,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="94"/>
         <source>Patterns</source>
-        <translation type="unfinished">Motivi</translation>
+        <translation>Motivi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="103"/>
@@ -5216,7 +5216,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="396"/>
         <source>Rename</source>
-        <translation type="unfinished">Rinomina</translation>
+        <translation>Rinomina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="454"/>
@@ -5253,17 +5253,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="813"/>
         <source>Do you really want to clear all your gradients?</source>
-        <translation type="unfinished">Vuoi veramente cancellare tutte le sfumature?</translation>
+        <translation>Vuoi veramente cancellare tutte le sfumature?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="836"/>
         <source>Do you really want to clear all your colors and gradients?</source>
-        <translation type="unfinished">Vuoi veramente cancellare tutti i colori e le sfumature?</translation>
+        <translation>Vuoi veramente cancellare tutti i colori e le sfumature?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="898"/>
         <source>Do you really want to clear all your patterns?</source>
-        <translation type="unfinished">Vuoi veramente cancellare tutti i motivi?</translation>
+        <translation>Vuoi veramente cancellare tutti i motivi?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1027"/>
@@ -5290,7 +5290,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1189"/>
         <source>Open</source>
-        <translation type="unfinished">Apri</translation>
+        <translation>Apri</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
@@ -14638,7 +14638,8 @@ Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamen
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="94"/>
         <source>Type:</source>
-        <translation type="unfinished">Tipo:</translation>
+        <translatorcomment>Posizione pagina mastro</translatorcomment>
+        <translation>Tipo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
@@ -19732,7 +19733,7 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Embedding</source>
-        <translation type="unfinished">Incorporazione</translation>
+        <translation>Incorporazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1304"/>
@@ -23967,12 +23968,12 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="97"/>
         <source>Normal capitals</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maiuscole normali</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="100"/>
         <source>Default Capitals</source>
-        <translation type="unfinished">Maiuscole predefinite</translation>
+        <translation>Maiuscole predefinite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="113"/>
@@ -24017,12 +24018,12 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="165"/>
         <source>Unicase (unic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase (unic)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="168"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="178"/>
@@ -24037,57 +24038,57 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="201"/>
         <source>Default numbers style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stile numeri predefinito</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="204"/>
         <source>Default Numerals</source>
-        <translation type="unfinished">Numeri predefiniti</translation>
+        <translation>Numeri predefiniti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="220"/>
         <source>Lining Figures (lnum)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maiuscoli (lnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="223"/>
         <source>Lining</source>
-        <translation type="unfinished">Maiuscoli</translation>
+        <translation>Maiuscoli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="236"/>
         <source>Oldstyle Figures (onum)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elzeviriani (onum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="239"/>
         <source>Old Style</source>
-        <translation type="unfinished">Elzeviriani</translation>
+        <translation>Elzeviriani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="259"/>
         <source>Default numbers width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Larghezza numeri predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="262"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished">Larghezza predefinita</translation>
+        <translation>Larghezza predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="278"/>
         <source>Proportional Figures (pnum)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Larghezza proporzionale (pnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="281"/>
         <source>Proportional</source>
-        <translation type="unfinished">Proporzionale</translation>
+        <translation>Proporzionale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="294"/>
         <source>Tabular Figures (tnum)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Larghezza tabulare (tnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="297"/>
@@ -24097,42 +24098,42 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="317"/>
         <source>No fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessuna frazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="320"/>
         <source>No Fractions</source>
-        <translation type="unfinished">Nessuna frazione</translation>
+        <translation>Nessuna frazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="336"/>
         <source>Fractions (frac)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Frazioni (frac)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="339"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished">Diagonali</translation>
+        <translation>Diagonali</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="352"/>
         <source>Alternative Fractions (afrc)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Frazioni alternative (afrc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="355"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished">Impilate</translation>
+        <translation>Impilate</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="372"/>
         <source>Normal position</source>
-        <translation type="unfinished">Posizione normale</translation>
+        <translation>Posizione normale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="375"/>
         <source>Default Position</source>
-        <translation type="unfinished">Posizione predefinita</translation>
+        <translation>Posizione predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="388"/>
@@ -24177,7 +24178,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="457"/>
         <source>Stylistic sets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Set stilistici</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="463"/>
@@ -28438,7 +28439,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="403"/>
         <source>Page number out of range: &apos;%1&apos;.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Numero di pagina fuori intervallo: &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="420"/>
@@ -30259,7 +30260,7 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="106"/>
         <source>Qt Supported File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">File supportato da Qt</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="107"/>
@@ -31403,12 +31404,12 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="118"/>
         <source>Show in Filesystem</source>
-        <translation type="unfinished">Mostra in filesystem</translation>
+        <translation>Mostra in filesystem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="131"/>
         <source>Delete Selected</source>
-        <translation type="unfinished">Elimina selezionati</translation>
+        <translation>Elimina selezionati</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="158"/>
@@ -31429,7 +31430,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="234"/>
         <source>Show License</source>
-        <translation type="unfinished">Mostra licenza</translation>
+        <translation>Mostra licenza</translation>
     </message>
 </context>
 <context>
@@ -31968,7 +31969,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
         <source>Default Capitals</source>
-        <translation type="unfinished">Maiuscole predefinite</translation>
+        <translation>Maiuscole predefinite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="540"/>
@@ -31993,7 +31994,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="548"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="550"/>
@@ -32003,67 +32004,67 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="559"/>
         <source>Default Position</source>
-        <translation type="unfinished">Posizione predefinita</translation>
+        <translation>Posizione predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="564"/>
         <source>Subscript</source>
-        <translation type="unfinished">Pedice</translation>
+        <translation>Pedice</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="566"/>
         <source>Superscript</source>
-        <translation type="unfinished">Apice</translation>
+        <translation>Apice</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="568"/>
         <source>Ordinals</source>
-        <translation type="unfinished">Ordinali</translation>
+        <translation>Ordinali</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="577"/>
         <source>Default Numerals</source>
-        <translation type="unfinished">Numeri predefiniti</translation>
+        <translation>Numeri predefiniti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="582"/>
         <source>Lining</source>
-        <translation type="unfinished">Maiuscoli</translation>
+        <translation>Maiuscoli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="584"/>
         <source>Old Style</source>
-        <translation type="unfinished">Elzeviriani</translation>
+        <translation>Elzeviriani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="593"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished">Larghezza predefinita</translation>
+        <translation>Larghezza predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="598"/>
         <source>Proportional</source>
-        <translation type="unfinished">Proporzionale</translation>
+        <translation>Proporzionale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="600"/>
         <source>Tabular</source>
-        <translation type="unfinished">Tabulare</translation>
+        <translation>Tabulare</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="609"/>
         <source>No Fractions</source>
-        <translation type="unfinished">Nessuna frazione</translation>
+        <translation>Nessuna frazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="614"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished">Diagonali</translation>
+        <translation>Diagonali</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="616"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished">Impilate</translation>
+        <translation>Impilate</translation>
     </message>
 </context>
 <context>
@@ -32317,7 +32318,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1233"/>
         <source>Auto-Indent</source>
-        <translation type="unfinished">Rientro automatico</translation>
+        <translation>Rientro automatico</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1260"/>
@@ -35342,7 +35343,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8514"/>
         <source>The program %1 is missing or failed to open</source>
-        <translation type="unfinished">Il programma %1 non è presente o non è riuscito ad avviarsi</translation>
+        <translation>Il programma %1 non è presente o non è riuscito ad avviarsi</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9128"/>
@@ -35450,7 +35451,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="585"/>
         <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Smette di mostrare la schermata di avvio. Scrive un file vuoto chiamato .neversplash in ~/.config/scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="586"/>
@@ -35460,7 +35461,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="586"/>
         <source>Use path for user given preferences location</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utilizza il percorso per la locazione delle preferenze</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -35470,12 +35471,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
         <source>arguments ...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">argomenti ...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
         <source>Run script in Python [with optional arguments]. This option must be last option used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esegue script in Python [con argomenti opzionali]. Questa opzione deve essere l&apos;ultima in uso</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="591"/>
@@ -35485,7 +35486,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="592"/>
         <source>Explicit end of command line options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fine esplicita delle opzioni da linea di comando</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="600"/>
@@ -35613,7 +35614,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1045"/>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished">Vuoi veramente cancellare tutto il testo?</translation>
+        <translation>Vuoi veramente cancellare tutto il testo?</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="228"/>
@@ -35804,12 +35805,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="581"/>
         <source>Startup Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore script di avvio</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
         <source>Could not find script: %1.</source>
-        <translation type="unfinished">Script non trovato: %1.</translation>
+        <translation>Script non trovato: %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
@@ -38735,7 +38736,7 @@ quando il documento PDF viene aperto:</translation>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1205"/>
         <source>File seek error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Errore recupero file.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1206"/>
@@ -38745,7 +38746,7 @@ quando il documento PDF viene aperto:</translation>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1207"/>
         <source>Invalid device.</source>
-        <translation type="unfinished">Dispositivo non valido.</translation>
+        <translation>Dispositivo non valido.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1208"/>
@@ -40528,7 +40529,7 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1613"/>
         <source>File seek error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Errore recupero file.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1617"/>
@@ -41445,17 +41446,17 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="139"/>
         <source>Capitals &amp;&amp; Position</source>
-        <translation type="unfinished">Maiuscole &amp;&amp; Posizione</translation>
+        <translation>Maiuscole &amp;&amp; Posizione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="147"/>
         <source>Capitals:</source>
-        <translation type="unfinished">Maiuscole:</translation>
+        <translation>Maiuscole:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="155"/>
         <source>Default Capitals</source>
-        <translation type="unfinished">Maiuscole predefinite</translation>
+        <translation>Maiuscole predefinite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="160"/>
@@ -41470,7 +41471,7 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
@@ -41480,12 +41481,12 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common Ligatures (liga)</source>
-        <translation type="unfinished">Legature standard (liga)</translation>
+        <translation>Legature standard (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common</source>
-        <translation type="unfinished">Standard</translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
@@ -41515,7 +41516,7 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="210"/>
         <source>Position:</source>
-        <translation type="unfinished">Posizione:</translation>
+        <translation>Posizione:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="218"/>
@@ -41540,37 +41541,37 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="265"/>
         <source>Numerals</source>
-        <translation type="unfinished">Numeri</translation>
+        <translation>Numeri</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="273"/>
         <source>Style:</source>
-        <translation type="unfinished">Stile:</translation>
+        <translation>Stile:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="281"/>
         <source>Default Numerals</source>
-        <translation type="unfinished">Numeri predefiniti</translation>
+        <translation>Numeri predefiniti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="286"/>
         <source>Lining</source>
-        <translation type="unfinished">Maiuscoli</translation>
+        <translation>Maiuscoli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="291"/>
         <source>Old Style</source>
-        <translation type="unfinished">Elzeviriani</translation>
+        <translation>Elzeviriani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="316"/>
         <source>Width:</source>
-        <translation type="unfinished">Larghezza:</translation>
+        <translation>Larghezza:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="324"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished">Larghezza predefinita</translation>
+        <translation>Larghezza predefinita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="329"/>
@@ -41585,22 +41586,22 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="359"/>
         <source>Fraction:</source>
-        <translation type="unfinished">Frazioni:</translation>
+        <translation>Frazioni:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="367"/>
         <source>No Fractions</source>
-        <translation type="unfinished">Nessuna frazione</translation>
+        <translation>Nessuna frazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="372"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished">Diagonali</translation>
+        <translation>Diagonali</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="377"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished">Impilate</translation>
+        <translation>Impilate</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
@@ -41615,12 +41616,12 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="418"/>
         <source>Stylistic Sets:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Set stilistici:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="437"/>
         <source>click to select</source>
-        <translation type="unfinished">clicca per selezionare</translation>
+        <translation>clicca per selezionare</translation>
     </message>
 </context>
 <context>
