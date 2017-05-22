@@ -1,8 +1,10 @@
-Scribus - 1.5.3 (Released 2017-05-21)
+Scribus - 1.5.3 (Released 2017-05-22)
 =========================================
+- 0014812: [Translation]  Italian translation update for 1.5.3.svn (cbradney)
 - 0014803: [Documentation]  Updated readme and specs files for 1.5.3 (EN and DE) (jghali)
 - 0014711: [Build System]  Please don't install code-related files in /doc/ (cbradney)
 - 0014712: [Build System]  Changelog of the scripts is stale (cbradney)
+- 0014809: [Translation]  Italian translation update for 1.5.3.svn (FirasH)
 - 0014112: [Story Editor / Text Frames]  Crash when trying to add Foot/Endnote (jghali)
 - 0014717: [User Interface]  Margin line not shown if exactly on a "Major" grid line (jghali)
 - 0009124: [PDF]  add an option to allow producing PDF with fonts not embedded nor outlined (jghali)
