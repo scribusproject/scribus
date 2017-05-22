@@ -3431,7 +3431,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5020,7 +5020,7 @@ currently %2 x %3 DPI</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -9315,7 +9315,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Увезите идмл пакете Адобе Индизајна у Скрибус
  претварајући објекте Индизајна у страничне ставке скрубуса; нису сви подржани у Скрибусу, али су сви они подржани увезени овде</translation>
@@ -10053,7 +10053,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -15389,7 +15389,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15411,7 +15411,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19433,7 +19433,6 @@ Do you want to use this?</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Export Range</source>
         <translation>Опсег извоза</translation>
     </message>
@@ -19701,6 +19700,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1086"/>
         <source>Page Information</source>
         <translation>Информације о страници</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
+        <source>Embedding</source>
+        <translation>Уграђивање</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1604"/>
@@ -21601,8 +21605,8 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -29162,18 +29166,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
@@ -30739,7 +30743,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18095"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18111"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34586,7 +34590,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="244"/>
         <location filename="../../scribus/scribusdoc.cpp" line="320"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
@@ -34596,27 +34600,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Позадина</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Не могу да обришем ставку у употреби</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Ставка „%1“ се тренутно уређује у уређивачу текста. Радња брисања биће отказана</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11997"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12013"/>
         <source>Some objects are locked.</source>
         <translation>Неки објекти су закључани.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12009"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Откључај све</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11994"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12010"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Прескочи закључане објекте</translation>
     </message>
@@ -34626,7 +34630,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Дошло је до грешке приликом отварања ИЦЦ профила, управљање бојама није могуће.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13643"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13659"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -34636,22 +34640,22 @@ Vertical gap: %3</source>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="1113"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16043"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16059"/>
         <source>Adjusting Colors</source>
         <translation>Подешавам боје</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9042"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9058"/>
         <source>remove direct paragraph formatting</source>
         <translation>уклони директно обликовање пасуса</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9504"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9520"/>
         <source>remove direct char formatting</source>
         <translation>уклони директно обликовање знакова</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13623"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34662,9 +34666,9 @@ Rotation: %4</source>
 Окренутост: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14827"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14882"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15015"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14843"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14898"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15031"/>
         <source>Group%1</source>
         <translation>Група%1</translation>
     </message>
@@ -34675,23 +34679,23 @@ Rotation: %4</source>
         <translation>Увезен </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16479"/>
         <source>File %1 autosaved</source>
         <translation>Датотека „%1“ је сачувана</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17720"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17736"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17774"/>
         <source>No Style</source>
         <translation>Без стила</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18105"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>„%1“ стил напомене има документ као опсег и обезбеђује исти стил нумерисања као скуп „%2“</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11309"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Да ли заиста желите да обришете садржај свих изабраних оквира?</translation>
     </message>
@@ -36476,17 +36480,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Пасуси: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
         <source>Open</source>
         <translation>Отвори</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Save as</source>
         <translation>Сачувај као</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2173"/>
         <source>Do you want to save your changes?</source>
         <translation>Да ли желите да сачувате измене?</translation>
     </message>
@@ -36604,12 +36608,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Уређивач приче — %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2779"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2778"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Да ли стварно желите да изгубите све измене?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2810"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2809"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Да ли стварно желите да очистите сав текст?</translation>
     </message>
@@ -36647,8 +36651,8 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Размак</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Текстуалне датотеке (*.txt);;Све датотеке (*)</translation>
     </message>

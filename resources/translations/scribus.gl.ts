@@ -3431,7 +3431,7 @@ debería escoller Colorimétrico relativo ou Perceptual.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Activar «probas virtuais» de como se imprimirán as cores do seu documento,
 baseadas no perfil de impresora escollido.</translation>
@@ -5016,7 +5016,7 @@ actualmente %2 x %3 DPI</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -9309,7 +9309,7 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Importa os paquetes de idml do Indesign da Adobe no Scribus
  convertendo os obxectos de Indesign en elementos de páxina de scribus; non todos son recoñecidos polo Scribus, mais todos os recoñecidos impórtanse aquí</translation>
@@ -10042,7 +10042,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;￼p, li { white-space: pre-wrap; }￼&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;￼&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separe as páxinas cunha vírgula, os intervalos cun guión, p.ex. 1,4,9-11 para obter as páxinas 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -15379,7 +15379,7 @@ O resultado é unha combinación de «Intersección» e «Exclusión»</translat
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15401,7 +15401,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -19427,7 +19427,6 @@ Desexa empregala?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Export Range</source>
         <translation>Intervalo de exportación</translation>
     </message>
@@ -19695,6 +19694,11 @@ Desexa empregala?</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1086"/>
         <source>Page Information</source>
         <translation>Información da páxina</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
+        <source>Embedding</source>
+        <translation>Incorporar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1604"/>
@@ -21595,8 +21599,8 @@ un intervalo de páxinas ou un único número de páxina</translation>
         <translation>O tempo antes do comezo do redimensionamento ou do movemento permite que haxa un pequeno retardo entre o teu click e a realización da operación, para así evitar movementos involuntarios. Isto pode ser útil en relación coas opcións de sensibilidade do rato, ou temas de accesibilidade relacionados cos ratos ergonómicos, o tablero táctil ou co movemento de bonecas e mans.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -29161,18 +29165,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Módulo da interface de Python para Scribus
@@ -30769,7 +30773,7 @@ Polo tanto, a imaxe podería non ser correcta</translation>
         <translation>&lt;p&gt;Está tentando importar máis páxinas das que hai dispoñíbeis no documento actual contando a partir da páxina activa.&lt;/p&gt;Escolla unha destas opcións:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Crear&lt;/b&gt; as páxinas que falten&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; páxinas até a derradeira&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18095"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18111"/>
         <source>Unacceptable settings for note style</source>
         <translation>Opcións inaceptábeis para o estilo de notas</translation>
     </message>
@@ -34618,7 +34622,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="244"/>
         <location filename="../../scribus/scribusdoc.cpp" line="320"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -34628,27 +34632,27 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <translation>Fondo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Non posíbel eliminar o elemento en uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>O elemento %1 está a ser modificado no Editor de artigos. Cancelarase a operación de eliminación</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11997"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12013"/>
         <source>Some objects are locked.</source>
         <translation>Algúns obxectos están bloqueados.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12009"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloquear todo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11994"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12010"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Saltar os obxectos bloqueados</translation>
     </message>
@@ -34658,7 +34662,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <translation>Produciuse un erro ao abrir os perfís ICC; non se activa a xestión das cores.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13643"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13659"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -34668,22 +34672,22 @@ Separación vertical: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="1113"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16043"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16059"/>
         <source>Adjusting Colors</source>
         <translation>A axustar as cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9042"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9058"/>
         <source>remove direct paragraph formatting</source>
         <translation>eliminar o formato directo do parágrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9504"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9520"/>
         <source>remove direct char formatting</source>
         <translation>eliminar o formato directo de carácter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13623"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34694,9 +34698,9 @@ Desprazamento vertical: %3
 Rotación: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14827"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14882"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15015"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14843"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14898"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15031"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -34707,23 +34711,23 @@ Rotación: %4</translation>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16479"/>
         <source>File %1 autosaved</source>
         <translation>O ficheiro %1 foi gardado automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17720"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17736"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17774"/>
         <source>No Style</source>
         <translation>Sen estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18105"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 ten documento como intervalo e fornece o mesmo estilo de numeración que o conxunto %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11309"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Desexa realmente limpar o contido de todas as molduras seleccionadas?</translation>
     </message>
@@ -36508,17 +36512,17 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Parágrafos: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Save as</source>
         <translation>Gardar como</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2173"/>
         <source>Do you want to save your changes?</source>
         <translation>Desexa gardar as modificacións?</translation>
     </message>
@@ -36636,12 +36640,12 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Editor de artigos - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2779"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2778"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Desexa realmente perder todas as modificacións?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2810"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2809"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Realmente pretende eliminar todo o texto?</translation>
     </message>
@@ -36679,8 +36683,8 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Espazo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Ficheiros de texto (*.txt);;Todos os ficheiros (*)</translation>
     </message>

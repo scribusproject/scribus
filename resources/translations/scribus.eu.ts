@@ -234,7 +234,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="307"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Testu-diseinuaren kodearen berregitea, kutxen eredu berria eta CTL testu-diseinua, Oman House of Open Source Technology taldea:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="438"/>
@@ -3432,7 +3432,7 @@ aukeratu &apos;Koloremetria erlatiboa&apos; edo &apos;Pertzepziozkoa&apos;.</tra
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Gaitu zure dokumentuaren koloreak nola inprimatuko diren erakusten duen
 &apos;probatze biguna&apos;, hautatutako inprimagailu-profilean oinarrituta.</translation>
@@ -5024,7 +5024,7 @@ unekoa %2 x %3 DPI</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -9331,7 +9331,7 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Adobe Indesign aplikazioaren IDML paketeak inportatzen ditu,
 Indesign objektuak Scribus elementu bihurtuz; Scribus-ek ez ditu denak onartzen, baina onartutako guztiak hona inportatuko dira</translation>
@@ -10069,7 +10069,7 @@ inportatzen ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -15411,7 +15411,7 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15433,7 +15433,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -19462,7 +19462,6 @@ Hori erabili nahi duzu?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Export Range</source>
         <translation>Esportatu barrutia</translation>
     </message>
@@ -19730,6 +19729,11 @@ Hori erabili nahi duzu?</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1086"/>
         <source>Page Information</source>
         <translation>Orrialde-informazioa</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
+        <source>Embedding</source>
+        <translation>Kapsulatzen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1604"/>
@@ -21630,8 +21634,8 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Tamaina aldatzea edo mugitzea hasi baino lehen igaroko den denbora. Horrek atzerapen txiki bat sortzen du klik egiten den eta eragiketa gertatzen den artean, elementuak nahi gabe ez mugitzeko. Lagungarria izan daiteke sagu ergonomikoei, ukipen-teklatuei edo eskumuturren eta eskuen mugikortasunari lotutako lotutako sentikortasun-ezarpenekin edo irisgarritasun-kontuekin.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -29200,18 +29204,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus-eko Python interfazeko modulua
@@ -30810,7 +30814,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>&lt;p&gt;Uneko dokumentuan (orrialde aktibotik hasita) daudenak baino orrialde gehiago inportatzen saiatzen ari zara&lt;/p&gt;Hautatu hauetako bat:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Sortu&lt;/b&gt; falta diren orrialdeak&lt;/li&gt;&lt;li&gt;&lt;b&gt;Inportatu&lt;/b&gt;orrialdeak azkenekoraino&lt;/li&gt;&lt;li&gt;&lt;b&gt;Utzi&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18095"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18111"/>
         <source>Unacceptable settings for note style</source>
         <translation>Ezarpen onartezinak oharpen-estilorako</translation>
     </message>
@@ -34660,7 +34664,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="244"/>
         <location filename="../../scribus/scribusdoc.cpp" line="320"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
         <source>Document</source>
         <translation>Dokumentua</translation>
     </message>
@@ -34670,27 +34674,27 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <translation>Atzeko planoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua ezabatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elementua artikulu-editorean editatzen ari zara. Ezabatze-eragiketa bertan behera utziko da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11997"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12013"/>
         <source>Some objects are locked.</source>
         <translation>Objektu batzuk blokeatuta daude</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12009"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desblokeatu denak</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11994"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12010"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Saltatu blokeatutako objektuak</translation>
     </message>
@@ -34700,7 +34704,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <translation>Errorea gertatu da ICC profilak irekitzean, kolore-kudeaketa ez da gaitu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13643"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13659"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -34710,22 +34714,22 @@ Tarte bertikala: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="1113"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16043"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16059"/>
         <source>Adjusting Colors</source>
         <translation>Koloreak doitzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9042"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9058"/>
         <source>remove direct paragraph formatting</source>
         <translation>kendu paragrafo-formatu zuzena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9504"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9520"/>
         <source>remove direct char formatting</source>
         <translation>kendu karaktere-formatu zuzena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13623"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34736,9 +34740,9 @@ Desplazamendu bertikala: %3
 Biraketa: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14827"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14882"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15015"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14843"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14898"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15031"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -34749,23 +34753,23 @@ Biraketa: %4</translation>
         <translation>Inportatua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16479"/>
         <source>File %1 autosaved</source>
         <translation>%1 fitxategia automatikoki gorde da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17720"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17736"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17774"/>
         <source>No Style</source>
         <translation>Estilorik ez</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18105"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 ohar-estiloak dokumentua du barruti gisa eta %2(e)n ezarritako zenbakitze-estilo bera ematen du</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11309"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Benetan garbitu nahi duzu hautatutako marko guztien edukia?</translation>
     </message>
@@ -36553,17 +36557,17 @@ helbidera bidaliko bazenu.</translation>
         <translation>Paragrafoak: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
         <source>Open</source>
         <translation>Ireki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Save as</source>
         <translation>Gorde honela</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2173"/>
         <source>Do you want to save your changes?</source>
         <translation>Nahi duzu aldaketak gordetzea?</translation>
     </message>
@@ -36681,12 +36685,12 @@ helbidera bidaliko bazenu.</translation>
         <translation>Artikulu-editorea  - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2779"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2778"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ziur zaude aldaketa guztiak galtzea nahi dituzula?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2810"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2809"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ziur zaude testu guztia garbitzea nahi duzula?</translation>
     </message>
@@ -36724,8 +36728,8 @@ helbidera bidaliko bazenu.</translation>
         <translation>Zuriunea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Testu-fitxategiak (*.txt);;Fitxategi guztiak (*)</translation>
     </message>

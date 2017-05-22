@@ -19442,7 +19442,6 @@ Do you want to use this?</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Export Range</source>
         <translation>Eksport-udvalg</translation>
     </message>
@@ -19715,6 +19714,11 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1211"/>
         <source>PDF/X Output Intent</source>
         <translation>Hensigt med PDF/X udskrift</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
+        <source>Embedding</source>
+        <translation type="unfinished">Indlejrer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1304"/>
@@ -30946,7 +30950,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <translation>PUB Importfilter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18095"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18111"/>
         <source>Unacceptable settings for note style</source>
         <translation>Uacceptable indstillinger for noteformat</translation>
     </message>
@@ -34626,7 +34630,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="244"/>
         <location filename="../../scribus/scribusdoc.cpp" line="320"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -34636,28 +34640,28 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <translation>Baggrund</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Kan ikke slette element, der i brug</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11390"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11406"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Elementet %1 redigeres lige nu i den indbyggede tekstbehandler. Slet funktionen vil blive annulleret</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16479"/>
         <source>File %1 autosaved</source>
         <translation>Fil %1 gemt automatisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17720"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17736"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17774"/>
         <source>No Style</source>
         <translation>Ingen typografi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18105"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 noteformat har dokument som rækkevidde og giver samme nummereringsformat som sæt %2</translation>
     </message>
@@ -34668,32 +34672,32 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="1113"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16043"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16059"/>
         <source>Adjusting Colors</source>
         <translation>Tilpasser farver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11309"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ønsker du virkelig at slette indholdet af alle valgte rammer?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11997"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12013"/>
         <source>Some objects are locked.</source>
         <translation>Nogle objekter er låst.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12009"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Frigør alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11994"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12010"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Spring over låste objekter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13643"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13659"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -34702,7 +34706,7 @@ Horisontal mellemrum: %2
 Vertikal mellemrum: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13623"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34713,19 +34717,19 @@ Vertikal forskydning: %3
 Rotation: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9042"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9058"/>
         <source>remove direct paragraph formatting</source>
         <translation>Fjern direkte afsnitsformatering</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9504"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9520"/>
         <source>remove direct char formatting</source>
         <translation>Fjern direkte tegnformatering</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14827"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14882"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15015"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14843"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14898"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15031"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
@@ -36478,7 +36482,7 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Fil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
         <source>Open</source>
         <translation>Åbn</translation>
     </message>
@@ -36494,13 +36498,13 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Nuværende afsnit:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3354"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3353"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3389"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3388"/>
         <source>Save as</source>
         <translation>Gem som</translation>
     </message>
@@ -36527,7 +36531,7 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Ord: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2173"/>
         <source>Do you want to save your changes?</source>
         <translation>Ønsker du at gemme dine ændringer?</translation>
     </message>
@@ -36655,12 +36659,12 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Indbygget tekstbehandler - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2779"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2778"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ønsker du virkelig at miste alle ændringer?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2810"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2809"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ønsker du virkelig at rydde al din tekst?</translation>
     </message>
