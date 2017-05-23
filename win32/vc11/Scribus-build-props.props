@@ -59,8 +59,8 @@
 	<ICONV_LIB Condition="'$(Configuration)' == 'Debug'">iconv_d.lib</ICONV_LIB>
 	<ICONV_LIB Condition="'$(Configuration)' == 'Release'">iconv.lib</ICONV_LIB>
 	<!-- Icu -->
-	<ICU_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\icu-54.1\include</ICU_INCLUDE_DIR>
-	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-54.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
+	<ICU_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\icu-57.1\include</ICU_INCLUDE_DIR>
+	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-57.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
 	<ICU_LIB>icudt.lib;icuin.lib;icuuc.lib</ICU_LIB>
 	<!-- Littlecms -->
 	<LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.8</LCMS_DIR>
