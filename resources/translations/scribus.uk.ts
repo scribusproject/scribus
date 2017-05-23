@@ -26020,7 +26020,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="403"/>
         <source>Luo (Kenya and Tanzania)</source>
-        <translation type="unfinished"></translation>
+        <translation>Луо (Кенія і Танзанія)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="404"/>
@@ -26050,7 +26050,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="409"/>
         <source>Maharashtrian Konkani</source>
-        <translation type="unfinished"></translation>
+        <translation>Конкані Махараштра</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="410"/>
@@ -26065,7 +26065,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="412"/>
         <source>Makasar</source>
-        <translation type="unfinished"></translation>
+        <translation>Макасарська</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="413"/>
@@ -26115,7 +26115,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="422"/>
         <source>Maori</source>
-        <translation type="unfinished"></translation>
+        <translation>Маорі</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="423"/>
@@ -26140,17 +26140,17 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="427"/>
         <source>Manipuri</source>
-        <translation type="unfinished"></translation>
+        <translation>Маніпурі</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="428"/>
         <source>Maninkakan (Eastern)</source>
-        <translation type="unfinished"></translation>
+        <translation>Манінка (східна)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="429"/>
         <source>Maninkakan (Western)</source>
-        <translation type="unfinished"></translation>
+        <translation>Манінка (західна)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="430"/>
@@ -26470,7 +26470,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="499"/>
         <source>Persian (Afghanistan)</source>
-        <translation type="unfinished"></translation>
+        <translation>Перська (Афганістан)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="501"/>
@@ -27095,17 +27095,17 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="644"/>
         <source>Yoruba</source>
-        <translation type="unfinished"></translation>
+        <translation>Йоруба</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="645"/>
         <source>Zande</source>
-        <translation type="unfinished"></translation>
+        <translation>Занде</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="646"/>
         <source>Zarma</source>
-        <translation type="unfinished"></translation>
+        <translation>Зарма</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="647"/>
@@ -27441,12 +27441,12 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="171"/>
         <source>Blackfoot</source>
-        <translation type="unfinished"></translation>
+        <translation>Блекфут</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="172"/>
         <source>Bodo (India)</source>
-        <translation type="unfinished"></translation>
+        <translation>Бодо (Індія)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
@@ -27807,7 +27807,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="276"/>
         <source>Gumuz</source>
-        <translation type="unfinished"></translation>
+        <translation>Гумуз</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="277"/>
@@ -27917,7 +27917,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="302"/>
         <source>Ijo</source>
-        <translation type="unfinished"></translation>
+        <translation>Іджо</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="303"/>
@@ -28017,7 +28017,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="323"/>
         <source>Kamba (Kenya)</source>
-        <translation type="unfinished"></translation>
+        <translation>Камба (Кенія)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="324"/>
