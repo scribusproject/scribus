@@ -19494,7 +19494,7 @@ Exprimée en pourcentage de la valeur d&apos;espace courante.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="144"/>
         <source>Glyph Extension</source>
-        <translation>Interlettrage</translation>
+        <translation>Échelle des glyphes</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="145"/>
