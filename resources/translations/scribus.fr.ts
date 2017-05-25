@@ -32438,7 +32438,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="513"/>
         <source>Glyph Extension </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Échelle des glyphes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="212"/>
