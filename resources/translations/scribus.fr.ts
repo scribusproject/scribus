@@ -330,7 +330,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1491"/>
         <source>Re&amp;vert to Saved</source>
-        <translation>Re&amp;venir à la version précédente</translation>
+        <translation>Re&amp;venir à la version sauvegardée</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1492"/>
