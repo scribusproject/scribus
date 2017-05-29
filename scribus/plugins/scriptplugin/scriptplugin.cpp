@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 // include cmdvar.h first, as it pulls in <Python.h>
+#include "cmdannotations.h"
 #include "cmdvar.h"
 #include "cmdcell.h"
 #include "cmdcolor.h"
@@ -572,6 +573,12 @@ PyMethodDef scribus_methods[] = {
 	// Internal methods - Not for public use
 	{const_cast<char*>("retval"), (PyCFunction)scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
+	{const_cast<char*>("setLinkAnnotation"), scribus_setlinkannotation, METH_VARARGS,tr(scribus_setlinkannotation__doc__)},
+	{const_cast<char*>("setFileAnnotation"), (PyCFunction)scribus_setfileannotation, METH_VARARGS|METH_KEYWORDS,tr(scribus_setfileannotation__doc__)},
+	{const_cast<char*>("setURIAnnotation"), scribus_seturiannotation, METH_VARARGS,tr(scribus_seturiannotation__doc__)},
+	{const_cast<char*>("setTextAnnotation"), scribus_settextannotation, METH_VARARGS,tr(scribus_settextannotation__doc__)},
+	{const_cast<char*>("createPdfAnnotation"), scribus_createpdfannotation, METH_VARARGS,tr(scribus_createpdfannotation__doc__)},
+	{const_cast<char*>("isAnnotated"),(PyCFunction)scribus_isannotated, METH_VARARGS|METH_KEYWORDS,tr(scribus_isannotated__doc__)},
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
 
