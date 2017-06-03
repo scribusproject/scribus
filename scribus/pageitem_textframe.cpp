@@ -2299,7 +2299,7 @@ void PageItem_TextFrame::layout()
 						//force line end at previouse glyph
 						i--;
 						currentIndex = i - current.lineData.firstCluster;
-						a = current.glyphs[currentIndex].firstChar();
+						a = (i >= 0) ? glyphClusters.at(i).firstChar() : (a - 1);
 						current.mustLineEnd = current.lineData.x;
 					}
 //                    qDebug() << "breakline forced @" << i;
