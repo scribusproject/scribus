@@ -123,246 +123,246 @@ ScImage::~ScImage()
 
 void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk)
 {
+	if (effectsList.count() <= 0)
+		return;
 	ScribusDoc* doc = colors.document();
-	if (effectsList.count() != 0)
+
+	for (int a = 0; a < effectsList.count(); ++a)
 	{
-		for (int a = 0; a < effectsList.count(); ++a)
+		if (effectsList.at(a).effectCode == EF_INVERT)
+			invert(cmyk);
+		if (effectsList.at(a).effectCode == EF_GRAYSCALE)
+			toGrayscale(cmyk);
+		if (effectsList.at(a).effectCode == EF_COLORIZE)
 		{
-			if (effectsList.at(a).effectCode == EF_INVERT)
-				invert(cmyk);
-			if (effectsList.at(a).effectCode == EF_GRAYSCALE)
-				toGrayscale(cmyk);
-			if (effectsList.at(a).effectCode == EF_COLORIZE)
+			QString tmpstr = effectsList.at(a).effectParameters;
+			QString col = CommonStrings::None;
+			int shading = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+		//	fp >> col;
+			col = fp.readLine();
+			fp >> shading;
+			colorize(doc, colors[col], shading, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_BRIGHTNESS)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			int brightnessValue = 0;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> brightnessValue;
+			brightness(brightnessValue, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_CONTRAST)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			int contrastValue = 0;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> contrastValue;
+			contrast(contrastValue, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_SHARPEN)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			double radius, sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			sharpen(radius, sigma);
+		}
+		if (effectsList.at(a).effectCode == EF_BLUR)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			double radius, sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			blur(static_cast<int>(radius));
+		}
+		if (effectsList.at(a).effectCode == EF_SOLARIZE)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			double sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> sigma;
+			solarize(sigma, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_DUOTONE)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			QString col1 = CommonStrings::None;
+			int shading1 = 100;
+			QString col2 = CommonStrings::None;
+			int shading2 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col = CommonStrings::None;
-				int shading = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			//	fp >> col;
-				col = fp.readLine();
-				fp >> shading;
-				colorize(doc, colors[col], shading, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_BRIGHTNESS)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int brightnessValue = 0;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> brightnessValue;
-				brightness(brightnessValue, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_CONTRAST)
+			int lin2;
+			fp >> lin2;
+			duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_TRITONE)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			QString col1 = CommonStrings::None;
+			QString col2 = CommonStrings::None;
+			QString col3 = CommonStrings::None;
+			int shading1 = 100;
+			int shading2 = 100;
+			int shading3 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int contrastValue = 0;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> contrastValue;
-				contrast(contrastValue, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_SHARPEN)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double radius, sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> radius;
-				fp >> sigma;
-				sharpen(radius, sigma);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_BLUR)
+			int lin2;
+			fp >> lin2;
+			FPointArray curve3;
+			curve3.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double radius, sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> radius;
-				fp >> sigma;
-				blur(static_cast<int>(radius));
+				fp >> xval;
+				fp >> yval;
+				curve3.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_SOLARIZE)
+			int lin3;
+			fp >> lin3;
+			tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_QUADTONE)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			QString col1 = CommonStrings::None;
+			QString col2 = CommonStrings::None;
+			QString col3 = CommonStrings::None;
+			QString col4 = CommonStrings::None;
+			int shading1 = 100;
+			int shading2 = 100;
+			int shading3 = 100;
+			int shading4 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			col4 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			fp >> shading4;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> sigma;
-				solarize(sigma, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_DUOTONE)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				int shading1 = 100;
-				QString col2 = CommonStrings::None;
-				int shading2 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_TRITONE)
+			int lin2;
+			fp >> lin2;
+			FPointArray curve3;
+			curve3.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				QString col2 = CommonStrings::None;
-				QString col3 = CommonStrings::None;
-				int shading1 = 100;
-				int shading2 = 100;
-				int shading3 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				col3 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				fp >> shading3;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				FPointArray curve3;
-				curve3.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve3.addPoint(xval, yval);
-				}
-				int lin3;
-				fp >> lin3;
-				tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve3.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_QUADTONE)
+			int lin3;
+			fp >> lin3;
+			FPointArray curve4;
+			curve4.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				QString col2 = CommonStrings::None;
-				QString col3 = CommonStrings::None;
-				QString col4 = CommonStrings::None;
-				int shading1 = 100;
-				int shading2 = 100;
-				int shading3 = 100;
-				int shading4 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				col3 = fp.readLine();
-				col4 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				fp >> shading3;
-				fp >> shading4;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				FPointArray curve3;
-				curve3.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve3.addPoint(xval, yval);
-				}
-				int lin3;
-				fp >> lin3;
-				FPointArray curve4;
-				curve4.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve4.addPoint(xval, yval);
-				}
-				int lin4;
-				fp >> lin4;
-				quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve4.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_GRADUATE)
+			int lin4;
+			fp >> lin4;
+			quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
+		}
+		if (effectsList.at(a).effectCode == EF_GRADUATE)
+		{
+			QString tmpstr = effectsList.at(a).effectParameters;
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int numVals;
-				double xval, yval;
-				FPointArray curve;
-				curve.resize(0);
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve.addPoint(xval, yval);
-				}
-				int lin;
-				fp >> lin;
-				doGraduate(curve, cmyk, lin);
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
 			}
+			int lin;
+			fp >> lin;
+			doGraduate(curve, cmyk, lin);
 		}
 	}
 }
