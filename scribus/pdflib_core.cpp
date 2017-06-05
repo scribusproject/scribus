@@ -10176,6 +10176,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					opts.append( "-sProcessColorModel=/DeviceRGB" );
 				else
 					opts.append( "-sProcessColorModel=/DeviceCMYK" ); */
+				opts.append( "-dAutoRotatePages=/None" ); // #14289: otherwise EPS might come out rotated
 				if (convertPS2PDF(fn, tmpFile, opts) == 0)
 				{
 					imageLoaded = PDF_EmbeddedPDF(c, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
