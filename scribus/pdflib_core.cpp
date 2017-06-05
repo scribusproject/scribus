@@ -6628,7 +6628,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			else if (rotation == 180)
 				PutDoc("1 1");
 			else if (rotation == 270)
-				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth()) + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth())));
+				PutDoc("1 0");
 			else
 				PutDoc("0 0");
 			PutDoc("]");
@@ -6748,7 +6748,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			else if (rotation == 180)
 				PutDoc("1 1");
 			else if (rotation == 270)
-				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth(), 'f') + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth()), 'f'));
+				PutDoc("1 0");
 			else
 				PutDoc("0 0");
 			PutDoc("]");
