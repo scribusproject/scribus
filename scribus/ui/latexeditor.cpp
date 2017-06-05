@@ -449,7 +449,7 @@ void LatexEditor::loadSettings()
 			else
 			{
 				qWarning() << "XML-ERROR: " << xml.lineNumber() << ":" 
-						<< xml.columnNumber() << ":" << "Unknow tab type"
+						<< xml.columnNumber() << ":" << "Unknown tab type"
 						<< xml.attributes().value("type").toString();
 			}
 		}

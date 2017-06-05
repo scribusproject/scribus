@@ -142,7 +142,7 @@ void HunspellDialog::changeAllWords()
 
 void HunspellDialog::replaceWord(int i)
 {
-	//TODO: rehypenate after the replacement
+	//TODO: rehyphenate after the replacement
 	QString newText(suggestionsListWidget->currentItem()->text());
 	int lengthDiff=m_iText->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
 	if (lengthDiff!=0)

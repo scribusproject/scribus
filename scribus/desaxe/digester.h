@@ -59,7 +59,7 @@ namespace PRIVATE {
 		ObjType* dummy = NULL;
 		if( cell.type != typeid(dummy).name() )
 		{
-			std::cerr << "requested type '" << typeid(dummy).name() << "' doesnt match cell type '" << cell.type << "'\n";
+			std::cerr << "requested type '" << typeid(dummy).name() << "' doesn't match cell type '" << cell.type << "'\n";
 			if (stack)
 			{
 				int i=0;

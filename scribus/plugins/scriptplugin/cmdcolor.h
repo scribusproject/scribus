@@ -138,7 +138,7 @@ PyObject *scribus_newcolorrgb(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_delcolor__doc__,
 QT_TR_NOOP("deleteColor(\"name\", \"replace\")\n\
 \n\
-Deletes the color \"name\". Every occurence of that color is replaced by the\n\
+Deletes the color \"name\". Every occurrence of that color is replaced by the\n\
 color \"replace\". If not specified, \"replace\" defaults to the color\n\
 \"None\" - transparent.\n\
 \n\

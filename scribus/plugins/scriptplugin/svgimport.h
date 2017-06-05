@@ -17,7 +17,7 @@ QT_TR_NOOP("placeVectorFile(\"filename\", x, y)\n\
 Places the Vectorgrapics \"filename\" onto the current page,\n\
 x and y specify the coordinate of the topleft corner of the graphic placed on the page\n\
 \n\
-If loading was successful, the selection contains the imported grapic\n\
+If loading was successful, the selection contains the imported graphic\n\
 "));
 /*! Places a Vector file. */
 PyObject *scribus_placevec(PyObject * /*self*/, PyObject* args);

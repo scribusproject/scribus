@@ -167,7 +167,7 @@ public:
 //	virtual GBool needClipToCropBox() { return gTrue; }
 	virtual void startPage(int pageNum, GfxState *, XRef *);
 	virtual void endPage();
-	// grapics state
+	// graphics state
 	virtual void saveState(GfxState *state);
 	virtual void restoreState(GfxState *state);
 

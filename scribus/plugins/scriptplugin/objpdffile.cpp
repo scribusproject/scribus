@@ -1229,7 +1229,7 @@ static char *lpival_doc = const_cast<char*>(
 "i - Frequency (10 to 1000)\n\t"
 "i - Angle (-180 to 180)\n\t"
 "i - Spot Function\n\t\t0 - Simple Dot\n\t\t1 - Line\n\t\t2 - Round\n\t\t3 - Ellipse\n"
-"Be carefull when supplying these values as they\nare not checked for validity.");
+"Be careful when supplying these values as they\nare not checked for validity.");
 
 static PyGetSetDef PDFfile_getseters [] = {
 	{const_cast<char*>("file"), (getter)PDFfile_getfile, (setter)PDFfile_setfile, const_cast<char*>("Name of file to save into"), NULL},
