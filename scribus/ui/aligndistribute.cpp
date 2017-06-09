@@ -492,7 +492,7 @@ void AlignDistributePalette::setGuide(int direction, qreal position)
 
 void AlignDistributePalette::enableGuideButtons()
 {
-	QString suffix="";
+	QString suffix;
 	double unitRatio=1.0;
 	int precision=1;
 	if (currDoc!=NULL)

@@ -70,7 +70,7 @@ public:
 	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", Qt::WindowFlags f = 0);
 
 	/** @brief Destroys the widget */
-	virtual ~UndoGui() {};
+	virtual ~UndoGui() {}
 
 	/** @brief Empties the undo stack representation. */
 	virtual void clear() = 0;
