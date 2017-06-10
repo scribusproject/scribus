@@ -45,6 +45,8 @@ if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
 	#message(STATUS "PODOFO PATCH VERSION ${PODOFO_PATCH_VER}")
 	set(LIBPODOFO_VERSION "${PODOFO_MAJOR_VER}.${PODOFO_MINOR_VER}.${PODOFO_PATCH_VER}" CACHE STRING "PoDoFo version string")
 	if(LIBPODOFO_VERSION VERSION_GREATER "0.9.4")
+		# podofo 0.9.5 use OpenSSL includes in its public headers, we need to know OpenSSL include dirs
+		# (https://bugs.scribus.net/view.php?id=14838)
 		find_package(OpenSSL)
 		if (OPENSSL_FOUND)
 			message("OpenSSL found OK for installed version of PoDoFo (>= 0.9.5) - Enabling support for PDF embedded in AI")
