@@ -27,9 +27,16 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	QStringList languageList;
-	languageList <<"";
 	LanguageManager::instance()->fillInstalledGUIStringList(&languageList);
-	languageComboBox->addItems( languageList );
+	if (languageList.isEmpty())
+	{
+		QString currentGUILang = ScQApp->currGUILanguage();
+		if (!currentGUILang.isEmpty())
+			languageList << LanguageManager::instance()->getLangFromAbbrev(currentGUILang);
+		else
+			languageList << LanguageManager::instance()->getLangFromAbbrev("en_GB");
+	}
+	languageComboBox->addItems(languageList);
 
 	// qt styles
 	QStringList styleList = QStyleFactory::keys();
@@ -69,7 +76,18 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	selectedGUILang = prefsData->uiPrefs.language;
 	if (selectedGUILang.isEmpty())
 		selectedGUILang = ScQApp->currGUILanguage();
-	setCurrentComboItem(languageComboBox, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
+	QString langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
+	if (languageComboBox->findText(langString) < 0)
+	{
+		selectedGUILang = ScQApp->currGUILanguage();
+		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
+	}
+	if (languageComboBox->findText(langString) < 0)
+	{
+		selectedGUILang = "en_GB";
+		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
+	}
+	setCurrentComboItem(languageComboBox, langString);
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
 	setCurrentComboItem(iconSetComboBox, prefsData->uiPrefs.iconSet);
 	fontSizeMenuSpinBox->setValue( prefsData->uiPrefs.applicationFontSize );
