@@ -880,6 +880,25 @@ void LanguageManager::fillInstalledSpellStringList(QStringList *stringListToFill
 	stringListToFill->sort();
 }
 
+bool LanguageManager::isAvailableTranslation(QString langAbbrev)
+{
+	if (langAbbrev == "en" || langAbbrev == "en_GB")
+		return true;
+
+	int i = langTableIndex(langAbbrev);
+	if (i == -1)
+	{
+		if (langAbbrev.length() > 5)
+		{
+			langAbbrev.truncate(5);
+			i = langTableIndex(langAbbrev);
+		}
+	}
+	if (i !=-1)
+		return m_langTable[i].m_transAvailable;
+	return false;
+}
+
 QStringList LanguageManager::languageList(bool getTranslated)
 {
 	QStringList sl;

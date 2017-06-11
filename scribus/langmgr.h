@@ -66,6 +66,8 @@ public:
 	const QString getHyphFilename(const QString& langAbbrev);
 	int langTableIndex(const QString& abbrev);
 
+	bool isAvailableTranslation(QString langAbbrev);
+
 private:
 	static LanguageManager* m_instance;
 

@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "latexhelpers.h"
+#include "langmgr.h"
 #include "localemgr.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -955,9 +956,17 @@ void PrefsManager::ReadPrefsXML()
 			if (!guiLanguage.isEmpty())
 				appPrefs.uiPrefs.language = guiLanguage;
 			if (appPrefs.uiPrefs.language.isEmpty())
+			{
 				appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-			if (appPrefs.uiPrefs.language.isEmpty())
-				appPrefs.uiPrefs.language = "en_GB";
+				if (appPrefs.uiPrefs.language.isEmpty())
+					appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
+			}
+			if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
+			{
+				appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+				if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
+					appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
+			}
 			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
 			appPrefs.uiPrefs.tabbedPalettes.clear();
 			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
