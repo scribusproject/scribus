@@ -6621,6 +6621,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		QString newUILanguage = m_prefsManager->uiLanguage();
 		if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
 			ScQApp->changeGUILanguage(newUILanguage);
+		m_prefsManager->appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
 		QString newUIStyle = m_prefsManager->guiStyle();
 		if (oldPrefs.uiPrefs.style != newUIStyle)
 		{

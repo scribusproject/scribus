@@ -67,6 +67,8 @@ void Prefs_UserInterface::languageChange()
 void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	selectedGUILang = prefsData->uiPrefs.language;
+	if (selectedGUILang.isEmpty())
+		selectedGUILang = ScQApp->currGUILanguage();
 	setCurrentComboItem(languageComboBox, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
 	setCurrentComboItem(iconSetComboBox, prefsData->uiPrefs.iconSet);

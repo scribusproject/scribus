@@ -103,7 +103,7 @@ bool ScribusQApp::useGUI=false;
 
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	m_lang(""),
-	m_GUILang("")
+	m_GUILang("en_GB")
 {
 	ScQApp = this;
 	ScCore = 0;

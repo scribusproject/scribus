@@ -182,6 +182,9 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.mainWinState = QByteArray();
 	appPrefs.uiPrefs.RecentDocs.clear();
 	appPrefs.uiPrefs.recentDocCount = 5;
+	appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+	if (appPrefs.uiPrefs.language.isEmpty())
+		appPrefs.uiPrefs.language = "en_GB";
 	appPrefs.uiPrefs.showStartupDialog = true;
 	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
@@ -948,7 +951,13 @@ void PrefsManager::ReadPrefsXML()
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext)
 		{
-			appPrefs.uiPrefs.language = userprefsContext->get("gui_language","");
+			QString guiLanguage = userprefsContext->get("gui_language", "");
+			if (!guiLanguage.isEmpty())
+				appPrefs.uiPrefs.language = guiLanguage;
+			if (appPrefs.uiPrefs.language.isEmpty())
+				appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+			if (appPrefs.uiPrefs.language.isEmpty())
+				appPrefs.uiPrefs.language = "en_GB";
 			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
 			appPrefs.uiPrefs.tabbedPalettes.clear();
 			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
