@@ -308,33 +308,23 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		parentCombo->setCurrentIndex(index);
 	}
 
-	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
-	                                      defLang : cstyle->language();
-	//qDebug()<<"style lang"<<cstyle->language()<<clang;
+	QString defaultLang(defLang.isEmpty() ? "en_GB" : defLang);
+	QString clang(cstyle->language().isNull() || cstyle->language().isEmpty() ? defaultLang : cstyle->language());
 	QString plang(QString::null);
 	if (hasParent)
-		plang = parent->language().isNull() || parent->language().isEmpty() ?
-		                              defLang : parent->language();
+		plang = parent->language().isNull() || parent->language().isEmpty() ? defaultLang : parent->language();
 
 	int ci = -1, pi = -1, di = -1;
-// 	LanguageManager langmgr;
-// 	langmgr.init(true);
-	QString tl = LanguageManager::instance()->getAbbrevFromLang(defLang, false);
+	QString tl = LanguageManager::instance()->getAbbrevFromLang(defaultLang, false);
 	for (int i = 0; i < language_->count(); ++i)
 	{
-		QString ltAbbrev=LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), false);
-//		qDebug()<<"ltabbrev"<<ltAbbrev<<language_->itemText(i);
+		QString ltAbbrev(LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), false));
 		if (ltAbbrev == clang)
 			ci = i;
-		
 		if (hasParent && ltAbbrev == plang)
 			pi = i;
-//		qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
-		if (ltAbbrev == defLang || ltAbbrev == tl)
-//		{
+		if (ltAbbrev == defaultLang || ltAbbrev == tl)
 			di = i;
-//			qDebug() << "match on:" << di;
-//		}
 	}
 
 	//qDebug() << QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]);
