@@ -337,7 +337,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("fileQuit"), scribus_filequit, METH_VARARGS, tr(scribus_filequit__doc__)},
 	{const_cast<char*>("flipObject"), scribus_flipobject, METH_VARARGS, tr(scribus_flipobject__doc__)},
 	{const_cast<char*>("getActiveLayer"), (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
-	{const_cast<char*>("getAllObjects"), scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
+	{const_cast<char*>("getAllObjects"), (PyCFunction)scribus_getallobj, METH_VARARGS|METH_KEYWORDS, tr(scribus_getallobj__doc__)},
 	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
 	{const_cast<char*>("getCharStyles"), (PyCFunction)scribus_getcharstylenames, METH_NOARGS, tr(scribus_getcharstylenames__doc__)},
 	{const_cast<char*>("getAllText"), scribus_gettext, METH_VARARGS, tr(scribus_gettext__doc__)},

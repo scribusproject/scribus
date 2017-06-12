@@ -275,15 +275,26 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->rotation() * -1)) : NULL;
 }
 
-PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keywds)
 {
 	PyObject *l;
 	int typ = -1;
 	uint counter = 0;
 	uint counter2 = 0;
 	uint pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
-	if (!PyArg_ParseTuple(args, "|i", &typ))
+	char *kwlist[] = {const_cast<char*>(""), const_cast<char*>("page"), NULL};
+
+
+	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &typ, &pageNr))
 		return NULL;
+
+	uint numpages = ScCore->primaryMainWindow()->doc->Pages->count();
+	if(pageNr < 0 || pageNr >= numpages){
+		PyErr_SetString(PyExc_RuntimeError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	//if (!PyArg_ParseTuple(args, "|i", &typ))
+	//	return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	// have doc already

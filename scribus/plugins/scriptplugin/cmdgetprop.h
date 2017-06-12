@@ -212,12 +212,14 @@ PyObject *scribus_getrotation(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getallobj__doc__,
-QT_TR_NOOP("getAllObjects() -> list\n\
+QT_TR_NOOP("getAllObjects([\"page\"]) -> list\n\
 \n\
 Returns a list containing the names of all objects on the current page.\n\
+Takes an optional keyword argument that changes the page from which the objects are returned\n\
+The page index starts at 0 and goes to the total number of pages - 1.\n\
 "));
 /*! Returns a list with all objects in page */
-PyObject *scribus_getallobj(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getallobj(PyObject * /*self*/, PyObject* args, PyObject *keywds);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getobjectattributes__doc__,
