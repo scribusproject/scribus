@@ -63,7 +63,7 @@ def exportText(textfile):
     output_file.writelines(T)
     output_file.close()
     endmessage = textfile + ' was created'
-    scribus.messageBox("Finished", endmessage,icon=0,button1=1)
+    scribus.messageBox("Finished", endmessage, scribus.ICON_NONE, scribus.BUTTON_OK)
 
 
 if scribus.haveDoc():
