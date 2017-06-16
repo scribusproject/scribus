@@ -553,7 +553,7 @@ void ScribusMainWindow::initDefaultValues()
 	m_keyrep = false;
 	m__arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
-	for (int i=0; i<PS_MAX ; ++i)
+	for (int i=0; i<PAL_MAX ; ++i)
 		m_palettesStatus[i] = false;
 	for (int i=0; i<GS_MAX ; ++i)
 		m_guidesStatus[i] = false;
@@ -5538,41 +5538,41 @@ void ScribusMainWindow::ToggleStickyTools()
 
 void ScribusMainWindow::ToggleAllPalettes()
 {
-	if (m_palettesStatus[PS_ALL])
+	if (m_palettesStatus[PAL_ALL])
 	{
-		m_palettesStatus[PS_ALL] = false;
-		if (m_palettesStatus[PS_PROPERTIES])
+		m_palettesStatus[PAL_ALL] = false;
+		if (m_palettesStatus[PAL_PROPERTIES])
 			propertiesPalette->show();
-		if (m_palettesStatus[PS_TEXT])
+		if (m_palettesStatus[PAL_TEXT])
 			textPalette->show();
-		if (m_palettesStatus[PS_OUTLINE])
+		if (m_palettesStatus[PAL_OUTLINE])
 			outlinePalette->show();
-		if (m_palettesStatus[PS_SCRAPBOOK])
+		if (m_palettesStatus[PAL_SCRAPBOOK])
 			scrapbookPalette->show();
-		if (m_palettesStatus[PS_LAYER])
+		if (m_palettesStatus[PAL_LAYER])
 			layerPalette->show();
-		if (m_palettesStatus[PS_PAGE])
+		if (m_palettesStatus[PAL_PAGE])
 			pagePalette->show();
-		if (m_palettesStatus[PS_BOOKMARK])
+		if (m_palettesStatus[PAL_BOOKMARK])
 			bookmarkPalette->show();
-		if (m_palettesStatus[PS_VERIFIER])
+		if (m_palettesStatus[PAL_VERIFIER])
 			docCheckerPalette->show();
-		if (m_palettesStatus[PS_DOWNLOADS])
+		if (m_palettesStatus[PAL_DOWNLOADS])
 			downloadsPalette->show();
-		setUndoPalette(m_palettesStatus[PS_UNDO]);
+		setUndoPalette(m_palettesStatus[PAL_UNDO]);
 	}
 	else
 	{
-		m_palettesStatus[PS_PROPERTIES] = propertiesPalette->isVisible();
-		m_palettesStatus[PS_TEXT] = textPalette->isVisible();
-		m_palettesStatus[PS_OUTLINE] = outlinePalette->isVisible();
-		m_palettesStatus[PS_SCRAPBOOK] = scrapbookPalette->isVisible();
-		m_palettesStatus[PS_LAYER] = layerPalette->isVisible();
-		m_palettesStatus[PS_PAGE] = pagePalette->isVisible();
-		m_palettesStatus[PS_BOOKMARK] = bookmarkPalette->isVisible();
-		m_palettesStatus[PS_UNDO] = undoPalette->isVisible();
-		m_palettesStatus[PS_VERIFIER] = docCheckerPalette->isVisible();
-		m_palettesStatus[PS_DOWNLOADS] = downloadsPalette->isVisible();
+		m_palettesStatus[PAL_PROPERTIES] = propertiesPalette->isVisible();
+		m_palettesStatus[PAL_TEXT] = textPalette->isVisible();
+		m_palettesStatus[PAL_OUTLINE] = outlinePalette->isVisible();
+		m_palettesStatus[PAL_SCRAPBOOK] = scrapbookPalette->isVisible();
+		m_palettesStatus[PAL_LAYER] = layerPalette->isVisible();
+		m_palettesStatus[PAL_PAGE] = pagePalette->isVisible();
+		m_palettesStatus[PAL_BOOKMARK] = bookmarkPalette->isVisible();
+		m_palettesStatus[PAL_UNDO] = undoPalette->isVisible();
+		m_palettesStatus[PAL_VERIFIER] = docCheckerPalette->isVisible();
+		m_palettesStatus[PAL_DOWNLOADS] = downloadsPalette->isVisible();
 		propertiesPalette->hide();
 		textPalette->hide();
 		outlinePalette->hide();
@@ -5583,13 +5583,13 @@ void ScribusMainWindow::ToggleAllPalettes()
 		docCheckerPalette->hide();
 		downloadsPalette->hide();
 		setUndoPalette(false);
-		m_palettesStatus[PS_ALL] = true;
+		m_palettesStatus[PAL_ALL] = true;
 	}
 }
 
 void ScribusMainWindow::toggleCheckPal()
 {
-	m_palettesStatus[PS_ALL] = false;
+	m_palettesStatus[PAL_ALL] = false;
 }
 
 void ScribusMainWindow::setUndoPalette(bool visible)
@@ -5600,13 +5600,13 @@ void ScribusMainWindow::setUndoPalette(bool visible)
 
 void ScribusMainWindow::togglePagePalette()
 {
-	m_palettesStatus[PS_ALL] = false;
+	m_palettesStatus[PAL_ALL] = false;
 }
 
 void ScribusMainWindow::toggleUndoPalette()
 {
 	setUndoPalette(!undoPalette->isVisible());
-	m_palettesStatus[PS_ALL] = false;
+	m_palettesStatus[PAL_ALL] = false;
 }
 
 void ScribusMainWindow::toggleImageVisibility()
