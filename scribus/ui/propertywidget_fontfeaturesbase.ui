@@ -56,7 +56,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="DiscretinoryCheck">
+    <widget class="QCheckBox" name="DiscretionaryCheck">
      <property name="toolTip">
       <string>Discretionary Ligatures (dlig)</string>
      </property>
@@ -396,7 +396,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="SuperscriptRaido">
+    <widget class="QRadioButton" name="SuperscriptRadio">
      <property name="toolTip">
       <string>Superscript (sups)</string>
      </property>
@@ -608,7 +608,7 @@
   <buttongroup name="PositionGroup"/>
   <buttongroup name="CapitalsGroup"/>
   <buttongroup name="FractionsGroup"/>
-  <buttongroup name="NumeralStyleGroup"/>
   <buttongroup name="NumeralWidthGroup"/>
+  <buttongroup name="NumeralStyleGroup"/>
  </buttongroups>
 </ui>

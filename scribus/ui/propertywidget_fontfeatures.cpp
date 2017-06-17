@@ -48,10 +48,10 @@ void PropertyWidget_FontFeatures::languageChange()
 	DefaultWidthRadio->setChecked(true);
 	DefaultFractionsRadio->setChecked(true);
 	ContextualCheck->setChecked(true);
-	DiscretinoryCheck->setChecked(false);
+	DiscretionaryCheck->setChecked(false);
 	HistoricalCheck->setChecked(false);
 	SubscriptRadio->setChecked(false);
-	SuperscriptRaido->setChecked(false);
+	SuperscriptRadio->setChecked(false);
 	SmallRadio->setChecked(false);
 	SmallFromCRadio->setChecked(false);
 	PetiteRadio->setChecked(false);
@@ -103,13 +103,13 @@ void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availa
 		else if (fontFeatures[i] == "-liga")
 			CommonCheck->setChecked(false);
 		else if (fontFeatures[i] == "+dlig")
-			DiscretinoryCheck->setChecked(true);
+			DiscretionaryCheck->setChecked(true);
 		else if (fontFeatures[i] == "+hlig")
 			HistoricalCheck->setChecked(true);
 		else if (fontFeatures[i] == "+subs")
 			SubscriptRadio->setChecked(true);
 		else if (fontFeatures[i] == "+sups")
-			SuperscriptRaido->setChecked(true);
+			SuperscriptRadio->setChecked(true);
 		else if (fontFeatures[i] == "+smcp")
 			SmallRadio->setChecked(true);
 		else if (fontFeatures[i] == "+c2sc")
@@ -190,7 +190,7 @@ void PropertyWidget_FontFeatures::handlefontfeatures()
 		font_feature << "-clig";
 	if (!CommonCheck->isChecked())
 		font_feature << "-liga";
-	if (DiscretinoryCheck->isChecked())
+	if (DiscretionaryCheck->isChecked())
 		font_feature << "+dlig";
 	if (HistoricalCheck->isChecked())
 		font_feature << "+hlig";
@@ -199,7 +199,7 @@ void PropertyWidget_FontFeatures::handlefontfeatures()
 
 	if (SubscriptRadio->isChecked())
 		font_feature << "+subs";
-	if (SuperscriptRaido->isChecked())
+	if (SuperscriptRadio->isChecked())
 		font_feature <<"+sups";
 
 
@@ -338,11 +338,11 @@ void PropertyWidget_FontFeatures::connectSignals()
 {
 	connect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(CommonCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DiscretinoryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	connect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(NormalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SuperscriptRaido, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	connect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(NormalCaRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(SmallRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	connect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
@@ -387,11 +387,11 @@ void PropertyWidget_FontFeatures::disconnectSignals()
 {
 	disconnect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(CommonCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DiscretinoryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	disconnect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(NormalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SuperscriptRaido, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	disconnect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(NormalCaRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(SmallRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
 	disconnect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
@@ -436,7 +436,7 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 {
 	ContextualCheck->hide();
 	CommonCheck->hide();
-	DiscretinoryCheck->hide();
+	DiscretionaryCheck->hide();
 	HistoricalCheck->hide();
 	line->hide();
 	
@@ -471,7 +471,7 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 	NormalRadio->setChecked(true);
 	NormalRadio->hide();
 	SubscriptRadio->hide();
-	SuperscriptRaido->hide();
+	SuperscriptRadio->hide();
 	OrdinalCheck->hide();
 	line_6->hide();
 	
@@ -549,13 +549,13 @@ void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 		else if (fontFeatures[i] == "liga")
 			CommonCheck->show();
 		else if (fontFeatures[i] == "dlig")
-			DiscretinoryCheck->show();
+			DiscretionaryCheck->show();
 		else if (fontFeatures[i] == "hlig")
 			HistoricalCheck->show();
 		else if (fontFeatures[i] == "subs")
 			SubscriptRadio->show();
 		else if (fontFeatures[i] == "sups")
-			SuperscriptRaido->show();
+			SuperscriptRadio->show();
 		else if (fontFeatures[i] == "smcp")
 			SmallRadio->show();
 		else if (fontFeatures[i] == "c2sc")
@@ -702,12 +702,12 @@ void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 	if (DiagonalRadio->isHidden() && StackedRadio->isHidden())
 		DefaultFractionsRadio->hide();
 
-	if (SubscriptRadio->isHidden() && SuperscriptRaido->isHidden() && OrdinalCheck->isHidden())
+	if (SubscriptRadio->isHidden() && SuperscriptRadio->isHidden() && OrdinalCheck->isHidden())
 		NormalRadio->hide();
 
 	// Hide Lines
 	if (ContextualCheck->isHidden() && CommonCheck->isHidden()
-			&& DiscretinoryCheck->isHidden() && HistoricalCheck->isHidden())
+			&& DiscretionaryCheck->isHidden() && HistoricalCheck->isHidden())
 		line->hide();
 	if (NormalCaRadio->isHidden() && SmallRadio->isHidden()
 			&& SmallFromCRadio->isHidden() && PetiteRadio->isHidden()
@@ -724,7 +724,7 @@ void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 			&& StackedRadio->isHidden())
 		line_4->hide();
 	if (NormalRadio->isHidden() && SubscriptRadio->isHidden()
-			&& SuperscriptRaido->isHidden() && OrdinalCheck->isHidden())
+			&& SuperscriptRadio->isHidden() && OrdinalCheck->isHidden())
 		line_6->hide();
 	if (SlashedZeroCheck->isHidden() )
 		line_7->hide();
@@ -743,13 +743,13 @@ quint64 PropertyWidget_FontFeatures::featureFlags()
 		flags |= 1;
 	if (CommonCheck->isVisible())
 		flags |= ((quint64) 1 << 1);
-	if (DiscretinoryCheck->isVisible())
+	if (DiscretionaryCheck->isVisible())
 		flags |= ((quint64) 1 << 2);
 	if (HistoricalCheck->isVisible())
 		flags |= ((quint64) 1 << 3);
 	if (SubscriptRadio->isVisible())
 		flags |= ((quint64) 1 << 4);
-	if (SuperscriptRaido->isVisible())
+	if (SuperscriptRadio->isVisible())
 		flags |= ((quint64) 1 << 5);
 	if (SmallRadio->isVisible())
 		flags |= ((quint64) 1 << 6);
