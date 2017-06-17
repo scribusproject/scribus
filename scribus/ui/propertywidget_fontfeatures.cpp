@@ -436,7 +436,9 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 {
 	ContextualCheck->hide();
 	CommonCheck->hide();
+	DiscretionaryCheck->setChecked(false);
 	DiscretionaryCheck->hide();
+	HistoricalCheck->setChecked(false);
 	HistoricalCheck->hide();
 	line->hide();
 	
