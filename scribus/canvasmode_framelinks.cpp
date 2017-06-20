@@ -97,8 +97,8 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 				PageItem* item1 = m_doc->m_Selection->itemAt(i);
 				PageItem* item2 = m_doc->m_Selection->itemAt(i+1);
 				if ((item1 != NULL && item1->asTextFrame()) &&
-						(item2 != NULL && item2->asTextFrame()) &&
-						item2 != item1->nextInChain())
+				    (item2 != NULL && item2->asTextFrame()) &&
+				     item1->testLinkCandidate(item2))
 				{
 					item1->link(item2);
 				}
