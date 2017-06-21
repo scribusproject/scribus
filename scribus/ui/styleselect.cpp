@@ -20,15 +20,13 @@ StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
-	LPos->setSpecialValueText( tr( "Auto" ) );
-	LPosTxt = new QLabel( "Displacement", this );
+	LPosTxt = new QLabel( "Displacement:", this );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
-	LWidth->setSpecialValueText( tr( "Auto" ) );
-	LWidthTxt = new QLabel( "Linewidth", this );
+	LWidthTxt = new QLabel( "Linewidth:", this );
 	group1Layout->addWidget( LWidth, 1, 1 );
 	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	languageChange();
@@ -37,9 +35,11 @@ StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 void StrikeValues::languageChange()
 {
 	LPos->setSuffix( tr(" %"));
-	LPosTxt->setText( tr("Displacement"));
+	LPos->setSpecialValueText( tr( "Auto" ) );
+	LPosTxt->setText( tr("Displacement:"));
 	LWidth->setSuffix( tr(" %"));
-	LWidthTxt->setText( tr("Linewidth"));
+	LWidth->setSpecialValueText( tr( "Auto" ) );
+	LWidthTxt->setText( tr("Linewidth:"));
 	LPosTxt->adjustSize();
 	LWidthTxt->adjustSize();
 }
@@ -53,15 +53,13 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
-	LPos->setSpecialValueText( tr( "Auto" ) );
-	LPosTxt = new QLabel( "Displacement", this );
+	LPosTxt = new QLabel( "Displacement:", this );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
-	LWidth->setSpecialValueText( tr( "Auto" ) );
-	LWidthTxt = new QLabel( "Linewidth", this );
+	LWidthTxt = new QLabel( "Linewidth:", this );
 	group1Layout->addWidget( LWidth, 1, 1 );
 	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	languageChange();
@@ -69,10 +67,12 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 
 void UnderlineValues::languageChange()
 {
+	LPos->setSpecialValueText( tr("Auto") );
 	LPos->setSuffix( tr(" %"));
-	LPosTxt->setText( tr("Displacement"));
+	LPosTxt->setText( tr("Displacement:"));
+	LWidth->setSpecialValueText( tr("Auto") );
 	LWidth->setSuffix( tr(" %"));
-	LWidthTxt->setText( tr("Linewidth"));
+	LWidthTxt->setText( tr("Linewidth:"));
 	LPosTxt->adjustSize();
 	LWidthTxt->adjustSize();
 }
@@ -85,7 +85,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 	group1Layout->setAlignment( Qt::AlignTop );
 	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
-	LWidthTxt = new QLabel( "Linewidth", this );
+	LWidthTxt = new QLabel( "Linewidth:", this );
 	group1Layout->addWidget( LWidth, 0, 1 );
 	group1Layout->addWidget( LWidthTxt, 0 , 0 );
 	languageChange();
@@ -94,7 +94,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 void OutlineValues::languageChange()
 {
 	LWidth->setSuffix( tr(" %"));
-	LWidthTxt->setText( tr("Linewidth"));
+	LWidthTxt->setText( tr("Linewidth:"));
 	LWidthTxt->adjustSize();
 }
 
@@ -120,9 +120,9 @@ ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent )
 void ShadowValues::languageChange()
 {
 	Xoffset->setSuffix( tr(" %"));
-	XoffsetTxt->setText( tr("X-Offset"));
+	XoffsetTxt->setText( tr("X-Offset:"));
 	Yoffset->setSuffix( tr(" %"));
-	YoffsetTxt->setText( tr("Y-Offset"));
+	YoffsetTxt->setText( tr("Y-Offset:"));
 	XoffsetTxt->adjustSize();
 	YoffsetTxt->adjustSize();
 }
