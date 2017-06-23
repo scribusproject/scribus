@@ -6,7 +6,7 @@
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="386"/>
         <source>Importing: %1</source>
-        <translation>ಆಮದು ಮಾಡಿಕೊಳ್ಳಲಾಗುತ್ತಿದೆ : %1</translation>
+        <translation>ಆಮದು ಮಾಡಿಕೊಳ್ಳಲಾಗುತ್ತಿದೆ : %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="389"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="291"/>
         <source>Contributions from:</source>
-        <translation>ಪಾಲುಗಾರಿಕೆಯ ಫಾರ್ಮಗಳು. :</translation>
+        <translation>ಇವರಿಂದ ಕೊಡುಗೆ:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="174"/>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="345"/>
         <source>Mailing List</source>
-        <translation type="unfinished"></translation>
+        <translation>ಅಂಚೆ ಪಟ್ಟಿ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
@@ -154,7 +154,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="210"/>
         <source>&amp;Updates</source>
-        <translation>ನವಿಕರಣಗಳು</translation>
+        <translation>ನವೀಕರಣಗಳು</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="260"/>
@@ -199,22 +199,22 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="172"/>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸ್ಕ್ರೈಬಸ್‌ ಆವೃತ್ತಿ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="214"/>
         <source>Check for Updates</source>
-        <translation>ಅಪ್ಡೆಟ್ ಹುಡುಕು.</translation>
+        <translation>ಅಪ್‌ಡೇಟ್‌ ಹುಡುಕು.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="343"/>
         <source>Developer Blog</source>
-        <translation>ಅಭಿವ್ರದ್ದಿಗಾರರ ಬ್ಲಾಗ್</translation>
+        <translation>ಅಭಿವೃದ್ದಿಗಾರರ ಬ್ಲಾಗ್</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="221"/>
         <source>&amp;Licence</source>
-        <translation>ಲೈಸನ್ಸ್</translation>
+        <translation>ಪರವಾನಗಿ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="230"/>
@@ -429,7 +429,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1532"/>
         <source>&amp;Master Pages...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮಾಸ್ಟರ್‌ ಪುಟಗಳ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1504"/>
@@ -439,7 +439,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1540"/>
         <source>%1 pt</source>
-        <translation type="unfinished"></translation>
+        <translation>%1ಪಾಯಿಂ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1542"/>
@@ -454,7 +454,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1544"/>
         <source>&amp;Center</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಮಧ್ಯ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1545"/>
@@ -464,7 +464,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1546"/>
         <source>&amp;Block</source>
-        <translation>ನಿಷೇದಿಸು</translation>
+        <translation>ನಿಷೇಧಿಸು</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1547"/>
@@ -474,7 +474,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1549"/>
         <source>&amp;Normal</source>
-        <translation>ಸಾಮನ್ಯ.</translation>
+        <translation>ಸಾಮಾನ್ಯ.</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
@@ -494,27 +494,27 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1553"/>
         <source>&amp;All Caps</source>
-        <translation>ಎಲ್ಲವು ದೊಡ್ಡಕ್ಷರ</translation>
+        <translation>ಎಲ್ಲವೂ ದೊಡ್ಡಕ್ಷರ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1554"/>
         <source>Small &amp;Caps</source>
-        <translation>ಚಿಕ್ಕ&amp;ದೊಡ್ಡ</translation>
+        <translation>ಚಿಕ್ಕ ದೊಡ್ಡಕ್ಷರ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1555"/>
         <source>Su&amp;perscript</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮೇಲ್‌ ಬರಹ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1556"/>
         <source>Su&amp;bscript</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕೆಳ ಬರಹ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1564"/>
         <source>D&amp;uplicate</source>
-        <translation>ನಕಲು</translation>
+        <translation>ನಕಲು ಮಾಡು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1567"/>
@@ -559,7 +559,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1579"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>ಎತ್ತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1582"/>
@@ -569,7 +569,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1584"/>
         <source>I&amp;mage Visible</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರ ಕಾಣಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
@@ -594,22 +594,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1611"/>
         <source>&amp;Attach Text to Path</source>
-        <translation>ಪಾತ್ ಗೆ ಪದವನ್ನು ಸೇರಿಸು</translation>
+        <translation>ಪಾಥ್‌ ಗೆ ಪದವನ್ನು ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1612"/>
         <source>&amp;Detach Text from Path</source>
-        <translation>ಟೆಕ್ಸ್ಟ್ ತೆಗೆದು ಹಾಕು</translation>
+        <translation>ಪಾಥ್‌ನಿಂದ ಪಠ್ಯ  ತೆಗೆದು ಹಾಕು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1613"/>
         <source>&amp;Combine Polygons</source>
-        <translation>ಪಾಲಿಗಾನ್ಗಳನ್ನು ಸೇರಿಸು</translation>
+        <translation>ಬಹುಕೋನಗಳನ್ನು ಜೋಡಿಸು   </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1614"/>
         <source>Split &amp;Polygons</source>
-        <translation>ಪಾಲಿಗಾನ್ಗಳನ್ನು ಬೇರೆಪಡಿಸು</translation>
+        <translation>ಬಹುಕೋನಗಳನ್ನು ಬೇರ್ಪಡಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1615"/>
@@ -627,18 +627,18 @@
         <location filename="../../scribus/actionmanager.cpp" line="1618"/>
         <location filename="../../scribus/actionmanager.cpp" line="1719"/>
         <source>&amp;Polygon</source>
-        <translation>&amp;ಬಹುಭುಜಾಕ್ರತಿ</translation>
+        <translation>&amp;ಬಹುಕೋನ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1619"/>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>&amp;Text Frame</source>
-        <translation>ಅಕ್ಷರಗಳ ಚೌಕಟ್ಟು</translation>
+        <translation>ಅಕ್ಷರ ಚೌಕಟ್ಟು</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1627"/>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಅಕ್ಷರಭಾಗ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1640"/>
@@ -653,12 +653,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1642"/>
         <source>&amp;Delete...</source>
-        <translation>ತೆಗೆದು ಹಾಕು</translation>
+        <translation>ತೆಗೆದು ಹಾಕು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>&amp;Copy...</source>
-        <translation>ಕಾಪಿ</translation>
+        <translation>ನಕಲಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1644"/>
@@ -668,12 +668,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1645"/>
         <source>&amp;Apply Master Page...</source>
-        <translation>ಮಾಸ್ಟರ್ ಪೇಜ್ ಮಾಡು</translation>
+        <translation>ಮಾಸ್ಟರ್ ಪುಟಕ್ಕೆ ಅನ್ವಯಿಸ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1647"/>
         <source>Manage &amp;Guides...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮಾರ್ಗದರ್ಶಿ ಗೆರೆಗಳನ್ನು ನಿರ್ವಹಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1653"/>
@@ -718,7 +718,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1667"/>
         <source>Show G&amp;uides</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮಾರ್ಗದರ್ಶಿ ಗೆರೆಗಳನ್ನು ತೋರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1669"/>
@@ -748,7 +748,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1682"/>
         <source>Text Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಗುಣಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1684"/>
@@ -758,12 +758,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1685"/>
         <source>&amp;Layers</source>
-        <translation>ಲೇಯರ್ ಗಳು</translation>
+        <translation>ಪದರಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಬುಕ್‌ಮಾ‌ರ್ಕ್‌‌ಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1690"/>
@@ -773,12 +773,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Action &amp;History</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕ್ರಿಯೆಗಳು ಮತ್ತು ಇತಿಹಾಸ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Preflight &amp;Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮುನ್ನೋಟ ಮತ್ತು ಪರಿಶೀಲನೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1694"/>
@@ -788,22 +788,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>&amp;Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಸಾಧನಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
         <source>P&amp;DF Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಸಾಧನಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1701"/>
         <source>Select Item</source>
-        <translation>ಐಟಮ್ ಆಯ್ಕೆಮಾಡು</translation>
+        <translation>ವಸ್ತು ಆಯ್ಕೆ ಮಾಡು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>Rotate Item</source>
-        <translation>ಐಟಮ್ ತಿರುಗಿಸು</translation>
+        <translation>ವಸ್ತುವನ್ನು ತಿರುಗಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1703"/>
@@ -814,37 +814,37 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>Zoom in</source>
-        <translation>ದೊಡ್ಡದಾಗಿಸು</translation>
+        <translation>ದೊಡ್ಡದಾಗಿ ತೋರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1705"/>
         <source>Zoom out</source>
-        <translation>ಚಿಕ್ಕದಾಗಿಸು</translation>
+        <translation>ಚಿಕ್ಕದಾಗಿ ತೋರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>Edit Contents of Frame</source>
-        <translation>ಫ್ರೆಮ್ ಗಳನ್ನು ಎಡಿಟ್ ಮಾಡು</translation>
+        <translation>ಚೌಕಟ್ಟುಗಳನ್ನು ತಿದ್ದು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>Edit Text with Story Editor...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸ್ಟೋರಿ ಎಡಿಟರ್‌ ಮೂಲಕ ಪಠ್ಯ ಸಂಪಾದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Link Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಚೌಕಟ್ಟುಗಳನ್ನು ಜೋಡಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1709"/>
         <source>Unlink Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಚೌಕಟ್ಟುಗಳನ್ನು ಬೇರ್ಪಡಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>Unlink Text Frames and Cut Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯಚೌಕಟ್ಟುಗಳನ್ನು ಬೇರ್ಪಡಿಸಿ ಪಠ್ಯವನ್ನು ಕತ್ತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1711"/>
@@ -854,17 +854,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1712"/>
         <source>Copy Item Properties</source>
-        <translation>ಐಟಮ್ ಗುಣಗಳನ್ನು ಕಾಪಿ ಮಾಡು</translation>
+        <translation>ವಸ್ತುವಿನ ಗುಣಗಳನ್ನು ನಕಲಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
         <source>&amp;Manage Images...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರಗಳನ್ನು ನಿರ್ವಹಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1741"/>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯವನ್ನು ಕೂಡುಗೆರೆಯಿಂದ ಕೂಡಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1743"/>
@@ -964,12 +964,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>&amp;Low Resolution</source>
-        <translation>ಕಡಿಮೆ ರೆಸೊಲ್ಯುಷನ್</translation>
+        <translation>ಕಡಿಮೆ ರೆಸೊಲ್ಯುಶನ್ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1604"/>
         <source>&amp;Normal Resolution</source>
-        <translation>ಸಾಮಾನ್ಯ ರೆಸೊಲ್ಯುಷನ್</translation>
+        <translation>ಸಾಮಾನ್ಯ ರೆಸೊಲ್ಯುಶನ್ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
@@ -979,7 +979,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1525"/>
         <source>Edit Image...</source>
-        <translation>ಚಿತ್ರ ಎಡಿಟ್ ಮಾಡು</translation>
+        <translation>ಚಿತ್ರವನ್ನು ಸಂಪಾದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1585"/>
@@ -989,7 +989,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>Adjust Frame to Image</source>
-        <translation>ಫ್ರೇಮ್ ಅನ್ನು ಚಿತ್ರಕ್ಕೆ ಹೊಂದಿಸು</translation>
+        <translation>ಚೌಕಟ್ಟನ್ನು ಚಿತ್ರಕ್ಕೆ ಹೊಂದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1671"/>
@@ -999,7 +999,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>ಹೊಂದಿಸು ಮತ್ತು ಹಂಚು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1842"/>
@@ -1014,7 +1014,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1844"/>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಾಲಂ ವಿಭಾಜಕ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1838"/>
@@ -1034,17 +1034,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1742"/>
         <source>Dehyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಕೂಡುಗೆರೆ ತೆಗೆದುಹಾಕು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1648"/>
         <source>Manage Page Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪುಟದ ಗುಣಗಳನ್ನು ನಿರ್ವಹಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1533"/>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್‌ಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1646"/>
@@ -1054,12 +1054,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;Cascade</source>
-        <translation>ಕ್ಯಾಸ್ಕೇಡ್</translation>
+        <translation>ನೆರಿಗೆಗಳ ನೋಟ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1748"/>
         <source>&amp;Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>ಬಿಲ್ಲೆ ಮಾದರಿ ನೋಟ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1583"/>
@@ -1069,17 +1069,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1573"/>
         <source>&amp;Printing Enabled</source>
-        <translation>ಮುದ್ರನ ಲಬ್ಯಗೊಳಿಸು</translation>
+        <translation>ಮುದ್ರಣ ಸಾಧ್ಯವಾಗಿಸಿದೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1574"/>
         <source>&amp;Flip Horizontally</source>
-        <translation>ಸಮತಲವಾಗಿ ಫ್ಲಿಪ್ ಮಾಡು</translation>
+        <translation>ಸಮತಲವಾಗಿ ಮಗುಚಿಹಾಕು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1575"/>
         <source>&amp;Flip Vertically</source>
-        <translation>ಲಂಭವಾಗಿ ಫ್ಲಿಪ್ ಮಾಡು</translation>
+        <translation>ಲಂಭವಾಗಿ ಮಗುಚಿ ಹಾಕು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1672"/>
@@ -1095,7 +1095,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1850"/>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>ಓರೆಗೆರೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1852"/>
@@ -1105,12 +1105,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1877"/>
         <source>En Space</source>
-        <translation type="unfinished"></translation>
+        <translation>En ಅಂ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1878"/>
         <source>Em Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Em ಅಂತರ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1879"/>
@@ -1120,17 +1120,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1880"/>
         <source>Thick Space</source>
-        <translation>ದಪ್ಪ ಜಾಗ</translation>
+        <translation>ದಪ್ಪ ಅಂತರ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1881"/>
         <source>Mid Space</source>
-        <translation>ಮಾದ್ಯಮ ಜಾಗ</translation>
+        <translation>ಮಧ್ಯಮ ಅಂತರ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1882"/>
         <source>Hair Space</source>
-        <translation>ತುಂಬ ಚಿಕ್ಕ ಜಾಗ</translation>
+        <translation>ಕೂದಲೆಳೆ ಅಂತರ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1884"/>
@@ -1227,7 +1227,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1506"/>
         <source>Print Previe&amp;w...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮುದ್ರಣ ಮುನ್ನೋಟ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1560"/>
@@ -1242,12 +1242,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1566"/>
         <source>&amp;Transform...</source>
-        <translation type="unfinished"></translation>
+        <translation>ರೂಪಾಂತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರದ ಹೆಚ್ಚುವರಿ ಗುಣಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1608"/>
@@ -1262,7 +1262,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1628"/>
         <source>Sample Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮಾದರಿ ಪಠ್ಯ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1651"/>
@@ -1277,12 +1277,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1662"/>
         <source>Show Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>ಬ್ಲೀಡ್‌ಗಳನ್ನು ತೋರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1837"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮೆದು ಕೂಡುಗೆರೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1845"/>
@@ -1298,7 +1298,7 @@
         <location filename="../../scribus/actionmanager.cpp" line="1858"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
-        <translation type="unfinished"></translation>
+        <translation>ಲೋಪಚಿಹ್ನೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1859"/>
@@ -1405,7 +1405,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1657"/>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;200% {400%?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1757"/>
@@ -1420,12 +1420,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1759"/>
         <source>Scribus Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸ್ಕ್ರೈಬಸ್‌ ವಿಕಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1760"/>
         <source>Getting Started with Scribus</source>
-        <translation>ಸ್ಕ್ರೈಬುಸ್ ಶುರುಮಾಡಿ</translation>
+        <translation>ಸ್ಕ್ರೈಬುಸ್ ಬಳಕೆ ಶುರುಮಾಡಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1677"/>
@@ -1435,17 +1435,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>&amp;About Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪ್ಲಗಿನ್‌ಗಳ ಬಗ್ಗೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
         <source>Insert Unicode Character Begin Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>ಯುನಿಕೋಡ್‌ ಅಕ್ಷರ ಆರಂಭ ಅನುಕ್ರಮ ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1496"/>
         <source>Get Vector File...</source>
-        <translation>ವೆಕ್ಟರ್ ಫೈಲನ್ನು ತಗೆದುಕೊ</translation>
+        <translation>ವೆಕ್ಟರ್ ಫೈಲನ್ನು ಪಡೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1522"/>
@@ -1455,7 +1455,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1526"/>
         <source>Edit Source...</source>
-        <translation>ಮೂಲಪ್ರತಿಯನ್ನು ಬದಲಾಯಿಸು</translation>
+        <translation>ಮೂಲವನ್ನು ಬದಲಾಯಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1528"/>
@@ -1480,17 +1480,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Adjust Image to Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರವನ್ನು ಚೌಕಟ್ಟಿಗೆ ಹೊಂದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2018"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2018"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2020"/>
@@ -1555,12 +1555,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2034"/>
         <source>Extras</source>
-        <translation>ಇತರೆ</translation>
+        <translation>ಹೆಚ್ಚುವರಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2034"/>
         <source>E&amp;xtras</source>
-        <translation>ಇತರೆ</translation>
+        <translation>&amp;ಹೆಚ್ಚುವರಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2036"/>
@@ -1570,7 +1570,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2036"/>
         <source>&amp;Windows</source>
-        <translation>ವಿಂಡೋಸ್</translation>
+        <translation>&amp;ವಿಂಡೋಸ್</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2038"/>
@@ -1600,17 +1600,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1755"/>
         <source>Move/Resize Value Indicator</source>
-        <translation>ಬೆಲೆ ಸೂಚಕಗಳನ್ನು ಸ್ತಳಾಂತರಿಸು/ಗಾತ್ರ ಬದಲಾಯಿಸು</translation>
+        <translation>ಬೆಲೆ ಸೂಚಕಗಳನ್ನು ಸ್ಥಳಾಂತರಿಸು/ಗಾತ್ರ ಬದಲಾಯಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1486"/>
         <source>New &amp;from Template...</source>
-        <translation>ಹೊಸ ಫಾರ್ಮ್ ನ ಪ್ರತಿ</translation>
+        <translation>ಹೊಸ ಫಾರ್ಮ್ ನ ಮಾದರಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1518"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌‌ನಿಂದ ಚಿತ್ರವನ್ನು ಅಂಟಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1586"/>
@@ -1655,12 +1655,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>Distribute Rows Evenly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಅಡ್ಡಸಾಲುಗಳನ್ನು ಸಮಾನವಾಗಿ ವಿತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1595"/>
         <source>Distribute Columns Evenly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಉದ್ದಸಾಲುಗಳನ್ನು ಸಮಾನವಾಗಿ ವಿತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1596"/>
@@ -1680,7 +1680,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Adjust Frame Height to Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯಕ್ಕೆ ಚೌಕಟ್ಟಿನ ಎತ್ತರವನ್ನು ಹೊಂದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1530"/>
@@ -1695,12 +1695,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1570"/>
         <source>Adjust Group</source>
-        <translation type="unfinished"></translation>
+        <translation>ಗುಂಪನ್ನು ಹೊಂದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1630"/>
         <source>Anchor Mark</source>
-        <translation>ಯ್ಯಾಂಕರ್ ಮಾರ್ಕ್</translation>
+        <translation>ಲಂಗರು ಚಿಹ್ನೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1631"/>
@@ -1720,7 +1720,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1634"/>
         <source>Foot/Endnote</source>
-        <translation type="unfinished"></translation>
+        <translation>ಅಡಿಟಿಪ್ಪಣಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1636"/>
@@ -1735,17 +1735,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1676"/>
         <source>Snap to Items</source>
-        <translation type="unfinished"></translation>
+        <translation>ವಸ್ತುಗಳಿಗೆ ಅಂಟುವಂತೆ ಚಲಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1527"/>
         <source>Colors and Fills...</source>
-        <translation>ಬನ್ನ ಮತ್ತು ಫೈಲ್ಗಳು</translation>
+        <translation>ಬಣ್ಣ ಮತ್ತು ತುಂಬುವಿಕೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1580"/>
         <source>Patterns</source>
-        <translation>ಪ್ಯಾಟರ್ನ್ ಗಳು</translation>
+        <translation>ನಮೂನೆಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1581"/>
@@ -1761,32 +1761,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1744"/>
         <source>&amp;Update Document</source>
-        <translation>ಡಾಕುಮೆಂಟ್ ಅಪ್ಡೇಟ್</translation>
+        <translation>ಡಾಕುಮೆಂಟ್ ಅಪ್ಡೇಟ್ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2032"/>
         <source>Table</source>
-        <translation>ಟೇಬಲ್</translation>
+        <translation>ಕೋಷ್ಠಕ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2032"/>
         <source>&amp;Table</source>
-        <translation>ಟೆಬಲ್</translation>
+        <translation>&amp;ಕೋಷ್ಠಕ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1771"/>
         <source>Copy</source>
-        <translation>ಕಾಪಿ</translation>
+        <translation>ನಕಲಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1772"/>
         <source>Cut</source>
-        <translation>ಕಟ್</translation>
+        <translation>ಕತ್ತರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1773"/>
         <source>Paste</source>
-        <translation>ಪೇಸ್ಟ್</translation>
+        <translation>ಅಂಟಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1774"/>
@@ -1796,47 +1796,47 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1775"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>ಇತ್ತೀಚೆಗಿನ ಕ್ರಿಯೆ ರದ್ದು ಮಾಡು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1776"/>
         <source>Close the current document</source>
-        <translation>ಈ ದಾಸ್ತಾವೆಜನ್ನು ಕ್ಲೋಸ್ ಮಾಡು</translation>
+        <translation>ಈ ದಾಖಲೆಯನ್ನು ಮುಚ್ಚು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1777"/>
         <source>Export the document to PDF</source>
-        <translation>ಡಾಕ್ಯುಮೆಂಟನ್ನು ಪಿಡಿಎಫ್ ಅಗಿಸು</translation>
+        <translation>ಈದಾಖಲೆಯನ್ನು ಪಿಡಿಎಫ್ ಮಾಡು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Create a new document</source>
-        <translation>ಹೊಸ ಡಾಕ್ಯುಮೆಂಟ್ </translation>
+        <translation>ಹೊಸ ದಾಖಲೆ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1779"/>
         <source>Open an existing document</source>
-        <translation>ಇರುವ ಡಾಕ್ಯುಮೆಂಟ್ ತೆಗೆ</translation>
+        <translation>ಇರುವ ದಾಖಲೆ ತೆರೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1780"/>
         <source>Print the document</source>
-        <translation>ಡಾಕ್ಯುಮೆಂಟ್ ಮುದ್ರಿಸು</translation>
+        <translation>ದಾಖಲೆಯನ್ನು ಮುದ್ರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1781"/>
         <source>Save the current document</source>
-        <translation>ಈ ಡಾಕ್ಯುಮೆಂಟನ್ನು ಸೇವ್ ಮಾಡು</translation>
+        <translation>ಈ ದಾಖಲೆಯನ್ನು ಉಳಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1782"/>
         <source>Copy item properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ವಸ್ತುವಿನ ಗುಣಗಳನ್ನು ನಕಲು ಮಾಡು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1783"/>
         <source>Edit contents of a frame</source>
-        <translation>ಫ್ರೇಮ್ ಅಂಶಗಳನ್ನು ಬದಲಿಸು</translation>
+        <translation>ಚೌಕಟ್ಟಿನ ಅಂಶಗಳನ್ನು ಬದಲಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1785"/>
@@ -1846,7 +1846,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1786"/>
         <source>Insert an arc</source>
-        <translation>ಆರ್ಕ್ ಅನ್ನು ಸೇರಿಸು</translation>
+        <translation>ಕಮಾನು ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1787"/>
@@ -1866,17 +1866,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1790"/>
         <source>Insert an image frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರದ ಚೌಕಟ್ಟನ್ನು ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1791"/>
         <source>Insert a line</source>
-        <translation>ಗೆರೆ ಎಳೆ</translation>
+        <translation>ಗೆರೆ ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1792"/>
         <source>Insert a polygon</source>
-        <translation>ಬಹುಭುಜಾಕ್ರತಿ ಸೇರಿಸು</translation>
+        <translation>ಬಹುಕೋನ ಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1793"/>
@@ -1886,27 +1886,27 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1794"/>
         <source>Insert a shape</source>
-        <translation>ಗಾತ್ರವನ್ನು ಸೇರಿಸು</translation>
+        <translation>ಆಕಾರವನ್ನು ಒಳಸೇರಿಸು  </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1795"/>
         <source>Insert a spiral</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸುರುಳಿ ಒಳಸೇರಿಸು  </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1796"/>
         <source>Insert a table</source>
-        <translation>ಟೇಬಲ್ ಸೇರಿಸು</translation>
+        <translation>ಕೋಷ್ಟಕ ಒಳಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1797"/>
         <source>Insert a text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಚೌಕಟ್ಟು ಒಳಸೇರಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1798"/>
         <source>Link text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಚೌಕಟ್ಟುಗಳನ್ನು ತಳುಕು ಹಾಕು  </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1799"/>
@@ -1931,32 +1931,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1803"/>
         <source>Insert PDF combo box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಕಾಂಬೋ ಬಾಕ್ಸ್‌ ಒಳಸೇರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1804"/>
         <source>Insert PDF list box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಟ್ಟಿ ಬಾಕ್ಸನ್ನು ಒಳಸೇರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1805"/>
         <source>Insert PDF push button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪುಶ್‌ ಗುಂಡಿಯನ್ನು ಒಳಸೇರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1806"/>
         <source>Insert PDF radio button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ರೇಡಿಯೋ ಗುಂಡಿಯನ್ನು ಒಳಸೇರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1807"/>
         <source>Insert PDF text field</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಠ್ಯ ಕ್ಷೇತ್ರವನ್ನು ಒಳಸೇರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1808"/>
         <source>Analyse the document for issues prior to exporting to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ಗೆ ರಫ್ತು ಮಾಡುವ ಮುನ್ನ ದಾಖಲೆಯನ್ನು ಯಾವುದೇ ಅಂಶಗಳಿಗಾಗಿ ವಿಶ್ಲೇಷಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1809"/>
@@ -1971,7 +1971,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1811"/>
         <source>Unlink text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯ ಚೌಕಟ್ಟುಗಳ ಕೊಂಡಿಗಳನ್ನು ತೆಗೆ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1817"/>
@@ -1996,7 +1996,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1659"/>
         <source>Edit in Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪೂರ್ವನೋಟ ವಿಧಾನದಲ್ಲಿ ಸಂಪಾದಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1660"/>
@@ -2031,7 +2031,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1721"/>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸುರುಳಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1722"/>
@@ -2051,32 +2051,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1727"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಒತ್ತುಗುಂಡಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1728"/>
         <source>PDF Radio Button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ರೇಡಿಯೋ ಗುಂಡಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1729"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಠ್ಯ ಕ್ಷೇತ್ರ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1730"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪರಿಶೀಲನಾ ಬಾಕ್ಸ್‌ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1731"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಕಾಂಬೋ ಬಾಕ್ಸ್‌ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1732"/>
         <source>PDF List Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಟ್ಟಿ ಬಾಕ್ಸ್ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1733"/>
@@ -2096,17 +2096,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1784"/>
         <source>Edit text in story editor</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸ್ಟೋರಿ ಎಡಿಟರ್‌ ಮೂಲಕ ಪಠ್ಯ ಸಂಪಾದಿಸು </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1813"/>
         <source>Enable preview mode</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪೂರ್ವನೋಟ ವಿಧಾನ ಸಕ್ರಿಯಗೊಳಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1814"/>
         <source>Enable editing in preview mode</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪೂರ್ವನೋಟ ವಿಧಾನದಲ್ಲಿ ಸಂಪಾದನೆ ಸಕ್ರಿಯಗೊಳಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1815"/>
@@ -2131,7 +2131,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1762"/>
         <source>Chat with the Community</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸಮುದಾಯದೊಂದಿಗೆ ಚರ್ಚಿಸಿ </translation>
     </message>
 </context>
 <context>
@@ -2147,7 +2147,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="25"/>
         <source>Align</source>
-        <translation type="unfinished"></translation>
+        <translation>ಹೊಂದಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="51"/>
@@ -2187,7 +2187,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="14"/>
         <source>Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>ಹೊಂದಿಸು ಮತ್ತು ಹಂಚು </translation>
     </message>
 </context>
 <context>
@@ -2250,32 +2250,32 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
         <source>Distribute left sides equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಎಡಬದಿಗಳನ್ನು ಸಮಾನಾಂತರವಾಗಿ ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute bottoms equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಬುಡಗಳನ್ನು ಸಮದೂರದಲ್ಲಿ  ತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕೇಂದ್ರಗಳನ್ನು ಸಮತಲದಲ್ಲಿ ಸಮದೂರದಲ್ಲಿ ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕೇಂದ್ರಗಳನ್ನು ಲಂಬವಾಗಿ ಸಮದೂರದಲ್ಲಿ ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
         <source>Distribute tops equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಮೇಲ್‌ತುದಿಗಳನ್ನು ಸಮದೂರದಲ್ಲಿ ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Distribute right sides equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>ಎಡಬದಿಗಳನ್ನು ಸಮದೂರದಲ್ಲಿ ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
@@ -2285,7 +2285,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
         <source>Distribute the items with the distance specified</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸೂಚಿತ ಅಂತರದಲ್ಲಿ ವಸ್ತುಗಳನ್ನು ವಿತರಿಸಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
@@ -2989,7 +2989,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="457"/>
         <source>Version:</source>
-        <translation type="unfinished">ಪ್ರತಿ</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="496"/>
@@ -3427,7 +3427,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4994,7 +4994,7 @@ currently %2 x %3 DPI</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -5757,27 +5757,27 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="312"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಒತ್ತುಗುಂಡಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="314"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಠ್ಯ ಕ್ಷೇತ್ರ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="315"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪರಿಶೀಲನಾ ಬಾಕ್ಸ್‌ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="316"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಕಾಂಬೋ ಬಾಕ್ಸ್‌ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="317"/>
         <source>PDF List Box</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ಪಟ್ಟಿ ಬಾಕ್ಸ್ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="318"/>
@@ -5847,7 +5847,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="309"/>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸುರುಳಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="310"/>
@@ -5867,7 +5867,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>PDF Radio Button</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಿಡಿಎಫ್‌ ರೇಡಿಯೋ ಗುಂಡಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="320"/>
@@ -7000,7 +7000,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="70"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="77"/>
@@ -7777,7 +7777,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="150"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">ಫೈಲನ್ನು ಪರಿಷ್ಕರಿಸಲಾಗುತ್ತಿದೆ :</translation>
+        <translation>ಕಡತವನ್ನು ವಿಶ್ಲೇಷಿಸಲಾ:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="355"/>
@@ -7806,7 +7806,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/filetoolbar.cpp" line="32"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
 </context>
 <context>
@@ -8590,7 +8590,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="308"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="56"/>
@@ -8632,7 +8632,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="310"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಬುಕ್‌ಮಾ‌ರ್ಕ್‌‌ಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="13"/>
@@ -9262,7 +9262,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9982,7 +9982,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11690,7 +11690,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="14"/>
         <source>Measurements</source>
-        <translation type="unfinished">ಅಳತೆಗಳು</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13673,7 +13673,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="1305"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="128"/>
@@ -13860,7 +13860,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="604"/>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸುರುಳಿ </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="608"/>
@@ -15306,7 +15306,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15322,7 +15322,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15651,7 +15651,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="585"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಚಿತ್ರದ ಹೆಚ್ಚುವರಿ ಗುಣಗಳು </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.cpp" line="248"/>
@@ -15957,7 +15957,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="895"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="929"/>
@@ -16674,7 +16674,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pluginmanagerprefsgui.ui" line="69"/>
@@ -19033,7 +19033,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1462"/>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸುರುಳಿ </translation>
     </message>
 </context>
 <context>
@@ -20550,7 +20550,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="84"/>
@@ -20877,7 +20877,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="61"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="495"/>
@@ -21507,8 +21507,8 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -21595,7 +21595,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/printdialog.cpp" line="502"/>
         <location filename="../../scribus/ui/printdialog.cpp" line="581"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="95"/>
@@ -24541,7 +24541,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="71"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="113"/>
@@ -24883,7 +24883,7 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="47"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="48"/>
@@ -29055,18 +29055,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
@@ -35265,7 +35265,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="629"/>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>ಸ್ಕ್ರೈಬಸ್‌ ಆವೃತ್ತಿ</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="638"/>
@@ -35456,7 +35456,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="28"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="32"/>
@@ -36426,7 +36426,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1718"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2001"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1728"/>
@@ -36442,7 +36442,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2038"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ಕಡತ </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
@@ -36532,7 +36532,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2022"/>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>ಅಕ್ಷರಭಾಗ </translation>
     </message>
 </context>
 <context>
@@ -38330,7 +38330,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/textpalette.cpp" line="351"/>
         <source>Text Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ಪಠ್ಯದ ಗುಣಗಳು </translation>
     </message>
 </context>
 <context>
