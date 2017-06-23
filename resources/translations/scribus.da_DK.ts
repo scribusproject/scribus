@@ -6845,10 +6845,6 @@ Se Rediger farver sektionen af dokumentationen for flere detaljer.</translation>
         <source>Documen&amp;t</source>
         <translation>Dokumen&amp;t</translation>
     </message>
-    <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">Sproget som indholdet af dokumentet er skrevet i, sædvanligvis en ISO-639 sprogkode eventuelt efterfulgt af en bindestreg og en ISO-3166 landekode, f.eks. en-GB, fr-CH</translation>
-    </message>
 </context>
 <context>
     <name>DownloadsPalette</name>
@@ -13427,10 +13423,6 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linjebredde</translation>
     </message>
 </context>
 <context>
@@ -24776,14 +24768,6 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
         <translation>&amp;Afslut</translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="vanished">Dette er en standard Python konsol med nogle
-kendte begrænsninger. Se venligst Scribus 
-Skripter-dokumentationen for mere information.</translation>
     </message>
 </context>
 <context>
@@ -36236,14 +36220,6 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <source>Y-Offset:</source>
         <translation type="unfinished">Y-forskydning:</translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">X-forskydning</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Y-forskydning</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36787,14 +36763,6 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Forskydning</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linjebredde</translation>
     </message>
 </context>
 <context>
@@ -38836,14 +38804,6 @@ når PDF dokument åbnes:</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Forskydning</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linjebredde</translation>
     </message>
 </context>
 <context>

@@ -6854,12 +6854,6 @@ etwa Urheberrechte, Patente oder Warenzeichen</translation>
         <source>Documen&amp;t</source>
         <translation>Dokume&amp;nt</translation>
     </message>
-    <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">Die Sprache, in welcher der Inhalt des Dokuments geschrieben ist, 
-normalerweise ein ISO-639-Sprachcode, optional ergänzt durch 
-einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</translation>
-    </message>
 </context>
 <context>
     <name>DownloadsPalette</name>
@@ -13444,10 +13438,6 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linienstärke</translation>
     </message>
 </context>
 <context>
@@ -24808,14 +24798,6 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="vanished">This is a standard Python console with some 
-known limitations. Please consult the Scribus
-Scripter documentation for futher information. </translation>
     </message>
 </context>
 <context>
@@ -36267,14 +36249,6 @@ umgewandelt werden</translation>
         <source>Y-Offset:</source>
         <translation type="unfinished">Y-Versatz:</translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">X-Offset</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Y-Offset</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36818,14 +36792,6 @@ umgewandelt werden</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Versatz</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linienstärke</translation>
     </message>
 </context>
 <context>
@@ -38868,15 +38834,6 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">
-Versatz</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linienstärke</translation>
     </message>
 </context>
 <context>

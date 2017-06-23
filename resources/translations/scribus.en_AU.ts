@@ -6815,10 +6815,6 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>Documen&amp;t</translation>
     </message>
     <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
         <translation>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</translation>
@@ -13433,10 +13429,6 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linewidth</translation>
     </message>
 </context>
 <context>
@@ -24762,14 +24754,6 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="vanished">This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="145"/>
@@ -36241,14 +36225,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Y-Offset:</source>
         <translation type="unfinished">Y-Offset:</translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">X-Offset</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Y-Offset</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36792,14 +36768,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Displacement</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linewidth</translation>
     </message>
 </context>
 <context>
@@ -38840,14 +38808,6 @@ when PDF document is opened:</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Displacement</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Linewidth</translation>
     </message>
 </context>
 <context>

@@ -6847,10 +6847,6 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
         <source>Documen&amp;t</source>
         <translation>Documen&amp;to</translation>
     </message>
-    <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">La lingua nella quale è scritto il contenuto del documento, di solito un codice lingua ISO-639 facoltativamente con l&apos;aggiunta di suffisso, come un trattino e un codice ISO-3166 di Stato, es.: en-GB, fr-CH</translation>
-    </message>
 </context>
 <context>
     <name>DownloadsPalette</name>
@@ -13440,10 +13436,6 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Spessore linea</translation>
     </message>
 </context>
 <context>
@@ -24794,14 +24786,6 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
         <translation>&amp;Esci</translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="vanished">Questa è una console standard di Python con alcune 
-limitazioni. Consultare la documentazione 
-dello scripter di Scribus per maggiori informazioni. </translation>
     </message>
 </context>
 <context>
@@ -36258,14 +36242,6 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <source>Y-Offset:</source>
         <translation type="unfinished">Spostamento Y:</translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">Spostamento X</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Spostamento Y</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36809,14 +36785,6 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Spostamento</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Spessore linea</translation>
     </message>
 </context>
 <context>
@@ -38857,14 +38825,6 @@ quando il documento PDF viene aperto:</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Spostamento</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Spessore linea</translation>
     </message>
 </context>
 <context>

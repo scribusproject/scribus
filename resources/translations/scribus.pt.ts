@@ -6804,10 +6804,6 @@ Veja a secção de Edição de Cores da documentação para mais detalhes.</tran
         <translation>Uma referência ao documento do qual este derivou, por ex. ISBN ou URI</translation>
     </message>
     <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">O idioma no qual esse documento foi escrito, normalmente um código de idioma ISO-639 com um hífen opcional e um código de país ISO-3166, por ex. en-GB, fr-CH, pt-BR</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="179"/>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
         <translation>A referência a um documento relacionado, possivelmente usando um identificador formal tal como ISBN ou URI</translation>
@@ -13360,10 +13356,6 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Espessura da linha</translation>
     </message>
 </context>
 <context>
@@ -36114,14 +36106,6 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <source>Y-Offset:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">Deslocamento-X</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Deslocamento-Y</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36665,14 +36649,6 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Deslocamento</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Espessura da linha</translation>
     </message>
 </context>
 <context>
@@ -38714,14 +38690,6 @@ quando o PDF estiver aberto:</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Deslocamento</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Espessura da linha</translation>
     </message>
 </context>
 <context>

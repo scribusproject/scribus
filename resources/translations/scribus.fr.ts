@@ -6826,10 +6826,6 @@ Pour plus de détails consulter la section Edit Colors de la documentation.</tra
         <translation>Référence à un document à l&apos;origine de la création de la composition</translation>
     </message>
     <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="vanished">Langue utilisée dans le document, idéalement au format ISO-639, et éventuellement suivi du code pays au format ISO-3166 (par exemple fr-CH)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="179"/>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
         <translation>Document(s) en rapport avec la composition</translation>
@@ -13421,10 +13417,6 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Épaisseur</translation>
     </message>
 </context>
 <context>
@@ -24760,14 +24752,6 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="vanished">Ceci est une console Python standard quelque peu
-limitée. Veuillez consulter le manuel de Scribus
-pour plus d&apos;information. </translation>
     </message>
 </context>
 <context>
@@ -36231,14 +36215,6 @@ Le profil anciennement sélectionné sera utilisé.</translation>
         <source>Y-Offset:</source>
         <translation type="unfinished">Offset Y :</translation>
     </message>
-    <message>
-        <source>X-Offset</source>
-        <translation type="vanished">Décalage horizontal</translation>
-    </message>
-    <message>
-        <source>Y-Offset</source>
-        <translation type="vanished">Décalage vertical</translation>
-    </message>
 </context>
 <context>
     <name>ShapePalette</name>
@@ -36782,14 +36758,6 @@ Le profil anciennement sélectionné sera utilisé.</translation>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Déplacement</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Épaisseur</translation>
     </message>
 </context>
 <context>
@@ -38834,14 +38802,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="vanished">Déplacement</translation>
-    </message>
-    <message>
-        <source>Linewidth</source>
-        <translation type="vanished">Épaisseur</translation>
     </message>
 </context>
 <context>
