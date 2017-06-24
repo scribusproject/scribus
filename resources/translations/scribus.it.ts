@@ -2794,32 +2794,32 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="210"/>
         <source>Two-dimensional symbols</source>
-        <translation type="unfinished">Simboli bidimensionali</translation>
+        <translation>Simboli bidimensionali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="217"/>
         <source>One-dimensional symbols</source>
-        <translation type="unfinished">Simboli monodimensionali</translation>
+        <translation>Simboli lineari</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="225"/>
         <source>GS1 DataBar family</source>
-        <translation type="unfinished">Famiglia GS1 DataBar</translation>
+        <translation>Famiglia GS1 DataBar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="233"/>
         <source>Postal symbols</source>
-        <translation type="unfinished">Simboli postali</translation>
+        <translation>Simboli postali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="241"/>
         <source>Pharmaceutical symbols</source>
-        <translation type="unfinished">Simboli farmaceutici</translation>
+        <translation>Simboli farmaceutici</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="250"/>
         <source>Less-used symbols</source>
-        <translation type="unfinished">Altri simboli</translation>
+        <translation>Altri simboli</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="260"/>
@@ -2857,7 +2857,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="84"/>
         <source>Show readable text</source>
-        <translation type="unfinished">Mostra testo</translation>
+        <translation>Mostra testo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="97"/>
@@ -2867,7 +2867,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="107"/>
         <source>Guard whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Spazio di guardia</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="110"/>
@@ -2877,12 +2877,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="260"/>
         <source>Barcode Family:</source>
-        <translation type="unfinished">Famiglia codice:</translation>
+        <translation>Famiglia codice:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="360"/>
         <source>Advanced options for the barcode</source>
-        <translation type="unfinished">Opzioni avanzate per il codice a barre</translation>
+        <translation>Opzioni avanzate per il codice a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="420"/>
@@ -2902,7 +2902,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="290"/>
         <source>&amp;Contents:</source>
-        <translation type="unfinished">&amp;Contenuto:</translation>
+        <translation>&amp;Contenuto:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="344"/>
@@ -2912,12 +2912,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="315"/>
         <source>The contents encoded in the barcode</source>
-        <translation type="unfinished">Contenuto codificato nel codice a barre</translation>
+        <translation>Contenuto codificato nel codice a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="283"/>
         <source>Select one of the available barcode types here</source>
-        <translation type="unfinished">Seleziona un tipo dei codici a barre qui disponibili</translation>
+        <translation>Seleziona un tipo dei codici a barre qui disponibili</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="401"/>
@@ -2957,7 +2957,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="127"/>
         <source>Add checksum</source>
-        <translation type="unfinished">Aggiungi checksum</translation>
+        <translation>Aggiungi checksum</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="184"/>
@@ -6825,7 +6825,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/docinfo.cpp" line="178"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hyphen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="unfinished"></translation>
+        <translation>La lingua del contenuto del documento, solitamente una lingua con codifica ISO-639 con sezione opzionale e una codifica geografica ISO-3166 (en-GB, fr-CH)</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="179"/>
@@ -13435,7 +13435,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
         <source>Linewidth:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spessore linea:</translation>
     </message>
 </context>
 <context>
@@ -16992,7 +16992,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="122"/>
         <source>Typography</source>
-        <translation>Tipografico</translation>
+        <translation>Tipografia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="120"/>
@@ -21360,7 +21360,7 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="27"/>
         <source>Typography</source>
-        <translation>Tipografico</translation>
+        <translation>Tipografia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="62"/>
@@ -24748,7 +24748,9 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for further information. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questa è una console Python con alcune limitazioni. 
+Consulta la documentazione dello Scripter per 
+ulteriori informazioni. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
@@ -28517,7 +28519,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="293"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">numero di pagina non valido.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
@@ -31991,7 +31993,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smdirectionselect.cpp" line="13"/>
         <source>Use parent style&apos;s direction instead of overriding it</source>
-        <translation type="unfinished">Utilizza direzione dello stile del genitore invece di sovrascriverlo</translation>
+        <translation type="unfinished">Utilizza direzione dello stile del genitore invece di sovrascriverla</translation>
     </message>
 </context>
 <context>
@@ -35607,7 +35609,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10325"/>
         <source>Print: </source>
-        <translation>Stampa:</translation>
+        <translation>Stampa: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10327"/>
@@ -36235,12 +36237,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="123"/>
         <source>X-Offset:</source>
-        <translation type="unfinished">Spostamento X:</translation>
+        <translation>Spostamento X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="125"/>
         <source>Y-Offset:</source>
-        <translation type="unfinished">Spostamento Y:</translation>
+        <translation>Spostamento Y:</translation>
     </message>
 </context>
 <context>
@@ -36773,12 +36775,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="39"/>
         <source>Displacement:</source>
-        <translation type="unfinished">Spostamento:</translation>
+        <translation>Spostamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="42"/>
         <source>Linewidth:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spessore linea:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="37"/>
@@ -38819,12 +38821,12 @@ quando il documento PDF viene aperto:</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="72"/>
         <source>Displacement:</source>
-        <translation type="unfinished">Spostamento:</translation>
+        <translation>Spostamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
         <source>Linewidth:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spessore linea:</translation>
     </message>
 </context>
 <context>
