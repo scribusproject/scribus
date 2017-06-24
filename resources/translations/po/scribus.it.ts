@@ -21005,7 +21005,7 @@ Sceglierne un&apos;altra.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="84"/>
         <source>Typography</source>
-        <translation>Tipografico</translation>
+        <translation>Tipografia</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="87"/>
@@ -26732,7 +26732,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="78"/>
         <source>Typography</source>
-        <translation>Tipografico</translation>
+        <translation>Tipografia</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="81"/>
