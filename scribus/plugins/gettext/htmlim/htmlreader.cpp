@@ -397,7 +397,10 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 		else
 			--listLevel;
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "ol")
 	{
@@ -431,7 +434,10 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 			--listLevel;
 		}
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "li")
 	{
