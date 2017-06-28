@@ -667,6 +667,7 @@ bool PdfPlug::convert(const QString& fn)
 								firstPg = false;
 							else
 								m_Doc->addPage(ap);
+							QRectF mdBox = getCBox(0, pp);
 							QRectF crBox = getCBox(contentRect, pp);
 							if (cropped)
 							{
@@ -725,7 +726,7 @@ bool PdfPlug::convert(const QString& fn)
 							//		currentLayer = m_Doc->activeLayer();
 									oc->setState(OptionalContentGroup::On);
 									if (cropped)
-										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), mediaRect.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
 									else
 										pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 									oc->setState(OptionalContentGroup::Off);
@@ -740,7 +741,7 @@ bool PdfPlug::convert(const QString& fn)
 							else
 							{
 								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), mediaRect.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
 								else
 									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}
