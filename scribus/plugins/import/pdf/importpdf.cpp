@@ -918,6 +918,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 {
 	if (!m_pdfDoc)
 		return QImage();
+	
 	double h = m_pdfDoc->getPageMediaHeight(pgNum);
 	double w = m_pdfDoc->getPageMediaWidth(pgNum);
 	double scale = qMin(height / h, width / w);
@@ -958,6 +959,8 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 	if (box > Media_Box)
 	{
 		QRectF cRect = getCBox(box, pgNum);
+		QRectF mediaRect = getCBox(0, pgNum);
+		cRect.moveTo(cRect.x() - mediaRect.x(), cRect.y() - mediaRect.y());
 		QPainter pp;
 		pp.begin(&image);
 		pp.setBrush(Qt::NoBrush);
