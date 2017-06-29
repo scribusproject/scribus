@@ -221,7 +221,7 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 			const FPointArray& outline = outlines.at(i);
 			const GlyphLayout& gl = glyphs.at(i);
 			m_painter->save();
-			m_painter->translate(gl.xoffset, - (fontSize() * gl.scaleV) +  gl.yoffset);
+			m_painter->translate(gl.xoffset, - (fontSize() * gl.scaleV) + gl.yoffset);
 			m_painter->scale(gl.scaleH * sizeFactor, gl.scaleV * sizeFactor);
 			m_painter->setupPolygon(&outline, true);
 			if (outline.size() > 3)
