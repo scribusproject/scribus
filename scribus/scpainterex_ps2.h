@@ -129,7 +129,7 @@ public:
 
 	virtual bool hasAlphaChannel( ScImage* image );
 
-	virtual void setupPolygon(FPointArray *points, bool closed = true);
+	virtual void setupPolygon(const FPointArray *points, bool closed = true);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
@@ -194,7 +194,7 @@ private:
 	void drawCircularGradient( VGradientEx& gradient, const QRect& rect );
 	void drawCircularGradient_RGB( VGradientEx& gradient, const QRect& rect );
 	void drawCircularGradient_CMYK( VGradientEx& gradient, const QRect& rect );
-	void getPathBoundingBox( FPointArray* points, QRect& r );
+	void getPathBoundingBox(const FPointArray* points, QRect& r );
 	void transformPoint( const FPoint& in, FPoint& out );
 	void transformPoints( const FPoint* in, FPoint* out, uint length );
 

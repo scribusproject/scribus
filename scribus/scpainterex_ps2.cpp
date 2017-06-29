@@ -882,7 +882,7 @@ void ScPainterEx_Ps2::writeCMYKImageToStream_AsciiHex( ScImage* image )
 	m_stream << "\n>\n";
 }
 
-void ScPainterEx_Ps2::setupPolygon(FPointArray *points, bool closed)
+void ScPainterEx_Ps2::setupPolygon(const FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	FPoint np, np1, np2, np3;
@@ -1367,7 +1367,7 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	}
 }
 
-void ScPainterEx_Ps2::getPathBoundingBox( FPointArray* points, QRect& r )
+void ScPainterEx_Ps2::getPathBoundingBox(const FPointArray* points, QRect& r )
 {
 	FPoint point;
 	double bottom = DBL_MAX, top   = DBL_MIN;
