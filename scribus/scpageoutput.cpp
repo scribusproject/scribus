@@ -927,10 +927,11 @@ private:
 	void setupState()
 	{
 		m_painter->setLineWidth(strokeWidth());
-		ScColorShade fill(m_item->doc()->PageColors[fillColor().color], qRound(fillColor().shade));
+		ScColorShade fill(m_item->doc()->PageColors[fillColor().color], fillColor().shade);
 		m_painter->setBrush(fill);
-		ScColorShade stroke(m_item->doc()->PageColors[strokeColor().color], qRound(strokeColor().shade));
-		m_painter->setPen(stroke);
+		ScColorShade stroke(m_item->doc()->PageColors[strokeColor().color], strokeColor().shade);
+		m_painter->setPen(stroke, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+
 		if (matrix() != QTransform())
 		{
 			m_painter->setWorldMatrix(matrix() * m_painter->worldMatrix());
@@ -981,19 +982,22 @@ public:
 		m_painter->setFillMode(1);
 
 		setupState();
-		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+
+		double sizeFactor = fontSize() / 10.0;
+		QVector<FPointArray> outlines = gc.glyphClusterOutline();
+		const QList<GlyphLayout>& glyphs = gc.glyphs();
+		for (int i = 0; i < glyphs.count(); ++i)
+		{
+			const FPointArray& outline = outlines.at(i);
+			const GlyphLayout& gl = glyphs.at(i);
 			m_painter->save();
-			m_painter->translate(gl.xoffset + current_x, -(fontSize() * gl.scaleV) + gl.yoffset);
-			FPointArray outline = font().glyphOutline(gl.glyph);
-			double scaleH = gc.scaleH() * fontSize() / 10.0;
-			double scaleV = gc.scaleV() * fontSize() / 10.0;
-			m_painter->scale(scaleH, scaleV);
+			m_painter->translate(gl.xoffset, - (fontSize() * gl.scaleV) + gl.yoffset);
+			m_painter->scale(gl.scaleH * sizeFactor, gl.scaleV * sizeFactor);
 			m_painter->setupPolygon(&outline, true);
 			if (outline.size() > 3)
 				m_painter->fillPath();
 			m_painter->restore();
-			current_x += gl.xadvance;
+			m_painter->translate(gl.xadvance, 0.0);
 		}
 
 		m_painter->setFillMode(fm);
