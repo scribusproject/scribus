@@ -707,6 +707,9 @@ void SearchReplace::slotDoReplace()
 						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					Item->itemText.removeChars(ReplStart+cs, sear.length() - cs);
 				}
+				Item->itemText.deselectAll();
+				if (repl.length() > 0)
+					Item->itemText.select(ReplStart, repl.length());
 			}
 		}
 		if (RStyle->isChecked())
@@ -735,7 +738,7 @@ void SearchReplace::slotDoReplace()
 			Doc->itemSelection_SetFont(RFontVal->currentText());
 		if (RSize->isChecked())
 			Doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
-		if (REffect->isChecked())
+		if (REffect->isChecked() && (Item->itemText.lengthOfSelection() > 0))
 		{
 #ifndef NLS_PROTO
 			int s = REffVal->getStyle();
