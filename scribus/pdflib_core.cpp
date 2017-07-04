@@ -207,7 +207,7 @@ public:
 					pdfFontName += Pdf::toPdf(fontNr);
 				}
 
-				if ((pdfFontName != m_prevFontName) || fontSize() != m_prevFontSize)
+				if ((pdfFontName != m_prevFontName) || (fontSize() != m_prevFontSize))
 				{
 					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
 					m_prevFontName = pdfFontName;
@@ -352,7 +352,7 @@ public:
 					pdfFontName += Pdf::toPdf(fontNr);
 				}
 
-				if ((pdfFontName != m_prevFontName) || fontSize() != m_prevFontSize)
+				if ((pdfFontName != m_prevFontName) || (fontSize() != m_prevFontSize))
 				{
 					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
 					m_prevFontName = pdfFontName;
