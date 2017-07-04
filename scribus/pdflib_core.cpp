@@ -122,6 +122,9 @@ class PdfPainter: public TextLayoutPainter
 	uint m_PNr;
 	const ScPage* m_page;
 
+	QByteArray m_prevFontName;
+	int        m_prevFontSize;
+
 	QByteArray transformToStr(QTransform tr)
 	{
 		return FToStr(tr.m11()) + " " + FToStr(-tr.m12()) + " " + FToStr(-tr.m21()) + " " + FToStr(tr.m22()) + " " + FToStr(tr.dx()) + " " + FToStr(-tr.dy());
@@ -134,7 +137,8 @@ public:
 //		m_item(ite),
 		m_pdf(pdf),
 		m_PNr(num),
-		m_page(pag)
+		m_page(pag),
+		m_prevFontSize(-1)
 	{}
 
 	~PdfPainter() {}
@@ -196,10 +200,19 @@ public:
 					break;
 				}
 
-				if (fontNr == 65535)
-					m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
-				else
-					m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
+				QByteArray pdfFontName = pdfFont.name;
+				if (fontNr != 65535)
+				{
+					pdfFontName += "S";
+					pdfFontName += Pdf::toPdf(fontNr);
+				}
+
+				if ((pdfFontName != m_prevFontName) || fontSize() != m_prevFontSize)
+				{
+					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
+					m_prevFontName = pdfFontName;
+					m_prevFontSize = fontSize();
+				}
 
 				if (!StrokeColor.isEmpty())
 					m_glyphBuffer += StrokeColor;
@@ -212,7 +225,6 @@ public:
 				transform.translate(x() + gl.xoffset + current_x , y() + gl.yoffset);
 				transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
 				m_glyphBuffer += transformToStr(transform) + " Tm\n";
-
 
 				if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
 				{
@@ -333,10 +345,19 @@ public:
 					break;
 				}
 
-				if (fontNr == 65535)
-					m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
-				else
-					m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
+				QByteArray pdfFontName = pdfFont.name;
+				if (fontNr != 65535)
+				{
+					pdfFontName += "S";
+					pdfFontName += Pdf::toPdf(fontNr);
+				}
+
+				if ((pdfFontName != m_prevFontName) || fontSize() != m_prevFontSize)
+				{
+					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
+					m_prevFontName = pdfFontName;
+					m_prevFontSize = fontSize();
+				}
 
 				if (!StrokeColor.isEmpty())
 					m_glyphBuffer += StrokeColor;
@@ -478,6 +499,8 @@ public:
 		m_glyphBuffer += m_pathBuffer+"\n";
 		m_pathBuffer = "";
 
+		m_prevFontName.clear();
+		m_prevFontSize = -1;
 		m_glyphBuffer += "BT\n";
 	}
 };
