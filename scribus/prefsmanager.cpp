@@ -527,16 +527,17 @@ void PrefsManager::initDefaultActionKeys()
 
 void PrefsManager::applyLoadedShortCuts()
 {
+	QMap<QString, QPointer<ScrAction> > &actions = ScCore->primaryMainWindow()->scrActions;
+
 	for (QMap<QString,Keys>::Iterator it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
 	{
-		if (!it.value().actionName.isEmpty())
-		{
-			if (ScCore->primaryMainWindow()->scrActions[it.value().actionName])
-			{
-				ScCore->primaryMainWindow()->scrActions[it.value().actionName]->setShortcut(it.value().keySequence);
-				ScCore->primaryMainWindow()->scrActions[it.value().actionName]->setToolTipFromTextAndShortcut();
-			}
-		}
+		if (it.value().actionName.isEmpty())
+			continue;
+		QPointer<ScrAction> action = actions.value(it.value().actionName, QPointer<ScrAction>());
+		if (action.isNull())
+			continue;
+		action->setShortcut(it.value().keySequence);
+		action->setToolTipFromTextAndShortcut();
 	}
 }
 
