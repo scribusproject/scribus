@@ -3078,6 +3078,32 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			}
 		}
 	}
+
+	QMap<QString, ScPattern>::const_iterator patIter;
+	for (patIter = docPatterns.begin(); patIter != docPatterns.end(); ++patIter)
+	{
+		const ScPattern& pat = patIter.value();
+		const QList<PageItem*> &patItems = pat.items;
+		for (int i = 0; i < patItems.count(); ++i)
+		{
+			const PageItem* it = patItems.at(i);
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
+				Really.insert(fontName, UsedFonts[fontName]);
+				int start = it->firstInFrame();
+				int stop = it->lastInFrame();
+				for (int e = start; e <= stop; ++e)
+				{
+					QString rep = it->itemText.charStyle(e).font().replacementName();
+					if (Really.contains(rep))
+						continue;
+					Really.insert(rep, UsedFonts[rep]);
+				}
+			}
+		}
+	}
+
 	QMap<QString,int>::Iterator itfo, itnext;
 	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
 	{
