@@ -172,6 +172,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	if (glyphRuns.isEmpty())
 		return;
 
+	// enable seamless crossing past the endpoint for closed curve
+	bool curveClosed=PoLine.isBezierClosed();
+
 	foreach (const GlyphCluster& run, glyphRuns)
 	{
 		totalTextLen += run.width();
@@ -209,7 +212,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			extraOffset = (totalCurveLen - m_textDistanceMargins.left() - totalTextLen) / static_cast<double>(itemText.length());
 	}
 	int firstRun = 0;
-	if (totalTextLen + m_textDistanceMargins.left() > totalCurveLen && itemText.paragraphStyle(0).direction() == ParagraphStyle::RTL)
+	if (!curveClosed && totalTextLen + m_textDistanceMargins.left() > totalCurveLen && itemText.paragraphStyle(0).direction() == ParagraphStyle::RTL)
 	{
 		double totalLenDiff = totalTextLen + m_textDistanceMargins.left() - totalCurveLen;
 		while (firstRun < glyphRuns.count())
@@ -233,13 +236,21 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		CurX += dx;
 		CurY = 0;
 		double currPerc = currPath.percentAtLength(CurX);
+		// sticks out to the next segment
 		if (currPerc >= 0.9999999)
 		{
 			currPathIndex++;
 			if (currPathIndex == pathList.count())
 			{
-				MaxChars = run.firstChar();
-				break;
+				if (curveClosed)
+				{
+					currPathIndex=0; // start from beginning again
+				}
+				else
+				{
+					MaxChars = run.firstChar();
+					break;
+				}
 			}
 			currPath = pathList[currPathIndex];
 			CurX = dx;
