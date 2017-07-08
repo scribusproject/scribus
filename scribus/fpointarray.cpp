@@ -466,6 +466,12 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 	return;
 }
 
+bool FPointArray::isBezierClosed() const
+{
+	return size() >= 4 && (pointQF(0) == pointQF(size()-2));
+}
+
+
 
 struct SVGState
 {

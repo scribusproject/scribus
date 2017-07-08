@@ -77,6 +77,7 @@ public:
 	double lenPathDist(int seg, double t1, double t2) const;
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const;
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const;
+	bool isBezierClosed() const;
 	~FPointArray();
 	void svgInit();
 	void svgMoveTo(double x, double y);
