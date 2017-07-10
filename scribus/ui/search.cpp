@@ -711,6 +711,9 @@ void SearchReplace::slotDoReplace()
 						m_item->itemText.replaceChar(m_replStart+cs, repl[cs]);
 					m_item->itemText.removeChars(m_replStart+cs, sear.length() - cs);
 				}
+				m_item->itemText.deselectAll();
+				if (repl.length() > 0)
+					m_item->itemText.select(m_replStart, repl.length());
 			}
 		}
 		if (RStyle->isChecked())
@@ -739,7 +742,7 @@ void SearchReplace::slotDoReplace()
 			m_doc->itemSelection_SetFont(RFontVal->currentText());
 		if (RSize->isChecked())
 			m_doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
-		if (REffect->isChecked())
+		if (REffect->isChecked() && (m_item->itemText.lengthOfSelection() > 0))
 		{
 			int s = REffVal->getStyle() & ScStyle_UserStyles;
 			m_doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???

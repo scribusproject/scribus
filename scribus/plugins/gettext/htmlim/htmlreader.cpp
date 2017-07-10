@@ -279,6 +279,9 @@ bool HTMLReader::characters(const QString &ch)
 		else
 			tmp = tmp.simplified();
 
+		if (tmp.isEmpty())
+			return true;
+
 		if (!lastCharWasSpace)
 			if (fcis)
 				tmp = " " + tmp;
@@ -343,12 +346,14 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	if (name == "center")
 	{
 		inCenter = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "p")
 	{
-		writer->append("\n");
 		inP = false;
+		lastCharWasSpace = true;
+		writer->append("\n");
 	}
 	else if (name == "a")
 	{
@@ -392,7 +397,10 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 		else
 			--listLevel;
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "ol")
 	{
@@ -426,42 +434,52 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 			--listLevel;
 		}
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "li")
 	{
 		inLI = false;
 		addedLI = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "h1")
 	{
 		inH1 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh1);
 	}
 	else if (name == "h2")
 	{
 		inH2 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh2);
 	}
 	else if (name == "h3")
 	{
 		inH3 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh3);
 	}
 	else if (name == "h4")
 	{
 		inH4 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh4);
 	}
 	else if (name == "h5")
 	{
 		inH5 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh5);
 	}
 	else if (name == "h6")
 	{
 		inH6 = false;
+		lastCharWasSpace = true;
 		writer->append("\n", pstyleh6);
 	}
 	else if ((name == "b") || (name == "strong"))
@@ -475,6 +493,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "pre")
 	{
 		inPre = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "div")

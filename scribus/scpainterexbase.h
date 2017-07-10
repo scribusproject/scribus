@@ -107,7 +107,7 @@ public:
 	virtual void setClipPath() = 0;
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
-	virtual void setupPolygon(FPointArray *points, bool closed = true) = 0;
+	virtual void setupPolygon(const FPointArray *points, bool closed = true) = 0;
 	virtual void drawPolygon() = 0;
 	virtual void drawPolyLine() = 0;
 	virtual void drawLine(FPoint start, FPoint end) = 0;

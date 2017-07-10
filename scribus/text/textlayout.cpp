@@ -303,28 +303,41 @@ QLineF TextLayout::positionToPoint(int pos) const
 			// TODO: move this branch to GroupBox::positionToPoint()
 			// last glyph box in last line
 			Box* column = m_box->boxes().last();
-			Box* line = column->boxes().last();
-			Box* glyph = line->boxes().empty()? NULL : line->boxes().last();
-			QChar ch = story()->text(line->lastChar());
-			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
+			if (column->boxes().count() > 0)
 			{
-				// last character is a newline, draw the cursor on the next line.
-				if (isRTL)
-					x = line->width();
+				Box* line = column->boxes().last();
+				Box* glyph = line->boxes().empty() ? NULL : line->boxes().last();
+				QChar ch = story()->text(line->lastChar());
+				if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
+				{
+					// last character is a newline, draw the cursor on the next line.
+					if (isRTL)
+						x = line->width();
+					else
+						x = 1;
+					y1 = line->y() + line->height();
+					y2 = y1 + line->height();
+				}
 				else
-					x = 1;
-				y1 = line->y() + line->height();
-				y2 = y1 + line->height();
+				{
+					// draw the cursor at the end of last line.
+					if (isRTL || glyph == NULL)
+						x = line->x();
+					else
+						x = line->x() + glyph->x() + glyph->width();
+					y1 = line->y();
+					y2 = y1 + line->height();
+				}
 			}
 			else
 			{
-				// draw the cursor at the end of last line.
-				if (isRTL || glyph == NULL)
-					x = line->x();
+				const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
+				if (isRTL)
+					x = column->width();
 				else
-					x = line->x() + glyph->x() + glyph->width();
-				y1 = line->y();
-				y2 = y1 + line->height();
+					x = 1;
+				y1 = 0;
+				y2 = pstyle.lineSpacing();
 			}
 			result.setLine(x, y1, x, y2);
 			result.translate(column->x(), column->y());

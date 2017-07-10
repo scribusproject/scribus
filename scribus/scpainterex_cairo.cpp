@@ -493,9 +493,10 @@ void ScPainterEx_Cairo::fillPathHelper()
 void ScPainterEx_Cairo::strokePathHelper()
 {
 	cairo_save( m_cr );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_line_width( m_cr, m_lineWidth );
 	if( m_array.count() > 0 )
-		cairo_set_dash( m_cr, m_array.data(), m_array.count(), static_cast<double>(m_offset));
+		cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 	else
 		cairo_set_dash( m_cr, NULL, 0, 0 );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
@@ -528,8 +529,8 @@ void ScPainterEx_Cairo::strokePathHelper()
 		setRasterOp(m_blendModeStroke);
 		cairo_stroke_preserve( m_cr );
 	}
-	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
 void ScPainterEx_Cairo::setClipPath()
@@ -551,7 +552,7 @@ void ScPainterEx_Cairo::drawImage( ScImage *image, ScPainterExBase::ImageMode mo
 	cairo_restore(m_cr);
 }
 
-void ScPainterEx_Cairo::setupPolygon(FPointArray *points, bool closed)
+void ScPainterEx_Cairo::setupPolygon(const FPointArray *points, bool closed)
 {
 	bool nPath = true, first = true;
 	FPoint np, np1, np2, np3, np4, firstP;

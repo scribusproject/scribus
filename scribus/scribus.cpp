@@ -367,13 +367,13 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_marksCount = 0;
 
 	initDefaultValues();
-
 	initStatusBar();
 
 	qApp->processEvents();
 
-
 	actionManager->init(this);
+
+	initMdiArea();
 	initMenuBar();
 	createMenuBar();
 	initToolBars();
@@ -387,18 +387,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	initKeyboardShortcuts();
 
 	resize(610, 600);
-	mdiArea = new QMdiArea(this);
-	mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-	mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-	if (m_prefsManager->appPrefs.uiPrefs.useTabs)
-	{
-		mdiArea->setViewMode(QMdiArea::TabbedView);
-		mdiArea->setTabsClosable(true);
-		mdiArea->setDocumentMode(true);
-	}
-	else
-		mdiArea->setViewMode(QMdiArea::SubWindowView);
-	setCentralWidget( mdiArea );
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
 	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , mdiArea, SLOT(cascadeSubWindows()) );
@@ -785,6 +773,21 @@ bool ScribusMainWindow::warningVersion(QWidget *parent)
 	return retval;
 }
 
+void ScribusMainWindow::initMdiArea()
+{
+	mdiArea = new QMdiArea(this);
+	mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	if (m_prefsManager->appPrefs.uiPrefs.useTabs)
+	{
+		mdiArea->setViewMode(QMdiArea::TabbedView);
+		mdiArea->setTabsClosable(true);
+		mdiArea->setDocumentMode(true);
+	}
+	else
+		mdiArea->setViewMode(QMdiArea::SubWindowView);
+	setCentralWidget(mdiArea);
+}
 
 void ScribusMainWindow::initMenuBar()
 {

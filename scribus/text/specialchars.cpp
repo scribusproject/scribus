@@ -1,4 +1,4 @@
-/*
+﻿/*
  For general Scribus (>=1.3.2) copyright and licensing information please refer
  to the COPYING file provided with the program. Following this notice may exist
  a copyright and/or license notice that predates the release of Scribus 1.3.2
@@ -260,4 +260,19 @@ bool SpecialChars::isIgnorableCodePoint(uint ch)
 		return true;
 	else
 		return false;
+}
+
+bool SpecialChars::isArabicDiacritic(uint ch)
+{
+	if (ch >= 0x064B && ch <= 0x065F) /*Fathatan, Dammatan, Kasratan, Fatha,Damma,Kasra,Shadda,Sukun,Maddah, Hamza Above, Hamza Below,Subscript Alef,Inverted Damma,Mark Noon Ghunna*/
+		return true;
+	else if (ch == 0x0640) //Tatweel
+		return true;
+	else if (ch >= 0x06D2 && ch <= 0x06DC) /*Yeh Barree,Yeh Barree With Hamza Above, Full Stop Ae,Sad With Lam With Alef,Qaf With Lam With Alef,Small High Meem Initial Form, Small High Lam Alef, Small High Jeem , Small High Three Dots, Small High Seen */
+		return true;
+	else if (ch >= 0x06DF && ch <= 0x06E8) /*Small High Rounded Zero, Upright Rectangular Zero,Dotless Head Of Khah,Meem Isolated Form, Small Low Seen, Small High Madda,Small Waw, Small Yeh, Small High Yeh, Small High Noon */
+		return true;
+	else if (ch >= 0x0618 && ch <= 0x061A) /*Small Fatha, Small Damma, Small Kasra*/
+		return true;
+	return false;
 }
