@@ -149,7 +149,7 @@ void GroupBox::justify(const ParagraphStyle& style)
 {
 	if ((style.alignment() != ParagraphStyle::Justified) && (style.alignment() != ParagraphStyle::Extended))
 		return;
-	for(int i = 0; i < m_boxes.count(); i++)
+	for (int i = 0; i < m_boxes.count(); i++)
 	{
 		m_boxes[i]->justify(style);
 	}
@@ -361,7 +361,7 @@ void LineBox::justify(const ParagraphStyle& style)
 		{
 			glyphNatural += run.width();
 		}
-		else if (!run.hasFlag(ScLayout_SuppressSpace) )
+		else if (!run.hasFlag(ScLayout_SuppressSpace))
 		{
 			spaceNatural += run.width();
 			if (imSpace < 0.0 || imSpace > run.width())
@@ -381,13 +381,13 @@ void LineBox::justify(const ParagraphStyle& style)
 			style.minGlyphExtension() && spaceNatural > 0)
 	{
 		glyphExtension = style.minGlyphExtension() - 1;
-		spaceExtension = (width() - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+		spaceExtension = (width() - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
 		imSpace = 0;
 	}
 	else if (width() < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
 	{
 		spaceExtension = 0;
-		glyphExtension = (width() - spaceNatural) / glyphNatural  - 1;
+		glyphExtension = (width() - spaceNatural) / glyphNatural - 1;
 		imSpace = 0;
 	}
 	else
@@ -409,7 +409,7 @@ void LineBox::justify(const ParagraphStyle& style)
 			}
 		} else {
 			if (spaceNatural > 0)
-				spaceExtension = (width() - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+				spaceExtension = (width() - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
 			else
 				spaceExtension = 0;
 		}
@@ -637,17 +637,25 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			lw = qMax(font.strokeWidth(fontSize), 1.0);
 		}
 		if (charStyle.baselineOffset() != 0)
-			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
+			st += fontSize * (charStyle.baselineOffset() / 1000.0);
 
 		double sw = p->strokeWidth();
 		TextLayoutColor sc = p->strokeColor();
 
 		p->setStrokeColor(p->fillColor());
 		p->setStrokeWidth(lw);
+
+		double xoffs(0.0), yoffs(0.0);
+		if (m_glyphRun.glyphs().count() > 0)
+		{
+			const GlyphLayout& gl = m_glyphRun.glyphs().first();
+			xoffs = gl.xoffset;
+			yoffs = gl.yoffset;
+		}
 		if (charStyle.effects() & ScStyle_Subscript)
-			p->drawLine(QPointF(m_glyphRun.xoffset, m_glyphRun.yoffset - st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), m_glyphRun.yoffset - st));
+			p->drawLine(QPointF(xoffs, yoffs - st), QPointF(xoffs + m_glyphRun.width(), yoffs - st));
 		else
-			p->drawLine(QPointF(m_glyphRun.xoffset, -st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), -st));
+			p->drawLine(QPointF(xoffs, -st), QPointF(xoffs + m_glyphRun.width(), -st));
 
 		p->setStrokeWidth(sw);
 		p->setStrokeColor(sc);
@@ -692,6 +700,9 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			p->drawGlyph(m_glyphRun);
 	}
 
+	if (charStyle.baselineOffset() != 0)
+		p->translate(0, fontSize * (charStyle.baselineOffset() / 1000.0));
+
 	if (m_effects & ScStyle_Strikethrough && hasStrokeColor)
 	{
 		double st, lw;
@@ -700,7 +711,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			if (charStyle.strikethruOffset() != -1)
 				st = (charStyle.strikethruOffset() / 1000.0) * font.ascent(fontSize);
 			else
-				st = font.strikeoutPos(fontSize);
+				st = font.strikeoutPos(fontSize) * m_glyphRun.scaleV();
 			if (charStyle.strikethruWidth() != -1)
 				lw = (charStyle.strikethruWidth() / 1000.0) * fontSize;
 			else
@@ -708,18 +719,26 @@ void GlyphBox::render(TextLayoutPainter *p) const
 		}
 		else
 		{
-			st = font.strikeoutPos(fontSize);
+			st = font.strikeoutPos(fontSize) * m_glyphRun.scaleV();
 			lw = qMax(font.strokeWidth(fontSize), 1.0);
 		}
 		if (charStyle.baselineOffset() != 0)
-			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
+			st += fontSize * (charStyle.baselineOffset() / 1000.0);
 
 		double sw = p->strokeWidth();
 		TextLayoutColor sc = p->strokeColor();
 
 		p->setStrokeColor(p->fillColor());
 		p->setStrokeWidth(lw);
-		p->drawLine(QPointF(m_glyphRun.xoffset, m_glyphRun.yoffset - st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), m_glyphRun.yoffset - st));
+
+		double xoffs(0.0), yoffs(0.0);
+		if (m_glyphRun.glyphs().count() > 0)
+		{
+			const GlyphLayout& gl = m_glyphRun.glyphs().first();
+			xoffs = gl.xoffset;
+			yoffs = gl.yoffset;
+		}
+		p->drawLine(QPointF(xoffs, yoffs - st), QPointF(xoffs + m_glyphRun.width(), yoffs - st));
 
 		p->setStrokeWidth(sw);
 		p->setStrokeColor(sc);
@@ -730,14 +749,14 @@ void GlyphBox::render(TextLayoutPainter *p) const
 	p->restore();
 }
 
-int GlyphBox::pointToPosition(QPointF coord,  const StoryText& story) const
+int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 {
 	if (firstChar() != lastChar())
 	{
 		int count = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
 		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*) text.utf16());
+		it->setText((const UChar*)text.utf16());
 		while (it->next() != BreakIterator::DONE)
 			count++;
 		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
@@ -782,7 +801,7 @@ QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
 		int index = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
 		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*) text.utf16());
+		it->setText((const UChar*)text.utf16());
 		while (it->next() != BreakIterator::DONE)
 		{
 			count++;
@@ -823,7 +842,7 @@ void ObjectBox::render(TextLayoutPainter *p) const
 
 	m_object->setXPos(m_object->gXpos, true);
 	m_object->setYPos(m_object->gYpos, true);
-//	m_item->setYPos((m_object->gHeight * (charStyle.scaleV() / 1000.0)) + m_object->gYpos, true);
+	//	m_item->setYPos((m_object->gHeight * (charStyle.scaleV() / 1000.0)) + m_object->gYpos, true);
 
 	if (charStyle.baselineOffset() != 0)
 	{

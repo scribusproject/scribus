@@ -111,13 +111,9 @@ void PSPainter::drawGlyph(const GlyphCluster& gc)
 	double current_x = 0.0;
 	foreach (const GlyphLayout& gl, gc.glyphs()) {
 		m_ps->PS_save();
-		if (gc.scaleH() != 1.0)
-			m_ps->PS_scale(gc.scaleH(), 1);
-		if (gc.scaleV() != 1.0)
-		{
-			m_ps->PS_scale(1, gc.scaleV());
-		}
-		m_ps->PS_translate(gl.xoffset + current_x, -(fontSize() - fontSize() * gc.scaleV()) - gl.yoffset);
+		m_ps->PS_translate(gl.xoffset + current_x, -(fontSize() - fontSize() * gl.scaleV) - gl.yoffset);
+		if (gl.scaleH != 1.0 || (gl.scaleV != 1.0))
+			m_ps->PS_scale(gl.scaleH, gl.scaleV);
 
 		if (fillColor().color != CommonStrings::None)
 			m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
