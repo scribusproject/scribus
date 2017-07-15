@@ -16234,8 +16234,10 @@ void ScribusDoc::itemSelection_UnlinkTextFrameAndKeepText( Selection *customSele
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem != NULL && currItem->asTextFrame() && (currItem->nextInChain() != NULL || currItem->prevInChain() != NULL))
-				currItem->unlinkWithText(cutText);
+		if (!currItem || !currItem->asTextFrame())
+			continue;
+		if (currItem->nextInChain() || currItem->prevInChain())
+			currItem->unlinkWithText(cutText);
 	}
 	regionsChanged()->update(QRectF());
 	changed();
