@@ -1468,9 +1468,14 @@ void PageItem::unlinkWithText(bool cutText)
 	PageItem * Prev = BackBox;
 	int length = itemText.length();
 
+	if (this->invalid)
+		layout();
+
 	//unlink first frame in chain
 	if (Prev == NULL)
 	{
+		if (Next->invalid)
+			Next->layout();
 		if (lastInFrame() < length -1)
 		{
 			StoryText content(m_Doc);
@@ -1493,6 +1498,8 @@ void PageItem::unlinkWithText(bool cutText)
 	}
 	else
 	{
+		if (Prev->invalid)
+			Prev->layout();
 		itemText.select(firstInFrame(), length - firstInFrame());
 		StoryText content(m_Doc);
 		content.insert(0, itemText, true);
