@@ -1285,7 +1285,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		if (keepWithNext && (!pull)) pull = 1;
 
 		if (pull) {
-            qDebug() << "pulling" << pull << "lines";
+			qDebug() << "pulling" << pull << "lines";
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
 				textLayout.removeLastLine();
@@ -1326,7 +1326,7 @@ void PageItem_TextFrame::layout()
 	if (invalid && BackBox == NULL)
 		firstChar = 0;
 
-//    qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(m_xPos).arg(m_yPos).arg(itemText.length()).arg(firstInFrame());
+//	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(m_xPos).arg(m_yPos).arg(itemText.length()).arg(firstInFrame());
 	QPoint pt1, pt2;
 	QRect pt;
 	double chs, chsd = 0;
@@ -2248,21 +2248,21 @@ void PageItem_TextFrame::layout()
 				if (current.glyphs.length() > 1
 					&& (current.glyphs[currentIndex - 1].lastChar() != SpecialChars::CJK_NOBREAK_AFTER)
 					&& (current.glyphs[currentIndex].firstChar() != SpecialChars::CJK_NOBREAK_BEFORE))
-                {
-//                    qDebug() << "rememberBreak LineBoundry @" << i-1;
-                    current.rememberBreak(i - 1, breakPos, style.rightMargin());
-                }
+				{
+//					qDebug() << "rememberBreak LineBoundry @" << i-1;
+					current.rememberBreak(i - 1, breakPos, style.rightMargin());
+				}
 				if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary))
-                {
-//                    qDebug() << "rememberBreak 2nd LineBoundry @" << i;
-                    current.rememberBreak(i, breakPos, style.rightMargin());
-                }
+				{
+//					qDebug() << "rememberBreak 2nd LineBoundry @" << i;
+					current.rememberBreak(i, breakPos, style.rightMargin());
+				}
 			}
 			if (HasObject)
-            {
-//                qDebug() << "rememberBreak object @" << i;
-                current.rememberBreak(i, breakPos, style.rightMargin());
-            }
+			{
+//				qDebug() << "rememberBreak object @" << i;
+				current.rememberBreak(i, breakPos, style.rightMargin());
+			}
 
 			//check against space before PARSEP
 			/*if (SpecialChars::isBreakingSpace(hl->ch) && (a + 1 < itemText.length()) && (itemText.item(a+1)->ch == SpecialChars::PARSEP))
@@ -2302,7 +2302,7 @@ void PageItem_TextFrame::layout()
 						a = (i >= 0) ? glyphClusters.at(i).firstChar() : (a - 1);
 						current.mustLineEnd = current.lineData.x;
 					}
-//                    qDebug() << "breakline forced @" << i;
+//					qDebug() << "breakline forced @" << i;
 					current.breakLine(i);
 				}
 				if (!current.addLine && !current.lastInRowLine && current.afterOverflow)
@@ -2411,7 +2411,7 @@ void PageItem_TextFrame::layout()
 					if (current.breakIndex < 0)
 					{
 						i--;
-//                        qDebug() << "forced break at glyph" << i;
+//						qDebug() << "forced break at glyph" << i;
 						currentIndex = i - current.lineData.firstCluster;
 						a = current.glyphs[currentIndex].firstChar();
 						current.breakLine(i);
@@ -2483,8 +2483,8 @@ void PageItem_TextFrame::layout()
 				{
 					if ((current.hyphenCount < style.hyphenConsecutiveLines()) || (style.hyphenConsecutiveLines() == 0) || itemText.text(a) == SpecialChars::SHYPHEN)
 					{
-//                        qDebug() << "rememberBreak hyphen @" << i;
-                        current.rememberBreak(i, breakPos, style.rightMargin() + hyphWidth);
+//						qDebug() << "rememberBreak hyphen @" << i;
+						current.rememberBreak(i, breakPos, style.rightMargin() + hyphWidth);
 					}
 				}
 			}
@@ -2494,11 +2494,11 @@ void PageItem_TextFrame::layout()
 			if ((itemText.text(a) == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
-            if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
-            {
-//                qDebug() << "rememberBreak implicitbreak @" << i-1;
-                current.rememberBreak(i - 1, breakPos);
-            }
+			if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
+			{
+//				qDebug() << "rememberBreak implicitbreak @" << i-1;
+				current.rememberBreak(i - 1, breakPos);
+			}
 			current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 
 			if (tabs.active)
@@ -2870,8 +2870,8 @@ void PageItem_TextFrame::layout()
 				{
 					current.addLine = true;
 					current.lastInRowLine = true;
-//                    qDebug() << "breakline A no more text @" << i;
-                    current.breakLine(i);
+//					qDebug() << "breakline A no more text @" << i;
+					current.breakLine(i);
 				}
 				if (current.afterOverflow && !current.addLine)
 				{
@@ -2881,10 +2881,10 @@ void PageItem_TextFrame::layout()
 						continue;
 					}
 					else
-                    {
-//                        qDebug() << "breakline B no more text @" << i;
+					{
+//						qDebug() << "breakline B no more text @" << i;
 						current.breakLine(i);
-                    }
+					}
 				}
 			}
 		}
@@ -2899,8 +2899,8 @@ void PageItem_TextFrame::layout()
 		{
 			int a = itemText.length()-1;
 			int i = glyphClusters.length() - 1;
-//            qDebug() << "breakline end of text @" << i;
-            current.breakLine(i);
+//			qDebug() << "breakline end of text @" << i;
+			current.breakLine(i);
 
 			if (current.startOfCol)
 			{
