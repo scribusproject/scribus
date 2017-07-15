@@ -2201,6 +2201,9 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 
 void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
+	PrefsManager* prefsManager = PrefsManager::instance();
+	const ItemToolPrefs& defToolPrefs = prefsManager->appPrefs.itemToolPrefs;
+
 	QString textFont = attrs.valueAsString("DFONT");
 	m_AvailableFonts->findFont(textFont, doc);
 
@@ -2208,6 +2211,12 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().textSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
 	doc->itemToolPrefs().textColumns   = attrs.valueAsInt("DCOL", 1);
 	doc->itemToolPrefs().textColumnGap    = attrs.valueAsDouble("DGAP", 0.0);
+
+	const MarginStruct& defDistances = defToolPrefs.textDistances;
+	doc->itemToolPrefs().textDistances.setLeft(attrs.valueAsDouble("TextDistLeft", defDistances.left()));
+	doc->itemToolPrefs().textDistances.setRight(attrs.valueAsDouble("TextDistRight", defDistances.right()));
+	doc->itemToolPrefs().textDistances.setBottom(attrs.valueAsDouble("TextDistBottom", defDistances.bottom()));
+	doc->itemToolPrefs().textDistances.setTop(attrs.valueAsDouble("TextDistTop", defDistances.top()));
 
 	doc->itemToolPrefs().polyCorners      = attrs.valueAsInt("POLYC", 4);
 	doc->itemToolPrefs().polyFactor = attrs.valueAsDouble("POLYF", 0.5);
