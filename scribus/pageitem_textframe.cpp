@@ -1295,6 +1295,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		}
 	}
 }
+
 void PageItem_TextFrame::layout()
 {
 //	qDebug()<<"==Layout==" << itemName() ;
@@ -2626,8 +2627,8 @@ void PageItem_TextFrame::layout()
 					{
 						// go back to last break position
 						i = current.breakIndex;
+						a = glyphClusters.at(i).firstChar();
 						currentIndex = i - current.lineData.firstCluster;
-						a = current.glyphs[currentIndex].firstChar();
 						style = itemText.paragraphStyle(a);
 						const_cast<ScFace&>(font) = itemText.charStyle(a).font();
 						if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
@@ -2640,7 +2641,7 @@ void PageItem_TextFrame::layout()
 					assert( i < glyphClusters.length() );
 					//glyphs = itemText.getGlyphs(a);
 					current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
-					if (current.addLine)
+					if (current.addLine && !current.isEmpty)
 					{
 						if (itemText.text(a) == ' ') {
 							current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
