@@ -607,7 +607,6 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 	// we can't find it, raise PyExc_Exception.
 	// FIXME: Should use a more specific exception.
 	bool found = false;
-	uint styleid = 0;
 	QString paraStyleName = QString::fromUtf8(style);
 	// We start at zero here because it's OK to match an internal name
 	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
