@@ -54,6 +54,10 @@
 <p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
 <p>May raise ValueError if an invalid scale factor is passed.</p></dd>
 
+<dt><a name="-setCharacterStyle"><strong>setCharacterStyle</strong></a>(...)</dt>
+<dd><code>setCharacterStyle("style" [, "name"])</code>
+<p>Apply the named character "style" to the object named "name". If object name is given, style is applied to the current text selection in object "name". If no object name is given, style is applied on selected object.</p></dd>
+
 <dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
 <dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
 <p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
