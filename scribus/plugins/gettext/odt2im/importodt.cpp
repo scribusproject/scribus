@@ -522,7 +522,7 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 			if (type == "styles")
 			{
 				ObjStyleODT tmpOStyle;
-				resovleStyle(tmpOStyle, spd.attribute("style:name"));
+				resolveStyle(tmpOStyle, spd.attribute("style:name"));
 				if (spd.attribute("style:family") == "paragraph")
 				{
 					ParagraphStyle newStyle;
@@ -634,7 +634,7 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 				if (sp.tagName() == "office:text")
 				{
 					ObjStyleODT tmpOStyle;
-					resovleStyle(tmpOStyle, "standard");
+					resolveStyle(tmpOStyle, "standard");
 					parseText(sp, m_item, tmpOStyle);
 				}
 			}
@@ -647,7 +647,7 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 {
 	ObjStyleODT cStyle = tmpOStyle;
 	if (elem.hasAttribute("text:style-name"))
-		resovleStyle(cStyle, elem.attribute("text:style-name"));
+		resolveStyle(cStyle, elem.attribute("text:style-name"));
 	applyCharacterStyle(tmpCStyle, cStyle);
 	if (!elem.hasChildNodes())
 		return;
@@ -696,7 +696,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	if (elem.toElement().hasAttribute("text:style-name"))
 	{
 		QString pStyleName = elem.toElement().attribute("text:style-name");
-		resovleStyle(pStyle, pStyleName);
+		resolveStyle(pStyle, pStyleName);
 		if (m_Styles.contains(pStyleName))
 		{
 			DrawStyle currStyle = m_Styles[pStyleName];
@@ -946,7 +946,7 @@ void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle)
 	tmpStyle.setTabValues(oStyle.tabStops);
 }
 
-void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
+void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 {
 	if (m_Styles.contains(pAttrs))
 	{

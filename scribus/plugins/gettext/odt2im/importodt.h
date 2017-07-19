@@ -145,7 +145,7 @@ class ODTIm
 		void insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
 		void applyCharacterStyle(CharStyle &tmpCStyle, ObjStyleODT &oStyle);
 		void applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle);
-		void resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs);
+		void resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs);
 		double parseUnit(const QString &unit);
 		QColor parseColorN( const QString &rgbColor );
 		QString parseColor( const QString &s );
