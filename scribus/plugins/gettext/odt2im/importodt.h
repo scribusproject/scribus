@@ -19,8 +19,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDomDocument>
 #include <QDomElement>
-#include <QString>
 #include <QHash>
+#include <QStack>
+#include <QString>
+
 class ScZipHandler;
 
 extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
@@ -159,6 +161,7 @@ class ODTIm
 		QHash<QString, QString> map_ID_to_Name;
 		QHash<QString, QString> m_fontMap;
 		QHash<QString, DrawStyle> m_Styles;
+		QStack<QString> m_textStylesStack;
 		DrawStyle parDefaultStyle;
 		DrawStyle txtDefaultStyle;
 };

@@ -645,10 +645,17 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 
 void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT &tmpOStyle, int &posC)
 {
-	ObjStyleODT cStyle = tmpOStyle;
-	if (elem.hasAttribute("text:style-name"))
-		resolveStyle(cStyle, elem.attribute("text:style-name"));
-	applyCharacterStyle(tmpCStyle, cStyle);
+	ObjStyleODT odtStyle = tmpOStyle;
+	CharStyle cStyle = tmpCStyle;
+
+	QString textStyleName = elem.attribute("text:style-name");
+	if (textStyleName.length() > 0)
+	{
+		resolveStyle(odtStyle, textStyleName);
+		m_textStylesStack.push(textStyleName);
+	}
+	
+	applyCharacterStyle(cStyle, odtStyle);
 	if (!elem.hasChildNodes())
 		return;
 
@@ -659,7 +666,7 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 		if (spn.nodeName() == "#text")
 			txt = spn.nodeValue();
 		else if (spn.nodeName() == "text:span")
-			parseTextSpan(spEl, item, tmpStyle, tmpCStyle, cStyle, posC);
+			parseTextSpan(spEl, item, tmpStyle, cStyle, odtStyle, posC);
 		else if (spn.nodeName() == "text:s")
 		{
 			if (spEl.hasAttribute("text:c"))
@@ -682,9 +689,12 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
 			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
 			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
-			insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+			insertChars(item, txt, tmpStyle, cStyle, posC);
 		}
 	}
+
+	if (textStyleName.length() > 0)
+		m_textStylesStack.pop();
 }
 
 void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, ObjStyleODT &tmpOStyle, int &posC)
@@ -693,9 +703,10 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	CharStyle tmpCStyle = tmpStyle.charStyle();
 	ObjStyleODT pStyle = tmpOStyle;
 	QString parStyleName = "";
-	if (elem.toElement().hasAttribute("text:style-name"))
+
+	QString pStyleName = elem.toElement().attribute("text:style-name");
+	if (pStyleName.length() > 0)
 	{
-		QString pStyleName = elem.toElement().attribute("text:style-name");
 		resolveStyle(pStyle, pStyleName);
 		if (m_Styles.contains(pStyleName))
 		{
@@ -716,6 +727,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 				}
 			}
 		}
+		m_textStylesStack.push(pStyleName);
 	}
 	if ((pStyle.breakBefore == "column") && (item->itemText.length() > 0))
 	{
@@ -802,6 +814,9 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	item->itemText.insertChars(posC, SpecialChars::PARSEP);
 	item->itemText.applyStyle(posC, tmpStyle);
 	posC = item->itemText.length();
+
+	if (pStyleName.length() > 0)
+		m_textStylesStack.pop();
 }
 
 void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
@@ -1067,15 +1082,57 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 				m_fontMap[actStyle.fontName.value] = tmpOStyle.fontName;
 			}
 		}
-		else if (parDefaultStyle.fontName.valid)
+		else
 		{
-			tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
-			m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
-		}
-		else if (txtDefaultStyle.fontName.valid)
-		{
-			tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
-			m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
+			QString fontName;
+			QStack<QString> textStyleStack = m_textStylesStack;
+			while (!textStyleStack.isEmpty())
+			{
+				QString styleName = textStyleStack.pop();
+				if (!m_Styles.contains(styleName))
+					continue;
+				const DrawStyle& odtStyle = m_Styles[styleName];
+				if (odtStyle.fontName.valid)
+				{
+					if (m_fontMap.contains(odtStyle.fontName.value))
+						tmpOStyle.fontName = m_fontMap[odtStyle.fontName.value];
+					else
+						tmpOStyle.fontName = constructFontName(odtStyle.fontName.value, "");
+					if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
+					{
+						tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
+						m_fontMap[odtStyle.fontName.value] = tmpOStyle.fontName;
+					}
+					fontName = tmpOStyle.fontName;
+					break;
+				}
+				if (odtStyle.parentStyle.valid)
+				{
+					QVector<QString> parentStyles;
+					DrawStyle drawStyle = odtStyle;
+					while (drawStyle.parentStyle.valid)
+					{
+						if (!m_Styles.contains(drawStyle.parentStyle.value))
+							break;
+						parentStyles.prepend(drawStyle.parentStyle.value);
+						drawStyle = m_Styles[drawStyle.parentStyle.value];
+					}
+					if (parentStyles.count() > 0)
+						textStyleStack += parentStyles;
+				}
+			}
+			if (txtDefaultStyle.fontName.valid && fontName.isEmpty())
+			{
+				tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
+				m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
+				fontName = tmpOStyle.fontName;
+			}
+			if (parDefaultStyle.fontName.valid && fontName.isEmpty())
+			{
+				tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
+				m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
+				fontName = tmpOStyle.fontName;
+			}
 		}
 		if (actStyle.fontStyle.valid)
 			tmpOStyle.fontStyle = actStyle.fontStyle.value;
