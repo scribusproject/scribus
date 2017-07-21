@@ -556,6 +556,16 @@ void ContextMenu::createMenuItems_Selection()
 	//<-- Add Properties
 	addSeparator();
 	addAction(m_ScMW->scrActions["toolsProperties"]);
+	
+	bool containsTextFrame = false;
+	if (currItem && currItem->asTextFrame())
+		containsTextFrame = true;
+	if (m_doc->appMode == modeEditTable)
+		containsTextFrame = true;
+	if (!containsTextFrame && m_Sel.containsItemType(PageItem::TextFrame))
+		containsTextFrame = true;
+	if (containsTextFrame)
+		addAction(m_ScMW->scrActions["toolsText"]);
 	//-->
 
 }
