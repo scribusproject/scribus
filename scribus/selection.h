@@ -150,6 +150,8 @@ class SCRIBUS_API Selection : public QObject
 		QRectF getGroupRect();
 		void getVisualGroupRect(double *x, double *y, double *w, double *h);
 		QRectF getVisualGroupRect();
+		//!\brief Test if selection contains object of specified item type
+		bool containsItemType(PageItem::ItemType type) const;
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
 
