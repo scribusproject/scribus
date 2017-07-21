@@ -472,10 +472,9 @@ bool Selection::containsItemType(PageItem::ItemType type) const
 		return false;
 	SelectionList::ConstIterator it = m_SelList.begin();
 	SelectionList::ConstIterator itend = m_SelList.end();
-	PageItem::ItemType itemType = (*it)->itemType();
 	for (; it != itend; ++it)
 	{
-		if ((*it)->itemType() == itemType)
+		if ((*it)->itemType() == type)
 			return true;
 	}
 	return false;
