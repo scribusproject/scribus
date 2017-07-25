@@ -88,11 +88,11 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 		{
 			eColorSpaceType colorSpace = prof.colorSpace();
 			if (colorSpace == ColorSpace_Rgb)
-				profileIsValid = (cinfo.output_components == 3);
+				profileIsValid = (cinfo.num_components == 3);
 			if (colorSpace == ColorSpace_Cmyk)
-				profileIsValid = (cinfo.output_components == 4);
+				profileIsValid = (cinfo.num_components == 4);
 			if (colorSpace == ColorSpace_Gray)
-				profileIsValid = (cinfo.output_components == 1);
+				profileIsValid = (cinfo.num_components == 1);
 		}
 		if (profileIsValid)
 		{
