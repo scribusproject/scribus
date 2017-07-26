@@ -141,12 +141,13 @@ pl=a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z ,
 pl= kg, m, g, l, s, %, zł, km, mm, ft, yd, cm, MM, oz, pd,
 ## degrees + ranks (tytuły i stopnie)
 pl=inż. ,dr ,dr. ,doc. ,mgr ,mgr. ,prof. ,post. ,sierż. ,asp. ,kom. ,insp. ,szer. ,kpr. ,plut. ,chor. ,ppor. ,por. ,kpt. ,mjr ,mjr. ,ppłk. ,płk. ,gen. ,
+pl=sir ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
 ## bibliographic entries:
 pl=str. ,ryc. ,rys. ,tab. ,art. ,vol. ,nr ,tabl. ,rozdz. ,ss. ,s. ,t. ,z. ,
-## degrees, ranks:
-pl=sir ,prof. ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
 ## measure units:
 pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
+## additional:
+pl=że ,ul. ,pl. ,al. ,ok. , r.,ur. ,
 #   Polish short words - THE END
 
 
