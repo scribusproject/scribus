@@ -26,7 +26,8 @@ pageitem.cpp  -  description
 QChar SpecialChars::OBJECT       = QChar(25);
 QChar SpecialChars::TAB          = QChar(9);
 QChar SpecialChars::PARSEP       = QChar(13);
-QChar SpecialChars::LINEBREAK    = QChar(28);
+QChar SpecialChars::LINEBREAK    = QChar(0x2028);
+QChar SpecialChars::OLD_LINEBREAK = QChar(28);
 QChar SpecialChars::COLBREAK     = QChar(26);
 QChar SpecialChars::FRAMEBREAK   = QChar(27);
 QChar SpecialChars::SHYPHEN      = QChar(0xAD);

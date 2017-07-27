@@ -35,6 +35,7 @@ public:
 	static QChar TAB;
 	static QChar PARSEP;
 	static QChar LINEBREAK;
+	static QChar OLD_LINEBREAK;
 	static QChar COLBREAK;
 	static QChar FRAMEBREAK;
 	static QChar SHYPHEN;
