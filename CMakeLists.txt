@@ -270,7 +270,7 @@ endif()
 
 
 #Setup all the directories we will use
-cmake_policy(SET CMP0005 OLD)
+#cmake_policy(SET CMP0005 OLD)
 #SHARE
 if(WANT_VERSIONING)
 	set(SHAREDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/")
@@ -278,9 +278,9 @@ else()
 	set(SHAREDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}/")
 endif()
 if(NOT IS_ABSOLUTE ${SHAREDIR})
-	add_definitions("-DSHAREDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SHAREDIR}\\\"")
+	add_definitions(-DSHAREDIR="${CMAKE_INSTALL_PREFIX}/${SHAREDIR}")
 else()
-	add_definitions("-DSHAREDIR=\\\"${SHAREDIR}\\\"")
+	add_definitions(-DSHAREDIR="${SHAREDIR}")
 endif()
 
 #SHARE - use the default on Apple as TAG_VERSION is empty
@@ -298,9 +298,9 @@ else()
 	endif()
 endif()
 if(NOT IS_ABSOLUTE ${DOCDIR})
-	add_definitions("-DDOCDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DOCDIR}\\\"")
+	add_definitions(-DDOCDIR="${CMAKE_INSTALL_PREFIX}/${DOCDIR}")
 else()
-	add_definitions("-DDOCDIR=\\\"${DOCDIR}\\\"")
+	add_definitions(-DDOCDIR="${DOCDIR}")
 endif()
 
 #ICONS
@@ -310,25 +310,25 @@ else()
 	set(ICONDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/icons/")
 endif()
 if(NOT IS_ABSOLUTE ${ICONDIR})
-	add_definitions("-DICONDIR=\\\"${CMAKE_INSTALL_PREFIX}/${ICONDIR}\\\"")
+	add_definitions(-DICONDIR="${CMAKE_INSTALL_PREFIX}/${ICONDIR}")
 else()
-	add_definitions("-DICONDIR=\\\"${ICONDIR}\\\"")
+	add_definitions(-DICONDIR="${ICONDIR}")
 endif()
 
 #SAMPLES
 set(SAMPLESDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/samples/")
 if(NOT IS_ABSOLUTE ${SAMPLESDIR})
-	add_definitions("-DSAMPLESDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SAMPLESDIR}\\\"")
+	add_definitions(-DSAMPLESDIR="${CMAKE_INSTALL_PREFIX}/${SAMPLESDIR}")
 else()
-	add_definitions("-DSAMPLESDIR=\\\"${SAMPLESDIR}\\\"")
+	add_definitions(-DSAMPLESDIR="${SAMPLESDIR}")
 endif()
 
 #SCRIPTS
 set(SCRIPTSDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/scripts/")
 if(NOT IS_ABSOLUTE ${SCRIPTSDIR})
-	add_definitions("-DSCRIPTSDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SCRIPTSDIR}\\\"")
+	add_definitions(-DSCRIPTSDIR="${CMAKE_INSTALL_PREFIX}/${SCRIPTSDIR}")
 else()
-	add_definitions("-DSCRIPTSDIR=\\\"${SCRIPTSDIR}\\\"")
+	add_definitions(-DSCRIPTSDIR="${SCRIPTSDIR}")
 endif()
 
 #TEMPLATES
@@ -338,9 +338,9 @@ else()
 	set(TEMPLATEDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/templates/")
 endif()
 if(NOT IS_ABSOLUTE ${TEMPLATEDIR})
-	add_definitions("-DTEMPLATEDIR=\\\"${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}\\\"")
+	add_definitions(-DTEMPLATEDIR="${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}")
 else()
-	add_definitions("-DTEMPLATEDIR=\\\"${TEMPLATEDIR}\\\"")
+	add_definitions(-DTEMPLATEDIR="${TEMPLATEDIR}")
 endif()
 
 #QML
@@ -349,23 +349,23 @@ if(WIN32)
 else()
 	set(QMLDIR "${CMAKE_INSTALL_DATAROOTDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/qml/")
 endif()
-add_definitions("-DQMLDIR=\\\"${CMAKE_INSTALL_PREFIX}/${QMLDIR}\\\"")
+add_definitions(-DQMLDIR="${CMAKE_INSTALL_PREFIX}/${QMLDIR}")
 
 #DESKTOP
 set(DESKTOPDIR "${CMAKE_INSTALL_DATAROOTDIR}/applications/")
 if(NOT IS_ABSOLUTE ${DESKTOPDIR})
-	add_definitions("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
+	add_definitions(-DDESKTOPDIR="${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}")
 else()
-	add_definitions("-DDESKTOPDIR=\\\"${DESKTOPDIR}\\\"")
+	add_definitions(-DDESKTOPDIR="${DESKTOPDIR}")
 endif()
 
 #APPDATA
 
 set(APPDATADIR "${CMAKE_INSTALL_DATAROOTDIR}/metainfo/")
 if(NOT IS_ABSOLUTE ${APPDATADIRR})
-    add_definitions("-DAPPDATADIR=\\\"${CMAKE_INSTALL_PREFIX}/${APPDATADIR}\\\"")
+	add_definitions(-DAPPDATADIR="${CMAKE_INSTALL_PREFIX}/${APPDATADIR}")
 else()
-    add_definitions("-DAPPDATADIR=\\\"${APPDATADIR}\\\"")
+	add_definitions(-DAPPDATADIR="${APPDATADIR}")
 endif()
 
 
@@ -375,14 +375,14 @@ endif()
 #          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
 if (APPLICATION_DATA_DIR)
     message(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
-	add_definitions("-DAPPLICATION_DATA_DIR=\\\"${APPLICATION_DATA_DIR}\\\"")
+	add_definitions(-DAPPLICATION_DATA_DIR="${APPLICATION_DATA_DIR}")
 else()
     message(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
 endif()
 
 if (APPLICATION_CONFIG_DIR)
     message(STATUS "Using ApplicationConfigDir ${APPLICATION_CONFIG_DIR} instead of the platform default.")
-	add_definitions("-DAPPLICATION_CONFIG_DIR=\\\"${APPLICATION_CONFIG_DIR}\\\"")
+	add_definitions(-DAPPLICATION_CONFIG_DIR="${APPLICATION_CONFIG_DIR}")
 else()
     message(STATUS "Using standard ApplicationConfigDir. You can change it with -DAPPLICATION_CONFIG_DIR")
 endif()
@@ -401,7 +401,7 @@ if (APPLEBUNDLE)
 else()
 	set(LIBDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/")
 endif()
-add_definitions("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
+add_definitions(-DLIBDIR="${CMAKE_INSTALL_PREFIX}/${LIBDIR}")
 
 #PLUGINS
 if(WIN32)
@@ -413,7 +413,7 @@ else()
 		set(PLUGINDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/plugins/")
 	endif()
 endif()
-add_definitions("-DPLUGINDIR=\\\"${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}\\\"")
+add_definitions(-DPLUGINDIR="${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}")
 
 
 #INCLUDE
@@ -952,7 +952,7 @@ include (ConfigureChecks.cmake)
 		set(CONFIG_NAME config.h)
 	endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_NAME})
-add_definitions("-DHAVE_CONFIG_H")
+add_definitions(-DHAVE_CONFIG_H)
 
 
 
