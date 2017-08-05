@@ -81,7 +81,7 @@ public:
 	static bool isCJK(uint ch);
 	static bool isLetterRequiringSpaceAroundCJK(uint ch);
 	static bool isIgnorableCodePoint(uint ch);
-	static bool isArabicDiacritic(uint ch);
+	static bool isArabicModifierLetter(uint ch);
 };
 
 #endif

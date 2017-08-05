@@ -105,7 +105,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	StoryText copy() const;
 
 	// Find text in story
-	int indexOf(const QString &str, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
+	int indexOf(const QString &str, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive, int* pLen = 0) const;
 	int indexOf(QChar ch, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
 	
 	// Add, change, replace
