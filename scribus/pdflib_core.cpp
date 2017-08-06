@@ -5088,7 +5088,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					QByteArray output;
 					if (inPattern > 0)
 						patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
-					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
+					if (!PDF_ProcessItem(output, embedded, pag, PNr, true, pattern))
 						return false;
 					if (inPattern > 0)
 						patternStackPos.pop();
