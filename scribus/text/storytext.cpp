@@ -381,6 +381,14 @@ int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs, int
 			if (index == strLen)
 			{
 				foundIndex = i;
+				while ((index + i + diacriticsCounter) < storyLen)
+				{
+					const QChar &curChar = d->at(index + diacriticsCounter + i)->ch;
+					if (!SpecialChars::isArabicModifierLetter(curChar.unicode()) && (curChar.category() != QChar::Mark_NonSpacing))
+						break;
+					++diacriticsCounter;
+				}
+
 				if (pLen)
 					*pLen = strLen + diacriticsCounter;
 				break;
