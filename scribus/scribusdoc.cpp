@@ -5946,13 +5946,14 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 	if (masterPageMode())
 	{
-		double x1 = currentPage()->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
-		double y1 = currentPage()->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
-		double w1 = currentPage()->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
-		double h1 = currentPage()->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
+		ScPage* currPage = currentPage();
+		double x1 = currPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
+		double y1 = currPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
+		double w1 = currPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
+		double h1 = currPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
 		QRectF pageRect(x1, y1, w1, h1);
 		if (itemRect.intersects(pageRect))
-			retw = currentPage()->pageNr();
+			retw = currPage->pageNr();
 	}
 	else
 	{
