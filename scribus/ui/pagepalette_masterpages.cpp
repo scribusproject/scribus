@@ -212,32 +212,32 @@ void PagePalette_MasterPages::duplicateMasterPage()
 
 	if (m_doc->appMode == modeEditClip)
 		m_view->requestMode(submodeEndNodeEdit);
-	QString MasterPageName = dia->Answer->text();
-	bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-	MasterPageNameWrong |=  MasterPageName.isEmpty();
-	while (MasterPageNameWrong)
+	QString masterPageName = dia->Answer->text();
+	bool masterPageNameWrong = m_doc->MasterNames.contains(masterPageName);
+	masterPageNameWrong |= (masterPageName == CommonStrings::masterPageNormal);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormal);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+	masterPageNameWrong |=  masterPageName.isEmpty();
+	while (masterPageNameWrong)
 	{
 		if (!dia->exec())
 			return;
-		MasterPageName = dia->Answer->text();
-		bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-		MasterPageNameWrong |=  MasterPageName.isEmpty();
+		masterPageName = dia->Answer->text();
+		masterPageNameWrong = m_doc->MasterNames.contains(masterPageName);
+		masterPageNameWrong |= (masterPageName == CommonStrings::masterPageNormal);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormal);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+		masterPageNameWrong |=  masterPageName.isEmpty();
 	}
 	PrefsManager* prefsManager = PrefsManager::instance();
 	int inde = m_doc->MasterNames[m_currentPage];
 	int nr = m_doc->Pages->count();
 	ScPage* from = m_doc->Pages->at(inde);
-	ScPage* destination = m_doc->addMasterPage(nr, MasterPageName);
+	ScPage* destination = m_doc->addMasterPage(nr, masterPageName);
 	if (m_doc->pagePositioning() != singlePage)
 	{
 		int lp = dia->Links->currentIndex();
@@ -279,8 +279,8 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	}
 	//#8321 : incorrect selection of master page on new mp creation/duplication
 	//m_doc->setCurrentPage(destination);
-	updateMasterPageList(MasterPageName);
-	selectMasterPage(MasterPageName);
+	updateMasterPageList(masterPageName);
+	selectMasterPage(masterPageName);
 	uint oldItems = m_doc->Items->count();
 	uint end2 = m_doc->MasterItems.count();
 	int GrMax = m_doc->GroupCounter;
@@ -312,18 +312,18 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	for (uint a = end2; a < end3; ++a)
 	{
 		PageItem *newItem = m_doc->MasterItems.at(a);
-		newItem->OnMasterPage = MasterPageName;
-		newItem->OwnPage = m_doc->MasterNames[MasterPageName];
+		newItem->OnMasterPage = masterPageName;
+		newItem->OwnPage = m_doc->MasterNames[masterPageName];
 		if (!newItem->isGroup())
 			continue;
 
-		int masterPageIndex = m_doc->MasterNames[MasterPageName];
+		int masterPageIndex = m_doc->MasterNames[masterPageName];
 		PageItem_Group* group = newItem->asGroupFrame();
 		QList<PageItem*> groupList = group->groupItemList;
 		while (!groupList.isEmpty())
 		{
 			newItem = groupList.takeFirst();
-			newItem->OnMasterPage = MasterPageName;
+			newItem->OnMasterPage = masterPageName;
 			newItem->OwnPage = masterPageIndex;
 			if (newItem->isGroup())
 				groupList = newItem->asGroupFrame()->groupItemList + groupList;
@@ -339,7 +339,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 
 void PagePalette_MasterPages::newMasterPage()
 {
-	QString MasterPageName;
+	QString masterPageName;
 	int nr = m_doc->Pages->count();
 
 	QScopedPointer<NewTm> dia(new NewTm(this, tr("Name:"), tr("New MasterPage"), m_doc, tr("New Master Page %1").arg(nr)));
@@ -348,28 +348,28 @@ void PagePalette_MasterPages::newMasterPage()
 
 	if (m_doc->appMode == modeEditClip)
 		m_view->requestMode(submodeEndNodeEdit);
-	MasterPageName = dia->Answer->text();
-	bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-	MasterPageNameWrong |=  MasterPageName.isEmpty();
-	while (MasterPageNameWrong)
+	masterPageName = dia->Answer->text();
+	bool masterPageNameWrong = m_doc->MasterNames.contains(masterPageName);
+	masterPageNameWrong |= (masterPageName == CommonStrings::masterPageNormal);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormal);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+	masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+	masterPageNameWrong |=  masterPageName.isEmpty();
+	while (masterPageNameWrong)
 	{
 		if (!dia->exec())
 			return;
-		MasterPageName = dia->Answer->text();
-		MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-		MasterPageNameWrong |=  MasterPageName.isEmpty();
+		masterPageName = dia->Answer->text();
+		masterPageNameWrong = m_doc->MasterNames.contains(masterPageName);
+		masterPageNameWrong |= (masterPageName == CommonStrings::masterPageNormal);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormal);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+		masterPageNameWrong |=  masterPageName.isEmpty();
 	}
-	m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName));
+	m_doc->setCurrentPage(m_doc->addMasterPage(nr, masterPageName));
 	if (m_doc->pagePositioning() != singlePage)
 	{
 		int lp = dia->Links->currentIndex();
@@ -381,10 +381,10 @@ void PagePalette_MasterPages::newMasterPage()
 			lp++;
 		m_doc->Pages->at(nr)->LeftPg = lp;
 	}
-	updateMasterPageList(MasterPageName);
+	updateMasterPageList(masterPageName);
 	//#8321 : incorrect selection of master page on new mp creation/duplictation
-	//m_view->showMasterPage(m_doc->MasterNames[MasterPageName]);
-	selectMasterPage(MasterPageName);
+	//m_view->showMasterPage(m_doc->MasterNames[masterPageName]);
+	selectMasterPage(masterPageName);
 	m_view->reformPages();
 }
 
@@ -399,23 +399,23 @@ void PagePalette_MasterPages::importPage()
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	int nr = m_doc->Pages->count();
 
-	QString MasterPageName(dia->getMasterPageNameText());
-	QString MasterPageName2(MasterPageName);
+	QString masterPageName(dia->getMasterPageNameText());
+	QString masterPageName2(masterPageName);
 	int copyC = 1;
-	while (m_doc->MasterNames.contains(MasterPageName2))
+	while (m_doc->MasterNames.contains(masterPageName2))
 	{
-		MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
+		masterPageName2 = tr("Copy #%1 of ").arg(copyC)+masterPageName;
 		copyC++;
 	}
-	m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName2));
+	m_doc->setCurrentPage(m_doc->addMasterPage(nr, masterPageName2));
 	qApp->processEvents();
 	//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
 	//FileLoader::PasteItem as this call doesn't pass in the new destination page
-	m_doc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
+	m_doc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, masterPageName2);
 	qApp->processEvents();
 
-	updateMasterPageList(MasterPageName2);
-	m_view->showMasterPage(m_doc->MasterNames[MasterPageName2]);
+	updateMasterPageList(masterPageName2);
+	m_view->showMasterPage(m_doc->MasterNames[masterPageName2]);
 	qApp->restoreOverrideCursor();
 }
 
