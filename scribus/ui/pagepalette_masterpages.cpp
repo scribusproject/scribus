@@ -7,17 +7,18 @@ for which a new license (GPL+exception) is in place.
 #include "pagepalette_masterpages.h"
 
 #include <QApplication>
+#include <QCloseEvent>
+#include <QCursor>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QToolButton>
+#include <QInputDialog>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QToolTip>
-#include <QCursor>
-#include <QCloseEvent>
 #include <QMessageBox>
-#include <QInputDialog>
+#include <QScopedPointer>
+#include <QSpacerItem>
+#include <QToolButton>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 #include "appmodes.h"
 #include "canvasmode.h"
@@ -205,150 +206,24 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	while (m_doc->MasterNames.contains(potentialMasterPageName))
 		potentialMasterPageName = tr("Copy #%1 of %2").arg(copyC++).arg(m_currentPage);
 
-	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), m_doc, potentialMasterPageName);
-	if (dia->exec())
-	{
-		if (m_doc->appMode == modeEditClip)
-			m_view->requestMode(submodeEndNodeEdit);
-		QString MasterPageName = dia->Answer->text();
-		bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-		MasterPageNameWrong |=  MasterPageName.isEmpty();
-		while (MasterPageNameWrong)
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			MasterPageName = dia->Answer->text();
-			bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-			MasterPageNameWrong |=  MasterPageName.isEmpty();
-		}
-		PrefsManager* prefsManager = PrefsManager::instance();
-		int inde = m_doc->MasterNames[m_currentPage];
-		int nr = m_doc->Pages->count();
-		ScPage* from = m_doc->Pages->at(inde);
-		ScPage* destination = m_doc->addMasterPage(nr, MasterPageName);
-		if (m_doc->pagePositioning() != singlePage)
-		{
-			int lp = dia->Links->currentIndex();
-			if (lp == 0)
-				lp = 1;
-			else if (lp == static_cast<int>(dia->Links->count()-1))
-				lp = 0;
-			else
-				lp++;
-			destination->LeftPg = lp;
-		}
-		destination->initialMargins.setTop(from->initialMargins.top());
-		destination->initialMargins.setBottom(from->initialMargins.bottom());
-		if (m_doc->pageSets()[m_doc->pagePositioning()].Columns == 1)
-		{
-			destination->initialMargins.setLeft(from->initialMargins.left());
-			destination->initialMargins.setRight(from->initialMargins.right());
-		}
-		else
-		{
-			if (destination->LeftPg != from->LeftPg)
-			{
-				if (destination->LeftPg > 1)
-				{
-					destination->initialMargins.setRight(from->initialMargins.left());
-					destination->initialMargins.setLeft(from->initialMargins.left());
-				}
-				else
-				{
-					destination->initialMargins.setLeft(from->initialMargins.left());
-					destination->initialMargins.setRight(from->initialMargins.right());
-				}
-			}
-			else
-			{
-				destination->initialMargins.setLeft(from->initialMargins.left());
-				destination->initialMargins.setRight(from->initialMargins.right());
-			}
-		}
-		//#8321 : incorrect selection of master page on new mp creation/duplication
-		//m_doc->setCurrentPage(destination);
-		updateMasterPageList(MasterPageName);
-		selectMasterPage(MasterPageName);
-		uint oldItems = m_doc->Items->count();
-		uint end2 = m_doc->MasterItems.count();
-		int GrMax = m_doc->GroupCounter;
-		m_doc->m_Selection->clear();
-		if (oldItems>0)
-		{
-			ScLayers::iterator it;
-			m_doc->m_Selection->delaySignalsOn();
-			for (it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-			{
-				for (uint ite = 0; ite < oldItems; ++ite)
-				{
-					PageItem *itemToCopy = m_doc->Items->at(ite);
-					if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->LayerID))
-						m_doc->m_Selection->addItem(itemToCopy, true);
-				}
-				if (m_doc->m_Selection->count() != 0)
-				{
-					ScriXmlDoc ss;
-					QString buffer = ss.WriteElem(m_doc, m_doc->m_Selection);
-					ss.ReadElemToLayer(buffer, prefsManager->appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.fontPrefs.GFontSub, it->ID);
-					m_doc->m_Selection->clear();
-				}
-			}
-			m_doc->m_Selection->clear();
-			m_doc->m_Selection->delaySignalsOff();
-		}
-		uint end3 = m_doc->MasterItems.count();
-		for (uint a = end2; a < end3; ++a)
-		{
-			PageItem *newItem = m_doc->MasterItems.at(a);
-			newItem->OnMasterPage = MasterPageName;
-			newItem->OwnPage = m_doc->MasterNames[MasterPageName];
-			if (!newItem->isGroup())
-				continue;
+	QScopedPointer<NewTm> dia(new NewTm(this, tr("&Name:"), tr("New Master Page"), m_doc, potentialMasterPageName));
+	if (!dia->exec())
+		return;
 
-			int masterPageIndex = m_doc->MasterNames[MasterPageName];
-			PageItem_Group* group = newItem->asGroupFrame();
-			QList<PageItem*> groupList = group->groupItemList;
-			while (!groupList.isEmpty())
-			{
-				newItem = groupList.takeFirst();
-				newItem->OnMasterPage = MasterPageName;
-				newItem->OwnPage = masterPageIndex;
-				if (newItem->isGroup())
-					groupList = newItem->asGroupFrame()->groupItemList + groupList;
-			}
-		}
-		from->guides.copy(&destination->guides);
-		m_doc->GroupCounter = GrMax + 1;
-		m_view->Deselect(true);
-		m_doc->setLoading(false);
-		m_view->reformPages();
-		m_view->DrawNew();
-	}
-	delete dia;
-}
-
-void PagePalette_MasterPages::newMasterPage()
-{
-	QString MasterPageName;
-	int nr = m_doc->Pages->count();
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), m_doc, tr("New Master Page %1").arg(nr));
-	if (dia->exec())
+	if (m_doc->appMode == modeEditClip)
+		m_view->requestMode(submodeEndNodeEdit);
+	QString MasterPageName = dia->Answer->text();
+	bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
+	MasterPageNameWrong |=  MasterPageName.isEmpty();
+	while (MasterPageNameWrong)
 	{
-		if (m_doc->appMode == modeEditClip)
-			m_view->requestMode(submodeEndNodeEdit);
+		if (!dia->exec())
+			return;
 		MasterPageName = dia->Answer->text();
 		bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
 		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
@@ -357,73 +232,191 @@ void PagePalette_MasterPages::newMasterPage()
 		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
 		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
 		MasterPageNameWrong |=  MasterPageName.isEmpty();
-		while (MasterPageNameWrong)
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			MasterPageName = dia->Answer->text();
-			MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
-			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
-			MasterPageNameWrong |=  MasterPageName.isEmpty();
-		}
-		m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName));
-		if (m_doc->pagePositioning() != singlePage)
-		{
-			int lp = dia->Links->currentIndex();
-			if (lp == 0)
-				lp = 1;
-			else if (lp == static_cast<int>(dia->Links->count()-1))
-				lp = 0;
-			else
-				lp++;
-			m_doc->Pages->at(nr)->LeftPg = lp;
-		}
-		updateMasterPageList(MasterPageName);
-		//#8321 : incorrect selection of master page on new mp creation/duplictation
-		//m_view->showMasterPage(m_doc->MasterNames[MasterPageName]);
-		selectMasterPage(MasterPageName);
-		m_view->reformPages();
 	}
-	delete dia;
+	PrefsManager* prefsManager = PrefsManager::instance();
+	int inde = m_doc->MasterNames[m_currentPage];
+	int nr = m_doc->Pages->count();
+	ScPage* from = m_doc->Pages->at(inde);
+	ScPage* destination = m_doc->addMasterPage(nr, MasterPageName);
+	if (m_doc->pagePositioning() != singlePage)
+	{
+		int lp = dia->Links->currentIndex();
+		if (lp == 0)
+			lp = 1;
+		else if (lp == static_cast<int>(dia->Links->count()-1))
+			lp = 0;
+		else
+			lp++;
+		destination->LeftPg = lp;
+	}
+	destination->initialMargins.setTop(from->initialMargins.top());
+	destination->initialMargins.setBottom(from->initialMargins.bottom());
+	if (m_doc->pageSets()[m_doc->pagePositioning()].Columns == 1)
+	{
+		destination->initialMargins.setLeft(from->initialMargins.left());
+		destination->initialMargins.setRight(from->initialMargins.right());
+	}
+	else
+	{
+		if (destination->LeftPg != from->LeftPg)
+		{
+			if (destination->LeftPg > 1)
+			{
+				destination->initialMargins.setRight(from->initialMargins.left());
+				destination->initialMargins.setLeft(from->initialMargins.left());
+			}
+			else
+			{
+				destination->initialMargins.setLeft(from->initialMargins.left());
+				destination->initialMargins.setRight(from->initialMargins.right());
+			}
+		}
+		else
+		{
+			destination->initialMargins.setLeft(from->initialMargins.left());
+			destination->initialMargins.setRight(from->initialMargins.right());
+		}
+	}
+	//#8321 : incorrect selection of master page on new mp creation/duplication
+	//m_doc->setCurrentPage(destination);
+	updateMasterPageList(MasterPageName);
+	selectMasterPage(MasterPageName);
+	uint oldItems = m_doc->Items->count();
+	uint end2 = m_doc->MasterItems.count();
+	int GrMax = m_doc->GroupCounter;
+	m_doc->m_Selection->clear();
+	if (oldItems>0)
+	{
+		ScLayers::iterator it;
+		m_doc->m_Selection->delaySignalsOn();
+		for (it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+		{
+			for (uint ite = 0; ite < oldItems; ++ite)
+			{
+				PageItem *itemToCopy = m_doc->Items->at(ite);
+				if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->LayerID))
+					m_doc->m_Selection->addItem(itemToCopy, true);
+			}
+			if (m_doc->m_Selection->count() != 0)
+			{
+				ScriXmlDoc ss;
+				QString buffer = ss.WriteElem(m_doc, m_doc->m_Selection);
+				ss.ReadElemToLayer(buffer, prefsManager->appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.fontPrefs.GFontSub, it->ID);
+				m_doc->m_Selection->clear();
+			}
+		}
+		m_doc->m_Selection->clear();
+		m_doc->m_Selection->delaySignalsOff();
+	}
+	uint end3 = m_doc->MasterItems.count();
+	for (uint a = end2; a < end3; ++a)
+	{
+		PageItem *newItem = m_doc->MasterItems.at(a);
+		newItem->OnMasterPage = MasterPageName;
+		newItem->OwnPage = m_doc->MasterNames[MasterPageName];
+		if (!newItem->isGroup())
+			continue;
+
+		int masterPageIndex = m_doc->MasterNames[MasterPageName];
+		PageItem_Group* group = newItem->asGroupFrame();
+		QList<PageItem*> groupList = group->groupItemList;
+		while (!groupList.isEmpty())
+		{
+			newItem = groupList.takeFirst();
+			newItem->OnMasterPage = MasterPageName;
+			newItem->OwnPage = masterPageIndex;
+			if (newItem->isGroup())
+				groupList = newItem->asGroupFrame()->groupItemList + groupList;
+		}
+	}
+	from->guides.copy(&destination->guides);
+	m_doc->GroupCounter = GrMax + 1;
+	m_view->Deselect(true);
+	m_doc->setLoading(false);
+	m_view->reformPages();
+	m_view->DrawNew();
+}
+
+void PagePalette_MasterPages::newMasterPage()
+{
+	QString MasterPageName;
+	int nr = m_doc->Pages->count();
+
+	QScopedPointer<NewTm> dia(new NewTm(this, tr("Name:"), tr("New MasterPage"), m_doc, tr("New Master Page %1").arg(nr)));
+	if (!dia->exec())
+		return;
+
+	if (m_doc->appMode == modeEditClip)
+		m_view->requestMode(submodeEndNodeEdit);
+	MasterPageName = dia->Answer->text();
+	bool MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
+	MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
+	MasterPageNameWrong |=  MasterPageName.isEmpty();
+	while (MasterPageNameWrong)
+	{
+		if (!dia->exec())
+			return;
+		MasterPageName = dia->Answer->text();
+		MasterPageNameWrong = m_doc->MasterNames.contains(MasterPageName);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
+		MasterPageNameWrong |=  MasterPageName.isEmpty();
+	}
+	m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName));
+	if (m_doc->pagePositioning() != singlePage)
+	{
+		int lp = dia->Links->currentIndex();
+		if (lp == 0)
+			lp = 1;
+		else if (lp == static_cast<int>(dia->Links->count()-1))
+			lp = 0;
+		else
+			lp++;
+		m_doc->Pages->at(nr)->LeftPg = lp;
+	}
+	updateMasterPageList(MasterPageName);
+	//#8321 : incorrect selection of master page on new mp creation/duplictation
+	//m_view->showMasterPage(m_doc->MasterNames[MasterPageName]);
+	selectMasterPage(MasterPageName);
+	m_view->reformPages();
 }
 
 void PagePalette_MasterPages::importPage()
 {
-	MergeDoc *dia = new MergeDoc(this, true);
-	if (dia->exec())
+	QScopedPointer<MergeDoc> dia(new MergeDoc(this, true));
+	if (!dia->exec())
+		return;
+
+	if (m_doc->appMode == modeEditClip)
+		m_view->requestMode(submodeEndNodeEdit);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	int nr = m_doc->Pages->count();
+
+	QString MasterPageName(dia->getMasterPageNameText());
+	QString MasterPageName2(MasterPageName);
+	int copyC = 1;
+	while (m_doc->MasterNames.contains(MasterPageName2))
 	{
-		if (m_doc->appMode == modeEditClip)
-			m_view->requestMode(submodeEndNodeEdit);
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		int nr = m_doc->Pages->count();
-
-		QString MasterPageName(dia->getMasterPageNameText());
-		QString MasterPageName2(MasterPageName);
-		int copyC = 1;
-		while (m_doc->MasterNames.contains(MasterPageName2))
-		{
-			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
-			copyC++;
-		}
-		m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName2));
-		qApp->processEvents();
-		//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
-		//FileLoader::PasteItem as this call doesn't pass in the new destination page
-		m_doc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
-		qApp->processEvents();
-
-		updateMasterPageList(MasterPageName2);
-		m_view->showMasterPage(m_doc->MasterNames[MasterPageName2]);
-		qApp->restoreOverrideCursor();
+		MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
+		copyC++;
 	}
-	delete dia;
+	m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName2));
+	qApp->processEvents();
+	//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
+	//FileLoader::PasteItem as this call doesn't pass in the new destination page
+	m_doc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
+	qApp->processEvents();
+
+	updateMasterPageList(MasterPageName2);
+	m_view->showMasterPage(m_doc->MasterNames[MasterPageName2]);
+	qApp->restoreOverrideCursor();
 }
 
 void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
