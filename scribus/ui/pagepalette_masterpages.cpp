@@ -278,8 +278,9 @@ void PagePalette_MasterPages::duplicateMasterPage()
 				destination->initialMargins.setRight(from->initialMargins.right());
 			}
 		}
-		//#8321 : incorrect selection of master page on new mp creation/duplictation
+		//#8321 : incorrect selection of master page on new mp creation/duplication
 		//m_doc->setCurrentPage(destination);
+		updateMasterPageList(MasterPageName);
 		selectMasterPage(MasterPageName);
 		uint oldItems = m_doc->Items->count();
 		uint end2 = m_doc->MasterItems.count();
@@ -314,11 +315,24 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			PageItem *newItem = m_doc->MasterItems.at(a);
 			newItem->OnMasterPage = MasterPageName;
 			newItem->OwnPage = m_doc->MasterNames[MasterPageName];
+			if (!newItem->isGroup())
+				continue;
+
+			int masterPageIndex = m_doc->MasterNames[MasterPageName];
+			PageItem_Group* group = newItem->asGroupFrame();
+			QList<PageItem*> groupList = group->groupItemList;
+			while (!groupList.isEmpty())
+			{
+				newItem = groupList.takeFirst();
+				newItem->OnMasterPage = MasterPageName;
+				newItem->OwnPage = masterPageIndex;
+				if (newItem->isGroup())
+					groupList = newItem->asGroupFrame()->groupItemList + groupList;
+			}
 		}
 		from->guides.copy(&destination->guides);
 		m_doc->GroupCounter = GrMax + 1;
 		m_view->Deselect(true);
-		updateMasterPageList(MasterPageName);
 		m_doc->setLoading(false);
 		m_view->reformPages();
 		m_view->DrawNew();
