@@ -1892,7 +1892,7 @@ void PageItem_TextFrame::layout()
 				}
 				//set left indentation
 				current.leftIndent = 0.0;
-				if (current.addLeftIndent && (maxDX == 0 || DropCmode || BulNumMode))
+				if (current.addLeftIndent && ((maxDX == 0) || DropCmode || BulNumMode))
 				{
 					current.leftIndent = style.leftMargin() + autoLeftIndent;
 					if (itemText.isBlockStart(a))
@@ -3753,6 +3753,11 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			}
 			if (lineBlendmode() != 0)
 				p->setBlendModeStroke(0);
+		}
+		else if (isAnnotation())
+		{
+			if (annotation().borderColor() == CommonStrings::None)
+				no_stroke = true;
 		}
 	}
 	p->setFillMode(ScPainter::Solid);
