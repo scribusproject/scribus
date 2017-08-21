@@ -2526,10 +2526,10 @@ void PageItem_TextFrame::layout()
 				{
 					// make sure that Offset inserted only after the suffix
 					// loop over previous current.glyphs and set their extraWidth to 0.0
-					for (int i = 0; i < current.glyphs.size(); i++)
+					for (int j = 0; j < current.glyphs.size(); j++)
 					{
-						if (i != currentIndex)
-							current.glyphs[i].extraWidth = 0.0;
+						if (j != currentIndex)
+							current.glyphs[j].extraWidth = 0.0;
 					}
 				}
 				// set the offset for Drop Cap, Bullet & Number List
