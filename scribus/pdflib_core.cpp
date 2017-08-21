@@ -2774,7 +2774,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PutPage(PDF_TransparenzStroke(ite));
 							if (ite->NamedLStyle.isEmpty())
 							{
-								if (!ite->strokePattern().isEmpty())
+								ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+								if (strokePattern)
 								{
 									if (ite->patternStrokePath)
 									{
@@ -2828,7 +2829,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							PutPage(PDF_TransparenzStroke(ite));
 						if (ite->NamedLStyle.isEmpty())
 						{
-							if (!ite->strokePattern().isEmpty())
+							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
 								{
@@ -2947,7 +2949,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PutPage(PDF_TransparenzStroke(ite));
 							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
-								if (!ite->strokePattern().isEmpty())
+								ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+								if (strokePattern)
 								{
 									if (ite->patternStrokePath)
 									{
@@ -3047,7 +3050,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PutPage(PDF_TransparenzStroke(ite));
 							if (ite->NamedLStyle.isEmpty())
 							{
-								if (!ite->strokePattern().isEmpty())
+								ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+								if (strokePattern)
 								{
 									if (ite->patternStrokePath)
 									{
@@ -4479,7 +4483,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					if (!ite->strokePattern().isEmpty())
+					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
 						{
@@ -4600,7 +4605,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					if (!ite->strokePattern().isEmpty())
+					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
 						{
@@ -4652,7 +4658,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				tmp += PDF_TransparenzStroke(ite);
 			if (ite->NamedLStyle.isEmpty())
 			{
-				if (!ite->strokePattern().isEmpty())
+				ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+				if (strokePattern)
 				{
 					if (ite->patternStrokePath)
 					{
@@ -4772,7 +4779,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					if (!ite->strokePattern().isEmpty())
+					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
 						{
@@ -4873,7 +4881,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					if (!ite->strokePattern().isEmpty())
+					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
 						{
@@ -4968,7 +4977,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							tmp += PDF_TransparenzStroke(ite);
 						if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 						{
-							if (!ite->strokePattern().isEmpty())
+							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
 								{
@@ -5440,7 +5450,8 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	if (ite->NamedLStyle.isEmpty())
 	{
-		if (!ite->strokePattern().isEmpty())
+		ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+		if (strokePattern)
 		{
 			tmp += SetClipPathArray(&arrow);
 			QByteArray tmpOut;
@@ -6476,18 +6487,19 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 	if (kind == 0)
 	{
 		QString itemPattern = currItem->pattern();
-		if (itemPattern.isEmpty() || !doc.docPatterns.contains(itemPattern))
+		pat = doc.checkedPattern(itemPattern);
+		if (!pat)
 		{
 			if (currItem->fillColor() != CommonStrings::None)
 				output += putColor(currItem->fillColor(), currItem->fillShade(), true);
 			return true;
 		}
-		pat = &doc.docPatterns[currItem->pattern()];
 	}
 	else if (kind == 1)
 	{
 		QString strokePattern = currItem->strokePattern();
-		if (strokePattern.isEmpty() || !doc.docPatterns.contains(strokePattern))
+		pat = doc.checkedPattern(strokePattern);
+		if (!pat)
 		{
 			if (currItem->lineColor() != CommonStrings::None)
 			{
@@ -6496,14 +6508,13 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 			}
 			return true;
 		}
-		pat = &doc.docPatterns[currItem->strokePattern()];
 	}
 	else if (kind == 2)
 	{
 		QString patternMask = currItem->patternMask();
-		if (patternMask.isEmpty() || !doc.docPatterns.contains(patternMask))
+		pat = doc.checkedPattern(patternMask);
+		if (!pat)
 			return true;
-		pat = &doc.docPatterns[currItem->patternMask()];
 	}
 	else
 		return false;

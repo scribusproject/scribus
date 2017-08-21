@@ -1849,7 +1849,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 				{
-					if ((!c->strokePattern().isEmpty()) && (c->patternStrokePath))
+					ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+					if ((strokePattern) && (c->patternStrokePath))
 					{
 						QPainterPath path = c->PoLine.toQPainterPath(false);
 						HandleBrushPattern(c, path, a, PNr, sep, farb, master);
@@ -1861,11 +1862,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 						SetClipPath(&c->PoLine);
 						PS_closepath();
-						if (!c->strokePattern().isEmpty())
+						if (strokePattern)
 							HandleStrokePattern(c);
 						else if (c->GrTypeStroke > 0)
 							HandleGradientFillStroke(c);
-						else
+						else if (c->lineColor() != CommonStrings::None)
 						{
 							SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1954,7 +1955,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 				{
-					if ((!c->strokePattern().isEmpty()) && (c->patternStrokePath))
+					ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+					if ((strokePattern) && (c->patternStrokePath))
 					{
 						QPainterPath path = c->PoLine.toQPainterPath(false);
 						HandleBrushPattern(c, path, a, PNr, sep, farb, master);
@@ -1963,11 +1965,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					{
 						SetClipPath(&c->PoLine);
 						PS_closepath();
-						if (!c->strokePattern().isEmpty())
+						if (strokePattern)
 							HandleStrokePattern(c);
 						else if (c->GrTypeStroke > 0)
 							HandleGradientFillStroke(c);
-						else
+						else if (c->lineColor() != CommonStrings::None)
 						{
 							SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1998,7 +2000,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 		case PageItem::Line:
 			if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 			{
-				if (!c->strokePattern().isEmpty())
+				ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+				if (strokePattern)
 				{
 					if (c->patternStrokePath)
 					{
@@ -2085,7 +2088,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					if ((!c->strokePattern().isEmpty()) && (c->patternStrokePath))
+					ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+					if (strokePattern && (c->patternStrokePath))
 					{
 						QPainterPath path = c->PoLine.toQPainterPath(false);
 						HandleBrushPattern(c, path, a, PNr, sep, farb, master);
@@ -2094,7 +2098,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					{
 						SetClipPath(&c->PoLine);
 						PS_closepath();
-						if (!c->strokePattern().isEmpty())
+						if (strokePattern)
 							HandleStrokePattern(c);
 						else if (c->GrTypeStroke > 0)
 							HandleGradientFillStroke(c);
@@ -2141,7 +2145,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					if ((!c->strokePattern().isEmpty()) && (c->patternStrokePath))
+					ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+					if (strokePattern && (c->patternStrokePath))
 					{
 						QPainterPath path = c->PoLine.toQPainterPath(false);
 						HandleBrushPattern(c, path, a, PNr, sep, farb, master);
@@ -2149,7 +2154,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					else
 					{
 						SetClipPath(&c->PoLine, false);
-						if (!c->strokePattern().isEmpty())
+						if (strokePattern)
 							HandleStrokePattern(c);
 						else if (c->GrTypeStroke > 0)
 							HandleGradientFillStroke(c);
@@ -2222,7 +2227,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					PS_save();
 					if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 					{
-						if ((!c->strokePattern().isEmpty()) && (c->patternStrokePath))
+						ScPattern* strokePattern = Doc->checkedPattern(c->strokePattern());
+						if (strokePattern && (c->patternStrokePath))
 						{
 							QPainterPath path = c->PoLine.toQPainterPath(false);
 							HandleBrushPattern(c, path, a, PNr, sep, farb, master);
@@ -2230,7 +2236,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						else
 						{
 							SetClipPath(&c->PoLine, false);
-							if (!c->strokePattern().isEmpty())
+							if (strokePattern)
 								HandleStrokePattern(c);
 							else if (c->GrTypeStroke > 0)
 								HandleGradientFillStroke(c);
@@ -2879,7 +2885,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				{
 					if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
 					{
-						if ((!ite->strokePattern().isEmpty()) && (ite->patternStrokePath))
+						ScPattern* strokePattern = Doc->checkedPattern(ite->strokePattern());
+						if (strokePattern && (ite->patternStrokePath))
 						{
 							QPainterPath path = ite->PoLine.toQPainterPath(false);
 							HandleBrushPattern(ite, path, page, PNr, sep, farb, true);
@@ -2891,11 +2898,11 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 							SetClipPath(&ite->PoLine);
 							PS_closepath();
-							if (!ite->strokePattern().isEmpty())
+							if (strokePattern)
 								HandleStrokePattern(ite);
 							else if (ite->GrTypeStroke > 0)
 								HandleGradientFillStroke(ite);
-							else
+							else if (ite->lineColor() != CommonStrings::None)
 							{
 								SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k);
 								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2935,7 +2942,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 						PS_save();
 						if (ite->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 						{
-							if ((!ite->strokePattern().isEmpty()) && (ite->patternStrokePath))
+							ScPattern* strokePattern = Doc->checkedPattern(ite->strokePattern());
+							if (strokePattern && (ite->patternStrokePath))
 							{
 								QPainterPath path = ite->PoLine.toQPainterPath(false);
 								HandleBrushPattern(ite, path, mPage, PNr, sep, farb, true);
@@ -2943,7 +2951,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							else
 							{
 								SetClipPath(&ite->PoLine, false);
-								if (!ite->strokePattern().isEmpty())
+								if (strokePattern)
 									HandleStrokePattern(ite);
 								else if (ite->GrTypeStroke > 0)
 									HandleGradientFillStroke(ite);
@@ -4244,7 +4252,8 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	arrow.map(arrowTrans);
 	if (ite->NamedLStyle.isEmpty())
 	{
-		if (!ite->strokePattern().isEmpty())
+		ScPattern* strokePattern = m_Doc->checkedPattern(ite->strokePattern());
+		if (strokePattern)
 		{
 			PS_newpath();
 			SetClipPath(&arrow);
