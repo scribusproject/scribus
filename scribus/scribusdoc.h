@@ -698,7 +698,7 @@ public:
 	/*!
 	* @brief Check pattern with specified name and return it if valid
 	*/
-	ScPattern* checkedPattern(QString &name);
+	ScPattern* checkedPattern(const QString &name);
 	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/

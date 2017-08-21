@@ -3907,7 +3907,7 @@ void ScribusDoc::removePattern(QString name)
 	}
 }
 
-ScPattern* ScribusDoc::checkedPattern(QString &name)
+ScPattern* ScribusDoc::checkedPattern(const QString &name)
 {
 	if (name.isEmpty() || !docPatterns.contains(name))
 		return 0;
