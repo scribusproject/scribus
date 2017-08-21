@@ -1419,40 +1419,44 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			m_docCellStyles[i].replaceNamedResources(newNames);
 	}
 
-	QHash<QString,ScPattern>::Iterator it;
-	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	QHash<QString,ScPattern>::Iterator it = docPatterns.begin();
+	while (it != docPatterns.end())
 	{
 		if (newNames.patterns().contains(it.key()))
-			docPatterns.erase(it);
-		else
 		{
-			ScPattern pa = *it;
-			for (int o = 0; o < pa.items.count(); o++)
-			{
-				pa.items.at(o)->replaceNamedResources(newNames);
-			}
+			it = docPatterns.erase(it);
+			continue;
 		}
+
+		ScPattern pa = *it;
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			pa.items.at(o)->replaceNamedResources(newNames);
+		}
+		++it;
 	}
 
-	QHash<QString,VGradient>::Iterator itg;
-	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
+	QHash<QString,VGradient>::Iterator itg = docGradients.begin();
+	while (itg != docGradients.end())
 	{
 		if (newNames.gradients().contains(itg.key()))
-			docGradients.erase(itg);
-		else
 		{
-			QMap<QString,QString>::ConstIterator itc;
-			QList<VColorStop*> cstops = itg.value().colorStops();
-			for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+			itg = docGradients.erase(itg);
+			continue;
+		}
+			
+		QMap<QString,QString>::ConstIterator itc;
+		QList<VColorStop*> cstops = itg.value().colorStops();
+		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		{
+			itc = newNames.colors().find(cstops.at(cst)->name);
+			if (itc != newNames.colors().end())
 			{
-				itc = newNames.colors().find(cstops.at(cst)->name);
-				if (itc != newNames.colors().end())
-				{
-					if (*itc != CommonStrings::None)
-						cstops.at(cst)->name = *itc;
-				}
+				if (*itc != CommonStrings::None)
+					cstops.at(cst)->name = *itc;
 			}
 		}
+		++itg;
 	}
 	
 	if (newNames.colors().count() > 0 || newNames.fonts().count() > 0)
