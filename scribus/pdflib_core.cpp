@@ -2801,7 +2801,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									PutPage("h\nS\n");
 									PutPage("Q\n");
 								}
-								else
+								else if (ite->lineColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nS\n");
@@ -2859,7 +2859,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PutPage(FToStr(ite->width())+" 0 l\n");
 								PutPage("S\nQ\n");
 							}
-							else
+							else if (ite->lineColor() != CommonStrings::None)
 							{
 								PutPage("0 0 m\n");
 								PutPage(FToStr(ite->width())+" 0 l\n");
@@ -2975,7 +2975,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									PutPage("h\nS\n");
 									PutPage("Q\n");
 								}
-								else
+								else if (ite->lineColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nS\n");
@@ -3077,7 +3077,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									PutPage("S\n");
 									PutPage("Q\n");
 								}
-								else
+								else if (ite->lineColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite, false));
 									PutPage("S\n");
