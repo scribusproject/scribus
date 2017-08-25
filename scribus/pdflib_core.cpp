@@ -2140,7 +2140,7 @@ static void dumpCFF(QString name, cff::CFF font)
 PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
 {
 	QByteArray font;
-	face.RawData(font);
+	face.rawData(font);
 	/*dumpFont(face.psName() + ".ttf", font);*/
 	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
@@ -2170,7 +2170,7 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
 {
 //	QByteArray sfnt; //TEST
-//	face.RawData(sfnt);
+//	face.rawData(sfnt);
 //	QByteArray cff = sfnt::getTable(sfnt, "CFF ");
 //	dumpFont(fontName, cff);
 //	cff::CFF cfffont(cff);
@@ -2183,7 +2183,7 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 //	// END
 	
 	QByteArray font, data;
-	face.RawData(data);
+	face.rawData(data);
 	font = sfnt::getTable(data, "CFF ");
 	/*dumpFont(face.psName() + ".cff", font);*/
 	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
@@ -2312,7 +2312,7 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
 	{
 		ScFace::FontFormat fformat = face.format();
 		QByteArray bb;
-		face.RawData(bb);
+		face.rawData(bb);
 		if (fformat == ScFace::PFB)
 		{
 			embeddedFontObject = PDF_EmbedType1BinaryFontObject(bb);

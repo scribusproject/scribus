@@ -867,7 +867,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 /*
 //debug
 			QByteArray bb;
-			t->RawData(bb);
+			t->rawData(bb);
 			QFile dump(QString("/tmp/fonts/%1-%2").arg(ts).arg(psName));
 			dump.open(IO_WriteOnly);
 			QDataStream os(&dump);

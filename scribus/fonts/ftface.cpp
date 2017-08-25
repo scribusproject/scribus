@@ -424,7 +424,7 @@ QString FtFace::uniGlyphNameToUnicode(const QString& glyphName) const
 	return uniStr.toUpper();
 }
 
-void FtFace::RawData(QByteArray & bb) const
+void FtFace::rawData(QByteArray & bb) const
 {
 	FT_Stream fts = ftFace()->stream;
 	bb.resize(fts->size);

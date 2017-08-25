@@ -195,8 +195,8 @@ public:
 		virtual gid_type char2CMap(uint /*ch*/)         const { return 0; }
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
-		virtual bool EmbedFont(QByteArray &/*str*/)       const { return false; }
-		virtual void RawData(QByteArray & /*bb*/)      const {}
+		virtual bool embedFont(QByteArray &/*str*/)       const { return false; }
+		virtual void rawData(QByteArray & /*bb*/)      const {}
 		virtual FT_Face ftFace() const { return 0; }
 		virtual void* hbFont();
 
@@ -238,8 +238,8 @@ public:
 	bool operator!=(const ScFace& other) const { return ! (*this == other); }
 
 
-	bool EmbedFont(QByteArray &str);
-	void RawData(QByteArray & bb);
+	bool embedFont(QByteArray &str);
+	void rawData(QByteArray & bb);
 	bool glyphNames(FaceEncoding& gList);
 
 	/// prevent unloading of face data

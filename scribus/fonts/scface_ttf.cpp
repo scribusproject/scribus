@@ -102,10 +102,10 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
 	return true;
 }
 
-void ScFace_ttf::RawData(QByteArray & bb) const {
+void ScFace_ttf::rawData(QByteArray & bb) const {
 	if (formatCode == ScFace::TTCF) {
 		QByteArray coll;
-		FtFace::RawData(coll);
+		FtFace::rawData(coll);
 		// access table for faceIndex
 		if (faceIndex >= static_cast<int>(sfnt::word(coll, 8)))
 		{
@@ -155,17 +155,17 @@ void ScFace_ttf::RawData(QByteArray & bb) const {
 		}
 	}
 	else if (formatCode == ScFace::TYPE42) {
-		FtFace::RawData(bb);
+		FtFace::rawData(bb);
 	}
 	else {
-		FtFace::RawData(bb);
+		FtFace::rawData(bb);
 	}
 }
 
-bool ScFace_ttf::EmbedFont(QByteArray &str) const
+bool ScFace_ttf::embedFont(QByteArray &str) const
 {
     QByteArray bb;
-    FtFace::RawData(bb);
+    FtFace::rawData(bb);
 	if (formatCode == ScFace::TYPE42) {
 		//easy:
 		str = bb;
