@@ -1526,8 +1526,9 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		glyphWidths.append(qRound(np1.x()));
 
 		PdfId charProcObject = writer.newObject();
-		charProcs.append(Pdf::toName(gl[ig.key()].second)+" "+Pdf::toPdf(charProcObject)+" 0 R\n");
-		encoding += Pdf::toName(gl[ig.key()].second)+" ";
+		const ScFace::GlyphEncoding& glEncoding = gl[ig.key()];
+		charProcs.append(Pdf::toName(glEncoding.glyphName)+" "+Pdf::toPdf(charProcObject)+" 0 R\n");
+		encoding += Pdf::toName(glEncoding.glyphName)+" ";
 		glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
 		writer.startObj(charProcObject);
 		if (Options.Compress)
@@ -1538,10 +1539,9 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream");
 		writer.endObj(charProcObject);
 
-		QString tmp, tmp2;
+		QString tmp;
 		tmp.sprintf("%02X", glyphCount);
-		tmp2.sprintf("%04X", gl[ig.key()].first);
-		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
+		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(glEncoding.toUnicode) + ">\n";
 		toUnicodeMapCounter++;
 		if (toUnicodeMapCounter == 100)
 		{
@@ -1843,7 +1843,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 			PutDoc(Pdf::toPdf(gid)+" ["+Pdf::toPdf(static_cast<int>(face.glyphWidth(*git)* 1000))+"] " );
 			QString tmp, tmp2;
 			tmp.sprintf("%04X", gid);
-			tmp2.sprintf("%04X", gl.value(*git).first);
+			tmp2 = gl.value(*git).toUnicode;
 			toUnicodeMap += "<" + Pdf::toAscii(tmp)+ "> <" + Pdf::toAscii(tmp2) + ">\n";
 			toUnicodeMapCounter++;
 			if (toUnicodeMapCounter == 100)
@@ -1969,17 +1969,18 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 		{
 			uint glyph = 224 * Fc + ww2 - 32;
 			ScFace::FaceEncoding::ConstIterator glIt = gl.find(glyph);
-			if (glIt != gl.cend() && !glIt.value().second.isEmpty())
+			if (glIt != gl.cend() && !glIt.value().glyphName.isEmpty())
 			{
+				const ScFace::GlyphEncoding& glEncoding = glIt.value();
 				if (startOfSeq)
 				{
 					PutDoc(Pdf::toPdf(ww2)+" ");
 					startOfSeq = false;
 				}
-				PutDoc(Pdf::toName(glIt.value().second)+" ");
+				PutDoc(Pdf::toName(glEncoding.glyphName)+" ");
 				QString tmp, tmp2;
 				tmp.sprintf("%02X", ww2);
-				tmp2.sprintf("%04X", glIt.value().first);
+				tmp2 = glEncoding.toUnicode;
 				toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
 				//QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
 				toUnicodeMapCounter++;
@@ -2152,13 +2153,13 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
 	
-	ScFace::FaceEncoding fullEncoding, subEncoding;
+	ScFace::FaceEncoding fullEncoding;
 	QMap<uint,uint> glyphmap;
 	face.glyphNames(fullEncoding);
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
-		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
+		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
 	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
@@ -2196,13 +2197,13 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
 
-	ScFace::FaceEncoding fullEncoding, subEncoding;
+	ScFace::FaceEncoding fullEncoding;
 	QMap<uint,uint> glyphmap;
 	face.glyphNames(fullEncoding);
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
-		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
+		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
 	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);

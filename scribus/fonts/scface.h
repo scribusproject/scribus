@@ -83,9 +83,16 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
-    typedef uint gid_type;
-    typedef uint ucs4_type;
-    typedef QMap<gid_type, std::pair<ucs4_type, QString> > FaceEncoding;
+	typedef uint gid_type;
+	typedef uint ucs4_type;
+	struct GlyphEncoding
+	{
+		GlyphEncoding() { charcode = 0; toUnicode = "0000"; }
+		ucs4_type charcode;
+		QString   glyphName;
+		QString   toUnicode;
+	};
+	typedef QMap<gid_type, GlyphEncoding> FaceEncoding;
 
 	static const gid_type CONTROL_GLYPHS = 2000000000; // 2 billion
 
@@ -198,7 +205,7 @@ public:
 
 		virtual bool isCIDKeyed() const { return isCIDFont; }
 		virtual bool hasNames() const { return hasGlyphNames; }
-		virtual bool glyphNames(QMap<gid_type, std::pair<ucs4_type, QString> >& gList) const;
+		virtual bool glyphNames(ScFace::FaceEncoding& gList) const;
 
 		// these use the cache:
 		virtual qreal       glyphWidth(gid_type gl, qreal sz)   const;
@@ -233,7 +240,7 @@ public:
 
 	bool EmbedFont(QByteArray &str);
 	void RawData(QByteArray & bb);
-	bool glyphNames(QMap<gid_type, std::pair<ucs4_type, QString> >& gList);
+	bool glyphNames(FaceEncoding& gList);
 
 	/// prevent unloading of face data
 	void increaseUsage() const;

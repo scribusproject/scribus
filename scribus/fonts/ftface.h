@@ -122,6 +122,7 @@ protected:
 	mutable qreal m_strikeoutPos;
 	mutable qreal m_strokeWidth;
 
+	QString uniGlyphNameToUnicode(const QString& glyphName) const;
 };
 
 #endif

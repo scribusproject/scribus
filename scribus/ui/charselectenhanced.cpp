@@ -110,8 +110,8 @@ void CharSelectEnhanced::scanFont()
 	for (ScFace::FaceEncoding::iterator it=glyphs.begin();
 	        it != glyphs.end(); ++it)
 	{
-		charcode = it.value().first;
-		gname = it.value().second;
+		charcode = it.value().charcode;
+		gname = it.value().glyphName;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020) && (charcode <= 0x007F))
 			charactersLatin1.append(charcode);

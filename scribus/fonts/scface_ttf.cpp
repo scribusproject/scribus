@@ -91,7 +91,11 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
 	charcode = FT_Get_First_Char(face, &gindex);
 	while (gindex != 0)
 	{
-		GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), adobeGlyphName(charcode)));
+		ScFace::GlyphEncoding glEncoding;
+		glEncoding.charcode  = charcode;
+		glEncoding.glyphName = adobeGlyphName(charcode);
+		glEncoding.toUnicode = QString().sprintf("%04X", charcode);
+		GList.insert(gindex, glEncoding);
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
 
