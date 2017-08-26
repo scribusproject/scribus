@@ -7191,116 +7191,116 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 	MarginStruct optBleeds(doc->pdfOptions().bleeds);
 	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->pdfOptions(), ScCore->PDFXProfiles, m_prefsManager->appPrefs.fontPrefs.AvailFonts, ScCore->PrinterProfiles);
-	if (dia.exec())
+	if (!dia.exec())
+		return;
+
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	dia.updateDocOptions();
+	doc->pdfOptions().firstUse = false;
+	ReOrderText(doc, view);
+	QString pageString(dia.getPagesString());
+	std::vector<int> pageNs;
+	uint pageNumbersSize;
+	QMap<int,QPixmap> allThumbs, thumbs;
+	int components = dia.colorSpaceComponents();
+	QString nam(dia.cmsDescriptor());
+	QString fileName = doc->pdfOptions().fileName;
+	QString errorMsg;
+	parsePagesString(pageString, &pageNs, doc->DocPages.count());
+	if (doc->pdfOptions().useDocBleeds)
+		doc->pdfOptions().bleeds = *doc->bleeds();
+
+	// If necssary, generate thumbnails in one go : if color management is enabled
+	// we gain lots of time by avoiding multiple color management settings change
+	// and hence multiple reloading of images
+	bool cmsCorr = false;
+	if (doc->pdfOptions().Thumbnails &&
+		doc->cmsSettings().CMSinUse &&
+		doc->cmsSettings().GamutCheck)
 	{
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		dia.updateDocOptions();
-		doc->pdfOptions().firstUse = false;
-		ReOrderText(doc, view);
-		QString pageString(dia.getPagesString());
-		std::vector<int> pageNs;
-		uint pageNumbersSize;
-		QMap<int,QPixmap> allThumbs, thumbs;
-		int components = dia.colorSpaceComponents();
-		QString nam(dia.cmsDescriptor());
-		QString fileName = doc->pdfOptions().fileName;
-		QString errorMsg;
-		parsePagesString(pageString, &pageNs, doc->DocPages.count());
-		if (doc->pdfOptions().useDocBleeds)
-			doc->pdfOptions().bleeds = *doc->bleeds();
-
-		// If necssary, generate thumbnails in one go : if color management is enabled
-		// we gain lots of time by avoiding multiple color management settings change
-		// and hence multiple reloading of images
-		bool cmsCorr = false;
-		if (doc->pdfOptions().Thumbnails &&
-			doc->cmsSettings().CMSinUse &&
-			doc->cmsSettings().GamutCheck)
+		cmsCorr = true;
+		doc->cmsSettings().GamutCheck = false;
+		doc->enableCMS(true);
+	}
+	pageNumbersSize = pageNs.size();
+	for (uint i = 0; i < pageNumbersSize; ++i)
+	{
+		QPixmap pm(10, 10);
+		if (doc->pdfOptions().Thumbnails)
 		{
-			cmsCorr = true;
-			doc->cmsSettings().GamutCheck = false;
-			doc->enableCMS(true);
+			// No need to load full res images for drawing small thumbnail
+			PageToPixmapFlags flags = Pixmap_DontReloadImages;
+			pm = QPixmap::fromImage(view->PageToPixmap(pageNs[i] - 1, 100, flags));
 		}
-		pageNumbersSize = pageNs.size();
-		for (uint i = 0; i < pageNumbersSize; ++i)
+		allThumbs.insert(pageNs[i], pm);
+	}
+	if (cmsCorr)
+	{
+		doc->cmsSettings().GamutCheck = true;
+		doc->enableCMS(true);
+	}
+
+	if (doc->pdfOptions().doMultiFile)
+	{
+		bool cancelled = false;
+		QFileInfo fi(fileName);
+		QString ext = fi.suffix();
+		QString path = fi.path();
+		QString name = fi.completeBaseName();
+		uint aa = 0;
+		while (aa < pageNs.size() && !cancelled)
 		{
-			QPixmap pm(10, 10);
+			thumbs.clear();
+			std::vector<int> pageNs2;
+			pageNs2.clear();
+			pageNs2.push_back(pageNs[aa]);
+			pageNumbersSize = pageNs2.size();
+			QPixmap pm(10,10);
 			if (doc->pdfOptions().Thumbnails)
+				pm = allThumbs[pageNs[aa]];
+			thumbs.insert(1, pm);
+			QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
+			if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 			{
-				// No need to load full res images for drawing small thumbnail
-				PageToPixmapFlags flags = Pixmap_DontReloadImages;
-				pm = QPixmap::fromImage(view->PageToPixmap(pageNs[i] - 1, 100, flags));
-			}
-			allThumbs.insert(pageNs[i], pm);
-		}
-		if (cmsCorr)
-		{
-			doc->cmsSettings().GamutCheck = true;
-			doc->enableCMS(true);
-		}
-
-		if (doc->pdfOptions().doMultiFile)
-		{
-			bool cancelled = false;
-			QFileInfo fi(fileName);
-			QString ext = fi.suffix();
-			QString path = fi.path();
-			QString name = fi.completeBaseName();
-			uint aa = 0;
-			while (aa < pageNs.size() && !cancelled)
-			{
-				thumbs.clear();
-				std::vector<int> pageNs2;
-				pageNs2.clear();
-				pageNs2.push_back(pageNs[aa]);
-				pageNumbersSize = pageNs2.size();
-				QPixmap pm(10,10);
-				if (doc->pdfOptions().Thumbnails)
-					pm = allThumbs[pageNs[aa]];
-				thumbs.insert(1, pm);
-				QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
-				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
-				{
-					qApp->restoreOverrideCursor();
-					QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
-					if (!errorMsg.isEmpty())
-						message = QString("%1\n%2").arg(message, errorMsg);
-					ScMessageBox::warning(this, CommonStrings::trWarning, message);
-					return;
-				}
-				aa++;
-			}
-		}
-		else
-		{
-			if (!getPDFDriver(fileName, nam, components, pageNs, allThumbs, errorMsg))
-			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				qApp->restoreOverrideCursor();
 				QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
 				if (!errorMsg.isEmpty())
 					message = QString("%1\n%2").arg(message, errorMsg);
 				ScMessageBox::warning(this, CommonStrings::trWarning, message);
+				return;
 			}
+			aa++;
 		}
-		if (doc->pdfOptions().useDocBleeds)
-			doc->pdfOptions().bleeds = optBleeds;
-		qApp->restoreOverrideCursor();
-		if (errorMsg.isEmpty() && doc->pdfOptions().openAfterExport && !doc->pdfOptions().doMultiFile)
+	}
+	else
+	{
+		if (!getPDFDriver(fileName, nam, components, pageNs, allThumbs, errorMsg))
 		{
-			QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
-			if (pdfViewer.isEmpty())
-			{
-				pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString::null, QString::null);
-				if (!QFileInfo::exists(pdfViewer))
-					pdfViewer="";
-				PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
-			}
-			if (!pdfViewer.isEmpty())
-			{
-				QStringList args;
-				args << QDir::toNativeSeparators(doc->pdfOptions().fileName);
-				QProcess::startDetached(pdfViewer, args);
-			}
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
+			if (!errorMsg.isEmpty())
+				message = QString("%1\n%2").arg(message, errorMsg);
+			ScMessageBox::warning(this, CommonStrings::trWarning, message);
+		}
+	}
+	if (doc->pdfOptions().useDocBleeds)
+		doc->pdfOptions().bleeds = optBleeds;
+	qApp->restoreOverrideCursor();
+	if (errorMsg.isEmpty() && doc->pdfOptions().openAfterExport && !doc->pdfOptions().doMultiFile)
+	{
+		QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
+		if (pdfViewer.isEmpty())
+		{
+			pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString::null, QString::null);
+			if (!QFileInfo::exists(pdfViewer))
+				pdfViewer="";
+			PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
+		}
+		if (!pdfViewer.isEmpty())
+		{
+			QStringList args;
+			args << QDir::toNativeSeparators(doc->pdfOptions().fileName);
+			QProcess::startDetached(pdfViewer, args);
 		}
 	}
 }
