@@ -337,7 +337,7 @@ void PostTable::readFrom(FT_Face face)
 	QByteArray postData;
 	FT_ULong size = 0;
 	int error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, NULL, &size );
-	qDebug() << "load post" << error << size;
+	//qDebug() << "load post" << error << size;
 	if (error || size == 0)
 	{
 		errorMsg = "no post table";
@@ -447,7 +447,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	uint faceOffset = sfnt::word(coll, ttc_OffsetTables + 4 * faceIndex);
 	uint nTables	= sfnt::word16(coll, faceOffset + ttf_numtables);
 	
-	qDebug() << QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg("collection").arg(faceOffset).arg(nTables);
+	//qDebug() << QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg("collection").arg(faceOffset).arg(nTables);
 	
 	uint headerLength = ttf_TableRecords + ttf_TableRecord_Size * nTables;
 	
@@ -563,7 +563,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 
 	void writeTable(QByteArray& ttf, const QByteArray& tag, QByteArray& table)
 	{
-		qDebug() << "writing table" << tag << table.size() << "@" << ttf.size();
+		//qDebug() << "writing table" << tag << table.size() << "@" << ttf.size();
 		uint length = table.size();
 		while (table.size() & 0x3)
 			table.append('\0');
@@ -637,14 +637,14 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		{
 			advance = word16(hmtx, pos);
 			leftSideBearing = word16(hmtx, pos+2);
-			qDebug() << pos << "hmtx" << advance << leftSideBearing;
+			//qDebug() << pos << "hmtx" << advance << leftSideBearing;
 			result.append(std::pair<qint16,quint16>(advance, leftSideBearing));
 			pos += 4;
 		}
 		while (pos < (uint) hmtx.length())
 		{
 			leftSideBearing = word16(hmtx, pos);
-			qDebug() << pos << "hmtx =" << advance << leftSideBearing;
+			//qDebug() << pos << "hmtx =" << advance << leftSideBearing;
 			result.append(std::pair<qint16,quint16>(advance, leftSideBearing));
 			pos += 2;
 		}
@@ -659,7 +659,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		int i = 0;
 		for (it = longHorMetrics.cbegin(); it < longHorMetrics.cend(); ++it)
 		{
-			qDebug() << "hmtx" << i++ << it->first << it->second;
+			//qDebug() << "hmtx" << i++ << it->first << it->second;
 			appendWord16(result, it->first);
 			appendWord16(result, it->second);
 		}
@@ -708,7 +708,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			startOfUnicodeTable = startOfSymbolTable;
 			format = symbolFormat;
 		}
-		qDebug() << "reading cmap format" << format;
+		//qDebug() << "reading cmap format" << format;
 		switch(format)
 		{
 			case 4:
@@ -743,7 +743,8 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 						if (!result.contains(c))
 						{
 							// search would always find the one in the segment with the lower endcode, i.e. earlier segment
-							if (c < 256 || glyph == 0) qDebug() << "(" << QChar(c) << "," << glyph << ")";
+							if (c < 256 || glyph == 0)
+								//qDebug() << "(" << QChar(c) << "," << glyph << ")";
 							result[c] = glyph;
 						}
 						else
@@ -809,14 +810,14 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		
 		QList<uint> chars;
 		QMap<uint, uint>::ConstIterator cit;
-		qDebug() << "writing cmap";
+		//qDebug() << "writing cmap";
 		bool cmapHasData = false;
 		for(cit = cmap.cbegin(); cit != cmap.cend(); ++cit)
 		{
 			uint ch = cit.key();
 			if (!QChar::requiresSurrogates(ch) && cit.value() != 0)
 			{
-				qDebug() << "(" << QChar(cit.key()) << "," << cit.value() << ")";
+				//qDebug() << "(" << QChar(cit.key()) << "," << cit.value() << ")";
 				chars.append(ch);
 				cmapHasData = true;
 			}
@@ -908,7 +909,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			if (rangeOffsets[i] == 0)
 			{
 				quint16 dbg = startCodes[i] + idDeltas[i];
-				qDebug() << QChar(startCodes[i]) << "-" << QChar(endCodes[i]) << "/" << (endCodes[i]-startCodes[i]+1) << "+" << idDeltas[i] << "-->" << dbg;
+				//qDebug() << QChar(startCodes[i]) << "-" << QChar(endCodes[i]) << "/" << (endCodes[i]-startCodes[i]+1) << "+" << idDeltas[i] << "-->" << dbg;
 				putWord16(result, idRangeOffsetAddress, 0);
 			}
 			else
@@ -916,7 +917,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 				quint16 idRangeOffset = result.size() - idRangeOffsetAddress;
 				putWord16(result, idRangeOffsetAddress, idRangeOffset);
 
-				qDebug() << QChar(startCodes[i]) << "-" << QChar(endCodes[i]) << "/" << (endCodes[i]-startCodes[i]+1) << "@" << idRangeOffset << "+" << idDeltas[i];
+				//qDebug() << QChar(startCodes[i]) << "-" << QChar(endCodes[i]) << "/" << (endCodes[i]-startCodes[i]+1) << "@" << idRangeOffset << "+" << idDeltas[i];
 
 				uint startCode = startCodes[i];
 				uint segLength = (endCodes[i]-startCode+1);
@@ -1028,14 +1029,14 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			{
 				// simple glyph
 				uint destStart = destGlyf.size();
-				qDebug() << i++ << ":" << nrOfContours << "contours" << glyphStart << "-->" << destStart << "/" << glyphLength;
+				//qDebug() << i++ << ":" << nrOfContours << "contours" << glyphStart << "-->" << destStart << "/" << glyphLength;
 				destGlyf.resize(destStart + glyphLength);
 				copy(destGlyf, destStart, srcGlyf, glyphStart, glyphLength);
 			}
 			else
 			{
 				compositeElements.append(copyGlyphComponents(destGlyf, srcGlyf, glyphStart, newForOldGid, nextFreeGid));
-				qDebug() << i++ << ":" << srcGid << "composite glyph brought" << compositeElements.size() << "more glyphs";
+				//qDebug() << i++ << ":" << srcGid << "composite glyph brought" << compositeElements.size() << "more glyphs";
 			}
 			// Data must be aligned at least on 2 byte boundary, however
 			// a 4-byte alignment is recommended by TTF specs for reasons
@@ -1112,7 +1113,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			{
 				if (glyphs.length() > 0)
 				{
-					qDebug() << "MAP" << QChar(it.key()) << it.value() << "-->" << newForOldGid[it.value()];
+					//qDebug() << "MAP" << QChar(it.key()) << it.value() << "-->" << newForOldGid[it.value()];
 					it.value() = newForOldGid[it.value()];
 				}
 				if (it.key() < firstChar)
@@ -1143,7 +1144,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			QMap<uint,uint>::const_iterator iter;
 			for (iter = newForOldGid.cbegin(); iter != newForOldGid.cend(); ++iter)
 			{
-				qDebug() << "hmtx" << iter.key() << " -> " << iter.value() << "=" << oldHmtx[iter.key()].first;
+				//qDebug() << "hmtx" << iter.key() << " -> " << iter.value() << "=" << oldHmtx[iter.key()].first;
 				newHmtx[iter.value()] = oldHmtx[iter.key()];
 			}
 			tables["hmtx"] = writeHmtx(newHmtx);

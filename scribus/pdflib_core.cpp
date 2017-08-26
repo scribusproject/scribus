@@ -2159,7 +2159,7 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
-		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
+		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
 	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
@@ -2203,7 +2203,7 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
-		qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
+		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
 	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
