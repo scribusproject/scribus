@@ -3681,7 +3681,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					if (DashValues.count() != 0)
 						p->setDash(DashValues, DashOffset);
 				}
-				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
+				if (strokePattern)
 				{
 					if (patternStrokePath)
 					{
