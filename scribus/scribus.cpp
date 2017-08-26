@@ -7200,14 +7200,44 @@ void ScribusMainWindow::doSaveAsPDF()
 		QString pageString(dia.getPagesString());
 		std::vector<int> pageNs;
 		uint pageNumbersSize;
-		QMap<int,QPixmap> thumbs;
-		int components=dia.colorSpaceComponents();
+		QMap<int,QPixmap> allThumbs, thumbs;
+		int components = dia.colorSpaceComponents();
 		QString nam(dia.cmsDescriptor());
 		QString fileName = doc->pdfOptions().fileName;
 		QString errorMsg;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->pdfOptions().useDocBleeds)
 			doc->pdfOptions().bleeds = *doc->bleeds();
+
+		// If necssary, generate thumbnails in one go : if color management is enabled
+		// we gain lots of time by avoiding multiple color management settings change
+		// and hence multiple reloading of images
+		bool cmsCorr = false;
+		if (doc->pdfOptions().Thumbnails &&
+			doc->cmsSettings().CMSinUse &&
+			doc->cmsSettings().GamutCheck)
+		{
+			cmsCorr = true;
+			doc->cmsSettings().GamutCheck = false;
+			doc->enableCMS(true);
+		}
+		pageNumbersSize = pageNs.size();
+		for (uint i = 0; i < pageNumbersSize; ++i)
+		{
+			QPixmap pm(10, 10);
+			if (doc->pdfOptions().Thumbnails)
+			{
+				// No need to load full res images for drawing small thumbnail
+				PageToPixmapFlags flags = Pixmap_DontReloadImages;
+				pm = QPixmap::fromImage(view->PageToPixmap(pageNs[i] - 1, 100, flags));
+			}
+			allThumbs.insert(pageNs[i], pm);
+		}
+		if (cmsCorr)
+		{
+			doc->cmsSettings().GamutCheck = true;
+			doc->enableCMS(true);
+		}
 
 		if (doc->pdfOptions().doMultiFile)
 		{
@@ -7226,7 +7256,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				pageNumbersSize = pageNs2.size();
 				QPixmap pm(10,10);
 				if (doc->pdfOptions().Thumbnails)
-					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
+					pm = allThumbs[pageNs[aa]];
 				thumbs.insert(1, pm);
 				QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
@@ -7243,15 +7273,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		else
 		{
-			pageNumbersSize = pageNs.size();
-			for (uint ap = 0; ap < pageNumbersSize; ++ap)
-			{
-				QPixmap pm(10,10);
-				if (doc->pdfOptions().Thumbnails)
-					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[ap]-1, 100));
-				thumbs.insert(pageNs[ap], pm);
-			}
-			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs, errorMsg))
+			if (!getPDFDriver(fileName, nam, components, pageNs, allThumbs, errorMsg))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);

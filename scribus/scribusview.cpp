@@ -2733,7 +2733,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	return im;
 }
 
-QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBackground)
+QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 {
 	QImage im;
 	double sx = maxGr / Doc->DocPages.at(Nr)->width();
@@ -2777,11 +2777,11 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	Doc->setLoading(true);
 	Doc->setCurrentPage(Doc->DocPages.at(Nr));
 	ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
-	if (drawBackground)
+	if (flags & Pixmap_DrawBackground)
 		painter->clear(Doc->paperColor());
 	painter->translate(-clipx, -clipy);
 	painter->setFillMode(ScPainter::Solid);
-	if (drawFrame)
+	if (flags & Pixmap_DrawFrame)
 	{
 		painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setBrush(Doc->paperColor());
@@ -2793,7 +2793,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	QList<QPair<PageItem*, int> > changedList;
 	ScPage* page = Doc->DocPages.at(Nr);
 	PageItem* currItem;
-	if (page->FromMaster.count() != 0)
+	if ((page->FromMaster.count() != 0) && !flags.testFlag(Pixmap_DontReloadImages))
 	{
 		QList<PageItem*> itemList = page->FromMaster;
 		while (itemList.count() > 0)
@@ -2821,7 +2821,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 			currItem->setImageYOffset(imgY);
 		}
 	}
-	if (Doc->Items->count() != 0)
+	if ((Doc->Items->count() != 0) && !flags.testFlag(Pixmap_DontReloadImages))
 	{
 		FPoint orig = m_canvas->localToCanvas(QPoint(clipx, clipy));
 		QRectF cullingArea = QRectF(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));

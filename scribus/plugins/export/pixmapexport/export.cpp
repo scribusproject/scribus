@@ -188,7 +188,10 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool background, boo
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
-	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false, background));
+	PageToPixmapFlags flags;
+	if (background)
+		flags |= Pixmap_DrawBackground;
+	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), flags));
 	if (im.isNull())
 	{
 		ScMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Insufficient memory for this image size."));

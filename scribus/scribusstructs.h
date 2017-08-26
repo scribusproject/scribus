@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QByteArray>
 #include <QDebug>
+#include <QFlags>
 #include <QKeySequence>
 #include <QList>
 #include <QPolygon>
@@ -304,6 +305,19 @@ enum PageOrientation
 	landscapePage = 1,
 	customPage = 30
 };
+
+/**
+* Flags for ScribusView PageToPixmap()
+*/
+enum PageToPixmapFlag {
+	Pixmap_NoFlags = 0,
+	Pixmap_DrawFrame = 1 << 0,
+	Pixmap_DrawBackground = 1 << 1,
+	Pixmap_DontReloadImages = 1 << 2,
+};
+
+Q_DECLARE_FLAGS(PageToPixmapFlags, PageToPixmapFlag);
+Q_DECLARE_OPERATORS_FOR_FLAGS(PageToPixmapFlags);
 
 enum UpdateRequests
 {
