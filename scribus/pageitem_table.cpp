@@ -1120,14 +1120,20 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	TableCell newActiveCell = validCell(cell.row(), cell.column()) ? cell : cellAt(0, 0);
 
 	// Deselect previous active cell and its text.
-	m_activeCell.textFrame()->setSelected(false);
-	m_activeCell.textFrame()->itemText.deselectAll();
-	m_activeCell.textFrame()->HasSel = false;
+	PageItem_TextFrame* textFrame = m_activeCell.textFrame();
+	textFrame->setSelected(false);
+	textFrame->itemText.deselectAll();
+	textFrame->HasSel = false;
+
+	// Set current style context befor assigning new active cell:
+	// if old active cell ref count is 1, the old context might be deleted
+	const ParagraphStyle& curStyle = newActiveCell.textFrame()->currentStyle();
+	m_Doc->currentStyle.setContext(curStyle.context());
+	m_Doc->currentStyle = newActiveCell.textFrame()->currentStyle();
 
 	// Set the new active cell and select it.
 	m_activeCell = newActiveCell;
 	m_activeCell.textFrame()->setSelected(true);
-	m_Doc->currentStyle = m_activeCell.textFrame()->currentStyle();
 	m_activeRow = m_activeCell.row();
 	m_activeColumn = m_activeCell.column();
 	emit selectionChanged();
