@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "sctextstream.h"
 #include "units.h"
+#include "util.h"
 #include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
@@ -321,7 +322,9 @@ void PrefsManager::initDefaults()
 	appPrefs.scrapbookPrefs.writePreviews = true;
 	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
 	appPrefs.displayPrefs.marginColored = false;
-	appPrefs.docSetupPrefs.language = ScQApp->currGUILanguage();
+	appPrefs.docSetupPrefs.language = LanguageManager::instance()->getShortAbbrevFromAbbrevDecomposition(ScQApp->currGUILanguage());
+	if (appPrefs.docSetupPrefs.language.isEmpty())
+		appPrefs.docSetupPrefs.language = "en_GB";
 	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale(ScQApp->currGUILanguage());
 	appPrefs.docSetupPrefs.pageOrientation = 0;
 	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
@@ -2001,6 +2004,9 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="DocumentSetup")
 		{
 			appPrefs.docSetupPrefs.language = dc.attribute("Language", "en_GB");
+			appPrefs.docSetupPrefs.language = LanguageManager::instance()->getShortAbbrevFromAbbrevDecomposition(appPrefs.docSetupPrefs.language);
+			if (appPrefs.docSetupPrefs.language.isEmpty())
+				appPrefs.docSetupPrefs.language = "en_GB";
 			appPrefs.docSetupPrefs.docUnitIndex = dc.attribute("UnitIndex", "0").toInt();
 			appPrefs.docSetupPrefs.pageSize = dc.attribute("PageSize","A4");
 			appPrefs.docSetupPrefs.pageOrientation = dc.attribute("PageOrientation", "0").toInt();

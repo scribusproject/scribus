@@ -309,10 +309,10 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	}
 
 	QString defaultLang(defLang.isEmpty() ? "en_GB" : defLang);
-	QString clang(cstyle->language().isNull() || cstyle->language().isEmpty() ? defaultLang : cstyle->language());
+	QString clang(cstyle->language().isEmpty() ? defaultLang : cstyle->language());
 	QString plang(QString::null);
 	if (hasParent)
-		plang = parent->language().isNull() || parent->language().isEmpty() ? defaultLang : parent->language();
+		plang = parent->language().isEmpty() ? defaultLang : parent->language();
 
 	int ci = -1, pi = -1, di = -1;
 	QString tl = LanguageManager::instance()->getAbbrevFromLang(defaultLang, false);

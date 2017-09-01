@@ -829,12 +829,56 @@ const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 	return "";
 }
 
+const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(QString langAbbrev)
+{
+	int tIndex = langTableIndex(langAbbrev);
+	if (tIndex >= 0)
+		return m_langTable[tIndex].m_priAbbrev;
+
+	QStringList abbrevs = getAbbrevDecomposition(langAbbrev);
+	for (int i = 1; i < abbrevs.count(); ++i)
+	{
+		tIndex = langTableIndex(abbrevs.at(i));
+		if (tIndex >= 0)
+			return m_langTable[tIndex].m_priAbbrev;
+	}
+
+	return "";
+}
+
 const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev)
 {
 	int i=langTableIndex(langAbbrev);
 	if (i!=-1)
 		return m_langTable[i].m_altAbbrev;
 	return "";
+}
+
+QStringList LanguageManager::getAbbrevDecomposition(QString langAbbrev)
+{
+	QStringList abbrevs;
+	abbrevs.append(langAbbrev);
+
+	QString curAbbrev  = langAbbrev;
+	QString delimiters = QString::fromLatin1("_.");
+
+	while (true)
+	{
+		int rightMost = 0;
+		for (int i = 0; i < delimiters.length(); i++)
+		{
+			int k = curAbbrev.lastIndexOf(delimiters[i]);
+			if (k > rightMost)
+				rightMost = k;
+		}
+
+		if (rightMost == 0)
+			break;
+
+		curAbbrev.truncate(rightMost);
+		abbrevs.append(curAbbrev);
+	}
+	return abbrevs;
 }
 
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill)

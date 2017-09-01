@@ -51,7 +51,9 @@ public:
 	const QString getLangFromTransLang(QString transLang);
 	const QString getTransLangFromLang(QString lang);
 	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
+	const QString getShortAbbrevFromAbbrevDecomposition(QString langAbbrev);
 	const QString getAlternativeAbbrevfromAbbrev(QString langAbbrev);
+	QStringList   getAbbrevDecomposition(QString langAbbrev);
 	void fillInstalledStringList(QStringList *stringListToFill);
 	void fillInstalledGUIStringList(QStringList *stringListToFill);
 	void fillInstalledHyphStringList(QStringList *stringListToFill);
