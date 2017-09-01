@@ -35,14 +35,15 @@ for which a new license (GPL+exception) is in place.
 #include <QLocale>
 #include <QTextStream>
 
+#include "commonstrings.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scpaths.h"
 #include "prefsfile.h"
 #include "langmgr.h"
 #include "prefsmanager.h"
-#include "commonstrings.h"
 #include "upgradechecker.h"
+#include "util.h"
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -281,6 +282,7 @@ QStringList ScribusQApp::getLang(QString lang)
 				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 				if (userprefsContext) {
 					QString prefslang = userprefsContext->get("gui_language","");
+					prefslang = cleanupLang(prefslang);
 					if (!prefslang.isEmpty())
 						langs.push_back(prefslang);
 				}
@@ -290,11 +292,23 @@ QStringList ScribusQApp::getLang(QString lang)
 	}
 
 	if (!(lang = ::getenv("LC_ALL")).isEmpty())
-		langs.push_back(lang);
+	{
+		lang = cleanupLang(lang);
+		if (!lang.isEmpty())
+			langs.push_back(lang);
+	}
 	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
-		langs.push_back(lang);
+	{
+		lang = cleanupLang(lang);
+		if (!lang.isEmpty())
+			langs.push_back(lang);
+	}
 	if (!(lang = ::getenv("LANG")).isEmpty())
-		langs.push_back(lang);
+	{
+		lang = cleanupLang(lang);
+		if (!lang.isEmpty())
+			langs.push_back(lang);
+	}
 
 #if defined(_WIN32)
 	wchar_t out[256];
@@ -317,7 +331,7 @@ QStringList ScribusQApp::getLang(QString lang)
 	}
 #endif
 
-	langs.push_back(QString(QLocale::system().name()));
+	langs.push_back(QLocale::system().name());
 
 	// remove duplicate entries...
 	QStringList::Iterator it = langs.end();

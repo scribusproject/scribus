@@ -52,6 +52,16 @@ void sDebug(QString message)
 	qDebug("%s", message.toAscii().constData());
 }
 
+QString cleanupLang(const QString& lang)
+{
+	int dotIndex = lang.indexOf(QChar('.'));
+	if (dotIndex < 0)
+		return lang;
+
+	QString cleanLang = lang.left(dotIndex);
+	return cleanLang;
+}
+
 int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
 {
 	QProcess proc;

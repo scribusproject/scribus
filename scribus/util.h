@@ -37,7 +37,10 @@ class  ScribusView;
 class  ScStreamFilter;
 struct CopyPasteBuffer;
 
-// class Foi;
+/*!
+\brief Cleanup language strings from extensions such as ".UTF-8" we can get from environment variables
+*/
+QString cleanupLang(const QString& lang);
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
 If premultiplication does not allow to store result in a long value, perform a standard comparison.
