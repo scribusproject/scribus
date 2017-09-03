@@ -123,7 +123,7 @@
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Debug'">libxml2_d.lib</LIBXML2_LIB>
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Release'">libxml2.lib</LIBXML2_LIB>
 	<!-- OpenSSL -->
-	<OPENSSL_DIR>$(SCRIBUS_LIB_ROOT)\openssl-1.0.2k</OPENSSL_DIR>
+	<OPENSSL_DIR>$(SCRIBUS_LIB_ROOT)\openssl-1.0.2l</OPENSSL_DIR>
 	<OPENSSL_INCLUDE_DIR>$(OPENSSL_DIR)\include</OPENSSL_INCLUDE_DIR>
 	<OPENSSL_LIB_DIR>$(OPENSSL_DIR)\lib\$(Platform)-$(PlatformToolset)</OPENSSL_LIB_DIR>
     <OPENSSL_LIB Condition="'$(Configuration)' == 'Debug'">libeay32_d.lib</OPENSSL_LIB>
@@ -135,14 +135,14 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">podofo_d.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">podofo.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.53.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.56.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Release'">poppler_static.lib</POPPLER_LIB>
 	<!-- Python -->
-	<PYTHON_DIR Condition="'$(Platform)' == 'Win32'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.10-win32</PYTHON_DIR>
-	<PYTHON_DIR Condition="'$(Platform)' == 'x64'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.10-amd64</PYTHON_DIR>
+	<PYTHON_DIR Condition="'$(Platform)' == 'Win32'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.13-win32</PYTHON_DIR>
+	<PYTHON_DIR Condition="'$(Platform)' == 'x64'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.13-amd64</PYTHON_DIR>
 	<PYTHON_INCLUDE_DIR>$(PYTHON_DIR)\include</PYTHON_INCLUDE_DIR>
 	<PYTHON_LIB_DIR>$(PYTHON_DIR)\lib</PYTHON_LIB_DIR>
 	<PYTHON_LIB Condition="'$(Configuration)' == 'Debug'">python27_d.lib</PYTHON_LIB>
