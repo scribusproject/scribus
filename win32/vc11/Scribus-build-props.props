@@ -46,12 +46,12 @@
     <PODOFO_LIB Condition="'$(Configuration)' == 'Debug-cairo'">PoDoFoLibD.lib</PODOFO_LIB>
     <PODOFO_LIB Condition="'$(Configuration)' == 'Release-cairo'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Libxml2 -->
-    <LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.3</LIBXML2_DIR>
+    <LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.4</LIBXML2_DIR>
     <LIBXML2_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libxml2_d.lib</LIBXML2_LIB>
     <LIBXML2_LIB Condition="'$(Configuration)' == 'Release-cairo'">libxml2.lib</LIBXML2_LIB>
 	<!-- Python -->
-    <PYTHON_DIR Condition="'$(Platform)' == 'Win32'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.10-win32</PYTHON_DIR>
-	<PYTHON_DIR Condition="'$(Platform)' == 'x64'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.10-amd64</PYTHON_DIR>
+    <PYTHON_DIR Condition="'$(Platform)' == 'Win32'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.13-win32</PYTHON_DIR>
+	<PYTHON_DIR Condition="'$(Platform)' == 'x64'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.13-amd64</PYTHON_DIR>
     <PYTHON_LIB Condition="'$(Configuration)' == 'Debug-cairo'">python27_d.lib</PYTHON_LIB>
     <PYTHON_LIB Condition="'$(Configuration)' == 'Release-cairo'">python27.lib</PYTHON_LIB>
   </PropertyGroup>

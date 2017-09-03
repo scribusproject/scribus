@@ -94,7 +94,7 @@
 	/>
 	<!-- Libxml2 -->
 	<UserMacro Name="LIBXML2_DIR"
-		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libxml2-2.9.3"
+		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libxml2-2.9.4"
 	/>
 	<UserMacro Name="LIBXML2_DEBUG_LIB"
 		Value="libxml2_d.lib"
@@ -104,7 +104,7 @@
 	/>
 	<!-- Python -->
 	<UserMacro Name="PYTHON_DIR"
-		Value="F:\Scribus Libs\scribus-common-libs\python-2.7.10-win32"
+		Value="F:\Scribus Libs\scribus-common-libs\python-2.7.13-win32"
 	/>
 	<UserMacro Name="PYTHON_DEBUG_LIB"
 		Value="python27_d.lib"
