@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "slaoutput.h"
+#include <poppler/cpp/poppler-version.h>
 #include <poppler/GlobalParams.h>
 #include <poppler/poppler-config.h>
 #include <poppler/FileSpec.h>
@@ -19,11 +20,49 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
+#define POPPLER_VERSION_ENCODE(major, minor, micro) (	\
+	  ((major) * 10000)				\
+	+ ((minor) *   100)				\
+	+ ((micro) *     1))
+#define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
+
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
 	Object obj1, obj2, obj3;
 	fileName = NULL;
 	m_flags = 0;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+	if (actionObj->isDict())
+	{
+		obj1 = actionObj->dictLookup("F");
+		if (!obj1.isNull())
+		{
+			if (obj1.isDict())
+			{
+				obj3 = obj1.dictLookup("FS");
+				if (!obj3.isNull())
+				{
+					if (obj3.isName())
+					{
+						char *name = obj3.getName();
+						if (!strcmp(name, "URL"))
+						{
+							obj2 = obj1.dictLookup("F");
+							if (!obj2.isNull())
+								fileName = obj2.getString()->copy();
+						}
+					}
+				}
+			}
+		}
+		obj1 = actionObj->dictLookup("Flags");
+		if (!obj1.isNull())
+		{
+			if (obj1.isNum())
+				m_flags = obj1.getInt();
+		}
+	}
+#else
 	if (actionObj->isDict())
 	{
 		if (!actionObj->dictLookup("F", &obj1)->isNull())
@@ -54,6 +93,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 		}
 		obj1.free();
 	}
+#endif
 }
 
 LinkSubmitForm::~LinkSubmitForm()
@@ -66,11 +106,25 @@ LinkImportData::LinkImportData(Object *actionObj)
 {
 	Object obj1, obj3;
 	fileName = NULL;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+	if (actionObj->isDict())
+	{
+		obj1 = actionObj->dictLookup("F");
+		if (!obj1.isNull())
+		{
+			obj3 = getFileSpecNameForPlatform(&obj1);
+			if (!obj3.isNull())
+			{
+				fileName = obj3.getString()->copy();
+			}
+		}
+	}
+#else
 	if (actionObj->isDict())
 	{
 		if (!actionObj->dictLookup("F", &obj1)->isNull())
 		{
-			if (getFileSpecNameForPlatform (&obj1, &obj3))
+			if (getFileSpecNameForPlatform(&obj1, &obj3))
 			{
 				fileName = obj3.getString()->copy();
 				obj3.free();
@@ -78,6 +132,7 @@ LinkImportData::LinkImportData(Object *actionObj)
 		}
 		obj1.free();
 	}
+#endif
 }
 
 LinkImportData::~LinkImportData()
@@ -256,6 +311,27 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	Object obj;
 	Ref refa = ano->getRef();
 	Object additionalActions;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+	obj = xref->fetch(refa.num, refa.gen);
+	if (obj.isDict())
+	{
+		Dict* adic = obj.getDict();
+		additionalActions = adic->lookupNF("A");
+		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
+		if (additionalActionsObject.isDict())
+		{
+			Object actionObject = additionalActionsObject.dictLookup("S");
+			if (actionObject.isName("ImportData"))
+			{
+				linkAction = new LinkImportData(&additionalActionsObject);
+			}
+			else if (actionObject.isName("SubmitForm"))
+			{
+				linkAction = new LinkSubmitForm(&additionalActionsObject);
+			}
+		}
+	}
+#else
 	Object *act = xref->fetch(refa.num, refa.gen, &obj);
 	if (act)
 	{
@@ -283,6 +359,7 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 		}
 	}
 	obj.free();
+#endif
 	return linkAction;
 }
 
@@ -293,6 +370,22 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 	Object obj;
 	Ref refa = ano->getRef();
 	Object additionalActions;
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+	obj = xref->fetch(refa.num, refa.gen);
+	if (obj.isDict())
+	{
+		Dict* adic = obj.getDict();
+		additionalActions = adic->lookupNF("AA");
+		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
+		if (additionalActionsObject.isDict())
+		{
+			Object actionObject = additionalActionsObject.dictLookup(key);
+			if (actionObject.isDict())
+				linkAction = LinkAction::parseAction(&actionObject, pdfDoc->getCatalog()->getBaseURI());
+		}
+	}
+#else
 	Object *act = xref->fetch(refa.num, refa.gen, &obj);
 	if (act)
 	{
@@ -313,6 +406,7 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 		}
 	}
 	obj.free();
+#endif
 	return linkAction;
 }
 
@@ -838,6 +932,33 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 	{
 		Object obj1;
 		Ref refa = annota->getRef();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+		obj1 = xref->fetch(refa.num, refa.gen);
+		if (obj1.isDict())
+		{
+			Dict* dict = obj1.getDict();
+			Object obj2 = dict->lookup("Kids");
+			//childs
+			if (obj2.isArray())
+			{
+				// Load children
+				QList<int> radList;
+				for (int i = 0; i < obj2.arrayGetLength(); i++)
+				{
+					Object childRef = obj2.arrayGetNF(i);
+					if (!childRef.isRef())
+						continue;
+					Object childObj = obj2.arrayGet(i);
+					if (!childObj.isDict())
+						continue;
+					const Ref ref = childRef.getRef();
+					radList.append(ref.num);
+				}
+				QString tmTxt = UnicodeParsedString(annota->getName());
+				m_radioMap.insert(tmTxt, radList);
+			}
+		}
+#else
 		Object *act = xref->fetch(refa.num, refa.gen, &obj1);
 		if (act && act->isDict())
 		{
@@ -873,6 +994,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			obj2.free();
 		}
 		obj1.free();
+#endif
 	}
 	return retVal;
 }
@@ -3007,6 +3129,23 @@ void SlaOutputDev::beginMarkedContent(char *name, Object *dictRef)
 		}
 		else
 		{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+			dictObj = dictRef->fetch(xref);
+			if (!dictObj.isDict())
+				return;
+			dict = dictObj.getDict();
+			dictType = dict->lookup("Type");
+			if (dictType.isName("OCG"))
+			{
+				oc = contentConfig->findOcgByRef(dictRef->getRef());
+				if (oc)
+				{
+					//					qDebug() << "Begin OCG Content with Name " << UnicodeParsedString(oc->getName());
+					m_doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+					mSte.ocgName = UnicodeParsedString(oc->getName());
+				}
+			}
+#else
 			dictRef->fetch(xref, &dictObj);
 			if (!dictObj.isDict())
 			{
@@ -3027,6 +3166,7 @@ void SlaOutputDev::beginMarkedContent(char *name, Object *dictRef)
 			}
 			dictType.free();
 			dictObj.free();
+#endif
 		}
 	}
 	m_mcStack.push(mSte);
@@ -3046,14 +3186,20 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 		{
 			if (layersSetByOCG)
 				return;
-			Object obj;
 			QString lName = QString("Layer_%1").arg(layerNum + 1);
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+			Object obj = properties->lookup((char*) "Title");
+			if (obj.isString())
+				lName = QString(obj.getString()->getCString());
+#else
+			Object obj;
 			if (properties->lookup((char*)"Title", &obj))
 			{
 				if (obj.isString())
 					lName =  QString(obj.getString()->getCString());
 				obj.free();
 			}
+#endif
 			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 			{
 				if (it->Name == lName)
@@ -3066,6 +3212,29 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 			if (!firstLayer)
 				currentLayer = m_doc->addLayer(lName, true);
 			firstLayer = false;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+			obj = properties->lookup((char*) "Visible");
+			if (obj.isBool())
+				m_doc->setLayerVisible(currentLayer, obj.getBool());
+			obj = properties->lookup((char*) "Editable");
+			if (obj.isBool())
+				m_doc->setLayerLocked(currentLayer, !obj.getBool());
+			obj = properties->lookup((char*) "Printed");
+			if (obj.isBool())
+				m_doc->setLayerPrintable(currentLayer, obj.getBool());
+			obj = properties->lookup((char*)"Color");
+			if (obj.isArray())
+			{
+				Object obj1;
+				obj1 = obj.arrayGet(0);
+				int r = obj1.getNum() / 256;
+				obj1 = obj.arrayGet(1);
+				int g = obj1.getNum() / 256;
+				obj1 = obj.arrayGet(2);
+				int b = obj1.getNum() / 256;
+				m_doc->setLayerMarker(currentLayer, QColor(r, g, b));
+			}
+#else
 			if (properties->lookup((char*)"Visible", &obj))
 			{
 				if (obj.isBool())
@@ -3102,6 +3271,7 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 				}
 				obj.free();
 			}
+#endif
 		}
 	}
 }
