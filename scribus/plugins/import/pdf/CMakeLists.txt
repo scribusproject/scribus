@@ -2,8 +2,8 @@ include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
 	${POPPLER_INCLUDE_DIR}
+	${POPPLER_CPP_INCLUDE_DIR}
 )
-
 
 set(IMPORTPDF_PLUGIN_UI_SRC
 	pdfimportoptions.ui

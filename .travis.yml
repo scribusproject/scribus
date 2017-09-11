@@ -31,8 +31,8 @@ before_install:
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
       python-all-dev zlib1g-dev qt58base qt58declarative
       qt58tools libgraphicsmagick++1-dev
-      libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
-      libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
+      libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
+      libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
       coreutils binutils python-tk;
     fi
 # OSX
