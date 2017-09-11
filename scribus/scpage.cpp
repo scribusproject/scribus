@@ -212,9 +212,9 @@ void ScPage::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ScItemState< QList<PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
-			restorePageItemConversion(dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
+			restorePageItemConversion(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM_TO_SYMBOL"))
-			restorePageItemConversionToSymbol(dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
+			restorePageItemConversionToSymbol(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("PAGE_ATTRS"))
 			restorePageAttributes(ss, isUndo);
 	}
@@ -402,7 +402,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	m_Doc->m_Selection->delaySignalsOff();
 }
 
-void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
+void ScPage::restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo)
 {
 	if (!state)
 		return;
@@ -424,7 +424,7 @@ void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 
-void ScPage::restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, PageItem*> >* state, bool isUndo)
+void ScPage::restorePageItemConversionToSymbol(ScItemState<QPair<PageItem*, PageItem*> >* state, bool isUndo)
 {
 	//#11365... this code is not finished and broken... fixing will fix 11365
 	if (!state)
