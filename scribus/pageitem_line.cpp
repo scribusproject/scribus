@@ -62,7 +62,8 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	{
 		if (NamedLStyle.isEmpty())
 		{
-			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
+			if (strokePattern)
 			{
 				if (patternStrokePath)
 				{
@@ -73,7 +74,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+					p->setPattern(strokePattern, patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 					p->setStrokeMode(ScPainter::Pattern);
 					p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 				}

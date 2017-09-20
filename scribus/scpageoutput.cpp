@@ -235,7 +235,8 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	if (item->GrType == 8)
 	{
 		QString pat = item->pattern();
-		if ((pat.isEmpty()) || (!m_doc->docPatterns.contains(pat)))
+		ScPattern *pattern = m_doc->checkedPattern(pat);
+		if (!pattern)
 		{
 			painter->m_fillGradient = VGradientEx(VGradientEx::linear);
 			if (item->fillColor() != CommonStrings::None)
@@ -249,12 +250,11 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 		else
 		{
 			QTransform patternTransform;
-			ScPattern& pattern = m_doc->docPatterns[item->pattern()];
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			bool   patternMirrorX, patternMirrorY;
 			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			item->patternFlip(patternMirrorX, patternMirrorY);
-			painter->setPattern(&pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+			painter->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
 			painter->setFillMode(ScPainterExBase::Pattern);
 		}
 	}
@@ -376,11 +376,10 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	else if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
 	{
 		QString patternMaskVal = item->patternMaskVal;
-		if ((patternMaskVal.isEmpty()) || (!m_doc->docPatterns.contains(patternMaskVal)))
-			painter->setMaskMode(0);
-		else
+		ScPattern *patternMask = m_doc->checkedPattern(patternMaskVal);
+		if (patternMask)
 		{
-			painter->setPatternMask(&m_doc->docPatterns[patternMaskVal], item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY, 
+			painter->setPatternMask(patternMask, item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY,
 				                    item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
 			if (item->GrMask == 3)
 				painter->setMaskMode(2);
@@ -390,6 +389,10 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 				painter->setMaskMode(5);
 			else
 				painter->setMaskMode(6);
+		}
+		else
+		{
+			painter->setMaskMode(0);
 		}
 	}
 	else
@@ -422,7 +425,8 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 			if (item->NamedLStyle.isEmpty())
 			{
 				QString patternStrokeVal = item->strokePattern();
-				if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+				ScPattern *strokePattern = m_doc->checkedPattern(patternStrokeVal);
+				if (strokePattern)
 				{
 					if (item->patternStrokePath)
 					{
@@ -431,7 +435,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 					}
 					else
 					{
-						painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+						painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 						painter->setStrokeMode(ScPainterExBase::Pattern);
 						painter->strokePath();
 					}
@@ -827,7 +831,8 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	if (item->NamedLStyle.isEmpty())
 	{
 		QString patternStrokeVal = item->strokePattern();
-		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		ScPattern *strokePattern = m_doc->checkedPattern(patternStrokeVal);
+		if (strokePattern)
 		{
 			if (item->patternStrokePath)
 			{
@@ -838,7 +843,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 			}
 			else
 			{
-				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}
@@ -1162,7 +1167,8 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	if (item->NamedLStyle.isEmpty())
 	{
 		QString patternStrokeVal = item->strokePattern();
-		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		ScPattern *strokePattern = m_doc->checkedPattern(patternStrokeVal);
+		if (strokePattern)
 		{
 			if (item->patternStrokePath)
 			{
@@ -1173,7 +1179,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 			}
 			else
 			{
-				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}
@@ -1328,7 +1334,8 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 	if (item->NamedLStyle.isEmpty())
 	{
 		QString patternStrokeVal = item->strokePattern();
-		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		ScPattern *strokePattern = m_doc->checkedPattern(patternStrokeVal);
+		if (strokePattern)
 		{
 			if (item->patternStrokePath)
 			{
@@ -1339,7 +1346,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 			}
 			else
 			{
-				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}
