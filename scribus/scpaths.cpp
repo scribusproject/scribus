@@ -520,7 +520,7 @@ QString ScPaths::applicationDataDir(bool createIfNotExists)
 {
 	QString dataDir;
 #ifdef APPLICATION_DATA_DIR
-	prefsDir =  QDir::homePath() + "/" + APPLICATION_DATA_DIR + "/";
+	dataDir =  QDir::homePath() + "/" + APPLICATION_DATA_DIR + "/";
 #else
 	dataDir =  QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/";
 #endif
