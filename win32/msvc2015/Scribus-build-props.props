@@ -123,7 +123,7 @@
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Debug'">libvisio_d.lib</LIBVISIO_LIB>
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Release'">libvisio.lib</LIBVISIO_LIB>
 	<!-- Libxml2 -->
-	<LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.4</LIBXML2_DIR>
+	<LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.5</LIBXML2_DIR>
 	<LIBXML2_INCLUDE_DIR>$(LIBXML2_DIR)\include</LIBXML2_INCLUDE_DIR>
 	<LIBXML2_LIB_DIR>$(LIBXML2_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBXML2_LIB_DIR>
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Debug'">libxml2_d.lib</LIBXML2_LIB>
