@@ -118,6 +118,7 @@ A considerable amount of work has been spent on new import filters, as well as i
 - Xara Designer (XAR): Xara Designer (formerly known as Xara Xtreme) is known as one of the most powerful vector drawing programs. Its file format (XAR) is well-documented, and thanks to many contributions from professional Xara users, the Scribus Team has been able to create an excellent XAR filter, whose implementation resulted in the addition of many new features in Scribus.
 - XML Paper Specification (XPS, OXPS): XPS is an alternative to PDF originally developed by Microsoft and now maintained and updated by ECMA International. Scribus 1.5 can import both the original Microsoft version (XPS) and the modified versions as standardized by ECMA (OXPS).
 - XPress Tags (XTG): XTG is a format created by Quark to exchange text layouts between documents. Scribus 1.5 provides an import filter for XTG files created by Quark XPress, which works almost flawlessly. Note that XPress Tags is not identical to Xtags, which is an enhanced version of XPress Tags provided by a third party via an XPress plug-in. 
+- Zoner Draw/Callisto (ZMF): An importer for Zoner Draw files has been made possible by the creation of libzmf, wich is also used for Zoner Draw import into LibreOffice. It is supposed to import at least Zoner Draw versions 4–5.
 
 ==PDF Features==
 

@@ -94,6 +94,12 @@
 	<LIBPAGEMAKER_LIB_DIR>$(LIBPAGEMAKER_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBPAGEMAKER_LIB_DIR>
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Debug'">libpagemaker_d.lib</LIBPAGEMAKER_LIB>
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Release'">libpagemaker.lib</LIBPAGEMAKER_LIB>
+	<!-- Libpng -->
+	<LIBPNG_DIR>$(SCRIBUS_LIB_ROOT)\libpng-1.6.32</LIBPNG_DIR>
+	<LIBPNG_INCLUDE_DIR>$(LIBPNG_DIR)</LIBPNG_INCLUDE_DIR>
+	<LIBPNG_LIB_DIR>$(LIBPNG_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBPNG_LIB_DIR>
+	<LIBPNG_LIB Condition="'$(Configuration)' == 'Debug'">libpng16_d.lib</LIBPNG_LIB>
+	<LIBPNG_LIB Condition="'$(Configuration)' == 'Release'">libpng16.lib</LIBPNG_LIB>
 	<!-- Librevenge -->
 	<LIBREVENGE_DIR>$(SCRIBUS_LIB_ROOT)\librevenge-0.0.4</LIBREVENGE_DIR>
 	<LIBREVENGE_INCLUDE_DIR>$(LIBREVENGE_DIR)\inc</LIBREVENGE_INCLUDE_DIR>
@@ -122,6 +128,11 @@
 	<LIBXML2_LIB_DIR>$(LIBXML2_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBXML2_LIB_DIR>
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Debug'">libxml2_d.lib</LIBXML2_LIB>
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Release'">libxml2.lib</LIBXML2_LIB>
+	<!-- Libzmf -->
+    <LIBZMF_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\libzmf-0.0.2\inc</LIBZMF_INCLUDE_DIR>
+	<LIBZMF_LIB_DIR>$(SCRIBUS_LIB_ROOT)\libzmf-0.0.2\lib\$(Platform)-$(PlatformToolset)</LIBZMF_LIB_DIR>
+    <LIBZMF_LIB Condition="'$(Configuration)' == 'Debug'">libzmf_d.lib</LIBZMF_LIB>
+    <LIBZMF_LIB Condition="'$(Configuration)' == 'Release'">libzmf.lib</LIBZMF_LIB>
 	<!-- OpenSSL -->
 	<OPENSSL_DIR>$(SCRIBUS_LIB_ROOT)\openssl-1.0.2l</OPENSSL_DIR>
 	<OPENSSL_INCLUDE_DIR>$(OPENSSL_DIR)\include</OPENSSL_INCLUDE_DIR>
@@ -135,7 +146,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">podofo_d.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">podofo.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.56.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.59.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
