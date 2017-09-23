@@ -738,6 +738,8 @@ void LanguageManager::generateInstalledSpellLangList()
 int LanguageManager::langTableIndex(const QString &abbrev)
 {
 //	qDebug()<<"langTableIndex: Trying to find:"<<abbrev;
+	if (abbrev.isEmpty())
+		return -1;
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
 //		qDebug()<<abbrev<<langTable[i].m_priAbbrev<<langTable[i].m_altAbbrev;
@@ -1145,7 +1147,7 @@ LanguageManager::~LanguageManager()
 
 const QString LanguageManager::getHyphFilename(const QString & langAbbrev)
 {
-	int j=langTableIndex(langAbbrev);
+	int j = langTableIndex(langAbbrev);
 	if (j!=-1 && m_langTable[j].m_hyphAvailable)
 	{
 //		qDebug()<<"Found requested hyphenation dictionary:"<<langAbbrev<<" : "<<langTable[j].m_hyphFile;

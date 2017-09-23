@@ -58,7 +58,7 @@ Hyphenator::~Hyphenator()
 
 bool Hyphenator::loadDict(const QString& name)
 {
-	if( LanguageManager::instance()->getHyphFilename(name).isEmpty() )
+	if (LanguageManager::instance()->getHyphFilename(name).isEmpty())
 		return false;
 		
 	if (m_language != name)
@@ -84,7 +84,7 @@ bool Hyphenator::loadDict(const QString& name)
 		}
 	}
 
-	return true;
+	return (m_codec != 0 && m_hdict != 0);
 }
 
 void Hyphenator::slotNewSettings(bool Autom, bool ACheck)
@@ -98,6 +98,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 {
 	if (text.contains(SpecialChars::SHYPHEN))
 		return;
+
 	const CharStyle& style = it->itemText.charStyle(firstC);
 	if (text.length() >= style.hyphenWordMin())
 	{
