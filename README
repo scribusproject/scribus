@@ -110,6 +110,7 @@ A considerable amount of work has been spent on new import filters, as well as i
 - Open Raster File (ORA): Open Raster is an open standard for complex bitmap files. It’s supported by all major Free image editors, including GIMP and Krita.
 - Photoshop Custom Shapes (CSH): CSH is a vector format used for simple vector graphics collections in Adobe Photoshop. They can be imported via the new "Custom Shapes" manager. 
 - Progressive Graphics File (PGF): This is a fairly new image format, designed to replace JPEG, just like JPEG 2000 does, but emphasizing speed and quality over compression ratio.
+- QuarkXPress (QXD, QXT): An importer for QuarkXPress files has been made possible by the creation of libqxp, wich is also used for QuarkXPress import into LibreOffice. It is supposed to import at least QuarkXPress versions 3.1–4.1.
 - Rich Text Format (RTF): One of the most widely used exchange formats for formatted text, RTF is also very common in DTP workflows and can be exported by almost every word processor since the 90s.
 - StarView Metafile (SVM): This is an old Metafile format (similar to WMF) that was used by OpenOffice’s / LibreOffice’s predecessor StarOffice. Since both successors still use SVM in - OpenDocument Graphics, the SVM import filter was a by-product of the new ODG filter. 
 - UniConvertor Plug-in: As with the GraphicsMagick plug-in, Scribus won’t list any of the file types supported by UniConvertor to save space in file selectors. It will also ignore UniConvertor for importing file formats for which Scribus provides generic importers.

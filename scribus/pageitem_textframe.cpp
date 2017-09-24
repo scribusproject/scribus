@@ -1440,6 +1440,9 @@ void PageItem_TextFrame::layout()
 			m_availableRegion = matrix.map(m_availableRegion);
 		}
 
+		// update Bullet & number list if any.
+		updateBulletsNum();
+
 		ITextContext* context = this;
 		//TextShaper textShaper(this, itemText, firstInFrame());
 		ShapedTextFeed shapedText(&itemText, firstInFrame(), context);
@@ -1480,8 +1483,6 @@ void PageItem_TextFrame::layout()
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
 			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.top() + lineCorr - desc;
 		}
-		// update Bullet & number list if any.
-		updateBulletsNum();
 
 		current.startLine(0);
 
@@ -2244,19 +2245,17 @@ void PageItem_TextFrame::layout()
 				current.xPos = qMax(current.xPos, current.colLeft);
 			}
 			// remember possible break
-			if (shapedText.haveMoreText(i + 1, glyphClusters) && glyphClusters[i + 1].hasFlag(ScLayout_LineBoundary))
+			if (shapedText.haveMoreText(i + 1, glyphClusters))
 			{
-				if (current.glyphs.length() > 1
-					&& (current.glyphs[currentIndex - 1].lastChar() != SpecialChars::CJK_NOBREAK_AFTER)
-					&& (current.glyphs[currentIndex].firstChar() != SpecialChars::CJK_NOBREAK_BEFORE))
+				const GlyphCluster& nextCluster = glyphClusters[i + 1];
+				if (nextCluster.hasFlag(ScLayout_LineBoundary))
 				{
-//					qDebug() << "rememberBreak LineBoundry @" << i-1;
-					current.rememberBreak(i - 1, breakPos, style.rightMargin());
-				}
-				if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary))
-				{
-//					qDebug() << "rememberBreak 2nd LineBoundry @" << i;
-					current.rememberBreak(i, breakPos, style.rightMargin());
+					if (!current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
+						&& (itemText.text(a) != '-')
+						&& (itemText.text(a) != SpecialChars::SHYPHEN))
+					{
+						current.rememberBreak(i, breakPos, style.rightMargin());
+					}
 				}
 			}
 			if (HasObject)
