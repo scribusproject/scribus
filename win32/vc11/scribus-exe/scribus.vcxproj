@@ -127,6 +127,9 @@
       <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)dpiAwareness.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
     <ClCompile>
@@ -161,6 +164,9 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)dpiAwareness.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
     <ClCompile>
@@ -196,6 +202,9 @@
       <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)dpiAwareness.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
     <ClCompile>
@@ -231,6 +240,9 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)dpiAwareness.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\desaxe\actions.h" />
