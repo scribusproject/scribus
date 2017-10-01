@@ -94,7 +94,7 @@
 	/>
 	<!-- Libxml2 -->
 	<UserMacro Name="LIBXML2_DIR"
-		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libxml2-2.9.4"
+		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libxml2-2.9.5"
 	/>
 	<UserMacro Name="LIBXML2_DEBUG_LIB"
 		Value="libxml2_d.lib"
