@@ -21,6 +21,8 @@ PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFra
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
 	layout()->setAlignment( Qt::AlignTop );
+
+	initWidgets();
 	languageChange();
 }
 
@@ -41,51 +43,7 @@ void PropertyWidget_FontFeatures::changeEvent(QEvent *e)
 
 void PropertyWidget_FontFeatures::languageChange()
 {
-	CommonCheck->setChecked(true);
-	NormalCaRadio->setChecked(true);
-	NormalRadio->setChecked(true);
-	DefaultStyleRadio->setChecked(true);
-	DefaultWidthRadio->setChecked(true);
-	DefaultFractionsRadio->setChecked(true);
-	ContextualCheck->setChecked(true);
-	DiscretionaryCheck->setChecked(false);
-	HistoricalCheck->setChecked(false);
-	SubscriptRadio->setChecked(false);
-	SuperscriptRadio->setChecked(false);
-	SmallRadio->setChecked(false);
-	SmallFromCRadio->setChecked(false);
-	PetiteRadio->setChecked(false);
-	PetiteCapRadio->setChecked(false);
-	UnicaseRadio->setChecked(false);
-	TiltingRadio->setChecked(false);
-	LininRadio->setChecked(false);
-	OldStyleRadio->setChecked(false);
-	ProportionalRadio->setChecked(false);
-	TabularRadio->setChecked(false);
-	DiagonalRadio->setChecked(false);
-	StackedRadio->setChecked(false);
-	OrdinalCheck->setChecked(false);
-	SlashedZeroCheck->setChecked(false);
-	StyleSet01->setChecked(false);
-	StyleSet02->setChecked(false);
-	StyleSet03->setChecked(false);
-	StyleSet04->setChecked(false);
-	StyleSet05->setChecked(false);
-	StyleSet06->setChecked(false);
-	StyleSet07->setChecked(false);
-	StyleSet08->setChecked(false);
-	StyleSet09->setChecked(false);
-	StyleSet10->setChecked(false);
-	StyleSet11->setChecked(false);
-	StyleSet12->setChecked(false);
-	StyleSet13->setChecked(false);
-	StyleSet14->setChecked(false);
-	StyleSet15->setChecked(false);
-	StyleSet16->setChecked(false);
-	StyleSet17->setChecked(false);
-	StyleSet18->setChecked(false);
-	StyleSet19->setChecked(false);
-	StyleSet20->setChecked(false);
+	retranslateUi(this);
 }
 
 void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availableFeatures)
@@ -825,7 +783,7 @@ quint64 PropertyWidget_FontFeatures::featureFlags()
 	return flags;
 }
 
-void PropertyWidget_FontFeatures::configureWidgets(void)
+void PropertyWidget_FontFeatures::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)
@@ -840,6 +798,55 @@ void PropertyWidget_FontFeatures::configureWidgets(void)
 			enabled = false;
 	}
 	setEnabled(enabled);
+}
+
+void PropertyWidget_FontFeatures::initWidgets()
+{
+	CommonCheck->setChecked(true);
+	NormalCaRadio->setChecked(true);
+	NormalRadio->setChecked(true);
+	DefaultStyleRadio->setChecked(true);
+	DefaultWidthRadio->setChecked(true);
+	DefaultFractionsRadio->setChecked(true);
+	ContextualCheck->setChecked(true);
+	DiscretionaryCheck->setChecked(false);
+	HistoricalCheck->setChecked(false);
+	SubscriptRadio->setChecked(false);
+	SuperscriptRadio->setChecked(false);
+	SmallRadio->setChecked(false);
+	SmallFromCRadio->setChecked(false);
+	PetiteRadio->setChecked(false);
+	PetiteCapRadio->setChecked(false);
+	UnicaseRadio->setChecked(false);
+	TiltingRadio->setChecked(false);
+	LininRadio->setChecked(false);
+	OldStyleRadio->setChecked(false);
+	ProportionalRadio->setChecked(false);
+	TabularRadio->setChecked(false);
+	DiagonalRadio->setChecked(false);
+	StackedRadio->setChecked(false);
+	OrdinalCheck->setChecked(false);
+	SlashedZeroCheck->setChecked(false);
+	StyleSet01->setChecked(false);
+	StyleSet02->setChecked(false);
+	StyleSet03->setChecked(false);
+	StyleSet04->setChecked(false);
+	StyleSet05->setChecked(false);
+	StyleSet06->setChecked(false);
+	StyleSet07->setChecked(false);
+	StyleSet08->setChecked(false);
+	StyleSet09->setChecked(false);
+	StyleSet10->setChecked(false);
+	StyleSet11->setChecked(false);
+	StyleSet12->setChecked(false);
+	StyleSet13->setChecked(false);
+	StyleSet14->setChecked(false);
+	StyleSet15->setChecked(false);
+	StyleSet16->setChecked(false);
+	StyleSet17->setChecked(false);
+	StyleSet18->setChecked(false);
+	StyleSet19->setChecked(false);
+	StyleSet20->setChecked(false);
 }
 
 void PropertyWidget_FontFeatures::setCurrentItem(PageItem *item)
