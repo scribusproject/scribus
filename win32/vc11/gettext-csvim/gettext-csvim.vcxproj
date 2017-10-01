@@ -94,7 +94,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -107,7 +107,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(LIBXML2_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -118,7 +118,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -131,7 +131,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(LIBXML2_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -144,7 +144,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -157,7 +157,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(LIBXML2_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -172,7 +172,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -186,7 +186,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(LIBXML2_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(QT4_DIR)\lib;$(OutDir)..\..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
