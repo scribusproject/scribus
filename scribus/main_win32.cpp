@@ -177,45 +177,45 @@ LONG exceptionFilter(DWORD exceptionCode)
 static QString exceptionDescription(DWORD exceptionCode)
 {
 	QString description;
-	if ( exceptionCode == EXCEPTION_ACCESS_VIOLATION )
+	if (exceptionCode == EXCEPTION_ACCESS_VIOLATION)
 		description = "EXCEPTION_ACCESS_VIOLATION";
-	else if ( exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT )
+	else if (exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT)
 		description = "EXCEPTION_DATATYPE_MISALIGNMENT";
-	else if ( exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED )
+	else if (exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED)
 		description = "EXCEPTION_ARRAY_BOUNDS_EXCEEDED";
-	else if ( exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND )
+	else if (exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND)
 		description = "EXCEPTION_FLT_DENORMAL_OPERAND";
-	else if ( exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_FLT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_FLT_INEXACT_RESULT )
+	else if (exceptionCode == EXCEPTION_FLT_INEXACT_RESULT)
 		description = "EXCEPTION_FLT_INEXACT_RESULT";
-	else if ( exceptionCode == EXCEPTION_FLT_INVALID_OPERATION )
+	else if (exceptionCode == EXCEPTION_FLT_INVALID_OPERATION)
 		description = "EXCEPTION_FLT_INVALID_OPERATION";
-	else if ( exceptionCode == EXCEPTION_FLT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_OVERFLOW)
 		description = "EXCEPTION_FLT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_FLT_STACK_CHECK )
+	else if (exceptionCode == EXCEPTION_FLT_STACK_CHECK)
 		description = "EXCEPTION_FLT_STACK_CHECK";
-	else if ( exceptionCode == EXCEPTION_FLT_UNDERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_UNDERFLOW)
 		description = "EXCEPTION_FLT_UNDERFLOW";
-	else if ( exceptionCode == EXCEPTION_GUARD_PAGE )
+	else if (exceptionCode == EXCEPTION_GUARD_PAGE)
 		description = "EXCEPTION_GUARD_PAGE";
-	else if ( exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
 		description = "EXCEPTION_ILLEGAL_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_IN_PAGE_ERROR )
+	else if (exceptionCode == EXCEPTION_IN_PAGE_ERROR)
 		description = "EXCEPTION_IN_PAGE_ERROR";
-	else if ( exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_INT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_INT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_INT_OVERFLOW)
 		description = "EXCEPTION_INT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_INVALID_DISPOSITION )
+	else if (exceptionCode == EXCEPTION_INVALID_DISPOSITION)
 		description = "EXCEPTION_INVALID_DISPOSITION";
-	else if ( exceptionCode == EXCEPTION_INVALID_HANDLE )
+	else if (exceptionCode == EXCEPTION_INVALID_HANDLE)
 		description = "EXCEPTION_INVALID_HANDLE";
-	else if ( exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION )
+	else if (exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION)
 		description = "EXCEPTION_NONCONTINUABLE_EXCEPTION";
-	else if ( exceptionCode == EXCEPTION_PRIV_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_PRIV_INSTRUCTION)
 		description = "EXCEPTION_PRIV_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_STACK_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_STACK_OVERFLOW)
 		description = "EXCEPTION_STACK_OVERFLOW";
 	else
 		description = "UNKNOWN EXCEPTION";
@@ -251,7 +251,7 @@ void defaultCrashHandler(DWORD exceptionCode)
 void messageHandler( QtMsgType type, const char *msg )
 {
 	cerr << msg << endl;
-	if( type == QtFatalMsg )
+	if (type == QtFatalMsg)
 	{
 		if (ScribusQApp::useGUI)
 		{
@@ -269,10 +269,10 @@ void messageHandler( QtMsgType type, const char *msg )
 bool consoleOptionEnabled(int argc, char* argv[])
 {
 	bool value = false;
-	for( int i = 0; i < argc; i++ )
+	for (int i = 0; i < argc; i++)
 	{
-		if( strcmp(argv[i], ARG_CONSOLE) == 0 ||
-			strcmp(argv[i], ARG_CONSOLE_SHORT) == 0 )
+		if (strcmp(argv[i], ARG_CONSOLE) == 0 ||
+			strcmp(argv[i], ARG_CONSOLE_SHORT) == 0)
 		{
 			value = true;
 			break;
@@ -286,33 +286,69 @@ void redirectIOToConsole(void)
 	int hConHandle;
 	HANDLE lStdHandle;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
-	FILE *fp;
+
+	freopen("NUL", "r", stdin);
+	freopen("NUL", "w", stdout);
+	freopen("NUL", "w", stderr);
 
 	// allocate console
-	if( GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE )
+	if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
 		AllocConsole();
+
 	// set the screen buffer to be big enough to let us scroll text
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
 	coninfo.dwSize.Y = MAX_LINES;
 	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
-	//redirect unbuffered STDOUT to the console
-	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stdout = *fp;
-	setvbuf( stdout, NULL, _IONBF, 0 );
+
 	// redirect unbuffered STDIN to the console
 	lStdHandle = GetStdHandle(STD_INPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "r" );
-	*stdin = *fp;
-	setvbuf( stdin, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdin));
+			setvbuf(stdin, NULL, _IONBF, 0);
+			SetStdHandle(STD_INPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdin)));
+			_close(hConHandle);
+		}
+	}
+
+	//redirect unbuffered STDOUT to the console
+	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdout));
+			setvbuf(stdout, NULL, _IONBF, 0);
+			SetStdHandle(STD_OUTPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdout)));
+			_close(hConHandle);
+		}
+	}
+	
 	// redirect unbuffered STDERR to the console
 	lStdHandle = GetStdHandle(STD_ERROR_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stderr = *fp;
-	setvbuf( stderr, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stderr));
+			setvbuf(stderr, NULL, _IONBF, 0);
+			SetStdHandle(STD_ERROR_HANDLE, (HANDLE) _get_osfhandle(fileno(stderr)));
+			_close(hConHandle);
+		}
+	}
+
+	std::wcout.clear();
+	std::cout.clear();
+	std::wcerr.clear();
+	std::cerr.clear();
+	std::wcin.clear();
+	std::cin.clear();
+
 	// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog 
 	// point to console as well
 	ios::sync_with_stdio();
