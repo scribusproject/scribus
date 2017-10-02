@@ -8417,7 +8417,7 @@ void ScribusMainWindow::slotStoryEditor(bool fromTable)
 void ScribusMainWindow::emergencySave()
 {
 	emergencyActivated=true;
-	if (!m_prefsManager->appPrefs.miscPrefs.saveEmergencyFile)
+	if (!m_prefsManager || !m_prefsManager->appPrefs.miscPrefs.saveEmergencyFile)
 		return;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
