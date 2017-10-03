@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_icons_150 Include="$(MSBuildThisFileDirectory)\1_5_0\**\*.jpg" />
+		<FilesToInstall_resources_icons_150 Include="$(MSBuildThisFileDirectory)\1_5_0\**\*.png" />
+		<FilesToInstall_resources_icons_150 Include="$(MSBuildThisFileDirectory)\1_5_0\**\*.xpm" />
+		
+		<FilesToInstall_resources_icons_151 Include="$(MSBuildThisFileDirectory)\1_5_1\**\*.jpg" />
+		<FilesToInstall_resources_icons_151 Include="$(MSBuildThisFileDirectory)\1_5_1\**\*.png" />
+		<FilesToInstall_resources_icons_151 Include="$(MSBuildThisFileDirectory)\1_5_1\**\*.xpm" />
+		
+		<FilesToInstall_resources_icons_150_xml Include="$(MSBuildThisFileDirectory)\1_5_0\*.xml" />
+		<FilesToInstall_resources_icons_151_xml Include="$(MSBuildThisFileDirectory)\1_5_1\*.xml" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_icons;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_icons">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_icons_150)"  
+			DestinationFiles="@(FilesToInstall_resources_icons_150-&gt;'$(OutDir)\share\icons\1_5_0\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_icons_151)"  
+			DestinationFiles="@(FilesToInstall_resources_icons_151-&gt;'$(OutDir)\share\icons\1_5_1\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_icons_150_xml)"  
+			DestinationFiles="@(FilesToInstall_resources_icons_150_xml-&gt;'$(OutDir)\share\icons\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_icons_151_xml)"  
+			DestinationFiles="@(FilesToInstall_resources_icons_151_xml-&gt;'$(OutDir)\share\icons\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

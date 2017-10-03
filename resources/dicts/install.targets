@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_dicts Include="$(MSBuildThisFileDirectory)*.dic" />
+		<FilesToInstall_resources_dicts Include="$(MSBuildThisFileDirectory)*.txt" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_dicts;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_dicts">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_dicts)"  
+			DestinationFiles="@(FilesToInstall_resources_dicts-&gt;'$(OutDir)\share\dicts\hyph\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+</Project>

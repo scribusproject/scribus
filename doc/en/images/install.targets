@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_doc_en_images Include="$(MSBuildThisFileDirectory)*.jpg" />
+		<FilesToInstall_doc_en_images Include="$(MSBuildThisFileDirectory)*.png" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_doc_en_images;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_doc_en_images">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_doc_en_images)"  
+			DestinationFiles="@(FilesToInstall_doc_en_images-&gt;'$(OutDir)\share\doc\en\images\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+</Project>

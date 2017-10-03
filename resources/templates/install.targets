@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_templates;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_templates"> 
+		<ItemGroup>
+			<FilesToInstall_resources_templates Include="$(MSBuildThisFileDirectory)**\*" />
+			<FilesToInstall_resources_templates Remove="$(MSBuildThisFileDirectory)**\CMakeLists.txt" />
+			<FilesToInstall_resources_templates Remove="$(MSBuildThisFileDirectory)**\.svn\**" />
+			<FilesToInstall_resources_templates Remove="$(MSBuildThisFileDirectory)*.targets" />
+		</ItemGroup>
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_templates)"  
+			DestinationFiles="@(FilesToInstall_resources_templates-&gt;'$(OutDir)\share\templates\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

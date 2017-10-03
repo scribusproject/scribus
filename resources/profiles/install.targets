@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_profiles;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_profiles">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)GenericCMYK.icm"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)GenericCMYK.txt"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)Readme"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)sRGB.icm"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)sRGB.license"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>
