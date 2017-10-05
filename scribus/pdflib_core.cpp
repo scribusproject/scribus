@@ -8754,7 +8754,7 @@ void PDFLibCore::PDF_RadioButtons()
 		if (it.key() == 0)
 			anTitle = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
 		else
-			anTitle = Pdf::toName(it.key()->itemName().replace(".", "_" ));
+			anTitle = Pdf::toPdfDocEncoding(it.key()->itemName().replace(".", "_" ));
 		for (int a = 0; a < bList.count(); a++)
 		{
 			PdfId kid = PDF_RadioButton(bList[a], parentObject, anTitle);
