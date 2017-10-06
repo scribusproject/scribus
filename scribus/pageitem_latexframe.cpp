@@ -70,9 +70,12 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
+	m_dpi = 0;
 	m_lastWidth = m_lastHeight = 0;
 	m_lastDpi = realDpi();
-	m_dpi = 0;
+
+	m_imageXScale *= (72.0 / realDpi());
+	m_imageYScale *= (72.0 / realDpi());
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
@@ -355,7 +358,7 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	scaleY = m_imageYScale * lDpi;
 	offsetX = m_imageXOffset * m_imageXScale;
 	offsetY = m_imageYOffset * m_imageYScale;
-	realW = m_width - m_imageXOffset / lDpi;
+	realW = m_width  - m_imageXOffset / lDpi;
 	realH = m_height - m_imageYOffset / lDpi;
 	if (!tmp.contains("$scribus_noprepost$") && m_usePreamble) {
 		tmp = config->preamble() + tmp + config->postamble();
