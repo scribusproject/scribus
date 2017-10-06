@@ -3,7 +3,7 @@
 
 	<Import Project=".\doc\install.targets" />
 	<Import Project=".\resources\install.targets" />
-	<Import Project=".\scribus\plugins\install.targets" />
+	<Import Project=".\scribus\install.targets" />
 
 	<PropertyGroup>
 		<AfterBuildDependsOn>
