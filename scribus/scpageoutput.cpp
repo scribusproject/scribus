@@ -763,7 +763,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 			ScImage* pImage = NULL;
 			double imScaleX = item->imageXScale();
 			double imScaleY = item->imageYScale();
-			if( m_reloadImages )
+			if (m_reloadImages)
 			{
 				bool dummy;
 				bool useCmyk = false;
@@ -782,7 +782,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
 				scImg.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
-				if( extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext)  )
+				if (extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext) )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);
 					imScaleY *= (72.0 / (double) m_imageRes);
@@ -813,7 +813,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				painter->scale(1, -1);
 			}
 			painter->translate(item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
-			//painter->translate(item->LocalX * imScaleX * scale, item->LocalY * imScaleY * scale); ??
+			painter->rotate(item->imageRotation());
 			painter->scale( imScaleX, imScaleY );
 			if (pImage->imgInfo.lowResType != 0)
 				painter->scale(pImage->imgInfo.lowResScale, pImage->imgInfo.lowResScale);
