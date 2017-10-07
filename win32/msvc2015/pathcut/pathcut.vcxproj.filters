@@ -9,9 +9,6 @@
       <UniqueIdentifier>{39cd4539-b992-4290-b3df-f7ec507189ec}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{15ec6be1-3d0d-4291-a474-c04ec79a0a7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{665981ec-5f3f-42a5-88b6-ab4eaa67ca4b}</UniqueIdentifier>
       <Extensions>ui</Extensions>

@@ -272,10 +272,6 @@
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\svgimport.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_pconsole.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_prefs_scripterbase.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_runscriptdialog.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_scripterprefsgui.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\scriptplugin\pconsole.ui" />

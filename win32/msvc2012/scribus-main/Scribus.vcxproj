@@ -596,10 +596,6 @@
     <moc Include="..\..\..\scribus\ui\smlineedit.h" />
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
     <moc Include="..\..\..\scribus\ui\textpalette.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_colorsandfillsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
@@ -791,107 +787,6 @@
     <ClInclude Include="..\..\..\scribus\vgradientex.h" />
     <moc Include="..\..\..\scribus\ui\vruler.h" />
     <moc Include="..\..\..\scribus\ui\weldedit.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_aboutplugins.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_aligndistribute.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_arcvectorbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_arcwidgetbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_charselect.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_charselectenhanced.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_cmsprefsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_colorpalette.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_copypagetomasterpage.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_createrange.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_gradientaddedit.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_gradienteditor.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_gradientvectorbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_gtfiledialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_guidemanager.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowser.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowsernavigation.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_insertaframe.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_inserttablecolumnsdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_inserttablerowsdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_mark2item.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_mark2mark.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_markanchor.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_marknote.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_marksmanager.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_markvariabletext.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_measurementsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_multipleduplicate.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_multiprogressdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_newmarginwidgetbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_notesstyleseditor.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_pageitemattributes.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_pagepalette_masterpagesbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_picsearch.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_picsearchoptions.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_picstatus.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_pluginmanagerprefsgui.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_polygonwidgetbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_preferencesdialogbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_colormanagementbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_displaybase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_documentinformationbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_documentitemattributesbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_documentsectionsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_documentsetupbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_externaltoolsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_fontsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_guidesbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_hyphenatorbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_imagecachebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_itemtoolsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_keyboardshortcutsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_miscellaneousbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_operatortoolsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_pagesizesbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_pathsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_pdfexportbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_pluginsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_preflightverifierbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_printerbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_scrapbookbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_spellingbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_tableofcontentsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_typographybase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_userinterfacebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_printdialogbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_groupbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_imagebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_linebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shadowbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shapebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_tablebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_textbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_xyzbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_advancedbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_distancebase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_flopbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_optmarginsbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_orphansbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_pareffectbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_pathtextbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_textcolorbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_replacecolors.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_replaceonecolor.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_selectobjects.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_shortcutwidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smcellstylewidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smcstylewidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smlinestylewidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smpstylewidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smreplacedia.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_smtablestylewidget.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_spiralvectorbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_spiralwidgetbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_stylemanager.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_tablecolumnwidthsdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_tablerowheightsdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_transformdialogbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_transparencypalette.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_unicodesearch.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_useprintermarginsdialog.h" />
     <ClInclude Include="..\win-config.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtelem.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtengine.h" />
@@ -1755,10 +1650,10 @@
     <Import Project="..\Scribus-build-rules.targets" />
   </ImportGroup>
   <Import Project="..\..\..\scribus.install.targets" />
-  <Target Name="AfterBuildMessage" AfterTargets="Build" BeforeTargets="AfterBuild" >
-     <Message Importance="High" Text="Now copying assets to output directory..." />
+  <Target Name="AfterBuildMessage" AfterTargets="Build" BeforeTargets="AfterBuild">
+    <Message Importance="High" Text="Now copying assets to output directory..." />
   </Target>
-  <Target Name="AfterBuild" AfterTargets="Build" DependsOnTargets="$(AfterBuildDependsOn)" >
-     <Message Importance="High" Text="Assets have been copied to output directory..." />
+  <Target Name="AfterBuild" AfterTargets="Build" DependsOnTargets="$(AfterBuildDependsOn)">
+    <Message Importance="High" Text="Assets have been copied to output directory..." />
   </Target>
 </Project>

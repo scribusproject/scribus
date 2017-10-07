@@ -17,10 +17,10 @@
 			DestinationFiles="@(FilesToInstall_plugins_pathcut-&gt;'$(OutDir)\share\icons\1_5_0\%(Filename)%(Extension)')"
 			SkipUnchangedFiles="true"
 		/>
-		<Copy  
+		<!--Copy  
 			SourceFiles="@(FilesToInstall_plugins_pathcut)"  
 			DestinationFiles="@(FilesToInstall_plugins_pathcut-&gt;'$(OutDir)\share\icons\1_5_1\%(Filename)%(Extension)')"
 			SkipUnchangedFiles="true"
-		/>
+		/-->
 	</Target>
 </Project>

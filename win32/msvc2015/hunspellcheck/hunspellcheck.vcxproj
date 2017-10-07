@@ -222,7 +222,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellplugin.h" />
     <moc Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginimpl.h" />
     <ClInclude Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginstructs.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\hunspellcheck\ui_hunspelldialogbase.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialogbase.ui" />

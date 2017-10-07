@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinder.h" />
     <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\pathfinder\ui_pathfinderbase.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderbase.ui" />

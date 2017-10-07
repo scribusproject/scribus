@@ -17,9 +17,6 @@
       <UniqueIdentifier>{b444e537-1a8e-4132-8b80-7c50827631c6}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{1c3b9947-57ed-4fab-918e-29ee1e5dd3b7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\collection.cpp">
@@ -57,20 +54,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\iview.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\pictview.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_imagedialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_picturebrowser.h">
-      <Filter>Generated Form Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +89,12 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\picbrowser\iview.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\picbrowser\pictview.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

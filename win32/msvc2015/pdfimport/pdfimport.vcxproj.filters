@@ -9,9 +9,6 @@
       <UniqueIdentifier>{e90d32cf-149c-4dc1-ab3a-b6d86893914a}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{b4cb61b3-e1bc-44e8-8fba-19fab0cbec1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{20b73e59-c812-4c19-8f7f-06049e6ff8ba}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -37,9 +34,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\pdf\slaoutput.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\ui_pdfimportoptions.h">
-      <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>

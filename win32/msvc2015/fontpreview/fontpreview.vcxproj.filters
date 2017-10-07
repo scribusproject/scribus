@@ -9,9 +9,6 @@
       <UniqueIdentifier>{467096fa-eab5-417a-9f13-65188bdfbc50}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{d8e30f82-ab05-45e1-8833-7d119f3bf2fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{11bdc54d-9a6a-4185-80ef-706038e5230e}</UniqueIdentifier>
     </Filter>
@@ -28,9 +25,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\fontpreview\ui_fontpreview.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.h" />
     <moc Include="..\..\..\scribus\plugins\saveastemplateplugin\satemplate.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\saveastemplateplugin\ui_satdialog.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.ui" />

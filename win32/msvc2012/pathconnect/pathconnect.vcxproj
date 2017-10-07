@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnect.h" />
     <moc Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialog.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\pathconnect\ui_pathconnectdialogbase.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialogbase.ui" />

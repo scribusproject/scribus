@@ -9,9 +9,6 @@
       <UniqueIdentifier>{e431be5a-3295-43d7-aa9e-e9f73832a915}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{7de4c226-c92a-4950-9008-e8b945cb7fd3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{85366c1e-4809-4e78-8978-aaa31061c048}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -40,9 +37,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginstructs.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\tools\hunspellcheck\ui_hunspelldialogbase.h">
-      <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>

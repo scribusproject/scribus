@@ -78,6 +78,9 @@
       CommandLineTemplate="%(uic.CommandLineTemplate)"
       AdditionalOptions="%(uic.AdditionalOptions)"
       Inputs="%(uic.Identity)" />
+    <!-- ItemGroup>
+      <ClInclude Include="%(uic.Outputs)"/>
+    </ItemGroup -->
   </Target>
   <PropertyGroup>
     <ComputeLinkInputsTargets>
@@ -119,10 +122,21 @@
     Name="UicClean"
     Condition="'@(uic)' != ''">
     <ItemGroup>
-      <mocFileToDelete Include="%(uic.Outputs)" />
+      <uicFileToDelete Include="%(uic.Outputs)" />
     </ItemGroup>
     <Delete Files="@(uicFileToDelete)" />
   </Target>
+  <!-- Additionnal include directories for ui_* files -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)uic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(ProjectName)'!='scribus-main'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)..\scribus-main\uic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <!-- Targets for moc tool -->
   <Target
     Name="_moc"

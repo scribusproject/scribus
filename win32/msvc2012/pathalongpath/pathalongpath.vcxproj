@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathalongpath.h" />
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialog.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\ui_pathdialogbase.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialogbase.ui" />
