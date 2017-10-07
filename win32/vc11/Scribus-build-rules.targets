@@ -119,7 +119,7 @@
     Name="UicClean"
     Condition="'@(uic)' != ''">
     <ItemGroup>
-      <mocFileToDelete Include="%(uic.Outputs)" />
+      <uicFileToDelete Include="%(uic.Outputs)" />
     </ItemGroup>
     <Delete Files="@(uicFileToDelete)" />
   </Target>
