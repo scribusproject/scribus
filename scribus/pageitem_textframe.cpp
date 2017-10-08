@@ -2249,7 +2249,8 @@ void PageItem_TextFrame::layout()
 				const GlyphCluster& nextCluster = glyphClusters[i + 1];
 				if (nextCluster.hasFlag(ScLayout_LineBoundary))
 				{
-					if (!current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
+					if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
+						&& !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
 						&& (itemText.text(a) != '-')
 						&& (itemText.text(a) != SpecialChars::SHYPHEN))
 					{
