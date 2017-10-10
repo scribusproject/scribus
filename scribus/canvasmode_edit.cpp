@@ -632,6 +632,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				m_view->Deselect(true);
 				//m_view->slotDoCurs(true);
 				m_view->requestMode(modeNormal);
+				m_view->canvasMode()->mousePressEvent(m);
 				return;
 			}
 
