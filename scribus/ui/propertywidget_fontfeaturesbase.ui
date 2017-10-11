@@ -92,7 +92,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="NormalCaRadio">
+    <widget class="QRadioButton" name="NormalCapRadio">
      <property name="toolTip">
       <string>Normal capitals</string>
      </property>
@@ -186,7 +186,7 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_3">
+    <widget class="Line" name="line_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -212,7 +212,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="LininRadio">
+    <widget class="QRadioButton" name="LiningRadio">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -244,7 +244,7 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_5">
+    <widget class="Line" name="line_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -302,7 +302,7 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_2">
+    <widget class="Line" name="line_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -360,14 +360,14 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_4">
+    <widget class="Line" name="line_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="NormalRadio">
+    <widget class="QRadioButton" name="DefaultPosRadio">
      <property name="toolTip">
       <string>Normal position</string>
      </property>
@@ -607,8 +607,8 @@
  <buttongroups>
   <buttongroup name="PositionGroup"/>
   <buttongroup name="CapitalsGroup"/>
-  <buttongroup name="FractionsGroup"/>
   <buttongroup name="NumeralWidthGroup"/>
   <buttongroup name="NumeralStyleGroup"/>
+  <buttongroup name="FractionsGroup"/>
  </buttongroups>
 </ui>

@@ -12,6 +12,47 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 
+quint64 PropertyWidget_FontFeatures::FeatureCommonLigatures          = 1;
+quint64 PropertyWidget_FontFeatures::FeatureContextualLigatures      = ((quint64) 1 << 1);
+quint64 PropertyWidget_FontFeatures::FeatureDiscretionaryLigatures   = ((quint64) 1 << 2);
+quint64 PropertyWidget_FontFeatures::FeatureHistoricalLigatures      = ((quint64) 1 << 3);
+quint64 PropertyWidget_FontFeatures::FeatureSmallCaps                = ((quint64) 1 << 4);
+quint64 PropertyWidget_FontFeatures::FeatureSmallCapsFromCaps        = ((quint64) 1 << 5);
+quint64 PropertyWidget_FontFeatures::FeaturePetiteCaps               = ((quint64) 1 << 6);
+quint64 PropertyWidget_FontFeatures::FeaturePetiteCapsFromCaps       = ((quint64) 1 << 7);
+quint64 PropertyWidget_FontFeatures::FeatureUnicaseCaps              = ((quint64) 1 << 8);
+quint64 PropertyWidget_FontFeatures::FeatureTiltingCaps              = ((quint64) 1 << 9);
+quint64 PropertyWidget_FontFeatures::FeatureLiningNumerals           = ((quint64) 1 << 10);
+quint64 PropertyWidget_FontFeatures::FeatureOldStyleNumerals         = ((quint64) 1 << 11);
+quint64 PropertyWidget_FontFeatures::FeatureProportionalNumeralWidth = ((quint64) 1 << 12);
+quint64 PropertyWidget_FontFeatures::FeatureTabularNumeralWidth      = ((quint64) 1 << 13);
+quint64 PropertyWidget_FontFeatures::FeatureDiagonalFractions        = ((quint64) 1 << 14);
+quint64 PropertyWidget_FontFeatures::FeatureStackedFractions         = ((quint64) 1 << 15);
+quint64 PropertyWidget_FontFeatures::FeatureSubscript                = ((quint64) 1 << 16);
+quint64 PropertyWidget_FontFeatures::FeatureSuperscript              = ((quint64) 1 << 17);
+quint64 PropertyWidget_FontFeatures::FeatureOrdinals                 = ((quint64) 1 << 18);
+quint64 PropertyWidget_FontFeatures::FeatureSlashedZero              = ((quint64) 1 << 19);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet01               = ((quint64) 1 << 20);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet02               = ((quint64) 1 << 21);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet03               = ((quint64) 1 << 22);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet04               = ((quint64) 1 << 23);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet05               = ((quint64) 1 << 24);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet06               = ((quint64) 1 << 25);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet07               = ((quint64) 1 << 26);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet08               = ((quint64) 1 << 27);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet09               = ((quint64) 1 << 28);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet10               = ((quint64) 1 << 29);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet11               = ((quint64) 1 << 30);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet12               = ((quint64) 1 << 31);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet13               = ((quint64) 1 << 32);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet14               = ((quint64) 1 << 33);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet15               = ((quint64) 1 << 34);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet16               = ((quint64) 1 << 35);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet17               = ((quint64) 1 << 36);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet18               = ((quint64) 1 << 37);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet19               = ((quint64) 1 << 38);
+quint64 PropertyWidget_FontFeatures::FeatureStyleSet20               = ((quint64) 1 << 39);
+
 PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFrame(parent)
 {
 	m_item = NULL;
@@ -50,7 +91,9 @@ void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availa
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+
 	enableFeatures(availableFeatures);
+
 	QStringList fontFeatures = s.split(',');
 	ContextualCheck->setChecked(true);
 	CommonCheck->setChecked(true);
@@ -81,7 +124,7 @@ void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availa
 		else if (fontFeatures[i] == "+titl")
 			TiltingRadio->setChecked(true);
 		else if (fontFeatures[i] == "+lnum")
-			LininRadio->setChecked(true);
+			LiningRadio->setChecked(true);
 		else if (fontFeatures[i] == "+onum")
 			OldStyleRadio->setChecked(true);
 		else if (fontFeatures[i] == "+pnum")
@@ -139,27 +182,21 @@ void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availa
 	}
 }
 
-void PropertyWidget_FontFeatures::handlefontfeatures()
+void PropertyWidget_FontFeatures::handleFontFeatures()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+
+	// Ligatures
 	QStringList font_feature ;
-	if (!ContextualCheck->isChecked())
-		font_feature << "-clig";
 	if (!CommonCheck->isChecked())
 		font_feature << "-liga";
+	if (!ContextualCheck->isChecked())
+		font_feature << "-clig";
 	if (DiscretionaryCheck->isChecked())
 		font_feature << "+dlig";
 	if (HistoricalCheck->isChecked())
 		font_feature << "+hlig";
-
-	//Position
-
-	if (SubscriptRadio->isChecked())
-		font_feature << "+subs";
-	if (SuperscriptRadio->isChecked())
-		font_feature <<"+sups";
-
 
 	//Capitals
 	if (SmallRadio->isChecked())
@@ -176,7 +213,7 @@ void PropertyWidget_FontFeatures::handlefontfeatures()
 		font_feature << "+titl";
 
 	//Numeric
-	if (LininRadio->isChecked())
+	if (LiningRadio->isChecked())
 		font_feature << "+lnum";
 	if (OldStyleRadio->isChecked())
 		font_feature << "+onum";
@@ -189,8 +226,14 @@ void PropertyWidget_FontFeatures::handlefontfeatures()
 	if (StackedRadio->isChecked())
 		font_feature <<"+afrc";
 
+	//Position
+	if (SubscriptRadio->isChecked())
+		font_feature << "+subs";
+	if (SuperscriptRadio->isChecked())
+		font_feature << "+sups";
 	if (OrdinalCheck->isChecked())
 		font_feature << "+ordn";
+
 	if (SlashedZeroCheck->isChecked())
 		font_feature << "+zero";
 
@@ -294,172 +337,129 @@ void PropertyWidget_FontFeatures::updateStyle(const ParagraphStyle& newCurrent)
 
 void PropertyWidget_FontFeatures::connectSignals()
 {
-	connect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(CommonCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(NormalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(NormalCaRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SmallRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(LininRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(OldStyleRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DefaultWidthRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(ProportionalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(TabularRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DefaultFractionsRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(DiagonalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StackedRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(OrdinalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(SlashedZeroCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet01, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet02, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet03, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet04, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet05, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet06, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet07, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet08, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet09, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet10, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet11, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet12, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet13, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet14, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet15, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet16, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet17, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet18, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet19, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	connect(StyleSet20, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	connect(CommonCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(NormalCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(SmallRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(LiningRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(OldStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(DefaultWidthRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(ProportionalRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(TabularRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(DefaultFractionsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(DiagonalRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StackedRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(DefaultPosRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(OrdinalCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(SlashedZeroCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+
+	connect(StyleSet01, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet02, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet03, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet04, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet05, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet06, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet07, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet08, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet09, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet10, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet11, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet12, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet13, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet14, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet15, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet16, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet17, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet18, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet19, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(StyleSet20, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 }
 
 void PropertyWidget_FontFeatures::disconnectSignals()
 {
-	disconnect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(CommonCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(NormalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(NormalCaRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SmallRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(LininRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(OldStyleRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DefaultWidthRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(ProportionalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(TabularRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DefaultFractionsRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(DiagonalRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StackedRadio, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(OrdinalCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(SlashedZeroCheck, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet01, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet02, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet03, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet04, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet05, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet06, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet07, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet08, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet09, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet10, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet11, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet12, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet13, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet14, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet15, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet16, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet17, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet18, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet19, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
-	disconnect(StyleSet20, SIGNAL(clicked()), this, SLOT(handlefontfeatures()));
+	disconnect(CommonCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(ContextualCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(DiscretionaryCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(HistoricalCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(NormalCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(SmallRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(LiningRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(OldStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(DefaultWidthRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(ProportionalRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(TabularRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(DefaultFractionsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(DiagonalRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StackedRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(DefaultPosRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(SubscriptRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(SuperscriptRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(OrdinalCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(SlashedZeroCheck, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+
+	disconnect(StyleSet01, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet02, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet03, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet04, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet05, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet06, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet07, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet08, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet09, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet10, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet11, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet12, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet13, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet14, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet15, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet16, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet17, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet18, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet19, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(StyleSet20, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 }
 
 void PropertyWidget_FontFeatures::disableAllFeatures()
 {
-	ContextualCheck->hide();
-	CommonCheck->hide();
+	CommonCheck->setChecked(true);
+	ContextualCheck->setChecked(true);
 	DiscretionaryCheck->setChecked(false);
-	DiscretionaryCheck->hide();
 	HistoricalCheck->setChecked(false);
-	HistoricalCheck->hide();
-	line->hide();
 	
-	NormalCaRadio->setChecked(true);
-	NormalCaRadio->hide();
-	SmallRadio->hide();
-	SmallFromCRadio->hide();
-	PetiteRadio->hide();
-	PetiteCapRadio->hide();
-	UnicaseRadio->hide();
-	TiltingRadio->hide();
-	line_3->hide();
-	
+	NormalCapRadio->setChecked(true);
 	DefaultStyleRadio->setChecked(true);
-	DefaultStyleRadio->hide();
-	LininRadio->hide();
-	OldStyleRadio->hide();
-	line_5->hide();
-	
 	DefaultWidthRadio->setChecked(true);
-	DefaultWidthRadio->hide();
-	ProportionalRadio->hide();
-	TabularRadio->hide();
-	line_2->hide();
-	
 	DefaultFractionsRadio->setChecked(true);
-	DefaultFractionsRadio->hide();
-	DiagonalRadio->hide();
-	StackedRadio->hide();
-	line_4->hide();
-	
-	NormalRadio->setChecked(true);
-	NormalRadio->hide();
-	SubscriptRadio->hide();
-	SuperscriptRadio->hide();
-	OrdinalCheck->hide();
-	line_6->hide();
-	
+	DefaultPosRadio->setChecked(true);
 	SlashedZeroCheck->setChecked(false);
-	SlashedZeroCheck->hide();
-	line_7->hide();
-
-	StyleSet01->hide();
-	StyleSet02->hide();
-	StyleSet03->hide();
-	StyleSet04->hide();
-	StyleSet05->hide();
-	StyleSet06->hide();
-	StyleSet07->hide();
-	StyleSet08->hide();
-	StyleSet09->hide();
-	StyleSet10->hide();
-	StyleSet11->hide();
-	StyleSet12->hide();
-	StyleSet13->hide();
-	StyleSet14->hide();
-	StyleSet15->hide();
-	StyleSet16->hide();
-	StyleSet17->hide();
-	StyleSet18->hide();
-	StyleSet19->hide();
-	StyleSet20->hide();
-	groupBox_7->hide();
 
 	StyleSet01->setChecked(false);
 	StyleSet02->setChecked(false);
@@ -486,208 +486,95 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 {
 	quint64 oldFlags = featureFlags();
+	quint64 newFlags = featureFlagsFromList(fontFeatures);
+
 	disableAllFeatures();
 
-	line->show();
-	line_2->show();
-	line_3->show();
-	line_4->show();
-	line_5->show();
-	line_6->show();
-	line_7->show();
+	CommonCheck->setVisible(newFlags & FeatureCommonLigatures);
+	ContextualCheck->setVisible(newFlags & FeatureContextualLigatures);
+	DiscretionaryCheck->setVisible(newFlags & FeatureDiscretionaryLigatures);
+	HistoricalCheck->setVisible(newFlags & FeatureHistoricalLigatures);
 
-	NormalCaRadio->show();
-	DefaultStyleRadio->show();
-	DefaultWidthRadio->show();
-	DefaultFractionsRadio->show();
-	NormalRadio->show();
+	SmallRadio->setVisible(newFlags & FeatureSmallCaps);
+	SmallFromCRadio->setVisible(newFlags & FeatureSmallCapsFromCaps);
+	PetiteRadio->setVisible(newFlags & FeaturePetiteCaps);
+	PetiteCapRadio->setVisible(newFlags & FeaturePetiteCapsFromCaps);
+	UnicaseRadio->setVisible(newFlags & FeatureUnicaseCaps);
+	TiltingRadio->setVisible(newFlags & FeatureTiltingCaps);
 
-	for (int i = 0; i < fontFeatures.count(); i++)
-	{
-		if (fontFeatures[i] == "clig")
-			ContextualCheck->hide();
-		else if (fontFeatures[i] == "liga")
-			CommonCheck->show();
-		else if (fontFeatures[i] == "dlig")
-			DiscretionaryCheck->show();
-		else if (fontFeatures[i] == "hlig")
-			HistoricalCheck->show();
-		else if (fontFeatures[i] == "subs")
-			SubscriptRadio->show();
-		else if (fontFeatures[i] == "sups")
-			SuperscriptRadio->show();
-		else if (fontFeatures[i] == "smcp")
-			SmallRadio->show();
-		else if (fontFeatures[i] == "c2sc")
-			SmallFromCRadio->show();
-		else if (fontFeatures[i] == "pcap")
-			PetiteRadio->show();
-		else if (fontFeatures[i] == "c2pc")
-			PetiteCapRadio->show();
-		else if (fontFeatures[i] == "unic")
-			UnicaseRadio->show();
-		else if (fontFeatures[i] == "titl")
-			TiltingRadio->show();
-		else if (fontFeatures[i] == "lnum")
-			LininRadio->show();
-		else if (fontFeatures[i] == "onum")
-			OldStyleRadio->show();
-		else if (fontFeatures[i] == "pnum")
-			ProportionalRadio->show();
-		else if (fontFeatures[i] == "tnum")
-			TabularRadio->show();
-		else if (fontFeatures[i] == "frac")
-			DiagonalRadio->show();
-		else if (fontFeatures[i] == "afrc")
-			StackedRadio->show();
-		else if (fontFeatures[i] == "ordn")
-			OrdinalCheck->show();
-		else if (fontFeatures[i] == "zero")
-			SlashedZeroCheck->show();
-		else if (fontFeatures[i] == "ss01")
-		{
-			groupBox_7->show();
-			StyleSet01->show();
-		}
-		else if (fontFeatures[i] == "ss02")
-		{
-			groupBox_7->show();
-			StyleSet02->show();
-		}
-		else if (fontFeatures[i] == "ss03")
-		{
-			groupBox_7->show();
-			StyleSet03->show();
-		}
-		else if (fontFeatures[i] == "ss04")
-		{
-			groupBox_7->show();
-			StyleSet04->show();
-		}
-		else if (fontFeatures[i] == "ss05")
-		{
-			groupBox_7->show();
-			StyleSet05->show();
-		}
-		else if (fontFeatures[i] == "ss06")
-		{
-			groupBox_7->show();
-			StyleSet06->show();
-		}
-		else if (fontFeatures[i] == "ss07")
-		{
-			groupBox_7->show();
-			StyleSet07->show();
-		}
-		else if (fontFeatures[i] == "ss08")
-		{
-			groupBox_7->show();
-			StyleSet08->show();
-		}
-		else if (fontFeatures[i] == "ss09")
-		{
-			groupBox_7->show();
-			StyleSet09->show();
-		}
-		else if (fontFeatures[i] == "ss10")
-		{
-			groupBox_7->show();
-			StyleSet10->show();
-		}
-		else if (fontFeatures[i] == "ss11")
-		{
-			groupBox_7->show();
-			StyleSet11->show();
-		}
-		else if (fontFeatures[i] == "ss12")
-		{
-			groupBox_7->show();
-			StyleSet12->show();
-		}
-		else if (fontFeatures[i] == "ss13")
-		{
-			groupBox_7->show();
-			StyleSet13->show();
-		}
-		else if (fontFeatures[i] == "ss14")
-		{
-			groupBox_7->show();
-			StyleSet14->show();
-		}
-		else if (fontFeatures[i] == "ss15")
-		{
-			groupBox_7->show();
-			StyleSet15->show();
-		}
-		else if (fontFeatures[i] == "ss16")
-		{
-			groupBox_7->show();
-			StyleSet16->show();
-		}
-		else if (fontFeatures[i] == "ss17")
-		{
-			groupBox_7->show();
-			StyleSet17->show();
-		}
-		else if (fontFeatures[i] == "ss18")
-		{
-			groupBox_7->show();
-			StyleSet18->show();
-		}
-		else if (fontFeatures[i] == "ss19")
-		{
-			groupBox_7->show();
-			StyleSet19->show();
-		}
-		else if (fontFeatures[i] == "ss20")
-		{
-			groupBox_7->show();
-			StyleSet20->show();
-		}
-	}
+	LiningRadio->setVisible(newFlags & FeatureLiningNumerals);
+	OldStyleRadio->setVisible(newFlags & FeatureOldStyleNumerals);
+
+	ProportionalRadio->setVisible(newFlags & FeatureProportionalNumeralWidth);
+	TabularRadio->setVisible(newFlags & FeatureTabularNumeralWidth);
+
+	DiagonalRadio->setVisible(newFlags & FeatureDiagonalFractions);
+	StackedRadio->setVisible(newFlags & FeatureStackedFractions);
+
+	SubscriptRadio->setVisible(newFlags & FeatureSubscript);
+	SuperscriptRadio->setVisible(newFlags & FeatureSuperscript);
+	OrdinalCheck->setVisible(newFlags & FeatureOrdinals);
+
+	SlashedZeroCheck->setVisible(newFlags & FeatureSlashedZero);
+
+	StyleSet01->setVisible(newFlags & FeatureStyleSet01);
+	StyleSet02->setVisible(newFlags & FeatureStyleSet02);
+	StyleSet03->setVisible(newFlags & FeatureStyleSet03);
+	StyleSet04->setVisible(newFlags & FeatureStyleSet04);
+	StyleSet05->setVisible(newFlags & FeatureStyleSet05);
+	StyleSet06->setVisible(newFlags & FeatureStyleSet06);
+	StyleSet07->setVisible(newFlags & FeatureStyleSet07);
+	StyleSet08->setVisible(newFlags & FeatureStyleSet08);
+	StyleSet09->setVisible(newFlags & FeatureStyleSet09);
+	StyleSet10->setVisible(newFlags & FeatureStyleSet10);
+	StyleSet11->setVisible(newFlags & FeatureStyleSet11);
+	StyleSet12->setVisible(newFlags & FeatureStyleSet12);
+	StyleSet13->setVisible(newFlags & FeatureStyleSet13);
+	StyleSet14->setVisible(newFlags & FeatureStyleSet14);
+	StyleSet15->setVisible(newFlags & FeatureStyleSet15);
+	StyleSet16->setVisible(newFlags & FeatureStyleSet16);
+	StyleSet17->setVisible(newFlags & FeatureStyleSet17);
+	StyleSet18->setVisible(newFlags & FeatureStyleSet18);
+	StyleSet19->setVisible(newFlags & FeatureStyleSet19);
+	StyleSet20->setVisible(newFlags & FeatureStyleSet20);
+
+	quint64 featureStyleSetMask = 0;
+	featureStyleSetMask += FeatureStyleSet01 + FeatureStyleSet02 + FeatureStyleSet03 + FeatureStyleSet04 + FeatureStyleSet05;
+	featureStyleSetMask += FeatureStyleSet06 + FeatureStyleSet07 + FeatureStyleSet08 + FeatureStyleSet09 + FeatureStyleSet10;
+	featureStyleSetMask += FeatureStyleSet11 + FeatureStyleSet12 + FeatureStyleSet13 + FeatureStyleSet14 + FeatureStyleSet15;
+	featureStyleSetMask += FeatureStyleSet16 + FeatureStyleSet17 + FeatureStyleSet18 + FeatureStyleSet19 + FeatureStyleSet20;
+	groupBox_7->setVisible(newFlags & featureStyleSetMask);
 
 	// Hide Default features when their relative ones aren't found in the font.
-	if (SmallRadio->isHidden()
-			&& SmallFromCRadio->isHidden() && PetiteRadio->isHidden()
-			&& PetiteCapRadio->isHidden() && UnicaseRadio->isHidden()
-			&& TiltingRadio->isHidden())
-		NormalCaRadio->hide();
+	quint64 featureCapsMask = 0;
+	featureCapsMask += FeatureSmallCaps + FeatureSmallCapsFromCaps;
+	featureCapsMask += FeaturePetiteCaps + FeaturePetiteCapsFromCaps;
+	featureCapsMask += FeatureUnicaseCaps + FeatureTiltingCaps;
+	NormalCapRadio->setVisible(newFlags & featureCapsMask);
 
-	if (LininRadio->isHidden() && OldStyleRadio->isHidden())
-		DefaultStyleRadio->hide();
+	quint64 featureNumeralStyleMask = FeatureLiningNumerals + FeatureOldStyleNumerals;
+	DefaultStyleRadio->setVisible(newFlags & featureNumeralStyleMask);
 
-	if (ProportionalRadio->isHidden() && TabularRadio->isHidden())
-		DefaultWidthRadio->hide();
+	quint64 featureNumeralWidthMask = FeatureProportionalNumeralWidth + FeatureTabularNumeralWidth;
+	DefaultWidthRadio->setVisible(newFlags & featureNumeralWidthMask);
+	
+	quint64 featureFractionMask = FeatureDiagonalFractions + FeatureStackedFractions;
+	DefaultFractionsRadio->setVisible(newFlags & featureFractionMask);
 
-	if (DiagonalRadio->isHidden() && StackedRadio->isHidden())
-		DefaultFractionsRadio->hide();
-
-	if (SubscriptRadio->isHidden() && SuperscriptRadio->isHidden() && OrdinalCheck->isHidden())
-		NormalRadio->hide();
+	quint64 featureGlyphPositionMask = FeatureSubscript + FeatureSuperscript + FeatureOrdinals;
+	DefaultPosRadio->setVisible(newFlags & featureGlyphPositionMask);
 
 	// Hide Lines
-	if (ContextualCheck->isHidden() && CommonCheck->isHidden()
-			&& DiscretionaryCheck->isHidden() && HistoricalCheck->isHidden())
-		line->hide();
-	if (NormalCaRadio->isHidden() && SmallRadio->isHidden()
-			&& SmallFromCRadio->isHidden() && PetiteRadio->isHidden()
-			&& PetiteCapRadio->isHidden() && UnicaseRadio->isHidden()
-			&& TiltingRadio->isHidden())
-		line_3->hide();
-	if (DefaultStyleRadio->isHidden() && LininRadio->isHidden()
-			&& OldStyleRadio->isHidden())
-		line_5->hide();
-	if (DefaultWidthRadio->isHidden() && ProportionalRadio->isHidden()
-			&& TabularRadio->isHidden())
-		line_2->hide();
-	if (DefaultFractionsRadio->isHidden() && DiagonalRadio->isHidden()
-			&& StackedRadio->isHidden())
-		line_4->hide();
-	if (NormalRadio->isHidden() && SubscriptRadio->isHidden()
-			&& SuperscriptRadio->isHidden() && OrdinalCheck->isHidden())
-		line_6->hide();
-	if (SlashedZeroCheck->isHidden() )
-		line_7->hide();
+	quint64 featureLigaturesMask = FeatureCommonLigatures + FeatureContextualLigatures;
+	featureLigaturesMask += FeatureDiscretionaryLigatures + FeatureHistoricalLigatures;
+	line->setVisible(newFlags & featureLigaturesMask);
+
+	line_2->setVisible(newFlags & featureCapsMask);
+	line_3->setVisible(newFlags & featureNumeralStyleMask);
+	line_4->setVisible(newFlags & featureNumeralWidthMask);
+	line_5->setVisible(newFlags & featureFractionMask);
+	line_6->setVisible(newFlags & featureGlyphPositionMask);
+	line_7->setVisible(SlashedZeroCheck->isVisible());
 
 	// Do not trigger item relayout unnecessarily,
 	// that can hurt text typing speed
@@ -699,86 +586,193 @@ quint64 PropertyWidget_FontFeatures::featureFlags()
 {
 	quint64 flags = 0;
 
-	if (ContextualCheck->isVisible())
-		flags |= 1;
 	if (CommonCheck->isVisible())
-		flags |= ((quint64) 1 << 1);
+		flags |= FeatureCommonLigatures;
+	if (ContextualCheck->isVisible())
+		flags |= FeatureContextualLigatures;
 	if (DiscretionaryCheck->isVisible())
-		flags |= ((quint64) 1 << 2);
+		flags |= FeatureDiscretionaryLigatures;
 	if (HistoricalCheck->isVisible())
-		flags |= ((quint64) 1 << 3);
-	if (SubscriptRadio->isVisible())
-		flags |= ((quint64) 1 << 4);
-	if (SuperscriptRadio->isVisible())
-		flags |= ((quint64) 1 << 5);
+		flags |= FeatureHistoricalLigatures;
+
 	if (SmallRadio->isVisible())
-		flags |= ((quint64) 1 << 6);
+		flags |= FeatureSmallCaps;
 	if (SmallFromCRadio->isVisible())
-		flags |= ((quint64) 1 << 7);
+		flags |= FeatureSmallCapsFromCaps;
 	if (PetiteRadio->isVisible())
-		flags |= ((quint64) 1 << 8);
+		flags |= FeaturePetiteCaps;
 	if (PetiteCapRadio->isVisible())
-		flags |= ((quint64) 1 << 9);
+		flags |= FeaturePetiteCapsFromCaps;
 	if (UnicaseRadio->isVisible())
-		flags |= ((quint64) 1 << 10);
+		flags |= FeatureUnicaseCaps;
 	if (TiltingRadio->isVisible())
-		flags |= ((quint64) 1 << 11);
-	if (LininRadio->isVisible())
-		flags |= ((quint64) 1 << 12);
+		flags |= FeatureTiltingCaps;
+
+	if (LiningRadio->isVisible())
+		flags |= FeatureLiningNumerals;
 	if (OldStyleRadio->isVisible())
-		flags |= ((quint64) 1 << 13);
+		flags |= FeatureOldStyleNumerals;
+
 	if (ProportionalRadio->isVisible())
-		flags |= ((quint64) 1 << 14);
+		flags |= FeatureProportionalNumeralWidth;
 	if (TabularRadio->isVisible())
-		flags |= ((quint64) 1 << 15);
+		flags |= FeatureTabularNumeralWidth;
+
 	if (DiagonalRadio->isVisible())
-		flags |= ((quint64) 1 << 16);
+		flags |= FeatureDiagonalFractions;
 	if (StackedRadio->isVisible())
-		flags |= ((quint64) 1 << 17);
+		flags |= FeatureStackedFractions;
+
+	if (SubscriptRadio->isVisible())
+		flags |= FeatureSubscript;
+	if (SuperscriptRadio->isVisible())
+		flags |= FeatureSuperscript;
 	if (OrdinalCheck->isVisible())
-		flags |= ((quint64) 1 << 18);
+		flags |= FeatureOrdinals;
+
 	if (SlashedZeroCheck->isVisible())
-		flags |= ((quint64) 1 << 19);
+		flags |= FeatureSlashedZero;
+
 	if (StyleSet01->isVisible())
-		flags |= ((quint64) 1 << 20);
+		flags |= FeatureStyleSet01;
 	if (StyleSet02->isVisible())
-		flags |= ((quint64) 1 << 21);
+		flags |= FeatureStyleSet02;
 	if (StyleSet03->isVisible())
-		flags |= ((quint64) 1 << 22);
+		flags |= FeatureStyleSet03;
 	if (StyleSet04->isVisible())
-		flags |= ((quint64) 1 << 23);
+		flags |= FeatureStyleSet04;
 	if (StyleSet05->isVisible())
-		flags |= ((quint64) 1 << 24);
+		flags |= FeatureStyleSet05;
 	if (StyleSet06->isVisible())
-		flags |= ((quint64) 1 << 25);
+		flags |= FeatureStyleSet06;
 	if (StyleSet07->isVisible())
-		flags |= ((quint64) 1 << 26);
+		flags |= FeatureStyleSet07;
 	if (StyleSet08->isVisible())
-		flags |= ((quint64) 1 << 27);
+		flags |= FeatureStyleSet08;
 	if (StyleSet09->isVisible())
-		flags |= ((quint64) 1 << 28);
+		flags |= FeatureStyleSet09;
 	if (StyleSet10->isVisible())
-		flags |= ((quint64) 1 << 29);
+		flags |= FeatureStyleSet10;
 	if (StyleSet11->isVisible())
-		flags |= ((quint64) 1 << 30);
+		flags |= FeatureStyleSet11;
 	if (StyleSet12->isVisible())
-		flags |= ((quint64) 1 << 31);
+		flags |= FeatureStyleSet12;
 	if (StyleSet13->isVisible())
-		flags |= ((quint64) 1 << 32);
+		flags |= FeatureStyleSet13;
 	if (StyleSet14->isVisible())
-		flags |= ((quint64) 1 << 33);
+		flags |= FeatureStyleSet14;
 	if (StyleSet15->isVisible())
-		flags |= ((quint64) 1 << 34);
+		flags |= FeatureStyleSet15;
 	if (StyleSet16->isVisible())
-		flags |= ((quint64) 1 << 35);
+		flags |= FeatureStyleSet16;
 	if (StyleSet17->isVisible())
-		flags |= ((quint64) 1 << 36);
+		flags |= FeatureStyleSet17;
 	if (StyleSet18->isVisible())
-		flags |= ((quint64) 1 << 37);
+		flags |= FeatureStyleSet18;
 	if (StyleSet19->isVisible())
-		flags |= ((quint64) 1 << 38);
+		flags |= FeatureStyleSet19;
 	if (StyleSet20->isVisible())
-		flags |= ((quint64) 1 << 39);
+		flags |= FeatureStyleSet20;
+
+	return flags;
+}
+
+quint64 PropertyWidget_FontFeatures::featureFlagsFromList(QStringList features)
+{
+	quint64 flags = 0;
+
+	for (int i = 0; i < features.count(); i++)
+	{
+		const QString& feature = features.at(i);
+
+		if (feature == "liga")
+			flags |= FeatureCommonLigatures;
+		else if (feature == "clig")
+			flags |= FeatureContextualLigatures;
+		else if (feature == "dlig")
+			flags |= FeatureDiscretionaryLigatures;
+		else if (feature == "hlig")
+			flags |= FeatureHistoricalLigatures;
+
+		else if (feature == "smcp")
+			flags |= FeatureSmallCaps;
+		else if (feature == "c2sc")
+			flags |= FeatureSmallCapsFromCaps;
+		else if (feature == "pcap")
+			flags |= FeaturePetiteCaps;
+		else if (feature == "c2pc")
+			flags |= FeaturePetiteCapsFromCaps;
+		else if (feature == "unic")
+			flags |= FeatureUnicaseCaps;
+		else if (feature == "titl")
+			flags |= FeatureTiltingCaps;
+
+		else if (feature == "lnum")
+			flags |= FeatureLiningNumerals;
+		else if (feature == "onum")
+			flags |= FeatureOldStyleNumerals;
+
+		else if (feature == "pnum")
+			flags |= FeatureProportionalNumeralWidth;
+		else if (feature == "tnum")
+			flags |= FeatureTabularNumeralWidth;
+
+		else if (feature == "frac")
+			flags |= FeatureDiagonalFractions;
+		else if (feature == "afrc")
+			flags |= FeatureStackedFractions;
+
+		else if (feature == "subs")
+			flags |= FeatureSubscript;
+		else if (feature == "sups")
+			flags |= FeatureSuperscript;
+		else if (feature == "ordn")
+			flags |= FeatureOrdinals;
+
+		else if (feature == "zero")
+			flags |= FeatureSlashedZero;
+
+		else if (feature == "ss01")
+			flags |= FeatureStyleSet01;
+		else if (feature == "ss02")
+			flags |= FeatureStyleSet02;
+		else if (feature == "ss03")
+			flags |= FeatureStyleSet03;
+		else if (feature == "ss04")
+			flags |= FeatureStyleSet04;
+		else if (feature == "ss05")
+			flags |= FeatureStyleSet05;
+		else if (feature == "ss06")
+			flags |= FeatureStyleSet06;
+		else if (feature == "ss07")
+			flags |= FeatureStyleSet07;
+		else if (feature == "ss08")
+			flags |= FeatureStyleSet08;
+		else if (feature == "ss09")
+			flags |= FeatureStyleSet09;
+		else if (feature == "ss10")
+			flags |= FeatureStyleSet10;
+		else if (feature == "ss11")
+			flags |= FeatureStyleSet11;
+		else if (feature == "ss12")
+			flags |= FeatureStyleSet12;
+		else if (feature == "ss13")
+			flags |= FeatureStyleSet13;
+		else if (feature == "ss14")
+			flags |= FeatureStyleSet14;
+		else if (feature == "ss15")
+			flags |= FeatureStyleSet15;
+		else if (feature == "ss16")
+			flags |= FeatureStyleSet16;
+		else if (feature == "ss17")
+			flags |= FeatureStyleSet17;
+		else if (feature == "ss18")
+			flags |= FeatureStyleSet18;
+		else if (feature == "ss19")
+			flags |= FeatureStyleSet19;
+		else if (feature == "ss20")
+			flags |= FeatureStyleSet20;
+	}
 
 	return flags;
 }
@@ -803,30 +797,37 @@ void PropertyWidget_FontFeatures::configureWidgets()
 void PropertyWidget_FontFeatures::initWidgets()
 {
 	CommonCheck->setChecked(true);
-	NormalCaRadio->setChecked(true);
-	NormalRadio->setChecked(true);
-	DefaultStyleRadio->setChecked(true);
-	DefaultWidthRadio->setChecked(true);
-	DefaultFractionsRadio->setChecked(true);
 	ContextualCheck->setChecked(true);
 	DiscretionaryCheck->setChecked(false);
 	HistoricalCheck->setChecked(false);
-	SubscriptRadio->setChecked(false);
-	SuperscriptRadio->setChecked(false);
+	
+	NormalCapRadio->setChecked(true);
 	SmallRadio->setChecked(false);
 	SmallFromCRadio->setChecked(false);
 	PetiteRadio->setChecked(false);
 	PetiteCapRadio->setChecked(false);
 	UnicaseRadio->setChecked(false);
 	TiltingRadio->setChecked(false);
-	LininRadio->setChecked(false);
+
+	DefaultStyleRadio->setChecked(true);
+	LiningRadio->setChecked(false);
 	OldStyleRadio->setChecked(false);
+
+	DefaultWidthRadio->setChecked(true);
 	ProportionalRadio->setChecked(false);
 	TabularRadio->setChecked(false);
+	
+	DefaultFractionsRadio->setChecked(true);
 	DiagonalRadio->setChecked(false);
 	StackedRadio->setChecked(false);
+
+	DefaultPosRadio->setChecked(true);
+	SubscriptRadio->setChecked(false);
+	SuperscriptRadio->setChecked(false);
 	OrdinalCheck->setChecked(false);
+
 	SlashedZeroCheck->setChecked(false);
+
 	StyleSet01->setChecked(false);
 	StyleSet02->setChecked(false);
 	StyleSet03->setChecked(false);
