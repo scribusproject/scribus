@@ -1,0 +1,194 @@
+{
+	"app-id": "net.scribus.scribus",
+	"runtime": "org.kde.Platform",
+	"runtime-version": "master",
+	"sdk": "org.kde.Sdk",
+	"command": "scribus",
+	"rename-desktop-file": "scribus.desktop",
+	"rename-appdata-file": "scribus.appdata.xml",
+	"rename-icon": "scribus",
+	"finish-args":[
+		"--share=network",
+		"--socket=x11",
+		"--socket=wayland"
+	],
+	"modules":[
+		{
+			"name": "boost",
+			"buildsystem": "simple",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "boost-1.63.0",
+					"url": "https://github.com/boostorg/boost.git"
+				}
+			],
+			"build-commands": ["./bootstrap.sh --prefix=/app", "./b2 headers", "./b2 install"]
+		},
+		{
+			"name": "cppunit",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"archive",
+					"url": "https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz",
+					"sha256": "ac28a04c8e6c9217d910b0ae7122832d28d9917fa668bcc9e0b8b09acb4ea44a"
+				}
+			]
+		},
+		{
+			"name": "librevenge",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "librevenge-0.0.4",
+					"url": "https://git.code.sf.net/p/libwpd/librevenge"
+				}
+			]
+		},
+		{
+			"name": "libmspub",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "libmspub-0.1.2",
+					"url": "git://anongit.freedesktop.org/libreoffice/libmspub"
+				}
+			]
+		},
+		{
+			"name": "libcdr",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "libcdr-0.1.3",
+					"url": "git://anongit.freedesktop.org/libreoffice/libcdr"
+				}
+			]
+		},
+				{
+			"name": "libwpd",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "RELEASE-0-10-0",
+					"url": "https://git.code.sf.net/p/libwpd/code"
+				}
+			]
+		},
+		{
+			"name": "libwpg",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "RELEASE-0-3-1",
+					"url": "https://git.code.sf.net/p/libwpg/code"
+				}
+			]
+		},
+		{
+			"name": "libvisio",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "libvisio-0.1.5",
+					"url": "https://github.com/LibreOffice/libvisio"
+				}
+			]
+		},
+		{
+			"name": "libpagemaker",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "libpagemaker-0.0.3",
+					"url": "git://gerrit.libreoffice.org/libpagemaker"
+				}
+			]
+		},
+		{
+			"name": "libfreehand",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"branch": "libfeehand-0.1.1",
+					"url": "https://github.com/LibreOffice/libfreehand.git"
+				}
+			]
+		},
+		{
+			"name": "openscenegraph",
+			"buildsystem": "cmake",
+			"sources":[
+				{
+					"type":"archive",
+					"url": "http://trac.openscenegraph.org/downloads/developer_releases/OpenSceneGraph-3.4.0.zip",
+					"sha256": "5c727d84755da276adf8c4a4a3a8ba9c9570fc4b4969f06f1d2e9f89b1e3040e"
+				}
+			]
+		},
+		{
+			"name": "graphicsmagick",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"archive",
+					"url": "https://sourceforge.net/projects/graphicsmagick/files/graphicsmagick/1.3.25/GraphicsMagick-1.3.25.tar.xz",
+					"sha256": "d64bfa52d2e0730eff9ce3ed51d4fc78dbb68e2adaa317b2bb3c56e6ee61ac9f"
+				}
+			]
+		},
+		{
+			"name": "qpdf",
+			"buildsystem": "autotools",
+			"sources":[
+				{
+					"type":"git",
+					"url": "https://github.com/qpdf/qpdf.git"
+				}
+			]
+		},
+		{
+			"name": "poppler",
+			"buildsystem": "autotools",
+			"config-opts": ["--enable-xpdf-headers"],
+			"sources": [
+				{
+					"type": "git",
+					"url": "git://anongit.freedesktop.org/poppler/poppler",
+					"branch": "poppler-0.19.4"
+				}
+			]
+		},
+		{
+			"name": "ghostscript",
+			"buildsystem": "autotools",
+			"config-opts": ["--disable-cups"],
+			"sources":[
+				{
+					"type":"git",
+					"branch": "ghostscript-9.21",
+					"url": "http://git.ghostscript.com/ghostpdl.git"
+				}
+			]
+		},
+		{
+			"name": "scribus",
+			"buildsystem": "cmake",
+			"sources":[
+				{
+					"type":"git",
+					"url": "https://github.com/scribusproject/scribus.git"
+				}
+			]
+		}
+	]
+}
