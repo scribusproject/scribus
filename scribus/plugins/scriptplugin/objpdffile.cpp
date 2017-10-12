@@ -349,7 +349,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 // font embedding mode
 	PyObject *embeddingMode = NULL;
-	embeddingMode = PyInt_FromLong(0);
+	embeddingMode = PyInt_FromLong(pdfOptions.FontEmbedding);
 	if (embeddingMode){
 		Py_DECREF(self->fontEmbedding);
 		self->fontEmbedding = embeddingMode;
