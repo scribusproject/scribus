@@ -104,6 +104,8 @@ private:
 	void showCellStyle(const QString& name);
 	/// Updates the list of border lines from the current border.
 	void updateBorderLineList();
+	/// Updates the list of border lines from the current border.
+	void updateBorderLineList(const TableBorderLine& current);
 	/// Updates the current item in the list of border lines.
 	void updateBorderLineListItem();
 	/// Updates the selected table with the current border.
