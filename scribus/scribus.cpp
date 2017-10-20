@@ -4033,9 +4033,10 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		HaveDoc++;
 		if (doc->checkerProfiles.count() == 0)
 		{
-			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
+			prefsManager->initDefaultCheckerPrefs(doc->checkerProfiles);
 			doc->curCheckProfile = CommonStrings::PostScript;
 		}
+		prefsManager->insertMissingCheckerProfiles(doc->checkerProfiles);
 		if (doc->PDF_Options.LPISettings.count() == 0)
 		{
 			struct LPIData lpo;

@@ -422,7 +422,7 @@ void PrefsManager::initDefaults()
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
 	appPrefs.useSmallWidgets = false;
-	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
+	initDefaultCheckerPrefs(appPrefs.checkerProfiles);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
@@ -930,7 +930,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 		ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
-		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
+		initDefaultCheckerPrefs(appPrefs.checkerProfiles);
 		appPrefs.curCheckProfile = CommonStrings::PostScript;
 	}
 	if (!appPrefs.mainWinState.isEmpty())
@@ -2405,37 +2405,49 @@ bool PrefsManager::ReadPref(QString ho)
 	return true;
 }
 
-void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
+void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 {
-	if (cp!=NULL)
+	struct checkerPrefs checkerSettings;
+	checkerSettings.ignoreErrors = false;
+	checkerSettings.autoCheck = true;
+	checkerSettings.checkGlyphs = true;
+	checkerSettings.checkOrphans = true;
+	checkerSettings.checkOverflow = true;
+	checkerSettings.checkPictures = true;
+	checkerSettings.checkResolution = true;
+	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = false;
+	checkerSettings.checkRasterPDF = true;
+	checkerSettings.checkForGIF = true;
+	checkerSettings.ignoreOffLayers = false;
+	checkerSettings.checkOffConflictLayers = false;
+	checkerSettings.minResolution = 144.0;
+	checkerSettings.maxResolution = 2400.0;
+	//TODO Stop translating these into settings!!!!!!!!!
+	cp.insert(CommonStrings::PostScript, checkerSettings);
+	cp.insert(CommonStrings::PDF_1_3   , checkerSettings);
+	checkerSettings.checkTransparency = false;
+	cp.insert(CommonStrings::PDF_1_4   , checkerSettings);
+	cp.insert(CommonStrings::PDF_1_5   , checkerSettings);
+	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = true;
+	checkerSettings.minResolution = 144.0;
+	cp.insert(CommonStrings::PDF_X1a  , checkerSettings);
+	cp.insert(CommonStrings::PDF_X3   , checkerSettings);
+}
+
+void PrefsManager::insertMissingCheckerProfiles(CheckerPrefsList& cp)
+{
+	CheckerPrefsList defaultList;
+	initDefaultCheckerPrefs(defaultList);
+
+	CheckerPrefsList::const_iterator it = defaultList.constBegin();
+	for (; it != defaultList.constEnd(); ++it)
 	{
-		struct checkerPrefs checkerSettings;
-		checkerSettings.ignoreErrors = false;
-		checkerSettings.autoCheck = true;
-		checkerSettings.checkGlyphs = true;
-		checkerSettings.checkOrphans = true;
-		checkerSettings.checkOverflow = true;
-		checkerSettings.checkPictures = true;
-		checkerSettings.checkResolution = true;
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = false;
-		checkerSettings.checkRasterPDF = true;
-		checkerSettings.checkForGIF = true;
-		checkerSettings.ignoreOffLayers = false;
-		checkerSettings.checkOffConflictLayers = false;
-		checkerSettings.minResolution = 144.0;
-		checkerSettings.maxResolution = 2400.0;
-		//TODO Stop translating these into settings!!!!!!!!!
-		cp->insert( CommonStrings::PostScript, checkerSettings);
-		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
-		checkerSettings.checkTransparency = false;
-		cp->insert( CommonStrings::PDF_1_4   , checkerSettings);
-		cp->insert( CommonStrings::PDF_1_5   , checkerSettings);
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = true;
-		checkerSettings.minResolution = 144.0;
-		cp->insert( CommonStrings::PDF_X1a  , checkerSettings);
-		cp->insert( CommonStrings::PDF_X3   , checkerSettings);
+		QString name = it.key();
+		if (cp.contains(name))
+			continue;
+		cp.insert(name, it.value());
 	}
 }
 
