@@ -14941,7 +14941,7 @@ arr&amp;ondis :</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5559"/>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation>Une intersection d&apos;un chemin ou d&apos;un sous-chemin avec lui-même crée un trou dans le remplissage</translation>
+        <translation>Une intersection d&apos;un chemin ou d&apos;un sous-chemin avec lui-même crée un trou dans le remplissage.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5560"/>
