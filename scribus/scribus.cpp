@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMdiSubWindow>
 #include <QMessageBox>
 #include <QMouseEvent>
+#include <QMultiMap>
 #include <QPixmap>
 #include <QProgressBar>
 #include <QPushButton>
@@ -3630,79 +3631,88 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->HasCMS = false;
 		if ((ScCore->haveCMS()) && (doc->cmsSettings().CMSinUse))
 		{
-			bool cmsWarning = false;
-			QStringList missing;
-			QStringList replacement;
+			QString missing, replacement;
+			QMultiMap<QString, QString> missingMap;
 			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultImageRGBProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultImageRGBProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
+				missing = doc->cmsSettings().DefaultImageRGBProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultImageRGBProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultImageCMYKProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultImageCMYKProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
+				missing = doc->cmsSettings().DefaultImageCMYKProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultImageCMYKProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultSolidColorRGBProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultSolidColorRGBProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				missing = doc->cmsSettings().DefaultSolidColorRGBProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultSolidColorRGBProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultSolidColorCMYKProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultSolidColorCMYKProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
+				missing = doc->cmsSettings().DefaultSolidColorCMYKProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultSolidColorCMYKProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			}
 			if (!ScCore->MonitorProfiles.contains(doc->cmsSettings().DefaultMonitorProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultMonitorProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
+				missing = doc->cmsSettings().DefaultMonitorProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultMonitorProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->cmsSettings().DefaultPrinterProfile))
 			{
-				cmsWarning = true;
-				missing.append(doc->cmsSettings().DefaultPrinterProfile);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
+				missing = doc->cmsSettings().DefaultPrinterProfile;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->cmsSettings().DefaultPrinterProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->pdfOptions().PrintProf))
 			{
-				cmsWarning = true;
-				missing.append(doc->pdfOptions().PrintProf);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
+				missing = doc->pdfOptions().PrintProf;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->pdfOptions().PrintProf = doc->cmsSettings().DefaultPrinterProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().ImageProf))
 			{
-				cmsWarning = true;
-				missing.append(doc->pdfOptions().ImageProf);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
+				missing = doc->pdfOptions().ImageProf;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->pdfOptions().ImageProf = doc->cmsSettings().DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().SolidProf))
 			{
-				cmsWarning = true;
-				missing.append(doc->pdfOptions().SolidProf);
-				replacement.append(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				missing = doc->pdfOptions().SolidProf;
+				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				if (!missingMap.contains(missing, replacement))
+					missingMap.insert(missing, replacement);
 				doc->pdfOptions().SolidProf = doc->cmsSettings().DefaultSolidColorRGBProfile;
 			}
-			if (cmsWarning)
+			if (missingMap.count() > 0)
 			{
+				QMultiMap<QString, QString>::const_iterator it;
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QString mess = tr("Some color profiles used by this document are not installed:")+"\n\n";
-				for (int m = 0; m < missing.count(); ++m)
+				for (it = missingMap.begin(); it != missingMap.end(); ++it)
 				{
-					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
+					mess += it.key() + tr(" was replaced by: ") + it.value() +"\n";
 				}
 				ScMessageBox::warning(this, CommonStrings::trWarning, mess);
 			}
