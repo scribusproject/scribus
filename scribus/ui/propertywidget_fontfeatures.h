@@ -38,50 +38,6 @@ protected:
 	virtual void changeEvent(QEvent *e);
 
 	quint64 featureFlags();
-	quint64 featureFlagsFromList(QStringList features);
-
-	// Cannot use an enum here (yet) as C++98 doesn't guarantee an enum
-	// can reach 64bit in size
-	static quint64 FeatureCommonLigatures;
-	static quint64 FeatureContextualLigatures;
-	static quint64 FeatureDiscretionaryLigatures;
-	static quint64 FeatureHistoricalLigatures;
-	static quint64 FeatureSmallCaps;
-	static quint64 FeatureSmallCapsFromCaps;
-	static quint64 FeaturePetiteCaps;
-	static quint64 FeaturePetiteCapsFromCaps;
-	static quint64 FeatureUnicaseCaps;
-	static quint64 FeatureTiltingCaps;
-	static quint64 FeatureLiningNumerals;
-	static quint64 FeatureOldStyleNumerals;
-	static quint64 FeatureProportionalNumeralWidth;
-	static quint64 FeatureTabularNumeralWidth;
-	static quint64 FeatureDiagonalFractions;
-	static quint64 FeatureStackedFractions;
-	static quint64 FeatureSubscript;
-	static quint64 FeatureSuperscript;
-	static quint64 FeatureOrdinals;
-	static quint64 FeatureSlashedZero;
-	static quint64 FeatureStyleSet01;
-	static quint64 FeatureStyleSet02;
-	static quint64 FeatureStyleSet03;
-	static quint64 FeatureStyleSet04;
-	static quint64 FeatureStyleSet05;
-	static quint64 FeatureStyleSet06;
-	static quint64 FeatureStyleSet07;
-	static quint64 FeatureStyleSet08;
-	static quint64 FeatureStyleSet09;
-	static quint64 FeatureStyleSet10;
-	static quint64 FeatureStyleSet11;
-	static quint64 FeatureStyleSet12;
-	static quint64 FeatureStyleSet13;
-	static quint64 FeatureStyleSet14;
-	static quint64 FeatureStyleSet15;
-	static quint64 FeatureStyleSet16;
-	static quint64 FeatureStyleSet17;
-	static quint64 FeatureStyleSet18;
-	static quint64 FeatureStyleSet19;
-	static quint64 FeatureStyleSet20;
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

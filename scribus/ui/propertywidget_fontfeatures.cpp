@@ -12,46 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 
-quint64 PropertyWidget_FontFeatures::FeatureCommonLigatures          = 1;
-quint64 PropertyWidget_FontFeatures::FeatureContextualLigatures      = ((quint64) 1 << 1);
-quint64 PropertyWidget_FontFeatures::FeatureDiscretionaryLigatures   = ((quint64) 1 << 2);
-quint64 PropertyWidget_FontFeatures::FeatureHistoricalLigatures      = ((quint64) 1 << 3);
-quint64 PropertyWidget_FontFeatures::FeatureSmallCaps                = ((quint64) 1 << 4);
-quint64 PropertyWidget_FontFeatures::FeatureSmallCapsFromCaps        = ((quint64) 1 << 5);
-quint64 PropertyWidget_FontFeatures::FeaturePetiteCaps               = ((quint64) 1 << 6);
-quint64 PropertyWidget_FontFeatures::FeaturePetiteCapsFromCaps       = ((quint64) 1 << 7);
-quint64 PropertyWidget_FontFeatures::FeatureUnicaseCaps              = ((quint64) 1 << 8);
-quint64 PropertyWidget_FontFeatures::FeatureTiltingCaps              = ((quint64) 1 << 9);
-quint64 PropertyWidget_FontFeatures::FeatureLiningNumerals           = ((quint64) 1 << 10);
-quint64 PropertyWidget_FontFeatures::FeatureOldStyleNumerals         = ((quint64) 1 << 11);
-quint64 PropertyWidget_FontFeatures::FeatureProportionalNumeralWidth = ((quint64) 1 << 12);
-quint64 PropertyWidget_FontFeatures::FeatureTabularNumeralWidth      = ((quint64) 1 << 13);
-quint64 PropertyWidget_FontFeatures::FeatureDiagonalFractions        = ((quint64) 1 << 14);
-quint64 PropertyWidget_FontFeatures::FeatureStackedFractions         = ((quint64) 1 << 15);
-quint64 PropertyWidget_FontFeatures::FeatureSubscript                = ((quint64) 1 << 16);
-quint64 PropertyWidget_FontFeatures::FeatureSuperscript              = ((quint64) 1 << 17);
-quint64 PropertyWidget_FontFeatures::FeatureOrdinals                 = ((quint64) 1 << 18);
-quint64 PropertyWidget_FontFeatures::FeatureSlashedZero              = ((quint64) 1 << 19);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet01               = ((quint64) 1 << 20);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet02               = ((quint64) 1 << 21);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet03               = ((quint64) 1 << 22);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet04               = ((quint64) 1 << 23);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet05               = ((quint64) 1 << 24);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet06               = ((quint64) 1 << 25);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet07               = ((quint64) 1 << 26);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet08               = ((quint64) 1 << 27);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet09               = ((quint64) 1 << 28);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet10               = ((quint64) 1 << 29);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet11               = ((quint64) 1 << 30);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet12               = ((quint64) 1 << 31);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet13               = ((quint64) 1 << 32);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet14               = ((quint64) 1 << 33);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet15               = ((quint64) 1 << 34);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet16               = ((quint64) 1 << 35);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet17               = ((quint64) 1 << 36);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet18               = ((quint64) 1 << 37);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet19               = ((quint64) 1 << 38);
-quint64 PropertyWidget_FontFeatures::FeatureStyleSet20               = ((quint64) 1 << 39);
+#include "fonts/fontfeatures.h"
 
 PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFrame(parent)
 {
@@ -486,94 +447,75 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
 {
 	quint64 oldFlags = featureFlags();
-	quint64 newFlags = featureFlagsFromList(fontFeatures);
+	quint64 newFlags = FontFeatures::fontFlagsFromList(fontFeatures);
 
 	disableAllFeatures();
 
-	CommonCheck->setVisible(newFlags & FeatureCommonLigatures);
-	ContextualCheck->setVisible(newFlags & FeatureContextualLigatures);
-	DiscretionaryCheck->setVisible(newFlags & FeatureDiscretionaryLigatures);
-	HistoricalCheck->setVisible(newFlags & FeatureHistoricalLigatures);
+	CommonCheck->setVisible(newFlags & FontFeatures::CommonLigatures);
+	ContextualCheck->setVisible(newFlags & FontFeatures::ContextualLigatures);
+	DiscretionaryCheck->setVisible(newFlags & FontFeatures::DiscretionaryLigatures);
+	HistoricalCheck->setVisible(newFlags & FontFeatures::HistoricalLigatures);
 
-	SmallRadio->setVisible(newFlags & FeatureSmallCaps);
-	SmallFromCRadio->setVisible(newFlags & FeatureSmallCapsFromCaps);
-	PetiteRadio->setVisible(newFlags & FeaturePetiteCaps);
-	PetiteCapRadio->setVisible(newFlags & FeaturePetiteCapsFromCaps);
-	UnicaseRadio->setVisible(newFlags & FeatureUnicaseCaps);
-	TiltingRadio->setVisible(newFlags & FeatureTiltingCaps);
+	SmallRadio->setVisible(newFlags & FontFeatures::SmallCaps);
+	SmallFromCRadio->setVisible(newFlags & FontFeatures::SmallCapsFromCaps);
+	PetiteRadio->setVisible(newFlags & FontFeatures::PetiteCaps);
+	PetiteCapRadio->setVisible(newFlags & FontFeatures::PetiteCapsFromCaps);
+	UnicaseRadio->setVisible(newFlags & FontFeatures::UnicaseCaps);
+	TiltingRadio->setVisible(newFlags & FontFeatures::TiltingCaps);
 
-	LiningRadio->setVisible(newFlags & FeatureLiningNumerals);
-	OldStyleRadio->setVisible(newFlags & FeatureOldStyleNumerals);
+	LiningRadio->setVisible(newFlags & FontFeatures::LiningNumerals);
+	OldStyleRadio->setVisible(newFlags & FontFeatures::OldStyleNumerals);
 
-	ProportionalRadio->setVisible(newFlags & FeatureProportionalNumeralWidth);
-	TabularRadio->setVisible(newFlags & FeatureTabularNumeralWidth);
+	ProportionalRadio->setVisible(newFlags & FontFeatures::ProportionalNumeralWidth);
+	TabularRadio->setVisible(newFlags & FontFeatures::TabularNumeralWidth);
 
-	DiagonalRadio->setVisible(newFlags & FeatureDiagonalFractions);
-	StackedRadio->setVisible(newFlags & FeatureStackedFractions);
+	DiagonalRadio->setVisible(newFlags & FontFeatures::DiagonalFractions);
+	StackedRadio->setVisible(newFlags & FontFeatures::StackedFractions);
 
-	SubscriptRadio->setVisible(newFlags & FeatureSubscript);
-	SuperscriptRadio->setVisible(newFlags & FeatureSuperscript);
-	OrdinalCheck->setVisible(newFlags & FeatureOrdinals);
+	SubscriptRadio->setVisible(newFlags & FontFeatures::Subscript);
+	SuperscriptRadio->setVisible(newFlags & FontFeatures::Superscript);
+	OrdinalCheck->setVisible(newFlags & FontFeatures::Ordinals);
 
-	SlashedZeroCheck->setVisible(newFlags & FeatureSlashedZero);
+	SlashedZeroCheck->setVisible(newFlags & FontFeatures::SlashedZero);
 
-	StyleSet01->setVisible(newFlags & FeatureStyleSet01);
-	StyleSet02->setVisible(newFlags & FeatureStyleSet02);
-	StyleSet03->setVisible(newFlags & FeatureStyleSet03);
-	StyleSet04->setVisible(newFlags & FeatureStyleSet04);
-	StyleSet05->setVisible(newFlags & FeatureStyleSet05);
-	StyleSet06->setVisible(newFlags & FeatureStyleSet06);
-	StyleSet07->setVisible(newFlags & FeatureStyleSet07);
-	StyleSet08->setVisible(newFlags & FeatureStyleSet08);
-	StyleSet09->setVisible(newFlags & FeatureStyleSet09);
-	StyleSet10->setVisible(newFlags & FeatureStyleSet10);
-	StyleSet11->setVisible(newFlags & FeatureStyleSet11);
-	StyleSet12->setVisible(newFlags & FeatureStyleSet12);
-	StyleSet13->setVisible(newFlags & FeatureStyleSet13);
-	StyleSet14->setVisible(newFlags & FeatureStyleSet14);
-	StyleSet15->setVisible(newFlags & FeatureStyleSet15);
-	StyleSet16->setVisible(newFlags & FeatureStyleSet16);
-	StyleSet17->setVisible(newFlags & FeatureStyleSet17);
-	StyleSet18->setVisible(newFlags & FeatureStyleSet18);
-	StyleSet19->setVisible(newFlags & FeatureStyleSet19);
-	StyleSet20->setVisible(newFlags & FeatureStyleSet20);
+	StyleSet01->setVisible(newFlags & FontFeatures::StyleSet01);
+	StyleSet02->setVisible(newFlags & FontFeatures::StyleSet02);
+	StyleSet03->setVisible(newFlags & FontFeatures::StyleSet03);
+	StyleSet04->setVisible(newFlags & FontFeatures::StyleSet04);
+	StyleSet05->setVisible(newFlags & FontFeatures::StyleSet05);
+	StyleSet06->setVisible(newFlags & FontFeatures::StyleSet06);
+	StyleSet07->setVisible(newFlags & FontFeatures::StyleSet07);
+	StyleSet08->setVisible(newFlags & FontFeatures::StyleSet08);
+	StyleSet09->setVisible(newFlags & FontFeatures::StyleSet09);
+	StyleSet10->setVisible(newFlags & FontFeatures::StyleSet10);
+	StyleSet11->setVisible(newFlags & FontFeatures::StyleSet11);
+	StyleSet12->setVisible(newFlags & FontFeatures::StyleSet12);
+	StyleSet13->setVisible(newFlags & FontFeatures::StyleSet13);
+	StyleSet14->setVisible(newFlags & FontFeatures::StyleSet14);
+	StyleSet15->setVisible(newFlags & FontFeatures::StyleSet15);
+	StyleSet16->setVisible(newFlags & FontFeatures::StyleSet16);
+	StyleSet17->setVisible(newFlags & FontFeatures::StyleSet17);
+	StyleSet18->setVisible(newFlags & FontFeatures::StyleSet18);
+	StyleSet19->setVisible(newFlags & FontFeatures::StyleSet19);
+	StyleSet20->setVisible(newFlags & FontFeatures::StyleSet20);
 
-	quint64 featureStyleSetMask = 0;
-	featureStyleSetMask += FeatureStyleSet01 + FeatureStyleSet02 + FeatureStyleSet03 + FeatureStyleSet04 + FeatureStyleSet05;
-	featureStyleSetMask += FeatureStyleSet06 + FeatureStyleSet07 + FeatureStyleSet08 + FeatureStyleSet09 + FeatureStyleSet10;
-	featureStyleSetMask += FeatureStyleSet11 + FeatureStyleSet12 + FeatureStyleSet13 + FeatureStyleSet14 + FeatureStyleSet15;
-	featureStyleSetMask += FeatureStyleSet16 + FeatureStyleSet17 + FeatureStyleSet18 + FeatureStyleSet19 + FeatureStyleSet20;
-	groupBox_7->setVisible(newFlags & featureStyleSetMask);
+	groupBox_7->setVisible(newFlags & FontFeatures::StyleSetsMask);
 
 	// Hide Default features when their relative ones aren't found in the font.
-	quint64 featureCapsMask = 0;
-	featureCapsMask += FeatureSmallCaps + FeatureSmallCapsFromCaps;
-	featureCapsMask += FeaturePetiteCaps + FeaturePetiteCapsFromCaps;
-	featureCapsMask += FeatureUnicaseCaps + FeatureTiltingCaps;
-	NormalCapRadio->setVisible(newFlags & featureCapsMask);
-
-	quint64 featureNumeralStyleMask = FeatureLiningNumerals + FeatureOldStyleNumerals;
-	DefaultStyleRadio->setVisible(newFlags & featureNumeralStyleMask);
-
-	quint64 featureNumeralWidthMask = FeatureProportionalNumeralWidth + FeatureTabularNumeralWidth;
-	DefaultWidthRadio->setVisible(newFlags & featureNumeralWidthMask);
-	
-	quint64 featureFractionMask = FeatureDiagonalFractions + FeatureStackedFractions;
-	DefaultFractionsRadio->setVisible(newFlags & featureFractionMask);
-
-	quint64 featureGlyphPositionMask = FeatureSubscript + FeatureSuperscript + FeatureOrdinals;
-	DefaultPosRadio->setVisible(newFlags & featureGlyphPositionMask);
+	NormalCapRadio->setVisible(newFlags & FontFeatures::CapsMask);
+	DefaultStyleRadio->setVisible(newFlags & FontFeatures::NumeralStyleMask);
+	DefaultWidthRadio->setVisible(newFlags & FontFeatures::NumeralWidthMask);
+	DefaultFractionsRadio->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
+	DefaultPosRadio->setVisible(newFlags & FontFeatures::GlyphPositionMask);
 
 	// Hide Lines
-	quint64 featureLigaturesMask = FeatureCommonLigatures + FeatureContextualLigatures;
-	featureLigaturesMask += FeatureDiscretionaryLigatures + FeatureHistoricalLigatures;
-	line->setVisible(newFlags & featureLigaturesMask);
+	line->setVisible(newFlags & FontFeatures::LigaturesMask);
 
-	line_2->setVisible(newFlags & featureCapsMask);
-	line_3->setVisible(newFlags & featureNumeralStyleMask);
-	line_4->setVisible(newFlags & featureNumeralWidthMask);
-	line_5->setVisible(newFlags & featureFractionMask);
-	line_6->setVisible(newFlags & featureGlyphPositionMask);
+	line_2->setVisible(newFlags & FontFeatures::CapsMask);
+	line_3->setVisible(newFlags & FontFeatures::NumeralStyleMask);
+	line_4->setVisible(newFlags & FontFeatures::NumeralWidthMask);
+	line_5->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
+	line_6->setVisible(newFlags & FontFeatures::GlyphPositionMask);
 	line_7->setVisible(SlashedZeroCheck->isVisible());
 
 	// Do not trigger item relayout unnecessarily,
@@ -587,192 +529,92 @@ quint64 PropertyWidget_FontFeatures::featureFlags()
 	quint64 flags = 0;
 
 	if (CommonCheck->isVisible())
-		flags |= FeatureCommonLigatures;
+		flags |= FontFeatures::CommonLigatures;
 	if (ContextualCheck->isVisible())
-		flags |= FeatureContextualLigatures;
+		flags |= FontFeatures::ContextualLigatures;
 	if (DiscretionaryCheck->isVisible())
-		flags |= FeatureDiscretionaryLigatures;
+		flags |= FontFeatures::DiscretionaryLigatures;
 	if (HistoricalCheck->isVisible())
-		flags |= FeatureHistoricalLigatures;
+		flags |= FontFeatures::HistoricalLigatures;
 
 	if (SmallRadio->isVisible())
-		flags |= FeatureSmallCaps;
+		flags |= FontFeatures::SmallCaps;
 	if (SmallFromCRadio->isVisible())
-		flags |= FeatureSmallCapsFromCaps;
+		flags |= FontFeatures::SmallCapsFromCaps;
 	if (PetiteRadio->isVisible())
-		flags |= FeaturePetiteCaps;
+		flags |= FontFeatures::PetiteCaps;
 	if (PetiteCapRadio->isVisible())
-		flags |= FeaturePetiteCapsFromCaps;
+		flags |= FontFeatures::PetiteCapsFromCaps;
 	if (UnicaseRadio->isVisible())
-		flags |= FeatureUnicaseCaps;
+		flags |= FontFeatures::UnicaseCaps;
 	if (TiltingRadio->isVisible())
-		flags |= FeatureTiltingCaps;
+		flags |= FontFeatures::TiltingCaps;
 
 	if (LiningRadio->isVisible())
-		flags |= FeatureLiningNumerals;
+		flags |= FontFeatures::LiningNumerals;
 	if (OldStyleRadio->isVisible())
-		flags |= FeatureOldStyleNumerals;
+		flags |= FontFeatures::OldStyleNumerals;
 
 	if (ProportionalRadio->isVisible())
-		flags |= FeatureProportionalNumeralWidth;
+		flags |= FontFeatures::ProportionalNumeralWidth;
 	if (TabularRadio->isVisible())
-		flags |= FeatureTabularNumeralWidth;
+		flags |= FontFeatures::TabularNumeralWidth;
 
 	if (DiagonalRadio->isVisible())
-		flags |= FeatureDiagonalFractions;
+		flags |= FontFeatures::DiagonalFractions;
 	if (StackedRadio->isVisible())
-		flags |= FeatureStackedFractions;
+		flags |= FontFeatures::StackedFractions;
 
 	if (SubscriptRadio->isVisible())
-		flags |= FeatureSubscript;
+		flags |= FontFeatures::Subscript;
 	if (SuperscriptRadio->isVisible())
-		flags |= FeatureSuperscript;
+		flags |= FontFeatures::Superscript;
 	if (OrdinalCheck->isVisible())
-		flags |= FeatureOrdinals;
+		flags |= FontFeatures::Ordinals;
 
 	if (SlashedZeroCheck->isVisible())
-		flags |= FeatureSlashedZero;
+		flags |= FontFeatures::SlashedZero;
 
 	if (StyleSet01->isVisible())
-		flags |= FeatureStyleSet01;
+		flags |= FontFeatures::StyleSet01;
 	if (StyleSet02->isVisible())
-		flags |= FeatureStyleSet02;
+		flags |= FontFeatures::StyleSet02;
 	if (StyleSet03->isVisible())
-		flags |= FeatureStyleSet03;
+		flags |= FontFeatures::StyleSet03;
 	if (StyleSet04->isVisible())
-		flags |= FeatureStyleSet04;
+		flags |= FontFeatures::StyleSet04;
 	if (StyleSet05->isVisible())
-		flags |= FeatureStyleSet05;
+		flags |= FontFeatures::StyleSet05;
 	if (StyleSet06->isVisible())
-		flags |= FeatureStyleSet06;
+		flags |= FontFeatures::StyleSet06;
 	if (StyleSet07->isVisible())
-		flags |= FeatureStyleSet07;
+		flags |= FontFeatures::StyleSet07;
 	if (StyleSet08->isVisible())
-		flags |= FeatureStyleSet08;
+		flags |= FontFeatures::StyleSet08;
 	if (StyleSet09->isVisible())
-		flags |= FeatureStyleSet09;
+		flags |= FontFeatures::StyleSet09;
 	if (StyleSet10->isVisible())
-		flags |= FeatureStyleSet10;
+		flags |= FontFeatures::StyleSet10;
 	if (StyleSet11->isVisible())
-		flags |= FeatureStyleSet11;
+		flags |= FontFeatures::StyleSet11;
 	if (StyleSet12->isVisible())
-		flags |= FeatureStyleSet12;
+		flags |= FontFeatures::StyleSet12;
 	if (StyleSet13->isVisible())
-		flags |= FeatureStyleSet13;
+		flags |= FontFeatures::StyleSet13;
 	if (StyleSet14->isVisible())
-		flags |= FeatureStyleSet14;
+		flags |= FontFeatures::StyleSet14;
 	if (StyleSet15->isVisible())
-		flags |= FeatureStyleSet15;
+		flags |= FontFeatures::StyleSet15;
 	if (StyleSet16->isVisible())
-		flags |= FeatureStyleSet16;
+		flags |= FontFeatures::StyleSet16;
 	if (StyleSet17->isVisible())
-		flags |= FeatureStyleSet17;
+		flags |= FontFeatures::StyleSet17;
 	if (StyleSet18->isVisible())
-		flags |= FeatureStyleSet18;
+		flags |= FontFeatures::StyleSet18;
 	if (StyleSet19->isVisible())
-		flags |= FeatureStyleSet19;
+		flags |= FontFeatures::StyleSet19;
 	if (StyleSet20->isVisible())
-		flags |= FeatureStyleSet20;
-
-	return flags;
-}
-
-quint64 PropertyWidget_FontFeatures::featureFlagsFromList(QStringList features)
-{
-	quint64 flags = 0;
-
-	for (int i = 0; i < features.count(); i++)
-	{
-		const QString& feature = features.at(i);
-
-		if (feature == "liga")
-			flags |= FeatureCommonLigatures;
-		else if (feature == "clig")
-			flags |= FeatureContextualLigatures;
-		else if (feature == "dlig")
-			flags |= FeatureDiscretionaryLigatures;
-		else if (feature == "hlig")
-			flags |= FeatureHistoricalLigatures;
-
-		else if (feature == "smcp")
-			flags |= FeatureSmallCaps;
-		else if (feature == "c2sc")
-			flags |= FeatureSmallCapsFromCaps;
-		else if (feature == "pcap")
-			flags |= FeaturePetiteCaps;
-		else if (feature == "c2pc")
-			flags |= FeaturePetiteCapsFromCaps;
-		else if (feature == "unic")
-			flags |= FeatureUnicaseCaps;
-		else if (feature == "titl")
-			flags |= FeatureTiltingCaps;
-
-		else if (feature == "lnum")
-			flags |= FeatureLiningNumerals;
-		else if (feature == "onum")
-			flags |= FeatureOldStyleNumerals;
-
-		else if (feature == "pnum")
-			flags |= FeatureProportionalNumeralWidth;
-		else if (feature == "tnum")
-			flags |= FeatureTabularNumeralWidth;
-
-		else if (feature == "frac")
-			flags |= FeatureDiagonalFractions;
-		else if (feature == "afrc")
-			flags |= FeatureStackedFractions;
-
-		else if (feature == "subs")
-			flags |= FeatureSubscript;
-		else if (feature == "sups")
-			flags |= FeatureSuperscript;
-		else if (feature == "ordn")
-			flags |= FeatureOrdinals;
-
-		else if (feature == "zero")
-			flags |= FeatureSlashedZero;
-
-		else if (feature == "ss01")
-			flags |= FeatureStyleSet01;
-		else if (feature == "ss02")
-			flags |= FeatureStyleSet02;
-		else if (feature == "ss03")
-			flags |= FeatureStyleSet03;
-		else if (feature == "ss04")
-			flags |= FeatureStyleSet04;
-		else if (feature == "ss05")
-			flags |= FeatureStyleSet05;
-		else if (feature == "ss06")
-			flags |= FeatureStyleSet06;
-		else if (feature == "ss07")
-			flags |= FeatureStyleSet07;
-		else if (feature == "ss08")
-			flags |= FeatureStyleSet08;
-		else if (feature == "ss09")
-			flags |= FeatureStyleSet09;
-		else if (feature == "ss10")
-			flags |= FeatureStyleSet10;
-		else if (feature == "ss11")
-			flags |= FeatureStyleSet11;
-		else if (feature == "ss12")
-			flags |= FeatureStyleSet12;
-		else if (feature == "ss13")
-			flags |= FeatureStyleSet13;
-		else if (feature == "ss14")
-			flags |= FeatureStyleSet14;
-		else if (feature == "ss15")
-			flags |= FeatureStyleSet15;
-		else if (feature == "ss16")
-			flags |= FeatureStyleSet16;
-		else if (feature == "ss17")
-			flags |= FeatureStyleSet17;
-		else if (feature == "ss18")
-			flags |= FeatureStyleSet18;
-		else if (feature == "ss19")
-			flags |= FeatureStyleSet19;
-		else if (feature == "ss20")
-			flags |= FeatureStyleSet20;
-	}
+		flags |= FontFeatures::StyleSet20;
 
 	return flags;
 }
