@@ -51,7 +51,7 @@ public:
 	void setParentValue(QString val);
 	bool useParentValue();
 
-	StylisticSetsMenu *setMenu;
+	StylisticSetsMenu *styleSetsMenu;
 
 protected:
 	void connectSignals();
@@ -59,11 +59,11 @@ protected:
 
 private:
 	void hideAllFontFeatures();
-	void setupCapitalCombo(QStringList fontFeatures);
-	void setupPositionCombo(QStringList fontFeatures);
-	void setupNumeralStyleCombo(QStringList fontFeatures);
-	void setupNumeralWidthCombo(QStringList fontFeatures);
-	void setupNumeralFractionCombo(QStringList fontFeatures);
+	void setupCapitalCombo(quint64 featureFlags);
+	void setupPositionCombo(quint64 featureFlags);
+	void setupNumeralStyleCombo(quint64 featureFlags);
+	void setupNumeralWidthCombo(quint64 featureFlags);
+	void setupNumeralFractionCombo(quint64 featureFlags);
 
 	QStringList comboboxFeatures(QComboBox* combo);
 
@@ -72,11 +72,10 @@ private:
 	QString m_pValue;
 
 private slots:
-	void showStyleSetsList();
 	void slotChange();
 	void slotContextualCheck();
 	void slotCommonCheck();
-	void slotDiscretinoryCheck();
+	void slotDiscretionaryCheck();
 	void slotHistoricalCheck();
 	void slotCapitalsComboBox();
 	void slotPositionComboBox();

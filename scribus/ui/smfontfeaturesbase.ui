@@ -56,7 +56,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QCheckBox" name="DiscretinoryCheck">
+       <widget class="QCheckBox" name="DiscretionaryCheck">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -140,15 +140,8 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="capitalsLabel">
-          <property name="text">
-           <string>Capitals:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
          <widget class="QComboBox" name="capitalsComboBox">
           <item>
            <property name="text">
@@ -187,8 +180,15 @@
           </item>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="capitalsLabel">
+          <property name="text">
+           <string>Capitals:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="capitalsSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -200,18 +200,14 @@
           </property>
          </spacer>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
+        <item row="1" column="0">
          <widget class="QLabel" name="positionLabel">
           <property name="text">
            <string>Position:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="1">
          <widget class="QComboBox" name="positionComboBox">
           <item>
            <property name="text">
@@ -235,8 +231,8 @@
           </item>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_5">
+        <item row="1" column="2">
+         <spacer name="positionSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -266,15 +262,8 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="styleLabel">
-          <property name="text">
-           <string>Style:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1">
          <widget class="QComboBox" name="numeralComboBox">
           <item>
            <property name="text">
@@ -293,8 +282,8 @@
           </item>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer">
+        <item row="0" column="2">
+         <spacer name="numeralSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -306,18 +295,34 @@
           </property>
          </spacer>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="styleLabel">
+          <property name="text">
+           <string>Style:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QLabel" name="widthLabel">
           <property name="text">
            <string>Width:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="2">
+         <spacer name="widthSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
          <widget class="QComboBox" name="widthComboBox">
           <item>
            <property name="text">
@@ -336,31 +341,14 @@
           </item>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
+        <item row="2" column="0">
          <widget class="QLabel" name="fractionLabel">
           <property name="text">
            <string>Fraction:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="2" column="1">
          <widget class="QComboBox" name="fractionComboBox">
           <item>
            <property name="text">
@@ -379,8 +367,8 @@
           </item>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
+        <item row="2" column="2">
+         <spacer name="fractionSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -420,7 +408,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCommandLinkButton" name="commandLinkButton">
+      <widget class="QPushButton" name="stylisticSetsButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
