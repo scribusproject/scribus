@@ -9,9 +9,6 @@
       <UniqueIdentifier>{4010170e-f70d-45e9-bf23-fdb73f0325bd}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{3aa029b0-a17b-4ba3-b7c6-64586f6d09db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{1938c166-fac9-408d-9936-912d9a54d6a0}</UniqueIdentifier>
     </Filter>
@@ -26,9 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\moc_pathstroker.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{39f3be50-0141-440c-a8b9-1d3470024c0d}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{b51ae19d-0c0f-4aa7-9c8f-cde337b187a8}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aiimportdll.cpp">
@@ -22,12 +19,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\ai\importaiplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\ai\moc_importai.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\ai\moc_importaiplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

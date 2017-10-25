@@ -9,9 +9,6 @@
       <UniqueIdentifier>{5c02e712-8759-46e1-85ba-19befa32c59b}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{cb6bee5a-0e49-4ff0-ab47-0e0d01cf7b0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Forms Files">
       <UniqueIdentifier>{ddc38f68-2d65-425a-b211-59b111e3a9a6}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -29,12 +26,6 @@
     </ClCompile>
     <ClCompile Include="saveastemplatedll.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\moc_satdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\moc_satemplate.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

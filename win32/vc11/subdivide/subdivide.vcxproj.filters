@@ -9,9 +9,6 @@
       <UniqueIdentifier>{981409dc-122d-4a21-81c4-3390f137c860}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{4c43927c-e180-4516-ab59-b5058053873a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{fef8bbf9-bd9f-491f-9f5e-11718f17e945}</UniqueIdentifier>
     </Filter>
@@ -26,9 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\subdivide.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\moc_subdivide.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

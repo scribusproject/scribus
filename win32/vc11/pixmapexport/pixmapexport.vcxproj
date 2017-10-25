@@ -200,8 +200,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\dialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\export.cpp" />
     <ClCompile Include="pixmapexportdll.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_dialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_export.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\pixmapexport\dialog.h" />

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{441be87a-2baf-4ec7-9b7f-45d784cd0598}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{e544d8eb-17b5-4400-83d5-3d1c24fb22a6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfcontext.cpp">
@@ -25,12 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfimportplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\wmf\moc_wmfimport.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\wmf\moc_wmfimportplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

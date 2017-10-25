@@ -221,11 +221,6 @@
     <ClCompile Include="scriptplugindll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_pconsole.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_runscriptdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptercore.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scripterprefsgui.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h" />

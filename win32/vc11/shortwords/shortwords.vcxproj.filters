@@ -9,9 +9,6 @@
       <UniqueIdentifier>{47defb61-6d77-406d-97f9-27df06325e07}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{d2ad710e-1307-44f7-9559-b8ec4cf22b9d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{dbb88706-515b-4bee-89c7-c63086b96c7b}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -38,21 +35,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\short-words\vlnadialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_configuration.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_parse.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_shortwords.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_swprefsgui.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_vlnadialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

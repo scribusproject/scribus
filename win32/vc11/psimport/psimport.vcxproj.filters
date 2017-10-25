@@ -9,9 +9,6 @@
       <UniqueIdentifier>{125602f4-d9bb-4b6e-ba31-a7718b30eb5d}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{98e3ce9a-b248-40d4-8ede-503af1ae874e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\ps\importps.cpp">
@@ -22,12 +19,6 @@
     </ClCompile>
     <ClCompile Include="psimportdll.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\ps\moc_importps.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\ps\moc_importpsplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

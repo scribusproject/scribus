@@ -9,9 +9,6 @@
       <UniqueIdentifier>{d7639bf4-3564-4d3f-83a2-9e0d1fad3058}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{1384b084-d6fc-4852-86d3-ea67dc3a0fee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{d6785dbf-a52c-442b-8a23-812ec9bc246c}</UniqueIdentifier>
     </Filter>
@@ -29,12 +26,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\moc_pathalongpath.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\moc_pathdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

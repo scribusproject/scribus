@@ -9,9 +9,6 @@
       <UniqueIdentifier>{10cc5725-22a9-406a-8fb0-814f2e0f386b}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{dbb176db-474f-4400-ac62-8cfb10658621}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{d131e116-3e96-42ab-80fb-8b9e83f2dfa8}</UniqueIdentifier>
     </Filter>
@@ -26,9 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathcut\pathcut.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathcut\moc_pathcut.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

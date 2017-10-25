@@ -9,9 +9,6 @@
       <UniqueIdentifier>{ea0dc1b3-781a-4f06-814b-37dea5ca9ad3}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{60729237-3345-42d2-aacc-f7928ad793e4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="svgimportdll.cpp">
@@ -19,9 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\svg\svgplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\svg\moc_svgplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{b9d5cff3-22c6-420c-835c-bdbc31d94ea2}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{c2ef79ee-8e49-4595-adb6-9c7cd8d645ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{2daf634a-9d28-4bd1-812b-87f81cc3fba0}</UniqueIdentifier>
     </Filter>
@@ -29,12 +26,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\transform\transformeffect.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\transform\moc_transformdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\transform\moc_transformeffect.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

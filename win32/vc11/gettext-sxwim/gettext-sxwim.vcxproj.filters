@@ -9,9 +9,6 @@
       <UniqueIdentifier>{e6eaac84-91df-4d96-b61e-5f09a309181a}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{b4696ba9-82b9-431e-861a-61532ab60198}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\contentreader.cpp">
@@ -28,9 +25,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\sxwim.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\moc_sxwdia.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

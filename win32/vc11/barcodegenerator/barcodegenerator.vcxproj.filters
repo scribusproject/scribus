@@ -19,10 +19,6 @@
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{6a4fd578-d071-4243-ab29-cdeaa0b29fae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{b658fe37-f75d-4f57-8192-746e26d500a3}</UniqueIdentifier>
-      <Extensions>moc_*.cpp</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcode.cpp">
@@ -33,12 +29,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\moc_barcode.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\moc_barcodegenerator.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

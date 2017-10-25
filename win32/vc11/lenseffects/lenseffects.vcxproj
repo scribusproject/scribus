@@ -201,8 +201,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialog.cpp" />
     <ClCompile Include="lenseffectsdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\moc_lensdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\moc_lenseffects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialog.h" />

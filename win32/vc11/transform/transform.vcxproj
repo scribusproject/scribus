@@ -201,8 +201,6 @@
     <ClCompile Include="transformdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\transform\transformdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\transform\transformeffect.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\transform\moc_transformdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\transform\moc_transformeffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\transform\transformdialog.h" />

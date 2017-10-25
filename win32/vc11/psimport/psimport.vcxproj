@@ -200,8 +200,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\ps\importps.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\ps\importpsplugin.cpp" />
     <ClCompile Include="psimportdll.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\ps\moc_importps.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\ps\moc_importpsplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\ps\importps.h" />

@@ -199,7 +199,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\svgexplugin.cpp" />
     <ClCompile Include="svgexportdll.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\moc_svgexplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\svgexplugin\svgexplugin.h" />

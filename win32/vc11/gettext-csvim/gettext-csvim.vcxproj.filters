@@ -9,9 +9,6 @@
       <UniqueIdentifier>{84eef2d2-0ca4-4eb8-a026-51d6081a6ad7}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{947e8f90-a928-4182-946c-be24a34bed82}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\csvdia.cpp">
@@ -22,9 +19,6 @@
     </ClCompile>
     <ClCompile Include="gettext-csvimdll.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\moc_csvdia.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
