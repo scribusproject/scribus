@@ -82,6 +82,13 @@ signals:
 	void rowAppended();
 
 private:
+
+	enum DataRole
+	{
+		CharTextRole = Qt::UserRole + 1,
+		CharTextAndFontRole = Qt::UserRole + 2
+	};
+
 	ScribusDoc *m_doc;
 	//! \brief Number of the columns for model
 	int m_cols;

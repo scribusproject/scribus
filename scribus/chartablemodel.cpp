@@ -51,7 +51,10 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		return QVariant();
 
 	// for mimeData()
-	if (role == Qt::AccessibleTextRole)
+	if (role == CharTableModel::CharTextRole)
+		return QString("%1").arg(QChar(currentChar));
+
+	if (role == CharTableModel::CharTextAndFontRole)
 		return QString("%1#%2").arg(currentChar).arg(currentFont);
 
 	// tooltip
@@ -237,7 +240,13 @@ QStringList CharTableModel::mimeTypes() const
 QMimeData *CharTableModel::mimeData(const QModelIndexList &indexes) const
 {
 	QMimeData *mimeData = new QMimeData();
-	mimeData->setText(data(indexes.at(0), Qt::AccessibleTextRole).toString());
+
+	QString text = data(indexes.at(0), CharTableModel::CharTextRole).toString();
+	mimeData->setText(text);
+
+	QString textAndFont = data(indexes.at(0), CharTableModel::CharTextAndFontRole).toString();
+	mimeData->setData("application/x-scribus-charpaltext", textAndFont.toUtf8());
+
 	return mimeData;
 }
 
@@ -246,9 +255,19 @@ bool CharTableModel::dropMimeData(const QMimeData * data, Qt::DropAction action,
 	if (action == Qt::IgnoreAction)
 		return true;
 
-	if (!data->hasText())
-		return false;
-
-	appendUnicode(QString(data->text()), 10);
-	return true;
+	bool success = false;
+	if (data->hasFormat("application/x-scribus-charpaltext"))
+	{
+		QByteArray textAndFont = data->data("application/x-scribus-charpaltext");
+		appendUnicode(QString::fromUtf8(textAndFont), 10);
+		success = true;
+	}
+	else if (data->hasText())
+	{
+		QChar textChar = data->text().at(0);
+		appendUnicode(QString("%1").arg(textChar.unicode(), 10));
+		success = true;
+	}
+		
+	return success;
 }
