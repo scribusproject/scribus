@@ -18,15 +18,19 @@
 <p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
 <p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
 
-<dt><a name="-setFillBlendmode"><strong>setFillBlendmode</strong>(...)</a></dt>
-<dd><code>setFillBlendmode(blendmode, ["name"])</code>
-<p>Sets the fill blendmode of the object "name" to blendmode is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>
-
 <dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
 <dd><code>setCornerRadius(radius, ["name"])</code>
 <p>Sets the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</p> 
 <p>May raise ValueError if the corner radius is negative.</p></dd>
-	
+
+<dt><a name="-setCustomLineStyle"><strong>setCustomLineStyle</strong></a>(...)</dt>
+<dd><code>setCustomLineStyle(styleName, ["name"])</code>
+<p>Sets the custom line style of the object "name" to "styleName". Argument "styleName" is the name of line style as seen in Style Manager. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setFillBlendmode"><strong>setFillBlendmode</strong>(...)</a></dt>
+<dd><code>setFillBlendmode(blendmode, ["name"])</code>
+<p>Sets the fill blendmode of the object "name" to blendmode is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
 <dd><code>setFillColor("color", ["name"])</code>
 <p>Sets the fill color of the object "name" to the color "color". "color" is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>

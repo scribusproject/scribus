@@ -48,6 +48,21 @@
 </p>
 </dd>
 
+<dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>
+<dd><code>createCustomLineStyle(styleName, style)</code>
+<p>Creates the custom line style 'styleName'.</p>
+<p>This function takes list of dictionary as parameter for "style". Each dictionary represent one subline within style. Dictionary can have those keys:
+<ul>
+<li>Color [optional] -> name of the color to use (string)</li>
+<li>Dash [optional] -> type of line to use (integer)</li>
+<li>LineEnd [optional] -> type of LineEnd to use (integer)</li>
+<li>LineJoin [optional] -> type of LineJoin to use (integer)</li>
+<li>Shade [optional] -> opacity of line (integer)</li>
+<li>Width [optional] -> width of line (double)</li>
+</ul>
+</p>
+</dd>
+
 <dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
 <dd><code>createBezierLine(list, ["name"]) -&gt; string</code>
 <p>Creates a new bezier curve and returns its name. The points for the bezier curve are stored in the list "list" in the following order: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn] In the points list, x and y mean the x and y coordinates of the point and kx and ky meaning the control point for the curve.  The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>

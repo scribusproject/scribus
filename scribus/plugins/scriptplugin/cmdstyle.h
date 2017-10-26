@@ -82,5 +82,24 @@ tracking [optional] -> tracking of the text\n\n\
   		Special thanks go to avox for helping me! */
 PyObject *scribus_createcharstyle(PyObject * /* self */, PyObject* args, PyObject* keywords);
 
+/* LINE STYLES */
+
+/*! docstring */
+PyDoc_STRVAR(scribus_createcustomlinestyle__doc__,
+QT_TR_NOOP("createCustomLineStyle(styleName, style)\n\n\
+Creates the custom line style 'styleName'.\n\n\
+styleName -> name of the custom line style to create\n\n\
+This function takes list of dictionary\n\
+as parameter for \"style\". Each dictionary represent\n\
+one subline within style. Dictionary can have those keys:\n\n\
+\tColor [optional] -> name of the color to use (string)\n\n\
+\tDash [optional] -> type of line to use (integer)\n\n\
+\tLineEnd [optional] -> type of LineEnd to use (integer)\n\n\
+\tLineJoin [optional] -> type of LineJoin to use (integer)\n\n\
+\tShade [optional] -> opacity of line (integer)\n\n\
+\tWidth [optional] -> width of line (double)\n\
+"));
+PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args);
+
 #endif
 

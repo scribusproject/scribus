@@ -52,6 +52,16 @@ is not given the currently selected Item is used.\n\
 PyObject *scribus_getfillblend(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcustomlinestyle__doc__,
+QT_TR_NOOP("getCustomLineStyle([\"name\"]) -> string\n\
+\n\
+Returns the styleName of custom line style for the object. If object's \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Returns custom style of the line */
+PyObject *scribus_getcustomlinestyle(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getlinecolor__doc__,
 QT_TR_NOOP("getLineColor([\"name\"]) -> string\n\
 \n\

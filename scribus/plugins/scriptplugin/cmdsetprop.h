@@ -66,6 +66,17 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_setfillblend(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setcustomlinestyle__doc__,
+QT_TR_NOOP("setCustomLineStyle(\"styleName\", [\"name\"])\n\
+\n\
+Sets the custom line style of the object \"name\" to \"styleName\"\n\
+Argument \"styleName\" is the name of line style as seen in Style Manager\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set custom line style */
+PyObject *scribus_setcustomlinestyle(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setlinecolor__doc__,
 QT_TR_NOOP("setLineColor(\"color\", [\"name\"])\n\
 \n\
@@ -149,8 +160,10 @@ PyDoc_STRVAR(scribus_setlinestyle__doc__,
 QT_TR_NOOP("setLineStyle(style, [\"name\"])\n\
 \n\
 Sets the line style of the object \"name\" to the style \"style\". If \"name\"\n\
-is not given the currently selected item is used. There are predefined\n\
-constants for \"style\" - LINE_<style>.\n\
+is not given the currently selected item is used.\n\
+Argument for this function is number - value from 1 to 37\n\
+There are few predefined constants for \"style\" - LINE_<style>.\n\
+In Property Palette this feature is selected in box named 'Type of line'\n\
 "));
 /*! Set line end */
 PyObject *scribus_setlinestyle(PyObject * /*self*/, PyObject* args);

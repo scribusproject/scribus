@@ -170,6 +170,72 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	PyObject *obj;
+
+	if (!PyArg_ParseTuple(args, "esO", "utf-8", &Name, &obj))
+		return NULL;
+
+	if (!PyList_Check(obj)) {
+		PyErr_SetString(PyExc_TypeError, "'style' must be list.");
+		return NULL;
+	}
+
+	multiLine ml;
+	for (int i = 0; i < PyList_Size(obj); i++) {
+		PyObject *line = PyList_GetItem(obj, i);
+		if (!PyDict_Check(line)) {
+			PyErr_SetString(PyExc_TypeError, "elements of list must be Dictionary.");
+			return NULL;
+		}
+		struct SingleLine sl;
+		PyObject *val;
+		val = PyDict_GetItemString(line, "Color");
+		if (val) {
+			sl.Color = PyString_AsString(val);
+		} else 
+			sl.Color = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColor;;
+		val = PyDict_GetItemString(line, "Dash");
+		if (val) {
+			sl.Dash = PyInt_AsLong(val);
+		} else 
+			sl.Dash = Qt::SolidLine;
+		val = PyDict_GetItemString(line, "LineEnd");
+		if (val) {
+			sl.LineEnd = PyInt_AsLong(val);
+		} else 
+			sl.LineEnd = Qt::FlatCap;
+		val = PyDict_GetItemString(line, "LineJoin");
+		if (val) {
+			sl.LineJoin = PyInt_AsLong(val);
+		} else 
+			sl.LineJoin = Qt::MiterJoin;
+		val = PyDict_GetItemString(line, "Shade");
+		if (val) {
+			sl.Shade = PyInt_AsLong(val);
+		} else 
+			sl.Shade = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColorShade;
+		val = PyDict_GetItemString(line, "Width");
+		if (val) {
+			sl.Width = PyFloat_AsDouble(val);
+		} else 
+			sl.Width = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineWidth;
+
+		val = PyDict_GetItemString(line, "Shortcut");
+		if (val) {
+			ml.shortcut = PyString_AsString(val);
+		} else 
+			ml.shortcut = "";
+		ml.push_back(sl);
+	}
+	if (ml.size() > 0)
+		ScCore->primaryMainWindow()->doc->MLineStyles[Name] = ml;
+	Py_RETURN_NONE;
+}
+
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -177,4 +243,5 @@ void cmdstyledocwarnings()
 {
 	QStringList s;
 	s << scribus_createparagraphstyle__doc__ << scribus_createcharstyle__doc__;
+	s << scribus_createcustomlinestyle__doc__;
 }
