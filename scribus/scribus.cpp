@@ -310,6 +310,8 @@ ScribusMainWindow::ScribusMainWindow()
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	//noIcon = IconManager::instance()->loadPixmap("noicon.png");
 #endif
+	m_doc = 0;
+	m_tocGenerator = 0;
 }
 
 /*
@@ -465,8 +467,10 @@ ScribusMainWindow::~ScribusMainWindow()
 		delete actionManager;
 	if (appModeHelper)
 		delete appModeHelper;
-	delete m_doc;
-	delete m_tocGenerator;
+	if (m_doc)
+		delete m_doc;
+	if (m_tocGenerator)
+		delete m_tocGenerator;
 }
 
 void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
