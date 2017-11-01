@@ -3459,18 +3459,14 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 		{
 			if (colorModel == 3)
 			{
-				int Cc = qRound(c1 * 255);
-				int Mc = qRound(c2 * 255);
-				int Yc = qRound(c3 * 255);
-				int Kc = qRound(c4 * 255);
-				tmp.setColor(Cc, Mc, Yc, Kc);
+				tmp.setColorF(c1, c2, c3, c4);
 				if (colorType == 1)
 					tmp.setSpotColor(true);
 				else
 					tmp.setSpotColor(false);
 				tmp.setRegistrationColor(false);
 				if (XarName.isEmpty())
-					tmpName = "FromXara"+c.name();
+					tmpName = "FromXara" + c.name();
 				else
 					tmpName = XarName;
 				QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
@@ -3480,7 +3476,7 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 			}
 			else
 			{
-				tmp.setColorRGB(Rc, Gc, Bc);
+				tmp.setRgbColor(Rc, Gc, Bc);
 				tmp.setSpotColor(false);
 				tmp.setRegistrationColor(false);
 				if (XarName.isEmpty())
@@ -3495,7 +3491,7 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 		}
 		else
 		{
-			tmp.setColorRGB(Rc, Gc, Bc);
+			tmp.setRgbColor(Rc, Gc, Bc);
 			tmp.setSpotColor(false);
 			tmp.setRegistrationColor(false);
 			if (XarName.isEmpty())
@@ -3527,7 +3523,7 @@ void XarPlug::handleColorRGB(QDataStream &ts)
 	quint8 Rc, Gc, Bc;
 	ts >> Rc >> Gc >> Bc;
 	QColor c = QColor(Rc, Gc, Bc);
-	tmp.setColorRGB(Rc, Gc, Bc);
+	tmp.setRgbColor(Rc, Gc, Bc);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	tmpName = "FromXara"+c.name();

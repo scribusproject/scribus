@@ -529,7 +529,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						int r = grs.attribute("vc:red", "0").toInt();
 						int g = grs.attribute("vc:green", "0").toInt();
 						int b = grs.attribute("vc:blue", "0").toInt();
-						tmp.setColorRGB(r, g, b);
+						tmp.setRgbColor(r, g, b);
 						break;
 					}
 					else if (grs.tagName() == "vc:cmyk")
@@ -558,7 +558,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						int r = e.attribute("vc:red", "0").toInt();
 						int g = e.attribute("vc:green", "0").toInt();
 						int b = e.attribute("vc:blue", "0").toInt();
-						tmp.setColorRGB(r, g, b);
+						tmp.setRgbColor(r, g, b);
 						break;
 					}
 					else if (grs.tagName() == "vc:spotColor")
@@ -577,7 +577,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 				int g = e.attribute("vc:green", "0").toInt();
 				int b = e.attribute("vc:blue", "0").toInt();
 				ScColor tmp;
-				tmp.setColorRGB(r, g, b);
+				tmp.setRgbColor(r, g, b);
 				tmp.setSpotColor(false);
 				tmp.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);

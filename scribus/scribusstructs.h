@@ -39,22 +39,39 @@ for which a new license (GPL+exception) is in place.
 
 extern bool SCRIBUS_API compareDouble(double, double);
 
-typedef struct
+struct RGBColor
 {
 	int r;
 	int g;
 	int b;
-	void getValues(int& vr, int& vg, int& vb) {vr = r; vg = g; vb = b;}
-} RGBColor;
+	void getValues(int& vr, int& vg, int& vb) { vr = r; vg = g; vb = b; }
+};
 
-typedef struct
+struct RGBColorF
+{
+	double r;
+	double g;
+	double b;
+	void getValues(double& vr, double& vg, double& vb) { vr = r; vg = g; vb = b; }
+};
+
+struct CMYKColor
 {
 	int c;
 	int m;
 	int y;
 	int k;
-	void getValues(int& vc, int& vm, int& vy, int& vk) {vc = c; vm = m; vy = y; vk = k;}
-} CMYKColor;
+	void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
+};
+
+struct CMYKColorF
+{
+	double c;
+	double m;
+	double y;
+	double k;
+	void getValues(double& vc, double& vm, double& vy, double& vk) { vc = c; vm = m; vy = y; vk = k; }
+};
 
 struct CopyContentsBuffer
 {

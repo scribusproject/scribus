@@ -140,8 +140,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void HandleDiamondGradient(PageItem* c);
 		virtual void HandleTensorGradient(PageItem* c);
 		virtual void HandleGradientFillStroke(PageItem *c, bool stroke = true, bool forArrow = false);
-		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k);
-		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k);
+		virtual void SetColor(const QString& color, double shade, double *c, double *m, double *y, double *k);
+		virtual void SetColor(const ScColor& color, double shade, double *c, double *m, double *y, double *k);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, uint a, ScPage* pg, bool sep, bool farb, bool master);
 		bool psExport;
 

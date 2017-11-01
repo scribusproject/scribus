@@ -37,6 +37,21 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_getcolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcolorfloat__doc__,
+QT_TR_NOOP("getColorFloat(\"name\") -> tuple\n\
+\n\
+Returns a tuple (C, M, Y, K) containing the four color components of the\n\
+color \"name\" from the current document. Color components are floating point\n\
+values between 0 and 100. If no document is open, returns the value of the\n\
+named color from the default document colors.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Returns a CMYK tuple of the specified color. */
+PyObject *scribus_getcolorfloat(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getcolorasrgb__doc__,
 QT_TR_NOOP("getColorAsRGB(\"name\") -> tuple\n\
 \n\
@@ -50,6 +65,22 @@ May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Returns a CMYK tuple of the specified color. */
 PyObject *scribus_getcolorasrgb(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcolorasrgbfloat__doc__,
+QT_TR_NOOP("getColorAsRGBFloat(\"name\") -> tuple\n\
+\n\
+Returns a tuple (R,G,B) containing the three color components of the\n\
+color \"name\" from the current document, converted to the RGB color\n\
+space. Color components are floating point values between 0 and 255.\n\
+If no document is open, returns the value of the named color\n\
+from the default document colors.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Returns a CMYK tuple of the specified color. */
+PyObject *scribus_getcolorasrgbfloat(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolor__doc__,
@@ -81,6 +112,20 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_setcolorcmyk(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setcolorcmykfloat__doc__,
+QT_TR_NOOP("changeColorCMYKFloat(\"name\", c, m, y, k)\n\
+\n\
+Changes the color \"name\" to the specified CMYK value. The color value is\n\
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.\n\
+Color components are floating point values between 0 and 100.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Sets named color with C,M,Y,K params. */
+PyObject *scribus_setcolorcmykfloat(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setcolorrgb__doc__,
 QT_TR_NOOP("changeColorRGB(\"name\", r, g, b)\n\
 \n\
@@ -93,6 +138,34 @@ May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Sets named color with R, G, B params. */
 PyObject *scribus_setcolorrgb(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setcolorrgbfloat__doc__,
+QT_TR_NOOP("changeColorRGBFloat(\"name\", r, g, b)\n\
+\n\
+Changes the color \"name\" to the specified RGB value. The color value is\n\
+defined via three components r = red, g = green, b = blue.\n\
+Color components are floating point values between 0 and 255.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Sets named color with R, G, B params. */
+PyObject *scribus_setcolorrgbfloat(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setcolorlab__doc__,
+QT_TR_NOOP("changeColorLab(\"name\", r, g, b)\n\
+\n\
+Changes the color \"name\" to the specified CIELab values. The color value is defined\n\
+via three components: L = luminosity, a = green/red, b = blue/yellow. Color components\n\
+are floating point values with L between 0 and 100, a and b between -128 and 128.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Sets named color with R, G, B params. */
+PyObject *scribus_setcolorlab(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newcolor__doc__,
@@ -122,6 +195,19 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_newcolorcmyk(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_newcolorcmykfloat__doc__,
+QT_TR_NOOP("defineColorCMYKFloat(\"name\", c, m, y, k)\n\
+\n\
+Defines a new color \"name\". The color Value is defined via four components:\n\
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components are\n\
+floating point values between 0 and 100.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Creates new color with name, C, M, Y, K params. */
+PyObject *scribus_newcolorcmykfloat(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_newcolorrgb__doc__,
 QT_TR_NOOP("defineColorRGB(\"name\", r, g, b)\n\
 \n\
@@ -133,6 +219,32 @@ May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Creates new color with name, R, G, B params. */
 PyObject *scribus_newcolorrgb(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_newcolorrgbfloat__doc__,
+QT_TR_NOOP("defineColorRGBFloat(\"name\", r, g, b)\n\
+\n\
+Defines a new color \"name\". The color Value is defined via three components:\n\
+r = red, g = green, b = blue. Color components are floating point values\n\
+between 0 and 255.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Creates new color with name, R, G, B params. */
+PyObject *scribus_newcolorrgbfloat(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_newcolorlab__doc__,
+QT_TR_NOOP("defineColorLab(\"name\", r, g, b)\n\
+\n\
+Defines a new color \"name\" using CIELab values. The color value is defined\n\
+via three components: L = luminosity, a = green/red, b = blue/yellow. Color components\n\
+are floating point values with L between 0 and 100, a and b between -128 and 128.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Creates new color with name, L, a, b params. */
+PyObject *scribus_newcolorlab(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_delcolor__doc__,

@@ -164,12 +164,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	if (orig.getColorModel () == colorModelCMYK)
 	{
 		double ccd, cmd, cyd, ckd;
-		CMYKColor cmyk;
+		CMYKColorF cmyk;
 		ScColorEngine::getCMYKValues(orig, m_doc, cmyk);
-		ccd = cmyk.c / 2.55;
-		cmd = cmyk.m / 2.55;
-		cyd = cmyk.y / 2.55;
-		ckd = cmyk.k / 2.55;
+		ccd = cmyk.c * 100.0;
+		cmd = cmyk.m * 100.0;
+		cyd = cmyk.y * 100.0;
+		ckd = cmyk.k * 100.0;
 		CyanSp->setValue(ccd);
 		CyanSL->setValue(qRound(ccd * 1000));
 		MagentaSp->setValue(cmd);
@@ -178,7 +178,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 		YellowSL->setValue(qRound(cyd * 1000));
 		BlackSp->setValue(ckd);
 		BlackSL->setValue(qRound(ckd * 1000));
-		BlackComp = cmyk.k;
+		BlackComp = qRound(cmyk.k * 255.0);
 	}
 	int h, s, v;
 	ScColorEngine::getRGBColor(orig, m_doc).getHsv(&h, &s, &v);
@@ -841,18 +841,18 @@ void CMYKChoose::selModel(const QString& mod)
 
 void CMYKChoose::setColor()
 {
-	int c, m, y;
-	int h, s, v;
-	int k = 0;
+	int    h, s, v;
+	double c, m, y;
+	double k = 0;
 	double L, a, b;
 	ScColor tmp;
 	if (Farbe.getColorModel() == colorModelCMYK)
 	{
-		c = qRound(CyanSp->value() * 2.55);
-		m = qRound(MagentaSp->value() * 2.55);
-		y = qRound(YellowSp->value() * 2.55);
-		k = qRound(BlackSp->value() * 2.55);
-		tmp.setColor(c, m, y, k);
+		c = CyanSp->value() / 100.0;
+		m = MagentaSp->value() / 100.0;
+		y = YellowSp->value() / 100.0;
+		k = BlackSp->value() / 100.0;
+		tmp.setColorF(c, m, y, k);
 		Farbe = tmp;
 		if (dynamic)
 		{
@@ -861,33 +861,37 @@ void CMYKChoose::setColor()
 			YellowSL->setPalette(sliderPix(60));
 			BlackSL->setPalette(sliderBlack());
 		}
-		BlackComp = k;
+		BlackComp = qRound(k * 255.0);
 		ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
 		ColorMap->drawPalette(v);
 		ColorMap->setMark(h, s);
 	}
 	else if (Farbe.getColorModel() == colorModelRGB)
 	{
-		c = qRound(CyanSp->value());
-		m = qRound(MagentaSp->value());
-		y = qRound(YellowSp->value());
-		k = qRound(BlackSp->value());
+		int ic = qRound(CyanSp->value());
+		int im = qRound(MagentaSp->value());
+		int iy = qRound(YellowSp->value());
+		int ik = qRound(BlackSp->value());
 		if (Wsave)
 		{
+			ic = ic / 51 * 51;
+			im = im / 51 * 51;
+			iy = iy / 51 * 51;
 			blockSignals(true);
-			c = c / 51 * 51;
-			m = m / 51 * 51;
-			y = y / 51 * 51;
-			CyanSp->setValue(c);
-			MagentaSp->setValue(m);
-			YellowSp->setValue(y);
-			CyanSL->setValue(c * 1000.0);
-			MagentaSL->setValue(m * 1000.0);
-			YellowSL->setValue(y * 1000.0);
+			CyanSp->setValue(ic);
+			MagentaSp->setValue(im);
+			YellowSp->setValue(iy);
+			CyanSL->setValue(ic * 1000.0);
+			MagentaSL->setValue(im * 1000.0);
+			YellowSL->setValue(iy * 1000.0);
 			blockSignals(false);
 		}
-		tmp.setColorRGB(c, m, y);
-		QColor tmp2 = QColor(c, m, y);
+		c = ic / 255.0;
+		m = im / 255.0;
+		y = iy / 255.0;
+		k = ik / 255.0;
+		tmp.setRgbColorF(c, m, y);
+		QColor tmp2 = ScColorEngine::getRGBColor(tmp, m_doc);
 		tmp2.getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
 		Farbe = tmp;
@@ -897,7 +901,7 @@ void CMYKChoose::setColor()
 			MagentaSL->setPalette(sliderPix(120));
 			YellowSL->setPalette(sliderPix(240));
 		}
-		BlackComp = k;
+		BlackComp = qRound(k * 255.0);
 		ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
 		ColorMap->drawPalette(v);
 		ColorMap->setMark(h, s);
@@ -921,7 +925,7 @@ void CMYKChoose::setColor()
 			a = MagentaSp->value();
 			b = YellowSp->value();
 		}
-		tmp.setColor(L, a, b);
+		tmp.setLabColor(L, a, b);
 		Farbe = tmp;
 		if (dynamic)
 		{
@@ -952,19 +956,22 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	}
 	else
 	{
-		QColor tm = QColor::fromHsv(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
 		int r, g, b;
+		int ih = qMax(0, qMin(h, 359));
+		int is = qMax(0, qMin(255 - s, 255));
+		int iv = 255 - BlackComp;
+		QColor tm = QColor::fromHsv(ih, is, iv);
 		tm.getRgb(&r, &g, &b);
 		tmp.fromQColor(tm);
 		if (Farbe.getColorModel() == colorModelCMYK)
 		{
-			CMYKColor cmyk;
+			CMYKColorF cmyk;
 			ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
-			tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+			tmp.setColorF(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 		}
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
-	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+	if (ScColorEngine::isOutOfGamut(tmp, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
@@ -1025,18 +1032,18 @@ void CMYKChoose::setValues()
 
 	if (Farbe.getColorModel() == colorModelCMYK)
 	{
-		CMYKColor cmyk;
-		int cc, cm, cy, ck;
+		CMYKColorF cmyk;
+		double cc, cm, cy, ck;
 		ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
 		cmyk.getValues(cc, cm, cy, ck);
-		CyanSp->setValue(cc / 2.55);
-		CyanSL->setValue(qRound(cc / 2.55) * 1000.0);
-		MagentaSp->setValue(cm / 2.55);
-		MagentaSL->setValue(qRound(cm / 2.55) * 1000.0);
-		YellowSp->setValue(cy / 2.55);
-		YellowSL->setValue(qRound(cy / 2.55) * 1000.0);
-		BlackSp->setValue(ck / 2.55);
-		BlackSL->setValue(qRound(ck / 2.55) * 1000.0);
+		CyanSp->setValue(cc * 100.0);
+		CyanSL->setValue(qRound(cc * 100.0 * 1000.0));
+		MagentaSp->setValue(cm * 100.0);
+		MagentaSL->setValue(qRound(cm * 100.0 * 1000.0));
+		YellowSp->setValue(cy * 100.0);
+		YellowSL->setValue(qRound(cy * 100.0 * 1000.0));
+		BlackSp->setValue(ck * 100.0);
+		BlackSL->setValue(qRound(ck * 100.0 * 1000.0));
 		if (dynamic)
 		{
 			CyanSL->setPalette(sliderPix(180));

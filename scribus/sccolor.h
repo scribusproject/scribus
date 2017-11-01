@@ -58,26 +58,33 @@ public:
 	ScColor(void);
 	/** \brief Constructs a ScColor with 4 Components in the range from 0 - 255 */
 	ScColor(int c, int m, int y, int k);
-	/** \brief Constructs a RGBColor with 3 Components in the range from 0 - 255 */
+	/** \brief Constructs a RGB color with 3 Components in the range from 0 - 255 */
 	ScColor(int r, int g, int b);
-	/** \brief Constructs a LabColor with 3 Components */
+	/** \brief Constructs a Lab color with 3 Components */
 	ScColor(double l, double a, double b);
 	
 	bool operator==(const ScColor& other) const;
-
-	/** \brief Set color from an existing document */
-	void setColor(ScribusDoc* doc, const QString& name);
 
 	/** \brief Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
 
 	/** \brief Same as the Constructor but for an existing Color */
-	void setColor(double l, double a, double b);
+	void setColorF(double c, double m, double y, double k);
 
-	/** \brief Computes a ScColor from an RGB-Color
-	* Applies Gray-Component-Removal to the resulting ScColor
-	* or if color management is enabled, an approriate transform */
-	void setColorRGB(int r, int g, int b);
+	/** \brief Define color as a CMYK color with specified values */
+	void setCmykColor(int c, int m, int y, int k);
+
+	/** \brief Define color as a CMYK color with specified values */
+	void setCmykColorF(double c, double m, double y, double k);
+
+	/** \brief Define color as a RGB color with specified values */
+	void setRgbColor(int r, int g, int b);
+
+	/** \brief Define color as a RGB color with specified values */
+	void setRgbColorF(double r, double g, double b);
+
+	/** \brief Define color as a Lab color with specified values */
+	void setLabColor(double l, double a, double b);
 
 	/** \brief get the color model */
 	colorModel getColorModel () const;
@@ -95,10 +102,20 @@ public:
 	* Must not be called if color is the None Color. */
 	void getCMYK(int *c, int *m, int *y, int *k) const;
 
+	/** \brief Returns the 4 Values that form an ScColor. 
+	* Returns meaningful results only if color is a cmyk color.
+	* Must not be called if color is the None Color. */
+	void getCMYK(double *c, double *m, double *y, double *k) const;
+
 	/** \brief Returns the 3 Values that form an RGBColor
 	* Returns meaningful results only if color is a rgb color.
 	* Must not be called if color is the None Color. */
 	void getRGB(int *r, int *g, int *b) const;
+
+	/** \brief Returns the 3 Values that form an RGBColor
+	* Returns meaningful results only if color is a rgb color.
+	* Must not be called if color is the None Color. */
+	void getRGB(double *r, double *g, double *b) const;
 
 	/** \brief Returns the 3 Values that form an LabColor
 	* Returns meaningful results only if color is a Lab color.
@@ -107,13 +124,13 @@ public:
 
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK for a CMYK color or ##RRGGBB for a RGB color. 
 	* For the None color return the "None" string. */
-	QString name();
+	QString name() const;
 	/** \brief Returns the ScColor as an Hex-String in the Form #RRGGBB
 	* If doc member is not specified, return meaningful result only for RGB colors. */
-	QString nameRGB(const ScribusDoc* doc = NULL);
+	QString nameRGB(const ScribusDoc* doc = NULL) const;
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK
 	* If doc member is not specified, return meaningful result only for CMYK colors. */
-	QString nameCMYK(const ScribusDoc* doc = NULL);
+	QString nameCMYK(const ScribusDoc* doc = NULL) const;
 
 	/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK or #RRGGBB */
 	void setNamedColor(QString nam);
@@ -129,14 +146,8 @@ public:
 
 private:
 
-	/** \brief Cyan or Red Component of Color (depends of color model)*/
-	int m_CR;
-	/** \brief Magenta or Green Component of Color (depends of color model)*/
-	int m_MG;
-	/** \brief Yellow or Blue Component of Color (depends of color model)*/
-	int m_YB;
-	/** \brief Black-Component of Color */
-	int m_K;
+	/** \brief Color values (depends of color model) */
+	double m_values[4];
 	/** \brief L component of Color */
 	double m_L_val;
 	/** \brief a component of Color */

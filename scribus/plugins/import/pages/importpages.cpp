@@ -1173,16 +1173,14 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:calibrated-rgb-color-type")
 											{
-												QColor c;
 												double r = spg.attribute("sfa:r", "1").toDouble();
 												double g = spg.attribute("sfa:g", "1").toDouble();
 												double b = spg.attribute("sfa:b", "1").toDouble();
-												c.setRgbF(r, g, b);
 												ScColor tmp;
-												tmp.fromQColor(c);
+												tmp.setRgbColorF(r, g, b);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
-												QString newColorName = "FromPages"+c.name();
+												QString newColorName = "FromPages" + tmp.name();
 												QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 												if (fNam == newColorName)
 													importedColors.append(newColorName);
@@ -1190,12 +1188,12 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:device-cmyk-color-type")
 											{
-												int c = qRound(spg.attribute("sfa:c", "1").toDouble() * 255);
-												int m = qRound(spg.attribute("sfa:m", "1").toDouble() * 255);
-												int y = qRound(spg.attribute("sfa:y", "1").toDouble() * 255);
-												int k = qRound(spg.attribute("sfa:k", "1").toDouble() * 255);
+												double c = spg.attribute("sfa:c", "1").toDouble();
+												double m = spg.attribute("sfa:m", "1").toDouble();
+												double y = spg.attribute("sfa:y", "1").toDouble();
+												double k = spg.attribute("sfa:k", "1").toDouble();
 												ScColor tmp;
-												tmp.setColor(c, m, y, k);
+												tmp.setColorF(c, m, y, k);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
 												QString newColorName = "FromPages"+tmp.name();
@@ -1284,16 +1282,14 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:calibrated-rgb-color-type")
 											{
-												QColor c;
 												double r = spg.attribute("sfa:r", "1").toDouble();
 												double g = spg.attribute("sfa:g", "1").toDouble();
 												double b = spg.attribute("sfa:b", "1").toDouble();
-												c.setRgbF(r, g, b);
 												ScColor tmp;
-												tmp.fromQColor(c);
+												tmp.setRgbColorF(r, g, b);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
-												QString newColorName = "FromPages"+c.name();
+												QString newColorName = "FromPages" + tmp.name();
 												QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 												if (fNam == newColorName)
 													importedColors.append(newColorName);
@@ -1301,15 +1297,15 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:device-cmyk-color-type")
 											{
-												int c = qRound(spg.attribute("sfa:c", "1").toDouble() * 255);
-												int m = qRound(spg.attribute("sfa:m", "1").toDouble() * 255);
-												int y = qRound(spg.attribute("sfa:y", "1").toDouble() * 255);
-												int k = qRound(spg.attribute("sfa:k", "1").toDouble() * 255);
+												double c = spg.attribute("sfa:c", "1").toDouble();
+												double m = spg.attribute("sfa:m", "1").toDouble();
+												double y = spg.attribute("sfa:y", "1").toDouble();
+												double k = spg.attribute("sfa:k", "1").toDouble();
 												ScColor tmp;
-												tmp.setColor(c, m, y, k);
+												tmp.setColorF(c, m, y, k);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
-												QString newColorName = "FromPages"+tmp.name();
+												QString newColorName = "FromPages" + tmp.name();
 												QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 												if (fNam == newColorName)
 													importedColors.append(newColorName);
@@ -1417,16 +1413,14 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 													}
 													else if (type == "sfa:calibrated-rgb-color-type")
 													{
-														QColor c;
 														double r = sph.attribute("sfa:r", "1").toDouble();
 														double g = sph.attribute("sfa:g", "1").toDouble();
 														double b = sph.attribute("sfa:b", "1").toDouble();
-														c.setRgbF(r, g, b);
 														ScColor tmp;
-														tmp.fromQColor(c);
+														tmp.setRgbColorF(r, g, b);
 														tmp.setSpotColor(false);
 														tmp.setRegistrationColor(false);
-														QString newColorName = "FromPages"+c.name();
+														QString newColorName = "FromPages" + tmp.name();
 														QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 														if (fNam == newColorName)
 															importedColors.append(newColorName);
@@ -1434,12 +1428,12 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 													}
 													else if (type == "sfa:device-cmyk-color-type")
 													{
-														int c = qRound(sph.attribute("sfa:c", "1").toDouble() * 255);
-														int m = qRound(sph.attribute("sfa:m", "1").toDouble() * 255);
-														int y = qRound(sph.attribute("sfa:y", "1").toDouble() * 255);
-														int k = qRound(sph.attribute("sfa:k", "1").toDouble() * 255);
+														double c = sph.attribute("sfa:c", "1").toDouble();
+														double m = sph.attribute("sfa:m", "1").toDouble();
+														double y = sph.attribute("sfa:y", "1").toDouble();
+														double k = sph.attribute("sfa:k", "1").toDouble();
 														ScColor tmp;
-														tmp.setColor(c, m, y, k);
+														tmp.setColorF(c, m, y, k);
 														tmp.setSpotColor(false);
 														tmp.setRegistrationColor(false);
 														QString newColorName = "FromPages"+tmp.name();
@@ -1480,16 +1474,14 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:calibrated-rgb-color-type")
 											{
-												QColor c;
 												double r = spg.attribute("sfa:r", "1").toDouble();
 												double g = spg.attribute("sfa:g", "1").toDouble();
 												double b = spg.attribute("sfa:b", "1").toDouble();
-												c.setRgbF(r, g, b);
 												ScColor tmp;
-												tmp.fromQColor(c);
+												tmp.setRgbColorF(r, g, b);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
-												QString newColorName = "FromPages"+c.name();
+												QString newColorName = "FromPages" + tmp.name();
 												QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 												if (fNam == newColorName)
 													importedColors.append(newColorName);
@@ -1497,12 +1489,12 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 											}
 											else if (type == "sfa:device-cmyk-color-type")
 											{
-												int c = qRound(spg.attribute("sfa:c", "1").toDouble() * 255);
-												int m = qRound(spg.attribute("sfa:m", "1").toDouble() * 255);
-												int y = qRound(spg.attribute("sfa:y", "1").toDouble() * 255);
-												int k = qRound(spg.attribute("sfa:k", "1").toDouble() * 255);
+												double c = spg.attribute("sfa:c", "1").toDouble();
+												double m = spg.attribute("sfa:m", "1").toDouble();
+												double y = spg.attribute("sfa:y", "1").toDouble();
+												double k = spg.attribute("sfa:k", "1").toDouble();
 												ScColor tmp;
-												tmp.setColor(c, m, y, k);
+												tmp.setColorF(c, m, y, k);
 												tmp.setSpotColor(false);
 												tmp.setRegistrationColor(false);
 												QString newColorName = "FromPages"+tmp.name();

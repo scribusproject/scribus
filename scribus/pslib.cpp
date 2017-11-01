@@ -129,7 +129,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	if (gc.isControlGlyphs() || gc.isEmpty())
 		return;
 
-	int h, s, v, k;
+	double h, s, v, k;
 	QVector<double> dum;
 	dum.clear();
 	m_ps->PS_save();
@@ -154,7 +154,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 				m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
 			m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
 			m_ps->SetColor(strokeColor().color, strokeColor().shade, &h, &s, &v, &k);
-			m_ps->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			m_ps->PS_setcmykcolor_stroke(h, s, v, k);
 			m_ps->SetClipPath(&gly, true);
 			m_ps->PS_closepath();
 			m_ps->putColor(strokeColor().color, strokeColor().shade, false);
@@ -167,7 +167,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 
 void PSPainter::drawRect(QRectF rect)
 {
-	int h, s, v, k;
+	double h, s, v, k;
 	m_ps->PS_save();
 	applyTransform();
 	m_ps->PS_moveto(x() + rect.x(), -y() - rect.y());
@@ -176,14 +176,14 @@ void PSPainter::drawRect(QRectF rect)
 	m_ps->PS_lineto(x() + rect.x(), -y() - rect.y() - rect.height());
 	m_ps->PS_closepath();
 	m_ps->SetColor(fillColor().color, fillColor().shade, &h, &s, &v, &k);
-	m_ps->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+	m_ps->PS_setcmykcolor_fill(h, s, v, k);
 	m_ps->putColor(fillColor().color, fillColor().shade, true);
 	m_ps->PS_restore();
 }
 
 void PSPainter::drawLine(QPointF start, QPointF end)
 {
-	int h, s, v, k ;
+	double h, s, v, k;
 	QVector<double> dum;
 	dum.clear();
 	m_ps->PS_save();
@@ -193,7 +193,7 @@ void PSPainter::drawLine(QPointF start, QPointF end)
 		m_ps->PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
 		m_ps->SetColor(fillColor().color,fillColor().shade, &h, &s, &v, &k);
-		m_ps->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		m_ps->PS_setcmykcolor_stroke(h, s, v, k);
 	}
 	m_ps->PS_setlinewidth(strokeWidth());
 	m_ps->PS_moveto(x() + start.x(), -y() - start.y());
@@ -244,9 +244,9 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	GrayCalc += "              oldsetgray} bind def\n";
 	Farben = "";
 	FNamen = "";
-	CMYKColor cmykValues;
+	CMYKColorF cmykValues;
 	ColorList::Iterator itf;
-	int c, m, y, k;
+	double c, m, y, k;
 	int spotCount = 1;
 	bool erst = true;
 	colorsToUse = DocColors;
@@ -264,11 +264,11 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			else
 				colorDesc += itf.key();
 			colorDesc += ")\n";
-			colorDesc += "/DeviceCMYK\n{\ndup "+ToStr(static_cast<double>(c) / 255)+"\nmul exch dup ";
-			colorDesc += ToStr(static_cast<double>(m) / 255)+"\nmul exch dup ";
-			colorDesc += ToStr(static_cast<double>(y) / 255)+"\nmul exch ";
-			colorDesc += ToStr(static_cast<double>(k) / 255)+" mul }] setcolorspace setcolor} bind def\n";
-			spotMap.insert(itf.key(), "Spot"+QString::number(spotCount));
+			colorDesc += "/DeviceCMYK\n{\ndup " + ToStr(c) + "\nmul exch dup ";
+			colorDesc += ToStr(m) + "\nmul exch dup ";
+			colorDesc += ToStr(y) + "\nmul exch ";
+			colorDesc += ToStr(k) + " mul }] setcolorspace setcolor} bind def\n";
+			spotMap.insert(itf.key(), "Spot" + QString::number(spotCount));
 			++spotCount;
 		}
 		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && (itf.key() != "Black") && DocColors[itf.key()].isSpotColor())
@@ -1772,7 +1772,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 
 bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool master, bool embedded, bool useTemplate)
 {
-	int h, s, v, k;
+	double h, s, v, k;
 	QVector<double> dum;
 	if (c->printEnabled())
 	{
@@ -1786,12 +1786,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 		if (c->fillColor() != CommonStrings::None)
 		{
 			SetColor(c->fillColor(), c->fillShade(), &h, &s, &v, &k);
-			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_setcmykcolor_fill(h, s, v, k);
 		}
 		if (c->lineColor() != CommonStrings::None)
 		{
 			SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_setcmykcolor_stroke(h, s, v, k);
 		}
 		PS_setlinewidth(c->lineWidth());
 		PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -1869,7 +1869,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						else if (c->lineColor() != CommonStrings::None)
 						{
 							SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							putColor(c->lineColor(), c->lineShade(), false);
 						}
 					}
@@ -1882,7 +1882,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							PS_setlinewidth(ml[it].Width);
 							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -1972,7 +1972,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						else if (c->lineColor() != CommonStrings::None)
 						{
 							SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							putColor(c->lineColor(), c->lineShade(), false);
 						}
 					}
@@ -1985,7 +1985,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							PS_setlinewidth(ml[it].Width);
 							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2038,7 +2038,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
 						SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setcmykcolor_stroke(h, s, v, k);
 						PS_setlinewidth(ml[it].Width);
 						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2114,7 +2114,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							PS_setlinewidth(ml[it].Width);
 							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2170,7 +2170,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setcmykcolor_stroke(h, s, v, k);
 							PS_setlinewidth(ml[it].Width);
 							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2252,7 +2252,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 							if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 							{
 								SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								PS_setcmykcolor_stroke(h, s, v, k);
 								PS_setlinewidth(ml[it].Width);
 								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2550,9 +2550,9 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 		PS_setlinewidth(line.width());
 		getDashArray(line.style(), qMax(line.width(), 1.0), DashValues);
 		PS_setdash(line.style(), 0, DashValues);
-		int h, s, v, k;
+		double h, s, v, k;
 		SetColor(line.color(), line.shade(), &h, &s, &v, &k);
-		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		PS_setcmykcolor_stroke(h, s, v, k);
 		PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 		putColor(line.color(), line.shade(), false);
 	}
@@ -2618,7 +2618,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb)
 {
 	bool success = true;
-	int h, s, v, k;
+	double h, s, v, k;
 	QVector<double> dum;
 	ScPage* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 	if (layer.isPrintable)
@@ -2853,7 +2853,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				if (ite->fillColor() != CommonStrings::None)
 				{
 					SetColor(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k);
-					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					PS_setcmykcolor_fill(h, s, v, k);
 				}
 				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
 				if (ite->rotation() != 0)
@@ -2905,7 +2905,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							else if (ite->lineColor() != CommonStrings::None)
 							{
 								SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								PS_setcmykcolor_stroke(h, s, v, k);
 								putColor(ite->lineColor(), ite->lineShade(), false);
 							}
 						}
@@ -2918,7 +2918,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 							{
 								SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								PS_setcmykcolor_stroke(h, s, v, k);
 								PS_setlinewidth(ml[it].Width);
 								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -2967,7 +2967,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 								if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 								{
 									SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									PS_setcmykcolor_stroke(h, s, v, k);
 									PS_setlinewidth(ml[it].Width);
 									PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 									PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
@@ -3118,7 +3118,7 @@ void PSLib::HandleStrokePattern(PageItem *c)
 void PSLib::HandleMeshGradient(PageItem* c)
 {
 	QString hs,ss,vs,ks;
-	int ch,cs,cv,ck;
+	double ch,cs,cv,ck;
 	QStringList cols;
 	QStringList colorValues;
 	QStringList spotColorSet;
@@ -3170,7 +3170,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 			else
 			{
 				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs)+" "+vs.setNum(cv) + " " + ks.setNum(ck);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					colorVal += " 0";
@@ -3182,9 +3182,9 @@ void PSLib::HandleMeshGradient(PageItem* c)
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				colorVal += hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
@@ -3219,20 +3219,17 @@ void PSLib::HandleMeshGradient(PageItem* c)
 			int maxSp = spotColorSet.count() - 1;
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				int cc = 0;
-				int mc = 0;
-				int yc = 0;
-				int kc = 0;
-				CMYKColor cmykValues;
+				double cc(0), mc(0), yc(0), kc(0);
+				CMYKColorF cmykValues;
 				ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 				cmykValues.getValues(cc, mc, yc, kc);
 				if (sc == 0)
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+					PutStream("dup " + ToStr(cc) + " mul ");
 				else
-					PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
-				PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
-				PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
-				PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+					PutStream(IToStr(sc*4 + 1) + " -1 roll dup " + ToStr(cc)+" mul ");
+				PutStream("exch dup " + ToStr(mc) + " mul ");
+				PutStream("exch dup " + ToStr(yc) + " mul ");
+				PutStream("exch " + ToStr(kc) + " mul\n");
 			}
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
@@ -3295,7 +3292,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 void PSLib::HandlePatchMeshGradient(PageItem* c)
 {
 	QString hs,ss,vs,ks;
-	int ch,cs,cv,ck;
+	double ch,cs,cv,ck;
 	QStringList cols;
 	QStringList colorValues;
 	QStringList spotColorSet;
@@ -3355,7 +3352,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 			else
 			{
 				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					colorVal += " 0";
@@ -3367,9 +3364,9 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				colorVal += hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
@@ -3404,20 +3401,17 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 			int maxSp = spotColorSet.count() - 1;
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				int cc = 0;
-				int mc = 0;
-				int yc = 0;
-				int kc = 0;
-				CMYKColor cmykValues;
+				double cc(0), mc(0), yc(0), kc(0);
+				CMYKColorF cmykValues;
 				ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 				cmykValues.getValues(cc, mc, yc, kc);
 				if (sc == 0)
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+					PutStream("dup " + ToStr(cc)+" mul ");
 				else
-					PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
-				PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
-				PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
-				PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+					PutStream(IToStr(sc*4 + 1) + " -1 roll dup " + ToStr(cc) + " mul ");
+				PutStream("exch dup " + ToStr(mc) + " mul ");
+				PutStream("exch dup " + ToStr(yc) + " mul ");
+				PutStream("exch " + ToStr(kc) + " mul\n");
 			}
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
@@ -3479,7 +3473,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 void PSLib::HandleDiamondGradient(PageItem* c)
 {
 	QString hs,ss,vs,ks;
-	int ch,cs,cv,ck;
+	double ch,cs,cv,ck;
 	QStringList cols;
 	QStringList colorValues;
 	QStringList spotColorSet;
@@ -3536,7 +3530,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 			else
 			{
 				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					colorVal += " 0";
@@ -3548,9 +3542,9 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				colorVal += hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				colorVal += hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
@@ -3580,20 +3574,17 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+				PutStream("dup " + ToStr(cc) + " mul ");
 			else
-				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
-			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+				PutStream(IToStr(sc*4 + 1) + " -1 roll dup " + ToStr(cc) + " mul ");
+			PutStream("exch dup " + ToStr(mc) + " mul ");
+			PutStream("exch dup " + ToStr(yc) + " mul ");
+			PutStream("exch " + ToStr(kc) + " mul\n");
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -3698,7 +3689,7 @@ void PSLib::HandleTensorGradient(PageItem* c)
 {
 	QString GCol;
 	QString hs,ss,vs,ks;
-	int ch,cs,cv,ck;
+	double ch,cs,cv,ck;
 	QStringList cols;
 	QStringList spotColorSet;
 	QList<int> colsSh;
@@ -3732,20 +3723,17 @@ void PSLib::HandleTensorGradient(PageItem* c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+				PutStream("dup " + ToStr(cc) + " mul ");
 			else
-				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
-			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+				PutStream(IToStr(sc*4 + 1) + " -1 roll dup " + ToStr(cc) + " mul ");
+			PutStream("exch dup " + ToStr(mc) + " mul ");
+			PutStream("exch dup " + ToStr(yc) + " mul ");
+			PutStream("exch " + ToStr(kc) + " mul\n");
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -3781,7 +3769,7 @@ void PSLib::HandleTensorGradient(PageItem* c)
 			else
 			{
 				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol = hs.setNum(ch) +" " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 				PutStream(GCol);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
@@ -3794,9 +3782,9 @@ void PSLib::HandleTensorGradient(PageItem* c)
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				GCol = hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol = hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
@@ -3954,20 +3942,17 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+				PutStream("dup " + ToStr(cc) + " mul ");
 			else
-				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
-			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
-			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+				PutStream(IToStr(sc*4 + 1) + " -1 roll dup " + ToStr(cc) + " mul ");
+			PutStream("exch dup " + ToStr(mc) + " mul ");
+			PutStream("exch dup " + ToStr(yc) + " mul ");
+			PutStream("exch " + ToStr(kc) + " mul\n");
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -4008,7 +3993,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 	{
 		QString GCol, GCol2;
 		QString hs,ss,vs,ks;
-		int ch,cs,cv,ck;
+		double ch,cs,cv,ck;
 		entx += "0 1 ";
 		PutStream("<<\n");
 		PutStream("/FunctionType 2\n");
@@ -4029,7 +4014,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 			else
 			{
 				SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck);
-				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol = hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 				PutStream("/C0 ["+GCol);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
@@ -4051,7 +4036,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 			else
 			{
 				SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck);
-				GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol2 = hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 				PutStream("/C1 ["+GCol2);
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
@@ -4064,26 +4049,26 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		{
 			SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				GCol = hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol = hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck);
 			if (GraySc)
-				GCol2 = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				GCol2 = hs.setNum(1.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 1.0));
 			else
-				GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				GCol2 = hs.setNum(ch) + " " + ss.setNum(cs) + " " + vs.setNum(cv) + " " + ks.setNum(ck);
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 				QStringList cols1 = GCol.split(" ", QString::SkipEmptyParts);
 				QStringList cols2 = GCol2.split(" ", QString::SkipEmptyParts);
-				PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
-				PutStream("/C0 ["+ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"]\n");
+				PutStream("/C1 [" + ToStr(1 - ScCLocale::toDoubleC(cols1[pla])) + "]\n");
+				PutStream("/C0 [" + ToStr(1 - ScCLocale::toDoubleC(cols2[pla])) + "]\n");
 			}
 			else
 			{
-				PutStream("/C0 ["+GCol+"]\n");
-				PutStream("/C1 ["+GCol2+"]\n");
+				PutStream("/C0 [" + GCol + "]\n");
+				PutStream("/C1 [" + GCol2 +"]\n");
 			}
 		}
 		PutStream("/N 1\n");
@@ -4148,14 +4133,14 @@ void PSLib::PS_HatchFill(PageItem *currItem)
 {
 	PS_save();
 	QVector<double> dum;
-	int h, s, v, k;
+	double h, s, v, k;
 	PS_setlinewidth(1);
 	PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 	PS_setdash(Qt::SolidLine, 0, dum);
 	if ((currItem->hatchBackground != CommonStrings::None) && (currItem->hatchUseBackground))
 	{
 		SetColor(currItem->hatchBackground, 100, &h, &s, &v, &k);
-		PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		PS_setcmykcolor_fill(h, s, v, k);
 		putColor(currItem->hatchBackground, 100, true);
 		SetPathAndClip(currItem->PoLine, currItem->fillRule);
 	}
@@ -4164,7 +4149,7 @@ void PSLib::PS_HatchFill(PageItem *currItem)
 	if (currItem->hatchForeground != CommonStrings::None)
 	{
 		SetColor(currItem->hatchForeground, 100, &h, &s, &v, &k);
-		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		PS_setcmykcolor_stroke(h, s, v, k);
 	}
 	PS_translate(currItem->width() / 2.0, -currItem->height() / 2.0);
 	double lineLen = sqrt((currItem->width() / 2.0) * (currItem->width() / 2.0) + (currItem->height() / 2.0) * (currItem->height() / 2.0));
@@ -4229,13 +4214,13 @@ void PSLib::PS_HatchFill(PageItem *currItem)
 	if (currItem->lineColor() != CommonStrings::None)
 	{
 		SetColor(currItem->lineColor(), currItem->lineShade(), &h, &s, &v, &k);
-		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		PS_setcmykcolor_stroke(h, s, v, k);
 	}
 }
 
 void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 {
-	int h, s, v, k;
+	double h, s, v, k;
 	QVector<double> dum;
 	FPointArray arrow = m_Doc->arrowStyles().at(arrowIndex-1).points.copy();
 	if (ite->NamedLStyle.isEmpty())
@@ -4290,7 +4275,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 		else if (ite->lineColor() != CommonStrings::None)
 		{
 			SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k);
-			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_setcmykcolor_fill(h, s, v, k);
 			PS_newpath();
 			SetClipPath(&arrow);
 			PS_closepath();
@@ -4303,7 +4288,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 		if (ml[0].Color != CommonStrings::None)
 		{
 			SetColor(ml[0].Color, ml[0].Shade, &h, &s, &v, &k);
-			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_setcmykcolor_fill(h, s, v, k);
 			PS_newpath();
 			SetClipPath(&arrow);
 			PS_closepath();
@@ -4314,7 +4299,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 			if (ml[it].Color != CommonStrings::None)
 			{
 				SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_setcmykcolor_stroke(h, s, v, k);
 				PS_setlinewidth(ml[it].Width);
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
@@ -4326,7 +4311,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	}
 }
 
-void PSLib::SetColor(const QString& farb, double shade, int *h, int *s, int *v, int *k)
+void PSLib::SetColor(const QString& farb, double shade, double *h, double *s, double *v, double *k)
 {
 	if (farb == CommonStrings::None)
 	{
@@ -4340,39 +4325,39 @@ void PSLib::SetColor(const QString& farb, double shade, int *h, int *s, int *v, 
 	SetColor(col, shade, h, s, v, k);
 }
 
-void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, int *k)
+void PSLib::SetColor(const ScColor& farb, double shade, double *c, double *m, double *y, double *k)
 {
-	int h1 = *h, s1 = *s, v1 = *v, k1 = *k;
+	double c1 = *c, m1 = *m, y1 = *y, k1 = *k;
 	ScColor tmp(farb);
 	if (farb.getColorModel() != colorModelCMYK)
 		tmp = ScColorEngine::convertToModel(farb, m_Doc, colorModelCMYK);
 	if ((Options.doGCR) && (!farb.isRegistrationColor()))
 		ScColorEngine::applyGCR(tmp, m_Doc);
-	tmp.getCMYK(&h1, &s1, &v1, &k1);
+	tmp.getCMYK(&c1, &m1, &y1, &k1);
 	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (solidTransform))
 	{
-		h1 = qRound(h1 * shade / 100.0);
-		s1 = qRound(s1 * shade / 100.0);
-		v1 = qRound(v1 * shade / 100.0);
-		k1 = qRound(k1 * shade / 100.0);
+		c1 = c1 * shade / 100.0;
+		m1 = m1 * shade / 100.0;
+		y1 = y1 * shade / 100.0;
+		k1 = k1 * shade / 100.0;
 		unsigned short inC[4];
 		unsigned short outC[4];
-		inC[0] = h1 * 257;
-		inC[1] = s1 * 257;
-		inC[2] = v1 * 257;
-		inC[3] = k1 * 257;
+		inC[0] = c1 * 65535.0;
+		inC[1] = m1 * 65535.0;
+		inC[2] = y1 * 65535.0;
+		inC[3] = k1 * 65535.0;
 		solidTransform.apply(inC, outC, 1);
-		*h= outC[0] / 257;
-		*s = outC[1] / 257;
-		*v = outC[2] / 257;
-		*k = outC[3] / 257;
+		*c = outC[0] / 65535.0;
+		*m = outC[1] / 65535.0;
+		*y = outC[2] / 65535.0;
+		*k = outC[3] / 65535.0;
 	}
 	else
 	{
-		*h = qRound(h1 * shade / 100.0);
-		*s = qRound(s1 * shade / 100.0);
-		*v = qRound(v1 * shade / 100.0);
-		*k = qRound(k1 * shade / 100.0);
+		*c = c1 * shade / 100.0;
+		*m = m1 * shade / 100.0;
+		*y = y1 * shade / 100.0;
+		*k = k1 * shade / 100.0;
 	}
 }
 
@@ -4472,10 +4457,10 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade)
 	}
 	else
 	{
-		int c=0, m=0, y=0, k=0;
+		double c=0, m=0, y=0, k=0;
 		SetColor(color, shade, &c, &m, &y, &k);
 		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
-			PutStream(ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0) + " cmyk\n");
+			PutStream(ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k) + " cmyk\n");
 		else
 			PutStream("0 0 0 0 cmyk\n");
 	}

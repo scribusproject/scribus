@@ -1443,9 +1443,9 @@ QString ColorsAndFillsDialog::getColorTooltip(const ScColor& color)
 	}
 	else if (color.getColorModel() == colorModelCMYK)
 	{
-		int c, m, y, k;
+		double c, m, y, k;
 		color.getCMYK(&c, &m, &y, &k);
-		tooltip = tr("C: %1% M: %2% Y: %3% K: %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+		return tr("C: %1% M: %2% Y: %3% K: %4%").arg(c * 100, 0, 'f', 2).arg(m * 100, 0, 'f', 2).arg(y * 100, 0, 'f', 2).arg(k * 100, 0, 'f', 2);
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
@@ -1737,7 +1737,7 @@ void ColorsAndFillsDialog::addGimpColor(QString &colorName, double r, double g, 
 	Rc = qRound(r * 255);
 	Gc = qRound(g * 255);
 	Bc = qRound(b * 255);
-	lf.setColorRGB(Rc, Gc, Bc);
+	lf.setRgbColor(Rc, Gc, Bc);
 	for (ColorList::Iterator it = m_colorList.begin(); it != m_colorList.end(); ++it)
 	{
 		if (it.value().getColorModel() == colorModelRGB)
@@ -1784,10 +1784,43 @@ void ColorsAndFillsDialog::loadScribusFormat(QString fileName)
 		if (dc.tagName()=="COLOR")
 		{
 			ScColor lf = ScColor();
-			if (dc.hasAttribute("CMYK"))
+			if (dc.hasAttribute("SPACE"))
+			{
+				QString space = dc.attribute("SPACE");
+				if (space == "CMYK")
+				{
+					double c = dc.attribute("C", "0").toDouble() / 100.0;
+					double m = dc.attribute("M", "0").toDouble() / 100.0;
+					double y = dc.attribute("Y", "0").toDouble() / 100.0;
+					double k = dc.attribute("K", "0").toDouble() / 100.0;
+					lf.setCmykColorF(c, m, y, k);
+				}
+				else if (space == "RGB")
+				{
+					double r = dc.attribute("R", "0").toDouble() / 255.0;
+					double g = dc.attribute("G", "0").toDouble() / 255.0;
+					double b = dc.attribute("B", "0").toDouble() / 255.0;
+					lf.setRgbColorF(r, g, b);
+				}
+				else if (space == "Lab")
+				{
+					double L = dc.attribute("L", "0").toDouble();
+					double a = dc.attribute("A", "0").toDouble();
+					double b = dc.attribute("B", "0").toDouble();
+					lf.setLabColor(L, a, b);
+				}
+			}
+			else if (dc.hasAttribute("CMYK"))
 				lf.setNamedColor(dc.attribute("CMYK"));
-			else
+			else if (dc.hasAttribute("RGB"))
 				lf.fromQColor(QColor(dc.attribute("RGB")));
+			else
+			{
+				double L = dc.attribute("L", "0").toDouble();
+				double a = dc.attribute("A", "0").toDouble();
+				double b = dc.attribute("B", "0").toDouble();
+				lf.setLabColor(L, a, b);
+			}
 			if (dc.hasAttribute("Spot"))
 				lf.setSpotColor(static_cast<bool>(dc.attribute("Spot").toInt()));
 			else

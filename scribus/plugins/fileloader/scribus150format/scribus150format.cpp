@@ -2378,7 +2378,33 @@ bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs)
 {
 	ScColor color;
-	if (attrs.hasAttribute("CMYK"))
+	if (attrs.hasAttribute("SPACE"))
+	{
+		QString space = attrs.valueAsString("SPACE");
+		if (space == "CMYK")
+		{
+			double c = attrs.valueAsDouble("C", 0) / 100.0;
+			double m = attrs.valueAsDouble("M", 0) / 100.0;
+			double y = attrs.valueAsDouble("Y", 0) / 100.0;
+			double k = attrs.valueAsDouble("K", 0) / 100.0;
+			color.setCmykColorF(c, m, y, k);
+		}
+		else if (space == "RGB")
+		{
+			double r = attrs.valueAsDouble("R", 0) / 255.0;
+			double g = attrs.valueAsDouble("G", 0) / 255.0;
+			double b = attrs.valueAsDouble("B", 0) / 255.0;
+			color.setRgbColorF(r, g, b);
+		}
+		else if (space == "Lab")
+		{
+			double L = attrs.valueAsDouble("L", 0);
+			double a = attrs.valueAsDouble("A", 0);
+			double b = attrs.valueAsDouble("B", 0);
+			color.setLabColor(L, a, b);
+		}
+	}
+	else if (attrs.hasAttribute("CMYK"))
 		color.setNamedColor(attrs.valueAsString("CMYK"));
 	else if (attrs.hasAttribute("RGB"))
 		color.fromQColor(QColor(attrs.valueAsString("RGB")));
@@ -2387,7 +2413,7 @@ void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 		double L = attrs.valueAsDouble("L", 0);
 		double a = attrs.valueAsDouble("A", 0);
 		double b = attrs.valueAsDouble("B", 0);
-		color.setColor(L, a, b);
+		color.setLabColor(L, a, b);
 	}
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
@@ -2396,7 +2422,7 @@ void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	{
 		color.setSpotColor(true);
 		color.setRegistrationColor(true);
-		color.setColor(255, 255, 255, 255);
+		color.setCmykColorF(1.0, 1.0, 1.0, 1.0);
 	}
 	// #10323 : break loading of doc which contain colors with different names
 	// and same definition

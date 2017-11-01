@@ -1107,11 +1107,7 @@ QString AIPlug::parseColor(QString data)
 	Code >> m;
 	Code >> y;
 	Code >> k;
-	int Cc = qRound(c * 255);
-	int Mc = qRound(m * 255);
-	int Yc = qRound(y * 255);
-	int Kc = qRound(k * 255);
-	tmp.setColor(Cc, Mc, Yc, Kc);
+	tmp.setColorF(c, m, y, k);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString namPrefix = "FromAI";
@@ -1133,8 +1129,7 @@ QString AIPlug::parseColorGray(QString data)
 	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
 	Code >> k;
-	int Kc = 255 - qRound(k * 255);
-	tmp.setColor(0, 0, 0, Kc);
+	tmp.setColorF(0, 0, 0, 1.0 - k);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString namPrefix = "FromAI";
@@ -1157,10 +1152,7 @@ QString AIPlug::parseColorRGB(QString data)
 	Code >> r;
 	Code >> g;
 	Code >> b;
-	int Rc = qRound(r * 255);
-	int Gc = qRound(g * 255);
-	int Bc = qRound(b * 255);
-	tmp.setColorRGB(Rc, Gc, Bc);
+	tmp.setRgbColorF(r, g, b);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString namPrefix = "FromAI";
@@ -1192,11 +1184,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
-	int Cc = qRound(c * 255);
-	int Mc = qRound(m * 255);
-	int Yc = qRound(y * 255);
-	int Kc = qRound(k * 255);
-	tmp.setColor(Cc, Mc, Yc, Kc);
+	tmp.setColorF(c, m, y, k);
 	tmp.setSpotColor(true);
 	tmp.setRegistrationColor(false);
 	QString fNam = m_Doc->PageColors.tryAddColor(FarNam, tmp);
@@ -1220,10 +1208,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		Code >> r;
 		Code >> g;
 		Code >> b;
-		int Rc = qRound(r * 255);
-		int Gc = qRound(g * 255);
-		int Bc = qRound(b * 255);
-		tmp.setColorRGB(Rc, Gc, Bc);
+		tmp.setRgbColorF(r, g, b);
 		meshColorMode = 1;
 	}
 	else
@@ -1232,11 +1217,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		Code >> m;
 		Code >> y;
 		Code >> k;
-		int Cc = qRound(c * 255);
-		int Mc = qRound(m * 255);
-		int Yc = qRound(y * 255);
-		int Kc = qRound(k * 255);
-		tmp.setColor(Cc, Mc, Yc, Kc);
+		tmp.setColorF(c, m, y, k);
 		meshColorMode = 0;
 	}
 	int an = data.indexOf("(");
@@ -2252,7 +2233,7 @@ void AIPlug::processData(QString data)
 				}
 				else if (meshColorMode == 1)
 				{
-					tmpColor.setColorRGB(Cc, Mc, Yc);
+					tmpColor.setRgbColor(Cc, Mc, Yc);
 					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 					{
 						if (it.value().getColorModel() == colorModelRGB)

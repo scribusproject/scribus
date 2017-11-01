@@ -5836,11 +5836,10 @@ QByteArray PDFLibCore::SetColor(const QString& farbe, double Shade)
 QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 {
 	QByteArray tmp;
-	RGBColor rgb;
-	CMYKColor cmyk;
-	int h, s, v, k;
+	RGBColorF rgb;
+	CMYKColorF cmyk;
+	double h, s, v, k;
 	ScColor tmpC(farbe);
-	QColor tmpR;
 	if (Options.isGrayscale)
 	{
 		bool kToGray = false;
@@ -5854,17 +5853,17 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 			tmp = FToStr(1.0 - k / 255.0);
 		else
 		{
-			tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-			tmpR.getRgb(&h, &s, &v);
-			tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+			rgb.getValues(h, s, v);
+			tmp = FToStr(0.3 * h + 0.59 * s + 0.11 * v);
 		}
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
-		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.getRgb(&h, &s, &v);
-		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+		ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+		rgb.getValues(h, s, v);
+		tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v);
 	}
 	else
 	{
@@ -5874,7 +5873,7 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 			{
 				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
 				cmyk.getValues(h, s, v, k);
-				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+				tmp = FToStr(h) + " "+ FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
 			}
 			else
 			{
@@ -5882,13 +5881,13 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 				{
 					ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
 					rgb.getValues(h, s, v);
-					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+					tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v);
 				}
 				else
 				{
 					ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
 					cmyk.getValues(h, s, v, k);
-					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+					tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
 				}
 			}
 		}
@@ -5896,7 +5895,7 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 		{
 			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
 			cmyk.getValues(h, s, v, k);
-			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
 		}
 	}
 	return tmp;
@@ -7032,20 +7031,17 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += "dup " + FToStr(cc) + " mul ";
 			else
-				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
-			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+				colorDesc += Pdf::toPdf(sc*4 + 1) + " -1 roll dup " + FToStr(cc) + " mul ";
+			colorDesc += "exch dup " + FToStr(mc) + " mul ";
+			colorDesc += "exch dup " + FToStr(yc) + " mul ";
+			colorDesc += "exch " + FToStr(kc) + " mul\n";
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -7362,20 +7358,17 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += "dup " + FToStr(cc) + " mul ";
 			else
-				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
-			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+				colorDesc += Pdf::toPdf(sc*4 + 1) + " -1 roll dup " + FToStr(cc) + " mul ";
+			colorDesc += "exch dup " + FToStr(mc) + " mul ";
+			colorDesc += "exch dup " + FToStr(yc) + " mul ";
+			colorDesc += "exch " + FToStr(kc) + " mul\n";
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -7798,20 +7791,17 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += "dup " + FToStr(cc) + " mul ";
 			else
-				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
-			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+				colorDesc += Pdf::toPdf(sc*4 + 1) + " -1 roll dup " + FToStr(cc) + " mul ";
+			colorDesc += "exch dup " + FToStr(mc) + " mul ";
+			colorDesc += "exch dup " + FToStr(yc) + " mul ";
+			colorDesc += "exch " + FToStr(kc) + " mul\n";
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -8121,20 +8111,17 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += "dup " + FToStr(cc) + " mul ";
 			else
-				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
-			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+				colorDesc += Pdf::toPdf(sc*4 + 1) + " -1 roll dup " + FToStr(cc) + " mul ";
+			colorDesc += "exch dup " + FToStr(mc) + " mul ";
+			colorDesc += "exch dup " + FToStr(yc) + " mul ";
+			colorDesc += "exch " + FToStr(kc) + " mul\n";
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
@@ -8577,20 +8564,17 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
-			int cc = 0;
-			int mc = 0;
-			int yc = 0;
-			int kc = 0;
-			CMYKColor cmykValues;
+			double cc(0), mc(0), yc(0), kc(0);
+			CMYKColorF cmykValues;
 			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += "dup " + FToStr(cc) + " mul ";
 			else
-				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
-			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
-			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+				colorDesc += Pdf::toPdf(sc*4 + 1) + " -1 roll dup " + FToStr(cc) + " mul ";
+			colorDesc += "exch dup " + FToStr(mc) + " mul ";
+			colorDesc += "exch dup " + FToStr(yc) + " mul ";
+			colorDesc += "exch " + FToStr(kc) + " mul\n";
 		}
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{

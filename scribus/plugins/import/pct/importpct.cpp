@@ -1130,7 +1130,7 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
 	QColor c = QColor(redC, greenC, blueC);
-	tmp.setColorRGB(redC, greenC, blueC);
+	tmp.setRgbColor(redC, greenC, blueC);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	tmpName = "FromPict"+c.name();
@@ -1163,7 +1163,7 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
 	QColor c = QColor(redC, greenC, blueC);
-	tmp.setColorRGB(redC, greenC, blueC);
+	tmp.setRgbColor(redC, greenC, blueC);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	tmpName = "FromPict"+c.name();
