@@ -165,7 +165,7 @@ def prepareDocument():
         m = int(color[2])
         y = int(color[3])
         k = int(color[4])
-        scribus.defineColor(cname,  c, m, y, k )
+        scribus.defineColorCMYK(cname,  c, m, y, k )
         if spotDict.has_key(cname):
             scribus.setSpotColor(cname, spotDict[cname])
 
