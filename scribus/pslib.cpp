@@ -568,17 +568,20 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
 	}
- // 	if (!Art)
-//	{
-		PutStream(BBox);
-		PutStream(BBoxH);
-//	}
+	PutStream(BBox);
+	PutStream(BBoxH);
 	if (!FNamen.isEmpty())
 		PutStream("%%DocumentCustomColors: "+FNamen);
 	if (!Farben.isEmpty())
 		PutStream("%%CMYKCustomColor: "+Farben);
 	PutStream("%%LanguageLevel: 3\n");
 	PutStream("%%EndComments\n");
+	if (!psExport)
+	{
+		PutStream("%%BeginDefaults\n");
+		PutStream("%%ViewingOrientation: 1 0 0 1\n");
+		PutStream("%%EndDefaults\n");
+	}
 	PutStream(Prolog);
 	PutStream("%%BeginSetup\n");
 	if (isPDF)
@@ -683,26 +686,17 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	double maxBoxY = pg->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
 	Seiten++;
 	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
-	PutStream("%%PageOrientation: ");
-// when creating EPS files determine the orientation from the bounding box
-	if (!psExport)
-	{
-		if ((pg->width() - Ma->left() - Ma->right()) <= (pg->height() - Ma->bottom() - Ma->top()))
-			PutStream("Portrait\n");
-		else
-			PutStream("Landscape\n");
-	}
-	else
+	if (psExport)
 	{
 		if (pg->orientation() == 0)
 		{
-			PutStream("Portrait\n");
+			PutStream("%%PageOrientation: Portrait\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY))+"\n");
 			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+"\n");
 		}
 		else
 		{
-			PutStream("Landscape\n");
+			PutStream("%%PageOrientation: Landscape\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxY))+" "+IToStr(qRound(maxBoxX))+"\n");
 			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+"\n");
 		}
@@ -754,7 +748,7 @@ void PSLib::PS_end_page()
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPage->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
 	PutStream("gs\n");
-	if(ActPage->orientation() == 1 && psExport)
+	if (ActPage->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 	{
