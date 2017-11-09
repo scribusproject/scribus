@@ -577,6 +577,8 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_pathtext.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_textcolor.h" />
     <moc Include="..\..\..\scribus\ui\pagepropertiesdialog.h" />
+    <moc Include="..\..\..\scribus\ui\fontembeddingcombo.h" />
+    <moc Include="..\..\..\scribus\ui\fontembeddingmodel.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -954,6 +956,8 @@
     <ClCompile Include="..\..\..\scribus\filewatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontcombo.cpp" />
     <ClCompile Include="..\..\..\scribus\fontlistmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontlistview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontreplacedialog.cpp" />
     <ClCompile Include="..\..\..\scribus\fpoint.cpp" />

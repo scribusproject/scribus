@@ -1306,23 +1306,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="fontEmbeddingCombo">
-           <item>
-            <property name="text">
-             <string>Embed or Subset</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Outline All Fonts</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Do Not Embed</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="FontEmbeddingCombo" name="fontEmbeddingCombo"/>
          </item>
         </layout>
        </item>
@@ -1803,6 +1787,11 @@
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FontEmbeddingCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/fontembeddingcombo.h</header>
   </customwidget>
   <customwidget>
    <class>NewMarginWidget</class>
