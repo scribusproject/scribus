@@ -418,6 +418,8 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/filetoolbar.h \
            scribus/ui/fmitem.h \
            scribus/ui/fontcombo.h \
+           scribus/ui/fontembeddingcombo.h \
+           scribus/ui/fontembeddingmodel.h \
            scribus/ui/fontlistview.h \
            scribus/ui/fontreplacedialog.h \
            scribus/ui/gradientaddedit.h \
@@ -1508,6 +1510,8 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/filetoolbar.cpp \
            scribus/ui/fmitem.cpp \
            scribus/ui/fontcombo.cpp \
+           scribus/ui/fontembeddingcombo.cpp \
+           scribus/ui/fontembeddingmodel.cpp \
            scribus/ui/fontlistview.cpp \
            scribus/ui/fontreplacedialog.cpp \
            scribus/ui/gradientaddedit.cpp \
