@@ -26,6 +26,10 @@
 <p>If a file has been created with one or more PostScript/PDF &ldquo;box&rdquo; types, you can decide to crop the file to one of those boxes.</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/import-pdf1.png" alt="The PostScript/PDF import dialog"  title="The PostScript/PDF import dialog" /></td></tr></table><br>
+
+<h4>Some Particulars about PDF and EPS Formats</h4>
+<p>With either of these two, you will see that when you decide to Open a document (File > Open...), that you have these filetypes as possibilities. If you choose to open them, you will see a dialog asking if you wish to open a single page, a range of pages, or all pages. In the case of PDFs, what then happens is that a page is created with a page-sized image frame, after which each page is rasterized (converted to a bitmap) into its frame. With an EPS, at the least you import groups, consisting of a Bounding Box and its contents, but again if you ungroup, you may not have an easy time editing.</p>
+<p>An alternative much more suited to what you might want to do, is to import the PDF as a vector drawing (File > Import > Get Vector File...). Even though you see the same dialog as with Open, you can only choose a single page for import. Afterward, you see a small icon appear at your mouse cursor, and you click to place the vector drawing on the page. In most PDF pages with mixed content, this will be a Group, or more precisely, a Group of Groups, so that you need to Ungroup down to the necessary level for editing. Note that text is imported as outlines, so that it is not editable as text. To replace text you must delete as many of these glyphs as necessary, then create a text frame which places the new text appropriately. Usually the trickiest part is matching the font and its characteristics. If the creator of the PDF or EPS has for example used a scanner to create the file, then your editing abilities will be limited.</p>
 <h3>Caveats</h3>
 
 <h4>PostScript</h4>
