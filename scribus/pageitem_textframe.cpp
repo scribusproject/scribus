@@ -2528,7 +2528,11 @@ void PageItem_TextFrame::layout()
 					for (int j = 0; j < current.glyphs.size(); j++)
 					{
 						if (j != currentIndex)
-							current.glyphs[j].extraWidth = 0.0;
+						{
+							GlyphCluster& currentGlyph = current.glyphs[j];
+							current.xPos -= currentGlyph.extraWidth;
+							currentGlyph.extraWidth = 0.0;
+						}
 					}
 				}
 				// set the offset for Drop Cap, Bullet & Number List
