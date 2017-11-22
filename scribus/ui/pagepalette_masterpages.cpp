@@ -312,22 +312,8 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	for (uint a = end2; a < end3; ++a)
 	{
 		PageItem *newItem = m_doc->MasterItems.at(a);
-		newItem->OnMasterPage = masterPageName;
-		newItem->OwnPage = m_doc->MasterNames[masterPageName];
-		if (!newItem->isGroup())
-			continue;
-
 		int masterPageIndex = m_doc->MasterNames[masterPageName];
-		PageItem_Group* group = newItem->asGroupFrame();
-		QList<PageItem*> groupList = group->groupItemList;
-		while (!groupList.isEmpty())
-		{
-			newItem = groupList.takeFirst();
-			newItem->OnMasterPage = masterPageName;
-			newItem->OwnPage = masterPageIndex;
-			if (newItem->isGroup())
-				groupList = newItem->asGroupFrame()->groupItemList + groupList;
-		}
+		newItem->setMasterPage(masterPageIndex, masterPageName);
 	}
 	from->guides.copy(&destination->guides);
 	m_doc->GroupCounter = GrMax + 1;

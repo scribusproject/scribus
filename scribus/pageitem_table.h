@@ -485,6 +485,18 @@ public:
 	/// Returns the rows of the table for writing to SLA
 	QList<QList<TableCell> > cellRows() const { return m_cellRows; }
 
+	/// Set the layer for the item
+	virtual void setLayer(int layerId);
+
+	/// Set the masterpage the object is on
+	virtual void setMasterPage(int page, const QString& mpName);
+
+	/// Set the masterpage the object is on
+	virtual void setMasterPageName(const QString& mpName);
+
+	/// Set the page "owning" the object
+	virtual void setOwnerPage(int page);
+
 	/// Collect named resource of table and its cells
 	virtual void getNamedResources(ResourceCollection& lists) const;
 

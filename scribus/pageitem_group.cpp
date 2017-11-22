@@ -102,6 +102,28 @@ void PageItem_Group::setLayer(int newLayerID)
 	LayerID = newLayerID;
 }
 
+void PageItem_Group::setMasterPage(int page, const QString& mpName)
+{
+	PageItem::setMasterPage(page, mpName);
+
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		embedded->setMasterPage(page, mpName);
+	}
+}
+
+void PageItem_Group::setMasterPageName(const QString& mpName)
+{
+	PageItem::setMasterPageName(mpName);
+
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		embedded->setMasterPageName(mpName);
+	}
+}
+
 void PageItem_Group::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;

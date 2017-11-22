@@ -46,6 +46,8 @@ public:
 	void adjustXYPosition();
 	virtual QList<PageItem*> getItemList() const;
 	virtual void setLayer(int layerId);
+	virtual void setMasterPage(int page, const QString& mpName);
+	virtual void setMasterPageName(const QString& mpName);
 	virtual void getNamedResources(ResourceCollection& lists) const;
 	virtual void replaceNamedResources(ResourceCollection& newNames);
 	virtual void applicableActions(QStringList& actionList);

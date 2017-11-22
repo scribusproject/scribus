@@ -776,7 +776,27 @@ public: // Start public functions
 	 */
 	void setItemName(const QString& newName);
 
-	/** @brief Get the name of the gradient of the object */
+	/**
+	* @brief Set the masterpage the object is on
+	* @param mpName name of the master page
+	*/
+	virtual void setMasterPage(int page, const QString& mpName) { OwnPage = page; OnMasterPage = mpName; }
+
+	/**
+	 * @brief Set the masterpage the object is on
+	 * @param mpName name of the master page
+	 */
+	virtual void setMasterPageName(const QString& mpName) { OnMasterPage = mpName; }
+
+	/**
+	* @brief Set the page "owning" the object
+	* @param page index of the page
+	*/
+	virtual void setOwnerPage(int page) { OwnPage = page; }
+
+	/** 
+	 * @brief Get the name of the gradient of the object
+	 */
 	QString gradient() const { return gradientVal; }
 
 	/**
@@ -1099,9 +1119,9 @@ public: // Start public functions
 	void convertTo(ItemType newType);
 
 	/**
-	* Set the layer for the item
-	* @param layerId layer where this item is moved
-	*/
+	 * Set the layer for the item
+	 * @param layerId layer where this item is moved
+	 */
 	virtual void setLayer(int layerId);
 
 	/**

@@ -3728,16 +3728,15 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	PageItem* newItem = pasteItem(doc, attrs, baseDir, itemKind, pagenr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
-		newItem->OwnPage = doc->OnPage(newItem);
+		newItem->setOwnerPage(doc->OnPage(newItem));
 	else
-		newItem->OwnPage = attrs.valueAsInt("OwnPage");
+		newItem->setOwnerPage(attrs.valueAsInt("OwnPage"));
 	if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
-		newItem->OnMasterPage = "";
+		newItem->setMasterPageName(QString());
 	if (tagName == "ITEM")
 	{
-		newItem->LayerID = LayerToPaste;
-		newItem->OwnPage = doc->OnPage(newItem);
-		newItem->OnMasterPage = doc->currentPage()->pageName();
+		newItem->setLayer(LayerToPaste);
+		newItem->setMasterPage(doc->OnPage(newItem), doc->currentPage()->pageName());
 	}
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);

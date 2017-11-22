@@ -1130,6 +1130,8 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		tr = tr->BottomLink;
 	}
 	m_Doc->dontResize = true;
+	currItem->setLayer(gItem->LayerID);
+	currItem->setMasterPage(gItem->OwnPage, gItem->OnMasterPage);
 	currItem->adjustFrameToTable();
 	if (target != NULL)
 	{

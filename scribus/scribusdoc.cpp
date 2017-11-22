@@ -2697,7 +2697,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 	for (int i = 0; i < masterItemsCount; ++i)
 	{
 		if (MasterItems.at(i)->OnMasterPage == oldPageName)
-			MasterItems.at(i)->OnMasterPage = newPageName;
+			MasterItems.at(i)->setMasterPageName(newPageName);
 	}
 	changed();
 	if (UndoManager::undoEnabled())
@@ -5323,8 +5323,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	for (int a = end2; a < end3; ++a)
 	{
 		PageItem *newItem = MasterItems.at(a);
-		newItem->OnMasterPage = masterPageName;
-		newItem->OwnPage = MasterNames[masterPageName];
+		newItem->setMasterPage(MasterNames[masterPageName], masterPageName);
 	}
 	targetPage->MPageNam = "";
 	setLoading(false);
@@ -6051,7 +6050,7 @@ void  ScribusDoc::fixItemPageOwner()
 		}
 
 		// If no or page owner is incorrect, recompute page owner
-		currItem->OwnPage = OnPage(currItem);
+		currItem->setOwnerPage(OnPage(currItem));
  	}
 
 	// #10379: Scribus crash when opening .sla document

@@ -215,6 +215,91 @@ void PageItem_Table::layout()
 	}
 }
 
+void PageItem_Table::setLayer(int newLayerID)
+{
+	LayerID = newLayerID;
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->LayerID = newLayerID;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setMasterPage(int page, const QString& mpName)
+{
+	PageItem::setMasterPage(page, mpName);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OwnPage = page;
+				textFrame->OnMasterPage = mpName;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setMasterPageName(const QString& mpName)
+{
+	PageItem::setMasterPageName(mpName);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OnMasterPage = mpName;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setOwnerPage(int page)
+{
+	PageItem::setOwnerPage(page);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OwnPage = page;
+			}
+		}
+	}
+}
+
 void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();
