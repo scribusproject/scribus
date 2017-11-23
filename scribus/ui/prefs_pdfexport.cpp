@@ -313,7 +313,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = it.value();
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -328,7 +328,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = m_doc->MasterItems.at(a);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -343,7 +343,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = m_doc->DocItems.at(a);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)

@@ -1240,7 +1240,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 		pgit = allItems.takeFirst();
 		if (pgit->isGroup() || pgit->isTable())
 		{
-			allItems = pgit->getItemList() + allItems;
+			allItems = pgit->getChildren() + allItems;
 			continue;
 		}
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -1275,7 +1275,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 		pgit = allItems.takeFirst();
 		if (pgit->isGroup() || pgit->isTable())
 		{
-			allItems = pgit->getItemList() + allItems;
+			allItems = pgit->getChildren() + allItems;
 			continue;
 		}
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -1310,7 +1310,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 		pgit = allItems.takeFirst();
 		if (pgit->isGroup() || pgit->isTable())
 		{
-			allItems = pgit->getItemList() + allItems;
+			allItems = pgit->getChildren() + allItems;
 			continue;
 		}
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -1352,7 +1352,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 			pgit = allItems.takeFirst();
 			if (pgit->isGroup() || pgit->isTable())
 			{
-				allItems = pgit->getItemList() + allItems;
+				allItems = pgit->getChildren() + allItems;
 				continue;
 			}
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))

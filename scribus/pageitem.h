@@ -477,7 +477,11 @@ public: // Start public functions
 	void setDashes(QVector<double> val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
-	virtual QList<PageItem*> getItemList() const;
+
+	/// Retrieve child items of this item
+	virtual QList<PageItem*> getChildren() const;
+	/// Retrieve all children of item, including children of children
+	virtual QList<PageItem*> getAllChildren() const;
 
 	//<< ********* Attributes of the item *********
 	//Position

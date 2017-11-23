@@ -70,7 +70,7 @@ void PageItem_Group::adjustXYPosition()
 	}
 }
 
-QList<PageItem*> PageItem_Group::getItemList() const
+QList<PageItem*> PageItem_Group::getAllChildren() const
 {
 	QList<PageItem*> ret;
 	for (int em = 0; em < groupItemList.count(); ++em)
@@ -78,7 +78,7 @@ QList<PageItem*> PageItem_Group::getItemList() const
 		PageItem* embedded = groupItemList.at(em);
 		ret.append(embedded);
 		if (embedded->isGroup())
-			ret += embedded->getItemList();
+			ret += embedded->getAllChildren();
 	}
 	return ret;
 }

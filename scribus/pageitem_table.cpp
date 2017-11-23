@@ -80,7 +80,7 @@ void PageItem_Table::currentTextProps(ParagraphStyle& parStyle) const
 		parStyle = this->itemText.defaultStyle();
 }
 
-QList<PageItem*> PageItem_Table::getItemList() const
+QList<PageItem*> PageItem_Table::getChildren() const
 {
 	QList<PageItem*> ret;
 

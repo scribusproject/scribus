@@ -54,7 +54,7 @@ QList<PageItem*> ScText::getGroupedItems(ScribusDoc *doc)
 		PageItem* dItem = doc->FrameItems[embedded];
 		result.append(dItem);
 		if (dItem->isGroup())
-			result = dItem->getItemList();
+			result = dItem->getAllChildren();
 	}
 	return result;
 }

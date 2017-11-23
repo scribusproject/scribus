@@ -1095,7 +1095,7 @@ public:
 		{
 			QList<PageItem*> allItems;
 			if (item->isGroup())
-				allItems = item->asGroupFrame()->getItemList();
+				allItems = item->asGroupFrame()->getAllChildren();
 			else
 				allItems.append(item);
 			for (int ii = 0; ii < allItems.count(); ii++)

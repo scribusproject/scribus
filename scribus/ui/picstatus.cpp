@@ -125,7 +125,7 @@ void PicStatus::fillTable()
 	{
 		PageItem *currItem = m_Doc->MasterItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -149,7 +149,7 @@ void PicStatus::fillTable()
 	{
 		PageItem *currItem = m_Doc->DocItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

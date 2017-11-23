@@ -474,7 +474,7 @@ void ScAnnot::NewName()
 	{
 		PageItem *currItem = view->Doc->Items->at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

@@ -1149,7 +1149,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		QList<PageItem*> allItems;
 		PageItem* item = m_Doc->DocItems.at(i);
 		if (item->isGroup())
-			allItems = item->asGroupFrame()->getItemList();
+			allItems = item->getAllChildren();
 		else
 			allItems.append(item);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -1170,7 +1170,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		QList<PageItem*> allItems;
 		PageItem* item = m_Doc->MasterItems.at(i);
 		if (item->isGroup())
-			allItems = item->asGroupFrame()->getItemList();
+			allItems = item->getAllChildren();
 		else
 			allItems.append(item);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -2473,7 +2473,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		QList<PageItem*> allItems;
 		PageItem* item = m_Doc->DocItems.at(i);
 		if (item->isGroup())
-			allItems = item->asGroupFrame()->getItemList();
+			allItems = item->getAllChildren();
 		else
 			allItems.append(item);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -2494,7 +2494,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		QList<PageItem*> allItems;
 		PageItem* item = m_Doc->MasterItems.at(i);
 		if (item->isGroup())
-			allItems = item->asGroupFrame()->getItemList();
+			allItems = item->getAllChildren();
 		else
 			allItems.append(item);
 		for (int ii = 0; ii < allItems.count(); ii++)

@@ -96,7 +96,10 @@ public:
 	virtual void currentTextProps(ParagraphStyle& parStyle) const;
 
 	/// Return the list of cell items
-	virtual QList<PageItem*> getItemList() const;
+	virtual QList<PageItem*> getChildren() const;
+
+	/// Return the list of cell items
+	virtual QList<PageItem*> getAllChildren() const { return getChildren(); }
 
 	/// Returns the number of rows in the table.
 	int rows() const { return m_rows; }

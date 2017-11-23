@@ -194,7 +194,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	{
 		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -216,7 +216,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	{
 		PageItem *currItem = m_Doc->Items->at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -629,7 +629,7 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int column)
 	{
 		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -649,7 +649,7 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int column)
 	{
 		PageItem *currItem = m_Doc->Items->at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

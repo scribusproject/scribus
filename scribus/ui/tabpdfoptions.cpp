@@ -420,7 +420,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -440,7 +440,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -460,7 +460,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = m_Doc->DocItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

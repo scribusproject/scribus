@@ -47,7 +47,7 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	{
 		PageItem *currItem = Doc->Items->at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

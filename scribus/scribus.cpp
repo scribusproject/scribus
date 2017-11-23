@@ -2475,7 +2475,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 		{
 			PageItem *currItem = doc->Items->at(i);
 			if (currItem->isGroup())
-				allItems = currItem->asGroupFrame()->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -5637,7 +5637,7 @@ void ScribusMainWindow::toggleImageVisibility()
 	{
 		PageItem *currItem = doc->DocItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->asGroupFrame()->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int j = 0; j < allItems.count(); j++)
@@ -5651,7 +5651,7 @@ void ScribusMainWindow::toggleImageVisibility()
 	{
 		PageItem *currItem = doc->MasterItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->asGroupFrame()->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int j = 0; j < allItems.count(); j++)
@@ -9128,7 +9128,7 @@ void ScribusMainWindow::PutToPatterns()
 		currItem = doc->m_Selection->itemAt(0);
 	QList<PageItem*> allItems;
 	if (currItem->isGroup())
-		allItems = currItem->asGroupFrame()->getItemList();
+		allItems = currItem->getAllChildren();
 	else
 		allItems.append(currItem);
 	QStringList results;

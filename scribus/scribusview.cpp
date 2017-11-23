@@ -2801,7 +2801,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 			currItem = itemList.takeFirst();
 			if (currItem->isGroup())
 			{
-				itemList = currItem->getItemList() + itemList;
+				itemList = currItem->getChildren() + itemList;
 				continue;
 			}
 			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
@@ -2831,7 +2831,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 			currItem = itemList.takeFirst();
 			if (currItem->isGroup())
 			{
-				itemList = currItem->getItemList() + itemList;
+				itemList = currItem->getChildren() + itemList;
 				continue;
 			}
 			double w = currItem->visualWidth();

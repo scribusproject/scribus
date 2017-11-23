@@ -4432,7 +4432,13 @@ void PageItem::setLocked(bool isLocked)
 		toggleLock();
 }
 
-QList<PageItem*> PageItem::getItemList() const
+QList<PageItem*> PageItem::getChildren() const
+{
+	QList<PageItem*> ret;
+	return ret;
+}
+
+QList<PageItem*> PageItem::getAllChildren() const
 {
 	QList<PageItem*> ret;
 	return ret;
