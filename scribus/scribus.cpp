@@ -1478,7 +1478,13 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 
 	const ParagraphStyle& currPStyle(inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
 	setAlignmentValue(currPStyle.alignment());
-	doc->currentStyle = item->currentStyle();
+
+	// Assignment operator does not perform style context assignment
+	// Do it in this case, otherwise we might get some crashes if previous
+	// text object was deleted or things like that
+	const ParagraphStyle& curStyle = item->currentStyle();
+	doc->currentStyle.setContext(curStyle.context());
+	doc->currentStyle = curStyle;
 	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
 		item->currentTextProps(doc->currentStyle);
 	else
