@@ -524,7 +524,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->ColGap = Buffer->ColGap;
 	currItem->setFirstLineOffset(Buffer->firstLineOffsetP);
 	if (Buffer->LayerID != -1)
-		currItem->LayerID = Buffer->LayerID;
+		currItem->setLayer(Buffer->LayerID);
 	currItem->PoLine = Buffer->PoLine.copy();
 	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);
 	if (Buffer->ContourLine.size() == 0)
@@ -682,7 +682,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
 	if (resize)
 		m_Doc->setRedrawBounding(currItem);
-	currItem->OwnPage = m_Doc->OnPage(currItem);
+	currItem->setOwnerPage(m_Doc->OnPage(currItem));
 //	undoManager->setUndoEnabled(true);
 }
 
@@ -1083,8 +1083,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					PasteItem(&OB);
 					/*m_Doc->GroupCounter = docGc;*/
 					Neu = m_Doc->Items->at(last);
-					Neu->OnMasterPage = PgNam;
-					Neu->OwnPage = a; //No need to scan for OnPage as we know page by page in 1.2.x
+					Neu->setMasterPageName(PgNam);
+					Neu->setOwnerPage(a); //No need to scan for OnPage as we know page by page in 1.2.x
 					Neu->oldOwnPage = 0;
 					Neu->setRedrawBounding();
 					IT=OBJ.firstChild();
