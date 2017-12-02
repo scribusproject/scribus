@@ -3300,105 +3300,106 @@ bool ScribusMainWindow::slotFileOpen()
 bool ScribusMainWindow::slotPageImport()
 {
 	Q_ASSERT(!doc->masterPageMode());
+	
+	QScopedPointer<MergeDoc> dia(new MergeDoc(this, false, doc->DocPages.count(), doc->currentPage()->pageNr() + 1));
+	if (!dia->exec())
+		return false;
+
 	bool ret = false;
-	MergeDoc *dia = new MergeDoc(this, false, doc->DocPages.count(), doc->currentPage()->pageNr() + 1);
 	UndoTransaction activeTransaction;
-	if(UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, 0, Um::ILock);
 
-	if (dia->exec())
+	m_mainWindowStatusLabel->setText( tr("Importing Pages..."));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	std::vector<int> pageNs;
+	parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
+	int startPage=0, nrToImport=pageNs.size();
+	bool doIt = true;
+	if (doc->masterPageMode())
 	{
-		m_mainWindowStatusLabel->setText( tr("Importing Pages..."));
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		std::vector<int> pageNs;
-		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
-		int startPage=0, nrToImport=pageNs.size();
-		bool doIt = true;
-		if (doc->masterPageMode())
+		if (nrToImport > 1)
+			loadPage(dia->getFromDoc(), pageNs[0] - 1, false);
+		doIt = false;
+	}
+	else if (dia->getCreatePageChecked())
+	{
+		int importWhere=dia->getImportWhere();
+		if (importWhere == 0)
+			startPage = dia->getImportWherePage();
+		else if (importWhere == 1)
+			startPage = dia->getImportWherePage() + 1;
+		else
+			startPage = doc->DocPages.count() + 1;
+		addNewPages(dia->getImportWherePage(), importWhere, nrToImport, doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
+	}
+	else
+	{
+		startPage = doc->currentPage()->pageNr() + 1;
+		if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 		{
-			if (nrToImport > 1)
-				loadPage(dia->getFromDoc(), pageNs[0] - 1, false);
-			doIt = false;
-		}
-		else if (dia->getCreatePageChecked())
-		{
-			int importWhere=dia->getImportWhere();
-			if (importWhere == 0)
-				startPage = dia->getImportWherePage();
-			else if (importWhere == 1)
-				startPage = dia->getImportWherePage() + 1;
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
+			ScMessageBox msgBox;
+			msgBox.setIcon(QMessageBox::Information);
+			msgBox.setText(tr("Import Page(s)"));
+			msgBox.setInformativeText("<qt>" +
+			QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:"
+			"<ul><li><b>Create</b> missing pages</li>"
+			"<li><b>Import</b> pages until the last page</li>"
+			"<li><b>Cancel</b></li></ul>") + "</qt>");
+			QPushButton *createButton = msgBox.addButton(tr("C&reate"), QMessageBox::AcceptRole);
+			QPushButton *importButton = msgBox.addButton(tr("&Import"), QMessageBox::AcceptRole);
+			QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
+			msgBox.setDefaultButton(cancelButton);
+			msgBox.setDefaultBatchButton(createButton);
+			msgBox.exec();
+			if (msgBox.clickedButton() == createButton)
+			{
+				addNewPages(doc->DocPages.count(), 2,
+							nrToImport - (doc->DocPages.count() - doc->currentPage()->pageNr()),
+							doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
+			}
+			else if (msgBox.clickedButton() == importButton)
+			{
+				nrToImport = doc->DocPages.count() - doc->currentPage()->pageNr();
+			}
 			else
-				startPage = doc->DocPages.count() + 1;
-			addNewPages(dia->getImportWherePage(), importWhere, nrToImport, doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
+			{
+				doIt = false;
+				m_mainWindowStatusLabel->setText("");
+			}
+			qApp->restoreOverrideCursor();
+		}
+	}
+	if (doIt)
+	{
+		if (nrToImport > 0)
+		{
+			mainWindowProgressBar->reset();
+			mainWindowProgressBar->setMaximum(nrToImport);
+			int counter = startPage;
+			for (int i = 0; i < nrToImport; ++i)
+			{
+				view->GotoPa(counter);
+				loadPage(dia->getFromDoc(), pageNs[i] - 1, false);
+				counter++;
+				mainWindowProgressBar->setValue(i + 1);
+			}
+			view->GotoPa(startPage);
+			mainWindowProgressBar->reset();
+			m_mainWindowStatusLabel->setText( tr("Import done"));
 		}
 		else
 		{
-			startPage = doc->currentPage()->pageNr() + 1;
-			if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
-			{
-				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
-				ScMessageBox msgBox;
-				msgBox.setIcon(QMessageBox::Information);
-				msgBox.setText(tr("Import Page(s)"));
-				msgBox.setInformativeText("<qt>" +
-				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:"
-				"<ul><li><b>Create</b> missing pages</li>"
-				"<li><b>Import</b> pages until the last page</li>"
-				"<li><b>Cancel</b></li></ul>") + "</qt>");
-				QPushButton *createButton = msgBox.addButton(tr("C&reate"), QMessageBox::AcceptRole);
-				QPushButton *importButton = msgBox.addButton(tr("&Import"), QMessageBox::AcceptRole);
-				QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
-				msgBox.setDefaultButton(cancelButton);
-				msgBox.setDefaultBatchButton(createButton);
-				msgBox.exec();
-				if (msgBox.clickedButton() == createButton)
-				{
-					addNewPages(doc->DocPages.count(), 2,
-								nrToImport - (doc->DocPages.count() - doc->currentPage()->pageNr()),
-								doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
-				}
-				else if (msgBox.clickedButton() == importButton)
-				{
-					nrToImport = doc->DocPages.count() - doc->currentPage()->pageNr();
-				}
-				else
-				{
-					doIt = false;
-					m_mainWindowStatusLabel->setText("");
-				}
-				qApp->restoreOverrideCursor();
-			}
+			m_mainWindowStatusLabel->setText( tr("Found nothing to import"));
+			doIt = false;
 		}
-		if (doIt)
-		{
-			if (nrToImport > 0)
-			{
-				mainWindowProgressBar->reset();
-				mainWindowProgressBar->setMaximum(nrToImport);
-				int counter = startPage;
-				for (int i = 0; i < nrToImport; ++i)
-				{
-					view->GotoPa(counter);
-					loadPage(dia->getFromDoc(), pageNs[i] - 1, false);
-					counter++;
-					mainWindowProgressBar->setValue(i + 1);
-				}
-				view->GotoPa(startPage);
-				mainWindowProgressBar->reset();
-				m_mainWindowStatusLabel->setText( tr("Import done"));
-			}
-			else
-			{
-				m_mainWindowStatusLabel->setText( tr("Found nothing to import"));
-				doIt = false;
-			}
-		}
-		qApp->restoreOverrideCursor();
-		ret = doIt;
 	}
+	qApp->restoreOverrideCursor();
+	ret = doIt;
+
 	if (activeTransaction)
 		activeTransaction.commit();
-	delete dia;
 	return ret;
 }
 
