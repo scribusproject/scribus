@@ -342,6 +342,15 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		checkedFonts.insert(filename, foCache);
 		error = true;
 	}
+	// Some fonts such as Noto ColorEmoji are in fact bitmap fonts
+	// and do not provide a valid value for units_per_EM
+	if (face->units_per_EM == 0)
+	{
+		if (showFontInformation)
+			sDebug(QObject::tr("Failed to load font %1 - font is not scalable").arg(filename));
+		checkedFonts.insert(filename, foCache);
+		error = true;
+	}
 	bool HasNames = FT_HAS_GLYPH_NAMES(face);
 	if (!error)
 	{
