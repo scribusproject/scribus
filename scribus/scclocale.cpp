@@ -185,7 +185,7 @@ double ScCLocale::strtod(const char * str, char ** endptr)
 		std::istringstream sstream(str);
 		sstream.imbue(std::locale::classic());
 		sstream >> result;
-		bytesRead = sstream.eof() ? strlen(str) : sstream.tellg();
+		bytesRead = sstream.eof() ? strlen(str) : (std::streamoff) sstream.tellg();
 		*endptr = const_cast<char*>(str) + bytesRead;
 		return result;
 	}
@@ -196,7 +196,7 @@ double ScCLocale::strtod(const char * str, char ** endptr)
 	std::istringstream sstream(str);
 	sstream.imbue(std::locale::classic());
 	sstream >> result;
-	bytesRead = sstream.eof() ? strlen(str) : sstream.tellg();
+	bytesRead = sstream.eof() ? strlen(str) : (std::streamoff) sstream.tellg();
 	*endptr = const_cast<char*>(str) + bytesRead;
 	return result;
 #elif defined(Q_OS_WIN)
