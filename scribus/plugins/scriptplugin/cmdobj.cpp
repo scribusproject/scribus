@@ -593,55 +593,54 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if ((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText))
-	{
-		// First, find the style number associated with the requested style
-		// by scanning through the styles looking for the name. If
-		// we can't find it, raise PyExc_Exception.
-		// FIXME: Should use a more specific exception.
-		bool found = false;
-		uint styleid = 0;
-		// We start at zero here because it's OK to match an internal name
-		int docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
-		for (int i=0; i < docParagraphStylesCount; ++i)
-		{
-			if (ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name() == QString::fromUtf8(style)) {
-				found = true;
-				styleid = i;
-				break;
-			}
-		}
-		if (!found) {
-			// whoops, the user specified an invalid style, complain loudly.
-			PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
-			return NULL;
-		}
-		// for current item only
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0 || name != EMPTY_STRING)
-		{
-			// quick hack to always apply on the right frame - pv
-			ScCore->primaryMainWindow()->view->Deselect(true);
-			//CB I dont think we need to draw here. Its faster if we dont.
-			ScCore->primaryMainWindow()->view->SelectItem(item, false);
-			// Now apply the style.
-			int mode = ScCore->primaryMainWindow()->doc->appMode;
-			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-			ScCore->primaryMainWindow()->setNewParStyle(QString::fromUtf8(style));
-			ScCore->primaryMainWindow()->doc->appMode = mode;
-		}
-		else // for multiple selection
-		{
-			int mode = ScCore->primaryMainWindow()->doc->appMode;
-			ScCore->primaryMainWindow()->doc->appMode = modeNormal;
-			ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->paragraphStyles()[styleid]);
-			ScCore->primaryMainWindow()->doc->appMode = mode;
-		}
-	}
-	else
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+
+	// First, find the style number associated with the requested style
+	// by scanning through the styles looking for the name. If
+	// we can't find it, raise PyExc_Exception.
+	// FIXME: Should use a more specific exception.
+	bool found = false;
+	uint styleid = 0;
+	// We start at zero here because it's OK to match an internal name
+	int docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
+	for (int i=0; i < docParagraphStylesCount; ++i)
+	{
+		if (ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name() == QString::fromUtf8(style)) {
+			found = true;
+			styleid = i;
+			break;
+		}
+	}
+	if (!found) {
+		// whoops, the user specified an invalid style, complain loudly.
+		PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	// for current item only
+	if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0 || name != EMPTY_STRING)
+	{
+		// quick hack to always apply on the right frame - pv
+		ScCore->primaryMainWindow()->view->Deselect(true);
+		//CB I dont think we need to draw here. Its faster if we dont.
+		ScCore->primaryMainWindow()->view->SelectItem(item, false);
+		// Now apply the style.
+		int mode = ScCore->primaryMainWindow()->doc->appMode;
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+		ScCore->primaryMainWindow()->setNewParStyle(QString::fromUtf8(style));
+		ScCore->primaryMainWindow()->doc->appMode = mode;
+	}
+	else // for multiple selection
+	{
+		int mode = ScCore->primaryMainWindow()->doc->appMode;
+		ScCore->primaryMainWindow()->doc->appMode = modeNormal;
+		ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->paragraphStyles()[styleid]);
+		ScCore->primaryMainWindow()->doc->appMode = mode;
+	}
+
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
