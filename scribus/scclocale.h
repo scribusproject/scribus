@@ -41,6 +41,7 @@ class SCRIBUS_API ScCLocale
 {
 	ScCLocale();
 	~ScCLocale();
+
 	QLocale qLocale;
 	XLocaleType cLocale;
 
@@ -55,8 +56,7 @@ class SCRIBUS_API ScCLocale
 		static float toFloatC(const QString& str, bool * ok = 0);
 		static float toFloatC(const QString& str, float defValue);
 		static QString toQStringC(double d, int prec = 3);
-		static double strtod ( const char * str, char ** endptr );
-		
+		static double strtod(const char * str, char ** endptr);
 };
 
 // The code of this function has been borrowed from Qt SVG module
