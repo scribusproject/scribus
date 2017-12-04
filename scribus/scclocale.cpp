@@ -46,7 +46,7 @@ ScCLocale::~ScCLocale()
 
 ScCLocale * ScCLocale::that()
 {
-	if(!m_instance)
+	if (!m_instance)
 	{
 		m_instance = new ScCLocale();
 		Q_ASSERT(m_instance);
