@@ -339,8 +339,9 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	{
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
+		FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
-		error = true;
+		return true;
 	}
 	// Some fonts such as Noto ColorEmoji are in fact bitmap fonts
 	// and do not provide a valid value for units_per_EM
@@ -348,16 +349,55 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	{
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font is not scalable").arg(filename));
+		FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
-		error = true;
+		return true;
 	}
 	bool HasNames = FT_HAS_GLYPH_NAMES(face);
-	if (!error)
+
+	if (!checkedFonts.contains(filename))
 	{
-		if (!checkedFonts.contains(filename))
+		if (!firstRun)
+			ScCore->setSplashStatus( QObject::tr("New Font found, checking...") );
+		FT_UInt gindex = 0;
+		FT_ULong charcode = FT_Get_First_Char( face, &gindex );
+		while ( gindex != 0 )
 		{
-			if (!firstRun)
-				ScCore->setSplashStatus( QObject::tr("New Font found, checking...") );
+			error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+			if (error)
+			{
+				if (showFontInformation)
+					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+				if (face != NULL)
+					FT_Done_Face( face );
+				checkedFonts.insert(filename, foCache);
+				return true;
+			}
+			FT_Get_Glyph_Name(face, gindex, buf, 50);
+			QString newName = QString(reinterpret_cast<char*>(buf));
+			if (newName == glyName)
+			{
+				HasNames = false;
+				Subset = true;
+			}
+			glyName = newName;
+			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+		}
+		foCache.isOK = true;
+		checkedFonts.insert(filename, foCache);
+	}
+	else
+	{
+		if (!checkedFonts[filename].isOK)
+		{
+			checkedFonts[filename].isChecked = true;
+			if (face != NULL)
+				FT_Done_Face( face );
+			return true;
+		}
+		if (checkedFonts[filename].lastMod != foCache.lastMod)
+		{
+			ScCore->setSplashStatus( QObject::tr("Modified Font found, checking...") );
 			FT_UInt gindex = 0;
 			FT_ULong charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
@@ -383,54 +423,15 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
 			foCache.isOK = true;
-			checkedFonts.insert(filename, foCache);
+			checkedFonts[filename] = foCache;
 		}
 		else
 		{
-			if (!checkedFonts[filename].isOK)
-			{
-				checkedFonts[filename].isChecked = true;
-				if (face != NULL)
-					FT_Done_Face( face );
-				return true;
-			}
-			if (checkedFonts[filename].lastMod != foCache.lastMod)
-			{
-				ScCore->setSplashStatus( QObject::tr("Modified Font found, checking...") );
-				FT_UInt gindex = 0;
-				FT_ULong charcode = FT_Get_First_Char( face, &gindex );
-				while ( gindex != 0 )
-				{
-					error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-					if (error)
-					{
-						if (showFontInformation)
-							sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
-						if (face != NULL)
-							FT_Done_Face( face );
-						checkedFonts.insert(filename, foCache);
-						return true;
-					}
-					FT_Get_Glyph_Name(face, gindex, buf, 50);
-					QString newName = QString(reinterpret_cast<char*>(buf));
-					if (newName == glyName)
-					{
-						HasNames = false;
-						Subset = true;
-					}
-					glyName = newName;
-					charcode = FT_Get_Next_Char( face, charcode, &gindex );
-				}
-				foCache.isOK = true;
-				checkedFonts[filename] = foCache;
-			}
-			else
-			{
-				checkedFonts[filename].isOK = true;
-				checkedFonts[filename].isChecked = true;
-			}
+			checkedFonts[filename].isOK = true;
+			checkedFonts[filename].isChecked = true;
 		}
 	}
+
 	int faceindex=0;
 	while (!error)
 	{
