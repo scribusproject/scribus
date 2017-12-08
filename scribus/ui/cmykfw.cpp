@@ -561,14 +561,18 @@ void CMYKChoose::selSwatch()
 
 void CMYKChoose::setSpot()
 {
-	disconnect(ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+	QSignalBlocker comboBox1Blocker(ComboBox1);
 	if (Separations->isChecked())
 	{
-		ComboBox1->setCurrentIndex( 0 );
 //		Commented out to allow RGB Spot-Colors
+//		ComboBox1->setCurrentIndex( 0 );
 //		selModel( tr("CMYK"));
+		if (ComboBox1->currentIndex() == 2) // Web Safe RGB
+		{
+			ComboBox1->setCurrentIndex(1);
+			selModel( tr("RGB"));
+		}
 	}
-	connect(ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 }
 
 void CMYKChoose::selModel(const QString& mod)
