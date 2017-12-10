@@ -467,7 +467,8 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* do
 	{
 		RGBColorF rgb;
 		getShadeColorRGB(color, doc, rgb, level);
-		ScColor tmpR(rgb.r, rgb.g, rgb.b);
+		ScColor tmpR;
+		tmpR.setRgbColorF(rgb.r, rgb.g, rgb.b);
 		getCMYKValues(tmpR, doc, cmyk);
 	}
 	else if (color.getColorModel() == colorModelCMYK)
