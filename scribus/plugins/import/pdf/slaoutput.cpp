@@ -2496,10 +2496,10 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	QImage res = QImage(width, height, QImage::Format_ARGB32);
 	res.fill(backColor.rgb());
 	unsigned char cc, cm, cy, ck;
-	for( int yi = 0; yi < res.height(); ++yi )
+	for (int yi = 0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
-		for(int xi = 0; xi < res.width(); ++xi )
+		for (int xi = 0; xi < res.width(); ++xi)
 		{
 			cc = qRed(*t);
 			cm = qGreen(*t);
@@ -2644,10 +2644,10 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;
-	for( int yi=0; yi < res.height(); ++yi )
+	for (int yi=0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
-		for(int xi=0; xi < res.width(); ++xi )
+		for (int xi=0; xi < res.width(); ++xi)
 		{
 			cc = qRed(*t);
 			cm = qGreen(*t);
@@ -2794,10 +2794,10 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;
-	for( int yi=0; yi < res.height(); ++yi )
+	for (int yi=0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
-		for(int xi=0; xi < res.width(); ++xi )
+		for (int xi=0; xi < res.width(); ++xi)
 		{
 			cc = qRed(*t);
 			cm = qGreen(*t);
