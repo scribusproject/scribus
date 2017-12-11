@@ -1625,6 +1625,7 @@ protected: // Start protected functions
 	void restorePStyle(SimpleState *state, bool isUndo);
 	void restoreParagraphStyle(SimpleState *state, bool isUndo);
 	void restorePasteInline(SimpleState *state, bool isUndo);
+	void restorePastePlainText(SimpleState *state, bool isUndo);
 	void restorePasteText(SimpleState *state, bool isUndo);
 	void restorePathOperation(UndoState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);

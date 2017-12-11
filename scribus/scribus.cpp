@@ -4773,7 +4773,7 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
 				is->set("PASTE_TEXT");
-				is->set("START",currItem->itemText.cursorPosition());
+				is->set("START", currItem->itemText.cursorPosition());
 				is->setItem(*story);
 				m_undoManager->action(currItem, is);
 			}
@@ -4851,8 +4851,8 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
 				is->set("PASTE_INLINE");
-				is->set("START",currItem->itemText.cursorPosition());
-				is->set("INDEX",fIndex);
+				is->set("START", currItem->itemText.cursorPosition());
+				is->set("INDEX", fIndex);
 				m_undoManager->action(currItem, is);
 			}
 			currItem->itemText.insertObject(fIndex);
@@ -4918,10 +4918,10 @@ void ScribusMainWindow::slotEditPaste()
 				m_undoManager->setUndoEnabled(true);
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
+					SimpleState *is = new SimpleState(Um::Paste, "", Um::IPaste);
 					is->set("PASTE_INLINE");
-					is->set("START",currItem->itemText.cursorPosition());
-					is->set("INDEX",fIndex);
+					is->set("START", currItem->itemText.cursorPosition());
+					is->set("INDEX", fIndex);
 					m_undoManager->action(currItem, is);
 				}
 				currItem->itemText.insertObject(fIndex);
@@ -4936,6 +4936,14 @@ void ScribusMainWindow::slotEditPaste()
 			QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
 			text = text.replace("\r\n", SpecialChars::PARSEP);
 			text = text.replace('\n', SpecialChars::PARSEP);
+			if (UndoManager::undoEnabled())
+			{
+				SimpleState *is = new SimpleState(Um::Paste, "", Um::IPaste);
+				is->set("PASTE_PLAINTEXT");
+				is->set("START", currItem->itemText.cursorPosition());
+				is->set("TEXT", text);
+				m_undoManager->action(currItem, is);
+			}
 			currItem->itemText.insertChars(text, true);
 		}
 		if (doc->appMode == modeEditTable)

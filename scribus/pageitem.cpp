@@ -4951,6 +4951,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				restoreBottomTextFrameDist(ss, isUndo);
 			else if (ss->contains("FIRSTLINEOFFSET"))
 				restoreFirstLineOffset(ss, isUndo);
+			else if (ss->contains("PASTE_PLAINTEXT"))
+				restorePastePlainText(ss, isUndo);
 			else if (ss->contains("PASTE_TEXT"))
 				restorePasteText(ss, isUndo);
 			else if (ss->contains("CORNER_RADIUS"))
@@ -6504,13 +6506,27 @@ void PageItem::restorePasteInline(SimpleState *is, bool isUndo)
 		itemText.insertObject(is->getInt("INDEX"));
 }
 
+void PageItem::restorePastePlainText(SimpleState *ss, bool isUndo)
+{
+	int start = ss->getInt("START");
+	QString text = ss->get("TEXT");
+	if (isUndo)
+	{
+		itemText.select(start, text.length());
+		asTextFrame()->deleteSelectedTextFromFrame();
+	}
+	else
+		itemText.insertChars(text, true);
+}
+
 void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 {
 	ScItemState<StoryText> *is = dynamic_cast<ScItemState<StoryText>*>(ss);
 	if (!is)
 		qFatal("PageItem::restorePasteText: dynamic cast failed");
 	int start = is->getInt("START");
-	if (isUndo){
+	if (isUndo)
+	{
 		itemText.select(start,is->getItem().length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
