@@ -6516,7 +6516,7 @@ void PageItem::restorePastePlainText(SimpleState *ss, bool isUndo)
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
-		itemText.insertChars(text, true);
+		itemText.insertChars(start, text, true);
 }
 
 void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
@@ -6531,7 +6531,7 @@ void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
-		itemText.insert(is->getItem());
+		itemText.insert(start, is->getItem());
 }
 
 void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
