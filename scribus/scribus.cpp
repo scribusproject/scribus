@@ -5028,69 +5028,68 @@ void ScribusMainWindow::SelectAllOnLayer()
 {
 	ColorList UsedC;
 	doc->getUsedColors(UsedC);
-	selectDialog *dia = new selectDialog(this, UsedC, doc->unitIndex());
-	if (dia->exec())
+	QScopedPointer<selectDialog> dia(new selectDialog(this, UsedC, doc->unitIndex()));
+	if (!dia->exec())
+		return;
+
+	PageItem *currItem;
+	view->Deselect();
+	uint docItemsCount = doc->Items->count();
+	int docCurrentPage = doc->currentPageNumber();
+	doc->m_Selection->delaySignalsOn();
+	int range = dia->getSelectionRange();
+	for (uint a = 0; a < docItemsCount; ++a)
 	{
-		PageItem *currItem;
-		view->Deselect();
-		uint docItemsCount = doc->Items->count();
-		int docCurrentPage = doc->currentPageNumber();
-		doc->m_Selection->delaySignalsOn();
-		int range = dia->getSelectionRange();
-		for (uint a = 0; a < docItemsCount; ++a)
+		currItem = doc->Items->at(a);
+		if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
 		{
-			currItem = doc->Items->at(a);
-			if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
+			if ((range == 0) && (currItem->OwnPage != docCurrentPage))
+				continue;
+			if ((range == 2) && (currItem->OwnPage != -1))
+				continue;
+			if (dia->useAttributes())
 			{
-				if ((range == 0) && (currItem->OwnPage != docCurrentPage))
+				bool useType = false;
+				bool useFill = false;
+				bool useLine = false;
+				bool useLWidth = false;
+				bool usePrint = false;
+				bool useLocked = false;
+				bool useResize = false;
+				dia->getUsedAttributes(useType, useFill, useLine, useLWidth, usePrint, useLocked, useResize);
+				int Type = 0;
+				QString Fill = "";
+				QString Line = "";
+				double LWidth = 0.0;
+				bool Print = false;
+				bool Locked = false;
+				bool Resize = false;
+				dia->getUsedAttributesValues(Type, Fill, Line, LWidth, Print, Locked, Resize);
+				LWidth = LWidth / doc->unitRatio();
+				if ((useType) && (Type != currItem->realItemType()))
 					continue;
-				if ((range == 2) && (currItem->OwnPage != -1))
+				if ((useFill) && ((Fill != currItem->fillColor()) || (currItem->GrType != 0)))
 					continue;
-				if (dia->useAttributes())
-				{
-					bool useType = false;
-					bool useFill = false;
-					bool useLine = false;
-					bool useLWidth = false;
-					bool usePrint = false;
-					bool useLocked = false;
-					bool useResize = false;
-					dia->getUsedAttributes(useType, useFill, useLine, useLWidth, usePrint, useLocked, useResize);
-					int Type = 0;
-					QString Fill = "";
-					QString Line = "";
-					double LWidth = 0.0;
-					bool Print = false;
-					bool Locked = false;
-					bool Resize = false;
-					dia->getUsedAttributesValues(Type, Fill, Line, LWidth, Print, Locked, Resize);
-					LWidth = LWidth / doc->unitRatio();
-					if ((useType) && (Type != currItem->realItemType()))
-						continue;
-					if ((useFill) && ((Fill != currItem->fillColor()) || (currItem->GrType != 0)))
-						continue;
-					if ((useLine) && (Line != currItem->lineColor()))
-						continue;
-					if ((useLWidth) && ((LWidth != currItem->lineWidth()) || (currItem->lineColor() == CommonStrings::None)))
-						continue;
-					if ((usePrint) && (Print != currItem->printEnabled()))
-						continue;
-					if ((useLocked) && (Locked != currItem->locked()))
-						continue;
-					if ((useResize) && (Resize != currItem->sizeLocked()))
-						continue;
-					doc->m_Selection->addItem(currItem);
-				}
-				else
-					doc->m_Selection->addItem(currItem);
+				if ((useLine) && (Line != currItem->lineColor()))
+					continue;
+				if ((useLWidth) && ((LWidth != currItem->lineWidth()) || (currItem->lineColor() == CommonStrings::None)))
+					continue;
+				if ((usePrint) && (Print != currItem->printEnabled()))
+					continue;
+				if ((useLocked) && (Locked != currItem->locked()))
+					continue;
+				if ((useResize) && (Resize != currItem->sizeLocked()))
+					continue;
+				doc->m_Selection->addItem(currItem);
 			}
+			else
+				doc->m_Selection->addItem(currItem);
 		}
-		doc->m_Selection->delaySignalsOff();
-		if (doc->m_Selection->count() > 1)
-			doc->m_Selection->setGroupRect();
-		view->DrawNew();
 	}
-	delete dia;
+	doc->m_Selection->delaySignalsOff();
+	if (doc->m_Selection->count() > 1)
+		doc->m_Selection->setGroupRect();
+	view->DrawNew();
 }
 
 void ScribusMainWindow::SelectAll(bool docWideSelect)
@@ -6290,24 +6289,23 @@ void ScribusMainWindow::changePageProperties()
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	QString currPageMasterPageName(doc->currentPage()->MPageNam);
-	PagePropertiesDialog *dia = new PagePropertiesDialog(this, doc);
-	if (dia->exec())
-	{
-		int orientation = dia->getPageOrientation();
-		double pageHeight = dia->getPageHeight();
-		double pageWidth = dia->getPageWidth();
-		QString pageSizeName = dia->getPrefsPageSizeName();
-		int lp=0;
-		if (doc->masterPageMode() && doc->pagePositioning() != singlePage)
-			lp = dia->pageOrder();
-		doc->changePageProperties(dia->top(), dia->bottom(), dia->left(), dia->right(),
-							   pageHeight, pageWidth, pageHeight, pageWidth, orientation,
-							   pageSizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr(), lp);
-		if (!doc->masterPageMode() && dia->masterPage() != currPageMasterPageName)
-			Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
-		doc->updateEndnotesFrames();
-	}
-	delete dia;
+	QScopedPointer<PagePropertiesDialog> dia(new PagePropertiesDialog(this, doc));
+	if (!dia->exec())
+		return;
+
+	int orientation = dia->getPageOrientation();
+	double pageHeight = dia->getPageHeight();
+	double pageWidth = dia->getPageWidth();
+	QString pageSizeName = dia->getPrefsPageSizeName();
+	int lp=0;
+	if (doc->masterPageMode() && doc->pagePositioning() != singlePage)
+		lp = dia->pageOrder();
+	doc->changePageProperties(dia->top(), dia->bottom(), dia->left(), dia->right(),
+							pageHeight, pageWidth, pageHeight, pageWidth, orientation,
+							pageSizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr(), lp);
+	if (!doc->masterPageMode() && dia->masterPage() != currPageMasterPageName)
+		Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
+	doc->updateEndnotesFrames();
 }
 
 void ScribusMainWindow::SetNewFont(const QString& nf)
@@ -7786,42 +7784,44 @@ void ScribusMainWindow::editMasterPagesEnd()
 void ScribusMainWindow::ApplyMasterPage()
 {
 	Q_ASSERT(!doc->masterPageMode());
-	ApplyMasterPageDialog *dia = new ApplyMasterPageDialog(this);
+
+	QScopedPointer<ApplyMasterPageDialog> dia(new ApplyMasterPageDialog(this));
 	dia->setup(doc, doc->currentPage()->MPageNam);
-	if (dia->exec())
+	if (!dia->exec())
+		return;
+
+	QString masterPageName = dia->getMasterPageName();
+	int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
+	if (pageSelection == 0) //current page only
+		Apply_MasterPage(masterPageName, doc->currentPage()->pageNr(), false);
+	else
 	{
-		QString masterPageName = dia->getMasterPageName();
-		int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
-		if (pageSelection==0) //current page only
-			Apply_MasterPage(masterPageName, doc->currentPage()->pageNr(), false);
+		int startPage, endPage;
+		if (dia->usingRange())
+		{
+			startPage = dia->getFromPage()-1; //Pages start from 0, not 1
+			endPage = dia->getToPage();
+		}
 		else
 		{
-			int startPage, endPage;
-			if (dia->usingRange())
-			{
-				startPage=dia->getFromPage()-1; //Pages start from 0, not 1
-				endPage=dia->getToPage();
-			}
+			startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
+			endPage = doc->DocPages.count();
+		}
+		for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
+		{
+			//Increment by 1 and not 2 even for even/odd application as user
+			//can select to eg apply to even pages with a single odd page selected
+			if (pageSelection == 1 && (pageNum %2 != 0)) //Even, %2!=0 as 1st page is numbered 0
+				Apply_MasterPage(masterPageName, pageNum, false);
 			else
-			{
-				startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
-				endPage=doc->DocPages.count();
-			}
-			for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
-			{
-				//Increment by 1 and not 2 even for even/odd application as user
-				//can select to eg apply to even pages with a single odd page selected
-				if (pageSelection==1 && pageNum%2!=0) //Even, %2!=0 as 1st page is numbered 0
-					Apply_MasterPage(masterPageName, pageNum, false);
-				else
-				if (pageSelection==2 && pageNum%2==0) //Odd, %2==0 as 1st page is numbered 0
-					Apply_MasterPage(masterPageName, pageNum, false);
-				else
-				if (pageSelection==3) //All
-					Apply_MasterPage(masterPageName, pageNum, false);
-			}
+			if (pageSelection == 2 && (pageNum %2 == 0)) //Odd, %2==0 as 1st page is numbered 0
+				Apply_MasterPage(masterPageName, pageNum, false);
+			else
+			if (pageSelection == 3) //All
+				Apply_MasterPage(masterPageName, pageNum, false);
 		}
 	}
+
 	view->reformPages();
 	view->DrawNew();
 	pagePalette->Rebuild();
@@ -7829,7 +7829,6 @@ void ScribusMainWindow::ApplyMasterPage()
 	// Otherwise setupPage() will apply guides to current page, doesn't need that, 
 	// Apply_MasterPage() has already done it
 	guidePalette->setupPage(false);
-	delete dia;
 }
 
 void ScribusMainWindow::Apply_MasterPage(QString pageName, int pageNumber, bool reb)
@@ -9386,23 +9385,22 @@ void ScribusMainWindow::slotReplaceColors()
 
 	ColorList UsedC;
 	doc->getUsedColors(UsedC);
-	replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
-	if (dia2->exec())
-	{
-		ResourceCollection colorrsc;
-		colorrsc.mapColors(dia2->replaceMap);
-		PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
-		doc->replaceNamedResources(colorrsc);
-		doc->replaceLineStyleColors(dia2->replaceMap);
-		doc->recalculateColors();
-		doc->recalcPicturesRes();
-		requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
-		m_styleManager->updateColorList();
-		if (!doc->m_Selection->isEmpty())
-			doc->m_Selection->itemAt(0)->emitAllToGUI();
-		view->DrawNew();
-	}
-	delete dia2;
+	QScopedPointer<replaceColorsDialog> dia2(new replaceColorsDialog(this, doc->PageColors, UsedC));
+	if (!dia2->exec())
+		return;
+
+	ResourceCollection colorrsc;
+	colorrsc.mapColors(dia2->replaceMap);
+	PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
+	doc->replaceNamedResources(colorrsc);
+	doc->replaceLineStyleColors(dia2->replaceMap);
+	doc->recalculateColors();
+	doc->recalcPicturesRes();
+	requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
+	m_styleManager->updateColorList();
+	if (!doc->m_Selection->isEmpty())
+		doc->m_Selection->itemAt(0)->emitAllToGUI();
+	view->DrawNew();
 }
 
 void ScribusMainWindow::updateGUIAfterPagesChanged()
