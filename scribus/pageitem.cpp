@@ -6510,13 +6510,18 @@ void PageItem::restorePastePlainText(SimpleState *ss, bool isUndo)
 {
 	int start = ss->getInt("START");
 	QString text = ss->get("TEXT");
+
+	itemText.deselectAll();
 	if (isUndo)
 	{
 		itemText.select(start, text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
+	{
 		itemText.insertChars(start, text, true);
+		itemText.setCursorPosition(start + text.length());
+	}
 }
 
 void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
@@ -6525,13 +6530,18 @@ void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restorePasteText: dynamic cast failed");
 	int start = is->getInt("START");
+
+	itemText.deselectAll();
 	if (isUndo)
 	{
-		itemText.select(start,is->getItem().length());
+		itemText.select(start, is->getItem().length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
+	{
 		itemText.insert(start, is->getItem());
+		itemText.setCursorPosition(start + is->getItem().length());
+	}
 }
 
 void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
@@ -6674,10 +6684,13 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 		qFatal("PageItem::restoreDeleteFrameText: dynamic cast failed");
 	QString text = is->get("TEXT_STR");
 	int start = is->getInt("START");
+
+	itemText.deselectAll();
 	if (isUndo)
 	{
 		itemText.insertChars(start, text);
 		itemText.applyCharStyle(start, text.length(), is->getItem());
+		itemText.setCursorPosition(start + text.length());
 		invalid = true;
 		invalidateLayout();
 	}
@@ -6695,10 +6708,13 @@ void PageItem::restoreDeleteFrameParagraph(SimpleState *ss, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreDeleteFrameParagraph: dynamic cast failed");
 	int start = is->getInt("START");
+	
+	itemText.deselectAll();
 	if (isUndo)
 	{
 		itemText.insertChars(start, SpecialChars::PARSEP);
 		itemText.applyStyle(start, is->getItem());
+		itemText.setCursorPosition(start + 1);
 		invalid = true;
 		invalidateLayout();
 	}
@@ -6714,14 +6730,18 @@ void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
 {
 	QString text = ss->get("TEXT_STR");
 	int start = ss->getInt("START");
+
+	itemText.deselectAll();
 	if (isUndo)
 	{
-		itemText.deselectAll();
 		itemText.select(start, text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
+	{
 		itemText.insertChars(start, text);
+		itemText.setCursorPosition(start + text.length());
+	}
 }
 
 void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
@@ -6730,6 +6750,8 @@ void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreInsertFrameParagraph: dynamic cast failed");
 	int start = is->getInt("START");
+	
+	itemText.deselectAll();
 	if (isUndo)
 	{
 		itemText.select(start, 1);
@@ -6739,6 +6761,7 @@ void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
 	else
 	{
 		itemText.insertChars(start, SpecialChars::PARSEP);
+		itemText.setCursorPosition(start + 1);
 		invalid = true;
 		invalidateLayout();
 	}
