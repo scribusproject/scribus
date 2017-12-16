@@ -9,9 +9,6 @@
       <UniqueIdentifier>{f7770af3-cc2e-4ee3-9889-662525dbe72d}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{a25a064d-20c4-4fa7-8d1d-3f2bc23ad763}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\docim.cpp">
@@ -19,9 +16,6 @@
     </ClCompile>
     <ClCompile Include="gettext-docimdll.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\moc_docim.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

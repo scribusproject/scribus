@@ -199,7 +199,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\docim.cpp" />
     <ClCompile Include="gettext-docimdll.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\moc_docim.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\gettext\docim\docim.h" />

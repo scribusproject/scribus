@@ -204,28 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialog.h" />
-    <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Moc%27ing %(Filename)%(Extension)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Moc%27ing %(Filename)%(Extension)</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">$(QT4_DIR)\bin\moc.exe "%(FullPath)" -o  "%(RootDir)%(Directory)\moc_%(Filename).cpp"
-</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">$(QT4_DIR)\bin\moc.exe "%(FullPath)" -o  "%(RootDir)%(Directory)\moc_%(Filename).cpp"
-</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">$(QT4_DIR)\bin\moc.ex;%(AdditionalInputs)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">$(QT4_DIR)\bin\moc.ex;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">%(RootDir)%(Directory)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">%(RootDir)%(Directory)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Moc%27ing %(Filename)%(Extension)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Moc%27ing %(Filename)%(Extension)</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">$(QT4_DIR)\bin\moc.exe "%(FullPath)" -o  "%(RootDir)%(Directory)\moc_%(Filename).cpp"
-</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">$(QT4_DIR)\bin\moc.exe "%(FullPath)" -o  "%(RootDir)%(Directory)\moc_%(Filename).cpp"
-</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">$(QT4_DIR)\bin\moc.ex;%(AdditionalInputs)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">$(QT4_DIR)\bin\moc.ex;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">%(RootDir)%(Directory)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">%(RootDir)%(Directory)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-    </moc>
+    <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h" />
     <ClInclude Include="..\..\..\scribus\plugins\tools\lenseffects\ui_lensdialogbase.h" />
   </ItemGroup>
   <ItemGroup>
