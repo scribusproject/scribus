@@ -1,5 +1,27 @@
-Scribus - 1.4.7 (Released 2016-xx-xx)
+Scribus - 1.4.7 (Released 2017-12-17)
 =========================================
+0015061: [Fonts] Crash with Noto-Coloremoji font (jghali)
+0014905: [Typography] Portuguese sample text (jghali)
+0014900: [PDF] Fonts used only in patterns can't be embedded in PDFs (jghali)
+0014891: [Story Editor / Text Frames] Style replacement isn't correct (jghali)
+0014884: [Import / Export] A blank character is added when importing an html file (jghali)
+0014820: [Translation] Incorrect French translation for "Glyph extension" in style manager (jghali)
+0014270: [Documentation] Incorrect link to Mac OSX Ghostscript package (jghali)
+0014877: [Translation] Backport translation fixes to 1.4.7.svn (FirasH)
+0014746: [Translation] Ukrainian UI fixes (jghali)
+0014751: [Styles] Document Settings Tab Width spinbox does not accept values below one inch (jghali)
+0014638: [General] combine polygons results in unexpected displacement (jghali)
+0014707: [Fonts] Text preview truncated in Font Preview (jghali)
+0012831: [Scrapbook] scrapbook doesn't work with images (jghali)
+0014720: [User Interface] Text filter dialog unusable (jghali)
+0014583: [PDF] Euro-sign (€) showing as squares or diamond shape in PDF forms (jghali)
+0014619: [General] "Insert frames" incorrectly place frames on left pages when bleed is involved (jghali)
+0014507: [General] Typo in PACKAGING (jghali)
+0014501: [Translation] Ukrainian UI update and fixes (jghali)
+0014522: [Translation] Ukrainian UI update and fixes (plinnell)
+0014494: [Import / Export] Bad PDF output caused by broken JPEGs embedding incorrect ICC profiles (jghali)
+0014362: [Import / Export] Inkscape SVG freezes Scribus (jghali)
+0014391: [Translation] Ukrainian UI update (jghali)
 - 0014377: [General] Rotate Item show wrong icon when mouse over frame middle point (jghali) - closed.
 - 0014380: [Styles] Crash caused by incorrect handling of reference to deleted styles by style manager (jghali) - closed.
 - 0012708: [Releases] GNOME/KDE: Please install the supplied AppData file (plinnell) - closed.

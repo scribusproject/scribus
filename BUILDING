@@ -40,11 +40,11 @@ Recommended:
 	GhostScript >= 8.0 (8.6+ or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
-	python-imaging for the font sampler preview
+	python-imaging or python-pillow for the font sampler preview
 	pkgconfig (to assist finding other libraries)
 	apspell for the spell checker
 	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import
-        boost and boost-devel - needed for some advanced vector format display
+    boost and boost-devel - needed for some advanced vector format display
 	
 
 
