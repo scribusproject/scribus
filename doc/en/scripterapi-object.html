@@ -114,6 +114,10 @@
 <li>"charstyle" [optional] -> char style to use</li>
 </ul>
 </p>
+<p>If you wish to skip a number of settings, unfortunately, this command will not accept null values, i.e., a series of commas. You <i>must</i> put some integer value for each of the potential parameters. For example, imagine you wish to only specify a name for the Paragraph Style, and the Character Style. Your command should be something like:</p>
+<p><strong>scribus.createParagraphStyle("MyNewStyle",0,0,0,0,0,0,0,0,0,"MyCharStyle")</strong></p>
+<p>On the other hand, if you only wanted to specify a name and linespacing mode, you can quit whenever after you finished with non-zero data:</p>
+<p><strong>scribus.createParagraphStyle("MyOtherNewStyle",1)</strong></p>
 </dd>
 
 <dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
