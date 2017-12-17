@@ -84,6 +84,7 @@ def drawHeaderFooter(pagetitle):
     textbox=scribus.createText(leftMargin, topMargin,  pageWidth-leftMargin-rightMargin, HEADERSIZE)
     #set proper font size and alignment
     scribus.setFontSize(18, textbox)
+    scribus.setTextColor("Black",textbox)
     scribus.setTextAlignment(scribus.ALIGN_CENTERED, textbox)
     #load the string into the textbox
     headerstring=pagetitle
@@ -93,6 +94,7 @@ def drawHeaderFooter(pagetitle):
     textbox=scribus.createText(leftMargin, pageHeight-bottomMargin-FOOTERSIZE,  pageWidth-leftMargin-rightMargin, FOOTERSIZE)
     #set proper font size and alignment
     scribus.setFontSize(9, textbox)
+    scribus.setTextColor("Black",textbox)
     scribus.setTextAlignment(scribus.ALIGN_LEFT, textbox)
     #load the string into the textbox
     footerstring="Created using ColorChart.py V %s script for Scribus by Sebastian Stetter - http://www.sebastianstetter.de" % str(__version__)
@@ -246,6 +248,7 @@ def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertic
     textbox=scribus.createText(h+width+5, v, 50, height)
     #set proper font size
     scribus.setFontSize(11, textbox)
+    scribus.setTextColor("Black",textbox)
     scribus.setTextAlignment(scribus.ALIGN_LEFT, textbox)
     #load the string into the textbox
     scribus.insertText(colorstring, 0, textbox)
