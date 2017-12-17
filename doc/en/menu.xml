@@ -120,7 +120,7 @@
 		<submenuitem text="Scripter API" file="scripterapi.html">
 			<submenuitem text="Document Commands" file="scripterapi-doc.html"/>
 			<submenuitem text="Page Commands" file="scripterapi-page.html"/>
-			<submenuitem text="Commands for Master Pages" file="scripterapi-masterpages.html"/>
+			<submenuitem text="Master Page Commands" file="scripterapi-masterpages.html"/>
 			<submenuitem text="Creating &amp; Destroying Objects" file="scripterapi-object.html"/>
 			<submenuitem text="Selecting Objects" file="scripterapi-select.html"/>
 			<submenuitem text="Setting Object Properties" file="scripterapi-setobjprop.html"/>
