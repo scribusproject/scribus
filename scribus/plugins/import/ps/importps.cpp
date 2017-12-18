@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
+#include "util_ghostscript.h"
 #include "util_icon.h"
 #include "util_math.h"
 #ifdef HAVE_PODOFO
@@ -406,11 +407,20 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
 	args.clear();
 */
+	int major = 0, minor = 0;
+	getNumericGSVersion(major, minor);
+	int gsVersion = major * 1000 + minor;
+
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dNODISPLAY" );
 	args.append( "-dBATCH" );
-	args.append( "-dDELAYBIND" );
+	// #15077: -dDELAYBIND was deprecated in 9.22 but will be restored in 9.23
+	// See http://git.ghostscript.com/?p=ghostpdl.git;a=commit;h=fa499a5809aab45b2891b5c8b2363d1bca890757
+	if (gsVersion == 9022)
+		args.append( "-dREALLYDELAYBIND" );
+	else
+		args.append( "-dDELAYBIND" );
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
 	// get to the required information.
