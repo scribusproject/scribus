@@ -97,7 +97,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	buttonOK->setDefault( true );
 	buttonCancel->setText(CommonStrings::tr_Cancel);
 
-	hsvSelector = Swatches->addTopLevelItem( tr( "HSV Color Map" ) );
+	hsvSelector = Swatches->addTopLevelItem( tr( "Color Map" ) );
 	hsvSelector->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 	csm.findPaletteLocations();
 	systemSwatches = Swatches->addTopLevelItem( tr("Scribus Swatches"));
@@ -112,7 +112,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	// set default combo item in constructor: at that point
 	// the swatch combo widget does not know its width yet.
 	// We set it in the dialog showEvent().
-	// Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
+	// Swatches->setCurrentComboItem( tr( "Color Map" ));
 
 	slidersLayout->setSpacing(5);
 	slidersLayout->setMargin(0);
@@ -1115,7 +1115,7 @@ void CMYKChoose::setValues()
 void CMYKChoose::showEvent(QShowEvent * event)
 {
 	if (!event->spontaneous())
-		Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
+		Swatches->setCurrentComboItem( tr( "Color Map" ));
 	QDialog::showEvent(event);
 }
 
