@@ -16695,7 +16695,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="351"/>
         <source>Failed to load font %1 - font is not scalable</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger la police %1 - police non redimensionnable</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="361"/>
