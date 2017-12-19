@@ -3444,98 +3444,98 @@ Didalvoudek eo ar c&apos;hefluniadur</translation>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="553"/>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="554"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="555"/>
         <source>Main</source>
         <translation>Pennañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="556"/>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="557"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="558"/>
         <source>Copied Items</source>
         <translation>Ergorenn eiladet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="663"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="702"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="664"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="703"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Diuzañ ur c&apos;havlec&apos;hiad evit an albom</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="742"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="743"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Diuzit ur restr albom da enporzhiañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="764"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="765"/>
         <source>Choose a Directory</source>
         <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="840"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="841"/>
         <source>Rename</source>
         <translation>Adenvel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="842"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="843"/>
         <source>Delete</source>
         <translation>Diverkañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="847"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="848"/>
         <source>Copy To:</source>
         <translation>Eilañ da :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="848"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="849"/>
         <source>Move To:</source>
         <translation>Dilec&apos;hiañ da :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="915"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1102"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1243"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1392"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="916"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1103"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1244"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1393"/>
         <source>&amp;Name:</source>
         <translation>&amp;Anv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="915"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1243"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1392"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="916"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1244"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1393"/>
         <source>New Entry</source>
         <translation>Enankad nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1231"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1239"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1317"/>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1389"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1232"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1240"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1318"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1390"/>
         <source>Object</source>
         <translation>Ergorenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1457"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1458"/>
         <source>Scrapbook</source>
         <translation>Albom</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1458"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1459"/>
         <source>Create a new scrapbook page</source>
         <translation>Krouiñ un albom nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1459"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1460"/>
         <source>Load an existing scrapbook</source>
         <translation>Kargañ un albom ez eus anezhañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1460"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1461"/>
         <source>Save the selected scrapbook</source>
         <translation>Enrollañ an albom bet diuzet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1461"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1462"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Enporzhiañ restr un albom eus Scribus &lt;=1.3.2</translation>
     </message>
@@ -3544,42 +3544,42 @@ Didalvoudek eo ar c&apos;hefluniadur</translation>
         <translation type="obsolete">Enporzhiañ restr un albom eus Scribus &lt;=1.3.2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1462"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1463"/>
         <source>Close the selected scrapbook</source>
         <translation>Serriñ an albom bet diuzet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1102"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1103"/>
         <source>New Name</source>
         <translation>Anv nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="744"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="745"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Albom skeudennoù (*.scs)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="836"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="837"/>
         <source>Paste to Page</source>
         <translation>Pegañ war ar bajenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="891"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="892"/>
         <source>Save as...</source>
         <translation>Enrollañ evel...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="894"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="895"/>
         <source>Close</source>
         <translation>Serriñ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="897"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="898"/>
         <source>Delete Contents</source>
         <translation>Diverkañ an endalc&apos;hadoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scrapbookpalette.cpp" line="1057"/>
+        <location filename="../../../scribus/scrapbookpalette.cpp" line="1058"/>
         <source>Do you really want to delete all entries?</source>
         <translation>Fellout a ra deoc&apos;h diverkañ an holl enankadoù ?</translation>
     </message>
@@ -6858,18 +6858,18 @@ Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="83"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="84"/>
         <source>Analyzing PostScript:</source>
         <translation>O tezrannañ ar restr mod PostScript :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="278"/>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="706"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="279"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="716"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="476"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="486"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -6877,27 +6877,27 @@ failed!</source>
 ar restr %1 !</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="477"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="487"/>
         <source>Fatal Error</source>
         <translation>Fazi lazhus</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="482"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="492"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="837"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="847"/>
         <source>Converting of %1 images failed!</source>
         <translation>C&apos;hwitadenn war amdreiñ ar skeudennoù %1 !</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="838"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="848"/>
         <source>Error</source>
         <translation>Fazi</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="80"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="81"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
@@ -11648,37 +11648,37 @@ Please check it and try again.</source>
         <translation>Ezporzhiadur ergorennoù war ar bajenn vremanel :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2532"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2591"/>
         <source>Page:</source>
         <translation>Pajenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2545"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2604"/>
         <source>Date:</source>
         <translation>Deiziad :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7969"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="8028"/>
         <source>Failed to load an image : %1</source>
         <translation>C&apos;hwitadenn war kargañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7974"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="8033"/>
         <source>Failed to write an image : %1</source>
         <translation>C&apos;hwitadenn war skrivañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7979"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="8038"/>
         <source>Failed to load an image mask : %1</source>
         <translation>C&apos;hwitadenn war kargañ maskl ur skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7984"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="8043"/>
         <source>Insufficient memory for processing an image</source>
         <translation>N&apos;eus ket memor a-walc&apos;h a-benn keweriañ ur skeudenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7964"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="8023"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Degouezhet ez eus bet ur fazi skritur, gwiriit ar plas a chom war ar gantenn</translation>
     </message>
@@ -13881,23 +13881,23 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2451"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2463"/>
         <source>Error Writing Preferences</source>
         <translation>Faziek eo skrivadur ar gwellvezioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2453"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2465"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>N&apos;eo ket bet barrek Scribus  da wareziñ e wellvezioù : &lt;br&gt; %1&lt;br&gt;Gwiriañ aotreadoù ar restr hag an teuliad ha plas hegerz war ar gantenn.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2470"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2482"/>
         <source>Error Loading Preferences</source>
         <translation>Fazi e-pad kargadur ar gwellvezioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2472"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2484"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>N&apos;eo ket bet barrek Scribus da wareziñ e wellvezioù : &lt;br&gt;%1&lt;br&gt;Arveret e vo an arventennoù dre ziouer.</translation>
     </message>
@@ -16887,60 +16887,65 @@ Gwiriit an treug ha anv ar restr.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="351"/>
+        <source>Failed to load font %1 - font is not scalable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scfonts.cpp" line="361"/>
         <source>New Font found, checking...</source>
         <translation>Nodrezh nevez bet kavet, o wiriañ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/ftface.cpp" line="138"/>
-        <location filename="../../../scribus/scfonts.cpp" line="360"/>
-        <location filename="../../../scribus/scfonts.cpp" line="399"/>
+        <location filename="../../../scribus/scfonts.cpp" line="370"/>
+        <location filename="../../../scribus/scfonts.cpp" line="409"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
         <translation>Un arouezenn siek zo gant an nodrezh %1, %2 (boneg arouezenn %3)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="390"/>
+        <location filename="../../../scribus/scfonts.cpp" line="400"/>
         <source>Modified Font found, checking...</source>
         <translation>Nodrezh daskemmet bet kavet, o wiriañ...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="547"/>
+        <location filename="../../../scribus/scfonts.cpp" line="557"/>
         <source>Font %1 loaded from %2(%3)</source>
         <translation>Nodrezh %1 bet karget diouzh %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="563"/>
+        <location filename="../../../scribus/scfonts.cpp" line="573"/>
         <source>Font %1(%2) is duplicate of %3</source>
         <translation>An nodrezh %1 (%2) zo bet eiladet diwar %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="676"/>
+        <location filename="../../../scribus/scfonts.cpp" line="686"/>
         <source>Loading font %1 (found using fontconfig)</source>
         <translation>O kargañ an nodrezh %1 (bet kavet dre fontconfig)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="681"/>
+        <location filename="../../../scribus/scfonts.cpp" line="691"/>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation>C&apos;hwitadenn war gargañ un nodrezh - n&apos;eo ket gouest freetype2 da gavout ar restr</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="777"/>
+        <location filename="../../../scribus/scfonts.cpp" line="787"/>
         <source>Reading Font Cache</source>
         <translation>Lennadur krubuilh an nodrezhoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="824"/>
+        <location filename="../../../scribus/scfonts.cpp" line="834"/>
         <source>Writing updated Font Cache</source>
         <translation>Enrolladur krubuilh nodrezhoù bet hizivaet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scfonts.cpp" line="841"/>
+        <location filename="../../../scribus/scfonts.cpp" line="851"/>
         <source>Searching for Fonts</source>
         <translation>Klask nodrezhoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="210"/>
-        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="270"/>
-        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="319"/>
+        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="224"/>
+        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="268"/>
+        <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="348"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 zo kontronet marteze : klavioù diskoulmañ direizh pe o vankout</translation>
     </message>
@@ -16975,7 +16980,7 @@ Gwiriit an treug ha anv ar restr.</translation>
         <translation>&amp;Enporzhiañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4454"/>
+        <location filename="../../../scribus/scribus.cpp" line="4455"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>N&apos;eo ket bet enrollet ar c&apos;hemmoù en ho teul ha goulennet hoc&apos;h eus ma vint disc&apos;hraet. Fellout a ra deoc&apos;h kenderc&apos;hel ganti ?</translation>
     </message>
@@ -17050,17 +17055,17 @@ Gwiriit an treug ha anv ar restr.</translation>
         <translation>Kicero (c)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/util.cpp" line="367"/>
+        <location filename="../../../scribus/util.cpp" line="377"/>
         <source>File exists</source>
         <translation>Ar restr zo anezhi</translation>
     </message>
     <message>
-        <location filename="../../../scribus/util.cpp" line="368"/>
+        <location filename="../../../scribus/util.cpp" line="378"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Ar restr anvet &quot;%1&quot; zo anezhi endeo.&lt;br/&gt;Fellout a ra deoc&apos;h he flastañ gant ar restr emaoc&apos;h oc&apos;h enrollañ ?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/util.cpp" line="537"/>
+        <location filename="../../../scribus/util.cpp" line="547"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>pajenn</translation>
@@ -17700,13 +17705,13 @@ Gwiriit an treug ha anv ar restr.</translation>
         <translation>N&apos;eo ket bet kavet an ergorenn.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdobj.cpp" line="616"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdobj.cpp" line="620"/>
         <source>Style not found.</source>
         <comment>python error</comment>
         <translation>N&apos;eo ket bet kavet ar stil.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdobj.cpp" line="642"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdobj.cpp" line="598"/>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Ur stil a c&apos;hall bezañ sevenet gant ur sterniad testenn hepken.</translation>
@@ -18741,7 +18746,7 @@ teuliadur an arc&apos;hwelioù. Koulskoude n&apos;eo ket klok ar roll en abeg d&
 dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
+        <location filename="../../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="686"/>
         <source>
 External Links
 </source>
@@ -20505,32 +20510,32 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <translation>Kengeidadur al livioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7708"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7743"/>
         <source>Remove content from frames</source>
         <translation>Dilemel ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7725"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7760"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Fellout a ra deoc&apos;h dilemel ho testenn a-bezh ?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7779"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7814"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>N&apos;haller ket diverkañ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7779"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7814"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Emañ an ergorenn %1 o vezañ embannet gant an embanner diabarzh. Freuzet e vo ar gwezhiadur dilemel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8355"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8390"/>
         <source>Some objects are locked.</source>
         <translation>Prennet ez eus ergorennoù zo.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9591"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9626"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -20541,7 +20546,7 @@ Linkañ a-serzh : %3
 C&apos;hwelañ : %4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9625"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9660"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -20550,27 +20555,27 @@ Esaouiñ a-blaen : %2
 Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8351"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8386"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8352"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8387"/>
         <source>&amp;Skip locked objects</source>
         <translation>Lammat drei&amp;st an ergorenn prennet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="6332"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="6367"/>
         <source>remove direct paragraph formatting</source>
         <translation>dilemel mentrezhadur end-eeun ar rannbennad </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="6562"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="6597"/>
         <source>remove direct char formatting</source>
         <translation>dilemel mentrezhañ eeun an arouezennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="10656"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="10691"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -20605,31 +20610,31 @@ Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="600"/>
-        <location filename="../../../scribus/scribus.cpp" line="9510"/>
+        <location filename="../../../scribus/scribus.cpp" line="9511"/>
         <source>Open &amp;Recent</source>
         <translation>Teulioù &amp;nevez savet</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="608"/>
-        <location filename="../../../scribus/scribus.cpp" line="9512"/>
+        <location filename="../../../scribus/scribus.cpp" line="9513"/>
         <source>&amp;Import</source>
         <translation>&amp;Enporzhiañ</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="615"/>
-        <location filename="../../../scribus/scribus.cpp" line="9513"/>
+        <location filename="../../../scribus/scribus.cpp" line="9514"/>
         <source>&amp;Export</source>
         <translation>E&amp;zporzhiañ</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="656"/>
-        <location filename="../../../scribus/scribus.cpp" line="9511"/>
+        <location filename="../../../scribus/scribus.cpp" line="9512"/>
         <source>Paste Recent</source>
         <translation>Pegañ teuli nevez savet</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="657"/>
-        <location filename="../../../scribus/scribus.cpp" line="9515"/>
+        <location filename="../../../scribus/scribus.cpp" line="9516"/>
         <source>Contents</source>
         <translation>Endalc&apos;hadoù</translation>
     </message>
@@ -20650,13 +20655,13 @@ Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="740"/>
-        <location filename="../../../scribus/scribus.cpp" line="9520"/>
+        <location filename="../../../scribus/scribus.cpp" line="9521"/>
         <source>&amp;PDF Options</source>
         <translation>Dibarzhioù &amp;PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="747"/>
-        <location filename="../../../scribus/scribus.cpp" line="9522"/>
+        <location filename="../../../scribus/scribus.cpp" line="9523"/>
         <source>C&amp;onvert To</source>
         <translation>Amd&amp;reiñ da</translation>
     </message>
@@ -20677,23 +20682,23 @@ Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="856"/>
-        <location filename="../../../scribus/scribus.cpp" line="9528"/>
+        <location filename="../../../scribus/scribus.cpp" line="9529"/>
         <source>Liga&amp;ture</source>
         <translation>Erea&amp;dur</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9535"/>
+        <location filename="../../../scribus/scribus.cpp" line="9536"/>
         <source>&amp;Alignment</source>
         <translation>Des&amp;teudadur</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2131"/>
         <location filename="../../../scribus/scribus.cpp" line="2174"/>
-        <location filename="../../../scribus/scribus.cpp" line="4220"/>
-        <location filename="../../../scribus/scribus.cpp" line="4557"/>
-        <location filename="../../../scribus/scribus.cpp" line="4782"/>
-        <location filename="../../../scribus/scribus.cpp" line="4928"/>
-        <location filename="../../../scribus/scribus.cpp" line="9545"/>
+        <location filename="../../../scribus/scribus.cpp" line="4221"/>
+        <location filename="../../../scribus/scribus.cpp" line="4558"/>
+        <location filename="../../../scribus/scribus.cpp" line="4783"/>
+        <location filename="../../../scribus/scribus.cpp" line="4929"/>
+        <location filename="../../../scribus/scribus.cpp" line="9546"/>
         <source>Ready</source>
         <translation>Prest</translation>
     </message>
@@ -20704,15 +20709,15 @@ Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2279"/>
-        <location filename="../../../scribus/scribus.cpp" line="4873"/>
-        <location filename="../../../scribus/scribus.cpp" line="8088"/>
+        <location filename="../../../scribus/scribus.cpp" line="4874"/>
+        <location filename="../../../scribus/scribus.cpp" line="8089"/>
         <source>Document</source>
         <translation>Teul</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3622"/>
         <location filename="../../../scribus/scribus.cpp" line="3740"/>
-        <location filename="../../../scribus/scribus.cpp" line="4300"/>
+        <location filename="../../../scribus/scribus.cpp" line="4301"/>
         <source>Open</source>
         <translation>Digeriñ</translation>
     </message>
@@ -20764,65 +20769,65 @@ Esaouiñ a-serzh : %3</translation>
         <translation>O kargañ...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4130"/>
+        <location filename="../../../scribus/scribus.cpp" line="4131"/>
         <source> was replaced by: </source>
         <translation>zo bet amsavet gant :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4162"/>
+        <location filename="../../../scribus/scribus.cpp" line="4163"/>
         <source>(converted)</source>
         <translation>(amdroet)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4534"/>
+        <location filename="../../../scribus/scribus.cpp" line="4535"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Teulioù (*.sla *.sla.gz);;An holl restroù(*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4537"/>
-        <location filename="../../../scribus/scribus.cpp" line="5670"/>
-        <location filename="../../../scribus/scribus.cpp" line="8111"/>
+        <location filename="../../../scribus/scribus.cpp" line="4538"/>
+        <location filename="../../../scribus/scribus.cpp" line="5671"/>
+        <location filename="../../../scribus/scribus.cpp" line="8112"/>
         <source>Save As</source>
         <translation>Enrollañ evel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4566"/>
+        <location filename="../../../scribus/scribus.cpp" line="4567"/>
         <source>Saving...</source>
         <translation>Oc&apos;h enrollañ...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4836"/>
-        <location filename="../../../scribus/scribus.cpp" line="7974"/>
+        <location filename="../../../scribus/scribus.cpp" line="4837"/>
+        <location filename="../../../scribus/scribus.cpp" line="7975"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Fazioù zo bet kavet gant Scribus. Gwell e vefe arverañ ar gwirier a-benn o difaziañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4869"/>
+        <location filename="../../../scribus/scribus.cpp" line="4870"/>
         <source>Printing...</source>
         <translation>O voullañ...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4916"/>
+        <location filename="../../../scribus/scribus.cpp" line="4917"/>
         <source>Printing failed!</source>
         <translation>C&apos;hwitadenn war ar moullañ !</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5009"/>
+        <location filename="../../../scribus/scribus.cpp" line="5010"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>N&apos;haller ket troc&apos;hañ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5009"/>
+        <location filename="../../../scribus/scribus.cpp" line="5010"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Emañ an ergorenn %1 war embann gant an embanner diabarzh. Dilezet e vo an troc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5613"/>
+        <location filename="../../../scribus/scribus.cpp" line="5614"/>
         <source>About Qt</source>
         <translation>Diwar-benn Qt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5626"/>
+        <location filename="../../../scribus/scribus.cpp" line="5627"/>
         <source>Scribus Manual</source>
         <translation>Dornlevr Scribus</translation>
     </message>
@@ -20831,27 +20836,27 @@ Esaouiñ a-serzh : %3</translation>
         <translation type="obsolete">Restroù mod testenn (*.txt);;An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7065"/>
+        <location filename="../../../scribus/scribus.cpp" line="7066"/>
         <source>&amp;Size:</source>
         <translation>&amp;Ment :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7065"/>
+        <location filename="../../../scribus/scribus.cpp" line="7066"/>
         <source>Size</source>
         <translation>Ment</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7097"/>
+        <location filename="../../../scribus/scribus.cpp" line="7098"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Arliv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7097"/>
+        <location filename="../../../scribus/scribus.cpp" line="7098"/>
         <source>Shade</source>
         <translation>Arliv</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7201"/>
+        <location filename="../../../scribus/scribus.cpp" line="7202"/>
         <source>No Style</source>
         <translation>Stil ebet</translation>
     </message>
@@ -20868,158 +20873,158 @@ Esaouiñ a-serzh : %3</translation>
         <translation type="obsolete">Ghostscript :  n&apos;hallit ket arverañ ar skeudennoù EPS nag an alberz Postscript</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8009"/>
+        <location filename="../../../scribus/scribus.cpp" line="8010"/>
         <source>All</source>
         <translation>Pep tra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8250"/>
+        <location filename="../../../scribus/scribus.cpp" line="8251"/>
         <source>-Page%1</source>
         <translation>-Pajenn %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8642"/>
+        <location filename="../../../scribus/scribus.cpp" line="8643"/>
         <source>Some objects are locked.</source>
         <translation>Prennet ez eus ergorennoù zo.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8638"/>
+        <location filename="../../../scribus/scribus.cpp" line="8639"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Prennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4487"/>
-        <location filename="../../../scribus/scribus.cpp" line="4550"/>
+        <location filename="../../../scribus/scribus.cpp" line="4488"/>
+        <location filename="../../../scribus/scribus.cpp" line="4551"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Enrollet eo bet ho teul en ur restr padennek ha n&apos;hall ket bezañ dilec&apos;hiet :
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4489"/>
-        <location filename="../../../scribus/scribus.cpp" line="4552"/>
-        <location filename="../../../scribus/scribus.cpp" line="8120"/>
-        <location filename="../../../scribus/scribus.cpp" line="8254"/>
-        <location filename="../../../scribus/scribus.cpp" line="8276"/>
+        <location filename="../../../scribus/scribus.cpp" line="4490"/>
+        <location filename="../../../scribus/scribus.cpp" line="4553"/>
+        <location filename="../../../scribus/scribus.cpp" line="8121"/>
+        <location filename="../../../scribus/scribus.cpp" line="8255"/>
+        <location filename="../../../scribus/scribus.cpp" line="8277"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>N&apos;haller ket skrivañ er restr :
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5670"/>
+        <location filename="../../../scribus/scribus.cpp" line="5671"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7849"/>
+        <location filename="../../../scribus/scribus.cpp" line="7850"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
         <translation>N&apos;eo ket bet staliet Ghostscript war ho reizhiad pe n&apos;eo ket bet kefluniet Scribus gant an treug davit ar meziant.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7852"/>
+        <location filename="../../../scribus/scribus.cpp" line="7853"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
         <translation>Keit ha na vo ket bet kempennet n&apos;hallot ket enporzhiañ skeudennoù mod EPS pe ober gant alberz ar moullañ. </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7854"/>
+        <location filename="../../../scribus/scribus.cpp" line="7855"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
         <translation>Keit ha na vo ket bet kempennet n&apos;hallot ket enporzhiañ skeudennoù mod EPS pe ober gant alberz ar moullañ mod PostScript. </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7857"/>
+        <location filename="../../../scribus/scribus.cpp" line="7858"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
         <translation>Klikañ war afell ar Skoazell da lenn ar skoazell a-zivout Ghostscript ha titouroù a-zivout ar staliañ.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7862"/>
+        <location filename="../../../scribus/scribus.cpp" line="7863"/>
         <source>Ghostscript is missing</source>
         <translation>PostScript a vank</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8057"/>
+        <location filename="../../../scribus/scribus.cpp" line="8058"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Dinoet ez eus bet fazioù gant Scribus.
 Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8154"/>
+        <location filename="../../../scribus/scribus.cpp" line="8155"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Dinoet ez eus bet fazioù.
 Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8639"/>
+        <location filename="../../../scribus/scribus.cpp" line="8640"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9357"/>
+        <location filename="../../../scribus/scribus.cpp" line="9358"/>
         <source>Information</source>
         <translation>Stlennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9357"/>
+        <location filename="../../../scribus/scribus.cpp" line="9358"/>
         <source>The program %1 is already running!</source>
         <translation>Emañ ar goulev %1 o vont en-dro endeo !</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9396"/>
+        <location filename="../../../scribus/scribus.cpp" line="9397"/>
         <source>The program %1 is missing!</source>
         <translation>Mankout a ra ar goulev %1 !</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9517"/>
+        <location filename="../../../scribus/scribus.cpp" line="9518"/>
         <source>&amp;Level</source>
         <translation>&amp;Live</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9518"/>
+        <location filename="../../../scribus/scribus.cpp" line="9519"/>
         <source>Send to Layer</source>
         <translation>Lakaat war an dreuzfollenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9519"/>
+        <location filename="../../../scribus/scribus.cpp" line="9520"/>
         <source>Previe&amp;w Settings</source>
         <translation>Arventennoù an alber&amp;z</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9525"/>
+        <location filename="../../../scribus/scribus.cpp" line="9526"/>
         <source>Character</source>
         <translation>Arouezenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9526"/>
+        <location filename="../../../scribus/scribus.cpp" line="9527"/>
         <source>Quote</source>
         <translation>Daouask</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9527"/>
+        <location filename="../../../scribus/scribus.cpp" line="9528"/>
         <source>Space</source>
         <translation>Esaouioù</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1022"/>
-        <location filename="../../../scribus/scribus.cpp" line="9541"/>
+        <location filename="../../../scribus/scribus.cpp" line="9542"/>
         <source>X-Pos:</source>
         <translation>X :</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1023"/>
-        <location filename="../../../scribus/scribus.cpp" line="9542"/>
+        <location filename="../../../scribus/scribus.cpp" line="9543"/>
         <source>Y-Pos:</source>
         <translation>Y :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4391"/>
-        <location filename="../../../scribus/scribus.cpp" line="9695"/>
+        <location filename="../../../scribus/scribus.cpp" line="4392"/>
+        <location filename="../../../scribus/scribus.cpp" line="9696"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Fellout a ra deoc&apos;h kemm ar skeudenn vremanel ?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4333"/>
+        <location filename="../../../scribus/scribus.cpp" line="4334"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Fellout a ra deoc&apos;h dilemel ho testenn a-bezh ?</translation>
     </message>
@@ -21030,17 +21035,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="963"/>
-        <location filename="../../../scribus/scribus.cpp" line="9536"/>
+        <location filename="../../../scribus/scribus.cpp" line="9537"/>
         <source>Online &amp;Tutorials</source>
         <translation>Kelennskridoù &amp;enlinenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4127"/>
+        <location filename="../../../scribus/scribus.cpp" line="4128"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Aeladoù liv zo, arveret en teul-mañ, n&apos;int ket staliet :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8111"/>
+        <location filename="../../../scribus/scribus.cpp" line="8112"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;An holl restroù (*)</translation>
     </message>
@@ -21055,7 +21060,7 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Hizivadur ar skeudennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4970"/>
+        <location filename="../../../scribus/scribus.cpp" line="4971"/>
         <source>Print engine initialization failed</source>
         <translation>C&apos;hwitadenn war deraouekaat an ijinenn voullañ</translation>
     </message>
@@ -21065,17 +21070,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9752"/>
+        <location filename="../../../scribus/scribus.cpp" line="9753"/>
         <source>&amp;Name:</source>
         <translation>&amp;Anv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9752"/>
+        <location filename="../../../scribus/scribus.cpp" line="9753"/>
         <source>New Entry</source>
         <translation>Enankad nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7920"/>
+        <location filename="../../../scribus/scribus.cpp" line="7921"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript a vank : N&apos;eo ket hegerz an alberz moullañ mod PostScript</translation>
     </message>
@@ -21093,138 +21098,138 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
 <context>
     <name>ScribusQApp</name>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="208"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="209"/>
         <source>Invalid argument: </source>
         <translation>Arguzenn didalvoudek :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="210"/>
-        <location filename="../../../scribus/scribusapp.cpp" line="228"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="211"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="229"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>N&apos;eus ket eus ar restr %1i, o tilezel.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="435"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="449"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Arver : scribus [dibarzh ...·]·[restr]</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="436"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="450"/>
         <source>Options:</source>
         <translation>Dibarzhioù :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="438"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="452"/>
         <source>Print help (this message) and exit</source>
         <translation>Moullañ ar skoazell (an destenn-mañ) ha kuitaat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="439"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="453"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>Arverañ a ra xx evel berradenn evit ur yezh, da sk. `en&apos; pe `de&apos;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="440"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="454"/>
         <source>List the currently installed interface languages</source>
         <translation>Diskouez ar yezhoù hegerz evit ar c&apos;hetal</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="437"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="451"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Diskouez ar stlennoù war ar penel e-pad kargadur an nodrezhoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="441"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="455"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>Na ziskouez ar skeudenn ginnig e-pad al loc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="442"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="456"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation>Arsaviñ diskouez ar skeudenn ginnig gant al loc&apos;hañ. Skrivañ a ra ur restr goullo anvet .neversplash in ~/.scribus.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="446"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="460"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation>Pellgargañ ur restr diouzh lec&apos;hienn Scribus ha diskouez an handlev nevesañ hegerz.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="447"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="461"/>
         <source>Output version information and exit</source>
         <translation>Diskouez stlennoù a-fet an handelv ha kuitaat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="445"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="459"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Kempenn afelloù ar voestad a zehou da gleiz (da sk. Dilezel/Ket/Ya e-lec&apos;h Ya/Ket/Dilezel)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="443"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="457"/>
         <source>filename</source>
         <translation>Anv ar restr</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="443"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="457"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Arverañ anv ar restr evel un treug evit gwellvezioù un arveriad roet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="451"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="465"/>
         <source>Display a console window</source>
         <translation>Skrammañ prenestr ur penel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="466"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="480"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Ar yezhoù hegerz evit ketal Scribus zo :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="474"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="488"/>
         <source>To override the default language choice:</source>
         <translation>Evit kemmañ ar yezh dre ziouer :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="475"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="489"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx per scribus --lang xx, gant xx evel yezh dibabet.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="480"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="494"/>
         <source>Scribus Version</source>
         <translation>Handelv Scribus</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="489"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="503"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus, Embann Ameilet dre Urzhiataer e darzh digor</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="497"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="511"/>
         <source>Homepage</source>
         <translation>Lec&apos;hienn Scribus</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="498"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="512"/>
         <source>Documentation</source>
         <translation>Teuliadur</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="499"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="513"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="500"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="514"/>
         <source>Issues</source>
         <translation>Kudennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="444"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="458"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation>Diskouez lec&apos;hiadur stlennoù an aelad mod ICC war ar penel e-pad al loc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusapp.cpp" line="226"/>
+        <location filename="../../../scribus/scribusapp.cpp" line="227"/>
         <source>Invalid argument: %1</source>
         <translation>Arguzenn didalvoudek : %1</translation>
     </message>
@@ -23849,51 +23854,51 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="499"/>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="559"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="592"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="499"/>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="559"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="592"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="499"/>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="559"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="592"/>
         <source>Shift</source>
         <translation>Pennlz</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="499"/>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="559"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="592"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="506"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="535"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="510"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="539"/>
         <source>Shift+</source>
         <translation>Pennlz+</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="514"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="543"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="518"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="547"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../../../scribus/tabkeyboardshortcutswidget.cpp" line="560"/>
         <source>This key sequence is already in use</source>
         <translation>Arveret eo ar verradenn-mañ endeo</translation>
     </message>
@@ -25558,88 +25563,88 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
 <context>
     <name>TabTools</name>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="113"/>
+        <location filename="../../../scribus/tabtools.cpp" line="114"/>
         <source>Text</source>
         <translation>Testenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="118"/>
+        <location filename="../../../scribus/tabtools.cpp" line="119"/>
         <source>Font:</source>
         <translation>Nodrezh :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="124"/>
+        <location filename="../../../scribus/tabtools.cpp" line="125"/>
         <source>Size:</source>
         <translation>Ment :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="131"/>
+        <location filename="../../../scribus/tabtools.cpp" line="132"/>
         <source>Text Color:</source>
         <translation>Liv an destenn : </translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="136"/>
-        <location filename="../../../scribus/tabtools.cpp" line="151"/>
-        <location filename="../../../scribus/tabtools.cpp" line="167"/>
-        <location filename="../../../scribus/tabtools.cpp" line="183"/>
-        <location filename="../../../scribus/tabtools.cpp" line="241"/>
-        <location filename="../../../scribus/tabtools.cpp" line="256"/>
-        <location filename="../../../scribus/tabtools.cpp" line="297"/>
-        <location filename="../../../scribus/tabtools.cpp" line="352"/>
-        <location filename="../../../scribus/tabtools.cpp" line="360"/>
-        <location filename="../../../scribus/tabtools.cpp" line="392"/>
-        <location filename="../../../scribus/tabtools.cpp" line="443"/>
-        <location filename="../../../scribus/tabtools.cpp" line="452"/>
-        <location filename="../../../scribus/tabtools.cpp" line="461"/>
+        <location filename="../../../scribus/tabtools.cpp" line="137"/>
+        <location filename="../../../scribus/tabtools.cpp" line="152"/>
+        <location filename="../../../scribus/tabtools.cpp" line="168"/>
+        <location filename="../../../scribus/tabtools.cpp" line="184"/>
+        <location filename="../../../scribus/tabtools.cpp" line="242"/>
+        <location filename="../../../scribus/tabtools.cpp" line="257"/>
+        <location filename="../../../scribus/tabtools.cpp" line="298"/>
+        <location filename="../../../scribus/tabtools.cpp" line="353"/>
+        <location filename="../../../scribus/tabtools.cpp" line="361"/>
+        <location filename="../../../scribus/tabtools.cpp" line="393"/>
+        <location filename="../../../scribus/tabtools.cpp" line="444"/>
+        <location filename="../../../scribus/tabtools.cpp" line="453"/>
+        <location filename="../../../scribus/tabtools.cpp" line="462"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="139"/>
-        <location filename="../../../scribus/tabtools.cpp" line="155"/>
-        <location filename="../../../scribus/tabtools.cpp" line="171"/>
-        <location filename="../../../scribus/tabtools.cpp" line="187"/>
+        <location filename="../../../scribus/tabtools.cpp" line="140"/>
+        <location filename="../../../scribus/tabtools.cpp" line="156"/>
+        <location filename="../../../scribus/tabtools.cpp" line="172"/>
+        <location filename="../../../scribus/tabtools.cpp" line="188"/>
         <source>Shading:</source>
         <translation>Arliv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="146"/>
+        <location filename="../../../scribus/tabtools.cpp" line="147"/>
         <source>Text Stroke:</source>
         <translation>Trolinenn an detenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="162"/>
+        <location filename="../../../scribus/tabtools.cpp" line="163"/>
         <source>Fill Color:</source>
         <translation>Liv leuniañ :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="178"/>
+        <location filename="../../../scribus/tabtools.cpp" line="179"/>
         <source>Stroke Color:</source>
         <translation>Liv an drolinenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="194"/>
+        <location filename="../../../scribus/tabtools.cpp" line="195"/>
         <source>Tab Fill Character:</source>
         <translation>Arouezenn leuniañ an taolennata :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="200"/>
+        <location filename="../../../scribus/tabtools.cpp" line="201"/>
         <source>Tab Width:</source>
         <translation>Led an taolennata :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="208"/>
+        <location filename="../../../scribus/tabtools.cpp" line="209"/>
         <source>Colu&amp;mns:</source>
         <translation>Ba&amp;nnoù :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="214"/>
+        <location filename="../../../scribus/tabtools.cpp" line="215"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Esaou  :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="217"/>
-        <location filename="../../../scribus/tabtools.cpp" line="870"/>
+        <location filename="../../../scribus/tabtools.cpp" line="218"/>
+        <location filename="../../../scribus/tabtools.cpp" line="871"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>ar veilh a gan eo pa dro, an dour o redek ha glebiañ
 he gwrizioù d&apos;ur vleunienn wenn.
@@ -25647,328 +25652,328 @@ AR VEILH A GAN EO PA DRO, AN DOUR O REDEK HA GLEBIAÃ
 HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="230"/>
+        <location filename="../../../scribus/tabtools.cpp" line="231"/>
         <source>Shapes</source>
         <translation>Lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="236"/>
-        <location filename="../../../scribus/tabtools.cpp" line="291"/>
+        <location filename="../../../scribus/tabtools.cpp" line="237"/>
+        <location filename="../../../scribus/tabtools.cpp" line="292"/>
         <source>&amp;Line Color:</source>
         <translation>&amp;Liv al linenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="245"/>
-        <location filename="../../../scribus/tabtools.cpp" line="299"/>
+        <location filename="../../../scribus/tabtools.cpp" line="246"/>
+        <location filename="../../../scribus/tabtools.cpp" line="300"/>
         <source>&amp;Shading:</source>
         <translation>&amp;Arliv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="251"/>
+        <location filename="../../../scribus/tabtools.cpp" line="252"/>
         <source>&amp;Fill Color:</source>
         <translation>&amp;Liv leuniañ :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="260"/>
-        <location filename="../../../scribus/tabtools.cpp" line="394"/>
+        <location filename="../../../scribus/tabtools.cpp" line="261"/>
+        <location filename="../../../scribus/tabtools.cpp" line="395"/>
         <source>S&amp;hading:</source>
         <translation>&amp;Arliv :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="267"/>
+        <location filename="../../../scribus/tabtools.cpp" line="268"/>
         <source>Line Style:</source>
         <translation>Stil al linenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="633"/>
+        <location filename="../../../scribus/tabtools.cpp" line="634"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="275"/>
-        <location filename="../../../scribus/tabtools.cpp" line="327"/>
+        <location filename="../../../scribus/tabtools.cpp" line="276"/>
+        <location filename="../../../scribus/tabtools.cpp" line="328"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Tevder al linenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="285"/>
+        <location filename="../../../scribus/tabtools.cpp" line="286"/>
         <source>Lines</source>
         <translation>Lilennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="306"/>
+        <location filename="../../../scribus/tabtools.cpp" line="307"/>
         <source>Line S&amp;tyle:</source>
         <translation>S&amp;til al linenn :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="314"/>
+        <location filename="../../../scribus/tabtools.cpp" line="315"/>
         <source>Arrows:</source>
         <translation>Saezhioù :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="316"/>
+        <location filename="../../../scribus/tabtools.cpp" line="317"/>
         <source>Start:</source>
         <translation>Loc&apos;hañ :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="319"/>
+        <location filename="../../../scribus/tabtools.cpp" line="320"/>
         <source>End:</source>
         <translation>Echuiñ :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="337"/>
+        <location filename="../../../scribus/tabtools.cpp" line="338"/>
         <source>Images</source>
         <translation>Skeudennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="343"/>
+        <location filename="../../../scribus/tabtools.cpp" line="344"/>
         <source>&amp;Free Scaling</source>
         <translation>Skeulaat &amp;dieub</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="354"/>
+        <location filename="../../../scribus/tabtools.cpp" line="355"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation>Skeulaat a-&amp;blaen :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="363"/>
+        <location filename="../../../scribus/tabtools.cpp" line="364"/>
         <source>&amp;Vertical Scaling:</source>
         <translation>Skeulaat a-&amp;serzh :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="380"/>
+        <location filename="../../../scribus/tabtools.cpp" line="381"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation>Mirout ar c&apos;hen&amp;feurioù neuz</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="386"/>
+        <location filename="../../../scribus/tabtools.cpp" line="387"/>
         <source>F&amp;ill Color:</source>
         <translation>&amp;Liv leuniañ :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="398"/>
+        <location filename="../../../scribus/tabtools.cpp" line="399"/>
         <source>Use embedded Clipping Path</source>
         <translation>Arverañ an treug dic&apos;hronnañ enkorfet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="402"/>
+        <location filename="../../../scribus/tabtools.cpp" line="403"/>
         <source>On Screen Preview</source>
         <translation>Alberz war ar skramm</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="408"/>
+        <location filename="../../../scribus/tabtools.cpp" line="409"/>
         <source>Full Resolution Preview</source>
         <translation>Alberz gant diarunusted uhel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="411"/>
+        <location filename="../../../scribus/tabtools.cpp" line="412"/>
         <source>Normal Resolution Preview</source>
         <translation>Alberz gant diarunusted skoueriek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="414"/>
+        <location filename="../../../scribus/tabtools.cpp" line="415"/>
         <source>Low Resolution Preview</source>
         <translation>Alberz gant diarunusted izel</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="425"/>
+        <location filename="../../../scribus/tabtools.cpp" line="426"/>
         <source>Regular Polygons</source>
         <translation>Liestueg reoliek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="437"/>
+        <location filename="../../../scribus/tabtools.cpp" line="438"/>
         <source>Zoom</source>
         <translation>Zoum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="445"/>
+        <location filename="../../../scribus/tabtools.cpp" line="446"/>
         <source>Mi&amp;nimum:</source>
         <translation>&amp;Izeg :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="454"/>
+        <location filename="../../../scribus/tabtools.cpp" line="455"/>
         <source>Ma&amp;ximum:</source>
         <translation>&amp;Uc&apos;heg :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="463"/>
+        <location filename="../../../scribus/tabtools.cpp" line="464"/>
         <source>&amp;Stepping:</source>
         <translation>&amp;Araokadur :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="499"/>
+        <location filename="../../../scribus/tabtools.cpp" line="500"/>
         <source>Rotation Tool</source>
         <translation>Benveg da c&apos;hwelañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="508"/>
+        <location filename="../../../scribus/tabtools.cpp" line="509"/>
         <source>Constrain to:</source>
         <translation>Destrizhañ da :</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="523"/>
+        <location filename="../../../scribus/tabtools.cpp" line="524"/>
         <source>Text Frame Properties</source>
         <translation>Perzhioù ar sterniad testenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="525"/>
+        <location filename="../../../scribus/tabtools.cpp" line="526"/>
         <source>Shape Drawing Properties</source>
         <translation>Perzhioù an tresañ lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="526"/>
+        <location filename="../../../scribus/tabtools.cpp" line="527"/>
         <source>Magnification Level Defaults</source>
         <translation>Arventennoù dre ziouer evit al live brasaat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="527"/>
+        <location filename="../../../scribus/tabtools.cpp" line="528"/>
         <source>Line Drawing Properties</source>
         <translation>Perzhioù al linennoù tresañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="528"/>
+        <location filename="../../../scribus/tabtools.cpp" line="529"/>
         <source>Polygon Drawing Properties</source>
         <translation>Perzhioù al liestuegoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="529"/>
+        <location filename="../../../scribus/tabtools.cpp" line="530"/>
         <source>Other Properties</source>
         <translation>Perzhioù all</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="530"/>
+        <location filename="../../../scribus/tabtools.cpp" line="531"/>
         <source>Font for new text frames</source>
         <translation>Nodrezh evit ar sterniadoù testenn nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="531"/>
+        <location filename="../../../scribus/tabtools.cpp" line="532"/>
         <source>Size of font for new text frames</source>
         <translation>Ment nodrezh evit ar sterniadoù testenn nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="532"/>
+        <location filename="../../../scribus/tabtools.cpp" line="533"/>
         <source>Color of font</source>
         <translation>Liv an nodrezh</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="533"/>
+        <location filename="../../../scribus/tabtools.cpp" line="534"/>
         <source>Number of columns in a text frame</source>
         <translation>Niver a vannoù en ur sterniad testenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="534"/>
+        <location filename="../../../scribus/tabtools.cpp" line="535"/>
         <source>Gap between text frame columns</source>
         <translation>Esaou etre bannoù ur sterniad testenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="535"/>
+        <location filename="../../../scribus/tabtools.cpp" line="536"/>
         <source>Sample of your font</source>
         <translation>Standilhon ho nodrezh</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="537"/>
+        <location filename="../../../scribus/tabtools.cpp" line="538"/>
         <source>Horizontal scaling of images</source>
         <translation>Skeulaat a-blaen ar skeudennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="538"/>
+        <location filename="../../../scribus/tabtools.cpp" line="539"/>
         <source>Vertical scaling of images</source>
         <translation>Skeulaat a-serzh ar skeudennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="539"/>
+        <location filename="../../../scribus/tabtools.cpp" line="540"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Mirout ar skeulaat heñvel a-blaen hag a-serzh</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="543"/>
-        <location filename="../../../scribus/tabtools.cpp" line="547"/>
+        <location filename="../../../scribus/tabtools.cpp" line="544"/>
+        <location filename="../../../scribus/tabtools.cpp" line="548"/>
         <source>Saturation of color of fill</source>
         <translation>Peurvec&apos;hiañ al liv leuniañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="544"/>
+        <location filename="../../../scribus/tabtools.cpp" line="545"/>
         <source>Line color of shapes</source>
         <translation>Liv trolinennoù al lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="545"/>
+        <location filename="../../../scribus/tabtools.cpp" line="546"/>
         <source>Saturation of color of lines</source>
         <translation>Peurvec&apos;hiañ liv al linennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="546"/>
+        <location filename="../../../scribus/tabtools.cpp" line="547"/>
         <source>Fill color of shapes</source>
         <translation>Liv leuniañ al lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="548"/>
+        <location filename="../../../scribus/tabtools.cpp" line="549"/>
         <source>Line style of shapes</source>
         <translation>Stil trolinenn al lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="549"/>
+        <location filename="../../../scribus/tabtools.cpp" line="550"/>
         <source>Line width of shapes</source>
         <translation>Tevder trolinennoù al lunioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="550"/>
+        <location filename="../../../scribus/tabtools.cpp" line="551"/>
         <source>Minimum magnification allowed</source>
         <translation>Ment vrasaat izek aotreet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="551"/>
+        <location filename="../../../scribus/tabtools.cpp" line="552"/>
         <source>Maximum magnification allowed</source>
         <translation>Ment vrasaat uc&apos;hek aotreet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="552"/>
+        <location filename="../../../scribus/tabtools.cpp" line="553"/>
         <source>Change in magnification for each zoom operation</source>
         <translation>Pazenn vrasaat/bihanaat evit pep kemm gant ar zoum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="553"/>
+        <location filename="../../../scribus/tabtools.cpp" line="554"/>
         <source>Color of lines</source>
         <translation>Liv al linennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="554"/>
+        <location filename="../../../scribus/tabtools.cpp" line="555"/>
         <source>Saturation of color</source>
         <translation>Peurvec&apos;hiañ al liv</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="555"/>
+        <location filename="../../../scribus/tabtools.cpp" line="556"/>
         <source>Style of lines</source>
         <translation>Stil al linennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="556"/>
+        <location filename="../../../scribus/tabtools.cpp" line="557"/>
         <source>Width of lines</source>
         <translation>Tevder al linennoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="675"/>
+        <location filename="../../../scribus/tabtools.cpp" line="676"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Hini ebet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="676"/>
+        <location filename="../../../scribus/tabtools.cpp" line="677"/>
         <source>Dot</source>
         <translation>Pikenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="677"/>
+        <location filename="../../../scribus/tabtools.cpp" line="678"/>
         <source>Hyphen</source>
         <translation>Kedell</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="678"/>
+        <location filename="../../../scribus/tabtools.cpp" line="679"/>
         <source>Underscore</source>
         <translation>Islinennaat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="679"/>
+        <location filename="../../../scribus/tabtools.cpp" line="680"/>
         <source>Custom</source>
         <translation>Personelaet</translation>
     </message>
@@ -25977,83 +25982,83 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <translation type="obsolete">Hini ebet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="473"/>
+        <location filename="../../../scribus/tabtools.cpp" line="474"/>
         <source>Miscellaneous Settings</source>
         <translation>Arventennoù liesseurt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="478"/>
+        <location filename="../../../scribus/tabtools.cpp" line="479"/>
         <source>Item Duplicate</source>
         <translation>Arredaoliñ an ergorenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="486"/>
+        <location filename="../../../scribus/tabtools.cpp" line="487"/>
         <source>X Displacement</source>
         <translation>Delec&apos;hiadur X</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="493"/>
+        <location filename="../../../scribus/tabtools.cpp" line="494"/>
         <source>Y Displacement</source>
         <translation>Delec&apos;hiadur Y</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="557"/>
+        <location filename="../../../scribus/tabtools.cpp" line="558"/>
         <source>Horizontal displacement of page items</source>
         <translation>Delec&apos;hiadur a-blaen ergorennoù ar bajennad</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="558"/>
+        <location filename="../../../scribus/tabtools.cpp" line="559"/>
         <source>Vertical displacement of page items</source>
         <translation>Delec&apos;hiadur a-serzh ergorennoù ar bajennad</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="559"/>
+        <location filename="../../../scribus/tabtools.cpp" line="560"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation>Destrizhañ ur werzh evit benveg ar c&apos;hwelañ pa vez pouezet ar stokell Reol (control)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="511"/>
+        <location filename="../../../scribus/tabtools.cpp" line="512"/>
         <source>Degrees</source>
         <translation>Derezioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="560"/>
+        <location filename="../../../scribus/tabtools.cpp" line="561"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation>Arverañ an treugoù dic&apos;hronnañ enkorfet er skeudennoù pa vezont enporzhiet. Enkorfet e vez treugoù dic&apos;hronnañ gant ar skeudennoù mod JPEG, PSD ha TIFF.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="374"/>
+        <location filename="../../../scribus/tabtools.cpp" line="375"/>
         <source>&amp;Scale Image to Frame Size</source>
         <translation>S&amp;keulaat ar skeudenn e-keñver ment ar stern</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="524"/>
+        <location filename="../../../scribus/tabtools.cpp" line="525"/>
         <source>Image Frame Properties</source>
         <translation>Perzhioù ar sterniad skeudenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="536"/>
+        <location filename="../../../scribus/tabtools.cpp" line="537"/>
         <source>Image frames allow images to scale to any size</source>
         <translation>Ar sterniadoù skeudenn a ro tro da skeulaat e forzh pe vent</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="540"/>
+        <location filename="../../../scribus/tabtools.cpp" line="541"/>
         <source>Images in image frames are scaled to the size of the frame</source>
         <translation>Ar skeudennoù er sterniadoù skeudennoù zo skeulaet ouzh ment ar stern</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="541"/>
+        <location filename="../../../scribus/tabtools.cpp" line="542"/>
         <source>Automatically scaled images keep their original proportions</source>
         <translation>Miret e vo o c&apos;henfeur gant ar skeudennoù skeulaet ent-emgefereek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="542"/>
+        <location filename="../../../scribus/tabtools.cpp" line="543"/>
         <source>Fill color of image frames</source>
         <translation>Liv leuniañ sterniadoù ar skeudenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabtools.cpp" line="272"/>
-        <location filename="../../../scribus/tabtools.cpp" line="324"/>
+        <location filename="../../../scribus/tabtools.cpp" line="273"/>
+        <location filename="../../../scribus/tabtools.cpp" line="325"/>
         <source>Hairline</source>
         <translation>Rouedad tanav</translation>
     </message>
@@ -28388,7 +28393,7 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="138"/>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="271"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="279"/>
         <source>Give a name to this filter for saving</source>
         <translation>Reiñ un anv d&apos;ar sil evit an enrolladur</translation>
     </message>
@@ -28406,94 +28411,94 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <translation>Gweredekaat pe ziweredekaat ar sil rank-mañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="136"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="138"/>
         <source>Remove this filter row</source>
         <translation>Diverkañ ar sil rank-mañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="141"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="144"/>
         <source>Add a new filter row</source>
         <translation>Ouzhpennañ ur sil rank nevez</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="192"/>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="394"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="197"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="399"/>
         <source>to</source>
         <translation>da</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="210"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="215"/>
         <source>and</source>
         <translation>ha</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="214"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="219"/>
         <source>remove match</source>
         <translation>diverkañ ar genglotadenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="215"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="220"/>
         <source>do not remove match</source>
         <translation>na ziverkañ ar genglotadenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="225"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="230"/>
         <source>words</source>
         <translation>a c&apos;herioù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="264"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="269"/>
         <source>Remove</source>
         <translation>Diverkañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="265"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="270"/>
         <source>Replace</source>
         <translation>Amsaviñ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="266"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="271"/>
         <source>Apply</source>
         <translation>Arloañ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="285"/>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="423"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="290"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="428"/>
         <source>Value at the left is a regular expression</source>
         <translation>Ur bomm reol eo ar werzh war an tu kleiz</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="299"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="304"/>
         <source>with</source>
         <translation>gant</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="311"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="316"/>
         <source>paragraph style</source>
         <translation>stil rannbennad</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="315"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="320"/>
         <source>all instances of</source>
         <translation>an holl zegouezhioù eus</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="397"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="402"/>
         <source>all paragraphs</source>
         <translation>an holl rannbennadoù</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="398"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="403"/>
         <source>paragraphs starting with</source>
         <translation>rannbennadoù o kregiñ gant</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="399"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="404"/>
         <source>paragraphs with less than</source>
         <translation>rannbennadoù gant nebeutoc&apos;h eget</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="400"/>
+        <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="405"/>
         <source>paragraphs with more than</source>
         <translation>rannbennadoù gant muioc&apos;h eget</translation>
     </message>
