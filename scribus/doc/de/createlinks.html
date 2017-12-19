@@ -2,52 +2,51 @@
 <html><head>
   
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Creating Document Links</title>
+  <title>Links in PDF-Dateien</title>
 
   
 </head><body>
-<h2>Creating Document Links</h2>
-<h3>and Annotations</h3>
-<p>The first thing to clarify is what this article is about. We are referring to a situation where you want to create a clickable link in your PDF, which might link to some other place in your current document, some other PDF document, or even a weblink. We will not cover <strong>linking text frames</strong>, which is covered in <strong>Working with Text Frames</strong>.
+<h2>Links in PDF-Dateien</h2>
+<h3>und Anmerkungen</h3>
+<p>In diesem Kapitel geht es darum, wie man anklickbare Links in PDF-Dateien erstellt, die zu einer anderen Stelle im Dokument verlinken, zu einem anderen PDF oder auch in das Internet. Hier geht es nicht darum, <strong>Textrahmen zu verlinken</strong>, dies wird unter <strong><a href="WwText.html">Textrahmen</a></strong> beschrieben.
 </p>
-<p>The most straightforward way to create a linking area (and this is literally what we are doing), is to click the <i>Insert Link Annotation</i> icon on the toolbar (presuming you have the <strong>PDF Tools</strong> collection of items activated &ndash; right-click on the toolbar to see which are currently showing). This icon looks like two shoeprints.
+<p>Der einfachste Weg, ein Verkn&uuml;pfungsfeld zu erstellen (und genau das wird hier gemacht), ist, in der Toolbar auf <i>Link einf&uuml;gen</i> zu klicken (vorausgesetzt die <strong>PDF-Tools</strong> sind aktiviert &ndash; mit einem Rechtsklick auf die Toolbar sieht man, welche Elemente angezeigt werden). Das Icon sieht aus wie zwei Schuhabdr&uuml;cke.
 </p>
-<p><img src="images/pdftools.png"/></p>
-<p>Now you can create a frame-like structure on your page. It resembles a text frame, and will even allow you to enter text just like text frames. There may be reasons why you would like to do this, to have a reference in Scribus that shows this frame, but an important rude awakening is that none of the frame features will end up being visible in the final PDF. This includes not only any text content, but also any fill or line colors you have created. Again, you might consider creating a fill with transparency just to show inside Scribus where the clickable area is, but this will not show in the PDF &ndash; maybe you should consider this a feature.
+<p><img src="../en/images/pdftools.png"/></p>
+<p>Jetzt kann man ein Rahmen-&auml;hnliches Feld erstellen. Es &auml;hnelt einem Textrahmen, und man kann sogar wie bei einem Textrahmen einen Text eingeben. Daf&uuml;r mag es Gr&uuml;nde geben, um z.B. eine Referenz in Scribus zu haben, aber es wird keine der Rahmen-Eigenschaften sp&auml;ter im PDF sichtbar sein! Das betrifft nicht nur den Text, sondern auch s&auml;mtliche F&uuml;ll- oder Linienfarben. Man kann also in Scribus einen halbtransparenten Hintergrund machen, um zu sehen, wo das Link-Feld ist, dieser wird aber im PDF nicht sichtbar sein.
 </p>
-<p>On a practical level, what you will see in Adobe Reader, for example, is that the mouse cursor changes as you hover over this linkable area &ndash; typically the default mouse pointer changes to a hand with the index finger extended. This is pretty subtle, and easily missed, so you will likely want to create some other underlying visual cue as you where this clickable area is, and perhaps where you will be going. This can be anything, which might include a portion of a text frame, in other words, something that looks like what a viewer might be more used to as a some clickable text. <i>Something worth mentioning is that even though you might edit your frame with the shape editor, your clickable area will remain a rectangle, which corresponds to the bounding box of your shape, so there is no reason to do this sort of editing.</i>
+<p>Tats&auml;chlich sieht man z.B. im Adobe Reader nur, da&szlig; sich der Mauszeiger ver&auml;ndert, wenn man &uuml;ber ein klickbares Feld f&auml;hrt &ndash; normalerweise eine Hand mit ausgestrecktem Zeigefinger. Dies kann leicht &uuml;bersehen werden, so da&szlig; man gerne noch einen weiteren Hinweis h&auml;tte, der anzeigt, wo ein Link ist. Und vielleicht noch, wohin er f&uuml;hrt. Dies kann alles sein, was man in einem Textfeld machen kann, z.B. ein Unterstrich oder eine andere Farbe. <i>Zu erw&auml;hnen ist, da&szlig; das Link-Feld ein Rechteck bleibt, selbst wenn man die Form ver&auml;ndert. Es gibt also keinen Grund, dies zu tun.</i>
 </p>
-<h4>Annotations</h4>
+<h4>Anmerkungen</h4>
 <table cellpadding="5" width="80%">
 <tr><td><img src="images/annotation.png"/></td>
-<td><p>To the left is the dialog which comes up when you right-click your frame and select <i>PDF Options > Annotation Properties</i>.</p>
-<p>As you can see, the top choice in the drop-down list is <strong>Text</strong>. Choosing this creates a pop-up annotation in your PDF when the mouse hovers over the area of the frame &ndash; double-clicking this area in the PDF brings the annotation into a static view.</p>
-<p>In this case, you create the contents of that pop-up annotation by entering it in this frame as you would for any text frame, but again, this will not appear in the PDF on the page, but only in a pop-up window when the annotation is activated. You will see a small icon in your PDF viewer showing there is an annotation.</td></tr>
-</table>
-
-<blockquote><strong>Note</strong> &ndash; Another method to create one of these link annotation frames is to start with a text frame, then right-click and choose <i>PDF Options > Is PDF Annotation</i> from the context menu, then right-click again to choose <i>PDF Options > Annotation Properties</i> as above. Remember, any content or other visible features of this text frame will not appear in the PDF, unless you are creating a pop-up annotation.</blockquote>
-<h4>Link</h4>
-<table cellpadding="5" width="80%">
-<tr><td><img src="images/link.png"/></td>
-<td><p>Once you choose <strong>Link</strong>, you may choose which page and what particular spot on the page to jump to. As shown here, once you select the page, you will see a small preview of the page to help you choose precisely where to select.</p>
-<p> Experiments in Adobe Reader show that, for example, if you wish this entire picture to show after the jump is made, you should chose a spot slightly to the left and above the image frame. This may not be an issue if the page is on a low zoom and entirely shows onscreen.</p>
+<td><p>Links sieht man den Dialog, wenn man den Rahmen rechtsklickt und <i>PDF-Optionen > Eigenschaften der Anmerkung</i> w&auml;hlt.</p>
+<p>Ganz oben im Dropdown-Men&uuml; sieht man <strong>Text</strong>. Damit erstellt man eine Popup-Anmerkung, die erscheint, wenn man im PDF mit der Maus &uuml;ber das Feld f&auml;hrt &ndash; ein Doppelklick in das Feld l&auml;&szlig;t die Anmerkung dauerhaft erscheinen. Im PDF-Programm sieht man dann ein Symbol, das auf die Anmerkung hinweist.</p>
 </tr>
 </table>
-<h4>External Link</h4>
+<blockquote>Man kann auch erst einen Textrahmen einf&uuml;gen und diesen mit <i>PDF-Optionen > Als PDF-Anmerkung verwenden</i> zu einer Anmerkung machen und dann mit einem Rechtsklick wieder <i>PDF-Optionen > Eigenschaften der Anmerkung</i> aufrufen. Auch bei dieser M&ouml;glichkeit sind im PDF kein Inhalt oder sonstige Rahmeneigenschaften au&szlig;er einer Popup-Anmerkung zu sehen.</blockquote>
+<h4>Verkn&uuml;pfung</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/link.png"/></td>
+<td><p>W&auml;hlt man <strong>Verkn&uuml;pfung</strong>, kann man einen einzelnen Punkt auf einer bestimmten Seite als Ziel angeben. Wie hier gezeigt, sieht man eine Vorschau der Seite, um den Punkt genau festzulegen.</p>
+<p>Versuche haben ergeben, da&szlig; man z.B. bei einem Bild am besten einen Punkt knapp links oberhalb angibt, wenn man nach dem Verweis das ganze Bild sehen soll. Das ist nat&uuml;rlich vernachl&auml;ssigbar, wenn die ganze Seite auf dem Monitor angezeigt wird.</p>
+</tr>
+</table>
+<h4>Externe Verkn&uuml;pfung</h4>
 <table cellpadding="5" width="80%">
 <tr><td><img src="images/externallink.png"/></td>
-<td><p>When you choose <strong>External Link</strong>, you first get a file dialog to choose a PDF to link to.</p>
-<p>After this, then once again you may choose which page and what particular spot on the page to jump to. Again, once you select the page, you will see a small preview of the page to help you choose precisely where to select.</p>
+<td><p>Bei einer <strong>Externen Verkn&uuml;pfung</strong> mu&szlig; man erst ein PDF w&auml;hlen, zu dem verwiesen wird.</p>
+<p>Danach kann man wie bei einer Verkn&uuml;pfung einen Punkt auf einer bestimmten Seite angeben. Auch hier bekommt man eine kleine Vorschau, um das Linkziel festzulegen.</p>
 
 </tr>
 </table>
 <h4>External Web-Link</h4>
 <table cellpadding="5" width="80%">
 <tr><td><img src="images/externalweblink.png"/></td>
-<td><p>When you choose <strong>External Web-Link</strong>, you will only get this very simple space to enter your URL.</p>
-<p>You may be able to get by without prepending your link with <strong><i>http://</i></strong> &ndash; this seems to be the case with both Adobe Reader and Evince, but not with Okular. In general, it would be advisable to enter the entire URL.</p>
-<p>If your link is to a file on a website, such as a PDF, you will not have the option to choose a particular page.</p>
-<p>Also possible in this tab is a <strong><i>mailto:</i></strong> type of link, in which case a mail client should open a new email with the indicated email address inserted into the <strong>To:</strong> field.
+<td><p>W&auml;hlt man <strong>Externe Webverkn&uuml;pfung</strong>, erscheint ein Textfeld, in das man die URL eintragen kann.</p>
+<p>Bei z.B. dem Adobe Reader und Evince ist es im Gegensatz zu Okular nicht n&ouml;tig, <strong><i>http://</i></strong> anzugeben. Grunds&auml;tzlich ist es daher ratsam, die ganze URL einzugeben.</p>
+<p>Verlinkt man zu einer Datei (z.B. einer PDF) auf einer Webseite, gibt es nicht die M&ouml;glichkeit, eine bestimmte Seite zu bestimmen.</p>
+<p>Hier ist es auch m&ouml;glich, einen <strong><i>mailto:</i></strong>-Link einzuf&uuml;gen, der beim Klick eine neue Mail mit der im <strong>To:</strong>-Feld angegebenen Mailadresse im Mailprogramm &ouml;ffnet.
 </tr>
 </table>
 </body></html>

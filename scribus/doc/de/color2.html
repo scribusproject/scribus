@@ -1,50 +1,49 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Managing Color Sets</title>
+	<title>Farbpaletten verwalten</title>
 </head>
 <body>
-<h2>Managing Color Sets</h2>
-<h3>Changing the Default Color Palette</h3>
-<p>To change the default color palette, make sure that no Scribus document is open. Then open the Color Manager (<i>Edit &gt; Colors</i>):</p>
+<h2>Farbpaletten verwalten</h2>
+<h3>Die Standard-Farbpalette &auml;ndern</h3>
+<p>Die Standard-Farbpalette kann nur ge&auml;ndert werden, wenn kein Scribus-Dokument ge&ouml;ffnet ist. Dann &ouml;ffnet man mit <i>Bearbeiten &gt; Farben</i> die Farbverwaltung:</p>
 
-<table width="100%"><tr><td align="center"><img src="images/colrs-mgt1.png" title="Scribus Color Manager" alt="Scribus Color Manager" /></td></tr></table><br/>
+<table width="100%"><tr><td align="center"><img src="images/colrs-mgt1_1.png" title="Scribus Farbverwaltung" alt="Scribus Farbverwaltung" /></td></table><br/>
+<table width="100%"><tr><td align="center"><img src="images/colrs-mgt1.png" title="Scribus Farbverwaltung" alt="Scribus Farbverwaltung" /></td></table><br/>
 
-<p>In the dialog you can select a new default palette for <i>new</i> documents. Any change you make here will not affect existing documents, as the color palette in such a document has been <a href="color1.html">stored</a> in the document itself. Some of the color palettes shipped with Scribus have been created for special purposes, so before you select another default palette, you should learn something about the color sets from the descriptions provided in subsequent sections. In some cases, your printer or a client may insist on the use of certain colors.</p>
+<p>Jetzt kann man f&uuml;r <i>neue</i> Dokumente eine Farbpalette als Standard festlegen. Die &Auml;nderungen wirken sich nicht auf bereits existierende Dokumente aus, da die Farbpalette bei ihnen schon im Dokument <a href="color1.html">gespeichert</a> ist.<br>Manche der Farbpaletten in Scribus sind aus bestimmten Gr&uuml;nden angelegt worden. Deshalb sollte man etwas &uuml;ber Farbpaletten lernen, bevor man die Standard-Farbpalette &auml;ndert.<br>Manchmal besteht auch die Druckerei oder der Auftraggeber auf bestimmte Farben.</p>
 <blockquote>
-<h4><font color="red">Caution!</font></h4>
-<p>Previous versions of the documentation have indicated that colors in the color sets included with Scribus are locked &ndash; this may not be the case, since it is dependent on where the palettes are stored on your system, and whether you have write access there. If you are editing colors with no document open, with a customized location for Scribus, you may be able to edit any color from any palette. If you then click <strong>OK</strong>, you have changed this palette for future use. On the other hand, if you have a document open, make such a change and <strong>OK</strong>, you will only change this color for that particular document. Even so, it is probably not a good idea to do this, so that you avoid confusion, since if you import something from that document to another, there may be unexpected problems due to the color name clash.</p>
-<p>For proprietary spot colors, the color name will dictate what will be applied, so changing its appearance in Scribus will be another source of confusion and error.</p>
+<h4><font color="red">Achtung!</font></h4>
+<p>In &auml;lteren Versionen der Dokumentation sah es aus, als ob Farben in den Scribus-Farbs&auml;tzen &uuml;berhaupt nicht ge&auml;ndert werden k&ouml;nnen &ndash; das kommt aber ganz darauf an, wo diese gespeichert sind und ob man dort Schreibzugriff hat. Wenn man die Farben bearbeitet, ohne da&szlig; ein Dokument ge&ouml;ffnet ist, und man den Speicherort der Farben angepa&szlig;t hat (z.B. das Home-Verzeichnis des Benutzers), kann man jede Farbe jeder Palette &auml;ndern. Durch einen Klick auf <strong>Ok</strong> wird die Farbpalette f&uuml;r die Zukunft gespeichert. Wenn man die Farbe bei einem ge&ouml;ffneten Dokument &auml;ndert, wird die Farbe nur f&uuml;r dieses Dokument ge&auml;ndert. Trotzdem ist davon abzuraten, da Probleme aufgrund ge&auml;nderter Farben entstehen k&ouml;nnen, z.B. wenn man Teile eines Dokuments in ein anderes importiert.</p>
+<p>Schmuckfarben werden durch den Namen definiert. Eine &Auml;nderung der Farbwerte f&uuml;hrt hier zwangsl&auml;ufig zu Fehlern.</p>
 </blockquote>
-<p>What you might notice immediately when you open the dialog is that you can&rsquo;t edit any color in one of the palettes that are shipped with Scribus (most likely with a standard Linux installation). This is a feature, not a bug, as the very purpose of standardized colors is to work across documents, computers or platforms with identical colors, which in turn have unique color values and color names. Thus, all color palettes that have been installed to directories to which you have read-only access are &ldquo;locked&rdquo;, i.e. prevented from editing.</p>
-<p>Sometimes, however, there are good reasons to edit a locked palette anyway, for example, if you need to reduce the number of colors in a palette for a certain project, i.e. if you need to create a &ldquo;project palette&rdquo;. In such a case you can  click on the &ldquo;Save Color Set&rdquo; icon in the Color Manager. This will save the palette to your home directory and will add the copy to the list of available color sets. If you select the copy of the palette, you will notice that the editing options are now available. Be aware, though, that clicking &ldquo;OK&rdquo; will make all changes to the copy permanent!</p><br>
-<table width="100%"><tr><td align="center"><img src="images/colrs-mgt2.png" title="Saving an editable copy of a locked palette" alt="Saving an editable copy of a locked palette" /></td></tr></table><br/>
+<p>Bei einer Standard-Installation kann man die mitgelieferten Farbpaletten nicht &auml;ndern. Das ist gewollt, da der Sinn standardisierter Farben ist, da&szlig; sie bei allen Dokumenten, auf allen Computern und Plattformen identisch sind. Deshalb werden alle Farbpaletten so installiert, da&szlig; man nur Lesezugriff hat, und sie &raquo;geblockt&laquo; sind.</p>
+<p>Nat&uuml;rlich gibt es manchmal Gr&uuml;nde, eine geblockte Palette zu bearbeiten, z.B. wenn man die Anzahl der Farben f&uuml;r ein bestimmtes Projekt reduzieren will. In dem Fall w&auml;hlt man (ohne ge&ouml;ffnetes Dokument) &raquo;Farbpalette speichern&laquo;. Dadurch wird eine Kopie im Home-Verzeichnis des Benutzers gespeichert und erscheint in der Liste der verf&uuml;gbaren Farbpaletten. Diese Palette ist jetzt bearbeitbar. Vorsicht &ndash; jede &Auml;nderung daran ist dauerhaft!</p><br>
+<table width="100%"><tr><td align="center"><img src="images/colrs-mgt2.png" title="Speichern einer bearbeitbaren Kopie einer geblockten Farbpalette" alt="Speichern einer bearbeitbaren Kopie einer geblockten Farbpalette" /></td></tr></table><br/>
 
-<h3>Installing or Importing New Color Palettes</h3>
-<p>If you have bought or downloaded standardized palettes from a third party vendor and you can&rsquo;t acquire root/Administrator privileges on the system you are working on, you are advised to copy the palette files into a special folder in your home directory. If you have root/Administrator permissions, you can also copy the sets into a folder in the install directory. Please read the licensing conditions for the files you wish to install, as they may limit the number of permitted users per palette.</p>
-<p>Here are the relevant paths for the supported operating systems:</p>
+<h3>Neue Farbpaletten installieren oder importieren</h3>
+<p>Wenn man Farbpaletten eines Drittanbieters gekauft oder heruntergeladen und keine Root- / Administratorrechte hat, kopiert man die Dateien in einen bestimmten Ordner im Home-Verzeichnis. Hat man Root- / Administratorrechte kann man sie auch in den Installationsordner kopieren. Beachten Sie bitte die Lizenzbestimmungen, da viele die Anzahl der Nutzer einschr&auml;nken.</p>
+<p>Hier die relevanten Verzeichnispfade der unterst&uuml;tzten Betriebssysteme:</p>
 
 
 <h4>Linux/UNIX</h4>
-<p>If you have installed Scribus with a package management system like RPM, DEB or BSD Ports, the palette files need to be copied to either <code>/usr/lib/scribus/swatches</code> or <code>/usr/local/lib/scribus/swatches</code>. On 64 Bit systems they may be found in <code>/usr/lib64/scribus/swatches</code> or <code>/usr/local/lib64/scribus/swatches</code> respectively if a 64 Bit version has been installed. The actual location depends on the configuration of a distribution&rsquo;s package manager.</p>
-<p>Those who compiled Scribus themselves need to copy the palette files to <code>installation_directory/share/scribus/swatches</code>.</p>
-<p>If you don&rsquo;t have root permissions, you can also copy the files to <code>/home/user_name/.scribus/swatches/locked</code>.</p>
-<p>You have to create the folder <code>locked</code> if doesn&rsquo;t exist.</p>
-<h4>Mac OS X</h4>
-<p>Copy the palettes into the directory <code>/Library/Preferences/Scribus/swatches/locked</code> in your Home directory.</p>
-<p><i>Note that on Mac OS 10.7 the</i> /Library <i>directory is hidden by default. To make it visible, use</i> Go > Go to Folder<i> in Finder, then type</i> ~/Library. Alternatively you can also press the Option key while clicking on</i> Go <i>in Finder. If you want to make the directory permanently visible, open a Terminal and type the following command:</i> chflags nohidden /Users/[username]/Library/.</p>
-<p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
-<h4>OS/2 Warp 4 and eComStation</h4>
-<p>Copy the palettes to the directory <code>C:\Scribus-{version}\scribus\lib\swatches\locked</code>.</p>
-<p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
+<p>Wenn man Scribus &uuml;ber einen Paketmanager wie RPM, DEB oder die BSD-Ports installiert hat, m&uuml;ssen die Farbpaletten entweder nach <code>/usr/lib/scribus/swatches</code> oder nach <code>/usr/local/lib/scribus/swatches</code> kopiert werden. Bei 64-Bit-Systemen nach <code>/usr/lib64/scribus/swatches</code> oder <code>/usr/local/lib64/scribus/swatches</code>, sofern man eine 64-Bit-Version installiert hat. Der Ort h&auml;ngt aber von der Konfiguration des Paketmanagers der Distribution ab.</p>
+<p>Wenn man Scribus selbst kompiliert hat, mu&szlig; man die Farbpaletten nach <code>installation_directory/share/scribus/swatches</code> kopieren.</p>
+<p>Falls man keine Rootrechte hat, kann man die Dateien auch nach <code>/home/user_name/.scribus/swatches/locked</code> kopieren.</p>
+<p>Falls der Ordner nicht existiert, mu&szlig; man ihn erstellen.</p>
+<h4>Mac&nbsp;OS&nbsp;X</h4>
+<p>Bei Mac&nbsp;OS&nbsp;X kopiert man die Paletten in <code>/Library/Preferences/Scribus/swatches/locked</code> des Home-Verzeichnisses.</p>
+<p><i>Bei verschiedenen Versionen von Mac&nbsp;OS&nbsp;X ist der</i> /Library<i>-Ordner versteckt. Mit</i> Gehe zu > Gehe zu Ordner<i> im Finder und Eintippen von</i> ~/Library<i> kann man ihn sichtbar machen. Alternativ kann man im Finder auf</i> Gehe zu<i> klicken und dabei die alt-Taste dr&uuml;cken, und im darunterliegenden Men&uuml; erscheint der Ordner Library. Wenn der Ordner dauerhaft sichtbar sein soll, gibt man in einem Terminal</i> chflags nohidden /Users/[username]/Library/<i> ein</i>.</p>
+<p>Falls der Ordner <code>locked</code> nicht existiert, mu&szlig; man ihn erstellen.</p>
+<h4>OS/2 Warp 4 und eComStation</h4>
+<p>Hier kopiert man die Dateien in den Ordner <code>C:\Scribus-{version}\scribus\lib\swatches\locked</code>.</p>
+<p>Falls der Ordner <code>locked</code> nicht existiert, mu&szlig; man ihn erstellen.</p>
 <h4>Haiku</h4>
-<p>Copy the palettes to the directory <code>/boot/apps/Scribus/share/scribus/swatches</code> or <code>/boot/home/config/settings/Qt/.scribus/swatches/locked</code>.</p>
+<p>Die richtigen Ordner sind <code>/boot/apps/Scribus/share/scribus/swatches</code> oder <code>/boot/home/config/settings/Qt/.scribus/swatches/locked</code>.</p>
 <h4>Windows</h4>
-<p>Copy the files to the folder <code>C:\Program Files\Scribus {version}\share\swatches</code>.</p>
-<p>If you don&rsquo;t have Administrator permissions, you can copy the files to your user directory. On Windows 2000, XP and 2003 this is
-<code>C:\Documents and Settings\username\Application Data\Scribus\swatches\locked</code>, and on Windows Vista, 7 and 8 it&rsquo;s <code>
-C:\Users\username\AppData\Roaming\Scribus\swatches\locked</code>.</p> 
-<p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
+<p>Bei Windows kopiert man die Dateien in den Ordner <code>C:\Program Files\Scribus {version}\share\swatches</code>.</p>
+<p>Wenn man keine Administratorrechte hat, kann man die Dateien auch in das Nutzerverzeichnis kopieren. Bei Windows 2000, XP und 2003 ist dies <code>C:\Documents and Settings\username\Application Data\Scribus\swatches\locked</code>, und ab Windows Vista <code>C:\Users\username\AppData\Roaming\Scribus\swatches\locked</code>.</p> 
+<p>Falls der Ordner <code>locked</code> nicht existiert, mu&szlig; man ihn erstellen.</p>
 <br>
 <br>
 </body>

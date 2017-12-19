@@ -1,38 +1,22 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Farbmanagement mit Scribus. Eine Einleitung. Teil 3</title>
+	<title>Render-Priorit&auml;ten</title>
 </head>
 <body>
-<h2>Farbmanagement mit Scribus. Eine Einleitung. Teil 3</h2>
-<p ><strong>Render-Prioritäten</strong></p>
+<h2>Render-Priorit&auml;ten</h2>
 
-<p>Das andere Problem für Neulinge im Farbmanagement sind <strong><em>Render-Prioritäten</em></strong>. Mit der Auswahl einer Render-Priorität teilen Sie littlecms mit, wie es eine Farbe aus einem Farbraum auf einen anderen abbildet.</p>
+<p><i>Render-Priorit&auml;ten</i> sind f&uuml;r Neu-Einsteiger in das Thema Farbmanagement wirklich verwirrend. Im Grunde geht es darum, welche Priorit&auml;ten man setzt, wenn Farben von einem Farbraum in einen anderen &uuml;berf&uuml;hrt werden sollen. Es gibt vier Render-Priorit&auml;ten:</p>
+<ul>
+<li><b>Wahrnehmung:</b> Hier werden Farben durch das Beibehalten ihres Verh&auml;ltnisses untereinander &raquo;sacht&laquo; umgewandelt. Eine &raquo;Verkleinerung des Farbspektrums&laquo; mit dem dadurch m&ouml;glichen Verlust der Detailtreue wird ebenso vermieden, wie &raquo;Streifenbildung&laquo; statt eines flie&szlig;enden &Uuml;bergangs der Farbt&ouml;ne. Das Spektrum wird verkleinert, wenn zwei oder mehr Farben, die im Ausgangsbild unterschiedlich sind, nach dem Druck gleich aussehen. Beim Rendern mit der Priorit&auml;t auf Wahrnehmung werden kleine Einstellungen am ganzen Bld gemacht, um das Verh&auml;ltnis der Farben untereinander beizubehalten. Es gew&auml;hrt eine gewisse Pr&auml;zision der Farben, um zufriedenstellende Ergebnisse zu erhalten. Dies ist normalerweise f&uuml;r Fotografien und eingescannte Bilder die beste Einstellung.<br>Wahrnehmung erzielt die am besten vorhersagbaren Resultate, wenn man viele Bildarten drucken will, z.B. RGB-Bilder mit einem CMYK-Ger&auml;t, oder mit komplett verschiedenen CMYK-Profilen.<br> Dies ist die &raquo;idiotensichere&laquo; Einstellung f&uuml;r Anwender, die viele Bilder verarbeiten.</li> 
 
-<p><strong><em>Wahrnehmung:</em></strong> Diese Render-Priorität rechnet Farben "gleichmäßig" um, indem die Beziehungen zwischen einzelnen Farben beibehalten werden.  Dadurch wird das sogenannte "Gamut Clipping", also das "Abschneiden" der nicht druckbaren Farben und die damit verbundenen Verluste von Details, verhindert. Das "Abschneiden" von Farben passiert, wenn zwei oder mehr Farben, die im Original unterschiedlich sind, im Druck gleich aussehen. Die Option "Wahrnehmung" paßt die Farben im gesamten Bild so an, daß deren "Abstände" zueinander gewahrt bleiben. Dabei wird ein gewisser Verlust an Farbgenauigkeit in Kauf genommen, um ein ansprechendes Ergebnis zu erzielen. Für Fotografien und eingescannte Bilder ist dies normalerweise die beste Wahl.</p> 
+<li><b>Farbs&auml;ttigung</b> sollte f&uuml;r Logos, <a href="color1.html">Schmuckfarben</a> usw. genommen werden. Es erh&auml;lt die Anzahl und die Lebendigkeit der Farben, allerdings k&ouml;nnen Fotos damit h&auml;&szlig;lich aussehen. Wenn es um Logos mit einem spezifischen Farbton geht, hat man mit Farbs&auml;ttigung eine gr&ouml;&szlig;ere Farbtreue. Es ist die richtige Wahl, falls man mehr Wert auf die Farbe des Logos als die Farben der Bilder legt.</li>
 
-<p>Die Option "Wahrnehmung" ist am zuverlässigsten, wenn viele Bilder gedruckt werden sollen, etwa RGB-Fotos auf CMYK-Druckern oder wenn verschiedene CMYK-Geräte verwendet werden, die sich stark voneinander unterscheiden. Betrachten Sie es als die "idiotensichere" Option für Anwender, die viele verschiedene Bilder in einer Druckerei drucken lassen möchten.</p>
+<li><b>Absolut farbmetrisch:</b> Falls eine Farbe nicht im Spektrum des Druckers ist, wird hier einfach die beste &Uuml;bereinstimmung genommen. Kompromi&szlig;los werden Farben innerhalb des Farbspektrums erstellt. Schmuckfarben werden so am genauesten wiedergegeben. Allerdings kann es damit zu einer &raquo;Verkleinerung des Spektrums&laquo; kommen, bei der zwei im Original unterschiedliche Farben im Druck identisch sind. Wei&szlig;e Stellen werden dabei &auml;hnlich behandelt, was zu Problemen bei hellen Stellen in Fotos f&uuml;hrt. Durch diese Einschr&auml;nkungen mit den daraus resultierenden Problemen kann diese Einstellung eigentlich nur f&uuml;r Schmuckfarben verwendet werden. Bilder haben oft einen Gelbstich, was daran liegt, da&szlig; die Farbwerte mit einer D50-Lichtquelle bei exakt 5000 Kelvin gemessen werden. Gegen&uuml;ber nat&uuml;rlicheren Bedingungen ist dies eine &raquo;w&auml;rmere&laquo; Farbtemperatur. Diese Einstellung wird eigentlich nur genommen, wenn ein Firmenzeichen oder eine Farbe unabh&auml;ngig vom Medium exakt dargestellt werden mu&szlig;. Das Kodak-Gelb oder das Telekom-Magenta sind daf&uuml;r gute Beispiele.</li>
 
-<p><em>Farbsättigung</em></strong> verwendet man für Logos, Schmuckfarben usw. Diese Einstellung erhält normalerweise die Leuchtkraft einer Farbe, aber sie kann Fotos häßlich aussehen lassen. Wenn Sie mit Logos mit einer bestimmten Farbsättigung arbeiten, wird diese Option eine bessere Farbgenauigkeit ermöglichen, jedenfalls wenn Ihnen die Farbe des Logos Ihnen wichtiger ist als die eines Bildes.</p>
+<li><b>Relativ farbmetrisch:</b> Wenn eine Farbe nicht im gew&auml;hlten Farbspektrum gedruckt werden kann, wird hier die Farbe genommen, die ihr am n&auml;chsten kommt. Zudem wird der &raquo;Wei&szlig;punkt&laquo; dem Ausgabemedium angepa&szlig;t. Dieses Anpassung des Wei&szlig;punkts vermeidet die Probleme von &raquo;Absolut farbmetrisch&laquo; bei Grafiken, die nicht mit Schmuckfarben gedruckt werden.</li>
+</ul>
 
-<p><em>Absolut farbmetrisch:</em></strong> Falls eine Farbe nicht um Farbraum des Ausgabegerätes gedruckt werden kann, verwendet diese Render-Priorität einfach die nächstliegende. Es wird kompromißlos so gut wie möglich in den Farbraum des Gerätes umgerechnet. Damit lassen sich Schmuckfarben sehr gut nachbilden. Leider kann es passieren, daß Farben "abgeschnitten" werden, wenn zwei urspünglich unterschiedliche Farben im Druck identisch sind. Der Weißpunkt wird ebenfalls "abgeschnitten", was zu Farbproblemen bei Fotos führen kann. Dieses "Abschneiden" und die daraus resultierenden Probleme führen dazu, daß diese Render-Priorität eigentlich nur im Zusammenhang mit Schmuckfarben verwendet wird. Einige Anwender werden wegen des Gelbstichs in ihren Bildern irritiert sein, aber diese Render-Priorität wird unter genau kontrollierten Lichtverhältnissen mit einem D50 Leuchtpult gemessen. Dieses hat öfter eine "wärmere" Farbtemperatur als typische Lichtverhältnisse. Diese Render-Priorität wird fast ausschließlich verwendet, wenn ein Firmenlogo auf mehreren Ausgabemedien gedruckt werden soll. Kodak-Gelb ist dafür ein gutes Beispiel.</p>
-
-<p><strong><em>Relativ Farbmetrisch: </em></strong>Falls eine Farbe nicht im Farbraum des Zielgerätes gedruckt werden kann, wählt diese Render-Priorität die Farbe, die ihr am nächsten kommt, und paßt außerdem den Weißpunkt dem Ausgabemedium an. Diese Anpassung des Weißpunkts umgeht das Problem von "Absolut farbmetrisch", wenn keine Schmuckfarben gedruckt werden. Sie können diese Render-Priorität verwenden, wenn Sie einen CMYK-Offsetdruck auf einem Tintenstrahldrucker simulieren wollen und Sie das genaue Profile der Offsetmaschine haben. Anwender von Adobe Press Ready wird dieses Konzept bekannt vorkommen. Dieser Ansatz funktioniert ziemlich gut, wenn Sie über sehr genaue eingebettete Profile (typischerweise für Scanner, eher seltener für Digitalkameras) in Bildern verfügen, die nach CMYK konvertiert werden sollen, und zwar unter Verwendung von Druckerprofilen, die mit Hilfe von genauen Kalibrierungsgeräten angelegt wurden. Dies ist wahrscheinlich der Fall, wenn jemand sehr viel Zeit und Arbeit darauf verwendet hat, seine Geräte zu kalibrieren. Um den Drucker unter kontrollierten Bedingungen zu kalibrieren, braucht man sehr teure Meßgeräte.</p>
-
-<h4>Andere Farmanagement-Optionen</h4>
-
-
-
-<p><strong><em>Farben außerhalb des Farbbereichs markieren</em></strong> ist eine Option, die Scribus Farben, die  außerhalb des Zielfarbraums liegen könnten, markieren läßt. Beachten Sie, daß es sich dabei nur um eine Warnung handelt, denn die aktuellen ICC-Spezifikationen liefern keine einheitliche Definition. Diese Funktion wird von littlecms bereitgestellt.</p>
-
-<p><strong><em></em></strong></p>
-
-<h4>Drucken mit Scribus</h4>
-
-<p>Scribus-Anwendern steht eine Reihe von Möglichkeiten zum Drucken mit Farbmanagement zur Verfügung.</p>
-
-<p>Beim Drucken kann Scribus optional das Druckerprofil verwenden, das Sie im Farbmanagement-Dialog ausgewählt haben. Dies kann sehr nützlich sein, wenn Sie einen Offsetdruck mit Ihrem Tintenstrahler mit Hilfe von CUPS simulieren wollen.</p>
-
-<p>PostScript-Ausgabe: Dazu müssen Farbprofile in alle Bilder eingebettet sein, egal ob Sie reines Postscript oder EPS-Dateien ausgeben wollen. Scribus verwendet Postscript Level 3. Postscript Level 2 und 3 können ICC-Profile in Bildern lesen und verwenden. Die meisten Postscript-Drucker werden diese Profile lesen und sie für die Ausgabe verwenden. Dazu verwenden sie etwas, was als "Rendering Dictionary" bezeichnet wird.</p>
+<p>Bei Scribus kann man die Render-Priorit&auml;t f&uuml;r Bilder und F&uuml;llfarben getrennt festlegen. Man kann z.B. f&uuml;r Bilder Wahrnehmung w&auml;hlen und den Hintergrund oder die Schriftfarbe gem&auml;&szlig; der &raquo;Corporate Identity&laquo; absolut oder relativ farbmetrisch rendern lassen.</p> 
 </body>
 </html>

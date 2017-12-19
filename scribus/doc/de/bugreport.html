@@ -1,86 +1,85 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Filing a Bug Report</title>
+	<title>Einen Fehler melden</title>
 </head>
 <body>
-<h2>Filing a Bug report</h2>
-<p>Successful software development is almost hopeless without testing, and that&rsquo;s true for Scribus as well, of course. Testing means using the software, especially development versions. Bugs, when discovered, need to be reported to let the developers know that something&rsquo;s wrong or at least seems to be wrong, so the problem can be fixed. Sometimes the fix may simply be a documentation update. Moreover, the developers need to know what kind of features users need. In such a case case, someone who is missing a feature or has a great idea, should let the Scribus Team know about it.</p>
+<h2>Einen Fehler melden</h2>
+<p>Erfolgreiche Softwareentwicklung ist nahezu unm&ouml;glich ohne zu testen, und das gilt nat&uuml;rlich auch f&uuml;r Scribus. Testen bedeutet, die Software zu benutzen, insbesondere die Entwicklerversionen. Entdeckte Bugs (Fehler) m&uuml;ssen gemeldet werden, damit die Entwickler erfahren, da&szlig; etwas falsch ist oder zumindest falsch zu sein scheint, damit das Problem behoben werden kann. Manchmal ist die L&ouml;sung einfach, die Dokumentation zu verbessern. &Ouml;fter m&uuml;ssen die Entwickler aber wissen, welche Funktionen die Benutzer brauchen. In dem Fall sollte jemand, der eine bestimmte Funktion vermisst oder eine gro&szlig;artige Idee hat, dies dem Scribus Team mitteilen.</p>
 
-<p>In all cases, the procedure is the same. There exists a software category called <i>bug tracking systems</i>, which allows developers to keep track of, discuss and review bug reports and RFEs (requests for enhancement). The Scribus Team has decided to use the <a href="http://www.mantisbt.org/">Mantis</a> bug tracking system. If you want to help with improving Scribus or absolutely need a feature, you are advised to learn how to use it.</p>
+<p>Die Prozedur ist in allen F&auml;llen gleich. Es gibt eine Softwarekategorie namens <i>bug tracking systems (Fehlerverfolgungssysteme)</i>, die es Entwicklern erlaubt, Fehlerberichte und RFEs (requests for enhancement / Verbesserungsanfragen) zu verfolgen, zu diskutieren und nachzupr&uuml;fen. Das Scribus Team hat sich entschieden, als Bug Tracking System <a href="http://www.mantisbt.org/">Mantis</a> zu verwenden. Wenn Sie helfen wollen, Scribus zu verbessern oder wenn Sie unbedingt eine Funktion brauchen, sollten Sie lernen, Mantis zu nutzen.</p>
 
-<h2>Creating an Account</h2>
+<h2>Account erstellen</h2>
 
-<p>First, visit the <a href="http://bugs.scribus.net/signup_page.php">sign-up page</a>. You will see a page that looks like this:</p>
+<p>Gehen Sie zuerst zur <a href="http://bugs.scribus.net/signup_page.php">Registrierung</a>. Sie kommen zu einer Seite, die so aussieht:</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_signup.png"/></td></tr></table>
 <br>
-<p>Enter a login name, your e-mail address and the digits displayed. Then click &ldquo;Signup&rdquo; and wait until your account has been confirmed and you received a password via e-mail. You can change your personal preferences any time in the tab &ldquo;My account,&rdquo; provided you are logged in. Please take the time to check the different options. They may or may not be useful to you.</p>
+<p>Geben Sie einen Benutzernamen, Ihre Email-Adresse und die angezeigten Ziffern ein. Klicken Sie &raquo;Signup&laquo; und warten Sie bis Ihr Account best&auml;tigt wurde und Sie eine Email mit einem Passwort bekommen. Sie k&ouml;nnen Ihre pers&ouml;nlichen Einstellungen unter &raquo;My account&laquo; jederzeit &auml;ndern, wenn Sie eingeloggt sind. Unter anderem die Sprache auf &raquo;Deutsch&laquo; stellen. Nehmen Sie sich bitte die Zeit, die verschiedenen M&ouml;glichkeiten anzuschauen, ob sie f&uuml;r Sie n&uuml;tzlich sind.</p>
 
-<h2>Before Filing a Bug Report</h2>
-<p>If something doesn&rsquo;t work as expected, or you think you have the idea of the century, please don&rsquo;t start firing up bug reports galore. Chances are that someone has already had the same problem, perhaps even the same great idea. Five steps are recommended to ensure your report won&rsquo;t be closed as &ldquo;Duplicate&rdquo; or &ldquo;No change required&rdquo;.</p>
+<h2>Bevor man eine Fehlermeldung einreicht</h2>
+<p>Wenn etwas nicht so funktioniert wie erwartet, oder Sie die Idee des Jahrhunderts haben, fangen Sie bitte nicht an, massenhaft Fehlermeldungen zu schreiben. Es ist durchaus m&ouml;glich, da&szlig; jemand anderes schon das gleiche Problem hatte, vielleicht sogar die gleiche gro&szlig;artige Idee. Wir empfehlen f&uuml;nf Schritte, damit Ihr Bericht nicht als &raquo;Duplikat&laquo; oder mit &raquo;Keine &Auml;nderung n&ouml;tig&laquo; geschlossen wird.</p>
 
 <ol>
-<li>Read the <a href="http://docs.scribus.net/">Scribus Online Documentation</a>, rummage the <a href="http://wiki.scribus.net/index.php">Scribus Wiki</a>, or even consider buying the Official Scribus Manual. There are lots of informations in different languages available, and perhaps someone has already turned his own experiences into a Wiki article, or the documentation team may have documented a feature/issue thoroughly by then.</li>
-<li>Try to really use Scribus and learn about its concepts. The use of Scribus is not hard to learn, but it is still <a href="about2.html">quite different</a> from, say, a word processor.</li>
-<li>Post your problem or your idea on one of the <a href="mailing_lists.html">mailing lists</a>. Things normally get sorted out quickly. Often enough, a supposed bug is just lack of experience.</li>
-<li>Ask questions on <a href="irc.html">IRC</a>. This is especially useful for &ldquo;real time&rdquo; support.</li>
-<li>If your questions still haven&rsquo;t been answered, you can browse the bug database. You can search for keywords. As you can see on the screenshot below, you can enter a keyword in the &ldquo;Search&rdquo; field. Then click &ldquo;Apply,&rdquo; and Mantis will search for all reports containing the text string. If you don&rsquo;t know the correct English word to search for, you can skim the multilingual <a href="http://wiki.scribus.net/index.php/Glossary_of_technical_terms_used_in_Scribus_and_its_translations">Glossary</a> on the Wiki for a translation. If you use a non-English version of Scribus and want to look up the English names of menu items, just switch the Scribus interface language to English in the <a href="settings1.html#1">Preferences</a>.</li>
+<li>Lesen Sie die <a href="http://docs.scribus.net/">Scribus Online Dokumentation</a>, durchst&ouml;bern Sie das <a href="http://wiki.scribus.net/canvas/Hauptseite">Scribus Wiki</a>, oder erw&auml;gen Sie den Kauf des Offiziellen Scribus Handbuchs. Es gibt jede Menge Informationen in verschiedenen Sprachen, und vielleicht hat schon jemand seine eigenen Erfahrungen in einem Wiki-Artikel geschrieben, oder das Dokumentationsteam hat eine Funktion / ein Problem schon gr&uuml;ndlich dokumentiert.</li>
+<li>Versuchen Sie, Scribus wirklich zu nutzen und lernen Sie seine Konzepte kennen. Die Benutzung von Scribus ist nicht schwer zu lernen, aber sie ist <a href="about2.html">v&ouml;llig anders</a> als z.B. bei einem Textverarbeitungsprogramm.</li>
+<li>Beschreiben Sie Ihr Problem oder Ihre Idee auf einer der <a href="mailing_lists.html">Mailinglisten</a>. Normalerweise kl&auml;ren sich Dinge schnell auf. Oft genug ist ein vermeintlicher Fehler nur mangelnde Erfahrung.</li>
+<li>Fragen Sie im <a href="irc.html">IRC</a>. Dies bietet sich besonders dann an, wenn Sie wirklich schnelle Hilfe brauchen.</li>
+<li>Falls Ihre Fragen immer noch nicht beantwortet sind, k&ouml;nnen Sie die Fehlerberichte durchsuchen. Sie k&ouml;nnen nach Schl&uuml;sselw&ouml;rtern suchen. Wie Sie bei dem Bildschirmfoto unten sehen, k&ouml;nnen Sie ein Schl&uuml;sselwort in das Feld &raquo;Search / Suche&laquo; eingeben. Dann klicken Sie auf &raquo;Apply Filter / Filter&laquo; und Mantis sucht alle Meldungen heraus, die diesen Text enthalten.  Wenn Sie das englische Wort nicht kennen, nach dem Sie suchen sollten, k&ouml;nnen Sie das mehrsprachige <a href="http://wiki.scribus.net/index.php/Glossary_of_technical_terms_used_in_Scribus_and_its_translations">Glossar</a> im Wiki durchsuchen, um eine &Uumlbersetzung zu finden. Wenn Sie die englischen Namen der Men&uuml;punkte erfahren wollen, wechseln Sie einfach in den <a href="settings1.html#1">Allgemeinen Einstellungen</a> zur englischen Oberfl&auml;che.</li>
 </ol>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_searching.png"/></td></tr></table>
 <br>
-</p><p>You will notice that Mantis uses different colors to indicate the status of the reports. The meaning of the different colors is:</p>
-<table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#ffa0a0">new</td><td class="small-caption" width="14%" bgcolor="#ff50a8">feedback</td><td class="small-caption" width="14%" bgcolor="#ffd850">acknowledged</td><td class="small-caption" width="14%" bgcolor="#ffffb0">confirmed</td><td class="small-caption" width="14%" bgcolor="#c8c8ff">assigned</td><td class="small-caption" width="14%" bgcolor="#cceedd">resolved</td><td class="small-caption" width="14%" bgcolor="#e8e8e8">closed</td></tr></table>
+</p><p>Sie werden feststellen, da&szlig; Mantis verschiedene Farben verwendet, um den Status der Eintr&auml;ge anzuzeigen. Die Bedeutung der verschiedenen Farben sehen Sie hier:</p>
+<table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#fcbdbd">neu</td><td class="small-caption" width="14%" bgcolor="#e3b7eb">R&uuml;ckmeldung</td><td class="small-caption" width="14%" bgcolor="#ffcd85">anerkannt</td><td class="small-caption" width="14%" bgcolor="#fff494">best&auml;tigt</td><td class="small-caption" width="14%" bgcolor="#c2dfff">zugewiesen</td><td class="small-caption" width="14%" bgcolor="#d2f5b0">erledigt</td><td class="small-caption" width="14%" bgcolor="#c9ccc4">geschlossen</td></tr></table>
 <br>
 
-<ul><li><i>New</i>: The bug/RFE has been reported, and no decision has been made as to how to handle it.</li>
-<li><i>Feedback</i>: Feedback is required from either the original reporter or someone who added a note to the report. This happens quite often in cases where an issue can&rsquo;t be reproduced.</li>
-<li><i>Acknowledged</i>: Once the team has decided a suggestion is worth keeping in mind for further development, the status will be changed to &ldquo;acknowledged.&rdquo; This is mostly the case with RFEs.</li>
-<li><i>Confirmed</i>: If a reported bug could be reproduced by others, the status will be changed to &ldquo;confirmed.&rdquo; This is what usually happens to bug reports.</li>
-<li><i>Assigned</i>: A bug or RFE has been assigned to a developer for fixing it or adding a feature.</li>
-<li><i>Resolved</i>: A bug or RFE has been resolved. That doesn&rsquo;t necessarily mean a developer wrote any code. If things cannot or need not be fixed, the issue will be resolved as well.</li>
-<li><i>Closed</i>: The end of a life span of a report. If all works well, the issue will finally be closed, and the scary number of reports/requests is a bit smaller.</li>
+<ul><li><i>New / Neu</i>: Der Fehler / Verbesserungswunsch ist gemeldet, es gibt noch keine Entscheidung, wie weiter vorgegangen wird.</li>
+<li><i>Feedback / R&uuml;ckmeldung</i>: Es wird entweder vom urspr&uuml;nglichen Reporter oder von jemand, der kommentiert hat, eine R&uuml;ckmeldung erwartet. Dies passiert oft, wenn ein Fehler nicht reproduziert werden kann.</li>
+<li><i>Acknowledged / Anerkannt</i>: Wenn das Team entschieden hat, da&szlig; ein Vorschlag es wert ist, f&uuml;r die weitere Entwicklung ber&uuml;cksichtigt zu werden, wird der Status auf &raquo;anerkannt&laquo; gesetzt. Dies passiert meistens bei Verbesserungsvorschl&auml;gen.</li>
+<li><i>Confirmed / Best&auml;tigt</i>: Wenn ein gemeldeter Fehler durch andere reproduziert werden kann, wird der Status auf &raquo;best&auml;tigt&laquo; ge&auml;ndert. Das ist, was normalerweise bei Fehlermeldungen geschieht.</li>
+<li><i>Assigned / Zugewiesen</i>: Ein Fehler oder ein Verbesserungsvorschlag wurde einem Entwickler zugewiesen, um ihn zu beheben oder um eine neue Funktion hinzuzuf&uuml;gen.</li>
+<li><i>Resolved / Erledigt</i>: Der Fehler oder Verbesserungsvorschlag wurde gel&ouml;st. Das bedeutet nicht unbedingt, da&szlig; ein Entwickler auch nur eine Zeile Code geschrieben hat. Wenn etwas nicht gel&ouml;st werden kann oder mu&szlig;, wird es auch auf &raquo;erledigt&laquo; gesetzt.</li>
+<li><i>Closed / Geschlossen</i>: Das Ende der Lebenszeit einer Meldung. Wenn alles funktioniert, wird der Fall endg&uuml;ltig geschlossen, und die schaurige Anzahl der Meldungen und W&uuml;nsche ist ein bi&szlig;chen kleiner.</li>
 </ul>
 <br>
-<h2>Filing a Bug Report</h2>
-<br>To file a bug report, you have to click on the &ldquo;Report Issue&rdquo; link in your browser. You will be presented a page with lots of fields for entries:
+<h2>Einreichen einer Fehlermeldung</h2>
+<br>Um eine Fehlermeldung einzureichen, m&uuml;ssen Sie auf &raquo;Report Issue / Eintrag erfassen&laquo; gehen. Sie werden eine Menge Felder zum Ausf&uuml;llen vorfinden:
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_new_report1.png"/></td></tr></table>
 <br>
-<ul><li><i>Categories</i>: Choose a category you think your report fits best. If you can&rsquo;t find an appropriate category, choose &ldquo;General.&rsquo;</li>
-<li><i>Reproducibility</i>: If you report a bug, can you reproduce it? How often does it happen? Choose the appropriate degree of frequency. RFEs have the reproducibility &ldquo;Always,&rdquo; since the feature is always missing, until the issue is resolved.</li>
-<li><i>Select Profile</i>: In your personal preferences you can create user profiles for your reports. This is especially useful if you use more than one operating system or distribution. You can create a profile for each operating system, and if you file a report on an issue that occured on a particular system, you can simply choose the profile instead of inserting the data (Platform, OS, OS Version) repeatedly all the time.</li>
-<li><i>Platform</i>: Insert your CPU platform (e.g. x86, x86-64, PPC, SPARC) here.</li>
-<li><i>OS</i>: Your operating system (e.g. Linux, Windows, Mac &nbsp;OS&nbsp;X, OS/2, eCS).</li>
-<li><i>OS Version</i>: e.g. Debian 3.1, OpenSUSE 11.2, Windows XP, OS&nbsp;X 10.5, eCS 1.2</li>
-<li><i>Product Version</i>: Scribus exists in several incarnations, e.g. the stable branch or the developer branch with some more or less stable versions (1.4.xsvn, 1.5svn etc.). Make sure you choose the right one from the drop-down menu.</li>
-<li><i>Product Build</i>: This is especially important if you are using <a href="install1.html">SVN versions</a> of Scribus. Note that you won&rsquo;t find the relevant date in Scribus under <i>Help&nbsp;&gt; About Scribus</i>, as this string will be updated by the developers only occasionally. The date that matters is the one of your SVN checkout, because the source code changes almost daily. An issue you report with an older version may have already been resolved, in which case you will receive the recommendation to try the latest SVN version. <b>Please don&rsquo;t report issues for depracated versions of Scribus.</b></li>
+<ul><li><i>Category / Kategorie</i>: W&auml;hlen Sie die Kategorie, die Ihrer Meinung nach am besten pa&szlig;t. Wenn keine pa&szlig;t, nehmen Sie &raquo;General&laquo;.</li>
+<li><i>Reproducibility / Reproduzierbar</i>: Wenn Sie einen Fehler melden, k&ouml;nnen Sie ihn reproduzieren? Wie oft kommt er vor? W&auml;hlen Sie die passende H&auml;ufigkeit. Verbesserungsvorschl&auml;ge haben hier stets &raquo;immer&laquo;, da die Funktion immer fehlt bis das Problem gel&ouml;st ist.</li>
+<li><i>Select Profile / Profil w&auml;hlen</i>: In Ihren pers&ouml;nlichen Einstellungen k&ouml;nnen Sie Benutzerprofile f&uuml;r Ihre Meldungen erstellen. Das ist vor allem n&uuml;tzlich, wenn Sie mehr als ein Betriebssystem oder mehr als eine Distribution nutzen. Sie k&ouml;nnen f&uuml;r jedes Betriebssystem ein Profil erstellen, und wenn ein Problem bei einem bestimmten System auftritt, einfach das Profil ausw&auml;hlen anstatt jedesmal die Daten (Rechnertyp, Betriebssystem, BS-Version) einzugeben.</li>
+<li><i>Platform / Rechnertyp</i>: Geben Sie hier den Typ Ihres Prozessors ein (z.B. x86, x86-64, PPC, SPARC).</li>
+<li><i>OS / Betriebssystem</i>: Ihr Betriebssystem (.z.B. Linux, Windows, Mac&nbsp;OS&nbsp;X, OS/2, eCS).</li>
+<li><i>OS-Version / BS-Version</i>: z.B. Debian&nbsp;8.3, OpenSUSE&nbsp;42.1, Windows&nbsp;10, OS&nbsp;X&nbsp;10.11.3, eCS&nbsp;2.1</li>
+<li><i>Product Version / Produktversion</i>: Scribus gibt es in verschiedenen Entwicklungssadien, dem stabilen (1.4.x) und dem Entwicklerzweig (1.5.x) mit einigen mehr oder weniger stabilen Versionen. Versichern Sie sich, da&szlig; Sie die richtige im Dropdown-Men&uuml; ausw&auml;hlen.</li>
 </ul>
 
-<p>Once you have finished the preparations, you can finally start writing your report:</p>
+<p>Wenn Sie mit den Formalit&auml;ten fertig sind, k&ouml;nnen Sie endlich anfangen, Ihren Bericht zu schreiben:</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_new_report2.png"/></td></tr></table>
 <br>
 
-<ul><li><i>Summary</i>: A short description of your report. This will become the &ldquo;headline&rdquo; in the bug tracker.</li>
-<li><i>Description</i>: Describe your issue as precisely as possible, but keep it concise. <b>Please don&rsquo;t write any novels here!</b> It may also be helpful to upload some screenshots (see below). If you file a feature request, please add a real world scenario. The team needs examples to understand what the idea is and how this new feature would help people to work better and more efficiently. In other words, try to describe not only <i>what</i> and <i>how</i>, but also <i>why</i>.</li>
-<li><i>Steps to reproduce</i>: If you are able to reproduce a bug, please write down the steps necessary for reproduction on other computers.</li>
-<li><i>Additional information</i>: If you think other information, e.g. postings from the mailing list or messages from a debugger</a>, are useful in this context, you can add them here.</li>
+<ul><li><i>Summary / Zusammenfassung</i>: Eine kurze Beschreibung Ihrer Meldung. Sie wird die &raquo;&Uuml;berschrift&laquo; im Bugtracker.</li>
+<li><i>Description / Beschreibung</i>: Beschreiben Sie das Problem so genau, aber auch so knapp wie m&ouml;glich. <b>Bitte schreiben Sie hier keine Romane!</b> Es kann auch hilfreich sein, Bildschirmfotos hochzuladen (siehe unten). Falls Ihr Anliegen ein Verbesserungswunsch ist, geben Sie bitte ein Anwendungsbeispiel. Das Team braucht Beispiele, um zu verstehen, was hinter der Idee steckt und wie die neue Funktion Anwendern helfen kann, effektiver zu arbeiten. In anderen Worten, beschreiben Sie nicht nur das <i>Was</i> und das <i>Wie</i>, sondern auch das <i>Warum</i>.</li>
+<li><i>Steps To Reproduce / Schritte zur Reproduktion</i>: Wenn Sie einen Fehler reproduzieren k&ouml;nnen, beschreiben Sie bitte die n&ouml;tigen Schritte, um ihn auf anderen Computern nachzuvollziehen.</li>
+<li><i>Additional Information / Zus&auml;tzliche Informationen</i>: Hier k&ouml;nnen Sie zus&auml;tzliche Informationen, z.B. von Mailinglisten oder Meldungen eines Debuggers, erg&auml;nzen, von denen Sie denken, da&szlig; sie in diesem Zusammenhang n&uuml;tzlich sind.</li>
 </ul>
-<p>You&rsquo;re almost done now, but you may want to upload a file, a screenshot for instance, or a Scribus sample file. Click &ldquo;Search&rdquo; or enter the path to the file on your hard drive or a URL.</p>
+<p>Jetzt haben Sie es fast geschafft, aber vielleicht m&ouml;chten Sie noch eine Datei hochladen, z.B. ein Bildschirmfoto oder eine Scribus-Datei. Dazu klicken Sie auf &raquo;Search / Durchsuchen&laquo; und w&auml;hlen die Datei aus.</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_new_report3.png"/></td></tr></table>
 <br>
-<p>If you don&rsquo;t want a report to be seen by other reporters, but only the developers, you can switch the status to &ldquo;Private.&rdquo; This may be the case if you discover issues with a file that is protected by copyrights. Check &ldquo;Private,&rdquo; and only a handful of people will see the file.</p><p>Once everything is to your satisfaction, click &ldquo;Submit Report,&rdquo; and you&rsquo;re done.</p>
+<p>Falls Sie nicht m&ouml;chten, da&szlig; au&szlig;er den Entwicklern noch andere Ihre Meldung sehen, k&ouml;nnen Sie die Sichtbarkeit auf &raquo;Private / privat&laquo; setzen. Das kann z.B. n&ouml;tig sein, wenn Ihre Datei durch ein Copyright gesch&uuml;tzt ist. </p><p>Wenn alles zu Ihrer Zufriedenheit ist, klicken Sie &raquo;Submit Report / Bericht absenden&laquo;, und das war es schon.</p>
 
-<h2>Personalized View</h2>
-<p>Provided you are logged in, you can choose a more clearly laid out view of the bugtracker. Click on the link &ldquo;My view,&rdquo; and Mantis will present a structured view of recently changed issues:
+<h2>Personalisierte Ansicht</h2>
+<p>Wenn Sie eingeloggt sind, k&ouml;nnen Sie sich eine &uuml;bersichtlichere Ansicht des Bugtrackers anzeigen lassen. Klicken Sie auf &raquo;My view / &Uuml;bersicht&laquo;, und Mantis zeigt Ihnen eine strukturierte Ansicht der k&uuml;rzlich ge&auml;nderten Eintr&auml;ge:
 <br>
 <table width="100%"><tr><td align="center"><img src="images/Mantis_my_view.png"/></td></tr></table>
 <br>
-<ul><li><i>Left column</i>: Unassigned reports, resolved reports, and reports monitored by you.</li>
-<li><i>Right column</i>: Your reports, all reports recently modified.</li>
+<ul><li><i>Linke Spalte</i>: Nicht zugewiesene, erledigte, von Ihnen beobachtete Eintr&auml;ge.</li>
+<li><i>Rechte Spalte</i>: Von Ihnen berichtete, vor kurzem bearbeitete Eintr&auml;ge.</li>
 </ul>
 </body>
 </html>
