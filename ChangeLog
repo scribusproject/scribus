@@ -1,58 +1,61 @@
 Scribus - 1.4.7 (Released 2017-12-17)
 =========================================
-0015061: [Fonts] Crash with Noto-Coloremoji font (jghali)
-0014905: [Typography] Portuguese sample text (jghali)
-0014900: [PDF] Fonts used only in patterns can't be embedded in PDFs (jghali)
-0014891: [Story Editor / Text Frames] Style replacement isn't correct (jghali)
-0014884: [Import / Export] A blank character is added when importing an html file (jghali)
-0014820: [Translation] Incorrect French translation for "Glyph extension" in style manager (jghali)
-0014270: [Documentation] Incorrect link to Mac OSX Ghostscript package (jghali)
-0014877: [Translation] Backport translation fixes to 1.4.7.svn (FirasH)
-0014746: [Translation] Ukrainian UI fixes (jghali)
-0014751: [Styles] Document Settings Tab Width spinbox does not accept values below one inch (jghali)
-0014638: [General] combine polygons results in unexpected displacement (jghali)
-0014707: [Fonts] Text preview truncated in Font Preview (jghali)
-0012831: [Scrapbook] scrapbook doesn't work with images (jghali)
-0014720: [User Interface] Text filter dialog unusable (jghali)
-0014583: [PDF] Euro-sign (€) showing as squares or diamond shape in PDF forms (jghali)
-0014619: [General] "Insert frames" incorrectly place frames on left pages when bleed is involved (jghali)
-0014507: [General] Typo in PACKAGING (jghali)
-0014501: [Translation] Ukrainian UI update and fixes (jghali)
-0014522: [Translation] Ukrainian UI update and fixes (plinnell)
-0014494: [Import / Export] Bad PDF output caused by broken JPEGs embedding incorrect ICC profiles (jghali)
-0014362: [Import / Export] Inkscape SVG freezes Scribus (jghali)
-0014391: [Translation] Ukrainian UI update (jghali)
-- 0014377: [General] Rotate Item show wrong icon when mouse over frame middle point (jghali) - closed.
-- 0014380: [Styles] Crash caused by incorrect handling of reference to deleted styles by style manager (jghali) - closed.
-- 0012708: [Releases] GNOME/KDE: Please install the supplied AppData file (plinnell) - closed.
-- 0014270: [Documentation] Incorrect link to Mac OSX Ghostscript package (jghali) - closed.
-- 0014360: [Properties Palette] PP Rotation on multiple selections (jghali) - closed.
-- 0014307: [PDF] Incorrect export of nested groups to PDF (jghali) - closed.
-- 0014313: [General] Print preview has cropped shape on second page (also in print) (jghali) - closed.
-- 0014328: [PDF] incorrect export of inline groups to PDF when offset to baseline applied (jghali) - closed.
-- 0014257: [OS-Linux] Please stop installing mimelnk/vnd.scribus.desktop (plinnell) - closed.
-- 0014256: [OS-Linux] Please install the .desktop file (plinnell) - closed.
-- 0014196: [Scripter] Missing Greek option in calendar script (jghali) - closed.
-- 0014205: [OS-Linux] cmake can't find hunspell anymore since version >= 1.4 (cbradney) - closed.
-- 0014339: [Translation] Slovak translator spelling (jghali) - closed.
-- 0014207: [Usability] After deleting Master Page, wrong master page is shown (jghali) - closed.
-- 0014206: [Typography] Hyphens align incorrectly when using right alignment (jghali) - closed.
-- 0014067: [General] "Print Layer" is not in sync with Preview Mode (Backport from 0014059) (FirasH) - closed.
-- 0013988: [Shape Drawing] Node Editor Horizontal Shear icons are the wrong way round (jghali) - closed.
-- 0014002: [Story Editor / Text Frames] Shortcut CTRL-D delete two characters instead of one in Story Editor (jghali) - closed.
-- 0014006: [General] "Lock Guides" checkbox status is not correctly set when switching documents (jghali) - closed.
-- 0012681: [Graphics / Image Frames] Image editing doesn´t remain after saving - closed.
-- 0013775: [Story Editor / Text Frames] Alternatively clicking between 2 text blocks crashes w/ Signal 6 (jghali) - closed.
-- 0013124: [User Interface] Outline Window is limited in height (in 1.4.x) (jghali) - closed.
-- 0013757: [Graphics / Image Frames] CMYK jpeg file not imported properly (jghali) - closed.
-- 0013762: [PDF] Font not embedded by default if first used after the first PDF export (jghali) - closed.
-- 0013794: [General] Scribus crashes while loading document (jghali) - closed.
-- 0013688: [Story Editor / Text Frames] Text highliting in Story Editor disappears after changing font (jghali) - closed.
-- 0013710: [General] Duplicating a color, no difference in edit color dialog between OK and cancel (jghali) - closed.
-- 0013684: [OS-Win32] Import failure with jpeg files whose path contains chars not supported by current codepage on Windows (jghali) - closed.
-- 0013626: [Translation] Italian documentation update (jghali) - closed.
-- 0013631: [Translation] Updated Danish Translation (jghali) - closed.
-
+ 0014884: [Import / Export]  A blank character is added when importing an html file (jghali)
+ 0014891: [Story Editor / Text Frames]  Style replacement isn't correct (jghali)
+ 0014900: [PDF]  Fonts used only in patterns can't be embedded in PDFs (jghali)
+ 0014905: [Typography]  Portuguese sample text (jghali)
+ 0015061: [Fonts]  Crash with Noto-Coloremoji font (jghali)
+ 0015074: [Documentation]  German documentation update for 1.4.7 (cbradney)
+ 0014820: [Translation]  Incorrect French translation for "Glyph extension" in style manager (jghali)
+ 0015077: [Import / Export]  importing eps-files with Scribus 1.4.6 and Ghostscript 9.22 fails (jghali)
+ 0014270: [Documentation]  Incorrect link to Mac OSX Ghostscript package (jghali)
+ 0014877: [Translation]  Backport translation fixes to 1.4.7.svn (FirasH)
+ 0014804: [User Interface]  E-Mail address update for the "About" dialog (cbradney)
+ 0014746: [Translation]  Ukrainian UI fixes (jghali)
+ 0014751: [Styles]  Document Settings Tab Width spinbox does not accept values below one inch (jghali)
+ 0014638: [General]  combine polygons results in unexpected displacement (jghali)
+ 0014707: [Fonts]  Text preview truncated in Font Preview (jghali)
+ 0012831: [Scrapbook]  scrapbook doesn't work with images (jghali)
+ 0014720: [User Interface]  Text filter dialog unusable (jghali)
+ 0014547: [PDF]  Submitting PDF form as PDF doesn't work (jghali)
+ 0014583: [PDF]  Euro-sign (€) showing as squares or diamond shape in PDF forms (jghali)
+ 0014619: [General]  "Insert frames" incorrectly place frames on left pages when bleed is involved (jghali)
+ 0014507: [General]  Typo in PACKAGING (jghali)
+ 0014501: [Translation]  Ukrainian UI update and fixes (jghali)
+ 0014522: [Translation]  Ukrainian UI update and fixes (plinnell)
+ 0013722: [Templates]  Template for creating paperbacks for Lulu and Createspace 6x9 (cbradney)
+ 0014494: [Import / Export]  Bad PDF output caused by broken JPEGs embedding incorrect ICC profiles (jghali)
+ 0014362: [Import / Export]  Inkscape SVG freezes Scribus (jghali)
+ 0014391: [Translation]  Ukrainian UI update (jghali)
+ 0014377: [General]  Rotate Item show wrong icon when mouse over frame middle point (jghali)
+ 0014380: [Styles]  Crash caused by incorrect handling of reference to deleted styles by style manager (jghali)
+ 0012708: [Releases]  GNOME/KDE: Please install the supplied AppData file (plinnell)
+ 0014360: [Properties Palette]  PP Rotation on multiple selections (jghali)
+ 0014307: [PDF]  Incorrect export of nested groups to PDF (jghali)
+ 0014313: [General]  Print preview has cropped shape on second page (also in print) (jghali)
+ 0014328: [PDF]  incorrect export of inline groups to PDF when offset to baseline applied (jghali)
+ 0014257: [OS-Linux]  Please stop installing mimelnk/vnd.scribus.desktop (plinnell)
+ 0014256: [OS-Linux]  Please install the .desktop file (plinnell)
+ 0014196: [Scripter]  Missing Greek option in calendar script (jghali)
+ 0014205: [OS-Linux]  cmake can't find hunspell anymore since version >= 1.4 (cbradney)
+ 0014339: [Translation]  Slovak translator spelling (jghali)
+ 0014207: [Usability]  After deleting Master Page, wrong master page is shown (jghali)
+ 0014206: [Typography]  Hyphens align incorrectly when using right alignment (jghali)
+ 0014067: [General]  "Print Layer" is not in sync with Preview Mode (Backport from 0014059) (FirasH)
+ 0013988: [Shape Drawing]  Node Editor Horizontal Shear icons are the wrong way round (jghali)
+ 0014002: [Story Editor / Text Frames]  Shortcut CTRL-D delete two characters instead of one in Story Editor (jghali)
+ 0014006: [General]  "Lock Guides" checkbox status is not correctly set when switching documents (jghali)
+ 0012681: [Graphics / Image Frames]  Image editing doesn´t remain after saving
+ 0013775: [Story Editor / Text Frames]  Alternatively clicking between 2 text blocks crashes w/ Signal 6 (jghali)
+ 0013124: [User Interface]  Outline Window is limited in height (in 1.4.x) (jghali)
+ 0013757: [Graphics / Image Frames]  CMYK jpeg file not imported properly (jghali)
+ 0013762: [PDF]  Font not embedded by default if first used after the first PDF export (jghali)
+ 0013794: [General]  Scribus crashes while loading document (jghali)
+ 0013688: [Story Editor / Text Frames]  Text highliting in Story Editor disappears after changing font (jghali)
+ 0013710: [General]  Duplicating a color, no difference in edit color dialog between OK and cancel (jghali)
+ 0013684: [OS-Win32]  Import failure with jpeg files whose path contains chars not supported by current codepage on Windows (jghali)
+ 0013626: [Translation]  Italian documentation update (jghali)
+ 0013631: [Translation]  Updated Danish Translation (jghali)
 
 Scribus - 1.4.6 (Released 2016-01-03) 
 =========================================
