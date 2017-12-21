@@ -82,7 +82,11 @@ QImage PdfPlug::readThumbnail(QString fName)
 	globalParams = new GlobalParams();
 	if (globalParams)
 	{
+#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+		GooString *fname = new GooString(pdfFile.toUtf8().data());
+#else
 		GooString *fname = new GooString(QFile::encodeName(pdfFile).data());
+#endif
 		globalParams->setErrQuiet(gTrue);
 		PDFDoc *pdfDoc = new PDFDoc(fname, NULL, NULL, NULL);
 		if (pdfDoc)
@@ -401,7 +405,11 @@ bool PdfPlug::convert(const QString& fn)
 	GooString *userPW = NULL;
 	if (globalParams)
 	{
+#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+		GooString *fname = new GooString(fn.toUtf8().data());
+#else
 		GooString *fname = new GooString(QFile::encodeName(fn).data());
+#endif
 		globalParams->setErrQuiet(gTrue);
 		GBool hasOcg = gFalse;
 		QList<OptionalContentGroup*> ocgGroups;
@@ -421,7 +429,11 @@ bool PdfPlug::convert(const QString& fn)
 				QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
 				if (ok && !text.isEmpty())
 				{
+#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+					fname = new GooString(fn.toUtf8().data());
+#else
 					fname = new GooString(QFile::encodeName(fn).data());
+#endif
 					userPW = new GooString(text.toLocal8Bit().data());
 					pdfDoc = new PDFDoc(fname, userPW, userPW, NULL);
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
