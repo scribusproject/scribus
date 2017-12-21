@@ -44,12 +44,13 @@
     AssemblyName="Microsoft.Build.Tasks.v4.0">
     <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
   </UsingTask>
+  <!-- Targets for uic tool -->
   <Target
     Name="_uic"
     BeforeTargets="$(uicBeforeTargets)"
     AfterTargets="$(uicAfterTargets)"
     Condition="'@(uic)' != ''"
-    DependsOnTargets="$(uicDependsOn);ComputeuicOutput"
+    DependsOnTargets="$(uicDependsOn);ComputeUicOutput"
     Outputs="%(uic.Outputs)"
     Inputs="%(uic.Identity);%(uic.AdditionalDependencies);$(MSBuildProjectFile)">
     <ItemGroup
@@ -77,19 +78,22 @@
       CommandLineTemplate="%(uic.CommandLineTemplate)"
       AdditionalOptions="%(uic.AdditionalOptions)"
       Inputs="%(uic.Identity)" />
+    <!-- ItemGroup>
+      <ClInclude Include="%(uic.Outputs)"/>
+    </ItemGroup -->
   </Target>
   <PropertyGroup>
     <ComputeLinkInputsTargets>
             $(ComputeLinkInputsTargets);
-            ComputeuicOutput;
+            ComputeUicOutput;
           </ComputeLinkInputsTargets>
     <ComputeLibInputsTargets>
             $(ComputeLibInputsTargets);
-            ComputeuicOutput;
+            ComputeUicOutput;
           </ComputeLibInputsTargets>
   </PropertyGroup>
   <Target
-    Name="ComputeuicOutput"
+    Name="ComputeUicOutput"
     Condition="'@(uic)' != ''">
     <ItemGroup>
       <uicDirsToMake
@@ -105,15 +109,41 @@
         Include="%(uicDirsToMake.Identity)"
         Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
     </ItemGroup>
-    <MakeDir
-      Directories="@(uicDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+    <MakeDir Directories="@(uicDirsToMake-&gt;'%(RootDir)%(Directory)')" />
   </Target>
+  <!-- Clean support for uic tool -->
+  <PropertyGroup>
+    <CleanDependsOn>
+		UicClean;
+        $(CleanDependsOn);
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target
+    Name="UicClean"
+    Condition="'@(uic)' != ''">
+    <ItemGroup>
+      <uicFileToDelete Include="%(uic.Outputs)" />
+    </ItemGroup>
+    <Delete Files="@(uicFileToDelete)" />
+  </Target>
+  <!-- Additionnal include directories for ui_* files -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)uic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(ProjectName)'!='scribus-main'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)..\scribus-main\uic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <!-- Targets for moc tool -->
   <Target
     Name="_moc"
     BeforeTargets="$(mocBeforeTargets)"
     AfterTargets="$(mocAfterTargets)"
     Condition="'@(moc)' != ''"
-    DependsOnTargets="$(mocDependsOn);ComputemocOutput"
+    DependsOnTargets="$(mocDependsOn);ComputeMocOutput"
     Outputs="%(moc.Outputs)"
     Inputs="%(moc.Identity);%(moc.AdditionalDependencies);$(MSBuildProjectFile)">
     <ItemGroup
@@ -148,15 +178,15 @@
   <PropertyGroup>
     <ComputeLinkInputsTargets>
             $(ComputeLinkInputsTargets);
-            ComputemocOutput;
+            ComputeMocOutput;
           </ComputeLinkInputsTargets>
     <ComputeLibInputsTargets>
             $(ComputeLibInputsTargets);
-            ComputemocOutput;
+            ComputeMocOutput;
           </ComputeLibInputsTargets>
   </PropertyGroup>
   <Target
-    Name="ComputemocOutput"
+    Name="ComputeMocOutput"
     Condition="'@(moc)' != ''">
     <ItemGroup>
       <mocDirsToMake
@@ -172,15 +202,30 @@
         Include="%(mocDirsToMake.Identity)"
         Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
     </ItemGroup>
-    <MakeDir
-      Directories="@(mocDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+    <MakeDir Directories="@(mocDirsToMake-&gt;'%(RootDir)%(Directory)')" />
   </Target>
+  <!-- Clean support for moc output -->
+  <PropertyGroup>
+    <CleanDependsOn>
+		MocClean;
+        $(CleanDependsOn);
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target
+    Name="MocClean"
+    Condition="'@(moc)' != ''">
+    <ItemGroup>
+      <mocFileToDelete Include="%(moc.Outputs)" />
+    </ItemGroup>
+    <Delete Files="@(mocFileToDelete)" />
+  </Target>
+  <!-- Targets for rcc tool -->
   <Target
     Name="_rcc"
     BeforeTargets="$(rccBeforeTargets)"
     AfterTargets="$(rccAfterTargets)"
     Condition="'@(rcc)' != ''"
-    DependsOnTargets="$(rccDependsOn);ComputerccOutput"
+    DependsOnTargets="$(rccDependsOn);ComputeRccOutput"
     Outputs="%(rcc.Outputs)"
     Inputs="%(rcc.Identity);%(rcc.AdditionalDependencies);$(MSBuildProjectFile)">
     <ItemGroup
@@ -212,15 +257,15 @@
   <PropertyGroup>
     <ComputeLinkInputsTargets>
             $(ComputeLinkInputsTargets);
-            ComputerccOutput;
+            ComputeRccOutput;
           </ComputeLinkInputsTargets>
     <ComputeLibInputsTargets>
             $(ComputeLibInputsTargets);
-            ComputerccOutput;
+            ComputeRccOutput;
           </ComputeLibInputsTargets>
   </PropertyGroup>
   <Target
-    Name="ComputerccOutput"
+    Name="ComputeRccOutput"
     Condition="'@(rcc)' != ''">
     <ItemGroup>
       <rccDirsToMake
@@ -236,15 +281,30 @@
         Include="%(rccDirsToMake.Identity)"
         Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
     </ItemGroup>
-    <MakeDir
-      Directories="@(rccDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+    <MakeDir Directories="@(rccDirsToMake-&gt;'%(RootDir)%(Directory)')" />
   </Target>
+  <!-- Clean support for rcc output -->
+  <PropertyGroup>
+    <CleanDependsOn>
+		RccClean;
+        $(CleanDependsOn);
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target
+    Name="RccClean"
+    Condition="'@(rcc)' != ''">
+    <ItemGroup>
+      <rccFileToDelete Include="%(rcc.Outputs)" />
+    </ItemGroup>
+    <Delete Files="@(rccFileToDelete)" />
+  </Target>
+   <!-- Targets for lrelease tool -->
   <Target
     Name="_lrelease"
     BeforeTargets="$(lreleaseBeforeTargets)"
     AfterTargets="$(lreleaseAfterTargets)"
     Condition="'@(lrelease)' != ''"
-    DependsOnTargets="$(lreleaseDependsOn);ComputelreleaseOutput"
+    DependsOnTargets="$(lreleaseDependsOn);ComputeLreleaseOutput"
     Outputs="%(lrelease.Outputs)"
     Inputs="%(lrelease.Identity);%(lrelease.AdditionalDependencies);$(MSBuildProjectFile)">
     <ItemGroup
@@ -276,15 +336,15 @@
   <PropertyGroup>
     <ComputeLinkInputsTargets>
             $(ComputeLinkInputsTargets);
-            ComputelreleaseOutput;
+            ComputeLreleaseOutput;
           </ComputeLinkInputsTargets>
     <ComputeLibInputsTargets>
             $(ComputeLibInputsTargets);
-            ComputelreleaseOutput;
+            ComputeLreleaseOutput;
           </ComputeLibInputsTargets>
   </PropertyGroup>
   <Target
-    Name="ComputelreleaseOutput"
+    Name="ComputeLreleaseOutput"
     Condition="'@(lrelease)' != ''">
     <ItemGroup>
       <lreleaseDirsToMake
@@ -300,7 +360,21 @@
         Include="%(lreleaseDirsToMake.Identity)"
         Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
     </ItemGroup>
-    <MakeDir
-      Directories="@(lreleaseDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+    <MakeDir Directories="@(lreleaseDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+  </Target>
+  <!-- Clean support for lrelease output -->
+  <PropertyGroup>
+    <CleanDependsOn>
+		LrelaseClean;
+        $(CleanDependsOn);
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target
+    Name="LrelaseClean"
+    Condition="'@(lrelease)' != ''">
+    <ItemGroup>
+      <lreleaseFileToDelete Include="%(lrelease.Outputs)" />
+    </ItemGroup>
+    <Delete Files="@(lreleaseFileToDelete)" />
   </Target>
 </Project>

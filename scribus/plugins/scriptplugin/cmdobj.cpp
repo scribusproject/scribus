@@ -596,57 +596,155 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if ((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText))
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
-		// First, find the style number associated with the requested style
-		// by scanning through the styles looking for the name. If
-		// we can't find it, raise PyExc_Exception.
-		// FIXME: Should use a more specific exception.
-		bool found = false;
-		uint styleid = 0;
-		// We start at zero here because it's OK to match an internal name
-		int docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
-		for (int i=0; i < docParagraphStylesCount; ++i)
-		{
-			if (ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name() == QString::fromUtf8(style)) {
-				found = true;
-				styleid = i;
-				break;
-			}
-		}
-		if (!found) {
-			// whoops, the user specified an invalid style, complain loudly.
-			PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
-			return NULL;
-		}
-		// for current item only
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0 || (strlen(name) > 0))
-		{
-			// quick hack to always apply on the right frame - pv
-			ScCore->primaryMainWindow()->view->Deselect(true);
-			//CB I dont think we need to draw here. Its faster if we dont.
-			ScCore->primaryMainWindow()->view->SelectItem(item, false);
-			// Now apply the style.
-			int mode = ScCore->primaryMainWindow()->doc->appMode;
-			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-			ScCore->primaryMainWindow()->setNewParStyle(QString::fromUtf8(style));
-			ScCore->primaryMainWindow()->doc->appMode = mode;
-		}
-		else // for multiple selection
-		{
-			int mode = ScCore->primaryMainWindow()->doc->appMode;
-			ScCore->primaryMainWindow()->doc->appMode = modeNormal;
-			ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->paragraphStyles()[styleid]);
-			ScCore->primaryMainWindow()->doc->appMode = mode;
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	// First, find the style number associated with the requested style
+	// by scanning through the styles looking for the name. If
+	// we can't find it, raise PyExc_Exception.
+	// FIXME: Should use a more specific exception.
+	bool found = false;
+	QString paraStyleName = QString::fromUtf8(style);
+	// We start at zero here because it's OK to match an internal name
+	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	const StyleSet<ParagraphStyle> &docParagraphStyles = currentDoc->paragraphStyles();
+	int docParagraphStylesCount = docParagraphStyles.count();
+	for (int i=0; i < docParagraphStylesCount; ++i)
+	{
+		if (docParagraphStyles[i].name() == paraStyleName) {
+			found = true;
+			break;
 		}
 	}
-	else
-	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.","python error").toLocal8Bit().constData());
+	if (!found) {
+		// whoops, the user specified an invalid style, complain loudly.
+		PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
 		return NULL;
+	}
+	// for current item only
+	if (currentDoc->m_Selection->count() == 0 || (strlen(name) > 0))
+	{
+		// Store text selection as clearing object selection
+		// will also clear text selection
+		int selectionStart = -1;
+		int selectionLength = item->itemText.lengthOfSelection();
+		if (selectionLength > 0)
+			selectionStart = item->itemText.startOfSelection();
+		// quick hack to always apply on the right frame - pv
+		currentView->Deselect(true);
+		//CB I dont think we need to draw here. Its faster if we dont.
+		currentView->SelectItem(item, false);
+		// Restore stext selection if necessary
+		if (selectionStart >= 0)
+		{
+			item->itemText.deselectAll();
+			item->itemText.select(selectionStart, selectionLength);
+			item->HasSel = true;
+		}
+		// Now apply the style.
+		int mode = currentDoc->appMode;
+		currentDoc->appMode = modeEdit;
+		currentWin->setNewParStyle(paraStyleName);
+		currentDoc->appMode = mode;
+	}
+	else // for multiple selection
+	{
+		int mode = currentDoc->appMode;
+		currentDoc->appMode = modeNormal;
+		currentDoc->itemSelection_SetNamedParagraphStyle(paraStyleName);
+		currentDoc->appMode = mode;
 	}
 //	Py_INCREF(Py_None);
 //	return Py_None;
+	Py_RETURN_NONE;
+}
+
+/*
+* Jean Ghali, 2017-07-18
+* Apply the named character style to the currently selected object.
+* pv, 2004-09-13, optionaly param objectName + "check the page" stuff
+*/
+PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
+{
+	char *style = const_cast<char*>("");
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character style on a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	// First, find the style number associated with the requested style
+	// by scanning through the styles looking for the name. If
+	// we can't find it, raise PyExc_Exception.
+	// FIXME: Should use a more specific exception.
+	bool found = false;
+	QString charStyleName = QString::fromUtf8(style);
+	// We start at zero here because it's OK to match an internal name
+	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	const StyleSet<CharStyle> &docCharStyles = currentDoc->charStyles();
+	int docCharacterStylesCount = docCharStyles.count();
+	for (int i = 0; i < docCharacterStylesCount; ++i)
+	{
+		if (docCharStyles[i].name() == charStyleName) {
+			found = true;
+			break;
+		}
+	}
+	if (!found) {
+		// whoops, the user specified an invalid style, complain loudly.
+		PyErr_SetString(NotFoundError, QObject::tr("Character style not found.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	// for current item only
+	if (currentDoc->m_Selection->count() == 0 || (strlen(name) > 0))
+	{
+		// Store text selection as clearing object selection
+		// will also clear text selection
+		int selectionStart = -1;
+		int selectionLength = item->itemText.lengthOfSelection();
+		if (selectionLength > 0)
+			selectionStart = item->itemText.startOfSelection();
+		// quick hack to always apply on the right frame - pv
+		currentView->Deselect(true);
+		//CB I dont think we need to draw here. Its faster if we dont.
+		currentView->SelectItem(item, false);
+		// Restore stext selection if necessary
+		if (selectionStart >= 0)
+		{
+			item->itemText.deselectAll();
+			item->itemText.select(selectionStart, selectionLength);
+			item->HasSel = true;
+		}	
+		// Now apply the style.
+		int mode = ScCore->primaryMainWindow()->doc->appMode;
+		currentDoc->appMode = modeEdit;
+		currentWin->setNewCharStyle(charStyleName);
+		currentDoc->appMode = mode;
+	}
+	else // for multiple selection
+	{
+		int mode = currentDoc->appMode;
+		currentDoc->appMode = modeNormal;
+		currentDoc->itemSelection_SetNamedCharStyle(charStyleName);
+		currentDoc->appMode = mode;
+	}
+	//	Py_INCREF(Py_None);
+	//	return Py_None;
 	Py_RETURN_NONE;
 }
 

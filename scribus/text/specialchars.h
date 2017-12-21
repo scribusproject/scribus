@@ -35,6 +35,7 @@ public:
 	static QChar TAB;
 	static QChar PARSEP;
 	static QChar LINEBREAK;
+	static QChar OLD_LINEBREAK;
 	static QChar COLBREAK;
 	static QChar FRAMEBREAK;
 	static QChar SHYPHEN;
@@ -80,7 +81,7 @@ public:
 	static bool isCJK(uint ch);
 	static bool isLetterRequiringSpaceAroundCJK(uint ch);
 	static bool isIgnorableCodePoint(uint ch);
-	static bool isArabicDiacritic(uint ch);
+	static bool isArabicModifierLetter(uint ch);
 };
 
 #endif

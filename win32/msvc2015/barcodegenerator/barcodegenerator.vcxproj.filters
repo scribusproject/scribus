@@ -16,9 +16,6 @@
     <Filter Include="Form Files">
       <UniqueIdentifier>{e56d0fb6-48e8-4a3a-ba56-2d765cb34b28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{f1291aab-46c7-40aa-b69b-32f5c71db67c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcode.cpp">
@@ -35,9 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

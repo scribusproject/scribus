@@ -32,7 +32,8 @@ protected:
 	PageItem* m_item;
 	ScribusMainWindow* m_ScMW;
 
-	void configureWidgets(void);
+	void configureWidgets();
+	void initWidgets();
 	void setCurrentItem(PageItem *item);
 	virtual void changeEvent(QEvent *e);
 
@@ -49,7 +50,7 @@ public slots:
 	void updateStyle(const ParagraphStyle& newCurrent);
 
 private slots:
-	void handlefontfeatures();
+	void handleFontFeatures();
 
 signals:
 	void needsRelayout();

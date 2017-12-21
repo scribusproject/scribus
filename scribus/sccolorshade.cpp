@@ -47,21 +47,21 @@ ScColor ScColorShade::getShadedColor(void)
 	ScColor value;
 	if (color.getColorModel() == colorModelRGB)
 	{
-		RGBColor rgb;
+		RGBColorF rgb;
 		ScColorEngine::getShadeColorRGB(color, NULL, rgb, shade);
-		value.setColorRGB( rgb.r, rgb.g, rgb.b );
+		value.setRgbColorF(rgb.r, rgb.g, rgb.b);
 	}
 	else if (color.getColorModel() == colorModelCMYK)
 	{
-		CMYKColor cmyk;
+		CMYKColorF cmyk;
 		ScColorEngine::getShadeColorCMYK(color, NULL, cmyk, shade);
-		value.setColor( cmyk.c, cmyk.m, cmyk.y, cmyk.k );
+		value.setColorF(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
 		double L, a, b;
 		color.getLab(&L, &a, &b);
-		value.setColor(L * (shade / 100.0), a, b);
+		value.setLabColor(L * (shade / 100.0), a, b);
 	}
 	return value;
 }

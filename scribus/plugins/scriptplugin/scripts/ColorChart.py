@@ -88,6 +88,7 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     headerstring=pagetitle
     scribus.insertText(headerstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
     #create textbox and insert text for footer
     textbox=scribus.createText(leftMargin, pageHeight-bottomMargin-FOOTERSIZE,  pageWidth-leftMargin-rightMargin, FOOTERSIZE)
@@ -97,6 +98,7 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     footerstring="Created using ColorChart.py V %s script for Scribus by Sebastian Stetter - http://www.sebastianstetter.de" % str(__version__)
     scribus.insertText(footerstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
 
 def getSpotColors():
@@ -165,7 +167,7 @@ def prepareDocument():
         m = int(color[2])
         y = int(color[3])
         k = int(color[4])
-        scribus.defineColor(cname,  c, m, y, k )
+        scribus.defineColorCMYK(cname,  c, m, y, k )
         if spotDict.has_key(cname):
             scribus.setSpotColor(cname, spotDict[cname])
 
@@ -249,6 +251,7 @@ def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertic
     scribus.setTextAlignment(scribus.ALIGN_LEFT, textbox)
     #load the string into the textbox
     scribus.insertText(colorstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
 
 def createChart():

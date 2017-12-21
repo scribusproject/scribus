@@ -1103,7 +1103,7 @@ void XtgScanner::defColor()
 			double m = getToken().toDouble();
 			double y = getToken().toDouble();
 			double k = getToken().toDouble();
-			tmp.setColor(qRound(c * 2.55), qRound(m * 255), qRound(y * 255), qRound(k * 255));
+			tmp.setColorF(c / 100.0, m / 100.0, y / 100.0, k / 100.0);
 			tmp.setSpotColor(isSpot);
 			tmp.setRegistrationColor(false);
 			doc->PageColors.tryAddColor(sfcName, tmp);
@@ -1120,7 +1120,7 @@ void XtgScanner::defColor()
 			double r = getToken().toDouble();
 			double g = getToken().toDouble();
 			double b = getToken().toDouble();
-			tmp.setColorRGB(qRound(r * 2.55), qRound(g * 255), qRound(b * 255));
+			tmp.setRgbColorF(r / 100.0, g / 100.0, b / 100.0);
 			tmp.setSpotColor(isSpot);
 			tmp.setRegistrationColor(false);
 			doc->PageColors.tryAddColor(sfcName, tmp);
@@ -1132,7 +1132,7 @@ void XtgScanner::defColor()
 
 void XtgScanner::definePStyles()
 {
-	QString s1,s2,s3;
+	QString s1, s2, s3;
 	enterState(stringMode);
 	define = 2;
 	if (token == "[S\"")

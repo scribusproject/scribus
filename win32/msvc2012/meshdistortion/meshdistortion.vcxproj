@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortion.h" />
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\ui_meshdistortiondialog.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.ui" />

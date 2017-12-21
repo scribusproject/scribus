@@ -217,7 +217,6 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\fontpreview\fontpreview.h" />
     <moc Include="..\..\..\scribus\plugins\fontpreview\fontpreviewplugin.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\fontpreview\ui_fontpreview.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\fontpreview\fontpreview.ui" />

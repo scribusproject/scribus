@@ -58,7 +58,7 @@ Hyphenator::~Hyphenator()
 
 bool Hyphenator::loadDict(const QString& name)
 {
-	if( LanguageManager::instance()->getHyphFilename(name).isEmpty() )
+	if (LanguageManager::instance()->getHyphFilename(name).isEmpty())
 		return false;
 		
 	if (m_language != name)
@@ -84,7 +84,7 @@ bool Hyphenator::loadDict(const QString& name)
 		}
 	}
 
-	return true;
+	return (m_codec != 0 && m_hdict != 0);
 }
 
 void Hyphenator::slotNewSettings(bool Autom, bool ACheck)
@@ -98,36 +98,37 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 {
 	if (text.contains(SpecialChars::SHYPHEN))
 		return;
-	const CharStyle& style = it->itemText.charStyle(firstC);
-	if (text.length() >= style.hyphenWordMin())
-	{
-		bool ok = loadDict(style.language());
-		if (!ok)
-			return;
 
-		QByteArray te = m_codec->fromUnicode(text);
-		char *buffer = static_cast<char*>(malloc(te.length() + 5));
-		if (buffer == NULL)
-			return;
-		char **rep = NULL;
-		int *pos = NULL;
-		int *cut = NULL;
-		// TODO: support non-standard hyphenation, see hnj_hyphen_hyphenate2 docs
-		if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, NULL, &rep, &pos, &cut))
-		{
-			buffer[te.length()] = '\0';
-			it->itemText.hyphenateWord(firstC, text.length(), buffer);
-		}
-		free(buffer);
-		if (rep)
-		{
-			for (int i = 0; i < te.length() - 1; ++i)
-				free(rep[i]);
-		}
-		free(rep);
-		free(pos);
-		free(cut);
+	const CharStyle& style = it->itemText.charStyle(firstC);
+	if (text.length() < style.hyphenWordMin())
+		return;
+
+	bool ok = loadDict(style.language());
+	if (!ok)
+		return;
+
+	QByteArray te = m_codec->fromUnicode(text);
+	char *buffer = static_cast<char*>(malloc(te.length() + 5));
+	if (buffer == NULL)
+		return;
+	char **rep = NULL;
+	int *pos = NULL;
+	int *cut = NULL;
+	// TODO: support non-standard hyphenation, see hnj_hyphen_hyphenate2 docs
+	if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, NULL, &rep, &pos, &cut))
+	{
+		buffer[te.length()] = '\0';
+		it->itemText.hyphenateWord(firstC, text.length(), buffer);
 	}
+	free(buffer);
+	if (rep)
+	{
+		for (int i = 0; i < te.length() - 1; ++i)
+			free(rep[i]);
+	}
+	free(rep);
+	free(pos);
+	free(cut);
 }
 
 void Hyphenator::slotHyphenate(PageItem* it)

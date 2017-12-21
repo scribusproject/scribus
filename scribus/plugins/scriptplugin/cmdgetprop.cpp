@@ -80,6 +80,20 @@ PyObject *scribus_getfillblend(PyObject* /* self */, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->fillBlendmode())) : NULL;
 }
 
+PyObject *scribus_getcustomlinestyle(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *it;
+	it = GetUniqueItem(QString::fromUtf8(Name));
+	if (it == NULL)
+		return NULL;
+	return PyString_FromString(it->customLineStyle().toUtf8());
+}
+
 PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -386,6 +400,7 @@ void cmdgetpropdocwarnings()
 {
 	QStringList s;
 	s << scribus_getobjecttype__doc__ << scribus_getfillcolor__doc__
+	  << scribus_getcustomlinestyle__doc__
 	  << scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ 
 	  << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ 
 	  << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ 

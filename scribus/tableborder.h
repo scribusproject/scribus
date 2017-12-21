@@ -96,7 +96,7 @@ public:
 	double width() const;
 
 	/// Returns the list of border lines for this border in the order they should be painted.
-	QList<TableBorderLine> borderLines() const { return m_borderLines; }
+	const QList<TableBorderLine>& borderLines() const { return m_borderLines; }
 
 	/**
 	 * Returns the border line at @a index from the list of border lines for this border, or

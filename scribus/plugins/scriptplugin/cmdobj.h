@@ -250,6 +250,19 @@ If no object name is given, style is applied on selected object.\n\
 PyObject *scribus_setstyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setcharstyle__doc__,
+	QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
+\n\
+Apply the named character \"style\" to the object named \"name\". If object name is\n\
+given, style is applied to the current text selection in object \"name\".\n\
+If no object name is given, style is applied on selected object.\n\
+"));
+/**
+Apply the named character style to the currently selected object.
+*/
+PyObject *scribus_setcharstyle(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getstylenames__doc__,
 QT_TR_NOOP("getAllStyles() -> list\n\
 \n\

@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "upgradechecker.h"
+#include "util.h"
 
 #ifdef WITH_TESTS
 #include "tests/runtests.h"
@@ -410,6 +411,7 @@ QStringList ScribusQApp::getLang(QString lang)
 				if (userprefsContext)
 				{
 					QString prefslang = userprefsContext->get("gui_language","");
+					prefslang = cleanupLang(prefslang);
 					if (!prefslang.isEmpty())
 						langs.append(prefslang);
 				}
@@ -420,21 +422,27 @@ QStringList ScribusQApp::getLang(QString lang)
 
 	if (!(lang = ::getenv("LANG")).isEmpty())
 	{
+		lang = cleanupLang(lang);
 		if (lang=="C")
 			lang="en";
-		langs.append(lang);
+		if (!lang.isEmpty())
+			langs.append(lang);
 	}
 	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
 	{
+		lang = cleanupLang(lang);
 		if (lang=="C")
 			lang="en";
-		langs.append(lang);
+		if (!lang.isEmpty())
+			langs.append(lang);
 	}
 	if (!(lang = ::getenv("LC_ALL")).isEmpty())
 	{
+		lang = cleanupLang(lang);
 		if (lang=="C")
 			lang="en";
-		langs.append(lang);
+		if (!lang.isEmpty())
+			langs.append(lang);
 	}
 
 #if defined(_WIN32)
@@ -458,7 +466,7 @@ QStringList ScribusQApp::getLang(QString lang)
 	}
 #endif
 
-	langs.append(QString(QLocale::system().name()));
+	langs.append(QLocale::system().name());
 
 	// remove duplicate entries...
 	QStringList::Iterator it = langs.end();

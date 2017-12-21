@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <poppler/PageTransition.h>
 #include <poppler/ViewerPreferences.h>
 #include <poppler/poppler-config.h>
+#include <poppler/cpp/poppler-version.h>
 #include <poppler/SplashOutputDev.h>
 #include <poppler/splash/SplashBitmap.h>
 
@@ -58,6 +59,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "ui/propertiespalette.h"
+
+#define POPPLER_VERSION_ENCODE(major, minor, micro) (	\
+	  ((major) * 10000)				\
+	+ ((minor) *   100)				\
+	+ ((micro) *     1))
+#define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
 
 PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 {
@@ -507,12 +514,20 @@ bool PdfPlug::convert(const QString& fn)
 							{
 								for (int i = 0; i < order->getLength (); ++i)
 								{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+									Object orderItem = order->get(i);
+#else
 									Object orderItem;
 									order->get(i, &orderItem);
+#endif
 									if (orderItem.isDict())
 									{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+										Object ref = order->getNF(i);		
+#else
 										Object ref;
 										order->getNF(i, &ref);
+#endif
 										if (ref.isRef())
 										{
 											OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
@@ -523,7 +538,9 @@ bool PdfPlug::convert(const QString& fn)
 												ocgNames.append(ocgName);
 											}
 										}
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 58, 0)
 										ref.free();
+#endif
 									}
 									else
 									{
@@ -597,39 +614,71 @@ bool PdfPlug::convert(const QString& fn)
 							dev->layersSetByOCG = true;
 						}
 #endif
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+						Object info = pdfDoc->getDocInfo();
+						if (info.isDict())
+						{
+							Object obj;
+							Dict *infoDict = info.getDict();
+							obj = infoDict->lookup((char*) "Title");
+							if (obj.isString())
+							{
+								m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
+							}
+							obj = infoDict->lookup((char*) "Author");
+							if (obj.isString())
+							{
+								m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
+							}
+							obj = infoDict->lookup((char*) "Subject");
+							if (obj.isString())
+							{
+								m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
+							}
+							obj = infoDict->lookup((char*) "Keywords");
+							if (obj.isString())
+							{
+								//		s1 = obj.getString();
+								m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));
+							}
+						}
+						info = Object();
+#else
 						Object info;
 						pdfDoc->getDocInfo(&info);
 						if (info.isDict())
 						{
 							Object obj;
-						//	GooString *s1;
+							//	GooString *s1;
 							Dict *infoDict = info.getDict();
-							if (infoDict->lookup((char*)"Title", &obj )->isString())
+							if (infoDict->lookup((char*)"Title", &obj)->isString())
 							{
-						//		s1 = obj.getString();
+								//		s1 = obj.getString();
 								m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup((char*)"Author", &obj )->isString())
+							if (infoDict->lookup((char*)"Author", &obj)->isString())
 							{
-						//		s1 = obj.getString();
+								//		s1 = obj.getString();
 								m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup((char*)"Subject", &obj )->isString())
+							if (infoDict->lookup((char*)"Subject", &obj)->isString())
 							{
-						//		s1 = obj.getString();
+								//		s1 = obj.getString();
 								m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup((char*)"Keywords", &obj )->isString())
+							if (infoDict->lookup((char*)"Keywords", &obj)->isString())
 							{
-						//		s1 = obj.getString();
+								//		s1 = obj.getString();
 								m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
 						}
 						info.free();
+#endif
 						if (cropped)
 						{
 							QRectF crBox = getCBox(contentRect, pageNs[0]);
@@ -746,8 +795,13 @@ bool PdfPlug::convert(const QString& fn)
 									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}
 							PDFPresentationData ef;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+							Object trans = pdfDoc->getPage(pp)->getTrans();
+							Object *transi = &trans;
+#else
 							Object trans;
 							Object *transi = pdfDoc->getPage(pp)->getTrans(&trans);
+#endif
 							if (transi->isDict())
 							{
 								m_Doc->pdfOptions().PresentMode = true;
@@ -793,32 +847,51 @@ bool PdfPlug::convert(const QString& fn)
 								delete pgTrans;
 							}
 							m_Doc->currentPage()->PresentVals = ef;
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 58, 0)
 							trans.free();
 							transi->free();
+#endif
 						}
 						int numjs = pdfDoc->getCatalog()->numJS();
 						if (numjs > 0)
 						{
 							NameTree *jsNameTreeP = new NameTree();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+							Object catDict = pdfDoc->getXRef()->getCatalog();
+#else
 							Object catDict;
 							pdfDoc->getXRef()->getCatalog(&catDict);
+#endif
 							if (catDict.isDict())
 							{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+								Object names = catDict.dictLookup("Names");
+#else
 								Object names;
 								catDict.dictLookup("Names", &names);
+#endif
 								if (names.isDict())
 								{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+									Object obj = names.dictLookup("JavaScript");
+									jsNameTreeP->init(pdfDoc->getXRef(), &obj);
+#else
 									Object obj;
 									names.dictLookup("JavaScript", &obj);
 									jsNameTreeP->init(pdfDoc->getXRef(), &obj);
 									obj.free();
+#endif
 								}
 								for (int a = 0; a < numjs; a++)
 								{
 									m_Doc->JavaScripts.insert(UnicodeParsedString(jsNameTreeP->getName(a)), UnicodeParsedString(pdfDoc->getCatalog()->getJS(a)));
 								}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+								names = catDict.dictLookup("OpenAction");
+#else
 								names.free();
 								catDict.dictLookup("OpenAction", &names);
+#endif
 								if (names.isDict())
 								{
 									LinkAction *linkAction = NULL;
@@ -839,9 +912,13 @@ bool PdfPlug::convert(const QString& fn)
 										}
 									}
 								}
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 58, 0)
 								names.free();
+#endif
 							}
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 58, 0)
 							catDict.free();
+#endif
 							delete jsNameTreeP;
 						}
 						m_Doc->pdfOptions().Version = (PDFOptions::PDFVersion)qMin(15, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));

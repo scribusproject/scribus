@@ -507,12 +507,12 @@ bool ScFace::canRender(QChar ch) const
 	}
 }
 
-bool ScFace::EmbedFont(QByteArray &str)
+bool ScFace::embedFont(QByteArray &str)
 {
 	if (m_m->status == ScFace::UNKNOWN) {
 		m_m->load();
 	}
-	return m_m->EmbedFont(str);
+	return m_m->embedFont(str);
 }
 
 
@@ -525,12 +525,12 @@ bool ScFace::glyphNames(FaceEncoding& gList)
 }
 
 
-void ScFace::RawData(QByteArray & bb)
+void ScFace::rawData(QByteArray & bb)
 {
 	if (m_m->status == ScFace::UNKNOWN) {
 		m_m->load();
 	}
-	m_m->RawData(bb);
+	m_m->rawData(bb);
 }
 
 void ScFace::checkAllGlyphs()

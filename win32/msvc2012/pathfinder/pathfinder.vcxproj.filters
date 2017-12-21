@@ -9,9 +9,6 @@
       <UniqueIdentifier>{6b593108-b1a3-451f-8d85-e33c89de4997}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{3bbbde15-fda4-4e57-ac30-7ef124d51dcb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{020539f9-1a91-4d16-8ae7-19a4d099e659}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\tools\pathfinder\ui_pathfinderbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

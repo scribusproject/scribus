@@ -82,6 +82,7 @@ LoremParser::LoremParser(QString fname)
 			if (element.tagName() == "p")
 			{
 				QString txt = element.text().simplified();
+				txt.replace(SpecialChars::OLD_LINEBREAK, SpecialChars::LINEBREAK);
 				txt.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
 				txt.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 				loremIpsum.append(txt);

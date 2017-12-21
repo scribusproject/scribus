@@ -466,6 +466,20 @@ QRectF Selection::getVisualGroupRect()
 	return QRectF(x,y,w,h);
 }
 
+bool Selection::containsItemType(PageItem::ItemType type) const
+{
+	if (m_SelList.isEmpty())
+		return false;
+	SelectionList::ConstIterator it = m_SelList.begin();
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (; it != itend; ++it)
+	{
+		if ((*it)->itemType() == type)
+			return true;
+	}
+	return false;
+}
+
 bool Selection::itemsAreSameType() const
 {
 	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.

@@ -13,13 +13,14 @@
 #include "scclocale.h"
 
 #include <cstdlib>
+#include <sstream>
 
 #include <QByteArray>
 #include <QDebug>
 
 ScCLocale * ScCLocale::m_instance = 0;
 ScCLocale::ScCLocale()
-	:qLocale(QLocale::C)
+	:qLocale(QLocale::C), cLocale(0)
 {
 	qLocale.setNumberOptions(QLocale::OmitGroupSeparator);
 
@@ -45,7 +46,7 @@ ScCLocale::~ScCLocale()
 
 ScCLocale * ScCLocale::that()
 {
-	if(!m_instance)
+	if (!m_instance)
 	{
 		m_instance = new ScCLocale();
 		Q_ASSERT(m_instance);
@@ -174,33 +175,34 @@ QString ScCLocale::toQStringC(double d, int prec)
 	return that()->qLocale.toString(d, 'f', prec);
 }
 
-double ScCLocale::strtod ( const char * str, char ** endptr )
+double ScCLocale::strtod(const char * str, char ** endptr)
 {
-	if(NULL == that()->cLocale)
+	if (NULL == that()->cLocale)
 	{
 		// a sade workaround
 		double result(0.0);
-		setlocale(LC_NUMERIC, "C");
-		result = std::strtod(str, endptr);
-		setlocale(LC_NUMERIC, "");
+		std::streamoff bytesRead;
+		std::istringstream sstream(str);
+		sstream.imbue(std::locale::classic());
+		sstream >> result;
+		bytesRead = sstream.eof() ? strlen(str) : (std::streamoff) sstream.tellg();
+		*endptr = const_cast<char*>(str) + bytesRead;
 		return result;
 	}
-	else
-	{
-#if defined(Q_OS_WIN)
-		return _strtod_l(str, endptr, that()->cLocale);
+
+#if defined(Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined(Q_OS_FREEBSD) || defined(Q_OS_HAIKU)
+	double result(0.0);
+	std::streamoff bytesRead;
+	std::istringstream sstream(str);
+	sstream.imbue(std::locale::classic());
+	sstream >> result;
+	bytesRead = sstream.eof() ? strlen(str) : (std::streamoff) sstream.tellg();
+	*endptr = const_cast<char*>(str) + bytesRead;
+	return result;
+#elif defined(Q_OS_WIN)
+	return _strtod_l(str, endptr, that()->cLocale);
 #else
-  #if defined(Q_OS_SOLARIS) or defined (Q_OS_OPENBSD) or defined(Q_OS_FREEBSD) or defined(Q_OS_HAIKU)
-		char *oldlocale=setlocale(LC_NUMERIC, NULL);
-		double result(0.0);
-		setlocale(LC_NUMERIC, "C");
-		result = std::strtod(str, endptr);
-		setlocale(LC_NUMERIC, oldlocale);
-		return result;
-  #else
-		return strtod_l(str, endptr, that()->cLocale);
-  #endif
+	return strtod_l(str, endptr, that()->cLocale);
 #endif
-	}
 }
 

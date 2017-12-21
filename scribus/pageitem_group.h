@@ -44,12 +44,18 @@ public:
 	virtual bool isGroup() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Group; }
 	void adjustXYPosition();
-	virtual QList<PageItem*> getItemList() const;
 	virtual void setLayer(int layerId);
+	virtual void setMasterPage(int page, const QString& mpName);
+	virtual void setMasterPageName(const QString& mpName);
 	virtual void getNamedResources(ResourceCollection& lists) const;
 	virtual void replaceNamedResources(ResourceCollection& newNames);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
+
+	/// Retrieve child items of this item
+	virtual QList<PageItem*> getChildren() const { return groupItemList; }
+	/// Retrieve all children of item, including children of children
+	virtual QList<PageItem*> getAllChildren() const;
 
 	virtual void layout();
 	

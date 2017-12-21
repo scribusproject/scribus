@@ -62,6 +62,7 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 	connect(revertPushButton, SIGNAL(clicked(bool)), this, SLOT(revertClicked(bool)));
 	connect(killPushButton, SIGNAL(clicked(bool)), frame, SLOT(killProcess()));
 	connect(externalEditorPushButton, SIGNAL(clicked(bool)), this, SLOT(extEditorClicked()));
+	connect(dpiSpinBox, SIGNAL(editingFinished()), this, SLOT(dpiChanged()));
 	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), this, SLOT(formulaChanged(QString, QString)));
 	connect(frame, SIGNAL(latexFinished()), this, SLOT(latexFinished()));
 	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(stateChanged(QProcess::ProcessState)));
@@ -307,6 +308,11 @@ void LatexEditor::applicationChanged()
 		frame->rerunApplication(true);
 		sourceTextEdit->setPlainText(frame->formula());
 	}
+}
+
+void LatexEditor::dpiChanged()
+{
+	apply();
 }
 
 void LatexEditor::formulaChanged(QString oldText, QString newText)

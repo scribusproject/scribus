@@ -254,7 +254,7 @@ bool XPSExPlug::doExport(QString fName)
 		writeCore();
 		writeDocRels();
 		// Write Thumbnail
-		QImage thumb = m_Doc->view()->PageToPixmap(0, 256, false);
+		QImage thumb = m_Doc->view()->PageToPixmap(0, 256, Pixmap_DrawBackground);
 		thumb.save(baseDir + "/docProps/thumbnail.jpeg", "JPG");
 		// Write required DocStructure.struct
 		QFile fts(baseDir + "/Documents/1/Structure/DocStructure.struct");

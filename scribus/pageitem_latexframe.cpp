@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QFontInfo>
 #include <QMessageBox>
+#include <QSignalBlocker>
 #include <QTemporaryFile>
 
 #include "prefsmanager.h"
@@ -69,8 +70,12 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
-	m_lastWidth = m_lastHeight = 0;
 	m_dpi = 0;
+	m_lastWidth = m_lastHeight = 0;
+	m_lastDpi = realDpi();
+
+	m_imageXScale *= (72.0 / realDpi());
+	m_imageYScale *= (72.0 / realDpi());
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
@@ -154,6 +159,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	appStdout = latex->readAllStandardOutput();
+	invalid = false;
 	m_err = exitCode;
 	
 	emit latexFinished();
@@ -215,12 +221,13 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	{
 		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
 	}
+	m_lastDpi = realDpi();
 	
 	//Restore parameters, account for dpi changes
 	m_imageXScale = scaleX / pixm.imgInfo.xres;
 	m_imageYScale = scaleY / pixm.imgInfo.yres;
-	m_imageXOffset   = offX   * pixm.imgInfo.xres;
-	m_imageYOffset   = offY   * pixm.imgInfo.yres;
+	m_imageXOffset = offX  * pixm.imgInfo.xres;
+	m_imageYOffset = offY  * pixm.imgInfo.yres;
 	//emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	update();
 }
@@ -323,18 +330,22 @@ void PageItem_LatexFrame::runEditor()
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
-	if (latex->state() != QProcess::NotRunning) {
+	if (latex->state() != QProcess::NotRunning)
+	{
+		QSignalBlocker sigBloker(latex);
 		m_killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
-		if (latex->state() != QProcess::NotRunning) {
+		if (latex->state() != QProcess::NotRunning)
+		{
 			//Still not terminated?
 			latex->kill();
 			latex->waitForFinished(500);
 		}
 	}
 	runApplication();
-	if (updateDisplay) this->update();
+	if (updateDisplay)
+		this->update();
 }
 
 
@@ -342,13 +353,13 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 {
 	QString tmp(formulaText);
 	double scaleX, scaleY, realW, realH, offsetX, offsetY;
-	double lDpi = realDpi()/72.0;
-	scaleX = m_imageXScale*lDpi;
-	scaleY = m_imageYScale*lDpi;
-	offsetX = m_imageXOffset*m_imageXScale;
-	offsetY = m_imageYOffset*m_imageYScale;
-	realW = m_width/scaleX - m_imageXOffset/lDpi;
-	realH = m_height/scaleY - m_imageYOffset/lDpi;
+	double lDpi = realDpi() / 72.0;
+	scaleX = m_imageXScale * lDpi;
+	scaleY = m_imageYScale * lDpi;
+	offsetX = m_imageXOffset * m_imageXScale;
+	offsetY = m_imageYOffset * m_imageYScale;
+	realW = m_width  - m_imageXOffset / lDpi;
+	realH = m_height - m_imageYOffset / lDpi;
 	if (!tmp.contains("$scribus_noprepost$") && m_usePreamble) {
 		tmp = config->preamble() + tmp + config->postamble();
 	}
@@ -542,9 +553,11 @@ void PageItem_LatexFrame::layout()
 	if (!invalid) return;
 	invalid = false;
 	
-	if (m_width == m_lastWidth && m_height == m_lastHeight) return;
+	if (m_width == m_lastWidth && m_height == m_lastHeight && m_lastDpi == realDpi())
+		return;
 	m_lastWidth = m_width;
 	m_lastHeight = m_height;
+	m_lastDpi = realDpi();
 	
 	rerunApplication(false);
 }

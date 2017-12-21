@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.jpg" />
+		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.png" />
+		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.svg" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_plugins_picbrowser;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_plugins_picbrowser">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

@@ -80,7 +80,7 @@ void PageItem_Table::currentTextProps(ParagraphStyle& parStyle) const
 		parStyle = this->itemText.defaultStyle();
 }
 
-QList<PageItem*> PageItem_Table::getItemList() const
+QList<PageItem*> PageItem_Table::getChildren() const
 {
 	QList<PageItem*> ret;
 
@@ -210,6 +210,91 @@ void PageItem_Table::layout()
 			{
 				PageItem* textFrame = cell.textFrame();
 				textFrame->layout();
+			}
+		}
+	}
+}
+
+void PageItem_Table::setLayer(int newLayerID)
+{
+	LayerID = newLayerID;
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->LayerID = newLayerID;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setMasterPage(int page, const QString& mpName)
+{
+	PageItem::setMasterPage(page, mpName);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OwnPage = page;
+				textFrame->OnMasterPage = mpName;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setMasterPageName(const QString& mpName)
+{
+	PageItem::setMasterPageName(mpName);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OnMasterPage = mpName;
+			}
+		}
+	}
+}
+
+void PageItem_Table::setOwnerPage(int page)
+{
+	PageItem::setOwnerPage(page);
+
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->OwnPage = page;
 			}
 		}
 	}
@@ -1120,14 +1205,20 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	TableCell newActiveCell = validCell(cell.row(), cell.column()) ? cell : cellAt(0, 0);
 
 	// Deselect previous active cell and its text.
-	m_activeCell.textFrame()->setSelected(false);
-	m_activeCell.textFrame()->itemText.deselectAll();
-	m_activeCell.textFrame()->HasSel = false;
+	PageItem_TextFrame* textFrame = m_activeCell.textFrame();
+	textFrame->setSelected(false);
+	textFrame->itemText.deselectAll();
+	textFrame->HasSel = false;
+
+	// Set current style context befor assigning new active cell:
+	// if old active cell ref count is 1, the old context might be deleted
+	const ParagraphStyle& curStyle = newActiveCell.textFrame()->currentStyle();
+	m_Doc->currentStyle.setContext(curStyle.context());
+	m_Doc->currentStyle = newActiveCell.textFrame()->currentStyle();
 
 	// Set the new active cell and select it.
 	m_activeCell = newActiveCell;
 	m_activeCell.textFrame()->setSelected(true);
-	m_Doc->currentStyle = m_activeCell.textFrame()->currentStyle();
 	m_activeRow = m_activeCell.row();
 	m_activeColumn = m_activeCell.column();
 	emit selectionChanged();

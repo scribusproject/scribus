@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QList>
+#include <QPair>
 
 #include "scribusapi.h"
 #include "undostate.h"
@@ -104,8 +105,8 @@ protected:
 	void restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo);
 	void restorePageAttributes(SimpleState *state, bool isUndo);
-	void restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
-	void restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
+	void restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo);
+	void restorePageItemConversionToSymbol(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo);
 
 	double m_xOffset;
 	double m_yOffset;

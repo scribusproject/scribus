@@ -178,6 +178,28 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setcustomlinestyle(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	char *Style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Style, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
+	if (it == NULL)
+		return NULL;
+	QString qStyle = QString::fromUtf8(Style);
+	if (! ScCore->primaryMainWindow()->doc->MLineStyles.contains(qStyle))
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Line Style not found.","python error").toLocal8Bit().constData());
+		return NULL;
+
+	}
+	it->setCustomLineStyle(qStyle);
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -510,6 +532,7 @@ void cmdsetpropdocwarnings()
 {
 	QStringList s;
 	s << scribus_setgradfill__doc__  << scribus_setgradstop__doc__
+	  << scribus_setcustomlinestyle__doc__
 	  << scribus_setfillcolor__doc__ << scribus_setfilltrans__doc__ 
 	  << scribus_setfillblend__doc__ << scribus_setlinecolor__doc__ 
 	  << scribus_setlinetrans__doc__ << scribus_setlineblend__doc__ 

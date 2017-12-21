@@ -90,6 +90,7 @@ int main(int argc, char *argv[])
 {
 	int result;
 	emergencyActivated = false;
+
 #if !defined(_CONSOLE)
 	if (consoleOptionEnabled(argc, argv))
 	{
@@ -103,6 +104,7 @@ int main(int argc, char *argv[])
 	ScribusQApp app(argc, argv);
 	setPythonEnvironment(app.applicationDirPath());
 	result =  mainApp(app);
+
 	return result;
 }
 
@@ -313,22 +315,22 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 	switch (type)
 	{
 	case QtDebugMsg:
-		cerr << "Debug: " << localMsg.constData()
-			 << "(" << context.file << ":" << context.line << ", "
-			 << context.function << ")"
-			 << endl;
+		cerr << "Debug: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
 		break;
 	case QtWarningMsg:
-		cerr << "Warning: " << localMsg.constData()
-			 << "(" << context.file << ":" << context.line << ", "
-			 << context.function << ")"
-			 << endl;
+		cerr << "Warning: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
 		break;
 	case QtCriticalMsg:
-		cerr << "Critical: " << localMsg.constData()
-			 << "(" << context.file << ":" << context.line << ", "
-			 << context.function << ")"
-			 << endl;
+		cerr << "Critical: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
 		break;
 	case QtFatalMsg:
 		if (ScribusQApp::useGUI)
@@ -364,33 +366,69 @@ void redirectIOToConsole(void)
 	int hConHandle;
 	HANDLE lStdHandle;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
-	FILE *fp;
+
+	freopen("NUL", "r", stdin);
+	freopen("NUL", "w", stdout);
+	freopen("NUL", "w", stderr);
 
 	// allocate console
 	if( GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE )
 		AllocConsole();
+
 	// set the screen buffer to be big enough to let us scroll text
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
 	coninfo.dwSize.Y = MAX_LINES;
 	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
-	//redirect unbuffered STDOUT to the console
-	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stdout = *fp;
-	setvbuf( stdout, NULL, _IONBF, 0 );
+
 	// redirect unbuffered STDIN to the console
 	lStdHandle = GetStdHandle(STD_INPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "r" );
-	*stdin = *fp;
-	setvbuf( stdin, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdin));
+			setvbuf(stdin, NULL, _IONBF, 0);
+			SetStdHandle(STD_INPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdin)));
+			_close(hConHandle);
+		}
+	}
+
+	//redirect unbuffered STDOUT to the console
+	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdout));
+			setvbuf(stdout, NULL, _IONBF, 0);
+			SetStdHandle(STD_OUTPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdout)));
+			_close(hConHandle);
+		}
+	}
+	
 	// redirect unbuffered STDERR to the console
 	lStdHandle = GetStdHandle(STD_ERROR_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stderr = *fp;
-	setvbuf( stderr, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stderr));
+			setvbuf(stderr, NULL, _IONBF, 0);
+			SetStdHandle(STD_ERROR_HANDLE, (HANDLE) _get_osfhandle(fileno(stderr)));
+			_close(hConHandle);
+		}
+	}
+
+	std::wcout.clear();
+	std::cout.clear();
+	std::wcerr.clear();
+	std::cerr.clear();
+	std::wcin.clear();
+	std::cin.clear();
+
 	// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog 
 	// point to console as well
 	ios::sync_with_stdio();

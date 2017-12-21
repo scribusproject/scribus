@@ -50,6 +50,16 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
+QString cleanupLang(const QString& lang)
+{
+	int dotIndex = lang.indexOf(QChar('.'));
+	if (dotIndex < 0)
+		return lang;
+
+	QString cleanLang = lang.left(dotIndex);
+	return cleanLang;
+}
+
 int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
 {
 	QProcess proc;
@@ -1120,6 +1130,8 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		tr = tr->BottomLink;
 	}
 	m_Doc->dontResize = true;
+	currItem->setLayer(gItem->LayerID);
+	currItem->setMasterPage(gItem->OwnPage, gItem->OnMasterPage);
 	currItem->adjustFrameToTable();
 	if (target != NULL)
 	{

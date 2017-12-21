@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_doc_de Include="$(MSBuildThisFileDirectory)*.css" />
+		<FilesToInstall_doc_de Include="$(MSBuildThisFileDirectory)*.html" />
+		<FilesToInstall_doc_de Include="$(MSBuildThisFileDirectory)*.xml" />
+		<FilesToInstall_doc_de Include="$(MSBuildThisFileDirectory)*.xsl" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_doc_de;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_doc_de">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_doc_de)"  
+			DestinationFiles="@(FilesToInstall_doc_de-&gt;'$(OutDir)\share\doc\de\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+	<Import Project="images\install.targets" />
+</Project>

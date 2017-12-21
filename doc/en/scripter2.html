@@ -1,0 +1,271 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scripts Included With Scribus</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Scripts Included With Scribus</h2>
+
+<p>If you select from the menu Script &gt; About Script, you are presented with a file dialog to find the script you would like to find information about. This can be challenging to locate where these scripts are on your system. Here we will show the information about the scripts included with Scribus.</p>
+
+
+<h3>Autoquote</h3>
+<p>This script transforms typewriter quotes to typographic quotes for a large variety of language conventions.</p>
+<p>USAGE</p>
+
+<p>You must have a document open, and a text frame selected.</br>
+There will be a valueDialog asking for your language for the quotes,</br> 
+the default is 'en', but change the default to suit your needs.</br>
+Detected errors shut down the script with an appropriate message.</p>
+
+
+<h3>Autoquote2</h3>
+<p>This is a variation on Autoquote, offering some additional features, including the option to have dialogs in French, and to add spaces between quotes and the text it surrounds.</p>
+<p>CHANGELOGS<br/>
+Original script is quotes.py or autoquotes.py<br/>
+9 oct 2013 :<br/>
+The algorithm has been slightly changed for determining<br/>
+whether a quote is opening or closing<br/>
++ it provides the choice for the type of space to add :<br/>
+none or non-breaking or thin or non-breaking thin<br/>
++ spaces are only added when not already there...<br/>
++ a french version of the dialogs is included<br/>
+25 oct 2013 :<br/>
+choice to change the spaces for already existing correct doublequotes<br/>
+if 'none' is chosen, then existing spaces inside double quotes are deleted<br/>
++ take into account already existing doublequotes for the correct choice open / close of next dquote<br/>
++ warning if some open/close inconsistency is detected<br/>
+for example in « texte " suite »<br/>
+5 apr 2017 :<br/>
++ added new language choice of de-g: German with inverted guillemets for double quotes</p>
+
+<p>LIMITS<br/>
+- it only acts on the currently selected frame<br/>
+(todo : acting on more than one selected frame,<br/>
+or on whole chain of linked text frame would be nice).<br/>
+- Spaces are not added outside of the quotes.<br/>
+(that could be a job for another more general typographic tool)</p>
+
+<p>USAGE</p>
+<p>You must have a document open, and a text frame selected.<br/>
+Run script from scribus menu (Script > Run script...)<br/>
+There will be a dialog asking for the language for the quotes, <br/>
+Detected errors shut down the script with an appropriate message.<br/>
+A dialog then asks what is your choice as for spaces.<br/>
+Follow indications and answer 0, 1, 2 or 3 <br/>
+Another dialog asks whether you want the script to manage <br/>
+existing correct doublequotes.</p>
+
+<h3>CalendarWizard</h3>
+<p>This is a simple 'Calendar creation wizard' for Scribus. It's a fully
+rewritten Calendar.py from Scribus examples. Enjoy.</p>
+
+<p>DESCRIPTION & USAGE:</p>
+<p>This script needs Tkinter. It will create a GUI with available options<br/>
+for easy calendar page creation. You'll get new pages with calendar<br/>
+tables into a new document you are asked for. Position of the<br/>
+objects in page is calculated with the "golden-ratio" aspect from the<br/>
+page margins.</p>
+
+<p>Steps to create:</p>
+<ol> <li>Fill requested values in the Calendar dialog</li>
+<li>You will be prompted for new document</li>
+<li>You will be prompted for new paragraph style which will be used
+       in calendar text frames. It could be changed later.</li>
+</ol>
+<p>There are 2 types of calendar supported:</p>
+<ol><li>Classic calendar with one month matrix per page. I suggest
+       here PORTRAIT orientation.</li>
+<li>Horizontal event calendar with one week per page with huge place
+       for human inputs. There should be LANDSCAPE imho.</li>
+<li>Horizontal event calendar with one week per page with huge place
+       for human inputs. There should be LANDSCAPE imho.</li>
+</ol>
+<p>But everything works with both orientations well of course too.</p>
+<h3>Caption</h3>
+<p>Creates a text frame (caption) in selected location relative to 
+one or more selected frames.</p>
+
+<p>USAGE</p>
+
+<p>Select one or more object (can be any kind of frame, or even imported vector graphics), <br/>
+
+run script. Dialog appears for choosing placement of all caption frames <br/>
+
+B/T/R/L (Bottom/Top/Right/Left).<br/>
+
+Bottom and Top caption frames are sized to width of parent object and height <br/>
+
+of 24 points. Right and Left caption frames sized to 150 points width and <br/>
+
+40 points height.</p>
+
+<h3>color2csv</h3>
+<p>ABOUT THIS SCRIPT:</p>
+
+<p>Export Scribus Colors to CSV</p>
+
+<p>color2csv.py allows a user to export  the colors of a given scribus document in a csv file.<br/>
+  The file will be a text file with comma separated values in the following format:<br/>
+"colorname", c,m,y,k <br/>
+
+If there is a document opened in scribus, color2csv uses this document as color source.<br/>
+  If there is no document opened in scribus, color2csv displays a file open dialog to allow<br/>
+  the user to chose a scribus file to get the colors from.<br/>
+
+Use csv2color to import the colors into a scribus document from a csv file.</p>
+
+<h3>ColorChart</h3>
+<p>ABOUT THIS SCRIPT:</p>
+
+<p>ColorChart.py allows a user to create color charts with all<br/>
+the colors of a given scribus document.<br/>
+It generates a color field for each color and a description<br/>
+of the color, containing the color name, the CMYK values and<br/>
+the RGB values.<br/>
+
+If there is a document opened in scribus, ColorChart uses this<br/>
+document as color source and creates a new document with the<br/>
+color chart.<br/>
+If there is no document opened in scribus, ColorChart displays<br/>
+a file open dialog to allow the user to chose a scribus file<br/>
+to generate a colorchart of.<br/>
+You will be asked to give a name for the color chart. This name<br/>
+will be displayed in the pages headlines.</p>
+
+<h3>csv2color</h3>
+<p>ABOUT THIS SCRIPT:</p>
+
+<p>Import Colors from a CSV file to Scribus<br/>
+
+csv2color.py allows a user to import colors from a given csv file into a scribus document. <br/>
+The file must be a text file with comma separated values in the following format:<br/>
+
+"colorname", c,m,y,k <br/>
+
+There must be a document opened in scribus where the colors can be defined in. <br/>
+  If the csv contanins one or more color names that already exist in the document,<br/>
+  the colors will be imported with a `*` as prefix.<br/>
+
+  This script is especially helpful if you want to use CMYK color representations of<br/>
+  color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables <br/>
+  can be found on the Web. <br/>
+  One can easily copy such a table into a text file, save it in the obove described format<br/>
+  and import it into a scribus document.<br/>
+
+Use color2csv to export the colors from a scribus document into a csv file.</p>
+
+<h3>DirectImageImport</h3>
+<p>Diese Skript importiert ein Bild und setzt es auf die akutelle Seite.<br/>
+Der Bildrahmen wird dem Bild angepasst und in den nicht-proportionalen Modus<br/>
+gesetzt, das heisst, beliebige Verzerrungen sind moeglich.<br/>
+
+Um das Bild proportional zu vergroessern, die STRG-Taste beim Bearbeiten druecken.<br/>
+
+Tested with scribus 1.3.3.3<br/>
+
+Author: Konrad Stania<br/>
+
+some modifications 2009 by Gregory Pittman, tested on Scribus 1.3.3.13svn<br/>
+
+This newer version uses the Python Imaging Library to get the dimensions of the<br/>
+image to be imported, and adjusts the frame accordingly. Initially the frame will<br/>
+be created centered, at 80% of the page's width or height, whichever is smaller. <br/>
+There is an adjustment to 80% of the height of the page in case this is exceeded <br/>
+by the initial calculation.<br/>
+
+<p>USAGE:</p>
+
+<p>You must have a document open. Run the script, a dialog asks you to choose an<br/>
+image to load. A proportional frame is automatically created and image loaded, <br/>
+then adjusted to frame size.</p>
+
+<h3>FontSample</h3>
+<p>DESCRIPTION & USAGE:</p>
+<p>This script needs Tkinter. It will create a GUI with an alphabetical list<br/>
+of fonts using the names as they will be shown in Scribus. User can select<br/>
+one or more fonts and create an example sheet(s) to print or create a PDF<br/>
+from. It is heavily commented to make it easier for the user to adjust it<br/>
+for his / her own needs.<br/>
+
+Note: this version needs read/write access to .scribus directory in users<br/>
+home. You will also need Python Imaging Library (PIL) installed.<br/>
+If your system does not meet these requirements then change showPreviewPanel<br/>
+to a value of 0. This will disable the new preview features.</p>
+
+<h3>importcsv2table</h3>
+<p>ABOUT THIS SCRIPT:</p>
+
+<p>Import CSV data files as tables into Scribus</p>
+<ol>
+<li>Create any frame of any size on your page but positioned 
+where you want the table to be located (upper left corner)</li>
+
+<li>Make sure it is selected</li>
+
+<li>Execute this script:<br/>
+
+You will be prompted first for the width of the left column in mm,
+then the right column in mm, then height of all cells, and finally
+for a csv filename</li>
+
+<li>The data from the csv file will be imported and a table of
+textboxes will be drawn on the page.</li>
+</ol>
+<p>LIMITATIONS:</p>
+<ol>
+<li>You are limited to two-column CSV data in your file.</li>
+
+<li>In Scribus versions 1.3.5svn, when the script ends, you cannot
+adjust text, colors, and line features for a group, whereas in 1.3.3.x,
+all of these can be done without ungrouping.</li>
+</ol>
+<p>HINTS:</p>
+
+<p>Postgresql:<br/>
+You can easily create a CSV file with a Postgresql database. From Postgresql,<br/>
+toggle unaligned output with the '\a' switch, then activate a comma as<br/>
+a separator with '\f ,' (without apostrophes). Send output to a file<br/>
+with '\o myfile.csv', then query your database.</p>
+
+<p>Sqlite3:<br/>
+You can use "sqlite3 -csv" in the command line or ".mode csv" in sqlite's<br/>
+interactive shell.</p>
+
+<h3>InfoBox</h3>
+<p>A simple script for exact placement of a frame (infobox)
+over the current textbox,<br/> asking the user for the width
+of the infobox and in which column to place it.</p>
+
+<p>Some enhancements:</p>
+<ul>
+<li>You can now create a text frame or an image frame, and also load
+an image.</li>
+
+<li>More than one infobox can be added to a text frame by repeatedly running
+  the script (ie, no name conflicts occur).</li>
+
+<li>Height and Y-Pos of top of infobox can be specified.</li>
+
+<li>Works with any page unit - pts, mm, in, and picas, cm, and even ciceros.</li>
+
+<li>Infobox has Text Flows Around Frame activated, also
+  Scale Image to Frame for images.</li>
+
+<li>If you load an image with the script, an exactly correct frame height is made.</li>
+</ul>
+<p>USAGE</p>
+
+<p>Select a textframe, start the script and have phun<br/>
+Default name for the infobox is 'infobox' + name_of_selected_frame,
+but this can be changed.</p>
+
+<h3>Ligatursatz</h3>
+<p>Unfortunately, this script has no usage information. It appears to be designed to<br/>
+  automatically create ligatures from certain letter combinations, in particular<br/>
+  for the German language.</p>
+</body>
+</html>

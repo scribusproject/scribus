@@ -11,8 +11,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <uic>
-      <CommandLineTemplate>$(QT5_DIR)\bin\uic.exe [inputs] -o "%(RootDir)%(Directory)\ui_%(Filename).h"</CommandLineTemplate>
-      <Outputs>%(RootDir)%(Directory)\ui_%(Filename).h</Outputs>
+      <CommandLineTemplate>$(QT5_DIR)\bin\uic.exe [inputs] -o "$(IntDir)uic\ui_%(Filename).h"</CommandLineTemplate>
+      <Outputs>$(IntDir)uic\ui_%(Filename).h</Outputs>
       <ExecutionDescription>Uic'ing %(Filename)%(Extension)</ExecutionDescription>
       <AdditionalDependencies>$(QT5_DIR)\bin\uic.exe</AdditionalDependencies>
     </uic>
@@ -28,8 +28,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <moc>
-      <CommandLineTemplate>$(QT5_DIR)\bin\moc.exe [inputs] -o "%(RootDir)%(Directory)\moc_%(Filename).cpp"</CommandLineTemplate>
-      <Outputs>%(RootDir)%(Directory)\moc_%(Filename).cpp</Outputs>
+      <CommandLineTemplate>$(QT5_DIR)\bin\moc.exe [inputs] -o "$(IntDir)moc\moc_%(Filename).cpp"</CommandLineTemplate>
+      <Outputs>$(IntDir)moc\moc_%(Filename).cpp</Outputs>
       <ExecutionDescription>Moc'ing %(Filename)%(Extension)</ExecutionDescription>
       <AdditionalDependencies>$(QT5_DIR)\bin\moc.exe</AdditionalDependencies>
     </moc>
@@ -45,8 +45,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <rcc>
-      <CommandLineTemplate>$(QT5_DIR)\bin\rcc.exe [inputs] -o "%(RootDir)%(Directory)\rcc_%(Filename).cpp"</CommandLineTemplate>
-      <Outputs>%(RootDir)%(Directory)\rcc_%(Filename).cpp</Outputs>
+      <CommandLineTemplate>$(QT5_DIR)\bin\rcc.exe [inputs] -o "$(IntDir)rcc\rcc_%(Filename).cpp"</CommandLineTemplate>
+      <Outputs>$(IntDir)rcc\rcc_%(Filename).cpp</Outputs>
       <ExecutionDescription>%(Filename).qrc</ExecutionDescription>
       <AdditionalDependencies>$(QT5_DIR)\bin\rcc.exe</AdditionalDependencies>
     </rcc>

@@ -162,11 +162,11 @@ bool ODTIm::parseRawDocReference(QString designMap)
 bool ODTIm::parseRawDocReferenceXML(QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "office:body")
 		{
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
 			{
 				if (sp.tagName() == "office:text")
 				{
@@ -180,40 +180,40 @@ bool ODTIm::parseRawDocReferenceXML(QDomDocument &designMapDom)
 
 void ODTIm::parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
 {
-	if (elem.hasChildNodes())
+	if (!elem.hasChildNodes())
+		return;
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		for(QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		QString txt = "";
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:span")
+			parseRawTextSpan(spEl, item, tmpStyle, tmpCStyle, posC);
+		else if (spn.nodeName() == "text:s")
 		{
-			QString txt = "";
-			QDomElement spEl = spn.toElement();
-			if (spn.nodeName() == "#text")
-				txt = spn.nodeValue();
-			else if (spn.nodeName() == "text:span")
-				parseRawTextSpan(spEl, item, tmpStyle, tmpCStyle, posC);
-			else if (spn.nodeName() == "text:s")
+			if (spEl.hasAttribute("text:c"))
 			{
-				if (spEl.hasAttribute("text:c"))
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
 				{
-					int n = spEl.attribute("text:c").toInt();
-					for (int nn = 0; nn < n; nn++)
-					{
-						txt += " ";
-					}
+					txt += " ";
 				}
-				else
-					txt = " ";
 			}
-			else if (spn.nodeName() == "text:tab")
-				txt = SpecialChars::TAB;
-			else if (spn.nodeName() == "text:line-break")
-				txt = SpecialChars::LINEBREAK;
-			if (!txt.isEmpty())
-			{
-				txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
-				txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
-				txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
-				insertChars(item, txt, tmpStyle, tmpCStyle, posC);
-			}
+			else
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 		}
 	}
 }
@@ -223,7 +223,7 @@ void ODTIm::parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle
 	CharStyle tmpCStyle = newStyle.charStyle();
 	if (elem.hasChildNodes())
 	{
-		for(QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 		{
 			QString txt = "";
 			QDomElement spEl = spn.toElement();
@@ -274,27 +274,25 @@ void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
 		item->itemText.setDefaultStyle(newStyle);
 	}
 	int posC = item->itemText.length();
-	for(QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
+	for (QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
 	{
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))
 			parseRawTextParagraph(para, item, newStyle, posC);
 		else if (para.nodeName() == "text:list")
 		{
-			if (para.hasChildNodes())
+			if (!para.hasChildNodes())
+				continue;
+			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 			{
-				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+				if (spn.nodeName() == "text:list-item")
 				{
-					if (spn.nodeName() == "text:list-item")
+					if (!spn.hasChildNodes())
+						continue;
+					for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
 					{
-						if (spn.hasChildNodes())
+						if (spp.nodeName() == "text:p")
 						{
-							for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
-							{
-								if (spp.nodeName() == "text:p")
-								{
-									parseRawTextParagraph(spp, item, newStyle, posC);
-								}
-							}
+							parseRawTextParagraph(spp, item, newStyle, posC);
 						}
 					}
 				}
@@ -302,14 +300,13 @@ void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
 		}
 		else if (para.nodeName() == "text:section")
 		{
-			if (para.hasChildNodes())
+			if (!para.hasChildNodes())
+				continue;
+			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 			{
-				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+				if (spn.nodeName() == "text:p")
 				{
-					if (spn.nodeName() == "text:p")
-					{
-						parseRawTextParagraph(spn, item, newStyle, posC);
-					}
+					parseRawTextParagraph(spn, item, newStyle, posC);
 				}
 			}
 		}
@@ -342,11 +339,11 @@ bool ODTIm::parseStyleSheets(QString designMap)
 bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement sp = docElem.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+	for (QDomElement sp = docElem.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
 	{
 		if (sp.tagName() == "office:font-face-decls")
 		{
-			for(QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 			{
 				if (spf.tagName() == "style:font-face")
 				{
@@ -372,13 +369,13 @@ bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
 
 void ODTIm::parseStyles(QDomElement &sp, QString type)
 {
-	for(QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+	for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
 	{
 		if (spd.tagName() == "style:default-style")
 		{
 			DrawStyle currStyle;
 			currStyle.styleOrigin = AttributeValue(type);
-			for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+			for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
 			{
 				if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -394,13 +391,13 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					currStyle.breakBefore = AttributeValue(spe.attribute("fo:break-before", ""));
 					if (spe.hasChildNodes())
 					{
-						for(QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
+						for (QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
 						{
 							if (spt.tagName() == "style:tab-stops")
 							{
 								QString tabDists = "";
 								QString tabTypes = "";
-								for(QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
+								for (QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
 								{
 									if (spte.tagName() == "style:tab-stop")
 									{
@@ -458,7 +455,7 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 			}
 			currStyle.styleType = AttributeValue(spd.attribute("style:family", ""));
 			currStyle.styleOrigin = AttributeValue(type);
-			for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+			for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
 			{
 				if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -474,13 +471,13 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					currStyle.breakBefore = AttributeValue(spe.attribute("fo:break-before", ""));
 					if (spe.hasChildNodes())
 					{
-						for(QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
+						for (QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
 						{
 							if (spt.tagName() == "style:tab-stops")
 							{
 								QString tabDists = "";
 								QString tabTypes = "";
-								for(QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
+								for (QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
 								{
 									if (spte.tagName() == "style:tab-stop")
 									{
@@ -525,7 +522,7 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 			if (type == "styles")
 			{
 				ObjStyleODT tmpOStyle;
-				resovleStyle(tmpOStyle, spd.attribute("style:name"));
+				resolveStyle(tmpOStyle, spd.attribute("style:name"));
 				if (spd.attribute("style:family") == "paragraph")
 				{
 					ParagraphStyle newStyle;
@@ -606,11 +603,11 @@ bool ODTIm::parseDocReference(QString designMap)
 bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "office:font-face-decls")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 			{
 				if (spf.tagName() == "style:font-face")
 				{
@@ -632,12 +629,12 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 			parseStyles(drawPag, "auto");
 		else if (drawPag.tagName() == "office:body")
 		{
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
 			{
 				if (sp.tagName() == "office:text")
 				{
 					ObjStyleODT tmpOStyle;
-					resovleStyle(tmpOStyle, "standard");
+					resolveStyle(tmpOStyle, "standard");
 					parseText(sp, m_item, tmpOStyle);
 				}
 			}
@@ -648,46 +645,56 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 
 void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT &tmpOStyle, int &posC)
 {
-	ObjStyleODT cStyle = tmpOStyle;
-	if (elem.hasAttribute("text:style-name"))
-		resovleStyle(cStyle, elem.attribute("text:style-name"));
-	applyCharacterStyle(tmpCStyle, cStyle);
-	if (elem.hasChildNodes())
+	ObjStyleODT odtStyle = tmpOStyle;
+	CharStyle cStyle = tmpCStyle;
+
+	QString textStyleName = elem.attribute("text:style-name");
+	if (textStyleName.length() > 0)
 	{
-		for(QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		resolveStyle(odtStyle, textStyleName);
+		m_textStylesStack.push(textStyleName);
+	}
+	
+	applyCharacterStyle(cStyle, odtStyle);
+	if (!elem.hasChildNodes())
+		return;
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+	{
+		QString txt = "";
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:span")
+			parseTextSpan(spEl, item, tmpStyle, cStyle, odtStyle, posC);
+		else if (spn.nodeName() == "text:s")
 		{
-			QString txt = "";
-			QDomElement spEl = spn.toElement();
-			if (spn.nodeName() == "#text")
-				txt = spn.nodeValue();
-			else if (spn.nodeName() == "text:span")
-				parseTextSpan(spEl, item, tmpStyle, tmpCStyle, cStyle, posC);
-			else if (spn.nodeName() == "text:s")
+			if (spEl.hasAttribute("text:c"))
 			{
-				if (spEl.hasAttribute("text:c"))
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
 				{
-					int n = spEl.attribute("text:c").toInt();
-					for (int nn = 0; nn < n; nn++)
-					{
-						txt += " ";
-					}
+					txt += " ";
 				}
-				else
-					txt = " ";
 			}
-			else if (spn.nodeName() == "text:tab")
-				txt = SpecialChars::TAB;
-			else if (spn.nodeName() == "text:line-break")
-				txt = SpecialChars::LINEBREAK;
-			if (!txt.isEmpty())
-			{
-				txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
-				txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
-				txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
-				insertChars(item, txt, tmpStyle, tmpCStyle, posC);
-			}
+			else
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, tmpStyle, cStyle, posC);
 		}
 	}
+
+	if (textStyleName.length() > 0)
+		m_textStylesStack.pop();
 }
 
 void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, ObjStyleODT &tmpOStyle, int &posC)
@@ -696,10 +703,11 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	CharStyle tmpCStyle = tmpStyle.charStyle();
 	ObjStyleODT pStyle = tmpOStyle;
 	QString parStyleName = "";
-	if (elem.toElement().hasAttribute("text:style-name"))
+
+	QString pStyleName = elem.toElement().attribute("text:style-name");
+	if (pStyleName.length() > 0)
 	{
-		QString pStyleName = elem.toElement().attribute("text:style-name");
-		resovleStyle(pStyle, pStyleName);
+		resolveStyle(pStyle, pStyleName);
 		if (m_Styles.contains(pStyleName))
 		{
 			DrawStyle currStyle = m_Styles[pStyleName];
@@ -719,6 +727,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 				}
 			}
 		}
+		m_textStylesStack.push(pStyleName);
 	}
 	if ((pStyle.breakBefore == "column") && (item->itemText.length() > 0))
 	{
@@ -733,7 +742,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	applyParagraphStyle(tmpStyle, pStyle);
 	if (elem.hasChildNodes())
 	{
-		for(QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 		{
 			if (!parStyleName.isEmpty())
 			{
@@ -805,6 +814,9 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	item->itemText.insertChars(posC, SpecialChars::PARSEP);
 	item->itemText.applyStyle(posC, tmpStyle);
 	posC = item->itemText.length();
+
+	if (pStyleName.length() > 0)
+		m_textStylesStack.pop();
 }
 
 void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
@@ -824,27 +836,25 @@ void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 		item->setFirstLineOffset(FLOPFontAscent);
 	}
 	int posC = item->itemText.length();
-	for(QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
+	for (QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
 	{
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))
 			parseTextParagraph(para, item, newStyle, tmpOStyle, posC);
 		else if (para.nodeName() == "text:list")
 		{
-			if (para.hasChildNodes())
+			if (!para.hasChildNodes())
+				continue;
+			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 			{
-				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+				if (spn.nodeName() == "text:list-item")
 				{
-					if (spn.nodeName() == "text:list-item")
+					if (!spn.hasChildNodes())
+						continue;
+					for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
 					{
-						if (spn.hasChildNodes())
+						if (spp.nodeName() == "text:p")
 						{
-							for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
-							{
-								if (spp.nodeName() == "text:p")
-								{
-									parseTextParagraph(spp, item, newStyle, tmpOStyle, posC);
-								}
-							}
+							parseTextParagraph(spp, item, newStyle, tmpOStyle, posC);
 						}
 					}
 				}
@@ -852,14 +862,13 @@ void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 		}
 		else if (para.nodeName() == "text:section")
 		{
-			if (para.hasChildNodes())
+			if (!para.hasChildNodes())
+				continue;
+			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 			{
-				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+				if (spn.nodeName() == "text:p")
 				{
-					if (spn.nodeName() == "text:p")
-					{
-						parseTextParagraph(spn, item, newStyle, tmpOStyle, posC);
-					}
+					parseTextParagraph(spn, item, newStyle, tmpOStyle, posC);
 				}
 			}
 		}
@@ -952,7 +961,7 @@ void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle)
 	tmpStyle.setTabValues(oStyle.tabStops);
 }
 
-void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
+void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 {
 	if (m_Styles.contains(pAttrs))
 	{
@@ -1073,15 +1082,57 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 				m_fontMap[actStyle.fontName.value] = tmpOStyle.fontName;
 			}
 		}
-		else if (parDefaultStyle.fontName.valid)
+		else
 		{
-			tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
-			m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
-		}
-		else if (txtDefaultStyle.fontName.valid)
-		{
-			tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
-			m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
+			QString fontName;
+			QStack<QString> textStyleStack = m_textStylesStack;
+			while (!textStyleStack.isEmpty())
+			{
+				QString styleName = textStyleStack.pop();
+				if (!m_Styles.contains(styleName))
+					continue;
+				const DrawStyle& odtStyle = m_Styles[styleName];
+				if (odtStyle.fontName.valid)
+				{
+					if (m_fontMap.contains(odtStyle.fontName.value))
+						tmpOStyle.fontName = m_fontMap[odtStyle.fontName.value];
+					else
+						tmpOStyle.fontName = constructFontName(odtStyle.fontName.value, "");
+					if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
+					{
+						tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
+						m_fontMap[odtStyle.fontName.value] = tmpOStyle.fontName;
+					}
+					fontName = tmpOStyle.fontName;
+					break;
+				}
+				if (odtStyle.parentStyle.valid)
+				{
+					QVector<QString> parentStyles;
+					DrawStyle drawStyle = odtStyle;
+					while (drawStyle.parentStyle.valid)
+					{
+						if (!m_Styles.contains(drawStyle.parentStyle.value))
+							break;
+						parentStyles.prepend(drawStyle.parentStyle.value);
+						drawStyle = m_Styles[drawStyle.parentStyle.value];
+					}
+					if (parentStyles.count() > 0)
+						textStyleStack += parentStyles;
+				}
+			}
+			if (txtDefaultStyle.fontName.valid && fontName.isEmpty())
+			{
+				tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
+				m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
+				fontName = tmpOStyle.fontName;
+			}
+			if (parDefaultStyle.fontName.valid && fontName.isEmpty())
+			{
+				tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
+				m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
+				fontName = tmpOStyle.fontName;
+			}
 		}
 		if (actStyle.fontStyle.valid)
 			tmpOStyle.fontStyle = actStyle.fontStyle.value;

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{f2df67ca-56c9-4510-8cde-c266955b1f02}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{c6e17d68-63bd-46da-979d-01235f7b116f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{7dbc8e97-e5cb-4f41-ac96-4c14d93bb633}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\tools\lenseffects\ui_lensdialogbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -710,6 +710,7 @@ void PropertiesPalette_Text::languageChange()
 	textTree->setItemText(advancedWidgetsItem, tr("Advanced Settings"));
 	textTree->setItemText(fontfeaturesWidgetItem, tr("Font Features"));
 	textTree->setItemText(pathTextItem, tr("Path Text Properties"));
+
 	QSignalBlocker lineSpacingModeBlocker(lineSpacingModeCombo);
 	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
 	lineSpacingModeCombo->clear();
@@ -718,6 +719,7 @@ void PropertiesPalette_Text::languageChange()
 	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
 	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
 
+	QSignalBlocker langComboBlocker(langCombo);
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	int oldLang = langCombo->currentIndex();

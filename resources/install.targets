@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="dicts\install.targets" />
+	<Import Project="editorconfig\install.targets" />
+	<Import Project="iconsets\install.targets" />
+	<Import Project="keysets\install.targets" />
+	<Import Project="loremipsum\install.targets" />
+	<Import Project="profiles\install.targets" />
+	<Import Project="swatches\install.targets" />
+	<Import Project="templates\install.targets" />
+</Project>

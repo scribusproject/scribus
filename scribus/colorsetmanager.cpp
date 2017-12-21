@@ -53,74 +53,99 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		appPrefs.colorPrefs.DColorSet = "Scribus_Small";
+		return;
 	}
-	else
+
+	if (fiC.open(QIODevice::ReadOnly))
 	{
-		if (fiC.open(QIODevice::ReadOnly))
+		QString ColorEn, Cname;
+		int Rval, Gval, Bval;
+		QTextStream tsC(&fiC);
+		ColorEn = tsC.readLine();
+		if (ColorEn.startsWith("<?xml version="))
 		{
-			QString ColorEn, Cname;
-			int Rval, Gval, Bval;
-			QTextStream tsC(&fiC);
-			ColorEn = tsC.readLine();
-			if (ColorEn.startsWith("<?xml version="))
+			QByteArray docBytes("");
+			loadRawText(defaultSwatch, docBytes);
+			QString docText("");
+			docText = QString::fromUtf8(docBytes);
+			QDomDocument docu("scridoc");
+			docu.setContent(docText);
+			ScColor lf = ScColor();
+			QDomElement elem = docu.documentElement();
+			QDomNode PAGE = elem.firstChild();
+			while (!PAGE.isNull())
 			{
-				QByteArray docBytes("");
-				loadRawText(defaultSwatch, docBytes);
-				QString docText("");
-				docText = QString::fromUtf8(docBytes);
-				QDomDocument docu("scridoc");
-				docu.setContent(docText);
-				ScColor lf = ScColor();
-				QDomElement elem = docu.documentElement();
-				QDomNode PAGE = elem.firstChild();
-				while(!PAGE.isNull())
+				QDomElement pg = PAGE.toElement();
+				if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 				{
-					QDomElement pg = PAGE.toElement();
-					if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+					if (pg.hasAttribute("SPACE"))
 					{
-						if (pg.hasAttribute("CMYK"))
-							lf.setNamedColor(pg.attribute("CMYK"));
-						else if (pg.hasAttribute("RGB"))
-							lf.fromQColor(QColor(pg.attribute("RGB")));
-						else
+						QString space = pg.attribute("SPACE");
+						if (space == "CMYK")
 						{
-							double L = pg.attribute("L", 0).toDouble();
-							double a = pg.attribute("A", 0).toDouble();
-							double b = pg.attribute("B", 0).toDouble();
-							lf.setColor(L, a, b);
+							double c = pg.attribute("C", "0").toDouble() / 100.0;
+							double m = pg.attribute("M", "0").toDouble() / 100.0;
+							double y = pg.attribute("Y", "0").toDouble() / 100.0;
+							double k = pg.attribute("K", "0").toDouble() / 100.0;
+							lf.setCmykColorF(c, m, y, k);
 						}
-						if (pg.hasAttribute("Spot"))
-							lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
-						else
-							lf.setSpotColor(false);
-						if (pg.hasAttribute("Register"))
-							lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
-						else
-							lf.setRegistrationColor(false);
-						appPrefs.colorPrefs.DColors.insert(pg.attribute("NAME"), lf);
+						else if (space == "RGB")
+						{
+							double r = pg.attribute("R", "0").toDouble() / 255.0;
+							double g = pg.attribute("G", "0").toDouble() / 255.0;
+							double b = pg.attribute("B", "0").toDouble() / 255.0;
+							lf.setRgbColorF(r, g, b);
+						}
+						else if (space == "Lab")
+						{
+							double L = pg.attribute("L", "0").toDouble();
+							double a = pg.attribute("A", "0").toDouble();
+							double b = pg.attribute("B", "0").toDouble();
+							lf.setLabColor(L, a, b);
+						}
 					}
-					PAGE=PAGE.nextSibling();
+					else if (pg.hasAttribute("CMYK"))
+						lf.setNamedColor(pg.attribute("CMYK"));
+					else if (pg.hasAttribute("RGB"))
+						lf.fromQColor(QColor(pg.attribute("RGB")));
+					else
+					{
+						double L = pg.attribute("L", 0).toDouble();
+						double a = pg.attribute("A", 0).toDouble();
+						double b = pg.attribute("B", 0).toDouble();
+						lf.setLabColor(L, a, b);
+					}
+					if (pg.hasAttribute("Spot"))
+						lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+					else
+						lf.setSpotColor(false);
+					if (pg.hasAttribute("Register"))
+						lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+					else
+						lf.setRegistrationColor(false);
+					appPrefs.colorPrefs.DColors.insert(pg.attribute("NAME"), lf);
 				}
+				PAGE=PAGE.nextSibling();
 			}
-			else
-			{
-				while (!tsC.atEnd())
-				{
-					ColorEn = tsC.readLine();
-					QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					CoE >> Cname;
-					ScColor tmp;
-					tmp.setColorRGB(Rval, Gval, Bval);
-					appPrefs.colorPrefs.DColors.insert(Cname, tmp);
-				}
-			}
-			fiC.close();
 		}
-		appPrefs.colorPrefs.DColorSet = ScPaths::instance().shareDir() + "swatches/" + "Scribus Basic";
+		else
+		{
+			while (!tsC.atEnd())
+			{
+				ColorEn = tsC.readLine();
+				QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+				CoE >> Rval;
+				CoE >> Gval;
+				CoE >> Bval;
+				CoE >> Cname;
+				ScColor tmp;
+				tmp.setRgbColor(Rval, Gval, Bval);
+				appPrefs.colorPrefs.DColors.insert(Cname, tmp);
+			}
+		}
+		fiC.close();
 	}
+	appPrefs.colorPrefs.DColorSet = ScPaths::instance().shareDir() + "swatches/" + "Scribus Basic";
 }
 
 void ColorSetManager::findPaletteLocations()

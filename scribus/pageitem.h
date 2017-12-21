@@ -477,7 +477,11 @@ public: // Start public functions
 	void setDashes(QVector<double> val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
-	virtual QList<PageItem*> getItemList() const;
+
+	/// Retrieve child items of this item
+	virtual QList<PageItem*> getChildren() const;
+	/// Retrieve all children of item, including children of children
+	virtual QList<PageItem*> getAllChildren() const;
 
 	//<< ********* Attributes of the item *********
 	//Position
@@ -776,7 +780,27 @@ public: // Start public functions
 	 */
 	void setItemName(const QString& newName);
 
-	/** @brief Get the name of the gradient of the object */
+	/**
+	* @brief Set the masterpage the object is on
+	* @param mpName name of the master page
+	*/
+	virtual void setMasterPage(int page, const QString& mpName) { OwnPage = page; OnMasterPage = mpName; }
+
+	/**
+	 * @brief Set the masterpage the object is on
+	 * @param mpName name of the master page
+	 */
+	virtual void setMasterPageName(const QString& mpName) { OnMasterPage = mpName; }
+
+	/**
+	* @brief Set the page "owning" the object
+	* @param page index of the page
+	*/
+	virtual void setOwnerPage(int page) { OwnPage = page; }
+
+	/** 
+	 * @brief Get the name of the gradient of the object
+	 */
 	QString gradient() const { return gradientVal; }
 
 	/**
@@ -1099,9 +1123,9 @@ public: // Start public functions
 	void convertTo(ItemType newType);
 
 	/**
-	* Set the layer for the item
-	* @param layerId layer where this item is moved
-	*/
+	 * Set the layer for the item
+	 * @param layerId layer where this item is moved
+	 */
 	virtual void setLayer(int layerId);
 
 	/**
@@ -1601,6 +1625,7 @@ protected: // Start protected functions
 	void restorePStyle(SimpleState *state, bool isUndo);
 	void restoreParagraphStyle(SimpleState *state, bool isUndo);
 	void restorePasteInline(SimpleState *state, bool isUndo);
+	void restorePastePlainText(SimpleState *state, bool isUndo);
 	void restorePasteText(SimpleState *state, bool isUndo);
 	void restorePathOperation(UndoState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);

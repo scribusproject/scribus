@@ -233,8 +233,6 @@
     <moc Include="..\..\..\scribus\plugins\picbrowser\pictview.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_imagedialog.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_picturebrowser.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\picbrowser\imagedialog.ui" />

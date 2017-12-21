@@ -3370,7 +3370,7 @@ void EmfPlug::handlePenDef(quint32 penID, quint32 penStyle, quint32 penWidth, qu
 QString EmfPlug::handleColor(QColor col)
 {
 	ScColor tmp;
-	tmp.setColorRGB(col.red(), col.green(), col.blue());
+	tmp.setRgbColor(col.red(), col.green(), col.blue());
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString tmpName = "FromEMF"+col.name().toUpper();

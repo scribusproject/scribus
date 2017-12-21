@@ -208,7 +208,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			originalWidthG.append(bxi->groupWidth);
 			originalHeightG.append(bxi->groupHeight);
 			patternItemG.append(bxi);
-			QList<PageItem*> bxiL = bxi->getItemList();
+			QList<PageItem*> bxiL = bxi->getAllChildren();
 			for (int bx = 0; bx < bxiL.count(); ++bx)
 			{
 				PageItem* cIte = bxiL.at(bx);

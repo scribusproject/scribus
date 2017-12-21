@@ -217,7 +217,6 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.h" />
     <moc Include="..\..\..\scribus\plugins\export\pixmapexport\export.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\export\pixmapexport\ui_exportform.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\export\pixmapexport\exportform.ui" />

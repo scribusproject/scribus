@@ -58,9 +58,9 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 		}
 		else if (color.getColorModel() == colorModelCMYK)
 		{
-			int c, m, y, k;
+			double c, m, y, k;
 			color.getCMYK(&c, &m, &y, &k);
-			return tr("C: %1% M: %2% Y: %3% K: %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+			return tr("C: %1% M: %2% Y: %3% K: %4%").arg(c * 100, 0, 'f', 2).arg(m * 100, 0, 'f', 2).arg(y * 100, 0, 'f', 2).arg(k * 100, 0, 'f', 2);
 		}
 		else if (color.getColorModel() == colorModelLab)
 		{

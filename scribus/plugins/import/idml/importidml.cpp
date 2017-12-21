@@ -785,7 +785,7 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				ScColor tmp;
 				ScTextStream Code(&colorData, QIODevice::ReadOnly);
 				Code >> c >> m >> y >> k;
-				tmp.setColor(qRound(c * 2.55), qRound(m * 2.55), qRound(y * 2.55), qRound(k * 2.55));
+				tmp.setColorF(c / 100.0, m / 100.0, y / 100.0, k / 100.0);
 				tmp.setSpotColor(colorModel == "Spot");
 				tmp.setRegistrationColor(colorModel == "Registration");
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);
@@ -799,7 +799,7 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				ScColor tmp;
 				ScTextStream Code(&colorData, QIODevice::ReadOnly);
 				Code >> r >> g >> b;
-				tmp.setColorRGB(r, g, b);
+				tmp.setRgbColor(r, g, b);
 				tmp.setSpotColor(false);
 				tmp.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);
@@ -847,15 +847,15 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				ScColor res;
 				if (tmp.getColorModel() == colorModelCMYK)
 				{
-					int c, m, y, k;
+					double c, m, y, k;
 					tmp.getCMYK(&c, &m, &y, &k);
-					res.setColor(qRound(c * tint), qRound(m * tint), qRound(y * tint), qRound(k * tint));
+					res.setColorF(c * tint, m * tint, y * tint, k * tint);
 				}
 				else
 				{
-					int r, g, b;
+					double r, g, b;
 					tmp.getRGB(&r, &g, &b);
-					res.setColorRGB(qRound(r * tint), qRound(g * tint), qRound(b * tint));
+					res.setRgbColorF(r * tint, g * tint, b * tint);
 				}
 				res.setSpotColor(false);
 				res.setRegistrationColor(false);

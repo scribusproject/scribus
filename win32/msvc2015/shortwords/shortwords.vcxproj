@@ -228,7 +228,6 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h" />
     <ClInclude Include="..\..\..\scribus\plugins\short-words\version.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\short-words\ui_swdialog.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\short-words\prefs_shortwordsbase.ui" />

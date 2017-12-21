@@ -170,7 +170,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 	{
 		PageItem* currItem = currDoc->MasterItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -415,7 +415,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 	{
 		PageItem* currItem = currDoc->DocItems.at(i);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

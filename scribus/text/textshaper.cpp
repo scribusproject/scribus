@@ -411,6 +411,22 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			    SpecialChars::isCJK(m_story.text(firstChar - 1).unicode()))
 				run.setFlag(ScLayout_ImplicitSpace);
 
+			int firstStat = SpecialChars::getCJKAttr(m_story.text(firstChar));
+			int currStat  = (firstChar != lastChar) ? SpecialChars::getCJKAttr(m_story.text(lastChar)) : firstStat;
+
+			if (firstStat & SpecialChars::CJK_NOBREAK_BEFORE)
+				run.setFlag(ScLayout_NoBreakBefore);
+
+			if (currStat & SpecialChars::CJK_NOBREAK_AFTER)
+				run.setFlag(ScLayout_NoBreakAfter);
+
+			if ((firstChar > 0) && (firstStat != 0) && ((firstStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0))
+			{
+				int prevStat = SpecialChars::getCJKAttr(m_story.text(firstChar - 1));
+				if (prevStat != 0 && ((prevStat & SpecialChars::CJK_NOBREAK_AFTER) == 0))
+					run.setFlag(ScLayout_LineBoundary);
+			}
+
 			run.setScaleH(charStyle.scaleH() / 1000.0);
 			run.setScaleV(charStyle.scaleV() / 1000.0);
 
@@ -503,7 +519,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 				double halfEM = run.style().fontSize() / 10 / 2;
 				double quarterEM = run.style().fontSize() / 10 / 4;
 
-				int currStat = SpecialChars::getCJKAttr(m_story.text(lastChar));
 				int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
 
 				// 1. add 1/4 aki (space) between a CJK letter and

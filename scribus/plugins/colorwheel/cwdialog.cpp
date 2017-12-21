@@ -68,7 +68,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 		if (!colorName.isEmpty() && m_Doc->PageColors.contains(colorName))
 			color = m_Doc->PageColors[colorName];
 		else
-			color.setColorRGB(0, 0, 0); //Trigger use of defaults
+			color.setRgbColor(0, 0, 0); //Trigger use of defaults
 	}
 	// Handle achromatic colors
 	QColor rgb = ScColorEngine::getRGBColor(color, m_Doc);
@@ -426,13 +426,13 @@ void CWDialog::setupRGBComponent(ScColor col)
 
 void CWDialog::setupCMYKComponent(ScColor col)
 {
-	CMYKColor cmyk;
+	CMYKColorF cmyk;
 	ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
 	connectSlots(false);
-	cSpin->setValue(qRound(cmyk.c / 2.55));
-	mSpin->setValue(qRound(cmyk.m / 2.55));
-	ySpin->setValue(qRound(cmyk.y / 2.55));
-	kSpin->setValue(qRound(cmyk.k / 2.55));
+	cSpin->setValue(qRound(cmyk.c * 100.0));
+	mSpin->setValue(qRound(cmyk.m * 100.0));
+	ySpin->setValue(qRound(cmyk.y * 100.0));
+	kSpin->setValue(qRound(cmyk.k * 100.0));
 	connectSlots(true);
 }
 

@@ -132,7 +132,7 @@ def importColors(colorlist):
             while colordict.has_key(name):# check if color already exists - then add PREFIX to name
                 name = PREFIX+name
             
-            scribus.defineColor(name, c, m, y, k)
+            scribus.defineColorCMYK(name, c, m, y, k)
             i=i+1
             scribus.progressSet(i)
 

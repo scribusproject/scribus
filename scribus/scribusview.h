@@ -161,7 +161,7 @@ public:
 	void hideSymbolPage();
 	void showInlinePage(int id);
 	void hideInlinePage();
-	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true, bool drawBackground = true);
+	QImage PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	void RecalcPicturesRes();
 	/**

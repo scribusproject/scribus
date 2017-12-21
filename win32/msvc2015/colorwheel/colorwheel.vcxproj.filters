@@ -9,9 +9,6 @@
       <UniqueIdentifier>{51b0a2f6-2166-4b0a-91f7-f4a6d0e3ac85}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{5270151a-f364-4c18-afb5-f2d3ae00d96d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{4620ea87-ca71-42d6-8fdc-b3f99182dc81}</UniqueIdentifier>
     </Filter>
@@ -31,9 +28,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\colorwheel\ui_cwdialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

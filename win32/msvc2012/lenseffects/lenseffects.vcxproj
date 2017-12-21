@@ -217,7 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialog.h" />
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\tools\lenseffects\ui_lensdialogbase.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialogbase.ui" />

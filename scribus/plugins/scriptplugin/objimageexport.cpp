@@ -142,16 +142,15 @@ static PyObject *ImageExport_save(ImageExport *self)
 {
 	if(!checkHaveDocument())
 		return NULL;
+	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
+	ScribusView*view = ScCore->primaryMainWindow()->view;
 
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,
 	* portrait and user defined sizes.
 	*/
-	double pixmapSize;
-	(ScCore->primaryMainWindow()->doc->pageHeight() > ScCore->primaryMainWindow()->doc->pageWidth())
-			? pixmapSize = ScCore->primaryMainWindow()->doc->pageHeight()
-			: pixmapSize = ScCore->primaryMainWindow()->doc->pageWidth();
-	QImage im = ScCore->primaryMainWindow()->view->PageToPixmap(ScCore->primaryMainWindow()->doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), false);
+	double pixmapSize = (doc->pageHeight() > doc->pageWidth()) ? doc->pageHeight() : doc->pageWidth();
+	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), Pixmap_DrawBackground);
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
@@ -174,15 +173,15 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &value))
 		return NULL;
 
+	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
+	ScribusView*view = ScCore->primaryMainWindow()->view;
+
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,
 	* portrait and user defined sizes.
 	*/
-	double pixmapSize;
-	(ScCore->primaryMainWindow()->doc->pageHeight() > ScCore->primaryMainWindow()->doc->pageWidth())
-			? pixmapSize = ScCore->primaryMainWindow()->doc->pageHeight()
-			: pixmapSize = ScCore->primaryMainWindow()->doc->pageWidth();
-	QImage im = ScCore->primaryMainWindow()->view->PageToPixmap(ScCore->primaryMainWindow()->doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), false);
+	double pixmapSize = (doc->pageHeight() > doc->pageWidth()) ? doc->pageHeight() : doc->pageWidth();
+	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), Pixmap_DrawBackground);
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);

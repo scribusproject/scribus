@@ -311,21 +311,22 @@ void StoryText::clear()
 	invalidateAll();
 }
 
-int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs) const
+int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs, int* pLen) const
 {
 	int foundIndex = -1;
+	if (pLen)
+		*pLen = 0;
 
 	if (str.isEmpty() || (from < 0))
 		return -1;
-
-	int strLen   = str.length();
-	int storyLen = length();
 
 	QString qStr = str;
 	if (cs == Qt::CaseInsensitive)
 		qStr = qStr.toLower();
 	QChar ch = qStr.at(0);
 
+	int strLen   = qStr.length();
+	int storyLen = length();
 	if (cs == Qt::CaseSensitive)
 	{
 		int i = indexOf(ch, from, cs);
@@ -341,6 +342,8 @@ int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs) con
 			if (index == strLen)
 			{
 				foundIndex = i;
+				if (pLen)
+					*pLen = strLen;
 				break;
 			}
 			i = indexOf(ch, i + 1, cs);
@@ -348,25 +351,51 @@ int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs) con
 	}
 	else
 	{
+		bool qCharIsDiacritic, curCharIsDiacritic;
 		int i = indexOf(ch, from, cs);
 		while (i >= 0 && i < (int) d->len)
 		{
 			int index = 0;
-			while ((index < strLen) && ((index + i) < storyLen))
+			int diacriticsCounter = 0; //counter for diacritics
+			while ((index < strLen) && ((index + i + diacriticsCounter) < storyLen))
 			{
-				if (qStr.at(index) != d->at(index + i)->ch.toLower())
+				const QChar &qChar = qStr.at(index);
+				const QChar &curChar = d->at(index + diacriticsCounter + i)->ch;
+				qCharIsDiacritic   = SpecialChars::isArabicModifierLetter(qChar.unicode()) | (qChar.category() == QChar::Mark_NonSpacing);
+				curCharIsDiacritic = SpecialChars::isArabicModifierLetter(curChar.unicode()) | (curChar.category() == QChar::Mark_NonSpacing);
+				if (qCharIsDiacritic || curCharIsDiacritic)
+				{
+					if (qCharIsDiacritic)
+					{
+						++index;
+						--diacriticsCounter;
+					}
+					if (curCharIsDiacritic)
+						++diacriticsCounter;
+					continue;
+				}
+				if (qChar != curChar.toLower())
 					break;
 				++index;
 			}
 			if (index == strLen)
 			{
 				foundIndex = i;
+				while ((index + i + diacriticsCounter) < storyLen)
+				{
+					const QChar &curChar = d->at(index + diacriticsCounter + i)->ch;
+					if (!SpecialChars::isArabicModifierLetter(curChar.unicode()) && (curChar.category() != QChar::Mark_NonSpacing))
+						break;
+					++diacriticsCounter;
+				}
+
+				if (pLen)
+					*pLen = strLen + diacriticsCounter;
 				break;
 			}
 			i = indexOf(ch, i + 1, cs);
 		}
 	}
-
 	return foundIndex;
 }
 

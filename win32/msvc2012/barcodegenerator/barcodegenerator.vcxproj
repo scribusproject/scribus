@@ -219,7 +219,6 @@
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcode.h" />
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.h" />
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.ui" />

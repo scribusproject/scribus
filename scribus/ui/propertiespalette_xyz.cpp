@@ -1205,7 +1205,7 @@ void PropertiesPalette_XYZ::handleNewName()
 	{
 		PageItem *currItem = m_doc->Items->at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)

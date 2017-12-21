@@ -110,12 +110,12 @@ Prefs_PDFExport::~Prefs_PDFExport()
 
 PDFOptions::PDFFontEmbedding Prefs_PDFExport::fontEmbeddingMode()
 {
-	return (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
+	return fontEmbeddingCombo->embeddingMode();
 }
 
 QStringList Prefs_PDFExport::fontsToEmbed()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
 		return QStringList();
 
@@ -127,7 +127,7 @@ QStringList Prefs_PDFExport::fontsToEmbed()
 
 QStringList Prefs_PDFExport::fontsToSubset()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
 		return QStringList();
 
@@ -139,7 +139,7 @@ QStringList Prefs_PDFExport::fontsToSubset()
 
 QStringList Prefs_PDFExport::fontsToOutline()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::OutlineFonts)
 		return QStringList();
 
@@ -303,6 +303,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	maxExportResolutionSpinBox->setValue(prefsData->pdfPrefs.PicRes);
 	maxExportResolutionSpinBox->setEnabled(prefsData->pdfPrefs.RecalcPic);
 
+	fontEmbeddingCombo->setEmbeddingMode(prefsData->pdfPrefs.FontEmbedding);
 	if (m_doc != 0 && exportingPDF)
 	{
 //	Build a list of all Fonts used in Annotations;
@@ -312,7 +313,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = it.value();
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -327,7 +328,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = m_doc->MasterItems.at(a);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -342,7 +343,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		{
 			PageItem *currItem = m_doc->DocItems.at(a);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -691,7 +692,7 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->pdfPrefs.MirrorV = pageMirrorVerticalToolButton->isChecked();
 	prefsData->pdfPrefs.RotateDeg = rotationComboBox->currentIndex() * 90;
 	prefsData->pdfPrefs.Articles = saveLinkedTextFramesAsArticlesCheckBox->isChecked();
-	prefsData->pdfPrefs.FontEmbedding = (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
+	prefsData->pdfPrefs.FontEmbedding = fontEmbeddingCombo->embeddingMode();
 	prefsData->pdfPrefs.Encrypt = useEncryptionCheckBox->isChecked();
 	prefsData->pdfPrefs.UseLPI = useCustomRenderingCheckBox->isChecked();
 	prefsData->pdfPrefs.UseSpotColors = !convertSpotsToProcessCheckBox->isChecked();
@@ -1060,7 +1061,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 
 	if (i < 3)  // not PDF/X
 	{
-		fontEmbeddingCombo->setEnabled(true);
+		fontEmbeddingCombo->setNoEmbeddingEnabled(true);
 		enablePDFXWidgets(false);
 		tabWidget->setTabEnabled(2, true);
 		outputIntentionComboBox->setEnabled(true);
@@ -1097,13 +1098,18 @@ void Prefs_PDFExport::enablePDFX(int i)
 			emit hasInfo();
 	}
 
-	fontEmbeddingCombo->setCurrentIndex(0);
-	fontEmbeddingCombo->setEnabled(false);
+	PDFOptions::PDFFontEmbedding oldEmbeddingMode = fontEmbeddingCombo->embeddingMode();
+	fontEmbeddingCombo->setNoEmbeddingEnabled(false);
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 
-	embeddedFontsListWidget->setEnabled(true);
-	embedAllButton->setEnabled(true);
-	subsettedFontsListWidget->setEnabled(true);
-	subsetAllButton->setEnabled(true);
+	if (oldEmbeddingMode != embeddingMode)
+		embeddedFontsListWidget->clearSelection();
+	embeddedFontsListWidget->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	embedAllButton->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	if (oldEmbeddingMode != embeddingMode)
+		subsettedFontsListWidget->clearSelection();
+	subsettedFontsListWidget->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	subsetAllButton->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
 	toSubsetButton->setEnabled(true);
 	fromSubsetButton->setEnabled(true);
 
@@ -1365,7 +1371,7 @@ void Prefs_PDFExport::DoDownsample()
 
 void Prefs_PDFExport::EmbeddingModeChange()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 
 	embeddedFontsListWidget->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
 	embedAllButton->setEnabled(embeddingMode == PDFOptions::EmbedFonts);

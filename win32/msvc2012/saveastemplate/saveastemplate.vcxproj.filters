@@ -13,9 +13,6 @@
       <UniqueIdentifier>{ce9de50a-635a-41a7-ae33-c8b5ecb7db18}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{cdebf2d4-8f04-4519-bd1d-dcede62421c1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.cpp">
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\saveastemplateplugin\ui_satdialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

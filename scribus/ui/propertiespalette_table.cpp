@@ -325,6 +325,22 @@ void PropertiesPalette_Table::updateBorderLineList()
 	removeBorderLineButton->setEnabled(borderLineList->count() > 1);
 }
 
+void PropertiesPalette_Table::updateBorderLineList(const TableBorderLine& current)
+{
+	updateBorderLineList();
+
+	const QList<TableBorderLine>& borderLines = m_currentBorder.borderLines();
+	for (int i = 0; i < borderLines.count(); ++i)
+	{
+		const TableBorderLine& borderLine = borderLines.at(i);
+		if (borderLine == current)
+		{
+			borderLineList->setCurrentRow(i);
+			break;
+		}
+	}
+}
+
 void PropertiesPalette_Table::updateBorderLineListItem()
 {
 	QListWidgetItem* item = borderLineList->currentItem();
@@ -442,6 +458,8 @@ void PropertiesPalette_Table::on_removeBorderLineButton_clicked()
 	int index = borderLineList->currentRow();
 	borderLineList->removeItemWidget(borderLineList->currentItem());
 	m_currentBorder.removeBorderLine(index);
+	
+	updateBorders();
 	updateBorderLineList();
 }
 
@@ -453,7 +471,7 @@ void PropertiesPalette_Table::on_borderLineWidth_valueChanged(double width)
 	m_currentBorder.replaceBorderLine(index, borderLine);
 
 	updateBorders();
-	updateBorderLineListItem();
+	updateBorderLineList(borderLine);
 }
 
 void PropertiesPalette_Table::on_borderLineShade_valueChanged(double shade)

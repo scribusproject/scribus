@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 /*
 	Class ScFace_ttf
 	Subclass of ScFace, specifically for TrueType fonts.
-	Implements: RealName() and EmbedFont().
+	Implements: realName() and embedFont().
 */
 
 class SCRIBUS_API ScFace_ttf : public FtFace
@@ -27,8 +27,8 @@ public:
 	void load () const;
 	void unload () const;
 
-	bool EmbedFont(QByteArray &str) const;
-	void RawData(QByteArray & bb) const;
+	bool embedFont(QByteArray &str) const;
+	void rawData(QByteArray & bb) const;
 	
 	virtual bool glyphNames(ScFace::FaceEncoding& GList) const;
 	virtual bool hasNames() const;

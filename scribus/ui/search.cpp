@@ -261,7 +261,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	if (mode)
 		Word->setEnabled(false);
 	OptsLayout->addWidget( Word );
-	CaseIgnore = new QCheckBox( tr( "&Ignore Case" ), this );
+	CaseIgnore = new QCheckBox( tr( "&Ignore Case, Diacritics and Kashida" ), this );
 	if (mode)
 		CaseIgnore->setEnabled(false);
 	OptsLayout->addWidget( CaseIgnore );
@@ -434,7 +434,7 @@ void SearchReplace::slotDoSearch()
 
 	uint as = m_item->itemText.cursorPosition();
 	m_replStart = as;
-	int a;
+	int a, textLen(0);
 	if (m_itemMode)
 	{
 		Qt::CaseSensitivity cs = Qt::CaseSensitive;
@@ -446,16 +446,16 @@ void SearchReplace::slotDoSearch()
 			found = true;
 			if (SText->isChecked())
 			{
-				a = m_item->itemText.indexOf(sText, a, cs);
+				a = m_item->itemText.indexOf(sText, a, cs, &textLen);
 				found = (a >= 0);
 				if (!found) break;
 
-				if (Word->isChecked() && (a > 0) && !m_item->itemText.text(a - 1).isSpace())
+				if (Word->isChecked() && (a > 0) && m_item->itemText.text(a - 1).isLetterOrNumber())
 					found = false;
 				if (Word->isChecked())
 				{
-					int lastChar = qMin(a + sText.length(), maxChar);
-					found = ((lastChar == maxChar) || m_item->itemText.text(lastChar).isSpace());
+					int lastChar = qMin(a + textLen, maxChar);
+					found = ((lastChar == maxChar) || !m_item->itemText.text(lastChar).isLetterOrNumber());
 				}
 				if (!found) continue;
 			}
@@ -508,14 +508,14 @@ void SearchReplace::slotDoSearch()
 			}
 			if (found && searchForReplace)
 			{
-				m_item->itemText.select(a, sText.length());
+				m_item->itemText.select(a, textLen);
 				m_item->HasSel = true;
 				if (rep)
 				{
 					DoReplace->setEnabled(true);
 					AllReplace->setEnabled(true);
 				}
-				m_item->itemText.setCursorPosition(a + sText.length());
+				m_item->itemText.setCursorPosition(a + textLen);
 
 				if (!SText->isChecked())
 					break;
@@ -551,21 +551,34 @@ void SearchReplace::slotDoSearch()
 		if (storyTextEdit->StyledText.length() == 0)
 			return;
 
+		QTextCursor cursor = storyTextEdit->textCursor();
+		int position  = cursor.position();
+		StoryText& styledText = storyTextEdit->StyledText;
+		int firstChar = -1, lastChar = styledText.length();
 		if (SText->isChecked())
 		{
-			QTextDocument::FindFlags flags;
-			if (!CaseIgnore->isChecked())
-				flags |= QTextDocument::FindCaseSensitively;
-			if (Word->isChecked())
-				flags |= QTextDocument::FindWholeWords;
-			do
+			Qt::CaseSensitivity cs = Qt::CaseSensitive;
+			if (CaseIgnore->isChecked())
+				cs = Qt::CaseInsensitive;
+
+			for (int i = position; i < styledText.length(); ++i)
 			{
-				found = storyTextEdit->find(sText, flags);
+				i = styledText.indexOf(sText, i, cs, &textLen);
+				found = (i >= 0);
 				if (!found)
 					break;
-				QTextCursor cursor = storyTextEdit->textCursor();
-				int selStart = cursor.selectionStart();
-				for (int ap = 0; ap < sText.length(); ++ap)
+
+				if (Word->isChecked() && (i > 0) && styledText.text(i - 1).isLetterOrNumber())
+					found = false;
+				if (Word->isChecked())
+				{
+					int lastChar = qMin(i + textLen, maxChar);
+					found = ((lastChar == maxChar) || !styledText.text(lastChar).isLetterOrNumber());
+				}
+				if (!found) continue;
+
+				int selStart = i;
+				for (int ap = 0; ap < textLen; ++ap)
 				{
 					const ParagraphStyle& parStyle = storyTextEdit->StyledText.paragraphStyle(selStart + ap);
 					const CharStyle& charStyle = storyTextEdit->StyledText.charStyle(selStart + ap);
@@ -588,14 +601,17 @@ void SearchReplace::slotDoSearch()
 					if (SEffect->isChecked() && ((charStyle.effects() & ScStyle_UserStyles) != sEff))
 						found = false;
 				}
-			} while(!found);
+
+				if (found)
+				{
+					firstChar = i;
+					lastChar = i + textLen;
+					break;
+				}
+			}
 		}
 		else
 		{
-			QTextCursor cursor = storyTextEdit->textCursor();
-			int position  = cursor.position();
-			StoryText& styledText = storyTextEdit->StyledText;
-			int firstChar = -1, lastChar = styledText.length();
 			for (int i = position; i < styledText.length(); ++i)
 			{
 				found = true;
@@ -633,14 +649,13 @@ void SearchReplace::slotDoSearch()
 					break;
 				}
 			}
-
-			found = (firstChar >= 0);
-			if (found)
-			{
-				cursor.setPosition(firstChar);
-				cursor.setPosition(lastChar, QTextCursor::KeepAnchor);
-				storyTextEdit->setTextCursor(cursor);
-			}
+		}
+		found = (firstChar >= 0);
+		if (found)
+		{
+			cursor.setPosition(firstChar);
+			cursor.setPosition(lastChar, QTextCursor::KeepAnchor);
+			storyTextEdit->setTextCursor(cursor);
 		}
 		if (found && searchForReplace)
 		{
@@ -685,35 +700,38 @@ void SearchReplace::slotDoReplace()
 	{
 		QString repl, sear;
 		int cs, cx;
-// 		ScText *hg;
+		int textLen = 0;
 		if (RText->isChecked())
 		{
 			repl = RTextVal->text();
 			sear = STextVal->text();
-			if (sear.length() == repl.length())
+			textLen = m_item->itemText.lengthOfSelection();
+			if (textLen == repl.length())
 			{
-				for (cs = 0; cs < sear.length(); ++cs)
+				for (cs = 0; cs < textLen; ++cs)
 					m_item->itemText.replaceChar(m_replStart+cs, repl[cs]);
 			}
 			else
 			{
-				if (sear.length() < repl.length())
+				if (textLen < repl.length())
 				{
-					for (cs = 0; cs < sear.length(); ++cs)
+					for (cs = 0; cs < textLen; ++cs)
 						m_item->itemText.replaceChar(m_replStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
 						m_item->itemText.insertChars(m_replStart+cx, repl.mid(cx,1), true);
-					// FIXME:NLS also replace styles!!
 				}
 				else
 				{
 					for (cs = 0; cs < repl.length(); ++cs)
 						m_item->itemText.replaceChar(m_replStart+cs, repl[cs]);
-					m_item->itemText.removeChars(m_replStart+cs, sear.length() - cs);
+					m_item->itemText.removeChars(m_replStart+cs, textLen - cs);
 				}
-				m_item->itemText.deselectAll();
-				if (repl.length() > 0)
-					m_item->itemText.select(m_replStart, repl.length());
+			}
+			m_item->itemText.deselectAll();
+			if (repl.length() > 0)
+			{
+				m_item->itemText.select(m_replStart, repl.length());
+				m_item->itemText.setCursorPosition(m_replStart + repl.length());
 			}
 		}
 		if (RStyle->isChecked())

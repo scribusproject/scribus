@@ -122,7 +122,7 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	Rc = pen.foreColor.red;
 	Gc = pen.foreColor.green;
 	Bc = pen.foreColor.blue;
-	tmp.setColorRGB(Rc, Gc, Bc);
+	tmp.setRgbColor(Rc, Gc, Bc);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString newColorName = "FromWPG"+tmp.name();
@@ -184,7 +184,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 		Rc = brush.foreColor.red;
 		Gc = brush.foreColor.green;
 		Bc = brush.foreColor.blue;
-		tmp.setColorRGB(Rc, Gc, Bc);
+		tmp.setRgbColor(Rc, Gc, Bc);
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
 		QString newColorName = "FromWPG"+tmp.name();
@@ -206,7 +206,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			Rc = brush.gradient.stopColor(c).red;
 			Gc = brush.gradient.stopColor(c).green;
 			Bc = brush.gradient.stopColor(c).blue;
-			tmp.setColorRGB(Rc, Gc, Bc);
+			tmp.setRgbColor(Rc, Gc, Bc);
 			tmp.setSpotColor(false);
 			tmp.setRegistrationColor(false);
 			QString newColorName = "FromWPG"+tmp.name();

@@ -219,7 +219,6 @@
     <moc Include="..\..\..\scribus\plugins\colorwheel\colorwheel.h" />
     <moc Include="..\..\..\scribus\plugins\colorwheel\colorwheelwidget.h" />
     <moc Include="..\..\..\scribus\plugins\colorwheel\cwdialog.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\colorwheel\ui_cwdialog.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\colorwheel\cwdialog.ui" />

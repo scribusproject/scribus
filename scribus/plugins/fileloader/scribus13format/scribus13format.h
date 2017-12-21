@@ -55,7 +55,6 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);
-		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;

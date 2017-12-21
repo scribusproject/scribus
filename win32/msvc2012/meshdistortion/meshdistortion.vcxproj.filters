@@ -9,9 +9,6 @@
       <UniqueIdentifier>{95ac6036-f82c-43c2-9714-3ead6f9e598a}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{aca5a719-0e98-4903-8174-3613bc726064}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{2eff7aaf-93a7-46b1-9370-2f2a2d1fa3d5}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\ui_meshdistortiondialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

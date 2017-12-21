@@ -54,7 +54,9 @@ enum LayoutFlags {
 	ScLayout_RightToLeft      = 1 << 17,     // marks right-to-left glyph
 	ScLayout_SmallCap         = 1 << 18,     // marks small caps glyph
 	ScLayout_CJKFence         = 1 << 19,     // marks CJK fence glyph that needs spacing adjustment at start of line
-	ScLayout_JustificationTracking = 1 << 20 // marks place of tracking in justification (e.g. for Thai)
+	ScLayout_NoBreakAfter     = 1 << 20,     // marks glyphs after which a line break cannot occur
+	ScLayout_NoBreakBefore    = 1 << 21,     // marks glyphs before which a line break cannot occur
+	ScLayout_JustificationTracking = 1 << 22 // marks place of tracking in justification (e.g. for Thai)
 };
 
 

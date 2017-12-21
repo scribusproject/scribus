@@ -26,7 +26,8 @@ pageitem.cpp  -  description
 QChar SpecialChars::OBJECT       = QChar(25);
 QChar SpecialChars::TAB          = QChar(9);
 QChar SpecialChars::PARSEP       = QChar(13);
-QChar SpecialChars::LINEBREAK    = QChar(28);
+QChar SpecialChars::LINEBREAK    = QChar(0x2028);
+QChar SpecialChars::OLD_LINEBREAK = QChar(28);
 QChar SpecialChars::COLBREAK     = QChar(26);
 QChar SpecialChars::FRAMEBREAK   = QChar(27);
 QChar SpecialChars::SHYPHEN      = QChar(0xAD);
@@ -262,17 +263,13 @@ bool SpecialChars::isIgnorableCodePoint(uint ch)
 		return false;
 }
 
-bool SpecialChars::isArabicDiacritic(uint ch)
+bool SpecialChars::isArabicModifierLetter(uint ch)
 {
-	if (ch >= 0x064B && ch <= 0x065F) /*Fathatan, Dammatan, Kasratan, Fatha,Damma,Kasra,Shadda,Sukun,Maddah, Hamza Above, Hamza Below,Subscript Alef,Inverted Damma,Mark Noon Ghunna*/
+	if (ch == 0x0640) //ARABIC TATWEEL
 		return true;
-	else if (ch == 0x0640) //Tatweel
+	else if (ch == 0x06E5) //ARABIC SMALL WAW
 		return true;
-	else if (ch >= 0x06D2 && ch <= 0x06DC) /*Yeh Barree,Yeh Barree With Hamza Above, Full Stop Ae,Sad With Lam With Alef,Qaf With Lam With Alef,Small High Meem Initial Form, Small High Lam Alef, Small High Jeem , Small High Three Dots, Small High Seen */
-		return true;
-	else if (ch >= 0x06DF && ch <= 0x06E8) /*Small High Rounded Zero, Upright Rectangular Zero,Dotless Head Of Khah,Meem Isolated Form, Small Low Seen, Small High Madda,Small Waw, Small Yeh, Small High Yeh, Small High Noon */
-		return true;
-	else if (ch >= 0x0618 && ch <= 0x061A) /*Small Fatha, Small Damma, Small Kasra*/
+	else if (ch == 0x06E6) //ARABIC SMALL YEH
 		return true;
 	return false;
 }

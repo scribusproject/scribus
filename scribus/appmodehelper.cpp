@@ -400,6 +400,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			}
 			break;
 		case modeMagnifier:
+			doc->view()->Magnify = true;
 			break;
 		case modeMeasurementTool:
 			break;

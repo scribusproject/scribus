@@ -2404,7 +2404,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 QString SvmPlug::handleColor(QColor col)
 {
 	ScColor tmp;
-	tmp.setColorRGB(col.red(), col.green(), col.blue());
+	tmp.setRgbColor(col.red(), col.green(), col.blue());
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString tmpName = "FromSVM"+col.name().toUpper();

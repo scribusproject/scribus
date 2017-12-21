@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "sctextstream.h"
 #include "units.h"
+#include "util.h"
 #include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
@@ -321,7 +322,9 @@ void PrefsManager::initDefaults()
 	appPrefs.scrapbookPrefs.writePreviews = true;
 	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
 	appPrefs.displayPrefs.marginColored = false;
-	appPrefs.docSetupPrefs.language = ScQApp->currGUILanguage();
+	appPrefs.docSetupPrefs.language = LanguageManager::instance()->getShortAbbrevFromAbbrevDecomposition(ScQApp->currGUILanguage());
+	if (appPrefs.docSetupPrefs.language.isEmpty())
+		appPrefs.docSetupPrefs.language = "en_GB";
 	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale(ScQApp->currGUILanguage());
 	appPrefs.docSetupPrefs.pageOrientation = 0;
 	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
@@ -433,7 +436,7 @@ void PrefsManager::initDefaults()
 	// lorem ipsum defaults
 	appPrefs.miscPrefs.useStandardLI = false;
 	appPrefs.miscPrefs.paragraphsLI = 10;
-	initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
+	initDefaultCheckerPrefs(appPrefs.verifierPrefs.checkerPrefsList);
 	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
 	appPrefs.verifierPrefs.showPagesWithoutErrors=false;
 	appPrefs.verifierPrefs.showNonPrintingLayerErrors=false;
@@ -940,7 +943,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 		ReadPrefsXML();
 	if (appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
 	{
-		initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
+		initDefaultCheckerPrefs(appPrefs.verifierPrefs.checkerPrefsList);
 		appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
 	}
 	if (!appPrefs.uiPrefs.mainWinState.isEmpty())
@@ -2001,6 +2004,9 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="DocumentSetup")
 		{
 			appPrefs.docSetupPrefs.language = dc.attribute("Language", "en_GB");
+			appPrefs.docSetupPrefs.language = LanguageManager::instance()->getShortAbbrevFromAbbrevDecomposition(appPrefs.docSetupPrefs.language);
+			if (appPrefs.docSetupPrefs.language.isEmpty())
+				appPrefs.docSetupPrefs.language = "en_GB";
 			appPrefs.docSetupPrefs.docUnitIndex = dc.attribute("UnitIndex", "0").toInt();
 			appPrefs.docSetupPrefs.pageSize = dc.attribute("PageSize","A4");
 			appPrefs.docSetupPrefs.pageOrientation = dc.attribute("PageOrientation", "0").toInt();
@@ -2705,54 +2711,66 @@ bool PrefsManager::ReadPref(QString ho)
 	return true;
 }
 
-void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
+void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 {
-	if (cp!=NULL)
+	struct CheckerPrefs checkerSettings;
+	checkerSettings.ignoreErrors = false;
+	checkerSettings.autoCheck = true;
+	checkerSettings.checkGlyphs = true;
+	checkerSettings.checkOrphans = true;
+	checkerSettings.checkOverflow = true;
+	checkerSettings.checkPictures = true;
+	checkerSettings.checkResolution = true;
+	checkerSettings.checkPartFilledImageFrames = false;
+	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = false;
+	checkerSettings.checkRasterPDF = true;
+	checkerSettings.checkForGIF = true;
+	checkerSettings.ignoreOffLayers = false;
+	checkerSettings.checkOffConflictLayers = false;
+	checkerSettings.minResolution = 144.0;
+	checkerSettings.maxResolution = 2400.0;
+	checkerSettings.checkNotCMYKOrSpot = false;
+	checkerSettings.checkDeviceColorsAndOutputIntent = false;
+	checkerSettings.checkFontNotEmbedded = false;
+	checkerSettings.checkFontIsOpenType = false;
+	checkerSettings.checkAppliedMasterDifferentSide = true;
+	checkerSettings.checkEmptyTextFrames = true;
+	//TODO Stop translating these into settings!!!!!!!!!
+	cp.insert(CommonStrings::PostScript, checkerSettings);
+	checkerSettings.checkFontNotEmbedded = true;
+	checkerSettings.checkFontIsOpenType = true;
+	cp.insert(CommonStrings::PDF_1_3   , checkerSettings);
+	checkerSettings.checkTransparency = false;
+	cp.insert(CommonStrings::PDF_1_4   , checkerSettings);
+	cp.insert(CommonStrings::PDF_1_5   , checkerSettings);
+	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = true;
+	checkerSettings.minResolution = 144.0;
+	checkerSettings.checkDeviceColorsAndOutputIntent = true;
+	cp.insert(CommonStrings::PDF_X3	, checkerSettings);
+	checkerSettings.checkNotCMYKOrSpot = true;
+	checkerSettings.checkDeviceColorsAndOutputIntent = false;
+	cp.insert(CommonStrings::PDF_X1a	, checkerSettings);
+	checkerSettings.checkNotCMYKOrSpot = false;
+	checkerSettings.checkDeviceColorsAndOutputIntent = true;
+	checkerSettings.checkTransparency = false;
+	checkerSettings.checkFontIsOpenType = false;
+	cp.insert(CommonStrings::PDF_X4	, checkerSettings);
+}
+
+void PrefsManager::insertMissingCheckerProfiles(CheckerPrefsList& cp)
+{
+	CheckerPrefsList defaultList;
+	initDefaultCheckerPrefs(defaultList);
+
+	CheckerPrefsList::const_iterator it = defaultList.constBegin();
+	for (; it != defaultList.constEnd(); ++it)
 	{
-		struct CheckerPrefs checkerSettings;
-		checkerSettings.ignoreErrors = false;
-		checkerSettings.autoCheck = true;
-		checkerSettings.checkGlyphs = true;
-		checkerSettings.checkOrphans = true;
-		checkerSettings.checkOverflow = true;
-		checkerSettings.checkPictures = true;
-		checkerSettings.checkResolution = true;
-		checkerSettings.checkPartFilledImageFrames = false;
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = false;
-		checkerSettings.checkRasterPDF = true;
-		checkerSettings.checkForGIF = true;
-		checkerSettings.ignoreOffLayers = false;
-		checkerSettings.checkOffConflictLayers = false;
-		checkerSettings.minResolution = 144.0;
-		checkerSettings.maxResolution = 2400.0;
-		checkerSettings.checkNotCMYKOrSpot = false;
-		checkerSettings.checkDeviceColorsAndOutputIntent = false;
-		checkerSettings.checkFontNotEmbedded = false;
-		checkerSettings.checkFontIsOpenType = false;
-		checkerSettings.checkAppliedMasterDifferentSide = true;
-		checkerSettings.checkEmptyTextFrames = true;
-		//TODO Stop translating these into settings!!!!!!!!!
-		cp->insert( CommonStrings::PostScript, checkerSettings);
-		checkerSettings.checkFontNotEmbedded = true;
-		checkerSettings.checkFontIsOpenType = true;
-		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
-		checkerSettings.checkTransparency = false;
-		cp->insert( CommonStrings::PDF_1_4   , checkerSettings);
-		cp->insert( CommonStrings::PDF_1_5   , checkerSettings);
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = true;
-		checkerSettings.minResolution = 144.0;
-		checkerSettings.checkDeviceColorsAndOutputIntent = true;
-		cp->insert( CommonStrings::PDF_X3	, checkerSettings);
-		checkerSettings.checkNotCMYKOrSpot = true;
-		checkerSettings.checkDeviceColorsAndOutputIntent = false;
-		cp->insert( CommonStrings::PDF_X1a	, checkerSettings);
-		checkerSettings.checkNotCMYKOrSpot = false;
-		checkerSettings.checkDeviceColorsAndOutputIntent = true;
-		checkerSettings.checkTransparency = false;
-		checkerSettings.checkFontIsOpenType = false;
-		cp->insert( CommonStrings::PDF_X4	, checkerSettings);
+		QString name = it.key();
+		if (cp.contains(name))
+			continue;
+		cp.insert(name, it.value());
 	}
 }
 

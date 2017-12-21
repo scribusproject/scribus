@@ -104,7 +104,7 @@ class ScFace_postscript : public FtFace
 /*
 	Class ScFace_pfb
 	Subclass of ScFace, specifically for Adobe type 1 .pfb fonts.
-	Implements: RealName() and EmbedFont().
+	Implements: realName() and embedFont().
 */
 
 class ScFace_pfb : public ScFace_postscript
@@ -116,10 +116,10 @@ class ScFace_pfb : public ScFace_postscript
 			formatCode = ScFace::PFB;
 		}
 
-		virtual bool EmbedFont(QByteArray &str) const
+		virtual bool embedFont(QByteArray &str) const
 		{
 			QByteArray bb;
-			RawData(bb);
+			rawData(bb);
 //			QString tmp2 = "";
 			if ((bb.size() > 2) &&  (bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
 			{
@@ -191,7 +191,7 @@ class ScFace_pfb : public ScFace_postscript
 /*
 	Class ScFace_pfa
 	Subclass of ScFace, specifically for Adobe type 1 and type 3 .pfa fonts.
-	Implements: RealName() and EmbedFont().
+	Implements: realName() and embedFont().
 */
 
 class ScFace_pfa : public ScFace_postscript
@@ -202,10 +202,10 @@ class ScFace_pfa : public ScFace_postscript
 		{
 			formatCode = ScFace::PFA;
 		}
-		virtual bool EmbedFont(QByteArray &str) const
+		virtual bool embedFont(QByteArray &str) const
 		{
 			QByteArray bb;
-			RawData(bb);
+			rawData(bb);
 			if (bb.size() > 2 && bb[0] == '%' && bb[1] == '!') 
 			{
 				// this is ok since bb will not contain '\0'

@@ -13,9 +13,6 @@
       <UniqueIdentifier>{403be6a8-b5d3-4e2a-b06b-b076c3418a83}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{5899fdf5-cc8b-4ef6-adae-d6ad9c0ce595}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\short-words\configuration.cpp">
@@ -44,14 +41,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\short-words\version.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\short-words\ui_swdialog.h">
-      <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
@@ -82,6 +73,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\short-words\swprefsgui.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

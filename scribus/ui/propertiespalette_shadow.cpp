@@ -279,6 +279,8 @@ void PropertiesPalette_Shadow::changeEvent(QEvent *e)
 
 void PropertiesPalette_Shadow::languageChange()
 {
+	disconnect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
+
 	hasSoftShadow->setText(0, tr( "Has Drop Shadow"));
 	softShadowXOffset->setText(0, tr( "X-Offset:"));
 	softShadowYOffset->setText(0, tr( "Y-Offset:"));
@@ -308,6 +310,8 @@ void PropertiesPalette_Shadow::languageChange()
 	softShadowBlendMode->setComboStrings(modes);
 	softShadowBlendMode->setStringValue( tr("Normal"));
 	softShadowBlendMode->setText(0, tr( "Blendmode:"));
+
+	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
 }
 
 void PropertiesPalette_Shadow::updateSpinBoxConstants()

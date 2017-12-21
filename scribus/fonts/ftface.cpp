@@ -340,10 +340,14 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
 //		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
+		ScFace::GlyphEncoding glEncoding;
+		glEncoding.charcode = charcode;
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), adobeGlyphName(charcode)));
+			glEncoding.glyphName = adobeGlyphName(charcode);
 		else
-			GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), QString(reinterpret_cast<char*>(buf))));
+			glEncoding.glyphName = QString(reinterpret_cast<char*>(buf));
+		glEncoding.toUnicode = QString().sprintf("%04X", charcode);
+		GList.insert(gindex, glEncoding);
 
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
@@ -365,21 +369,62 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 		ScFace::FaceEncoding::Iterator gli;
 		for (gli = GList.begin(); gli != GList.end(); ++gli)
 		{
-			if (glyphname == gli.value().second)
+			if (glyphname == gli.value().glyphName)
 			{
-				charcode = gli.value().first;
+				charcode = gli.value().charcode;
 				break;
 			}
 		}
 //		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
-		GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), glyphname));
+		ScFace::GlyphEncoding glEncoding;
+		glEncoding.charcode  = static_cast<ScFace::ucs4_type>(charcode);
+		glEncoding.glyphName = glyphname;
+		glEncoding.toUnicode = QString().sprintf("%04X", charcode);
+		if ((charcode == 0) && glyphname.startsWith("uni"))
+		{
+			QString uniHexStr = uniGlyphNameToUnicode(glyphname);
+			if (uniHexStr.length() > 0)
+				glEncoding.toUnicode = uniHexStr;
+		}
+		GList.insert(gindex, glEncoding);
 	}
 
 	return true;
 }
 
+QString FtFace::uniGlyphNameToUnicode(const QString& glyphName) const
+{
+	if (!glyphName.startsWith("uni"))
+		return QString();
+	if (glyphName.length() < 7)
+		return QString();
 
-void FtFace::RawData(QByteArray & bb) const
+	QString uniStr = glyphName.mid(3);
+	int firstDot = uniStr.indexOf('.');
+	if (firstDot >= 0)
+		uniStr = uniStr.left(firstDot);
+
+	bool isHexString = true;
+	if ((uniStr.length() <= 0) || (uniStr.length() % 4 != 0))
+		return QString();
+
+	int len = uniStr.length();
+	for (int i = 0; i < len; ++i)
+	{
+		int uni = uniStr[i].unicode();
+		isHexString &= (uni >= '0' && uni <= '9') ||
+			           (uni >= 'a' && uni <= 'f') ||
+			           (uni >= 'A' && uni <= 'F');
+		if (!isHexString)
+			break;
+	}
+
+	if (!isHexString)
+		return QString();
+	return uniStr.toUpper();
+}
+
+void FtFace::rawData(QByteArray & bb) const
 {
 	FT_Stream fts = ftFace()->stream;
 	bb.resize(fts->size);

@@ -662,7 +662,7 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 					{
 						PageItem *currItem = currDoc->Items->at(a);
 						if (currItem->isGroup())
-							allItems = currItem->getItemList();
+							allItems = currItem->getAllChildren();
 						else
 							allItems.append(currItem);
 						for (int ii = 0; ii < allItems.count(); ii++)

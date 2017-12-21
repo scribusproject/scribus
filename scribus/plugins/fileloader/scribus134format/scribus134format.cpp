@@ -1886,7 +1886,7 @@ bool Scribus134Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return true;
 }
 
-bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage)
+bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, QString renamedPageName)
 {
 	QStringRef tagName = reader.name();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -1906,20 +1906,23 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		itemKind = PageItem::PatternItem;
 
 	int pagenr = -1;
-	if ((!attrs.value("OnMasterPage").isEmpty()) && (tagName == "MASTEROBJECT"))
+	QString masterPageName = attrs.valueAsString("OnMasterPage");
+	if ((!masterPageName.isEmpty()) && (tagName == "MASTEROBJECT"))
 	{
-		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[attrs.valueAsString("OnMasterPage")]));
+		if (!renamedPageName.isEmpty())
+			masterPageName = renamedPageName;
+		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[masterPageName]));
 		pagenr = -2;
 	}
 
 	PageItem* newItem = pasteItem(doc, attrs, baseDir, itemKind, pagenr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
-		newItem->OwnPage = doc->OnPage(newItem);
+		newItem->setOwnerPage(doc->OnPage(newItem));
 	else
-		newItem->OwnPage = attrs.valueAsInt("OwnPage");
+		newItem->setOwnerPage(attrs.valueAsInt("OwnPage"));
 	if (tagName == "PAGEOBJECT")
-		newItem->OnMasterPage = "";
+		newItem->setMasterPageName(QString());
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
 
@@ -1936,7 +1939,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	if (tagName == "FRAMEOBJECT")
 	{
 		FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
-		newItem->LayerID = doc->firstLayerID();
+		newItem->setLayer(doc->firstLayerID());
 	}
 
 	info.item     = newItem;
@@ -2162,7 +2165,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 
 		// #11274 : OwnPage is not meaningful for pattern items
 		itemInfo.item->OwnPage = -1 /*ownPage*/;
-		itemInfo.item->OnMasterPage = "";
+		itemInfo.item->OnMasterPage.clear();
 
 		if (itemInfo.item->isTableItem)
 		{
@@ -2625,44 +2628,44 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Group:
 		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
 		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
 		doc->GroupCounter++;
@@ -2910,7 +2913,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->Cols   = attrs.valueAsInt("COLUMNS", 1);
 	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
-		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
+		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
 	tmp = "";
 
 	QList<ParagraphStyle::TabRecord> tbs;
@@ -3364,15 +3367,18 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 
 				ItemInfo itemInfo;
-				success = readObject(m_Doc, reader, itemInfo, fileDir, true);
+				QString masterPageName = Mpage ? renamedPageName : QString();
+				success = readObject(m_Doc, reader, itemInfo, fileDir, true, masterPageName);
 				if (!success) break;
 
 				PageItem* newItem = itemInfo.item;
 				newItem->moveBy(-pageX + newPage->xOffset(), - pageY + newPage->yOffset());
-				newItem->OwnPage = m_Doc->currentPageNumber();
+				newItem->setOwnerPage(m_Doc->currentPageNumber());
 				if (tagName == "PAGEOBJECT")
-					newItem->OnMasterPage = "";
-				newItem->LayerID = layerTrans.value(newItem->LayerID, newItem->LayerID);
+					newItem->setMasterPageName(QString());
+				else if (Mpage && !renamedPageName.isEmpty())
+					newItem->setMasterPageName(renamedPageName);
+				newItem->setLayer(layerTrans.value(newItem->LayerID, newItem->LayerID));
 
 				if (newItem->isTableItem)
 				{

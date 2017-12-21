@@ -216,7 +216,7 @@ bool CollectForOutput::collectItems()
 					break;
 			}
 			if (ite->isGroup())
-				allItems = ite->getItemList();
+				allItems = ite->getAllChildren();
 			else
 				allItems.append(ite);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -233,7 +233,7 @@ bool CollectForOutput::collectItems()
 	{
 		PageItem *it = itf.value();
 		if (it->isGroup())
-			allItems = it->asGroupFrame()->getItemList();
+			allItems = it->asGroupFrame()->getAllChildren();
 		else
 			allItems.append(it);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -252,7 +252,7 @@ bool CollectForOutput::collectItems()
 		{
 			ite = pa.items.at(o);
 			if (ite->isGroup())
-				allItems = ite->getItemList();
+				allItems = ite->getAllChildren();
 			else
 				allItems.append(ite);
 			for (int ii = 0; ii < allItems.count(); ii++)

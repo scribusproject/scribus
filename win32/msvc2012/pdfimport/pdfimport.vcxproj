@@ -221,7 +221,6 @@
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.h" />
     <moc Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.h" />
     <ClInclude Include="..\..\..\scribus\plugins\import\pdf\slaoutput.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\ui_pdfimportoptions.h" />
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.ui" />

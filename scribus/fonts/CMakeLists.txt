@@ -8,13 +8,14 @@ ${HARFBUZZ_INCLUDE_DIRS}
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
 
 set(SCRIBUS_FONTS_LIB_SOURCES
-  scface.cpp
-  ftface.cpp
-  scface_ps.cpp
   cff.cpp
-  sfnt.cpp
+  fontfeatures.cpp
+  ftface.cpp
+  scface.cpp
+  scface_ps.cpp
   scface_ttf.cpp
   scfontmetrics.cpp
+  sfnt.cpp
 )
 set(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
 add_library(${SCRIBUS_FONTS_LIB} STATIC ${SCRIBUS_FONTS_LIB_SOURCES})

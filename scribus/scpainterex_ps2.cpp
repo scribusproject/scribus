@@ -450,96 +450,96 @@ void ScPainterEx_Ps2::setClipPath()
 	m_clipBBox = m_pathBBox;
 }
 
-void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
+void ScPainterEx_Ps2::putColor(ScColorShade& colorShade, bool doFill)
 {
 	ColorMode colorMode = m_colorMode;
-	int r = 0, g = 0, b = 0, gray = 0;
-	int c = 0, m = 0, y = 0, k = 0;
-	if ( m_options.toGray )
+	double r = 0, g = 0, b = 0, gray = 0;
+	double c = 0, m = 0, y = 0, k = 0;
+	if (m_options.toGray)
 	{
-		RGBColor rgb;
+		RGBColorF rgb;
 		ScColorEngine::getShadeColorRGB(colorShade.color, m_options.document, rgb, colorShade.shade);
 		rgb.getValues(r, g, b);
-		gray = qRound(0.3 * r + 0.59 * g + 0.11 * b);
+		gray = 0.3 * r + 0.59 * g + 0.11 * b;
 		if ( doFill && m_fillRule )
-			m_stream << QString("%1 setgray eofill\n").arg(gray/255.0);
+			m_stream << QString("%1 setgray eofill\n").arg(gray);
 		else if ( doFill )
-			m_stream << QString("%1 setgray fill\n").arg(gray/255.0);
+			m_stream << QString("%1 setgray fill\n").arg(gray);
 		else
-			m_stream << QString("%1 setgray stroke\n").arg(gray/255.0);
+			m_stream << QString("%1 setgray stroke\n").arg(gray);
 		return;
 	}
-	else if ( m_options.hProfile && m_options.rgbToOutputColorTransform && m_options.cmykToOutputColorTransform)
+	else if (m_options.hProfile && m_options.rgbToOutputColorTransform && m_options.cmykToOutputColorTransform)
 	{
 		unsigned long colorIn[4];
 		unsigned long colorOut[4];
 		ScColorTransform cmsTranform = NULL;
 		if( colorShade.color.getColorModel() == colorModelRGB )
 		{
-			RGBColor rgb;
+			RGBColorF rgb;
 			ScColorEngine::getShadeColorRGB(colorShade.color, m_options.document, rgb, colorShade.shade);
-			colorIn[0] = rgb.r;
-			colorIn[1] = rgb.g;
-			colorIn[2] = rgb.b;
+			colorIn[0] = rgb.r * 65535.0;
+			colorIn[1] = rgb.g * 65535.0;
+			colorIn[2] = rgb.b * 65535.0;
 			colorMode = rgbMode;
 			cmsTranform = m_options.rgbToOutputColorTransform;
 		} 
 		else
 		{
-			CMYKColor cmyk;
+			CMYKColorF cmyk;
 			ScColorEngine::getShadeColorCMYK(colorShade.color, m_options.document, cmyk, colorShade.shade);
-			colorIn[0] = cmyk.c;
-			colorIn[1] = cmyk.m;
-			colorIn[2] = cmyk.y;
-			colorIn[3] = cmyk.k;
+			colorIn[0] = cmyk.c * 65535.0;
+			colorIn[1] = cmyk.m * 65535.0;
+			colorIn[2] = cmyk.y * 65535.0;
+			colorIn[3] = cmyk.k * 65535.0;
 			colorMode = cmykMode;
 			cmsTranform = m_options.cmykToOutputColorTransform;
 		}
 		cmsTranform.apply(colorIn, colorOut, 1 );
 		if (m_options.hProfile.colorSpace() == ColorSpace_Rgb)
 		{
-			r = colorOut[0] / 257;
-			g = colorOut[1] / 257;
-			b = colorOut[2] / 257;
+			r = colorOut[0] / 65535.0;
+			g = colorOut[1] / 65535.0;
+			b = colorOut[2] / 65535.0;
 			colorMode = rgbMode;
 		}
 		else if (m_options.hProfile.colorSpace() == ColorSpace_Cmyk)
 		{
-			c = colorOut[0] / 257;
-			m = colorOut[1] / 257;
-			y = colorOut[2] / 257;
-			k = colorOut[3] / 257;
+			c = colorOut[0] / 65535.0;
+			m = colorOut[1] / 65535.0;
+			y = colorOut[2] / 65535.0;
+			k = colorOut[3] / 65535.0;
 			colorMode = cmykMode;
 		}
 	}
-	else if ( m_colorMode == rgbMode )
+	else if (m_colorMode == rgbMode)
 	{
-		RGBColor rgb;
+		RGBColorF rgb;
 		colorMode = rgbMode;
 		ScColorEngine::getShadeColorRGB(colorShade.color, m_options.document, rgb, colorShade.shade);
 		rgb.getValues(r, g, b);
 	}
 	else if ( m_colorMode == cmykMode )
 	{
-		CMYKColor cmyk;
+		CMYKColorF cmyk;
 		colorMode = cmykMode;
 		ScColorEngine::getShadeColorCMYK(colorShade.color, m_options.document, cmyk, colorShade.shade);
 		cmyk.getValues(c, m, y, k);
 	}
 
 	// Finally output to file
-	if ( colorMode == rgbMode )
+	if (colorMode == rgbMode)
 	{
-		if ( doFill && m_fillRule )
-			m_stream << QString("%1 %2 %3 setrgbcolor eofill\n").arg(r/255.0).arg(g/255.0).arg(b/255.0);
+		if (doFill && m_fillRule)
+			m_stream << QString("%1 %2 %3 setrgbcolor eofill\n").arg(r).arg(g).arg(b);
 		else if ( doFill )
-			m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r/255.0).arg(g/255.0).arg(b/255.0);
+			m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r).arg(g).arg(b);
 		else
-			m_stream << QString("%1 %2 %3 setrgbcolor stroke\n").arg(r/255.0).arg(g/255.0).arg(b/255.0);			
+			m_stream << QString("%1 %2 %3 setrgbcolor stroke\n").arg(r).arg(g).arg(b);			
 	}
 	else if ( colorMode == cmykMode )
 	{
-		QString colstr1 = QString("%1 %2 %3 %4 setcmykcolor").arg(c/255.0).arg(m/255.0).arg(y/255.0).arg(k/255.0);
+		QString colstr1 = QString("%1 %2 %3 %4 setcmykcolor").arg(c).arg(m).arg(y).arg(k);
 		if ( doFill && m_fillRule )
 			m_stream << colstr1 << " eofill\n";
 		else if ( doFill )
@@ -549,21 +549,21 @@ void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 	}
 }
 
-void ScPainterEx_Ps2::drawImage( ScImage *image, ScPainterExBase::ImageMode mode )
+void ScPainterEx_Ps2::drawImage(ScImage *image, ScPainterExBase::ImageMode mode)
 {
 	bool rgbMode = (mode == ScPainterExBase::rgbImages);
 	bool rgbPicture = rgbMode || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == ColorSpaceRGB);
 	bool cmykPicture = (mode == ScPainterExBase::cmykImages || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == ColorSpaceCMYK)); 
 
-	if( rgbPicture )
-		drawRGBImage_ps2( image );
-	else if( cmykPicture )
-		drawCMYKImage_ps2( image );
+	if (rgbPicture)
+		drawRGBImage_ps2(image);
+	else if (cmykPicture)
+		drawCMYKImage_ps2(image);
 	else
-		qDebug( "ScPainterEx_Ps2::drawImage() : unknown image type" );
+		qDebug("ScPainterEx_Ps2::drawImage() : unknown image type");
 }
 
-void ScPainterEx_Ps2::drawRGBImage_ps2( ScImage *image )
+void ScPainterEx_Ps2::drawRGBImage_ps2(ScImage *image)
 {
 	save();
 	QString sc("[%1 %2 %3 %4 %5 %6] concat\n");
@@ -985,8 +985,8 @@ void ScPainterEx_Ps2::drawLinearGradient( VGradientEx& gradient, const QRect& re
 
 void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect& rect )
 {
-	int r1, g1, b1;
-	int r2, g2, b2;
+	double r1, g1, b1;
+	double r2, g2, b2;
 	double cosa, sina;
 	double ramp1, ramp2;
 	double length, scale;
@@ -995,27 +995,27 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
-	RGBColor rgb;
+	RGBColorF rgb;
 	FPoint p1, p2;
 
-	if ( gradient.Stops() < 2 ) 
+	if (gradient.Stops() < 2) 
 		return;
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
-	if ( maxDim <= 0 ) return;
+	if (maxDim <= 0) return;
 
 	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
 	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
 	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11();
 	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22();
-	p1.setXY( x1, y1 );
-	p2.setXY( x2, y2 );
+	p1.setXY(x1, y1);
+	p2.setXY(x2, y2);
 
-	dx = ( p2.x() - p1.x() );
-	dy = ( p2.y() - p1.y() );
-	length = sqrt(( dx * dx + dy * dy ));
+	dx = p2.x() - p1.x();
+	dy = p2.y() - p1.y();
+	length = sqrt(dx * dx + dy * dy);
 	if ( length == 0.0 )
 		scale = 1.0;
 	else
@@ -1031,7 +1031,7 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	rgb.getValues(r1, g1, b1);
 	m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r1/255.0).arg(g1/255.0).arg(b1/255.0);
 
-	for( uint index = 1; index < gradient.Stops(); index++)
+	for (uint index = 1; index < gradient.Stops(); index++)
 	{
 		stop2 = *colorStops[index];
 		ramp2 = stop2.rampPoint;
@@ -1042,12 +1042,12 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 
 		m_stream << QString("/x1 %1 def\n").arg(xMin);
 		m_stream << QString("/x2 %1 def\n").arg(xMax);
-		m_stream << QString("/r1 %1 def\n").arg(r1/255.0);
-		m_stream << QString("/g1 %1 def\n").arg(g1/255.0);
-		m_stream << QString("/b1 %1 def\n").arg(b1/255.0);
-		m_stream << QString("/r2 %1 def\n").arg(r2/255.0);
-		m_stream << QString("/g2 %1 def\n").arg(g2/255.0);
-		m_stream << QString("/b2 %1 def\n").arg(b2/255.0);
+		m_stream << QString("/r1 %1 def\n").arg(r1);
+		m_stream << QString("/g1 %1 def\n").arg(g1);
+		m_stream << QString("/b1 %1 def\n").arg(b1);
+		m_stream << QString("/r2 %1 def\n").arg(r2);
+		m_stream << QString("/g2 %1 def\n").arg(g2);
+		m_stream << QString("/b2 %1 def\n").arg(b2);
 		m_stream << QString("/maxd %1 def\n").arg(maxDim);
 		m_stream << QString("/mmaxd %1 def\n").arg(-maxDim/2.0);
 		m_stream << "r1 r2 sub abs 255 mul /dr exch def\n";
@@ -1082,10 +1082,10 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	}
 }
 
-void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRect& rect )
+void ScPainterEx_Ps2::drawLinearGradient_CMYK(VGradientEx& gradient, const QRect& rect)
 {
-	int c1, m1, j1, n1;
-	int c2, m2, j2, n2;
+	double c1, m1, j1, n1;
+	double c2, m2, j2, n2;
 	double cosa, sina;
 	double ramp1, ramp2;
 	double length, scale;
@@ -1094,7 +1094,7 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
-	CMYKColor cmyk;
+	CMYKColorF cmyk;
 	FPoint p1, p2;
 
 	if ( gradient.Stops() < 2 ) 
@@ -1129,7 +1129,7 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 	ScColorEngine::getShadeColorCMYK(stop1.color, m_options.document, cmyk, stop1.shade);
 	cmyk.getValues(c1, m1, j1, n1);
 	m_stream << QString("/DeviceCMYK setcolorspace\n");
-	m_stream << QString("%1 %2 %3 %4 setcolor fill\n").arg(c1/255.0).arg(m1/255.0).arg(j1/255.0).arg(n1/255.0);
+	m_stream << QString("%1 %2 %3 %4 setcolor fill\n").arg(c1).arg(m1).arg(j1).arg(n1);
 
 	for( uint index = 1; index < gradient.Stops(); index++)
 	{
@@ -1142,14 +1142,14 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 
 		m_stream << QString("/x1 %1 def\n").arg(xMin);
 		m_stream << QString("/x2 %1 def\n").arg(xMax);
-		m_stream << QString("/c1 %1 def\n").arg(c1/255.0);
-		m_stream << QString("/m1 %1 def\n").arg(m1/255.0);
-		m_stream << QString("/y1 %1 def\n").arg(j1/255.0);
-		m_stream << QString("/k1 %1 def\n").arg(n1/255.0);
-		m_stream << QString("/c2 %1 def\n").arg(c2/255.0);
-		m_stream << QString("/m2 %1 def\n").arg(m2/255.0);
-		m_stream << QString("/y2 %1 def\n").arg(j2/255.0);
-		m_stream << QString("/k2 %1 def\n").arg(n2/255.0);
+		m_stream << QString("/c1 %1 def\n").arg(c1);
+		m_stream << QString("/m1 %1 def\n").arg(m1);
+		m_stream << QString("/y1 %1 def\n").arg(j1);
+		m_stream << QString("/k1 %1 def\n").arg(n1);
+		m_stream << QString("/c2 %1 def\n").arg(c2);
+		m_stream << QString("/m2 %1 def\n").arg(m2);
+		m_stream << QString("/y2 %1 def\n").arg(j2);
+		m_stream << QString("/k2 %1 def\n").arg(n2);
 		m_stream << QString("/maxd %1 def\n").arg(maxDim);
 		m_stream << QString("/mmaxd %1 def\n").arg(-maxDim/2.0);
 		m_stream << "c1 c2 sub abs 255 mul /dc exch def\n";
@@ -1198,14 +1198,14 @@ void ScPainterEx_Ps2::drawCircularGradient( VGradientEx& gradient, const QRect& 
 
 void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRect& rect )
 {
-	int r1, g1, b1;
-	int r2, g2, b2;
+	double r1, g1, b1;
+	double r2, g2, b2;
 	double ramp1, ramp2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
-	RGBColor rgb;
+	RGBColorF rgb;
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
@@ -1217,11 +1217,11 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	FPoint pf( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pfz( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pv( gradient.vector().x(), gradient.vector().y() );
-	transformPoint( pc, pc );
-	transformPoint( pf, pf );
-	transformPoint( pv, pv );
-	transformPoint( pcz, pcz );
-	transformPoint( pfz, pfz );
+	transformPoint(pc, pc);
+	transformPoint(pf, pf);
+	transformPoint(pv, pv);
+	transformPoint(pcz, pcz);
+	transformPoint(pfz, pfz);
 	double cx = pcz.x();
 	double cy = pcz.y();
 	double rad = sqrt( pow(pv.x() -pc.x(), 2) + pow(pv.y() - pc.y(), 2) );
@@ -1245,12 +1245,12 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 		m_stream << QString("/rad2 %1 def\n").arg(radMin);
 		m_stream << QString("/circx %1 def\n").arg(cx);
 		m_stream << QString("/circy %1 def\n").arg(cy);
-		m_stream << QString("/r1 %1 def\n").arg(r1/255.0);
-		m_stream << QString("/g1 %1 def\n").arg(g1/255.0);
-		m_stream << QString("/b1 %1 def\n").arg(b1/255.0);
-		m_stream << QString("/r2 %1 def\n").arg(r2/255.0);
-		m_stream << QString("/g2 %1 def\n").arg(g2/255.0);
-		m_stream << QString("/b2 %1 def\n").arg(b2/255.0);
+		m_stream << QString("/r1 %1 def\n").arg(r1);
+		m_stream << QString("/g1 %1 def\n").arg(g1);
+		m_stream << QString("/b1 %1 def\n").arg(b1);
+		m_stream << QString("/r2 %1 def\n").arg(r2);
+		m_stream << QString("/g2 %1 def\n").arg(g2);
+		m_stream << QString("/b2 %1 def\n").arg(b2);
 		m_stream << "r1 r2 sub abs 255 mul /dr exch def\n";
 		m_stream << "g1 g2 sub abs 255 mul /dg exch def\n";
 		m_stream << "b1 b2 sub abs 255 mul /db exch def\n";
@@ -1280,30 +1280,30 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 
 void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QRect& rect )
 {
-	int c1, m1, y1, k1;
-	int c2, m2, y2, k2;
+	double c1, m1, y1, k1;
+	double c2, m2, y2, k2;
 	double ramp1, ramp2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
-	CMYKColor cmyk;
+	CMYKColorF cmyk;
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
-	if ( maxDim <= 0 ) return;
+	if (maxDim <= 0) return;
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
 	FPoint pcz( gradient.origin().x(), gradient.origin().y() );
 	FPoint pf( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pfz( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pv( gradient.vector().x(), gradient.vector().y() );
-	transformPoint( pc, pc );
-	transformPoint( pf, pf );
-	transformPoint( pv, pv );
-	transformPoint( pcz, pcz );
-	transformPoint( pfz, pfz );
+	transformPoint(pc, pc);
+	transformPoint(pf, pf);
+	transformPoint(pv, pv);
+	transformPoint(pcz, pcz);
+	transformPoint(pfz, pfz);
 	double cx = pcz.x();
 	double cy = pcz.y();
 	double rad = sqrt( pow(pv.x() -pc.x(), 2) + pow(pv.y() - pc.y(), 2) );
@@ -1313,9 +1313,9 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	cmyk.getValues(c2, m2, y2, k2);
 	m_stream << QString("/DeviceCMYK setcolorspace\n");
 	m_stream << QString("%0 %1 %2 %3 setcolor fill\n").arg(c2).arg(m2).arg(y2).arg(k2);
-	if ( gradient.Stops() < 2 ) return;
+	if (gradient.Stops() < 2) return;
 
-	for( int index = gradient.Stops() - 2; index >= 0; index--)
+	for (int index = gradient.Stops() - 2; index >= 0; index--)
 	{
 		stop1 = *colorStops[index];
 		ramp1 = stop1.rampPoint;
@@ -1328,14 +1328,14 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 		m_stream << QString("/rad2 %1 def\n").arg(radMin);
 		m_stream << QString("/circx %1 def\n").arg(cx);
 		m_stream << QString("/circy %1 def\n").arg(cy);
-		m_stream << QString("/c1 %1 def\n").arg(c1/255.0);
-		m_stream << QString("/m1 %1 def\n").arg(m1/255.0);
-		m_stream << QString("/y1 %1 def\n").arg(y1/255.0);
-		m_stream << QString("/k1 %1 def\n").arg(k1/255.0);
-		m_stream << QString("/c2 %1 def\n").arg(c2/255.0);
-		m_stream << QString("/m2 %1 def\n").arg(m2/255.0);
-		m_stream << QString("/y2 %1 def\n").arg(y2/255.0);
-		m_stream << QString("/k2 %1 def\n").arg(k2/255.0);
+		m_stream << QString("/c1 %1 def\n").arg(c1);
+		m_stream << QString("/m1 %1 def\n").arg(m1);
+		m_stream << QString("/y1 %1 def\n").arg(y1);
+		m_stream << QString("/k1 %1 def\n").arg(k1);
+		m_stream << QString("/c2 %1 def\n").arg(c2);
+		m_stream << QString("/m2 %1 def\n").arg(m2);
+		m_stream << QString("/y2 %1 def\n").arg(y2);
+		m_stream << QString("/k2 %1 def\n").arg(k2);
 		m_stream << "c1 c2 sub abs 255 mul /dc exch def\n";
 		m_stream << "m1 m2 sub abs 255 mul /dm exch def\n";
 		m_stream << "y1 y2 sub abs 255 mul /dy exch def\n";

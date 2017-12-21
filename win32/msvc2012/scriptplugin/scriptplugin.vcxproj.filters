@@ -13,9 +13,6 @@
       <UniqueIdentifier>{e7c51734-0aa1-45e7-b09b-99999118ece9}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{91615bb8-8d82-48b0-8bcd-0c62dc28b37f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.cpp">
@@ -169,18 +166,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\svgimport.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_pconsole.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_prefs_scripterbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_runscriptdialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_scripterprefsgui.h">
-      <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdannotations.h">
       <Filter>Header Files</Filter>

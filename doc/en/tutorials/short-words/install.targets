@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_doc_en_tutorial_shortwords Include="$(MSBuildThisFileDirectory)*.html" />
+		<FilesToInstall_doc_en_tutorial_shortwords Include="$(MSBuildThisFileDirectory)*.png" />
+		<FilesToInstall_doc_en_tutorial_shortwords Include="$(MSBuildThisFileDirectory)*.xml" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_doc_en_tutorial_shortwords;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_doc_en_tutorial_shortwords">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_doc_en_tutorial_shortwords)"  
+			DestinationFiles="@(FilesToInstall_doc_en_tutorial_shortwords-&gt;'$(OutDir)\share\doc\en\tutorials\scribus-short-words\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+</Project>

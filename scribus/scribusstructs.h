@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QByteArray>
 #include <QDebug>
+#include <QFlags>
 #include <QKeySequence>
 #include <QList>
 #include <QPolygon>
@@ -38,22 +39,39 @@ for which a new license (GPL+exception) is in place.
 
 extern bool SCRIBUS_API compareDouble(double, double);
 
-typedef struct
+struct RGBColor
 {
 	int r;
 	int g;
 	int b;
-	void getValues(int& vr, int& vg, int& vb) {vr = r; vg = g; vb = b;}
-} RGBColor;
+	void getValues(int& vr, int& vg, int& vb) { vr = r; vg = g; vb = b; }
+};
 
-typedef struct
+struct RGBColorF
+{
+	double r;
+	double g;
+	double b;
+	void getValues(double& vr, double& vg, double& vb) { vr = r; vg = g; vb = b; }
+};
+
+struct CMYKColor
 {
 	int c;
 	int m;
 	int y;
 	int k;
-	void getValues(int& vc, int& vm, int& vy, int& vk) {vc = c; vm = m; vy = y; vk = k;}
-} CMYKColor;
+	void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
+};
+
+struct CMYKColorF
+{
+	double c;
+	double m;
+	double y;
+	double k;
+	void getValues(double& vc, double& vm, double& vy, double& vk) { vc = c; vm = m; vy = y; vk = k; }
+};
 
 struct CopyContentsBuffer
 {
@@ -304,6 +322,19 @@ enum PageOrientation
 	landscapePage = 1,
 	customPage = 30
 };
+
+/**
+* Flags for ScribusView PageToPixmap()
+*/
+enum PageToPixmapFlag {
+	Pixmap_NoFlags = 0,
+	Pixmap_DrawFrame = 1 << 0,
+	Pixmap_DrawBackground = 1 << 1,
+	Pixmap_DontReloadImages = 1 << 2,
+};
+
+Q_DECLARE_FLAGS(PageToPixmapFlags, PageToPixmapFlag);
+Q_DECLARE_OPERATORS_FOR_FLAGS(PageToPixmapFlags);
 
 enum UpdateRequests
 {

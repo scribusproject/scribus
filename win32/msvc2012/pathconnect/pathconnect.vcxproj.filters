@@ -9,9 +9,6 @@
       <UniqueIdentifier>{2aa3be9c-d0bb-4673-822f-279920a32ead}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Form Files">
-      <UniqueIdentifier>{2bfb6535-8099-415f-a6a0-97936b074dda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{b41e1b81-9afd-4ac3-ad84-437bd83eb5f6}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\tools\pathconnect\ui_pathconnectdialogbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

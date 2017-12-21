@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_swatches Include="$(MSBuildThisFileDirectory)*.eps" />
+		<FilesToInstall_resources_swatches Include="$(MSBuildThisFileDirectory)*.gpl" />
+		<FilesToInstall_resources_swatches Include="$(MSBuildThisFileDirectory)*.rtf" />
+		<FilesToInstall_resources_swatches Include="$(MSBuildThisFileDirectory)*.sbz" />
+		<FilesToInstall_resources_swatches Include="$(MSBuildThisFileDirectory)*.xml" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_swatches;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_swatches">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_swatches)"  
+			DestinationFiles="@(FilesToInstall_resources_swatches-&gt;'$(OutDir)\share\swatches\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)COPYING_RESENE.txt"  
+			DestinationFolder="$(OutDir)\share\swatches"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)Japanese_Traditional_README.txt"  
+			DestinationFolder="$(OutDir)\share\swatches"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

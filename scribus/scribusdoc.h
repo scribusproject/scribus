@@ -698,7 +698,7 @@ public:
 	/*!
 	* @brief Check pattern with specified name and return it if valid
 	*/
-	ScPattern* checkedPattern(QString &name);
+	ScPattern* checkedPattern(const QString &name);
 	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
@@ -1095,7 +1095,7 @@ public:
 		{
 			QList<PageItem*> allItems;
 			if (item->isGroup())
-				allItems = item->asGroupFrame()->getItemList();
+				allItems = item->asGroupFrame()->getAllChildren();
 			else
 				allItems.append(item);
 			for (int ii = 0; ii < allItems.count(); ii++)

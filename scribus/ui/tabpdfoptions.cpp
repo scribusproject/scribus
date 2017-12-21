@@ -295,12 +295,12 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 
 PDFOptions::PDFFontEmbedding TabPDFOptions::fontEmbeddingMode()
 {
-	return (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
+	return fontEmbeddingCombo->embeddingMode();
 }
 
 QStringList TabPDFOptions::fontsToEmbed()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
 		return QStringList();
 
@@ -312,7 +312,7 @@ QStringList TabPDFOptions::fontsToEmbed()
 
 QStringList TabPDFOptions::fontsToSubset()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
 		return QStringList();
 
@@ -324,7 +324,7 @@ QStringList TabPDFOptions::fontsToSubset()
 
 QStringList TabPDFOptions::fontsToOutline()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::OutlineFonts)
 		return QStringList();
 
@@ -396,7 +396,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		Opts.Version == PDFOptions::PDFVersion_X3  ||
 		Opts.Version == PDFOptions::PDFVersion_X4 )
 	{
-		Opts.FontEmbedding = PDFOptions::EmbedFonts;
+		if (Opts.FontEmbedding != PDFOptions::EmbedFonts &&
+			Opts.FontEmbedding != PDFOptions::OutlineFonts)
+		{
+			Opts.FontEmbedding = PDFOptions::EmbedFonts;
+		}
 	}
 	fontEmbeddingCombo->setCurrentIndex((int) Opts.FontEmbedding);
 
@@ -416,7 +420,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -436,7 +440,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -456,7 +460,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 		PageItem *currItem = m_Doc->DocItems.at(a);
 		if (currItem->isGroup())
-			allItems = currItem->getItemList();
+			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
 		for (int ii = 0; ii < allItems.count(); ii++)
@@ -744,7 +748,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.pageRangeSelection = AllPages->isChecked() ? 0 : 1;
 	pdfOptions.pageRangeString = PageNr->text();
 	pdfOptions.Articles = Article->isChecked();
-	pdfOptions.FontEmbedding =  (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
+	pdfOptions.FontEmbedding =  fontEmbeddingCombo->embeddingMode();
 	pdfOptions.Encrypt = Encry->isChecked();
 	pdfOptions.UseLPI = UseLPI->isChecked();
 	pdfOptions.UseSpotColors = !useSpot->isChecked();
@@ -937,7 +941,7 @@ void TabPDFOptions::EnablePDFX(int a)
 
 	if (a < 3)  // not PDF/X
 	{
-		fontEmbeddingCombo->setEnabled(true);
+		fontEmbeddingCombo->setNoEmbeddingEnabled(true);
 		X3Group->setEnabled(false);
 		setTabEnabled(indexOf(tabSecurity), true);
 		OutCombo->setEnabled(true);
@@ -969,15 +973,20 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs2->setEnabled(false);
 	}
 
-	fontEmbeddingCombo->setCurrentIndex(0);
-	fontEmbeddingCombo->setEnabled(false);
+	PDFOptions::PDFFontEmbedding oldEmbeddingMode = fontEmbeddingCombo->embeddingMode();
+	fontEmbeddingCombo->setNoEmbeddingEnabled(false);
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 
-	EmbedList->setEnabled(true);
-	EmbedFonts->setEnabled(true);
-	SubsetList->setEnabled(true);
-	SubsetFonts->setEnabled(true);
-	ToSubset->setEnabled(true);
-	FromSubset->setEnabled(true);
+	if (oldEmbeddingMode != embeddingMode)
+		EmbedList->clearSelection();
+	EmbedList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	EmbedFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	if (oldEmbeddingMode != embeddingMode)
+		SubsetList->clearSelection();
+	SubsetList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	SubsetFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	ToSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
+	FromSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
 
 	EmbedAll();
 	CheckBox10->setChecked(false);
@@ -1320,7 +1329,7 @@ void TabPDFOptions::DoDownsample()
 
 void TabPDFOptions::EmbeddingModeChange()
 {
-	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 
 	EmbedList->clearSelection();
 	EmbedList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);

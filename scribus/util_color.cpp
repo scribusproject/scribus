@@ -828,7 +828,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 								bool validColor = false;
 								if (colType == 0)			// RBG
 								{
-									lf.setColorRGB(componentR, componentG, componentB);
+									lf.setRgbColor(componentR, componentG, componentB);
 									validColor = true;
 								}
 								else if (colType == 2)		// CMYK
@@ -896,7 +896,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 										}
 										if (!colorName.isEmpty())
 										{
-											lf.setColorRGB(r, g, b);
+											lf.setRgbColor(r, g, b);
 											lf.setSpotColor(false);
 											lf.setRegistrationColor(false);
 											EditColors.tryAddColor(colorName, lf);
@@ -943,7 +943,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 										bool validColor = false;
 										if (colType == 0)			// RBG
 										{
-											lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
+											lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
 											validColor = true;
 										}
 										else if (colType == 1)		// HSB
@@ -953,7 +953,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 											sc = componentG >> 8;
 											bc = componentB >> 8;
 											HSVTORGB(hc, sc, bc);
-											lf.setColorRGB(hc, sc, bc);
+											lf.setRgbColor(hc, sc, bc);
 											validColor = true;
 										}
 										else if (colType == 2)		// CMYK
@@ -989,7 +989,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 								bool validColor = false;
 								if (colType == 0)			// RBG
 								{
-									lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
+									lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
 									validColor = true;
 								}
 								else if (colType == 1)		// HSB
@@ -999,7 +999,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									sc = componentG >> 8;
 									bc = componentB >> 8;
 									HSVTORGB(hc, sc, bc);
-									lf.setColorRGB(hc, sc, bc);
+									lf.setRgbColor(hc, sc, bc);
 									validColor = true;
 								}
 								else if (colType == 2)		// CMYK
@@ -1065,7 +1065,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									float r, g, b;
 									ts >> r >> g >> b;
 									ts >> spotMode;
-									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
+									lf.setRgbColorF(r, g, b);
 									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
@@ -1080,7 +1080,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									float c, m, y, k;
 									ts >> c >> m >> y >> k;
 									ts >> spotMode;
-									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+									lf.setColorF(c, m, y, k);
 									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
@@ -1095,7 +1095,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									float g;
 									ts >> g;
 									ts >> spotMode;
-									lf.setColor(0, 0, 0, qRound(255 * g));
+									lf.setColorF(0, 0, 0, g);
 									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
@@ -1110,7 +1110,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									float L, a, b;
 									ts >> L >> a >> b;
 									ts >> spotMode;
-									lf.setColor(L * 100.0, a, b);
+									lf.setLabColor(L * 100.0, a, b);
 									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
@@ -1162,7 +1162,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 								Cname = pg.attribute("name", "");
 								if (!Cname.isEmpty())
 								{
-									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+									lf.setColorF(c, m, y, k);
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
 									EditColors.tryAddColor(Cname, lf);
@@ -1177,7 +1177,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 								Cname = pg.attribute("name", "");
 								if (!Cname.isEmpty())
 								{
-									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
+									lf.setRgbColorF(r, g, b);
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
 									EditColors.tryAddColor(Cname, lf);
@@ -1237,21 +1237,21 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 															CoE >> inC[0];
 															CoE >> inC[1];
 															CoE >> inC[2];
-															tmp.setColor(inC[0], inC[1], inC[2]);
+															tmp.setLabColor(inC[0], inC[1], inC[2]);
 															tmp.setSpotColor(isSpot);
 														}
 														else if (spp.attribute("model") == "CMYK")
 														{
 															double c, m, y, k;
 															CoE >> c >> m >> y >> k;
-															tmp.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+															tmp.setColorF(c, m, y, k);
 															tmp.setSpotColor(isSpot);
 														}
 														else if (spp.attribute("model") == "RGB")
 														{
 															double r, g, b;
 															CoE >> r >> g >> b;
-															tmp.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
+															tmp.setRgbColorF(r, g, b);
 															tmp.setSpotColor(false);
 														}
 													}
@@ -1295,12 +1295,38 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 						QString nameMask = "%1";
 						nameMask = elem.attribute("mask", "%1");
 						QDomNode PAGE = elem.firstChild();
-						while(!PAGE.isNull())
+						while (!PAGE.isNull())
 						{
 							QDomElement pg = PAGE.toElement();
-							if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+							if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 							{
-								if (pg.hasAttribute("CMYK"))
+								if (pg.hasAttribute("SPACE"))
+								{
+									QString space = pg.attribute("SPACE");
+									if (space == "CMYK")
+									{
+										double c = pg.attribute("C", "0").toDouble() / 100.0;
+										double m = pg.attribute("M", "0").toDouble() / 100.0;
+										double y = pg.attribute("Y", "0").toDouble() / 100.0;
+										double k = pg.attribute("K", "0").toDouble() / 100.0;
+										lf.setCmykColorF(c, m, y, k);
+									}
+									else if (space == "RGB")
+									{
+										double r = pg.attribute("R", "0").toDouble() / 255.0;
+										double g = pg.attribute("G", "0").toDouble() / 255.0;
+										double b = pg.attribute("B", "0").toDouble() / 255.0;
+										lf.setRgbColorF(r, g, b);
+									}
+									else if (space == "Lab")
+									{
+										double L = pg.attribute("L", "0").toDouble();
+										double a = pg.attribute("A", "0").toDouble();
+										double b = pg.attribute("B", "0").toDouble();
+										lf.setLabColor(L, a, b);
+									}
+								}
+								else if (pg.hasAttribute("CMYK"))
 									lf.setNamedColor(pg.attribute("CMYK"));
 								else if (pg.hasAttribute("RGB"))
 									lf.fromQColor(QColor(pg.attribute("RGB")));
@@ -1309,7 +1335,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									double L = pg.attribute("L", "0").toDouble();
 									double a = pg.attribute("A", "0").toDouble();
 									double b = pg.attribute("B", "0").toDouble();
-									lf.setColor(L, a, b);
+									lf.setLabColor(L, a, b);
 								}
 								if (pg.hasAttribute("Spot"))
 									lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
@@ -1390,7 +1416,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 											kVal = colVal.text().toInt();
 										colNode = colNode.nextSibling();
 									}
-									lf.setColor(qRound(2.55 * cVal), qRound(2.55 * mVal), qRound(2.55 * yVal), qRound(2.55 * kVal));
+									lf.setColorF(cVal / 100.0, mVal / 100.0, yVal / 100.0, kVal / 100.0);
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
 									if (!nam.isEmpty())
@@ -1410,7 +1436,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 											yVal = colVal.text().toInt();
 										colNode = colNode.nextSibling();
 									}
-									lf.setColorRGB(cVal, mVal, yVal);
+									lf.setRgbColor(cVal, mVal, yVal);
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
 									if (!nam.isEmpty())
@@ -1449,7 +1475,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							else
 							{
 								Cname = CoE.readAll().trimmed();
-								tmp.setColorRGB(Rval, Gval, Bval);
+								tmp.setRgbColor(Rval, Gval, Bval);
 							}
 							if (Cname == "Untitled")
 								Cname = "";

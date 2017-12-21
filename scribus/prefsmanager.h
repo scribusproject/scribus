@@ -66,10 +66,16 @@ public:
 	*/
 	void initDefaults();
 	void initDefaultGUIFont(const QFont&);
-	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
+	void initDefaultCheckerPrefs(CheckerPrefsList& cp);
 	void initDefaultActionKeys();
 	void applyLoadedShortCuts();
 	void initArrowStyles();
+
+	/*!
+	\brief Insert checker profiles not available in specified list
+	*/
+	void insertMissingCheckerProfiles(CheckerPrefsList& cp);
+
 	/*!
 	\author Craig Bradney
 	\date Thu 18 Nov 2004

@@ -85,7 +85,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 //	GlyphMetrics glyphBBox (gid_type gl,               qreal sz) const;
 
-	void RawData   (QByteArray & bb)            const;
+	void rawData   (QByteArray & bb)            const;
 
 	static bool hasMicrosoftUnicodeCmap(FT_Face face);
 	static QString adobeGlyphName(FT_ULong charcode);
@@ -122,6 +122,7 @@ protected:
 	mutable qreal m_strikeoutPos;
 	mutable qreal m_strokeWidth;
 
+	QString uniGlyphNameToUnicode(const QString& glyphName) const;
 };
 
 #endif

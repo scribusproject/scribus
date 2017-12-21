@@ -738,6 +738,8 @@ void LanguageManager::generateInstalledSpellLangList()
 int LanguageManager::langTableIndex(const QString &abbrev)
 {
 //	qDebug()<<"langTableIndex: Trying to find:"<<abbrev;
+	if (abbrev.isEmpty())
+		return -1;
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
 //		qDebug()<<abbrev<<langTable[i].m_priAbbrev<<langTable[i].m_altAbbrev;
@@ -829,12 +831,56 @@ const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 	return "";
 }
 
+const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(QString langAbbrev)
+{
+	int tIndex = langTableIndex(langAbbrev);
+	if (tIndex >= 0)
+		return m_langTable[tIndex].m_priAbbrev;
+
+	QStringList abbrevs = getAbbrevDecomposition(langAbbrev);
+	for (int i = 1; i < abbrevs.count(); ++i)
+	{
+		tIndex = langTableIndex(abbrevs.at(i));
+		if (tIndex >= 0)
+			return m_langTable[tIndex].m_priAbbrev;
+	}
+
+	return "";
+}
+
 const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev)
 {
 	int i=langTableIndex(langAbbrev);
 	if (i!=-1)
 		return m_langTable[i].m_altAbbrev;
 	return "";
+}
+
+QStringList LanguageManager::getAbbrevDecomposition(QString langAbbrev)
+{
+	QStringList abbrevs;
+	abbrevs.append(langAbbrev);
+
+	QString curAbbrev  = langAbbrev;
+	QString delimiters = QString::fromLatin1("_.");
+
+	while (true)
+	{
+		int rightMost = 0;
+		for (int i = 0; i < delimiters.length(); i++)
+		{
+			int k = curAbbrev.lastIndexOf(delimiters[i]);
+			if (k > rightMost)
+				rightMost = k;
+		}
+
+		if (rightMost == 0)
+			break;
+
+		curAbbrev.truncate(rightMost);
+		abbrevs.append(curAbbrev);
+	}
+	return abbrevs;
 }
 
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill)
@@ -1101,7 +1147,7 @@ LanguageManager::~LanguageManager()
 
 const QString LanguageManager::getHyphFilename(const QString & langAbbrev)
 {
-	int j=langTableIndex(langAbbrev);
+	int j = langTableIndex(langAbbrev);
 	if (j!=-1 && m_langTable[j].m_hyphAvailable)
 	{
 //		qDebug()<<"Found requested hyphenation dictionary:"<<langAbbrev<<" : "<<langTable[j].m_hyphFile;

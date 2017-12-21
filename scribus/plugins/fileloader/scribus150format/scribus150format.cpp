@@ -2201,6 +2201,9 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 
 void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
+	PrefsManager* prefsManager = PrefsManager::instance();
+	const ItemToolPrefs& defToolPrefs = prefsManager->appPrefs.itemToolPrefs;
+
 	QString textFont = attrs.valueAsString("DFONT");
 	m_AvailableFonts->findFont(textFont, doc);
 
@@ -2208,6 +2211,12 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().textSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
 	doc->itemToolPrefs().textColumns   = attrs.valueAsInt("DCOL", 1);
 	doc->itemToolPrefs().textColumnGap    = attrs.valueAsDouble("DGAP", 0.0);
+
+	const MarginStruct& defDistances = defToolPrefs.textDistances;
+	doc->itemToolPrefs().textDistances.setLeft(attrs.valueAsDouble("TextDistLeft", defDistances.left()));
+	doc->itemToolPrefs().textDistances.setRight(attrs.valueAsDouble("TextDistRight", defDistances.right()));
+	doc->itemToolPrefs().textDistances.setBottom(attrs.valueAsDouble("TextDistBottom", defDistances.bottom()));
+	doc->itemToolPrefs().textDistances.setTop(attrs.valueAsDouble("TextDistTop", defDistances.top()));
 
 	doc->itemToolPrefs().polyCorners      = attrs.valueAsInt("POLYC", 4);
 	doc->itemToolPrefs().polyFactor = attrs.valueAsDouble("POLYF", 0.5);
@@ -2369,7 +2378,33 @@ bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs)
 {
 	ScColor color;
-	if (attrs.hasAttribute("CMYK"))
+	if (attrs.hasAttribute("SPACE"))
+	{
+		QString space = attrs.valueAsString("SPACE");
+		if (space == "CMYK")
+		{
+			double c = attrs.valueAsDouble("C", 0) / 100.0;
+			double m = attrs.valueAsDouble("M", 0) / 100.0;
+			double y = attrs.valueAsDouble("Y", 0) / 100.0;
+			double k = attrs.valueAsDouble("K", 0) / 100.0;
+			color.setCmykColorF(c, m, y, k);
+		}
+		else if (space == "RGB")
+		{
+			double r = attrs.valueAsDouble("R", 0) / 255.0;
+			double g = attrs.valueAsDouble("G", 0) / 255.0;
+			double b = attrs.valueAsDouble("B", 0) / 255.0;
+			color.setRgbColorF(r, g, b);
+		}
+		else if (space == "Lab")
+		{
+			double L = attrs.valueAsDouble("L", 0);
+			double a = attrs.valueAsDouble("A", 0);
+			double b = attrs.valueAsDouble("B", 0);
+			color.setLabColor(L, a, b);
+		}
+	}
+	else if (attrs.hasAttribute("CMYK"))
 		color.setNamedColor(attrs.valueAsString("CMYK"));
 	else if (attrs.hasAttribute("RGB"))
 		color.fromQColor(QColor(attrs.valueAsString("RGB")));
@@ -2378,7 +2413,7 @@ void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 		double L = attrs.valueAsDouble("L", 0);
 		double a = attrs.valueAsDouble("A", 0);
 		double b = attrs.valueAsDouble("B", 0);
-		color.setColor(L, a, b);
+		color.setLabColor(L, a, b);
 	}
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
@@ -2387,7 +2422,7 @@ void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	{
 		color.setSpotColor(true);
 		color.setRegistrationColor(true);
-		color.setColor(255, 255, 255, 255);
+		color.setCmykColorF(1.0, 1.0, 1.0, 1.0);
 	}
 	// #10323 : break loading of doc which contain colors with different names
 	// and same definition
@@ -3663,7 +3698,7 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return true;
 }
 
-bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage)
+bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, QString renamedPageName)
 {
 	QStringRef tagName = reader.name();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -3683,9 +3718,12 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		itemKind = PageItem::PatternItem;
 
 	int pagenr = -1;
-	if ((!attrs.value("OnMasterPage").isEmpty()) && (tagName == "MASTEROBJECT"))
+	QString masterPageName = attrs.valueAsString("OnMasterPage");
+	if ((!masterPageName.isEmpty()) && (tagName == "MASTEROBJECT"))
 	{
-		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[attrs.valueAsString("OnMasterPage")]));
+		if (!renamedPageName.isEmpty())
+			masterPageName = renamedPageName;
+		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[masterPageName]));
 		pagenr = -2;
 	}
 	layerFound = false;
@@ -3693,16 +3731,15 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	PageItem* newItem = pasteItem(doc, attrs, baseDir, itemKind, pagenr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
-		newItem->OwnPage = doc->OnPage(newItem);
+		newItem->setOwnerPage(doc->OnPage(newItem));
 	else
-		newItem->OwnPage = attrs.valueAsInt("OwnPage");
+		newItem->setOwnerPage(attrs.valueAsInt("OwnPage"));
 	if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
-		newItem->OnMasterPage = "";
+		newItem->setMasterPageName(QString());
 	if (tagName == "ITEM")
 	{
-		newItem->LayerID = LayerToPaste;
-		newItem->OwnPage = doc->OnPage(newItem);
-		newItem->OnMasterPage = doc->currentPage()->pageName();
+		newItem->setLayer(LayerToPaste);
+		newItem->setMasterPage(doc->OnPage(newItem), doc->currentPage()->pageName());
 	}
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
@@ -3723,7 +3760,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 		else
 			doc->FrameItems.insert(newItem->inlineCharID, doc->Items->takeAt(doc->Items->indexOf(newItem)));
-		newItem->LayerID = doc->firstLayerID();
+		newItem->setLayer(doc->firstLayerID());
 	}
 
 	info.item     = newItem;
@@ -4777,7 +4814,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	//
 	case PageItem::ImageFrame:
@@ -4786,7 +4823,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		UndoManager::instance()->setUndoEnabled(false);
 		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
 		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
@@ -4866,52 +4903,52 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Symbol:
 		z = doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		currItem->setPattern( attrs.valueAsString("pattern", "") );
 		break;
 	case PageItem::Group:
 		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
 		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
 		doc->GroupCounter++;
@@ -4920,25 +4957,25 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Arc:
 		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Spiral:
 		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Table:
 		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2)
-			currItem->OwnPage = pagenr;
+			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
@@ -5277,7 +5314,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 	{
-		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
+		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
 		uint layerCount = doc->Layers.count();
 		bool found = false;
 		for (uint i = 0; i < layerCount; ++i)
@@ -5289,7 +5326,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 		}
 		if (!found)
-			currItem->LayerID = doc->firstLayerID();
+			currItem->setLayer(doc->firstLayerID());
 	}
 	tmp = "";
 	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
@@ -6217,15 +6254,18 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 
 				ItemInfo itemInfo;
-				success = readObject(m_Doc, reader, itemInfo, fileDir, true);
+				QString masterPageName = Mpage ? renamedPageName : QString();
+				success = readObject(m_Doc, reader, itemInfo, fileDir, true, masterPageName);
 				if (!success) break;
 
 				PageItem* newItem = itemInfo.item;
 				newItem->moveBy(-pageX + newPage->xOffset(), - pageY + newPage->yOffset());
-				newItem->OwnPage = m_Doc->currentPageNumber();
+				newItem->setOwnerPage(m_Doc->currentPageNumber());
 				if (tagName == "PAGEOBJECT")
-					newItem->OnMasterPage = "";
-				newItem->LayerID = layerTrans.value(newItem->LayerID, newItem->LayerID);
+					newItem->setMasterPageName(QString());
+				else if (Mpage && !renamedPageName.isEmpty())
+					newItem->setMasterPageName(renamedPageName);
+				newItem->setLayer(layerTrans.value(newItem->LayerID, newItem->LayerID));
 				if (isNewFormat)
 				{
 					if (itemInfo.nextItem != -1)
