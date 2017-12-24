@@ -823,6 +823,9 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsToolbarView";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="toolsTestXYZ";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+
 
 	//toolbar only items
 	name="toolsSelect";
@@ -908,7 +911,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsSymbols"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsInline"]->setShortcutContext(Qt::ApplicationShortcut);
-
+	(*scrActions)["toolsTestXYZ"]->setShortcutContext(Qt::ApplicationShortcut);
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsText"]->setToggleAction(true);
@@ -922,6 +925,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsActionHistory"]->setToggleAction(true);
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
 	(*scrActions)["toolsAlignDistribute"]->setToggleAction(true);
+	(*scrActions)["toolsTestXYZ"]->setToggleAction(true);
 	(*scrActions)["toolsSymbols"]->setToggleAction(true);
 	(*scrActions)["toolsInline"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
@@ -964,12 +968,9 @@ void ActionManager::initExtrasMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="extrasUpdateDocument";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	//name="extrasTestQTQuick2_1";
-	//scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	connect( (*scrActions)["extrasManageImages"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(triggered()), mainWindow, SLOT(generateTableOfContents()) );
 	connect( (*scrActions)["extrasUpdateDocument"], SIGNAL(triggered()), mainWindow, SLOT(updateDocument()) );
-	//connect( (*scrActions)["extrasTestQTQuick2_1"], SIGNAL(triggered()), mainWindow, SLOT(testQTQuick2_1()) );
 }
 
 
@@ -1691,6 +1692,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
 	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("&Align and Distribute"));
+	(*scrActions)["toolsTestXYZ"]->setTexts( tr("&Test XYZ"));
 	(*scrActions)["toolsSymbols"]->setTexts( tr("Symbols"));
 	(*scrActions)["toolsInline"]->setTexts( tr("Inline Items"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
@@ -2364,6 +2366,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsActionHistory"
 		<< "toolsPreflightVerifier"
 		<< "toolsAlignDistribute"
+		<< "toolsTestXYZ"
 		<< "toolsSymbols"
 		<< "toolsInline"
 		<< "toolsToolbarTools"

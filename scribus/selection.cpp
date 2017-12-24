@@ -190,7 +190,7 @@ bool Selection::disconnectAllItemsFromGUI()
 	return true;
 }
 
-bool Selection::addItem(PageItem *item, bool ignoreGUI)
+bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
 {
 	if (item==NULL)
 		return false;
@@ -210,7 +210,7 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	return false;
 }
 
-bool Selection::prependItem(PageItem *item, bool doEmit)
+bool Selection::prependItem(PageItem *item, bool /*doEmit*/)
 {
 	if (item==NULL)
 		return false;
@@ -376,7 +376,7 @@ double Selection::height() const
 void Selection::setGroupRect()
 {
 	PageItem *currItem;
-	uint selectedItemCount = count();
+	int selectedItemCount = count();
 	if (selectedItemCount == 0)
 	{
 		m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
@@ -392,10 +392,10 @@ void Selection::setGroupRect()
 	double vmaxx = -std::numeric_limits<double>::max();
 	double vmaxy = -std::numeric_limits<double>::max();
 
-	for (uint gc = 0; gc < selectedItemCount; ++gc)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = itemAt(gc);
-		if (currItem->rotation() != 0)
+		currItem = itemAt(i);
+		if (currItem->rotation() != 0.0)
 		{
 			QRectF itRect(currItem->getBoundingRect());
 			minx = qMin(minx, itRect.x());

@@ -856,7 +856,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		activateWindow();
 		if (!m_ScMW->scriptIsRunning())
 			raise();
-		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+		m_ScMW->newActWin((dynamic_cast<ScribusWin*>(Doc->WinHan))->getSubWin());
 		updateContents();
 		QString patternVal = e->mimeData()->data("text/symbol");
 		Doc->m_Selection->delaySignalsOn();
@@ -905,7 +905,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				activateWindow();
 				if (!m_ScMW->scriptIsRunning())
 					raise();
-				m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+				m_ScMW->newActWin((dynamic_cast<ScribusWin*>(Doc->WinHan))->getSubWin());
 				updateContents();
 				QString patternVal = e->mimeData()->data("text/inline");
 				int id = patternVal.toInt();
@@ -941,7 +941,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	activateWindow();
 	if (!m_ScMW->scriptIsRunning())
 		raise();
-	m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+	m_ScMW->newActWin((dynamic_cast<ScribusWin*>(Doc->WinHan))->getSubWin());
 	updateContents();
 	//>>
 	QFileInfo fi;
@@ -1082,7 +1082,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	else
 	{
 		Deselect(true);
-		uint oldDocItemCount = Doc->Items->count();
+		int oldDocItemCount = Doc->Items->count();
 		if (((!img) || (vectorFile)) && (Doc->DraggedElem == 0))
 		{
 			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
@@ -1330,9 +1330,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	if (!Doc->masterPageMode())
 	{
-		uint docPagesCount=Doc->Pages->count();
-		uint docCurrPageNo=Doc->currentPageNumber();
-		for (uint i = 0; i < docPagesCount; ++i)
+		int docPagesCount=Doc->Pages->count();
+		int docCurrPageNo=Doc->currentPageNumber();
+		for (int i = 0; i < docPagesCount; ++i)
 		{
 			double x = Doc->Pages->at(i)->xOffset();
 			double y = Doc->Pages->at(i)->yOffset();
@@ -2049,7 +2049,7 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	Q_ASSERT(selectedItemCount > 0);
 	if (!m_groupTransaction)
 	{
@@ -2061,7 +2061,7 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 			if (selectedItemCount <= Um::ItemsInvolvedLimit)
 			{
 				tooltip = Um::ItemsInvolved + "\n";
-				for (uint i = 0; i < selectedItemCount; ++i)
+				for (int i = 0; i < selectedItemCount; ++i)
 					tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
 			}
 			else
@@ -2150,17 +2150,17 @@ void ScribusView::setRulerPos(int x, int y)
 	{
 		QList<int> pag;
 		pag.clear();
-		uint docPageCount=Doc->Pages->count();
-		for (uint a = 0; a < docPageCount; ++a)
+		int docPageCount=Doc->Pages->count();
+		for (int i = 0; i < docPageCount; ++i)
 		{
-			int xs = static_cast<int>(Doc->Pages->at(a)->xOffset() * m_canvas->scale());
-			int ys = static_cast<int>(Doc->Pages->at(a)->yOffset() * m_canvas->scale());
-			int ws = static_cast<int>(Doc->Pages->at(a)->width() * m_canvas->scale());
-			int hs = static_cast<int>(Doc->Pages->at(a)->height() * m_canvas->scale());
+			int xs = static_cast<int>(Doc->Pages->at(i)->xOffset() * m_canvas->scale());
+			int ys = static_cast<int>(Doc->Pages->at(i)->yOffset() * m_canvas->scale());
+			int ws = static_cast<int>(Doc->Pages->at(i)->width() * m_canvas->scale());
+			int hs = static_cast<int>(Doc->Pages->at(i)->height() * m_canvas->scale());
 			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
 //			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
-				pag.append(a+1);
+				pag.append(i+1);
 		}
 		if (!pag.isEmpty())
 			newStatusBarText=( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
@@ -3114,7 +3114,7 @@ public:
 			transform.translate(0, -(fontSize() * gl.scaleV));
 			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
 			outline.map(transform);
-			uint z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), 0, fillColor().color, CommonStrings::None);
+			int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), 0, fillColor().color, CommonStrings::None);
 			PageItem* item = m_view->Doc->Items->at(z);
 			m_view->undoManager->setUndoEnabled(false);
 			item->setTextFlowMode(m_item->textFlowMode());
@@ -3161,7 +3161,7 @@ public:
 			transform.translate(0, -(fontSize() * gl.scaleV));
 			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
 			outline.map(transform);
-			uint z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), strokeWidth(), fillColor().color, strokeColor().color);
+			int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), strokeWidth(), fillColor().color, strokeColor().color);
 			PageItem* item = m_view->Doc->Items->at(z);
 			m_view->undoManager->setUndoEnabled(false);
 			item->setTextFlowMode(m_item->textFlowMode());
@@ -3192,7 +3192,7 @@ public:
 	{
 		QTransform transform = matrix();
 		transform.translate(x(), y());
-		uint z = m_view->Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
+		int z = m_view->Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
 		PageItem* item = m_view->Doc->Items->at(z);
 		m_view->undoManager->setUndoEnabled(false);
 		item->setTextFlowMode(m_item->textFlowMode());
@@ -3248,12 +3248,12 @@ void ScribusView::TextToPath()
 	}
 	QList<PageItem*> delItems,newGroupedItems;
 	newGroupedItems.clear();
-	uint selectedItemCount = tmpSelection.count();
+	int selectedItemCount = tmpSelection.count();
 	if (selectedItemCount != 0)
 	{
 		UndoTransaction trans(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0));
-		uint offset=0;
-		for(uint i=0; i<selectedItemCount; ++i)
+		int offset=0;
+		for(int i=0; i<selectedItemCount; ++i)
 		{
 			PageItem *currItem = tmpSelection.itemAt(offset);
 			bool cont=false;
@@ -3275,7 +3275,7 @@ void ScribusView::TextToPath()
 			currItem->textLayout.render(&p);
 			if ((currItem->asPathText()) && (currItem->PoShow))
 			{
-				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
+				int z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
 				PageItem *bb = Doc->Items->at(z);
 				undoManager->setUndoEnabled(false);
 				bb->PoLine = currItem->PoLine.copy();
@@ -3422,7 +3422,7 @@ void ScribusView::setObjectUndoMode()
 	{
 		//qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
 		m_ScMW->scrActions["editActionMode"]->setChecked(true);
-		uint docSelectionCount=Doc->m_Selection->count();
+		int docSelectionCount=Doc->m_Selection->count();
 		if (docSelectionCount == 1)
 			undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
 		else if (docSelectionCount > 1)
@@ -3441,7 +3441,7 @@ void ScribusView::setGlobalUndoMode()
 			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else
 		{
-			uint docSelectionCount=Doc->m_Selection->count();
+			int docSelectionCount=Doc->m_Selection->count();
 			if (docSelectionCount == 1)
 				undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
 			else if (docSelectionCount > 1)

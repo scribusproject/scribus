@@ -3285,7 +3285,7 @@ void PageItem::createConicalMesh()
 			continue;
 		if (isFirst)
 		{
-			if (actualStop != 0)
+			if (actualStop != 0.0)
 			{
 				gradient.addStop(cstops.at(cst)->color, 0, 0, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
 				if (actualStop <= 0.25)
@@ -3421,7 +3421,7 @@ void PageItem::createConicalMesh()
 	mgP3.color.setAlphaF(mgP3.transparency);
 	mgList2.append(mgP3);
 	startAngle -= stepAngle;
-	for (uint rst = 2; rst < gradient.Stops(); ++rst)
+	for (int rst = 2; rst < gradient.Stops(); ++rst)
 	{
 		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
 		if (stepAngle <= 0)

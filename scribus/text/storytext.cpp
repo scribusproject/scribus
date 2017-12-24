@@ -1773,8 +1773,9 @@ int StoryText::selectWord(int pos)
 }
 
 
-void StoryText::select(int pos, uint len, bool on)
+void StoryText::select(int pos, int len, bool on)
 {
+	Q_ASSERT(len>=0);
 	if (pos < 0)
 		pos += length();
 

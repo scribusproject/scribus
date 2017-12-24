@@ -430,11 +430,11 @@ FPoint getMaxClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx = 0;
 	double my = 0;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	int clipSize=Clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (Clip->isMarker(c))
+		np = Clip->point(i);
+		if (Clip->isMarker(i))
 			continue;
 		if (np.x() > mx)
 			mx = np.x();
@@ -450,11 +450,11 @@ FPoint getMinClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx =  std::numeric_limits<double>::max();
 	double my =  std::numeric_limits<double>::max();
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	int clipSize=Clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (Clip->isMarker(c))
+		np = Clip->point(i);
+		if (Clip->isMarker(i))
 			continue;
 		if (np.x() < mx)
 			mx = np.x();
@@ -515,15 +515,15 @@ double getRotationFromMatrix(QTransform& matrix, double def)
 
 double getRotationDFromMatrix(QTransform& matrix)
 {
-	QLineF line = QLineF(0.0, 0.0, 1.0, 0.0);
+	QLineF line(0.0, 0.0, 1.0, 0.0);
 	line = matrix.map(line);
 	return line.angle();
 }
 
 void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 {
-	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
-	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
 	lineX = matrix.map(lineX);
 	lineY = matrix.map(lineY);
 	scX = lineX.length();
@@ -532,8 +532,8 @@ void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 
 void getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
 {
-	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
-	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
 	lineX = matrix.map(lineX);
 	lineY = matrix.map(lineY);
 	scX = lineX.length();

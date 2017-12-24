@@ -378,7 +378,7 @@ bool extensionIndicatesPattern(const QString &ext)
 
 QString getImageType(QString filename)
 {
-	QString ret = "";
+	QString ret;
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (fi.exists())

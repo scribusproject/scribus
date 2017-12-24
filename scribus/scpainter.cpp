@@ -22,8 +22,10 @@ for which a new license (GPL+exception) is in place.
 #include <math.h>
 #include <QDebug>
 
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
+ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int blendmode )
 {
+	Q_ASSERT(w>=0);
+	Q_ASSERT(h>=0);
 	m_width = w;
 	m_height= h;
 	m_stroke = QColor(0,0,0);
@@ -295,13 +297,13 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	stroke_gradient.setVector(vec);
 	stroke_gradient.setFocalPoint(foc);
 	m_gradientScale = scale;
-	if (skew == 90)
+	if (skew == 90.0)
 		m_gradientSkew = 1;
-	else if (skew == 180)
+	else if (skew == 180.0)
 		m_gradientSkew = 0;
-	else if (skew == 270)
+	else if (skew == 270.0)
 		m_gradientSkew = -1;
-	else if (skew == 360)
+	else if (skew == 360.0)
 		m_gradientSkew = 0;
 	else
 		m_gradientSkew = tan(M_PI / 180.0 * skew);
@@ -319,13 +321,13 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, FPoint orig, FPoi
 	mask_gradient.setVector(vec);
 	mask_gradient.setFocalPoint(foc);
 	m_mask_gradientScale = scale;
-	if (skew == 90)
+	if (skew == 90.0)
 		m_mask_gradientSkew = 1;
-	else if (skew == 180)
+	else if (skew == 180.0)
 		m_mask_gradientSkew = 0;
-	else if (skew == 270)
+	else if (skew == 270.0)
 		m_mask_gradientSkew = -1;
-	else if (skew == 360)
+	else if (skew == 360.0)
 		m_mask_gradientSkew = 0;
 	else
 		m_mask_gradientSkew = tan(M_PI / 180.0 * skew);

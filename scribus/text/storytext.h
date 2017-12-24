@@ -242,7 +242,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
  	void removeSelection();
  	void extendSelection(int oldPos, int newPos);
 	int selectWord(int pos);
-	void select(int pos, uint len, bool on = true);
+	void select(int pos, int len, bool on = true);
  	bool selected(int pos) const;
 	int startOfSelection() const;
 	int endOfSelection() const;

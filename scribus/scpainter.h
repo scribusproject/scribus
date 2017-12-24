@@ -34,7 +34,7 @@ typedef struct _cairo_pattern cairo_pattern_t;
 class SCRIBUS_API ScPainter
 {
 public:
-	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
+	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);

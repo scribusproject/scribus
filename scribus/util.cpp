@@ -304,7 +304,7 @@ char *toHex( uchar u )
 QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
-	QString out("");
+	QString out;
 	for( int xi = 0; xi < in->length(); ++xi )
 	{
 		// Qt4 .cell() added ???
@@ -782,7 +782,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 
 QString readLinefromDataStream(QDataStream &s)
 {
-	QString ret = "";
+	QString ret;
 	uchar charData;
 	while (!s.atEnd())
 	{
@@ -831,7 +831,7 @@ void removeComboItem(QComboBox *box, QString text)
 
 QString readAdobeUniCodeString(QDataStream &s)
 {
-	QString ret = "";
+	QString ret;
 	quint32 len;
 	s >> len;
 	for (quint32 i = 0; i < len; i++)
@@ -846,7 +846,7 @@ QString readAdobeUniCodeString(QDataStream &s)
 
 QString readAdobeUniCodeString16(QDataStream &s)
 {
-	QString ret = "";
+	QString ret;
 	quint16 len;
 	s >> len;
 	for (quint16 i = 0; i < len; i++)

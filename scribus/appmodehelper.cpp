@@ -439,7 +439,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 {
 	int SelectedType = -1;
 	PageItem *currItem = NULL;
-	const uint docSelectionCount = doc->m_Selection->count();
+	const int docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount > 0)
 	{
 		currItem = doc->m_Selection->itemAt(0);
@@ -843,7 +843,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = false;
-		for (uint i=0; i < docSelectionCount; ++i)
+		for (int i=0; i < docSelectionCount; ++i)
 		{
 			PageItem* it=doc->m_Selection->itemAt(i);
 			if ((it->asPolygon()) || (it->asPolyLine()))
@@ -939,9 +939,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			{
 				bool haveSameParent = true;
 				PageItem *firstItem = doc->m_Selection->itemAt(0);
-				for (uint a = 1; a < docSelectionCount; ++a)
+				for (int i = 1; i < docSelectionCount; ++i)
 				{
-					if (doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
+					if (doc->m_Selection->itemAt(i)->Parent != firstItem->Parent)
 					{
 						haveSameParent = false;
 						break;
