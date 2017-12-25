@@ -5,10 +5,10 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums and sha1sums, gpg --verify is more secure and reliable.
+While we also note sha1sums and sha256sums, gpg --verify is more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
-python-imaging to enable print previews. Please consider adding these as 
+python-imaging or python-pillow to enable print previews. Please consider adding these as 
 requires, even though configure does not explicitly check for them:
 
 * In the past some plug-ins were distributed separately which are now 
@@ -42,7 +42,7 @@ Recommended Spec File Description:
 %description
 Scribus is an desktop open source page layout program with the aim of producing
 commercial grade output in PDF and Postscript, primarily, though not exclusively
-for Linux. Scribus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
+for Linux. Scribus runs natively on  BSD, Haikum, Linux, OS/2, Solaris, and Win32.
 -----------------------------------------------------------------------------
 
 Recommended Spec File Summary: Scribus - Open Source Page Layout
@@ -86,4 +86,4 @@ http://lists.scribus.info/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in December 2011
+in December 2017
