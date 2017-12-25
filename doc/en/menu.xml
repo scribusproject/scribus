@@ -137,7 +137,7 @@
 			<submenuitem text="PDF Export" file="scripterapi-PDFfile.html"/>
 			<submenuitem text="Printing" file="scripterapi-Printer.html"/>
 			<submenuitem text="Image Export" file="scripterapi-ImageExport.html"/>
-			<submenuitem text="Pre-defined Constants" file="scripterapi-constants.html"/>
+			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
 			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 			<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 		</submenuitem>

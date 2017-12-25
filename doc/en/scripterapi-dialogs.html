@@ -36,7 +36,7 @@ Example: <a href="#-fileDialog">fileDialog</a>('Save report', defaultname='repor
 icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
 button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer</code>
 <p>Displays a message box with the title "caption", the message "message", and an icon "icon" and up to 3 buttons. By default no icon is used and a single button, OK, is displayed. Only the caption and message arguments are required, though setting an icon and appropriate button(s) is strongly recommended. The message text may contain simple HTML-like markup.</p>
-<p>Returns the number of the button the user pressed. Button numbers start at 1.</p>
+<p>Returns the integer value of the assigned button. For example, regardless of whether BUTTON_OK is assigned to button1, button2, or button3, it will return 16384. Check <a href="scripterapi-constants.html">Pre-defined Constants</a> for further information.</p>
 <p>For the icon and the button parameters there are predefined constants available with the same names as in the Qt Documentation. These are the BUTTON_* and ICON_* constants defined in the module. There are also two extra constants that can be binary-ORed with button constants:</p>
 <ul>
 <li>BUTTONOPT_DEFAULT Pressing enter presses this button.</li>

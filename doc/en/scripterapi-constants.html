@@ -18,11 +18,13 @@
 <pre>
 if scribus.scribus_version_info[:3] &lt; (1,2,2):
     messageBox("Scribus - Python script",
-        "This script requires Scribus 1.2.2 or newer. "+\
-        "You're running %s." % scribus.scribus_version,
-        ICON_CRITICAL)
+        "This script requires Scribus 1.2.2 or newer. "+"You're running %s." % scribus.scribus_version, scribus.ICON_CRITICAL)
     sys.exit()
 </pre>
+<p><em>Note that if you are using this style of import statement:</em></p>
+<pre>import scribus</pre>
+<p>you will need to add a prefix to these predefined constants, for example, <strong>scribus.ICON_CRITICAL</strong>.</p>
+
 
 <h4>Unit Enumeration Constants: </h4>
 <dl>
@@ -183,16 +185,22 @@ you write 'value*mm/inch' .</p>
 </dl>
 
 <h4>Dialog Buttons</h4>
-<dl>
-    <dt>BUTTON_ABORT</dt>
-    <dt>BUTTON_CANCEL</dt>
-    <dt>BUTTON_IGNORE</dt>
-    <dt>BUTTON_NO</dt>
-    <dt>BUTTON_NONE</dt>
-    <dt>BUTTON_OK</dt>
-    <dt>BUTTON_RETRY</dt>
-    <dt>BUTTON_YES</dt>
-</dl>
+<p>
+<table>
+<tr><td><strong>Button Type</strong></td><td><strong>Return Value</strong></td></tr>
+<tr>    <td>BUTTON_ABORT</td><td>262144</td></tr>
+<tr>    <td>BUTTON_CANCEL</td><td>4194304</td></tr>
+    <tr><td>BUTTON_IGNORE</td><td>1048576</td></tr>
+    <tr><td>BUTTON_NO</td><td>65536</td></tr>
+    <tr><td>BUTTON_NONE</td><td>N/A</td></tr>
+    <tr><td>BUTTON_OK</td><td>1024</td></tr>
+    <tr><td>BUTTON_RETRY</td><td>524288</td></tr>
+    <tr><td>BUTTON_YES</td><td>16384</td></tr>
+</table></p>
+
+<p>There is also a hierarchy of buttons in terms of how they appear in the dialogs, with this ordering, left to right:</p>
+<p>BUTTON_YES, BUTTON_NO, BUTTON_OK, BUTTON_RETRY, BUTTON_IGNORE, BUTTON_ABORT, BUTTON_CANCEL</p>
+<p>For example, even if you assign CANCEL to button1, RETRY to button2, and YES to button3, they will appear YES, RETRY, and CANCEL left to right in the dialog.</p>
 
 <h4>Dialog Icons</h4>
 <dl>
