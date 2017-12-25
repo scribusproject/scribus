@@ -1767,8 +1767,8 @@ int StoryText::selectWord(int pos)
 	it->setText((const UChar*) plainText().utf16());
 	int start = it->preceding(pos + 1);
 	int end = it->next();
-	int wordLentgh = end - start;
-	select(start, wordLentgh);
+	int wordLength = end - start;
+	select(start, wordLength);
 	return start;
 }
 
