@@ -1768,16 +1768,23 @@ int StoryText::selectWord(int pos)
 	int start = it->preceding(pos + 1);
 	int end = it->next();
 	int wordLength = end - start;
-	select(start, wordLength);
+	if (wordLength > 0)
+		select(start, wordLength);
+	else
+	{
+		deselectAll();
+		setCursorPosition(start);
+	}
 	return start;
 }
 
 
 void StoryText::select(int pos, int len, bool on)
 {
-	Q_ASSERT(len>=0);
 	if (pos < 0)
 		pos += length();
+	if (len < 0)
+		len = 0;
 
 	assert( pos >= 0 );
 	assert( pos + signed(len) <= length() );

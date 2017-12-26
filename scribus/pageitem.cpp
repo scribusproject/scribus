@@ -1304,6 +1304,8 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 			addPARSEP = false;
 		itemText.append(nxt->itemText);
 	}
+	else
+		addPARSEP = false;
 	NextBox = nxt;
 	nxt->BackBox = this;
 	// update AutoText
