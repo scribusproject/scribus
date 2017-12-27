@@ -580,6 +580,39 @@ PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(static_cast<long>(false));
 }
 
+
+/*
+ * Vaclav Smilauer, 2017-21-21
+ * Return style name of the obejct (or currently selected object)
+ */
+PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get style of a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	//std::cerr<<"itemtext default style: "<<item->itemText.defaultStyle().name().toStdString()<<std::endl;
+	//std::cerr<<"itemtext default style: "<<item->itemText.defaultStyle().name().toStdString()<<std::endl;
+	//if(item->itemText.defaultStyle().hasParent()){
+	//	std::cerr<<"itemtext default parent style: "<<item->itemText.defaultStyle().parentStyle()->name().toStdString()<<std::endl;
+	//}
+	//std::cerr<<"itemtext current style: "<<item->itemText.paragraphStyle().name().toStdString()<<std::endl;
+	//std::cerr<<"style: "<<item->currentStyle().name().toStdString()<<std::endl;
+	if(item->itemText.defaultStyle().hasParent()) return PyString_FromString(item->itemText.defaultStyle().parentStyle()->name().toUtf8());
+	Py_RETURN_NONE;
+};
+
+
+
 /*
  * Craig Ringer, 2004-09-09
  * Apply the named style to the currently selected object.
@@ -858,5 +891,5 @@ PV */
 void cmdobjdocwarnings()
 {
 	QStringList s;
-	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__ <<scribus_copyobject__doc__ <<scribus_pasteobject__doc__;
+	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_getstyle__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__ <<scribus_copyobject__doc__ <<scribus_pasteobject__doc__;
 }

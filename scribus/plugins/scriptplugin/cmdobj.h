@@ -234,6 +234,22 @@ ObjectName is now optional. When none set, search for selection...
 */
 PyObject *scribus_objectexists(PyObject * /*self*/, PyObject* args);
 
+
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getstyle__doc__,
+QT_TR_NOOP("getStyle([\"name\"])\n\
+\n\
+Return style name of the object named \"name\". If no object name is given,\n\
+style of the selected object is returned.\n\
+"));
+/**
+ Vaclav Smilauer, 2017-12-21
+ Return style name of the obejct (or currently selected object)
+ */
+PyObject *scribus_getstyle(PyObject * /*self*/, PyObject* args);
+
+
 /*! docstring */
 PyDoc_STRVAR(scribus_setstyle__doc__,
 QT_TR_NOOP("setStyle(\"style\" [, \"name\"])\n\
@@ -248,6 +264,7 @@ If no object name is given, style is applied on selected object.\n\
  pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
 PyObject *scribus_setstyle(PyObject * /*self*/, PyObject* args);
+
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcharstyle__doc__,

@@ -541,6 +541,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("hyphenateText"), scribus_hyphenatetext, METH_VARARGS, tr(scribus_hyphenatetext__doc__)},
 	{const_cast<char*>("dehyphenateText"), scribus_dehyphenatetext, METH_VARARGS, tr(scribus_dehyphenatetext__doc__)},
 	{const_cast<char*>("setScaleImageToFrame"), (PyCFunction)scribus_setscaleimagetoframe, METH_KEYWORDS, tr(scribus_setscaleimagetoframe__doc__)},
+	{const_cast<char*>("getStyle"), scribus_getstyle, METH_VARARGS, tr(scribus_getstyle__doc__)},
 	{const_cast<char*>("setStyle"), scribus_setstyle, METH_VARARGS, tr(scribus_setstyle__doc__)},
 	{const_cast<char*>("setCharacterStyle"), scribus_setcharstyle, METH_VARARGS, tr(scribus_setcharstyle__doc__) },
 	{const_cast<char*>("setTableStyle"), scribus_settablestyle, METH_VARARGS, tr(scribus_settablestyle__doc__)},
