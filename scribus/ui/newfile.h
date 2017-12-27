@@ -42,7 +42,7 @@ class SCRIBUS_API PageLayoutsWidget : public QListWidget
 
 public:
 	PageLayoutsWidget(QWidget* parent);
-	~PageLayoutsWidget() {};
+	~PageLayoutsWidget() {}
 	void arrangeIcons();
 	QSize minimumSizeHint() const;
 	int maxX;

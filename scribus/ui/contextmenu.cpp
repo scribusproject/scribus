@@ -530,11 +530,11 @@ void ContextMenu::createMenuItems_Selection()
 	addSeparator();
 	if (selectedItemCount > 0 && m_doc->appMode != modeEdit)
 	{
-		PageItem *currItem;
-		for (int a = 0; a < m_Sel.count(); ++a)
+		PageItem *currItem2;
+		for (int i = 0; i < m_Sel.count(); ++i)
 		{
-			currItem = m_Sel.itemAt(a);
-			if (currItem->isWelded())
+			currItem2 = m_Sel.itemAt(i);
+			if (currItem2->isWelded())
 			{
 				addAction(m_ScMW->scrActions["itemsUnWeld"]);
 				break;
@@ -558,7 +558,7 @@ void ContextMenu::createMenuItems_Selection()
 	addAction(m_ScMW->scrActions["toolsProperties"]);
 	
 	bool containsTextFrame = false;
-	if (currItem && currItem->asTextFrame())
+	if (currItem->asTextFrame())
 		containsTextFrame = true;
 	if (m_doc->appMode == modeEditTable)
 		containsTextFrame = true;

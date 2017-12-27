@@ -41,6 +41,10 @@ VisionDefectColor::VisionDefectColor()
 
 void VisionDefectColor::init()
 {
+	deficiency = 0;
+	m_a1 = m_a2 = m_b1 = m_b2 = m_c1 = m_c2 = 0.0;
+	m_inflection = 0.0;
+
 	m_rgb2lms[0] = 0.05059983;
 	m_rgb2lms[1] = 0.08585369;
 	m_rgb2lms[2] = 0.00952420;

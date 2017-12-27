@@ -396,32 +396,30 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 {
 	QPolygon cli, outa;
 	Segs.clear();
-	if (ina.size() > 3)
+	if (ina.size() <= 3)
+		return outa;
+	int limit=ina.size()-3;
+	for (int poi=0; poi<limit; poi += 4)
 	{
-		for (int poi=0; poi<ina.size()-3; poi += 4)
+		if (ina.isMarker(poi)) // && cli.size() > 0)
 		{
-			if (ina.isMarker(poi)) // && cli.size() > 0)
-			{
-//				outa << cli.point(cli.size()-1);
-				Segs.append(outa.size());
-				continue;
-			}
-			FPoint a1 = ina.point(poi);
-			FPoint a2 = ina.point(poi+1);
-			FPoint a3 = ina.point(poi+3);
-			FPoint a4 = ina.point(poi+2);
-			QPainterPath Bez;
-			Bez.moveTo(a1.x(), a1.y());
-			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-			cli = Bez.toFillPolygon().toPolygon();
-			if (cli.size() > 1)
-				outa.putPoints(outa.size(), cli.size()-2, cli);
-			else
-				outa << QPoint(qRound(a4.x()), qRound(a4.y()));
+			Segs.append(outa.size());
+			continue;
 		}
-//		if (cli.size() > 0)
-//			outa << cli.point(cli.size()-1);
+		FPoint a1 = ina.point(poi);
+		FPoint a2 = ina.point(poi+1);
+		FPoint a3 = ina.point(poi+3);
+		FPoint a4 = ina.point(poi+2);
+		QPainterPath Bez;
+		Bez.moveTo(a1.x(), a1.y());
+		Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+		cli = Bez.toFillPolygon().toPolygon();
+		if (cli.size() > 1)
+			outa.putPoints(outa.size(), cli.size()-2, cli);
+		else
+			outa << QPoint(qRound(a4.x()), qRound(a4.y()));
 	}
+
 	return outa;
 }
 
@@ -484,7 +482,7 @@ double constrainAngle(double angle, double constrain)
 	double constrainTo=constrain;
 	if (newAngle<0.0)
 		newAngle+=360.0;
-	newAngle=qRound(angle/constrainTo)*constrainTo;
+	newAngle=qRound(newAngle/constrainTo)*constrainTo;
 	if (newAngle==360.0)
 		newAngle=0.0;
 	return newAngle;

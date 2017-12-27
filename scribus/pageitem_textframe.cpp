@@ -75,27 +75,26 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
-	invalid = true;
+	init();
 	firstChar = 0;
-	cursorBiasBackward = false;
-	unicodeTextEditMode = false;
-	unicodeInputCount = 0;
-	unicodeInputString = "";
-	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
-	verticalAlign = 0;
-	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
 PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
+{
+	init();
+	m_notesFramesMap.clear();
+}
+
+void PageItem_TextFrame::init()
 {
 	invalid = true;
 	cursorBiasBackward = false;
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
-	unicodeInputString = "";
-	m_notesFramesMap.clear();
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
 	verticalAlign = 0;
+	incompleteLines = 0;
+	maxY = 0.0;
 	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
@@ -5966,7 +5965,7 @@ void PageItem_TextFrame::setNoteFrame(PageItem_NoteFrame *nF)
 void PageItem_TextFrame::setMaxY(double y)
 {
 	if (y == -1)
-		maxY = 0;
+		maxY = 0.0;
 	else
 		maxY = qMax(y, maxY);
 }

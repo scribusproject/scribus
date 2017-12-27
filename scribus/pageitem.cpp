@@ -871,6 +871,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	hatchBackgroundQ = QColor();
 	hatchForeground = "Black";
 	hatchForegroundQ = qcol;
+	selectedMeshControlPoint=0;
+	snapToPatchGrid=0;
+	gridOffset_=0.0;
+	gridValue_=0.0;
+	FrameOnly=false;
+	inlineCharID=0;
+	GrStrokeExtend=VGradient::none;
+	tagged=false;
+	no_fill=false;
+	no_stroke=false;
 }
 
 PageItem::~PageItem()
@@ -3097,7 +3107,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 
 void PageItem::createGradientMesh(int rows, int cols)
 {
-	QString MColor = fillColorVal;
+	QString MColor(fillColorVal);
 	QColor MQColor;
 	if (fillColorVal != CommonStrings::None)
 	{

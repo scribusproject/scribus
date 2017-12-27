@@ -51,6 +51,8 @@ public:
 	PageItem_TextFrame(const PageItem & p);
 	~PageItem_TextFrame() {}
 
+	void init();
+
 	virtual PageItem_TextFrame * asTextFrame() { return this; }
 	virtual bool isTextFrame() const { return true; }
 	

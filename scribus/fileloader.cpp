@@ -82,16 +82,16 @@ const QString FileLoader::getLoadFilterString()
 	QStringList fmts = LoadSavePlugin::fileDialogLoadFilter();
 	QString fmtString = QObject::tr("All Supported Formats")+" (";
 	int ind = -1;
-	for (int a = 0; a < fmts.count()-1; a++)
+	for (int i = 0; i < fmts.count()-1; i++)
 	{
-		QString fmt = fmts[a];
+		QString fmt = fmts[i];
 		int s = fmt.indexOf("(");
 		int e = fmt.lastIndexOf(")");
 		QString f = fmt.mid(s+1, e-s-1);
 #ifndef HAVE_POPPLER
 		if (f.contains("pdf"))	// for removing PDF from the list
 		{
-			ind = a;
+			ind = i;
 			continue;
 		}
 #endif

@@ -656,7 +656,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	{
 		QByteArray result;
 		QList<std::pair<qint16,quint16> >::const_iterator it;
-		int i = 0;
+		//int i = 0;
 		for (it = longHorMetrics.cbegin(); it < longHorMetrics.cend(); ++it)
 		{
 			//qDebug() << "hmtx" << i++ << it->first << it->second;
@@ -908,7 +908,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			uint idRangeOffsetAddress = startOfIdRangeOffsetTable + 2*i;
 			if (rangeOffsets[i] == 0)
 			{
-				quint16 dbg = startCodes[i] + idDeltas[i];
+				//quint16 dbg = startCodes[i] + idDeltas[i];
 				//qDebug() << QChar(startCodes[i]) << "-" << QChar(endCodes[i]) << "/" << (endCodes[i]-startCodes[i]+1) << "+" << idDeltas[i] << "-->" << dbg;
 				putWord16(result, idRangeOffsetAddress, 0);
 			}
@@ -1021,7 +1021,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		uint glyphStart = srcLoca[srcGid];
 		uint glyphLength = srcLoca[srcGid+1] - glyphStart;
 		destLoca.append(destGlyf.size());
-		int i = 0;
+		//int i = 0;
 		if (glyphLength > 0)
 		{
 			quint16 nrOfContours = word16(srcGlyf, glyphStart);

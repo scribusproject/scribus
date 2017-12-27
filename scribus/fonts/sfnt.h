@@ -42,14 +42,15 @@ namespace sfnt {
  This class checks the post table of a ttf font.
  */
 class SCRIBUS_API PostTable {
-public:
-	bool usable;
-	QString errorMsg;
-	uint numberOfGlyphs() const;
-	QString nameFor(uint glyphId) const;
-	void readFrom(FT_Face face);
-private:
-	QList<QString> m_names;
+	public:
+		PostTable() {usable=false;}
+		bool usable;
+		QString errorMsg;
+		uint numberOfGlyphs() const;
+		QString nameFor(uint glyphId) const;
+		void readFrom(FT_Face face);
+	private:
+		QList<QString> m_names;
 };
 
 } //namespace

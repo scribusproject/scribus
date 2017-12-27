@@ -36,7 +36,7 @@ class SCRIBUS_API ExtImageProps : public QDialog
 
 public:
 	ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view );
-	~ExtImageProps() {};
+	~ExtImageProps() {}
 
 public slots:
 	void leaveOK();

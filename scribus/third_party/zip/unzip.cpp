@@ -286,47 +286,47 @@ UnZip::ErrorCode UnzipPrivate::parseLocalHeaderRecord(const QString& path, const
   header.  The correct values are put in the data descriptor
   immediately following the compressed data."
  */
-    bool hasDataDescriptor = entry.hasDataDescriptor();
+	bool hasDataDescriptor = entry.hasDataDescriptor();
 
-    bool checkFailed = false;
+	bool checkFailed = false;
 
-    if (!checkFailed)
-        checkFailed = entry.compMethod != getUShort(uBuffer, UNZIP_LH_OFF_CMETHOD);
-    if (!checkFailed)
-        checkFailed = entry.gpFlag[0] != uBuffer[UNZIP_LH_OFF_GPFLAG];
-    if (!checkFailed)
-        checkFailed = entry.gpFlag[1] != uBuffer[UNZIP_LH_OFF_GPFLAG + 1];
-    if (!checkFailed)
-        checkFailed = entry.modTime[0] != uBuffer[UNZIP_LH_OFF_MODT];
-    if (!checkFailed)
-        checkFailed = entry.modTime[1] != uBuffer[UNZIP_LH_OFF_MODT + 1];
-    if (!checkFailed)
-        checkFailed = entry.modDate[0] != uBuffer[UNZIP_LH_OFF_MODD];
-    if (!checkFailed)
-        checkFailed = entry.modDate[1] != uBuffer[UNZIP_LH_OFF_MODD + 1];
-    if (!hasDataDescriptor)
-    {
-        if (!checkFailed)
-            checkFailed = entry.crc != getULong(uBuffer, UNZIP_LH_OFF_CRC32);
-        if (!checkFailed)
-            checkFailed = entry.szComp != getULong(uBuffer, UNZIP_LH_OFF_CSIZE);
-        if (!checkFailed)
-            checkFailed = entry.szUncomp != getULong(uBuffer, UNZIP_LH_OFF_USIZE);
-    }
+	if (!checkFailed)
+		checkFailed = entry.compMethod != getUShort(uBuffer, UNZIP_LH_OFF_CMETHOD);
+	if (!checkFailed)
+		checkFailed = entry.gpFlag[0] != uBuffer[UNZIP_LH_OFF_GPFLAG];
+	if (!checkFailed)
+		checkFailed = entry.gpFlag[1] != uBuffer[UNZIP_LH_OFF_GPFLAG + 1];
+	if (!checkFailed)
+		checkFailed = entry.modTime[0] != uBuffer[UNZIP_LH_OFF_MODT];
+	if (!checkFailed)
+		checkFailed = entry.modTime[1] != uBuffer[UNZIP_LH_OFF_MODT + 1];
+	if (!checkFailed)
+		checkFailed = entry.modDate[0] != uBuffer[UNZIP_LH_OFF_MODD];
+	if (!checkFailed)
+		checkFailed = entry.modDate[1] != uBuffer[UNZIP_LH_OFF_MODD + 1];
+	if (!hasDataDescriptor)
+	{
+		if (!checkFailed)
+			checkFailed = entry.crc != getULong(uBuffer, UNZIP_LH_OFF_CRC32);
+		if (!checkFailed)
+			checkFailed = entry.szComp != getULong(uBuffer, UNZIP_LH_OFF_CSIZE);
+		if (!checkFailed)
+			checkFailed = entry.szUncomp != getULong(uBuffer, UNZIP_LH_OFF_USIZE);
+	}
 
-    if (checkFailed)
-        return UnZip::HeaderConsistencyError;
+	if (checkFailed)
+		return UnZip::HeaderConsistencyError;
 
-    // Check filename
-    quint16 szName = getUShort(uBuffer, UNZIP_LH_OFF_NAMELEN);
-    if (szName == 0)
-        return UnZip::HeaderConsistencyError;
+	// Check filename
+	quint16 szName = getUShort(uBuffer, UNZIP_LH_OFF_NAMELEN);
+	if (szName == 0)
+		return UnZip::HeaderConsistencyError;
 
 	memset(buffer2, 0, szName);
-    if (device->read(buffer2, szName) != szName)
-        return UnZip::ReadFailed;
+	if (device->read(buffer2, szName) != szName)
+		return UnZip::ReadFailed;
 
-	QString filename = "";
+	QString filename;
 	for (quint16 fc = 0; fc < szName; fc++)
 	{
 		if (buffer2[fc] > 0)

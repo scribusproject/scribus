@@ -31,12 +31,15 @@
 RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
 	CanvasGesture(view),
 	m_ScMW(m_view->m_ScMW),
-	m_mode(mode), m_haveGuide(false),
+	m_mode(mode),
+	m_haveGuide(false),
+	m_page(0),
+	m_guide(0.0),
+	m_currentGuide(0.0),
 	m_haveCursor(false),
 	m_xy(0,0),
 	m_mousePoint(0,0)
 {
-
 }
 
 
