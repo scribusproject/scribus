@@ -16629,7 +16629,9 @@ void ScribusDoc::setNumerationCounter(QString numName, int level, int number)
 {
 	if (!numerations.contains(numName))
 		return;
-	NumStruct * numS = numerations.value(numName);
+	NumStruct* numS = numerations.value(numName);
+	if (!numS)
+		return;
 	if (level > numS->m_counters.count())
 		numS->m_counters.insert(level, number);
 	else
