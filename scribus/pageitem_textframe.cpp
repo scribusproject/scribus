@@ -1258,32 +1258,39 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 {
 	// More text to go - let's apply paragraph flowing options - orphans/widows, etc
 	int pos = textLayout.endOfFrame() - 1;
-	if (pos >= itemText.length() - 1) return;
+	if (pos >= itemText.length() - 1)
+		return;
 
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int paragraphStart = itemText.prevParagraph (pos) + 1;
 	QChar lastChar = itemText.text (pos);
 	bool keepWithNext = style.keepWithNext() && (lastChar == SpecialChars::PARSEP);
-	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true))) {
+	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true)))
+	{
 		// paragraph continues in the next frame, or needs to be kept with the next one
 		// check how many lines are in this frame
 		int lineStart = textLayout.startOfLine (pos);
 		incompleteLines = 1;
 		incompletePositions.prepend (lineStart);
-		while (lineStart > paragraphStart) {
+		while (lineStart > paragraphStart)
+		{
 			lineStart = textLayout.startOfLine (lineStart - 1);
 			incompleteLines++;
 			incompletePositions.prepend (lineStart);
 		}
 		int need = style.keepLinesStart () + 1;
-		if (style.keepTogether()) need = incompleteLines;
+		if (style.keepTogether())
+			need = incompleteLines;
 		int pull = 0;
-		if (style.keepTogether() || (incompleteLines < need)) pull = incompleteLines;
+		if (style.keepTogether() || (incompleteLines < need))
+			pull = incompleteLines;
 		// if we need to keep it with the next one, pull one line. Next frame layouting
 		// will pull more from us if it proves necessary.
-		if (keepWithNext && (!pull)) pull = 1;
+		if (keepWithNext && (!pull))
+			pull = 1;
 
-		if (pull) {
+		if (pull)
+		{
 			qDebug() << "pulling" << pull << "lines";
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
