@@ -1513,7 +1513,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	QVector<double> dum;
+//	QVector<double> dum;
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;

@@ -199,6 +199,7 @@ set(SCRIBUS_UI_SRC
 	ui/tablecolumnwidthsdialog.ui
 	ui/tablerowheightsdialog.ui
 	ui/tabpdfoptions.ui
+	ui/test_xyzbase.ui
 	ui/transformdialogbase.ui
 	ui/transparencypalette.ui
 	ui/copypagetomasterpage.ui
@@ -544,6 +545,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/tabmanager.h
 	ui/tabpdfoptions.h
 	ui/tabruler.h
+	ui/test_xyz.h
 	ui/textpalette.h
 	ui/transformdialog.h
 	ui/transparencypalette.h
@@ -1023,6 +1025,7 @@ set(SCRIBUS_SOURCES
 	ui/tabmanager.cpp
 	ui/tabpdfoptions.cpp
 	ui/tabruler.cpp
+	ui/test_xyz.cpp
 	ui/textpalette.cpp
 	ui/transformdialog.cpp
 	ui/transparencypalette.cpp

@@ -146,7 +146,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 		}
 		if ((((docItem->lineColor() != CommonStrings::None) || (!docItem->patternStrokeVal.isEmpty()) || (docItem->GrTypeStroke > 0)) && (docItem->lineWidth() > 1)) || (!docItem->NamedLStyle.isEmpty()))
 		{
-			QVector<double> m_array;
+//			QVector<double> m_array;
 			QPainterPath ppa;
 			QPainterPath result;
 			if (docItem->itemType() == PageItem::PolyLine)
@@ -1282,8 +1282,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		if (style.keepTogether())
 			need = incompleteLines;
 		int pull = 0;
-		if (style.keepTogether() || (incompleteLines < need))
-			pull = incompleteLines;
+		if (style.keepTogether() || (incompleteLines < need)) pull = incompleteLines;
 		// if we need to keep it with the next one, pull one line. Next frame layouting
 		// will pull more from us if it proves necessary.
 		if (keepWithNext && (!pull))

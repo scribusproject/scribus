@@ -102,7 +102,7 @@ QStringList SWConfig::getAvailableLanguageCodes(QString filename)
 
 	QTextStream t(&f);
 	QStringList nations;
-	QString aRow, code, lang;
+	QString aRow, code;
 	while (!t.atEnd())
 	{
 		aRow = t.readLine();

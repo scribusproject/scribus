@@ -204,7 +204,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	double Rxp = 0,  Ryp = 0;
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
-	QRect tx;
+//	QRect tx;
 	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;

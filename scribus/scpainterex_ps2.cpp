@@ -963,7 +963,7 @@ void ScPainterEx_Ps2::drawRect(double x, double y, double w, double h)
 
 void ScPainterEx_Ps2::drawGradient( VGradientEx& gradient )
 {
-	QRect clipPathRect;
+//	QRect clipPathRect;
 	save();
 	//setClipPath();
 	m_stream << "clip\n";

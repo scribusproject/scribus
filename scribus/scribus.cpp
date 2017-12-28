@@ -1608,7 +1608,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 
 	if ( e->type() == QEvent::KeyPress )
 	{
-		QKeyEvent *k = (QKeyEvent *)e;
+		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
 		int keyMod=0;
 		if (k->modifiers() & Qt::ShiftModifier)
 			keyMod |= Qt::SHIFT;
@@ -3925,7 +3925,9 @@ void ScribusMainWindow::slotGetContent()
 			{
 				m_prefsManager->prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
 				view->requestMode(modeImportImage);
-				dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode())->setImageList(fileNames);
+				CanvasMode_ImageImport* cii=dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
+				if (cii)
+					cii->setImageList(fileNames);
 			}
 		}
 		else if (currItem->asTextFrame())
@@ -9816,6 +9818,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				Mark* masterMark = note->masterMark();
 				doc->setCursor2MarkPos(masterMark);
 			}
+			break;
 		case MARKIndexType:
 			return false;
 			break;
@@ -9834,7 +9837,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 		MarkData markdata;
 		if (currItem != NULL)
 			markdata.itemName = currItem->itemName();
-		QString label = "", text = "";
+		QString label, text;
 		QString oldStr = mrk->getString();
 		bool newMark = false;
 		bool replaceMark = false;

@@ -70,7 +70,7 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 	frameResizeHandle = -1;
 	m_blinker = new QTimer(view);	
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
-	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(rulerPreview(double, double)));
+	connect(view->horizRuler, SIGNAL(MarkerMoved(double,double)), this, SLOT(rulerPreview(double,double)));
 	mRulerGuide = -1;
 	m_cursorVisible = false;
 	m_longCursorTime = false;

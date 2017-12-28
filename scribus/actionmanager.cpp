@@ -1022,10 +1022,10 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	connect( (*scrActions)["helpCheckUpdates"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpCheckUpdates()) );
 	UrlLauncher* ul=UrlLauncher::instance();
-	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
 	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 }
 
@@ -1202,13 +1202,13 @@ void ActionManager::setActionTooltips(QMap<QString, QPointer<ScrAction> > *actio
 void ActionManager::disconnectModeActions()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		disconnect( (*scrActions)[*it], SIGNAL(toggledData(bool, int)) , mainWindow, SLOT(setAppModeByToggle(bool, int)) );
+		disconnect( (*scrActions)[*it], SIGNAL(toggledData(bool,int)) , mainWindow, SLOT(setAppModeByToggle(bool,int)) );
 }
 
 void ActionManager::connectModeActions()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		connect( (*scrActions)[*it], SIGNAL(toggledData(bool, int)) , mainWindow, SLOT(setAppModeByToggle(bool, int)) );
+		connect( (*scrActions)[*it], SIGNAL(toggledData(bool,int)) , mainWindow, SLOT(setAppModeByToggle(bool,int)) );
 }
 
 void ActionManager::disconnectNewDocActions()

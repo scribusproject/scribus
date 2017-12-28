@@ -3848,7 +3848,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 {
 	PageItem* ite;
 	QByteArray content, output;
-	QList<PageItem*> PItems;
+//	QList<PageItem*> PItems;
 
 	if (pag->MPageNam.isEmpty())
 		return true;
