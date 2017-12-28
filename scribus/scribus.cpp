@@ -2810,7 +2810,9 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		else
 		{
-			doc->currentStyle = currItem->itemText.defaultStyle();
+			const ParagraphStyle& curStyle = currItem->itemText.defaultStyle();
+			doc->currentStyle.setContext(curStyle.context());
+			doc->currentStyle = curStyle;
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			textPalette->textPal->updateStyle(doc->currentStyle);
@@ -2831,7 +2833,9 @@ void ScribusMainWindow::HaveNewSel()
 			setTBvals(currItem);
 		else
 		{
-			doc->currentStyle = currItem->itemText.defaultStyle();
+			const ParagraphStyle& curStyle = currItem->itemText.defaultStyle();
+			doc->currentStyle.setContext(curStyle.context());
+			doc->currentStyle = curStyle;
 			textPalette->textPal->showParStyle(doc->currentStyle.parent());
 			textPalette->textPal->showCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
