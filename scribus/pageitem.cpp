@@ -7243,20 +7243,21 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 		//restore properly text if frame was linked at beginning of chain
 		ScItemState<QPair<PageItem*, PageItem*> > *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 		int joinPos = is->getInt("JOIN_POS");
-		int ParSep = is->getBool("ADDPARSEP")?1:0;
+		int parSep = is->getBool("ADDPARSEP") ? 1 : 0;
 		if (is->getBool("FIRST"))
 		{
 			if (joinPos == 0)
 			{
 				is->getItem().second->itemText.append(itemText);
-				itemText = StoryText(m_Doc);
+				itemText.select(0, itemText.length());
+				itemText.removeSelection();
 			}
 			else
 			{
 				StoryText content(m_Doc);
-				itemText.select(joinPos + ParSep, itemText.length() - (joinPos + ParSep));
+				itemText.select(joinPos + parSep, itemText.length() - (joinPos + parSep));
 				content.insert(0, itemText, true);
-				if (ParSep)
+				if (parSep)
 					itemText.select(joinPos, itemText.length() - joinPos);
 				itemText.removeSelection();
 				is->getItem().second->itemText.append(content);
@@ -7266,9 +7267,9 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 		{
 			StoryText content(m_Doc);
 			PageItem* prev = is->getItem().second;
-			prev->itemText.select(joinPos + ParSep, prev->itemText.length() - (joinPos + ParSep));
+			prev->itemText.select(joinPos + parSep, prev->itemText.length() - (joinPos + parSep));
 			content.insert(0, prev->itemText, true);
-			if (ParSep)
+			if (parSep)
 				prev->itemText.select(joinPos, prev->itemText.length() - joinPos);
 			prev->itemText.removeSelection();
 			itemText.append(content);
