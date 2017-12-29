@@ -1218,9 +1218,11 @@ double calculateLineSpacing (const ParagraphStyle &style, PageItem *item)
 bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 {
 	PageItem_TextFrame* prev = dynamic_cast<PageItem_TextFrame*>(BackBox);
-	if (!prev) return false;
-	if (!prev->incompleteLines) return false;   // no incomplete lines - nothing to do
-	int pos = textLayout.endOfFrame()-1;
+	if (!prev)
+		return false;
+	if (!prev->incompleteLines)
+		return false;   // no incomplete lines - nothing to do
+	int pos = textLayout.endOfFrame() - 1;
 	QChar lastChar = itemText.text (pos);
 	// qDebug()<<"pos is"<<pos<<", length is"<<itemText.length()<<", incomplete is "<<prev->incompleteLines;
 	if ((pos != itemText.length()-1) && (!SpecialChars::isBreak (lastChar, true)))
@@ -1230,7 +1232,8 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int need = style.keepLinesEnd () + 1;
 	int prevneed = style.keepLinesStart () + 1;
-	if (lines >= need) {
+	if (lines >= need)
+	{
 		prev->incompleteLines = 0;   // so that further paragraphs don't pull anything
 		return false;   // we have enough lines
 	}
@@ -1282,7 +1285,8 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		if (style.keepTogether())
 			need = incompleteLines;
 		int pull = 0;
-		if (style.keepTogether() || (incompleteLines < need)) pull = incompleteLines;
+		if (style.keepTogether() || (incompleteLines < need))
+			pull = incompleteLines;
 		// if we need to keep it with the next one, pull one line. Next frame layouting
 		// will pull more from us if it proves necessary.
 		if (keepWithNext && (!pull))
