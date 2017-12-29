@@ -62,7 +62,7 @@ public:
 	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4);
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray);
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray);
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
 
 	virtual void setClipPath();
@@ -155,7 +155,7 @@ private:
 	ScColorShade m_gradPatchColor2;
 	ScColorShade m_gradPatchColor3;
 	ScColorShade m_gradPatchColor4;
-	QList<QList<meshPoint> > m_meshGradientArray;
+	QList<QList<MeshPoint> > m_meshGradientArray;
 	QList<meshGradientPatch> m_meshGradientPatches;
 
 	double m_gradientScale;
