@@ -42,7 +42,22 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-ScImgDataLoader_PICT::ScImgDataLoader_PICT(void) : ScImgDataLoader()
+ScImgDataLoader_PICT::ScImgDataLoader_PICT(void) : ScImgDataLoader(),
+	m_baseX(0),
+	m_baseY(0),
+	m_docWidth(0),
+	m_docHeight(0),
+	m_resX(0.0),
+	m_resY(0.0),
+	m_LineW(0.0),
+	m_patternMode(false),
+	m_currentTextSize(0),
+	m_currentFontID(0),
+	m_currentFontStyle(0),
+	m_postscriptMode(false),
+	m_textIsPostScript(false),
+	m_pctVersion(0),
+	m_skipOpcode(false)
 {
 	initSupportedFormatList();
 }

@@ -11,7 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ora.h"
 #include "util_formats.h"
 
-ScImgDataLoader_ORA::ScImgDataLoader_ORA(void) : ScImgDataLoader()
+ScImgDataLoader_ORA::ScImgDataLoader_ORA(void) : ScImgDataLoader(),
+	m_inSubLayer(0),
+	m_layerCount(0)
 {
 	initSupportedFormatList();
 }
