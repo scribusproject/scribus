@@ -3829,7 +3829,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		}
 		if (tName == "MPoint")
 		{
-			meshPoint mp;
+			MeshPoint mp;
 			mp.colorName     = tAtt.valueAsString("NAME");
 			mp.shade         = tAtt.valueAsInt("SHADE", 100);
 			mp.transparency  = tAtt.valueAsDouble("TRANS", 1.0);
@@ -3851,7 +3851,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		}
 		if (tName == "PMPoint")
 		{
-			meshPoint mp;
+			MeshPoint mp;
 			mp.colorName     = tAtt.valueAsString("NAME");
 			mp.shade         = tAtt.valueAsInt("SHADE", 100);
 			mp.transparency  = tAtt.valueAsDouble("TRANS", 1.0);
@@ -5473,10 +5473,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			int mGArrayCols = attrs.valueAsInt("GMAY", 1);
 			for (int mgr = 0; mgr < mGArrayRows; mgr++)
 			{
-				QList<meshPoint> ml;
+				QList<MeshPoint> ml;
 				for (int mgc = 0; mgc < mGArrayCols; mgc++)
 				{
-					meshPoint mp;
+					MeshPoint mp;
 					ml.append(mp);
 				}
 				currItem->meshGradientArray.append(ml);

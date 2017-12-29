@@ -1036,7 +1036,7 @@ void Cpalette::showGradient(int number)
 			stackedWidget_2->setCurrentIndex(2);
 			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 			{
-				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1193,7 +1193,7 @@ void Cpalette::slotGrad(int number)
 			stackedWidget_2->setCurrentIndex(2);
 			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 			{
-				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1288,7 +1288,7 @@ void Cpalette::slotGradType(int type)
 		stackedWidget_2->setCurrentIndex(2);
 		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 		{
-			meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+			MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 			setCurrentComboItem(colorMeshPoint, mp.colorName);
 			shadeMeshPoint->setValue(mp.shade);
 			transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1364,15 +1364,15 @@ void Cpalette::resetOneControlPoint()
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
 	int cont = currentItem->selectedMeshControlPoint;
-	meshPoint tmp;
+	MeshPoint tmp;
 	if (currentItem->gradientType() == 12)
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<meshPoint,meshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
 		if(UndoManager::undoEnabled())
 		{
-			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", false);
 			ss->set("X", grow);
@@ -1441,7 +1441,7 @@ void Cpalette::resetOneControlPoint()
 
 		if(UndoManager::undoEnabled())
 		{
-			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", true);
 			ss->set("X", grow);
@@ -1459,15 +1459,15 @@ void Cpalette::resetAllControlPoints()
 {
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
-	meshPoint tmp;
+	MeshPoint tmp;
 	if (currentItem->gradientType() == 12)
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<meshPoint,meshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
 		if(UndoManager::undoEnabled())
 		{
-			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", false);
 			ss->set("X", grow);
@@ -1530,7 +1530,7 @@ void Cpalette::resetAllControlPoints()
 		tmp.controlBottom = tmp.gridPoint;
 		if(UndoManager::undoEnabled())
 		{
-			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", true);
 			ss->set("X", grow);
@@ -1662,7 +1662,7 @@ void Cpalette::setMeshPoint()
 		colorMeshPoint->setEnabled(true);
 		shadeMeshPoint->setEnabled(true);
 		transparencyMeshPoint->setEnabled(true);
-		meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+		MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 		setCurrentComboItem(colorMeshPoint, mp.colorName);
 		shadeMeshPoint->setValue(mp.shade);
 		transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1725,7 +1725,7 @@ void Cpalette::setMeshPatchPoint()
 		shadeMeshPoint->setEnabled(true);
 		transparencyMeshPoint->setEnabled(true);
 		meshGradientPatch patch = currentItem->meshGradientPatches[currentItem->selectedMeshPointX];
-		meshPoint mp;
+		MeshPoint mp;
 		switch (currentItem->selectedMeshPointY)
 		{
 			case 1:

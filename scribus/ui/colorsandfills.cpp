@@ -1494,7 +1494,7 @@ ColorList ColorsAndFillsDialog::getGradientColors()
 			{
 				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					MeshPoint mp = ite->meshGradientArray[grow][gcol];
 					if ((!colorList.contains(mp.colorName)) && (mp.colorName != CommonStrings::None))
 						colorList.insert(mp.colorName, m_colorList[mp.colorName]);
 				}
@@ -1567,7 +1567,7 @@ void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName
 			{
 				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					MeshPoint mp = ite->meshGradientArray[grow][gcol];
 					if (mp.colorName == oldName)
 					{
 						mp.colorName = newName;

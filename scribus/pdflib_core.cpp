@@ -6777,7 +6777,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
 			colorNames.append(mp1.colorName);
 			if (!doc.PageColors.contains(mp1.colorName))
 			{
@@ -6822,10 +6822,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		{
 			for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
 			{
-				meshPoint mp1 = c->meshGradientArray[grow][gcol];
-				meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-				meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-				meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+				MeshPoint mp1 = c->meshGradientArray[grow][gcol];
+				MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+				MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+				MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
 				int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 				int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 				int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -6950,10 +6950,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
-			meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-			meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-			meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+			MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+			MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
 			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -7087,7 +7087,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
+		MeshPoint mp1 = patch.TL;
 		colorNames.append(mp1.colorName);
 		colorShades.append(mp1.shade);
 		TransVec.append(mp1.transparency);
@@ -7099,7 +7099,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp1.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp1.colorName, mp1.shade));
-		meshPoint mp2 = patch.TR;
+		MeshPoint mp2 = patch.TR;
 		colorNames.append(mp2.colorName);
 		colorShades.append(mp2.shade);
 		TransVec.append(mp2.transparency);
@@ -7111,7 +7111,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp2.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp2.colorName, mp2.shade));
-		meshPoint mp3 = patch.BR;
+		MeshPoint mp3 = patch.BR;
 		colorNames.append(mp3.colorName);
 		colorShades.append(mp3.shade);
 		TransVec.append(mp3.transparency);
@@ -7123,7 +7123,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp3.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp3.colorName, mp3.shade));
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp4 = patch.BL;
 		colorNames.append(mp4.colorName);
 		colorShades.append(mp4.shade);
 		TransVec.append(mp4.transparency);
@@ -7154,10 +7154,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		for (int col = 0; col < c->meshGradientPatches.count(); col++)
 		{
 			meshGradientPatch patch = c->meshGradientPatches[col];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
+			MeshPoint mp1 = patch.TL;
+			MeshPoint mp2 = patch.TR;
+			MeshPoint mp3 = patch.BR;
+			MeshPoint mp4 = patch.BL;
 			int colInd1 = 4 * col;
 			int colInd2 = 4 * col + 1;
 			int colInd3 = 4 * col + 2;
@@ -7279,10 +7279,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
-		meshPoint mp2 = patch.TR;
-		meshPoint mp3 = patch.BR;
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp1 = patch.TL;
+		MeshPoint mp2 = patch.TR;
+		MeshPoint mp3 = patch.BR;
+		MeshPoint mp4 = patch.BL;
 		int colInd1 = 4 * col;
 		int colInd2 = 4 * col + 1;
 		int colInd3 = 4 * col + 2;

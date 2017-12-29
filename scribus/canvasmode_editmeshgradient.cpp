@@ -66,7 +66,7 @@ CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : Ca
 	m_Mxp = m_Myp = -1;
 	m_selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
-	m_old_mesh = new meshPoint();
+	m_old_mesh = new MeshPoint();
 	m_keyRepeat = false;
 }
 
@@ -116,10 +116,10 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 	{
 		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count()-1; gcol++)
 		{
-			meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
-			meshPoint mp2 = currItem->meshGradientArray[grow][gcol+1];
-			meshPoint mp3 = currItem->meshGradientArray[grow+1][gcol+1];
-			meshPoint mp4 = currItem->meshGradientArray[grow+1][gcol];
+			MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+			MeshPoint mp2 = currItem->meshGradientArray[grow][gcol+1];
+			MeshPoint mp3 = currItem->meshGradientArray[grow+1][gcol+1];
+			MeshPoint mp4 = currItem->meshGradientArray[grow+1][gcol];
 			QPainterPath Bez;
 			Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
 			Bez.cubicTo(mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
@@ -143,7 +143,7 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 					break;
 				}
 			}
-			meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+			MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
 			if (m_view->editStrokeGradient == 5)
 			{
 				if (isSelected)
@@ -178,7 +178,7 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 	{
 		int grow = m_selectedMeshPoints[0].first;
 		int gcol = m_selectedMeshPoints[0].second;
-		meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+		MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
 		psx->setPen(p8m);
 		if (grow == 0)
 		{
@@ -664,7 +664,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 			{
-				meshPoint mp = currItem->meshGradientArray[grow][gcol];
+				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
 				QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
 				gradientPoint = itemMatrix.map(gradientPoint);
 				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
@@ -688,7 +688,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 			{
-				meshPoint mp = currItem->meshGradientArray[grow][gcol];
+				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
 				QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
 				gradientPoint = itemMatrix.map(gradientPoint);
 				QPointF gradientColorPoint = QPointF(mp.controlColor.x(), mp.controlColor.y());
@@ -714,7 +714,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 			{
-				meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+				MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
 				QPointF gradientPoint;
 				if (grow == 0)
 				{
@@ -913,7 +913,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 			{
 				for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = currItem->meshGradientArray[grow][gcol];
+					MeshPoint mp = currItem->meshGradientArray[grow][gcol];
 					QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
 					gradientPoint = itemMatrix.map(gradientPoint);
 					if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
@@ -974,7 +974,7 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	if (currItem->selectedMeshPointX >=0 && currItem->selectedMeshPointY >=0 && UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 		ss->set("MOVE_MESH_PATCH");
 		ss->set("ARRAY",true);
 		ss->set("X",currItem->selectedMeshPointX);

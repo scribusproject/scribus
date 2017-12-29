@@ -2111,7 +2111,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			{
 				for (int gcol = 0; gcol < item->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = item->meshGradientArray[grow][gcol];
+					MeshPoint mp = item->meshGradientArray[grow][gcol];
 					docu.writeStartElement("MPoint");
 					docu.writeAttribute("GX", mp.gridPoint.x());
 					docu.writeAttribute("GY", mp.gridPoint.y());
@@ -2139,7 +2139,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				meshGradientPatch patch = item->meshGradientPatches[grow];
 				for (int gcol = 0; gcol < 4; gcol++)
 				{
-					meshPoint mp;
+					MeshPoint mp;
 					docu.writeStartElement("PMPoint");
 					if (gcol == 0)
 					{

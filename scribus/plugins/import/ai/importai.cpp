@@ -2087,7 +2087,7 @@ void AIPlug::processData(QString data)
 					{
 						for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 						{
-							meshPoint mp = ite->meshGradientArray[grow][gcol];
+							MeshPoint mp = ite->meshGradientArray[grow][gcol];
 							ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 						}
 					}
@@ -2130,10 +2130,10 @@ void AIPlug::processData(QString data)
 				mVals2 >> meshXSize >> meshYSize;
 				for (int mgr = 0; mgr < meshYSize+1; mgr++)
 				{
-					QList<meshPoint> ml;
+					QList<MeshPoint> ml;
 					for (int mgc = 0; mgc < meshXSize+1; mgc++)
 					{
-						meshPoint mp;
+						MeshPoint mp;
 						ml.append(mp);
 					}
 					meshGradientArray.append(ml);

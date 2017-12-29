@@ -2140,7 +2140,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				if (colorStops.count() == 2)
 				{
 					int endC = colorStops.count() - 1;
-					meshPoint cP;
+					MeshPoint cP;
 					cP.resetTo(center);
 					cP.transparency = colorStops[0]->opacity;
 					cP.shade = 100;
@@ -2153,14 +2153,14 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 						patch.BR = cP;
 						if (gpath.isMarker(poi))
 							continue;
-						meshPoint tL;
+						MeshPoint tL;
 						tL.resetTo(gpath.point(poi));
 						tL.controlRight = gpath.point(poi + 1);
 						tL.transparency = colorStops[endC]->opacity;
 						tL.shade = 100;
 						tL.colorName = colorStops[endC]->name;
 						tL.color = colorStops[endC]->color;
-						meshPoint tR;
+						MeshPoint tR;
 						tR.resetTo(gpath.point(poi + 2));
 						tR.controlLeft = gpath.point(poi + 3);
 						tR.transparency = colorStops[endC]->opacity;
@@ -2180,7 +2180,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 					mm.scale(colorStops[1]->rampPoint, colorStops[1]->rampPoint);
 					mm.translate(-cx.x(), -cx.y());
 					gpath2.map(mm);
-					meshPoint cP;
+					MeshPoint cP;
 					cP.resetTo(center);
 					cP.transparency = colorStops[0]->opacity;
 					cP.shade = 100;
@@ -2193,14 +2193,14 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 						patch.BR = cP;
 						if (gpath.isMarker(poi))
 							continue;
-						meshPoint tL;
+						MeshPoint tL;
 						tL.resetTo(gpath2.point(poi));
 						tL.controlRight = gpath2.point(poi + 1);
 						tL.transparency = colorStops[1]->opacity;
 						tL.shade = 100;
 						tL.colorName = colorStops[1]->name;
 						tL.color = colorStops[1]->color;
-						meshPoint tR;
+						MeshPoint tR;
 						tR.resetTo(gpath2.point(poi + 2));
 						tR.controlLeft = gpath2.point(poi + 3);
 						tR.transparency = colorStops[1]->opacity;
@@ -2225,7 +2225,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 							if (gpath.isMarker(poi))
 								continue;
 							meshGradientPatch patch;
-							meshPoint bL;
+							MeshPoint bL;
 							bL.resetTo(gpath3.point(poi));
 							bL.controlRight = gpath3.point(poi + 1);
 							bL.transparency = colorStops[cstp - 1]->opacity;
@@ -2233,7 +2233,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 							bL.colorName = colorStops[cstp - 1]->name;
 							bL.color = colorStops[cstp - 1]->color;
 							patch.BL = bL;
-							meshPoint bR;
+							MeshPoint bR;
 							bR.resetTo(gpath3.point(poi + 2));
 							bR.controlLeft = gpath3.point(poi + 3);
 							bR.transparency = colorStops[cstp - 1]->opacity;
@@ -2241,14 +2241,14 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 							bR.colorName = colorStops[cstp - 1]->name;
 							bR.color = colorStops[cstp - 1]->color;
 							patch.BR = bR;
-							meshPoint tL;
+							MeshPoint tL;
 							tL.resetTo(gpath2.point(poi));
 							tL.controlRight = gpath2.point(poi + 1);
 							tL.transparency = colorStops[cstp]->opacity;
 							tL.shade = 100;
 							tL.colorName = colorStops[cstp]->name;
 							tL.color = colorStops[cstp]->color;
-							meshPoint tR;
+							MeshPoint tR;
 							tR.resetTo(gpath2.point(poi + 2));
 							tR.controlLeft = gpath2.point(poi + 3);
 							tR.transparency = colorStops[cstp]->opacity;

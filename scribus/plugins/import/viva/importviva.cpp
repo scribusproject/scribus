@@ -1537,7 +1537,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				QColor gradColor1 = colorStops[1]->color;
 				item->meshGradientPatches.clear();
 				FPoint center = FPoint(item->width() / 2.0, item->height() / 2.0);
-				meshPoint cP;
+				MeshPoint cP;
 				cP.resetTo(center);
 				cP.transparency = 1.0;
 				cP.shade = 100;
@@ -1550,14 +1550,14 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 					patch.BR = cP;
 					if (item->PoLine.isMarker(poi))
 						continue;
-					meshPoint tL;
+					MeshPoint tL;
 					tL.resetTo(item->PoLine.point(poi));
 					tL.controlRight = item->PoLine.point(poi + 1);
 					tL.transparency = 1.0;
 					tL.shade = 100;
 					tL.colorName = gradColor1Str;
 					tL.color = gradColor1;
-					meshPoint tR;
+					MeshPoint tR;
 					tR.resetTo(item->PoLine.point(poi + 2));
 					tR.controlLeft = item->PoLine.point(poi + 3);
 					tR.transparency = 1.0;

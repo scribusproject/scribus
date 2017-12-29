@@ -5006,7 +5006,7 @@ void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
 			{
 				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					MeshPoint mp = ite->meshGradientArray[grow][gcol];
 					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 				}
 			}
@@ -5051,7 +5051,7 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 		{
 			for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 			{
-				meshPoint mp = ite->meshGradientArray[grow][gcol];
+				MeshPoint mp = ite->meshGradientArray[grow][gcol];
 				ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 			}
 		}
@@ -5126,7 +5126,7 @@ void ScribusDoc::recalculateColors()
 			{
 				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					MeshPoint mp = ite->meshGradientArray[grow][gcol];
 					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 				}
 			}
@@ -5176,7 +5176,7 @@ void ScribusDoc::recalculateColors()
 				{
 					for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
 					{
-						meshPoint mp = ite->meshGradientArray[grow][gcol];
+						MeshPoint mp = ite->meshGradientArray[grow][gcol];
 						ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 					}
 				}
