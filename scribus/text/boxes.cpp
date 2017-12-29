@@ -753,21 +753,24 @@ int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 {
 	if (firstChar() != lastChar())
 	{
-		int count = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
-		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*)text.utf16());
+		QString text(story.text(firstChar(), lastChar() - firstChar() + 1));
+		it->setText(const_cast<UChar*>(text.utf16()));
+		int count = 0;
 		while (it->next() != BreakIterator::DONE)
 			count++;
-		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
+		if (count == 0)
+			qFatal("GlyphBox::pointToPosition: divide by zero error");
 
+		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
 		double componentWidth = width() / count;
 		for (int i = 0; i < count; i++)
 		{
 			double componentX;
-			componentX = x() + (componentWidth * i);
 			if (rtlLayout)
 				componentX = x() + width() - (componentWidth * (i + 1));
+			else
+				componentX = x() + (componentWidth * i);
 
 			if ((coord.x() >= componentX && coord.x() <= componentX + componentWidth))
 			{
@@ -793,33 +796,35 @@ int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 
 QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
 {
-	double xPos;
-
+	double xPos = 0.0;
 	if (firstChar() != lastChar())
 	{
-		int count = 0;
 		int index = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
-		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*)text.utf16());
+		QString text(story.text(firstChar(), lastChar() - firstChar() + 1));
+		it->setText(const_cast<UChar*>(text.utf16()));
+		int count = 0;
 		while (it->next() != BreakIterator::DONE)
 		{
 			count++;
 			if (pos - firstChar() == it->current())
 				index = count;
 		}
+		if (count == 0)
+			qFatal("GlyphBox::positionToPoint: divide by zero error");
 
 		double componentWidth = width() / count;
-
-		xPos = x() + (componentWidth * index);
 		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
 			xPos = x() + width() - (componentWidth * index);
+		else
+			xPos = x() + (componentWidth * index);
 	}
 	else
 	{
-		xPos = x();
 		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
 			xPos = x() + width();
+		else
+			xPos = x();
 	}
 
 	return QLineF(xPos, y(), xPos, y() + height());
