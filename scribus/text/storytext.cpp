@@ -927,7 +927,7 @@ int StoryText::nextBlockStart(int pos) const
 
 InlineFrame StoryText::object(int pos) const
 {
-  if (pos < 0)
+	if (pos < 0)
 		pos += length();
 
 	assert(pos >= 0);
