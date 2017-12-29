@@ -122,6 +122,12 @@ public:
 		return reinterpret_cast<const QList<const Box*> & > (m_boxes);
 	}
 
+	/// Returns the number of child boxes
+	int boxCount() const { return m_boxes.count(); }
+
+	/// Returns if current box contains any child boxes
+	bool isEmpty() const { return m_boxes.isEmpty(); }
+
 	/// Renders the box and any boxes it contains, recursively.
 	virtual void render(TextLayoutPainter *p) const = 0;
 

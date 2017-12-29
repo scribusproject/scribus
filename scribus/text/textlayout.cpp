@@ -259,26 +259,51 @@ int TextLayout::nextLine(int pos) const
 
 int TextLayout::startOfFrame() const
 {
-	QList<Box*>& boxes = m_box->boxes();
-	if (boxes.isEmpty())
+	if (m_box->isEmpty())
 		return 0;
+	const QList<Box*>& boxes = m_box->boxes();
 
 	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.first());
 	assert(column);
 
-	return column->firstChar();
+	// Beware of columns hidden by other objects
+	if (column->boxCount() > 0)
+		return column->firstChar();
+	
+	int columnCount = boxes.count();
+	for (int i = 1; i < columnCount; ++i)
+	{
+		column = dynamic_cast<const GroupBox*>(boxes.at(i));
+		assert(column);
+
+		if (!column->isEmpty())
+			return column->firstChar();
+	}
+
+	return 0;
 }
 
 int TextLayout::endOfFrame() const
 {
-	QList<Box*>& boxes = m_box->boxes();
-	if (boxes.isEmpty())
+	if (m_box->isEmpty())
 		return 0;
+	const QList<Box*>& boxes = m_box->boxes();
 
-	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.last());
-	assert(column);
+	// Beware of columns hidden by other objects
+	const GroupBox* column = 0;
+	int columnIndex = boxes.count() - 1;
+	do
+	{
+		column = dynamic_cast<const GroupBox*>(boxes.at(columnIndex));
+		assert(column);
 
-	return column->lastChar() + 1;
+		if (!column->isEmpty())
+			return column->lastChar() + 1;
+		--columnIndex;
+	}
+	while (columnIndex >= 0);
+
+	return 0;
 }
 
 
