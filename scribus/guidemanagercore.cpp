@@ -242,11 +242,11 @@ Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 {
 	Guides guides;
 	int value = m_horizontalAutoCount;
-	double newPageHeight = (page == NULL) ? 0.0 : page->height();
 	if (page == NULL)
 		page = m_page;
 	if (page == NULL)
 		return guides;
+	double newPageHeight = page->height();
 	if (m_horizontalAutoCount == 0)
 		return guides;
 	++value;
@@ -289,11 +289,11 @@ Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 {
 	Guides guides;
 	int value = m_verticalAutoCount;
-	double newPageWidth = (page == NULL) ? 0.0 : page->width();
 	if (page == NULL)
 		page = m_page;
 	if (page == NULL)
 		return guides;
+	double newPageWidth = page->width();
 	if (m_verticalAutoCount == 0)
 		return guides;
 	++value;
