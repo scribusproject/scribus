@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QByteArray>
+#include <QScopedPointer>
 #include <QXmlInputSource>
 #include <QXmlSimpleReader>
 #include "color.h"
@@ -1373,10 +1374,9 @@ QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
 		if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			MissingFont *dia = new MissingFont(0, family, m_Doc);
+			QScopedPointer<MissingFont> dia(new MissingFont(0, family, m_Doc));
 			dia->exec();
 			fontName = dia->getReplacementFont();
-			delete dia;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
 		}
