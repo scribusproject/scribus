@@ -93,7 +93,14 @@ is not given the currently selected item is used.</p></dd>
 <dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
 <dd><code>selectText(start, count, ["name"])</code>
 <p>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared.  If "name" is not given the currently selected item is used.</p>
-<p>May throw IndexError if the selection is outside the bounds of the text.</p></dd>
+<p>May throw IndexError if the selection is outside the bounds of the text.</p>
+<p>There is no specific command to select all of the text in a frame. To accomplish this, you might create a function in your script which you would call with the name of the frame as follows:</p>
+<p><dd>def SelectAllText(textframe):<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;texlen = scribus.getTextLength(textframe)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;scribus.selectText(0,texlen,textframe)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;return</dd></p></dd>
+<dd><p>One of the reasons this is important is that, should you want to select a frame and then apply a Paragraph Style to the frame, you will find that a frame with multiple paragraphs will not have the style set for all of the text, only the last paragraph. Therefore, the solution is to select all the text of the frame, and then apply the style.</p></dd>
+
 
 <dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
 <dd><code>setColumns(nr, ["name"])</code>

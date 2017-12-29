@@ -26,7 +26,11 @@ to normal. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</
 
 <dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
 <dd><code>currentPage() -&gt; integer</code>
-<p>Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.</p></dd>
+<p>Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.</p>
+<p>If you want to enter into a text frame the special character for the current page number, it is decimal 30 or hex 0x1e. For example, either of the following would be equivalent:</p>
+<strong><p>scribus.setText('Page ' + chr(30), textframe)</p>
+<p>scribus.setText('Page \x1e', textframe)</p></strong>
+<p>See also <strong>pageCount()</strong></dd>
 
 <dt><a name="-deleteMasterPage"><strong>deleteMasterPage</strong>(...)</a></dt>
 <dd><code>deleteMasterPage(pageName)</code>
@@ -95,7 +99,10 @@ document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
 	
 <dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
 <dd><code>pageCount() -&gt; integer</code>
-<p>Returns the number of pages in the document.</p></dd>
+<p>Returns the number of pages in the document.</p>
+<p>There is also a special character for page count, in decimal 23, and in hex 0x17. You might combine this with the special character for current page in a text frame (on a Master Page for example) as follows. Either of these is equivalent:</p>
+<strong><p>scribus.setText('Page ' + chr(30) + ' of ' + chr(23), textframe)</p>
+<p>scribus.setText('Page \x1e of \x17', textframe)</p></strong></dd>
 
 <dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
 <dd><code>redrawAll()</code>
