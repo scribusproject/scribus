@@ -6674,11 +6674,13 @@ void ScribusMainWindow::slotPrefsOrg()
 		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 		if (!windows.isEmpty())
 		{
-			int windowCount=static_cast<int>(windows.count());
+			int windowCount=windows.count();
 			for ( int i = 0; i < windowCount; ++i )
 			{
 				QWidget* w = windows.at(i)->widget();
 				ScribusWin* scw = dynamic_cast<ScribusWin *>(w);
+				if (!scw)
+					qFatal("ScribusMainWindow::slotPrefsOrg !scw");
 				ScribusView* scw_v = scw->view();
 				if (oldPrefs.displayPrefs.displayScale != m_prefsManager->displayScale())
 				{
@@ -6695,7 +6697,7 @@ void ScribusMainWindow::slotPrefsOrg()
 			}
 		}
 
-		QString newMonitorProfile = newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+		QString newMonitorProfile(newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
 		if (oldMonitorProfile != newMonitorProfile)
 		{
 			bool success = false;
