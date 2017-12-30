@@ -407,10 +407,15 @@ QString XtgScanner::getFontName(QString name)
 		QScopedPointer<MissingFont> dia(new MissingFont(0, fontName, doc));
 		if (dia->exec())
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia->getReplacementFont();
 			fontName = dia->getReplacementFont();
 		}
+		else
+		{
+			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = doc->itemToolPrefs().textFont;
+			fontName = doc->itemToolPrefs().textFont;
+		}
+		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	}
 	else
 		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];

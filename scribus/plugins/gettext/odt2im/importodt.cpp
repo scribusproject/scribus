@@ -1377,6 +1377,8 @@ QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
 			QScopedPointer<MissingFont> dia(new MissingFont(0, family, m_Doc));
 			if (dia->exec())
 				fontName = dia->getReplacementFont();
+			else
+				fontName = m_Doc->itemToolPrefs().textFont;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
 		}
