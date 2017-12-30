@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QShowEvent>
 #include <QSignalBlocker>
+#include <QScopedPointer>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
@@ -3011,15 +3012,17 @@ void StoryEditor::SearchText()
 {
 	m_blockUpdate = true;
 	EditorBar->setRepaint(false);
-	SearchReplace dia(this, m_doc, m_item, false);
-	dia.exec();
-	int pos = dia.firstMatchCursorPosition();
-	if (pos >= 0)
+	QScopedPointer<SearchReplace> dia(new SearchReplace(this, m_doc, m_item, false));
+	if (dia->exec())
 	{
-		QTextCursor tCursor = Editor->textCursor();
-		tCursor.setPosition(pos);
-		Editor->setTextCursor(tCursor);
-		Editor->SelStack.push(qMakePair(pos, -1));
+		int pos = dia->firstMatchCursorPosition();
+		if (pos >= 0)
+		{
+			QTextCursor tCursor = Editor->textCursor();
+			tCursor.setPosition(pos);
+			Editor->setTextCursor(tCursor);
+			Editor->SelStack.push(qMakePair(pos, -1));
+		}
 	}
 	qApp->processEvents();
 	m_blockUpdate = false;

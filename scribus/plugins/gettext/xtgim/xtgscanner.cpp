@@ -404,11 +404,13 @@ QString XtgScanner::getFontName(QString name)
 	if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		MissingFont dia(0, fontName, doc);
-		dia.exec();
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
-		fontName = dia.getReplacementFont();
+		QScopedPointer<MissingFont> dia(new MissingFont(0, fontName, doc));
+		if (dia->exec())
+		{
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia->getReplacementFont();
+			fontName = dia->getReplacementFont();
+		}
 	}
 	else
 		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
@@ -428,7 +430,7 @@ void XtgScanner::setFontSize()
 void XtgScanner::setColor()
 {
 	flushText();
-	token = getToken();	
+	token = getToken();
 
 	QHash<QString,QString> color;
 	color.insert("cC","Cyan");

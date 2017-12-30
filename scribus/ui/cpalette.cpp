@@ -1783,26 +1783,26 @@ void Cpalette::changePatternProps()
 	m_Pattern_rotation = dia->spinAngle->value();
 	double skewX = dia->spinXSkew->value();
 	double a;
-	if (skewX == 90)
-		a = 1;
-	else if (skewX == 180)
-		a = 0;
-	else if (skewX == 270)
-		a = -1;
-	else if (skewX == 360)
-		a = 0;
+	if (skewX == 90.0)
+		a = 1.0;
+	else if (skewX == 180.0)
+		a = 0.0;
+	else if (skewX == 270.0)
+		a = -1.0;
+	else if (skewX == 360.0)
+		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
 	m_Pattern_skewX = tan(a);
 	skewX = dia->spinYSkew->value();
-	if (skewX == 90)
-		a = 1;
-	else if (skewX == 180)
-		a = 0;
-	else if (skewX == 270)
-		a = -1;
-	else if (skewX == 360)
-		a = 0;
+	if (skewX == 90.0)
+		a = 1.0;
+	else if (skewX == 180.0)
+		a = 0.0;
+	else if (skewX == 270.0)
+		a = -1.0;
+	else if (skewX == 360.0)
+		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
 	m_Pattern_skewY = tan(a);
