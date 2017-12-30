@@ -757,6 +757,8 @@ QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
 			while ( (*it) )
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
+				if (!item)
+					qFatal("OutlinePalette::getListItem !item");
 				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
 				{
 					retVal = (*it);
@@ -907,6 +909,8 @@ void OutlinePalette::reopenTree()
 	while ( (*it) )
 	{
 		item = dynamic_cast<OutlineTreeItem*>(*it);
+		if (!item)
+			qFatal("OutlinePalette::reopenTree !item");
 		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
 			if (item->type == currDoc->OpenNodes[olc].type)
@@ -940,6 +944,8 @@ void OutlinePalette::buildReopenVals()
 	while ( (*it) )
 	{
 		item = dynamic_cast<OutlineTreeItem*>(*it);
+		if (!item)
+			qFatal("OutlinePalette::buildReopenVals !item");
 		if (item->isExpanded())
 		{
 			ol.type = item->type;
@@ -972,6 +978,8 @@ void OutlinePalette::slotMultiSelect()
 		{
 			QTreeWidgetItem* ite = items[a];
 			OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
+			if (!item)
+				qFatal("OutlineWidget::slotMultiSelect !item");
 			PageItem *pgItem = NULL;
 			switch (item->type)
 			{
