@@ -941,11 +941,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	activateWindow();
 	if (!m_ScMW->scriptIsRunning())
 		raise();
-	m_ScMW->newActWin((dynamic_cast<ScribusWin*>(Doc->WinHan))->getSubWin());
+
+	ScribusWin* sw = dynamic_cast<ScribusWin*>(Doc->WinHan);
+	if (!sw)
+		qFatal("ScribusView::contentsDropEvent !sw");
+	m_ScMW->newActWin(sw->getSubWin());
 	updateContents();
 	//>>
 	QFileInfo fi;
-	QString ext = "";
+	QString ext;
 	if (!e->mimeData()->formats().contains("application/x-scribus-elem"))
 	{
 		fi.setFile(url.toLocalFile());
