@@ -2958,18 +2958,14 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 
 void ScribusView::editExtendedImageProperties()
 {
-	if (Doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = Doc->m_Selection->itemAt(0);
-		if (currItem->pixm.imgInfo.valid)
-		{
-			ExtImageProps* dia = new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, this);
-			dia->exec();
-			delete dia;
-			dia=NULL;
-			m_ScMW->propertiesPalette->setTextFlowMode(currItem->textFlowMode());
-		}
-	}
+	if (Doc->m_Selection->count() == 0)
+		return;
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
+	if (!currItem->pixm.imgInfo.valid)
+		return;
+	QScopedPointer<ExtImageProps> dia(new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, this));
+	dia->exec();
+	m_ScMW->propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 }
 
 void ScribusView::ToPicFrame()
