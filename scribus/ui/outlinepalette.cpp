@@ -213,7 +213,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 			else
 			{
 				OutlineTreeItem *itemBe = dynamic_cast<OutlineTreeItem*>(it->parent());
-				if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
+				if (itemBe && ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4)))
 				{
 					if (item->PageItemObject->isGroupChild())
 						item->DocObject->removeFromGroup(item->PageItemObject);
