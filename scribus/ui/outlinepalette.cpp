@@ -114,21 +114,33 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 			continue;
 		OutlineTreeItem *itemPar = itemPars.at(i);
 		OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
+		if (!item)
+			qFatal("OutlineWidget::dropEvent !item");
 		OutlineTreeItem *itemPl = dynamic_cast<OutlineTreeItem*>(it->parent());
+		if (!itemPl)
+			qFatal("OutlineWidget::dropEvent !itemPl");
 		OutlineTreeItem *itemPg;
 		if (itemPl->type == 5)
 		{
 			itemPg = dynamic_cast<OutlineTreeItem*>(it->parent()->parent());
+			if (!itemPg)
+				qFatal("OutlineWidget::dropEvent !itemPg 1");
 		}
 		else if (itemPl->type == 2)
 		{
 			itemPg = dynamic_cast<OutlineTreeItem*>(it->parent());
+			if (!itemPg)
+				qFatal("OutlineWidget::dropEvent !itemPg 2");
 			if (haveLayers)
 			{
 				itemPl = dynamic_cast<OutlineTreeItem*>(itemPg->child(0));
+				if (!itemPl)
+					qFatal("OutlineWidget::dropEvent !itemPl");
 				for (int j = 0; j < itemPg->childCount(); ++j)
 				{
 					OutlineTreeItem* childItem = dynamic_cast<OutlineTreeItem*>(itemPg->child(j));
+					if (!childItem)
+						qFatal("OutlineWidget::dropEvent !childItem");
 					if (item->PageItemObject->LayerID == childItem->LayerID)
 					{
 						itemPl = childItem;
@@ -145,11 +157,15 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 			while (itemPg->type != 2)
 			{
 				itemPg = dynamic_cast<OutlineTreeItem*>(itemPg->parent());
+				if (!itemPg)
+					qFatal("OutlineWidget::dropEvent !itemPg 3");
 			}
 		}
 		if (itemPl->indexOfChild(it) != itemPl->childCount() - 1)
 		{
 			OutlineTreeItem *itemBe = dynamic_cast<OutlineTreeItem*>(itemPl->child(itemPl->indexOfChild(it) + 1));
+			if (!itemBe)
+				qFatal("OutlineWidget::dropEvent !itemBe");
 			if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
 			{
 				if (item->PageItemObject->isGroupChild())
@@ -213,7 +229,9 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 			else
 			{
 				OutlineTreeItem *itemBe = dynamic_cast<OutlineTreeItem*>(it->parent());
-				if (itemBe && ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4)))
+				if (!itemBe)
+					qFatal("OutlineWidget::dropEvent !itemBe 2");
+				if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
 				{
 					if (item->PageItemObject->isGroupChild())
 						item->DocObject->removeFromGroup(item->PageItemObject);
