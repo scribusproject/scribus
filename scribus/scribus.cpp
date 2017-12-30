@@ -1609,6 +1609,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	if ( e->type() == QEvent::KeyPress )
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
+		if (!k)
+			return false;
 		int keyMod=0;
 		if (k->modifiers() & Qt::ShiftModifier)
 			keyMod |= Qt::SHIFT;
