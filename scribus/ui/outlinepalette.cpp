@@ -1017,6 +1017,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 		return;
 	selectionTriggered = true;
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
+	if (!item)
+		qFatal("OutlineWidget::slotSelect !item");
 	PageItem *pgItem = NULL;
 	switch (item->type)
 	{
@@ -1074,6 +1076,8 @@ void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
+	if (!item)
+		qFatal("OutlinePalette::slotDoubleClick !item");
 	PageItem *pgItem = NULL;
 	switch (item->type)
 	{
