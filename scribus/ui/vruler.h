@@ -43,11 +43,8 @@ class SCRIBUS_API Vruler : public QWidget
 
 public:
 	Vruler(ScribusView *pa, ScribusDoc *doc);
-	~Vruler() {};
+	~Vruler() {}
 	
-	double offs;
-	int oldMark;
-	bool Mpressed;
 	double ruleSpacing();
 
 private: // Private attributes
@@ -57,7 +54,9 @@ private: // Private attributes
 	virtual void mouseMoveEvent(QMouseEvent *m);
 
 	void drawNumber(QString num, int starty, QPainter *p);
-
+	double offs;
+	int oldMark;
+	bool Mpressed;
 	ScribusDoc *m_doc;
 	ScribusView *m_view;
 

@@ -20,7 +20,9 @@ for which a new license (GPL+exception) is in place.
 
 
 MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
-pageType(0)
+	pageWidth(0.0),
+	pageHeight(0.0),
+	pageType(0)
 {
 	marginData=*margs;
 	savedMargins=*margs;
@@ -92,6 +94,7 @@ pageType(0)
 	}
 	else
 	{
+		marginsForPagesLayout=NULL;
 		marginsForPages=NULL;
 		marginsForAllPages=NULL;
 		marginsForAllMasterPages=NULL;

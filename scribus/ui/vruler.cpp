@@ -42,7 +42,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "units.h"
 
-Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
+Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
+	offs(0.0),
+	oldMark(0),
+	Mpressed(false),
+	m_doc(doc),
+	m_view(pa),
+	drawMark(false),
+	whereToDraw(0)
 {
 	prefsManager=PrefsManager::instance();
 	setBackgroundRole(QPalette::Window);
@@ -50,13 +57,6 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	QPalette palette;
 	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	setPalette(palette);
-	m_doc = doc;
-	m_view = pa;
-	offs = 0;
-	oldMark = 0;
-	Mpressed = false;
-	drawMark = false;
-	whereToDraw = 0;
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::VERTICAL);
 	unitChange();
