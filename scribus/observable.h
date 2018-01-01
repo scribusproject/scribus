@@ -28,7 +28,7 @@
 //#include "observable_private.h"
 struct SCRIBUS_API Private_Signal : public QObject 
 {
-	Q_OBJECT;
+	Q_OBJECT
 	
 public:
 	void emitSignal(QObject* what)
@@ -71,8 +71,8 @@ void changedData(QVariant what);
 template<class OBSERVED>
 struct Private_Memento : public UpdateMemento
 {
-	Private_Memento(OBSERVED data) : m_data(data), m_layout(false) {};
-	Private_Memento(OBSERVED data, bool layout) : m_data(data), m_layout(layout) {};
+	Private_Memento(OBSERVED data) : m_data(data), m_layout(false) {}
+	Private_Memento(OBSERVED data, bool layout) : m_data(data), m_layout(layout) {}
 	
 	OBSERVED m_data;
 	bool     m_layout;
@@ -162,11 +162,9 @@ public:
 	/**
 	  Connects this SingleObservale to the MassObservable
 	 */
-	SingleObservable(MassObservable<OBSERVED*> * massObservable) : m_massObservable(massObservable) 
-	{};
+	SingleObservable(MassObservable<OBSERVED*> * massObservable) : m_massObservable(massObservable) {}
 	
-	virtual ~SingleObservable() 
-	{};
+	virtual ~SingleObservable() {}
 	
 	void setMassObservable(MassObservable<OBSERVED*> * massObservable) 
 	{
@@ -206,8 +204,7 @@ template<class OBSERVED>
 class SCRIBUS_API Observable : public MassObservable<OBSERVED*> 
 {	
 public:
-	Observable(UpdateManager* um = NULL) : MassObservable<OBSERVED*>(um) 
-	{};
+	Observable(UpdateManager* um = NULL) : MassObservable<OBSERVED*>(um) {}
 	
 	virtual void update() 
 	{ 
@@ -258,19 +255,17 @@ inline void MassObservable<OBSERVED>::updateLayout(OBSERVED what)
 {
 	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what, true);
 	if (m_um == NULL || m_um->requestUpdate(this, memento))
-	{
 		updateNow(memento);
-	}
 }
 
 template<class OBSERVED>
 inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 {
 	Private_Memento<OBSERVED>* memento = dynamic_cast<Private_Memento<OBSERVED>*>(what);
+	if (!memento)
+		qFatal("MassObservable<OBSERVED>::updateNow memento NULL");
 	foreach (Observer<OBSERVED>* obs, m_observers)
-	{
 		obs->changed(memento->m_data, memento->m_layout);
-	}
 	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));
 	delete memento;
 }

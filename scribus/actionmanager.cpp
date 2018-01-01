@@ -1026,7 +1026,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
 	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
 	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
-	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
