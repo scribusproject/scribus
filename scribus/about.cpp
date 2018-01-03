@@ -1,4 +1,4 @@
-/*
+3/*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
@@ -114,9 +114,9 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "15";
-	QString BUILD_MONTH = CommonStrings::december;
-	QString BUILD_YEAR = "2017";
+	QString BUILD_DAY = "03";
+	QString BUILD_MONTH = CommonStrings::january;
+	QString BUILD_YEAR = "2018";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
