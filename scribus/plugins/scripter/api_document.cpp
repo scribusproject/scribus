@@ -112,7 +112,7 @@ void DocumentAPI::setUnit(int value)
 
 int DocumentAPI::unit()
 {
-	if (!check()) return NULL;
+	if (!check()) return 0;
 	return ScCore->primaryMainWindow()->doc->unitIndex();
 }
 
@@ -446,7 +446,7 @@ QObject *DocumentAPI::newColorRGB(QString name, int r, int g, int b)
 	}
 	else
 	{
-		ScCore->primaryMainWindow()->doc->PageColors[name].setColorRGB(r, g, b);
+		ScCore->primaryMainWindow()->doc->PageColors[name].setRgbColor(r, g, b);
 	}
 	return getColor(name);
 }

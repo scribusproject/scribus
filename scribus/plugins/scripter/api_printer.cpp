@@ -94,7 +94,7 @@ void PrinterAPI::doPrint()
 	options.useColor = color;
 	options.mirrorH  = mph;
 	options.mirrorV  = mpv;
-	options.useICC   = useICC;
+	// options.useICC   = useICC; FIXME
 	options.doGCR    = ucr;
 	options.cropMarks  = false;
 	options.bleedMarks = false;

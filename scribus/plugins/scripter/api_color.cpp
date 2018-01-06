@@ -118,7 +118,7 @@ void ColorAPI::changeRGB(int r, int g, int b)
 		{
 			RAISE("Color not found in document");
 		}
-		ScCore->primaryMainWindow()->doc->PageColors[colorName].setColorRGB(r, g, b);
+		ScCore->primaryMainWindow()->doc->PageColors[colorName].setRgbColor(r, g, b);
 	}
 	else 
 	{
@@ -127,7 +127,7 @@ void ColorAPI::changeRGB(int r, int g, int b)
 		{
 			RAISE("Color not found in default colors");
 		}
-		(*colorList)[colorName].setColorRGB(r, g, b);
+		(*colorList)[colorName].setRgbColor(r, g, b);
 	}
 }
 
