@@ -120,18 +120,60 @@ void TextLayout::render(ScreenPainter *p, ITextContext *ctx)
 
 void TextLayout::renderBackground(TextLayoutPainter *p)
 {
+	QString backColor, lastColor;
+	double backShade, lastShade = 100;
+	QRectF lastRect;
+
 	foreach (const Box* column, m_box->boxes())
 	{
-		const ParagraphStyle& style = m_story->paragraphStyle(column->firstChar());
-		if (style.backgroundColor() != CommonStrings::None)
+		const QList<const Box*>& lineBoxes = column->boxes();
+		QRectF colBBox = column->bbox();
+
+		for (int j = 0; j < lineBoxes.count(); ++j)
 		{
+			const Box* box = lineBoxes.at(j);
+			
+			const ParagraphStyle& style = m_story->paragraphStyle(box->firstChar());
+			backColor = style.backgroundColor();
+			backShade = style.backgroundShade();
+
+			if ((lastColor != backColor) || (lastShade != backShade))
+			{
+				if (!lastRect.isEmpty())
+				{
+					TextLayoutColor bkColor(lastColor, lastShade);
+					p->save();
+					p->setFillColor(bkColor);
+					p->setStrokeColor(bkColor);
+					p->drawRect(lastRect);
+					p->restore();
+					lastRect = QRectF();
+				}
+			}
+
+			if (backColor != CommonStrings::None)
+			{
+				QRectF rect(colBBox.x(), box->y(), colBBox.width(), box->height());
+				lastRect |= rect;
+			}
+
+			lastColor = backColor;
+			lastShade = backShade;
+		}
+
+		if (!lastRect.isEmpty())
+		{
+			TextLayoutColor bkColor(lastColor, lastShade);
 			p->save();
-			TextLayoutColor backColor(style.backgroundColor(), style.backgroundShade());
-			p->setFillColor(backColor);
-			p->setStrokeColor(backColor);
-			p->drawRect(column->bbox());
+			p->setFillColor(bkColor);
+			p->setStrokeColor(bkColor);
+			p->drawRect(lastRect);
 			p->restore();
 		}
+
+		lastColor.clear();
+		lastShade = 100;
+		lastRect = QRectF();
 	}
 }
 
