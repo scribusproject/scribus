@@ -77,7 +77,7 @@ const ScActionPlugin::AboutData* ImportSvmPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports SVM Files");
-	about->description = tr("Imports most SVM files into the current document,\nconverting their vector data into Scribus objects.");
+	about->description = tr("Imports most SVM files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

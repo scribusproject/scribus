@@ -196,7 +196,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox2->setSuffix( tr( " pt" ) );
 	SpinBox2->setMaximum(Width);
 	SpinBox2->setValue(tl[0].toInt());
-	TextLabel4 = new QLabel( tr("&X-Pos"), GroupBox1 );
+	TextLabel4 = new QLabel( tr("&X-Pos:"), GroupBox1 );
 	TextLabel4->setBuddy(SpinBox2);
 	GroupBox1Layout->addWidget( TextLabel4, 3, 0 );
 	GroupBox1Layout->addWidget( SpinBox2, 3, 1 );

@@ -90,7 +90,7 @@ const ScActionPlugin::AboutData* WMFImportPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Jean Ghali <jghali@scribus.info>";
 	about->shortDescription = tr("Imports WMF Files");
-	about->description = tr("Imports most WMF files into the current document,\nconverting their vector data into Scribus objects.");
+	about->description = tr("Imports most WMF files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

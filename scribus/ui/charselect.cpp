@@ -255,7 +255,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 
 void CharSelect::uniLoadButton_clicked()
 {
-	QString f = QFileDialog::getOpenFileName(this, tr("Choose a filename to open"), QDir::currentPath(), paletteFileMask);
+	QString f = QFileDialog::getOpenFileName(this, tr("Open Character Palette"), QDir::currentPath(), paletteFileMask);
 	if (!f.isNull())
 		loadUserContent(f);
 }
