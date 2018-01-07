@@ -72,7 +72,7 @@ const ScActionPlugin::AboutData* ImportQxpPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports QuarkXPress Files");
-	about->description = tr("Imports QuarkXPress 3.1-4.1 files into the current document,\nconverting their vector data into Scribus objects.");
+	about->description = tr("Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
