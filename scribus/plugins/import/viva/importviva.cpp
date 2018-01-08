@@ -521,7 +521,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 				bool seenSpot = false;
 				bool seenRegC = false;
 				ScColor tmp;
-				for(QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
+				for (QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
 				{
 					QDomElement grs = gr.toElement();
 					if (grs.tagName() == "vc:rgb")
@@ -539,6 +539,14 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						int y = grs.attribute("vc:yellow", "0").toInt();
 						int k = grs.attribute("vc:key", "0").toInt();
 						tmp.setColor(c, m, y, k);
+						break;
+					}
+					else if (grs.tagName() == "vc:lab")
+					{
+						double L = grs.attribute("vc:l", "100").toDouble();
+						double a = grs.attribute("vc:a", "0").toDouble();
+						double b = grs.attribute("vc:b", "0").toDouble();
+						tmp.setLabColor(L, a, b);
 						break;
 					}
 					else if (grs.tagName() == "vc:hsv")
