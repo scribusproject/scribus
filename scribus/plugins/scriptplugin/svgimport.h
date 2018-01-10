@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 PyDoc_STRVAR(scribus_placevec__doc__,
 QT_TR_NOOP("placeVectorFile(\"filename\", x, y)\n\
 \n\
-Places the Vectorgrapics \"filename\" onto the current page,\n\
+Places the vector graphic \"filename\" onto the current page,\n\
 x and y specify the coordinate of the topleft corner of the graphic placed on the page\n\
 \n\
 If loading was successful, the selection contains the imported graphic\n\
