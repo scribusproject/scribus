@@ -725,6 +725,9 @@
     <ClInclude Include="..\..\..\scribus\fonts\fontfeatures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccieobservers.h">
+      <Filter>colorMgmt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2331,6 +2334,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\fontembeddingcombo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccieobservers.cpp">
+      <Filter>colorMgmt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
