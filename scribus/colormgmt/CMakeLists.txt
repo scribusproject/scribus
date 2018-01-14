@@ -13,6 +13,8 @@ set(SCRIBUS_LCMS_IMPL_SOURCES
 )
 
 set(SCRIBUS_COLORMGMT_LIB_SOURCES
+	scciedata.cpp
+	sccieobservers.cpp
 	sccolormgmtengine.cpp
 	sccolormgmtenginedata.cpp
 	sccolormgmtenginefactory.cpp
