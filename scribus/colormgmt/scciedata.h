@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCIEDATA_H
 #define SCCIEDATA_H
 
+#include "sccieilluminants.h"
 #include "sccieobservers.h"
 
 class ScCIEData
@@ -33,6 +34,16 @@ class ScCIEData
 	 * @brief Retrieve data for CIE 1964 10° observer.
 	 */
 	const ScCIE1964Observer& cie1964Observer() const { return m_cie1964Observer; }
+
+	/**
+	 * @brief Retrieve data for CIE D50 illuminant.
+	 */
+	const ScD50Illuminant& d50Illuminant() const { return m_d50Illuminant; }
+
+	/**
+	* @brief Retrieve data for CIE D65 illuminant.
+	*/
+	const ScD65Illuminant& d65Illuminant() const { return m_d65Illuminant; }
 	
 protected:
 	/** @brief Constructor. Use ScCIEData::instance() instead. */
@@ -46,6 +57,12 @@ protected:
 	
 	/** @brief CIE 1964 10° observer. */
 	ScCIE1964Observer m_cie1964Observer;
+
+	/** @brief CIE D50 illuminant. */
+	ScD50Illuminant m_d50Illuminant;
+
+	/** @brief CIE D65 illuminant. */
+	ScD65Illuminant m_d65Illuminant;
 };
 
 #endif

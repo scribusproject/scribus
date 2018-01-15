@@ -239,6 +239,7 @@
     <ClInclude Include="..\..\..\scribus\appmodes.h" />
     <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\scciedata.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccieilluminants.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\sccieobservers.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_labdbl.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\actions.h" />
@@ -821,6 +822,7 @@
     <ClCompile Include="..\..\..\scribus\appmodehelper.cpp" />
     <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp" />
     <ClCompile Include="..\..\..\scribus\colormgmt\scciedata.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccieilluminants.cpp" />
     <ClCompile Include="..\..\..\scribus\colormgmt\sccieobservers.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\digester_parse.cpp" />

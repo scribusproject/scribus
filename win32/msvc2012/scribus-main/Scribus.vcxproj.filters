@@ -731,6 +731,9 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\scciedata.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccieilluminants.h">
+      <Filter>colorMgmt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2342,6 +2345,9 @@
       <Filter>colorMgmt</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\colormgmt\scciedata.cpp">
+      <Filter>colorMgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccieilluminants.cpp">
       <Filter>colorMgmt</Filter>
     </ClCompile>
   </ItemGroup>
