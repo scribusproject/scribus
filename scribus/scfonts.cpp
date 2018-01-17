@@ -451,7 +451,7 @@ static QString getFamilyName(const FT_Face face)
 	return familyName;
 }
 
-static QStringList getfontFeaturesFromTable(hb_tag_t table, hb_face_t *hb_face)
+static QStringList getFontFeaturesFromTable(hb_tag_t table, hb_face_t *hb_face)
 {
 	QStringList fontFeaturesList;
 	//get all supported Opentype Features
@@ -477,9 +477,9 @@ static QStringList getFontFeatures(const FT_Face face)
 	hb_font = hb_ft_font_create(face, NULL);
 	hb_face_t *hb_face = hb_font_get_face(hb_font);
 	//find Opentype Font Features in GSUB table
-	QStringList featuresGSUB = getfontFeaturesFromTable(HB_OT_TAG_GSUB, hb_face);
+	QStringList featuresGSUB = getFontFeaturesFromTable(HB_OT_TAG_GSUB, hb_face);
 	// find Opentype Font Features in GPOS table
-	QStringList featuresGPOS = getfontFeaturesFromTable(HB_OT_TAG_GPOS, hb_face);
+	QStringList featuresGPOS = getFontFeaturesFromTable(HB_OT_TAG_GPOS, hb_face);
 
 	hb_font_destroy(hb_font);
 
