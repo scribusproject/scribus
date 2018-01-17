@@ -272,6 +272,8 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		{
 			extraSpace = m_lineWidth / 2.0;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 0.5 / m_Doc->view()->scale();
 		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
@@ -287,9 +289,13 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 	else
 	{
 		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+		const SingleLine& sl = ml.last();
+		if (sl.Color != CommonStrings::None)
+		{
 			extraSpace = sl.Width / 2.0;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 0.5 / m_Doc->view()->scale();
+		}
 	}
 	if (m_rotation != 0)
 	{

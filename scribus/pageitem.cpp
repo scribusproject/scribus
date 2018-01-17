@@ -8978,7 +8978,11 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 			if (isLine() && (PLineEnd == Qt::FlatCap))
 				extraSpace = 0.0;
 			else
+			{
 				extraSpace = m_lineWidth / 2.0;
+				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+					extraSpace = 0.5 / m_Doc->view()->scale();
+			}
 		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
@@ -8994,9 +8998,13 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	else
 	{
 		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+		const SingleLine& sl = ml.last();
+		if (sl.Color != CommonStrings::None)
+		{
 			extraSpace = sl.Width / 2.0;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 0.5 / m_Doc->view()->scale();
+		}
 	}
 	if (m_rotation != 0)
 	{
@@ -9035,7 +9043,11 @@ double PageItem::visualXPos() const
 		if (NamedLStyle.isEmpty())
 		{
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+			{
 				extraSpace = m_lineWidth / 2.0;
+				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+					extraSpace = 0.5 / m_Doc->view()->scale();
+			}
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 			{
 				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
@@ -9050,9 +9062,13 @@ double PageItem::visualXPos() const
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			struct SingleLine& sl = ml[ml.size()-1];
-			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			const SingleLine& sl = ml.last();
+			if (sl.Color != CommonStrings::None)
+			{
 				extraSpace = sl.Width / 2.0;
+				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+					extraSpace = 0.5 / m_Doc->view()->scale();
+			}
 		}
 	}
 	if (isPathText())
@@ -9066,7 +9082,11 @@ double PageItem::visualYPos() const
 	if (NamedLStyle.isEmpty())
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+		{
 			extraSpace = m_lineWidth / 2.0;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 0.5 / m_Doc->view()->scale();
+		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
@@ -9081,9 +9101,13 @@ double PageItem::visualYPos() const
 	else
 	{
 		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+		const SingleLine& sl = ml.last();
+		if (sl.Color != CommonStrings::None)
+		{
 			extraSpace = sl.Width / 2.0;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 0.5 / m_Doc->view()->scale();
+		}
 	}
 	if (isPathText())
 		return qMin(m_yPos + QRectF(Clip.boundingRect()).y(), m_yPos - extraSpace);
@@ -9098,7 +9122,11 @@ double PageItem::visualWidth() const
 		if (NamedLStyle.isEmpty())
 		{
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+			{
 				extraSpace = m_lineWidth;
+				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+					extraSpace = 1.0 / m_Doc->view()->scale();
+			}
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 			{
 				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
@@ -9113,9 +9141,13 @@ double PageItem::visualWidth() const
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			struct SingleLine& sl = ml[ml.size()-1];
-			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			const SingleLine& sl = ml.last();
+			if (sl.Color != CommonStrings::None)
+			{
 				extraSpace = sl.Width;
+				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+					extraSpace = 1.0 / m_Doc->view()->scale();
+			}
 		}
 	}
 	if (isPathText())
@@ -9129,7 +9161,11 @@ double PageItem::visualHeight() const
 	if (NamedLStyle.isEmpty())
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+		{
 			extraSpace = m_lineWidth;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 1.0 / m_Doc->view()->scale();
+		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
@@ -9145,8 +9181,12 @@ double PageItem::visualHeight() const
 	{
 		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+		if (sl.Color != CommonStrings::None)
+		{
 			extraSpace = sl.Width;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 1.0 / m_Doc->view()->scale();
+		}
 	}
 	if (isPathText())
 		return qMax(QRectF(Clip.boundingRect()).height(), m_height + extraSpace);
@@ -9159,7 +9199,11 @@ double PageItem::visualLineWidth() const
 	if (NamedLStyle.isEmpty())
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+		{
 			extraSpace = m_lineWidth;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 1.0 / m_Doc->view()->scale();
+		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
@@ -9174,9 +9218,13 @@ double PageItem::visualLineWidth() const
 	else
 	{
 		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+		const SingleLine& sl = ml.last();
+		if (sl.Color != CommonStrings::None)
+		{
 			extraSpace = sl.Width;
+			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				extraSpace = 1.0 / m_Doc->view()->scale();
+		}
 	}
 	return extraSpace;
 }
