@@ -8980,7 +8980,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 			else
 			{
 				extraSpace = m_lineWidth / 2.0;
-				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 					extraSpace = 0.5 / m_Doc->view()->scale();
 			}
 		}
@@ -9002,7 +9002,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		if (sl.Color != CommonStrings::None)
 		{
 			extraSpace = sl.Width / 2.0;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 0.5 / m_Doc->view()->scale();
 		}
 	}
@@ -9045,7 +9045,7 @@ double PageItem::visualXPos() const
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			{
 				extraSpace = m_lineWidth / 2.0;
-				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 					extraSpace = 0.5 / m_Doc->view()->scale();
 			}
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
@@ -9066,7 +9066,7 @@ double PageItem::visualXPos() const
 			if (sl.Color != CommonStrings::None)
 			{
 				extraSpace = sl.Width / 2.0;
-				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 					extraSpace = 0.5 / m_Doc->view()->scale();
 			}
 		}
@@ -9084,7 +9084,7 @@ double PageItem::visualYPos() const
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		{
 			extraSpace = m_lineWidth / 2.0;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 0.5 / m_Doc->view()->scale();
 		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
@@ -9105,7 +9105,7 @@ double PageItem::visualYPos() const
 		if (sl.Color != CommonStrings::None)
 		{
 			extraSpace = sl.Width / 2.0;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 0.5 / m_Doc->view()->scale();
 		}
 	}
@@ -9124,7 +9124,7 @@ double PageItem::visualWidth() const
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			{
 				extraSpace = m_lineWidth;
-				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 					extraSpace = 1.0 / m_Doc->view()->scale();
 			}
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
@@ -9145,7 +9145,7 @@ double PageItem::visualWidth() const
 			if (sl.Color != CommonStrings::None)
 			{
 				extraSpace = sl.Width;
-				if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 					extraSpace = 1.0 / m_Doc->view()->scale();
 			}
 		}
@@ -9163,7 +9163,7 @@ double PageItem::visualHeight() const
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		{
 			extraSpace = m_lineWidth;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
@@ -9184,7 +9184,7 @@ double PageItem::visualHeight() const
 		if (sl.Color != CommonStrings::None)
 		{
 			extraSpace = sl.Width;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
 	}
@@ -9201,7 +9201,7 @@ double PageItem::visualLineWidth() const
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		{
 			extraSpace = m_lineWidth;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
@@ -9222,7 +9222,7 @@ double PageItem::visualLineWidth() const
 		if (sl.Color != CommonStrings::None)
 		{
 			extraSpace = sl.Width;
-			if ((extraSpace == 0) && m_Doc->view()) // Hairline case
+			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
 	}
