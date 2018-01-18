@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
