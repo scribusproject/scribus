@@ -35803,17 +35803,17 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10400"/>
+        <location filename="../../scribus/pageitem.cpp" line="10448"/>
         <source>Print: </source>
         <translation>Stampa: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10402"/>
+        <location filename="../../scribus/pageitem.cpp" line="10450"/>
         <source>Enabled</source>
         <translation>Abilitata</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10404"/>
+        <location filename="../../scribus/pageitem.cpp" line="10452"/>
         <source>Disabled</source>
         <translation>Disabilitata</translation>
     </message>

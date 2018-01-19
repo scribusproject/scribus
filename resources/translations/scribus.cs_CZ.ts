@@ -35707,17 +35707,17 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10400"/>
+        <location filename="../../scribus/pageitem.cpp" line="10448"/>
         <source>Print: </source>
         <translation>Tisk:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10402"/>
+        <location filename="../../scribus/pageitem.cpp" line="10450"/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10404"/>
+        <location filename="../../scribus/pageitem.cpp" line="10452"/>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
     </message>

@@ -3515,7 +3515,7 @@ Aukera hau gaitzea gomendatzen da zure dokumentuan argazkiak badituzu.</translat
         <location filename="../../scribus/ui/cmykfw.cpp" line="100"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1118"/>
         <source>Color Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolore-mapa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="638"/>
@@ -4178,7 +4178,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="258"/>
         <source>Open Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Ireki karaktere-paleta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="292"/>
@@ -35817,17 +35817,17 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Utzi</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10400"/>
+        <location filename="../../scribus/pageitem.cpp" line="10448"/>
         <source>Print: </source>
         <translation>Inprimatu: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10402"/>
+        <location filename="../../scribus/pageitem.cpp" line="10450"/>
         <source>Enabled</source>
         <translation>Gaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10404"/>
+        <location filename="../../scribus/pageitem.cpp" line="10452"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
     </message>
