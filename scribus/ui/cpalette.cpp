@@ -326,8 +326,10 @@ void Cpalette::setCurrentItem(PageItem* item)
 	}
 	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(!editMeshColors->isChecked());
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	bool mirrorX, mirrorY;
@@ -1327,8 +1329,10 @@ void Cpalette::editMeshPointColor()
 		editStrokeGradient = 0;
 		gradEditButton->setEnabled(true);
 	}
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1566,8 +1570,8 @@ void Cpalette::editGradientVector()
 		editStrokeGradient = 9;
 	else
 		editStrokeGradient = 0;
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1583,8 +1587,8 @@ void Cpalette::editGradientVectorStroke()
 		CGradDia->hide();
 	}
 	editStrokeGradient = 1;
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1645,6 +1649,10 @@ void Cpalette::setActiveGradDia(bool active)
 		else
 			gradEditButton->setChecked(false);
 		emit editGradient(editStrokeGradient);
+		fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+		gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+		strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+		gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 		editMeshColors->setEnabled(true);
 	}
 }
