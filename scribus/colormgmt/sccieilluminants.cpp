@@ -7,6 +7,18 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccieilluminants.h"
 
+QVector<int> ScCIEIlluminant::wavelengths() const
+{
+	QVector<int> wls;
+	wls.reserve(m_pow.count());
+
+	QMap<int, double>::const_iterator iter;
+	for (iter = m_pow.begin(); iter != m_pow.end(); ++iter)
+		wls.append(iter.key());
+
+	return wls;
+}
+
 ScD50Illuminant::ScD50Illuminant()
 {
 	m_pow[380] = 24.49;

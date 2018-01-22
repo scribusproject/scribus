@@ -9,13 +9,18 @@ for which a new license (GPL+exception) is in place.
 #define SCCIEILLUMINANTS_H
 
 #include <QMap>
+#include <QVector>
 
 class ScCIEIlluminant
 {
 public:
 	virtual ~ScCIEIlluminant() {}
 	
+	// Relative illuminant power for specified wavelength
 	double power(int waveLen) const { return m_pow.value(waveLen, 0.0); }
+
+	// Wavelengths represented in the data set
+	QVector<int> wavelengths() const;
 	
 protected:
 	// Relative spectral power distribution

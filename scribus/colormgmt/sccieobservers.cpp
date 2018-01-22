@@ -7,6 +7,18 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccieobservers.h"
 
+QVector<int> ScCIEObserver::wavelengths() const
+{
+	QVector<int> wls;
+	wls.reserve(m_y.count());
+
+	QMap<int, double>::const_iterator iter;
+	for (iter = m_y.begin(); iter!= m_y.end(); ++iter)
+		wls.append(iter.key());
+
+	return wls;
+}
+
 ScCIE1931Observer::ScCIE1931Observer()
 {
 	m_x[380] = 0.0014, m_y[380] = 0.0000, m_z[380] = 0.0065;

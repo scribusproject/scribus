@@ -9,11 +9,15 @@ for which a new license (GPL+exception) is in place.
 #define SCCIEOBSERVERS_H
 
 #include <QMap>
+#include <QVector>
 
 class ScCIEObserver
 {
 public:
 	virtual ~ScCIEObserver() {}
+
+	// Wavelengths represented in the data set
+	QVector<int> wavelengths() const;
 
 	double xVal(int waveLen) const { return m_x.value(waveLen, 0.0); }
 	double yVal(int waveLen) const { return m_y.value(waveLen, 0.0); }
