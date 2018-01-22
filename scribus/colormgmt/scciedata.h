@@ -9,9 +9,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccieilluminants.h"
 #include "sccieobservers.h"
+#include "sccolormgmtstructs.h"
 
 class ScCIEData
 {
+public:
 	/**
 	 * @brief Get a reference to the ScCIEData instance
 	 *        creating it if necessary.
@@ -24,6 +26,16 @@ class ScCIEData
 	 * @sa ScCIEData::instance()
 	 */
 	static void destroy();
+
+	/**
+	* @brief Retrive specific CIE illuminant
+	*/
+	const ScCIEIlluminant& cieIlluminant(eIlluminant illuminant) const;
+
+	/**
+	* @brief Retrive specific CIE illuminant
+	*/
+	const ScCIEObserver& cieObserver(eObserver observer) const;
 	
 	/**
 	 * @brief Retrieve data for CIE 1931 2° observer.

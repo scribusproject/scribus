@@ -27,3 +27,21 @@ void ScCIEData::destroy()
 		ScCIEData::m_instance = 0;
 	}
 }
+
+const ScCIEIlluminant& ScCIEData::cieIlluminant(eIlluminant illuminant) const
+{
+	if (illuminant == Illuminant_D50)
+		return m_d50Illuminant;
+	if (illuminant == Illuminant_D65)
+		return m_d65Illuminant;
+	return m_d50Illuminant;
+}
+
+const ScCIEObserver& ScCIEData::cieObserver(eObserver observer) const
+{
+	if (observer == Observer_2deg)
+		return m_cie1931Observer;
+	if (observer == Observer_10deg)
+		return m_cie1964Observer;
+	return m_cie1931Observer;
+}
