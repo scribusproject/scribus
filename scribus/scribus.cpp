@@ -6962,7 +6962,7 @@ void ScribusMainWindow::doPrintPreview()
 	QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
-		for (int i = 0; i < d.count(); i++)
+		for (uint i = 0; i < d.count(); i++)
 			QFile::remove(prefsManager->preferencesLocation() +"/" + d[i]);
 	}
 }
@@ -8307,7 +8307,7 @@ void ScribusMainWindow::initHyphenator()
 	QDir transDir(transPath, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((transDir.exists()) && (transDir.count() != 0))
 	{
-		for (int i = 0; i < transDir.count(); i++)
+		for (uint i = 0; i < transDir.count(); i++)
 		{
 			QFileInfo fi(transPath + transDir[i]);
 			QString ext(fi.suffix().toLower());
