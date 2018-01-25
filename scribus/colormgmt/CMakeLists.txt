@@ -28,6 +28,7 @@ set(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolorspacedata.cpp
 	sccolortransform.cpp
 	sccolortransformpool.cpp
+	scspectralvaluesconvertor.cpp
 	${SCRIBUS_LCMS_IMPL_SOURCES}
 )
 

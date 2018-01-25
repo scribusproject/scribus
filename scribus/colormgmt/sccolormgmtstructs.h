@@ -144,6 +144,13 @@ struct ScXYZ
 	double Z;
 };
 
+struct ScLab
+{
+	double L;
+	double a;
+	double b;
+};
+
 eColorType colorFormatType(eColorFormat format);
 uint       colorFormatNumChannels(eColorFormat format);
 uint       colorFormatBytesPerChannel(eColorFormat format);
