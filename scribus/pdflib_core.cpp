@@ -9796,12 +9796,20 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page->GetObject()->Reference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::PdfRect pageRect   = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
-			pageM.scale(pageRect.GetWidth(), pageRect.GetHeight());
 			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
 			pageM = pageM.inverted();
 			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
@@ -9811,19 +9819,10 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
 								 + Pdf::toPdf(pageM.m12()) + " "
 								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
-//			PutDoc("\n/Matrix [" + Pdf::toPdf(1.0/pagesize.GetWidth()) + " 0 0 " + Pdf::toPdf(1.0/pagesize.GetHeight()) + " 0 0]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
@@ -9902,14 +9901,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pageRect.GetWidth());
-			imgInfo.Height = qMax(1, (int) pageRect.GetHeight());
-			imgInfo.xa  = sx * pageRect.GetWidth()/imgInfo.Width;
-			imgInfo.ya  = sy * pageRect.GetHeight()/imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pageRect.GetWidth()/imgInfo.Width;
-			imgInfo.sya = sy * pageRect.GetHeight()/imgInfo.Height;
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 
 			return true;
 		}
@@ -9926,10 +9925,18 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
-			QMatrix pageM;
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
+			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
-			pageM.scale(pageRect.GetWidth(), pageRect.GetHeight());
 			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
 			pageM = pageM.inverted();
 			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
@@ -9939,17 +9946,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
 								 + Pdf::toPdf(pageM.m12()) + " "
 								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
@@ -10045,14 +10044,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pageRect.GetWidth());
-			imgInfo.Height = qMax(1, (int) pageRect.GetHeight());
-			imgInfo.xa  = sx * pageRect.GetWidth() / imgInfo.Width;
-			imgInfo.ya  = sy * pageRect.GetHeight() / imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pageRect.GetWidth() / imgInfo.Width;
-			imgInfo.sya = sy * pageRect.GetHeight() / imgInfo.Height;
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 
 			return true;
 		}
