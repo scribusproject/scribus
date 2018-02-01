@@ -13,8 +13,8 @@
 *                                                                         *
 ***************************************************************************/
 
-#ifndef CANVAS_GESTURE_LINEMOVE_H
-#define CANVAS_GESTURE_LINEMOVE_H
+#ifndef CANVAS_GESTURE_PAN_H
+#define CANVAS_GESTURE_PAN_H
 
 #include "scribusapi.h"
 #include "canvasgesture.h"
