@@ -6607,32 +6607,33 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page->GetObject()->Reference()] = xObj;
 			StartObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::PdfRect pagesize = page->GetPageSize();
+			PoDoFo::PdfRect pageSize = page->GetPageSize();
 			int rotation = page->GetRotation();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageSize.GetHeight() : pageSize.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageSize.GetWidth() : pageSize.GetHeight();
 			QMatrix pageM;
-			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
-			pageM.rotate(-rotation);
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
+			pageM.translate(pageSize.GetLeft(), pageSize.GetBottom());
+			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
+			pageM = pageM.inverted();
+			PutDoc("\n/BBox [" + QString::number(pageSize.GetLeft(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetBottom(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetLeft() + pageSize.GetWidth(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetBottom() + pageSize.GetHeight(), 'f'));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
 								 + QString::number(pageM.m12(), 'f') + " "
 								 + QString::number(pageM.m21(), 'f') + " "
-								 + QString::number(pageM.m22(), 'f') + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + QString::number(pageM.m22(), 'f') + " "
+								 + QString::number(pageM.dx(), 'f')  + " "
+								 + QString::number(pageM.dy(), 'f')  + " ");
 			PutDoc("]");
-//			PutDoc("\n/Matrix [" + QString::number(1.0/pagesize.GetWidth()) + " 0 0 " + QString::number(1.0/pagesize.GetHeight()) + " 0 0]");
 			PutDoc("\n/Resources " + QString::number(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
@@ -6705,14 +6706,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pagesize.GetWidth());
-			imgInfo.Height = qMax(1, (int) pagesize.GetHeight());
-			imgInfo.xa  = sx * pagesize.GetWidth()/imgInfo.Width;
-			imgInfo.ya  = sy * pagesize.GetHeight()/imgInfo.Height;
-			// Width/Height are integers and may not exactly equal pagesize.GetWidth()/
-			// pagesize.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pagesize.GetWidth()/imgInfo.Width;
-			imgInfo.sya = sy * pagesize.GetHeight()/imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pageSize.GetWidth()/
+			// pageSize.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 			
 			return true;
 		}
@@ -6727,30 +6728,32 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page->GetObject()->Reference()] = xObj;
 			StartObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::PdfRect pagesize = page->GetPageSize();
+			PoDoFo::PdfRect pageSize = page->GetPageSize();
 			int rotation = page->GetRotation();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageSize.GetHeight() : pageSize.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageSize.GetWidth() : pageSize.GetHeight();
 			QMatrix pageM;
-			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
-			pageM.rotate(-rotation);
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
+			pageM.translate(pageSize.GetLeft(), pageSize.GetBottom());
+			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
+			pageM = pageM.inverted();
+			PutDoc("\n/BBox [" + QString::number(pageSize.GetLeft(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetBottom(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetLeft() + pageSize.GetWidth(), 'f'));
+			PutDoc(" " + QString::number(pageSize.GetBottom() + pageSize.GetHeight(), 'f'));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
 								 + QString::number(pageM.m12(), 'f') + " "
 								 + QString::number(pageM.m21(), 'f') + " "
-								 + QString::number(pageM.m22(), 'f') + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + QString::number(pageM.m22(), 'f') + " "
+								 + QString::number(pageM.dx(), 'f')  + " "
+								 + QString::number(pageM.dy(), 'f')  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + QString::number(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
@@ -6847,14 +6850,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pagesize.GetWidth());
-			imgInfo.Height = qMax(1, (int) pagesize.GetHeight());
-			imgInfo.xa  = sx * pagesize.GetWidth()/imgInfo.Width;
-			imgInfo.ya  = sy * pagesize.GetHeight()/imgInfo.Height;
-			// Width/Height are integers and may not exactly equal pagesize.GetWidth()/
-			// pagesize.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pagesize.GetWidth()/imgInfo.Width;
-			imgInfo.sya = sy * pagesize.GetHeight()/imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pageSize.GetWidth()/
+			// pageSize.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 			
 			return true;
 		}
