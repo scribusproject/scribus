@@ -10945,9 +10945,10 @@ void PDFLibCore::PDF_End_Bookmarks()
 		QMap<int,QByteArray> ::ConstIterator contentIt;
 		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
 		{
-			writer.startObj(ip->ItemNr+Basis);
+			int itemNr = contentIt.key();
+			writer.startObj(itemNr + Basis);
 			PutDoc(contentIt.value());
-			writer.endObj(ip->ItemNr+Basis);
+			writer.endObj(itemNr + Basis);
 		}
 	}
 }
