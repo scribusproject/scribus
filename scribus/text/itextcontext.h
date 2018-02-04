@@ -19,6 +19,7 @@ struct TypoPrefs;
 class InlineFrame;
 class ExpansionPoint;
 class PageItem;
+class ScribusDoc;
 
 /**
  * This class collects all information that may be used during text layout:
@@ -30,6 +31,7 @@ class PageItem;
 class SCRIBUS_API ITextContext {
 
 public:
+	virtual const ScribusDoc* getDoc() const = 0;
 	virtual const PageItem* getFrame() const = 0;
 	virtual double height() const = 0;
 	virtual double width() const = 0;

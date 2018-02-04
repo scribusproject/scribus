@@ -520,8 +520,8 @@ public:
 	 */
 	void enableCMS(bool enable);
 	
-	const ParagraphStyle& paragraphStyle(const QString& name) { return m_docParagraphStyles.get(name); }
-	const StyleSet<ParagraphStyle>& paragraphStyles()   { return m_docParagraphStyles; }
+	const ParagraphStyle& paragraphStyle(const QString& name) const { return m_docParagraphStyles.get(name); }
+	const StyleSet<ParagraphStyle>& paragraphStyles()  const { return m_docParagraphStyles; }
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return m_docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
@@ -621,8 +621,8 @@ public:
 	                                          StyleSet<CharStyle> *tempCharStyles,
 											  QHash<QString, multiLine> *tempLineStyles);
 
-	const CharStyle& charStyle(const QString& name) { return m_docCharStyles.get(name); }
-	const StyleSet<CharStyle>& charStyles()  { return m_docCharStyles; }
+	const CharStyle& charStyle(const QString& name) const { return m_docCharStyles.get(name); }
+	const StyleSet<CharStyle>& charStyles() const { return m_docCharStyles; }
 	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be

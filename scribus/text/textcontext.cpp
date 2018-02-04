@@ -19,6 +19,11 @@
 static CharStyle* emptyCStyle;
 static ParagraphStyle*  emptyPStyle;
 
+const ScribusDoc* TextContext::getDoc() const
+{
+	return m_frame->doc();
+}
+
 const CharStyle& TextContext::charStyle() const 
 { 
 	if (!emptyCStyle)

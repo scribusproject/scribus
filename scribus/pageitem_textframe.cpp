@@ -1572,35 +1572,6 @@ void PageItem_TextFrame::layout()
 			//--<#13490
 			CharStyle charStyle = ((itemText.text(a) != SpecialChars::PARSEP) ? itemText.charStyle(a) : style.charStyle());
 
-			//set style for paragraph effects
-			if (itemText.isBlockStart(a))
-			{
-				// FIXME: we should avoid calling setCharStyle() in layout()
-				if (style.hasDropCap() || style.hasBullet() || style.hasNum())
-				{
-					const QString& curParent(style.hasParent() ? style.parent() : style.name());
-					CharStyle newStyle(charStyle);
-					if (style.peCharStyleName().isEmpty())
-						newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
-					else if (charStyle.name() != style.peCharStyleName())
-						newStyle.setParent(m_Doc->charStyle(style.peCharStyleName()).name());
-					charStyle.setStyle(newStyle);
-					itemText.setCharStyle(a, 1 , charStyle);
-				}
-				else if (!style.peCharStyleName().isEmpty())
-				{
-					//par effect is cleared but is set dcCharStyleName = clear drop cap char style
-					if (charStyle.parent() == style.peCharStyleName())
-					{
-						const QString& curParent(style.hasParent() ? style.parent() : style.name());
-						if (m_Doc->charStyles().contains(style.peCharStyleName()))
-							charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
-						charStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
-						itemText.setCharStyle(a, 1,charStyle);
-					}
-				}
-			}
-
 			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
 			double scaleH = charStyle.scaleH() / 1000.0;

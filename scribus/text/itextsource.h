@@ -15,6 +15,7 @@ class CharStyle;
 class ParagraphStyle;
 class InlineFrame;
 class GlyphCluster;
+class ScribusDoc;
 
 
 class SCRIBUS_API ITextSource {
@@ -33,7 +34,11 @@ public:
 	virtual int nextBlockStart(int pos) const = 0;
 	
 	virtual const CharStyle& charStyle(int pos) const = 0; 
-	virtual const ParagraphStyle& paragraphStyle(int pos) const = 0; 
+	virtual const ParagraphStyle& paragraphStyle(int pos) const = 0;
+
+	virtual void setCharStyle(int pos, uint len, const CharStyle& style) = 0;
+	virtual void setStyle(int pos, const ParagraphStyle& style) = 0;
+
 	virtual LayoutFlags flags(int pos) const = 0;
 	virtual bool hasFlag(int pos, LayoutFlags flag) const = 0;
 	virtual void setFlag(int pos, LayoutFlags flag) = 0;
