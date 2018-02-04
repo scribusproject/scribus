@@ -1,20 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-	<Import Project=".\plugins\install.targets" />
-	<Import Project=".\unicodemap\install.targets" />
-
 	<PropertyGroup>
 		<AfterBuildDependsOn>
 			$(AfterBuildDependsOn);
-			Install_scribus;
+			Install_scribus_unicodemap;
 		</AfterBuildDependsOn>
 	</PropertyGroup>
-
-	<Target Name="Install_scribus">  
+	
+	<Target Name="Install_scribus_unicodemap">  
 		<Copy  
-			SourceFiles="$(MSBuildThisFileDirectory)scribus.css"  
-			DestinationFolder="$(OutDir)\libs"
+			SourceFiles="$(MSBuildThisFileDirectory)unicodenameslist.txt"  
+			DestinationFiles="$(OutDir)\share\unicodenameslist.txt"
 			SkipUnchangedFiles="true"
 		/>
 	</Target>
