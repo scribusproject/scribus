@@ -30,7 +30,7 @@ ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 	setView( lb );
 }
 
-ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent)
+ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox(parent)
 {
 #ifdef Q_OS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
