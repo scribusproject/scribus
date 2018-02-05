@@ -1742,8 +1742,7 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 	}
 	else
 		textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	librevenge::RVNGString tempUTF8(text);
-	QString actText = QString(tempUTF8.cstr());
+	QString actText = QString(text.cstr());
 	if (actTextItem)
 	{
 		int posC = actTextItem->itemText.length();
