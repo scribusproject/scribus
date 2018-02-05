@@ -3807,7 +3807,7 @@ void RawPainter::finishItem(PageItem* ite)
 	}
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y(), true);
-	ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled); // TODO: get this from shape props
 	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
