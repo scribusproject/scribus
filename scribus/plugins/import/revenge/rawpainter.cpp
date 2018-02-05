@@ -1598,6 +1598,19 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 		lineSpIsPT = lsp.endsWith("pt");
 		lineSpSet = true;
 	}
+	if (propList["fo:keep-together"])
+		textStyle.setKeepTogether(propList["fo:keep-together"]->getStr() == "always");
+	if (propList["fo:keep-with-next"])
+		textStyle.setKeepWithNext(propList["fo:keep-with-next"]->getStr() == "always");
+	if (propList["fo:orphans"])
+		textStyle.setKeepLinesEnd(propList["fo:orphans"]->getInt());
+	if (propList["fo:widows"])
+		textStyle.setKeepLinesStart(propList["fo:widows"]->getInt());
+	if (propList["fo:hyphenate"])
+		textStyle.setHyphenationMode(propList["fo:hyphenate"]->getInt() ? ParagraphStyle::AutomaticHyphenation : ParagraphStyle::NoHyphenation);
+	if (propList["fo:hyphenation-ladder-count"] && propList["fo:hyphenation-ladder-count"]->getStr() != "no-limit")
+		// TODO: how to specify no-limit? 0?
+		textStyle.setHyphenConsecutiveLines(propList["fo:hyphenation-ladder-count"]->getInt());
 }
 
 void RawPainter::closeParagraph()
