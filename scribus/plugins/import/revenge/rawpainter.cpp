@@ -1658,7 +1658,11 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	StyleFlag styleEffects = textCharStyle.effects();
 	if (propList["style:text-underline-type"])
+	{
 		styleEffects |= ScStyle_Underline;
+		if (propList["style:text-underline-mode"] && propList["style:text-underline-mode"]->getStr() == "skip-white-space")
+			styleEffects |= ScStyle_UnderlineWords;
+	}
 	if (propList["style:text-position"])
 	{
 		if (propList["style:text-position"]->getStr() == "50% 67%")
@@ -1666,6 +1670,19 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		else
 			styleEffects |= ScStyle_Subscript;
 	}
+	if (propList["fo:font-variant"] && propList["fo:font-variant"]->getStr() == "small-caps")
+		styleEffects |= ScStyle_SmallCaps;
+	if (propList["fo:text-transform"] && propList["fo:text-transform"]->getStr() == "uppercase")
+		styleEffects |= ScStyle_AllCaps;
+	if (propList["style:text-line-through-style"])
+		styleEffects |= ScStyle_Strikethrough;
+	if (propList["style:text-outline"] && propList["style:text-outline"]->getInt())
+		styleEffects |= ScStyle_Outline;
+	if (propList["style:text-shadow"]) // TODO: parse offsets
+		styleEffects |= ScStyle_Shadowed;
+	if (propList["fo:hyphenate"])
+		styleEffects |= ScStyle_HyphenationPossible;
+	// TODO: handle drop caps
 	textCharStyle.setFeatures(styleEffects.featureList());
 }
 
