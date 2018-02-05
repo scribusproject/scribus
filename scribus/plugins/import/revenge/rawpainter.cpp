@@ -1697,6 +1697,16 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	if (propList["fo:hyphenate"])
 		styleEffects |= ScStyle_HyphenationPossible;
 	// TODO: handle drop caps
+	if (propList["fo:language"])
+	{
+		QStringList locale;
+		locale.append(propList["fo:language"]->getStr().cstr());
+		if (propList["fo:script"])
+			locale.append(propList["fo:script"]->getStr().cstr());
+		if (propList["fo:country"])
+			locale.append(propList["fo:country"]->getStr().cstr());
+		textCharStyle.setLanguage(locale.join('_'));
+	}
 	textCharStyle.setFeatures(styleEffects.featureList());
 }
 
