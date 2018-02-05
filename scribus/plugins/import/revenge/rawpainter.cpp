@@ -1636,8 +1636,6 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["style:text-scale"])
 		textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(QString(propList["style:text-scale"]->getStr().cstr())));
-	if (propList["fo:color"])
-		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
 	if (propList["style:font-name"])
 	{
 		QString fontVari;
@@ -1677,7 +1675,18 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	if (propList["style:text-line-through-style"])
 		styleEffects |= ScStyle_Strikethrough;
 	if (propList["style:text-outline"] && propList["style:text-outline"]->getInt())
+	{
 		styleEffects |= ScStyle_Outline;
+		textCharStyle.setFillColor(CommonStrings::None);
+	}
+	if (propList["fo:color"])
+	{
+		const QString color = parseColor(QString(propList["fo:color"]->getStr().cstr()));
+		if (styleEffects & ScStyle_Outline)
+			textCharStyle.setStrokeColor(color);
+		else
+			textCharStyle.setFillColor(color);
+	}
 	if (propList["style:text-shadow"]) // TODO: parse offsets
 		styleEffects |= ScStyle_Shadowed;
 	if (propList["fo:hyphenate"])
