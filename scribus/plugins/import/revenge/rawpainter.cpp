@@ -1756,7 +1756,6 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 			QTextDocument texDoc;
 			texDoc.setHtml(actText);
 			actText = texDoc.toPlainText();
-			actText = actText.trimmed();
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
