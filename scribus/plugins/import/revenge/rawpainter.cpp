@@ -1767,13 +1767,15 @@ void RawPainter::insertField(const librevenge::RVNGPropertyList &propList)
 
 double RawPainter::valueAsPoint(const librevenge::RVNGProperty *prop)
 {
-	double value = 0.0;
-	QString str = QString(prop->getStr().cstr()).toLower();
-	if (str.endsWith("in"))
-		value = prop->getDouble() * 72.0;
-	else
-		value = prop->getDouble();
-	return value;
+	switch (prop->getUnit())
+	{
+		case librevenge::RVNG_INCH:
+			return prop->getDouble() * 72.0;
+		case librevenge::RVNG_TWIP:
+			return prop->getDouble() / 20.0;
+		default:
+			return prop->getDouble();
+	}
 }
 
 void RawPainter::applyFill(PageItem* ite)
