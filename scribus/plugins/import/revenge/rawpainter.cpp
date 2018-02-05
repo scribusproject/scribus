@@ -1634,8 +1634,8 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		textCharStyle.setFontSize(valueAsPoint(propList["fo:font-size"]) * 10.0);
 		m_maxFontSize = qMax(m_maxFontSize, valueAsPoint(propList["fo:font-size"]));
 	}
-	if (propList["style:text-scale"])
-		textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(QString(propList["style:text-scale"]->getStr().cstr())));
+	if (propList["style:text-scale"] && propList["style:text-scale"]->getUnit() == librevenge::RVNG_PERCENT)
+		textCharStyle.setScaleH(propList["style:text-scale"]->getDouble() * 1000);
 	if (propList["style:font-name"])
 	{
 		QString fontVari;
