@@ -1640,11 +1640,13 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	const librevenge::RVNGProperty *fontNameProp = propList["style:font-name"] ? propList["style:font-name"] : propList["fo:font-name"];
 	if (fontNameProp)
 	{
-		QString fontVari;
-		if (propList["fo:font-weight"])
-			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
+		QStringList fontVari;
+		if (propList["fo:font-weight"] && propList["fo:font-weight"]->getStr() != "normal")
+			fontVari.append(propList["fo:font-weight"]->getStr().cstr());
+		if (propList["fo:font-style"] && propList["fo:font-style"]->getStr() != "normal")
+			fontVari.append(propList["fo:font-style"]->getStr().cstr());
 		QString fontName = QString(fontNameProp->getStr().cstr());
-		QString realFontName = constructFontName(fontName, fontVari);
+		QString realFontName = constructFontName(fontName, fontVari.join(' '));
 		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
 	}
 	StyleFlag styleEffects = textCharStyle.effects();
