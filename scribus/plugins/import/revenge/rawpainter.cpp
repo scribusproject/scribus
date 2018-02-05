@@ -1636,21 +1636,14 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["style:text-scale"] && propList["style:text-scale"]->getUnit() == librevenge::RVNG_PERCENT)
 		textCharStyle.setScaleH(propList["style:text-scale"]->getDouble() * 1000);
-	if (propList["style:font-name"])
+	// NOTE: fo:font-name was only ever emitted by libfreehand, by a mistake
+	const librevenge::RVNGProperty *fontNameProp = propList["style:font-name"] ? propList["style:font-name"] : propList["fo:font-name"];
+	if (fontNameProp)
 	{
 		QString fontVari;
 		if (propList["fo:font-weight"])
 			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
-		QString fontName = QString(propList["style:font-name"]->getStr().cstr());
-		QString realFontName = constructFontName(fontName, fontVari);
-		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
-	}
-	if (propList["fo:font-name"])
-	{
-		QString fontVari;
-		if (propList["fo:font-weight"])
-			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
-		QString fontName = QString(propList["fo:font-name"]->getStr().cstr());
+		QString fontName = QString(fontNameProp->getStr().cstr());
 		QString realFontName = constructFontName(fontName, fontVari);
 		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
 	}
