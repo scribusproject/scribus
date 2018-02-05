@@ -1663,10 +1663,20 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["style:text-position"])
 	{
-		if (propList["style:text-position"]->getStr() == "50% 67%")
-			styleEffects |= ScStyle_Superscript;
-		else
-			styleEffects |= ScStyle_Subscript;
+		QStringList pos = QString(propList["style:text-position"]->getStr().cstr()).split(' ', QString::SkipEmptyParts);
+		if (pos.size() > 0)
+		{
+			if (pos[0] == "super")
+				styleEffects |= ScStyle_Superscript;
+			else if (pos[0] == "sub")
+				styleEffects |= ScStyle_Subscript;
+			else
+				textCharStyle.setBaselineOffset(textCharStyle.fontSize() * fromPercentage(pos[0]) * 10);
+		}
+		if (pos.size() > 1)
+			// TODO: Scribus makes font size for sub-/superscript smaller, so this doesn't match well.
+			// Multiply? Or use baseline offset instead of sub-/superscript?
+			textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(pos[1]));
 	}
 	if (propList["fo:font-variant"] && propList["fo:font-variant"]->getStr() == "small-caps")
 		styleEffects |= ScStyle_SmallCaps;
