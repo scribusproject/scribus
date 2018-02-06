@@ -360,9 +360,18 @@ PageItem::PageItem(const PageItem & other)
 	hatchForegroundQ(other.hatchForegroundQ)
 {
 	QString tmp;
-	m_imageVisible=m_Doc->guidesPrefs().showPic;
+	m_imageVisible = m_Doc->guidesPrefs().showPic;
 	m_Doc->TotalItems++;
+	
+	QString oldName(AnName);
+	int nameNum = m_Doc->TotalItems;
 	AnName += tmp.setNum(m_Doc->TotalItems);
+	while (m_Doc->itemNameExists(AnName))
+	{
+		++nameNum;
+		AnName = oldName + tmp.setNum(nameNum);
+	}
+	
 	uniqueNr = m_Doc->TotalItems;
 	invalid = true;
 	if (other.isInlineImage)
@@ -613,7 +622,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		break;
 	}
 	m_Doc->TotalItems++;
-	AnName += tmp.setNum(m_Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
+	
+	QString oldName(AnName);
+	int nameNum = m_Doc->TotalItems;
+	AnName += tmp.setNum(m_Doc->TotalItems);
+	while (m_Doc->itemNameExists(AnName))
+	{
+		++nameNum;
+		AnName = oldName + tmp.setNum(nameNum);
+	}
+	
 	uniqueNr = m_Doc->TotalItems;
 	AutoName = true;
 	setUName(AnName);
