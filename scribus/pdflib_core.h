@@ -256,8 +256,6 @@ private:
 	//int Dokument;
 	QMap<QString,ShIm> SharedImages;
 	QList<PdfDest> NamedDest;
-	QList<PdfId> Threads;
-	QList<PdfBead> Beads;
 	QList<PdfId> CalcFields;
 	Pdf::ResourceMap Patterns;
 	Pdf::ResourceMap Shadings;

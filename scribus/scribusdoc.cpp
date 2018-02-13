@@ -3927,7 +3927,7 @@ void ScribusDoc::setPatterns(QHash<QString, ScPattern> &patterns)
 	docPatterns = patterns;
 }
 
-QStringList ScribusDoc::getUsedPatterns()
+QStringList ScribusDoc::getUsedPatterns() const
 {
 	QList<PageItem*> allItems;
 	QStringList results;
@@ -3981,7 +3981,7 @@ QStringList ScribusDoc::getUsedPatterns()
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (QHash<int, PageItem*>::const_iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
@@ -4006,7 +4006,7 @@ QStringList ScribusDoc::getUsedPatterns()
 		}
 		allItems.clear();
 	}
-	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	for (QHash<QString, ScPattern>::const_iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		for (int i = 0; i < it.value().items.count(); ++i)
 		{
@@ -4727,6 +4727,129 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	}
 }
 
+bool ScribusDoc::useAcroFormFields() const
+{
+	QList<PageItem*>  allItems;
+	const QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
+	const PageItem* it = NULL;
+
+	for (int i = 0; i < 2; ++i)
+	{
+		allItems = *(itemLists[i]);
+		while (allItems.count() > 0)
+		{
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
+			{
+				allItems += it->getChildren();
+				continue;
+			}
+			if ((it->itemType() != PageItem::TextFrame) || !it->isAnnotation())
+				continue;
+			if (it->annotation().isAcroFormField())
+				return true;
+		}
+	}
+
+	allItems = FrameItems.values();
+	while (allItems.count() > 0)
+	{
+		PageItem *ite = allItems.takeFirst();
+		if (it->isGroup() || it->isTable())
+		{
+			allItems += it->getChildren();
+			continue;
+		}
+		if ((it->itemType() != PageItem::TextFrame) || !it->isAnnotation())
+			continue;
+		if (it->annotation().isAcroFormField())
+			return true;
+	}
+
+	QStringList patterns = getUsedPatterns();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		allItems = pa.items;
+		while (allItems.count() > 0)
+		{
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
+			{
+				allItems += it->getChildren();
+				continue;
+			}
+			if ((it->itemType() != PageItem::TextFrame) || !it->isAnnotation())
+				continue;
+			if (it->annotation().isAcroFormField())
+				return true;
+		}
+	}
+
+	return false;
+}
+
+bool ScribusDoc::useAnnotations() const
+{
+	QList<PageItem*>  allItems;
+	const QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
+	const PageItem* it = NULL;
+
+	for (int i = 0; i < 2; ++i)
+	{
+		allItems = *(itemLists[i]);
+		while (allItems.count() > 0)
+		{
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
+			{
+				allItems += it->getChildren();
+				continue;
+			}
+			if (it->itemType() != PageItem::TextFrame)
+				continue;
+			if (it->isAnnotation())
+				return true;
+		}
+	}
+
+	allItems = FrameItems.values();
+	while (allItems.count() > 0)
+	{
+		PageItem *ite = allItems.takeFirst();
+		if (it->isGroup() || it->isTable())
+		{
+			allItems += it->getChildren();
+			continue;
+		}
+		if (it->itemType() != PageItem::TextFrame)
+			continue;
+		if (it->isAnnotation())
+			return true;
+	}
+
+	QStringList patterns = getUsedPatterns();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		allItems = pa.items;
+		while (allItems.count() > 0)
+		{
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
+			{
+				allItems += it->getChildren();
+				continue;
+			}
+			if (it->itemType() != PageItem::TextFrame)
+				continue;
+			if (it->isAnnotation())
+				return true;
+		}
+	}
+
+	return false;
+}
 
 void ScribusDoc::setUnitIndex(const int newIndex)
 {

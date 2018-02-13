@@ -702,7 +702,7 @@ public:
 	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
-	QStringList getUsedPatterns();
+	QStringList getUsedPatterns() const;
 	QStringList getUsedPatternsSelection(Selection* customSelection);
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
 	QStringList getPatternDependencyList(QStringList used);
@@ -711,6 +711,17 @@ public:
 	*/
 	QStringList getUsedSymbols();
 	QStringList getUsedSymbolsHelper(QString pattern, QStringList &results);
+
+	/*!
+	* @brief Check if document use Acrobat Form Fields
+	*/
+	bool useAcroFormFields() const;
+
+	/*!
+	* @brief Check if document use PDF Annotations
+	*/
+	bool useAnnotations() const;
+
 	/**
 	 * @brief Set and get the document's unit index
 	 */

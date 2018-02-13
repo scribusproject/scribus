@@ -1045,14 +1045,36 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<
 void PDFLibCore::PDF_Begin_Catalog()
 {
 	writer.startObj(writer.CatalogObj);
-	PutDoc("<<\n/Type /Catalog");
-	PutDoc("\n/Outlines " + Pdf::toObjRef(writer.OutlinesObj) +
-		   "\n/Pages " + Pdf::toObjRef(writer.PagesObj) +
-		   "\n/Dests " + Pdf::toObjRef(writer.DestsObj) +
-		   "\n/AcroForm " + Pdf::toObjRef(writer.AcroFormObj) +
-		   "\n/Names "+ Pdf::toObjRef(writer.NamesObj) +
-		   "\n/Threads " +  Pdf::toObjRef(writer.ThreadsObj) +
-		   "\n");
+	PutDoc("<<\n/Type /Catalog\n");
+	PutDoc("/Pages " + Pdf::toObjRef(writer.PagesObj) + "\n");
+	if (!PDF_IsPDFX())
+	{
+		if (doc.useAcroFormFields())
+		{
+			writer.AcroFormObj = writer.newObject();
+			PutDoc("/AcroForm " + Pdf::toObjRef(writer.AcroFormObj) + "\n");
+		}
+		if (doc.useAnnotations())
+		{
+			writer.DestsObj = writer.newObject();
+			PutDoc("/Dests " + Pdf::toObjRef(writer.DestsObj) + "\n");
+		}
+		if (doc.JavaScripts.count() > 0)
+		{
+			writer.NamesObj = writer.newObject();
+			PutDoc("/Names " + Pdf::toObjRef(writer.NamesObj) + "\n");
+		}
+	}
+	if (Options.Bookmarks)
+	{
+		writer.OutlinesObj = writer.newObject();
+		PutDoc("/Outlines " + Pdf::toObjRef(writer.OutlinesObj) + "\n");
+	}
+	if (Options.Articles)
+	{
+		writer.ThreadsObj = writer.newObject();
+		PutDoc("/Threads " + Pdf::toObjRef(writer.ThreadsObj) + "\n");
+	}
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 	{
 		writer.OCPropertiesObj = writer.newObject();
@@ -3583,7 +3605,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	}
 	uint pageObject = writer.newObject();
 	writer.startObj(pageObject);
-	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
+	PutDoc("<<\n/Type /Page\n/Parent " + Pdf::toObjRef(writer.PagesObj) + "\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/BleedBox ["+FToStr(markOffs)+" "+FToStr(markOffs)+" "+FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markOffs)+"]\n");
 	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
@@ -10896,6 +10918,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 
 void PDFLibCore::PDF_End_Bookmarks()
 {
+	if (writer.OutlinesObj == 0)
+		return;
+
 	BookMItem* ip;
 	QByteArray Inhal = "";
 	QMap<int,QByteArray> Inha;
@@ -10991,10 +11016,12 @@ void PDFLibCore::PDF_End_Resources()
 
 void PDFLibCore::PDF_End_Outlines()
 {
+	if (writer.OutlinesObj == 0)
+		return;
+
 	writer.startObj(writer.OutlinesObj);
 	PutDoc("<<\n/Type /Outlines\n");
 	PutDoc("/Count "+Pdf::toPdf(Outlines.Count)+"\n");
-// 	if ((Bvie->childCount() != 0) && (Options.Bookmarks))
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks))
 	{
 		PutDoc("/First "+Pdf::toPdf(Outlines.First)+" 0 R\n");
@@ -11020,6 +11047,9 @@ void PDFLibCore::PDF_End_PageTree()
 
 void PDFLibCore::PDF_End_NamedDests()
 {
+	if (writer.DestsObj == 0)
+		return;
+
 	writer.startObj(writer.DestsObj);
 	PutDoc("<<\n");
 	if (NamedDest.count() != 0)
@@ -11038,6 +11068,9 @@ void PDFLibCore::PDF_End_NamedDests()
 
 void PDFLibCore::PDF_End_FormObjects()
 {
+	if (writer.AcroFormObj == 0)
+		return;
+
 	writer.startObj(writer.AcroFormObj);
 	PutDoc("<<\n");
 	PutDoc("/Fields [ ");
@@ -11062,6 +11095,9 @@ void PDFLibCore::PDF_End_FormObjects()
 
 void PDFLibCore::PDF_End_JavaScripts()
 {
+	if (writer.NamesObj == 0)
+		return;
+
 	PdfId jsNameTreeObj = 0;
 	if (doc.JavaScripts.count() != 0)
 	{
@@ -11101,45 +11137,34 @@ void PDFLibCore::PDF_End_JavaScripts()
 
 void PDFLibCore::PDF_End_Articles()
 {
-	Threads.clear();
+	if (writer.ThreadsObj == 0)
+		return;
+
+	QList<PdfId> Threads;
+	QList<PdfBead> Beads;
 	PdfId currentThreadObj = 0;
-	if (Options.Articles)
+
+	for (int ele = 0; ele < doc.Items->count(); ++ele)
 	{
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
+		PageItem* tel = doc.Items->at(ele);
+		if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
+				(!tel->inPdfArticle))
 		{
-			PageItem* tel = doc.Items->at(ele);
-			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
-					(!tel->inPdfArticle))
-			{
-				Beads.clear();
-				PdfBead bd;
-				if (currentThreadObj == 0)
-					currentThreadObj = writer.newObject();
+			Beads.clear();
+			PdfBead bd;
+			if (currentThreadObj == 0)
+				currentThreadObj = writer.newObject();
 				
-				PdfId fir = currentThreadObj + 1;
-				PdfId ccb = currentThreadObj + 1;
-				bd.Parent = currentThreadObj;
-				while (tel->nextInChain() != 0)
-				{
-					if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
-					{
-						bd.Next = ccb + 1;
-						bd.Prev = ccb - 1;
-						ccb++;
-						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
-									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
-									static_cast<int>(tel->width()),
-									static_cast<int>(tel->height()));
-						Beads.append(bd);
-					}
-					tel->inPdfArticle = true;
-					tel = tel->nextInChain();
-				}
-				bd.Next = ccb + 1;
-				bd.Prev = ccb - 1;
+			PdfId fir = currentThreadObj + 1;
+			PdfId ccb = currentThreadObj + 1;
+			bd.Parent = currentThreadObj;
+			while (tel->nextInChain() != 0)
+			{
 				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 				{
+					bd.Next = ccb + 1;
+					bd.Prev = ccb - 1;
+					ccb++;
 					bd.Page = PageTree.Kids[tel->OwnPage];
 					bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
@@ -11148,39 +11173,53 @@ void PDFLibCore::PDF_End_Articles()
 					Beads.append(bd);
 				}
 				tel->inPdfArticle = true;
-				if (Beads.count() > 0)
-				{
-					writer.startObj(currentThreadObj);
-					Threads.append(currentThreadObj);
-					PutDoc("<< /Type /Thread\n");
-					PutDoc("   /F "+Pdf::toPdf(fir)+" 0 R\n");
-					PutDoc(">>");
-					writer.endObj(currentThreadObj);
+				tel = tel->nextInChain();
+			}
+			bd.Next = ccb + 1;
+			bd.Prev = ccb - 1;
+			if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
+			{
+				bd.Page = PageTree.Kids[tel->OwnPage];
+				bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+							static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
+							static_cast<int>(tel->width()),
+							static_cast<int>(tel->height()));
+				Beads.append(bd);
+			}
+			tel->inPdfArticle = true;
+			if (Beads.count() > 0)
+			{
+				writer.startObj(currentThreadObj);
+				Threads.append(currentThreadObj);
+				PutDoc("<< /Type /Thread\n");
+				PutDoc("   /F "+Pdf::toPdf(fir)+" 0 R\n");
+				PutDoc(">>");
+				writer.endObj(currentThreadObj);
 					
-					Beads[0].Prev = fir + Beads.count()-1;
-					Beads.last().Next = fir;
+				Beads[0].Prev = fir + Beads.count()-1;
+				Beads.last().Next = fir;
 				
-					for (int beac = 0; beac < Beads.count(); ++beac)
-					{
-						PdfId beadObj = writer.startObj();
-						PutDoc("<< /Type /Bead\n");
-						PutDoc("   /T "+Pdf::toPdf(Beads[beac].Parent)+" 0 R\n");
-						PutDoc("   /N "+Pdf::toPdf(Beads[beac].Next)+" 0 R\n");
-						PutDoc("   /V "+Pdf::toPdf(Beads[beac].Prev)+" 0 R\n");
-						PutDoc("   /P "+Pdf::toPdf(Beads[beac].Page)+" 0 R\n");
-						PutDoc("   /R [ "+Pdf::toPdf(Beads[beac].Rect.x())+" "+
-						        Pdf::toPdf(Beads[beac].Rect.y())+" ");
-						PutDoc(Pdf::toPdf(Beads[beac].Rect.bottomRight().x())+" "+Pdf::toPdf(Beads[beac].Rect.y()-Beads[beac].Rect.height())+" ]\n");
-						PutDoc(">>");
-						writer.endObj(beadObj);
-					}
-					currentThreadObj = 0;
+				for (int beac = 0; beac < Beads.count(); ++beac)
+				{
+					PdfId beadObj = writer.startObj();
+					PutDoc("<< /Type /Bead\n");
+					PutDoc("   /T "+Pdf::toPdf(Beads[beac].Parent)+" 0 R\n");
+					PutDoc("   /N "+Pdf::toPdf(Beads[beac].Next)+" 0 R\n");
+					PutDoc("   /V "+Pdf::toPdf(Beads[beac].Prev)+" 0 R\n");
+					PutDoc("   /P "+Pdf::toPdf(Beads[beac].Page)+" 0 R\n");
+					PutDoc("   /R [ "+Pdf::toPdf(Beads[beac].Rect.x())+" "+
+						    Pdf::toPdf(Beads[beac].Rect.y())+" ");
+					PutDoc(Pdf::toPdf(Beads[beac].Rect.bottomRight().x())+" "+Pdf::toPdf(Beads[beac].Rect.y()-Beads[beac].Rect.height())+" ]\n");
+					PutDoc(">>");
+					writer.endObj(beadObj);
 				}
+				currentThreadObj = 0;
 			}
 		}
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
-			doc.Items->at(ele)->inPdfArticle = false;
 	}
+	for (int ele = 0; ele < doc.Items->count(); ++ele)
+		doc.Items->at(ele)->inPdfArticle = false;
+
 	writer.startObj(writer.ThreadsObj);
 	PutDoc("[ ");
 	for (int th = 0; th < Threads.count(); ++th)

@@ -117,6 +117,20 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Flag_CommitOnSelChange	=	67108864	// Bit 27
 		};
 
+	bool isAcroFormField() const
+	{
+		if (AnType == Annotation::Button ||
+			AnType == Annotation::Textfield ||
+			AnType == Annotation::Checkbox ||
+			AnType == Annotation::Combobox ||
+			AnType == Annotation::Listbox ||
+			AnType == Annotation::RadioButton)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	void setType(int newType) { AnType=newType; }
 	void setAction(const QString& newAction) { AnAction=newAction; }
 	void setE_act(const QString& newE_act) { An_E_act=newE_act; }
