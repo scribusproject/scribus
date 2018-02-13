@@ -15,10 +15,10 @@
 <dd><code>createCharStyle(...)</code>
 <p>Creates a character style. This function takes the following keyword parameters:
 <ul>
-<li>"name" [required] -> name of the char style to create</li>
-<li>"font" [optional] -> name of the font to use</li>
-<li>fontsize [optional] -> font size to set (double)</li>
-<li>"features" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+<li>"name" [required] -> name of the char style to create (first parameter)</li>
+<li>"font" [optional] -> name of the font to use (second parameter)</li>
+<li>fontsize [optional] -> font size to set (double) (third parameter)</li>
+<li>"features" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-separated (without spaces!) (fourth parameter - a string):
 <ul>
 	<li>inherit</li>
 	<li>bold</li>
@@ -34,16 +34,16 @@
 	<li>smallcaps</li>
 </ul>
 </li>
-<li>"fillcolor" [optional], "fillshade" [optional] -> specify fill options</li>
-<li>"strokecolor" [optional], "strokeshade" [optional] -> specify stroke options</li>
-<li>baselineoffset [optional] -> offset of the baseline</li>
-<li>shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used</li>
-<li>outlinewidth [optional] -> width of the outline if used</li>
-<li>underlineoffset [optional], underlinewidth [optional] -> underline options if used</li>
-<li>strikethruoffset [optional], strikethruwidth [optional] -> strikethru options if used</li>
-<li>scaleh [optional], scalev [optional] -> scale of the chars</li>
-<li>tracking [optional] -> tracking of the text</li>
-<li>"language" [optional] -> language code</li>
+<li>"fillcolor" [optional], fillshade [optional] -> specify fill options (5th and 6th parameters - 5th is string, 6th is float 1.0 = 100%)</li>
+<li>"strokecolor" [optional], strokeshade [optional] -> specify stroke options (7th and 8th parameters - 7th is string, 8th is float 1.0 = 100%)</li>
+<li>baselineoffset [optional] -> offset of the baseline (ninth parameter)</li>
+<li>shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used (10th and 11th parameters)</li>
+<li>outlinewidth [optional] -> width of the outline if used (12th parameter)</li>
+<li>underlineoffset [optional], underlinewidth [optional] -> underline options if used (13th and 14th parameters)</li>
+<li>strikethruoffset [optional], strikethruwidth [optional] -> strikethru options if used (15th and 16th parameters)</li>
+<li>scaleh [optional], scalev [optional] -> scale of the chars (17th and 18th parameters - float values, 1.0 = 100%)</li>
+<li>tracking [optional] -> tracking of the text (19th parameter - number with odd math, e.g. -50 = -5.0%)</li>
+<li>"language" [optional] -> language code (20th parameter - a string en = English)</li>
 </ul>
 </p>
 <p>On a practical level, this is a challenging command to fully understand if you wish to assign a number of settings, since keeping track of where you are, and which kind of entry is needed (string vs number) is not easy. For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
