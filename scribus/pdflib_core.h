@@ -141,7 +141,9 @@ private:
 	void       StartObj(int nr);
 	uint       newObject() { return ObjCounter++; }
 	uint       WritePDFStream(const QString& cc);
+	uint       WritePDFStream(const QString& cc, uint objNum);
 	uint       WritePDFString(const QString& cc);
+	uint       WritePDFString(const QString& cc, uint objNum);
 	void       writeXObject(uint objNr, QString dictionary, QByteArray stream);
 	uint       writeObject(QString type, QString dictionary);
 	uint       writeGState(QString dictionary) { return writeObject("/ExtGState", dictionary); }

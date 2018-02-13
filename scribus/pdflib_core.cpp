@@ -805,6 +805,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	QFileInfo fd;
 	QString fext;
 	int a;
+	int openActionObj = 0;
 	inPattern = 0;
 	Bvie = vi;
 	BookMinUse = false;
@@ -863,7 +864,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
-		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Options.openAction+"\\(\\)) >>\n");
+		openActionObj = newObject();
+		PutDoc("/OpenAction << /S /JavaScript /JS " + QString::number(openActionObj) + " 0 R >>\n");
 	}
 
 	QDate d = QDate::currentDate();
@@ -985,6 +987,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/O <"+String2Hex(&ok)+">\n");
 		PutDoc("/U <"+String2Hex(&uk)+">\n");
 		PutDoc("/P "+QString::number(Options.Permissions)+"\n>>\nendobj\n");
+	}
+	if (openActionObj)
+	{
+		WritePDFString("this." + Options.openAction + "()", openActionObj);
 	}
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
@@ -6482,6 +6488,19 @@ uint PDFLibCore::WritePDFStream(const QString& cc)
 	return result;
 }
 
+uint PDFLibCore::WritePDFStream(const QString& cc, uint objNum)
+{
+	QString tmp(cc);
+	if (Options.Compress)
+		tmp = CompressStr(&tmp);
+	StartObj(objNum);
+	PutDoc("<< /Length "+QString::number(tmp.length()));  // moeglicherweise +1
+	if (Options.Compress)
+		PutDoc("\n/Filter /FlateDecode");
+	PutDoc(" >>\nstream\n"+EncStream(tmp, objNum)+"\nendstream\nendobj\n");
+	return objNum;
+}
+
 uint PDFLibCore::WritePDFString(const QString& cc)
 {	
 	QString tmp;
@@ -6497,6 +6516,23 @@ uint PDFLibCore::WritePDFString(const QString& cc)
 			tmp += cc[i];
 	}
 	return WritePDFStream(tmp);
+}
+
+uint PDFLibCore::WritePDFString(const QString& cc, uint objNum)
+{	
+	QString tmp;
+	for (int i = 0; i < cc.length(); ++i)
+	{
+		if (cc[i].unicode() > 255)
+		{
+			tmp += "\\u";
+			tmp += toHex(cc[i].row());
+			tmp += toHex(cc[i].cell());
+		}
+		else
+			tmp += cc[i];
+	}
+	return WritePDFStream(tmp, objNum);
 }
 
 void PDFLibCore::PDF_xForm(uint objNr, double w, double h, QString im)
