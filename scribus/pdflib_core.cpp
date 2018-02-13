@@ -1116,7 +1116,8 @@ void PDFLibCore::PDF_Begin_Catalog()
 			PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
-		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Pdf::toPdfDocEncoding(Options.openAction)+"\\(\\)) >>\n");
+		writer.OpenActionObj = writer.newObject();
+		PutDoc("/OpenAction << /S /JavaScript /JS " + Pdf::toPdf(writer.OpenActionObj) + " 0 R >>\n");
 	}
 	QDateTime dt = QDateTime::currentDateTimeUtc();
 	Datum = Pdf::toDateString(dt);
@@ -1217,28 +1218,6 @@ void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
 		PutDoc("/GTS_PDFXVersion (PDF/X-4)\n");
 	PutDoc("/Trapped /False\n>>");
 	writer.endObj(writer.InfoObj);
-
-	// Encrypt
-	
-//	for (int t = 0; t < 6; ++t)
-//		XRef.append(bytesWritten());
-//	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-//		XRef.append(bytesWritten());
-//	if (PDF_IsPDFX())
-//		XRef.append(bytesWritten());
-//	if (Options.Version == PDFOptions::PDFVersion_X4)
-//		XRef.append(bytesWritten());
-	if (Options.Encrypt)
-	{ // now done in writer.setEncrption():
-//		writer.EncryptObj = writer.newObject();
-//		writer.startObj(writer.EncryptObj);
-//		PutDoc("<<\n/Filter /Standard\n");
-//		PutDoc( KeyLen > 5 ? "/R 3\n/V 2\n/Length 128\n" : "/R 2\n/V 1\n");
-//		PutDoc("/O "+Pdf::toHexString(ok)+"\n");
-//		PutDoc("/U "+Pdf::toHexString(uk)+"\n");
-//		PutDoc("/P "+Pdf::toPdf(Options.Permissions)+"\n>>");
-//		writer.endObj(writer.EncryptObj);
-	}
 }
 
 QMap<QString, QMap<uint, FPointArray> >
@@ -9702,16 +9681,21 @@ PdfId PDFLibCore::writeActions(const Annotation&	annot, PdfId annotationObj)
 PdfId PDFLibCore::WritePDFStream(const QByteArray& cc)
 {
 	PdfId result = writer.newObject();
+	return WritePDFStream(cc, result);
+}
+
+PdfId PDFLibCore::WritePDFStream(const QByteArray& cc, PdfId objId)
+{
 	QByteArray tmp(cc);
 	if (Options.Compress)
 		tmp = CompressArray(tmp);
-	writer.startObj(result);
-	PutDoc("<< /Length "+Pdf::toPdf(tmp.length()));  // moeglicherweise +1
+	writer.startObj(objId);
+	PutDoc("<< /Length " + Pdf::toPdf(tmp.length()));  // moeglicherweise +1
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(tmp, result)+"\nendstream");
-	writer.endObj(result);
-	return result;
+	PutDoc(" >>\nstream\n" + EncStream(tmp, objId) + "\nendstream");
+	writer.endObj(objId);
+	return objId;
 }
 
 PdfId PDFLibCore::WritePDFString(const QString& cc)
@@ -9730,6 +9714,24 @@ PdfId PDFLibCore::WritePDFString(const QString& cc)
 		}
 	}
 	return WritePDFStream(tmp);
+}
+
+PdfId PDFLibCore::WritePDFString(const QString& cc, PdfId objId)
+{
+	QByteArray tmp;
+	for (int i = 0; i < cc.length(); ++i)
+	{
+		uchar pdfChar = Pdf::toPdfDocEncoding(cc[i]);
+		if ((pdfChar != 0) || cc[i].isNull())
+			tmp += pdfChar;
+		else
+		{
+			tmp += "\\u";
+			tmp += toHex(cc[i].row());
+			tmp += toHex(cc[i].cell());
+		}
+	}
+	return WritePDFStream(tmp, objId);
 }
 
 void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, QByteArray im)
@@ -11095,6 +11097,9 @@ void PDFLibCore::PDF_End_FormObjects()
 
 void PDFLibCore::PDF_End_JavaScripts()
 {
+	if (writer.OpenActionObj != 0)
+		WritePDFString("this." + Options.openAction + "()", writer.OpenActionObj);
+
 	if (writer.NamesObj == 0)
 		return;
 
