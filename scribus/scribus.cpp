@@ -5418,10 +5418,11 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		wot=doc->Pages->count();
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	view->updatesOn(false);
+	const PageSet& pageSet = doc->pageSets()[doc->pagePositioning()];
 	ScPage* currentPage = doc->currentPage();
 	for (cc = 0; cc < numPages; ++cc)
 	{
-		slotNewPage(wot, base[(wot+doc->pageSets()[doc->pagePositioning()].FirstPage) % doc->pageSets()[doc->pagePositioning()].Columns], mov); //Avoid the master page application with QString::null
+		slotNewPage(wot, base[(wot + pageSet.FirstPage) % pageSet.Columns], mov); //Avoid the master page application with QString::null
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
 		if (overrideMasterPageSizing)
