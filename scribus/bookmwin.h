@@ -47,8 +47,10 @@ public:
 	BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageItem *PObject);
 	BookMItem(QTreeWidget* parent, int nr, PageItem *PObject);
 	~BookMItem() {};
-	void SetUp(struct ScribusDoc::BookMa *Bm);
+
+	void Setup(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
+
 	PageItem *PageObject;
 	int ItemNr;
 	int PdfObj;
@@ -79,6 +81,7 @@ class SCRIBUS_API BookMView : public QTreeWidget
 public:
 	BookMView(QWidget* parent);
 	~BookMView() {};
+
 	void AddItem(QString text, QString Tit, PageItem *PageObject);
 	void DeleteItem(PageItem *PageObject);
 	void SetAction(PageItem *currItem, QString Act);
@@ -105,6 +108,7 @@ signals:
 
 protected:
 	void dropEvent(QDropEvent *e);
+	void getTextAndTitle(PageItem* item, QString& text, QString& title);
 
 private slots:
 	void setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * previous);

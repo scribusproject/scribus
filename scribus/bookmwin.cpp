@@ -30,25 +30,25 @@ for which a new license (GPL+exception) is in place.
 BookMItem::BookMItem(QTreeWidgetItem* parent, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent)
 {
-	SetUp(Bm);
+	Setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidgetItem* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent, after)
 {
-	SetUp(Bm);
+	Setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent, after)
 {
-	SetUp(Bm);
+	Setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent)
 {
-	SetUp(Bm);
+	Setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageItem* PObject)
@@ -79,7 +79,7 @@ BookMItem::BookMItem(QTreeWidget* parent, int nr, PageItem* PObject)
 	Pare = 0;
 }
 
-void BookMItem::SetUp(struct ScribusDoc::BookMa *Bm)
+void BookMItem::Setup(struct ScribusDoc::BookMa *Bm)
 {
 	ItemNr = Bm->ItemNr;
 	PdfObj = 0;
@@ -134,23 +134,45 @@ BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 
 void BookMView::AddPageItem(PageItem* ite)
 {
-	QString bm = "";
-	QString bm2 = "";
-	QString cc;
-	for (int d = 0; d < ite->itemText.length(); ++d)
-	{
-		cc = ite->itemText.text(d);
-		if ((cc == QChar(13)) || (cc == QChar(10)))
-			break;
-		if (cc == QChar(29))
-			cc = " ";
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			bm2 += "\\";
-		bm += cc;
-		bm2 += cc;
-	}
+	QString bm;
+	QString bm2;
+
+	getTextAndTitle(ite, bm, bm2);
 	AddItem(bm, bm2, ite);
 	Last = NrItems;
+}
+
+void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
+{
+	QChar ch;
+	QString str;
+
+	text.clear();
+	title.clear();
+
+	const StoryText& itemText = item->itemText;
+	for (int i = 0; i < item->itemText.length(); ++i)
+	{
+		str = item->itemText.text(i);
+		if ((str == SpecialChars::PARSEP) || (str == SpecialChars::LINEBREAK) || (str == QChar(10)))
+			break;
+		if (str == SpecialChars::PAGENUMBER || str == SpecialChars::PAGECOUNT)
+		{
+			str = item->ExpandToken(i);
+			if (str.isEmpty())
+				str = SpecialChars::ZWNBSPACE;
+		}
+		for (int j = 0; j < str.length(); ++j)
+		{
+			ch = str.at(j);
+			if (ch == SpecialChars::OLD_NBSPACE)
+				ch = ' ';
+			if ((ch == '(') || (ch == ')') || (ch == '\\'))
+				title += "\\";
+			text  += ch;
+			title += ch;
+		}
+	}
 }
 
 void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previous*/)
@@ -277,19 +299,10 @@ void BookMView::SetAction(PageItem *currItem, QString Act)
 void BookMView::ChangeText(PageItem *currItem)
 {
 	BookMItem *ite;
-	QString bm = "";
-	QString bm2 = "";
-	QString cc;
-	for (int d = 0; d < currItem->itemText.length(); ++d)
-	{
-		cc = currItem->itemText.text(d);
-		if ((cc == QChar(13)) || (cc == QChar(10)))
-			break;
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			bm2 += "\\";
-		bm += cc;
-		bm2 += cc;
-	}
+	QString bm, bm2;
+
+	getTextAndTitle(currItem, bm, bm2);
+
 	QTreeWidgetItemIterator it(this);
 	while (*it)
 	{
