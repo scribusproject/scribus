@@ -133,23 +133,46 @@ BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 
 void BookMView::AddPageItem(PageItem* ite)
 {
-	QString bm = "";
-	QString bm2 = "";
-	QString cc;
-	for (int d = 0; d < ite->itemText.length(); ++d)
-	{
-		cc = ite->itemText.text(d);
-		if ((cc == QChar(13)) || (cc == QChar(10)))
-			break;
-		if (cc == QChar(29))
-			cc = " ";
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			bm2 += "\\";
-		bm += cc;
-		bm2 += cc;
-	}
+	QChar ch;
+	QString bm, bm2;
+	QString str;
+
+	getTextAndTitle(ite, bm, bm2);
 	AddItem(bm, bm2, ite);
 	Last = NrItems;
+}
+
+void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
+{
+	QChar ch;
+	QString str;
+
+	text.clear();
+	title.clear();
+
+	const StoryText& itemText = item->itemText;
+	for (int i = 0; i < item->itemText.length(); ++i)
+	{
+		str = item->itemText.text(i);
+		if ((str == SpecialChars::PARSEP) || (str == SpecialChars::LINEBREAK) || (str == QChar(10)))
+			break;
+		if (item->itemText.hasExpansionPoint(i))
+		{
+			str = item->expand(item->itemText.expansionPoint(i));
+			if (str.isEmpty())
+				str = SpecialChars::ZWNBSPACE;
+		}
+		for (int j = 0; j < str.length(); ++j)
+		{
+			ch = str.at(j);
+			if (ch == SpecialChars::OLD_NBSPACE)
+				ch = ' ';
+			if ((ch == "(") || (ch == ")") || (ch == "\\"))
+				title += "\\";
+			text  += ch;
+			title += ch;
+		}
+	}
 }
 
 void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previous*/)
@@ -279,16 +302,9 @@ void BookMView::ChangeText(PageItem *currItem)
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	for (int d = 0; d < currItem->itemText.length(); ++d)
-	{
-		cc = currItem->itemText.text(d);
-		if ((cc == QChar(13)) || (cc == QChar(10)))
-			break;
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			bm2 += "\\";
-		bm += cc;
-		bm2 += cc;
-	}
+
+	getTextAndTitle(currItem, bm, bm2);
+
 	QTreeWidgetItemIterator it(this);
 	while (*it)
 	{

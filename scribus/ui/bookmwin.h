@@ -105,6 +105,7 @@ signals:
 
 protected:
 	void dropEvent(QDropEvent *e);
+	void getTextAndTitle(PageItem* item, QString& text, QString& title);
 
 private slots:
 	void setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * previous);
