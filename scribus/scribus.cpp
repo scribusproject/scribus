@@ -725,9 +725,9 @@ void ScribusMainWindow::initPalettes()
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 
-	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
+	connect(bookmarkPalette->BView, SIGNAL(markMoved()), this, SLOT(StoreBookmarks()));
 	connect(bookmarkPalette->BView, SIGNAL(changed()), this, SLOT(slotDocCh()));
-	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
+	connect(bookmarkPalette->BView, SIGNAL(selectElement(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	// guides
 	connect(scrActions["pageManageGuides"], SIGNAL(toggled(bool)), guidePalette, SLOT(setPaletteShown(bool)));
 	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setChecked(bool)));
@@ -3958,7 +3958,7 @@ void ScribusMainWindow::slotGetContent()
 			for (int a = 0; a < doc->Items->count(); ++a)
 			{
 				if (doc->Items->at(a)->isBookmark)
-					bookmarkPalette->BView->ChangeText(doc->Items->at(a));
+					bookmarkPalette->BView->changeText(doc->Items->at(a));
 			}
 			if (!impsetup.textOnly)
 				doc->flag_NumUpdateRequest = true;
@@ -4010,7 +4010,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 	for (int a = 0; a < doc->Items->count(); ++a)
 	{
 		if (doc->Items->at(a)->isBookmark)
-			bookmarkPalette->BView->ChangeText(doc->Items->at(a));
+			bookmarkPalette->BView->changeText(doc->Items->at(a));
 	}
 	view->DrawNew();
 	slotDocCh();
@@ -7332,19 +7332,19 @@ void ScribusMainWindow::doSaveAsPDF()
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::AddBookMark(PageItem *ite)
 {
-	bookmarkPalette->BView->AddPageItem(ite);
+	bookmarkPalette->BView->addPageItem(ite);
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::DelBookMark(PageItem *ite)
 {
-	bookmarkPalette->BView->DeleteItem(ite);
+	bookmarkPalette->BView->deleteItem(ite);
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 {
-	bookmarkPalette->BView->ChangeText(ite);
+	bookmarkPalette->BView->changeText(ite);
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette

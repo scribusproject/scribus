@@ -9772,7 +9772,7 @@ void PDFLibCore::PDF_Form(const QByteArray& im) // unused? - av
 
 void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 {
-	Bvie->SetAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0]");
+	Bvie->setAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0]");
 	BookMinUse = true;
 }
 

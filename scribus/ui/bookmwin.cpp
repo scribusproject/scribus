@@ -29,25 +29,25 @@ for which a new license (GPL+exception) is in place.
 BookMItem::BookMItem(QTreeWidgetItem* parent, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent)
 {
-	SetUp(Bm);
+	setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidgetItem* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent, after)
 {
-	SetUp(Bm);
+	setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent, after)
 {
-	SetUp(Bm);
+	setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, struct ScribusDoc::BookMa *Bm)
 	: QTreeWidgetItem(parent)
 {
-	SetUp(Bm);
+	setup(Bm);
 }
 
 BookMItem::BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageItem* PObject)
@@ -55,7 +55,6 @@ BookMItem::BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageIt
 {
 	ItemNr = nr;
 	PageObject = PObject;
-	PdfObj = 0;
 	Action = "";
 	First = 0;
 	Last = 0;
@@ -69,7 +68,6 @@ BookMItem::BookMItem(QTreeWidget* parent, int nr, PageItem* PObject)
 {
 	ItemNr = nr;
 	PageObject = PObject;
-	PdfObj = 0;
 	Action = "";
 	First = 0;
 	Last = 0;
@@ -78,10 +76,9 @@ BookMItem::BookMItem(QTreeWidget* parent, int nr, PageItem* PObject)
 	Pare = 0;
 }
 
-void BookMItem::SetUp(struct ScribusDoc::BookMa *Bm)
+void BookMItem::setup(struct ScribusDoc::BookMa *Bm)
 {
 	ItemNr = Bm->ItemNr;
-	PdfObj = 0;
 	Action = Bm->Aktion;
 	First = Bm->First;
 	Last = Bm->Last;
@@ -131,14 +128,13 @@ BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 			this, SLOT(setPageItem(QTreeWidgetItem *, QTreeWidgetItem *)));
 }
 
-void BookMView::AddPageItem(PageItem* ite)
+void BookMView::addPageItem(PageItem* ite)
 {
 	QChar ch;
 	QString bm, bm2;
-	QString str;
 
 	getTextAndTitle(ite, bm, bm2);
-	AddItem(bm, bm2, ite);
+	addItem(bm, bm2, ite);
 	Last = NrItems;
 }
 
@@ -180,7 +176,7 @@ void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previ
 	BookMItem * i = dynamic_cast<BookMItem*>(current);
 	// something weird here at 1st call...
 	if (i)
-		emit SelectElement(i->PageObject, false);
+		emit selectElement(i->PageObject, false);
 }
 
 void BookMView::dropEvent(QDropEvent *e)
@@ -251,11 +247,11 @@ void BookMView::rebuildTree()
 
 	NrItems = Last;
 
-	emit MarkMoved();
+	emit markMoved();
 	emit changed();
 }
 
-void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
+void BookMView::addItem(QString text, QString Tit, PageItem *PageObject)
 {
 	BookMItem * ite = new BookMItem(this, NrItems+1, PageObject);
 	ite->setText(0, text);
@@ -263,7 +259,7 @@ void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
 	rebuildTree();
 }
 
-void BookMView::DeleteItem(PageItem *pObject)
+void BookMView::deleteItem(PageItem *pObject)
 {
 	QTreeWidgetItemIterator it(this);
 	BookMItem * item;
@@ -280,7 +276,7 @@ void BookMView::DeleteItem(PageItem *pObject)
 	rebuildTree();
 }
 
-void BookMView::SetAction(PageItem *currItem, QString Act)
+void BookMView::setAction(PageItem *currItem, QString Act)
 {
 	BookMItem *ite;
 	QTreeWidgetItemIterator it(this);
@@ -296,12 +292,10 @@ void BookMView::SetAction(PageItem *currItem, QString Act)
 	}
 }
 
-void BookMView::ChangeText(PageItem *currItem)
+void BookMView::changeText(PageItem *currItem)
 {
 	BookMItem *ite;
-	QString bm = "";
-	QString bm2 = "";
-	QString cc;
+	QString bm, bm2;
 
 	getTextAndTitle(currItem, bm, bm2);
 
