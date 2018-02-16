@@ -807,6 +807,20 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 					importedColors.append(fNam);
 				colorTranslate.insert(colorSelf, fNam);
 			}
+			else if (colorSpace == "LAB")
+			{
+				double L, a, b;
+				ScColor tmp;
+				ScTextStream Code(&colorData, QIODevice::ReadOnly);
+				Code >> L >> a >> b;
+				tmp.setLabColor(L, a, b);
+				tmp.setSpotColor(false);
+				tmp.setRegistrationColor(false);
+				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);
+				if (fNam == colorName)
+					importedColors.append(fNam);
+				colorTranslate.insert(colorSelf, fNam);
+			}
 		}
 		else if (e.tagName() == "Gradient")
 		{
