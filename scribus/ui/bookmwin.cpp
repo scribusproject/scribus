@@ -163,7 +163,7 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 			ch = str.at(j);
 			if (ch == SpecialChars::OLD_NBSPACE)
 				ch = ' ';
-			if ((ch == "(") || (ch == ")") || (ch == "\\"))
+			if ((ch == '(') || (ch == ')') || (ch == '\\'))
 				title += "\\";
 			text  += ch;
 			title += ch;
