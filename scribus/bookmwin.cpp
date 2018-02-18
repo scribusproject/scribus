@@ -153,9 +153,10 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 	const StoryText& itemText = item->itemText;
 	for (int i = 0; i < item->itemText.length(); ++i)
 	{
-		str = item->itemText.text(i);
-		if ((str == SpecialChars::PARSEP) || (str == SpecialChars::LINEBREAK) || (str == QChar(10)))
+		ch = item->itemText.text(i);
+		if (SpecialChars::isBreak(ch) || (ch == QChar(10)))
 			break;
+		str = ch;
 		if (str == SpecialChars::PAGENUMBER || str == SpecialChars::PAGECOUNT)
 		{
 			str = item->ExpandToken(i);
@@ -165,7 +166,7 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 		for (int j = 0; j < str.length(); ++j)
 		{
 			ch = str.at(j);
-			if (ch == SpecialChars::OLD_NBSPACE)
+			if (ch == SpecialChars::OLD_NBSPACE || ch == SpecialChars::OBJECT)
 				ch = ' ';
 			if ((ch == '(') || (ch == ')') || (ch == '\\'))
 				title += "\\";
