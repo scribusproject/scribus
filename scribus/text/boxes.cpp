@@ -103,7 +103,7 @@ double GroupBox::naturalHeight() const
 		if (m_direction == D_Horizontal)
 			nH = qMax(m_naturalHeight, box->naturalHeight());
 		else
-			nH = ceil(box->y() + box->ascent() - box->naturalDecent());
+			nH = ceil(box->y() + box->ascent() - box->naturalDescent());
 	}
 	return nH;
 }
@@ -137,7 +137,7 @@ void GroupBox::update()
 		else
 		{
 			m_naturalWidth = qMax(m_naturalWidth, box->naturalWidth());
-			m_naturalHeight = ceil(box->y() + box->ascent() - box->naturalDecent());
+			m_naturalHeight = ceil(box->y() + box->ascent() - box->naturalDescent());
 		}
 	}
 
@@ -325,7 +325,7 @@ void LineBox::removeBox(int i)
 
 void LineBox::update()
 {
-	m_naturalWidth = m_naturalAscent = m_naturalDecent = 0;
+	m_naturalWidth = m_naturalAscent = m_naturalDescent = 0;
 	for (int i = 0; i < m_boxes.count(); ++i)
 	{
 		Box* box = m_boxes[i];
@@ -336,7 +336,7 @@ void LineBox::update()
 		m_naturalWidth += box->width();
 
 		m_naturalAscent = qMax(m_naturalAscent, box->naturalAsc());
-		m_naturalDecent = qMin(m_naturalDecent, box->naturalDecent());
+		m_naturalDescent = qMin(m_naturalDescent, box->naturalDescent());
 	}
 
 //	emit boxChanged();
