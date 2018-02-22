@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCursor>
+#include <QDataStream>
 #include <QDrag>
 #include <QFile>
 #include <QList>
@@ -28,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
+#include "qtiocompressor.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -715,87 +717,52 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 bool AIPlug::decompressAIData(QString &fName)
 {
 	QString f2 = fName+"_decom.ai";
-	FILE *source, *dest;
-	int ret;
-	unsigned have;
-	z_stream strm;
-	char in[4096];
-	char out[4096];
+	char buffer[4096];
 
-	source = fopen(fName.toLocal8Bit().constData(), "rb");
-	if (!source)
+	QFile source(fName);
+	if (!source.open(QFile::ReadOnly))
 		return false;
-	if (fseek(source, 20, SEEK_SET) != 0)
+	if (!source.seek(20))
 	{
-		fclose(source);
-		return false;
-	}
-	dest = fopen(f2.toLocal8Bit().constData(), "wb");
-	if (!dest)
-	{
-		fclose(source);
+		source.close();
 		return false;
 	}
 
-	strm.zalloc = Z_NULL;
-	strm.zfree = Z_NULL;
-	strm.opaque = Z_NULL;
-	strm.avail_in = 0;
-	strm.next_in = Z_NULL;
-
-	ret = inflateInit(&strm);
-	if (ret != Z_OK)
+	QtIOCompressor compressor(&source);
+	compressor.setStreamFormat(QtIOCompressor::ZlibFormat);
+	if (!compressor.open(QIODevice::ReadOnly))
 	{
-		fclose(source);
-		fclose(dest);
+		source.close();
 		return false;
 	}
 
-	do
+	QFile dest(f2);
+	if (!dest.open(QFile::WriteOnly))
 	{
-		strm.avail_in = fread(in, 1, 4096, source);
-		if (ferror(source))
-		{
-			(void)inflateEnd(&strm);
-			fclose(source);
-			fclose(dest);
-			return false;
-		}
-		if (strm.avail_in == 0)
+		source.close();
+		return false;
+	}
+	QDataStream destStream(&dest);
+
+	qint64 bytesRead = -1;
+	qint64 bytesWritten = -1;
+
+	bytesRead = compressor.read(buffer, 4096);
+	while (bytesRead > 0)
+	{
+		bytesWritten = destStream.writeRawData(buffer, (int) bytesRead);
+		if (bytesWritten < 0)
 			break;
-		strm.next_in = (Bytef*)in;
-		do
-		{
-			strm.avail_out = 4096;
-			strm.next_out = (Bytef*)out;
-			ret = inflate(&strm, Z_NO_FLUSH);
-			assert(ret != Z_STREAM_ERROR);
-			switch (ret)
-			{
-				case Z_NEED_DICT:
-					ret = Z_DATA_ERROR;
-				case Z_DATA_ERROR:
-				case Z_MEM_ERROR:
-					(void)inflateEnd(&strm);
-					fclose(source);
-					fclose(dest);
-					return false;
-			}
-			have = 4096 - strm.avail_out;
-			if (fwrite(out, 1, have, dest) != have || ferror(dest))
-			{
-				(void)inflateEnd(&strm);
-				fclose(source);
-				fclose(dest);
-				return false;
-			}
-		}
-		while (strm.avail_out == 0);
+		bytesRead = compressor.read(buffer, 4096);
 	}
-	while (ret != Z_STREAM_END);
-	(void)inflateEnd(&strm);
-	fclose(source);
-	fclose(dest);
+
+	compressor.close();
+	source.close();
+	dest.close();
+
+	if (bytesRead < 0 || bytesWritten < 0)
+		return false;
+
 	if (!convertedPDF)
 	{
 		QFileInfo bF2(fName);
