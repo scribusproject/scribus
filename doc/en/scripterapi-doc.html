@@ -62,7 +62,7 @@ following meaning:</p>
 	<li>facingPages = FACINGPAGES, NOFACINGPAGES</li>
 	<li>firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
 	</ul>
-<p>The values for width, height and the margins are expressed in the given unit for the document. PAPER_* constants are expressed in points. If your document is not in points, make sure to account for this.</p>
+<p>The values for width, height and the margins are expressed in the given unit for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants. A workaround can be to use the PAPER_* constant along with UNIT_POINTS, then follow the command with another command, setUnit(UNIT_MILLIMETERS).</p>
 <p>example: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
 
 <dt><a name="-newDocument"><strong>newDocument</strong>(...)</a></dt>
@@ -90,8 +90,7 @@ Indexed from 0 (0 = first).</li>
 <li>numPage = Number of pages to be created.</li>
 </ul>
 <p>The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.</p>
+for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants. A workaround can be to use the PAPER_* constant along with UNIT_POINTS, then follow the command with another command, setUnit(UNIT_MILLIMETERS).</p>
 <p>example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
 PAGE_4, 3, 1)</p>
 <p>May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</p>
