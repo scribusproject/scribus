@@ -457,16 +457,16 @@ bool XfigPlug::parseHeader(QString fName, double &x, double &y, double &b, doubl
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream ts(&f);
-		QString version = readLinefromDataStream(ts);
+		QString version = readLineFromDataStream(ts);
 		if (!version.startsWith("#FIG 3"))
 		{
 			f.close();
 			return false;
 		}
-		QString orientation = readLinefromDataStream(ts);
-		QString justification = readLinefromDataStream(ts);
-		QString units = readLinefromDataStream(ts);
-		QString papersize = readLinefromDataStream(ts);
+		QString orientation = readLineFromDataStream(ts);
+		QString justification = readLineFromDataStream(ts);
+		QString units = readLineFromDataStream(ts);
+		QString papersize = readLineFromDataStream(ts);
 		PageSize ps(papersize);
 		if (orientation.startsWith("Landscape"))
 		{
@@ -799,18 +799,18 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> join_style >> cap_style >> radius >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
-		fArrowData = readLinefromDataStream(ts);
+		fArrowData = readLineFromDataStream(ts);
 	if (backward_arrow == 1)
-		bArrowData = readLinefromDataStream(ts);
+		bArrowData = readLineFromDataStream(ts);
 	if (subtype == 5)
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		ScTextStream imf(&tmp, QIODevice::ReadOnly);
 		imf >> imgFlipped >> imgFile;
 	}
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
@@ -937,12 +937,12 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> cap_style >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
-		fArrowData = readLinefromDataStream(ts);
+		fArrowData = readLineFromDataStream(ts);
 	if (backward_arrow == 1)
-		bArrowData = readLinefromDataStream(ts);
+		bArrowData = readLineFromDataStream(ts);
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
@@ -968,7 +968,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	pointsRead = 0;
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
@@ -1050,9 +1050,9 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 	Code >> area_fill >> style_val >> cap_style >> direction >> forward_arrow >> backward_arrow;
 	Code >> center_x >> center_y >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 	if (forward_arrow == 1)
-		fArrowData = readLinefromDataStream(ts);
+		fArrowData = readLineFromDataStream(ts);
 	if (backward_arrow == 1)
-		bArrowData = readLinefromDataStream(ts);
+		bArrowData = readLineFromDataStream(ts);
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
 	LineW = thickness / 80.0 * 72.0;
@@ -1632,21 +1632,21 @@ bool XfigPlug::convert(QString fn)
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
-		QString version = readLinefromDataStream(ts);
-		QString orientation = readLinefromDataStream(ts);
-		QString justification = readLinefromDataStream(ts);
-		QString units = readLinefromDataStream(ts);
-		QString papersize = readLinefromDataStream(ts);
-		QString magnification = readLinefromDataStream(ts);
-		QString multiple = readLinefromDataStream(ts);
-		QString transparent = readLinefromDataStream(ts);
-		tmp = readLinefromDataStream(ts);
+		QString version = readLineFromDataStream(ts);
+		QString orientation = readLineFromDataStream(ts);
+		QString justification = readLineFromDataStream(ts);
+		QString units = readLineFromDataStream(ts);
+		QString papersize = readLineFromDataStream(ts);
+		QString magnification = readLineFromDataStream(ts);
+		QString multiple = readLineFromDataStream(ts);
+		QString transparent = readLineFromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("#"))
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 		QString resolution = tmp;
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.startsWith("#"))
 				continue;
 			processData(ts, tmp);

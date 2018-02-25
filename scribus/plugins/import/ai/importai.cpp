@@ -793,7 +793,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 		QDataStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.startsWith("%%BoundingBox:"))
 			{
 				found = true;
@@ -880,7 +880,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
 							ts.device()->seek(oldPos);
@@ -944,7 +944,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
 							ts.device()->seek(oldPos);
@@ -979,7 +979,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				while (!ts.atEnd())
 				{
 					bool isX = false;
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
 					{
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
@@ -1002,7 +1002,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 							}
 							FarNam = QString::fromUtf8(farN.constData());
 						}
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if (tmp.endsWith("Pc"))
 						{
 							if (!isX)
@@ -2719,7 +2719,7 @@ void AIPlug::processPattern(QDataStream &ts)
 	QString tmpData = "";
 	while (!ts.atEnd())
 	{
-		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		tmp = removeAIPrefix(readLineFromDataStream(ts));
 		if (importerFlags & LoadSavePlugin::lfKeepPatterns)
 		{
 			if (tmp.startsWith("%_"))
@@ -2833,7 +2833,7 @@ void AIPlug::processPattern(QDataStream &ts)
 		{
 			while (!ts.atEnd())
 			{
-				tmp = readLinefromDataStream(ts);
+				tmp = readLineFromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
 				if(progressDialog)
@@ -2870,7 +2870,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 	QString tmp;
 	while (!ts.atEnd())
 	{
-		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		tmp = removeAIPrefix(readLineFromDataStream(ts));
 		if (!patternMode)
 		{
 			int an = tmp.indexOf("(");
@@ -2931,7 +2931,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 		{
 			while (!ts.atEnd())
 			{
-				tmp = readLinefromDataStream(ts);
+				tmp = readLineFromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
 				if(progressDialog)
@@ -2957,7 +2957,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	QString cumulated = "";
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("%"))
 			break;
 		tmp.remove("[");
@@ -2986,7 +2986,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	if (tmp.startsWith("%%BeginData"))
 	{
 		ScTextStream gVals2(&tmp, QIODevice::ReadOnly);
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 	}
 	QByteArray psdata;
 	psdata.resize(dataSize);
@@ -3012,7 +3012,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		while (!ts.atEnd())
 		{
 			if (first)
-				tmp = readLinefromDataStream(ts);
+				tmp = readLineFromDataStream(ts);
 			first = true;
 			if (tmp.startsWith("%AI5_EndRaster"))
 				break;
@@ -3128,12 +3128,12 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("BeginGradient"))
 			{
 				while (!ts.atEnd())
 				{
-					tmp = removeAIPrefix(readLinefromDataStream(ts));
+					tmp = removeAIPrefix(readLineFromDataStream(ts));
 					if (tmp.startsWith("EndGradient"))
 						break;
 					else
@@ -3161,7 +3161,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndGradient"))
 				break;
 			else
@@ -3177,7 +3177,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndPalette"))
 				break;
 			if(progressDialog)
@@ -3195,7 +3195,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 		while (!ts.atEnd())
 		{
 			processSymbol(ts);
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndSymbol"))
 				break;
 			if(progressDialog)
@@ -3209,7 +3209,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndDocumentData"))
 				break;
 			if(progressDialog)
@@ -3221,10 +3221,10 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	}
 	else if (tmp.startsWith("BeginTextDocument"))
 	{
-		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		tmp = removeAIPrefix(readLineFromDataStream(ts));
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndTextDocument"))
 			{
 			//	QByteArray fData;
@@ -3244,7 +3244,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndProlog"))
 				break;
 			if(progressDialog)
@@ -3258,7 +3258,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndData"))
 				break;
 			if(progressDialog)
@@ -3272,7 +3272,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndCrops"))
 				break;
 			if(progressDialog)
@@ -3295,7 +3295,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.contains("EndRaster"))
 				break;
 			if(progressDialog)
@@ -3309,7 +3309,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndSVGFilter"))
 				break;
 			if(progressDialog)
@@ -3323,7 +3323,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndArtStyles"))
 				break;
 			if(progressDialog)
@@ -3337,7 +3337,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndPluginObject"))
 				break;
 			if(progressDialog)
@@ -3351,7 +3351,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			QString rl = readLinefromDataStream(ts);
+			QString rl = readLineFromDataStream(ts);
 			tmp = removeAIPrefix(rl);
 			if (tmp.startsWith("BeginRaster"))
 			{
@@ -3467,7 +3467,7 @@ bool AIPlug::convert(QString fn)
 		QDataStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.startsWith("%"))
 				processComment(ts, tmp);
 			else

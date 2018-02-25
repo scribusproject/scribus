@@ -780,7 +780,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 }
 
 
-QString readLinefromDataStream(QDataStream &s)
+QString readLineFromDataStream(QDataStream &s)
 {
 	QString ret;
 	uchar charData;

@@ -10341,7 +10341,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						QDataStream ts(&f);
 						while (!ts.atEnd())
 						{
-							QString tmp = readLinefromDataStream(ts);
+							QString tmp = readLineFromDataStream(ts);
 							if (tmp.startsWith("%%BoundingBox:"))
 							{
 								found = true;

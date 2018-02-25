@@ -92,13 +92,13 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 	QDataStream ts(&f);
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("%%BeginICCProfile:"))
 		{
 			QByteArray psdata;
 			while (!ts.atEnd())
 			{
-				tmp = readLinefromDataStream(ts);
+				tmp = readLineFromDataStream(ts);
 				for (int a = 2; a < tmp.length(); a += 2)
 				{
 					bool ok;
@@ -136,7 +136,7 @@ void ScImgDataLoader_PS::scanForFonts(QString fn)
 	QString tmp;
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("%%BeginFont:"))
 		{
 			tmp = tmp.remove("%%BeginFont:");
@@ -221,7 +221,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		ts.device()->seek(startPos);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.startsWith("%%Creator: "))
 				m_Creator = tmp.remove("%%Creator: ");
 			if (tmp.startsWith("%%Pages: "))
@@ -325,7 +325,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					while (!ts.atEnd())
 					{
 						uint oldPos = ts.device()->pos();
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
 							ts.device()->seek(oldPos);
@@ -357,7 +357,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				while (!ts.atEnd())
 				{
 					uint oldPos = ts.device()->pos();
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if (!tmp.startsWith("%%+"))
 					{
 						ts.device()->seek(oldPos);
@@ -379,7 +379,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			{
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")))
 					{
 						psFound = true;
@@ -399,7 +399,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QByteArray psdata;
 						while (!ts.atEnd())
 						{
-							tmp = readLinefromDataStream(ts);
+							tmp = readLineFromDataStream(ts);
 							if (tmp.startsWith("%EndPhotoshop"))
 							{
 								QDataStream strPhot( &psdata, QIODevice::ReadOnly);
@@ -440,7 +440,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QByteArray psdata;
 						while (!ts.atEnd())
 						{
-							tmp = readLinefromDataStream(ts);
+							tmp = readLineFromDataStream(ts);
 							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
@@ -1208,7 +1208,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	QDataStream ts(&f);
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp == m_psCommand)
 		{
 			if (m_psDataType == 1)
@@ -1241,7 +1241,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 			{
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 						break;
 					if (m_psDataType == 2)
@@ -1339,7 +1339,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 		QDataStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp == m_psCommand)
 			{
 				if (m_psDataType == 1)
@@ -1374,7 +1374,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 				{
 					while (!ts.atEnd())
 					{
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 							break;
 						if (m_psDataType == 2)

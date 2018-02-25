@@ -641,7 +641,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 				QDataStream ts(&f);
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 					{
 						if (tmp.contains("(atend)"))
@@ -666,7 +666,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							while (!ts.atEnd())
 							{
 								quint64 oldPos = ts.device()->pos();
-								tmp = readLinefromDataStream(ts);
+								tmp = readLineFromDataStream(ts);
 								if (!tmp.startsWith("%%+"))
 								{
 									ts.device()->seek(oldPos);
@@ -710,7 +710,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							while (!ts.atEnd())
 							{
 								quint64 oldPos = ts.device()->pos();
-								tmp = readLinefromDataStream(ts);
+								tmp = readLineFromDataStream(ts);
 								if (!tmp.startsWith("%%+"))
 								{
 									ts.device()->seek(oldPos);
