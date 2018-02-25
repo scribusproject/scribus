@@ -213,6 +213,7 @@ public:
 	PdfId EncryptObj; 
 	PdfId MetaDataObj;
 	PdfId ResourcesObj;
+	PdfId OpenActionObj;
 	
 private:
 	PdfId m_ObjCounter;

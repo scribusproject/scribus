@@ -134,7 +134,7 @@ QChar SCRIBUS_API cjkDigit(uint i);
 const QString SCRIBUS_API numberToLetterSequence(const QString& letters, uint num);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 
-QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
+QString SCRIBUS_API readLineFromDataStream(QDataStream &s);
 void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
 void SCRIBUS_API setCurrentComboItemFromData(QComboBox *box, QString data);
 void SCRIBUS_API removeComboItem(QComboBox *box, QString text);

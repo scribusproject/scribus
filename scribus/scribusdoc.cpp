@@ -4754,7 +4754,7 @@ bool ScribusDoc::useAcroFormFields() const
 	allItems = FrameItems.values();
 	while (allItems.count() > 0)
 	{
-		PageItem *ite = allItems.takeFirst();
+		it = allItems.takeFirst();
 		if (it->isGroup() || it->isTable())
 		{
 			allItems += it->getChildren();
@@ -4816,7 +4816,7 @@ bool ScribusDoc::useAnnotations() const
 	allItems = FrameItems.values();
 	while (allItems.count() > 0)
 	{
-		PageItem *ite = allItems.takeFirst();
+		it = allItems.takeFirst();
 		if (it->isGroup() || it->isTable())
 		{
 			allItems += it->getChildren();

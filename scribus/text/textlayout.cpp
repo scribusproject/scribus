@@ -124,6 +124,9 @@ void TextLayout::renderBackground(TextLayoutPainter *p)
 	double backShade, lastShade = 100;
 	QRectF lastRect;
 
+	p->save();
+	p->translate(m_box->x(), m_box->y());
+
 	foreach (const Box* column, m_box->boxes())
 	{
 		const QList<const Box*>& lineBoxes = column->boxes();
@@ -175,6 +178,8 @@ void TextLayout::renderBackground(TextLayoutPainter *p)
 		lastShade = 100;
 		lastRect = QRectF();
 	}
+
+	p->restore();
 }
 
 void TextLayout::render(TextLayoutPainter *p)

@@ -47,11 +47,13 @@ public:
 	BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageItem *PObject);
 	BookMItem(QTreeWidget* parent, int nr, PageItem *PObject);
 	~BookMItem() {};
-	void SetUp(struct ScribusDoc::BookMa *Bm);
+
+	int level();
+	void setup(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
+
 	PageItem *PageObject;
 	int ItemNr;
-	int PdfObj;
 	QString Action;
 	QString Title;
 	int First;
@@ -59,8 +61,6 @@ public:
 	int Prev;
 	int Next;
 	int Pare;
-
-	int level();
 };
 
 
@@ -79,9 +79,10 @@ class SCRIBUS_API BookMView : public QTreeWidget
 public:
 	BookMView(QWidget* parent);
 	~BookMView() {};
-	void AddItem(QString text, QString Tit, PageItem *PageObject);
-	void DeleteItem(PageItem *PageObject);
-	void SetAction(PageItem *currItem, QString Act);
+
+	void addItem(QString text, QString Tit, PageItem *PageObject);
+	void deleteItem(PageItem *PageObject);
+	void setAction(PageItem *currItem, QString Act);
 
 	int NrItems;
 	int First;
@@ -95,16 +96,17 @@ public:
 	void rebuildTree();
 
 public slots:
-	void AddPageItem(PageItem* ite);
-	void ChangeText(PageItem *currItem);
+	void addPageItem(PageItem* ite);
+	void changeText(PageItem *currItem);
 
 signals:
-	void MarkMoved();
-	void SelectElement(PageItem *, bool);
 	void changed();
+	void markMoved();
+	void selectElement(PageItem *, bool);
 
 protected:
 	void dropEvent(QDropEvent *e);
+	void getTextAndTitle(PageItem* item, QString& text, QString& title);
 
 private slots:
 	void setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * previous);

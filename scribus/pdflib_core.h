@@ -192,7 +192,9 @@ private:
 //	void       StartObj(PdfId nr);
 //	uint       newObject() { return ObjCounter++; }
 	uint       WritePDFStream(const QByteArray& cc);
+	uint       WritePDFStream(const QByteArray& cc, PdfId objId);
 	uint       WritePDFString(const QString& cc);
+	uint       WritePDFString(const QString& cc, PdfId objId);
 	void       writeXObject(uint objNr, QByteArray dictionary, QByteArray stream);
 	uint       writeObject(QByteArray type, QByteArray dictionary);
 	uint       writeGState(QByteArray dictionary) { return writeObject("/ExtGState", dictionary); }

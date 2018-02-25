@@ -490,6 +490,7 @@ namespace Pdf
 		EncryptObj = 0;
 		MetaDataObj = 0;
 		ResourcesObj = 0;
+		OpenActionObj = 0;
 		
 		m_ObjCounter = 0;
 		m_CurrentObj = 0;
