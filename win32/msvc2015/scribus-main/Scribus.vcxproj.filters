@@ -737,6 +737,30 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\scspectralvaluesconvertor.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_ps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_acb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_sk1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_swatchbook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2355,6 +2379,30 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\colormgmt\scspectralvaluesconvertor.cpp">
       <Filter>colorMgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_ps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_acb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_sk1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_swatchbook.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
