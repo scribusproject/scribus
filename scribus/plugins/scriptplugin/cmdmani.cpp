@@ -503,6 +503,39 @@ PyObject *scribus_deselect(PyObject* /* self */)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_exportableobject(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	item->togglePrintEnabled();
+	if (item->locked())
+		return PyInt_FromLong(1);
+	return PyInt_FromLong(0);
+}
+
+PyObject *scribus_isexportable(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
+	// and instead provide a different function like toggleLock()
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if (item->printEnabled())
+		return PyBool_FromLong(1);
+	return PyBool_FromLong(0);
+}
+
 PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
@@ -628,6 +661,8 @@ void cmdmanidocwarnings()
 	  << scribus_ungroupobj__doc__ << scribus_scalegroup__doc__
 	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
 	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
-	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__
+	  << scribus_islocked__doc__
+	  << scribus_exportablebject__doc__ << scribus_isexportable__doc__ <<
+      scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__
 	  << scribus_flipobject__doc__;
 }

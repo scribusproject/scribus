@@ -221,6 +221,27 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 PyObject *scribus_setimagegrayscale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_exportablebject__doc__,
+QT_TR_NOOP("exportableObject([\"name\"]) -> bool\n\
+\n\
+Sets the object \"name\" as exportable if it's not (or viceversa).\n\
+If \"name\" is not given the currently selected item is used. Returns true\n\
+if exportable.\n\
+"));
+/*! (Un)Lock the object 2004/7/10 pv.*/
+PyObject *scribus_exportableobject(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_isexportable__doc__,
+QT_TR_NOOP("isExportable([\"name\"]) -> bool\n\
+\n\
+Returns true if is the object \"name\" is exportable.  If \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Status of locking 2004/7/10 pv.*/
+PyObject *scribus_isexportable(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_lockobject__doc__,
 QT_TR_NOOP("lockObject([\"name\"]) -> bool\n\
 \n\
