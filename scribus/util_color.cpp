@@ -624,34 +624,56 @@ QString colorSpaceText(int cs)
 
 bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString, VGradient> *dialogGradients, bool merge)
 {
+	if (fileName.isEmpty())
+		return false;
 	int oldCount = EditColors.count();
-	if (!fileName.isEmpty())
+
+	QFileInfo fi = QFileInfo(fileName);
+	QString ext = fi.suffix().toLower();
+	if (extensionIndicatesEPSorPS(ext))
 	{
-		QFileInfo fi = QFileInfo(fileName);
-		QString ext = fi.suffix().toLower();
-		if (extensionIndicatesEPSorPS(ext))
+		QString tmp, FarNam;
+		double c, m, y, k;
+		ScColor cc;
+		QFile f(fileName);
+		if (f.open(QIODevice::ReadOnly))
 		{
-			QString tmp, FarNam;
-			double c, m, y, k;
-			ScColor cc;
-			QFile f(fileName);
-			if (f.open(QIODevice::ReadOnly))
+			bool isAtend = false;
+			QDataStream ts(&f);
+			while (!ts.atEnd())
 			{
-				bool isAtend = false;
-				QDataStream ts(&f);
-				while (!ts.atEnd())
+				tmp = readLineFromDataStream(ts);
+				if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 				{
-					tmp = readLineFromDataStream(ts);
-					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
+					if (tmp.contains("(atend)"))
+						isAtend = true;
+					else
 					{
-						if (tmp.contains("(atend)"))
-							isAtend = true;
-						else
+						if (tmp.startsWith("%%CMYKCustomColor"))
+							tmp = tmp.remove(0,18);
+						else if (tmp.startsWith("%%CMYKProcessColor"))
+							tmp = tmp.remove(0,19);
+						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> y >> k;
+						FarNam = ts2.readAll();
+						FarNam = FarNam.trimmed();
+						FarNam = FarNam.remove(0,1);
+						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam = FarNam.simplified();
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+						cc.setSpotColor(true);
+						if (!FarNam.isEmpty())
+							EditColors.tryAddColor(FarNam, cc);
+						while (!ts.atEnd())
 						{
-							if (tmp.startsWith("%%CMYKCustomColor"))
-								tmp = tmp.remove(0,18);
-							else if (tmp.startsWith("%%CMYKProcessColor"))
-								tmp = tmp.remove(0,19);
+							quint64 oldPos = ts.device()->pos();
+							tmp = readLineFromDataStream(ts);
+							if (!tmp.startsWith("%%+"))
+							{
+								ts.device()->seek(oldPos);
+								break;
+							}
+							tmp = tmp.remove(0,3);
 							ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
 							FarNam = ts2.readAll();
@@ -663,40 +685,39 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							cc.setSpotColor(true);
 							if (!FarNam.isEmpty())
 								EditColors.tryAddColor(FarNam, cc);
-							while (!ts.atEnd())
-							{
-								quint64 oldPos = ts.device()->pos();
-								tmp = readLineFromDataStream(ts);
-								if (!tmp.startsWith("%%+"))
-								{
-									ts.device()->seek(oldPos);
-									break;
-								}
-								tmp = tmp.remove(0,3);
-								ScTextStream ts2(&tmp, QIODevice::ReadOnly);
-								ts2 >> c >> m >> y >> k;
-								FarNam = ts2.readAll();
-								FarNam = FarNam.trimmed();
-								FarNam = FarNam.remove(0,1);
-								FarNam = FarNam.remove(FarNam.length()-1,1);
-								FarNam = FarNam.simplified();
-								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
-								cc.setSpotColor(true);
-								if (!FarNam.isEmpty())
-									EditColors.tryAddColor(FarNam, cc);
-							}
 						}
 					}
-					if ((tmp.startsWith("%%RGBCustomColor")) || (tmp.startsWith("%%RGBProcessColor")))
+				}
+				if ((tmp.startsWith("%%RGBCustomColor")) || (tmp.startsWith("%%RGBProcessColor")))
+				{
+					if (tmp.contains("(atend)"))
+						isAtend = true;
+					else
 					{
-						if (tmp.contains("(atend)"))
-							isAtend = true;
-						else
+						if (tmp.startsWith("%%RGBCustomColor"))
+							tmp = tmp.remove(0,17);
+						else if (tmp.startsWith("%%RGBProcessColor"))
+							tmp = tmp.remove(0,18);
+						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> y;
+						FarNam = ts2.readAll();
+						FarNam = FarNam.trimmed();
+						FarNam = FarNam.remove(0,1);
+						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam = FarNam.simplified();
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
+						if (!FarNam.isEmpty())
+							EditColors.tryAddColor(FarNam, cc);
+						while (!ts.atEnd())
 						{
-							if (tmp.startsWith("%%RGBCustomColor"))
-								tmp = tmp.remove(0,17);
-							else if (tmp.startsWith("%%RGBProcessColor"))
-								tmp = tmp.remove(0,18);
+							quint64 oldPos = ts.device()->pos();
+							tmp = readLineFromDataStream(ts);
+							if (!tmp.startsWith("%%+"))
+							{
+								ts.device()->seek(oldPos);
+								break;
+							}
+							tmp = tmp.remove(0,3);
 							ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y;
 							FarNam = ts2.readAll();
@@ -707,431 +728,561 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
 							if (!FarNam.isEmpty())
 								EditColors.tryAddColor(FarNam, cc);
-							while (!ts.atEnd())
-							{
-								quint64 oldPos = ts.device()->pos();
-								tmp = readLineFromDataStream(ts);
-								if (!tmp.startsWith("%%+"))
-								{
-									ts.device()->seek(oldPos);
-									break;
-								}
-								tmp = tmp.remove(0,3);
-								ScTextStream ts2(&tmp, QIODevice::ReadOnly);
-								ts2 >> c >> m >> y;
-								FarNam = ts2.readAll();
-								FarNam = FarNam.trimmed();
-								FarNam = FarNam.remove(0,1);
-								FarNam = FarNam.remove(FarNam.length()-1,1);
-								FarNam = FarNam.simplified();
-								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
-								if (!FarNam.isEmpty())
-									EditColors.tryAddColor(FarNam, cc);
-							}
 						}
 					}
-					if (tmp.startsWith("%%EndComments"))
-					{
-						if (!isAtend)
-							break;
-					}
 				}
-				f.close();
+				if (tmp.startsWith("%%EndComments"))
+				{
+					if (!isAtend)
+						break;
+				}
+			}
+			f.close();
+		}
+	}
+	else
+	{
+		QStringList allFormatsV = LoadSavePlugin::getExtensionsForColors();
+		if (allFormatsV.contains(ext))
+		{
+			FileLoader fl(fileName);
+			int testResult = fl.testFile();
+			if (testResult != -1)
+			{
+				ColorList LColors;
+				if (fl.readColors(LColors))
+				{
+					ColorList::Iterator it;
+					for (it = LColors.begin(); it != LColors.end(); ++it)
+					{
+						EditColors.tryAddColor(it.key(), it.value());
+					}
+					return (EditColors.count() != oldCount);
+				}
 			}
 		}
-		else
+		if (ext == "acb")			// Adobe color book format
 		{
-			QStringList allFormatsV = LoadSavePlugin::getExtensionsForColors();
-			if (allFormatsV.contains(ext))
+			QFile fiC(fileName);
+			if (fiC.open(QIODevice::ReadOnly))
 			{
-				FileLoader fl(fileName);
-				int testResult = fl.testFile();
-				if (testResult != -1)
+				ScColor lf = ScColor();
+				quint16 vers = 0;
+				quint32 signature;
+				QDataStream ts(&fiC);
+				ts.setByteOrder(QDataStream::BigEndian);
+				ts >> signature;
+				ts >> vers;
+				if ((signature == 0x38424342) && (vers == 1))
 				{
-					ColorList LColors;
-					if (fl.readColors(LColors))
+					quint16 vendor, numcolors, colType;
+					ts >> vendor;
+//					QString title		= readAdobeUniCodeString(ts);
+//					QString prefix		= readAdobeUniCodeString(ts);
+//					QString postfix		= readAdobeUniCodeString(ts);
+//					QString description	= readAdobeUniCodeString(ts);
+					ts >> numcolors;
+					ts.skipRawData(4);
+					ts >> colType;
+					for (quint16 cc = 0; cc < numcolors; cc++)
 					{
-						ColorList::Iterator it;
-						for (it = LColors.begin(); it != LColors.end(); ++it)
+						QString name = readAdobeUniCodeString(ts);
+						if (vendor == 3000)
+							name.prepend("ANPA");
+						else if (vendor == 3001)
+							name.prepend("Focoltone");
+						else if (vendor == 3002)
+							name.prepend("PantoneCoated");
+						else if (vendor == 3003)
+							name.prepend("PantoneProcess");
+						else if (vendor == 3004)
+							name.prepend("PantoneProSlim");
+						else if (vendor == 3005)
+							name.prepend("PantoneUncoated");
+						else if (vendor == 3006)
+							name.prepend("Toyo");
+						else if (vendor == 3007)
+							name.prepend("Trumatch");
+						else if (vendor == 3008)
+							name.prepend("HKSE");
+						else if (vendor == 3009)
+							name.prepend("HKSK");
+						else if (vendor == 3010)
+							name.prepend("HKSN");
+						else if (vendor == 3011)
+							name.prepend("HKSZ");
+						else if (vendor == 3012)
+							name.prepend("DIC");
+						else if (vendor == 3020)
+							name.prepend("PantonePastelCoated");
+						else if (vendor == 3021)
+							name.prepend("PantonePastelUncoated");
+						else if (vendor == 3022)
+							name.prepend("PantoneMetallic");
+						ts.skipRawData(6);
+						quint8 componentR, componentG, componentB, componentK;
+						ts >> componentR >> componentG >> componentB;
+						if (colType == 2)
+							ts >> componentK;
+						if (!name.isEmpty())
 						{
-							EditColors.tryAddColor(it.key(), it.value());
-						}
-						return (EditColors.count() != oldCount);
-					}
-				}
-			}
-			if (ext == "acb")			// Adobe color book format
-			{
-				QFile fiC(fileName);
-				if (fiC.open(QIODevice::ReadOnly))
-				{
-					ScColor lf = ScColor();
-					quint16 vers = 0;
-					quint32 signature;
-					QDataStream ts(&fiC);
-					ts.setByteOrder(QDataStream::BigEndian);
-					ts >> signature;
-					ts >> vers;
-					if ((signature == 0x38424342) && (vers == 1))
-					{
-						quint16 vendor, numcolors, colType;
-						ts >> vendor;
-//						QString title		= readAdobeUniCodeString(ts);
-//						QString prefix		= readAdobeUniCodeString(ts);
-//						QString postfix		= readAdobeUniCodeString(ts);
-//						QString description	= readAdobeUniCodeString(ts);
-						ts >> numcolors;
-						ts.skipRawData(4);
-						ts >> colType;
-						for (quint16 cc = 0; cc < numcolors; cc++)
-						{
-							QString name = readAdobeUniCodeString(ts);
-							if (vendor == 3000)
-								name.prepend("ANPA");
-							else if (vendor == 3001)
-								name.prepend("Focoltone");
-							else if (vendor == 3002)
-								name.prepend("PantoneCoated");
-							else if (vendor == 3003)
-								name.prepend("PantoneProcess");
-							else if (vendor == 3004)
-								name.prepend("PantoneProSlim");
-							else if (vendor == 3005)
-								name.prepend("PantoneUncoated");
-							else if (vendor == 3006)
-								name.prepend("Toyo");
-							else if (vendor == 3007)
-								name.prepend("Trumatch");
-							else if (vendor == 3008)
-								name.prepend("HKSE");
-							else if (vendor == 3009)
-								name.prepend("HKSK");
-							else if (vendor == 3010)
-								name.prepend("HKSN");
-							else if (vendor == 3011)
-								name.prepend("HKSZ");
-							else if (vendor == 3012)
-								name.prepend("DIC");
-							else if (vendor == 3020)
-								name.prepend("PantonePastelCoated");
-							else if (vendor == 3021)
-								name.prepend("PantonePastelUncoated");
-							else if (vendor == 3022)
-								name.prepend("PantoneMetallic");
-							ts.skipRawData(6);
-							quint8 componentR, componentG, componentB, componentK;
-							ts >> componentR >> componentG >> componentB;
-							if (colType == 2)
-								ts >> componentK;
-							if (!name.isEmpty())
+							bool validColor = false;
+							if (colType == 0)			// RBG
 							{
-								bool validColor = false;
-								if (colType == 0)			// RBG
-								{
-									lf.setRgbColor(componentR, componentG, componentB);
-									validColor = true;
-								}
-								else if (colType == 2)		// CMYK
-								{
-									lf.setColor(255 - componentR, 255 - componentG, 255 - componentB, 255 - componentK);
-									validColor = true;
-								}
-								if (validColor)
-								{
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									EditColors.tryAddColor(name, lf);
-								}
+								lf.setRgbColor(componentR, componentG, componentB);
+								validColor = true;
+							}
+							else if (colType == 2)		// CMYK
+							{
+								lf.setColor(255 - componentR, 255 - componentG, 255 - componentB, 255 - componentK);
+								validColor = true;
+							}
+							if (validColor)
+							{
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								EditColors.tryAddColor(name, lf);
 							}
 						}
-						fiC.close();
 					}
-					else					// try AutoCAD XML format
+					fiC.close();
+				}
+				else					// try AutoCAD XML format
+				{
+					fiC.close();
+					QByteArray docBytes("");
+					loadRawText(fileName, docBytes);
+					QString docText("");
+					docText = QString::fromUtf8(docBytes);
+					QDomDocument docu("scridoc");
+					if (!docu.setContent(docText))
+						return false;
+					QDomElement elem = docu.documentElement();
+					QDomNode PAGE = elem.firstChild();
+					while(!PAGE.isNull())
 					{
-						fiC.close();
-						QByteArray docBytes("");
-						loadRawText(fileName, docBytes);
-						QString docText("");
-						docText = QString::fromUtf8(docBytes);
-						QDomDocument docu("scridoc");
-						if (!docu.setContent(docText))
-							return false;
-						QDomElement elem = docu.documentElement();
-						QDomNode PAGE = elem.firstChild();
-						while(!PAGE.isNull())
+						QDomElement pg = PAGE.toElement();
+						if (pg.tagName() == "colorPage")
 						{
-							QDomElement pg = PAGE.toElement();
-							if (pg.tagName() == "colorPage")
+							QDomNode colNode = pg.firstChild();
+							while(!colNode.isNull())
 							{
-								QDomNode colNode = pg.firstChild();
-								while(!colNode.isNull())
+								QDomElement cg = colNode.toElement();
+								if (cg.tagName() == "colorEntry")
 								{
-									QDomElement cg = colNode.toElement();
-									if (cg.tagName() == "colorEntry")
+									int r (0), g(0), b(0);
+									QString colorName = "";
+									QDomNode colEntry = cg.firstChild();
+									while(!colEntry.isNull())
 									{
-										int r (0), g(0), b(0);
-										QString colorName = "";
-										QDomNode colEntry = cg.firstChild();
-										while(!colEntry.isNull())
+										QDomElement cc = colEntry.toElement();
+										if (cc.tagName() == "colorName")
+											colorName = cc.text();
+										else if (cc.tagName() == "RGB8")
 										{
-											QDomElement cc = colEntry.toElement();
-											if (cc.tagName() == "colorName")
-												colorName = cc.text();
-											else if (cc.tagName() == "RGB8")
+											QDomNode colVal = cc.firstChild();
+											while(!colVal.isNull())
 											{
-												QDomNode colVal = cc.firstChild();
-												while(!colVal.isNull())
-												{
-													QDomElement cv = colVal.toElement();
-													if (cv.tagName() == "red")
-														r = cv.text().toInt();
-													else if (cv.tagName() == "green")
-														g = cv.text().toInt();
-													else if (cv.tagName() == "blue")
-														b = cv.text().toInt();
-													colVal = colVal.nextSibling();
-												}
+												QDomElement cv = colVal.toElement();
+												if (cv.tagName() == "red")
+													r = cv.text().toInt();
+												else if (cv.tagName() == "green")
+													g = cv.text().toInt();
+												else if (cv.tagName() == "blue")
+													b = cv.text().toInt();
+												colVal = colVal.nextSibling();
 											}
-											colEntry = colEntry.nextSibling();
 										}
-										if (!colorName.isEmpty())
-										{
-											lf.setRgbColor(r, g, b);
-											lf.setSpotColor(false);
-											lf.setRegistrationColor(false);
-											EditColors.tryAddColor(colorName, lf);
-										}
+										colEntry = colEntry.nextSibling();
 									}
-									colNode = colNode.nextSibling();
+									if (!colorName.isEmpty())
+									{
+										lf.setRgbColor(r, g, b);
+										lf.setSpotColor(false);
+										lf.setRegistrationColor(false);
+										EditColors.tryAddColor(colorName, lf);
+									}
 								}
+								colNode = colNode.nextSibling();
 							}
-							PAGE = PAGE.nextSibling();
 						}
+						PAGE = PAGE.nextSibling();
 					}
 				}
 			}
-			else if (ext == "aco")			// Adobe color swatch format
+		}
+		else if (ext == "aco")			// Adobe color swatch format
+		{
+			QFile fiC(fileName);
+			if (fiC.open(QIODevice::ReadOnly))
 			{
-				QFile fiC(fileName);
-				if (fiC.open(QIODevice::ReadOnly))
+				ScColor lf = ScColor();
+				QDataStream ts(&fiC);
+				ts.setByteOrder(QDataStream::BigEndian);
+				quint16 vers = 0;
+				ts >> vers;
+				if (vers == 1)
 				{
-					ScColor lf = ScColor();
-					QDataStream ts(&fiC);
-					ts.setByteOrder(QDataStream::BigEndian);
-					quint16 vers = 0;
-					ts >> vers;
-					if (vers == 1)
+					quint16 count1 = 0;
+					quint16 count2 = 0;
+					ts >> count1;
+					qint64 pos = ts.device()->pos();
+					if (pos + count1 * 10 < fiC.size())
 					{
-						quint16 count1 = 0;
-						quint16 count2 = 0;
-						ts >> count1;
-						qint64 pos = ts.device()->pos();
-						if (pos + count1 * 10 < fiC.size())
+						ts.skipRawData(count1 * 10);
+						ts >> vers >> count2;
+						if ((vers == 2) && (count1 == count2))
 						{
-							ts.skipRawData(count1 * 10);
-							ts >> vers >> count2;
-							if ((vers == 2) && (count1 == count2))
-							{
-								for (quint16 cc = 0; cc < count2; cc++)
-								{
-									quint16 colType;
-									quint16 componentR, componentG, componentB, componentK;
-									ts >> colType >> componentR >> componentG >> componentB >> componentK;
-									QString name = readAdobeUniCodeString(ts);
-									if (!name.isEmpty())
-									{
-										bool validColor = false;
-										if (colType == 0)			// RBG
-										{
-											lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
-											validColor = true;
-										}
-										else if (colType == 1)		// HSB
-										{
-											uchar hc, sc, bc;
-											hc = componentR >> 8;
-											sc = componentG >> 8;
-											bc = componentB >> 8;
-											HSVTORGB(hc, sc, bc);
-											lf.setRgbColor(hc, sc, bc);
-											validColor = true;
-										}
-										else if (colType == 2)		// CMYK
-										{
-											lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
-											validColor = true;
-										}
-										else if (colType == 8)		// Grayscale
-										{
-											lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
-											validColor = true;
-										}
-										if (validColor)
-										{
-											lf.setSpotColor(false);
-											lf.setRegistrationColor(false);
-											EditColors.tryAddColor(name, lf);
-										}
-									}
-								}
-							}
-						}
-						else
-						{
-							QFileInfo fiCinf(fileName);
-							QString baseName = fiCinf.baseName();
-							baseName.replace(" ", "_");
-							for (quint16 cc = 0; cc < count1; cc++)
+							for (quint16 cc = 0; cc < count2; cc++)
 							{
 								quint16 colType;
 								quint16 componentR, componentG, componentB, componentK;
 								ts >> colType >> componentR >> componentG >> componentB >> componentK;
-								bool validColor = false;
-								if (colType == 0)			// RBG
+								QString name = readAdobeUniCodeString(ts);
+								if (!name.isEmpty())
 								{
-									lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
-									validColor = true;
-								}
-								else if (colType == 1)		// HSB
-								{
-									uchar hc, sc, bc;
-									hc = componentR >> 8;
-									sc = componentG >> 8;
-									bc = componentB >> 8;
-									HSVTORGB(hc, sc, bc);
-									lf.setRgbColor(hc, sc, bc);
-									validColor = true;
-								}
-								else if (colType == 2)		// CMYK
-								{
-									lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
-									validColor = true;
-								}
-								else if (colType == 8)		// Grayscale
-								{
-									lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
-									validColor = true;
-								}
-								if (validColor)
-								{
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									QString name = baseName+lf.name().toUpper();
-									EditColors.tryAddColor(name, lf);
+									bool validColor = false;
+									if (colType == 0)			// RBG
+									{
+										lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
+										validColor = true;
+									}
+									else if (colType == 1)		// HSB
+									{
+										uchar hc, sc, bc;
+										hc = componentR >> 8;
+										sc = componentG >> 8;
+										bc = componentB >> 8;
+										HSVTORGB(hc, sc, bc);
+										lf.setRgbColor(hc, sc, bc);
+										validColor = true;
+									}
+									else if (colType == 2)		// CMYK
+									{
+										lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
+										validColor = true;
+									}
+									else if (colType == 8)		// Grayscale
+									{
+										lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
+										validColor = true;
+									}
+									if (validColor)
+									{
+										lf.setSpotColor(false);
+										lf.setRegistrationColor(false);
+										EditColors.tryAddColor(name, lf);
+									}
 								}
 							}
 						}
 					}
-					fiC.close();
-				}
-			}
-			else if (ext == "ase")			// Adobe swatch exchange format
-			{
-				QFile fiC(fileName);
-				if (fiC.open(QIODevice::ReadOnly))
-				{
-					ScColor lf = ScColor();
-					QDataStream ts(&fiC);
-					ts.setByteOrder(QDataStream::BigEndian);
-					ts.setFloatingPointPrecision(QDataStream::SinglePrecision);
-					quint16 vers1 = 0;
-					quint16 vers2 = 0;
-					quint32 signature;
-					ts >> signature;
-					ts >> vers1 >> vers2;
-					if ((signature == 0x41534546) && (vers1 == 1) && (vers2 == 0))
+					else
 					{
-						QString blockName;
-						quint32 numBlocks;
-						ts >> numBlocks;
-						for (quint32 n = 0; n < numBlocks; n++)
+						QFileInfo fiCinf(fileName);
+						QString baseName = fiCinf.baseName();
+						baseName.replace(" ", "_");
+						for (quint16 cc = 0; cc < count1; cc++)
 						{
-							quint16 blockType;
-							quint32 blockLen;
-							ts >> blockType;
-							ts >> blockLen;
-							if (blockType == 0xC001)
-								blockName = readAdobeUniCodeString16(ts);
-							else if (blockType == 0x0001)
+							quint16 colType;
+							quint16 componentR, componentG, componentB, componentK;
+							ts >> colType >> componentR >> componentG >> componentB >> componentK;
+							bool validColor = false;
+							if (colType == 0)			// RBG
 							{
-								if (blockName.isEmpty())
-									blockName = fi.baseName();
-								QString Cname = readAdobeUniCodeString16(ts);
-								quint32 clrType;
-								quint16 spotMode;
-								ts >> clrType;
-								if (clrType == 0x52474220)		// RGB
+								lf.setRgbColor(componentR >> 8, componentG >> 8, componentB >> 8);
+								validColor = true;
+							}
+							else if (colType == 1)		// HSB
+							{
+								uchar hc, sc, bc;
+								hc = componentR >> 8;
+								sc = componentG >> 8;
+								bc = componentB >> 8;
+								HSVTORGB(hc, sc, bc);
+								lf.setRgbColor(hc, sc, bc);
+								validColor = true;
+							}
+							else if (colType == 2)		// CMYK
+							{
+								lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
+								validColor = true;
+							}
+							else if (colType == 8)		// Grayscale
+							{
+								lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
+								validColor = true;
+							}
+							if (validColor)
+							{
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								QString name = baseName+lf.name().toUpper();
+								EditColors.tryAddColor(name, lf);
+							}
+						}
+					}
+				}
+				fiC.close();
+			}
+		}
+		else if (ext == "ase")			// Adobe swatch exchange format
+		{
+			QFile fiC(fileName);
+			if (fiC.open(QIODevice::ReadOnly))
+			{
+				ScColor lf = ScColor();
+				QDataStream ts(&fiC);
+				ts.setByteOrder(QDataStream::BigEndian);
+				ts.setFloatingPointPrecision(QDataStream::SinglePrecision);
+				quint16 vers1 = 0;
+				quint16 vers2 = 0;
+				quint32 signature;
+				ts >> signature;
+				ts >> vers1 >> vers2;
+				if ((signature == 0x41534546) && (vers1 == 1) && (vers2 == 0))
+				{
+					QString blockName;
+					quint32 numBlocks;
+					ts >> numBlocks;
+					for (quint32 n = 0; n < numBlocks; n++)
+					{
+						quint16 blockType;
+						quint32 blockLen;
+						ts >> blockType;
+						ts >> blockLen;
+						if (blockType == 0xC001)
+							blockName = readAdobeUniCodeString16(ts);
+						else if (blockType == 0x0001)
+						{
+							if (blockName.isEmpty())
+								blockName = fi.baseName();
+							QString Cname = readAdobeUniCodeString16(ts);
+							quint32 clrType;
+							quint16 spotMode;
+							ts >> clrType;
+							if (clrType == 0x52474220)		// RGB
+							{
+								float r, g, b;
+								ts >> r >> g >> b;
+								ts >> spotMode;
+								lf.setRgbColorF(r, g, b);
+								lf.setSpotColor(spotMode == 1);
+								lf.setRegistrationColor(false);
+								if (Cname.isEmpty())
 								{
-									float r, g, b;
-									ts >> r >> g >> b;
-									ts >> spotMode;
-									lf.setRgbColorF(r, g, b);
-									lf.setSpotColor(spotMode == 1);
-									lf.setRegistrationColor(false);
-									if (Cname.isEmpty())
-									{
-										Cname = blockName + QString("#%1%2%3").arg(qRound(255 * r),2,16,QChar('0')).arg(qRound(255 * g),2,16,QChar('0')).arg(qRound(255 * b),2,16,QChar('0')).toUpper();
-										Cname.replace(" ","_");
-									}
-									EditColors.tryAddColor(Cname, lf);
+									Cname = blockName + QString("#%1%2%3").arg(qRound(255 * r),2,16,QChar('0')).arg(qRound(255 * g),2,16,QChar('0')).arg(qRound(255 * b),2,16,QChar('0')).toUpper();
+									Cname.replace(" ","_");
 								}
-								else if (clrType == 0x434D594B)	// CMYK
+								EditColors.tryAddColor(Cname, lf);
+							}
+							else if (clrType == 0x434D594B)	// CMYK
+							{
+								float c, m, y, k;
+								ts >> c >> m >> y >> k;
+								ts >> spotMode;
+								lf.setColorF(c, m, y, k);
+								lf.setSpotColor(spotMode == 1);
+								lf.setRegistrationColor(false);
+								if (Cname.isEmpty())
 								{
-									float c, m, y, k;
-									ts >> c >> m >> y >> k;
-									ts >> spotMode;
-									lf.setColorF(c, m, y, k);
-									lf.setSpotColor(spotMode == 1);
-									lf.setRegistrationColor(false);
-									if (Cname.isEmpty())
-									{
-										Cname = blockName + QString("#%1%2%3%4").arg(qRound(255 * c),2,16,QChar('0')).arg(qRound(255 * m),2,16,QChar('0')).arg(qRound(255 * y),2,16,QChar('0')).arg(qRound(255 * k),2,16,QChar('0')).toUpper();
-										Cname.replace(" ","_");
-									}
-									EditColors.tryAddColor(Cname, lf);
+									Cname = blockName + QString("#%1%2%3%4").arg(qRound(255 * c),2,16,QChar('0')).arg(qRound(255 * m),2,16,QChar('0')).arg(qRound(255 * y),2,16,QChar('0')).arg(qRound(255 * k),2,16,QChar('0')).toUpper();
+									Cname.replace(" ","_");
 								}
-								else if (clrType == 0x47726179)	// Gray
+								EditColors.tryAddColor(Cname, lf);
+							}
+							else if (clrType == 0x47726179)	// Gray
+							{
+								float g;
+								ts >> g;
+								ts >> spotMode;
+								lf.setColorF(0, 0, 0, g);
+								lf.setSpotColor(spotMode == 1);
+								lf.setRegistrationColor(false);
+								if (Cname.isEmpty())
 								{
-									float g;
-									ts >> g;
-									ts >> spotMode;
-									lf.setColorF(0, 0, 0, g);
-									lf.setSpotColor(spotMode == 1);
-									lf.setRegistrationColor(false);
-									if (Cname.isEmpty())
-									{
-										Cname = blockName + QString("#000000%1").arg(qRound(255 * g),2,16,QChar('0')).toUpper();
-										Cname.replace(" ","_");
-									}
-									EditColors.tryAddColor(Cname, lf);
+									Cname = blockName + QString("#000000%1").arg(qRound(255 * g),2,16,QChar('0')).toUpper();
+									Cname.replace(" ","_");
 								}
-								else if (clrType == 0x4C414220) // Lab
+								EditColors.tryAddColor(Cname, lf);
+							}
+							else if (clrType == 0x4C414220) // Lab
+							{
+								float L, a, b;
+								ts >> L >> a >> b;
+								ts >> spotMode;
+								lf.setLabColor(L * 100.0, a, b);
+								lf.setSpotColor(spotMode == 1);
+								lf.setRegistrationColor(false);
+								if (Cname.isEmpty())
 								{
-									float L, a, b;
-									ts >> L >> a >> b;
-									ts >> spotMode;
-									lf.setLabColor(L * 100.0, a, b);
-									lf.setSpotColor(spotMode == 1);
-									lf.setRegistrationColor(false);
-									if (Cname.isEmpty())
+									Cname = blockName + QString("_%1_%2_%3").arg(qRound(L * 100)).arg(qRound(a)).arg(qRound(b));
+									Cname.replace(" ","_");
+								}
+								EditColors.tryAddColor(Cname, lf);
+							}
+						}
+					}
+				}
+				fiC.close();
+			}
+		}
+		else if (ext == "skp")			// Sk1 palette
+		{
+			QFile fiC(fileName);
+			if (fiC.open(QIODevice::ReadOnly))
+			{
+				bool isCMYK = false;
+				QByteArray docBytes("");
+				loadRawText(fileName, docBytes);
+				QString docText("");
+				docText = QString::fromUtf8(docBytes);
+				QDomDocument docu("scridoc");
+				docu.setContent(docText);
+				ScColor lf = ScColor();
+				QDomElement elem = docu.documentElement();
+				QDomNode PAGE = elem.firstChild();
+				while(!PAGE.isNull())
+				{
+					QDomElement pg = PAGE.toElement();
+					if(pg.tagName() == "description")
+					{
+						if (pg.attribute("type", "") == "CMYK")
+							isCMYK = true;
+					}
+					if(pg.tagName() == "color")
+					{
+						QString Cname;
+						if (isCMYK)
+						{
+							double c, m, y, k;
+							c = pg.attribute("c", "0").toDouble();
+							m = pg.attribute("m", "0").toDouble();
+							y = pg.attribute("y", "0").toDouble();
+							k = pg.attribute("k", "0").toDouble();
+							Cname = pg.attribute("name", "");
+							if (!Cname.isEmpty())
+							{
+								lf.setColorF(c, m, y, k);
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								EditColors.tryAddColor(Cname, lf);
+							}
+						}
+						else
+						{
+							double r, g, b;
+							r = pg.attribute("r", "0").toDouble();
+							g = pg.attribute("g", "0").toDouble();
+							b = pg.attribute("b", "0").toDouble();
+							Cname = pg.attribute("name", "");
+							if (!Cname.isEmpty())
+							{
+								lf.setRgbColorF(r, g, b);
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								EditColors.tryAddColor(Cname, lf);
+							}
+						}
+					}
+					PAGE=PAGE.nextSibling();
+				}
+			}
+			fiC.close();
+		}
+		else if (ext == "sbz")
+		{
+			ScZipHandler *uz = new ScZipHandler();
+			if (uz->open(fileName))
+			{
+				if (uz->contains("swatchbook.xml"))
+				{
+					QByteArray docBytes;
+					if (uz->read("swatchbook.xml", docBytes))
+					{
+						QString docText("");
+						docText = QString::fromUtf8(docBytes);
+						QDomDocument docu("scridoc");
+						if (docu.setContent(docText))
+						{
+							QDomElement docElem = docu.documentElement();
+							for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+							{
+								if (drawPag.tagName() == "materials")
+								{
+									for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 									{
-										Cname = blockName + QString("_%1_%2_%3").arg(qRound(L * 100)).arg(qRound(a)).arg(qRound(b));
-										Cname.replace(" ","_");
+										if (spf.tagName() == "color")
+										{
+											bool isSpot = spf.attribute("usage") == "spot";
+											QString colorName = "";
+											ScColor tmp;
+											tmp.setRegistrationColor(false);
+											for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+											{
+												if (spp.tagName() == "metadata")
+												{
+													for(QDomElement spm = spp.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
+													{
+														if (spm.tagName() == "dc:identifier")
+															colorName = spm.text();
+													}
+												}
+												else if (spp.tagName() == "values")
+												{
+													QString colorVals = spp.text();
+													ScTextStream CoE(&colorVals, QIODevice::ReadOnly);
+													if (spp.attribute("model") == "Lab")
+													{
+														double inC[3];
+														CoE >> inC[0];
+														CoE >> inC[1];
+														CoE >> inC[2];
+														tmp.setLabColor(inC[0], inC[1], inC[2]);
+														tmp.setSpotColor(isSpot);
+													}
+													else if (spp.attribute("model") == "CMYK")
+													{
+														double c, m, y, k;
+														CoE >> c >> m >> y >> k;
+														tmp.setColorF(c, m, y, k);
+														tmp.setSpotColor(isSpot);
+													}
+													else if (spp.attribute("model") == "RGB")
+													{
+														double r, g, b;
+														CoE >> r >> g >> b;
+														tmp.setRgbColorF(r, g, b);
+														tmp.setSpotColor(false);
+													}
+												}
+											}
+											if (!colorName.isEmpty())
+												EditColors.tryAddColor(colorName, tmp);
+										}
 									}
-									EditColors.tryAddColor(Cname, lf);
 								}
 							}
 						}
 					}
-					fiC.close();
 				}
 			}
-			else if (ext == "skp")			// Sk1 palette
+			delete uz;
+		}
+		else							// try for OpenOffice, Viva and our own format
+		{
+			QFile fiC(fileName);
+			if (fiC.open(QIODevice::ReadOnly))
 			{
-				QFile fiC(fileName);
-				if (fiC.open(QIODevice::ReadOnly))
+				QString ColorEn, Cname;
+				int Rval, Gval, Bval, Kval;
+				ScTextStream tsC(&fiC);
+				ColorEn = tsC.readLine();
+				bool cus = false;
+				if (ColorEn.contains("OpenOffice"))
+					cus = true;
+				if ((ColorEn.startsWith("<?xml version=")) || (ColorEn.contains("VivaColors")))
 				{
-					bool isCMYK = false;
 					QByteArray docBytes("");
 					loadRawText(fileName, docBytes);
 					QString docText("");
@@ -1140,360 +1291,210 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 					docu.setContent(docText);
 					ScColor lf = ScColor();
 					QDomElement elem = docu.documentElement();
+					QString dTag = "";
+					dTag = elem.tagName();
+					QString nameMask = "%1";
+					nameMask = elem.attribute("mask", "%1");
 					QDomNode PAGE = elem.firstChild();
-					while(!PAGE.isNull())
+					while (!PAGE.isNull())
 					{
 						QDomElement pg = PAGE.toElement();
-						if(pg.tagName() == "description")
+						if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 						{
-							if (pg.attribute("type", "") == "CMYK")
-								isCMYK = true;
-						}
-						if(pg.tagName() == "color")
-						{
-							QString Cname;
-							if (isCMYK)
+							if (pg.hasAttribute("SPACE"))
 							{
-								double c, m, y, k;
-								c = pg.attribute("c", "0").toDouble();
-								m = pg.attribute("m", "0").toDouble();
-								y = pg.attribute("y", "0").toDouble();
-								k = pg.attribute("k", "0").toDouble();
-								Cname = pg.attribute("name", "");
-								if (!Cname.isEmpty())
+								QString space = pg.attribute("SPACE");
+								if (space == "CMYK")
 								{
-									lf.setColorF(c, m, y, k);
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									EditColors.tryAddColor(Cname, lf);
+									double c = pg.attribute("C", "0").toDouble() / 100.0;
+									double m = pg.attribute("M", "0").toDouble() / 100.0;
+									double y = pg.attribute("Y", "0").toDouble() / 100.0;
+									double k = pg.attribute("K", "0").toDouble() / 100.0;
+									lf.setCmykColorF(c, m, y, k);
 								}
-							}
-							else
-							{
-								double r, g, b;
-								r = pg.attribute("r", "0").toDouble();
-								g = pg.attribute("g", "0").toDouble();
-								b = pg.attribute("b", "0").toDouble();
-								Cname = pg.attribute("name", "");
-								if (!Cname.isEmpty())
+								else if (space == "RGB")
 								{
+									double r = pg.attribute("R", "0").toDouble() / 255.0;
+									double g = pg.attribute("G", "0").toDouble() / 255.0;
+									double b = pg.attribute("B", "0").toDouble() / 255.0;
 									lf.setRgbColorF(r, g, b);
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									EditColors.tryAddColor(Cname, lf);
 								}
-							}
-						}
-						PAGE=PAGE.nextSibling();
-					}
-				}
-				fiC.close();
-			}
-			else if (ext == "sbz")
-			{
-				ScZipHandler *uz = new ScZipHandler();
-				if (uz->open(fileName))
-				{
-					if (uz->contains("swatchbook.xml"))
-					{
-						QByteArray docBytes;
-						if (uz->read("swatchbook.xml", docBytes))
-						{
-							QString docText("");
-							docText = QString::fromUtf8(docBytes);
-							QDomDocument docu("scridoc");
-							if (docu.setContent(docText))
-							{
-								QDomElement docElem = docu.documentElement();
-								for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
-								{
-									if (drawPag.tagName() == "materials")
-									{
-										for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
-										{
-											if (spf.tagName() == "color")
-											{
-												bool isSpot = spf.attribute("usage") == "spot";
-												QString colorName = "";
-												ScColor tmp;
-												tmp.setRegistrationColor(false);
-												for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
-												{
-													if (spp.tagName() == "metadata")
-													{
-														for(QDomElement spm = spp.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
-														{
-															if (spm.tagName() == "dc:identifier")
-																colorName = spm.text();
-														}
-													}
-													else if (spp.tagName() == "values")
-													{
-														QString colorVals = spp.text();
-														ScTextStream CoE(&colorVals, QIODevice::ReadOnly);
-														if (spp.attribute("model") == "Lab")
-														{
-															double inC[3];
-															CoE >> inC[0];
-															CoE >> inC[1];
-															CoE >> inC[2];
-															tmp.setLabColor(inC[0], inC[1], inC[2]);
-															tmp.setSpotColor(isSpot);
-														}
-														else if (spp.attribute("model") == "CMYK")
-														{
-															double c, m, y, k;
-															CoE >> c >> m >> y >> k;
-															tmp.setColorF(c, m, y, k);
-															tmp.setSpotColor(isSpot);
-														}
-														else if (spp.attribute("model") == "RGB")
-														{
-															double r, g, b;
-															CoE >> r >> g >> b;
-															tmp.setRgbColorF(r, g, b);
-															tmp.setSpotColor(false);
-														}
-													}
-												}
-												if (!colorName.isEmpty())
-													EditColors.tryAddColor(colorName, tmp);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				delete uz;
-			}
-			else							// try for OpenOffice, Viva and our own format
-			{
-				QFile fiC(fileName);
-				if (fiC.open(QIODevice::ReadOnly))
-				{
-					QString ColorEn, Cname;
-					int Rval, Gval, Bval, Kval;
-					ScTextStream tsC(&fiC);
-					ColorEn = tsC.readLine();
-					bool cus = false;
-					if (ColorEn.contains("OpenOffice"))
-						cus = true;
-					if ((ColorEn.startsWith("<?xml version=")) || (ColorEn.contains("VivaColors")))
-					{
-						QByteArray docBytes("");
-						loadRawText(fileName, docBytes);
-						QString docText("");
-						docText = QString::fromUtf8(docBytes);
-						QDomDocument docu("scridoc");
-						docu.setContent(docText);
-						ScColor lf = ScColor();
-						QDomElement elem = docu.documentElement();
-						QString dTag = "";
-						dTag = elem.tagName();
-						QString nameMask = "%1";
-						nameMask = elem.attribute("mask", "%1");
-						QDomNode PAGE = elem.firstChild();
-						while (!PAGE.isNull())
-						{
-							QDomElement pg = PAGE.toElement();
-							if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
-							{
-								if (pg.hasAttribute("SPACE"))
-								{
-									QString space = pg.attribute("SPACE");
-									if (space == "CMYK")
-									{
-										double c = pg.attribute("C", "0").toDouble() / 100.0;
-										double m = pg.attribute("M", "0").toDouble() / 100.0;
-										double y = pg.attribute("Y", "0").toDouble() / 100.0;
-										double k = pg.attribute("K", "0").toDouble() / 100.0;
-										lf.setCmykColorF(c, m, y, k);
-									}
-									else if (space == "RGB")
-									{
-										double r = pg.attribute("R", "0").toDouble() / 255.0;
-										double g = pg.attribute("G", "0").toDouble() / 255.0;
-										double b = pg.attribute("B", "0").toDouble() / 255.0;
-										lf.setRgbColorF(r, g, b);
-									}
-									else if (space == "Lab")
-									{
-										double L = pg.attribute("L", "0").toDouble();
-										double a = pg.attribute("A", "0").toDouble();
-										double b = pg.attribute("B", "0").toDouble();
-										lf.setLabColor(L, a, b);
-									}
-								}
-								else if (pg.hasAttribute("CMYK"))
-									lf.setNamedColor(pg.attribute("CMYK"));
-								else if (pg.hasAttribute("RGB"))
-									lf.fromQColor(QColor(pg.attribute("RGB")));
-								else
+								else if (space == "Lab")
 								{
 									double L = pg.attribute("L", "0").toDouble();
 									double a = pg.attribute("A", "0").toDouble();
 									double b = pg.attribute("B", "0").toDouble();
 									lf.setLabColor(L, a, b);
 								}
-								if (pg.hasAttribute("Spot"))
-									lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
-								else
-									lf.setSpotColor(false);
-								if (pg.hasAttribute("Register"))
-									lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
-								else
-									lf.setRegistrationColor(false);
-								EditColors.tryAddColor(pg.attribute("NAME"), lf);
 							}
-							else if (pg.tagName() == "Gradient")
+							else if (pg.hasAttribute("CMYK"))
+								lf.setNamedColor(pg.attribute("CMYK"));
+							else if (pg.hasAttribute("RGB"))
+								lf.fromQColor(QColor(pg.attribute("RGB")));
+							else
 							{
-								if (dialogGradients != NULL)
+								double L = pg.attribute("L", "0").toDouble();
+								double a = pg.attribute("A", "0").toDouble();
+								double b = pg.attribute("B", "0").toDouble();
+								lf.setLabColor(L, a, b);
+							}
+							if (pg.hasAttribute("Spot"))
+								lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+							else
+								lf.setSpotColor(false);
+							if (pg.hasAttribute("Register"))
+								lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+							else
+								lf.setRegistrationColor(false);
+							EditColors.tryAddColor(pg.attribute("NAME"), lf);
+						}
+						else if (pg.tagName() == "Gradient")
+						{
+							if (dialogGradients != NULL)
+							{
+								VGradient gra = VGradient(VGradient::linear);
+								gra.clearStops();
+								QDomNode grad = pg.firstChild();
+								while(!grad.isNull())
 								{
-									VGradient gra = VGradient(VGradient::linear);
-									gra.clearStops();
-									QDomNode grad = pg.firstChild();
-									while(!grad.isNull())
-									{
-										QDomElement stop = grad.toElement();
-										QString name = stop.attribute("NAME");
-										double ramp  = ScCLocale::toDoubleC(stop.attribute("RAMP"), 0.0);
-										int shade    = stop.attribute("SHADE", "100").toInt();
-										double opa   = ScCLocale::toDoubleC(stop.attribute("TRANS"), 1.0);
-										QColor color;
-										if (name == CommonStrings::None)
-											color = QColor(255, 255, 255, 0);
-										else
-										{
-											const ScColor& col = EditColors[name];
-											color = ScColorEngine::getShadeColorProof(col, NULL, shade);
-										}
-										gra.addStop(color, ramp, 0.5, opa, name, shade);
-										grad = grad.nextSibling();
-									}
-									if ((!dialogGradients->contains(pg.attribute("Name"))) || (merge))
-										dialogGradients->insert(pg.attribute("Name"), gra);
+									QDomElement stop = grad.toElement();
+									QString name = stop.attribute("NAME");
+									double ramp  = ScCLocale::toDoubleC(stop.attribute("RAMP"), 0.0);
+									int shade    = stop.attribute("SHADE", "100").toInt();
+									double opa   = ScCLocale::toDoubleC(stop.attribute("TRANS"), 1.0);
+									QColor color;
+									if (name == CommonStrings::None)
+										color = QColor(255, 255, 255, 0);
 									else
 									{
-										QString tmp;
-										QString name = pg.attribute("Name");
-										name += "("+tmp.setNum(dialogGradients->count())+")";
-										dialogGradients->insert(name, gra);
+										const ScColor& col = EditColors[name];
+										color = ScColorEngine::getShadeColorProof(col, NULL, shade);
 									}
+									gra.addStop(color, ramp, 0.5, opa, name, shade);
+									grad = grad.nextSibling();
+								}
+								if ((!dialogGradients->contains(pg.attribute("Name"))) || (merge))
+									dialogGradients->insert(pg.attribute("Name"), gra);
+								else
+								{
+									QString tmp;
+									QString name = pg.attribute("Name");
+									name += "("+tmp.setNum(dialogGradients->count())+")";
+									dialogGradients->insert(name, gra);
 								}
 							}
-							else if (pg.tagName()=="draw:color" && pg.attribute("draw:name")!=CommonStrings::None)
+						}
+						else if (pg.tagName()=="draw:color" && pg.attribute("draw:name")!=CommonStrings::None)
+						{
+							if (pg.hasAttribute("draw:color"))
+								lf.setNamedColor(pg.attribute("draw:color"));
+							lf.setSpotColor(false);
+							lf.setRegistrationColor(false);
+							QString nam = pg.attribute("draw:name");
+							if (!nam.isEmpty())
+								EditColors.tryAddColor(nam, lf);
+						}
+						else if (dTag == "VivaColors")
+						{
+							int cVal = 0;
+							int mVal = 0;
+							int yVal = 0;
+							int kVal = 0;
+							QString nam = nameMask.arg(pg.attribute("name"));
+							if (pg.attribute("type") == "cmyk")
 							{
-								if (pg.hasAttribute("draw:color"))
-									lf.setNamedColor(pg.attribute("draw:color"));
+								QDomNode colNode = pg.firstChild();
+								while(!colNode.isNull())
+								{
+									QDomElement colVal = colNode.toElement();
+									if (colVal.tagName() == "cyan")
+										cVal = colVal.text().toInt();
+									if (colVal.tagName() == "magenta")
+										mVal = colVal.text().toInt();
+									if (colVal.tagName() == "yellow")
+										yVal = colVal.text().toInt();
+									if (colVal.tagName() == "key")
+										kVal = colVal.text().toInt();
+									colNode = colNode.nextSibling();
+								}
+								lf.setColorF(cVal / 100.0, mVal / 100.0, yVal / 100.0, kVal / 100.0);
 								lf.setSpotColor(false);
 								lf.setRegistrationColor(false);
-								QString nam = pg.attribute("draw:name");
 								if (!nam.isEmpty())
 									EditColors.tryAddColor(nam, lf);
 							}
-							else if (dTag == "VivaColors")
+							else if (pg.attribute("type") == "rgb")
 							{
-								int cVal = 0;
-								int mVal = 0;
-								int yVal = 0;
-								int kVal = 0;
-								QString nam = nameMask.arg(pg.attribute("name"));
-								if (pg.attribute("type") == "cmyk")
+								QDomNode colNode = pg.firstChild();
+								while(!colNode.isNull())
 								{
-									QDomNode colNode = pg.firstChild();
-									while(!colNode.isNull())
-									{
-										QDomElement colVal = colNode.toElement();
-										if (colVal.tagName() == "cyan")
-											cVal = colVal.text().toInt();
-										if (colVal.tagName() == "magenta")
-											mVal = colVal.text().toInt();
-										if (colVal.tagName() == "yellow")
-											yVal = colVal.text().toInt();
-										if (colVal.tagName() == "key")
-											kVal = colVal.text().toInt();
-										colNode = colNode.nextSibling();
-									}
-									lf.setColorF(cVal / 100.0, mVal / 100.0, yVal / 100.0, kVal / 100.0);
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									if (!nam.isEmpty())
-										EditColors.tryAddColor(nam, lf);
+									QDomElement colVal = colNode.toElement();
+									if (colVal.tagName() == "red")
+										cVal = colVal.text().toInt();
+									if (colVal.tagName() == "green")
+										mVal = colVal.text().toInt();
+									if (colVal.tagName() == "blue")
+										yVal = colVal.text().toInt();
+									colNode = colNode.nextSibling();
 								}
-								else if (pg.attribute("type") == "rgb")
-								{
-									QDomNode colNode = pg.firstChild();
-									while(!colNode.isNull())
-									{
-										QDomElement colVal = colNode.toElement();
-										if (colVal.tagName() == "red")
-											cVal = colVal.text().toInt();
-										if (colVal.tagName() == "green")
-											mVal = colVal.text().toInt();
-										if (colVal.tagName() == "blue")
-											yVal = colVal.text().toInt();
-										colNode = colNode.nextSibling();
-									}
-									lf.setRgbColor(cVal, mVal, yVal);
-									lf.setSpotColor(false);
-									lf.setRegistrationColor(false);
-									if (!nam.isEmpty())
-										EditColors.tryAddColor(nam, lf);
-								}
+								lf.setRgbColor(cVal, mVal, yVal);
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								if (!nam.isEmpty())
+									EditColors.tryAddColor(nam, lf);
 							}
-							PAGE=PAGE.nextSibling();
 						}
+						PAGE=PAGE.nextSibling();
 					}
-					else
-					{
-						QString paletteName = "";
-						QString dummy;
-						if (ColorEn.startsWith("GIMP Palette"))
-						{
-							ColorEn = tsC.readLine();
-							ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-							CoE >> dummy >> paletteName;
-						}
-						while (!tsC.atEnd())
-						{
-							ScColor tmp;
-							ColorEn = tsC.readLine();
-							if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-								continue;
-							ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-							CoE >> Rval;
-							CoE >> Gval;
-							CoE >> Bval;
-							if (cus)
-							{
-								CoE >> Kval;
-								Cname = CoE.readAll().trimmed();
-								tmp.setColor(Rval, Gval, Bval, Kval);
-							}
-							else
-							{
-								Cname = CoE.readAll().trimmed();
-								tmp.setRgbColor(Rval, Gval, Bval);
-							}
-							if (Cname == "Untitled")
-								Cname = "";
-							if (Cname.length() == 0)
-							{
-								if (!cus)
-									Cname = paletteName + QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
-								else
-									Cname = paletteName + QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
-								Cname.replace(" ","0");
-							}
-							EditColors.tryAddColor(Cname, tmp);
-						}
-					}
-					fiC.close();
 				}
+				else
+				{
+					QString paletteName = "";
+					QString dummy;
+					if (ColorEn.startsWith("GIMP Palette"))
+					{
+						ColorEn = tsC.readLine();
+						ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+						CoE >> dummy >> paletteName;
+					}
+					while (!tsC.atEnd())
+					{
+						ScColor tmp;
+						ColorEn = tsC.readLine();
+						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+							continue;
+						ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+						CoE >> Rval;
+						CoE >> Gval;
+						CoE >> Bval;
+						if (cus)
+						{
+							CoE >> Kval;
+							Cname = CoE.readAll().trimmed();
+							tmp.setColor(Rval, Gval, Bval, Kval);
+						}
+						else
+						{
+							Cname = CoE.readAll().trimmed();
+							tmp.setRgbColor(Rval, Gval, Bval);
+						}
+						if (Cname == "Untitled")
+							Cname = "";
+						if (Cname.length() == 0)
+						{
+							if (!cus)
+								Cname = paletteName + QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
+							else
+								Cname = paletteName + QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
+							Cname.replace(" ","0");
+						}
+						EditColors.tryAddColor(Cname, tmp);
+					}
+				}
+				fiC.close();
 			}
 		}
 	}
+
 	return (EditColors.count() != oldCount);
 }
