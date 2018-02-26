@@ -90,9 +90,11 @@ Indexed from 0 (0 = first).</li>
 <li>numPage = Number of pages to be created.</li>
 </ul>
 <p>The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants. A workaround can be to use the PAPER_* constant along with UNIT_POINTS, then follow the command with another command, setUnit(UNIT_MILLIMETERS).</p>
-<p>example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)</p>
+for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants.</p>
+<p>For A and B paper formats there are now new constants to use with UNIT_MILLIMETERS, named for example, PAPER_A4_MM, or PAPER_B6_MM.</p>
+<p>Examples:</p>
+<p>newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3, 1)</p>
+<p>newDocument(PAPER_A4_MM, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_MILLIMETERS, PAGE_4, 3, 1)</p>
 <p>May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</p>
 </dd>
 
