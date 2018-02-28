@@ -330,7 +330,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		UndoTransaction transaction;
 		if (UndoManager::undoEnabled())
 		{
-			if (fitImageToFrame() && (dX != 0.0 || dY != 0.0))
+			if ((fitImageToFrame() || !controlDown) && (dX != 0.0 || dY != 0.0))
 				transaction = undoManager->beginTransaction(getUName(), getUPixmap(), Um::ImageScale, "", Um::IMove);
 		}
 		if (dX != 0.0)
