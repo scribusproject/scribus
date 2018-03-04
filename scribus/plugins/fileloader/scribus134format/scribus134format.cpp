@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus134format.h"
 #include "scribus134formatimpl.h"
 
+#include <algorithm>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
@@ -496,6 +498,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			m_Doc->BookMarks.append( bookmark );
 		}
 	}
+	std::stable_sort(m_Doc->BookMarks.begin(), m_Doc->BookMarks.end());
 
 	if (TableItemsF.count() != 0)
 	{

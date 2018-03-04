@@ -1337,17 +1337,19 @@ public:
 	PrintOptions Print_Options;
 	bool RePos;
 	struct BookMa {
-					QString Title;
-					QString Text;
-					QString Aktion;
-					PageItem *PageObject;
-					int Parent;
-					int ItemNr;
-					int First;
-					int Last;
-					int Prev;
-					int Next;
-					};
+		QString Title;
+		QString Text;
+		QString Aktion;
+		PageItem *PageObject;
+		int Parent;
+		int ItemNr;
+		int First;
+		int Last;
+		int Prev;
+		int Next;
+
+		bool operator<(const BookMa& other) const { return ItemNr < other.ItemNr; }
+	};
 	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;

@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus150format.h"
 #include "scribus150formatimpl.h"
 
+#include <algorithm>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "ui/missing.h"
@@ -1590,6 +1592,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		bookmark.PageObject = item;
 		m_Doc->BookMarks.append( bookmark );
 	}
+	std::stable_sort(m_Doc->BookMarks.begin(), m_Doc->BookMarks.end());
 
 	if (isNewFormat)
 	{
