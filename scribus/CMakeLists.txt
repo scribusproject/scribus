@@ -787,6 +787,10 @@ set(SCRIBUS_SOURCES
 	imagedataloaders/scimgdataloader_qt.cpp
 	imagedataloaders/scimgdataloader_tiff.cpp
 	imagedataloaders/scimgdataloader_wpg.cpp
+	palettes/cxfcolorspecification.cpp
+	palettes/cxfmeasurementspec.cpp
+	palettes/cxftristimulusspec.cpp
+	palettes/cxfutils.cpp
 	palettes/paletteloader.cpp
 	palettes/paletteloader_adobe_acb.cpp
 	palettes/paletteloader_adobe_aco.cpp
