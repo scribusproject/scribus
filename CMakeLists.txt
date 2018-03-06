@@ -795,7 +795,7 @@ ENDIF(NOT WIN32)
 #>>ASPELL for Speelling support
 
 #<<HUNSPELL for Speelling support
-OPTION(WANT_HUNSPELL "Enable support for spell checking with hunspell" OFF)
+OPTION(WANT_HUNSPELL "Enable support for spell checking with hunspell" ON)
 IF (WANT_HUNSPELL)
   FIND_PACKAGE(HUNSPELL)
   IF (HUNSPELL_FOUND)
