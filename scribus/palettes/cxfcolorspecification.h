@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define CXFCOLORSPECIFICATION_H
 
 #include <QDomDocument>
+#include <QSharedPointer>
 #include <QString>
 
 #include "cxfmeasurementspec.h"
@@ -42,5 +43,7 @@ protected:
 	CxfMeasurementSpec m_measurementSpec;
 	CxfTristimulusSpec m_tristimulusSpec;
 };
+
+typedef QSharedPointer<CxfColorSpecification> CxfColorSpecificationShPtr;
 
 #endif

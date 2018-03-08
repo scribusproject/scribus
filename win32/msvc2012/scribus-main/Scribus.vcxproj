@@ -324,7 +324,9 @@
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h" />
     <moc Include="..\..\..\scribus\selectionrubberband.h" />
     <ClInclude Include="..\..\..\scribus\nodeeditcontext.h" />
+    <ClInclude Include="..\..\..\scribus\palettes\cxfcolor.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfcolorspecification.h" />
+    <ClInclude Include="..\..\..\scribus\palettes\cxfdocument.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfmeasurementspec.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxftristimulusspec.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxftypes.h" />
@@ -852,7 +854,9 @@
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.cpp" />
     <ClCompile Include="..\..\..\scribus\marks.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
+    <ClCompile Include="..\..\..\scribus\palettes\cxfcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfcolorspecification.cpp" />
+    <ClCompile Include="..\..\..\scribus\palettes\cxfdocument.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfmeasurementspec.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxftristimulusspec.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfutils.cpp" />
