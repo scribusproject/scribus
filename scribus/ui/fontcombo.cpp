@@ -51,6 +51,8 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
 	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	setEditable(true);
+	setValidator(new FontComboValidator(this));
+	setInsertPolicy(QComboBox::NoInsert);
 	setItemDelegate(new FontFamilyDelegate(this));
 	RebuildList(0);
 }
@@ -126,6 +128,8 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	}
 	fontFamily = new ScComboBox(this);
 	fontFamily->setEditable(true);
+	fontFamily->setValidator(new FontComboValidator(fontFamily));
+	fontFamily->setInsertPolicy(QComboBox::NoInsert);
 	fontFamily->setItemDelegate(new FontFamilyDelegate(this));
 	fontComboLayout->addWidget(fontFamily,0,col);
 	fontStyle = new ScComboBox(this);
@@ -619,3 +623,31 @@ QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
 }
 
 
+FontComboValidator::FontComboValidator(QObject* parent)
+	: QValidator(parent)
+{
+	prefsManager = PrefsManager::instance();
+}
+
+QValidator::State FontComboValidator::validate(QString & input, int & pos) const
+{
+	QComboBox* comboBox = dynamic_cast<QComboBox*>(this->parent());
+	if (!comboBox)
+		return QValidator::Invalid;
+
+	int index = comboBox->findText(input, Qt::MatchFixedString);
+	if (index >= 0)
+	{
+		input = comboBox->itemText(index); // Matching is performed case insensitively
+		return QValidator::Acceptable;
+	}
+
+	for (int i = 0; i < comboBox->count(); ++i)
+	{
+		QString itemText = comboBox->itemText(i);
+		if (itemText.startsWith(input, Qt::CaseInsensitive))
+			return QValidator::Intermediate;
+	}
+
+	return QValidator::Invalid;
+}
