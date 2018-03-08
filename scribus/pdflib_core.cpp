@@ -10922,23 +10922,22 @@ void PDFLibCore::PDF_End_Bookmarks()
 {
 	if (writer.OutlinesObj == 0)
 		return;
-
-	BookMItem* ip;
-	QByteArray Inhal = "";
-	QMap<int,QByteArray> Inha;
+	
+	QByteArray Inhal;
+	QMap<int, QByteArray> Inha;
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
+		BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
+		PdfId Basis = writer.objectCounter() - 1;
 		Outlines.Count = Bvie->topLevelItemCount();
-		PdfId Basis = writer.reserveObjects(Outlines.Count) - 1;
-		ip = (BookMItem*)Bvie->topLevelItem(0);
-		Outlines.First = ip->ItemNr+Basis;
-		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr+Basis;
+		Outlines.First = ip->ItemNr + Basis;
+		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + Basis;
 		QTreeWidgetItemIterator it(Bvie);
 		while (*it)
 		{
 			ip = (BookMItem*)(*it);
 			QString encText = ip->text(0);
-			Inhal  = ""; //Pdf::toPdf(ip->ItemNr+Basis)+ " 0 obj\n";
+			Inhal.clear();
 			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
@@ -10970,6 +10969,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 			++it;
 		}
 		QMap<int,QByteArray> ::ConstIterator contentIt;
+		writer.reserveObjects(Inha.count());
 		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
 		{
 			int itemNr = contentIt.key();

@@ -184,6 +184,7 @@ public:
 	void write(const PdfFont font);
 
 	// objects
+	PdfId objectCounter() const { return m_ObjCounter; }
 	PdfId reserveObjects(unsigned int n);
 	
 	PdfId newObject() { return reserveObjects(1); }
