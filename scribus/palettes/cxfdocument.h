@@ -9,27 +9,36 @@ for which a new license (GPL+exception) is in place.
 #define CXFDOCUMENT_H
 
 #include <QDomDocument>
+#include <QList>
 #include <QMap>
 #include <QString>
 
 #include "cxfcolorspecification.h"
+#include "cxfobject.h"
 
 class CxfDocument
 {
 public:
 	CxfDocument();
+	~CxfDocument();
 	
 	const CxfColorSpecification* colorSpecification(const QString& name) const;
 	const QMap<QString, CxfColorSpecificationShPtr>& colorSpecifications() const { return m_colorSpecs; }
 	bool hasColorSpecification(const QString& name) const { return m_colorSpecs.contains(name); }
+
+	int   objectCount() const { return m_objects.count(); }
+	const CxfObject* objectAt(int index) { return m_objects.at(index); }
+	const QList<CxfObject*>& objects() { return m_objects; }
 	
 	bool parse(const QString& fileName);
 	void reset();
 	
 protected:
 	QMap<QString, CxfColorSpecificationShPtr> m_colorSpecs;
+	QList<CxfObject*> m_objects;
 	
 	bool parseColorSpecificationCollection(QDomElement& elem);
+	bool parseObjectCollection(QDomElement& elem);
 };
 
 #endif

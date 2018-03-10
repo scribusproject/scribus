@@ -790,6 +790,7 @@ set(SCRIBUS_SOURCES
 	palettes/cxfcolor.cpp
 	palettes/cxfcolorspecification.cpp
 	palettes/cxfdocument.cpp
+	palettes/cxfobject.cpp
 	palettes/cxfmeasurementspec.cpp
 	palettes/cxftristimulusspec.cpp
 	palettes/cxfutils.cpp
@@ -798,6 +799,7 @@ set(SCRIBUS_SOURCES
 	palettes/paletteloader_adobe_aco.cpp
 	palettes/paletteloader_adobe_ase.cpp
 	palettes/paletteloader_autocad_acb.cpp
+	palettes/paletteloader_cxf.cpp
 	palettes/paletteloader_ps.cpp
 	palettes/paletteloader_sk1.cpp
 	palettes/paletteloader_swatchbook.cpp

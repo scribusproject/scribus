@@ -19,6 +19,8 @@ public:
 	CxfIlluminant illuminant() const { return m_illuminant; }
 	CxfObserver   observer() const { return m_observer; }
 	CxfCIEConversionMethod conversionMethod() const { return m_convMethod; }
+
+	bool isD50_2degree() const { return (m_illuminant == cxfIlluminantD50 && m_observer == cxfObserver2_Degree); }
 	
 	bool isValid() const;
 	bool isSupported() const;

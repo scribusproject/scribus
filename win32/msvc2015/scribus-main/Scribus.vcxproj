@@ -328,6 +328,7 @@
     <ClInclude Include="..\..\..\scribus\palettes\cxfcolorspecification.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfdocument.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfmeasurementspec.h" />
+    <ClInclude Include="..\..\..\scribus\palettes\cxfobject.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxftristimulusspec.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxftypes.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfutils.h" />
@@ -336,6 +337,7 @@
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.h" />
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_cxf.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_ps.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_sk1.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_swatchbook.h" />
@@ -858,6 +860,7 @@
     <ClCompile Include="..\..\..\scribus\palettes\cxfcolorspecification.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfdocument.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfmeasurementspec.cpp" />
+    <ClCompile Include="..\..\..\scribus\palettes\cxfobject.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxftristimulusspec.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfutils.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader.cpp" />
@@ -865,6 +868,7 @@
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.cpp" />
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_cxf.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_sk1.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_swatchbook.cpp" />

@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define CXFCOLOR_H
 
 #include <QDomDocument>
+#include <QSharedPointer>
+#include <QVector>
+
 #include "cxftypes.h"
 
 class  CxfColorSpecification;
@@ -34,6 +37,8 @@ protected:
 	CxfDocument* m_cxfDoc;
 	const CxfColorSpecification* m_colorSpec;
 };
+
+typedef QSharedPointer<CxfColor> CxfColorShPtr;
 
 class CxfColorRGB : public CxfColor
 {
@@ -127,6 +132,46 @@ public:
 
 protected:
 	double m_values[3];
+};
+
+class CxfColorCIEXYZ : public CxfColor
+{
+public:
+	CxfColorCIEXYZ(CxfDocument* cxfDoc);
+
+	double  X() const { return m_values[0]; }
+	double  Y() const { return m_values[1]; }
+	double  Z() const { return m_values[2]; }
+
+	ScLab lab() const;
+
+	virtual CxfColorType type() const { return cxfColorCIELCh; }
+
+	virtual bool parse(QDomElement& colorElem);
+	virtual void reset();
+
+protected:
+	double m_values[3];
+};
+
+class CxfReflectanceSpectrum : public CxfColor
+{
+public:
+	CxfReflectanceSpectrum(CxfDocument* cxfDoc);
+
+	const QVector<double>& values() const { return m_values; }
+	virtual CxfColorType type() const { return cxfReflectanceSpectrum; }
+
+	virtual bool parse(QDomElement& colorElem);
+	virtual void reset();
+
+	int wavelengthStart() const;
+	int wavelengthIncrement() const;
+	QVector<int> wavelengths() const;
+
+protected:
+	QVector<double> m_values;
+	int m_wavelengthStart;
 };
 
 #endif

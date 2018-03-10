@@ -14,6 +14,15 @@ CxfDocument::CxfDocument()
 	
 }
 
+CxfDocument::~CxfDocument()
+{
+	while (m_objects.count() > 0)
+	{
+		CxfObject* object = m_objects.takeAt(0);
+		delete object;
+	}
+}
+
 const CxfColorSpecification* CxfDocument::colorSpecification(const QString& name) const
 {
 	CxfColorSpecificationShPtr specPtr = m_colorSpecs.value(name, CxfColorSpecificationShPtr());
@@ -27,7 +36,7 @@ bool CxfDocument::parse(const QString& fileName)
 		return false;
 
 	QDomDocument domDoc;
-	if (!domDoc.setContent(&file))
+	if (!domDoc.setContent(&file, true))
 	{
 		file.close();
 		return false;
@@ -53,7 +62,15 @@ bool CxfDocument::parse(const QString& fileName)
 	if (m_colorSpecs.count() <= 0)
 		return false;
 
-	return true;
+	// Parse objects
+	QDomNodeList objectNodes = rsrcElem.elementsByTagName("ObjectCollection");
+	for (int i = 0; i < objectNodes.count(); ++i)
+	{
+		QDomElement collectionNode = objectNodes.at(i).toElement();
+		parseObjectCollection(collectionNode);
+	}
+
+	return (m_objects.count() > 0);
 }
 
 bool CxfDocument::parseColorSpecificationCollection(QDomElement& elem)
@@ -73,6 +90,30 @@ bool CxfDocument::parseColorSpecificationCollection(QDomElement& elem)
 		if (!colorSpec->parse(childElem))
 			continue;
 		m_colorSpecs.insert(colorSpec->id(), colorSpec);
+	}
+	return (m_colorSpecs.count() > 0);
+}
+
+bool CxfDocument::parseObjectCollection(QDomElement& elem)
+{
+	QDomNodeList childNodes = elem.childNodes();
+	for (int i = 0; i < childNodes.count(); ++i)
+	{
+		QDomNode childNode = childNodes.at(i);
+		if (!childNode.isElement())
+			continue;
+
+		QDomElement childElem = childNode.toElement();
+		if (childElem.tagName() != "Object")
+			continue;
+
+		CxfObject* object = new CxfObject(this);
+		if (!object->parse(childElem))
+		{
+			delete object;
+			continue;
+		}
+		m_objects.append(object);
 	}
 	return (m_colorSpecs.count() > 0);
 }
