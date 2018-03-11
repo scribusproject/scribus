@@ -788,6 +788,9 @@
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_cxf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sce308tables.h">
+      <Filter>colorMgmt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2454,6 +2457,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_cxf.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sce308tables.cpp">
+      <Filter>colorMgmt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
