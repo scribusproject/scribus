@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccieilluminants.h"
 #include "sccieobservers.h"
 #include "sccolormgmtstructs.h"
+#include "sce308tables.h"
 
 class ScSpectralValuesConvertor
 {
@@ -23,6 +24,11 @@ public:
 	 * illuminant and observer
 	 */
 	ScSpectralValuesConvertor(eIlluminant illuminant, eObserver observer);
+
+	/**
+	* Construct spectral values to CIEXYZ convertor with specified E308 table
+	*/
+	ScSpectralValuesConvertor(const ScE308Table& e380table);
 
 	/**
 	 * Retrieve CIE XYZ values of illuminant white
@@ -50,11 +56,15 @@ public:
 	ScXYZ toXYZ(const QVector<int>& wavelengths, const QVector<double>& reflectances) const;
 
 protected:
-	const ScCIEIlluminant& m_illuminant;
-	const ScCIEObserver& m_observer;
 	ScXYZ m_illuminantWhite;
 
-	ScXYZ computeIlluminantWhite();
+	QMap<int, double> m_weightsX;
+	QMap<int, double> m_weightsY;
+	QMap<int, double> m_weightsZ;
+
+	ScXYZ computeIlluminantWhite(const ScCIEIlluminant& illuminant, const ScCIEObserver& observer);
+	ScXYZ computeIlluminantWhite(const ScE308Table& e380table);
+	void  computeWeights(const ScCIEIlluminant& illuminant, const ScCIEObserver& observer);
 };
 
 #endif
