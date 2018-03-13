@@ -5851,7 +5851,7 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 			kToGray = (h == 0 && s == 0 && v == 0);
 		}
 		if (kToGray)
-			tmp = FToStr(1.0 - k / 255.0);
+			tmp = FToStr(1.0 - k);
 		else
 		{
 			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
