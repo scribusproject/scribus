@@ -541,7 +541,6 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
-	PageTree.Count = 0;
 	Outlines.First = 0;
 	Outlines.Last = 0;
 	Outlines.Count = 0;
@@ -664,7 +663,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_End_Page(a);
+			PDF_End_Page();
 			pc_exportpages++;
 			if (usingGUI)
 			{
@@ -3364,7 +3363,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 	}
 }
 
-void PDFLibCore::PDF_End_Page(int physPage)
+void PDFLibCore::PDF_End_Page()
 {
 	if (!pageData.radioButtonList.isEmpty())
 		PDF_RadioButtons();
@@ -3582,7 +3581,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		PutDoc(">>");
 		writer.endObj(Gobj);
 	}
-	uint pageObject = writer.newObject();
+	PdfId pageObject = writer.newObject();
 	writer.startObj(pageObject);
 	PutDoc("<<\n/Type /Page\n/Parent " + Pdf::toObjRef(writer.PagesObj) + "\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
@@ -3751,8 +3750,8 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	}
 	PutDoc(">>");
 	writer.endObj(pageObject);
-	PageTree.Count++;
-	PageTree.Kids[physPage] = pageObject;
+	PageTree.Kids.append(pageObject);
+	PageTree.KidsMap[ActPageP->pageNr()] = pageObject;
 }
 
 
@@ -9772,7 +9771,7 @@ void PDFLibCore::PDF_Form(const QByteArray& im) // unused? - av
 
 void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 {
-	Bvie->setAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0]");
+	Bvie->setAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0");
 	BookMinUse = true;
 }
 
@@ -10953,7 +10952,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 				Inhal += "/Last "+Pdf::toPdf(ip->Last+Basis)+" 0 R\n";
 			if (ip->childCount())
 				Inhal += "/Count -"+Pdf::toPdf(ip->childCount())+"\n";
-			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
+			if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
 			{
 				QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
 				if (action.isEmpty())
@@ -10962,7 +10961,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
 					action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
 				}
-				Inhal += "/Dest ["+Pdf::toPdf(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
+				Inhal += "/Dest ["+Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage])+" 0 R "+action+"]\n";
 			}
 			Inhal += ">>";
 			Inha[ip->ItemNr] = Inhal;
@@ -11037,11 +11036,13 @@ void PDFLibCore::PDF_End_PageTree()
 {
 	writer.startObj(writer.PagesObj);
 	PutDoc("<<\n/Type /Pages\n/Kids [");
-	QMap<int, int>::Iterator kidsIt;
-	for (kidsIt = PageTree.Kids.begin(); kidsIt != PageTree.Kids.end(); ++kidsIt)
-		PutDoc(Pdf::toPdf(kidsIt.value())+" 0 R ");
+	for (int i = 0; i < PageTree.Kids.count(); ++i)
+	{
+		PdfId objId = PageTree.Kids.at(i);
+		PutDoc(Pdf::toPdf(objId) + " 0 R ");
+	}
 	PutDoc("]\n");
-	PutDoc("/Count "+Pdf::toPdf(PageTree.Count)+"\n");
+	PutDoc("/Count "+ Pdf::toPdf(PageTree.Kids.count()) + "\n");
 	PutDoc("/Resources "+Pdf::toPdf(writer.ResourcesObj)+" 0 R\n");
 	PutDoc(">>");
 	writer.endObj(writer.PagesObj);
@@ -11059,8 +11060,8 @@ void PDFLibCore::PDF_End_NamedDests()
 		QList<PdfDest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if (PageTree.Kids.contains(vt->PageNr))
-				PutDoc(Pdf::toName(vt->Name) + " [" + Pdf::toObjRef(PageTree.Kids[vt->PageNr])
+			if (PageTree.KidsMap.contains(vt->PageNr))
+				PutDoc(Pdf::toName(vt->Name) + " [" + Pdf::toObjRef(PageTree.KidsMap[vt->PageNr])
 				       + " /XYZ " + Pdf::toPdfDocEncoding(vt->Act) + "]\n");
 		}
 	}
@@ -11165,12 +11166,12 @@ void PDFLibCore::PDF_End_Articles()
 			bd.Parent = currentThreadObj;
 			while (tel->nextInChain() != 0)
 			{
-				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
+				if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
 				{
 					bd.Next = ccb + 1;
 					bd.Prev = ccb - 1;
 					ccb++;
-					bd.Page = PageTree.Kids[tel->OwnPage];
+					bd.Page = PageTree.KidsMap[tel->OwnPage];
 					bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
@@ -11182,9 +11183,9 @@ void PDFLibCore::PDF_End_Articles()
 			}
 			bd.Next = ccb + 1;
 			bd.Prev = ccb - 1;
-			if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
+			if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
 			{
-				bd.Page = PageTree.Kids[tel->OwnPage];
+				bd.Page = PageTree.KidsMap[tel->OwnPage];
 				bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 							static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 							static_cast<int>(tel->width()),

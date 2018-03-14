@@ -118,7 +118,7 @@ private:
 	void PDF_Begin_Layers();
 	
 	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);
-	void PDF_End_Page(int physPage);
+	void PDF_End_Page();
 	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
 	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);
 	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);

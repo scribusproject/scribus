@@ -61,8 +61,8 @@ struct PdfCatalog
 
 struct PdfPageTree
 {
-    QMap<int, int> Kids;
-    int Count;
+	QList<PdfId> Kids;
+	QMap<int, PdfId> KidsMap;
 };
 
 
