@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "palettes/paletteloader_adobe_aco.h"
 #include "palettes/paletteloader_adobe_ase.h"
 #include "palettes/paletteloader_autocad_acb.h"
+#include "palettes/paletteloader_cxf.h"
 #include "palettes/paletteloader_ps.h"
 #include "palettes/paletteloader_sk1.h"
 #include "palettes/paletteloader_swatchbook.h"
@@ -697,6 +698,16 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 			{
 				adobePalLoader.setupTargets(&EditColors, dialogGradients);
 				return adobePalLoader.importFile(fileName, merge);
+			}
+			return false;
+		}
+		else if (ext == "cxf")			// Adobe swatch exchange format
+		{
+			PaletteLoader_CxF cxfLoader;
+			if (cxfLoader.isFileSupported(fileName))
+			{
+				cxfLoader.setupTargets(&EditColors, dialogGradients);
+				return cxfLoader.importFile(fileName, merge);
 			}
 			return false;
 		}

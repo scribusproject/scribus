@@ -61,6 +61,17 @@ bool PaletteLoader_CxF::importObjectAsLabColor(const CxfObject* object)
 {
 	ScColor color;
 
+	const CxfReflectanceSpectrum* spectrum = dynamic_cast<const CxfReflectanceSpectrum*>(object->color(cxfReflectanceSpectrum));
+	if (spectrum)
+	{
+		ScLab labVal = m_spectrumConvertor.toLab(spectrum->wavelengths(), spectrum->values());
+		color.setLabColor(labVal.L, labVal.a, labVal.b);
+		color.setSpotColor(false);
+		color.setRegistrationColor(false);
+		m_colors->tryAddColor(object->name(), color);
+		return true;
+	}
+
 	const CxfColorCIELab* cxfLabColor = dynamic_cast<const CxfColorCIELab*>(object->color(cxfColorCIELab));
 	if (cxfLabColor)
 	{
@@ -108,17 +119,6 @@ bool PaletteLoader_CxF::importObjectAsLabColor(const CxfObject* object)
 			m_colors->tryAddColor(object->name(), color);
 			return true;
 		}
-	}
-
-	const CxfReflectanceSpectrum* spectrum = dynamic_cast<const CxfReflectanceSpectrum*>(object->color(cxfReflectanceSpectrum));
-	if (spectrum)
-	{
-		ScLab labVal = m_spectrumConvertor.toLab(spectrum->wavelengths(), spectrum->values());
-		color.setLabColor(labVal.L, labVal.a, labVal.b);
-		color.setSpotColor(false);
-		color.setRegistrationColor(false);
-		m_colors->tryAddColor(object->name(), color);
-		return true;
 	}
 
 	return false;
