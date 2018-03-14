@@ -124,7 +124,6 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
-	PageTree.Count = 0;
 	Outlines.First = 0;
 	Outlines.Last = 0;
 	Outlines.Count = 0;
@@ -2812,8 +2811,8 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		}
 	}
 	PutDoc(">>\nendobj\n");
-	PageTree.Count++;
-	PageTree.Kids[physPage] = pageObject;
+	PageTree.Kids.append(pageObject);
+	PageTree.KidsMap[ActPageP->pageNr()] = pageObject;
 }
 
 
@@ -7670,7 +7669,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				Inhal += "/Last "+QString::number(ip->Last+Basis)+" 0 R\n";
 			if (ip->childCount())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
-			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
+			if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
 			{
 				QString action = ip->Action;
 				if (action.isEmpty())
@@ -7679,7 +7678,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
 					action = QString("/XYZ 0 %1 0").arg(actionPos);
 				}
-				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
+				Inhal += "/Dest ["+QString::number(PageTree.KidsMap[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
 			}
 			Inhal += ">>\nendobj\n";
 			Inha[ip->ItemNr] = Inhal;
@@ -7791,11 +7790,13 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	PutDoc(">>\nendobj\n");
 	XRef[3] = bytesWritten();
 	PutDoc("4 0 obj\n<<\n/Type /Pages\n/Kids [");
-	QMap<int, int>::Iterator kidsIt;
-	for (kidsIt = PageTree.Kids.begin(); kidsIt != PageTree.Kids.end(); ++kidsIt)
-		PutDoc(QString::number(kidsIt.value())+" 0 R ");
+	for (int i = 0; i < PageTree.Kids.count(); ++i)
+	{
+		int objId = PageTree.Kids.at(i);
+		PutDoc(QString::number(objId) + " 0 R ");
+	}
 	PutDoc("]\n");
-	PutDoc("/Count "+QString::number(PageTree.Count)+"\n");
+	PutDoc("/Count "+QString::number(PageTree.Kids.count())+"\n");
 	PutDoc("/Resources "+QString::number(ObjCounter-1)+" 0 R\n");
 	PutDoc(">>\nendobj\n");
 	XRef[4] = bytesWritten();
@@ -7805,8 +7806,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		QList<Dest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if (PageTree.Kids.contains((*vt).Seite))
-				PutDoc("/"+(*vt).Name+" ["+QString::number(PageTree.Kids[(*vt).Seite])+" 0 R /XYZ "+(*vt).Act+"]\n");
+			if (PageTree.KidsMap.contains(vt->Seite))
+				PutDoc("/" + vt->Name + " [" + QString::number(PageTree.KidsMap[vt->Seite]) + " 0 R /XYZ " + vt->Act + "]\n");
 		}
 	}
 	PutDoc(">>\nendobj\n");
@@ -7877,12 +7878,12 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				bd.Parent = ObjCounter;
 				while (tel->nextInChain() != 0)
 				{
-					if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
+					if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
 					{
 						bd.Next = ccb + 1;
 						bd.Prev = ccb - 1;
 						ccb++;
-						bd.Page = PageTree.Kids[tel->OwnPage];
+						bd.Page = PageTree.KidsMap[tel->OwnPage];
 						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->width()),
@@ -7894,9 +7895,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				}
 				bd.Next = ccb + 1;
 				bd.Prev = ccb - 1;
-				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
+				if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
 				{
-					bd.Page = PageTree.Kids[tel->OwnPage];
+					bd.Page = PageTree.KidsMap[tel->OwnPage];
 					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),

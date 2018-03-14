@@ -198,8 +198,8 @@ private:
 	Catalog;
 	struct PagT
 	{
-		QMap<int, int> Kids;
-		int Count;
+		QList<int> Kids;
+		QMap<int, int> KidsMap;
 	}
 	PageTree;
 	struct PagL
