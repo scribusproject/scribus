@@ -11059,9 +11059,9 @@ void PDFLibCore::PDF_End_NamedDests()
 		QList<PdfDest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if (PageTree.Kids.contains((*vt).PageNr))
-				PutDoc(Pdf::toName((*vt).Name) + " [" + Pdf::toObjRef(PageTree.Kids[(*vt).PageNr])
-				       + " /XYZ " + Pdf::toPdfDocEncoding((*vt).Act) + "]\n");
+			if (PageTree.Kids.contains(vt->PageNr))
+				PutDoc(Pdf::toName(vt->Name) + " [" + Pdf::toObjRef(PageTree.Kids[vt->PageNr])
+				       + " /XYZ " + Pdf::toPdfDocEncoding(vt->Act) + "]\n");
 		}
 	}
 	PutDoc(">>");
