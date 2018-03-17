@@ -601,6 +601,8 @@
     <moc Include="..\..\..\scribus\ui\pagepropertiesdialog.h" />
     <moc Include="..\..\..\scribus\ui\fontembeddingcombo.h" />
     <moc Include="..\..\..\scribus\ui\fontembeddingmodel.h" />
+    <moc Include="..\..\..\scribus\ui\pdfversioncombo.h" />
+    <moc Include="..\..\..\scribus\ui\pdfversionmodel.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -1198,6 +1200,8 @@
     <ClCompile Include="..\..\..\scribus\pdfoptionsio.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pdfexportdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pdftoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\pdfversioncombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\pdfversionmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picsearch.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picsearchoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picstatus.cpp" />

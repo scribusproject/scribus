@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidgetItem>
 #include <QPixmap>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QSpacerItem>
 #include <QSpinBox>
 #include <QStandardItem>
@@ -71,16 +72,8 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	MirrorV->setCheckable( true );
 
 	fileOptionsLayout->setAlignment( Qt::AlignTop );
-	PDFVersionCombo->addItem("PDF 1.3 (Acrobat 4)");
-	PDFVersionCombo->addItem("PDF 1.4 (Acrobat 5)");
-	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
 	cms = (ScCore->haveCMS() && m_Doc->HasCMS);
-	if (cms && (!PDFXProfiles.isEmpty()))
-	{
-		PDFVersionCombo->addItem("PDF/X-1a");
-		PDFVersionCombo->addItem("PDF/X-3");
-		PDFVersionCombo->addItem("PDF/X-4");
-	}
+	PDFVersionCombo->setPDFXEnabled(cms && (!PDFXProfiles.isEmpty()));
 	Resolution->setMaximum( 4000 );
 	Resolution->setMinimum( 35 );
 	Resolution->setSuffix( tr( " dpi" ) );
@@ -354,23 +347,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	MirrorV->setChecked(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
 	bool cmsUse = (ScCore->haveCMS() && m_Doc->HasCMS);
-	if (cmsUse)
-	{
-		if (Opts.Version == PDFOptions::PDFVersion_X1a)
-			PDFVersionCombo->setCurrentIndex(3);
-		if (Opts.Version == PDFOptions::PDFVersion_X3)
-			PDFVersionCombo->setCurrentIndex(4);
-		if (Opts.Version == PDFOptions::PDFVersion_X4)
-			PDFVersionCombo->setCurrentIndex(5);
-	}
-	else
-		PDFVersionCombo->setCurrentIndex(0);
-	if (Opts.Version == PDFOptions::PDFVersion_13)
-		PDFVersionCombo->setCurrentIndex(0);
-	if (Opts.Version == PDFOptions::PDFVersion_14)
-		PDFVersionCombo->setCurrentIndex(1);
-	if (Opts.Version == PDFOptions::PDFVersion_15)
-		PDFVersionCombo->setCurrentIndex(2);
+	if (!cmsUse)
+		PDFVersionCombo->setVersion(PDFOptions::PDFVersion_14);
+	PDFVersionCombo->setVersion(Opts.Version);
 	ComboBind->setCurrentIndex(Opts.Binding);
 	CheckBox1->setChecked(Opts.Thumbnails);
 	Article->setChecked(Opts.Articles);
@@ -783,18 +762,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 		pdfOptions.PassOwner = PassOwner->text();
 		pdfOptions.PassUser = PassUser->text();
 	}
-	if (PDFVersionCombo->currentIndex() == 0)
-		pdfOptions.Version = PDFOptions::PDFVersion_13;
-	if (PDFVersionCombo->currentIndex() == 1)
-		pdfOptions.Version = PDFOptions::PDFVersion_14;
-	if (PDFVersionCombo->currentIndex() == 2)
-		pdfOptions.Version = PDFOptions::PDFVersion_15;
-	if (PDFVersionCombo->currentIndex() == 3)
-		pdfOptions.Version = PDFOptions::PDFVersion_X1a;
-	if (PDFVersionCombo->currentIndex() == 4)
-		pdfOptions.Version = PDFOptions::PDFVersion_X3;
-	if (PDFVersionCombo->currentIndex() == 5)
-		pdfOptions.Version = PDFOptions::PDFVersion_X4;
+	pdfOptions.Version = PDFVersionCombo->version();
 	if (OutCombo->currentIndex() == 0)
 	{
 		pdfOptions.isGrayscale = false;
@@ -862,7 +830,7 @@ void TabPDFOptions::doDocBleeds()
 
 void TabPDFOptions::checkInfo()
 {
-	if ((PDFVersionCombo->currentIndex() >= 3) && (InfoString->text().isEmpty()))
+	if ((PDFVersionCombo->versionIsPDFX()) && (InfoString->text().isEmpty()))
 		emit noInfo();
 	else
 		emit hasInfo();
@@ -877,24 +845,14 @@ void TabPDFOptions::ToggleEncr()
 
 void TabPDFOptions::enableCMS(bool enable)
 {
-	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
-	int a = PDFVersionCombo->currentIndex();
-	PDFVersionCombo->clear();
-	PDFVersionCombo->addItem("PDF 1.3 (Acrobat 4)");
-	PDFVersionCombo->addItem("PDF 1.4 (Acrobat 5)");
-	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
-	cms=enable;
-	if (enable)
-	{
-		PDFVersionCombo->addItem("PDF/X-1a");
-		PDFVersionCombo->addItem("PDF/X-3");
-		PDFVersionCombo->addItem("PDF/X-4");
-	}
-	else
-		a = qMin(a, 2);
-	PDFVersionCombo->setCurrentIndex(a);
+	QSignalBlocker blocker(PDFVersionCombo);
+	PDFOptions::PDFVersion currVersion = PDFVersionCombo->version();
+	PDFVersionCombo->setPDFXEnabled(enable);
+	cms = enable;
+	if (!enable)
+		currVersion = qMax(PDFOptions::PDFVersion_13, qMin(currVersion, PDFOptions::PDFVersion_15));
+	PDFVersionCombo->setVersion(currVersion);
 	EnablePr(1);
-	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 }
 
 void TabPDFOptions::EnablePDFX(int a)
@@ -1046,12 +1004,7 @@ void TabPDFOptions::EnablePr(int a)
 	EnableLPI(a);
 	bool setter = false;
 	if (a == 1)
-	{
-		if (PDFVersionCombo->currentIndex() == 3)
-			setter = false;
-		else
-			setter = true;
-	}
+		setter = !PDFVersionCombo->versionIs(PDFOptions::PDFVersion_X1a);
 
 	solidsProfileGroup->setEnabled(setter);
 	imageProfileGroup->setEnabled(setter);

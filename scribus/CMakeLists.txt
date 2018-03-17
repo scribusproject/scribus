@@ -416,6 +416,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/pageselector.h
 	ui/patternpropsdialog.h
 	ui/pdfexportdialog.h
+	ui/pdfversioncombo.h
+	ui/pdfversionmodel.h
 	ui/picsearch.h
 	ui/picsearchoptions.h
 	ui/picstatus.h
@@ -910,6 +912,8 @@ set(SCRIBUS_SOURCES
 	ui/pageselector.cpp
 	ui/patternpropsdialog.cpp
 	ui/pdfexportdialog.cpp
+	ui/pdfversioncombo.cpp
+	ui/pdfversionmodel.cpp
 	ui/picsearch.cpp
 	ui/picsearchoptions.cpp
 	ui/picstatus.cpp

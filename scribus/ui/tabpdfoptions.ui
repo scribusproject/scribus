@@ -212,7 +212,7 @@
           </widget>
          </item>
          <item row="0" column="1" colspan="2">
-          <widget class="QComboBox" name="PDFVersionCombo">
+          <widget class="PdfVersionCombo" name="PDFVersionCombo">
            <property name="editable">
             <bool>false</bool>
            </property>
@@ -1914,6 +1914,11 @@ when PDF document is opened:</string>
    <class>FontEmbeddingCombo</class>
    <extends>QComboBox</extends>
    <header>ui/fontembeddingcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PdfVersionCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/pdfversioncombo.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

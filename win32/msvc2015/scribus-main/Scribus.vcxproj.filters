@@ -791,6 +791,12 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sce308tables.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\pdfversioncombo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\pdfversionmodel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2460,6 +2466,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\colormgmt\sce308tables.cpp">
       <Filter>colorMgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdfversioncombo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdfversionmodel.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
