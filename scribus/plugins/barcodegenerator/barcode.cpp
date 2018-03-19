@@ -49,7 +49,7 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 
 	about->authors = QString::fromUtf8("Terry Burton - <tez@terryburton.co.uk>, Petr Van\xc4\x9bk <petr@scribus.info>");
 	about->shortDescription = tr("Scribus frontend for Barcode Writer in Pure PostScript");
-	about->description = "Barcode Writer in Pure Postscript generates all barcode formats entirely within PostScript hence this plugin requires Ghostscript to be installed on your system. http://bwipp.terryburton.co.uk";
+	about->description = "Barcode Writer in Pure Postscript generates all barcode formats entirely within PostScript hence this plugin requires Ghostscript to be installed on your system. https://bwipp.terryburton.co.uk";
 
 	// Extract the version information from BWIPP
 	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
@@ -65,7 +65,7 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 	else
 		about->version = "Unable to open backend file";
 	// about->releaseDate
-	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2015 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
+	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2018 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
 	about->license = "Backend: MIT/X-Consortium, Frontend: GPL";
 	return about;
 }
