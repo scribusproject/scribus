@@ -26,8 +26,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "meshdistortiondialog.h"
 
-#include <QPainterPath>
 #include <QGraphicsItem>
+#include <QPainterPath>
+#include <QStyleOptionGraphicsItem>
 
 #include "commonstrings.h"
 #include "fpointarray.h"
