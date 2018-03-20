@@ -33,19 +33,22 @@ for which a new license (GPL+exception) is in place.
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsPathItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsSceneHoverEvent>
+
 #include "ui_lensdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
 
 class LensDialog;
+class QGraphicsSceneHoverEvent;
+class QGraphicsSceneMouseEvent;
+class QStyleOptionGraphicsItem;
 
 class PLUGIN_API LensItem : public QGraphicsRectItem
 {
 public:
 	LensItem(QRectF geom, LensDialog *parent);
 	~LensItem() {};
+	
 	void setStrength(double s);
 	void updateEffect();
 	QPainterPath lensDeform(const QPainterPath &source, const QPointF &offset, double m_radius, double s);
@@ -54,6 +57,7 @@ public:
 	double scaling;
 	int handle;
 	QPointF mousePoint;
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -72,6 +76,7 @@ class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase
 public:
 	LensDialog(QWidget* parent, ScribusDoc *doc);
 	~LensDialog() {};
+	
 	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void lensSelected(LensItem *item);
 	void setLensPositionValues(QPointF p);

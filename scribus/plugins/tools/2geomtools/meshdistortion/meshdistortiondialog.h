@@ -31,12 +31,10 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsPathItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsSceneHoverEvent>
+
 #include "ui_meshdistortiondialog.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
@@ -54,14 +52,19 @@ for which a new license (GPL+exception) is in place.
 #include "third_party/lib2geom/transforms.h"
 #include "third_party/lib2geom/scribushelper.h"
 #include <vector>
+
 //using namespace Geom;
 class MeshDistortionDialog;
+class QGraphicsSceneHoverEvent;
+class QGraphicsSceneMouseEvent;
+class QStyleOptionGraphicsItem;
 
 class PLUGIN_API NodeItem : public QGraphicsEllipseItem
 {
 public:
 	NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent);
 	~NodeItem() {};
+	
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
 	uint handle;
 	bool mouseMoving;
@@ -84,6 +87,7 @@ class PLUGIN_API MeshDistortionDialog : public QDialog, Ui::MeshDistortionDialog
 public:
 	MeshDistortionDialog(QWidget* parent, ScribusDoc *doc);
 	~MeshDistortionDialog() {};
+	
 	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void adjustHandles();
 	void updateMesh(bool gridOnly);
