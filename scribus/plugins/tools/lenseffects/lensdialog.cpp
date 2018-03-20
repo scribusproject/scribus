@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "lensdialog.h"
 #include <cmath>
 #include <QRadialGradient>
+#include <QStyleOptionGraphicsItem>
 #include "iconmanager.h"
 #include "selection.h"
 #include "sccolorengine.h"
