@@ -12113,11 +12113,10 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
-		Object.Objects.clear();
 		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
 		Object.Group = 0;
 		Object.ObjNr = Items->indexOf(currItem);
-		Object.Objects.append(currItem);
+		Object.Object = currItem;
 		AObjects.append(Object);
 	}
 	for (int i = 0; i < AObjects.count(); ++i)
@@ -12137,9 +12136,10 @@ bool ScribusDoc::startAlign(uint minObjects)
 		
 	bool oneLocked=false;
 	for (int i = 0; i < alignObjectsCount && !oneLocked; ++i)
-		for (int j = 0; j < AObjects[i].Objects.count() && !oneLocked; ++j)
-			if (AObjects[i].Objects.at(j)->locked())
-				oneLocked=true;
+	{
+		if (AObjects[i].Object->locked())
+			oneLocked = true;
+	}
 	int t = 2;
 	if (oneLocked)
 	{
@@ -12174,9 +12174,10 @@ bool ScribusDoc::startAlign(uint minObjects)
 	if (oneLocked && (t == 0))
 	{
 		for (int i = 0; i < alignObjectsCount; ++i)
-			for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-				if (AObjects[i].Objects.at(j)->locked())
-					AObjects[i].Objects.at(j)->setLocked(false);
+		{
+			if (AObjects[i].Object->locked())
+				AObjects[i].Object->setLocked(false);
+		}
 	}
 	return true;
 }
@@ -12200,17 +12201,16 @@ void ScribusDoc::itemSelection_AlignItemRight(int i, double newX, AlignMethod ho
 	double diff=newX-AObjects[i].x2;
 	double width=AObjects[i].x2-AObjects[i].x1;
 	bool resize = (how == alignByResizing && diff > -width);
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
+	if (!AObjects[i].Object->locked())
+	{
+		if (resize)
 		{
-			if (resize)
-			{
-				AObjects[i].Objects.at(j)->resizeBy(diff, 0.0);
-				AObjects[i].Objects.at(j)->updateClip();
-			}
-			else
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			AObjects[i].Object->resizeBy(diff, 0.0);
+			AObjects[i].Object->updateClip();
 		}
+		else
+			AObjects[i].Object->moveBy(diff, 0.0);
+	}
 }
 
 void ScribusDoc::itemSelection_AlignItemLeft(int i, double newX, AlignMethod how)
@@ -12218,16 +12218,15 @@ void ScribusDoc::itemSelection_AlignItemLeft(int i, double newX, AlignMethod how
 	double diff=newX-AObjects[i].x1;
 	double width=AObjects[i].x2-AObjects[i].x1;
 	bool resize = (how == alignByResizing && -diff > -width);
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
+	if (!AObjects[i].Object->locked())
+	{
+		AObjects[i].Object->moveBy(diff, 0.0);
+		if (resize)
 		{
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
-			if (resize)
-			{
-				AObjects[i].Objects.at(j)->resizeBy(-diff, 0.0);
-				AObjects[i].Objects.at(j)->updateClip();
-			}
+			AObjects[i].Object->resizeBy(-diff, 0.0);
+			AObjects[i].Object->updateClip();
 		}
+	}
 }
 
 void ScribusDoc::itemSelection_AlignItemBottom(int i, double newY, AlignMethod how)
@@ -12235,16 +12234,15 @@ void ScribusDoc::itemSelection_AlignItemBottom(int i, double newY, AlignMethod h
 	double diff=newY-AObjects[i].y2;
 	double height=AObjects[i].y2-AObjects[i].y1;
 	bool resize = (how == alignByResizing && diff > -height);
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
+	if (!AObjects[i].Object->locked())
+	{
+		if (resize)
 		{
-			if (resize)
-			{
-				AObjects[i].Objects.at(j)->resizeBy(0.0, diff);
-				AObjects[i].Objects.at(j)->updateClip();
-			}
-			else AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			AObjects[i].Object->resizeBy(0.0, diff);
+			AObjects[i].Object->updateClip();
 		}
+		else AObjects[i].Object->moveBy(0.0, diff);
+	}
 }
 
 void ScribusDoc::itemSelection_AlignItemTop(int i, double newY, AlignMethod how)
@@ -12252,16 +12250,15 @@ void ScribusDoc::itemSelection_AlignItemTop(int i, double newY, AlignMethod how)
 	double diff=newY-AObjects[i].y1;
 	double height=AObjects[i].y2-AObjects[i].y1;
 	bool resize = (how == alignByResizing && -diff > -height);
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
+	if (!AObjects[i].Object->locked())
+	{
+		AObjects[i].Object->moveBy(0.0, diff);
+		if (resize)
 		{
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
-			if (resize)
-			{
-				AObjects[i].Objects.at(j)->resizeBy(0.0, -diff);
-				AObjects[i].Objects.at(j)->updateClip();
-			}
+			AObjects[i].Object->resizeBy(0.0, -diff);
+			AObjects[i].Object->updateClip();
 		}
+	}
 }
 
 void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
@@ -12386,9 +12383,8 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+		if (!AObjects[i].Object->locked())
+			AObjects[i].Object->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -12596,9 +12592,8 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod c
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+		if (!AObjects[i].Object->locked())
+			AObjects[i].Object->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -12713,9 +12708,8 @@ void ScribusDoc::itemSelection_DistributeLeft()
 	for (QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it)
 	{
 		double diff=minX + i*separation-AObjects[it.value()].x1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -12751,9 +12745,8 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 	for (QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it)
 	{
 		double diff=minX + i*separation-AObjects[it.value()].x1-(AObjects[it.value()].width)/2;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -12789,9 +12782,8 @@ void ScribusDoc::itemSelection_DistributeRight()
 	for (QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it)
 	{
 		double diff=minX + i*separation-AObjects[it.value()].x2;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -12847,9 +12839,8 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 			currX+=separation;
 
 			double diff=currX-AObjects[it.value()].x1;
-			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-				if (!AObjects[it.value()].Objects.at(j)->locked())
-					AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.value()].Object->locked())
+				AObjects[it.value()].Object->moveBy(diff, 0.0);
 			currX+=AObjects[it.value()].width;
 		}
 	}
@@ -12871,9 +12862,8 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 			currX-=separation;
 
 			double diff=currX-AObjects[it.value()].x2;
-			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-				if (!AObjects[it.value()].Objects.at(j)->locked())
-					AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.value()].Object->locked())
+				AObjects[it.value()].Object->moveBy(diff, 0.0);
 			currX-=AObjects[it.value()].width;
 		}
 	}
@@ -12910,9 +12900,8 @@ void ScribusDoc::itemSelection_DistributeBottom()
 	for (QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it)
 	{
 		double diff=minY + i*separation-AObjects[it.value()].y2;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(0.0, diff);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(0.0, diff);
 		i++;
 	}
 	endAlign();
@@ -12948,9 +12937,8 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 	for (QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it)
 	{
 		double diff=minY + i*separation-AObjects[it.value()].y1-(AObjects[it.value()].height)/2;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(0.0, diff);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(0.0, diff);
 		i++;
 	}
 	endAlign();
@@ -12986,9 +12974,8 @@ void ScribusDoc::itemSelection_DistributeTop()
 	for (QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it)
 	{
 		double diff=minY + i*separation-AObjects[it.value()].y1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(0.0,diff);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(0.0,diff);
 		i++;
 	}
 	endAlign();
@@ -13044,9 +13031,8 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 			currY+=separation;
 
 			double diff=currY-AObjects[it.value()].y1;
-			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-				if (!AObjects[it.value()].Objects.at(j)->locked())
-					AObjects[it.value()].Objects.at(j)->moveBy(0.0,diff);
+			if (!AObjects[it.value()].Object->locked())
+				AObjects[it.value()].Object->moveBy(0.0,diff);
 			currY+=AObjects[it.value()].height;
 		}
 	}
@@ -13068,9 +13054,8 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 			currY-=separation;
 
 			double diff=currY-AObjects[it.value()].y2;
-			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-				if (!AObjects[it.value()].Objects.at(j)->locked())
-					AObjects[it.value()].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[it.value()].Object->locked())
+				AObjects[it.value()].Object->moveBy(0.0, diff);
 			currY-=AObjects[it.value()].height;
 		}
 	}
@@ -13119,9 +13104,8 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 	{
 		currX+=separation;
 		double diff=currX-AObjects[it.value()].x1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(diff, 0.0);
 		currX+=AObjects[it.value()].width;
 	}
 	endAlign();
@@ -13169,9 +13153,8 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	{
 		currY+=separation;
 		double diff=currY-AObjects[it.value()].y1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(0.0, diff);
+		if (!AObjects[it.value()].Object->locked())
+			AObjects[it.value()].Object->moveBy(0.0, diff);
 		currY+=AObjects[it.value()].height;
 	}
 	endAlign();
@@ -13195,7 +13178,7 @@ void ScribusDoc::itemSelection_SwapLeft()
 		return;
 	int alignObjectsCount = AObjects.count();
 	QList<int> circleList;
-	int circleListCounter=0;
+	int circleListCounter = 0;
 	//X
 	QMap<double,uint> Xsorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
@@ -13205,14 +13188,14 @@ void ScribusDoc::itemSelection_SwapLeft()
 	}
 	QMap<double,uint>::Iterator itX = Xsorted.begin();
 	QMap<double,uint>::Iterator itXend = Xsorted.end();
-	double minX=itX.key();
-	double maxX=itX.key();
-	while ( itX != itXend)
+	double minX = itX.key();
+	double maxX = itX.key();
+	while (itX != itXend)
 	{
-		if (minX>itX.key())
-			minX=itX.key();
-		if (maxX<itX.key())
-			maxX=itX.key();
+		if (minX > itX.key())
+			minX = itX.key();
+		if (maxX < itX.key())
+			maxX = itX.key();
 		++itX;
 	}
 	//Y
@@ -13224,39 +13207,39 @@ void ScribusDoc::itemSelection_SwapLeft()
 	}
 	QMap<double,uint>::Iterator itY = Ysorted.begin();
 	QMap<double,uint>::Iterator itYend = Ysorted.end();
-	double minY=itY.key();
-	double maxY=itY.key();
-	while ( itY != itYend)
+	double minY = itY.key();
+	double maxY = itY.key();
+	while (itY != itYend)
 	{
-		if (minY>itY.key())
-			minY=itY.key();
-		if (maxY<itY.key())
-			maxY=itY.key();
+		if (minY > itY.key())
+			minY = itY.key();
+		if (maxY < itY.key())
+			maxY = itY.key();
 		++itY;
 	}
 
 	itX = Xsorted.begin(); //first item is left most
-	int itemIndex=itX.value(); //get our first item's index in the AObjects array
+	int itemIndex = itX.value(); //get our first item's index in the AObjects array
 //	bool found=false;
 //	double itXX=itX.key();
 	minY =  std::numeric_limits<double>::max();
 	maxY = -std::numeric_limits<double>::max();
-	int nextItemIndex=itemIndex;
+	int nextItemIndex = itemIndex;
 	circleList.append(nextItemIndex);
 	++circleListCounter;
 	// find the next X item with the minimum Y
 
 	QMap<double,uint>::Iterator itX2_1 = Xsorted.begin();
 	QMap<double,uint>::Iterator itLast = Xsorted.begin();
-	double xBeginYValue=AObjects[itX2_1.value()].y1;
-	while (itX2_1!=Xsorted.end())
+	double xBeginYValue = AObjects[itX2_1.value()].y1;
+	while (itX2_1 != Xsorted.end())
 	{
-		if (AObjects[itX2_1.value()].y1<xBeginYValue)
+		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
 		{
 			circleList.append(itX2_1.value());
 			++circleListCounter;
 		}
-		itLast=itX2_1;
+		itLast = itX2_1;
 		itX2_1++;
 	}
 
@@ -13264,9 +13247,9 @@ void ScribusDoc::itemSelection_SwapLeft()
 	if (circleListCounter != static_cast<int>(alignObjectsCount)) //need to reverse back now
 	{
 		QMap<double,uint>::Iterator itX2_2 = itLast;
-		while (itX2_2!=Xsorted.begin())
+		while (itX2_2 != Xsorted.begin())
 		{
-			if (AObjects[itX2_2.value()].y1>=xBeginYValue)
+			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
 			{
 				circleList.append(itX2_2.value());
 				++circleListCounter;
@@ -13276,28 +13259,25 @@ void ScribusDoc::itemSelection_SwapLeft()
 	}
 
 	int i=0;
-	double swapX=AObjects[i].x1;
-	double swapY=AObjects[i].y1;
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
-			AObjects[i].Objects.at(j)->moveBy(AObjects[circleListCounter-1].x1-AObjects[i].x1, AObjects[circleListCounter-1].y1-AObjects[i].y1);
+	double swapX = AObjects[i].x1;
+	double swapY = AObjects[i].y1;
+	if (!AObjects[i].Object->locked())
+		AObjects[i].Object->moveBy(AObjects[circleListCounter-1].x1 - AObjects[i].x1, AObjects[circleListCounter-1].y1 - AObjects[i].y1);
 	++i;
-	while(i<circleListCounter-1)
+	while (i < circleListCounter-1)
 	{
-		double diffX=swapX-AObjects[i].x1;
-		double diffY=swapY-AObjects[i].y1;
-		swapX=AObjects[i].x1;
-		swapY=AObjects[i].y1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diffX, diffY);
+		double diffX = swapX-AObjects[i].x1;
+		double diffY = swapY-AObjects[i].y1;
+		swapX = AObjects[i].x1;
+		swapY = AObjects[i].y1;
+		if (!AObjects[i].Object->locked())
+			AObjects[i].Object->moveBy(diffX, diffY);
 		++i;
 	}
-	double diffX3=swapX-AObjects[circleListCounter-1].x1;
-	double diffY3=swapY-AObjects[circleListCounter-1].y1;
-	for (int j = 0; j < AObjects[circleListCounter-1].Objects.count(); ++j)
-		if (!AObjects[circleListCounter-1].Objects.at(j)->locked())
-			AObjects[circleListCounter-1].Objects.at(j)->moveBy(diffX3, diffY3);
+	double diffX3 = swapX-AObjects[circleListCounter-1].x1;
+	double diffY3 = swapY-AObjects[circleListCounter-1].y1;
+	if (!AObjects[circleListCounter-1].Object->locked())
+		AObjects[circleListCounter-1].Object->moveBy(diffX3, diffY3);
 	endAlign();
 }
 
@@ -13307,7 +13287,7 @@ void ScribusDoc::itemSelection_SwapRight()
 		return;
 	int alignObjectsCount = AObjects.count();
 	QList<int> circleList;
-	int circleListCounter=0;
+	int circleListCounter = 0;
 	//X
 	QMap<double,uint> Xsorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
@@ -13317,14 +13297,14 @@ void ScribusDoc::itemSelection_SwapRight()
 	}
 	QMap<double,uint>::Iterator itX = Xsorted.begin();
 	QMap<double,uint>::Iterator itXend = Xsorted.end();
-	double minX=itX.key();
-	double maxX=itX.key();
-	while ( itX != itXend)
+	double minX = itX.key();
+	double maxX = itX.key();
+	while (itX != itXend)
 	{
-		if (minX>itX.key())
-			minX=itX.key();
-		if (maxX<itX.key())
-			maxX=itX.key();
+		if (minX > itX.key())
+			minX = itX.key();
+		if (maxX < itX.key())
+			maxX = itX.key();
 		++itX;
 	}
 	//Y
@@ -13336,19 +13316,19 @@ void ScribusDoc::itemSelection_SwapRight()
 	}
 	QMap<double,uint>::Iterator itY = Ysorted.begin();
 	QMap<double,uint>::Iterator itYend = Ysorted.end();
-	double minY=itY.key();
-	double maxY=itY.key();
-	while ( itY != itYend)
+	double minY = itY.key();
+	double maxY = itY.key();
+	while (itY != itYend)
 	{
-		if (minY>itY.key())
-			minY=itY.key();
-		if (maxY<itY.key())
-			maxY=itY.key();
+		if (minY > itY.key())
+			minY = itY.key();
+		if (maxY < itY.key())
+			maxY = itY.key();
 		++itY;
 	}
 
 	itX = Xsorted.begin(); //first item is left most
-	int itemIndex=itX.value(); //get our first item's index in the AObjects array
+	int itemIndex = itX.value(); //get our first item's index in the AObjects array
 //	bool found=false;
 //	double itXX=itX.key();
 	minY =  std::numeric_limits<double>::max();
@@ -13360,15 +13340,15 @@ void ScribusDoc::itemSelection_SwapRight()
 
 	QMap<double,uint>::Iterator itX2_1 = Xsorted.begin();
 	QMap<double,uint>::Iterator itLast = Xsorted.begin();
-	double xBeginYValue=AObjects[itX2_1.value()].y1;
+	double xBeginYValue = AObjects[itX2_1.value()].y1;
 	while (itX2_1!=Xsorted.end())
 	{
-		if (AObjects[itX2_1.value()].y1<xBeginYValue)
+		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
 		{
 			circleList.append(itX2_1.value());
 			++circleListCounter;
 		}
-		itLast=itX2_1;
+		itLast = itX2_1;
 		itX2_1++;
 	}
 
@@ -13376,9 +13356,9 @@ void ScribusDoc::itemSelection_SwapRight()
 	if (circleListCounter!=static_cast<int>(alignObjectsCount)) //need to reverse back now
 	{
 		QMap<double,uint>::Iterator itX2_2 = itLast;
-		while (itX2_2!=Xsorted.begin())
+		while (itX2_2 != Xsorted.begin())
 		{
-			if (AObjects[itX2_2.value()].y1>=xBeginYValue)
+			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
 			{
 				circleList.append(itX2_2.value());
 				++circleListCounter;
@@ -13387,29 +13367,26 @@ void ScribusDoc::itemSelection_SwapRight()
 		}
 	}
 
-	int i=circleListCounter-1;
-	double swapX=AObjects[i].x1;
-	double swapY=AObjects[i].y1;
-	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-		if (!AObjects[i].Objects.at(j)->locked())
-			AObjects[i].Objects.at(j)->moveBy(AObjects[0].x1-AObjects[i].x1, AObjects[0].y1-AObjects[i].y1);
+	int i = circleListCounter - 1;
+	double swapX = AObjects[i].x1;
+	double swapY = AObjects[i].y1;
+	if (!AObjects[i].Object->locked())
+		AObjects[i].Object->moveBy(AObjects[0].x1-AObjects[i].x1, AObjects[0].y1-AObjects[i].y1);
 	--i;
-	while(i>0)
+	while (i > 0)
 	{
-		double diffX=swapX-AObjects[i].x1;
-		double diffY=swapY-AObjects[i].y1;
-		swapX=AObjects[i].x1;
-		swapY=AObjects[i].y1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diffX, diffY);
+		double diffX = swapX - AObjects[i].x1;
+		double diffY = swapY - AObjects[i].y1;
+		swapX = AObjects[i].x1;
+		swapY = AObjects[i].y1;
+		if (!AObjects[i].Object->locked())
+			AObjects[i].Object->moveBy(diffX, diffY);
 		--i;
 	}
-	double diffX3=swapX-AObjects[0].x1;
-	double diffY3=swapY-AObjects[0].y1;
-	for (int j = 0; j < AObjects[0].Objects.count(); ++j)
-		if (!AObjects[0].Objects.at(j)->locked())
-			AObjects[0].Objects.at(j)->moveBy(diffX3, diffY3);
+	double diffX3 = swapX - AObjects[0].x1;
+	double diffY3 = swapY - AObjects[0].y1;
+	if (!AObjects[0].Object->locked())
+		AObjects[0].Object->moveBy(diffX3, diffY3);
 	endAlign();
 }
 

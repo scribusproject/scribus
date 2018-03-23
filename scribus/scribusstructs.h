@@ -312,7 +312,7 @@ struct AlignObjs
 	double y2;
 	double width;
 	double height;
-	QList<PageItem*> Objects;
+	PageItem* Object;
 };
 
 /*! \brief Human readable orientations */
