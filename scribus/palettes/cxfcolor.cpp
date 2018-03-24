@@ -132,6 +132,54 @@ CxfColorAdobeRGB::CxfColorAdobeRGB(CxfDocument* cxfDoc)
 
 }
 
+CxfColorHTML::CxfColorHTML(CxfDocument* cxfDoc)
+	        : CxfColorRGB(cxfDoc)
+{
+
+}
+
+bool CxfColorHTML::parse(QDomElement& colorElem)
+{
+	bool convOk = false;
+	bool gotRed(false);
+	bool gotGreen(false);
+	bool gotBlue(false);
+
+	reset();
+
+	QString colorSpec = colorElem.attribute("ColorSpecification");
+	if (colorSpec.isEmpty())
+		return false;
+
+	m_colorSpec = m_cxfDoc->colorSpecification(colorSpec);
+	if (!m_colorSpec)
+		return false;
+
+	QString html = colorElem.attribute("HTML");
+	if (html.length() < 6)
+		return false;
+
+	QString rStr = html.mid(0, 2);
+	int red = rStr.toInt(&convOk, 16);
+	if (!convOk)
+		return false;
+	m_values[0] = red;
+
+	QString gStr = html.mid(2, 2);
+	int green = gStr.toInt(&convOk, 16);
+	if (!convOk)
+		return false;
+	m_values[1] = green;
+
+	QString bStr = html.mid(4, 2);
+	int blue = bStr.toInt(&convOk, 16);
+	if (!convOk)
+		return false;
+	m_values[2] = blue;
+
+	return true;
+}
+
 CxfColorCMYK::CxfColorCMYK(CxfDocument* cxfDoc)
                 : CxfColor(cxfDoc)
 {

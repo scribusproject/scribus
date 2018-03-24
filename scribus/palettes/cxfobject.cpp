@@ -59,11 +59,25 @@ void CxfObject::parseColorValues(QDomElement& elem)
 				m_colorMap.insert(cxfReflectanceSpectrum, colorPtr);
 			continue;
 		}
+		if (tagName == "ColorAdobeRGB")
+		{
+			CxfColorShPtr colorPtr(new CxfColorAdobeRGB(m_cxfDoc));
+			if (colorPtr->parse(childElem))
+				m_colorMap.insert(cxfColorAdobeRGB, colorPtr);
+			continue;
+		}
 		if (tagName == "ColorSRGB")
 		{
 			CxfColorShPtr colorPtr(new CxfColorSRGB(m_cxfDoc));
 			if (colorPtr->parse(childElem))
 				m_colorMap.insert(cxfColorSRGB, colorPtr);
+			continue;
+		}
+		if (tagName == "ColorHTML")
+		{
+			CxfColorShPtr colorPtr(new CxfColorHTML(m_cxfDoc));
+			if (colorPtr->parse(childElem))
+				m_colorMap.insert(cxfColorHTML, colorPtr);
 			continue;
 		}
 		if (tagName == "ColorCIELab")

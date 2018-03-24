@@ -27,7 +27,7 @@ public:
 	bool hasColorSpecification(const QString& name) const { return m_colorSpecs.contains(name); }
 
 	int   objectCount() const { return m_objects.count(); }
-	const CxfObject* objectAt(int index) { return m_objects.at(index); }
+	const CxfObject* objectAt(int index) const { return m_objects.at(index); }
 	const QList<CxfObject*>& objects() { return m_objects; }
 	
 	bool parse(const QString& fileName);

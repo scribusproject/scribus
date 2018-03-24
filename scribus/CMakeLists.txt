@@ -102,6 +102,7 @@ set(SCRIBUS_UI_SRC
 	ui/cmykfwbase.ui
 	ui/colorpalette.ui
 	ui/colorsandfillsbase.ui
+	ui/cxfimportdialogbase.ui
 	ui/downloadspalettebase.ui
 	ui/gradientaddedit.ui
 	ui/gradienteditor.ui
@@ -345,6 +346,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/cupsoptions.h
 	ui/curvewidget.h
 	ui/customfdialog.h
+	ui/cxfimportdialog.h
 	ui/dasheditor.h
 	ui/dcolor.h
 	ui/delpages.h
@@ -843,6 +845,7 @@ set(SCRIBUS_SOURCES
 	ui/cupsoptions.cpp
 	ui/curvewidget.cpp
 	ui/customfdialog.cpp
+	ui/cxfimportdialog.cpp
 	ui/dasheditor.cpp
 	ui/dcolor.cpp
 	ui/delpages.cpp

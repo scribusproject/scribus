@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PALETTELOADER_CXF_H
 
 #include <QString>
+#include <QList>
 
 class CxfObject;
 
@@ -16,6 +17,7 @@ class CxfObject;
 #include "scribusapi.h"
 #include "vgradient.h"
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "colormgmt/scspectralvaluesconvertor.h"
 
 class PaletteLoader_CxF : public PaletteLoader
@@ -36,7 +38,17 @@ protected:
 	CxfDocument m_cxfDoc;
 	ScSpectralValuesConvertor m_spectrumConvertor;
 
+	bool canImportObjectAsRgb(const CxfObject* object) const;
+	bool canImportObjectAsCmyk(const CxfObject* object) const;
+	bool canImportObjectAsLab(const CxfObject* object) const;
+
+	typedef bool (PaletteLoader_CxF::*ColorImportFunction)(const CxfObject*);
+
+	bool importObjectAsRgbColor(const CxfObject* object);
+	bool importObjectAsCmykColor(const CxfObject* object);
 	bool importObjectAsLabColor(const CxfObject* object);
+
+	QList<eColorSpaceType> getAvailableColorspaces() const;
 };
 
 #endif

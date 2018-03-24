@@ -77,6 +77,15 @@ public:
 	virtual CxfColorType type() const { return cxfColorAdobeRGB; }
 };
 
+class CxfColorHTML : public CxfColorRGB
+{
+public:
+	CxfColorHTML(CxfDocument* cxfDoc);
+
+	virtual CxfColorType type() const { return cxfColorHTML; }
+	virtual bool parse(QDomElement& colorElem);
+};
+
 class CxfColorCMYK : public CxfColor
 {
 public:

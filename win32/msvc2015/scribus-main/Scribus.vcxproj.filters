@@ -791,10 +791,7 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sce308tables.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\pdfversioncombo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\pdfversionmodel.h">
+    <ClInclude Include="..\..\..\scribus\ui\cxfimportdialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -2473,6 +2470,9 @@
     <ClCompile Include="..\..\..\scribus\ui\pdfversionmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\cxfimportdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2849,6 +2849,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\cxfimportdialogbase.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
@@ -4083,6 +4086,12 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\fontembeddingmodel.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdfversioncombo.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdfversionmodel.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
