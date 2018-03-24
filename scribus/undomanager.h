@@ -393,7 +393,7 @@ public:
 	static QString AlignDistribute;
 	static QString ItemsInvolved;
 	static QString ItemsInvolved2;
-	static uint    ItemsInvolvedLimit;
+	static int     ItemsInvolvedLimit;
 	static QString Cancel;
 	static QString SetFill;
 	static QString ColorFromTo;

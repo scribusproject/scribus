@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QByteArray>
+#include <QScopedPointer>
 #include <QXmlInputSource>
 #include <QXmlSimpleReader>
 #include "color.h"
@@ -1326,63 +1327,59 @@ QString ODTIm::parseColor( const QString &s )
 
 QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
 {
-	QString fontName = "";
-	bool found = false;
+	QString fontName;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{
-		if (fontBaseName.toLower() == it.current().family().toLower())
+		if (fontBaseName.toLower() != it.current().family().toLower())
+			continue;
+
+		// found the font family, now go for the style
+		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+		slist.sort();
+		if (slist.count() > 0)
 		{
-			// found the font family, now go for the style
-			QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
-			slist.sort();
-			if (slist.count() > 0)
+			for (int a = 0; a < slist.count(); a++)
 			{
-				for (int a = 0; a < slist.count(); a++)
+				if (fontStyle.toLower() == slist[a].toLower())
 				{
-					if (fontStyle.toLower() == slist[a].toLower())
-					{
-						found = true;
-						fontName = it.current().family() + " " + slist[a];
-						break;
-					}
-				}
-				if (!found)
-				{
-					int reInd = slist.indexOf("Regular");
-					if (reInd < 0)
-						fontName = it.current().family() + " " + slist[0];
-					else
-						fontName = it.current().family() + " " + slist[reInd];
-					found = true;
+					fontName = it.current().family() + " " + slist[a];
+					return fontName;
 				}
 			}
+			int reInd = slist.indexOf("Regular");
+			if (reInd < 0)
+				fontName = it.current().family() + " " + slist[0];
 			else
-			{
-				fontName = it.current().family();
-				found = true;
-			}
-			break;
-		}
-	}
-	if (!found)
-	{
-		QString family = fontBaseName;
-		if (!fontStyle.isEmpty())
-			family += " " + fontStyle;
-		if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			MissingFont *dia = new MissingFont(0, family, m_Doc);
-			dia->exec();
-			fontName = dia->getReplacementFont();
-			delete dia;
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+				fontName = it.current().family() + " " + slist[reInd];
+			return fontName;
 		}
 		else
-			fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+		{
+			fontName = it.current().family();
+			return fontName;
+		}
 	}
+
+	// Still no font found
+	QString family = fontBaseName;
+	if (!fontStyle.isEmpty())
+		family += " " + fontStyle;
+	if (PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+	{
+		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+		return fontName;
+	}
+
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QScopedPointer<MissingFont> dia(new MissingFont(0, family, m_Doc));
+	if (dia->exec())
+		fontName = dia->getReplacementFont();
+	else
+		fontName = m_Doc->itemToolPrefs().textFont;
+	PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+
 	return fontName;
 }
 

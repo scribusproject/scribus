@@ -40,11 +40,25 @@ extern "C"
 #endif
 }
 
-ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
+ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader(),
+	 m_isDCS1(false),
+	 m_isDCS2(false),
+	 m_isDCS2multi(false),
+	 m_isPhotoshop(false),
+	 m_hasPhotoshopImageData(false),
+	 m_doThumbnail(false),
+	 m_hasThumbnail(false),
+	 m_inTrailer(false),
+	 m_BBoxInTrailer(false),
+	 m_isRotated(false),
+	 m_psXSize(0),
+	 m_psYSize(0),
+	 m_psDepth(0),
+	 m_psMode(0),
+	 m_psChannel(0),
+	 m_psBlock(0),
+	 m_psDataType(0)
 {
-	m_doThumbnail = false;
-	m_hasThumbnail = false;
-
 	initSupportedFormatList();
 }
 
@@ -66,48 +80,47 @@ void ScImgDataLoader_PS::initSupportedFormatList(void)
 
 void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 {
-	QChar tc;
-	QString tmp;
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 	if ( !QFile::exists(fn) )
 		return;
 	QFile f(fn);
-	if (f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+
+	QString tmp;
+	QDataStream ts(&f);
+	while (!ts.atEnd())
 	{
-		QDataStream ts(&f);
-		while (!ts.atEnd())
+		tmp = readLineFromDataStream(ts);
+		if (tmp.startsWith("%%BeginICCProfile:"))
 		{
-			tmp = readLinefromDataStream(ts);
-			if (tmp.startsWith("%%BeginICCProfile:"))
+			QByteArray psdata;
+			while (!ts.atEnd())
 			{
-				QByteArray psdata;
-				while (!ts.atEnd())
+				tmp = readLineFromDataStream(ts);
+				for (int a = 2; a < tmp.length(); a += 2)
 				{
-					tmp = readLinefromDataStream(ts);
-					for (int a = 2; a < tmp.length(); a += 2)
+					bool ok;
+					ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
+					psdata.resize(psdata.size()+1);
+					psdata[psdata.size()-1] = data;
+				}
+				if (tmp.startsWith("%%EndICCProfile"))
+				{
+					ScColorMgmtEngine engine(ScCore->defaultEngine);
+					ScColorProfile prof = engine.openProfileFromMem(psdata);
+					if (prof)
 					{
-						bool ok;
-						ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
-						psdata.resize(psdata.size()+1);
-						psdata[psdata.size()-1] = data;
+						if (prof.colorSpace() == ColorSpace_Rgb)
+							m_profileComponents = 3;
+						if (prof.colorSpace() == ColorSpace_Cmyk)
+							m_profileComponents = 4;
+						m_imageInfoRecord.profileName = prof.productDescription();
+						m_imageInfoRecord.isEmbedded = true;
+						m_embeddedProfile = psdata;
 					}
-					if (tmp.startsWith("%%EndICCProfile"))
-					{
-						ScColorMgmtEngine engine(ScCore->defaultEngine);
-						ScColorProfile prof = engine.openProfileFromMem(psdata);
-						if (prof)
-						{
-							if (prof.colorSpace() == ColorSpace_Rgb)
-								m_profileComponents = 3;
-							if (prof.colorSpace() == ColorSpace_Cmyk)
-								m_profileComponents = 4;
-							m_imageInfoRecord.profileName = prof.productDescription();
-							m_imageInfoRecord.isEmbedded = true;
-							m_embeddedProfile = psdata;
-						}
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -116,22 +129,21 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 
 void ScImgDataLoader_PS::scanForFonts(QString fn)
 {
-	QString tmp;
 	QFile f(fn);
-	if (f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+	QDataStream ts(&f);
+	QString tmp;
+	while (!ts.atEnd())
 	{
-		QDataStream ts(&f);
-		while (!ts.atEnd())
+		tmp = readLineFromDataStream(ts);
+		if (tmp.startsWith("%%BeginFont:"))
 		{
-			tmp = readLinefromDataStream(ts);
-			if (tmp.startsWith("%%BeginFont:"))
-			{
-				tmp = tmp.remove("%%BeginFont:");
-				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
-				QString tmp2;
-				ts2 >> tmp2;
-				m_FontListe.removeAll(tmp2);
-			}
+			tmp = tmp.remove("%%BeginFont:");
+			ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+			QString tmp2;
+			ts2 >> tmp2;
+			m_FontListe.removeAll(tmp2);
 		}
 	}
 }
@@ -209,7 +221,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		ts.device()->seek(startPos);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp.startsWith("%%Creator: "))
 				m_Creator = tmp.remove("%%Creator: ");
 			if (tmp.startsWith("%%Pages: "))
@@ -313,7 +325,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					while (!ts.atEnd())
 					{
 						uint oldPos = ts.device()->pos();
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
 							ts.device()->seek(oldPos);
@@ -345,7 +357,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				while (!ts.atEnd())
 				{
 					uint oldPos = ts.device()->pos();
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if (!tmp.startsWith("%%+"))
 					{
 						ts.device()->seek(oldPos);
@@ -367,7 +379,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			{
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")))
 					{
 						psFound = true;
@@ -387,7 +399,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QByteArray psdata;
 						while (!ts.atEnd())
 						{
-							tmp = readLinefromDataStream(ts);
+							tmp = readLineFromDataStream(ts);
 							if (tmp.startsWith("%EndPhotoshop"))
 							{
 								QDataStream strPhot( &psdata, QIODevice::ReadOnly);
@@ -428,7 +440,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QByteArray psdata;
 						while (!ts.atEnd())
 						{
-							tmp = readLinefromDataStream(ts);
+							tmp = readLineFromDataStream(ts);
 							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
@@ -738,7 +750,6 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 		return;
 	}
 	QStringList args;
-	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
@@ -747,6 +758,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	int GsMinor;
 	getNumericGSVersion(GsMajor, GsMinor);
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
+	double x, y, b, h;
 	ts2 >> x >> y >> b >> h;
 	h = h * gsRes / 72.0;
 	if (extensionIndicatesEPS(ext))
@@ -1170,7 +1182,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	double x, y, b, h;
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
+	QString tmpFile(QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg"));
 	QFile f2(tmpFile);
 	QString tmp;
 	m_image = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
@@ -1196,7 +1208,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	QDataStream ts(&f);
 	while (!ts.atEnd())
 	{
-		tmp = readLinefromDataStream(ts);
+		tmp = readLineFromDataStream(ts);
 		if (tmp == m_psCommand)
 		{
 			if (m_psDataType == 1)
@@ -1229,7 +1241,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 			{
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromDataStream(ts);
+					tmp = readLineFromDataStream(ts);
 					if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 						break;
 					if (m_psDataType == 2)
@@ -1327,7 +1339,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 		QDataStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tmp = readLinefromDataStream(ts);
+			tmp = readLineFromDataStream(ts);
 			if (tmp == m_psCommand)
 			{
 				if (m_psDataType == 1)
@@ -1362,7 +1374,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 				{
 					while (!ts.atEnd())
 					{
-						tmp = readLinefromDataStream(ts);
+						tmp = readLineFromDataStream(ts);
 						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 							break;
 						if (m_psDataType == 2)

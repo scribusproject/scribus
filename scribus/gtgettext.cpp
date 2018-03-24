@@ -67,8 +67,7 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 			// If the map is found, assign ida to the corresponding struct in the map.
 			ida = *m_importerMap[fend];
 		// Otherwise, test for the lowercase version
-		else
-		if (m_importerMap.find(fendL) != m_importerMap.end())
+		else if (m_importerMap.find(fendL) != m_importerMap.end())
 			// If the map is found, assign ida to the corresponding struct in the map.
 			ida = *m_importerMap[fendL];
 		// Otherwise, try and ask the user.
@@ -78,7 +77,7 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 			m_dias = new gtDialogs();
 			// Pop up the dialog asking the user to select the type from our list (ilist) of 
 			// importable file types. If one is not selected, set callImporter to false.
-			callImporter = m_dias->runImporterDialog(m_ilist);
+			callImporter = m_dias->runImporterDialog(filename, m_ilist);
 			// If we're gonna call an importer, we need to copy it's struct to ida.
 			if (callImporter)
 				ida = m_importers[m_dias->getImporter()];
@@ -223,9 +222,7 @@ ImportSetup gtGetText::run()
 		impsetup.importer = m_dias->getImporter();
 		impsetup.textOnly = m_dias->importTextOnly();
 		impsetup.prefixNames = m_dias->prefixStyles();
-// 		launchImporter(dias->getImporter(), dias->getFileName(),
-// 		               dias->importTextOnly(), dias->getEncoding(), append);
-	}  // if (dias->runFileDialog(filters, ilist))
+	}
 	// Destroy the dialog.
 	delete m_dias;
 	// Return the ImportSetup struct.

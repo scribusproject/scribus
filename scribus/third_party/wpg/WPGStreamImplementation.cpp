@@ -28,6 +28,8 @@
 #include <string>
 #include <limits>
 
+#include <QtGlobal>
+
 namespace libwpg
 {
 
@@ -265,6 +267,8 @@ bool WPGFileStream::isOLEStream()
 	if (d->buffer.str().empty())
 		d->buffer << d->file.rdbuf();
 	Storage *tmpStorage = new Storage( d->buffer );
+	if (!tmpStorage)
+		qFatal("WPGFileStream::getDocumentOLEStream tmpStorage NULL");
 	Stream tmpStream( tmpStorage, name );
 	if (!tmpStorage || (tmpStorage->result() != Storage::Ok)  || !tmpStream.size())
 	{

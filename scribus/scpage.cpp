@@ -402,7 +402,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	m_Doc->m_Selection->delaySignalsOff();
 }
 
-void ScPage::restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo)
+void ScPage::restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >* state, bool isUndo)
 {
 	if (!state)
 		return;

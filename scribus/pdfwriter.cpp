@@ -478,18 +478,19 @@ namespace Pdf
 	{
 		CatalogObj = 1;
 		InfoObj = 2;
-		OutlinesObj = 3;
-		PagesObj = 4;
-		DestsObj = 5;
-		AcroFormObj = 6;
-		NamesObj = 7;
-		ThreadsObj = 8;
+		PagesObj = 3;
+		AcroFormObj = 0;
+		DestsObj = 0;
+		OutlinesObj = 0;
+		NamesObj = 0;
+		ThreadsObj = 0;
 		
 		OCPropertiesObj = 0;
 		OutputIntentObj = 0;
 		EncryptObj = 0;
 		MetaDataObj = 0;
 		ResourcesObj = 0;
+		OpenActionObj = 0;
 		
 		m_ObjCounter = 0;
 		m_CurrentObj = 0;
@@ -518,7 +519,7 @@ namespace Pdf
 		if (!m_Spool.open(QIODevice::WriteOnly))
 			return false;
 		m_outStream.setDevice(&m_Spool);
-		m_ObjCounter = 9;
+		m_ObjCounter = 4;
 		return true;
 	}
 	

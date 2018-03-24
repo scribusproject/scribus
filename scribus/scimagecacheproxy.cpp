@@ -34,7 +34,11 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util_file.h"
 
-#define SC_DEBUG_FILE defined(DEBUG_SCIMAGECACHE)
+#if defined(DEBUG_SCIMAGECACHE)
+#define SC_DEBUG_FILE 1
+#else
+#define SC_DEBUG_FILE 0
+#endif
 #include "scdebug.h"
 
 // MD5 has been chosen as a hash algorithm as it less prone to collisions than MD4,

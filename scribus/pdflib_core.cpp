@@ -541,7 +541,6 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
-	PageTree.Count = 0;
 	Outlines.First = 0;
 	Outlines.Last = 0;
 	Outlines.Count = 0;
@@ -664,7 +663,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_End_Page(a);
+			PDF_End_Page();
 			pc_exportpages++;
 			if (usingGUI)
 			{
@@ -1045,14 +1044,36 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<
 void PDFLibCore::PDF_Begin_Catalog()
 {
 	writer.startObj(writer.CatalogObj);
-	PutDoc("<<\n/Type /Catalog");
-	PutDoc("\n/Outlines " + Pdf::toObjRef(writer.OutlinesObj) +
-		   "\n/Pages " + Pdf::toObjRef(writer.PagesObj) +
-		   "\n/Dests " + Pdf::toObjRef(writer.DestsObj) +
-		   "\n/AcroForm " + Pdf::toObjRef(writer.AcroFormObj) +
-		   "\n/Names "+ Pdf::toObjRef(writer.NamesObj) +
-		   "\n/Threads " +  Pdf::toObjRef(writer.ThreadsObj) +
-		   "\n");
+	PutDoc("<<\n/Type /Catalog\n");
+	PutDoc("/Pages " + Pdf::toObjRef(writer.PagesObj) + "\n");
+	if (!PDF_IsPDFX())
+	{
+		if (doc.useAcroFormFields())
+		{
+			writer.AcroFormObj = writer.newObject();
+			PutDoc("/AcroForm " + Pdf::toObjRef(writer.AcroFormObj) + "\n");
+		}
+		if (doc.useAnnotations())
+		{
+			writer.DestsObj = writer.newObject();
+			PutDoc("/Dests " + Pdf::toObjRef(writer.DestsObj) + "\n");
+		}
+		if (doc.JavaScripts.count() > 0)
+		{
+			writer.NamesObj = writer.newObject();
+			PutDoc("/Names " + Pdf::toObjRef(writer.NamesObj) + "\n");
+		}
+	}
+	if (Options.Bookmarks)
+	{
+		writer.OutlinesObj = writer.newObject();
+		PutDoc("/Outlines " + Pdf::toObjRef(writer.OutlinesObj) + "\n");
+	}
+	if (Options.Articles)
+	{
+		writer.ThreadsObj = writer.newObject();
+		PutDoc("/Threads " + Pdf::toObjRef(writer.ThreadsObj) + "\n");
+	}
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 	{
 		writer.OCPropertiesObj = writer.newObject();
@@ -1094,7 +1115,8 @@ void PDFLibCore::PDF_Begin_Catalog()
 			PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
-		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Pdf::toPdfDocEncoding(Options.openAction)+"\\(\\)) >>\n");
+		writer.OpenActionObj = writer.newObject();
+		PutDoc("/OpenAction << /S /JavaScript /JS " + Pdf::toPdf(writer.OpenActionObj) + " 0 R >>\n");
 	}
 	QDateTime dt = QDateTime::currentDateTimeUtc();
 	Datum = Pdf::toDateString(dt);
@@ -1195,28 +1217,6 @@ void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
 		PutDoc("/GTS_PDFXVersion (PDF/X-4)\n");
 	PutDoc("/Trapped /False\n>>");
 	writer.endObj(writer.InfoObj);
-
-	// Encrypt
-	
-//	for (int t = 0; t < 6; ++t)
-//		XRef.append(bytesWritten());
-//	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-//		XRef.append(bytesWritten());
-//	if (PDF_IsPDFX())
-//		XRef.append(bytesWritten());
-//	if (Options.Version == PDFOptions::PDFVersion_X4)
-//		XRef.append(bytesWritten());
-	if (Options.Encrypt)
-	{ // now done in writer.setEncrption():
-//		writer.EncryptObj = writer.newObject();
-//		writer.startObj(writer.EncryptObj);
-//		PutDoc("<<\n/Filter /Standard\n");
-//		PutDoc( KeyLen > 5 ? "/R 3\n/V 2\n/Length 128\n" : "/R 2\n/V 1\n");
-//		PutDoc("/O "+Pdf::toHexString(ok)+"\n");
-//		PutDoc("/U "+Pdf::toHexString(uk)+"\n");
-//		PutDoc("/P "+Pdf::toPdf(Options.Permissions)+"\n>>");
-//		writer.endObj(writer.EncryptObj);
-	}
 }
 
 QMap<QString, QMap<uint, FPointArray> >
@@ -3363,7 +3363,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 	}
 }
 
-void PDFLibCore::PDF_End_Page(int physPage)
+void PDFLibCore::PDF_End_Page()
 {
 	if (!pageData.radioButtonList.isEmpty())
 		PDF_RadioButtons();
@@ -3581,9 +3581,9 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		PutDoc(">>");
 		writer.endObj(Gobj);
 	}
-	uint pageObject = writer.newObject();
+	PdfId pageObject = writer.newObject();
 	writer.startObj(pageObject);
-	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
+	PutDoc("<<\n/Type /Page\n/Parent " + Pdf::toObjRef(writer.PagesObj) + "\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/BleedBox ["+FToStr(markOffs)+" "+FToStr(markOffs)+" "+FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markOffs)+"]\n");
 	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
@@ -3750,8 +3750,8 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	}
 	PutDoc(">>");
 	writer.endObj(pageObject);
-	PageTree.Count++;
-	PageTree.Kids[physPage] = pageObject;
+	PageTree.Kids.append(pageObject);
+	PageTree.KidsMap[ActPageP->pageNr()] = pageObject;
 }
 
 
@@ -3848,7 +3848,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 {
 	PageItem* ite;
 	QByteArray content, output;
-	QList<PageItem*> PItems;
+//	QList<PageItem*> PItems;
 
 	if (pag->MPageNam.isEmpty())
 		return true;
@@ -5850,7 +5850,7 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 			kToGray = (h == 0 && s == 0 && v == 0);
 		}
 		if (kToGray)
-			tmp = FToStr(1.0 - k / 255.0);
+			tmp = FToStr(1.0 - k);
 		else
 		{
 			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
@@ -6777,7 +6777,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
 			colorNames.append(mp1.colorName);
 			if (!doc.PageColors.contains(mp1.colorName))
 			{
@@ -6822,10 +6822,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		{
 			for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
 			{
-				meshPoint mp1 = c->meshGradientArray[grow][gcol];
-				meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-				meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-				meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+				MeshPoint mp1 = c->meshGradientArray[grow][gcol];
+				MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+				MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+				MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
 				int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 				int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 				int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -6950,10 +6950,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
-			meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-			meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-			meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+			MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+			MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
 			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -7087,7 +7087,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
+		MeshPoint mp1 = patch.TL;
 		colorNames.append(mp1.colorName);
 		colorShades.append(mp1.shade);
 		TransVec.append(mp1.transparency);
@@ -7099,7 +7099,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp1.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp1.colorName, mp1.shade));
-		meshPoint mp2 = patch.TR;
+		MeshPoint mp2 = patch.TR;
 		colorNames.append(mp2.colorName);
 		colorShades.append(mp2.shade);
 		TransVec.append(mp2.transparency);
@@ -7111,7 +7111,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp2.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp2.colorName, mp2.shade));
-		meshPoint mp3 = patch.BR;
+		MeshPoint mp3 = patch.BR;
 		colorNames.append(mp3.colorName);
 		colorShades.append(mp3.shade);
 		TransVec.append(mp3.transparency);
@@ -7123,7 +7123,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 				spotColorSet.append(mp3.colorName);
 		}
 		Gcolors.append(SetGradientColor(mp3.colorName, mp3.shade));
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp4 = patch.BL;
 		colorNames.append(mp4.colorName);
 		colorShades.append(mp4.shade);
 		TransVec.append(mp4.transparency);
@@ -7154,10 +7154,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		for (int col = 0; col < c->meshGradientPatches.count(); col++)
 		{
 			meshGradientPatch patch = c->meshGradientPatches[col];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
+			MeshPoint mp1 = patch.TL;
+			MeshPoint mp2 = patch.TR;
+			MeshPoint mp3 = patch.BR;
+			MeshPoint mp4 = patch.BL;
 			int colInd1 = 4 * col;
 			int colInd2 = 4 * col + 1;
 			int colInd3 = 4 * col + 2;
@@ -7279,10 +7279,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
-		meshPoint mp2 = patch.TR;
-		meshPoint mp3 = patch.BR;
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp1 = patch.TL;
+		MeshPoint mp2 = patch.TR;
+		MeshPoint mp3 = patch.BR;
+		MeshPoint mp4 = patch.BL;
 		int colInd1 = 4 * col;
 		int colInd2 = 4 * col + 1;
 		int colInd3 = 4 * col + 2;
@@ -9680,16 +9680,21 @@ PdfId PDFLibCore::writeActions(const Annotation&	annot, PdfId annotationObj)
 PdfId PDFLibCore::WritePDFStream(const QByteArray& cc)
 {
 	PdfId result = writer.newObject();
+	return WritePDFStream(cc, result);
+}
+
+PdfId PDFLibCore::WritePDFStream(const QByteArray& cc, PdfId objId)
+{
 	QByteArray tmp(cc);
 	if (Options.Compress)
 		tmp = CompressArray(tmp);
-	writer.startObj(result);
-	PutDoc("<< /Length "+Pdf::toPdf(tmp.length()));  // moeglicherweise +1
+	writer.startObj(objId);
+	PutDoc("<< /Length " + Pdf::toPdf(tmp.length()));  // moeglicherweise +1
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(tmp, result)+"\nendstream");
-	writer.endObj(result);
-	return result;
+	PutDoc(" >>\nstream\n" + EncStream(tmp, objId) + "\nendstream");
+	writer.endObj(objId);
+	return objId;
 }
 
 PdfId PDFLibCore::WritePDFString(const QString& cc)
@@ -9708,6 +9713,24 @@ PdfId PDFLibCore::WritePDFString(const QString& cc)
 		}
 	}
 	return WritePDFStream(tmp);
+}
+
+PdfId PDFLibCore::WritePDFString(const QString& cc, PdfId objId)
+{
+	QByteArray tmp;
+	for (int i = 0; i < cc.length(); ++i)
+	{
+		uchar pdfChar = Pdf::toPdfDocEncoding(cc[i]);
+		if ((pdfChar != 0) || cc[i].isNull())
+			tmp += pdfChar;
+		else
+		{
+			tmp += "\\u";
+			tmp += toHex(cc[i].row());
+			tmp += toHex(cc[i].cell());
+		}
+	}
+	return WritePDFStream(tmp, objId);
 }
 
 void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, QByteArray im)
@@ -9748,7 +9771,7 @@ void PDFLibCore::PDF_Form(const QByteArray& im) // unused? - av
 
 void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 {
-	Bvie->SetAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0]");
+	Bvie->setAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0");
 	BookMinUse = true;
 }
 
@@ -9796,12 +9819,20 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page->GetObject()->Reference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::PdfRect pageRect   = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
-			pageM.scale(pageRect.GetWidth(), pageRect.GetHeight());
 			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
 			pageM = pageM.inverted();
 			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
@@ -9811,19 +9842,10 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
 								 + Pdf::toPdf(pageM.m12()) + " "
 								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
-//			PutDoc("\n/Matrix [" + Pdf::toPdf(1.0/pagesize.GetWidth()) + " 0 0 " + Pdf::toPdf(1.0/pagesize.GetHeight()) + " 0 0]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
@@ -9902,14 +9924,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pageRect.GetWidth());
-			imgInfo.Height = qMax(1, (int) pageRect.GetHeight());
-			imgInfo.xa  = sx * pageRect.GetWidth()/imgInfo.Width;
-			imgInfo.ya  = sy * pageRect.GetHeight()/imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pageRect.GetWidth()/imgInfo.Width;
-			imgInfo.sya = sy * pageRect.GetHeight()/imgInfo.Height;
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 
 			return true;
 		}
@@ -9926,10 +9948,18 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
-			QMatrix pageM;
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
+			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
-			pageM.scale(pageRect.GetWidth(), pageRect.GetHeight());
 			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
 			pageM = pageM.inverted();
 			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
@@ -9939,17 +9969,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
 								 + Pdf::toPdf(pageM.m12()) + " "
 								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " ");
-			if (rotation == 0)
-				PutDoc("0 0");
-			else if (rotation == 90)
-				PutDoc("0 1");
-			else if (rotation == 180)
-				PutDoc("1 1");
-			else if (rotation == 270)
-				PutDoc("1 0");
-			else
-				PutDoc("0 0");
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
@@ -10045,14 +10067,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) pageRect.GetWidth());
-			imgInfo.Height = qMax(1, (int) pageRect.GetHeight());
-			imgInfo.xa  = sx * pageRect.GetWidth() / imgInfo.Width;
-			imgInfo.ya  = sy * pageRect.GetHeight() / imgInfo.Height;
+			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
-			imgInfo.sxa = sx * pageRect.GetWidth() / imgInfo.Width;
-			imgInfo.sya = sy * pageRect.GetHeight() / imgInfo.Height;
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
 
 			return true;
 		}
@@ -10318,7 +10340,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						QDataStream ts(&f);
 						while (!ts.atEnd())
 						{
-							QString tmp = readLinefromDataStream(ts);
+							QString tmp = readLineFromDataStream(ts);
 							if (tmp.startsWith("%%BoundingBox:"))
 							{
 								found = true;
@@ -10897,22 +10919,24 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 
 void PDFLibCore::PDF_End_Bookmarks()
 {
-	BookMItem* ip;
-	QByteArray Inhal = "";
-	QMap<int,QByteArray> Inha;
+	if (writer.OutlinesObj == 0)
+		return;
+	
+	QByteArray Inhal;
+	QMap<int, QByteArray> Inha;
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
+		BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
+		PdfId Basis = writer.objectCounter() - 1;
 		Outlines.Count = Bvie->topLevelItemCount();
-		PdfId Basis = writer.reserveObjects(Outlines.Count) - 1;
-		ip = (BookMItem*)Bvie->topLevelItem(0);
-		Outlines.First = ip->ItemNr+Basis;
-		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr+Basis;
+		Outlines.First = ip->ItemNr + Basis;
+		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + Basis;
 		QTreeWidgetItemIterator it(Bvie);
 		while (*it)
 		{
 			ip = (BookMItem*)(*it);
 			QString encText = ip->text(0);
-			Inhal  = ""; //Pdf::toPdf(ip->ItemNr+Basis)+ " 0 obj\n";
+			Inhal.clear();
 			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
@@ -10928,7 +10952,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 				Inhal += "/Last "+Pdf::toPdf(ip->Last+Basis)+" 0 R\n";
 			if (ip->childCount())
 				Inhal += "/Count -"+Pdf::toPdf(ip->childCount())+"\n";
-			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
+			if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
 			{
 				QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
 				if (action.isEmpty())
@@ -10937,18 +10961,20 @@ void PDFLibCore::PDF_End_Bookmarks()
 					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
 					action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
 				}
-				Inhal += "/Dest ["+Pdf::toPdf(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
+				Inhal += "/Dest ["+Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage])+" 0 R "+action+"]\n";
 			}
 			Inhal += ">>";
 			Inha[ip->ItemNr] = Inhal;
 			++it;
 		}
 		QMap<int,QByteArray> ::ConstIterator contentIt;
+		writer.reserveObjects(Inha.count());
 		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
 		{
-			writer.startObj(ip->ItemNr+Basis);
+			int itemNr = contentIt.key();
+			writer.startObj(itemNr + Basis);
 			PutDoc(contentIt.value());
-			writer.endObj(ip->ItemNr+Basis);
+			writer.endObj(itemNr + Basis);
 		}
 	}
 }
@@ -10991,10 +11017,12 @@ void PDFLibCore::PDF_End_Resources()
 
 void PDFLibCore::PDF_End_Outlines()
 {
+	if (writer.OutlinesObj == 0)
+		return;
+
 	writer.startObj(writer.OutlinesObj);
 	PutDoc("<<\n/Type /Outlines\n");
 	PutDoc("/Count "+Pdf::toPdf(Outlines.Count)+"\n");
-// 	if ((Bvie->childCount() != 0) && (Options.Bookmarks))
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks))
 	{
 		PutDoc("/First "+Pdf::toPdf(Outlines.First)+" 0 R\n");
@@ -11008,11 +11036,13 @@ void PDFLibCore::PDF_End_PageTree()
 {
 	writer.startObj(writer.PagesObj);
 	PutDoc("<<\n/Type /Pages\n/Kids [");
-	QMap<int, int>::Iterator kidsIt;
-	for (kidsIt = PageTree.Kids.begin(); kidsIt != PageTree.Kids.end(); ++kidsIt)
-		PutDoc(Pdf::toPdf(kidsIt.value())+" 0 R ");
+	for (int i = 0; i < PageTree.Kids.count(); ++i)
+	{
+		PdfId objId = PageTree.Kids.at(i);
+		PutDoc(Pdf::toPdf(objId) + " 0 R ");
+	}
 	PutDoc("]\n");
-	PutDoc("/Count "+Pdf::toPdf(PageTree.Count)+"\n");
+	PutDoc("/Count "+ Pdf::toPdf(PageTree.Kids.count()) + "\n");
 	PutDoc("/Resources "+Pdf::toPdf(writer.ResourcesObj)+" 0 R\n");
 	PutDoc(">>");
 	writer.endObj(writer.PagesObj);
@@ -11020,6 +11050,9 @@ void PDFLibCore::PDF_End_PageTree()
 
 void PDFLibCore::PDF_End_NamedDests()
 {
+	if (writer.DestsObj == 0)
+		return;
+
 	writer.startObj(writer.DestsObj);
 	PutDoc("<<\n");
 	if (NamedDest.count() != 0)
@@ -11027,9 +11060,9 @@ void PDFLibCore::PDF_End_NamedDests()
 		QList<PdfDest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if (PageTree.Kids.contains((*vt).PageNr))
-				PutDoc(Pdf::toName((*vt).Name) + " [" + Pdf::toObjRef(PageTree.Kids[(*vt).PageNr])
-				       + " /XYZ " + Pdf::toPdfDocEncoding((*vt).Act) + "]\n");
+			if (PageTree.KidsMap.contains(vt->PageNr))
+				PutDoc(Pdf::toName(vt->Name) + " [" + Pdf::toObjRef(PageTree.KidsMap[vt->PageNr])
+				       + " /XYZ " + Pdf::toPdfDocEncoding(vt->Act) + "]\n");
 		}
 	}
 	PutDoc(">>");
@@ -11038,6 +11071,9 @@ void PDFLibCore::PDF_End_NamedDests()
 
 void PDFLibCore::PDF_End_FormObjects()
 {
+	if (writer.AcroFormObj == 0)
+		return;
+
 	writer.startObj(writer.AcroFormObj);
 	PutDoc("<<\n");
 	PutDoc("/Fields [ ");
@@ -11062,6 +11098,12 @@ void PDFLibCore::PDF_End_FormObjects()
 
 void PDFLibCore::PDF_End_JavaScripts()
 {
+	if (writer.OpenActionObj != 0)
+		WritePDFString("this." + Options.openAction + "()", writer.OpenActionObj);
+
+	if (writer.NamesObj == 0)
+		return;
+
 	PdfId jsNameTreeObj = 0;
 	if (doc.JavaScripts.count() != 0)
 	{
@@ -11101,46 +11143,35 @@ void PDFLibCore::PDF_End_JavaScripts()
 
 void PDFLibCore::PDF_End_Articles()
 {
-	Threads.clear();
+	if (writer.ThreadsObj == 0)
+		return;
+
+	QList<PdfId> Threads;
+	QList<PdfBead> Beads;
 	PdfId currentThreadObj = 0;
-	if (Options.Articles)
+
+	for (int ele = 0; ele < doc.Items->count(); ++ele)
 	{
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
+		PageItem* tel = doc.Items->at(ele);
+		if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
+				(!tel->inPdfArticle))
 		{
-			PageItem* tel = doc.Items->at(ele);
-			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
-					(!tel->inPdfArticle))
-			{
-				Beads.clear();
-				PdfBead bd;
-				if (currentThreadObj == 0)
-					currentThreadObj = writer.newObject();
+			Beads.clear();
+			PdfBead bd;
+			if (currentThreadObj == 0)
+				currentThreadObj = writer.newObject();
 				
-				PdfId fir = currentThreadObj + 1;
-				PdfId ccb = currentThreadObj + 1;
-				bd.Parent = currentThreadObj;
-				while (tel->nextInChain() != 0)
+			PdfId fir = currentThreadObj + 1;
+			PdfId ccb = currentThreadObj + 1;
+			bd.Parent = currentThreadObj;
+			while (tel->nextInChain() != 0)
+			{
+				if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
 				{
-					if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
-					{
-						bd.Next = ccb + 1;
-						bd.Prev = ccb - 1;
-						ccb++;
-						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
-									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
-									static_cast<int>(tel->width()),
-									static_cast<int>(tel->height()));
-						Beads.append(bd);
-					}
-					tel->inPdfArticle = true;
-					tel = tel->nextInChain();
-				}
-				bd.Next = ccb + 1;
-				bd.Prev = ccb - 1;
-				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
-				{
-					bd.Page = PageTree.Kids[tel->OwnPage];
+					bd.Next = ccb + 1;
+					bd.Prev = ccb - 1;
+					ccb++;
+					bd.Page = PageTree.KidsMap[tel->OwnPage];
 					bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
@@ -11148,39 +11179,53 @@ void PDFLibCore::PDF_End_Articles()
 					Beads.append(bd);
 				}
 				tel->inPdfArticle = true;
-				if (Beads.count() > 0)
-				{
-					writer.startObj(currentThreadObj);
-					Threads.append(currentThreadObj);
-					PutDoc("<< /Type /Thread\n");
-					PutDoc("   /F "+Pdf::toPdf(fir)+" 0 R\n");
-					PutDoc(">>");
-					writer.endObj(currentThreadObj);
+				tel = tel->nextInChain();
+			}
+			bd.Next = ccb + 1;
+			bd.Prev = ccb - 1;
+			if ((tel->OwnPage != -1) && PageTree.KidsMap.contains(tel->OwnPage))
+			{
+				bd.Page = PageTree.KidsMap[tel->OwnPage];
+				bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+							static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
+							static_cast<int>(tel->width()),
+							static_cast<int>(tel->height()));
+				Beads.append(bd);
+			}
+			tel->inPdfArticle = true;
+			if (Beads.count() > 0)
+			{
+				writer.startObj(currentThreadObj);
+				Threads.append(currentThreadObj);
+				PutDoc("<< /Type /Thread\n");
+				PutDoc("   /F "+Pdf::toPdf(fir)+" 0 R\n");
+				PutDoc(">>");
+				writer.endObj(currentThreadObj);
 					
-					Beads[0].Prev = fir + Beads.count()-1;
-					Beads.last().Next = fir;
+				Beads[0].Prev = fir + Beads.count()-1;
+				Beads.last().Next = fir;
 				
-					for (int beac = 0; beac < Beads.count(); ++beac)
-					{
-						PdfId beadObj = writer.startObj();
-						PutDoc("<< /Type /Bead\n");
-						PutDoc("   /T "+Pdf::toPdf(Beads[beac].Parent)+" 0 R\n");
-						PutDoc("   /N "+Pdf::toPdf(Beads[beac].Next)+" 0 R\n");
-						PutDoc("   /V "+Pdf::toPdf(Beads[beac].Prev)+" 0 R\n");
-						PutDoc("   /P "+Pdf::toPdf(Beads[beac].Page)+" 0 R\n");
-						PutDoc("   /R [ "+Pdf::toPdf(Beads[beac].Rect.x())+" "+
-						        Pdf::toPdf(Beads[beac].Rect.y())+" ");
-						PutDoc(Pdf::toPdf(Beads[beac].Rect.bottomRight().x())+" "+Pdf::toPdf(Beads[beac].Rect.y()-Beads[beac].Rect.height())+" ]\n");
-						PutDoc(">>");
-						writer.endObj(beadObj);
-					}
-					currentThreadObj = 0;
+				for (int beac = 0; beac < Beads.count(); ++beac)
+				{
+					PdfId beadObj = writer.startObj();
+					PutDoc("<< /Type /Bead\n");
+					PutDoc("   /T "+Pdf::toPdf(Beads[beac].Parent)+" 0 R\n");
+					PutDoc("   /N "+Pdf::toPdf(Beads[beac].Next)+" 0 R\n");
+					PutDoc("   /V "+Pdf::toPdf(Beads[beac].Prev)+" 0 R\n");
+					PutDoc("   /P "+Pdf::toPdf(Beads[beac].Page)+" 0 R\n");
+					PutDoc("   /R [ "+Pdf::toPdf(Beads[beac].Rect.x())+" "+
+						    Pdf::toPdf(Beads[beac].Rect.y())+" ");
+					PutDoc(Pdf::toPdf(Beads[beac].Rect.bottomRight().x())+" "+Pdf::toPdf(Beads[beac].Rect.y()-Beads[beac].Rect.height())+" ]\n");
+					PutDoc(">>");
+					writer.endObj(beadObj);
 				}
+				currentThreadObj = 0;
 			}
 		}
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
-			doc.Items->at(ele)->inPdfArticle = false;
 	}
+	for (int ele = 0; ele < doc.Items->count(); ++ele)
+		doc.Items->at(ele)->inPdfArticle = false;
+
 	writer.startObj(writer.ThreadsObj);
 	PutDoc("[ ");
 	for (int th = 0; th < Threads.count(); ++th)

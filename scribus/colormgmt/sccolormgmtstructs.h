@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 // If you change that enum do not forget to update functions
 // colorFormatType() and colorFormatHasAlpha()
-typedef enum
+enum eColorFormat
 {
 	Format_Undefined,
 	Format_RGB_8,
@@ -33,35 +33,35 @@ typedef enum
 	Format_GRAY_16,
 	Format_LabA_8,
 	Format_Lab_Dbl
-} eColorFormat;
+};
 
-typedef enum
+enum eColorType
 {
 	Color_Unknown,
 	Color_RGB,
 	Color_CMYK,
 	Color_Gray,
 	Color_Lab
-} eColorType;
+};
 
-typedef enum
+enum eColorTransformFlags
 {
 	Ctf_BlackPointCompensation = 1,
 	Ctf_BlackPreservation      = 2,
 	Ctf_Softproofing           = 4,
 	Ctf_GamutCheck             = 8
-} eColorTransformFlags;
+};
 
-typedef enum
+enum eRenderIntent
 {
 	Intent_Perceptual = 0,
 	Intent_Relative_Colorimetric = 1,
 	Intent_Saturation = 2,
 	Intent_Absolute_Colorimetric = 3,
 	Intent_Max = 4
-} eRenderIntent;
+};
 
-typedef enum 
+enum eColorSpaceType
 {
 	ColorSpace_Unknown,
 	ColorSpace_XYZ,
@@ -75,9 +75,9 @@ typedef enum
 	ColorSpace_Hls,
 	ColorSpace_Cmyk,
 	ColorSpace_Cmy
-} eColorSpaceType;
+};
 
-typedef enum 
+enum eProfileClass
 {
 	Class_Unknown,
 	Class_Input,
@@ -87,7 +87,19 @@ typedef enum
 	Class_Abstract,
 	Class_ColorSpace,
 	Class_NamedColor
-} eProfileClass;
+};
+
+enum eIlluminant
+{
+	Illuminant_D50,
+	Illuminant_D65
+};
+
+enum eObserver
+{
+	Observer_2deg,
+	Observer_10deg
+};
 
 class ScColorMgmtStrategy
 {
@@ -102,16 +114,16 @@ public:
 	}
 };
 
-typedef struct
+struct ScColorProfileInfo
 {
 	QString file;
 	QString description;
 	eColorSpaceType colorSpace;
 	eProfileClass   deviceClass;
 	QString debug;
-} ScColorProfileInfo;
+};
 
-typedef struct
+struct ScColorTransformInfo
 {
 	QString inputProfile;
 	QString outputProfile;
@@ -121,9 +133,23 @@ typedef struct
 	eRenderIntent renderIntent;
 	eRenderIntent proofingIntent;
 	long flags;
-} ScColorTransformInfo;
+};
 
 bool operator==(const ScColorTransformInfo& v1, const ScColorTransformInfo& v2);
+
+struct ScXYZ
+{
+	double X;
+	double Y;
+	double Z;
+};
+
+struct ScLab
+{
+	double L;
+	double a;
+	double b;
+};
 
 eColorType colorFormatType(eColorFormat format);
 uint       colorFormatNumChannels(eColorFormat format);

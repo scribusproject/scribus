@@ -17,7 +17,13 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_wpg.h"
 #include "third_party/wpg/WPGStreamImplementation.h"
 
-ScrPainterIm::ScrPainterIm(): libwpg::WPGPaintInterface()
+ScrPainterIm::ScrPainterIm(): libwpg::WPGPaintInterface(),
+	fillrule(false),
+	gradientAngle(0.0),
+	isGradient(false),
+	fillSet(false),
+	strokeSet(false),
+	image(NULL)
 {
 }
 
@@ -124,7 +130,7 @@ void ScrPainterIm::setBrush(const libwpg::WPGBrush& brush)
 		currentGradient = QLinearGradient();
 		for(unsigned c = 0; c < brush.gradient.count(); c++)
 		{
-			QColor stopC = QColor(brush.gradient.stopColor(c).red, brush.gradient.stopColor(c).green, brush.gradient.stopColor(c).blue);
+			QColor stopC(brush.gradient.stopColor(c).red, brush.gradient.stopColor(c).green, brush.gradient.stopColor(c).blue);
 			double pos = qBound(0.0, fabs(brush.gradient.stopOffset(c)), 1.0);
 			currentGradient.setColorAt(pos, stopC);
 		}
@@ -147,7 +153,7 @@ void ScrPainterIm::drawRectangle(const libwpg::WPGRect& rect, double rx, double 
 {
 	imagePainter.setBrush(currentBrush);
 	imagePainter.setPen(currentPen);
-	QRectF rr = QRectF(rect.x1 * 72, rect.y1 * 72, rect.width() * 72, rect.height() * 72);
+	QRectF rr(rect.x1 * 72, rect.y1 * 72, rect.width() * 72, rect.height() * 72);
 	if (isGradient)
 	{
 		QTransform m1;
@@ -168,7 +174,7 @@ void ScrPainterIm::drawEllipse(const libwpg::WPGPoint& center, double rx, double
 {
 	imagePainter.setBrush(currentBrush);
 	imagePainter.setPen(currentPen);
-	QRectF rr = QRectF(0, 0, rx * 144.0, ry * 144.0);
+	QRectF rr(0, 0, rx * 144.0, ry * 144.0);
 	if (isGradient)
 	{
 		QTransform m1;
@@ -197,7 +203,7 @@ void ScrPainterIm::drawPolygon(const libwpg::WPGPointArray& vertices, bool close
 	}
 	if (isGradient)
 	{
-		QRectF rr = Coords.boundingRect();
+		QRectF rr(Coords.boundingRect());
 		QTransform m1;
 		m1.rotate(-gradientAngle);
 		currentGradient.setStart(rr.x(), rr.y());
@@ -241,7 +247,7 @@ void ScrPainterIm::drawPath(const libwpg::WPGPath& path)
 	{
 		if (isGradient)
 		{
-			QRectF rr = Coords.boundingRect();
+			QRectF rr(Coords.boundingRect());
 			QTransform m1;
 			m1.rotate(-gradientAngle);
 			currentGradient.setStart(rr.x(), rr.y());
@@ -264,7 +270,7 @@ void ScrPainterIm::drawPath(const libwpg::WPGPath& path)
 
 void ScrPainterIm::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres)
 {
-	QImage img = QImage(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
+	QImage img(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
 	for(int x = 0; x < bitmap.width(); x++)
 	{
 		for(int y = 0; y < bitmap.height(); y++)

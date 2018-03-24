@@ -24,10 +24,12 @@ void nfttemplate::remove()
 	if (!tmplXml.exists())
 		return;
 
-	QString newTmplXml = "";
+	if (!tmplXml.open(QIODevice::ReadOnly))
+		return;
+
+	QString newTmplXml;
 	QString tmp;
 	bool collect = false;
-	tmplXml.open(QIODevice::ReadOnly);
 	QTextStream stream(&tmplXml);
 	stream.setCodec("UTF-8");
 	QString line = stream.readLine();
@@ -46,7 +48,7 @@ void nfttemplate::remove()
 					newTmplXml += tmp;
 					tmp = "";
 				}
-			} 
+			}
 			else if (line.indexOf("file") != -1)
 			{
 				QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
@@ -56,7 +58,7 @@ void nfttemplate::remove()
 					newTmplXml += tmp;
 					tmp = "";
 				}
-			} 
+			}
 			else if (line.indexOf("</template>") != -1)
 			{
 				collect = false;
@@ -71,11 +73,13 @@ void nfttemplate::remove()
 		line = stream.readLine();
 	}
 	tmplXml.close();
-	tmplXml.open(QIODevice::WriteOnly);
-	QTextStream instream(&tmplXml);
-	instream.setCodec("UTF-8");
-	instream << newTmplXml;
-	tmplXml.close();
+	if (tmplXml.open(QIODevice::WriteOnly))
+	{
+		QTextStream instream(&tmplXml);
+		instream.setCodec("UTF-8");
+		instream << newTmplXml;
+		tmplXml.close();
+	}
 }
 
 bool nfttemplate::canWrite()

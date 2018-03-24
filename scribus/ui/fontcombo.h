@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QFontDatabase>
 #include <QPixmapCache>
+#include <QValidator>
 
 #include "scribusapi.h"
 
@@ -51,10 +52,9 @@ class SCRIBUS_API FontCombo : public QComboBox
 public:
 	FontCombo(QWidget* pa);
 	~FontCombo() {}
-	
-	
 
 	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
+
 private:
 	PrefsManager* prefsManager;
 	QPixmap ttfFont;
@@ -65,7 +65,6 @@ private:
 
 class SCRIBUS_API FontComboH : public QWidget
 {
-
 	Q_OBJECT
 
 public:
@@ -124,5 +123,17 @@ public:
 protected:
 	QFont m_font;
 	static QPixmapCache pixmapCache;
+};
+
+class FontComboValidator : public QValidator
+{
+	Q_OBJECT
+
+public:
+	FontComboValidator(QObject* parent = 0);
+	virtual State validate(QString & input, int & pos) const;
+
+protected:
+	PrefsManager* prefsManager;
 };
 #endif

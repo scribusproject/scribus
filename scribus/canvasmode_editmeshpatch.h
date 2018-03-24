@@ -30,7 +30,7 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 
-class meshPoint;
+class MeshPoint;
 class PageItem;
 class PageItem_TextFrame;
 class ScribusMainWindow;
@@ -57,7 +57,7 @@ public:
 	virtual void keyPressEvent(QKeyEvent *e);
 	virtual bool handleKeyEvents() { return true; }
 	virtual void drawControls(QPainter* p);
-	void drawControlsMeshPoint(QPainter* psx, const meshPoint& mp, bool isSelected);
+	void drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected);
 	void drawControlsMeshPatch(QPainter* pp, PageItem* currItem);
 
 private:
@@ -83,7 +83,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	meshPoint* m_old_mesh;
+	MeshPoint* m_old_mesh;
 	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	eMPatchPoint m_patchPoint;

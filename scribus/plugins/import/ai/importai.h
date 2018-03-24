@@ -178,7 +178,7 @@ private:
 	double meshNode4Control1X, meshNode4Control1Y;
 	double meshNode4Control2X, meshNode4Control2Y;
 	QString meshColor1, meshColor2, meshColor3, meshColor4;
-	QList<QList<meshPoint> > meshGradientArray;
+	QList<QList<MeshPoint> > meshGradientArray;
 	QString docCreator;
 	QString docDate;
 	QString docTime;

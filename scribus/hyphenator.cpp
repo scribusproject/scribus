@@ -205,7 +205,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					if(buffer[i] & 1)
 						outs += "-";
 				}
-				outs += word.right(1);
+				outs += word.rightRef(1);
 				input = outs;
 				if (!ignoredWords.contains(word))
 				{

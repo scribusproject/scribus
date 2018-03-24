@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QShowEvent>
 #include <QSignalBlocker>
+#include <QScopedPointer>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
@@ -267,7 +268,26 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	setCurrentDocument(docc);
 	parentStoryEditor=parentSE;
 	wasMod = false;
+	ready = false;
+	unicodeInputCount = 0;
+	CurrAlign = 0.0;
+	CurrDirection = 0.0;
+	CurrFontSize = 0.0;
+	CurrTextFillSh = 0.0;
+	CurrTextStrokeSh = 0.0;
+	CurrTextScaleH = 0.0;
+	CurrTextScaleV = 0.0;
+	CurrTextBase = 0.0;
+	CurrTextShadowX = 0.0;
+	CurrTextShadowY = 0.0;
+	CurrTextOutline = 0.0;
+	CurrTextUnderPos = 0.0;
+	CurrTextUnderWidth = 0.0;
+	CurrTextStrikePos = 0.0;
+	CurrTextStrikeWidth = 0.0;
+	CurrTextKern = 0.0;
 	SelCharStart = 0;
+	SelCharEnd = 0;
 	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
@@ -3011,15 +3031,17 @@ void StoryEditor::SearchText()
 {
 	m_blockUpdate = true;
 	EditorBar->setRepaint(false);
-	SearchReplace dia(this, m_doc, m_item, false);
-	dia.exec();
-	int pos = dia.firstMatchCursorPosition();
-	if (pos >= 0)
+	QScopedPointer<SearchReplace> dia(new SearchReplace(this, m_doc, m_item, false));
+	if (dia->exec())
 	{
-		QTextCursor tCursor = Editor->textCursor();
-		tCursor.setPosition(pos);
-		Editor->setTextCursor(tCursor);
-		Editor->SelStack.push(qMakePair(pos, -1));
+		int pos = dia->firstMatchCursorPosition();
+		if (pos >= 0)
+		{
+			QTextCursor tCursor = Editor->textCursor();
+			tCursor.setPosition(pos);
+			Editor->setTextCursor(tCursor);
+			Editor->SelStack.push(qMakePair(pos, -1));
+		}
 	}
 	qApp->processEvents();
 	m_blockUpdate = false;

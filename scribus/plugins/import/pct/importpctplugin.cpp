@@ -72,7 +72,7 @@ const ScActionPlugin::AboutData* ImportPctPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Macintosh Pict Files");
-	about->description = tr("Imports most Macintosh Pict files into the current document,\nconverting their vector data into Scribus objects.");
+	about->description = tr("Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

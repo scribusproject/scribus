@@ -401,17 +401,25 @@ QString XtgScanner::getFontName(QString name)
 		}
 	}
 
-	if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
+	if (PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		MissingFont dia(0, fontName, doc);
-		dia.exec();
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
-		fontName = dia.getReplacementFont();
+		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+		return fontName;
+	}
+
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QScopedPointer<MissingFont> dia(new MissingFont(0, fontName, doc));
+	if (dia->exec())
+	{
+		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia->getReplacementFont();
+		fontName = dia->getReplacementFont();
 	}
 	else
-		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+	{
+		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = doc->itemToolPrefs().textFont;
+		fontName = doc->itemToolPrefs().textFont;
+	}
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 
 	return fontName;
 }
@@ -428,7 +436,7 @@ void XtgScanner::setFontSize()
 void XtgScanner::setColor()
 {
 	flushText();
-	token = getToken();	
+	token = getToken();
 
 	QHash<QString,QString> color;
 	color.insert("cC","Cyan");

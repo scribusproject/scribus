@@ -20,117 +20,117 @@ class PageItem;
 typedef uint PdfId;
 
 namespace Pdf {
-    typedef QMap<QByteArray, PdfId> ResourceMap;
-    
-    struct Resource
-    {
-        QByteArray ResName;
-        PdfId ResNum;
-    };
+	typedef QMap<QByteArray, PdfId> ResourceMap;
+	
+	struct Resource
+	{
+		QByteArray ResName;
+		PdfId ResNum;
+	};
 
-    struct ResourceDictionary
-    {
-        ResourceMap XObject;
-        ResourceMap Font;
-        ResourceMap Shading;
-        ResourceMap Pattern;
-        ResourceMap ExtGState;
-        ResourceMap Properties;
-        QList<Resource> ColorSpace;
-    };
-    
+	struct ResourceDictionary
+	{
+		ResourceMap XObject;
+		ResourceMap Font;
+		ResourceMap Shading;
+		ResourceMap Pattern;
+		ResourceMap ExtGState;
+		ResourceMap Properties;
+		QList<Resource> ColorSpace;
+	};
+	
 }
 
 
 
 struct PdfDest
 {
-    QString Name;
-    int PageNr;
-    QString Act;
+	QString Name;
+	int PageNr;
+	QString Act;
 };
 
 
 struct PdfCatalog
 {
-    PdfId Outlines;
-    PdfId PageTree;
-    PdfId Dest;
+	PdfId Outlines;
+	PdfId PageTree;
+	PdfId Dest;
 };
 
 
 struct PdfPageTree
 {
-    QMap<int, int> Kids;
-    int Count;
+	QList<PdfId> Kids;
+	QMap<int, PdfId> KidsMap;
 };
 
 
 struct PdfPageData
 {
-    PdfId ObjNum;
+	PdfId ObjNum;
 	PdfId Thumb;
-    Pdf::ResourceMap XObjects;
-    Pdf::ResourceMap ImgObjects;
-    Pdf::ResourceMap FObjects;
-    QList<PdfId> AObjects;
-    QList<PdfId> FormObjects;
-    QList<PageItem*> radioButtonList;
+	Pdf::ResourceMap XObjects;
+	Pdf::ResourceMap ImgObjects;
+	Pdf::ResourceMap FObjects;
+	QList<PdfId> AObjects;
+	QList<PdfId> FormObjects;
+	QList<PageItem*> radioButtonList;
 };
 
 
 struct PdfOutlines
 {
-    PdfId First;
-    PdfId Last;
-    PdfId Count;
+	PdfId First;
+	PdfId Last;
+	PdfId Count;
 };
 
 
 struct PdfBead
 {
-    PdfId Parent;
-    PdfId Next;
-    PdfId Prev;
-    int Page;
-    QRect Rect;
+	PdfId Parent;
+	PdfId Next;
+	PdfId Prev;
+	int Page;
+	QRect Rect;
 };
 
 struct PdfICCD : public Pdf::Resource
 {
-    int components;
-    QByteArray ICCArray;
+	int components;
+	QByteArray ICCArray;
 };
 
 
 struct PdfOCGInfo
 {
-    PdfId ObjNum;
-    bool visible;
-    QByteArray Name;
+	PdfId ObjNum;
+	bool visible;
+	QByteArray Name;
 };
 
 
 enum FontMethod {
-    Use_System = 0,
-    Use_Embedded = 1,
-    Use_Subset = 2,
-    Use_Type3 = 3,
-    Use_XForm = 4
+	Use_System = 0,
+	Use_Embedded = 1,
+	Use_Subset = 2,
+	Use_Type3 = 3,
+	Use_XForm = 4
 };
 
 
 enum FontEncoding {
-    Encode_256 = 256,
-    Encode_224 = 224,
-    Encode_IdentityH = 1,
-    Encode_Subset = 0
+	Encode_256 = 256,
+	Encode_224 = 224,
+	Encode_IdentityH = 1,
+	Encode_Subset = 0
 };
 
 
 enum FontUsage {
-    Used_in_Content = 16,
-    Used_in_Forms = 32
+	Used_in_Content = 16,
+	Used_in_Forms = 32
 };
 
 
@@ -154,32 +154,32 @@ enum FontUsage {
   face -> contours, metrics, cmap, font descriptor, rawdata
  */
 struct PdfFont {
-    /// as used in PDF, with leading '/'
-    QByteArray name;
-    /// how it's embedded
-    FontMethod method;
-    /// maps document gids to unicode
-    FontEncoding encoding;
-    /// used for content or for forms
-    FontUsage usage;
-    /// maps documents gids to font gids
-    QMap<uint,uint> glyphmap;
+	/// as used in PDF, with leading '/'
+	QByteArray name;
+	/// how it's embedded
+	FontMethod method;
+	/// maps document gids to unicode
+	FontEncoding encoding;
+	/// used for content or for forms
+	FontUsage usage;
+	/// maps documents gids to font gids
+	QMap<uint,uint> glyphmap;
 };
 
 
 struct PdfSpotC : public Pdf::Resource
 {
-    // no additional data
+	// no additional data
 };
 
 
 //struct PdfGraphicsData
 //{
-//    PdfId ResNumG;
-//    PdfId ResNumX;
-//    QString ResNamG;
-//    QString ResNamX;
-//    QString data;
+//	PdfId ResNumG;
+//	PdfId ResNumX;
+//	QString ResNamG;
+//	QString ResNamX;
+//	QString data;
 //};
 
 

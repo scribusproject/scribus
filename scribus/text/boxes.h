@@ -51,7 +51,7 @@ public:
 		m_firstChar = 0;
 		m_lastChar = 0;
 		m_naturalAscent = 0;
-		m_naturalDecent = 0;
+		m_naturalDescent = 0;
 	}
 
 	virtual ~Box()
@@ -122,6 +122,12 @@ public:
 		return reinterpret_cast<const QList<const Box*> & > (m_boxes);
 	}
 
+	/// Returns the number of child boxes
+	int boxCount() const { return m_boxes.count(); }
+
+	/// Returns if current box contains any child boxes
+	bool isEmpty() const { return m_boxes.isEmpty(); }
+
 	/// Renders the box and any boxes it contains, recursively.
 	virtual void render(TextLayoutPainter *p) const = 0;
 
@@ -131,9 +137,9 @@ public:
 	/// Draw selection if the the box selected
 	virtual void drawSelection(ScreenPainter *p, ITextContext *ctx) const {}
 
-	/// Get natural ascent and decent.
+	/// Get natural ascent and descent.
 	virtual double naturalAsc() const { return m_naturalAscent; }
-	virtual double naturalDecent() const { return m_naturalDecent; }
+	virtual double naturalDescent() const { return m_naturalDescent; }
 
 	/// return box type
 	BoxType type() const { return m_type; }
@@ -156,7 +162,7 @@ protected:
 	int m_lastChar;
 	QTransform m_matrix;
 	double m_naturalAscent;
-	double m_naturalDecent;
+	double m_naturalDescent;
 };
 
 
@@ -259,7 +265,7 @@ public:
 		m_lastChar = run.lastChar();
 		m_width = run.width();
 		m_naturalAscent = run.ascent();
-		m_naturalDecent = run.desent();
+		m_naturalDescent = run.descent();
 	}
 
 	int pointToPosition(QPointF coord, const StoryText &story) const;

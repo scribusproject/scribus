@@ -241,20 +241,17 @@ double GuideManagerCore::vertical(uint ix, GuideType type)
 Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 {
 	Guides guides;
-	double rowSize;
 	int value = m_horizontalAutoCount;
-	double offset = 0.0;
-	double newPageHeight = page->height();
-
+	
 	if (page == NULL)
 		page = m_page;
 	if (page == NULL)
 		return guides;
-
 	if (m_horizontalAutoCount == 0)
 		return guides;
 	++value;
-
+	double newPageHeight = page->height();
+	double offset = 0.0;
 	if (m_horizontalAutoRefer == 1)
 	{
 		newPageHeight = newPageHeight - page->Margins.top() - page->Margins.bottom();
@@ -268,7 +265,7 @@ Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 			newPageHeight = page->guides.gh;
 		}
 	}
-
+	double rowSize;
 	if (page->guides.horizontalAutoGap() > 0.0)
 		rowSize = (newPageHeight - (value - 1) * page->guides.horizontalAutoGap()) / value;
 	else
@@ -291,20 +288,17 @@ Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 {
 	Guides guides;
-	double columnSize;
 	int value = m_verticalAutoCount;
-	double offset = 0.0;
-	double newPageWidth = page->width();
-
+	
 	if (page == NULL)
 		page = m_page;
 	if (page == NULL)
 		return guides;
-
 	if (m_verticalAutoCount == 0)
 		return guides;
 	++value;
-
+	double newPageWidth = page->width();
+	double offset = 0.0;
 	if (m_verticalAutoRefer == 1)
 	{
 		newPageWidth = newPageWidth - page->Margins.left() - page->Margins.right();
@@ -318,7 +312,7 @@ Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 			newPageWidth = page->guides.gw;
 		}
 	}
-
+	double columnSize;
 	if (page->guides.verticalAutoGap() > 0.0)
 		columnSize = (newPageWidth - (value - 1) * page->guides.verticalAutoGap()) / value;
 	else

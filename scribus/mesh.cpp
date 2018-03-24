@@ -24,13 +24,13 @@ for which a new license (GPL+exception) is in place.
 #include "mesh.h"
 #include "fpointarray.h"
 
-meshPoint::meshPoint()
+MeshPoint::MeshPoint()
 {
 	shade = 100;
 	transparency = 1.0;
 }
 
-void meshPoint::moveRel(double dx, double dy)
+void MeshPoint::moveRel(double dx, double dy)
 {
 	gridPoint += FPoint(dx, dy);
 	controlTop += FPoint(dx, dy);
@@ -40,7 +40,7 @@ void meshPoint::moveRel(double dx, double dy)
 	controlColor += FPoint(dx, dy);
 }
 
-void meshPoint::moveAbs(double x, double y)
+void MeshPoint::moveAbs(double x, double y)
 {
 	FPoint delta = gridPoint - FPoint(x, y);
 	gridPoint = FPoint(x, y);
@@ -51,7 +51,7 @@ void meshPoint::moveAbs(double x, double y)
 	controlColor -= delta;
 }
 
-void meshPoint::transform(QTransform t)
+void MeshPoint::transform(QTransform t)
 {
 	FPointArray gr;
 	gr.addPoint(gridPoint);
@@ -69,7 +69,7 @@ void meshPoint::transform(QTransform t)
 	controlColor = gr.point(5);
 }
 
-void meshPoint::resetTo(FPoint p)
+void MeshPoint::resetTo(FPoint p)
 {
 	gridPoint = p;
 	controlLeft = gridPoint;
@@ -79,10 +79,11 @@ void meshPoint::resetTo(FPoint p)
 	controlColor = gridPoint;
 }
 
-bool meshPoint::operator ==(const meshPoint& p)
+bool MeshPoint::operator ==(const MeshPoint& p)
 {
 	return ((gridPoint == p.gridPoint) && (controlTop == p.controlTop) && (controlBottom == p.controlBottom)
 			&& (controlLeft == p.controlLeft) && (controlRight == p.controlRight) &&
 			(controlColor == p.controlColor) && (color == p.color) && (colorName == p.colorName) &&
 			(transparency == p.transparency) && (shade == p.shade));
 }
+

@@ -29,7 +29,7 @@ public:
 	double width() const;
 
 	double ascent() const;
-	double desent() const;
+	double descent() const;
 
 	double scaleH() const;
 	double scaleV() const;

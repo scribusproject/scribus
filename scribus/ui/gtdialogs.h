@@ -45,7 +45,7 @@ private:
 	QCheckBox*   rememberCheck;
 	QPushButton* okButton;
 public:
-	gtImporterDialog(const QStringList& importers, int currentSelection);
+	gtImporterDialog(const QString& fileName, const QStringList& importers, int currentSelection);
 	~gtImporterDialog();
 	bool shouldRemember();
 	QString getImporter();
@@ -53,23 +53,24 @@ public:
 
 class SCRIBUS_API gtDialogs
 {
-private:
-	gtFileDialog* fdia;
-	QString fileName;
-	QString encoding;
-	int importer;
-	PrefsContext* prefs;
-	QString pwd;
 public:
 	gtDialogs();
 	~gtDialogs();
+
 	const QString& getFileName();
 	const QString& getEncoding();
 	int getImporter();
 	bool importTextOnly();
 	bool prefixStyles();
 	bool runFileDialog(const QString& filters, const QStringList& importers);
-	bool runImporterDialog(const QStringList& importers);
+	bool runImporterDialog(const QString& file, const QStringList& importers);
+
+private:
+	gtFileDialog* m_fdia;
+	QString m_fileName;
+	QString m_encoding;
+	int m_importer;
+	PrefsContext* m_prefs;
 };
 
 #endif // GTDIALOGS_H

@@ -88,7 +88,7 @@ class SCRIBUS_API SEditor : public QTextEdit
 
 public:
 	SEditor (QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE);
-	~SEditor() {};
+	~SEditor() {}
 	void setCurrentDocument(ScribusDoc *docc);
 	void setAlign(int align);
 	void setDirection(int align);

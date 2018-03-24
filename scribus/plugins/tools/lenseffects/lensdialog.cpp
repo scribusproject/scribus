@@ -25,14 +25,20 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "lensdialog.h"
+
 #include <cmath>
+
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
 #include <QRadialGradient>
+#include <QStyleOptionGraphicsItem>
+
+#include "commonstrings.h"
 #include "iconmanager.h"
-#include "selection.h"
+#include "pageitem_group.h"
 #include "sccolorengine.h"
 #include "scpattern.h"
-#include "commonstrings.h"
-#include "pageitem_group.h"
+#include "selection.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 {

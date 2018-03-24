@@ -1276,7 +1276,7 @@ public:	// Start public variables
 	int GrCol3Shade;
 	int GrCol4Shade;
 	QList<meshGradientPatch> meshGradientPatches;
-	QList<QList<meshPoint> > meshGradientArray;
+	QList<QList<MeshPoint> > meshGradientArray;
 	int selectedMeshPointX;
 	int selectedMeshPointY;
 	int selectedMeshControlPoint;

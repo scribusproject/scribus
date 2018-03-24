@@ -26,17 +26,20 @@ for which a new license (GPL+exception) is in place.
 
 #include "meshdistortiondialog.h"
 
-#include <QPainterPath>
 #include <QGraphicsItem>
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainterPath>
+#include <QStyleOptionGraphicsItem>
 
 #include "commonstrings.h"
 #include "fpointarray.h"
+#include "iconmanager.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "selection.h"
-#include "iconmanager.h"
 #include "util_math.h"
 
 NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraphicsEllipseItem(geom)

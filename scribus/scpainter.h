@@ -34,7 +34,7 @@ typedef struct _cairo_pattern cairo_pattern_t;
 class SCRIBUS_API ScPainter
 {
 public:
-	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
+	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);
@@ -81,7 +81,7 @@ public:
 	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray);
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray);
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
 
 	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, QColor background, QColor foreground, double width, double height);
@@ -216,7 +216,7 @@ private:
 	QColor gradPatchColor2;
 	QColor gradPatchColor3;
 	QColor gradPatchColor4;
-	QList<QList<meshPoint> > meshGradientArray;
+	QList<QList<MeshPoint> > meshGradientArray;
 	QList<meshGradientPatch> meshGradientPatches;
 	double m_hatchAngle;
 	double m_hatchDistance;

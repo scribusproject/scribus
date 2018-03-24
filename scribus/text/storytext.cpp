@@ -43,14 +43,15 @@ pageitem.cpp  -  description
 
 StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 {
-	if (doc_) {
+	if (doc_)
+	{
 		d = new ScText_Shared(&doc_->paragraphStyles());
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
-	else {
+	else
 		d = new ScText_Shared(NULL);
-	}
+
 	m_selFirst = 0;
 	m_selLast = -1;
 	
@@ -71,7 +72,7 @@ StoryText::StoryText() : m_doc(NULL)
 
 	m_selFirst = 0;
 	m_selLast = -1;
-	
+	m_shapedTextCache = NULL;
 //	m_firstFrameItem = 0;
 //	m_lastFrameItem = -1;
 //	m_magicX = 0.0;
@@ -83,14 +84,15 @@ StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.
 	d = other.d;
 	d->refs++;
 	
-	if (m_doc) {
+	if (m_doc)
+	{
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
 	
 	m_selFirst = 0;
 	m_selLast = -1;
-	
+	m_shapedTextCache = NULL;
 //	m_firstFrameItem = 0;
 //	m_lastFrameItem = -1;
 //	m_magicX = 0.0;
@@ -119,14 +121,16 @@ StoryText::~StoryText()
 
 void StoryText::setDoc(ScribusDoc *docin)
 {
-	if (m_doc) {
+	if (m_doc)
+	{
 		m_doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().disconnect(this, SLOT(invalidateAll()));
 	}
 
 	m_doc = docin;
 
-	if (m_doc) {
+	if (m_doc)
+	{
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
@@ -144,12 +148,14 @@ StoryText& StoryText::operator= (const StoryText & other)
 	other.d->refs++;
 	
 	d->refs--;
-	if (d->refs == 0) {
+	if (d->refs == 0)
+	{
 		clear();
 		delete d;
 	}
 	
-	if (m_doc) {
+	if (m_doc)
+	{
 		m_doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().disconnect(this, SLOT(invalidateAll()));
 	}
@@ -157,7 +163,8 @@ StoryText& StoryText::operator= (const StoryText & other)
 	m_doc = other.m_doc; 
 	d = other.d;
 	
-	if (m_doc) {
+	if (m_doc)
+	{
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
@@ -449,19 +456,22 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	int otherStart  = onlySelection? other.startOfSelection() : 0;
 	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
 	int cstyleStart = otherStart;
-	for (int i = otherStart; i < otherEnd; ++i) {
+	for (int i = otherStart; i < otherEnd; ++i)
+	{
 		if (other.charStyle(i) == cstyle 
 			&& other.text(i) != SpecialChars::OBJECT
 			&& other.text(i) != SpecialChars::PARSEP)
 			continue;
 		int len = i - cstyleStart;
-		if (len > 0) {
+		if (len > 0)
+		{
 			insertCharsWithSoftHyphens(pos, other.textWithSoftHyphens(cstyleStart, len));
 			applyCharStyle(pos, len, otherDefault.charStyle());
 			applyCharStyle(pos, len, cstyle);
 			pos += len;
 		}
-		if (other.text(i) == SpecialChars::PARSEP) {
+		if (other.text(i) == SpecialChars::PARSEP)
+		{
 			insertChars(pos, SpecialChars::PARSEP);
 			//#5845 : disable for now as it has nasty side effects when linking frames
 			//applyStyle(pos, otherDefault);
@@ -469,7 +479,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			cstyleStart = i+1;
 			pos += 1;
 		}
-		else if (other.text(i) == SpecialChars::OBJECT) {
+		else if (other.text(i) == SpecialChars::OBJECT)
+		{
 			insertChars(pos, SpecialChars::OBJECT);
 			item(pos)->embedded = other.item(i)->embedded;
 			item(pos)->mark = other.item(i)->mark;
@@ -477,18 +488,21 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			cstyleStart = i+1;
 			pos += 1;
 		}
-		else {
+		else
+		{
 			cstyle = other.charStyle(i);
 			cstyleStart = i;
 		}
 	}
 	int len = otherEnd - cstyleStart;
-	if (len > 0) {
+	if (len > 0)
+	{
 		insertCharsWithSoftHyphens(pos, other.textWithSoftHyphens(cstyleStart, len));
 		applyCharStyle(pos, len, otherDefault.charStyle());
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
-		if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
+		if (other.text(otherEnd-1) != SpecialChars::PARSEP)
+		{
 			//#5845 : disable for now as it has nasty side effects when linking frames
 			//applyStyle(pos, otherDefault);
 			applyStyle(pos, other.paragraphStyle(otherEnd-1));
@@ -504,7 +518,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 void StoryText::insertParSep(int pos)
 {
 	ScText* it = item(pos);
-	if (!it->parstyle) {
+	if (!it->parstyle)
+	{
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
 		// #7432 : when inserting a paragraph separator, apply/erase the trailing Style
@@ -612,7 +627,7 @@ void StoryText::insertChars(QString txt, bool applyNeighbourStyle) //, const Cha
 	insertChars(d->cursorPosition, txt, applyNeighbourStyle);
 }
 
-void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
+void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
 {
 	if (pos < 0)
 		pos += length()+1;
@@ -633,19 +648,20 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 		clone.setEffects(ScStyle_Default);
 	}
 
-	for (int i = 0; i < txt.length(); ++i) {
+	for (int i = 0; i < txt.length(); ++i)
+	{
 		ScText * item = new ScText(clone);
 		item->ch= txt.at(i);
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
 		d->len++;
-		if (item->ch == SpecialChars::PARSEP) {
+		if (item->ch == SpecialChars::PARSEP)
+		{
 //			qDebug() << QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name());
 			insertParSep(pos + i);
 		}
-		if (d->cursorPosition >= static_cast<uint>(pos + i)) {
+		if (d->cursorPosition >= static_cast<uint>(pos + i))
 			d->cursorPosition += 1;
-		}
 	}
 
 	d->len = d->count();
@@ -679,7 +695,8 @@ void StoryText::insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeigh
 		QChar ch = txt.at(i);
 		int  index  = pos + inserted;
 		bool insert = true; 
-		if (ch == SpecialChars::SHYPHEN && index > 0) {
+		if (ch == SpecialChars::SHYPHEN && index > 0)
+		{
 			ScText* lastItem = this->item(index - 1);
 			// qreal SHY means user provided SHY, single SHY is automatic one
 			if (lastItem->effects() & ScStyle_HyphenationPossible)
@@ -721,13 +738,11 @@ void StoryText::replaceChar(int pos, QChar ch)
 	if (item->ch == ch)
 		return;
 	
-	if (d->at(pos)->ch == SpecialChars::PARSEP) {
+	if (d->at(pos)->ch == SpecialChars::PARSEP)
 		removeParSep(pos);
-	}
 	item->ch = ch;
-	if (d->at(pos)->ch == SpecialChars::PARSEP) {
+	if (d->at(pos)->ch == SpecialChars::PARSEP)
 		insertParSep(pos);
-	}
 	
 	invalidate(pos, pos + 1);
 }
@@ -777,7 +792,8 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	for (int i=pos; i < pos+signed(len); ++i)
 	{
 //		dump += d->at(i)->ch;
-		if (hyphens && hyphens[i-pos] & 1) {
+		if (hyphens && hyphens[i-pos] & 1)
+		{
 			d->at(i)->setEffects(d->at(i)->effects() | ScStyle_HyphenationPossible);
 //			dump += "-";
 		}
@@ -882,9 +898,8 @@ QString StoryText::text(int pos, uint len) const
 
 	QString result;
 	StoryText* that(const_cast<StoryText*>(this));
-	for (int i = pos; i < pos+signed(len); ++i) {
+	for (int i = pos; i < pos+signed(len); ++i)
 		result += that->d->at(i)->ch;
-	}
 
 	return result;
 }
@@ -912,14 +927,14 @@ int StoryText::nextBlockStart(int pos) const
 
 InlineFrame StoryText::object(int pos) const
 {
-	  if (pos < 0)
-                pos += length();
+	if (pos < 0)
+		pos += length();
 
-        assert(pos >= 0);
-        assert(pos < length());
+	assert(pos >= 0);
+	assert(pos < length());
 
-        StoryText* that = const_cast<StoryText *>(this);
-        return InlineFrame(that->d->at(pos)->embedded);
+	StoryText* that = const_cast<StoryText *>(this);
+	return InlineFrame(that->d->at(pos)->embedded);
 }
 
 
@@ -952,7 +967,7 @@ QString StoryText::sentence(int pos, int &posn)
 
 QString StoryText::textWithSoftHyphens(int pos, uint len) const
 {
-	QString result("");
+	QString result;
 	int lastPos = pos;
 
 	len = qMin((uint) (length() - pos), len);
@@ -1041,9 +1056,7 @@ void StoryText::applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const
 	{
 		CharStyle marksStyle(m_doc->charStyle(chsName));
 		if (!currStyle.equiv(marksStyle))
-		{
 			currStyle.setParent(chsName);
-		}
 	}
 	
 	StyleFlag s(currStyle.effects());
@@ -1062,21 +1075,19 @@ void StoryText::applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const
 			s &= ~ScStyle_Superscript;
 	}
 	if (s != currStyle.effects())
-	{
 		currStyle.setFeatures(s.featureList());
-	}
 }
 
 
 void StoryText::replaceMark(int pos, Mark* mrk)
 {
-    if (pos < 0)
-        pos += length();
+	if (pos < 0)
+		pos += length();
 
-    assert(pos >= 0);
-    assert(pos < length());
+	assert(pos >= 0);
+	assert(pos < length());
 
-    this->d->at(pos)->mark = mrk;
+	this->d->at(pos)->mark = mrk;
 }
 
 
@@ -1093,47 +1104,47 @@ bool StoryText::isLowSurrogate(int pos) const
 
 LayoutFlags StoryText::flags(int pos) const
 {
-    if (pos < 0)
-        pos += length();
+	if (pos < 0)
+		pos += length();
 
 	assert(pos >= 0);
-    assert(pos < length());
+	assert(pos < length());
 
-    StoryText* that = const_cast<StoryText *>(this);
+	StoryText* that = const_cast<StoryText *>(this);
 	return  static_cast<LayoutFlags>((*that->d->at(pos)).effects().value & ScStyle_NonUserStyles);
 }
 
 bool StoryText::hasFlag(int pos, LayoutFlags flags) const
 {
-    if (pos < 0)
-        pos += length();
+	if (pos < 0)
+		pos += length();
 
-    assert(pos >= 0);
-    assert(pos < length());
-    assert((flags & ScStyle_UserStyles) == ScStyle_None);
+	assert(pos >= 0);
+	assert(pos < length());
+	assert((flags & ScStyle_UserStyles) == ScStyle_None);
 
 	return (flags & d->at(pos)->effects().value) == flags;
 }
 
 void StoryText::setFlag(int pos, LayoutFlags flags)
 {
-    if (pos < 0)
-        pos += length();
+	if (pos < 0)
+		pos += length();
 
-    assert(pos >= 0);
-    assert(pos < length());
-    assert((flags & ScStyle_UserStyles) == ScStyle_None);
+	assert(pos >= 0);
+	assert(pos < length());
+	assert((flags & ScStyle_UserStyles) == ScStyle_None);
 
 	d->at(pos)->setEffects(flags | d->at(pos)->effects().value);
 }
 
 void StoryText::clearFlag(int pos, LayoutFlags flags)
 {
-    if (pos < 0)
-        pos += length();
+	if (pos < 0)
+		pos += length();
 
-    assert(pos >= 0);
-    assert(pos < length());
+	assert(pos >= 0);
+	assert(pos < length());
 
 	d->at(pos)->setEffects(~(flags & ScStyle_NonUserStyles) & d->at(pos)->effects().value);
 }
@@ -1152,11 +1163,13 @@ const CharStyle & StoryText::charStyle(int pos) const
 	assert(pos >= 0);
 	assert(pos <= length());
 
-	if (length() == 0) {
+	if (length() == 0)
+	{
 //		qDebug() << "storytext::charstyle: default";
 		return defaultStyle().charStyle();
 	}
-	else if (pos == length()) {
+	else if (pos == length())
+	{
 		qDebug() << "storytext::charstyle: access at end of text %i" << pos;
 		--pos;
 	}
@@ -1195,13 +1208,13 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 //	assert( that->at(pos)->cab < doc->docParagraphStyles.count() );
 //	return doc->docParagraphStyles[that->at(pos)->cab];
 	
-	while (pos < length() && that->d->at(pos)->ch != SpecialChars::PARSEP) {
+	while (pos < length() && that->d->at(pos)->ch != SpecialChars::PARSEP)
 		++pos;
-	}
-	if (pos >= length()) {
+
+	if (pos >= length())
 		return that->d->trailingStyle;
-	}
-	else if ( !that->d->at(pos)->parstyle ) {
+	else if ( !that->d->at(pos)->parstyle )
+	{
 		ScText* current = that->d->at(pos);
 		qDebug("inserting default parstyle at %i", pos);
 		current->parstyle = new ParagraphStyle();
@@ -1253,13 +1266,13 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 		return;
 	if (pos + signed(len) > length())
 		return;
-
 	if (len == 0)
 		return;
 
 //	int lastParStart = pos == 0? 0 : -1;
 	ScText* itText;
-	for (uint i=pos; i < pos+len; ++i) {
+	for (uint i=pos; i < pos+len; ++i)
+	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
 		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
@@ -1324,10 +1337,11 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFo
 	assert(pos <= length());
 
 	int i = pos;
-	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP) {
+	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP)
 		++i;
-	}
-	if (i < length()) {
+
+	if (i < length())
+	{
 		if (!d->at(i)->parstyle) {
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
@@ -1365,10 +1379,11 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	assert(pos <= length());
 		
 	int i = pos;
-	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP) {
+	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP)
 		++i;
-	}
-	if (i < length()) {
+
+	if (i < length())
+	{
 		if (!d->at(i)->parstyle) {
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
@@ -1409,7 +1424,8 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 		return;
 	
 	ScText* itText;
-	for (uint i=pos; i < pos+len; ++i) {
+	for (uint i=pos; i < pos+len; ++i)
+	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
 		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
@@ -1457,7 +1473,8 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 		return;
 	
 	ScText* itText;
-	for (int i=0; i < len; ++i) {
+	for (int i=0; i < len; ++i)
+	{
 		itText = d->at(i);
 		if (itText->parstyle)
 			itText->parstyle->replaceNamedResources(newNames);
@@ -1501,9 +1518,8 @@ void StoryText::fixLegacyFormatting(int pos)
 	assert(pos <= length());
 
 	int i = pos;
-	while (i > 0 && d->at(i - 1)->ch != SpecialChars::PARSEP) {
+	while (i > 0 && d->at(i - 1)->ch != SpecialChars::PARSEP)
 		--i;
-	}
 
 	const ParagraphStyle& parStyle = this->paragraphStyle(pos);
 	parStyle.validate();
@@ -1767,16 +1783,24 @@ int StoryText::selectWord(int pos)
 	it->setText((const UChar*) plainText().utf16());
 	int start = it->preceding(pos + 1);
 	int end = it->next();
-	int wordLentgh = end - start;
-	select(start, wordLentgh);
+	int wordLength = end - start;
+	if (wordLength > 0)
+		select(start, wordLength);
+	else
+	{
+		deselectAll();
+		setCursorPosition(start);
+	}
 	return start;
 }
 
 
-void StoryText::select(int pos, uint len, bool on)
+void StoryText::select(int pos, int len, bool on)
 {
 	if (pos < 0)
 		pos += length();
+	if (len < 0)
+		len = 0;
 
 	assert( pos >= 0 );
 	assert( pos + signed(len) <= length() );
@@ -1981,7 +2005,8 @@ void StoryText::invalidateAll()
 
 void StoryText::invalidate(int firstItem, int endItem)
 {
-	for (int i=firstItem; i < endItem; ++i) {
+	for (int i=firstItem; i < endItem; ++i)
+	{
 		ParagraphStyle* par = item(i)->parstyle;
 		if (par)
 			par->charStyleContext()->invalidate();

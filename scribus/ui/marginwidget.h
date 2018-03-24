@@ -38,7 +38,7 @@ public:
 	\param showChangeAll show "apply to all pages" related items
 	*/
 	MarginWidget( QWidget* parent, QString title, const MarginStruct* margs, int unitIndex, bool showChangeAll=false, bool showBleeds=true);
-	~MarginWidget() {};
+	~MarginWidget() {}
 	/*! \brief Setup the labels by facing pages option */
 	void setFacingPages(bool facing, int pagetype = 0);
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by width and height */

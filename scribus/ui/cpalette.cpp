@@ -326,8 +326,10 @@ void Cpalette::setCurrentItem(PageItem* item)
 	}
 	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(!editMeshColors->isChecked());
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	bool mirrorX, mirrorY;
@@ -1036,7 +1038,7 @@ void Cpalette::showGradient(int number)
 			stackedWidget_2->setCurrentIndex(2);
 			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 			{
-				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1193,7 +1195,7 @@ void Cpalette::slotGrad(int number)
 			stackedWidget_2->setCurrentIndex(2);
 			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 			{
-				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1288,7 +1290,7 @@ void Cpalette::slotGradType(int type)
 		stackedWidget_2->setCurrentIndex(2);
 		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
 		{
-			meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+			MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 			setCurrentComboItem(colorMeshPoint, mp.colorName);
 			shadeMeshPoint->setValue(mp.shade);
 			transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1327,8 +1329,10 @@ void Cpalette::editMeshPointColor()
 		editStrokeGradient = 0;
 		gradEditButton->setEnabled(true);
 	}
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1364,15 +1368,15 @@ void Cpalette::resetOneControlPoint()
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
 	int cont = currentItem->selectedMeshControlPoint;
-	meshPoint tmp;
+	MeshPoint tmp;
 	if (currentItem->gradientType() == 12)
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<meshPoint,meshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
 		if(UndoManager::undoEnabled())
 		{
-			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", false);
 			ss->set("X", grow);
@@ -1441,7 +1445,7 @@ void Cpalette::resetOneControlPoint()
 
 		if(UndoManager::undoEnabled())
 		{
-			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", true);
 			ss->set("X", grow);
@@ -1459,15 +1463,15 @@ void Cpalette::resetAllControlPoints()
 {
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
-	meshPoint tmp;
+	MeshPoint tmp;
 	if (currentItem->gradientType() == 12)
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<meshPoint,meshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
 		if(UndoManager::undoEnabled())
 		{
-			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", false);
 			ss->set("X", grow);
@@ -1530,7 +1534,7 @@ void Cpalette::resetAllControlPoints()
 		tmp.controlBottom = tmp.gridPoint;
 		if(UndoManager::undoEnabled())
 		{
-			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
 			ss->set("ARRAY", true);
 			ss->set("X", grow);
@@ -1566,8 +1570,8 @@ void Cpalette::editGradientVector()
 		editStrokeGradient = 9;
 	else
 		editStrokeGradient = 0;
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1583,8 +1587,8 @@ void Cpalette::editGradientVectorStroke()
 		CGradDia->hide();
 	}
 	editStrokeGradient = 1;
-	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
-	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1645,6 +1649,10 @@ void Cpalette::setActiveGradDia(bool active)
 		else
 			gradEditButton->setChecked(false);
 		emit editGradient(editStrokeGradient);
+		fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+		gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+		strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+		gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 		editMeshColors->setEnabled(true);
 	}
 }
@@ -1662,7 +1670,7 @@ void Cpalette::setMeshPoint()
 		colorMeshPoint->setEnabled(true);
 		shadeMeshPoint->setEnabled(true);
 		transparencyMeshPoint->setEnabled(true);
-		meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+		MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 		setCurrentComboItem(colorMeshPoint, mp.colorName);
 		shadeMeshPoint->setValue(mp.shade);
 		transparencyMeshPoint->setValue(mp.transparency * 100);
@@ -1725,7 +1733,7 @@ void Cpalette::setMeshPatchPoint()
 		shadeMeshPoint->setEnabled(true);
 		transparencyMeshPoint->setEnabled(true);
 		meshGradientPatch patch = currentItem->meshGradientPatches[currentItem->selectedMeshPointX];
-		meshPoint mp;
+		MeshPoint mp;
 		switch (currentItem->selectedMeshPointY)
 		{
 			case 1:
@@ -1783,26 +1791,26 @@ void Cpalette::changePatternProps()
 	m_Pattern_rotation = dia->spinAngle->value();
 	double skewX = dia->spinXSkew->value();
 	double a;
-	if (skewX == 90)
-		a = 1;
-	else if (skewX == 180)
-		a = 0;
-	else if (skewX == 270)
-		a = -1;
-	else if (skewX == 360)
-		a = 0;
+	if (skewX == 90.0)
+		a = 1.0;
+	else if (skewX == 180.0)
+		a = 0.0;
+	else if (skewX == 270.0)
+		a = -1.0;
+	else if (skewX == 360.0)
+		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
 	m_Pattern_skewX = tan(a);
 	skewX = dia->spinYSkew->value();
-	if (skewX == 90)
-		a = 1;
-	else if (skewX == 180)
-		a = 0;
-	else if (skewX == 270)
-		a = -1;
-	else if (skewX == 360)
-		a = 0;
+	if (skewX == 90.0)
+		a = 1.0;
+	else if (skewX == 180.0)
+		a = 0.0;
+	else if (skewX == 270.0)
+		a = -1.0;
+	else if (skewX == 360.0)
+		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
 	m_Pattern_skewY = tan(a);

@@ -202,7 +202,7 @@ protected:
 		\param index The saved index within the QPopupMenu
 		\param menu The menu we are adding this action to
 	*/
-	void addedTo( int index, QMenu * menu );
+	void addedTo(int index, QMenu* menu);
 				
 private slots:
 	/*!

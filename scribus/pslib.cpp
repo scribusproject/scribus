@@ -1513,7 +1513,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	QVector<double> dum;
+//	QVector<double> dum;
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;
@@ -3123,7 +3123,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
 			cols.append(mp1.colorName);
 			if (!m_Doc->PageColors.contains(mp1.colorName))
 			{
@@ -3241,10 +3241,10 @@ void PSLib::HandleMeshGradient(PageItem* c)
 		quint8 flg = 0;
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
 		{
-			meshPoint mp1 = c->meshGradientArray[grow][gcol];
-			meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-			meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-			meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
+			MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+			MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+			MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
 			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -3294,7 +3294,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
+		MeshPoint mp1 = patch.TL;
 		cols.append(mp1.colorName);
 		colsSh.append(mp1.shade);
 		if (spotMap.contains(mp1.colorName))
@@ -3302,7 +3302,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 			if (!spotColorSet.contains(mp1.colorName))
 				spotColorSet.append(mp1.colorName);
 		}
-		meshPoint mp2 = patch.TR;
+		MeshPoint mp2 = patch.TR;
 		cols.append(mp2.colorName);
 		colsSh.append(mp2.shade);
 		if (spotMap.contains(mp2.colorName))
@@ -3310,7 +3310,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 			if (!spotColorSet.contains(mp2.colorName))
 				spotColorSet.append(mp2.colorName);
 		}
-		meshPoint mp3 = patch.BR;
+		MeshPoint mp3 = patch.BR;
 		cols.append(mp3.colorName);
 		colsSh.append(mp3.shade);
 		if (spotMap.contains(mp3.colorName))
@@ -3318,7 +3318,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 			if (!spotColorSet.contains(mp3.colorName))
 				spotColorSet.append(mp3.colorName);
 		}
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp4 = patch.BL;
 		cols.append(mp4.colorName);
 		colsSh.append(mp4.shade);
 		if (spotMap.contains(mp4.colorName))
@@ -3425,10 +3425,10 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		{
 			col = col2;
 			meshGradientPatch patch = c->meshGradientPatches[col2];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
+			MeshPoint mp1 = patch.TL;
+			MeshPoint mp2 = patch.TR;
+			MeshPoint mp3 = patch.BR;
+			MeshPoint mp4 = patch.BL;
 			int colInd1 = 4 * col2;
 			int colInd2 = 4 * col2 + 1;
 			int colInd3 = 4 * col2 + 2;

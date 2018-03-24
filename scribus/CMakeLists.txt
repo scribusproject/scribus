@@ -416,6 +416,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/pageselector.h
 	ui/patternpropsdialog.h
 	ui/pdfexportdialog.h
+	ui/pdfversioncombo.h
+	ui/pdfversionmodel.h
 	ui/picsearch.h
 	ui/picsearchoptions.h
 	ui/picstatus.h
@@ -617,8 +619,6 @@ set(SCRIBUS_SOURCES
 	docinfo.cpp
 	documentchecker.cpp
 	documentinformation.cpp
-	downloadmanager/scdlmgr.cpp
-	downloadmanager/scdlthread.cpp
 	exif.cpp
 	fileloader.cpp
 	filesearch.cpp
@@ -710,19 +710,6 @@ set(SCRIBUS_SOURCES
 	scimagecachemanager.cpp
 	scimagecachewriteaction.cpp
 	scimagestructs.cpp
-	imagedataloaders/scimgdataloader.cpp
-	imagedataloaders/scimgdataloader_gimp.cpp
-	imagedataloaders/scimgdataloader_jpeg.cpp
-	imagedataloaders/scimgdataloader_kra.cpp
-	imagedataloaders/scimgdataloader_ora.cpp
-	imagedataloaders/scimgdataloader_pdf.cpp
-	imagedataloaders/scimgdataloader_pgf.cpp
-	imagedataloaders/scimgdataloader_pict.cpp
-	imagedataloaders/scimgdataloader_ps.cpp
-	imagedataloaders/scimgdataloader_psd.cpp
-	imagedataloaders/scimgdataloader_qt.cpp
-	imagedataloaders/scimgdataloader_tiff.cpp
-	imagedataloaders/scimgdataloader_wpg.cpp
 	sclayer.cpp
 	sclockedfile.cpp
 	scmimedata.cpp
@@ -762,8 +749,6 @@ set(SCRIBUS_SOURCES
 	tablecell.cpp
 	tableutils.cpp
 	textwriter.cpp
-	third_party/fparser/fpoptimizer.cc
-	third_party/fparser/fparser.cc
 	tocgenerator.cpp
 	transaction.cpp
 	undogui.cpp
@@ -789,6 +774,39 @@ set(SCRIBUS_SOURCES
 	util_text.cpp
 	vgradient.cpp
 	vgradientex.cpp
+	downloadmanager/scdlmgr.cpp
+	downloadmanager/scdlthread.cpp
+	imagedataloaders/scimgdataloader.cpp
+	imagedataloaders/scimgdataloader_gimp.cpp
+	imagedataloaders/scimgdataloader_jpeg.cpp
+	imagedataloaders/scimgdataloader_kra.cpp
+	imagedataloaders/scimgdataloader_ora.cpp
+	imagedataloaders/scimgdataloader_pdf.cpp
+	imagedataloaders/scimgdataloader_pgf.cpp
+	imagedataloaders/scimgdataloader_pict.cpp
+	imagedataloaders/scimgdataloader_ps.cpp
+	imagedataloaders/scimgdataloader_psd.cpp
+	imagedataloaders/scimgdataloader_qt.cpp
+	imagedataloaders/scimgdataloader_tiff.cpp
+	imagedataloaders/scimgdataloader_wpg.cpp
+	palettes/cxfcolor.cpp
+	palettes/cxfcolorspecification.cpp
+	palettes/cxfdocument.cpp
+	palettes/cxfobject.cpp
+	palettes/cxfmeasurementspec.cpp
+	palettes/cxftristimulusspec.cpp
+	palettes/cxfutils.cpp
+	palettes/paletteloader.cpp
+	palettes/paletteloader_adobe_acb.cpp
+	palettes/paletteloader_adobe_aco.cpp
+	palettes/paletteloader_adobe_ase.cpp
+	palettes/paletteloader_autocad_acb.cpp
+	palettes/paletteloader_cxf.cpp
+	palettes/paletteloader_ps.cpp
+	palettes/paletteloader_sk1.cpp
+	palettes/paletteloader_swatchbook.cpp
+	third_party/fparser/fpoptimizer.cc
+	third_party/fparser/fparser.cc
 	ui/about.cpp
 	ui/aboutplugins.cpp
 	ui/adjustcmsdialog.cpp
@@ -894,6 +912,8 @@ set(SCRIBUS_SOURCES
 	ui/pageselector.cpp
 	ui/patternpropsdialog.cpp
 	ui/pdfexportdialog.cpp
+	ui/pdfversioncombo.cpp
+	ui/pdfversionmodel.cpp
 	ui/picsearch.cpp
 	ui/picsearchoptions.cpp
 	ui/picstatus.cpp

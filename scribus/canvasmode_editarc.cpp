@@ -185,7 +185,7 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 		m_view->update();
 	}
 	connect(m_view, SIGNAL(changeUN(int)), vectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
-	connect(vectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
+	connect(vectorDialog, SIGNAL(NewVectors(double,double,double,double)), this, SLOT(applyValues(double,double,double,double)));
 	connect(vectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));

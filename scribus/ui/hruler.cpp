@@ -68,7 +68,34 @@ enum ruler_code
 };
 
 
-Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
+Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
+	textEditMode(false),
+	ColGap(0.0),
+	lineCorr(0.0),
+	Cols(0),
+	RExtra(0.0),
+	Extra(0.0),
+	Indent(0.0),
+	First(0.0),
+	RMargin(0.0),
+	Revers(false),
+	currItem(NULL),
+	ItemPos(0.0),
+	ItemEndPos(0.0),
+	offs(0.0),
+	itemScale(1.0),
+	Markp(0),
+	oldMark(0),
+	Mpressed(false),
+	ActCol(1),
+	ActTab(0),
+	Scaling(0.0),
+	RulerCode(rc_none),
+	MouseX(0),
+	m_doc(doc),
+	m_view(pa),
+	whereToDraw(0),
+	drawMark(false)
 {
 	prefsManager=PrefsManager::instance();
 	setBackgroundRole(QPalette::Window);
@@ -76,16 +103,6 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	QPalette palette;
 	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	setPalette(palette);
-	m_doc = doc;
-	m_view = pa;
-	offs = 0;
-	oldMark = 0;
-	ActCol = 1;
-	Mpressed = false;
-	textEditMode = false;
-	drawMark = false;
-	RulerCode = rc_none;
-	itemScale = 1.0;
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
 	unitChange();
@@ -955,14 +972,14 @@ void Hruler::unitChange()
 			else
 			{
 				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
-	  		}
+				iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+			}
 			break;
 		case SC_MM:
 			if (sc > 1)
 				cor = 10;
 			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case SC_IN:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);

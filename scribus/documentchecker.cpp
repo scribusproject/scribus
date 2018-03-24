@@ -368,9 +368,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);
 
-				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length()==0 || currItem->frameUnderflows()))
-					itemError.insert(EmptyTextFrame, 0);
-
+				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length() == 0 || currItem->frameUnderflows()))
+				{
+					bool isLinkAnnotation = (currItem->isAnnotation() && (currItem->annotation().Type() == Annotation::Link));
+					if (!isLinkAnnotation)
+						itemError.insert(EmptyTextFrame, 0);
+				}
+				
 				if (currItem->isAnnotation())
 				{
 					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
@@ -614,7 +618,11 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					itemError.insert(TextOverflow, 0);
 
 				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length()==0 || currItem->frameUnderflows()))
-					itemError.insert(EmptyTextFrame, 0);
+				{
+					bool isLinkAnnotation = (currItem->isAnnotation() && (currItem->annotation().Type() == Annotation::Link));
+					if (!isLinkAnnotation)
+						itemError.insert(EmptyTextFrame, 0);
+				}
 
 				if (currItem->isAnnotation())
 				{

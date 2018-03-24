@@ -78,7 +78,7 @@ const ScActionPlugin::AboutData* ImportVivaPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Viva Files");
-	about->description = tr("Imports most Viva files into the current document,\nconverting their vector data into Scribus objects.");
+	about->description = tr("Imports most Viva files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "undomanager.h"
 #include "undostate.h"
+#include "undotransaction.h"
 #include "util_formats.h"
 #include "util_color.h"
 #include "util.h"
@@ -325,29 +326,36 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				break;
 			default:
 				return;
-		}		
-		if (dX!=0.0)
+		}
+		UndoTransaction transaction;
+		if (UndoManager::undoEnabled())
 		{
-			double newXScale=dX / 100.0 * m_imageXScale;
+			if ((fitImageToFrame() || !controlDown) && (dX != 0.0 || dY != 0.0))
+				transaction = undoManager->beginTransaction(getUName(), getUPixmap(), Um::ImageScale, "", Um::IMove);
+		}
+		if (dX != 0.0)
+		{
+			double newXScale = dX / 100.0 * m_imageXScale;
+			setImageScalingMode(true, AspectRatio);
 			setImageXScale(newXScale);
 			if (!controlDown)
 			{
-				double newYScale=dX / 100.0 * m_imageYScale;
+				double newYScale = dX / 100.0 * m_imageYScale;
 				setImageYScale(newYScale);
 			}
 		}
-		else
-		if (dY!=0.0)
+		else if (dY != 0.0)
 		{
-			double newYScale=dY / 100.0 * m_imageYScale;
+			double newYScale = dY / 100.0 * m_imageYScale;
+			setImageScalingMode(true, AspectRatio);
 			setImageYScale(newYScale);
 			if (!controlDown)
 			{
-				double newXScale=dY / 100.0 * m_imageYScale;
+				double newXScale = dY / 100.0 * m_imageYScale;
 				setImageXScale(newXScale);
 			}
 		}
-		if (dX!=0.0 || dY!=0.0)
+		if (dX != 0.0 || dY != 0.0)
 			if (imageClip.size() != 0)
 			{
 				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
@@ -357,6 +365,8 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				cl.scale(imageXScale(), imageYScale());
 				imageClip.map(cl);
 			}
+		if (transaction)
+			transaction.commit();
 		update();	
 	}
 }

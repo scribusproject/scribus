@@ -22,6 +22,8 @@ for which a new license (GPL+exception) is in place.
  *																	   *
  ***************************************************************************/
 
+#include <QSignalBlocker>
+
 #include "guidemanager.h"
 
 #include "commonstrings.h"
@@ -111,11 +113,19 @@ GuideManager::~GuideManager()
 
 void GuideManager::setDoc(ScribusDoc* doc)
 {
+	if (m_Doc && (m_Doc != doc))
+	{
+		if (currentPage && (currentPage->doc() == m_Doc))
+			storePageValues(currentPage);
+		currentPage = 0;
+	}
+
 	m_Doc = doc;
 	if (m_Doc)
 	{
-		docUnitIndex = m_Doc->unitIndex();
-		suffix = unitGetSuffixFromIndex(docUnitIndex);
+		int oldUnitIndex = docUnitIndex;
+		if (oldUnitIndex != docUnitIndex)
+			unitChange();
 	}
 
 	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
@@ -201,9 +211,14 @@ void GuideManager::storePageValues(ScPage *page)
 	if (!page || !m_Doc)
 		return;
 
+	// Handle case where page to store values from does not belong
+	// to current doc, eg. when switching between documents
+	ScribusDoc* doc = page->doc();
+	int unitIndex   = doc->unitIndex();
+
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
-		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	page->guides.setHorizontalAutoGap(gapValue);
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 	page->guides.setHorizontalAutoRefer(horizontalRefer());
@@ -211,7 +226,7 @@ void GuideManager::storePageValues(ScPage *page)
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
-		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	page->guides.setVerticalAutoGap(gapValue);
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 	page->guides.setVerticalAutoRefer(verticalRefer());
@@ -237,12 +252,15 @@ void GuideManager::unitChange()
 {
 	if (!m_Doc)
 		return;
+
 	// a little bit magic to get Verticals (unit) into group boxes
 	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
 	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
 	docUnitIndex = m_Doc->unitIndex();
 	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 
+	QSignalBlocker horizontalAutoGapSpinBlock(horizontalAutoGapSpin);
+	QSignalBlocker verticalAutoGapSpinBlock(verticalAutoGapSpin);
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setNewUnit(docUnitIndex);
 	verticalAutoGapSpin->setNewUnit(docUnitIndex);
@@ -534,16 +552,21 @@ Guides GuideManager::getAutoVerticals(ScPage * page)
 {
 	GuideManagerCore guides;
 
+	// Handle case where page to store values from does not belong
+	// to current doc, eg. when switching between documents
+	ScribusDoc* doc = page->doc();
+	int unitIndex = doc->unitIndex();
+
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
-		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	guides.setHorizontalAutoGap(gapValue);
 	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 	guides.setHorizontalAutoRefer(horizontalRefer());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
-		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	guides.setVerticalAutoGap(gapValue);
 	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 	guides.setVerticalAutoRefer(verticalRefer());
@@ -555,16 +578,21 @@ Guides GuideManager::getAutoHorizontals(ScPage * page)
 {
 	GuideManagerCore guides;
 
+	// Handle case where page to store values from does not belong
+	// to current doc, eg. when switching between documents
+	ScribusDoc* doc = page->doc();
+	int unitIndex = doc->unitIndex();
+
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
-		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	guides.setHorizontalAutoGap(gapValue);
 	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 	guides.setHorizontalAutoRefer(horizontalRefer());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
-		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	guides.setVerticalAutoGap(gapValue);
 	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 	guides.setVerticalAutoRefer(verticalRefer());

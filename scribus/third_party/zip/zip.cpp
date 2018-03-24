@@ -301,8 +301,8 @@ Zip::ErrorCode ZipPrivate::createArchive(QIODevice* dev)
 		closeArchive();
 
 	device = dev;
-    if (device != file)
-        connect(device, SIGNAL(destroyed(QObject*)), this, SLOT(deviceDestroyed(QObject*)));
+	if (device != file)
+		connect(device, SIGNAL(destroyed(QObject*)), this, SLOT(deviceDestroyed(QObject*)));
 
 	if (!device->isOpen()) {
 		if (!device->open(QIODevice::ReadOnly)) {
@@ -1381,23 +1381,23 @@ QString Zip::password() const
  */
 Zip::ErrorCode Zip::createArchive(const QString& filename, bool overwrite)
 {
-    closeArchive();
-    Q_ASSERT(!d->device && !d->file);
+	closeArchive();
+	Q_ASSERT(!d->device && !d->file);
 
-    if (filename.isEmpty())
-        return Zip::FileNotFound;
+	if (filename.isEmpty())
+		return Zip::FileNotFound;
 
 	d->file = new QFile(filename);
 
 	if (d->file->exists() && !overwrite) {
-        delete d->file;
-        d->file = 0;
+		delete d->file;
+		d->file = 0;
 		return Zip::FileExists;
 	}
 
 	if (!d->file->open(QIODevice::WriteOnly)) {
-        delete d->file;
-        d->file = 0;
+		delete d->file;
+		d->file = 0;
 		return Zip::OpenFailed;
 	}
 

@@ -45,7 +45,9 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "iconmanager.h"
 
-PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) : QListWidget(parent)
+PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) : QListWidget(parent),
+	maxX(0),
+	maxY(0)
 {
 	setDragEnabled(false);
 	setViewMode(QListView::IconMode);

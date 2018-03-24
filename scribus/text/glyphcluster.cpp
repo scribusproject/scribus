@@ -43,7 +43,7 @@ double GlyphCluster::ascent() const
 	return asc;
 }
 
-double GlyphCluster::desent() const
+double GlyphCluster::descent() const
 {
 	const ScFace &font = m_style->font();
 	double des = 0;

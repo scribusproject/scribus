@@ -155,7 +155,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 			QString GrColorP2;
 			QString GrColorP3;
 			QString GrColorP4;
-			QList<QList<meshPoint> > meshGradientArray;
+			QList<QList<MeshPoint> > meshGradientArray;
 			int mGArrayRows;
 			int mGArrayCols;
 			QString TxtStroke;

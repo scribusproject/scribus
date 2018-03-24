@@ -33,7 +33,7 @@ class PageItem;
 class PageItem_TextFrame;
 class ScribusMainWindow;
 class ScribusView;
-class meshPoint;
+class MeshPoint;
 
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
@@ -71,7 +71,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	meshPoint *m_old_mesh;
+	MeshPoint *m_old_mesh;
 	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	eMGradientPoint m_gradientPoint;

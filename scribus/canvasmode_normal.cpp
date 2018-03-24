@@ -337,7 +337,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			if (!m_guideMoveGesture)
 			{
 				m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-				connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+				connect(m_guideMoveGesture, SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette, SLOT(setGuide(int,qreal)));
 			}
 			if (m_guideMoveGesture->mouseHitsGuide(mousePointDoc))
 			{
@@ -836,7 +836,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
+//	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 
 	if (m->button() == Qt::MidButton)
@@ -1579,10 +1579,10 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_mouseCurrentPoint  = mousePointDoc;
-	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
+//	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
+//	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 	m_doc->nodeEdit.deselect();
 
 	if (m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) // guides are on foreground and want to be processed first
@@ -1606,7 +1606,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				if (!m_guideMoveGesture)
 				{
 					m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-					connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+					connect(m_guideMoveGesture,SIGNAL(guideInfo(int,qreal)),m_ScMW->alignDistributePalette,SLOT(setGuide(int,qreal)));
 				}
 				if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 				{
@@ -1756,7 +1756,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		if (!m_guideMoveGesture)
 		{
 			m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-			connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+			connect(m_guideMoveGesture, SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette, SLOT(setGuide(int,qreal)));
 		}
 		if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 		{

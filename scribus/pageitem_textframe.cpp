@@ -75,27 +75,26 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
-	invalid = true;
+	init();
 	firstChar = 0;
-	cursorBiasBackward = false;
-	unicodeTextEditMode = false;
-	unicodeInputCount = 0;
-	unicodeInputString = "";
-	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
-	verticalAlign = 0;
-	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
 PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
+{
+	init();
+	m_notesFramesMap.clear();
+}
+
+void PageItem_TextFrame::init()
 {
 	invalid = true;
 	cursorBiasBackward = false;
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
-	unicodeInputString = "";
-	m_notesFramesMap.clear();
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
 	verticalAlign = 0;
+	incompleteLines = 0;
+	maxY = 0.0;
 	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
@@ -147,7 +146,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 		}
 		if ((((docItem->lineColor() != CommonStrings::None) || (!docItem->patternStrokeVal.isEmpty()) || (docItem->GrTypeStroke > 0)) && (docItem->lineWidth() > 1)) || (!docItem->NamedLStyle.isEmpty()))
 		{
-			QVector<double> m_array;
+//			QVector<double> m_array;
 			QPainterPath ppa;
 			QPainterPath result;
 			if (docItem->itemType() == PageItem::PolyLine)
@@ -1219,9 +1218,11 @@ double calculateLineSpacing (const ParagraphStyle &style, PageItem *item)
 bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 {
 	PageItem_TextFrame* prev = dynamic_cast<PageItem_TextFrame*>(BackBox);
-	if (!prev) return false;
-	if (!prev->incompleteLines) return false;   // no incomplete lines - nothing to do
-	int pos = textLayout.endOfFrame()-1;
+	if (!prev)
+		return false;
+	if (!prev->incompleteLines)
+		return false;   // no incomplete lines - nothing to do
+	int pos = textLayout.endOfFrame() - 1;
 	QChar lastChar = itemText.text (pos);
 	// qDebug()<<"pos is"<<pos<<", length is"<<itemText.length()<<", incomplete is "<<prev->incompleteLines;
 	if ((pos != itemText.length()-1) && (!SpecialChars::isBreak (lastChar, true)))
@@ -1231,7 +1232,8 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int need = style.keepLinesEnd () + 1;
 	int prevneed = style.keepLinesStart () + 1;
-	if (lines >= need) {
+	if (lines >= need)
+	{
 		prev->incompleteLines = 0;   // so that further paragraphs don't pull anything
 		return false;   // we have enough lines
 	}
@@ -1259,32 +1261,39 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 {
 	// More text to go - let's apply paragraph flowing options - orphans/widows, etc
 	int pos = textLayout.endOfFrame() - 1;
-	if (pos >= itemText.length() - 1) return;
+	if (pos >= itemText.length() - 1)
+		return;
 
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int paragraphStart = itemText.prevParagraph (pos) + 1;
 	QChar lastChar = itemText.text (pos);
 	bool keepWithNext = style.keepWithNext() && (lastChar == SpecialChars::PARSEP);
-	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true))) {
+	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true)))
+	{
 		// paragraph continues in the next frame, or needs to be kept with the next one
 		// check how many lines are in this frame
 		int lineStart = textLayout.startOfLine (pos);
 		incompleteLines = 1;
 		incompletePositions.prepend (lineStart);
-		while (lineStart > paragraphStart) {
+		while (lineStart > paragraphStart)
+		{
 			lineStart = textLayout.startOfLine (lineStart - 1);
 			incompleteLines++;
 			incompletePositions.prepend (lineStart);
 		}
 		int need = style.keepLinesStart () + 1;
-		if (style.keepTogether()) need = incompleteLines;
+		if (style.keepTogether())
+			need = incompleteLines;
 		int pull = 0;
-		if (style.keepTogether() || (incompleteLines < need)) pull = incompleteLines;
+		if (style.keepTogether() || (incompleteLines < need))
+			pull = incompleteLines;
 		// if we need to keep it with the next one, pull one line. Next frame layouting
 		// will pull more from us if it proves necessary.
-		if (keepWithNext && (!pull)) pull = 1;
+		if (keepWithNext && (!pull))
+			pull = 1;
 
-		if (pull) {
+		if (pull)
+		{
 			qDebug() << "pulling" << pull << "lines";
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
@@ -1562,35 +1571,6 @@ void PageItem_TextFrame::layout()
 			}
 			//--<#13490
 			CharStyle charStyle = ((itemText.text(a) != SpecialChars::PARSEP) ? itemText.charStyle(a) : style.charStyle());
-
-			//set style for paragraph effects
-			if (itemText.isBlockStart(a))
-			{
-				// FIXME: we should avoid calling setCharStyle() in layout()
-				if (style.hasDropCap() || style.hasBullet() || style.hasNum())
-				{
-					const QString& curParent(style.hasParent() ? style.parent() : style.name());
-					CharStyle newStyle(charStyle);
-					if (style.peCharStyleName().isEmpty())
-						newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
-					else if (charStyle.name() != style.peCharStyleName())
-						newStyle.setParent(m_Doc->charStyle(style.peCharStyleName()).name());
-					charStyle.setStyle(newStyle);
-					itemText.setCharStyle(a, 1 , charStyle);
-				}
-				else if (!style.peCharStyleName().isEmpty())
-				{
-					//par effect is cleared but is set dcCharStyleName = clear drop cap char style
-					if (charStyle.parent() == style.peCharStyleName())
-					{
-						const QString& curParent(style.hasParent() ? style.parent() : style.name());
-						if (m_Doc->charStyles().contains(style.peCharStyleName()))
-							charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
-						charStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
-						itemText.setCharStyle(a, 1,charStyle);
-					}
-				}
-			}
 
 			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
@@ -5966,7 +5946,7 @@ void PageItem_TextFrame::setNoteFrame(PageItem_NoteFrame *nF)
 void PageItem_TextFrame::setMaxY(double y)
 {
 	if (y == -1)
-		maxY = 0;
+		maxY = 0.0;
 	else
 		maxY = qMax(y, maxY);
 }

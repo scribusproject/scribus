@@ -232,12 +232,12 @@ void ItemAPI::setRotation(double rotation)
 
 bool ItemAPI::reversed()
 {
-	return item->reversed();
+	return false; // item->reversed(); FIXME
 }
 
 void ItemAPI::setReversed(bool value)
 {
-	item->setReversed(value);
+	// item->setReversed(value); FIXME
 }
 
 double ItemAPI::cornerRadius()
@@ -312,7 +312,7 @@ void ItemAPI::move(double dx, double dy)
 	}
 	else
 	{
-		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(dx), ValueToPoint(dy), item);
+		ScCore->primaryMainWindow()->doc->moveItem(ValueToPoint(dx), ValueToPoint(dy), item);
 	}
 	// Now restore the selection.
 	ScCore->primaryMainWindow()->view->Deselect();
@@ -346,7 +346,7 @@ void ItemAPI::moveAbs(double x, double y)
 		ScCore->primaryMainWindow()->view->endGroupTransaction();
 	}
 	else
-		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
+		ScCore->primaryMainWindow()->doc->moveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection.
 	ScCore->primaryMainWindow()->view->Deselect();
 	if (hadOrigSelection)
@@ -359,7 +359,7 @@ void ItemAPI::resize(double width, double height)
 		return;
 	if (item == NULL)
 		return;
-	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(width), ValueToPoint(height), item);
+	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(width), ValueToPoint(height), item);
 }
 
 void ItemAPI::rotate(double rot)

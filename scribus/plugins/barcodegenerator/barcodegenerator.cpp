@@ -144,6 +144,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	resecls["hibcmicropdf417"]=resecls["micropdf417"];
 	resvers["hanxin"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84";
 	resecls["hanxin"]="L1,L2,L3,L4";
+	resecls["ultracode"]="EC0,EC1,EC2,EC3,EC4,EC5";
 
 
 	// Which options checkboxes are enabled for each encoder
@@ -173,13 +174,13 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	QStringList parseAvail;
 	parseAvail << "azteccode" << "azteccodecompact" << "codablockf" << "hibccodablockf" << "code128" << "hibccode128" << "code16k" << "code39ext" << "code49"
 			   << "code93ext" << "codeone" << "datamatrix" << "hibcdatamatrix" << "maxicode" << "micropdf417" << "hibcmicropdf417" << "pdf417" << "hibcpdf417"
-			   << "pdf417compact" << "posicode" << "qrcode" << "hibcqrcode" << "microqrcode" << "telepen" << "hanxin";
+			   << "pdf417compact" << "posicode" << "qrcode" << "hibcqrcode" << "microqrcode" << "telepen" << "hanxin" << "dotcode" << "ultracode";
 	foreach (const QString& enc, parseAvail)
 		resparseAvail[enc]=true; 
 
 	QStringList parsefncAvail;
 	parsefncAvail << "codablockf" << "code128" << "code16k" << "code49" << "code93" << "codeone"
-				  << "datamatrix" << "posicode" << "qrcode" << "microqrcode";
+				  << "datamatrix" << "posicode" << "qrcode" << "microqrcode" << "dotcode" << "ultracode";
 	foreach (const QString& enc, parsefncAvail)
 		resparsefncAvail[enc]=true; 
 
@@ -206,7 +207,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	bcNames.clear();
 	bcNames << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code"
-			<< "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417" << "Han Xin Code";
+			<< "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417" << "Han Xin Code"
+			<< "DotCode" << "Ultracode";
 	familyName = tr("Two-dimensional symbols");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
@@ -221,7 +223,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	bcNames.clear();
 	bcNames << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional"
 			<< "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated"
-			<< "GS1 DataBar Stacked" << "GS1 DataBar Limited";
+			<< "GS1 DataBar Stacked" << "GS1 DataBar Limited" << "GS1 North American Coupon";
 	familyName = tr("GS1 DataBar family");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);

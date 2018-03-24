@@ -9,11 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <memory>
 
+#include <QAbstractItemDelegate>
 #include <QApplication>
 #include <QDebug>
 #include <QPainter>
 #include <QPixmap>
 #include <QScopedPointer>
+#include <QStyleOptionViewItem>
 #include <QVariant>
 
 #include "scguardedptr.h"

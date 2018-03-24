@@ -78,29 +78,29 @@ public:
 	QPair<double, double> bottomRight(double x, double y);// const;
 
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoCount() { return m_horizontalAutoCount; };
+	int horizontalAutoCount() { return m_horizontalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; };
+	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoCount() { return m_verticalAutoCount; };
+	int verticalAutoCount() { return m_verticalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; };
+	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double horizontalAutoGap(){ return m_horizontalAutoGap; };
+	double horizontalAutoGap(){ return m_horizontalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double verticalAutoGap(){return m_verticalAutoGap; };
+	double verticalAutoGap(){return m_verticalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; };
+	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; };
+	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoRefer() { return m_horizontalAutoRefer; };
+	int horizontalAutoRefer() { return m_horizontalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; };
+	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoRefer() { return m_verticalAutoRefer; };
+	int verticalAutoRefer() { return m_verticalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; };
+	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; }
 
 	/*! \brief Selection/group coordinates
 	It's used to simulate the original selection "freezed in time"

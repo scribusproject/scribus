@@ -396,32 +396,30 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 {
 	QPolygon cli, outa;
 	Segs.clear();
-	if (ina.size() > 3)
+	if (ina.size() <= 3)
+		return outa;
+	int limit=ina.size()-3;
+	for (int poi=0; poi<limit; poi += 4)
 	{
-		for (int poi=0; poi<ina.size()-3; poi += 4)
+		if (ina.isMarker(poi)) // && cli.size() > 0)
 		{
-			if (ina.isMarker(poi)) // && cli.size() > 0)
-			{
-//				outa << cli.point(cli.size()-1);
-				Segs.append(outa.size());
-				continue;
-			}
-			FPoint a1 = ina.point(poi);
-			FPoint a2 = ina.point(poi+1);
-			FPoint a3 = ina.point(poi+3);
-			FPoint a4 = ina.point(poi+2);
-			QPainterPath Bez;
-			Bez.moveTo(a1.x(), a1.y());
-			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-			cli = Bez.toFillPolygon().toPolygon();
-			if (cli.size() > 1)
-				outa.putPoints(outa.size(), cli.size()-2, cli);
-			else
-				outa << QPoint(qRound(a4.x()), qRound(a4.y()));
+			Segs.append(outa.size());
+			continue;
 		}
-//		if (cli.size() > 0)
-//			outa << cli.point(cli.size()-1);
+		FPoint a1 = ina.point(poi);
+		FPoint a2 = ina.point(poi+1);
+		FPoint a3 = ina.point(poi+3);
+		FPoint a4 = ina.point(poi+2);
+		QPainterPath Bez;
+		Bez.moveTo(a1.x(), a1.y());
+		Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+		cli = Bez.toFillPolygon().toPolygon();
+		if (cli.size() > 1)
+			outa.putPoints(outa.size(), cli.size()-2, cli);
+		else
+			outa << QPoint(qRound(a4.x()), qRound(a4.y()));
 	}
+
 	return outa;
 }
 
@@ -430,11 +428,11 @@ FPoint getMaxClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx = 0;
 	double my = 0;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	int clipSize=Clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (Clip->isMarker(c))
+		np = Clip->point(i);
+		if (Clip->isMarker(i))
 			continue;
 		if (np.x() > mx)
 			mx = np.x();
@@ -450,11 +448,11 @@ FPoint getMinClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx =  std::numeric_limits<double>::max();
 	double my =  std::numeric_limits<double>::max();
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	int clipSize=Clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (Clip->isMarker(c))
+		np = Clip->point(i);
+		if (Clip->isMarker(i))
 			continue;
 		if (np.x() < mx)
 			mx = np.x();
@@ -484,7 +482,7 @@ double constrainAngle(double angle, double constrain)
 	double constrainTo=constrain;
 	if (newAngle<0.0)
 		newAngle+=360.0;
-	newAngle=qRound(angle/constrainTo)*constrainTo;
+	newAngle=qRound(newAngle/constrainTo)*constrainTo;
 	if (newAngle==360.0)
 		newAngle=0.0;
 	return newAngle;
@@ -515,15 +513,15 @@ double getRotationFromMatrix(QTransform& matrix, double def)
 
 double getRotationDFromMatrix(QTransform& matrix)
 {
-	QLineF line = QLineF(0.0, 0.0, 1.0, 0.0);
+	QLineF line(0.0, 0.0, 1.0, 0.0);
 	line = matrix.map(line);
 	return line.angle();
 }
 
 void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 {
-	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
-	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
 	lineX = matrix.map(lineX);
 	lineY = matrix.map(lineY);
 	scX = lineX.length();
@@ -532,8 +530,8 @@ void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 
 void getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
 {
-	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
-	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
 	lineX = matrix.map(lineX);
 	lineY = matrix.map(lineY);
 	scX = lineX.length();

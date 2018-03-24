@@ -76,7 +76,7 @@ public slots:
 	void BuildTree(bool storeVals = true);
 	void filterTree(const QString& keyword);
 	void languageChange();
-	void slotShowSelect(uint SNr, PageItem *Nr);
+	void slotShowSelect(int SNr, PageItem *Nr);
 	void setPaletteShown(bool);
 	void slotRightClick(QPoint point);
 	void setActiveLayer(int layerID);
@@ -100,7 +100,7 @@ protected slots:
 protected:
 	void filterTree();
 	void clearPalette();
-	void createContextMenu(PageItem *currItem, double mx, double my);
+	void createContextMenu(PageItem *currItem, double, double);
 	QWidget* containerWidget;
 	OutlineWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;

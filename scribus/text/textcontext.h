@@ -14,10 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
 
-
-class PageItem;
 class ExpansionPoint;
 class InlineFrame;
+class PageItem;
+class ScribusDoc;
 
 class SCRIBUS_API TextContext : public ITextContext {
 	PageItem* m_frame;
@@ -25,6 +25,7 @@ class SCRIBUS_API TextContext : public ITextContext {
 public:
 	TextContext(PageItem* frame) : m_frame(frame) {}
 
+	virtual const ScribusDoc* getDoc() const;
 	virtual const PageItem* getFrame() const { return m_frame; }  
 	
 	//virtual double height() const  // return getFrame()->height(); }

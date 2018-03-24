@@ -118,7 +118,7 @@ private:
 	void PDF_Begin_Layers();
 	
 	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);
-	void PDF_End_Page(int physPage);
+	void PDF_End_Page();
 	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
 	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);
 	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
@@ -192,7 +192,9 @@ private:
 //	void       StartObj(PdfId nr);
 //	uint       newObject() { return ObjCounter++; }
 	uint       WritePDFStream(const QByteArray& cc);
+	uint       WritePDFStream(const QByteArray& cc, PdfId objId);
 	uint       WritePDFString(const QString& cc);
+	uint       WritePDFString(const QString& cc, PdfId objId);
 	void       writeXObject(uint objNr, QByteArray dictionary, QByteArray stream);
 	uint       writeObject(QByteArray type, QByteArray dictionary);
 	uint       writeGState(QByteArray dictionary) { return writeObject("/ExtGState", dictionary); }
@@ -256,8 +258,6 @@ private:
 	//int Dokument;
 	QMap<QString,ShIm> SharedImages;
 	QList<PdfDest> NamedDest;
-	QList<PdfId> Threads;
-	QList<PdfBead> Beads;
 	QList<PdfId> CalcFields;
 	Pdf::ResourceMap Patterns;
 	Pdf::ResourceMap Shadings;

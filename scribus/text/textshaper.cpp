@@ -200,6 +200,38 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 		
 		str.replace(SpecialChars::SHYPHEN, SpecialChars::ZWNJ);
 
+		//set style for paragraph effects
+		if (m_story.isBlockStart(i) && (m_context != 0) && (m_context->getDoc() != 0))
+		{
+			const ScribusDoc* doc = m_context->getDoc();
+			const ParagraphStyle& style = m_story.paragraphStyle(i);
+			if (style.hasDropCap() || style.hasBullet() || style.hasNum())
+			{
+				CharStyle charStyle = ((m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle());
+				const QString& curParent(style.hasParent() ? style.parent() : style.name());
+				CharStyle newStyle(charStyle);
+				if (style.peCharStyleName().isEmpty())
+					newStyle.setParent(doc->paragraphStyle(curParent).charStyle().name());
+				else if (charStyle.name() != style.peCharStyleName())
+					newStyle.setParent(doc->charStyle(style.peCharStyleName()).name());
+				charStyle.setStyle(newStyle);
+				m_story.setCharStyle(i, 1, charStyle);
+			}
+			else if (!style.peCharStyleName().isEmpty())
+			{
+				//par effect is cleared but is set dcCharStyleName = clear drop cap char style
+				CharStyle charStyle = ((m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle());
+				if (charStyle.parent() == style.peCharStyleName())
+				{
+					const QString& curParent(style.hasParent() ? style.parent() : style.name());
+					if (doc->charStyles().contains(style.peCharStyleName()))
+						charStyle.eraseCharStyle(doc->charStyle(style.peCharStyleName()));
+					charStyle.setParent(doc->paragraphStyle(curParent).charStyle().name());
+					m_story.setCharStyle(i, 1, charStyle);
+				}
+			}
+		}
+
 		const CharStyle &style = m_story.charStyle(i);
 		int effects = style.effects() & ScStyle_UserStyles;
 		bool hasSmallCap = false;

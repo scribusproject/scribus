@@ -1598,6 +1598,19 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 		lineSpIsPT = lsp.endsWith("pt");
 		lineSpSet = true;
 	}
+	if (propList["fo:keep-together"])
+		textStyle.setKeepTogether(propList["fo:keep-together"]->getStr() == "always");
+	if (propList["fo:keep-with-next"])
+		textStyle.setKeepWithNext(propList["fo:keep-with-next"]->getStr() == "always");
+	if (propList["fo:orphans"])
+		textStyle.setKeepLinesEnd(propList["fo:orphans"]->getInt());
+	if (propList["fo:widows"])
+		textStyle.setKeepLinesStart(propList["fo:widows"]->getInt());
+	if (propList["fo:hyphenate"])
+		textStyle.setHyphenationMode(propList["fo:hyphenate"]->getInt() ? ParagraphStyle::AutomaticHyphenation : ParagraphStyle::NoHyphenation);
+	if (propList["fo:hyphenation-ladder-count"] && propList["fo:hyphenation-ladder-count"]->getStr() != "no-limit")
+		// TODO: how to specify no-limit? 0?
+		textStyle.setHyphenConsecutiveLines(propList["fo:hyphenation-ladder-count"]->getInt());
 }
 
 void RawPainter::closeParagraph()
@@ -1634,37 +1647,78 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		textCharStyle.setFontSize(valueAsPoint(propList["fo:font-size"]) * 10.0);
 		m_maxFontSize = qMax(m_maxFontSize, valueAsPoint(propList["fo:font-size"]));
 	}
-	if (propList["style:text-scale"])
-		textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(QString(propList["style:text-scale"]->getStr().cstr())));
-	if (propList["fo:color"])
-		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
-	if (propList["style:font-name"])
+	if (propList["style:text-scale"] && propList["style:text-scale"]->getUnit() == librevenge::RVNG_PERCENT)
+		textCharStyle.setScaleH(propList["style:text-scale"]->getDouble() * 1000);
+	// NOTE: fo:font-name was only ever emitted by libfreehand, by a mistake
+	const librevenge::RVNGProperty *fontNameProp = propList["style:font-name"] ? propList["style:font-name"] : propList["fo:font-name"];
+	if (fontNameProp)
 	{
-		QString fontVari;
-		if (propList["fo:font-weight"])
-			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
-		QString fontName = QString(propList["style:font-name"]->getStr().cstr());
-		QString realFontName = constructFontName(fontName, fontVari);
-		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
-	}
-	if (propList["fo:font-name"])
-	{
-		QString fontVari;
-		if (propList["fo:font-weight"])
-			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
-		QString fontName = QString(propList["fo:font-name"]->getStr().cstr());
-		QString realFontName = constructFontName(fontName, fontVari);
+		QStringList fontVari;
+		if (propList["fo:font-weight"] && propList["fo:font-weight"]->getStr() != "normal")
+			fontVari.append(propList["fo:font-weight"]->getStr().cstr());
+		if (propList["fo:font-style"] && propList["fo:font-style"]->getStr() != "normal")
+			fontVari.append(propList["fo:font-style"]->getStr().cstr());
+		QString fontName = QString(fontNameProp->getStr().cstr());
+		QString realFontName = constructFontName(fontName, fontVari.join(' '));
 		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
 	}
 	StyleFlag styleEffects = textCharStyle.effects();
 	if (propList["style:text-underline-type"])
+	{
 		styleEffects |= ScStyle_Underline;
+		if (propList["style:text-underline-mode"] && propList["style:text-underline-mode"]->getStr() == "skip-white-space")
+			styleEffects |= ScStyle_UnderlineWords;
+	}
 	if (propList["style:text-position"])
 	{
-		if (propList["style:text-position"]->getStr() == "50% 67%")
-			styleEffects |= ScStyle_Superscript;
+		QStringList pos = QString(propList["style:text-position"]->getStr().cstr()).split(' ', QString::SkipEmptyParts);
+		if (pos.size() > 0)
+		{
+			if (pos[0] == "super")
+				styleEffects |= ScStyle_Superscript;
+			else if (pos[0] == "sub")
+				styleEffects |= ScStyle_Subscript;
+			else
+				textCharStyle.setBaselineOffset(textCharStyle.fontSize() * fromPercentage(pos[0]) * 10);
+		}
+		if (pos.size() > 1)
+			// TODO: Scribus makes font size for sub-/superscript smaller, so this doesn't match well.
+			// Multiply? Or use baseline offset instead of sub-/superscript?
+			textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(pos[1]));
+	}
+	if (propList["fo:font-variant"] && propList["fo:font-variant"]->getStr() == "small-caps")
+		styleEffects |= ScStyle_SmallCaps;
+	if (propList["fo:text-transform"] && propList["fo:text-transform"]->getStr() == "uppercase")
+		styleEffects |= ScStyle_AllCaps;
+	if (propList["style:text-line-through-style"])
+		styleEffects |= ScStyle_Strikethrough;
+	if (propList["style:text-outline"] && propList["style:text-outline"]->getInt())
+	{
+		styleEffects |= ScStyle_Outline;
+		textCharStyle.setFillColor(CommonStrings::None);
+	}
+	if (propList["fo:color"])
+	{
+		const QString color = parseColor(QString(propList["fo:color"]->getStr().cstr()));
+		if (styleEffects & ScStyle_Outline)
+			textCharStyle.setStrokeColor(color);
 		else
-			styleEffects |= ScStyle_Subscript;
+			textCharStyle.setFillColor(color);
+	}
+	if (propList["style:text-shadow"]) // TODO: parse offsets
+		styleEffects |= ScStyle_Shadowed;
+	if (propList["fo:hyphenate"])
+		styleEffects |= ScStyle_HyphenationPossible;
+	// TODO: handle drop caps
+	if (propList["fo:language"])
+	{
+		QStringList locale;
+		locale.append(propList["fo:language"]->getStr().cstr());
+		if (propList["fo:script"])
+			locale.append(propList["fo:script"]->getStr().cstr());
+		if (propList["fo:country"])
+			locale.append(propList["fo:country"]->getStr().cstr());
+		textCharStyle.setLanguage(locale.join('_'));
 	}
 	textCharStyle.setFeatures(styleEffects.featureList());
 }
@@ -1725,8 +1779,7 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 	}
 	else
 		textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	librevenge::RVNGString tempUTF8(text);
-	QString actText = QString(tempUTF8.cstr());
+	QString actText = QString(text.cstr());
 	if (actTextItem)
 	{
 		int posC = actTextItem->itemText.length();
@@ -1739,7 +1792,6 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 			QTextDocument texDoc;
 			texDoc.setHtml(actText);
 			actText = texDoc.toPlainText();
-			actText = actText.trimmed();
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
@@ -1767,13 +1819,15 @@ void RawPainter::insertField(const librevenge::RVNGPropertyList &propList)
 
 double RawPainter::valueAsPoint(const librevenge::RVNGProperty *prop)
 {
-	double value = 0.0;
-	QString str = QString(prop->getStr().cstr()).toLower();
-	if (str.endsWith("in"))
-		value = prop->getDouble() * 72.0;
-	else
-		value = prop->getDouble();
-	return value;
+	switch (prop->getUnit())
+	{
+		case librevenge::RVNG_INCH:
+			return prop->getDouble() * 72.0;
+		case librevenge::RVNG_TWIP:
+			return prop->getDouble() / 20.0;
+		default:
+			return prop->getDouble();
+	}
 }
 
 void RawPainter::applyFill(PageItem* ite)
@@ -1917,7 +1971,7 @@ void RawPainter::applyFill(PageItem* ite)
 			if (colorStops.count() == 2)
 			{
 				int endC = colorStops.count() - 1;
-				meshPoint cP;
+				MeshPoint cP;
 				cP.resetTo(center);
 				cP.transparency = colorStops[0]->opacity;
 				cP.shade = 100;
@@ -1930,14 +1984,14 @@ void RawPainter::applyFill(PageItem* ite)
 					patch.BR = cP;
 					if (gpath.isMarker(poi))
 						continue;
-					meshPoint tL;
+					MeshPoint tL;
 					tL.resetTo(gpath.point(poi));
 					tL.controlRight = gpath.point(poi + 1);
 					tL.transparency = colorStops[endC]->opacity;
 					tL.shade = 100;
 					tL.colorName = colorStops[endC]->name;
 					tL.color = colorStops[endC]->color;
-					meshPoint tR;
+					MeshPoint tR;
 					tR.resetTo(gpath.point(poi + 2));
 					tR.controlLeft = gpath.point(poi + 3);
 					tR.transparency = colorStops[endC]->opacity;
@@ -1957,7 +2011,7 @@ void RawPainter::applyFill(PageItem* ite)
 				mm.scale(colorStops[1]->rampPoint, colorStops[1]->rampPoint);
 				mm.translate(-center.x(), -center.y());
 				gpath2.map(mm);
-				meshPoint cP;
+				MeshPoint cP;
 				cP.resetTo(center);
 				cP.transparency = colorStops[0]->opacity;
 				cP.shade = 100;
@@ -1970,14 +2024,14 @@ void RawPainter::applyFill(PageItem* ite)
 					patch.BR = cP;
 					if (gpath.isMarker(poi))
 						continue;
-					meshPoint tL;
+					MeshPoint tL;
 					tL.resetTo(gpath2.point(poi));
 					tL.controlRight = gpath2.point(poi + 1);
 					tL.transparency = colorStops[1]->opacity;
 					tL.shade = 100;
 					tL.colorName = colorStops[1]->name;
 					tL.color = colorStops[1]->color;
-					meshPoint tR;
+					MeshPoint tR;
 					tR.resetTo(gpath2.point(poi + 2));
 					tR.controlLeft = gpath2.point(poi + 3);
 					tR.transparency = colorStops[1]->opacity;
@@ -2002,7 +2056,7 @@ void RawPainter::applyFill(PageItem* ite)
 						if (gpath.isMarker(poi))
 							continue;
 						meshGradientPatch patch;
-						meshPoint bL;
+						MeshPoint bL;
 						bL.resetTo(gpath3.point(poi));
 						bL.controlRight = gpath3.point(poi + 1);
 						bL.transparency = colorStops[cstp - 1]->opacity;
@@ -2010,7 +2064,7 @@ void RawPainter::applyFill(PageItem* ite)
 						bL.colorName = colorStops[cstp - 1]->name;
 						bL.color = colorStops[cstp - 1]->color;
 						patch.BL = bL;
-						meshPoint bR;
+						MeshPoint bR;
 						bR.resetTo(gpath3.point(poi + 2));
 						bR.controlLeft = gpath3.point(poi + 3);
 						bR.transparency = colorStops[cstp - 1]->opacity;
@@ -2018,14 +2072,14 @@ void RawPainter::applyFill(PageItem* ite)
 						bR.colorName = colorStops[cstp - 1]->name;
 						bR.color = colorStops[cstp - 1]->color;
 						patch.BR = bR;
-						meshPoint tL;
+						MeshPoint tL;
 						tL.resetTo(gpath2.point(poi));
 						tL.controlRight = gpath2.point(poi + 1);
 						tL.transparency = colorStops[cstp]->opacity;
 						tL.shade = 100;
 						tL.colorName = colorStops[cstp]->name;
 						tL.color = colorStops[cstp]->color;
-						meshPoint tR;
+						MeshPoint tR;
 						tR.resetTo(gpath2.point(poi + 2));
 						tR.controlLeft = gpath2.point(poi + 3);
 						tR.transparency = colorStops[cstp]->opacity;
@@ -3271,7 +3325,7 @@ void RawPainter::applyFill(PageItem* ite)
 		{
 			ite->meshGradientPatches.clear();
 			FPoint center = FPoint(ite->width() / 2.0, ite->height() / 2.0);
-			meshPoint cP;
+			MeshPoint cP;
 			cP.resetTo(center);
 			cP.transparency = gradColor2Trans;
 			cP.shade = 100;
@@ -3284,14 +3338,14 @@ void RawPainter::applyFill(PageItem* ite)
 				patch.BR = cP;
 				if (ite->PoLine.isMarker(poi))
 					continue;
-				meshPoint tL;
+				MeshPoint tL;
 				tL.resetTo(ite->PoLine.point(poi));
 				tL.controlRight = ite->PoLine.point(poi + 1);
 				tL.transparency = gradColor1Trans;
 				tL.shade = 100;
 				tL.colorName = gradColor1Str;
 				tL.color = gradColor1;
-				meshPoint tR;
+				MeshPoint tR;
 				tR.resetTo(ite->PoLine.point(poi + 2));
 				tR.controlLeft = ite->PoLine.point(poi + 3);
 				tR.transparency = gradColor1Trans;
@@ -3766,7 +3820,7 @@ void RawPainter::finishItem(PageItem* ite)
 	}
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y(), true);
-	ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled); // TODO: get this from shape props
 	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();

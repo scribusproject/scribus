@@ -63,11 +63,16 @@
 #include "util_math.h"
 
 
-CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW)
+CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMode(view),
+	m_Mxp(-1.0),
+	m_Myp(1.0),
+	m_selectedPoint(-1),
+	m_ScMW(view->m_ScMW),
+	m_keyRepeat(false),
+	m_currItem(NULL),
+	m_ModeDialog(NULL),
+	m_editWeldMode(true)
 {
-	m_Mxp = m_Myp = -1;
-	m_selectedPoint = -1;
-	m_editWeldMode = true;
 }
 
 inline bool CanvasMode_EditWeldPoint::GetItem(PageItem** pi)

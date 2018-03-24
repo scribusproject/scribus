@@ -46,10 +46,10 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 	{
 		const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-		if( fmt )
+		if (fmt)
 		{
 			fmt->loadFile(fName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-			if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+			if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
 			{
 				double x2, y2, w, h;
 				ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
@@ -80,10 +80,10 @@ PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT);
-	if( fmt )
+	if (fmt)
 	{
 		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
@@ -113,10 +113,10 @@ PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
-	if( fmt )
+	if (fmt)
 	{
 		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
@@ -146,10 +146,10 @@ PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT);
-	if( fmt )
+	if (fmt)
 	{
 		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
@@ -179,10 +179,10 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT);
-	if( fmt )
+	if (fmt)
 	{
 		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);

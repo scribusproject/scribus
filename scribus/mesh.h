@@ -30,15 +30,15 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API meshPoint
+class SCRIBUS_API MeshPoint
 {
 public:
-	meshPoint();
+	MeshPoint();
 	void moveRel(double dx, double dy);
 	void moveAbs(double x, double y);
 	void transform(QTransform t);
 	void resetTo(FPoint p);
-	bool operator ==(const meshPoint& p);
+	bool operator ==(const MeshPoint& p);
 	FPoint gridPoint;
 	FPoint controlTop;
 	FPoint controlBottom;
@@ -46,17 +46,17 @@ public:
 	FPoint controlRight;
 	FPoint controlColor;
 	double transparency;
-	int    shade;
+	int shade;
 	QString colorName;
-	QColor  color;
+	QColor color;
 };
 
 struct meshGradientPatch
 {
-	meshPoint TL;
-	meshPoint TR;
-	meshPoint BL;
-	meshPoint BR;
+	MeshPoint TL;
+	MeshPoint TR;
+	MeshPoint BL;
+	MeshPoint BR;
 };
 
 #endif

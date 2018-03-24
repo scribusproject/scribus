@@ -103,7 +103,7 @@ double GroupBox::naturalHeight() const
 		if (m_direction == D_Horizontal)
 			nH = qMax(m_naturalHeight, box->naturalHeight());
 		else
-			nH = ceil(box->y() + box->ascent() - box->naturalDecent());
+			nH = ceil(box->y() + box->ascent() - box->naturalDescent());
 	}
 	return nH;
 }
@@ -137,7 +137,7 @@ void GroupBox::update()
 		else
 		{
 			m_naturalWidth = qMax(m_naturalWidth, box->naturalWidth());
-			m_naturalHeight = ceil(box->y() + box->ascent() - box->naturalDecent());
+			m_naturalHeight = ceil(box->y() + box->ascent() - box->naturalDescent());
 		}
 	}
 
@@ -325,7 +325,7 @@ void LineBox::removeBox(int i)
 
 void LineBox::update()
 {
-	m_naturalWidth = m_naturalAscent = m_naturalDecent = 0;
+	m_naturalWidth = m_naturalAscent = m_naturalDescent = 0;
 	for (int i = 0; i < m_boxes.count(); ++i)
 	{
 		Box* box = m_boxes[i];
@@ -336,7 +336,7 @@ void LineBox::update()
 		m_naturalWidth += box->width();
 
 		m_naturalAscent = qMax(m_naturalAscent, box->naturalAsc());
-		m_naturalDecent = qMin(m_naturalDecent, box->naturalDecent());
+		m_naturalDescent = qMin(m_naturalDescent, box->naturalDescent());
 	}
 
 //	emit boxChanged();
@@ -753,21 +753,24 @@ int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 {
 	if (firstChar() != lastChar())
 	{
-		int count = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
-		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*)text.utf16());
+		QString text(story.text(firstChar(), lastChar() - firstChar() + 1));
+		it->setText((const UChar*) text.utf16());
+		int count = 0;
 		while (it->next() != BreakIterator::DONE)
 			count++;
-		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
+		if (count == 0)
+			qFatal("GlyphBox::pointToPosition: divide by zero error");
 
+		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
 		double componentWidth = width() / count;
 		for (int i = 0; i < count; i++)
 		{
 			double componentX;
-			componentX = x() + (componentWidth * i);
 			if (rtlLayout)
 				componentX = x() + width() - (componentWidth * (i + 1));
+			else
+				componentX = x() + (componentWidth * i);
 
 			if ((coord.x() >= componentX && coord.x() <= componentX + componentWidth))
 			{
@@ -793,33 +796,35 @@ int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 
 QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
 {
-	double xPos;
-
+	double xPos = 0.0;
 	if (firstChar() != lastChar())
 	{
-		int count = 0;
 		int index = 0;
 		BreakIterator *it = StoryText::getGraphemeIterator();
-		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
-		it->setText((const UChar*)text.utf16());
+		QString text(story.text(firstChar(), lastChar() - firstChar() + 1));
+		it->setText((const UChar*) text.utf16());
+		int count = 0;
 		while (it->next() != BreakIterator::DONE)
 		{
 			count++;
 			if (pos - firstChar() == it->current())
 				index = count;
 		}
+		if (count == 0)
+			qFatal("GlyphBox::positionToPoint: divide by zero error");
 
 		double componentWidth = width() / count;
-
-		xPos = x() + (componentWidth * index);
 		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
 			xPos = x() + width() - (componentWidth * index);
+		else
+			xPos = x() + (componentWidth * index);
 	}
 	else
 	{
-		xPos = x();
 		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
 			xPos = x() + width();
+		else
+			xPos = x();
 	}
 
 	return QLineF(xPos, y(), xPos, y() + height());

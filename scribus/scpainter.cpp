@@ -22,39 +22,69 @@ for which a new license (GPL+exception) is in place.
 #include <math.h>
 #include <QDebug>
 
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
+ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int blendmode )
 {
-	m_width = w;
-	m_height= h;
-	m_stroke = QColor(0,0,0);
-	m_strokeMode = 0;
-	m_maskMode = 0;
-	m_fill = QColor(0,0,0);
-	m_fill_trans = 1.0;
-	m_stroke_trans = 1.0;
-	m_fillRule = true;
-	m_fillMode = 1;
-	m_LineWidth = 1.0;
-	m_offset = 0;
+	Q_ASSERT(w>=0);
+	Q_ASSERT(h>=0);
+	m_maskPattern = NULL;
+	m_pattern = NULL;
+	m_imageMask = NULL;
+	m_image = target;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
 	m_blendModeFill = 0;
 	m_blendModeStroke = 0;
-	m_array.clear();
+	m_width = w;
+	m_height= h;
+	m_fontSize = 0.0;
 	mf_underline = false;
 	mf_strikeout = false;
 	mf_shadow = false;
 	mf_outlined = false;
+	m_fill = QColor(0,0,0);
+	m_fill_trans = 1.0;
+	m_fillRule = true;
+	m_fillMode = 1;
+	m_patternScaleX = 0.0;
+	m_patternScaleX = 0.0;
+	m_patternScaleY = 0.0;
+	m_patternOffsetX = 0.0;
+	m_patternOffsetY = 0.0;
+	m_patternRotation = 0.0;
+	m_patternSkewX = 0.0;
+	m_patternSkewY = 0.0;
+	m_patternMirrorX = false;
+	m_patternMirrorY = false;
+	m_gradientScale = 0.0;
+	m_gradientSkew = 0.0;
+	setHatchParameters(0, 2, 0, false, QColor(), QColor(), 0.0, 0.0);
+	m_stroke = QColor(0,0,0);
+	m_stroke_trans = 1.0;
+	m_LineWidth = 1.0;
+	m_strokeMode = 0;
+	m_maskMode = 0;
+	m_mask_patternScaleX = 0.0;
+	m_mask_patternScaleY = 0.0;
+	m_mask_patternOffsetX = 0.0;
+	m_mask_patternOffsetY = 0.0;
+	m_mask_patternRotation = 0.0;
+	m_mask_patternSkewX = 0.0;
+	m_mask_patternSkewY = 0.0;
+	m_mask_patternMirrorX = false;
+	m_mask_patternMirrorY = false;
+	m_mask_gradientScale = 0.0;
+	m_mask_gradientSkew = 0.0;
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
-	fill_gradient = VGradient(VGradient::linear);
-	stroke_gradient = VGradient(VGradient::linear);
-	setHatchParameters(0, 2, 0, false, QColor(), QColor(), 0.0, 0.0);
+	m_offset = 0;
 	m_zoomFactor = 1;
 	m_layeredMode = true;
 	m_imageMode = true;
 	m_svgMode = false;
-	m_image = target;
+
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+
 	m_matrix = QTransform();
 	m_zoomStack.clear();
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
@@ -295,13 +325,13 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	stroke_gradient.setVector(vec);
 	stroke_gradient.setFocalPoint(foc);
 	m_gradientScale = scale;
-	if (skew == 90)
+	if (skew == 90.0)
 		m_gradientSkew = 1;
-	else if (skew == 180)
+	else if (skew == 180.0)
 		m_gradientSkew = 0;
-	else if (skew == 270)
+	else if (skew == 270.0)
 		m_gradientSkew = -1;
-	else if (skew == 360)
+	else if (skew == 360.0)
 		m_gradientSkew = 0;
 	else
 		m_gradientSkew = tan(M_PI / 180.0 * skew);
@@ -319,13 +349,13 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, FPoint orig, FPoi
 	mask_gradient.setVector(vec);
 	mask_gradient.setFocalPoint(foc);
 	m_mask_gradientScale = scale;
-	if (skew == 90)
+	if (skew == 90.0)
 		m_mask_gradientSkew = 1;
-	else if (skew == 180)
+	else if (skew == 180.0)
 		m_mask_gradientSkew = 0;
-	else if (skew == 270)
+	else if (skew == 270.0)
 		m_mask_gradientSkew = -1;
-	else if (skew == 360)
+	else if (skew == 360.0)
 		m_mask_gradientSkew = 0;
 	else
 		m_mask_gradientSkew = tan(M_PI / 180.0 * skew);
@@ -380,7 +410,7 @@ void ScPainter::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, F
 	gradControlP5 = c5;
 }
 
-void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray)
+void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)
 {
 	fill_gradient.setType(VGradient::mesh);
 	meshGradientArray = meshArray;
@@ -966,10 +996,10 @@ void ScPainter::fillPathHelper()
 			{
 				for (int gcol = 0; gcol < meshGradientArray[grow].count()-1; gcol++)
 				{
-					meshPoint mp1 = meshGradientArray[grow][gcol];
-					meshPoint mp2 = meshGradientArray[grow][gcol+1];
-					meshPoint mp3 = meshGradientArray[grow+1][gcol+1];
-					meshPoint mp4 = meshGradientArray[grow+1][gcol];
+					MeshPoint mp1 = meshGradientArray[grow][gcol];
+					MeshPoint mp2 = meshGradientArray[grow][gcol+1];
+					MeshPoint mp3 = meshGradientArray[grow+1][gcol+1];
+					MeshPoint mp4 = meshGradientArray[grow+1][gcol];
 					cairo_mesh_pattern_begin_patch(mpat);
 					cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 					cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
@@ -1012,10 +1042,10 @@ void ScPainter::fillPathHelper()
 			for (int col = 0; col < meshGradientPatches.count(); col++)
 			{
 				meshGradientPatch patch = meshGradientPatches[col];
-				meshPoint mp1 = patch.TL;
-				meshPoint mp2 = patch.TR;
-				meshPoint mp3 = patch.BR;
-				meshPoint mp4 = patch.BL;
+				MeshPoint mp1 = patch.TL;
+				MeshPoint mp2 = patch.TR;
+				MeshPoint mp3 = patch.BR;
+				MeshPoint mp4 = patch.BL;
 				cairo_mesh_pattern_begin_patch(mpat);
 				cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 				cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());

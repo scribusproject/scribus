@@ -30,11 +30,17 @@ won't automatically notice when you change the document using a script.</p></dd>
 
 <dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
 <dd><code>getUnit() -&gt; integer (Scribus unit constant)</code>
-<p>Returns the measurement units of the document. The returned value will be one of the UNIT_* constants: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p></dd>
+<p>Returns the measurement units of the document. The returned value will be one of the UNIT_* constants: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p>
+<p>Typically you may use this command so that you can change the measurement units to something else, for which you are creating or modifying objects based some particular units, like points, after which you want to return to whatever the original units were.</p><p><b>original = getUnit()</b></p>
+<p><i>do some operations...then later</i></p>
+<p><b>setUnit(original)</b></p>
+</dd>
 
 <dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
 <dd><code>haveDoc() -&gt; bool</code>
-<p>Returns true if there is a document open.</p></dd>
+<p>Returns true if there is a document open. Since this returns a boolean, typically this will be used in a conditional clause:</p>
+<p><b>if haveDoc():</b></p>
+<p>so that you can deal with the situation where no document exists with an <b>else:</b> clause.</p></dd>
 
 <!--<dt><a name="-importSVG"><strong>importSVG</strong>(...)</a></dt>
 <dd><code>importSVG("string")</code>
@@ -50,7 +56,7 @@ won't automatically notice when you change the document using a script.</p></dd>
 
 <dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt>
 <dd><code>newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool</code>
-<p>WARNING: Obsolete procedure! Use <a href="#-newDocument">newDocument</a> instead.</p>
+<p>WARNING: Obsolete procedure! Use <a href="#-newDocument">newDocument</a> instead. Also note that this commands requires 7 parameters, whereas the preferred <b>newDocument()</b> command requires 8.</p>
 <p>Creates a new document and returns true if successful. The parameters have the
 following meaning:</p>
 <ul>
@@ -62,12 +68,13 @@ following meaning:</p>
 	<li>facingPages = FACINGPAGES, NOFACINGPAGES</li>
 	<li>firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
 	</ul>
-<p>The values for width, height and the margins are expressed in the given unit for the document. PAPER_* constants are expressed in points. If your document is not in points, make sure to account for this.</p>
+<p>The values for width, height and the margins are expressed in the given unit for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants. A workaround can be to use the PAPER_* constant along with UNIT_POINTS, then follow the command with another command, setUnit(UNIT_MILLIMETERS).</p>
 <p>example: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
 
 <dt><a name="-newDocument"><strong>newDocument</strong>(...)</a></dt>
 <dd><code>newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder, numPages) -&gt; bool</code>
+<p>Note that this commands requires 8 parameters, whereas the obsolete <b>newDoc()</b> command required 7. The additional parameter indicates how many pages to create.</p>
 <p>Creates a new document and returns true if successful. The parameters have the
 following meaning:
 <ul>
@@ -90,10 +97,11 @@ Indexed from 0 (0 = first).</li>
 <li>numPage = Number of pages to be created.</li>
 </ul>
 <p>The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.</p>
-<p>example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)</p>
+for the document. PAPER_* constants are a series of tuples specific to the document size, with the values corresponding to points. Therefore, if you are creating a document and using UNIT_MILLIMETERS for example, DO NOT USE the PAPER_* constants.</p>
+<p>For A and B paper formats there are now new constants to use with UNIT_MILLIMETERS, named for example, PAPER_A4_MM, or PAPER_B6_MM.</p>
+<p>Examples:</p>
+<p><b>newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3, 1)</b></p>
+<p><b>newDocument(PAPER_A4_MM, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_MILLIMETERS, PAGE_4, 3, 1)</b></p>
 <p>May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</p>
 </dd>
 
@@ -103,32 +111,34 @@ PAGE_4, 3, 1)</p>
 <p>May raise ScribusError if the document could not be opened.</p></dd>
 
 <dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
-<dd><code></code>
-<p>placeEPS("filename", x, y) Places the EPS "filename" onto the current
-page, x and y specify the coordinate of the topleft corner of the EPS
-placed on the page If loading was successful, the selection contains
-the imported EPS</p></dd>
+<dd><code>placeEPS("filename", x, y)</code>
+<p>Places the EPS "filename" onto the current page, x and y specify the coordinate 
+of the topleft corner of the EPS placed on the page.</p>
+<p>If loading was successful, the selection contains the imported EPS.</p></dd>
 
 <dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
-<dd><code></code>
-<p>placeODG("filename", x, y) Places the ODG "filename" onto the current
-page, x and y specify the coordinate of the topleft corner of the ODG
-placed on the page If loading was successful, the selection contains
-the imported ODG</p></dd>
+<dd><code>placeODG("filename", x, y)</code>
+<p>Places the ODG "filename" onto the current page, x and y specify the coordinate 
+of the topleft corner of the ODG placed on the page.</p>
+<p>If loading was successful, the selection contains the imported ODG.</p></dd>
 
 <dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
-<dd><code></code>
-<p>placeSVG("filename", x, y) Places the SVG "filename" onto the current
-page, x and y specify the coordinate of the topleft corner of the SVG
-placed on the page If loading was successful, the selection contains
-the imported SVG</p></dd>
+<dd><code>placeSVG("filename", x, y)</code>
+<p>Places the SVG "filename" onto the current page, x and y specify the coordinate 
+of the topleft corner of the SVG placed on the page.</p>
+<p>If loading was successful, the selection contains the imported SVG.</p></dd>
 
 <dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
-<dd><code></code>
-<p>placeSXD("filename", x, y) Places the SXD "filename" onto the current
-page, x and y specify the coordinate of the topleft corner of the SXD
-placed on the page If loading was successful, the selection contains
-the imported SXD</p></dd>
+<dd><code>placeSXD("filename", x, y)</code>
+<p>Places the SXD "filename" onto the current page, x and y specify the coordinate 
+of the topleft corner of the SXD placed on the page.</p>
+<p>If loading was successful, the selection contains the imported SXD.</p></dd>
+
+<dt><a name="-placeVectorFile"><strong>placeVectorFile</strong>(...)</a></dt>
+<dd><code>placeVectorFile("filename", x, y)</code>
+<p>Places the vector graphics "filename" onto the current page, x and y specify the coordinate 
+of the topleft corner of the graphic placed on the page.</p>
+<p>If loading was successful, the selection contains the imported graphic.</p></dd>
 
 <dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
 <dd><code>saveDoc()</code>
@@ -155,7 +165,10 @@ relative path).</p>
 <dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
 <dd><code>setUnit(type)</code>
 <p>Changes the measurement unit of the document. Possible values for "unit" are defined as constants UNIT_&lt;type&gt;.</p>
-<p>May raise ValueError if an invalid unit is passed.</p></dd>
+<p>May raise ValueError if an invalid unit is passed.</p>
+<p>As noted above, typically you may use this command so that you can change the measurement units to something else, for which you are creating or modifying objects based some particular units, like points, after which you want to return to whatever the original units were.</p><p><b>original = getUnit()</b></p>
+<p><i>do some operations...then later</i></p>
+<p><b>setUnit(original)</b></p></dd>
 
 <dt><a name="-setBaseLine"><strong>setBaseLine</strong></a>(...)</dt>
 <dd><code>setBaseLine(grid, offset)</code>

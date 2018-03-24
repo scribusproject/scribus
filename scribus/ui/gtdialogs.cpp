@@ -32,6 +32,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "sccombobox.h"
 #include "ui/gtfiledialog.h"
+
+#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPixmap>
@@ -43,8 +45,13 @@ extern QString DocDir;
 
 /********* Class gtImporterDialog*******************************************************************/
 
-gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
+gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& importers, int currentSelection)
 {
+	QFileInfo fInfo(fileName);
+	QString ext = fInfo.suffix();
+	if ((ext.length() > 0) && !ext.startsWith("."))
+		ext.prepend(".");
+
 	setWindowTitle( tr("Choose the importer to use"));
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
@@ -53,7 +60,13 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	QBoxLayout* llayout = new QHBoxLayout;
 	llayout->setMargin(5);
 	llayout->setSpacing(5);
-	QLabel* label = new QLabel( tr("Choose the importer to use"), this);
+
+	QString labelText;
+	if (ext.length() > 0)
+		labelText = tr("Choose the importer to use for %1 file:").arg(ext);
+	else
+		labelText = tr("Choose the importer to use:");
+	QLabel* label = new QLabel(labelText, this);
 	llayout->addWidget(label);
 	layout->addLayout(llayout);
 
@@ -111,12 +124,11 @@ gtImporterDialog::~gtImporterDialog()
 
 gtDialogs::gtDialogs()
 {
-	fdia = NULL;
-	fileName = "";
-	encoding = "";
-	importer = -1;
-	prefs = PrefsManager::instance()->prefsFile->getContext("gtDialogs");
-	pwd = QDir::currentPath();
+	m_fdia = NULL;
+	m_fileName = "";
+	m_encoding = "";
+	m_importer = -1;
+	m_prefs = PrefsManager::instance()->prefsFile->getContext("gtDialogs");
 }
 
 bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importers)
@@ -124,56 +136,56 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 	bool accepted = false;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString dir = dirs->get("get_text", ".");
-	fdia = new gtFileDialog(filters, importers, dir);
 	
-	if (fdia->exec() == QDialog::Accepted)
+	m_fdia = new gtFileDialog(filters, importers, dir);
+	if (m_fdia->exec() == QDialog::Accepted)
 	{
-		fileName = fdia->selectedFile();
-		if (!fileName.isEmpty())
+		m_fileName = m_fdia->selectedFile();
+		if (!m_fileName.isEmpty())
 			accepted = true;
-		encoding = fdia->encodingCombo->currentText();
+		m_encoding = m_fdia->encodingCombo->currentText();
 //		if (encoding == "UTF-16")
 //			encoding = "ISO-10646-UCS-2";
-		importer = fdia->importerCombo->currentIndex() - 1;
-		dirs->set("get_text", fileName.left(fileName.lastIndexOf("/")));
+		m_importer = m_fdia->importerCombo->currentIndex() - 1;
+		dirs->set("get_text", m_fileName.left(m_fileName.lastIndexOf("/")));
 	}
-	QDir::setCurrent(pwd);
 	return accepted;
 }
 
-bool gtDialogs::runImporterDialog(const QStringList& importers)
+bool gtDialogs::runImporterDialog(const QString& fileName, const QStringList& importers)
 {
-	int curSel = prefs->getInt("curSel", 0);
-	QString extension = "";
-	QString shortName = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
-	if (shortName.indexOf(".") == -1)
-		extension = ".no_extension";
-	else
-		extension = fileName.right(fileName.length() - fileName.lastIndexOf("."));
-	int extensionSel = prefs->getInt(extension, -1);
-	QString imp = prefs->get("remember"+extension, QString("false"));
-	QString res = "";
-	bool shouldRemember = false;
 	bool ok = false;
+	bool shouldRemember = false;
+
+	QFileInfo fileInfo(fileName);
+	QString fileExtension = fileInfo.suffix();
+	if (fileExtension.length() > 0 && !fileExtension.startsWith("."))
+		fileExtension.prepend(".");
+	if (fileExtension.isEmpty())
+		fileExtension = ".no_extension";
+	
+	QString imp = m_prefs->get("remember"+ fileExtension, QString("false"));
+	QString res = "";
 	if (imp != "false")
 	{
 		res = imp;
-		if (importers.contains(res) > 0)
+		if (importers.contains(res))
 			ok = true;
 	}
 	
 	if (!ok)
 	{
+		int curSel = m_prefs->getInt("curSel", 0);
+		int extensionSel = m_prefs->getInt(fileExtension, -1);
 		if ((extensionSel > -1) && (extensionSel < static_cast<int>(importers.count())))
 			curSel = extensionSel;
 		else
 			curSel = 0;
-		gtImporterDialog* idia = new gtImporterDialog(importers, curSel);
+		gtImporterDialog* idia = new gtImporterDialog(fileName, importers, curSel);
 		if (idia->exec())
 		{
 			res = idia->getImporter();
 			shouldRemember = idia->shouldRemember();
-			
 			ok = true;
 		}
 		delete idia;
@@ -181,27 +193,17 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 
 	if (ok)
 	{
-		QString fileExtension = "";
-		for (int i = 0; i < importers.count(); ++i)
+		QString fileExtension;
+		int importerIndex = importers.indexOf(res);
+		if (importerIndex >= 0)
 		{
-			if (importers[i] == res)
+			m_importer = importerIndex;
+			m_prefs->set("curSel", static_cast<int>(importerIndex));
+			if (!fileExtension.isEmpty())
 			{
-				importer = i;
-				prefs->set("curSel", static_cast<int>(i));
-				if (fileName.indexOf(".") != -1)
-				{
-					if (shortName.indexOf(".") == -1)
-						fileExtension = ".no_extension";
-					else
-						fileExtension = fileName.right(fileName.length() - fileName.lastIndexOf("."));
-					if (!fileExtension.isEmpty())
-					{
-						prefs->set(fileExtension, static_cast<int>(i));
-						if (shouldRemember)
-							prefs->set("remember"+fileExtension, res);
-					}
-				}
-				break;
+				m_prefs->set(fileExtension, static_cast<int>(importerIndex));
+				if (shouldRemember)
+					m_prefs->set("remember" + fileExtension, res);
 			}
 		}
 	}
@@ -210,36 +212,36 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 
 const QString& gtDialogs::getFileName()
 {
-	return fileName;
+	return m_fileName;
 }
 
 const QString& gtDialogs::getEncoding()
 {
-	return encoding;
+	return m_encoding;
 }
 
 int gtDialogs::getImporter()
 {
-	return importer;
+	return m_importer;
 }
 
 bool gtDialogs::importTextOnly()
 {
 	bool ret = false;
-	if (fdia)
-		ret = fdia->textOnlyCheckBox->isChecked();
+	if (m_fdia)
+		ret = m_fdia->textOnlyCheckBox->isChecked();
 	return ret;
 }
 
 bool gtDialogs::prefixStyles()
 {
 	bool ret = false;
-	if (fdia)
-		ret = fdia->prefixStylesCheckBox->isChecked();
+	if (m_fdia)
+		ret = m_fdia->prefixStylesCheckBox->isChecked();
 	return ret;
 }
 
 gtDialogs::~gtDialogs()
 {
-	delete fdia;
+	delete m_fdia;
 }

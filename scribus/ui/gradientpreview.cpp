@@ -205,7 +205,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		else if (m->button() == Qt::RightButton)
 		{
 			Mpressed = false;
-			QList<VColorStop*> cstops = fill_gradient.colorStops();
+//			QList<VColorStop*> cstops = fill_gradient.colorStops();
 			int stop = -1;
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{

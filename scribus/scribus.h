@@ -151,7 +151,7 @@ public:
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
-	void inputMethodEvent ( QInputMethodEvent * event );
+	void inputMethodEvent (QInputMethodEvent *event);
 	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
 	void requestUpdate(int);
 	void setTBvals(PageItem *currItem);
@@ -479,12 +479,12 @@ public slots:
 	void generateTableOfContents();
 	void updateDocument();
 
-	void setNewAlignment(int a);
-	void setNewDirection(int a);
+	void setNewAlignment(int i);
+	void setNewDirection(int i);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);
-	void setAlignmentValue(int a);
-	void setDirectionValue(int a);
+	void setAlignmentValue(int i);
+	void setDirectionValue(int i);
 	void editItemsFromOutlines(PageItem *ite);
 	//0= center, 1 = top left.
 	void selectItemsFromOutlines(PageItem *ite, bool single = false, int position = 0);
@@ -566,7 +566,6 @@ public slots:
 	//connected to signal emitted by actions when "Update Marks" menu item is triggered
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
-//	void testQTQuick2_1();
 //	void testQT_slot1(QString);
 //	void testQT_slot2(double);
 //	void testQT_slot3(int);

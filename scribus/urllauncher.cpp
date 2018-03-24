@@ -43,12 +43,12 @@ void UrlLauncher::deleteInstance()
 	_instance = 0;
 }
 
-void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
+void UrlLauncher::launchUrlExt(QString link, QWidget *parent)
 {
 	launchUrlExt(QUrl(link), parent);
 }
 
-void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
+void UrlLauncher::launchUrlExt(QUrl link, QWidget *parent)
 {
 	if (link.scheme()=="http" || link.scheme()=="https")
 	{

@@ -48,7 +48,7 @@ class SCRIBUS_API Hruler : public QWidget
 
 public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
-	~Hruler() {};
+	~Hruler() {}
 private:
 	bool textEditMode;
 	double ColGap;

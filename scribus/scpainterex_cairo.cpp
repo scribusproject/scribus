@@ -287,7 +287,7 @@ void ScPainterEx_Cairo::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoi
 	m_gradControlP5 = c5;
 }
 
-void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray)
+void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)
 {
 	m_fillGradient.setType(VGradientEx::mesh);
 	m_meshGradientArray = meshArray;
@@ -1077,10 +1077,10 @@ void ScPainterEx_Cairo::drawMeshGradient( const QRect& rect )
 	{
 		for (int gcol = 0; gcol < m_meshGradientArray[grow].count()-1; gcol++)
 		{
-			meshPoint mp1 = m_meshGradientArray[grow][gcol];
-			meshPoint mp2 = m_meshGradientArray[grow][gcol+1];
-			meshPoint mp3 = m_meshGradientArray[grow+1][gcol+1];
-			meshPoint mp4 = m_meshGradientArray[grow+1][gcol];
+			MeshPoint mp1 = m_meshGradientArray[grow][gcol];
+			MeshPoint mp2 = m_meshGradientArray[grow][gcol+1];
+			MeshPoint mp3 = m_meshGradientArray[grow+1][gcol+1];
+			MeshPoint mp4 = m_meshGradientArray[grow+1][gcol];
 			cairo_mesh_pattern_begin_patch(mpat);
 			cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 			cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
@@ -1154,10 +1154,10 @@ void ScPainterEx_Cairo::drawFreeMeshGradient( const QRect& rect )
 	for (int col = 0; col < m_meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = m_meshGradientPatches[col];
-		meshPoint mp1 = patch.TL;
-		meshPoint mp2 = patch.TR;
-		meshPoint mp3 = patch.BR;
-		meshPoint mp4 = patch.BL;
+		MeshPoint mp1 = patch.TL;
+		MeshPoint mp2 = patch.TR;
+		MeshPoint mp3 = patch.BR;
+		MeshPoint mp4 = patch.BL;
 		cairo_mesh_pattern_begin_patch(mpat);
 		cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 		cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());

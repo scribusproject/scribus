@@ -192,8 +192,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
  	else
  		pstyle = NULL;
- 	QString align = NULL;
- 	QString force = NULL;
+	QString align;
+	QString force;
  	bool hasColorTag = false;
  	for (int i = 0; i < attrs.count(); ++i)
  	{
@@ -201,8 +201,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			currentStyle->getFont()->setName(getFont(attrs.value(i)));
  		else if (attrs.localName(i) == "fo:font-size")
  		{
- 			double size = 0;
- 			double psize = 0;
+			double size = 0.0;
+			double psize = 0.0;
  			if (parentStyle != NULL)
  				psize = static_cast<double>(parentStyle->getFont()->getSize());
  			else if (styles.contains("default-style"))
@@ -266,7 +266,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != NULL))
  			pstyle->setSpaceAbove(getSize(attrs.value(i)));
  		else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != NULL))
- 			pstyle->setSpaceBelow(getSize(attrs.value(i)));
+			pstyle->setSpaceBelow(getSize(attrs.value(i)));
  		else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != NULL))
  		{
  			if (inList)
@@ -288,8 +288,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != NULL))
  			force = attrs.value(i);
  	}
-	// Qt4 NULL->isNull()
- 	if (!align.isNull())
+	if (!align.isEmpty() && (pstyle != NULL))
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -310,7 +309,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  void StyleReader::styleStyle(const QXmlAttributes& attrs)
  {
 	QString name;
- 	QString listName = NULL;
+	QString listName;
 	bool setDefaultStyle = false;
  	bool isParaStyle = false;
  	bool create = true;
@@ -384,7 +383,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
  			}
- 			if (!listName.isNull())
+			if (!listName.isEmpty())
  			{
  				listParents[listName] = currentStyle;
  			}
@@ -410,8 +409,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	{
  		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
 		assert(pstyle != NULL);
- 		QString pos = NULL;
- 		QString type = NULL;
+		QString pos;
+		QString type;
  		for (int i = 0; i < attrs.count(); ++i)
  		{
  			if (attrs.localName(i) == "style:position")
@@ -420,9 +419,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				type = attrs.value(i);
  				
  		}
- 		if (!pos.isNull())
+		if (!pos.isEmpty())
  		{
- 			if (!type.isNull())
+			if (!type.isEmpty())
  				type = "left";
  			double posd = getSize(pos);
  			if (type == "left")
@@ -567,7 +566,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::setupFrameStyle()
  {
- 	QString fstyleName = "";
+	QString fstyleName;
  	int count = 0;
  	CounterMap::Iterator it;
  	for (it = pstyleCounts.begin(); it != pstyleCounts.end(); ++it)
@@ -594,8 +593,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		pstyle = dynamic_cast<gtParagraphStyle*>(style);
  	else
  		pstyle = NULL;
- 	QString align = NULL;
- 	QString force = NULL;
+	QString align;
+	QString force;
  
  	if (key == "style:font-name")
  		style->getFont()->setName(getFont(value));
@@ -681,9 +680,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	else if ((key == "style:justify-single-word") && (pstyle != NULL))
  		force = value;
  
- 	if (!align.isNull())
- 	{
-		assert(pstyle);
+	if (!align.isEmpty() && (pstyle != NULL))
+	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
  		else if (align == "center")
@@ -702,7 +700,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  double StyleReader::getSize(QString s, double parentSize)
  {
- 	QString dbl = "0.0";
+	QString dbl("0.0");
  	QString lowerValue = s.toLower();
  	double ret = 0.0;
  	if (lowerValue.indexOf("pt") != -1)

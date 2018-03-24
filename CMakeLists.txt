@@ -2,7 +2,7 @@
 ########## CMake Setup                                                                              ##########
 
 #Set our CMake minimum version
-#Require 2.8.9 for Qt5
+#Require 2.8.9 for Qt5 and CMAKE_POSITION_INDEPENDENT_CODE property
 #Require 3.1.0 for Qt 5.7 C++ 11 easy support
 #Require 3.2.0 for add_custom_target with byproducts
 cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
@@ -159,9 +159,7 @@ endif()
 # http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3 and
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559133
 
-if (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIPS_64 EQUAL 1 OR ARCH_PPC_64 EQUAL 1)
-	set(CMAKE_CXX_FLAGS_FPIC "-fPIC")
-endif()
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 ## Do our Apple OSX version setup
 if (APPLE AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND (ARCH_X86 EQUAL 1 OR ARCH_X86_64 EQUAL 1))

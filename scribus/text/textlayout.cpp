@@ -120,19 +120,66 @@ void TextLayout::render(ScreenPainter *p, ITextContext *ctx)
 
 void TextLayout::renderBackground(TextLayoutPainter *p)
 {
+	QString backColor, lastColor;
+	double backShade, lastShade = 100;
+	QRectF lastRect;
+
+	p->save();
+	p->translate(m_box->x(), m_box->y());
+
 	foreach (const Box* column, m_box->boxes())
 	{
-		const ParagraphStyle& style = m_story->paragraphStyle(column->firstChar());
-		if (style.backgroundColor() != CommonStrings::None)
+		const QList<const Box*>& lineBoxes = column->boxes();
+		QRectF colBBox = column->bbox();
+
+		for (int j = 0; j < lineBoxes.count(); ++j)
 		{
+			const Box* box = lineBoxes.at(j);
+			
+			const ParagraphStyle& style = m_story->paragraphStyle(box->firstChar());
+			backColor = style.backgroundColor();
+			backShade = style.backgroundShade();
+
+			if ((lastColor != backColor) || (lastShade != backShade))
+			{
+				if (!lastRect.isEmpty())
+				{
+					TextLayoutColor bkColor(lastColor, lastShade);
+					p->save();
+					p->setFillColor(bkColor);
+					p->setStrokeColor(bkColor);
+					p->drawRect(lastRect);
+					p->restore();
+					lastRect = QRectF();
+				}
+			}
+
+			if (backColor != CommonStrings::None)
+			{
+				QRectF rect(colBBox.x(), box->y(), colBBox.width(), box->height());
+				lastRect |= rect;
+			}
+
+			lastColor = backColor;
+			lastShade = backShade;
+		}
+
+		if (!lastRect.isEmpty())
+		{
+			TextLayoutColor bkColor(lastColor, lastShade);
 			p->save();
-			TextLayoutColor backColor(style.backgroundColor(), style.backgroundShade());
-			p->setFillColor(backColor);
-			p->setStrokeColor(backColor);
-			p->drawRect(column->bbox());
+			p->setFillColor(bkColor);
+			p->setStrokeColor(bkColor);
+			p->drawRect(lastRect);
 			p->restore();
 		}
+
+		lastColor.clear();
+		lastShade = 100;
+		lastRect = QRectF();
 	}
+
+	p->restore();
 }
 
 void TextLayout::render(TextLayoutPainter *p)
@@ -259,26 +306,51 @@ int TextLayout::nextLine(int pos) const
 
 int TextLayout::startOfFrame() const
 {
-	QList<Box*>& boxes = m_box->boxes();
-	if (boxes.isEmpty())
+	if (m_box->isEmpty())
 		return 0;
+	const QList<Box*>& boxes = m_box->boxes();
 
 	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.first());
 	assert(column);
 
-	return column->firstChar();
+	// Beware of columns hidden by other objects
+	if (column->boxCount() > 0)
+		return column->firstChar();
+	
+	int columnCount = boxes.count();
+	for (int i = 1; i < columnCount; ++i)
+	{
+		column = dynamic_cast<const GroupBox*>(boxes.at(i));
+		assert(column);
+
+		if (!column->isEmpty())
+			return column->firstChar();
+	}
+
+	return 0;
 }
 
 int TextLayout::endOfFrame() const
 {
-	QList<Box*>& boxes = m_box->boxes();
-	if (boxes.isEmpty())
+	if (m_box->isEmpty())
 		return 0;
+	const QList<Box*>& boxes = m_box->boxes();
 
-	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.last());
-	assert(column);
+	// Beware of columns hidden by other objects
+	const GroupBox* column = 0;
+	int columnIndex = boxes.count() - 1;
+	do
+	{
+		column = dynamic_cast<const GroupBox*>(boxes.at(columnIndex));
+		assert(column);
 
-	return column->lastChar() + 1;
+		if (!column->isEmpty())
+			return column->lastChar() + 1;
+		--columnIndex;
+	}
+	while (columnIndex >= 0);
+
+	return 0;
 }
 
 

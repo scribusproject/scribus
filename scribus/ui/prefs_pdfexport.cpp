@@ -270,23 +270,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	pageMirrorVerticalToolButton->setChecked(prefsData->pdfPrefs.MirrorV);
 	clipToPrinterMarginsCheckBox->setChecked(prefsData->pdfPrefs.doClip);
 	bool cmsUse = m_doc ? (ScCore->haveCMS() && m_doc->HasCMS) : false;
-	int newCMSIndex=0;
-	if (cmsUse)
-	{
-		if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_X1a)
-			newCMSIndex=3;
-		if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_X3)
-			newCMSIndex=4;
-		if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_X4)
-			newCMSIndex=5;
-	}
-	if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_13)
-		newCMSIndex=0;
-	if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_14)
-		newCMSIndex=1;
-	if (prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_15)
-		newCMSIndex=2;
-	pdfVersionComboBox->setCurrentIndex(newCMSIndex);
+	if (!cmsUse)
+		pdfVersionComboBox->setVersion(PDFOptions::PDFVersion_14);
+	pdfVersionComboBox->setVersion(prefsData->pdfPrefs.Version);
 	pageBindingComboBox->setCurrentIndex(prefsData->pdfPrefs.Binding);
 	generateThumbnailsCheckBox->setChecked(prefsData->pdfPrefs.Thumbnails);
 	saveLinkedTextFramesAsArticlesCheckBox->setChecked(prefsData->pdfPrefs.Articles);
@@ -724,18 +710,7 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 		prefsData->pdfPrefs.PassOwner = passwordOwnerLineEdit->text();
 		prefsData->pdfPrefs.PassUser = passwordUserLineEdit->text();
 	}
-	if (pdfVersionComboBox->currentIndex() == 0)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_13;
-	if (pdfVersionComboBox->currentIndex() == 1)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_14;
-	if (pdfVersionComboBox->currentIndex() == 2)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_15;
-	if (pdfVersionComboBox->currentIndex() == 3)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X1a;
-	if (pdfVersionComboBox->currentIndex() == 4)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X3;
-	if (pdfVersionComboBox->currentIndex() == 5)
-		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X4;
+	prefsData->pdfPrefs.Version = pdfVersionComboBox->version();
 	if (outputIntentionComboBox->currentIndex() == 0)
 	{
 		prefsData->pdfPrefs.isGrayscale = false;
@@ -852,7 +827,7 @@ void Prefs_PDFExport::enableProfiles(int i)
 {
 	enableLPI(i);
 	bool setter = false;
-	if (i == 1 && pdfVersionComboBox->currentIndex() != 3)
+	if (i == 1 && (!pdfVersionComboBox->versionIs(PDFOptions::PDFVersion_X1a)))
 		setter = true;
 	enableSolidsImagesWidgets(setter);
 }
@@ -1123,20 +1098,11 @@ void Prefs_PDFExport::enablePDFX(int i)
 void Prefs_PDFExport::addPDFVersions(bool addPDFXStrings)
 {
 	disconnect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
-	int i = pdfVersionComboBox->currentIndex();
-	pdfVersionComboBox->clear();
-	pdfVersionComboBox->addItem("PDF 1.3 (Acrobat 4)");
-	pdfVersionComboBox->addItem("PDF 1.4 (Acrobat 5)");
-	pdfVersionComboBox->addItem("PDF 1.5 (Acrobat 6)");
-	if (addPDFXStrings)
-	{
-		pdfVersionComboBox->addItem("PDF/X-1a");
-		pdfVersionComboBox->addItem("PDF/X-3");
-		pdfVersionComboBox->addItem("PDF/X-4");
-	}
-	else
-		i=qMin(i,2);
-	pdfVersionComboBox->setCurrentIndex(i);
+	PDFOptions::PDFVersion currVersion = pdfVersionComboBox->version();
+	pdfVersionComboBox->setPDFXEnabled(addPDFXStrings);
+	if (!addPDFXStrings)
+		currVersion = qMax(PDFOptions::PDFVersion_13, qMin(currVersion, PDFOptions::PDFVersion_15));
+	pdfVersionComboBox->setVersion(currVersion);
 	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
 }
 
@@ -1307,20 +1273,20 @@ void Prefs_PDFExport::SelEFont(QListWidgetItem *c)
 
 void Prefs_PDFExport::SelSFont(QListWidgetItem *c)
 {
-	if (c != NULL)
+	if (!c)
+		return;
+
+	if (pdfVersionComboBox->versionIsPDFX())
 	{
-		if (pdfVersionComboBox->currentIndex() == 4)
-		{
-			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
-				fromSubsetButton->setEnabled(false);
-			else
-				fromSubsetButton->setEnabled(true);
-		}
+		if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
+			fromSubsetButton->setEnabled(false);
 		else
 			fromSubsetButton->setEnabled(true);
-		toSubsetButton->setEnabled(false);
-		embeddedFontsListWidget->clearSelection();
 	}
+	else
+		fromSubsetButton->setEnabled(true);
+	toSubsetButton->setEnabled(false);
+	embeddedFontsListWidget->clearSelection();
 }
 
 void Prefs_PDFExport::PagePr()

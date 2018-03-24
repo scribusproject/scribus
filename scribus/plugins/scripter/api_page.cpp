@@ -167,7 +167,7 @@ PageItem *PageAPI::newItem(const PageItem::ItemType itemType,
 	            itemType, frameType,
 	            pageXtoDocX(x), pageYtoDocY(y),
 	            width, height,
-	            w, fill, outline, true);
+	            w, fill, outline, PageItem::StandardItem);
 	return ScCore->primaryMainWindow()->doc->Items->at(i);
 }
 

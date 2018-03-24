@@ -32,7 +32,11 @@ for which a new license (GPL+exception) is in place.
 #include "scimagecachewriteaction.h"
 #include "scpaths.h"
 
-#define SC_DEBUG_FILE defined(DEBUG_SCIMAGECACHE)
+#if defined(DEBUG_SCIMAGECACHE)
+#define SC_DEBUG_FILE 1
+#else
+#define SC_DEBUG_FILE 0
+#endif
 #include "scdebug.h"
 
 /*!
