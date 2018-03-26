@@ -130,7 +130,8 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeDrawBezierLine:
 		{
 			//if No nodes were created
-			if (currItem == NULL) {
+			if (currItem == NULL)
+			{
 				setSpecialEditMode(false);
 				break;
 			}
@@ -348,7 +349,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeEditTable:
 			{
-				if (oldMode != modeEditTable)
+				if (currItem && oldMode != modeEditTable)
 				{
 					scmw->charPalette->setEnabled(true, currItem);
 					(*a_scrActions)["insertSampleText"]->setEnabled(true);
@@ -359,10 +360,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 					// #11938: Paste is not correctly enabled in modeEditTable
 					if (ScMimeData::clipboardHasScribusData())
-					{
-						bool tableEditMode = ((currItem != NULL) && (currItem->asTable()));
-						(*a_scrActions)["editPaste"]->setEnabled(tableEditMode);
-					}
+						(*a_scrActions)["editPaste"]->setEnabled(currItem->asTable());
 				}
 			}
 			break;
