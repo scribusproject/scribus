@@ -5249,12 +5249,15 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 
 void ScribusMainWindow::slotResourceManager()
 {
-	if (!resourceManager)
+	if (!resourceManager) // in case its allocated???? maybe can remove in future
 	{
 		resourceManager=new ResourceManager(this);
-		resourceManager->exec();
-		resourceManager->deleteLater();
-		resourceManager=0;
+		if (resourceManager)
+		{
+			resourceManager->exec();
+			resourceManager->deleteLater();
+			resourceManager=0;
+		}
 	}
 }
 
