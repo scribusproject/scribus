@@ -561,8 +561,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		m_doc->nodeEdit.setClre(m_doc->nodeEdit.clre2());
 	}
 	FPointArray cli;
-	uint EndInd = Clip.size();
-	uint StartInd = 0;
+	int EndInd = Clip.size();
+	int StartInd = 0;
 	if (m_doc->nodeEdit.clre() > 0)
 	{
 		for (int n = m_doc->nodeEdit.clre(); n < Clip.size(); ++n)
@@ -573,10 +573,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				break;
 			}
 		}
-		for (uint n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
+		for (int n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
 		{
-			if (n2 == 0)
-				break;
 			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
@@ -591,7 +589,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		if ((!m_doc->nodeEdit.hasNodeSelected()) && (m_doc->nodeEdit.clre2() != -1)) // We don't have a Point, try to add one onto the current curve segment
 		{
 			bool foundP = false;
-			uint seg = 0;
+			int seg = 0;
 			double absDist = 9999999999.9;
 			FPoint point = FPoint(0, 0);
 			FPoint normal = FPoint(0, 0);
@@ -655,7 +653,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
 					cli.setPoint(cli.size()-1, cn1);
 					cli.resize(cli.size()+4);
-					uint basind = cli.size()+1;
+					int basind = cli.size()+1;
 					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
 					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2()+2);
 					cli.setPoint(basind, cn4);
@@ -676,10 +674,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				}
 				if (m_doc->nodeEdit.clre() > 0)
 				{
-					for (uint n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
+					for (int n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
 					{
-						if (n2 == 0)
-							break;
 						if (Clip.isMarker(n2))
 						{
 							StartInd = n2 + 1;
