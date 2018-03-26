@@ -1292,16 +1292,32 @@ void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
 	// Determine state.
 	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
 	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
-	const bool tableEdit = table && (doc->appMode == modeEditTable);
-	const int tableRows = table ? table->rows() : 0;
-	const int tableColumns = table ? table->columns() : 0;
+
+	if (!doc || !table)
+	{
+		(*a_scrActions)["tableInsertRows"]->setEnabled(false);
+		(*a_scrActions)["tableInsertColumns"]->setEnabled(false);
+		(*a_scrActions)["tableDeleteRows"]->setEnabled(false);
+		(*a_scrActions)["tableDeleteColumns"]->setEnabled(false);
+		(*a_scrActions)["tableMergeCells"]->setEnabled(false);
+		(*a_scrActions)["tableSplitCells"]->setEnabled(false); // Not implemented.
+		(*a_scrActions)["tableSetRowHeights"]->setEnabled(false);
+		(*a_scrActions)["tableSetColumnWidths"]->setEnabled(false);
+		(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(false);
+		(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
+		(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
+		(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
+		return;
+	}
+
+	const bool tableEdit = doc->appMode == modeEditTable;
+	const int tableRows = table->rows();
+	const int tableColumns = table->columns();
 	const int selectedRows = tableEdit ? table->selectedRows().size() : 0;
 	const int selectedColumns = tableEdit ? table->selectedColumns().size() : 0;
 	const int selectedCells = tableEdit ? table->selectedCells().size() : 0;
 
 	// Enable/disable menu actions.
-	(*a_scrActions)["tableInsertRows"]->setEnabled(table || (tableEdit && selectedCells < 1));
-	(*a_scrActions)["tableInsertColumns"]->setEnabled(table || (tableEdit && selectedCells < 1));
 	(*a_scrActions)["tableDeleteRows"]->setEnabled(tableEdit &&
 		((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)));
 	(*a_scrActions)["tableDeleteColumns"]->setEnabled(tableEdit &&
@@ -1310,21 +1326,22 @@ void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
 	(*a_scrActions)["tableSplitCells"]->setEnabled(false); // Not implemented.
 	(*a_scrActions)["tableSetRowHeights"]->setEnabled(tableEdit);
 	(*a_scrActions)["tableSetColumnWidths"]->setEnabled(tableEdit);
-	if (doc)
+	if (tableEdit)
 	{
-		if (doc->appMode == modeEditTable)
-		{
-			(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
-			(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
-		}
-		else
-		{
-			(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(table);
-			(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(table);
-		}
+		(*a_scrActions)["tableInsertRows"]->setEnabled(selectedCells < 1);
+		(*a_scrActions)["tableInsertColumns"]->setEnabled(selectedCells < 1);
+		(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
+		(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
 	}
-	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(table);
-	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(table);
+	else
+	{
+		(*a_scrActions)["tableInsertRows"]->setEnabled(true);
+		(*a_scrActions)["tableInsertColumns"]->setEnabled(true);
+		(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(true);
+		(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(true);
+	}
+	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(true);
+	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(true);
 }
 
 void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
