@@ -22,8 +22,8 @@ public:
 
 	const QString& id() const { return m_id; }
 	
-	bool hasMeasurementSpec() const { m_hasMeasurementSpec; }
-	bool hasTristimulusSpec() const { m_hasTristimulusSpec; }
+	bool hasMeasurementSpec() const { return m_hasMeasurementSpec; }
+	bool hasTristimulusSpec() const { return m_hasTristimulusSpec; }
 	bool hasWavelengthRange() const { return m_measurementSpec.hasWavelengthRange(); }
 	
 	const CxfMeasurementSpec& measurementSpec() const { return m_measurementSpec; }
