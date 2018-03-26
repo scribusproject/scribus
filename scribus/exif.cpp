@@ -980,11 +980,11 @@ QImage ExifData::getThumbnail()
 	switch ( Orientation )
 	{  // notice intentional fallthroughs
 		case 2: M = flip; break;
-		case 4: M = flip; Q_FALLTHROUGH();
+		case 4: M = flip; //Q_FALLTHROUGH();
 		case 3: M.rotate ( 180 ); break;
-		case 5: M = flip; Q_FALLTHROUGH();
+		case 5: M = flip; //Q_FALLTHROUGH();
 		case 6: M.rotate ( 90 ); break;
-		case 7: M = flip; Q_FALLTHROUGH();
+		case 7: M = flip; //Q_FALLTHROUGH();
 		case 8: M.rotate ( 270 ); break;
 		default: break; // should never happen
 	}
