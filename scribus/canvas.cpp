@@ -1167,11 +1167,11 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 {
 	if (m_doc->m_Selection->count() != 0)
 	{
-		uint selectedItemCount = m_doc->m_Selection->count();
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
+		int selectedItemCount = m_doc->m_Selection->count();
+		PageItem *currItem = NULL;
 		if (selectedItemCount < moveWithBoxesOnlyThreshold)
 		{
-			for (uint cu = 0; cu < selectedItemCount; cu++)
+			for (int cu = 0; cu < selectedItemCount; cu++)
 			{
 				currItem = m_doc->m_Selection->itemAt(cu);
 				pp->save();
@@ -1183,7 +1183,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				{
 					PageItem_Group* gItem = currItem->asGroupFrame();
 					pp->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
-					uint itemCountG = gItem->groupItemList.count();
+					int itemCountG = gItem->groupItemList.count();
 					if (itemCountG < moveWithFullOutlinesThreshold)
 					{
 						for (uint cg = 0; cg < itemCountG; cg++)

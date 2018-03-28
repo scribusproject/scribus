@@ -5254,7 +5254,7 @@ void ScribusMainWindow::slotResourceManager()
 		resourceManager=new ResourceManager(this);
 		resourceManager->exec();
 		resourceManager->deleteLater();
-		resourceManager=0;
+		resourceManager=NULL;
 	}
 }
 

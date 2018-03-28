@@ -274,7 +274,7 @@ void About::showEvent (QShowEvent * event)
 
 
 
-QString About::trAuthorTitle(QString title)
+QString About::trAuthorTitle(const QString& title)
 {
 	QString result;
 	if ( title == "Development Team:" )
@@ -312,7 +312,7 @@ QString About::trAuthorTitle(QString title)
 	}
 	return result;
 }
-QString About::trTranslationTitle(QString title)
+QString About::trTranslationTitle(const QString& title)
 {
 	QString result;
 	if ( title == "Official Translations and Translators (in order of locale shortcode):" )
@@ -328,7 +328,7 @@ QString About::trTranslationTitle(QString title)
 }
 
 
-QString About::trLinksTitle(QString title)
+QString About::trLinksTitle(const QString& title)
 {
 	QString result;
 	if ( title == "Homepage" )
@@ -359,7 +359,7 @@ QString About::trLinksTitle(QString title)
 * @param QString fileName the file to be parsed
 * @return QString the html table
 */
-QString About::parseAuthorFile(QString fileName)
+QString About::parseAuthorFile(const QString& fileName)
 {
 	QString result;
 	QString file;
@@ -448,7 +448,7 @@ QString About::parseAuthorFile(QString fileName)
 * @param QString fileName the file to be parsed
 * @return QString the html table
 */
-QString About::parseTranslationFile(QString fileName)
+QString About::parseTranslationFile(const QString& fileName)
 {
 	QString result;
 	QString file;
@@ -604,7 +604,7 @@ QString About::parseTranslationFile(QString fileName)
 * @param QString fileName the file to be parsed
 * @return QString the html table
 */
-QString About::parseLinksFile(QString fileName)
+QString About::parseLinksFile(const QString& fileName)
 {
 	QString result;
 	QString file;

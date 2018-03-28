@@ -34,7 +34,7 @@ public:
 	} AboutMode;
 
 	About( QWidget* parent, AboutMode mode = About::Default );
-	~About() {};
+	~About() {}
 	
 protected:
 	QLabel* pixmapLabel1;
@@ -62,15 +62,15 @@ protected:
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* layout2;
 
-	bool         m_firstShow;
-	AboutMode    m_mode;
-	virtual void showEvent ( QShowEvent * event ); 
-    QString trAuthorTitle(QString title);
-    QString trTranslationTitle(QString title);
-    QString trLinksTitle(QString title);
-    QString parseAuthorFile(QString fileName);
-    QString parseTranslationFile(QString fileName);
-    QString parseLinksFile(QString fileName);
+	bool m_firstShow;
+	AboutMode m_mode;
+	virtual void showEvent(QShowEvent* event);
+	QString trAuthorTitle(const QString& title);
+	QString trTranslationTitle(const QString& title);
+	QString trLinksTitle(const QString& title);
+	QString parseAuthorFile(const QString& fileName);
+	QString parseTranslationFile(const QString& fileName);
+	QString parseLinksFile(const QString& fileName);
 
 protected slots:
 	void runUpdateCheck();
