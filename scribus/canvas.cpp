@@ -1186,7 +1186,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 					int itemCountG = gItem->groupItemList.count();
 					if (itemCountG < moveWithFullOutlinesThreshold)
 					{
-						for (uint cg = 0; cg < itemCountG; cg++)
+						for (int cg = 0; cg < itemCountG; cg++)
 						{
 							currItem = gItem->groupItemList.at(cg);
 							if (!(currItem->asLine()))
