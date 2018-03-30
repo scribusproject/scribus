@@ -1223,29 +1223,28 @@ bool ScImage::convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 	return success;
 }
 
-QByteArray ScImage::ImageToArray()
+QByteArray ScImage::ImageToArray() const
 {
 	int i = 0;
 	int h = height();
 	int w = width();
 	unsigned char u;
-	QRgb *s;
-	QRgb r;
+	const QRgb *rgb;
 	QByteArray imgArray(3 * h * w, ' ');
 	if (imgArray.isNull())
 		return imgArray;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		rgb = (QRgb*) this->constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
-			r = *s++;
-			u=qRed(r);
+			u = qRed(*rgb);
 			imgArray[i++] = u;
-			u=qGreen(r);
+			u = qGreen(*rgb);
 			imgArray[i++] = u;
-			u=qBlue(r);
+			u = qBlue(*rgb);
 			imgArray[i++] = u;
+			++rgb;
 		}
 	}
 	return imgArray;
@@ -1269,9 +1268,10 @@ void ScImage::convertToGray(void)
 	}
 }
 
-bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
+bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1282,9 +1282,9 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
+		s = (const QRgb*) constScanLine(yi);
 		for( int xi=0; xi < w; ++xi )
 		{
 			r = *s++;
@@ -1303,9 +1303,10 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
 	return success;
 }
 
-bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
+bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1316,12 +1317,12 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
+		s = (const QRgb*) constScanLine(yi);
 		if (precal) // image data is already grayscale, no need for weighted conversion
 		{
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qRed(r);
@@ -1331,7 +1332,7 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 		}
 		else
 		{
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -1350,9 +1351,9 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 	return success;
 }
 
-bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk)
+bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk) const
 {
-	QRgb *s;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1368,7 +1369,7 @@ bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk)
 	{
 		char curByte = 0;
 		int bitCount = 0;
-		s = (QRgb*)(scanLine( yi ));
+		s = (const QRgb*) constScanLine(yi);
 		for (int xi = 0; xi < w; ++xi)
 		{
 			curByte <<= 1;
@@ -1395,9 +1396,10 @@ bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk)
 	return success;
 }
 
-bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
+bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1410,7 +1412,7 @@ bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
 		return false;
 	for( int yi=0; yi < h; ++yi )
 	{
-		s = (QRgb*)(scanLine( yi ));
+		s = (const QRgb*) constScanLine(yi);
 		for( int xi=0; xi < w; ++xi )
 		{
 			r = *s++;
@@ -1430,9 +1432,10 @@ bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
 	return success;
 }
 
-bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  c, m, y, k;
@@ -1444,10 +1447,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			c = qRed(r);
@@ -1486,9 +1489,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
 	return success;
 }
 
-bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl)
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  c, m, y, k;
@@ -1503,10 +1507,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mas
 	if (buffer.isNull()) // Check for memory allocation failure
 		return false;
 	unsigned char* maskData = (unsigned char*) mask.constData();
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			c = qRed(r);
@@ -2724,21 +2728,21 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	return true;
 }
 
-bool ScImage::hasSmoothAlpha()
+bool ScImage::hasSmoothAlpha() const
 {
 	int h = height();
 	int w = width();
 	QSet<int> alpha;
-	QRgb *s, r;
-	for( int yi=0; yi < h; ++yi )
+	const QRgb *s;
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
-			r = *s++;
-			alpha.insert(qAlpha(r));
+			alpha.insert(qAlpha(*s));
 			if (alpha.count() > 2)
 				return true;
+			s++;
 		}
 	}
 	return (alpha.count() > 2);

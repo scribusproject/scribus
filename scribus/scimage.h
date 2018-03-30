@@ -76,20 +76,20 @@ public:
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }
 	bool hasAlpha() const { return QImage::hasAlphaChannel(); }
-	bool hasSmoothAlpha();
+	bool hasSmoothAlpha() const;
 	
 	// Routines for PDF/PS output of images
-	QByteArray ImageToArray();
+	QByteArray ImageToArray() const;
 
 	void convertToGray(void);
 
-	bool writeRGBDataToFilter(ScStreamFilter* filter);
-	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal);
-	bool writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk);
-	bool writeCMYKDataToFilter(ScStreamFilter* filter);
+	bool writeRGBDataToFilter(ScStreamFilter* filter) const;
+	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal) const;
+	bool writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk) const;
+	bool writeCMYKDataToFilter(ScStreamFilter* filter) const;
 
-	bool writePSImageToFilter(ScStreamFilter* filter, int pl);
-	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
+	bool writePSImageToFilter(ScStreamFilter* filter, int pl) const;
+	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const;
 
 	bool getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
 	bool convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
