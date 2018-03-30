@@ -2782,6 +2782,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
 	if (flags & Pixmap_DrawBackground)
 		painter->clear(Doc->paperColor());
+	else if (flags & Pixmap_DrawWhiteBackground)
+		painter->clear(QColor(255, 255, 255));
 	painter->translate(-clipx, -clipy);
 	painter->setFillMode(ScPainter::Solid);
 	if (flags & Pixmap_DrawFrame)

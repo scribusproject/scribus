@@ -7253,7 +7253,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		if (doc->pdfOptions().Thumbnails)
 		{
 			// No need to load full res images for drawing small thumbnail
-			PageToPixmapFlags flags = Pixmap_DontReloadImages;
+			PageToPixmapFlags flags = Pixmap_DontReloadImages | Pixmap_DrawWhiteBackground;
 			thumb = view->PageToPixmap(pageNs[i] - 1, 100, flags);
 		}
 		allThumbs.insert(pageNs[i], thumb);

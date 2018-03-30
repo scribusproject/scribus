@@ -1480,14 +1480,17 @@ static PyObject *PDFfile_save(PDFfile *self)
 			pdfOptions.UseProfiles2 = false;
 		}
 	}
+
 	QMap<int, QImage> thumbs;
+	PageToPixmapFlags pixmapFlags = Pixmap_DontReloadImages | Pixmap_DrawWhiteBackground;
 	for (uint ap = 0; ap < pageNs.size(); ++ap)
 	{
 		QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied );
 		if (pdfOptions.Thumbnails)
-			thumb = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100);
+			thumb = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100, pixmapFlags);
 		thumbs.insert(pageNs[ap], thumb);
 	}
+
 	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 
 	MarginStruct optBleeds(pdfOptions.bleeds);
