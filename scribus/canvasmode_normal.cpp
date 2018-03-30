@@ -355,8 +355,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				}
 				return;
 			}
-			// Here removed a bunch of comments which made reading code difficult,
-			// there is svn for tracking changes after all. pm
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
