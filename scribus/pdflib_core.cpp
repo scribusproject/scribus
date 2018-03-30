@@ -47,7 +47,6 @@ for which a new license (GPL+exception) is in place.
 #include <QImage>
 #include <QList>
 #include <QPainterPath>
-#include <QPixmap>
 #include <QRect>
 #include <QRegExp>
 #include <QScopedPointer>
@@ -594,9 +593,9 @@ bool PDFLibCore::PDF_IsPDFX(PDFOptions::PDFVersion ver)
 }
 
 bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
-					  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
+					  const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs)
 {
-	QPixmap pm;
+	QImage thumb;
 	bool ret = false, error = false;
 	int  pc_exportpages=0;
 	int  pc_exportmasterpages=0;
@@ -650,11 +649,11 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		for (uint a = 0; a < pageNs.size() && !abortExport; ++a)
 		{
 			if (doc.pdfOptions().Thumbnails)
-				pm = thumbs[pageNs[a]];
+				thumb = thumbs[pageNs[a]];
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_Begin_Page(doc.DocPages.at(pageNs[a]-1), pm);
+			PDF_Begin_Page(doc.DocPages.at(pageNs[a]-1), thumb);
 			qApp->processEvents();
 			if (abortExport) break;
 
@@ -3326,7 +3325,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 
 
 
-void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
+void PDFLibCore::PDF_Begin_Page(const ScPage* pag, const QImage& thumb)
 {
 	ActPageP = pag;
 	Content = "";
@@ -3334,7 +3333,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 	pageData.radioButtonList.clear();
 	if (Options.Thumbnails)
 	{
-		ScImage img(pm.toImage());
+		ScImage img(thumb);
 		bool compDataAvail = false;
 		QByteArray array = img.ImageToArray();
 		if (Options.Compress)

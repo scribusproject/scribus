@@ -14,7 +14,7 @@ PDFlib::~PDFlib()
 }
 
 bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
-			  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
+			  const std::vector<int> & pageNs, const QMap<int, QImage>& thumbs)
 {
 	return static_cast<PDFLibCore*>(m_impl)->doExport(fn, nam, Components, pageNs, thumbs);
 }

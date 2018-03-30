@@ -33,11 +33,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <QActionGroup>
 #include <QClipboard>
+#include <QImage>
 #include <QKeyEvent>
 #include <QMainWindow>
 #include <QMap>
 #include <QMultiHash>
-#include <QPixmap>
 #include <QPointer>
 #include <QPushButton>
 #include <QProcess>
@@ -159,7 +159,7 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	void doPasteRecent(QString data);
-	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int,QPixmap> & thumbs, QString& error, bool* cancelled = NULL);
+	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = NULL);
 	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString workingDirectory = ".", QString dialogCaption = "", QString fileFilter = "", QString defNa = "",
 						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);

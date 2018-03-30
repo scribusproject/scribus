@@ -7135,7 +7135,7 @@ void ScribusMainWindow::reallySaveAsEps()
 }
 
 bool ScribusMainWindow::getPDFDriver(const QString &filename, const QString &name, int components, const std::vector<int> & pageNumbers,
-									 const QMap<int,QPixmap> & thumbs, QString& error, bool* cancelled)
+									 const QMap<int, QImage>& thumbs, QString& error, bool* cancelled)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
@@ -7225,7 +7225,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	QString pageString(dia.getPagesString());
 	std::vector<int> pageNs;
 	uint pageNumbersSize;
-	QMap<int,QPixmap> allThumbs, thumbs;
+	QMap<int, QImage> allThumbs, thumbs;
 	int components = dia.colorSpaceComponents();
 	QString nam(dia.cmsDescriptor());
 	QString fileName = doc->pdfOptions().fileName;
@@ -7249,14 +7249,14 @@ void ScribusMainWindow::doSaveAsPDF()
 	pageNumbersSize = pageNs.size();
 	for (uint i = 0; i < pageNumbersSize; ++i)
 	{
-		QPixmap pm(10, 10);
+		QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied);
 		if (doc->pdfOptions().Thumbnails)
 		{
 			// No need to load full res images for drawing small thumbnail
 			PageToPixmapFlags flags = Pixmap_DontReloadImages;
-			pm = QPixmap::fromImage(view->PageToPixmap(pageNs[i] - 1, 100, flags));
+			thumb = view->PageToPixmap(pageNs[i] - 1, 100, flags);
 		}
-		allThumbs.insert(pageNs[i], pm);
+		allThumbs.insert(pageNs[i], thumb);
 	}
 	if (cmsCorr)
 	{
@@ -7279,10 +7279,10 @@ void ScribusMainWindow::doSaveAsPDF()
 			pageNs2.clear();
 			pageNs2.push_back(pageNs[aa]);
 			pageNumbersSize = pageNs2.size();
-			QPixmap pm(10,10);
+			QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied);
 			if (doc->pdfOptions().Thumbnails)
-				pm = allThumbs[pageNs[aa]];
-			thumbs.insert(1, pm);
+				thumb = allThumbs[pageNs[aa]];
+			thumbs.insert(1, thumb);
 			QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 			if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 			{

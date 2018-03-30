@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusapi.h"
 
+#include <QImage>
 #include <QObject>
 #include <QMap>
-#include <QPixmap>
 #include <vector>
 
 class ScribusDoc;
@@ -52,7 +52,7 @@ public:
 	 * \param thumbs A mapping of input (document) page numbers to pre-rendered thumbnails.
 	 */
 	bool doExport(const QString& fn, const QString& nam, int Components,
-				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
+				  const std::vector<int> & pageNs, const QMap<int, QImage>& thumbs);
 
 	/**
 	 * Return an error message in case export has failed.
