@@ -675,6 +675,7 @@ set(SCRIBUS_SOURCES
 	pageitem_table.cpp
 	pageitem_textframe.cpp
 	pageitem_noteframe.cpp
+	pageitemiterator.cpp
 	pageitempointer.cpp
 	pagesize.cpp
 	pdf_analyzer.cpp

@@ -791,7 +791,7 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sce308tables.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\cxfimportdialog.h">
+    <ClInclude Include="..\..\..\scribus\pageitemiterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -2473,6 +2473,9 @@
     <ClCompile Include="..\..\..\scribus\ui\cxfimportdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitemiterator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4092,6 +4095,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\pdfversionmodel.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\cxfimportdialog.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

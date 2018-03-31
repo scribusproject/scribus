@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtparagraphstyle.h"
 #include "gtwriter.h"
 #include "pageitem.h"
+#include "pageitemiterator.h"
 #include "pagestructs.h"
 #include "scpage.h"
 #include "scribusdoc.h"
@@ -82,9 +83,10 @@ void TOCGenerator::generateDefault()
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
-		for (int d = 0; d < m_doc->DocItems.count(); ++d)
+		PageItemIterator itemIter(m_doc->DocItems);
+		while (itemIter.next())
 		{
-			currentDocItem = m_doc->DocItems.at(d);
+			currentDocItem = itemIter.current();
 			if (currentDocItem == NULL)
 				continue;
 			//Item not on a page, continue
