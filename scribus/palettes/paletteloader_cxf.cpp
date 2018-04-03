@@ -287,7 +287,7 @@ bool PaletteLoader_CxF::importObjectAsLabColor(const CxfObject* object)
 	const CxfColorCIELCh* cxfLChColor = dynamic_cast<const CxfColorCIELCh*>(object->color(cxfColorCIELCh));
 	if (cxfLChColor)
 	{
-		const CxfColorSpecification* colorSpec = cxfLabColor->colorSpecification();
+		const CxfColorSpecification* colorSpec = cxfLChColor->colorSpecification();
 		const CxfTristimulusSpec& tristimulusSpec = colorSpec->tristimulusSpec();
 		if (tristimulusSpec.isD50_2degree())
 		{
@@ -303,7 +303,7 @@ bool PaletteLoader_CxF::importObjectAsLabColor(const CxfObject* object)
 	const CxfColorCIEXYZ* cxfXYZColor = dynamic_cast<const CxfColorCIEXYZ*>(object->color(cxfColorCIEXYZ));
 	if (cxfXYZColor)
 	{
-		const CxfColorSpecification* colorSpec = cxfLabColor->colorSpecification();
+		const CxfColorSpecification* colorSpec = cxfXYZColor->colorSpecification();
 		const CxfTristimulusSpec& tristimulusSpec = colorSpec->tristimulusSpec();
 		if (tristimulusSpec.isD50_2degree())
 		{
