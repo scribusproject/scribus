@@ -7,16 +7,16 @@
 #include <QStringList>
 
 #include <unicode/uscript.h>
+
 #include "itextsource.h"
 #include "itextcontext.h"
 #include "shapedtext.h"
-
 
 class GlyphCluster;
 class StoryText;
 class PageItem;
 
-
+using namespace icu;
 
 class TextShaper
 {

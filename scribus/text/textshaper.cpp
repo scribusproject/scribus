@@ -14,6 +14,7 @@
 #include "styles/paragraphstyle.h"
 #include "util.h"
 
+using namespace icu;
 
 TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar, bool singlePar)
 	: m_context(context),
