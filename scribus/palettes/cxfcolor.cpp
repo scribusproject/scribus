@@ -141,9 +141,6 @@ CxfColorHTML::CxfColorHTML(CxfDocument* cxfDoc)
 bool CxfColorHTML::parse(QDomElement& colorElem)
 {
 	bool convOk = false;
-	bool gotRed(false);
-	bool gotGreen(false);
-	bool gotBlue(false);
 
 	reset();
 
@@ -191,7 +188,6 @@ CxfColorCMYK::CxfColorCMYK(CxfDocument* cxfDoc)
 
 bool CxfColorCMYK::parse(QDomElement& colorElem)
 {
-	bool convOk = false;
 	bool gotCyan(false);
 	bool gotMagenta(false);
 	bool gotYellow(false);
