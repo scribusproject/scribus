@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QSignalBlocker>
+
 #include "propertywidget_hyphenation.h"
 
 #include "appmodes.h"
@@ -123,6 +126,9 @@ void PropertyWidget_Hyphenation::updateCharStyle(const CharStyle& charStyle)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
+	QSignalBlocker smallestWordSpinBoxBlocker(smallestWordSpinBox);
+	QSignalBlocker hyphenCharLineEditBlocker(hyphenCharLineEdit);
+
 	smallestWordSpinBox->setValue(charStyle.hyphenWordMin());
 	uint hyphenChar = charStyle.hyphenChar();
 	QString hyphenText;
@@ -139,6 +145,7 @@ void PropertyWidget_Hyphenation::updateStyle(const ParagraphStyle& paraStyle)
 	const CharStyle& charStyle = paraStyle.charStyle();
 	updateCharStyle(charStyle);
 
+	QSignalBlocker blocker(maxConsecutiveCountSpinBox);
 	maxConsecutiveCountSpinBox->setValue(paraStyle.hyphenConsecutiveLines());
 }
 
