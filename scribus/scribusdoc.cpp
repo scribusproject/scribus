@@ -8001,7 +8001,7 @@ void ScribusDoc::itemSelection_SetHyphenWordMin(int wordMin, Selection* customSe
 {
 	CharStyle newStyle;
 	newStyle.setHyphenWordMin(wordMin);
-	itemSelection_ApplyCharStyle(newStyle, customSelection, "HYPHENWORDMIN");
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "HYPHEN_WORDMIN");
 }
 
 void ScribusDoc::itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection)
@@ -8015,7 +8015,7 @@ void ScribusDoc::itemSelection_SetHyphenChar(uint hyphenChar, Selection *customS
 {
 	CharStyle newStyle;
 	newStyle.setHyphenChar(hyphenChar);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "HYPHEN_CHAR");
 }
 
 void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection* customSelection)
@@ -9496,13 +9496,20 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 						UndoState* state = m_undoManager->getLastUndo();
 						ScItemState<QPair<CharStyle,CharStyle> > *is = NULL;
 						SimpleState *ss = NULL;
-						TransactionState *ts = dynamic_cast<TransactionState*>(state);
-						if (state && state->isTransaction())
-							ss = dynamic_cast<SimpleState*>(ts->last());
-						if (ss && ss->get("ETEA") == ETEA)
+						TransactionState *ts = NULL;
+						while (state && state->isTransaction())
 						{
-							for (uint i=0; i < ts->sizet(); i++) {
-								is = dynamic_cast<ScItemState<QPair<CharStyle,CharStyle> > *>(ts->at(i));
+							ts = dynamic_cast<TransactionState*>(state);
+							ss = dynamic_cast<SimpleState*>(ts->last());
+							state = ts->last();
+						}
+						if (ts && ss && ss->get("ETEA") == ETEA)
+						{
+							for (int i = ts->sizet() - 1; i >= 0; --i)
+							{
+								is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> > *>(ts->at(i));
+								if (!is || (is->get("ETEA") != ETEA))
+									break;
 								is->setItem(qMakePair(newStyle, is->getItem().second));
 							}
 						}
