@@ -458,11 +458,15 @@ const ScFace& getScFace(QString classname, QString text)
 {
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	PrefsManager* prefsManager = PrefsManager::instance();
+	SCFonts& availableFonts = prefsManager->appPrefs.fontPrefs.AvailFonts;
 
 	// Handle FontComboH class witch has only Family names in the combo class.
 	if (classname == "FontComboH" || classname == "SMFontComboH")
 	{
-		QStringList styles = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[text];
+		// SMFontComboH's "Use Parent Font" case
+		if (!availableFonts.fontMap.contains(text))
+			return ScFace::none();
+		QStringList styles = availableFonts.fontMap[text];
 		QString style = styles[0];
 		if (styles.contains("Regular"))
 			style = "Regular";
@@ -472,14 +476,14 @@ const ScFace& getScFace(QString classname, QString text)
 			style = "Medium";
 		else if (styles.contains("Book"))
 			style = "Book";
-		const ScFace& fon = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text, style);
+		const ScFace& fon = availableFonts.findFont(text, style);
 		if (!fontDb.families().contains(text))
 			QFontDatabase::addApplicationFont(fon.fontFilePath());
 		return fon;
 	}
 	else
 	{
-		const ScFace& scFace = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text);
+		const ScFace& scFace = availableFonts.findFont(text);
 		if (!fontDb.families().contains(scFace.family()))
 			QFontDatabase::addApplicationFont(scFace.fontFilePath());
 		return scFace;
@@ -520,10 +524,14 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	invpixPainter.fillRect(r, option.palette.background());
 
 	QFont font = option.font;
-	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2);
+	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2.0);
 
-	QFont font2 = fontDb.font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
-	font2.setPointSize(QFontInfo(font2).pointSize() * 3 / 2);
+	QFont font2 = option.font;
+	if (!scFace.isNone())
+	{
+		font2 = fontDb.font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
+		font2.setPointSize(QFontInfo(font2).pointSize() * 3 / 2.0);
+	}
 
 	bool hasLatin;
 	QFontDatabase::WritingSystem system = writingSystemForFont(font2, &hasLatin);
@@ -578,7 +586,6 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
 		if (fontMetrics.ascent() > r.height())
 		{
-
 			QRectF tbr = fontMetrics.tightBoundingRect(sample);
 			QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(), (r.height() + tbr.height()));
 			if (option.direction == Qt::RightToLeft)
