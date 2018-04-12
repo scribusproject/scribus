@@ -245,13 +245,16 @@ void StoryText::moveCursorWordLeft()
 	if (paragraphStyle().direction() == ParagraphStyle::RTL)
 	{
 		pos = it->following(pos);
-		if (pos < length() && text(pos).isSpace())
-			pos += 1;
+		if (pos != BreakIterator::DONE)
+		{
+			while (pos < length() && text(pos).isSpace())
+				pos += 1;
+		}
 	}
 	else
 	{
 		pos = cursorPosition();
-		if (pos > 0 && text(pos - 1).isSpace())
+		while (pos > 0 && text(pos - 1).isSpace())
 			pos -= 1;
 		pos = it->preceding(pos);
 	}
@@ -271,15 +274,18 @@ void StoryText::moveCursorWordRight()
 	if (paragraphStyle().direction() == ParagraphStyle::RTL)
 	{
 		pos = cursorPosition();
-		if (pos > 0 && text(pos - 1).isSpace())
+		while (pos > 0 && text(pos - 1).isSpace())
 			pos -= 1;
 		pos = it->preceding(pos);
 	}
 	else
 	{
 		pos = it->following(pos);
-		if (pos < length() && text(pos).isSpace())
-			pos += 1;
+		if (pos != BreakIterator::DONE)
+		{
+			while (pos < length() && text(pos).isSpace())
+				pos += 1;
+		}
 	}
 
 	if (pos != BreakIterator::DONE)
