@@ -154,34 +154,35 @@ int mainApp(ScribusQApp& app)
 void setPythonEnvironment(const QString& appPath)
 {
 	QString pythonHome = appPath + "/python";
-	if (!QDir(pythonHome).exists()) return; //assume a custom python
+	if (!QDir(pythonHome).exists())
+		return; //assume a custom python
 
 	QString tmp = "PYTHONHOME=" + QDir::toNativeSeparators(pythonHome);
 	_wputenv((const wchar_t*) tmp.utf16());
 
 	QString nativePath = QDir::toNativeSeparators(appPath);
-    tmp = "PYTHONPATH=";
-    tmp += nativePath;
-    tmp += "\\python;";
-    tmp += nativePath;
-    tmp += "\\python\\lib;";
-    tmp += nativePath;
-    tmp += "\\python\\dlls;";
+	tmp = "PYTHONPATH=";
 	tmp += nativePath;
-    tmp += "\\python\\tcl";
-    _wputenv((const wchar_t*) tmp.utf16());
+	tmp += "\\python;";
+	tmp += nativePath;
+	tmp += "\\python\\lib;";
+	tmp += nativePath;
+	tmp += "\\python\\dlls;";
+	tmp += nativePath;
+	tmp += "\\python\\tcl";
+	_wputenv((const wchar_t*) tmp.utf16());
 
 	wchar_t* oldenv = _wgetenv(L"PATH");
-    tmp = "PATH=";
-    tmp += nativePath;
-    tmp += ";";
-    tmp += nativePath;
-    tmp += "\\python";
-    if(oldenv != NULL) {
-        tmp += ";";
+	tmp = "PATH=";
+	tmp += nativePath;
+	tmp += ";";
+	tmp += nativePath;
+	tmp += "\\python";
+	if (oldenv != NULL) {
+		tmp += ";";
 		tmp +=  QString::fromUtf16((const ushort*) oldenv);
-    }
-    _wputenv((const wchar_t*) tmp.utf16());
+	}
+	_wputenv((const wchar_t*) tmp.utf16());
 }
 
 /*!
@@ -195,7 +196,7 @@ void setPythonEnvironment(const QString& appPath)
 LONG exceptionFilter(DWORD exceptionCode)
 {
 	LONG result;
-	switch( exceptionCode )
+	switch (exceptionCode)
 	{
 	case EXCEPTION_ACCESS_VIOLATION:
 	case EXCEPTION_DATATYPE_MISALIGNMENT:
@@ -237,45 +238,45 @@ LONG exceptionFilter(DWORD exceptionCode)
 static QString exceptionDescription(DWORD exceptionCode)
 {
 	QString description;
-	if ( exceptionCode == EXCEPTION_ACCESS_VIOLATION )
+	if (exceptionCode == EXCEPTION_ACCESS_VIOLATION)
 		description = "EXCEPTION_ACCESS_VIOLATION";
-	else if ( exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT )
+	else if (exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT)
 		description = "EXCEPTION_DATATYPE_MISALIGNMENT";
-	else if ( exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED )
+	else if (exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED)
 		description = "EXCEPTION_ARRAY_BOUNDS_EXCEEDED";
-	else if ( exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND )
+	else if (exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND)
 		description = "EXCEPTION_FLT_DENORMAL_OPERAND";
-	else if ( exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_FLT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_FLT_INEXACT_RESULT )
+	else if (exceptionCode == EXCEPTION_FLT_INEXACT_RESULT)
 		description = "EXCEPTION_FLT_INEXACT_RESULT";
-	else if ( exceptionCode == EXCEPTION_FLT_INVALID_OPERATION )
+	else if (exceptionCode == EXCEPTION_FLT_INVALID_OPERATION)
 		description = "EXCEPTION_FLT_INVALID_OPERATION";
-	else if ( exceptionCode == EXCEPTION_FLT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_OVERFLOW)
 		description = "EXCEPTION_FLT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_FLT_STACK_CHECK )
+	else if (exceptionCode == EXCEPTION_FLT_STACK_CHECK)
 		description = "EXCEPTION_FLT_STACK_CHECK";
-	else if ( exceptionCode == EXCEPTION_FLT_UNDERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_UNDERFLOW)
 		description = "EXCEPTION_FLT_UNDERFLOW";
-	else if ( exceptionCode == EXCEPTION_GUARD_PAGE )
+	else if (exceptionCode == EXCEPTION_GUARD_PAGE)
 		description = "EXCEPTION_GUARD_PAGE";
-	else if ( exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
 		description = "EXCEPTION_ILLEGAL_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_IN_PAGE_ERROR )
+	else if (exceptionCode == EXCEPTION_IN_PAGE_ERROR)
 		description = "EXCEPTION_IN_PAGE_ERROR";
-	else if ( exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_INT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_INT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_INT_OVERFLOW)
 		description = "EXCEPTION_INT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_INVALID_DISPOSITION )
+	else if (exceptionCode == EXCEPTION_INVALID_DISPOSITION)
 		description = "EXCEPTION_INVALID_DISPOSITION";
-	else if ( exceptionCode == EXCEPTION_INVALID_HANDLE )
+	else if (exceptionCode == EXCEPTION_INVALID_HANDLE)
 		description = "EXCEPTION_INVALID_HANDLE";
-	else if ( exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION )
+	else if (exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION)
 		description = "EXCEPTION_NONCONTINUABLE_EXCEPTION";
-	else if ( exceptionCode == EXCEPTION_PRIV_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_PRIV_INSTRUCTION)
 		description = "EXCEPTION_PRIV_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_STACK_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_STACK_OVERFLOW)
 		description = "EXCEPTION_STACK_OVERFLOW";
 	else
 		description = "UNKNOWN EXCEPTION";
@@ -372,7 +373,7 @@ void redirectIOToConsole(void)
 	freopen("NUL", "w", stderr);
 
 	// allocate console
-	if( GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE )
+	if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
 		AllocConsole();
 
 	// set the screen buffer to be big enough to let us scroll text
