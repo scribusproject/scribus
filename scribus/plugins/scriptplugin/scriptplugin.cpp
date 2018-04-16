@@ -159,6 +159,15 @@ void ScriptPlugin::deleteAboutData(const AboutData* about) const
 bool ScriptPlugin::initPlugin()
 {
 	QString cm;
+#if defined(Q_OS_WIN)
+	QString pyHome = qApp->applicationDirPath() + "/python";
+	if (QDir(pyHome).exists())
+	{
+		QString ph = QDir::toNativeSeparators(pyHome);
+		pythonHome = ph.toLocal8Bit();
+		Py_SetPythonHome(pythonHome.data());
+	}
+#endif
 	Py_Initialize();
 	if (PyUnicode_SetDefaultEncoding("utf-8"))
 	{

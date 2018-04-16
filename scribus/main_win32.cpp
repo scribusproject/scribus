@@ -64,6 +64,9 @@ void messageHandler( QtMsgType type, const char *msg );
 bool consoleOptionEnabled(int argc, char* argv[]);
 void redirectIOToConsole(void);
 
+// Python environment configuration function
+void setPythonEnvironment(const QString& appPath);
+
 // Console option arguments declared in scribusapp.cpp
 extern const char ARG_CONSOLE[];
 extern const char ARG_CONSOLE_SHORT[];
@@ -85,7 +88,9 @@ int main(int argc, char *argv[])
 	}
 #endif
 	ScribusQApp app(argc, argv);
+	setPythonEnvironment(app.applicationDirPath());
 	result =  mainApp(app);
+
 	return result;
 }
 
@@ -125,6 +130,48 @@ int mainApp(ScribusQApp& app)
 }
 
 /*!
+\fn void setPythonEnvironment(const QString& appPath)
+\author Jean Ghali
+\date Sat Jul 03 23:00:00 CET 2009
+\brief set the Python envirionment for Scribus
+\param appPath application Path
+\retval None
+*/
+void setPythonEnvironment(const QString& appPath)
+{
+	QString pythonHome = appPath + "/python";
+	if (!QDir(pythonHome).exists())
+		return; //assume a custom python
+
+	QString tmp = "PYTHONHOME=" + QDir::toNativeSeparators(pythonHome);
+	_wputenv((const wchar_t*) tmp.utf16());
+
+	QString nativePath = QDir::toNativeSeparators(appPath);
+	tmp = "PYTHONPATH=";
+	tmp += nativePath;
+	tmp += "\\python;";
+	tmp += nativePath;
+	tmp += "\\python\\lib;";
+	tmp += nativePath;
+	tmp += "\\python\\dlls;";
+	tmp += nativePath;
+	tmp += "\\python\\tcl";
+	_wputenv((const wchar_t*) tmp.utf16());
+
+	wchar_t* oldenv = _wgetenv(L"PATH");
+	tmp = "PATH=";
+	tmp += nativePath;
+	tmp += ";";
+	tmp += nativePath;
+	tmp += "\\python";
+	if (oldenv != NULL) {
+		tmp += ";";
+		tmp +=  QString::fromUtf16((const ushort*) oldenv);
+	}
+	_wputenv((const wchar_t*) tmp.utf16());
+}
+
+/*!
 \fn int exceptionFilter(DWORD exceptionCode)
 \author Jean Ghali
 \date Sun Oct 30 14:30:30 CET 2005
@@ -135,7 +182,7 @@ int mainApp(ScribusQApp& app)
 LONG exceptionFilter(DWORD exceptionCode)
 {
 	LONG result;
-	switch( exceptionCode )
+	switch (exceptionCode)
 	{
 	case EXCEPTION_ACCESS_VIOLATION:
 	case EXCEPTION_DATATYPE_MISALIGNMENT:
