@@ -66,7 +66,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 
-ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, const QString& docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -120,7 +120,7 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	{
 		if (docColSet != "Scribus Small")
 		{
-			QString pfad = "";
+			QString pfad;
 			if (customColSet.contains(docColSet))
 				pfad = csm.userPaletteFileFromName(docColSet);
 			else
@@ -507,7 +507,7 @@ void ColorsAndFillsDialog::editColorItem()
 		{
 			QString gradN = it->text(0);
 			QString patternName = origNames[it->text(0)];
-			QString newName = "";
+			QString newName;
 			gradientEditDialog *dia = new gradientEditDialog(this, gradN, dialogGradients[gradN], m_colorList, m_doc, &dialogGradients, false);
 			if (dia->exec())
 			{
