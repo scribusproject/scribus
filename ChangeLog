@@ -1,5 +1,7 @@
 Scribus - 1.5.4 (Released 2018-xx-xx)
 =========================================
+- 0015267: [Color Management] Colour model switch in the "Colours & Fills" dialogue doesn't work as expected (jghali)
+- 0015080: [Story Editor / Text Frames] Crashes when editing document (jghali)
 - 0015260: [Tables] Crash when trying to select two cell in table with ctrl+shift+right arrow (jghali)
 - 0015254: [Styles] Scribus crashes when scrolling Character Style Family drop menu (jghali)
 - 0015236: [Build System] Scribus stopped building after update to icu 61.1 (jghali)
