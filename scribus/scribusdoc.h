@@ -1324,6 +1324,7 @@ public:
 	ScColorTransform stdProofCMYKGC;
 	ScColorTransform stdLabToRGBTrans;
 	ScColorTransform stdLabToCMYKTrans;
+	ScColorTransform stdLabToScreenTrans;
 	ScColorTransform stdProofLab;
 	ScColorTransform stdProofLabGC;
 	bool BlackPoint;

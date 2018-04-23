@@ -632,7 +632,7 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 	else if (color.getColorModel() == colorModelLab)
 	{
 		bool cmsUse = doc ? doc->HasCMS : false;
-		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
+		ScColorTransform trans  = doc ? doc->stdLabToScreenTrans : ScCore->defaultLabToRGBTrans;
 		if (cmsUse && trans)
 		{
 			double inC[3];
@@ -715,7 +715,7 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
-		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
+		ScColorTransform trans  = doc ? doc->stdLabToScreenTrans : ScCore->defaultLabToRGBTrans;
 		double inC[3];
 		inC[0] = 100 - (100 - color.m_L_val) * (level / 100.0);
 		inC[1] = color.m_a_val * (level / 100.0);
@@ -826,7 +826,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		inC[1] = color.m_a_val * (level / 100.0);
 		inC[2] = color.m_b_val * (level / 100.0);
 		quint16 outC[3];
-		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
+		ScColorTransform trans  = doc ? doc->stdLabToScreenTrans : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProof   = doc ? doc->stdProofLab   : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProofGC = doc ? doc->stdProofLabGC : ScCore->defaultLabToRGBTrans;
 		if (cmsUse && doc && doc->SoftProofing)

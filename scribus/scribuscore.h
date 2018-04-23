@@ -123,6 +123,7 @@ public:
 	ScColorTransform defaultCMYKToRGBTrans;
 	ScColorTransform defaultLabToRGBTrans;
 	ScColorTransform defaultLabToCMYKTrans;
+	ScColorTransform defaultLabToScreenTrans;
 	
 protected:
 	void initCMS();

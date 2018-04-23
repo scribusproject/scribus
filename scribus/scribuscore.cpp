@@ -468,8 +468,9 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	defaultCMYKToScreenImageTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_8, defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
 	defaultRGBToCMYKTrans         = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16, defaultCMYKProfile, Format_CMYK_16, intent, dcmsFlags);
 	defaultCMYKToRGBTrans         = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_16, defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
-	defaultLabToRGBTrans           = defaultEngine.createTransform(defaultLabProfile, Format_Lab_Dbl, defaultRGBProfile, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
+	defaultLabToRGBTrans          = defaultEngine.createTransform(defaultLabProfile, Format_Lab_Dbl, defaultRGBProfile, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
 	defaultLabToCMYKTrans         = defaultEngine.createTransform(defaultLabProfile, Format_Lab_Dbl, defaultCMYKProfile, Format_CMYK_16, Intent_Absolute_Colorimetric, dcmsFlags);
+	defaultLabToScreenTrans       = defaultLabToRGBTrans;
 	if (!defaultRGBToScreenSolidTrans  || !defaultRGBToScreenImageTrans || 
 		!defaultCMYKToScreenImageTrans || !defaultRGBToCMYKTrans || 
 		!defaultCMYKToRGBTrans || !defaultLabToRGBTrans|| !defaultLabToCMYKTrans)
@@ -489,6 +490,7 @@ void ScribusCore::ResetDefaultColorTransforms(void)
 	defaultCMYKToRGBTrans = ScColorTransform();
 	defaultLabToRGBTrans = ScColorTransform();
 	defaultLabToCMYKTrans = ScColorTransform();
+	defaultLabToScreenTrans = ScColorTransform();
 }
 
 void ScribusCore::initCMS()

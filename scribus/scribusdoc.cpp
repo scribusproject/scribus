@@ -983,6 +983,7 @@ void ScribusDoc::SetDefaultCMSParams()
 	stdProofImgCMYK       = ScCore->defaultCMYKToScreenImageTrans;
 	stdLabToRGBTrans      = ScCore->defaultLabToRGBTrans;
 	stdLabToCMYKTrans     = ScCore->defaultLabToCMYKTrans;
+	stdLabToScreenTrans   = ScCore->defaultLabToScreenTrans;
 	stdProofLab           = ScCore->defaultLabToRGBTrans;
 	stdProofLabGC         = ScCore->defaultLabToRGBTrans;
 }
@@ -1090,13 +1091,15 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 			m_docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 4;
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			m_docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
-	stdLabToRGBTrans   = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
-	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocPrinterProf, Format_CMYK_16, Intent_Absolute_Colorimetric, dcmsFlags);
+
+	stdLabToRGBTrans  = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocInputRGBProf, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
+	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocInputCMYKProf, Format_CMYK_16, Intent_Absolute_Colorimetric, dcmsFlags);
+	stdLabToScreenTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
 
 	bool success = (stdTransRGBMon   && stdTransCMYKMon   && stdProofImg    && stdProofImgCMYK &&
 					stdTransImg      && stdTransRGB       && stdTransCMYK   && stdProof        &&
 					stdProofGC       && stdProofCMYK      && stdProofCMYKGC &&
-					stdLabToRGBTrans && stdLabToCMYKTrans && stdProofLab    && stdProofLabGC);
+					stdLabToRGBTrans && stdLabToCMYKTrans && stdLabToScreenTrans && stdProofLab && stdProofLabGC);
 	if (!success)
 	{
 		CloseCMSProfiles();
