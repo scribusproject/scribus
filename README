@@ -1,4 +1,4 @@
-=What’s New in Scribus 1.5.3 ?=
+=What’s New in Scribus 1.5.x ?=
 
 
 This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.
@@ -8,7 +8,7 @@ Please note that the file format has changed and is not backwardly compatible wi
 Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.2 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
 
 
-￼
+
 ==General==
 
 Qt 5: As of version 1.5.3, Scribus is being built using version 5.5 of the Qt toolkit.
@@ -27,7 +27,7 @@ More dependencies: Scribus 1.5.x makes extensive use of many more external libra
 
 - Background colors for glyphs.
 - Foot- and endnotes.
-- Freely defineable text variables.
+- Freely definable text variables.
 - Text references.
 - Anchored text frames.
 - Automatic numbering and bullets.
@@ -42,14 +42,14 @@ More dependencies: Scribus 1.5.x makes extensive use of many more external libra
 The tables tool has been completely rewritten. Tables in Scribus work now more like those in other DTP and wordprocessing software. Basic table and cell styles have also been implemented.
 
 
-￼
+
 ==Graphics==
 
 ===Picture Browser===
 
 A new feature-rich plug-in called “Picture Browser” enables asset management for graphics files by tagging them or creating graphics collections. Graphics files can be dragged into a Scribus document from the Picture Browser. 
 
-￼
+
 ===Vector Tools===
 
 - New vector types: Arcs and Spirals.
@@ -65,16 +65,16 @@ A new feature-rich plug-in called “Picture Browser” enables asset management
 
 
 ==Frame Fills and Lines==
-￼
+
 ===L*a*b* and HLC colors in Scribus===
 
 - Support for CIE L*a*b* and CIE HLC color models: As of version 1.5.1 Scribus supports the CIE L*a*b* color space and its user-friendly variant HLC in almost all color-related dialogs. You can now add or convert existing colors using L*a*b* or HLC.
 
 - Availability of more than 300 color palettes: As of version 1.5.2, Scribus provides access to the more than 300 mostly commercial color palettes of the Open Colour Systems Collection in the CIE L*a*b color space via the Resource Manager.
-￼
+
 ===The unified Colors & Fills Manager===
 
-- More supported color palette formats: Scribus can now read and use swatches from Adobe Photoshop (ACO), AutoCAD (ACB), Swatchbooker (SBZ), as well as Adobe Swatch Exchange files (ASE).
+- More supported color palette formats: Scribus can now read and use swatches from Adobe Photoshop (ACO), AutoCAD (ACB), Swatchbooker (SBZ), as well as Adobe Swatch Exchange files (ASE) and the new ISO standard, CxF3.
 - More gradient fills: Scribus can import GIMP gradients via the “Colors & Fills” dialog. Moreover, the number of available gradient options in Scribus has grown significantly and includes, among others, mesh gradients.
 - Hatchings: As of this version, Scribus supports real vector hatchings with various options.
 - New frame stroke and line options: All types of lines, including frame strokes, can now use a gradient or a pattern instead of only a color.
