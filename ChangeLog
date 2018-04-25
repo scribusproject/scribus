@@ -1,5 +1,10 @@
-Scribus - 1.4.7 (Released 2017-12-26)
+Scribus - 1.4.7 (Released 2018-04-28)
 =========================================
+ 0015238: [General] Conflict with Python 3 prevent scribus to run (jghali)
+ 0015191: [Import / Export] PDF-Bookmarks go to wrong target page on partial export (jghali)
+ 0015145: [PDF] Javascript fails to execute on PDF opening when PDF security is enabled (jghali)
+ 0015083: [Translation] German translation for scribus.desktop (jghali)
+ 0015077: [Import / Export] importing eps-files with Scribus 1.4.6 and Ghostscript 9.22 fails (jghali)
  0014884: [Import / Export]  A blank character is added when importing an html file (jghali)
  0014891: [Story Editor / Text Frames]  Style replacement isn't correct (jghali)
  0014900: [PDF]  Fonts used only in patterns can't be embedded in PDFs (jghali)
