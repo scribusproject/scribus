@@ -1,17 +1,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>What&rsquo;s New in Scribus 1.5.3?</title>
+	<title>What&rsquo;s New in Scribus 1.5.4?<title>
 </head>
 <style>
 @import "manual.css";
 </style>
 <body>
-<h2>What&rsquo;s New in Scribus 1.5.3?</h2>
+<h2>What&rsquo;s New in Scribus 1.5.4?</h2>
 <p>This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.</p>
 
 <p><b><i>Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.5.x files with version 1.4.x or any earlier version.</i></b></p>
-<p>Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.3 to be stable enough to be used for daily work by courageous users. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.</p>
+<p>Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.4 to be stable enough to be used for daily work by courageous users. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.</p>
 <br>
 <table width="100%">
   <tbody>
@@ -26,7 +26,7 @@
 <br>
 <h3>General</h3>
 <ul>
-<li><b>Qt 5:</b> As of version 1.5.x, Scribus is being built using version 5 of the Qt toolkit. Scribus 1.5.3 requires at least Qt 5.5.</li>
+<li><b>Qt 5:</b> As of version 1.5.x, Scribus is being built using version 5 of the Qt toolkit. Scribus 1.5.4 requires at least Qt 5.5.</li>
 <li><b>More dependencies:</b> Scribus 1.5.x makes extensive use of many more external libraries than earlier versions, especially for import filters. In most cases Scribus needs to be explicitly compiled against these libraries, so they become dependencies. In other cases (e.g. UniConvertor), Scribus will detect an installed version automatically. Note that full support for some libraries may not be available on Mac&nbsp;OS&nbsp;X and Windows until the final 1.6.0 release.</li>
 <br>
 <h3>Text and Typography</h3>
@@ -208,6 +208,7 @@
 <br>
 <ul>
 <li><b>Adobe PageMaker:</b> Scribus 1.5 includes an early version of a filter for files created in versions 6.5 and 7.0 of the once popular DTP program. It uses <a href="https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker">libpagemaker</a></li>
+<li><b>Color Exchange Format (CXF):</b> CXF v. 3 is an ISO standard created to facilitate colour communication for various output targets, e.g. web or various print targets. It permits more than one version of a colour palette in a single file. Since it is also used for ink mixing formulas, the Scribus Team had to implement support for spectral colours. Spectral colours will be converted to L*a*b* upon import.</li>
 <li><b>Computer Graphics Metafile (CGM):</b> CGM is a 2D vector format standard that has been around for a long time and is still being developed, especially for technical drawings. The new filter is supposed to import most CGM files correctly.</li>
 <li><b>CorelDraw (CDR, CDT, CMX):</b> Thanks to the tireless work on <a href="https://wiki.documentfoundation.org/DLP/Libraries/libcdr">libcdr</a>, Scribus can now import files created by CorelDraw from version 1 to the present. Moreover, adding support for libcdr not only allows for importing CDR files, but also CorelDraw Templates (CDT) and CorelDraw Presentations Exchange (CMX) files.</li>
 <li><b>Enhanced Metafile (EMF):</b> EMF files are 32-bit versions of the 16-bit Windows Metafile Format (WMF), which has already been supported by Scribus 1.4.x.</li>
@@ -252,6 +253,7 @@
 <br>
 <ul>
 <li><b>Progressive Graphics File (PGF):</b> This is a fairly new image format, designed to replace JPEG, just like JPEG 2000 does, but emphasizing speed and quality over compression ratio.</li>
+<li><b>QuarkXPress (QXD):</b> This is an experimental import filter for files created with QuarkXPress 3.x or 4.x. It uses <a href="https://wiki.documentfoundation.org/DLP/Libraries/libqxp">libqxp</a>, wich is also used for XPress import into LibreOffice.</li>
 <li><b>Rich Text Format (RTF):</b> One of the most widely used exchange formats for formatted text, RTF is also very common in DTP workflows and can be exported by almost every word processor since the 90s.</li>
 <li><b>StarView Metafile (SVM):</b> This is an old Metafile format (similar to WMF) that was used by OpenOffice&rsquo;s / LibreOffice&rsquo;s predecessor StarOffice. Since both successors still use SVM in OpenDocument Graphics, the SVM import filter was a by-product of the new ODG filter. </li>
 <li><b>UniConvertor Plug-in:</b> As with the GraphicsMagick plug-in, Scribus won&rsquo;t list any of the file types supported by UniConvertor to save space in file selectors. It will also ignore UniConvertor for importing file formats for which Scribus provides generic importers.</li>
@@ -260,6 +262,7 @@
 <li><b>Xara Designer (XAR):</b> Xara Designer (formerly known as Xara Xtreme) is known as one of the most powerful vector drawing programs. Its file format (XAR) is well-documented, and thanks to many contributions from professional Xara users, the Scribus Team has been able to create an excellent XAR filter, whose implementation resulted in the addition of many new features in Scribus.</li>
 <li><b>XML Paper Specification (XPS, OXPS):</b> XPS is an alternative to PDF originally developed by Microsoft and now maintained and updated by ECMA International. Scribus 1.5 can import both the original Microsoft version (XPS) and the modified versions as standardized by ECMA (OXPS).</li>
 <li><b>XPress Tags (XTG):</b> XTG is a format created by Quark to exchange text layouts between documents. Scribus 1.5 provides an import filter for XTG files created by Quark XPress, which works almost flawlessly. Note that XPress Tags is not identical to Xtags, which is an enhanced version of XPress Tags provided by a third party via an XPress plug-in.</li>
+<li><b>ZonerDraw (ZMF):</b> An importer for ZMF files has been made possible by the creation of <a href="https://wiki.documentfoundation.org/DLP/Libraries/libzmf">libzmf</a>, wich is also used for ZMF import into LibreOffice. It currently only supports files created by ZonerDraw 4 and 5.</li>
 </ul>
 
 
@@ -348,11 +351,13 @@
 <li>Scribus now follows the XDG standard for configuration files. Therefore, the Scribus preference directory has moved from <code>~/.scribus/</code> to a new default location: <code>~/.config/scribus/</code>.</li>
 <li>Some new and useful scripts have been added; others were updated.</li>
 
-<h3>Known Issues in 1.5.3</h3>
+<h3>Known Issues in 1.5.4</h3>
 <ul>
 <li>Properties Palette functionality has grown significantly and needs to be split further into separate palettes later in the 1.5.x series.</li>
 <li>Undo/Redo functionality may not be reliable for certain new features yet.</li>
 <li>Certain older scripts that come bundled with Scribus may not work.</li>
+<li>Some of the "Table" settings in the Properties Palette don't work.</li>
+<li>Some text features related to numbering (e.g. lists, footnotes) do not work properly yet.</li>
 </ul>
 
 <br>

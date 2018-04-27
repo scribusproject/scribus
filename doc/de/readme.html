@@ -1,17 +1,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Was ist neu in Scribus 1.5.3?</title>
+	<title>Was ist neu in Scribus 1.5.4?</title>
 </head>
 <style>
 @import "manual.css";
 </style>
 <body>
-<h2>Was ist neu in Scribus 1.5.3?</h2>
+<h2>Was ist neu in Scribus 1.5.4?</h2>
 <p>Dies ist ein kurzer &Uuml;berblick &uuml;ber die wichtigsten &Auml;nderungen in Scribus im Vergleich zur aktuell stabilen Version 1.4.x.</p>
 
-<p><b><i>Beachten Sie bitte, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht abw&auml;rtskompatibel mit einer anderen stabilen Version (1.4.x oder fr&uuml;her) ist. Genauer gesagt, Sie werden 1.5.x-Dateien nicht mit 1.4.x oder fr&uuml;heren Versionen zu &ouml;ffnen können.</i></b></p>
-<p>Beachten Sie auch, da&szlig; die 1.5.x-Serie keine offiziell stabile Version ist. Alle 1.5.x-Versionen sind Entwicklungsversionen f&uuml;r das kommende offiziell stabile Scribus 1.6.0! Wenn Sie versuchen, wichtige Dokumente mit 1.5.x zu erstellen, so machen Sie dies auf eigene Gefahr! Das Scribus-Team ist dennoch sicher, da&szlig; Scribus 1.5.3 f&uuml;r mutige Anwender bereits stabil genug f&uuml;r die t&auml;gliche Arbeit ist. Funktionen, die schon in 1.4.x vorhanden sind, arbeiten genauso verl&auml;&szlig;lich und in vielen F&auml;llen sogar besser als in 1.4.x.</p>
+<p><b><i>Beachten Sie bitte, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht abw&auml;rtskompatibel mit einer anderen stabilen Version (1.4.x oder fr&uuml;her) ist. Genauer gesagt, Sie werden 1.5.x-Dateien nicht mit 1.4.x oder fr&uuml;heren Versionen &ouml;ffnen können.</i></b></p>
+<p>Beachten Sie auch, da&szlig; die 1.5.x-Serie keine offiziell stabile Version ist. Alle 1.5.x-Versionen sind Entwicklungsversionen f&uuml;r das kommende offiziell stabile Scribus 1.6.0! Wenn Sie versuchen, wichtige Dokumente mit 1.5.x zu erstellen, so machen Sie dies auf eigene Gefahr! Das Scribus-Team ist dennoch sicher, da&szlig; Scribus 1.5.4 f&uuml;r mutige Anwender bereits stabil genug f&uuml;r die t&auml;gliche Arbeit ist. Funktionen, die schon in 1.4.x vorhanden sind, arbeiten genauso verl&auml;&szlig;lich und in vielen F&auml;llen sogar besser als in 1.4.x.</p>
 <br>
 <table width="100%">
   <tbody>
@@ -26,7 +26,7 @@
 <br>
 <h3>Allgemein</h3>
 <ul>
-<li><b>Qt 5:</b> Ab Version 1.5.x wird Scribus mit der Version 5 des Qt-Toolkits kompiliert. F&uuml;r Scribus 1.5.3 ist mindestens Qt 5.5 erforderlich.</li>
+<li><b>Qt 5:</b> Ab Version 1.5.x wird Scribus mit der Version 5 des Qt-Toolkits kompiliert. F&uuml;r Scribus 1.5.4 ist mindestens Qt 5.5 erforderlich.</li>
 <li><b>Mehr Abh&auml;ngigkeiten:</b> Scribus 1.5.x macht Gebrauch von mehr externen Bibliotheken als fr&uuml;here Versionen, speziell f&uuml;r die Importfilter. In den meisten F&auml;llen mu&szlig; Scribus explizit mit diesen Bibliotheken kompiliert werden, so da&szlig; sie Abh&auml;ngigkeiten werden. In anderen F&auml;llen (z.B. UniConverter) erkennt Scribus eine installierte Version automatisch. Beachten Sie, da&szlig; die vollst&auml;ndige Unterst&uuml;tzung f&uuml;r manche Bibliotheken auf Mac&nbsp;OS&nbsp;X und Windows erst mit der Ver&ouml;ffentlichung von 1.6.0 zur Verf&uuml;gung stehen wird.</li>
 <br>
 <h3>Text und Typographie</h3>
@@ -207,6 +207,7 @@
 <br>
 <ul>
 <li><b>Adobe PageMaker:</b> Scribus 1.5 beinhaltet eine fr&uuml;he Version eines Filters f&uuml;r Dateien, die mit den Versionen 6.5 und 7.0 des einst popul&auml;ren DTP Programms erstellt wurden. Er benutzt dazu <a href="https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker">libpagemaker</a>.</li>
+<li><b>Color Exchange Format (CXF):</b> CXF, Version 3 ist ein ISO-Standard, dessen Zweck es ist, die Farbkommunikation für verschiedene Ausgabeziele wie Web oder unterschiedliche Druckverfahren zu erleichtern. In einer CXF-datei k&ouml;nnen daher mehrere Versionen einer Farbpalette enthalten sein. Weil CXF auch f&uuml;r die Farbrezeptur verwendet wird, hat das Scribus-Team auch Unterst&uuml;tzung f&uuml;r Spektralfarben implementiert. Letztere werden beim import in den L*a*b*-Farbraum umgerechnet.</li>
 <li><b>Computer Graphics Metafile (CGM):</b> CGM ist ein 2D-Vektorformat&ndash;Standard, den es schon lange gibt und der insbesondere f&uuml;r technische Zeichnungen immer noch weiterentwickelt wird. Der neue Filter sollte die meisten CGM Dateien korrekt importieren.</li>
 <li><b>CorelDraw (CDR, CDT, CMX):</b> Dank der unerm&uuml;dlichen Arbeit an <a href="https://wiki.documentfoundation.org/DLP/Libraries/libcdr">libcdr</a>, kann Scribus nun Dateien importieren, die von CorelDraw von der Version 1 bis zur Gegenwart erstellt wurden. Au&szlig;erdem erlaubt die Integration von libcdr nicht nur das Importieren von CDR-Dateien, sondern auch CorelDraw-Templates- und CorelDraw-Presentations-Exchange-Dateien (CDT, CMX).</li>
 <li><b>Enhanced Metafile (EMF):</b> EMF-Dateien sind 32-bit Versionen des 16-bit-Windows-Metafile-Formats (WMF), das schon von Scribus 1.4.x unterst&uuml;tzt wurde.</li>
@@ -251,6 +252,7 @@
 <br>
 <ul>
 <li><b>Progressive Graphics File (PGF):</b> Dies ist ein ziemlich neues Format, das wie JPEG 2000 das JPEG-Format ersetzen soll, aber Geschwindigkeit und Qualit&auml;t &uuml;ber die Komprimierung stellt.</li>
+<li><b>QuarkXPress (QXD):</b> Hierbei handelt es sich um einen experimentellen Importfilter f&uuml;r Dateien, die mit QuarkXPress 3.x or 4.x erzeugt wurden. Er verwendet die Bibliothek <a href="https://wiki.documentfoundation.org/DLP/Libraries/libqxp">libqxp</a>, die auch für den XPress-Import in LibreOffice genutzt wird.</li>
 <li><b>Rich Text Format (RTF):</b> Als eines der meistverbreiteten Austauschformate f&uuml;r formatierten Text ist RTF auch in DTP Arbeitsabl&auml;ufen sehr gebr&auml;uchlich und kann von nahezu jedem Textverarbeitungsprogramm seit den 90er Jahren exportiert werden.</li>
 <li><b>StarView Metafile (SVM):</b> Dies ist ein altes Metafile-Format (&auml;hnlich wie WMF), das vom Vorg&auml;nger von OpenOffice / LibreOffice, StarOffice, genutzt wurde. Da beide Nachfolger SVM noch in OpenDocument Graphics nutzen, ist der SVM Importfilter ein Nebenprodukt des neuen ODG-Filters.</li>
 <li><b>UniConvertor-Plug-in:</b> Wie beim GraphicsMagick-Plug-in listet Scribus keine Dateitypen auf, die von UniConverter unterst&uuml;tzt werden, um Platz im Auswahlmen&uuml; zu sparen. Scribus ignoriert UniConverter auch bei Dateitypen f&uuml;r die es eigene Importfilter zur Verf&uuml;gung hat.</li>
@@ -259,6 +261,7 @@
 <li><b>Xara Designer (XAR):</b> Xara Designer (fr&uuml;her bekannt als Xara Xtreme) ist bekannt als eines der m&auml;chtigsten Vektorzeichenprogramme. Das Dateiformat (XAR) ist gut dokumentiert, und dank der vielen Beitr&auml;ge professioneller Xara-Nutzer war es dem Scribus-Team m&ouml;glich, einen hervorragenden XAR Filter zu schreiben, dessen Implementierung Scribus viele neue Funktionen brachte.</li>
 <li><b>XML Paper Specification (XPS, OXPS):</b> XPS ist eine Alternative zu PDF, die urspr&uuml;nglich von Microsoft entwickelt wurde und nun von ECMA International gepflegt und aktualisiert wird. Scribus 1.5.x kann sowohl die ursprüngliche Microsoft-Version (XPS) als auch die modifizierten Versionen, die von ECMA genormt wurden, (OXPS) importieren.</li>
 <li><b>XPress Tags (XTG):</b> XTG ist ein Format, das Quark ersonnen hat, um Textlayout zwischen Dokumenten zu &uuml;bertragen. Scribus 1.5.x bietet einen Importfilter f&uuml;r XTG-Dateien, die von QuarkXpress geschrieben wurden, und der nahezu fehlerfrei arbeitet. Zu beachten ist, da&szlig; XPress Tags nicht mit Xtags identisch ist, die eine erweiterte Version von XPress Tags darstellen, die von dritter Seite mittels eines XPress-Plug-ins bereitgestellt wird.</li>
+<li><b>ZonerDraw (ZMF):</b> Der Importfilter f&uuml;r ZMF-Dateien war dank der Bibliothek <a href="https://wiki.documentfoundation.org/DLP/Libraries/libzmf">libzmf</a> möglich, die auch LibreOffice für den Import verwendet. Momentan werden nur die Versionen 4 und 5 unterst&uuml;tzt.</li>
 </ul>
 
 
@@ -350,6 +353,8 @@
 <li>Die Funktionalit&auml;t der Eigenschaftenpalette ist enorm gewachsen, und sie mu&szlig; so schnell wie m&ouml;glich auseinandergenommen werden.</li>
 <li>Der Aktionsverlauf k&ouml;nnte bei neuen Funktionen noch nicht zuverl&auml;ssig funktionieren.</li>
 <li>Manche Scripts, die mit Scribus mitgeliefert wurden, funktionieren u.U. nicht.</li>
+<li>Einige Tabellenoptionen in der Eigenschaftenpalette funktionieren nicht.</li>
+<li>Einige Textfunktionen, die mit Numerierung zu tun haben (z.B. Fu&szlig;noten, Listen) funktionieren nicht richtig.</li>
 </ul>
 
 <br>
