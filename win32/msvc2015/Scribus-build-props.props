@@ -10,9 +10,9 @@
   <!-- Import Qt5 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140'"   >F:\Libraries-vcall\Qt-5.6.2\msvc2015</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140_xp'">F:\Libraries-vcall\Qt-5.6.2\msvc2015_xp</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v140'"   >F:\Libraries-vcall\Qt-5.6.2\msvc2015_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140'"   >F:\Libraries-vcall\Qt-5.6.3\msvc2015</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140_xp'">F:\Libraries-vcall\Qt-5.6.3\msvc2015_xp</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v140'"   >F:\Libraries-vcall\Qt-5.6.3\msvc2015_64</QT5_DIR>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
 	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
