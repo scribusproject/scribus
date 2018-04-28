@@ -1,4 +1,7 @@
-Scribus - 1.5.4 (Released 2018-xx-xx)
+Scribus - 1.5.5 (Released 2018-xx-xx)
+=========================================
+
+Scribus - 1.5.4 (Released 2018-04-28)
 =========================================
 - 0015267: [Color Management] Colour model switch in the "Colours & Fills" dialogue doesn't work as expected (jghali)
 - 0015080: [Story Editor / Text Frames] Crashes when editing document (jghali)
