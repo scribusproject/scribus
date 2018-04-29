@@ -438,7 +438,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 		else if (bp == 3)
 			m_ScMW->view->RCenter = FPoint(gx, gy + gh);
-		else if (bp == 0)
+		else if (bp == 4)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
