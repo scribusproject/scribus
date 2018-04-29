@@ -5,13 +5,13 @@ This is a cursory overview over the most important changes in Scribus compared t
  
 Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.5.x files with version 1.4.x or any earlier version.
 
-Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.2 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
+Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.4 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
 
 
 
 ==General==
 
-Qt 5: As of version 1.5.3, Scribus is being built using version 5.5 of the Qt toolkit.
+Qt 5: As of version 1.5.4, Scribus is being built using version 5.5 of the Qt toolkit.
 
 More dependencies: Scribus 1.5.x makes extensive use of many more external libraries than earlier versions, especially for import filters. In most cases Scribus needs to be explicitly compiled against these libraries, so they become dependencies. In other cases (e.g. UniConvertor), Scribus will detect an installed version automatically. Note that full support for some libraries may not be available on Mac OS X and Windows until the final 1.6.0 release.
 
@@ -27,7 +27,7 @@ More dependencies: Scribus 1.5.x makes extensive use of many more external libra
 
 - Background colors for glyphs.
 - Foot- and endnotes.
-- Freely definable text variables.
+- Freely defineable text variables.
 - Text references.
 - Anchored text frames.
 - Automatic numbering and bullets.
@@ -74,7 +74,7 @@ A new feature-rich plug-in called “Picture Browser” enables asset management
 
 ===The unified Colors & Fills Manager===
 
-- More supported color palette formats: Scribus can now read and use swatches from Adobe Photoshop (ACO), AutoCAD (ACB), Swatchbooker (SBZ), as well as Adobe Swatch Exchange files (ASE) and the new ISO standard, CxF3.
+- More supported color palette formats: Scribus can now read and use swatches from Adobe Photoshop (ACO), AutoCAD (ACB), Swatchbooker (SBZ), as well as Adobe Swatch Exchange files (ASE).
 - More gradient fills: Scribus can import GIMP gradients via the “Colors & Fills” dialog. Moreover, the number of available gradient options in Scribus has grown significantly and includes, among others, mesh gradients.
 - Hatchings: As of this version, Scribus supports real vector hatchings with various options.
 - New frame stroke and line options: All types of lines, including frame strokes, can now use a gradient or a pattern instead of only a color.
@@ -95,7 +95,8 @@ A considerable amount of work has been spent on new import filters, as well as i
 
 ===New Import Filters===
 
-- Adobe PageMaker: Scribus 1.5 includes an early version of a filter for files created in versions 6.5 and 7.0 of the once popular DTP program. It uses libpagemaker
+- Adobe PageMaker: Scribus 1.5 includes an early version of a filter for files created in versions 6.5 and 7.0 of the once popular DTP program. It uses libpagemaker.
+- Color Exchange Format (CXF): CXF v. 3 is an ISO standard created to facilitate colour communication for various output targets, e.g. web or various print targets. It permits more than one version of a colour palette in a single file. Since it is also used for ink mixing formulas, the Scribus Team had to implement support for spectral colours. Spectral colours will be converted to L*a*b* upon import.
 - Computer Graphics Metafile (CGM): CGM is a 2D vector format standard that has been around for a long time and is still being developed, especially for technical drawings. The new filter is supposed to import most CGM files correctly.
 - CorelDraw (CDR, CDT, CMX): Thanks to the tireless work on libcdr, Scribus can now import files created by CorelDraw from version 1 to the present. Moreover, adding support for libcdr not only allows for importing CDR files, but also CorelDraw Templates (CDT) and CorelDraw Presentations Exchange (CMX) files.
 - Enhanced Metafile (EMF): EMF files are 32-bit versions of the 16-bit Windows Metafile Format (WMF), which has already been supported by Scribus 1.4.x.
@@ -110,7 +111,7 @@ A considerable amount of work has been spent on new import filters, as well as i
 - Open Raster File (ORA): Open Raster is an open standard for complex bitmap files. It’s supported by all major Free image editors, including GIMP and Krita.
 - Photoshop Custom Shapes (CSH): CSH is a vector format used for simple vector graphics collections in Adobe Photoshop. They can be imported via the new "Custom Shapes" manager. 
 - Progressive Graphics File (PGF): This is a fairly new image format, designed to replace JPEG, just like JPEG 2000 does, but emphasizing speed and quality over compression ratio.
-- QuarkXPress (QXD, QXT): An importer for QuarkXPress files has been made possible by the creation of libqxp, wich is also used for QuarkXPress import into LibreOffice. It is supposed to import at least QuarkXPress versions 3.1–4.1.
+- QuarkXPress (QXD): An importer for QuarkXPress files has been made possible by the creation of libqxp, wich is also used for QuarkXPress import into LibreOffice. It is supposed to import at least QuarkXPress versions 3.1–4.1.
 - Rich Text Format (RTF): One of the most widely used exchange formats for formatted text, RTF is also very common in DTP workflows and can be exported by almost every word processor since the 90s.
 - StarView Metafile (SVM): This is an old Metafile format (similar to WMF) that was used by OpenOffice’s / LibreOffice’s predecessor StarOffice. Since both successors still use SVM in - OpenDocument Graphics, the SVM import filter was a by-product of the new ODG filter. 
 - UniConvertor Plug-in: As with the GraphicsMagick plug-in, Scribus won’t list any of the file types supported by UniConvertor to save space in file selectors. It will also ignore UniConvertor for importing file formats for which Scribus provides generic importers.
@@ -157,9 +158,11 @@ XPS: A basic XPS exporter has been added.
 For the 1.5/1.6 series, the online manual now uses a CSS file to control and enhance the appearance of the text. The file is called manual.css, and like many aspects of Scribus can be modified to your liking. If available, the file will choose the typeface Fontin for various headings. This is a freely available font which can easily be added to your system.
 Note that the Online Manual will probably not be updated until the release of the stable 1.6.x series. 
 
-==Known Issues in 1.5==
+==Known Issues in 1.5.x==
 
 - Properties Palette functionality has grown significantly and needs to be split into separate palettes later in the 1.5.x series.
-- Certain scripts that come bundled with Scribus may not work.
-
+- Undo/Redo functionality may not be reliable for certain new features yet.
+- Certain older scripts that come bundled with Scribus may not work.
+- Some of the "Table" settings in the Properties Palette don't work.
+- Some text features related to numbering (e.g. lists, footnotes) do not work properly yet.
 
