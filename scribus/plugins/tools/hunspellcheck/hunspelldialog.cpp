@@ -38,7 +38,7 @@ void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hu
 	bool b=languagesComboBox->blockSignals(true);
 	languagesComboBox->clear();
 	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
-	while (it != dictionaryMap->end())
+	while (it != m_dictionaryMap->end())
 	{
 		QString lang=LanguageManager::instance()->getLangFromAbbrev(it.key(), true);
 		languagesComboBox->addItem(!lang.isEmpty() ? lang : it.key());
