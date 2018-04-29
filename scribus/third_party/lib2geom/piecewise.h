@@ -291,7 +291,7 @@ Piecewise<T> partition(const Piecewise<T> &pw, std::vector<double> const &c) {
     unsigned si = 0, ci = 0;     //Segment index, Cut index
 
     //if the cuts have something earlier than the Piecewise<T>, add portions of the first segment
-    while(c[ci] < pw.cuts.front() && ci < c.size()) {
+    while(ci < c.size() && c[ci] < pw.cuts.front()) {
         bool isLast = (ci == c.size()-1 || c[ci + 1] >= pw.cuts.front());
         ret.push_cut(c[ci]);
         ret.push_seg( elem_portion(pw, 0, c[ci], isLast ? pw.cuts.front() : c[ci + 1]) );
