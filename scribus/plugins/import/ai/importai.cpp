@@ -1257,7 +1257,7 @@ void AIPlug::processData(QString data)
 				JoinStyle = Qt::MiterJoin;
 			else if (tmpInt == 1)
 				JoinStyle = Qt::RoundJoin;
-			else if (tmpInt == 1)
+			else if (tmpInt == 2)
 				JoinStyle = Qt::BevelJoin;
 		}
 		else if (command == "J")
@@ -1268,7 +1268,7 @@ void AIPlug::processData(QString data)
 				CapStyle = Qt::FlatCap;
 			else if (tmpInt == 1)
 				CapStyle = Qt::RoundCap;
-			else if (tmpInt == 1)
+			else if (tmpInt == 2)
 				CapStyle = Qt::SquareCap;
 		}
 		/* undocumented Command Xy
