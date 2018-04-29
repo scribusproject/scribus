@@ -105,14 +105,15 @@ void QuadTree::insert(double x0, double y0, double x1, double y1, int shape) {
     }
     q->data.push_back(shape);
 }
-void QuadTree::erase(Quad *q, int shape) {
-    for(Quad::iterator i = q->data.begin();  i != q->data.end(); i++) {
-        if(*i == shape) {
-            q->data.erase(i);
-            if(q->data.empty()) {
 
-            }
+void QuadTree::erase(Quad *q, int shape) {
+    Quad::iterator i = q->data.begin();
+    while(i != q->data.end()) {
+        if(*i == shape) {
+            i = q->data.erase(i);
+            continue;
         }
+        i++;
     }
     return;
 }
