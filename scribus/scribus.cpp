@@ -8091,7 +8091,10 @@ QString ScribusMainWindow::CFileDialog(QString workingDirectory, QString dialogC
 	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), workingDirectory, dialogCaption, fileFilter, optionFlags);
 	if (!defaultFilename.isEmpty())
 	{
-		QFileInfo f(defaultFilename);
+		QString tmpFileName = defaultFilename;
+		if (tmpFileName.endsWith(".gz", Qt::CaseInsensitive))
+			tmpFileName.chop(3);
+		QFileInfo f(tmpFileName);
 		dia->setExtension(f.suffix());
 		dia->setZipExtension(f.suffix() + ".gz");
 		dia->setSelection(defaultFilename);
