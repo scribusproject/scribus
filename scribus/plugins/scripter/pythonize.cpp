@@ -102,7 +102,6 @@ void * Pythonize::runFunctionVoid (PyObject *object, PyObject *args)
 
 bool Pythonize::runString (char *str)
 {
-
     if (str == NULL || strlen (str) == 0) return false;
 
     int res = PyRun_SimpleString (str);
@@ -116,13 +115,13 @@ bool Pythonize::appendToSysPath (const char* newPath)
 
     char *fmtString = "import sys\nif not '%s' in sys.path:\n\tsys.path.append ('%s')\n"; //print sys.path\n";
     int length      = strlen (fmtString) + 2*strlen (newPath) + 1;
-    char *line      =  new char [length];
+    char *line      = new char [length];
     if (!line) return false;
     snprintf (line, length, fmtString, newPath, newPath);
 
     int res = PyRun_SimpleString (line);
 
-    delete line;
+    delete[] line;
     return res == 0;
 }
 
