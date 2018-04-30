@@ -229,7 +229,7 @@ bool SpecialChars::isLetterRequiringSpaceAroundCJK(uint ch) {
 		   (0xA722 <= ch && ch <= 0xA787) ||  // Letters in Latin Extended-D
 		   (0xA78B <= ch && ch <= 0xA7AE) ||  // Letters in Latin Extended-D
 		   (0xA7B0 <= ch && ch <= 0xA7B7) ||  // Letters in Latin Extended-D
-		   (0xA7F7 <= ch && ch <= 0xA7BF) ||  // Letters in Latin Extended-D
+		   (0xA7F7 <= ch && ch <= 0xA7FF) ||  // Letters in Latin Extended-D
 		   (0xAB30 <= ch && ch <= 0xAB5A) ||  // Letters in Latin Extended-D
 		   (0xAB5C <= ch && ch <= 0xAB64) ||  // Letters in Latin Extended-D
 		   (0xFB00 <= ch && ch <= 0xFB06) ;   // Alphabetic Presentation Forms
