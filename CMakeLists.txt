@@ -610,7 +610,7 @@ endif()
 ########## Find Dependencies                                                                        ##########
 
 #<< Qt
-set (QT_MIN_VERSION "5.5.0")
+set (QT_MIN_VERSION "5.7.0")
 set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Qt5Core ${QT_MIN_VERSION} REQUIRED)
@@ -693,10 +693,11 @@ endif()
 
 
 #C++11 Support
-if(WANT_CPP11)
+#as of 1.5.5.svn, require C++11
+#if(WANT_CPP11)
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
-endif()
+#endif()
 
 #<< ZLIB, PNG
 if (WIN32)
