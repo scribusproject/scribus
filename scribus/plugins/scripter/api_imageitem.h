@@ -33,7 +33,7 @@ public slots:
     void offset(double x, double y);
     void setBrightness(double n);
     void setGrayscale();
-    void scaleToFrame(bool scaletoframe, bool Proportional);
+    void scaleToFrame(bool scaleToFrame, bool proportional);
 
 private:
 	PageItem_ImageFrame* item;
