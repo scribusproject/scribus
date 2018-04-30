@@ -77,7 +77,7 @@ class SCRIBUS_API SimpleTextSource : public ITextSource
 	
 public:
 	
-	SimpleTextSource(QString text, const ParagraphStyle& style, ITextSource* par=NULL, int parentStart = 0) : m_text(text), m_style(style), m_parent(par), m_parentPos(parentStart) {}
+	SimpleTextSource(QString text, const ParagraphStyle& style, ITextSource* par=nullptr, int parentStart = 0) : m_text(text), m_style(style), m_parent(par), m_parentPos(parentStart) {}
 	
 	virtual int length() const;
 	virtual QChar text(int pos) const;

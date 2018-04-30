@@ -37,7 +37,7 @@ public:
 	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
-	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);
+	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = nullptr);
 	virtual void endLayer();
 	virtual void setAntialiasing(bool enable);
 	virtual void begin();

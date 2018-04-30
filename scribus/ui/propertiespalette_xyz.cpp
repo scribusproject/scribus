@@ -161,7 +161,7 @@ void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
 	int precision = unitGetPrecisionFromIndex(m_unitIndex);
@@ -172,7 +172,7 @@ void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)
 	m_haveDoc = true;
 	m_haveItem = false;
 
-	QMap<QString, double>* docConstants = m_doc? &m_doc->constants()  : NULL;
+	QMap<QString, double>* docConstants = m_doc? &m_doc->constants()  : nullptr;
 	xposSpin->setValues( minXYVal, maxXYWHVal, precision, minXYVal);
 	xposSpin->setConstants(docConstants);
 	yposSpin->setValues( minXYVal, maxXYWHVal, precision, minXYVal);

@@ -698,6 +698,13 @@ endif()
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
 #endif()
+if(WANT_CPP14)
+	message(STATUS "Enabling C++14 compiler features")
+	set(CMAKE_CXX_STANDARD 14)
+elseif(WANT_CPP17)
+	    message(STATUS "Enabling C++17 compiler features")
+		set(CMAKE_CXX_STANDARD 17)
+endif()
 
 #<< ZLIB, PNG
 if (WIN32)

@@ -152,7 +152,7 @@ public:
 	static void endElement(void *user_data, const xmlChar * name);
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);
-	void parse(QString fileName);
+	void parse(const QString& fileName);
 	gtStyle* getDefaultStyle(void);
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);

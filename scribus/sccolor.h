@@ -127,10 +127,10 @@ public:
 	QString name() const;
 	/** \brief Returns the ScColor as an Hex-String in the Form #RRGGBB
 	* If doc member is not specified, return meaningful result only for RGB colors. */
-	QString nameRGB(const ScribusDoc* doc = NULL) const;
+	QString nameRGB(const ScribusDoc* doc = nullptr) const;
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK
 	* If doc member is not specified, return meaningful result only for CMYK colors. */
-	QString nameCMYK(const ScribusDoc* doc = NULL) const;
+	QString nameCMYK(const ScribusDoc* doc = nullptr) const;
 
 	/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK or #RRGGBB */
 	void setNamedColor(QString nam);
@@ -179,12 +179,12 @@ protected:
 	void ensureRegistration(void);
 
 public:
-	ColorList(ScribusDoc* doc = NULL, bool retainDoc = false);
+	ColorList(ScribusDoc* doc = nullptr, bool retainDoc = false);
 
 	ColorList& operator= (const ColorList& list);
 
 	/** \brief Get the document the list is related , return in cpp due to scribusdoc class delcaration */
-	ScribusDoc* document(void) const;
+	ScribusDoc* document() const;
 
 	/** \brief Assign the doc to which the list belong to.*/
 	void setDocument(ScribusDoc* doc);
@@ -196,7 +196,7 @@ public:
 	void copyColors(const ColorList& colorList, bool overwrite = true);
 
 	/** \brief Ensure availability of black and white colors. */
-	void ensureDefaultColors(void);
+	void ensureDefaultColors();
 
 	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
 	QString tryAddColor(QString name, ScColor col);

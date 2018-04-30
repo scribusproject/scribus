@@ -107,7 +107,7 @@ public:
 	bool isModified() const;
 /** Setzt die Seitenattribute */
 	void setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp);
-	void resetPage(int fp, MarginStruct* newMargins=0);
+	void resetPage(int fp, MarginStruct* newMargins=nullptr);
 
 	/**
 	 * @brief Return the view associated with the document
@@ -177,11 +177,11 @@ public:
 	void setArrowStyles(QList<ArrowDesc>& as) { m_docPrefsData.arrowStyles=as; }
 	QList<ArrowDesc>& arrowStyles() { return m_docPrefsData.arrowStyles; }
 	void appendToArrowStyles(const struct ArrowDesc& as) { m_docPrefsData.arrowStyles.append(as); }
-	const bool marginColored() const { return m_docPrefsData.displayPrefs.marginColored; }
+	bool marginColored() const { return m_docPrefsData.displayPrefs.marginColored; }
 	void setMarginColored(bool b) { m_docPrefsData.displayPrefs.marginColored=b; }
 	QMap<QString, CheckerPrefs>& checkerProfiles() { return m_docPrefsData.verifierPrefs.checkerPrefsList; }
 	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { m_docPrefsData.verifierPrefs.checkerPrefsList=cl; }
-	void set1CheckerProfile(const QString profileName, const struct CheckerPrefs& cs) { m_docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
+	void set1CheckerProfile(const QString& profileName, const struct CheckerPrefs& cs) { m_docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
 	void clearCheckerProfiles() { m_docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
 	const QString& curCheckProfile() const { return m_docPrefsData.verifierPrefs.curCheckProfile; }
 	void setCurCheckProfile(const QString& s) { m_docPrefsData.verifierPrefs.curCheckProfile=s; }
@@ -209,7 +209,7 @@ public:
 	DocumentInformation& documentInfo() { return m_docPrefsData.docInfo; }
 	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo=di; }
 	DocumentSectionMap& sections() { return m_docPrefsData.docSectionMap; }
-	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap=dsm; }
+	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap=std::move(dsm); }
 	const QMap<QString, int> & usedFonts() { return UsedFonts; }
 
 	const ApplicationPrefs& prefsData() { return m_docPrefsData; }
@@ -223,7 +223,7 @@ public:
 	ScPage* addMasterPage(const int, const QString&);
 	void deleteMasterPage(const int);
 	//! @brief Rebuild master name list
-	void rebuildMasterNames(void);
+	void rebuildMasterNames();
 	//! @brief Replace a master page by default one
 	void replaceMasterPage(const QString& oldMasterPage);
 	//! @brief Rename a master page
@@ -445,7 +445,7 @@ public:
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
 	 */
-	int layerIDFromName(QString name);
+	int layerIDFromName(const QString& name);
 	int layerCount() const;
 	/**
 	 * @brief Lower a layer
@@ -608,7 +608,7 @@ public:
 	 *        
 	 * @param fileName The path of the document we want to extract its styles
 	 */
-	void loadStylesFromFile(QString fileName);
+	void loadStylesFromFile(const QString& fileName);
 	/**
 	 * @brief Gather styles from another document.
 	 *        
@@ -617,7 +617,7 @@ public:
 	 * @param tempCharStyles A pointer to a StyleSet which will be filled by character styles
 	 * @param tempLineStyles A map which will be filled by line styles
 	 */
-	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
+	void loadStylesFromFile(const QString& fileName, StyleSet<ParagraphStyle> *tempStyles,
 	                                          StyleSet<CharStyle> *tempCharStyles,
 											  QHash<QString, multiLine> *tempLineStyles);
 
@@ -755,7 +755,7 @@ public:
 	/**
 	 * @brief Save function
 	 */
-	bool save(const QString& fileName, QString* savedFile = NULL);
+	bool save(const QString& fileName, QString* savedFile = nullptr);
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
@@ -861,7 +861,7 @@ public:
 	 * @param PrCMYK cmyk profile
 	 * @param dia optional progress widget
 	 */
-	void RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
+	void RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = nullptr);
 	/**
 	 *
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
@@ -899,7 +899,7 @@ public:
 	/**
 	 * @brief Item type conversion functions
 	 */
-	PageItem* convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem=NULL);
+	PageItem* convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem=nullptr);
 	
 	/**
 	 * @brief The page number of the current page
@@ -999,7 +999,7 @@ public:
 	//! @brief Some internal align tools
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
 	typedef enum {alignByMoving, alignByResizing } AlignMethod;
-	void buildAlignItemList(Selection* customSelection=0);
+	void buildAlignItemList(Selection* customSelection = nullptr);
 	bool startAlign(uint minObjects = 1);
 	void endAlign();
 	/**
@@ -1029,28 +1029,28 @@ public:
 
 
 	QList<PageItem*>* GroupOfItem(QList<PageItem*>* itemList, PageItem* item);
-	PageItem* groupObjectsSelection(Selection* customSelection=0);
+	PageItem* groupObjectsSelection(Selection* customSelection = nullptr);
 	PageItem* groupObjectsList(QList<PageItem*> &itemList);
 	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);
-	PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection=0);
-	void itemSelection_UnGroupObjects(Selection* customSelection=0);
+	PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection = nullptr);
+	void itemSelection_UnGroupObjects(Selection* customSelection = nullptr);
 	void addToGroup(PageItem* group, PageItem* item);
 	void removeFromGroup(PageItem* item);
 	void rescaleGroup(PageItem* group, double scale);
 	void resizeGroupToContents(PageItem* group);
-	void itemSelection_resizeGroupToContents(Selection *customSelection=0);
-	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);
+	void itemSelection_resizeGroupToContents(Selection* customSelection = nullptr);
+	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection = nullptr);
 	void itemSelection_convertItemsToSymbol(QString& patternName);
-	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0, bool rmDirectFormatting = false);
-	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
-	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection=0, QString ETEA = "");
-	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection=0);
-	void itemSelection_EraseParagraphStyle(Selection* customSelection=0);
-	void itemSelection_EraseCharStyle(Selection* customSelection=0);
+	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection = nullptr, bool rmDirectFormatting = false);
+	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection = nullptr);
+	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr, QString ETEA = "");
+	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr);
+	void itemSelection_EraseParagraphStyle(Selection* customSelection = nullptr);
+	void itemSelection_EraseCharStyle(Selection* customSelection = nullptr);
 
-	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection=0);
-	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);
-	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection=0);
+	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection = nullptr);
+	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection = nullptr);
+	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection = nullptr);
 
 	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa);
 
@@ -1058,37 +1058,37 @@ public:
 	void itemSelection_SetLineArt(Qt::PenStyle w);
 	void itemSelection_SetLineJoin(Qt::PenJoinStyle w);
 	void itemSelection_SetLineEnd(Qt::PenCapStyle w);
-	void itemSelection_SetAlignment(int w, Selection* customSelection=0);
-	void itemSelection_SetDirection(int w, Selection* customSelection=0);
-	void itemSelection_SetLineSpacing(double w, Selection* customSelection=0);
-	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection=0);
-	void itemSelection_SetLanguage(QString w, Selection* customSelection=0);
+	void itemSelection_SetAlignment(int w, Selection* customSelection = nullptr);
+	void itemSelection_SetDirection(int w, Selection* customSelection = nullptr);
+	void itemSelection_SetLineSpacing(double w, Selection* customSelection = nullptr);
+	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection = nullptr);
+	void itemSelection_SetLanguage(QString w, Selection* customSelection = nullptr);
 	void itemSetFont(const QString& newFont);
-	void itemSelection_SetFont(QString fon, Selection* customSelection=0);
-	void itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection=0);
-	void itemSelection_SetParBackgroundShade(int sha, Selection* customSelection=0);
-	void itemSelection_SetBackgroundColor(QString farbe, Selection* customSelection=0);
-	void itemSelection_SetBackgroundShade(int sha, Selection* customSelection=0);
-	void itemSelection_SetFillColor(QString farbe, Selection* customSelection=0);
-	void itemSelection_SetFillShade(int sha, Selection* customSelection=0);
-	void itemSelection_SetStrokeColor(QString farbe, Selection* customSelection=0);
-	void itemSelection_SetStrokeShade(int sha, Selection* customSelection=0);
-	void itemSelection_SetScaleV(int, Selection* customSelection=0);
-	void itemSelection_SetScaleH(int, Selection* customSelection=0);
-	void itemSelection_SetBaselineOffset(int, Selection* customSelection=0);
-	void itemSelection_SetOutlineWidth(int, Selection* customSelection=0);
-	void itemSelection_SetShadowOffsets(int shx, int shy, Selection* customSelection=0);
-	void itemSelection_SetUnderline(int pos, int wid, Selection* customSelection=0);
-	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection=0);
-	void itemSelection_SetEffects(int s, Selection* customSelection=0);
-	void itemSelection_SetOpticalMargins(int i, Selection* customSelection=0);
-	void itemSelection_resetOpticalMargins(Selection* customSelection=0);
-	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection=0);
-	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection=0);
-	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection=0);
-	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection=0);
-	void itemSelection_SetTracking(int us, Selection* customSelection=0);
-	void itemSelection_SetFontSize(int size, Selection* customSelection=0);
+	void itemSelection_SetFont(QString fon, Selection* customSelection = nullptr);
+	void itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection = nullptr);
+	void itemSelection_SetParBackgroundShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetBackgroundColor(QString farbe, Selection* customSelection = nullptr);
+	void itemSelection_SetBackgroundShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetFillColor(QString farbe, Selection* customSelection = nullptr);
+	void itemSelection_SetFillShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetStrokeColor(QString farbe, Selection* customSelection = nullptr);
+	void itemSelection_SetStrokeShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetScaleV(int, Selection* customSelection = nullptr);
+	void itemSelection_SetScaleH(int, Selection* customSelection = nullptr);
+	void itemSelection_SetBaselineOffset(int, Selection* customSelection = nullptr);
+	void itemSelection_SetOutlineWidth(int, Selection* customSelection = nullptr);
+	void itemSelection_SetShadowOffsets(int shx, int shy, Selection* customSelection = nullptr);
+	void itemSelection_SetUnderline(int pos, int wid, Selection* customSelection = nullptr);
+	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection = nullptr);
+	void itemSelection_SetEffects(int s, Selection* customSelection = nullptr);
+	void itemSelection_SetOpticalMargins(int i, Selection* customSelection = nullptr);
+	void itemSelection_resetOpticalMargins(Selection* customSelection = nullptr);
+	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection = nullptr);
+	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection = nullptr);
+	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection = nullptr);
+	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection = nullptr);
+	void itemSelection_SetTracking(int us, Selection* customSelection = nullptr);
+	void itemSelection_SetFontSize(int size, Selection* customSelection = nullptr);
 	void MirrorPolyH(PageItem *currItem);
 	void MirrorPolyV(PageItem *currItem);
 	bool getItem(PageItem **currItem, int nr = -1);
@@ -1097,7 +1097,7 @@ public:
 	void setFrameOval();
 
 	void setRedrawBounding(PageItem *currItem);
-	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
+	void adjustCanvas(const FPoint& minPos, const FPoint& maxPos, bool absolute = false);
 	struct PicResMapped
 	{
 		PicResMapped(bool applyNewRes, int lowResType) { m_applyNewRes = applyNewRes; m_lowResType = lowResType;}
@@ -1172,10 +1172,10 @@ public:
 	bool sizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool moveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void adjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
-	void moveGroup(double x, double y, Selection* customSelection = 0);
-	void rotateGroup(double angle, Selection* customSelection = 0);
-	void rotateGroup(double angle, FPoint RCenter, Selection* customSelection = 0);
-	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0, bool scaleLine = false);
+	void moveGroup(double x, double y, Selection* customSelection = nullptr);
+	void rotateGroup(double angle, Selection* customSelection = nullptr);
+	void rotateGroup(double angle, FPoint RCenter, Selection* customSelection = nullptr);
+	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = nullptr, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
 	QHash<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	//! \brief Returns a serializer for this document
@@ -1438,8 +1438,8 @@ public slots:
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
-	void itemSelection_ToggleBookMark(Selection* customSelection=0);
-	void itemSelection_ToggleAnnotation(Selection* customSelection=0);
+	void itemSelection_ToggleBookMark(Selection* customSelection = nullptr);
+	void itemSelection_ToggleAnnotation(Selection* customSelection = nullptr);
 	void itemSelection_Transform(int nrOfCopies, QTransform matrix, int basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 
@@ -1451,35 +1451,35 @@ public slots:
 	//FIXME : change to process a selection
 	void item_setFrameShape(PageItem* item, int frameType, int count, double* points); 
 
-	void itemSelection_ClearItem(Selection* customSelection=0, bool useWarning=false);
-	void itemSelection_TruncateItem(Selection* customSelection=0);
+	void itemSelection_ClearItem(Selection* customSelection = nullptr, bool useWarning=false);
+	void itemSelection_TruncateItem(Selection* customSelection = nullptr);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
-	void itemSelection_DeleteItem(Selection* customSelection=0, bool forceDeletion=false);
+	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion=false);
 	void itemSelection_SetItemFillTransparency(double t);
-	void itemSelection_SetFontFeatures(QString fontfeature, Selection* customSelection=0);
-	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection=NULL);
-	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection=NULL);
-	void itemSelection_SetHyphenChar(uint hyphenChar, Selection* customSelection=NULL);
+	void itemSelection_SetFontFeatures(QString fontfeature, Selection* customSelection = nullptr);
+	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection = nullptr);
+	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection = nullptr);
+	void itemSelection_SetHyphenChar(uint hyphenChar, Selection* customSelection = nullptr);
 	void itemSelection_SetItemLineTransparency(double t);
 	void itemSelection_SetItemFillBlend(int t);
 	void itemSelection_SetItemLineBlend(int t);
-	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection=0);
-	void itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection=0);
-	void itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection=0);
-	void itemSelection_SetOverprint(bool overprint, Selection* customSelection=0);
-	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection=0);
+	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);
+	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
-	void itemSelection_Rotate(double angle, Selection* customSelection = 0);
+	void itemSelection_Rotate(double angle, Selection* customSelection = nullptr);
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
-	void itemSelection_UnlinkTextFrameAndKeepText(Selection *customSelection=0, bool cutText=false);
-	void itemSelection_UnlinkTextFrameAndCutText(Selection *customSelection=0);
+	void itemSelection_UnlinkTextFrameAndKeepText(Selection* customSelection = nullptr, bool cutText=false);
+	void itemSelection_UnlinkTextFrameAndCutText(Selection* customSelection = nullptr);
 	void itemSelection_SendToLayer(int layerID);
-	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
-	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
-	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);
-	void itemSelection_SetImageRotation(double rot, Selection* customSelection=0);
+	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection = nullptr);
+	void itemSelection_SetImageScale(double x, double y, Selection* customSelection = nullptr);
+	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection = nullptr);
+	void itemSelection_SetImageRotation(double rot, Selection* customSelection = nullptr);
 	void itemSelection_AlignItemLeft(int i, double newX, AlignMethod how);
 	void itemSelection_AlignItemRight(int i, double newX, AlignMethod how);
 	void itemSelection_AlignItemTop(int i, double newY, AlignMethod how);
@@ -1512,19 +1512,19 @@ public slots:
 	void itemSelection_SwapLeft();
 	void itemSelection_SwapRight();
 	void itemSelection_MultipleDuplicate(ItemMultipleDuplicateData&);
-	void itemSelection_UniteItems(Selection* customSelection=0);
-	void itemSelection_SplitItems(Selection* customSelection=0);
+	void itemSelection_UniteItems(Selection* customSelection = nullptr);
+	void itemSelection_SplitItems(Selection* customSelection = nullptr);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */
-	void itemSelection_AdjustFrametoImageSize(Selection* customSelection=0);
+	void itemSelection_AdjustFrametoImageSize(Selection* customSelection = nullptr);
 	/**
 	 * Adjust an image size to fit the size of the frame
 	 */
-	void itemSelection_AdjustImagetoFrameSize(Selection* customSelection=0);
-	void itemSelection_AdjustFrameHeightToText( Selection *customSelection=0);
+	void itemSelection_AdjustImagetoFrameSize(Selection* customSelection = nullptr);
+	void itemSelection_AdjustFrameHeightToText( Selection *customSelection = nullptr);
 	//! @brief startArrowID or endArrowID of -1 mean not applying a selection at this point.
-	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection=0);
+	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection = nullptr);
 	void itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection);
 
 	void itemSelection_SetItemPen(QString farbe);
@@ -1534,12 +1534,12 @@ public slots:
 	void itemSelection_SetItemBrushShade(int sha);
 	void itemSelection_SetItemGradMask(int typ);
 	void itemSelection_SetItemGradFill(int typ);
-	void itemSelection_SetItemPatternFill(QString pattern);
+	void itemSelection_SetItemPatternFill(const QString& pattern);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void itemSelection_SetItemStrokePattern(QString pattern);
+	void itemSelection_SetItemStrokePattern(const QString& pattern);
 	void itemSelection_SetItemStrokePatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY);
 	void itemSelection_SetItemStrokePatternType(bool type);
-	void itemSelection_SetItemPatternMask(QString pattern);
+	void itemSelection_SetItemPatternMask(const QString& pattern);
 	void itemSelection_SetItemPatternMaskProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
 	// Table related slots.
@@ -1722,7 +1722,7 @@ public:
 	//set cursor in text where given mark will be found
 	void setCursor2MarkPos(Mark* mark);
 	//return false if mark was not found
-	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item=NULL, bool force = false); //force is used only for deleting non-unique marks by MarksManager
+	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
 	void setUndoDelMark(Mark* mrk);
 	//invalidate all text frames where given mark will found
 	//useful spacially for varaible text marks after changing its text definition
@@ -1761,7 +1761,7 @@ public:
 	void setEndNoteFrame(PageItem_NoteFrame* nF, void* ptr)   { rangeItem rI={ptr}; m_docEndNotesFramesMap.insert(nF,rI); }
 	void setEndNoteFrame(PageItem_NoteFrame* nF, int section)   { rangeItem rI; rI.sectionIndex = section; m_docEndNotesFramesMap.insert(nF, rI); }
 	//update all endnotesframes content for given notes style
-	void updateEndnotesFrames(NotesStyle* nStyle = NULL, bool invalidate = false);
+	void updateEndnotesFrames(NotesStyle* nStyle = nullptr, bool invalidate = false);
 	//update endnotesframe content
 	void updateEndNotesFrameContent(PageItem_NoteFrame* nF, bool invalidate = false);
 	//insert noteframe into list of changed
@@ -1784,7 +1784,7 @@ private:
 	PageItem* findFirstMarkItem(Mark* mrk) { int tmp = -1; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
-	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = NULL);
+	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);
 	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, int sectIndex);
 	//clear list of notes for given notesframe
 	void clearNotesInFrameList(PageItem_NoteFrame* nF) { m_docNotesInFrameMap.insert(nF, QList<TextNote*>()); }

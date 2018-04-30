@@ -32,14 +32,14 @@ class SCRIBUS_API FileLoader : public QObject
 	Q_OBJECT
 public:
 	FileLoader(const QString & fileName);
-	~FileLoader() {};
+	~FileLoader() {}
 
 	int  fileType() const { return m_fileType; }
 	int  testFile();
 
 	bool loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool loadFile(ScribusDoc* currDoc);
-	bool saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile = NULL);
+	bool saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile = nullptr);
 	bool readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 	bool readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool readPageCount(int *num1, int *num2, QStringList & masterPageNames);

@@ -62,11 +62,11 @@ public:
 	QStringList hyphDirs() const;
 
 	/** @brief Return paths to system font directories*/
-	static QStringList systemFontDirs(void);
+	static QStringList systemFontDirs();
 	/** @brief Return paths to system icc profiles directories*/
-	static QStringList systemProfilesDirs(void);
+	static QStringList systemProfilesDirs();
 	/** @brief Return paths to system create project directories*/
-	static QStringList systemCreatePalettesDirs(void);
+	static QStringList systemCreatePalettesDirs();
 	/** @brief Return paths to directories held in an environment variable*/
 	static QStringList dirsFromEnvVar(const QString envVar, const QString dirToFind);
 	/** @brief Return path to application prefs dir*/
@@ -74,7 +74,7 @@ public:
 	/** @brief Return path to application data dir*/
 	static QString applicationDataDir(bool createIfNotExists = false);
 	/** @brief Return path to pre XDG/QStandardPaths application data dir*/
-	static QString oldApplicationDataDir(void);
+	static QString oldApplicationDataDir();
 	/** @brief Return path to application data dir for downloaded hyph dictionaries*/
 	static QString userDictDir(ScPaths::DictType dictType, bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded fonts*/
@@ -86,19 +86,19 @@ public:
 	/** @brief Return path to user template dir */
 	static QString userTemplateDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
-	static QString imageCacheDir(void);
+	static QString imageCacheDir();
 	/** @brief Return path to plugin data dir*/
 	static QString pluginDataDir(bool createIfNotExists);
 	/** @brief Return path to user documents*/
-	static QString userDocumentDir(void);
+	static QString userDocumentDir();
 	/** @brief Return path to scrapbook dir*/
 	static QString scrapbookDir(bool createIfNotExists);
 	/** @brief Return path to directory used for temporary files*/
-	static QString tempFileDir(void);
+	static QString tempFileDir();
 	/** @brief Return path to directory used for downloaded (permanent) files*/
-	static QString downloadDir(void);
+	static QString downloadDir();
 	/** @brief Return path to Contents OSX subdirectory*/
-	QString bundleDir(void) const;
+	QString bundleDir() const;
 
 
 	/** @brief Until we get enough of these, lets have this here for now, gs stuff is in util_ghostscript */

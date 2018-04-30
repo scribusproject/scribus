@@ -1144,7 +1144,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		m_Doc->FrameItems.remove(ind);
 		m_Doc->FrameItems.insert(ind, currItem);
 	}
-	if (groupStackT != NULL)
+	if (groupStackT != nullptr)
 	{
 		if (groupStackT->count() > 0)
 		{

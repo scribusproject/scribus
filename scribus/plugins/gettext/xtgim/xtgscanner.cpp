@@ -372,7 +372,7 @@ void XtgScanner::setFont()
 		doc->AddFont(font);
 }
 
-QString XtgScanner::getFontName(QString name)
+QString XtgScanner::getFontName(const QString& name)
 {
 	QString fontName = name;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
@@ -1528,7 +1528,7 @@ void XtgScanner::xtgParse()
 	while (lookAhead() != QChar('\0'))
 	{
 		token = getToken();
-		QHash<QString,void (XtgScanner::*)(void)> *temp = NULL;
+		QHash<QString,void (XtgScanner::*)(void)> *temp = nullptr;
 		if (Mode == tagMode)
 			temp = &tagModeHash;
 		else if (Mode == nameMode)

@@ -146,7 +146,7 @@ public:
 
 	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
-	bool DoFileSave(const QString& fileName, QString* savedFileName = NULL);
+	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr);
 	void changeEvent(QEvent *e);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
@@ -159,7 +159,7 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	void doPasteRecent(QString data);
-	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = NULL);
+	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
 	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString workingDirectory = ".", QString dialogCaption = "", QString fileFilter = "", QString defNa = "",
 						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);
@@ -565,7 +565,7 @@ public slots:
 	void slotEditMark();
 	//connected to signal emitted by actions when "Update Marks" menu item is triggered
 	void slotUpdateMarks();
-	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
+	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = nullptr);
 //	void testQT_slot1(QString);
 //	void testQT_slot2(double);
 //	void testQT_slot3(int);
@@ -607,7 +607,7 @@ private:
 	void initPalettes();
 	void initScrapbook();
 
-	void updateColorMenu(QProgressBar* progressBar=NULL);
+	void updateColorMenu(QProgressBar* progressBar=nullptr);
 
 	int m_ScriptRunning;
 

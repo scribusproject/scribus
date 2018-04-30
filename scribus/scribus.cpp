@@ -764,7 +764,6 @@ void ScribusMainWindow::initScrapbook()
 	connect(ScCore->fileWatcher, SIGNAL(dirDeleted(QString )), scrapbookPalette, SLOT(closeOnDel(QString )));
 }
 
-
 bool ScribusMainWindow::warningVersion(QWidget *parent)
 {
 	bool retval = false;

@@ -43,12 +43,12 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		ScFace LoadScalableFont(const QString &filename);
 		void AddScalableFonts(const QString& path, QString DocName = "");
 		/// Returns a font with that name; creates a replacement font if not found
-		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
-		const ScFace& findFont(const QString& fontFamily, const QString& fontStyle, ScribusDoc* doc = NULL);
+		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = nullptr);
+		const ScFace& findFont(const QString& fontFamily, const QString& fontStyle, ScribusDoc* doc = nullptr);
 		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
 		QMap<QString,QString> getSubstitutions(const QList<QString> skip = QList<QString>()) const;
 		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
-		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
+		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = nullptr);
 		void removeFont(QString name);
 		/// Write checked fonts file
 		void WriteCacheList();

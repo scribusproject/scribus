@@ -169,7 +169,7 @@ public:
 	 */
 	bool styleStatus(QStringList &name,QString &sfcname);
 
-	QString getFontName(QString name);
+	QString getFontName(const QString& name);
 
 	/** Set Functions for setting the styles */
 	void setPlain();

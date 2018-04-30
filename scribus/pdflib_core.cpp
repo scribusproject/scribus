@@ -11489,7 +11489,7 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 		qDebug("%s", errorMsg.toLocal8Bit().data());
 }
 
-void PDFLibCore::PDF_Error_WriteFailure(void)
+void PDFLibCore::PDF_Error_WriteFailure()
 {
 	PDF_Error( tr("A write error occurred, please check available disk space") );
 }
@@ -11509,7 +11509,7 @@ void PDFLibCore::PDF_Error_MaskLoadFailure(const QString& fileName)
 	PDF_Error( tr("Failed to load an image mask : %1").arg(fileName) );
 }
 
-void PDFLibCore::PDF_Error_InsufficientMemory(void)
+void PDFLibCore::PDF_Error_InsufficientMemory()
 {
 	PDF_Error( tr("Insufficient memory for processing an image"));
 }

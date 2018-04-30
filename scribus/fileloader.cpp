@@ -288,7 +288,8 @@ bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *sav
 bool FileLoader::readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	QList<FileFormat>::const_iterator it;
-	if (findFormat(m_fileType, it)) {
+	if (findFormat(m_fileType, it))
+	{
 		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 		return it->readStyles(m_fileName, doc, docParagraphStyles);
 	}
@@ -298,7 +299,8 @@ bool FileLoader::readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagr
 bool FileLoader::readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
 {
 	QList<FileFormat>::const_iterator it;
-	if (findFormat(m_fileType, it)) {
+	if (findFormat(m_fileType, it))
+	{
 		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 		return it->readCharStyles(m_fileName, doc, docCharStyles);
 	}
@@ -345,75 +347,75 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
 	QString tmpf(pg.attribute("FONT", currDoc->itemToolPrefs().textFont));
 	currDoc->AllFonts->findFont(tmpf, currDoc);
-		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
-		vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
-		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
-		vg.setPeCharStyleName(pg.attribute("DROPCHSTYLE", ""));
-		vg.setPeCharStyleName(pg.attribute("PECHSTYLE", ""));
-		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
-		vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
-		vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("PEDIST"), 0.0));
-		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs().shapeFillColor));
-		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs().shapeLineColor));
-		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
-		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
-			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
-		vg.charStyle().setShadowXOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHX"), 5.0)) * 10);
-		vg.charStyle().setShadowYOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHY"), -5.0)) * 10);
-		vg.charStyle().setOutlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTOUT"), 1.0)) * 10);
-		vg.charStyle().setUnderlineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULP"), -0.1)) * 10);
-		vg.charStyle().setUnderlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULW"), -0.1)) * 10);
-		vg.charStyle().setStrikethruOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTP"), -0.1)) * 10);
-		vg.charStyle().setStrikethruWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTW"), -0.1)) * 10);
-		vg.charStyle().setScaleH(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEH"), 100.0)) * 10);
-		vg.charStyle().setScaleV(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEV"), 100.0)) * 10);
-		vg.charStyle().setBaselineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("BASEO"), 0.0)) * 10);
-		vg.charStyle().setTracking(qRound(ScCLocale::toDoubleC(pg.attribute("KERN"), 0.0)) * 10);
-		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
+	vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
+	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
+	vg.setPeCharStyleName(pg.attribute("DROPCHSTYLE", ""));
+	vg.setPeCharStyleName(pg.attribute("PECHSTYLE", ""));
+	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
+	vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
+	vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("PEDIST"), 0.0));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
+	vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs().shapeFillColor));
+	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs().shapeLineColor));
+	vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
+	if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
+		vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
+	vg.charStyle().setShadowXOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHX"), 5.0)) * 10);
+	vg.charStyle().setShadowYOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHY"), -5.0)) * 10);
+	vg.charStyle().setOutlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTOUT"), 1.0)) * 10);
+	vg.charStyle().setUnderlineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULP"), -0.1)) * 10);
+	vg.charStyle().setUnderlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULW"), -0.1)) * 10);
+	vg.charStyle().setStrikethruOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTP"), -0.1)) * 10);
+	vg.charStyle().setStrikethruWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTW"), -0.1)) * 10);
+	vg.charStyle().setScaleH(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEH"), 100.0)) * 10);
+	vg.charStyle().setScaleV(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEV"), 100.0)) * 10);
+	vg.charStyle().setBaselineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("BASEO"), 0.0)) * 10);
+	vg.charStyle().setTracking(qRound(ScCLocale::toDoubleC(pg.attribute("KERN"), 0.0)) * 10);
+	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	{
+		QList<ParagraphStyle::TabRecord> tbs;
+		ParagraphStyle::TabRecord tb;
+		QString tmp = pg.attribute("TABS");
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		QString xf, xf2;
+		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
-			QList<ParagraphStyle::TabRecord> tbs;
-			ParagraphStyle::TabRecord tb;
-			QString tmp = pg.attribute("TABS");
-			QTextStream tgv(&tmp, QIODevice::ReadOnly);
-			QString xf, xf2;
-			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
+			tgv >> xf;
+			tgv >> xf2;
+			tb.tabPosition = ScCLocale::toDoubleC(xf2);
+			tb.tabType = static_cast<int>(ScCLocale::toDoubleC(xf));
+			tb.tabFillChar =  QChar();
+			tbs.append(tb);
+		}
+		vg.setTabValues(tbs);
+		tmp = "";
+	}
+	else
+	{
+		QList<ParagraphStyle::TabRecord> tbs;
+		QDomNode IT = pg.firstChild();
+		while(!IT.isNull())
+		{
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="Tabs")
 			{
-				tgv >> xf;
-				tgv >> xf2;
-				tb.tabPosition = ScCLocale::toDoubleC(xf2);
-				tb.tabType = static_cast<int>(ScCLocale::toDoubleC(xf));
-				tb.tabFillChar =  QChar();
+				ParagraphStyle::TabRecord tb;
+				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
+				tb.tabType = it.attribute("Type").toInt();
+				QString tbCh = "";
+				tbCh = it.attribute("Fill","");
+				if (tbCh.isEmpty())
+					tb.tabFillChar = QChar();
+				else
+					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
-			vg.setTabValues(tbs);
-			tmp = "";
+			IT=IT.nextSibling();
 		}
-		else
-		{
-			QList<ParagraphStyle::TabRecord> tbs;
-			QDomNode IT = pg.firstChild();
-			while(!IT.isNull())
-			{
-				QDomElement it = IT.toElement();
-				if (it.tagName()=="Tabs")
-				{
-					ParagraphStyle::TabRecord tb;
-					tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
-					tb.tabType = it.attribute("Type").toInt();
-					QString tbCh = "";
-					tbCh = it.attribute("Fill","");
-					if (tbCh.isEmpty())
-						tb.tabFillChar = QChar();
-					else
-						tb.tabFillChar = tbCh[0];
-					tbs.append(tb);
-				}
-				IT=IT.nextSibling();
-			}
-			vg.setTabValues(tbs);
-		}
+		vg.setTabValues(tbs);
+	}
 }
 
 QImage FileLoader::readThumbnail()
@@ -430,31 +432,25 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	if (m_ReplacedFonts.isEmpty())
 		return true;
 
-	if ((m_prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
-	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		FontReplaceDialog dia(0, &m_ReplacedFonts);
-		if (dia.exec())
-		{
-			QMap<QString,QString>::Iterator itfsu;
-			for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
-			{
-				if (dia.stickyReplacements->isChecked())
-					m_prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
-			}
-			currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
-			ResourceCollection repl;
-			repl.availableFonts = currDoc->AllFonts;
-			repl.mapFonts(m_ReplacedFonts);
-			currDoc->replaceNamedResources(repl);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	if (!(m_prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
+		return true;
 
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	FontReplaceDialog dia(nullptr, &m_ReplacedFonts);
+	if (!dia.exec())
+		return false;
+
+	QMap<QString,QString>::Iterator itfsu;
+	for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
+	{
+		if (dia.stickyReplacements->isChecked())
+			m_prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
+	}
+	currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
+	ResourceCollection repl;
+	repl.availableFonts = currDoc->AllFonts;
+	repl.mapFonts(m_ReplacedFonts);
+	currDoc->replaceNamedResources(repl);
 	return true;
 }
 

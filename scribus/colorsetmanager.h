@@ -32,9 +32,9 @@ class SCRIBUS_API ColorSetManager
 		
 		void initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs);
 		void findPaletteLocations();
-		void searchDir(QString path, QMap<QString, QString> &pList, QTreeWidgetItem* parent = NULL);
-		void findPalettes(QTreeWidgetItem* parent = NULL);
-		void findUserPalettes(QTreeWidgetItem* parent = NULL);
+		void searchDir(const QString& path, QMap<QString, QString> &pList, QTreeWidgetItem* parent = nullptr);
+		void findPalettes(QTreeWidgetItem* parent = nullptr);
+		void findUserPalettes(QTreeWidgetItem* parent = nullptr);
 		QStringList paletteNames();
 		QStringList userPaletteNames();
 		

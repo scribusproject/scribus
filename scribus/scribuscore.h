@@ -144,9 +144,4 @@ protected:
 	bool m_HaveTiffSep;
 };
 
-/*
-
-
-*/
-
 #endif

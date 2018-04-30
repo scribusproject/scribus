@@ -156,9 +156,9 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 				setModeCursor();
 				return;
 			}
-			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
+			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			{
-				currItem = m_doc->m_Selection->itemAt(a);
+				currItem = m_doc->m_Selection->itemAt(i);
 				if (currItem->locked())
 					break;
 				setModeCursor();
