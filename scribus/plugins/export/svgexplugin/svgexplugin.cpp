@@ -640,7 +640,7 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob)
 {
 	QPointF lineStart, lineEnd;
-	foreach (const TableBorderLine& line, border.borderLines())
+	for (const TableBorderLine& line : border.borderLines())
 	{
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
 		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
@@ -1162,7 +1162,8 @@ public:
 		if (gc.isControlGlyphs())
 			return;
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			QTransform transform = matrix();
 			transform.translate(x() + gl.xoffset + current_x, y() - (fontSize() * gc.scaleV()) + gl.yoffset);
 			transform.scale(gc.scaleH() * fontSize() / 10.0, gc.scaleV() * fontSize() / 10.0);
@@ -1182,7 +1183,8 @@ public:
 		if (gc.isControlGlyphs())
 			return;
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			QTransform transform = matrix();
 			transform.translate(x() + gl.xoffset + current_x, y() - (fontSize() * gc.scaleV()) + gl.yoffset);
 			transform.scale(gc.scaleH() * fontSize() / 10.0, gc.scaleV() * fontSize() / 10.0);

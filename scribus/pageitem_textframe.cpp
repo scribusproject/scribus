@@ -1102,7 +1102,7 @@ struct LineControl {
 		result->setWidth(lineData.width);
 		result->setAscent(lineData.ascent);
 		result->setDescent(lineData.descent);
-		foreach (const GlyphCluster& run, ShapedTextFeed::putInVisualOrder(glyphs,   0, lineData.lastCluster - lineData.firstCluster + 1))
+		for (const GlyphCluster& run : ShapedTextFeed::putInVisualOrder(glyphs,   0, lineData.lastCluster - lineData.firstCluster + 1))
 		{
 			addBox(result, run);
 //			qDebug() << "cluster" << run.firstChar() << ".." << run.lastChar() << "@" << run.visualIndex();
@@ -1411,7 +1411,7 @@ void PageItem_TextFrame::layout()
 		{ //if notes are used
 			UndoManager::instance()->setUndoEnabled(false);
 			QList<PageItem_NoteFrame*> delList;
-			foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+			for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 			{
 				if (nF->notesList().isEmpty() && !nF->isAutoNoteFrame())
 					delList.append(nF);
@@ -1670,7 +1670,8 @@ void PageItem_TextFrame::layout()
 				//text height, width, ascent and descent should be calculated for whole text provided by ScText in current position
 				//and that may be more than one char (variable text for example)
 				double realCharHeight = 0.0, realCharAscent = 0.0;
-				foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs()) {
+				const QList<GlyphLayout>& glyphs = current.glyphs[currentIndex].glyphs();
+				for (const GlyphLayout& gl : glyphs) {
 					GlyphMetrics gm = font.glyphBBox(gl.glyph);
 					realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
 					realCharAscent = qMax(realCharAscent, gm.ascent);
@@ -1749,7 +1750,8 @@ void PageItem_TextFrame::layout()
 				{
 					double realCharHeight = 0.0;
 					wide = 0.0; realAsce = 0.0;
-					foreach (const GlyphLayout& gl, glyphCluster.glyphs()) {
+					const QList<GlyphLayout>& glyphs = glyphCluster.glyphs();
+					for (const GlyphLayout& gl : glyphs) {
 						GlyphMetrics gm;
 						gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
@@ -1786,7 +1788,8 @@ void PageItem_TextFrame::layout()
 				{
 					if (itemText.text(a) != SpecialChars::OBJECT)
 					{
-						foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
+						const QList<GlyphLayout>& glyphs = current.glyphs[currentIndex].glyphs();
+						for (const GlyphLayout& gl : glyphs)
 						{
 							GlyphMetrics gm = font.glyphBBox(gl.glyph, hlcsize10);
 							realDesc = qMax(realDesc, gm.descent * scaleV - offset);
@@ -1810,7 +1813,8 @@ void PageItem_TextFrame::layout()
 						realAsce = asce * scaleV + offset;
 					else
 					{
-						foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
+						const QList<GlyphLayout>& glyphs = current.glyphs[currentIndex].glyphs();
+						for (const GlyphLayout& gl : glyphs)
 							realAsce = qMax(realAsce, font.glyphBBox(gl.glyph, hlcsize10).ascent * scaleV + offset);
 					}
 				}
@@ -2203,7 +2207,8 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				double yoffset = 0.0;
-				foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
+				const QList<GlyphLayout>& glyphs = current.glyphs[currentIndex].glyphs();
+				for (const GlyphLayout& gl : glyphs)
 					yoffset = qMax(yoffset, font.glyphBBox(gl.glyph, chsd / 10.0).descent);
 				current.glyphs[currentIndex].yoffset -= yoffset;
 			}
@@ -5588,7 +5593,7 @@ void PageItem_TextFrame::delAllNoteFrames(bool doUpdate)
 	int oldItemsCount = m_Doc->Items->count();
 
 	QList<PageItem_NoteFrame*> delList;
-	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 	{
 		if (nF->notesList().isEmpty() && !nF->isAutoNoteFrame())
 			delList.append(nF);
@@ -5806,14 +5811,14 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 //	QList<PageItem_NoteFrame*> old_endNotesList;
 
 
-//	foreach(PageItem_NoteFrame* nF, notesMap.keys())
+//	for (PageItem_NoteFrame* nF : notesMap.keys())
 //	{
 //		if (nF->isEndNotesFrame())
 //			curr_endNotesList.append(nF);
 //		else if (!notesMap.value(nF).isEmpty())
 //			curr_footNotesList.append(nF);
 //	}
-//	foreach(PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+//	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 //	{
 //		if (nF->isEndNotesFrame())
 //			old_endNotesList.append(nF);
@@ -5821,7 +5826,7 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 //			old_footNotesList.append(nF);
 //	}
 //	//check for endnotes marks change in current frame
-//	foreach (PageItem_NoteFrame* nF, old_endNotesList)
+//	for (PageItem_NoteFrame* nF : old_endNotesList)
 //	{
 //		if (nF->deleteIt)
 //		{
@@ -5835,7 +5840,7 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 //		}
 //	}
 	//check if some notes frames are not used anymore
-	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 	{
 		if (nF->deleteIt || (nF->isAutoNoteFrame() && !notesMap.keys().contains(nF)))
 		{
@@ -5857,7 +5862,7 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 	if (m_notesFramesMap != notesMap)
 	{
 		docWasChanged = true;
-		foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+		for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 		{
 			if (notesMap.contains(nF))
 			{
@@ -5878,7 +5883,7 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 
 void PageItem_TextFrame::notesFramesLayout()
 {
-	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 	{
 		if (nF == NULL)
 			continue;
@@ -5932,7 +5937,7 @@ int PageItem_TextFrame::removeMarksFromText(bool doUndo)
 
 PageItem_NoteFrame *PageItem_TextFrame::itemNoteFrame(NotesStyle *nStyle)
 {
-	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 		if (nF->notesStyle() == nStyle)
 			return nF;
 	return NULL;

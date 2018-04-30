@@ -839,7 +839,7 @@ public:
 		QString gcMap = QString("(%1:%2)").arg(gc.getText().size()).arg(gc.glyphs().size());
 		QString indices;
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs()) {
 			indices += QString("%1,%2,%3,%4;").arg(gl.glyph)
 					.arg(((gl.xadvance + current_x) * m_xps->conversionFactor) / size * 100)
 					.arg((-gl.xoffset * m_xps->conversionFactor) / size * 100)
@@ -856,7 +856,7 @@ public:
 		if (gc.isControlGlyphs())
 			return;
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs()) {
 			FPointArray outline = font().glyphOutline(gl.glyph);
 			if (outline.size() >= 4)
 			{
@@ -1466,7 +1466,7 @@ void XPSExPlug::processTableItem(double xOffset, double yOffset, PageItem *Item,
 void XPSExPlug::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob)
 {
 	QPointF lineStart, lineEnd;
-	foreach (const TableBorderLine& line, border.borderLines())
+	for (const TableBorderLine& line : border.borderLines())
 	{
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
 		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());

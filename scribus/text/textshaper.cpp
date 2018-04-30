@@ -78,7 +78,7 @@ QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs
 	QList<TextRun> newRuns;
 	ScriptRun scriptrun((const UChar*) m_text.utf16(), m_text.length());
 
-	foreach (TextRun run, runs)
+	for (TextRun run : runs)
 	{
 		int start = run.start;
 		QList<TextRun> subRuns;
@@ -138,7 +138,8 @@ QList<TextShaper::TextRun> TextShaper::itemizeStyles(const QList<TextRun> &runs)
 {
 	QList<TextRun> newRuns;
 
-	foreach (TextRun run, runs) {
+	for (TextRun run : runs)
+	{
 		int start = run.start;
 		QList<TextRun> subRuns;
 
@@ -289,7 +290,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 	// Insert implicit spaces in justification between characters
 	// in scripts that do not use spaces to seperate words
-	foreach (const TextRun& run, scriptRuns) {
+	for (const TextRun& run : scriptRuns)
+	{
 		switch (run.script) {
 		// clustered scripts from https://drafts.csswg.org/css-text-3/#script-groups
 		case USCRIPT_KHMER:
@@ -324,7 +326,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		}
 	}
 
-	foreach (const TextRun& textRun, textRuns) {
+	for (const TextRun& textRun : textRuns)
+	{
 		const CharStyle &style = m_story.charStyle(m_textMap.value(textRun.start));
 
 		const ScFace &scFace = style.font();
@@ -350,14 +353,16 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		hb_buffer_set_cluster_level(hbBuffer, HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS);
 
 		QVector<hb_feature_t> hbFeatures;
-		QList<FeaturesRun> featuresRuns = itemizeFeatures(textRun);
-		foreach (const FeaturesRun& featuresRun, featuresRuns)
+		const QList<FeaturesRun> featuresRuns = itemizeFeatures(textRun);
+		for (const FeaturesRun& featuresRun : featuresRuns)
 		{
 			const QStringList& features = featuresRun.features;
 			hbFeatures.reserve(features.length());
-			foreach (const QString& feature, features) {
+			for (const QString& feature : features)
+			{
 				hb_feature_t hbFeature;
-				hb_bool_t ok = hb_feature_from_string(feature.toStdString().c_str(), feature.toStdString().length(), &hbFeature);
+				std::string strFeature(feature.toStdString());
+				hb_bool_t ok = hb_feature_from_string(strFeature.c_str(), strFeature.length(), &hbFeature);
 				if (ok)
 				{
 					hbFeature.start = featuresRun.start;

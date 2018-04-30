@@ -24,7 +24,7 @@
 int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 {
 	QPointF rel = coord - QPointF(m_x, m_y);
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		if (box->containsPoint(rel))
 		{
@@ -51,7 +51,7 @@ int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 QLineF GroupBox::positionToPoint(int pos, const StoryText& story) const
 {
 	QLineF result;
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		if (box->containsPos(pos))
 		{
@@ -67,7 +67,7 @@ void GroupBox::render(TextLayoutPainter *p) const
 {
 	p->save();
 	p->translate(x(), y());
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		box->render(p);
 	}
@@ -78,7 +78,7 @@ void GroupBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	p->save();
 	p->translate(x(), y());
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		box->render(p, ctx);
 	}
@@ -89,7 +89,7 @@ void GroupBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 {
 	p->save();
 	p->translate(x(), y());
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		box->drawSelection(p, ctx);
 	}
@@ -194,7 +194,7 @@ int LineBox::pointToPosition(QPointF coord, const StoryText &story) const
 QLineF LineBox::positionToPoint(int pos, const StoryText& story) const
 {
 	QLineF result;
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		if (box->containsPos(pos))
 		{
@@ -218,7 +218,7 @@ void LineBox::render(TextLayoutPainter *p) const
 	drawBackGround(p);
 
 	p->translate(0, ascent());
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 	{
 		box->render(p);
 	}
@@ -234,7 +234,7 @@ void LineBox::render(ScreenPainter *p, ITextContext *ctx) const
 	drawSelection(p, ctx);
 
 	p->translate(0, ascent());
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 		box->render(p, ctx);
 
 	p->translate(-x(), -y() - ascent());
@@ -242,7 +242,7 @@ void LineBox::render(ScreenPainter *p, ITextContext *ctx) const
 
 void LineBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 {
-	foreach (const Box *box, boxes())
+	for (const Box *box : boxes())
 		box->drawSelection(p, ctx);
 }
 
@@ -463,7 +463,7 @@ void LineBox::justify(const ParagraphStyle& style)
 
 void PathLineBox::update()
 {
-	foreach (Box* box, boxes()) {
+	for (Box* box : boxes()) {
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 	}

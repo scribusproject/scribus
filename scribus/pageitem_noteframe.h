@@ -39,10 +39,10 @@ public:
 
 	PageItem_TextFrame* masterFrame() { return m_masterFrame; }
 	void setMaster(PageItem* frame) { m_masterFrame = frame->asTextFrame(); }
-	bool isEndNotesFrame() { return m_nstyle->isEndNotes(); }
-	bool isAutoWelded() { return m_nstyle->isAutoWeldNotesFrames(); }
-	bool isAutoHeight() { return m_nstyle->isAutoNotesHeight(); }
-	bool isAutoWidth() { return m_nstyle->isAutoNotesWidth(); }
+	bool isEndNotesFrame() const { return m_nstyle->isEndNotes(); }
+	bool isAutoWelded()  const { return m_nstyle->isAutoWeldNotesFrames(); }
+	bool isAutoHeight()  const { return m_nstyle->isAutoNotesHeight(); }
+	bool isAutoWidth()  const { return m_nstyle->isAutoNotesWidth(); }
 
 	//return list of notes in noteframe
 	QList<TextNote*> notesList() { return l_notes; }
