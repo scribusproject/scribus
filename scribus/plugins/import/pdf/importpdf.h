@@ -81,7 +81,7 @@ public:
 private:
 	bool convert(const QString& fn);
 	QRectF getCBox(int box, int pgNum);
-	QString UnicodeParsedString(GooString *s1);
+	QString UnicodeParsedString(const GooString *s1);
 	
 	QList<PageItem*> Elements;
 	double baseX, baseY;

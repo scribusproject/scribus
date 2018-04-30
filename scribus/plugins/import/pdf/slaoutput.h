@@ -266,7 +266,7 @@ private:
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
 	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
-	QString UnicodeParsedString(GooString *s1);
+	QString UnicodeParsedString(const GooString *s1);
 	bool checkClip();
 	bool pathIsClosed;
 	QString CurrColorFill;

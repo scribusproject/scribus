@@ -1081,7 +1081,7 @@ QRectF PdfPlug::getCBox(int box, int pgNum)
 	return cRect;
 }
 
-QString PdfPlug::UnicodeParsedString(GooString *s1)
+QString PdfPlug::UnicodeParsedString(const GooString *s1)
 {
 	if ( !s1 || s1->getLength() == 0 )
 		return QString();
