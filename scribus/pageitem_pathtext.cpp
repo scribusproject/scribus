@@ -168,11 +168,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	double wordExtra = 0;
 
 	TextShaper textShaper(this, itemText, firstChar, true);
-	QList<GlyphCluster> glyphRuns = textShaper.shape(0, itemText.length()).glyphs();
+	const QList<GlyphCluster> glyphRuns = textShaper.shape(0, itemText.length()).glyphs();
 	if (glyphRuns.isEmpty())
 		return;
 
-	foreach (const GlyphCluster& run, glyphRuns)
+	for (const GlyphCluster& run : glyphRuns)
 	{
 		totalTextLen += run.width();
 		if (run.hasFlag(ScLayout_ExpandingSpace))

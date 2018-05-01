@@ -109,7 +109,8 @@ void PSPainter::drawGlyph(const GlyphCluster& gc)
 	applyTransform();
 	m_ps->PS_translate(x(), -(y() - fontSize()));
 	double current_x = 0.0;
-	foreach (const GlyphLayout& gl, gc.glyphs()) {
+	for (const GlyphLayout& gl : gc.glyphs())
+	{
 		m_ps->PS_save();
 		m_ps->PS_translate(gl.xoffset + current_x, -(fontSize() - fontSize() * gl.scaleV) - gl.yoffset);
 		if (gl.scaleH != 1.0 || (gl.scaleV != 1.0))
@@ -141,7 +142,8 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
 		m_ps->PS_translate(x(), -(y() - fontSize()));
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			m_ps->PS_save();
 			FPointArray gly = font().glyphOutline(gl.glyph);
 			QTransform chma;
@@ -2531,7 +2533,7 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 	PS_save();
 	QPointF lineStart, lineEnd;
 	QVector<double> DashValues;
-	foreach (const TableBorderLine& line, border.borderLines())
+	for (const TableBorderLine& line : border.borderLines())
 	{
 		if (line.color() == CommonStrings::None)
 			continue;

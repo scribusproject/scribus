@@ -464,7 +464,7 @@ void CollapsedTablePainterEx::paintBorder(const TableBorder& border, const QPoin
 	p->setFillMode(ScPainterExBase::None);
 
 	QPointF lineStart, lineEnd;
-	foreach (const TableBorderLine& line, border.borderLines())
+	for (const TableBorderLine& line : border.borderLines())
 	{
 		// Adjust line start and ends by line width multiplied by offset factors.
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());

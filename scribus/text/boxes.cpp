@@ -99,7 +99,7 @@ void GroupBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 double GroupBox::naturalHeight() const
 {
 	double nH = 0;
-	foreach (const Box* box, boxes()) {
+	for (const Box* box : boxes()) {
 		if (m_direction == D_Horizontal)
 			nH = qMax(m_naturalHeight, box->naturalHeight());
 		else
@@ -126,7 +126,7 @@ void GroupBox::removeBox(int i)
 void GroupBox::update()
 {
 	m_naturalHeight = m_naturalWidth = 0;
-	foreach (const Box* box, boxes()) {
+	for (const Box* box : boxes()) {
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 		if (m_direction == D_Horizontal)

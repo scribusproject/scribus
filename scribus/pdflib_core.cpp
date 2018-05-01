@@ -148,7 +148,8 @@ public:
 			return;
 			
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
 			QByteArray StrokeColor;
 			QByteArray FillColor;
@@ -250,7 +251,8 @@ public:
 			return;
 
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
 			QByteArray StrokeColor;
 			QByteArray FillColor;
@@ -1386,18 +1388,18 @@ static QByteArray sanitizeFontName(QString fn)
 	return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 }
 
-static QList<Pdf::Resource> asColorSpace(QList<PdfICCD> iccCSlist)
+static QList<Pdf::Resource> asColorSpace(const QList<PdfICCD>& iccCSlist)
 {
 	QList<Pdf::Resource> result;
-	foreach (const Pdf::Resource& r, iccCSlist)
+	for (const Pdf::Resource& r : iccCSlist)
 		result.append(r);
 	return result;
 }
 
-static QList<Pdf::Resource> asColorSpace(QList<PdfSpotC> spotMapValues)
+static QList<Pdf::Resource> asColorSpace(const QList<PdfSpotC>& spotMapValues)
 {
 	QList<Pdf::Resource> result;
-	foreach (const Pdf::Resource& r, spotMapValues)
+	for (const Pdf::Resource& r : spotMapValues)
 		result.append(r);
 	return result;
 }
@@ -5393,7 +5395,7 @@ QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& sta
 	tmp += "q\n";
 	QPointF lineStart, lineEnd;
 	QVector<double> DashValues;
-	foreach (const TableBorderLine& line, border.borderLines())
+	for (const TableBorderLine& line : border.borderLines())
 	{
 		if (line.color() == CommonStrings::None)
 			continue;

@@ -178,7 +178,7 @@ public:
 	/**
 	 * Returns the list of row heights for the table.
 	 */
-	QList<double> rowHeights() const { return m_rowHeights; }
+	const QList<double>& rowHeights() const { return m_rowHeights; }
 
 	/**
 	 * Resizes @a row to @a height using resize strategy @a strategy.
@@ -205,7 +205,7 @@ public:
 	/**
 	 * Returns the list of row positions for the table.
 	 */
-	QList<double> rowPositions() const { return m_rowPositions; }
+	const QList<double>& rowPositions() const { return m_rowPositions; }
 
 	/**
 	 * Inserts @a numColumns columns before the column at @a index.
@@ -233,7 +233,7 @@ public:
 	/**
 	 * Returns the list of column widths for the table.
 	 */
-	QList<double> columnWidths() const { return m_columnWidths; }
+	const QList<double>& columnWidths() const { return m_columnWidths; }
 
 	/**
 	 * Resizes @a column to @a width using resize strategy @a strategy.
@@ -260,7 +260,7 @@ public:
 	/**
 	 * Returns the list of column positions for the table.
 	 */
-	QList<double> columnPositions() const { return m_columnPositions; }
+	const QList<double>& columnPositions() const { return m_columnPositions; }
 
 	/**
 	 * Merges the cell at the specified @a row and @a column with the adjacent cells into
@@ -284,7 +284,7 @@ public:
 	/**
 	 * Returns the set of selected cells.
 	 */
-	QSet<TableCell> selectedCells() const { return m_selection; }
+	const QSet<TableCell>& selectedCells() const { return m_selection; }
 
 	/**
 	 * Returns the set of selected rows.
@@ -483,10 +483,10 @@ public:
 	virtual QString infoDescription() { return QString(); }
 
 	/// Returns the Cell Areas from this table
-	QList<CellArea> cellAreas() const { return m_cellAreas; }
+	const QList<CellArea>& cellAreas() const { return m_cellAreas; }
 
 	/// Returns the rows of the table for writing to SLA
-	QList<QList<TableCell> > cellRows() const { return m_cellRows; }
+	const QList<QList<TableCell> >& cellRows() const { return m_cellRows; }
 
 	/// Set the layer for the item
 	virtual void setLayer(int layerId);

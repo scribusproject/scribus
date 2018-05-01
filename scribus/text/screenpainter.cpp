@@ -82,7 +82,7 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		cairo_set_font_size(cr, fontSize());
 
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs()) {
 			cairo_scale(cr, gl.scaleH, gl.scaleV);
 			cairo_glyph_t glyph = { gl.glyph, gl.xoffset + current_x, gl.yoffset };
 			cairo_show_glyphs(cr, &glyph, 1);
@@ -245,7 +245,8 @@ void ScreenPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 
 	setupState(false);
 	double current_x = 0.0;
-	foreach (const GlyphLayout& gl, gc.glyphs()) {
+	for (const GlyphLayout& gl : gc.glyphs())
+	{
 		m_painter->save();
 		m_painter->translate(gl.xoffset + current_x, - (fontSize() * gl.scaleV) + gl.yoffset );
 		FPointArray outline = font().glyphOutline(gl.glyph);
