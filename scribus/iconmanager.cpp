@@ -254,10 +254,10 @@ bool IconManager::setActiveFromPrefs(QString prefsSet)
 	return false;
 }
 
-QString IconManager::baseNameForTranslation(QString transName)
+QString IconManager::baseNameForTranslation(QString transName) const
 {
 	QString name;
-	foreach (ScIconSetData value, m_iconSets)
+	for (const ScIconSetData& value : m_iconSets)
 	{
 		QMapIterator<QString, QString> nameValue(value.nameTranslations);
 		while (nameValue.hasNext())
@@ -294,18 +294,18 @@ QString IconManager::pathForIcon(const QString nam)
 	return "";
 }
 
-QStringList IconManager::pathList()
+QStringList IconManager::pathList() const
 {
 	QStringList paths;
-	foreach (ScIconSetData value, m_iconSets)
+	for (const ScIconSetData& value :  m_iconSets)
 		paths << value.path;
 	return paths;
 }
 
-QStringList IconManager::nameList(QString language)
+QStringList IconManager::nameList(QString language) const
 {
 	QStringList names;
-	foreach (ScIconSetData value, m_iconSets)
+	for (const ScIconSetData& value : m_iconSets)
 	{
 		if (value.nameTranslations.contains(language))
 			names << value.nameTranslations.value(language);

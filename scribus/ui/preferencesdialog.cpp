@@ -368,30 +368,29 @@ void PreferencesDialog::addPlugins()
 	QPixmap panelIcon;
 
 	PluginManager& pluginManager = PluginManager::instance();
-	QStringList pluginNames(pluginManager.pluginNames(true));
+	const QStringList pluginNames(pluginManager.pluginNames(true));
 
-	foreach (QString pName, pluginManager.pluginNames(true))
+	for (const QString& pName : pluginNames)
 	{
 		// Ask the plugin manager for a plugin (skipping disabled plugins).
 		plugin = pluginManager.getPlugin(pName, false);
+		if (!plugin)
+			continue;
 		// If we got a plugin (which we know is enabled):
-		if (plugin)
+		// Ask the plugin for a prefs widget
+		bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel, panelCaption, panelIcon);
+		// If it gave us one...
+		if (wantPanel)
 		{
-			// Ask the plugin for a prefs widget
-			bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel, panelCaption, panelIcon);
-			// If it gave us one...
-			if (wantPanel)
-			{
-				// Ensure that we got sane return values
-				Q_ASSERT(panel);
-				Q_ASSERT(!panelIcon.isNull());
-				Q_ASSERT(!panelCaption.isNull());
-				// plug it in to the dialog,
-				addItem(panelCaption, panelIcon, panel);
-				// and connect a signal to tell it to save its
-				// settings.
-				connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
-			}
+			// Ensure that we got sane return values
+			Q_ASSERT(panel);
+			Q_ASSERT(!panelIcon.isNull());
+			Q_ASSERT(!panelCaption.isNull());
+			// plug it in to the dialog,
+			addItem(panelCaption, panelIcon, panel);
+			// and connect a signal to tell it to save its
+			// settings.
+			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
 		}
 	}
 }

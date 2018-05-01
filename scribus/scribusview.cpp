@@ -3094,7 +3094,8 @@ public:
 
 	void drawGlyph(const GlyphCluster& gc)
 	{
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			FPointArray outline = font().glyphOutline(gl.glyph);
 			if (outline.size() < 4)
 				return;
@@ -3141,7 +3142,8 @@ public:
 	}
 	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	{
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			FPointArray outline = font().glyphOutline(gl.glyph);
 			if (outline.size() < 4)
 				return;

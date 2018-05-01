@@ -2596,7 +2596,8 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 			+ item->currentStyle().rightMargin()	* 9.0
 			+ (item->imageFlippedH() ? 32.32 : 13.13);
 	
-	foreach(const ParagraphStyle::TabRecord& tabrec, item->currentStyle().tabValues())
+	const ParagraphStyle& currParaStyle = item->currentStyle();
+	for (const ParagraphStyle::TabRecord& tabrec : currParaStyle.tabValues())
 	{
 		controlHash += tabrec.tabPosition;
 	}

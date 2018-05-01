@@ -4476,7 +4476,8 @@ public:
 	{
 		if (gc.isControlGlyphs())
 			return;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			QString replacementName = font().replacementName();
 			if (!replacementName.isEmpty())
 			{
@@ -4607,11 +4608,11 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 			story.setCharStyle(0, txtList[a].count(), style);
 
 			TextShaper textShaper(story, 0);
-			QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
+			const QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
 
-			foreach (const GlyphCluster &run, glyphRuns)
+			for (const GlyphCluster &run : glyphRuns)
 			{
-				foreach (const GlyphLayout &gl, run.glyphs())
+				for (const GlyphLayout &gl : run.glyphs())
 				{
 					FPointArray outline(font.glyphOutline(gl.glyph));
 					if (!fontName.isEmpty())

@@ -1504,7 +1504,7 @@ void PageItem_Table::assertValid() const
 			Q_ASSERT(m_activeCell.row() == cellArea.row() && m_activeCell.column() == cellArea.column());
 
 		// Check that the selected cells are not covered.
-		foreach (const TableCell& cell, m_selection)
+		for (const TableCell& cell : m_selection)
 			if (cellArea.contains(cell.row(), cell.column()))
 				Q_ASSERT(cell.row() == cellArea.row() && cell.column() == cellArea.column());
 	}

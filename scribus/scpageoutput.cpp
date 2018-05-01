@@ -1024,7 +1024,8 @@ public:
 
 		setupState();
 		double current_x = 0.0;
-		foreach (const GlyphLayout& gl, gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
 			m_painter->save();
 			m_painter->translate(gl.xoffset + current_x, -(fontSize() * gc.scaleV()) + gl.yoffset);
 

@@ -117,12 +117,12 @@ UnicodeSearchModel::~UnicodeSearchModel()
 {
 }
 
-QString UnicodeSearchModel::descriptionFromHex(const QString& hex)
+QString UnicodeSearchModel::descriptionFromHex(const QString& hex) const
 {
-	foreach( UnicodeStruct I, m_unicode )
+	for (const UnicodeStruct& uni : m_unicode)
 	{
-		if ( I.hex == hex )
-			return I.description;
+		if (uni.hex == hex)
+			return uni.description;
 	}
 	return QString();
 }

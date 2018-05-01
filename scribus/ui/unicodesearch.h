@@ -83,7 +83,7 @@ class UnicodeSearchModel : public QAbstractTableModel
 		QString hexData(const QModelIndex & index);
 
 		//! \brief Return character unicode description from hex code
-		QString descriptionFromHex(const QString& hex);
+		QString descriptionFromHex(const QString& hex) const;
 
 	private:
 

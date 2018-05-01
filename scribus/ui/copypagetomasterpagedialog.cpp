@@ -17,12 +17,12 @@ CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCo
 	setupUi(this);
 
 	QList<QAbstractButton *> buttonList = buttonBox->buttons();
-	foreach (QAbstractButton* b, buttonList)
+	for (QAbstractButton* b : buttonList)
 	{
-		if (buttonBox->buttonRole(b)==QDialogButtonBox::AcceptRole)
+		if (buttonBox->buttonRole(b) == QDialogButtonBox::AcceptRole)
 			b->setText(CommonStrings::tr_OK);
 		else
-		if (buttonBox->buttonRole(b)==QDialogButtonBox::RejectRole)
+		if (buttonBox->buttonRole(b) == QDialogButtonBox::RejectRole)
 			b->setText(CommonStrings::tr_Cancel);
 	}
 
@@ -31,7 +31,7 @@ CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCo
 		pagePositionComboBox->hide();
 	else
 	{
-		foreach (const QString& untranslatedPageName, pageLocations)
+		for (const QString& untranslatedPageName : pageLocations)
 			pagePositionComboBox->addItem(CommonStrings::translatePageSetLocString(untranslatedPageName));
 		pagePositionComboBox->setCurrentIndex(currentLocation);
 	}

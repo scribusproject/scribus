@@ -577,22 +577,22 @@ QStringList PreviewImagesModel::mimeTypes() const
 }
 
 
-QMimeData *PreviewImagesModel::mimeData ( const QModelIndexList &indexes ) const
+QMimeData *PreviewImagesModel::mimeData (const QModelIndexList &indexes) const
 {
 	QMimeData *mimeData = new QMimeData();
 	int row;
 	QList<QUrl> urls;
 	QString imageFile;
 
-	foreach ( QModelIndex index, indexes )
+	for (const QModelIndex& index : indexes)
 	{
-		if ( index.isValid() )
+		if (index.isValid())
 		{
 			row = index.row();
 
-			if ( ( row >= 0 ) && ( row < modelItemsList.size() ) )
+			if ((row >= 0) && (row < modelItemsList.size()))
 			{
-				imageFile = modelItemsList.at ( row )->fileInformation.absoluteFilePath();
+				imageFile = modelItemsList.at(row)->fileInformation.absoluteFilePath();
 				urls.append (QUrl::fromLocalFile(imageFile));
 			}
 		}

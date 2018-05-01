@@ -311,7 +311,7 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 void PropertiesPalette_Table::updateBorderLineList()
 {
 	borderLineList->clear();
-	foreach (const TableBorderLine& borderLine, m_currentBorder.borderLines())
+	for (const TableBorderLine& borderLine : m_currentBorder.borderLines())
 	{
 		QString text = QString(" %1%2 %3").arg(borderLine.width()).arg(borderLineWidth->suffix()).arg(CommonStrings::translatePenStyleName(borderLine.style()));
 		if (borderLine.color() != CommonStrings::None)

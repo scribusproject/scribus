@@ -89,7 +89,7 @@ void TableBorder::replaceBorderLine(int index, const TableBorderLine& borderLine
 QString TableBorder::asString() const
 {
 	QStringList lines;
-	foreach (TableBorderLine line, m_borderLines)
+	for (const TableBorderLine& line : m_borderLines)
 		lines << line.asString();
 	return QString("TableBorder(%1)").arg(lines.join(","));
 }

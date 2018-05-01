@@ -141,7 +141,7 @@ void TableGesture::paintCellSelection(QPainter* p)
 	const QPointF offset = m_table->gridOffset();
 	QPainterPath selectionPath;
 
-	foreach (const TableCell& cell, m_table->selectedCells())
+	for (const TableCell& cell : m_table->selectedCells())
 	{
 		QRectF cellRect = cell.boundingRect();
 		cellRect.translate(offset);

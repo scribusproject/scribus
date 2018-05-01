@@ -1715,12 +1715,12 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 		story.setCharStyle(0, textList[a].count(), style);
 
 		TextShaper textShaper(story, 0);
-		QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
+		const QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
 
 		double tmpx = x;
-		foreach (const GlyphCluster &run, glyphRuns)
+		for (const GlyphCluster &run : glyphRuns)
 		{
-			foreach (const GlyphLayout &gl, run.glyphs())
+			for (const GlyphLayout &gl : run.glyphs())
 			{
 				cairo_glyph_t glyph;
 				glyph.index = gl.glyph;
