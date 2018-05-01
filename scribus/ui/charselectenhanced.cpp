@@ -107,8 +107,7 @@ void CharSelectEnhanced::scanFont()
 	charactersHebrew.clear();
 	ScFace::FaceEncoding glyphs;
 	(*m_doc->AllFonts)[m_fontInUse].glyphNames(glyphs);
-	for (ScFace::FaceEncoding::iterator it=glyphs.begin();
-	        it != glyphs.end(); ++it)
+	for (auto it = glyphs.begin(); it != glyphs.end(); ++it)
 	{
 		charcode = it.value().charcode;
 		gname = it.value().glyphName;

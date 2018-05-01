@@ -1316,7 +1316,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
-	for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
+	for (auto itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
 		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
@@ -2164,7 +2164,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (item->prevInChain() == 0 && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}
-				for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
+				for (auto itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 				{
 					PageItem *item = itf.value();
 					if (item->prevInChain() == 0 && item->itemText.length() > 0)

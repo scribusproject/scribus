@@ -416,16 +416,16 @@ void Prefs_KeyboardShortcuts::insertActions()
 void Prefs_KeyboardShortcuts::applySearch( const QString & newss )
 {
 	//Must run this as if newss is not empty and we go to the next for loop, the set visible doesn't work
-	for (QList<QTreeWidgetItem*>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+	for (auto it = lviToMenuMap.begin(); it != lviToMenuMap.end(); ++it)
 		(*it)->setHidden(false);
 	if (newss.isEmpty())
 	{
-		for (QMap<QTreeWidgetItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+		for (auto it = lviToActionMap.begin(); it != lviToActionMap.end(); ++it)
 			it.key()->setHidden(false);
 		return;
 	}
 	//Seem to need to do this.. isOpen doesn't seem to do what it says
-	for (QMap<QTreeWidgetItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+	for (auto it = lviToActionMap.begin(); it != lviToActionMap.end(); ++it)
 	{
 		if (it.key()->text(0).contains(newss, Qt::CaseInsensitive))
 			it.key()->setHidden(false);

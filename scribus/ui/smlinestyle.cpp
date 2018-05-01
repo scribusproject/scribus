@@ -256,7 +256,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (QHash<int, PageItem*>::iterator it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
+	for (auto it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
 	{
 		ite = it.value();
 		if (!ite->NamedLStyle.isEmpty())

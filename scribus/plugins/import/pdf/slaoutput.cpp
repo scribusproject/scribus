@@ -1360,8 +1360,7 @@ void SlaOutputDev::endPage()
 {
 	if (!m_radioMap.isEmpty())
 	{
-		QHash<QString, QList<int> >::iterator it;
-		for (it = m_radioMap.begin(); it != m_radioMap.end(); ++it)
+		for (auto it = m_radioMap.begin(); it != m_radioMap.end(); ++it)
 		{
 			tmpSel->clear();
 			QList<int> refList = it.value();

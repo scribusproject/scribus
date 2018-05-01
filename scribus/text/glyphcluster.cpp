@@ -25,7 +25,7 @@ void GlyphCluster::append(GlyphLayout& gl)
 double GlyphCluster::width() const
 {
 	double width = 0;
-	for (const GlyphLayout gl : m_glyphs)
+	for (const GlyphLayout& gl : m_glyphs)
 	{
 		width += gl.xadvance * m_scaleH;
 	}
@@ -36,7 +36,7 @@ double GlyphCluster::ascent() const
 {
 	const ScFace &font = m_style->font();
 	double asc = 0;
-	for (const GlyphLayout gl : m_glyphs)
+	for (const GlyphLayout& gl : m_glyphs)
 	{
 		GlyphMetrics gm = font.glyphBBox(gl.glyph, m_style->fontSize() / 10.0);
 		asc = qMax(asc, gm.ascent * m_scaleV);
@@ -48,7 +48,7 @@ double GlyphCluster::descent() const
 {
 	const ScFace &font = m_style->font();
 	double des = 0;
-	for (const GlyphLayout gl : m_glyphs)
+	for (const GlyphLayout& gl : m_glyphs)
 	{
 		GlyphMetrics gm = font.glyphBBox(gl.glyph, m_style->fontSize() / 10.0);
 		des = qMax(des, gm.descent * m_scaleV);

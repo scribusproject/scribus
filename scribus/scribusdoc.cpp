@@ -663,7 +663,7 @@ ScribusDoc::~ScribusDoc()
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
@@ -1386,7 +1386,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		if (newNames.charStyles().contains(nStyle->marksChStyle()))
 			nStyle->setMarksCharStyle(newNames.charStyles().value(nStyle->marksChStyle()));
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *currItem = itf.value();
 		if (currItem)
@@ -3063,10 +3063,9 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 
 bool ScribusDoc::setLayerPrintable(const int layerID, const bool isPrintable)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3089,11 +3088,10 @@ bool ScribusDoc::setLayerPrintable(const int layerID, const bool isPrintable)
 }
 
 
-bool ScribusDoc::layerPrintable(const int layerID)
+bool ScribusDoc::layerPrintable(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->isPrintable;
@@ -3104,10 +3102,9 @@ bool ScribusDoc::layerPrintable(const int layerID)
 
 bool ScribusDoc::setLayerVisible(const int layerID, const bool isViewable)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3122,11 +3119,10 @@ bool ScribusDoc::setLayerVisible(const int layerID, const bool isViewable)
 }
 
 
-bool ScribusDoc::layerVisible(const int layerID)
+bool ScribusDoc::layerVisible(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->isViewable;
@@ -3136,10 +3132,9 @@ bool ScribusDoc::layerVisible(const int layerID)
 
 bool ScribusDoc::setLayerSelectable(const int layerID, const bool isSelectable)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3154,11 +3149,10 @@ bool ScribusDoc::setLayerSelectable(const int layerID, const bool isSelectable)
 }
 
 
-bool ScribusDoc::layerSelectable(const int layerID)
+bool ScribusDoc::layerSelectable(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->isSelectable;
@@ -3169,10 +3163,9 @@ bool ScribusDoc::layerSelectable(const int layerID)
 
 bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3196,11 +3189,10 @@ bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 }
 
 
-bool ScribusDoc::layerLocked(const int layerID)
+bool ScribusDoc::layerLocked(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return !it->isEditable;
@@ -3211,10 +3203,9 @@ bool ScribusDoc::layerLocked(const int layerID)
 
 bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3234,7 +3225,7 @@ bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
 	if (found)
 	{
 		// #9188 : invalidate layout of items below layer
-		for (it = Layers.begin(); it != itend; ++it)
+		for (auto it = Layers.begin(); it != itend; ++it)
 		{
 			if (it->ID == layerID)
 				break;
@@ -3246,11 +3237,10 @@ bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
 }
 
 
-bool ScribusDoc::layerFlow(const int layerID)
+bool ScribusDoc::layerFlow(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->flowControl;
@@ -3261,10 +3251,9 @@ bool ScribusDoc::layerFlow(const int layerID)
 
 bool ScribusDoc::setLayerTransparency(const int layerID, double trans)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3288,11 +3277,10 @@ bool ScribusDoc::setLayerTransparency(const int layerID, double trans)
 }
 
 
-double ScribusDoc::layerTransparency(const int layerID)
+double ScribusDoc::layerTransparency(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->transparency;
@@ -3303,10 +3291,9 @@ double ScribusDoc::layerTransparency(const int layerID)
 
 bool ScribusDoc::setLayerBlendMode(const int layerID, int blend)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3330,11 +3317,10 @@ bool ScribusDoc::setLayerBlendMode(const int layerID, int blend)
 }
 
 
-int ScribusDoc::layerBlendMode(const int layerID)
+int ScribusDoc::layerBlendMode(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->blendMode;
@@ -3345,10 +3331,9 @@ int ScribusDoc::layerBlendMode(const int layerID)
 
 bool ScribusDoc::setLayerOutline(const int layerID, const bool outline)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3363,11 +3348,10 @@ bool ScribusDoc::setLayerOutline(const int layerID, const bool outline)
 }
 
 
-bool ScribusDoc::layerOutline(const int layerID)
+bool ScribusDoc::layerOutline(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto  itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->outlineMode;
@@ -3378,10 +3362,9 @@ bool ScribusDoc::layerOutline(const int layerID)
 
 bool ScribusDoc::setLayerMarker(const int layerID, QColor color)
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	bool found=false;
-	for (it = Layers.begin(); it != itend; ++it)
+	bool found = false;
+	auto itend = Layers.end();
+	for (auto it = Layers.begin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 		{
@@ -3396,11 +3379,10 @@ bool ScribusDoc::setLayerMarker(const int layerID, QColor color)
 }
 
 
-QColor ScribusDoc::layerMarker(const int layerID)
+QColor ScribusDoc::layerMarker(const int layerID) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->ID == layerID)
 			return it->markerColor;
@@ -3409,13 +3391,14 @@ QColor ScribusDoc::layerMarker(const int layerID)
 }
 
 
-int ScribusDoc::layerLevelFromID(const int layerID)
+int ScribusDoc::layerLevelFromID(const int layerID) const
 {
-	int layerCount=Layers.count();
+	int layerCount = Layers.count();
 	for (int i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].ID == layerID)
-			return Layers[i].Level;
+		const ScLayer& layer = Layers.at(i);
+		if (layer.ID == layerID)
+			return layer.Level;
 	}
 	return -1;
 }
@@ -3427,22 +3410,22 @@ int ScribusDoc::layerCount() const
 }
 
 
-int ScribusDoc::layerIDFromLevel(const int layerLevel)
+int ScribusDoc::layerIDFromLevel(const int layerLevel) const
 {
-	int layerCount=Layers.count();
-	for (int i=0; i < layerCount; ++i)
+	int layerCount = Layers.count();
+	for (int i = 0; i < layerCount; ++i)
 	{
-		if (Layers[i].Level == layerLevel)
-			return Layers[i].ID;
+		const ScLayer& layer = Layers.at(i);
+		if (layer.Level == layerLevel)
+			return layer.ID;
 	}
 	return -1;
 }
 
-int ScribusDoc::layerIDFromName(const QString& name)
+int ScribusDoc::layerIDFromName(const QString& name) const
 {
-	ScLayers::iterator itend=Layers.end();
-	ScLayers::iterator it;
-	for (it = Layers.begin(); it != itend; ++it)
+	auto itend = Layers.cend();
+	for (auto it = Layers.cbegin(); it != itend; ++it)
 	{
 		if (it->Name == name)
 			return it->ID;
@@ -3546,11 +3529,12 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 
 QString ScribusDoc::layerName(const int layerID) const
 {
-	int layerCount=Layers.count();
+	int layerCount = Layers.count();
 	for (int i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].ID == layerID)
-			return Layers[i].Name;
+		const ScLayer& layer = Layers[i];
+		if (layer.ID == layerID)
+			return layer.Name;
 	}
 	return QString::null;
 }
@@ -3875,7 +3859,7 @@ void ScribusDoc::removePattern(QString name)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
@@ -4219,7 +4203,7 @@ QStringList ScribusDoc::getUsedSymbols()
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
@@ -4703,7 +4687,7 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 			allItems.clear();
 		}
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *it = itf.value();
 		if (it->isGroup())
@@ -5238,7 +5222,7 @@ void ScribusDoc::recalculateColors()
 	QList<PageItem*> itemList = FrameItems.values();
 	recalculateColorsList(&itemList);
 	QList<PageItem*> allItems;
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *ite = it.value();
 		if (ite->isGroup())
@@ -6184,7 +6168,7 @@ void  ScribusDoc::fixItemPageOwner()
 
 	// #10379: Scribus crash when opening .sla document
 	// OwnPage is not meaningful for inline frame
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		currItem = it.value();
 		currItem->OwnPage = -1;
@@ -7457,7 +7441,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	int counter = 0;
 	if (usingGUI && dia != nullptr)
 		counter = dia->value();
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *it = itf.value();
 		if (it->isGroup())
@@ -10030,7 +10014,7 @@ void ScribusDoc::updatePict(QString name)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -10168,7 +10152,7 @@ void ScribusDoc::updatePictDir(QString name)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -10291,7 +10275,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -10395,7 +10379,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		allItems.clear();
 	}
 
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -10534,7 +10518,7 @@ void ScribusDoc::removePict(QString name)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -11346,7 +11330,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 		}
 		allItems.clear();
 	}
-	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		if (currItem->isGroup())
@@ -16432,7 +16416,7 @@ void ScribusDoc::removeInlineFrame(int fIndex)
 			allItems.clear();
 		}
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		PageItem *ite = itf.value();
 		if (ite->isGroup())
@@ -18370,7 +18354,7 @@ void ScribusDoc::ResetFormFields()
 			allItems.clear();
 		}
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
 		it = itf.value();
 		if (it->isGroup())

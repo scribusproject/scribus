@@ -8629,8 +8629,7 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PageItem_OSGFrame *osgframe = ite->asOSGFrame();
 	QList<uint> viewList;
 	PdfId viewObj = 0;
-	QHash<QString, PageItem_OSGFrame::viewDefinition>::iterator itv;
-	for (itv = osgframe->viewMap.begin(); itv != osgframe->viewMap.end(); ++itv)
+	for (auto itv = osgframe->viewMap.begin(); itv != osgframe->viewMap.end(); ++itv)
 	{
 		PdfId viewObjL = writer.newObject();
 		viewList.append(viewObjL);

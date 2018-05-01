@@ -563,7 +563,7 @@ void ScribusMainWindow::initDefaultValues()
 			continue;
 		if (osgDB::queryPlugin(*itr, infoList))
 		{
-			for(osgDB::ReaderWriterInfoList::iterator rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
+			for (auto rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
 			{
 				osgDB::ReaderWriterInfo& info = *(*rwi_itr);
 				osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
@@ -2431,7 +2431,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 {
 	if (!scrWindowsActions.isEmpty())
 	{
-		for (QMap<QString, QPointer<ScrAction> >::iterator it = scrWindowsActions.begin(); it != scrWindowsActions.end(); ++it)
+		for (auto it = scrWindowsActions.begin(); it != scrWindowsActions.end(); ++it)
 		{
 			scrMenuMgr->removeMenuItem(it.key(), it.value(), "Windows");
 		}
@@ -3783,7 +3783,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->reformPages();
 		doc->refreshGuides();
 		doc->setLoading(false);
-		for (QList<PageItem*>::iterator itm = doc->MasterItems.begin(); itm != doc->MasterItems.end(); ++itm)
+		for (auto itm = doc->MasterItems.begin(); itm != doc->MasterItems.end(); ++itm)
 		{
 			PageItem* ite = *itm;
 			// TODO fix that for Groups on Masterpages
@@ -3796,7 +3796,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		/*QTime t;
 		t.start();*/
 		doc->flag_Renumber = false;
-		for (QList<PageItem*>::iterator iti = doc->Items->begin(); iti != doc->Items->end(); ++iti)
+		for (auto iti = doc->Items->begin(); iti != doc->Items->end(); ++iti)
 		{
 			PageItem* ite = *iti;
 			if((ite->nextInChain() == NULL) && !ite->isNoteFrame())  //do not layout notes frames
@@ -3808,7 +3808,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->updateMarks(true);
 			doc->setLoading(false);
 		}
-		for (QHash<int, PageItem*>::iterator itf = doc->FrameItems.begin(); itf != doc->FrameItems.end(); ++itf)
+		for (auto itf = doc->FrameItems.begin(); itf != doc->FrameItems.end(); ++itf)
 		{
 			PageItem *ite = itf.value();
 //			qDebug() << QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());

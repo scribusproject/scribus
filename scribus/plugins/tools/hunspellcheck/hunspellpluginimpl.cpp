@@ -79,8 +79,8 @@ bool HunspellPluginImpl::initHunspell()
 		return false;
 
 	//Initialise one hunspeller for each dictionary found
-	QMap<QString, QString>::iterator it = dictionaryMap.begin();
-	while (it != dictionaryMap.end())
+	auto it = dictionaryMap.cbegin();
+	while (it != dictionaryMap.cend())
 	{
 		//qDebug()<<"hunspell init:"<<it.key()<<it.value();
 		hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
@@ -165,10 +165,10 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		{
 			//qDebug()<<"Spelling language to match style language IS installed ("<<wordLang<<")";
 			int i = 0;
-			QMap<QString, QString>::iterator it = dictionaryMap.begin();
-			while (it != dictionaryMap.end())
+			auto it = dictionaryMap.cbegin();
+			while (it != dictionaryMap.cend())
 			{
-				if (it.key()==wordLang)
+				if (it.key() == wordLang)
 					break;
 				++i;
 				++it;

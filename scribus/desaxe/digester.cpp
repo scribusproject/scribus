@@ -225,7 +225,7 @@ RuleState::~RuleState()
 	if (dfa) 
 	{
 		std::set<dfa_state_t> morituri(dfa->states());
-		for (std::set<dfa_state_t>::iterator i=morituri.begin(); i != morituri.end(); ++i) {
+		for (auto i = morituri.begin(); i != morituri.end(); ++i) {
 			delete *i;
 		}
 		delete dfa;

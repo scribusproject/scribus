@@ -42,9 +42,10 @@ void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hu
 	m_wfList=wfList;
 	bool b=languagesComboBox->blockSignals(true);
 	languagesComboBox->clear();
-	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
+
 	QStringList langsToAdd;
-	while (it != m_dictionaryMap->end())
+	auto it = m_dictionaryMap->cbegin();
+	while (it != m_dictionaryMap->cend())
 	{
 		QString lang=LanguageManager::instance()->getLangFromAbbrev(it.key(), true);
 		if (!langsToAdd.contains(lang))
@@ -184,21 +185,22 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 
 void HunspellDialog::setLanguageCombo(const QString &newLangAbbrev)
 {
-	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
-	bool found=false;
-	while (it != m_dictionaryMap->end())
+	bool found = false;
+
+	auto it = m_dictionaryMap->cbegin();
+	while (it != m_dictionaryMap->cend())
 	{
-		if (it.key()==newLangAbbrev)
+		if (it.key() == newLangAbbrev)
 		{
 			found=true;
 			break;
 		}
 		++it;
 	}
-	int i=0;
+	int i = 0;
 	if (found)
-		i=languagesComboBox->findText(LanguageManager::instance()->getLangFromAbbrev(newLangAbbrev,true));
-	bool b=languagesComboBox->blockSignals(true);
+		i = languagesComboBox->findText(LanguageManager::instance()->getLangFromAbbrev(newLangAbbrev,true));
+	bool b = languagesComboBox->blockSignals(true);
 	languagesComboBox->setCurrentIndex(i);
 	languagesComboBox->blockSignals(b);
 }

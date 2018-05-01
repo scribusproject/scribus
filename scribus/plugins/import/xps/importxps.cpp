@@ -1626,8 +1626,7 @@ void XpsPlug::resolveLinks()
 {
 	if (!linkSources.isEmpty())
 	{
-		QHash<PageItem*, QString>::iterator it;
-		for (it = linkSources.begin(); it != linkSources.end(); ++it)
+		for (auto it = linkSources.begin(); it != linkSources.end(); ++it)
 		{
 			PageItem* linkS = it.key();
 			QString target = it.value();

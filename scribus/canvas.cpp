@@ -1467,7 +1467,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 	//then we must be sure that text frames are valid and all notes frames are created before we start drawing
 	if (!notesFramesPass && !m_doc->notesList().isEmpty())
 	{
-		for (QList<PageItem*>::iterator it = m_doc->Items->begin(); it != m_doc->Items->end(); ++it)
+		for (auto it = m_doc->Items->begin(); it != m_doc->Items->end(); ++it)
 		{
 			PageItem* currItem = *it;
 			if ( !currItem->isTextFrame()

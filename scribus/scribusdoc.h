@@ -324,7 +324,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int layerID);
+	bool layerPrintable(const int layerID) const;
 	/**
 	 * @brief Set the layer visible via the layer number
 	 * @param layerID ID of the layer
@@ -337,13 +337,13 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int layerID);
+	bool layerVisible(const int layerID) const;
 	/**
 	 * @brief are objects on the layer selectable
 	 * @param layerID ID of the layer
 	 * @return Items selectable or not
 	 */
-	bool layerSelectable(const int layerID);
+	bool layerSelectable(const int layerID) const;
 	/**
 	 * @brief Set objects on the layer selectable via the layer ID
 	 * @param layerID ID of the layer
@@ -363,7 +363,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Locked or not
 	 */
-	bool layerLocked(const int layerID);
+	bool layerLocked(const int layerID) const;
 	/**
 	 * @brief Set the layer flow via the layer number
 	 * @param layerID ID of the layer
@@ -376,7 +376,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return flow or not
 	 */
-	bool layerFlow(const int layerID);
+	bool layerFlow(const int layerID) const;
 	/**
 	 * @brief Set the layer transparency via the layer number
 	 * @param layerID ID of the layer
@@ -389,7 +389,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return transparency value 0.0 - 1.0
 	 */
-	double layerTransparency(const int layerID);
+	double layerTransparency(const int layerID) const;
 	/**
 	 * @brief Set the layer layerBlendMode via the layer number
 	 * @param layerID ID of the layer
@@ -402,13 +402,13 @@ public:
 	 * @param layerID ID of the layer
 	 * @return layerBlendMode
 	 */
-	int layerBlendMode(const int ID);
+	int layerBlendMode(const int ID) const;
 	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerID ID of the layer
 	 * @return Level of the layer
 	 */
-	int layerLevelFromID(const int layerID);
+	int layerLevelFromID(const int layerID) const;
 	/**
 	 * @brief Set the layer marker color
 	 * @param ID Number of the layer
@@ -421,7 +421,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return marker color
 	 */
-	QColor layerMarker(const int layerID);
+	QColor layerMarker(const int layerID) const;
 	/**
 	 * @brief Set the layer outline mode via the layer number
 	 * @param layerID ID of the layer
@@ -434,18 +434,18 @@ public:
 	 * @param layerID ID of the layer
 	 * @return outline or not
 	 */
-	bool layerOutline(const int layerID);
+	bool layerOutline(const int layerID) const;
 	/**
 	 * @brief Return the number of the layer at a certain level
 	 * @param layerLevel Layer level
 	 * @return Layer ID
 	 */
-	int layerIDFromLevel(const int layerLevel);
+	int layerIDFromLevel(const int layerLevel) const;
 	/**
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
 	 */
-	int layerIDFromName(const QString& name);
+	int layerIDFromName(const QString& name) const;
 	int layerCount() const;
 	/**
 	 * @brief Lower a layer

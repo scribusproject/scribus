@@ -2161,8 +2161,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 	stroke += " stroke-dasharray:";
 	if (Item->DashValues.count() != 0)
 	{
-		QVector<double>::iterator it;
-		for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
+		for (auto it = Item->DashValues.cbegin(); it != Item->DashValues.cend(); ++it )
 		{
 			stroke += IToStr(static_cast<int>(*it))+" ";
 		}

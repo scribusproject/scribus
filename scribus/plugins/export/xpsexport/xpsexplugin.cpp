@@ -1968,8 +1968,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 	QString dashVals = "";
 	if (Item->DashValues.count() != 0)
 	{
-		QVector<double>::iterator it;
-		for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
+		for (auto it = Item->DashValues.cbegin(); it != Item->DashValues.cend(); ++it)
 		{
 			dashVals += FToStr((*it) / Item->lineWidth())+" ";
 		}

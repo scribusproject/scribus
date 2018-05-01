@@ -6860,9 +6860,8 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 	}
 	if (!markeredMarksMap.isEmpty())
 	{
-		QMap<Mark*,QMap<QString, MarkType> >::iterator markIt;
-		QMap<Mark*,QMap<QString, MarkType> >::iterator end = markeredMarksMap.end();
-		for (markIt = markeredMarksMap.begin(); markIt != end; ++markIt)
+		auto end = markeredMarksMap.end();
+		for (auto markIt = markeredMarksMap.begin(); markIt != end; ++markIt)
 		{
 			Mark* mark = markIt.key();
 			QMap<QString, MarkType> mark2map = markIt.value();
@@ -6961,9 +6960,8 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 	if (!notesNSets.isEmpty())
 	{
 		assert(!m_Doc->notesList().isEmpty());
-		QMap<TextNote*, QString>::iterator it;
-		QMap<TextNote*, QString>::iterator end = notesNSets.end();
-		for (it = notesNSets.begin(); it != end; ++it)
+		auto end = notesNSets.end();
+		for (auto it = notesNSets.begin(); it != end; ++it)
 		{
 			TextNote* note = it.key();
 			assert(note != NULL);

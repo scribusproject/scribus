@@ -221,7 +221,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 		m_pixelFormat = Format_BGRA_8;
 		return true;
 	}
-	catch(IOException& e)
+	catch (IOException& /*e*/)
 	{
 		return false;
 	}
