@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Miscellaneous : public Prefs_Pane, Ui::Prefs_Miscellaneo
 	Q_OBJECT
 
 	public:
-		Prefs_Miscellaneous(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Miscellaneous(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Miscellaneous();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

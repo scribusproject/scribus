@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Scrapbook : public Prefs_Pane, Ui::Prefs_Scrapbook
 	Q_OBJECT
 
 	public:
-		Prefs_Scrapbook(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Scrapbook(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Scrapbook();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

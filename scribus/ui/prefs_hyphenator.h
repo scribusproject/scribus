@@ -20,7 +20,7 @@ class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 	Q_OBJECT
 
 	public:
-		Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Hyphenator();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

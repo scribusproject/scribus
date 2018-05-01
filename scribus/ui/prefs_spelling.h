@@ -22,7 +22,7 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 	Q_OBJECT
 
 	public:
-		Prefs_Spelling(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Spelling(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Spelling();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

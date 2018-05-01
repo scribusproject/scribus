@@ -234,21 +234,21 @@ public: // Start public functions
 	virtual ~PageItem();
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
-	virtual PageItem_Arc * asArc()					{ return NULL; } ///< Return self if Arc item, otherwise null
-	virtual PageItem_Group * asGroupFrame()			{ return NULL; } ///< Return self if Group item, otherwise null
-	virtual PageItem_ImageFrame * asImageFrame()	{ return NULL; } ///< Return self if Image item, otherwise null
-	virtual PageItem_LatexFrame * asLatexFrame()	{ return NULL; } ///< Return self if Render frame item, otherwise null
-	virtual PageItem_Line * asLine()				{ return NULL; } ///< Return self if Line item, otherwise null
-	virtual PageItem_NoteFrame * asNoteFrame()		{ return NULL; } ///< Return self if Note item, otherwise null
-	virtual PageItem_OSGFrame * asOSGFrame()		{ return NULL; } ///< Return self if OSG item, otherwise null
-	virtual PageItem_PathText * asPathText()		{ return NULL; } ///< Return self if Path Text item, otherwise null
-	virtual PageItem_PolyLine * asPolyLine()		{ return NULL; } ///< Return self if Poly Line item, otherwise null
-	virtual PageItem_Polygon * asPolygon()			{ return NULL; } ///< Return self if Polygon item, otherwise null
-	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; } ///< Return self if Regular Polygon item, otherwise null
-	virtual PageItem_Spiral * asSpiral()			{ return NULL; } ///< Return self if Spiral item, otherwise null
-	virtual PageItem_Symbol * asSymbolFrame()		{ return NULL; } ///< Return self if Symbol item, otherwise null
-	virtual PageItem_Table * asTable()				{ return NULL; } ///< Return self if Table item, otherwise null
-	virtual PageItem_TextFrame * asTextFrame()		{ return NULL; } ///< Return self if Text item, otherwise null
+	virtual PageItem_Arc * asArc()							{ return nullptr; } ///< Return self if Arc item, otherwise null
+	virtual PageItem_Group * asGroupFrame()					{ return nullptr; } ///< Return self if Group item, otherwise null
+	virtual PageItem_ImageFrame * asImageFrame()			{ return nullptr; } ///< Return self if Image item, otherwise null
+	virtual PageItem_LatexFrame * asLatexFrame()			{ return nullptr; } ///< Return self if Render frame item, otherwise null
+	virtual PageItem_Line * asLine()						{ return nullptr; } ///< Return self if Line item, otherwise null
+	virtual PageItem_NoteFrame * asNoteFrame()				{ return nullptr; } ///< Return self if Note item, otherwise null
+	virtual PageItem_OSGFrame * asOSGFrame()				{ return nullptr; } ///< Return self if OSG item, otherwise null
+	virtual PageItem_PathText * asPathText()				{ return nullptr; } ///< Return self if Path Text item, otherwise null
+	virtual PageItem_PolyLine * asPolyLine()				{ return nullptr; } ///< Return self if Poly Line item, otherwise null
+	virtual PageItem_Polygon * asPolygon()					{ return nullptr; } ///< Return self if Polygon item, otherwise null
+	virtual PageItem_RegularPolygon * asRegularPolygon()	{ return nullptr; } ///< Return self if Regular Polygon item, otherwise null
+	virtual PageItem_Spiral * asSpiral()					{ return nullptr; } ///< Return self if Spiral item, otherwise null
+	virtual PageItem_Symbol * asSymbolFrame()				{ return nullptr; } ///< Return self if Symbol item, otherwise null
+	virtual PageItem_Table * asTable()						{ return nullptr; } ///< Return self if Table item, otherwise null
+	virtual PageItem_TextFrame * asTextFrame()				{ return nullptr; } ///< Return self if Text item, otherwise null
 
 	virtual bool isArc()			const { return false; } ///< Return true if Arc item, otherwise false
 	virtual bool isAutoNoteFrame()	const { return false; } ///< Return true if Auto Note item, otherwise false
@@ -270,8 +270,8 @@ public: // Start public functions
 	virtual bool isGroupChild() const;
 	virtual bool isTableCell() const;
 
-	PageItem_Group* parentGroup() const { return (Parent ? Parent->asGroupFrame() : NULL); }
-	PageItem_Table* parentTable() const { return (Parent ? Parent->asTable() : NULL); }
+	PageItem_Group* parentGroup() const { return (Parent ? Parent->asGroupFrame() : nullptr); }
+	PageItem_Table* parentTable() const { return (Parent ? Parent->asTable() : nullptr); }
 
 	virtual void applicableActions(QStringList& actionList) = 0;
 	virtual QString infoDescription();
@@ -460,7 +460,7 @@ public: // Start public functions
 	const PageItem* nextInChain() const { return NextBox; }
 	//simplify conditions checking if frame is in chain
 	//FIX: use it in other places
-	bool isInChain() { return ((prevInChain() != NULL) || (nextInChain() != NULL)); }
+	bool isInChain() { return ((prevInChain() != nullptr) || (nextInChain() != nullptr)); }
 
 	//you can change all code for search first or last item in chain
 	PageItem* firstInChain();
@@ -1226,11 +1226,11 @@ public: // Start public functions
 	void updateConstants();
 	bool isWelded()  {return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
 	void weldTo(PageItem* item);
-	QList<PageItem*> itemsWeldedTo(PageItem* except = NULL);
+	QList<PageItem*> itemsWeldedTo(PageItem* except = nullptr);
 	void unWeld();
 	void addWelded(PageItem* item);
 	void moveWelded(double dX, double dY, int weld);
-	void moveWelded(double dX, double dY, PageItem* except = NULL);
+	void moveWelded(double dX, double dY, PageItem* except = nullptr);
 	void rotateWelded(double dR, double oldRot);
 	void setWeldPoint(double dX, double dY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText

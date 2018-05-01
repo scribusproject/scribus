@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_PageSizes : public Prefs_Pane, Ui::Prefs_PageSizes
 	Q_OBJECT
 
 	public:
-		Prefs_PageSizes(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_PageSizes(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_PageSizes();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

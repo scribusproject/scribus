@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_OperatorTools : public Prefs_Pane, Ui::Prefs_OperatorToo
 	Q_OBJECT
 
 	public:
-		Prefs_OperatorTools(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_OperatorTools(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_OperatorTools();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

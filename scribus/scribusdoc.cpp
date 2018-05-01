@@ -2055,7 +2055,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		if (is)
 		{
 			Mark* mrk = getMark(is->get("label"), (MarkType) is->getInt("type"));
-			if (mrk == NULL && is->contains("labelOLD"))
+			if (mrk == nullptr && is->contains("labelOLD"))
 				mrk = getMark(is->get("labelOLD"), (MarkType) is->getInt("type"));
 			int pos = is->getInt("at");
 			bool isAutoNoteFrame = false;
@@ -2102,7 +2102,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				}
 				else if (is->get("MARK") == "edit")
 				{
-					Q_ASSERT(mrk != NULL);
+					Q_ASSERT(mrk != nullptr);
 					if (is->contains("labelOLD"))
 						mrk->label = is->get("labelOLD");
 					if (is->contains("strtxtOLD"))
@@ -2112,7 +2112,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					}
 					if (is->contains("dNameOLD"))
 						mrk->setMark(is->get("dNameOLD"), (MarkType) is->getInt("dTypeOLD"));
-					if (is->getItem("itemPtrOLD") != NULL)
+					if (is->getItem("itemPtrOLD") != nullptr)
 						mrk->setItemPtr((PageItem*) is->getItem("itemPtrOLD"));
 				}
 				else if (is->get("MARK") == "insert_existing")
@@ -2291,7 +2291,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				}
 			}
 			scMW()->emitUpdateRequest(reqMarksUpdate);
-			if (currItem != NULL && !isAutoNoteFrame)
+			if (currItem != nullptr && !isAutoNoteFrame)
 			{
 				currItem->invalidateLayout();
 				currItem->updateLayout();
@@ -9482,9 +9482,9 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 					if (UndoManager::undoEnabled())
 					{
 						UndoState* state = m_undoManager->getLastUndo();
-						ScItemState<QPair<CharStyle,CharStyle> > *is = NULL;
-						SimpleState *ss = NULL;
-						TransactionState *ts = NULL;
+						ScItemState<QPair<CharStyle,CharStyle> > *is = nullptr;
+						SimpleState *ss = nullptr;
+						TransactionState *ts = nullptr;
 						while (state && state->isTransaction())
 						{
 							ts = dynamic_cast<TransactionState*>(state);

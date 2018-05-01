@@ -16,8 +16,8 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 	Q_OBJECT
 
 	public:
-		Prefs_Pane(QWidget* parent) : QWidget(parent) {};
-		~Prefs_Pane() {} ;
+		Prefs_Pane(QWidget* parent) : QWidget(parent) {}
+		~Prefs_Pane() {}
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData) = 0;
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const = 0;
 };

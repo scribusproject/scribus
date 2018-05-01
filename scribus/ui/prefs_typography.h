@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Typography : public Prefs_Pane, Ui::Prefs_Typography
 	Q_OBJECT
 
 	public:
-		Prefs_Typography(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Typography(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Typography();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

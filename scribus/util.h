@@ -150,7 +150,7 @@ void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<float> 
  *\brief Convert pre-1.5.x tables to table as implemented in 1.5.x
  *\retval true on success, false it items have to be converted to a group
 */
-bool SCRIBUS_API convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack< QList<PageItem*> > *groupStackT = NULL, QList<PageItem *> *target = NULL);
+bool SCRIBUS_API convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack< QList<PageItem*> > *groupStackT = nullptr, QList<PageItem *> *target = nullptr);
 
 void SCRIBUS_API setWidgetBoldFont(QWidget* w, bool wantBold);
 /*!

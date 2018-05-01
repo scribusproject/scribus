@@ -35,9 +35,8 @@ class SCRIBUS_API TOCGenerator : public QObject
 {
 	Q_OBJECT
 	public:
-		TOCGenerator(QObject *parent = NULL, ScribusDoc *doc = NULL);
-		
-		void setDoc(ScribusDoc *doc = NULL);
+		TOCGenerator(QObject *parent = nullptr, ScribusDoc *doc = nullptr);
+		void setDoc(ScribusDoc *doc = nullptr);
 		
 	public slots:
 		void generateDefault();

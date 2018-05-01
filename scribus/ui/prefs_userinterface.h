@@ -23,7 +23,7 @@ class SCRIBUS_API Prefs_UserInterface : public Prefs_Pane, Ui::Prefs_UserInterfa
 	Q_OBJECT
 
 	public:
-		Prefs_UserInterface(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_UserInterface(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_UserInterface();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

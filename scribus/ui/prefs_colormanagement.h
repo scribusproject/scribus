@@ -21,7 +21,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 	Q_OBJECT
 
 	public:
-		Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_ColorManagement();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);

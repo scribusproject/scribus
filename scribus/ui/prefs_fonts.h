@@ -23,7 +23,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 	Q_OBJECT
 
 	public:
-		Prefs_Fonts(QWidget* parent, ScribusDoc* doc=NULL);
+		Prefs_Fonts(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Fonts();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
