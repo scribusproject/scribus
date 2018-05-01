@@ -3612,25 +3612,26 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 }
 
 
-void ScribusDoc::orderedLayerList(QStringList* list)
+void ScribusDoc::orderedLayerList(QStringList* list) const
 {
-	Q_ASSERT(list!=nullptr);
-	int layerCount=Layers.count();
-	if (layerCount != 0)
+	Q_ASSERT(list != nullptr);
+
+	int layerCount = Layers.count();
+	if (layerCount == 0)
+		return;
+
+	for (int i=0; i < layerCount; ++i)
 	{
-		for (int i=0; i < layerCount; ++i)
+		auto itend = Layers.cend();
+		for (auto it = Layers.cbegin(); it != itend; ++it)
 		{
-			ScLayers::iterator itend=Layers.end();
-			for (ScLayers::iterator it = Layers.begin(); it != itend; ++it)
-			{
-				if (layerCount-(*it).Level-1 == i)
-					list->append((*it).Name);
-			}
- 		}
+			if (layerCount - it->Level - 1 == i)
+				list->append(it->Name);
+		}
  	}
 }
 
-int ScribusDoc::firstLayerID()
+int ScribusDoc::firstLayerID() const
 {
 	QStringList newNames;
 	orderedLayerList(&newNames);
@@ -3701,18 +3702,17 @@ void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 	}
 }
 
-void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
+void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot) const
 {
 	bool found;
 	colorsToUse.clear();
-	colorsToUse.setDocument(this);
-	ColorList::Iterator it;
+	colorsToUse.setDocument(const_cast<ScribusDoc*>(this));
 
 	ResourceCollection resources;
 	this->getNamedResources(resources);
 	const QMap<QString, QString>& resColors = resources.colors();
 
-	for (it = PageColors.begin(); it != PageColors.end(); ++it)
+	for (auto it = PageColors.cbegin(); it != PageColors.cend(); ++it)
 	{
 		found = false;
 		// Tool preferences colors
@@ -3751,19 +3751,18 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
-bool ScribusDoc::lineStylesUseColor(const QString& colorName)
+bool ScribusDoc::lineStylesUseColor(const QString& colorName) const
 {
 	bool found = false;
-	QHash<QString,multiLine>::const_iterator itm, itmend;
 	multiLine::const_iterator its, itsend;
-	itmend = MLineStyles.constEnd();
-	for (itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
+	auto itmend = MLineStyles.constEnd();
+	for (auto itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
 	{
 		const multiLine& ml = itm.value();
 		itsend = ml.constEnd();
 		for (its = ml.constBegin(); its != itsend; ++its)
 		{
-			if ( its->Color == colorName )
+			if (its->Color == colorName)
 			{
 				found = true;
 				break;
@@ -3773,22 +3772,21 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 	return found;
 }
 
-void ScribusDoc::getUsedGradients(QHash<QString, VGradient> &gradients)
+void ScribusDoc::getUsedGradients(QHash<QString, VGradient> &gradients) const
 {
 	ResourceCollection resources;
 	this->getNamedResources(resources);
 	const QMap<QString, QString>& resGradients = resources.gradients();
-	QHash<QString, VGradient>::iterator it;
-	for (it = docGradients.begin(); it != docGradients.end(); ++it)
+	for (auto it = docGradients.cbegin(); it != docGradients.cend(); ++it)
 	{
 		if (resGradients.contains(it.key()))
-			gradients.insert(it.key(), docGradients[it.key()]);
+			gradients.insert(it.key(), it.value());
 	}
 }
 
-bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
+bool ScribusDoc::addGradient(QString &name, const VGradient &gradient)
 {
-	for (QHash<QString, VGradient>::Iterator it = docGradients.begin(); it != docGradients.end(); ++it)
+	for (auto it = docGradients.cbegin(); it != docGradients.cend(); ++it)
  	{
 		if (it.value() == gradient)
 		{
@@ -3803,7 +3801,7 @@ bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 	return true;
 }
 
-void ScribusDoc::setGradients(QHash<QString, VGradient> &gradients)
+void ScribusDoc::setGradients(const QHash<QString, VGradient> &gradients)
 {
 	docGradients.clear();
 	docGradients = gradients;
@@ -3908,7 +3906,7 @@ ScPattern* ScribusDoc::checkedPattern(const QString &name)
 	return pattern;
 }
 
-void ScribusDoc::setPatterns(QHash<QString, ScPattern> &patterns)
+void ScribusDoc::setPatterns(const QHash<QString, ScPattern> &patterns)
 {
 	docPatterns.clear();
 	docPatterns = patterns;
@@ -4025,61 +4023,59 @@ QStringList ScribusDoc::getUsedPatterns() const
 }
 
 
-QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
+QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection) const
 {
 	QStringList results;
 	int selectedItemCount = customSelection->count();
-	if (selectedItemCount != 0)
-	{
-		for (int i = 0; i < selectedItemCount; ++i)
-		{
-			PageItem *currItem = customSelection->itemAt(i);
-			QList<PageItem*> allItems;
-			if (currItem->isGroup())
-				allItems = currItem->getAllChildren();
-			else
-				allItems.append(currItem);
-			for (int j = 0; j < allItems.count(); j++)
-			{
-				currItem = allItems.at(j);
-				if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
-				{
-					const QString& pat = currItem->pattern();
-					if (!pat.isEmpty() && !results.contains(pat))
-						results.append(currItem->pattern());
-				}
-				const QString& pat2 = currItem->strokePattern();
-				if (!pat2.isEmpty() && !results.contains(pat2))
-					results.append(currItem->strokePattern());
-				const QString& pat3 = currItem->patternMask();
-				if (!pat3.isEmpty() && !results.contains(pat3))
-					results.append(currItem->patternMask());
-			}
-			allItems.clear();
-		}
-		QStringList results2 = results;
-		for (int i = 0; i < results.count(); ++i)
-		{
-			QStringList pats = getUsedPatternsHelper(results[i], results2);
-			if (pats.isEmpty())
-				continue;
-			for (int j = 0; j < pats.count(); j++)
-			{
-				if (!results2.contains(pats[j]))
-					results2.append(pats[j]);
-			}
-		}
-		return results2;
-	}
-	else
+	if (selectedItemCount == 0)
 		return QStringList();
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = customSelection->itemAt(i);
+		QList<PageItem*> allItems;
+		if (currItem->isGroup())
+			allItems = currItem->getAllChildren();
+		else
+			allItems.append(currItem);
+		for (int j = 0; j < allItems.count(); j++)
+		{
+			currItem = allItems.at(j);
+			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+			{
+				const QString& pat = currItem->pattern();
+				if (!pat.isEmpty() && !results.contains(pat))
+					results.append(currItem->pattern());
+			}
+			const QString& pat2 = currItem->strokePattern();
+			if (!pat2.isEmpty() && !results.contains(pat2))
+				results.append(currItem->strokePattern());
+			const QString& pat3 = currItem->patternMask();
+			if (!pat3.isEmpty() && !results.contains(pat3))
+				results.append(currItem->patternMask());
+		}
+		allItems.clear();
+	}
+	QStringList results2 = results;
+	for (int i = 0; i < results.count(); ++i)
+	{
+		QStringList pats = getUsedPatternsHelper(results[i], results2);
+		if (pats.isEmpty())
+			continue;
+		for (int j = 0; j < pats.count(); j++)
+		{
+			if (!results2.contains(pats[j]))
+				results2.append(pats[j]);
+		}
+	}
+	return results2;
 }
 
-QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &results)
+QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &results) const
 {
 	if (!docPatterns.contains(pattern))
 		return QStringList();
-	ScPattern *pat = &docPatterns[pattern];
+	const ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
 	for (int i = 0; i < pat->items.count(); ++i)
 	{
@@ -4124,7 +4120,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	return results;
 }
 
-QStringList ScribusDoc::getPatternDependencyList(QStringList used)
+QStringList ScribusDoc::getPatternDependencyList(QStringList used) const
 {
 	QStringList results;
 	QStringList pp;
@@ -4157,7 +4153,7 @@ QStringList ScribusDoc::getPatternDependencyList(QStringList used)
 	return results;
 }
 
-QStringList ScribusDoc::getUsedSymbols()
+QStringList ScribusDoc::getUsedSymbols() const
 {
 	QList<PageItem*> allItems;
 	QStringList results;
@@ -4223,7 +4219,7 @@ QStringList ScribusDoc::getUsedSymbols()
 		}
 		allItems.clear();
 	}
-	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	for (auto it = docPatterns.cbegin(); it != docPatterns.cend(); ++it)
 	{
 		for (int i = 0; i < it.value().items.count(); ++i)
 		{
@@ -4249,9 +4245,9 @@ QStringList ScribusDoc::getUsedSymbols()
 	return results;
 }
 
-QStringList ScribusDoc::getUsedSymbolsHelper(QString pattern, QStringList &results)
+QStringList ScribusDoc::getUsedSymbolsHelper(QString pattern, QStringList &results) const
 {
-	ScPattern *pat = &docPatterns[pattern];
+	const ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
 	for (int i = 0; i < pat->items.count(); ++i)
 	{
@@ -4635,23 +4631,24 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 }
 
 
-void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
+void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles) const
 {
 	PageItem* it = nullptr;
 	QStringList profileNames;
+	QList<PageItem*> allItems;
 	int counter = 0;
+
 	usedProfiles.clear();
 
-	QList<PageItem*> allItems;
 	profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
 	profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile) < 0)
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile);
-	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile) < 0)
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile);
-	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile) < 0)
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultMonitorProfile);
-	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0 )
+	if (profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0)
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile);
 
 	if (profileNames.indexOf(m_docPrefsData.pdfPrefs.SolidProf) < 0)
@@ -4661,18 +4658,14 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	if (profileNames.indexOf(m_docPrefsData.pdfPrefs.PrintProf) < 0)
 		profileNames.append(m_docPrefsData.pdfPrefs.PrintProf);
 	
+	const QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
 	for (int lc = 0; lc < 2; ++lc)
 	{
-		if (lc == 0)
-			counter = MasterItems.count();
-		else if (lc == 1)
-			counter = DocItems.count();
+		const auto* pItemList = itemLists[lc];
+		counter = pItemList->count();
 		for (int d = 0; d < counter; ++d)
 		{
-			if (lc == 0)
-				it = MasterItems.at(d);
-			else if (lc == 1)
-				it = DocItems.at(d);
+			it = pItemList->at(d);
 			if (it->isGroup())
 				allItems = it->getAllChildren();
 			else
@@ -4687,7 +4680,8 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 			allItems.clear();
 		}
 	}
-	for (auto itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+
+	for (auto itf = FrameItems.cbegin(); itf != FrameItems.cend(); ++itf)
 	{
 		PageItem *it = itf.value();
 		if (it->isGroup())
@@ -4704,7 +4698,7 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 		allItems.clear();
 	}
 
-	for (QStringList::Iterator pIter = profileNames.begin(); pIter != profileNames.end(); pIter++)
+	for (auto pIter = profileNames.cbegin(); pIter != profileNames.cend(); pIter++)
 	{
 		if (ScCore->InputProfiles.contains(*pIter))
 			usedProfiles[*pIter] = ScCore->InputProfiles[*pIter];

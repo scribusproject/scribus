@@ -501,16 +501,17 @@ public:
 	 * @brief Return a list of the layers in their order
 	 * @param list QStringList to insert the layer names into
 	 */
-	void orderedLayerList(QStringList* list);
+	void orderedLayerList(QStringList* list) const;
 
-	int firstLayerID();
+	int firstLayerID() const;
+
 	//Items
 	bool deleteTaggedItems();
 
 	/*!
 		* @brief Builds a qmap of the icc profiles used within the document
 	 */
-	void getUsedProfiles(ProfilesL& usedProfiles);
+	void getUsedProfiles(ProfilesL& usedProfiles) const;
 	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void SetDefaultCMSParams();
@@ -675,26 +676,26 @@ public:
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/
-	void getUsedColors(ColorList &colorsToUse, bool spot = false);
+	void getUsedColors(ColorList &colorsToUse, bool spot = false) const;
 	/*!
 	* @brief Return if a specific color is used by line styles
 	*/
-	bool lineStylesUseColor(const QString& colorName);
+	bool lineStylesUseColor(const QString& colorName) const;
 	/*!
 	* @brief Builds a qmap of the gradients used within the document
 	*/
-	void getUsedGradients(QHash<QString, VGradient> &Gradients);
+	void getUsedGradients(QHash<QString, VGradient> &Gradients) const;
 	/*!
 	* @brief Set the gradients for a document
 	*/
-	bool addGradient(QString &name, VGradient &gradient);
-	void setGradients(QHash<QString, VGradient> &gradients);
+	bool addGradient(QString &name, const VGradient &gradient);
+	void setGradients(const QHash<QString, VGradient> &gradients);
 	/*!
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
 	void removePattern(QString name);
-	void setPatterns(QHash<QString, ScPattern> &patterns);
+	void setPatterns(const QHash<QString, ScPattern> &patterns);
 	/*!
 	* @brief Check pattern with specified name and return it if valid
 	*/
@@ -703,14 +704,14 @@ public:
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns() const;
-	QStringList getUsedPatternsSelection(Selection* customSelection);
-	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
-	QStringList getPatternDependencyList(QStringList used);
+	QStringList getUsedPatternsSelection(Selection* customSelection) const;
+	QStringList getUsedPatternsHelper(QString pattern, QStringList &results) const;
+	QStringList getPatternDependencyList(QStringList used) const;
 	/*!
 	* @brief Builds a QStringList of the symbols used within the document
 	*/
-	QStringList getUsedSymbols();
-	QStringList getUsedSymbolsHelper(QString pattern, QStringList &results);
+	QStringList getUsedSymbols() const;
+	QStringList getUsedSymbolsHelper(QString pattern, QStringList &results) const;
 
 	/*!
 	* @brief Check if document use Acrobat Form Fields
