@@ -7,11 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTPDF_H
 #define IMPORTPDF_H
 
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -26,6 +21,11 @@ for which a new license (GPL+exception) is in place.
 #include <QPen>
 #include <QImage>
 
+#include "fpointarray.h"
+#include "importpdfconfig.h"
+#include "pluginapi.h"
+#include "pageitem.h"
+#include "sccolor.h"
 
 class QColor;
 class QMatrix;
@@ -81,7 +81,7 @@ public:
 private:
 	bool convert(const QString& fn);
 	QRectF getCBox(int box, int pgNum);
-	QString UnicodeParsedString(const GooString *s1);
+	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	
 	QList<PageItem*> Elements;
 	double baseX, baseY;

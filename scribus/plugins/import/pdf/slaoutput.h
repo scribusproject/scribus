@@ -7,26 +7,27 @@ for which a new license (GPL+exception) is in place.
 #ifndef SLAOUTPUT_H
 #define SLAOUTPUT_H
 
-#include <QString>
-#include <QTextStream>
-#include <QSizeF>
 #include <QBuffer>
 #include <QColor>
 #include <QBrush>
-#include <QPen>
-#include <QImage>
-#include <QList>
-#include <QTransform>
-#include <QStack>
 #include <QDebug>
+#include <QImage>
+#include <QPen>
+#include <QList>
+#include <QSizeF>
+#include <QStack>
+#include <QString>
+#include <QTextStream>
+#include <QTransform>
+
 #include "fpointarray.h"
+#include "importpdfconfig.h"
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "vgradient.h"
 
-#include <poppler/cpp/poppler-version.h>
 #include <poppler/goo/gtypes.h>
 #include <poppler/Object.h>
 #include <poppler/OutputDev.h>
@@ -49,18 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include <poppler/splash/SplashMath.h>
 #include <poppler/splash/SplashPath.h>
 #include <poppler/splash/SplashGlyphBitmap.h>
-
-#define POPPLER_VERSION_ENCODE(major, minor, micro) (	\
-	  ((major) * 10000)				\
-	+ ((minor) *   100)				\
-	+ ((micro) *     1))
-#define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
-
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 64, 0)
-#define POPPLER_CONST const
-#else
-#define POPPLER_CONST
-#endif
 
 //------------------------------------------------------------------------
 // LinkSubmitData
@@ -280,7 +269,7 @@ private:
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
 	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
-	QString UnicodeParsedString(const GooString *s1);
+	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	bool checkClip();
 	bool pathIsClosed;
 	QString CurrColorFill;
