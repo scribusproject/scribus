@@ -39,8 +39,8 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions->begin();
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
-	ScPlugin* plugin = NULL;
-	ScActionPlugin* ixplug = NULL;
+	ScPlugin* plugin = nullptr;
+	ScActionPlugin* ixplug = nullptr;
 	QString pName;
 	for (int i = 0; i < pluginNames.count(); ++i)
 	{
@@ -64,7 +64,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	keyCode = 0;
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
-	selectedLVI = NULL;
+	selectedLVI = nullptr;
 
 	clearSearchButton->setIcon(IconManager::instance()->loadIcon("clear_right.png"));
 	// signals and slots connections
@@ -317,10 +317,10 @@ void Prefs_KeyboardShortcuts::insertActions()
 	lviToMenuMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
-	QTreeWidgetItem *currLVI = NULL;
-	QTreeWidgetItem *currMenuLVI = NULL;
-	QTreeWidgetItem *prevLVI = NULL;
-	QTreeWidgetItem *prevMenuLVI = NULL;
+	QTreeWidgetItem *currLVI = nullptr;
+	QTreeWidgetItem *currMenuLVI = nullptr;
+	QTreeWidgetItem *prevLVI = nullptr;
+	QTreeWidgetItem *prevMenuLVI = nullptr;
 	for (int i = 0; i < defMenus->count(); ++i)
 	{
 		const QPair<QString, QStringList> &actionStrings = defMenus->at(i);

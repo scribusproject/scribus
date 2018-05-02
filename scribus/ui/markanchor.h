@@ -9,7 +9,7 @@ class SCRIBUS_API MarkAnchor : public MarkInsert, private Ui::MarkAnchorDlg
     Q_OBJECT
 
 public:
-	explicit MarkAnchor(QWidget *parent = 0);
+	explicit MarkAnchor(QWidget *parent = nullptr);
 	~MarkAnchor() {}
 	virtual void values(QString& label);
 	virtual void setValues(const QString label);

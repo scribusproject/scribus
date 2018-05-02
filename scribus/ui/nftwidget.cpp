@@ -20,9 +20,9 @@ for which a new license (GPL+exception) is in place.
 nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
-	currentDocumentTemplate = NULL;
-	settings = NULL;
-	openAction = removeAction = NULL;
+	currentDocumentTemplate = nullptr;
+	settings = nullptr;
+	openAction = removeAction = nullptr;
 }
 
 void nftwidget::setupSettings(QString lang)
@@ -73,7 +73,7 @@ void nftwidget::setupListItems()
 	{
 		if (!settings->templates[i]->isDeleted)
 		{
-			ListItem* tmp = new ListItem(settings->templates[i], (QListWidgetItem*) NULL);
+			ListItem* tmp = new ListItem(settings->templates[i], (QListWidgetItem*) nullptr);
 			iconItems.push_back(tmp);
 		}
 	}
@@ -127,7 +127,7 @@ void nftwidget::setThumbnails()
 				iconItems[i]->second = tmpQIVI;
 			} 
 			else
-				iconItems[i]->second = NULL;
+				iconItems[i]->second = nullptr;
 		}
 		tnailGrid->sortItems();
 	}
@@ -204,7 +204,7 @@ void nftwidget::removeTemplate()
 	currentDocumentTemplate->isDeleted = true;
 	textBrowser->clear();
 	imageView->clear();
-	currentDocumentTemplate = NULL;
+	currentDocumentTemplate = nullptr;
 	emit ButtonBoxEnable(false);
 	setupListItems();
 	setupCategories();
@@ -229,7 +229,7 @@ nftwidget::~nftwidget()
 	delete settings;
 	for (uint i = 0; i < iconItems.size(); i++)
 	{
-		if (iconItems[i] != NULL)
+		if (iconItems[i] != nullptr)
 			delete iconItems[i];
 	}
 }

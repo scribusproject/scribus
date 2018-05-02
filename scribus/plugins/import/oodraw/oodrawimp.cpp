@@ -235,7 +235,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	tmpSel=new Selection(this, false);
 }
 
-QImage OODPlug::readThumbnail(QString fileName )
+QImage OODPlug::readThumbnail(const QString& fileName )
 {
 	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )

@@ -70,9 +70,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 {
 	undoManager = UndoManager::instance();
 	m_blockUpdates = 0;
-	currentItem = NULL;
-	patternList = NULL;
-	CGradDia = NULL;
+	currentItem = nullptr;
+	patternList = nullptr;
+	CGradDia = nullptr;
 	CGradDia = new GradientVectorDialog(this->parentWidget());
 	CGradDia->hide();
 
@@ -249,7 +249,7 @@ void Cpalette::disconnectSignals()
 
 void Cpalette::setCurrentItem(PageItem* item)
 {
-	if ((item == NULL) || (currentItem != item))
+	if ((item == nullptr) || (currentItem != item))
 	{
 		editStrokeGradient = 0;
 		CGradDia->hide();
@@ -374,10 +374,10 @@ void Cpalette::setDocument(ScribusDoc* doc)
 	ScribusDoc* oldDoc = currentDoc;
 	currentDoc = doc;
 
-	if (doc == NULL)
+	if (doc == nullptr)
 	{
-		colorListStroke->cList = NULL;
-		colorListFill->cList = NULL;
+		colorListStroke->cList = nullptr;
+		colorListFill->cList = nullptr;
 		disconnectSignals();
 	}
 	else
@@ -417,7 +417,7 @@ void Cpalette::setDocument(ScribusDoc* doc)
 
 PageItem* Cpalette::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 	if (currentDoc)
 		currentItem = currentDoc->m_Selection->itemAt(0);
 	return currentItem;
@@ -479,7 +479,7 @@ void Cpalette::updateCList()
 
 	if (displayAllColors->isChecked())
 	{
-		if (currentDoc != NULL)
+		if (currentDoc != nullptr)
 			currentDoc->getUsedColors(colorList);
 	}
 	colorListFill->setColors(colorList, true);
@@ -502,7 +502,7 @@ void Cpalette::updateCList()
 
 void Cpalette::toggleColorDisplay()
 {
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		colorListStroke->cList = &currentDoc->PageColors;
 		colorListFill->cList = &currentDoc->PageColors;
@@ -882,14 +882,14 @@ void Cpalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
 
 void Cpalette::selectPattern(QListWidgetItem *c)
 {
-	if (c == NULL)
+	if (c == nullptr)
 		return;
 	emit NewPattern(c->text());
 }
 
 void Cpalette::selectPatternS(QListWidgetItem *c)
 {
-	if (c == NULL)
+	if (c == nullptr)
 		return;
 	emit NewPatternS(c->text());
 }
@@ -1373,7 +1373,7 @@ void Cpalette::resetOneControlPoint()
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = nullptr;
 		if(UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
@@ -1468,7 +1468,7 @@ void Cpalette::resetAllControlPoints()
 	{
 		if ((grow == -1) || (gcol == 0))
 			return;
-		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = NULL;
+		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = nullptr;
 		if(UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);

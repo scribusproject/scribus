@@ -9,7 +9,7 @@ class SCRIBUS_API Mark2Item : public MarkInsert, private Ui::Mark2ItemDlg
     Q_OBJECT
 
 public:
-	explicit Mark2Item(QWidget *parent = 0);
+	explicit Mark2Item(QWidget *parent = nullptr);
 	virtual void values(QString &label, PageItem* &ptr);
 	virtual void setValues(const QString label, const PageItem* ptr);
 

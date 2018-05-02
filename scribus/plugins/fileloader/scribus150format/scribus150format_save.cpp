@@ -177,7 +177,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 		fileDir = canonicalPath;
 
 	// Create a random temporary file name
-	srand(time(NULL)); // initialize random sequence each time
+	srand(time(nullptr)); // initialize random sequence each time
 	long randt = 0;
 	long randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
 	QString  tmpFileName  = QString("%1.%2").arg(fileName).arg(randn);
@@ -1322,7 +1322,7 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 		if (mrk->isType(MARK2ItemType) && mrk->hasItemPtr())
 		{
 			const PageItem* item = mrk->getItemPtr();
-			assert(item != NULL);
+			assert(item != nullptr);
 			docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
 			//docu.writeAttribute("itemName", item->itemName());
 		}
@@ -1457,7 +1457,7 @@ void Scribus150Format::writeNotes(ScXmlStreamWriter & docu)
 	for (itTN = m_Doc->notesList().begin(); itTN != end; ++itTN)
 	{
 		TextNote* TN = (*itTN);
-		if (TN->masterMark() == NULL)
+		if (TN->masterMark() == nullptr)
 			continue;
 		docu.writeEmptyElement("Note");
 		docu.writeAttribute("Master", TN->masterMark()->label);
@@ -1667,7 +1667,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			lastPos = k;
 		}
 
-		if (ch == SpecialChars::OBJECT && item->itemText.object(k).getPageItem(doc) != NULL) 
+		if (ch == SpecialChars::OBJECT && item->itemText.object(k).getPageItem(doc) != nullptr)
 		{
 			// each obj in its own ITEXT for now
 			docu.writeEmptyElement("ITEXT");
@@ -1764,9 +1764,9 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
-	QList<PageItem*> *items = NULL;
+	QList<PageItem*> *items = nullptr;
 	QList<PageItem*> itemList;
-	PageItem *item = NULL;
+	PageItem *item = nullptr;
 	uint objects = 0;
 	switch (master)
 	{
@@ -1777,7 +1777,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			items = &doc->DocItems;
 			break;
 		case ItemSelectionFrame:
-			if (some_items != NULL)
+			if (some_items != nullptr)
 				items = some_items;
 			else
 			{
@@ -2034,7 +2034,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			{
 				PageItem::WeldingInfo wInf = item->weldList.at(i);
 				PageItem *pIt = wInf.weldItem;
-				if (pIt == NULL)
+				if (pIt == nullptr)
 				{
 					qDebug() << "Saving welding info - empty pointer!!!";
 					continue;
@@ -2519,7 +2519,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		{
 			PageItem::WeldingInfo wInf = item->weldList.at(i);
 			PageItem *pIt = wInf.weldItem;
-			if (pIt != NULL && !pIt->isAutoNoteFrame())
+			if (pIt != nullptr && !pIt->isAutoNoteFrame())
 			{
 				isWelded = true;
 				break;

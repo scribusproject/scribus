@@ -79,7 +79,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_view(view),
 	m_canvas(view->m_canvas),
 	m_doc(view->Doc),
-	m_panGesture(NULL),
+	m_panGesture(nullptr),
 	undoManager(UndoManager::instance()),
 	xSnap(0.0),
 	ySnap(0.0)
@@ -1059,7 +1059,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 	QList<QMdiSubWindow *> windows;
 	
 	QMdiArea* mdiArea = mainWindow->mdiArea;
-	QMdiSubWindow* w  = NULL;
+	QMdiSubWindow* w  = nullptr;
 	PrefsManager*   prefsManager      = PrefsManager::instance();
 	OutlinePalette* outlinePalette    = mainWindow->outlinePalette;
 	CheckDocument*  docCheckerPalette = mainWindow->docCheckerPalette;
@@ -1097,7 +1097,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		m_doc->leaveDrag = false;
 		m_view->stopAllDrags();
 		m_doc->SubMode = -1;
-		m_doc->ElemToLink = NULL;
+		m_doc->ElemToLink = nullptr;
 		mainWindow->slotSelect();
 		if (m_doc->m_Selection->count() == 0)
 			mainWindow->HaveNewSel();
@@ -1115,7 +1115,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		//Show our context menu
 		if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "viewShowContextMenu"))
 		{
-			ContextMenu* cmen=NULL;
+			ContextMenu* cmen=nullptr;
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			if (m_doc->m_Selection->count() == 0)
 			{

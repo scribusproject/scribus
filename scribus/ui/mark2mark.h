@@ -9,7 +9,7 @@ class SCRIBUS_API Mark2Mark : public MarkInsert, private Ui::Mark2MarkDlg
     Q_OBJECT
 
 public:
-	explicit Mark2Mark(const QList<Mark*>& marks, Mark* omitMark = NULL, QWidget *parent = NULL);
+	explicit Mark2Mark(const QList<Mark*>& marks, Mark* omitMark = nullptr, QWidget *parent = nullptr);
 	virtual void values(QString& label, Mark* &mrk);
 	virtual void setValues(const QString label, const Mark* mrk);
 

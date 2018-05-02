@@ -9,7 +9,7 @@
 #include <QStandardItemModel>
 
 MarksManager::MarksManager(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), m_Doc(NULL)
+	: ScrPaletteBase(parent, name), m_Doc(nullptr)
 {
 	setupUi(this);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -90,7 +90,7 @@ void MarksManager::updateListView()
 {
 	storeColaption();
 	listView->clear();
-	if (m_Doc == NULL)
+	if (m_Doc == nullptr)
 		return;
 	if (m_Doc->marksList().isEmpty())
 		UpdateButton->setEnabled(false);
@@ -113,7 +113,7 @@ void MarksManager::updateListView()
 
 void MarksManager::setDoc(ScribusDoc *doc)
 {
-	if (m_Doc != NULL)
+	if (m_Doc != nullptr)
 		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 
 	UpdateButton->setEnabled(false);
@@ -149,7 +149,7 @@ void MarksManager::languageChange()
 	listView->setToolTip(tr("Double click to find mark in text"));
 	UpdateButton->setToolTip(tr("Update all reference texts for all marks"));
 	EditButton->setToolTip(tr("Edit selected mark"));
-	if (m_Doc != NULL)
+	if (m_Doc != nullptr)
 		updateListView();
 }
 
@@ -164,8 +164,8 @@ void MarksManager::handleUpdateRequest(int updateFlags)
 Mark* MarksManager::getMarkFromListView()
 {
 	QTreeWidgetItem* selectedItem = listView->currentItem();
-	if (selectedItem == NULL)
-		return NULL;
+	if (selectedItem == nullptr)
+		return nullptr;
 	Mark* mrk = reinterpret_cast<Mark*>(selectedItem->data(1, Qt::UserRole).value<void*>());
 	return mrk;
 }
@@ -207,7 +207,7 @@ void MarksManager::on_UpdateButton_clicked()
 void MarksManager::on_EditButton_clicked()
 {
 	Mark* mrk = getMarkFromListView();
-	if (mrk == NULL)
+	if (mrk == nullptr)
 		return;
 
 	if (m_Doc->scMW()->editMarkDlg(mrk))
@@ -225,14 +225,14 @@ void MarksManager::on_EditButton_clicked()
 void MarksManager::on_DeleteButton_clicked()
 {
 	Mark* mrk = getMarkFromListView();
-	if (mrk == NULL)
+	if (mrk == nullptr)
 		return;
 
 	if (mrk->isType(MARKNoteMasterType))
 		m_Doc->setUndoDelNote(mrk->getNotePtr());
 	else
 		m_Doc->setUndoDelMark(mrk);
-	m_Doc->eraseMark(mrk, true, NULL, true);
+	m_Doc->eraseMark(mrk, true, nullptr, true);
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRectF());
 	updateListView();
@@ -241,13 +241,13 @@ void MarksManager::on_DeleteButton_clicked()
 void MarksManager::on_listView_doubleClicked(const QModelIndex &index)
 {
 	Mark* mrk = getMarkFromListView();
-	if (mrk != NULL)
+	if (mrk != nullptr)
 		m_Doc->setCursor2MarkPos(mrk);
 }
 
 void MarksManager::on_listView_itemSelectionChanged()
 {
-	bool isMark = (getMarkFromListView() != NULL);
+	bool isMark = (getMarkFromListView() != nullptr);
 	EditButton->setEnabled(isMark);
 	DeleteButton->setEnabled(isMark);
 }

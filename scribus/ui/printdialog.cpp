@@ -179,12 +179,12 @@ void PrintDialog::SetOptions()
 
 #elif defined(_WIN32)
 	bool done;
-	Qt::HANDLE handle = NULL;
+	Qt::HANDLE handle = nullptr;
 	DEVMODEW* devMode = (DEVMODEW*) DevMode.data();
 	// Retrieve the selected printer
 	QString printerS = PrintDest->currentText(); 
 	// Get a printer handle
-	done = OpenPrinterW((LPWSTR) printerS.utf16(), &handle, NULL);
+	done = OpenPrinterW((LPWSTR) printerS.utf16(), &handle, nullptr);
 	if (!done)
 		return;
 	// Merge stored settings, prompt user and return user settings

@@ -14,7 +14,7 @@ class SCRIBUS_API MarksManager : public ScrPaletteBase, Ui::MarksManager
 	Q_OBJECT
 
 public:
-	explicit MarksManager(QWidget *parent = 0, const char *name = "MarksManager");
+	explicit MarksManager(QWidget *parent = nullptr, const char *name = "MarksManager");
 	~MarksManager();
 
 	virtual void changeEvent(QEvent *e);

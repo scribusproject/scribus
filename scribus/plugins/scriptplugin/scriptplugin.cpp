@@ -194,7 +194,7 @@ bool ScriptPlugin::cleanupPlugin()
 	if (scripterCore)
 	{
 		delete scripterCore;
-		scripterCore = NULL;
+		scripterCore = nullptr;
 	}
 	Py_Finalize();
 	return true;
@@ -241,9 +241,9 @@ void run()
 
 /*static */PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
-	char *Name = NULL;
+	char *Name = nullptr;
 	if (!PyArg_ParseTuple(args, (char*)"s", &Name))
-		return NULL;
+		return nullptr;
 	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
 	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
 	// the default local encoding (usually latin-1) by using QString::fromUtf8()
@@ -591,7 +591,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTextAnnotation"), scribus_settextannotation, METH_VARARGS,tr(scribus_settextannotation__doc__)},
 	{const_cast<char*>("createPdfAnnotation"), scribus_createpdfannotation, METH_VARARGS,tr(scribus_createpdfannotation__doc__)},
 	{const_cast<char*>("isAnnotated"),(PyCFunction)scribus_isannotated, METH_VARARGS|METH_KEYWORDS,tr(scribus_isannotated__doc__)},
-	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
+	{nullptr, (PyCFunction)(0), 0, nullptr} /* sentinel */
 };
 
 void initscribus_failed(const char* fileName, int lineNo)
@@ -626,27 +626,27 @@ void initscribus(ScribusMainWindow *pl)
 
 	// Set up the module exceptions
 	// common exc.
-	ScribusException = PyErr_NewException((char*)"scribus.ScribusException", NULL, NULL);
+	ScribusException = PyErr_NewException((char*)"scribus.ScribusException", nullptr, nullptr);
 	Py_INCREF(ScribusException);
 	PyModule_AddObject(m, (char*)"ScribusException", ScribusException);
 	// no doc open
-	NoDocOpenError = PyErr_NewException((char*)"scribus.NoDocOpenError", ScribusException, NULL);
+	NoDocOpenError = PyErr_NewException((char*)"scribus.NoDocOpenError", ScribusException, nullptr);
 	Py_INCREF(NoDocOpenError);
 	PyModule_AddObject(m, (char*)"NoDocOpenError", NoDocOpenError);
 	// wrong type of frame for operation
-	WrongFrameTypeError = PyErr_NewException((char*)"scribus.WrongFrameTypeError", ScribusException, NULL);
+	WrongFrameTypeError = PyErr_NewException((char*)"scribus.WrongFrameTypeError", ScribusException, nullptr);
 	Py_INCREF(WrongFrameTypeError);
 	PyModule_AddObject(m, (char*)"WrongFrameTypeError", WrongFrameTypeError);
 	// Couldn't find named object, or no named object and no selection
-	NoValidObjectError = PyErr_NewException((char*)"scribus.NoValidObjectError", ScribusException, NULL);
+	NoValidObjectError = PyErr_NewException((char*)"scribus.NoValidObjectError", ScribusException, nullptr);
 	Py_INCREF(NoValidObjectError);
 	PyModule_AddObject(m, (char*)"NoValidObjectError", NoValidObjectError);
 	// Couldn't find the specified resource - font, color, etc.
-	NotFoundError = PyErr_NewException((char*)"scribus.NotFoundError", ScribusException, NULL);
+	NotFoundError = PyErr_NewException((char*)"scribus.NotFoundError", ScribusException, nullptr);
 	Py_INCREF(NotFoundError);
 	PyModule_AddObject(m, (char*)"NotFoundError", NotFoundError);
 	// Tried to create an object with the same name as one that already exists
-	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, NULL);
+	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, nullptr);
 	Py_INCREF(NameExistsError);
 	PyModule_AddObject(m, (char*)"NameExistsError", NameExistsError);
 	// Done with exception setup
@@ -824,7 +824,7 @@ void initscribus(ScribusMainWindow *pl)
 		QString extraVersion = version_re.cap(4);
 		PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"),\
 				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
-		if (versionTuple != NULL)
+		if (versionTuple != nullptr)
 			PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
 		else
 			qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
@@ -840,7 +840,7 @@ void initscribus(ScribusMainWindow *pl)
 	// from C in other ways too.
 	PyObject* builtinModule = PyImport_ImportModuleEx(const_cast<char*>("__builtin__"),
 			d, d, Py_BuildValue(const_cast<char*>("[]")));
-	if (builtinModule == NULL)
+	if (builtinModule == nullptr)
 	{
 		qDebug("Failed to import __builtin__ module. Something is probably broken with your Python.");
 		return;
@@ -848,7 +848,7 @@ void initscribus(ScribusMainWindow *pl)
 	PyDict_SetItemString(d, const_cast<char*>("__builtin__"), builtinModule);
 	PyObject* exceptionsModule = PyImport_ImportModuleEx(const_cast<char*>("exceptions"),
 			d, d, Py_BuildValue(const_cast<char*>("[]")));
-	if (exceptionsModule == NULL)
+	if (exceptionsModule == nullptr)
 	{
 		qDebug("Failed to import exceptions module. Something is probably broken with your Python.");
 		return;
@@ -856,7 +856,7 @@ void initscribus(ScribusMainWindow *pl)
 	PyDict_SetItemString(d, const_cast<char*>("exceptions"), exceptionsModule);
 	PyObject* warningsModule = PyImport_ImportModuleEx(const_cast<char*>("warnings"),
 			d, d, Py_BuildValue(const_cast<char*>("[]")));
-	if (warningsModule == NULL)
+	if (warningsModule == nullptr)
 	{
 		qDebug("Failed to import warnings module. Something is probably broken with your Python.");
 		return;
@@ -902,15 +902,15 @@ is not exhaustive due to exceptions from called functions.\n\
 		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else
 	{
-		PyObject* uniDocStr = PyUnicode_FromEncodedObject(docStr, "utf-8", NULL);
+		PyObject* uniDocStr = PyUnicode_FromEncodedObject(docStr, "utf-8", nullptr);
 		Py_DECREF(docStr);
-		docStr = NULL;
+		docStr = nullptr;
 		if (!uniDocStr)
 			qDebug("Failed to create module-level docstring object (couldn't make unicode)");
 		else
 			PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
 		Py_DECREF(uniDocStr);
-		uniDocStr = NULL;
+		uniDocStr = nullptr;
 	}
 
 	// Wrap up pointers to the the QApp and main window and push them out
@@ -924,7 +924,7 @@ is not exhaustive due to exceptions from called functions.\n\
 	// Push it into the module dict, stealing a ref in the process
 	PyDict_SetItemString(d, const_cast<char*>("qApp"), wrappedQApp);
 	Py_DECREF(wrappedQApp);
-	wrappedQApp = NULL;
+	wrappedQApp = nullptr;
 
 	wrappedMainWindow = wrapQObject(pl);
 	if (!wrappedMainWindow)
@@ -935,7 +935,7 @@ is not exhaustive due to exceptions from called functions.\n\
 	// Push it into the module dict, stealing a ref in the process
 	PyDict_SetItemString(d, const_cast<char*>("mainWindow"), wrappedMainWindow);
 	Py_DECREF(wrappedMainWindow);
-	wrappedMainWindow = NULL;
+	wrappedMainWindow = nullptr;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

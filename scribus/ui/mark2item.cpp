@@ -32,7 +32,7 @@ void Mark2Item::values(QString &label, PageItem* &ptr)
 
 void Mark2Item::setValues(const QString label, const PageItem* ptr)
 {
-	int index = (ptr == NULL)? -1:ItemList->findText(ptr->itemName());
+	int index = (ptr == nullptr) ? -1 : ItemList->findText(ptr->itemName());
 	ItemList->setCurrentIndex(index);
 	labelEdit->setText(label);
 }

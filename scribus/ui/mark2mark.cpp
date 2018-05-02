@@ -5,7 +5,7 @@
 Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent) : MarkInsert(marks, parent)
 {
 	setupUi(this);
-	LabelList->addItem("", QVariant::fromValue((void*) NULL));
+	LabelList->addItem("", QVariant::fromValue((void*) nullptr));
 	
 	//for each marks type
 	QString typeStr;
@@ -76,14 +76,14 @@ void Mark2Mark::values(QString& label, Mark* &mrk)
 	label = this->labelEdit->text();
 	int labelID = LabelList->currentIndex();
 	if (labelID == 0)
-		mrk= NULL;
+		mrk= nullptr;
 	else
 		mrk = (Mark*) LabelList->itemData(labelID).value<void*>();
 }
 
 void Mark2Mark::setValues(const QString label, const Mark* mrk)
 {
-	int index = (mrk == NULL)? -1:LabelList->findText(mrk->label);
+	int index = (mrk == nullptr)? -1:LabelList->findText(mrk->label);
 	LabelList->setCurrentIndex(index);
 	labelEdit->setText(label);
 }
