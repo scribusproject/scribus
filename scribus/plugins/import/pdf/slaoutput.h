@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "vgradient.h"
 
+#include <poppler/cpp/poppler-version.h>
 #include <poppler/goo/gtypes.h>
 #include <poppler/Object.h>
 #include <poppler/OutputDev.h>
@@ -49,6 +50,18 @@ for which a new license (GPL+exception) is in place.
 #include <poppler/splash/SplashPath.h>
 #include <poppler/splash/SplashGlyphBitmap.h>
 
+#define POPPLER_VERSION_ENCODE(major, minor, micro) (	\
+	  ((major) * 10000)				\
+	+ ((minor) *   100)				\
+	+ ((micro) *     1))
+#define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 64, 0)
+#define POPPLER_CONST const
+#else
+#define POPPLER_CONST
+#endif
+
 //------------------------------------------------------------------------
 // LinkSubmitData
 //------------------------------------------------------------------------
@@ -61,9 +74,9 @@ public:
 	// Destructor.
 	virtual ~LinkSubmitForm();
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() { return fileName != NULL; }
+	virtual GBool isOk() POPPLER_CONST { return fileName != NULL; }
 	// Accessors.
-	virtual LinkActionKind getKind() { return actionUnknown; }
+	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
 	GooString *getFileName() { return fileName; }
 	int getFlags() { return m_flags; }
 private:
@@ -83,9 +96,9 @@ public:
 	// Destructor.
 	virtual ~LinkImportData();
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() { return fileName != NULL; }
+	virtual GBool isOk() POPPLER_CONST { return fileName != NULL; }
 	// Accessors.
-	virtual LinkActionKind getKind() { return actionUnknown; }
+	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
 	GooString *getFileName() { return fileName; }
 private:
 	GooString *fileName;		// file name
@@ -98,7 +111,7 @@ class SplashOutFontFileID: public SplashFontFileID
 {
 public:
 
-	SplashOutFontFileID(Ref *rA) { r = *rA; }
+	SplashOutFontFileID(const Ref *rA) { r = *rA; }
 	~SplashOutFontFileID() {}
 	GBool matches(SplashFontFileID *id)
 	{
@@ -146,6 +159,7 @@ class SlaOutputDev : public OutputDev
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
+
 	LinkAction* SC_getAction(AnnotWidget *ano);
 	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
 	static GBool annotations_callback(Annot *annota, void *user_data);
@@ -261,7 +275,7 @@ public:
 private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
-	QString getAnnotationColor(AnnotColor *color);
+	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);

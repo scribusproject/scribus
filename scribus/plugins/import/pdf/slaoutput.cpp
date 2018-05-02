@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "slaoutput.h"
-#include <poppler/cpp/poppler-version.h>
+
 #include <poppler/GlobalParams.h>
 #include <poppler/poppler-config.h>
 #include <poppler/FileSpec.h>
@@ -19,12 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 #include <tiffio.h>
-
-#define POPPLER_VERSION_ENCODE(major, minor, micro) (	\
-	  ((major) * 10000)				\
-	+ ((minor) *   100)				\
-	+ ((micro) *     1))
-#define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
 
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
@@ -44,7 +38,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 				{
 					if (obj3.isName())
 					{
-						char *name = obj3.getName();
+						POPPLER_CONST char *name = obj3.getName();
 						if (!strcmp(name, "URL"))
 						{
 							obj2 = obj1.dictLookup("F");
@@ -508,8 +502,8 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	QString fileName = "";
 	if (act->getKind() == actionGoTo)
 	{
-		LinkGoTo *gto = (LinkGoTo*)act;
-		LinkDest *dst = gto->getDest();
+		LinkGoTo *gto = (LinkGoTo*) act;
+		POPPLER_CONST LinkDest *dst = gto->getDest();
 		if (dst)
 		{
 			if (dst->getKind() == destXYZ)
@@ -528,7 +522,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		}
 		else
 		{
-			GooString *ndst = gto->getNamedDest();
+			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
 				LinkDest *dstn = pdfDoc->findDest(ndst);
@@ -555,7 +549,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	{
 		LinkGoToR *gto = (LinkGoToR*)act;
 		fileName = UnicodeParsedString(gto->getFileName());
-		LinkDest *dst = gto->getDest();
+		POPPLER_CONST LinkDest *dst = gto->getDest();
 		if (dst)
 		{
 			if (dst->getKind() == destXYZ)
@@ -568,7 +562,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		}
 		else
 		{
-			GooString *ndst = gto->getNamedDest();
+			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
 				LinkDest *dstn = pdfDoc->findDest(ndst);
@@ -709,7 +703,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			bool bgFound = false;
 			if (achar)
 			{
-				AnnotColor *bgCol = achar->getBackColor();
+				POPPLER_CONST AnnotColor *bgCol = achar->getBackColor();
 				if (bgCol)
 				{
 					bgFound = true;
@@ -717,7 +711,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				}
 				else
 					CurrColorFill = CommonStrings::None;
-				AnnotColor *fgCol = achar->getBorderColor();
+				POPPLER_CONST AnnotColor *fgCol = achar->getBorderColor();
 				if (fgCol)
 				{
 					fgFound = true;
@@ -1054,7 +1048,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int xco = 0;
 			int yco = 0;
 			LinkGoTo *gto = (LinkGoTo*)Lact;
-			LinkDest *dst = gto->getDest();
+			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
 			{
 				if (dst->getKind() == destXYZ)
@@ -1075,7 +1069,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			}
 			else
 			{
-				GooString *ndst = gto->getNamedDest();
+				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
 					LinkDest *dstn = pdfDoc->findDest(ndst);
@@ -1107,7 +1101,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int yco = 0;
 			LinkGoToR *gto = (LinkGoToR*)Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
-			LinkDest *dst = gto->getDest();
+			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
 			{
 				if (dst->getKind() == destXYZ)
@@ -1123,7 +1117,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			}
 			else
 			{
-				GooString *ndst = gto->getNamedDest();
+				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
 					LinkDest *dstn = pdfDoc->findDest(ndst);
@@ -3001,6 +2995,14 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
 	{
 		ite->setImageRotation(-tline.angle());
+		/*QTransform rotMat;
+		rotMat.rotate(tline.angle());
+		QTransform imgMat = m_ctm * rotMat.inverted();
+		double scaleX = sqrt(imgMat.m11() * imgMat.m11() + imgMat.m12() * imgMat.m12());
+		double scaleY = sqrt(imgMat.m21() * imgMat.m21() + imgMat.m22() * imgMat.m22());
+		imgMat.scale(1.0 / scaleX, 1.0 / scaleY);
+		if (!imgMat.isIdentity())
+			img = img.transformed(imgMat);*/
 	}
 	else
 	{
@@ -4031,7 +4033,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 	return fNam;
 }
 
-QString SlaOutputDev::getAnnotationColor(AnnotColor *color)
+QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 {
 	QString fNam;
 	QString namPrefix = "FromPDF";
