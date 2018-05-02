@@ -21,7 +21,7 @@ ScLcmsColorProfileImpl::~ScLcmsColorProfileImpl()
 
 bool ScLcmsColorProfileImpl::isNull() const
 {
-	return (m_profileHandle == NULL);
+	return (m_profileHandle == nullptr);
 }
 
 eColorSpaceType ScLcmsColorProfileImpl::colorSpace()  const
@@ -52,11 +52,11 @@ QString ScLcmsColorProfileImpl::productDescription() const
 	return m_productDescription;
 }
 
-void ScLcmsColorProfileImpl::closeProfile(void)
+void ScLcmsColorProfileImpl::closeProfile()
 {
 	if (m_profileHandle)
 	{
 		cmsCloseProfile(m_profileHandle);
-		m_profileHandle = NULL;
+		m_profileHandle = nullptr;
 	}
 }

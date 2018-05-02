@@ -49,17 +49,17 @@ public:
 	virtual bool hasExpansionPoint(int pos) const = 0;
 	virtual ExpansionPoint expansionPoint(int pos) const = 0;
 	
-	virtual const ITextSource* parent() const { return NULL; }
+	virtual const ITextSource* parent() const { return nullptr; }
 	virtual int parentPos() const { return 0; }
 	
 	const ITextSource* original() const
     {
-		return parent() == NULL? this : parent()->original();
+		return parent() == nullptr? this : parent()->original();
 	}
 	
 	const int originalStartPos() const
 	{
-		return parent() == NULL? 0 : parent()->parent() == NULL? parentPos() : parent()->originalStartPos();
+		return parent() == nullptr? 0 : parent()->parent() == nullptr? parentPos() : parent()->originalStartPos();
     }
 };
 

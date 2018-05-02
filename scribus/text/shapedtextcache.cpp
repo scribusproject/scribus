@@ -18,7 +18,7 @@ class ShapedTextCacheImplementation {
 	
 public:
 	
-	// check if all ShapedText in the cache for this range are valid, i.e. source() != NULL
+	// check if all ShapedText in the cache for this range are valid, i.e. source() != nullptr
 	bool contains(int charPos, uint len) const
 	{
 		int last = charPos + len - 1;
@@ -52,7 +52,7 @@ public:
 		while (result.lastChar() < last)
 		{
 			ShapedText st = m_cache(result.lastChar() + 1);
-			if (st.source() == NULL || !result.canCombine(st))
+			if (st.source() == nullptr || !result.canCombine(st))
 				return ShapedText::Invalid;
 			result.combine(st);
 		}
@@ -70,7 +70,7 @@ public:
 	
 	void clear(int charPos, uint len)
 	{
-		put(ShapedText(NULL, charPos, charPos + len - 1));
+		put(ShapedText(nullptr, charPos, charPos + len - 1));
 	}
 
 	

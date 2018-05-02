@@ -4038,7 +4038,7 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
-	if (controlItem != NULL)
+	if (controlItem != nullptr)
 	{
 		double groupW, groupH;
 		if (controlItem->isGroup())
@@ -4100,7 +4100,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	PutDoc("/K false\n");
 	PutDoc(">>");
 	writer.endObj(Gobj);
-	if (controlItem != NULL)
+	if (controlItem != nullptr)
 	{
 		retString += "q\n";
 		retString += PDF_TransparenzFill(controlItem);
@@ -4124,7 +4124,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
-	if (controlItem != NULL)
+	if (controlItem != nullptr)
 	{
 		double groupW, groupH;
 		if (controlItem->isGroup())
@@ -6544,7 +6544,7 @@ bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, int kind, bool forArrow)
 {
 	QByteArray tmp2 = "", tmpOut;
-	ScPattern *pat = NULL;
+	ScPattern *pat = nullptr;
 	if (kind == 0)
 	{
 		QString itemPattern = currItem->pattern();
@@ -9801,8 +9801,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	try
 	{
 		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
-		PoDoFo::PdfObject* contents  = page? page->GetContents() : NULL;
-		PoDoFo::PdfObject* resources = page? page->GetResources() : NULL;
+		PoDoFo::PdfObject* contents  = page? page->GetContents() : nullptr;
+		PoDoFo::PdfObject* resources = page? page->GetResources() : nullptr;
 		for (PoDoFo::PdfObject* par = page->GetObject(); par && !resources; par = par->GetIndirectKey("Parent"))
 		{
 			resources = par->GetIndirectKey("Resources");
@@ -9861,7 +9861,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				PutDoc("\n/StructParents " + Pdf::toPdf(xParents)); // required if page uses structured content
 			}
 			*/
-			char * mbuffer = NULL;
+			char * mbuffer = nullptr;
 			long mlen = 0;
 
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))
@@ -9981,7 +9981,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
 
-			char * mbuffer = NULL;
+			char * mbuffer = nullptr;
 			long mlen = 0;
 			// copied from podofoimpose
 			PoDoFo::PdfMemoryOutputStream outMemStream ( 1 );
@@ -9997,7 +9997,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				{
 					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
 
-					while(nextObj != NULL)
+					while(nextObj != nullptr)
 					{
 
 						if(nextObj->IsReference())
@@ -10158,7 +10158,7 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 	if (obj->HasStream())
 	{
 		const PoDoFo::PdfStream* stream = obj->GetStream();
-		char * mbuffer = NULL;
+		char * mbuffer = nullptr;
 		long mlen = 0;
 
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))

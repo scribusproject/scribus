@@ -180,7 +180,7 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 		layerCount = 0;
 		Image *flatten_image = CloneImage(image, 0, 0, true, &exception);
 		Image *next;
-		if ((flatten_image != (Image *) NULL) && (image->next != (Image *) NULL))
+		if ((flatten_image != (Image *) nullptr) && (image->next != (Image *) nullptr))
 		{
 			bool visible = true;
 			double opacity = 1.0;
@@ -225,7 +225,7 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 			{
 				(void)CompositeImage(flatten_image, ClearCompositeOp, flatten_image, flatten_image->page.x, flatten_image->page.y);
 			}
-			for (next = image->next; next != (Image*)NULL; next = next->next)
+			for (next = image->next; next != (Image*)nullptr; next = next->next)
 			{
 				visible = true;
 				opacity = 1.0;

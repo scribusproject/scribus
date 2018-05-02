@@ -166,10 +166,10 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 	QToolTip::showText(m->globalPos(), m_tipText + "<b></b>", qApp->activeWindow());
 	m->accept();
 	PageItem *item;
-	if((item = m_canvas->itemUnderCursor(m->globalPos())) != NULL)
+	if((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
 	{
 		PageItem_ImageFrame *currItem;
-		if((currItem = item->asImageFrame()) != NULL)
+		if((currItem = item->asImageFrame()) != nullptr)
 			m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
@@ -193,10 +193,10 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 	PageItem *item;
 	if(m_imageList.size()>0)
 	{
-		if((item = m_canvas->itemUnderCursor(m->globalPos())) != NULL)
+		if((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
 		{
 			PageItem_ImageFrame *currItem;
-			if((currItem = item->asImageFrame()) != NULL)
+			if((currItem = item->asImageFrame()) != nullptr)
 				setImage(currItem);
 		}
 		else

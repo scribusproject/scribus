@@ -125,7 +125,7 @@ private slots:
 
 public:
 	//for footnotes/endnotes
-	bool hasNoteMark(NotesStyle* NS = NULL);
+	bool hasNoteMark(NotesStyle* NS = nullptr);
 	bool hasNoteFrame(NotesStyle* NS, bool inChain = false);
 	//bool hasNoteFrame(PageItem_NoteFrame* nF) { return m_notesFramesMap.contains(nF); }
 	void delAllNoteFrames(bool doUpdate = false);

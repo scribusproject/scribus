@@ -28,7 +28,7 @@ ScCLocale::ScCLocale()
 	cLocale = _create_locale(LC_ALL, "C");
 #else
   #if not defined(Q_OS_SOLARIS) and not defined(Q_OS_OPENBSD) and not defined(Q_OS_FREEBSD) and not defined(Q_OS_HAIKU)
-	cLocale = newlocale(LC_ALL_MASK, "C", NULL);
+	cLocale = newlocale(LC_ALL_MASK, "C", nullptr);
   #endif
 #endif
 }
@@ -177,7 +177,7 @@ QString ScCLocale::toQStringC(double d, int prec)
 
 double ScCLocale::strtod(const char * str, char ** endptr)
 {
-	if (NULL == that()->cLocale)
+	if (nullptr == that()->cLocale)
 	{
 		// a sade workaround
 		double result(0.0);

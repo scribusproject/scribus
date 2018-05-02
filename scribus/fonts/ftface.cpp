@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 
 // static:
-FT_Library FtFace::m_library = NULL;
+FT_Library FtFace::m_library = nullptr;
 
 /*****
    ScFace lifecycle:  unchecked -> loaded -> glyphs checked
@@ -43,7 +43,7 @@ FT_Library FtFace::m_library = NULL;
 FtFace::FtFace(QString fam, QString sty, QString vari, QString scname, 
 			   QString psname, QString path, int face, QStringList features)
 : ScFaceData(),
-	m_face(NULL),
+	m_face(nullptr),
 	m_isBold(false),
 	m_isItalic(false),
 	m_encoding(0.0),
@@ -82,7 +82,7 @@ FT_Face FtFace::ftFace() const {
 	if (!m_face) {
 		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
-			m_face = NULL;
+			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 		}
 		else {
@@ -99,7 +99,7 @@ void FtFace::load() const
 	if (!m_face) {
 		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
-			m_face = NULL;
+			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 			return;
 		}
@@ -183,7 +183,7 @@ void FtFace::unload() const
 {
 	if (m_face) {
 		FT_Done_Face( m_face );
-		m_face = NULL;
+		m_face = nullptr;
 	}
 	// clear caches
 	ScFaceData::unload();

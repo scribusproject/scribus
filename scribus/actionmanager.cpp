@@ -1251,7 +1251,7 @@ void ActionManager::disconnectNewDocActions()
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 {
-	if (currDoc==NULL)
+	if (currDoc==nullptr)
 		return;
 	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
@@ -1313,7 +1313,7 @@ void ActionManager::disconnectNewViewActions()
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
 {
-	if (currView==NULL)
+	if (currView==nullptr)
 		return;
 	//qDebug()<<"connectNewViewActions"<<currView->Doc->DocName;
 	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
@@ -1359,7 +1359,7 @@ void ActionManager::saveActionShortcutsPreEditMode()
 		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
 #ifdef Q_OS_MAC
-		if ((*scrActions)[*it]->menu() != NULL)
+		if ((*scrActions)[*it]->menu() != nullptr)
 			(*scrActions)[*it]->setEnabled(false);
 #endif		
 	}
@@ -1425,10 +1425,10 @@ void ActionManager::enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *ac
 
 void ActionManager::setPDFActions(ScribusView *currView)
 {
-	if (currView==NULL)
+	if (currView==nullptr)
 		return;
 	PageItem* currItem = mainWindow->doc->m_Selection->itemAt(0);
-	if (currItem==NULL)
+	if (currItem==nullptr)
 		return;
 
 	disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
@@ -1821,7 +1821,7 @@ void ActionManager::languageChange()
 	//Reset tooltips on actions after the translation process
 	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions->begin(); it!=scrActions->end(); ++it )
 	{
-		if ((*it)!=NULL)
+		if ((*it)!=nullptr)
 			(*it)->setToolTipFromTextAndShortcut();
 	}
 }

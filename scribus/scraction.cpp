@@ -85,7 +85,7 @@ void ScrAction::initScrAction()
 {
 	m_actionType = ScrAction::Normal;
 	m_menuIndex = -1;
-	m_popupMenuAddedTo = NULL;
+	m_popupMenuAddedTo = nullptr;
 	m_savedKeySequence = QKeySequence("");
 	m_shortcutSaved = false;
 	m_fakeToggle = false;

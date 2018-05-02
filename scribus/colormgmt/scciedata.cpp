@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scciedata.h"
 
 // Init the singleton's "self" address to NULL
-ScCIEData* ScCIEData::m_instance = NULL;
+ScCIEData* ScCIEData::m_instance = nullptr;
 
 // Singleton's public constructor
 const ScCIEData& ScCIEData::instance()

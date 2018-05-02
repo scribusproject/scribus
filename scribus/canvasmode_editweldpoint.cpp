@@ -69,8 +69,8 @@ CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMo
 	m_selectedPoint(-1),
 	m_ScMW(view->m_ScMW),
 	m_keyRepeat(false),
-	m_currItem(NULL),
-	m_ModeDialog(NULL),
+	m_currItem(nullptr),
+	m_ModeDialog(nullptr),
 	m_editWeldMode(true)
 {
 }
@@ -78,7 +78,7 @@ CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMo
 inline bool CanvasMode_EditWeldPoint::GetItem(PageItem** pi)
 {
 	*pi = m_doc->m_Selection->itemAt(0);
-	return (*pi) != NULL;
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditWeldPoint::drawControls(QPainter* p)

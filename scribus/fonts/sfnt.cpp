@@ -336,7 +336,7 @@ void PostTable::readFrom(FT_Face face)
 {
 	QByteArray postData;
 	FT_ULong size = 0;
-	int error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, NULL, &size );
+	int error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, nullptr, &size );
 	//qDebug() << "load post" << error << size;
 	if (error || size == 0)
 	{

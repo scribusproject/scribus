@@ -51,7 +51,7 @@ CanvasMode_Rotate::CanvasMode_Rotate(ScribusView* view) : CanvasMode(view)
 inline bool CanvasMode_Rotate::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_Rotate::drawControls(QPainter* p)
@@ -452,10 +452,10 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 	m_view->setObjectUndoMode();
 	m_canvasPressCoord.setXY(mx, my);
-	if(currItem!=NULL)
+	if(currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_view->m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_view->m_ScMW, m_doc, mx, my);

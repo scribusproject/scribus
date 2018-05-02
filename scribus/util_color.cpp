@@ -812,7 +812,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 						}
 						else if (pg.tagName() == "Gradient")
 						{
-							if (dialogGradients != NULL)
+							if (dialogGradients != nullptr)
 							{
 								VGradient gra = VGradient(VGradient::linear);
 								gra.clearStops();
@@ -830,7 +830,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									else
 									{
 										const ScColor& col = EditColors[name];
-										color = ScColorEngine::getShadeColorProof(col, NULL, shade);
+										color = ScColorEngine::getShadeColorProof(col, nullptr, shade);
 									}
 									gra.addStop(color, ramp, 0.5, opa, name, shade);
 									grad = grad.nextSibling();

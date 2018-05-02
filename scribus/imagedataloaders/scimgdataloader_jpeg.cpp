@@ -57,7 +57,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	FILE     *infile;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = NULL;
+	infile = nullptr;
 	if (setjmp (jerr.setjmp_buffer))
 	{
 		jpeg_destroy_decompress (&cinfo);
@@ -67,10 +67,10 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	}
 	jpeg_create_decompress (&cinfo);
 #if defined(Q_OS_WIN32)
-	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == nullptr)
 		return;
 #else
-	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == nullptr)
 		return;
 #endif
 	jpeg_stdio_src(&cinfo, infile);
@@ -132,7 +132,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	FILE     *infile;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = NULL;
+	infile = nullptr;
 
 	initialize();
 	m_imageInfoRecord.type = ImageTypeJPG;
@@ -146,10 +146,10 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	}
 	jpeg_create_decompress (&cinfo);
 #if defined(Q_OS_WIN32)
-	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == nullptr)
 		return false;
 #else
-	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == nullptr)
 		return false;
 #endif
 	jpeg_stdio_src(&cinfo, infile);
@@ -620,7 +620,7 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 	unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
 	unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
 
-	*icc_data_ptr = NULL;		/* avoid confusion if false return */
+	*icc_data_ptr = nullptr;		/* avoid confusion if false return */
 	*icc_data_len = 0;
 
 	/* This first pass over the saved markers discovers whether there are
@@ -630,7 +630,7 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 	for (seq_no = 1; seq_no <= MAX_SEQ_NO; seq_no++)
 		marker_present[seq_no] = 0;
 	seq_no = 0;
-	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
+	for (marker = cinfo->marker_list; marker != nullptr; marker = marker->next)
 	{
 		if (requestmarker == ICC_MARKER && marker_is_icc(marker))
 		{
@@ -675,11 +675,11 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 
 	/* Allocate space for assembled data */
 	icc_data = (JOCTET *) malloc(total_length * sizeof(JOCTET));
-	if (icc_data == NULL)
+	if (icc_data == nullptr)
 		return false;		/* oops, out of memory */
 	seq_no=0;
 	/* and fill it in */
-	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
+	for (marker = cinfo->marker_list; marker != nullptr; marker = marker->next)
 	{
 		if ( (requestmarker == ICC_MARKER && marker_is_icc(marker)) ||
 		        (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)) || (requestmarker == 0xE1))

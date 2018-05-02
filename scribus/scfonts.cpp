@@ -129,7 +129,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	//QString::null+/ is / of course.
 	if (path.isEmpty())
 		return;
-	FT_Library library = NULL;
+	FT_Library library = nullptr;
 	QString pathfile, fullpath;
 //	bool error;
 //	error =
@@ -300,9 +300,9 @@ void getSFontType(FT_Face face, ScFace::FontType & type)
 	if (FT_IS_SFNT(face)) 
 	{
 		FT_ULong ret = 0;
-		bool hasGlyph = ! FT_Load_Sfnt_Table(face, TTAG_glyf, 0, NULL,  &ret);
+		bool hasGlyph = ! FT_Load_Sfnt_Table(face, TTAG_glyf, 0, nullptr,  &ret);
 		hasGlyph &= ret > 0;
-		bool hasCFF = ! FT_Load_Sfnt_Table(face, TTAG_CFF, 0, NULL,  &ret);
+		bool hasCFF = ! FT_Load_Sfnt_Table(face, TTAG_CFF, 0, nullptr,  &ret);
 		hasCFF &= ret > 0;
 		if (hasGlyph)
 			type = ScFace::TTF;
@@ -455,7 +455,7 @@ static QStringList getFontFeaturesFromTable(hb_tag_t table, hb_face_t *hb_face)
 {
 	QStringList fontFeaturesList;
 	//get all supported Opentype Features
-	unsigned count = hb_ot_layout_table_get_feature_tags(hb_face, table, 0, NULL, NULL);
+	unsigned count = hb_ot_layout_table_get_feature_tags(hb_face, table, 0, nullptr, nullptr);
 	std::vector<hb_tag_t> features(count);
 	hb_ot_layout_table_get_feature_tags(hb_face, table, 0,  &count, features.data());
 	for (unsigned i = 0; i < count; ++i)
@@ -474,7 +474,7 @@ static QStringList getFontFeatures(const FT_Face face)
 {
 	// Create hb-ft font and get hb_face from it
 	hb_font_t *hb_font;
-	hb_font = hb_ft_font_create(face, NULL);
+	hb_font = hb_ft_font_create(face, nullptr);
 	hb_face_t *hb_face = hb_font_get_face(hb_font);
 	//find Opentype Font Features in GSUB table
 	QStringList featuresGSUB = getFontFeaturesFromTable(HB_OT_TAG_GSUB, hb_face);
@@ -494,7 +494,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	ScFace t;
 	if (filename.isEmpty())
 		return t;
-	FT_Library library = NULL;
+	FT_Library library = nullptr;
 	bool error;
 	error = FT_Init_FreeType( &library );
 	QFileInfo fi(filename);
@@ -505,11 +505,11 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	QString glyName = "";
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
-	FT_Face         face = NULL;
+	FT_Face         face = nullptr;
 	error = FT_New_Face(library, QFile::encodeName(filename), 0, &face);
-	if (error || (face == NULL))
+	if (error || (face == nullptr))
 	{
-		if (face != NULL)
+		if (face != nullptr)
 			FT_Done_Face(face);
 		FT_Done_FreeType(library);
 		return t;
@@ -636,7 +636,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	QString glyName = "";
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
-	FT_Face         face = NULL;
+	FT_Face         face = nullptr;
 	struct testCache foCache;
 	QFileInfo fic(filename);
 	QDateTime lastMod = fic.lastModified();
@@ -655,9 +655,9 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		ScCore->setSplashStatus( QObject::tr("Creating Font Cache") );
 	}
 	FT_Error error = FT_New_Face( library, QFile::encodeName(filename), 0, &face );
-	if (error || (face == NULL)) 
+	if (error || (face == nullptr))
 	{
-		if (face != NULL)
+		if (face != nullptr)
 			FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
 		if (showFontInformation)
@@ -897,7 +897,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		if ((++faceIndex) >= face->num_faces)
 			break;
 		FT_Done_Face(face);
-		face = NULL;
+		face = nullptr;
 		error = FT_New_Face(library, QFile::encodeName(filename), faceIndex, &face);
 	} //while
 	
@@ -984,9 +984,9 @@ void SCFonts::AddFontconfigFonts()
 	FcConfig* config = FcInitLoadConfigAndFonts();
 	// The pattern controls what fonts to match. In this case we want to
 	// match all scalable fonts, but ignore bitmap fonts.
-	FcPattern* pat = FcPatternBuild(NULL,
+	FcPattern* pat = FcPatternBuild(nullptr,
 									FC_SCALABLE, FcTypeBool, true,
-									NULL);
+									nullptr);
 	// The ObjectSet tells FontConfig what information about each match to return.
 	// We currently just need FC_FILE, but other info like font family and style
 	// is available - see "man fontconfig".
@@ -1009,12 +1009,12 @@ void SCFonts::AddFontconfigFonts()
 	FcPatternDestroy(pat);
 	// Create the Freetype library
 //	bool error;
-	FT_Library library = NULL;
+	FT_Library library = nullptr;
 	FT_Init_FreeType( &library );
 	// Now iterate over the font files and load them
 	for (int i = 0; i < fs->nfont; i++)
 	{
-		FcChar8 *file = NULL;
+		FcChar8 *file = nullptr;
 		if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
 		{
 			if (showFontInformation)
@@ -1034,7 +1034,7 @@ void SCFonts::AddFontconfigFonts()
 void SCFonts::AddXFontPath()
 {
 	int pathcount,i;
-	Display *display=XOpenDisplay(NULL);
+	Display *display=XOpenDisplay(nullptr);
 	char **fontpath=XGetFontPath(display,&pathcount);
 	for(i=0; i<pathcount; ++i)
 		AddPath(fontpath[i]);

@@ -162,7 +162,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 
 	bool hasObject(int pos) const;
  	PageItem* getItem(int pos) const; // deprecated
-    bool hasMark(int pos, Mark* mrk = NULL) const;
+	bool hasMark(int pos, Mark* mrk = nullptr) const;
 	Mark *mark(int pos) const;
     void replaceMark(int pos, Mark* mrk);
 	void applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const;

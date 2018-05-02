@@ -1,3 +1,5 @@
+#include <utility>
+
 /*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -12,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVector> //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instantiation of templates
 #include <QtAlgorithms>
 
-ScLayer::ScLayer(void)
+ScLayer::ScLayer()
 {
 	Name         = QObject::tr("New Layer");
 	ID          = 0;
@@ -87,7 +89,7 @@ bool ScLayer::operator== (const ScLayer& other) const
 	return false;
 }
 
-int ScLayers::getMaxID(void)
+int ScLayers::getMaxID()
 {
 	int nr, maxNr = -1;
 	for (int i = 0; i < this->count(); ++i)
@@ -99,9 +101,9 @@ int ScLayers::getMaxID(void)
 	return maxNr;
 }
 
-const ScLayer*  ScLayers::bottomLayer (void) const
+const ScLayer*  ScLayers::bottomLayer () const
 {
-	const ScLayer* layer, *bLayer = NULL;
+	const ScLayer* layer, *bLayer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
@@ -111,9 +113,9 @@ const ScLayer*  ScLayers::bottomLayer (void) const
 	return bLayer;
 }
 
-const ScLayer* ScLayers::topLayer(void) const
+const ScLayer* ScLayers::topLayer() const
 {
-	const ScLayer *layer, *tLayer = NULL;
+	const ScLayer *layer, *tLayer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
@@ -125,12 +127,12 @@ const ScLayer* ScLayers::topLayer(void) const
 
 void ScLayers::levelToLayer (ScLayer& layer, int level) const
 {
-	uint layerCount = count();
-	for (uint la2 = 0; la2 < layerCount; ++la2)
+	int layerCount = count();
+	for (int i = 0; i < layerCount; ++i)
 	{
-		if (this->at(la2).Level == level)
+		if (this->at(i).Level == level)
 		{
-			const ScLayer& ll  = this->at(la2);
+			const ScLayer& ll  = this->at(i);
 			layer.isViewable   = ll.isViewable;
 			layer.isPrintable  = ll.isPrintable;
 			layer.isEditable   = ll.isEditable;
@@ -148,28 +150,28 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 ScLayer* ScLayers::byLevel(const int level)
 {
 	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = 0; it != itend; ++it)
+	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
 	{
 		if( it->Level == level)
 			return &(*it);
 	}
-	return NULL;
+	return nullptr;
 }
 
 ScLayer* ScLayers::byID(const int nr)
 {
 	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = 0; it != itend; ++it)
+	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
 	{
 		if( it->ID == nr)
 			return &(*it);
 	}
-	return NULL;
+	return nullptr;
 }
 
-ScLayer* ScLayers::bottom(void)
+ScLayer* ScLayers::bottom()
 {
-	ScLayer* bLayer = NULL;
+	ScLayer* bLayer = nullptr;
 	ScLayers::Iterator it, itEnd = end();
 	for (it = begin(); it != itEnd; ++it)
 	{
@@ -179,9 +181,9 @@ ScLayer* ScLayers::bottom(void)
 	return bLayer;
 }
 
-ScLayer* ScLayers::top(void)
+ScLayer* ScLayers::top()
 {
-	ScLayer *tLayer = NULL;
+	ScLayer *tLayer = nullptr;
 	ScLayers::Iterator it, itEnd = end();
 	for (it = begin(); it != itEnd; ++it)
 	{
@@ -210,7 +212,7 @@ ScLayer* ScLayers::above (int nr)
 		}
 		return rlyr;
 	}
-	return NULL;
+	return nullptr;
 }
 
 ScLayer* ScLayers::below (int nr)
@@ -232,43 +234,43 @@ ScLayer* ScLayers::below (int nr)
 		}
 		return rlyr;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerByLevel (int level) const
 {
-	const ScLayer *layer = NULL;
+	const ScLayer *layer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
 		if( layer->Level == level)
 			return layer;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerByID (int nr) const
 {
-	const ScLayer *layer = NULL;
+	const ScLayer *layer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
 		if( layer->ID == nr)
 			return layer;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerByName (const QString& name) const
 {
-	const ScLayer *layer = NULL;
+	const ScLayer *layer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
 		if( layer->Name == name)
 			return layer;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerAbove (int level) const
@@ -289,7 +291,7 @@ const ScLayer* ScLayers::layerAbove (int level) const
 		}
 		return retlay;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerAbove (const ScLayer& layer) const
@@ -311,7 +313,7 @@ const ScLayer* ScLayers::layerAbove (const ScLayer& layer) const
 		}
 		return retlay;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerBelow (int level) const
@@ -332,7 +334,7 @@ const ScLayer* ScLayers::layerBelow (int level) const
 		}
 		return retlay;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
@@ -354,7 +356,7 @@ const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
 		}
 		return retlay;
 	}
-	return NULL;
+	return nullptr;
 }
 
 int ScLayers::addLayer(const QString& layerName)
@@ -477,7 +479,7 @@ bool ScLayers::lowerLayer(int nr)
 	return true;
 }
 
-void ScLayers::sort(void)
+void ScLayers::sort()
 {
 	int level = 0;
 	ScLayers::Iterator it, itend = end();
@@ -632,7 +634,7 @@ bool ScLayers::setLayerMarker(const int layerID, QColor color)
 	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
-		layer->markerColor = color;
+		layer->markerColor = std::move(color);
 		return true;
 	}
 	return false;

@@ -14,17 +14,17 @@ using namespace std;
 
 ScStreamFilter::ScStreamFilter(QDataStream* stream)
 {
-	assert(stream != NULL);
+	assert(stream != nullptr);
 	m_dataStream = stream;
-	m_filter     = NULL;
+	m_filter     = nullptr;
 	m_filterMode = FilterToStream;
 	m_writtenToStream = 0;
 }
 
 ScStreamFilter::ScStreamFilter(ScStreamFilter* filter)
 {
-	assert(filter != NULL);
-	m_dataStream = NULL;
+	assert(filter != nullptr);
+	m_dataStream = nullptr;
 	m_filter     = filter;
 	m_filterMode = FilterToFilter;
 	m_writtenToStream = 0;

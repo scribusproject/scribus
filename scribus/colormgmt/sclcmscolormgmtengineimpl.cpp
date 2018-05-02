@@ -45,7 +45,7 @@ QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(con
 		return profileInfos;
 
 	QString nam = "";
-	cmsHPROFILE hIn = NULL;
+	cmsHPROFILE hIn = nullptr;
 
 	for (uint dc = 0; dc < d.count(); ++dc)
 	{
@@ -81,7 +81,7 @@ QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(con
 			try
 			{
 				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-				if (hIn == NULL)
+				if (hIn == nullptr)
 					continue;
 				const char* profileDescriptor = cmsTakeProductDesc(hIn);
 				profileInfo.description = QString(profileDescriptor);
@@ -96,7 +96,7 @@ QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(con
 				profileInfo.deviceClass = translateLcmsProfileClass( cmsGetDeviceClass(hIn) );
 				profileInfos.append(profileInfo);
 				cmsCloseProfile(hIn);
-				hIn = NULL;
+				hIn = nullptr;
 			}
 			catch (lcmsException&)
 			{
@@ -104,15 +104,15 @@ QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(con
 				if (hIn)
 				{
 					cmsCloseProfile(hIn);
-					hIn = NULL;
+					hIn = nullptr;
 				}
 				profileInfo.debug = QString("Color profile %1 is broken").arg(fi.filePath());
 				profileInfos.append(profileInfo);
 			}
-			cmsSetErrorHandler(NULL);
+			cmsSetErrorHandler(nullptr);
 		}
 	}
-	cmsSetErrorHandler(NULL);
+	cmsSetErrorHandler(nullptr);
 
 	return profileInfos;
 }
@@ -123,7 +123,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromFile(ScColorMgmtEngine&
 	ScColorProfile profile = m_profileCache->profile(filePath);
 	if (!profile.isNull())
 		return profile;
-	cmsHPROFILE lcmsProf = NULL;
+	cmsHPROFILE lcmsProf = nullptr;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
 	{
@@ -147,7 +147,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromFile(ScColorMgmtEngine&
 				if (profile.isNull() && lcmsProf)
 				{
 					cmsCloseProfile(lcmsProf);
-					lcmsProf = NULL;
+					lcmsProf = nullptr;
 				}
 			}
 			file.close();
@@ -160,14 +160,14 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromFile(ScColorMgmtEngine&
 			cmsCloseProfile(lcmsProf);
 		profile = ScColorProfile();
 	}
-	cmsSetErrorHandler(NULL);
+	cmsSetErrorHandler(nullptr);
 	return profile;
 }
 
 ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromMem(ScColorMgmtEngine& engine, const QByteArray& data)
 {
 	ScColorProfile profile;
-	cmsHPROFILE lcmsProf = NULL;
+	cmsHPROFILE lcmsProf = nullptr;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
 	{
@@ -184,7 +184,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromMem(ScColorMgmtEngine& 
 		if (profile.isNull() && lcmsProf)
 		{
 			cmsCloseProfile(lcmsProf);
-			lcmsProf = NULL;
+			lcmsProf = nullptr;
 		}
 	}
 	catch (lcmsException& e)
@@ -194,7 +194,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromMem(ScColorMgmtEngine& 
 			cmsCloseProfile(lcmsProf);
 		profile = ScColorProfile();
 	}
-	cmsSetErrorHandler(NULL);
+	cmsSetErrorHandler(nullptr);
 	return profile;
 }
 
@@ -205,7 +205,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_sRGB(ScColorMgmtEngine& 
 	if (!profile.isNull())
 		return profile;
 
-	cmsHPROFILE lcmsProf = NULL;
+	cmsHPROFILE lcmsProf = nullptr;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
 	{
@@ -220,7 +220,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_sRGB(ScColorMgmtEngine& 
 		if (profile.isNull() && lcmsProf)
 		{
 			cmsCloseProfile(lcmsProf);
-			lcmsProf = NULL;
+			lcmsProf = nullptr;
 		}
 	}
 	catch (lcmsException& e)
@@ -230,7 +230,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_sRGB(ScColorMgmtEngine& 
 			cmsCloseProfile(lcmsProf);
 		profile = ScColorProfile();
 	}
-	cmsSetErrorHandler(NULL);
+	cmsSetErrorHandler(nullptr);
 	return profile;
 }
 
@@ -241,11 +241,11 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_Lab(ScColorMgmtEngine& e
 	if (!profile.isNull())
 		return profile;
 
-	cmsHPROFILE lcmsProf = NULL;
+	cmsHPROFILE lcmsProf = nullptr;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
 	{
-		lcmsProf = cmsCreateLabProfile(NULL);
+		lcmsProf = cmsCreateLabProfile(nullptr);
 		if (lcmsProf)
 		{
 			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
@@ -256,7 +256,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_Lab(ScColorMgmtEngine& e
 		if (profile.isNull() && lcmsProf)
 		{
 			cmsCloseProfile(lcmsProf);
-			lcmsProf = NULL;
+			lcmsProf = nullptr;
 		}
 	}
 	catch (lcmsException& e)
@@ -266,7 +266,7 @@ ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_Lab(ScColorMgmtEngine& e
 			cmsCloseProfile(lcmsProf);
 		profile = ScColorProfile();
 	}
-	cmsSetErrorHandler(NULL);
+	cmsSetErrorHandler(nullptr);
 	return profile;
 }
 
@@ -275,7 +275,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& e
 	                             const ScColorProfile& outputProfile, eColorFormat outputFormat,
                                  eRenderIntent renderIntent, long transformFlags)
 {
-	ScColorTransform transform(NULL);
+	ScColorTransform transform(nullptr);
 	if (inputProfile.isNull() || outputProfile.isNull())
 		return transform;
 	int inputProfEngineID  = inputProfile.engine().engineID();
@@ -327,7 +327,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& e
 		int   lcmsIntent    = translateIntentToLcmsIntent(renderIntent);
 		if (nullTransform)
 			lcmsFlags |= cmsFLAGS_NULLTRANSFORM;
-		cmsHTRANSFORM hTransform = NULL;
+		cmsHTRANSFORM hTransform = nullptr;
 		cmsSetErrorHandler(&cmsErrorHandler);
 		try
 		{
@@ -350,7 +350,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& e
 				cmsDeleteTransform(hTransform);*/
 			transform = ScColorTransform();
 		}
-		cmsSetErrorHandler(NULL);
+		cmsSetErrorHandler(nullptr);
 	}
 	return transform;
 }
@@ -361,7 +361,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
                                              const ScColorProfile& proofProfile , eRenderIntent renderIntent, 
                                              eRenderIntent proofingIntent, long transformFlags)
 {
-	ScColorTransform transform(NULL);
+	ScColorTransform transform(nullptr);
 	if (inputProfile.isNull() || outputProfile.isNull())
 		return transform;
 	int inputProfEngineID  = inputProfile.engine().engineID();
@@ -409,7 +409,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 		if (transform.isNull())
 		{
 			cmsSetErrorHandler(&cmsErrorHandler);
-			cmsHTRANSFORM hTransform = NULL;
+			cmsHTRANSFORM hTransform = nullptr;
 			try
 			{
 				hTransform = cmsCreateProofingTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
@@ -432,7 +432,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 					cmsDeleteTransform(hTransform);*/
 				transform = ScColorTransform();
 			}
-			cmsSetErrorHandler(NULL);
+			cmsSetErrorHandler(nullptr);
 		}
 	}
 	else
@@ -457,7 +457,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 		if (transform.isNull())
 		{
 			cmsSetErrorHandler(&cmsErrorHandler);
-			cmsHTRANSFORM hTransform = NULL;
+			cmsHTRANSFORM hTransform = nullptr;
 			try
 			{
 				hTransform  = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
@@ -479,7 +479,7 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 					cmsDeleteTransform(hTransform);*/
 				transform = ScColorTransform();
 			}
-			cmsSetErrorHandler(NULL);
+			cmsSetErrorHandler(nullptr);
 		}
 	}
 	return transform;

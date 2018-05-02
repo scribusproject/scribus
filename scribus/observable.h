@@ -113,7 +113,7 @@ class MassObservable : public UpdateManaged
 	friend class UpdateManager;
 	
 public:
-	MassObservable(UpdateManager* um = NULL);
+	MassObservable(UpdateManager* um = nullptr);
 	virtual ~MassObservable();
 	/**
 		Used if the UpdateManager is not available when the constructor is called
@@ -204,7 +204,7 @@ template<class OBSERVED>
 class SCRIBUS_API Observable : public MassObservable<OBSERVED*> 
 {	
 public:
-	Observable(UpdateManager* um = NULL) : MassObservable<OBSERVED*>(um) {}
+	Observable(UpdateManager* um = nullptr) : MassObservable<OBSERVED*>(um) {}
 	
 	virtual void update() 
 	{ 
@@ -244,7 +244,7 @@ template<class OBSERVED>
 inline void MassObservable<OBSERVED>::update(OBSERVED what)
 {
 	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what);
-	if (m_um == NULL || m_um->requestUpdate(this, memento))
+	if (m_um == nullptr || m_um->requestUpdate(this, memento))
 	{
 		updateNow(memento);
 	}
@@ -254,7 +254,7 @@ template<class OBSERVED>
 inline void MassObservable<OBSERVED>::updateLayout(OBSERVED what)
 {
 	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what, true);
-	if (m_um == NULL || m_um->requestUpdate(this, memento))
+	if (m_um == nullptr || m_um->requestUpdate(this, memento))
 		updateNow(memento);
 }
 
@@ -263,7 +263,7 @@ inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 {
 	Private_Memento<OBSERVED>* memento = dynamic_cast<Private_Memento<OBSERVED>*>(what);
 	if (!memento)
-		qFatal("MassObservable<OBSERVED>::updateNow memento NULL");
+		qFatal("MassObservable<OBSERVED>::updateNow memento nullptr");
 	foreach (Observer<OBSERVED>* obs, m_observers)
 		obs->changed(memento->m_data, memento->m_layout);
 	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));

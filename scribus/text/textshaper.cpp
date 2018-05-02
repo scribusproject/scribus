@@ -25,7 +25,7 @@ TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar,
 { }
 
 TextShaper::TextShaper(ITextSource &story, int firstChar)
-	: m_context(NULL),
+	: m_context(nullptr),
 	m_contextNeeded(false),
 	m_story(story),
 	m_firstChar(firstChar),
@@ -53,7 +53,7 @@ QList<TextShaper::TextRun> TextShaper::itemizeBiDi()
 	if (style.direction() == ParagraphStyle::RTL)
 		parLevel = UBIDI_RTL;
 
-	ubidi_setPara(obj, (const UChar*) m_text.utf16(), m_text.length(), parLevel, NULL, &err);
+	ubidi_setPara(obj, (const UChar*) m_text.utf16(), m_text.length(), parLevel, nullptr, &err);
 	if (U_SUCCESS(err))
 	{
 		int32_t count = ubidi_countRuns(obj, &err);
@@ -188,7 +188,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 		if (m_story.hasExpansionPoint(i))
 		{
 			m_contextNeeded = true;
-			if (m_context != NULL)
+			if (m_context != nullptr)
 			{
 				str = m_context->expand(m_story.expansionPoint(i));
 				if (str.isEmpty())
@@ -332,7 +332,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 		const ScFace &scFace = style.font();
 		hb_font_t *hbFont = reinterpret_cast<hb_font_t*>(scFace.hbFont());
-		if (hbFont == NULL)
+		if (hbFont == nullptr)
 			continue;
 
 		hb_font_set_scale(hbFont, style.fontSize(), style.fontSize());
@@ -380,8 +380,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		hb_shape_full(hbFont, hbBuffer, hbFeatures.data(), hbFeatures.length(), shapers);
 
 		unsigned int count = hb_buffer_get_length(hbBuffer);
-		hb_glyph_info_t *glyphs = hb_buffer_get_glyph_infos(hbBuffer, NULL);
-		hb_glyph_position_t *positions = hb_buffer_get_glyph_positions(hbBuffer, NULL);
+		hb_glyph_info_t *glyphs = hb_buffer_get_glyph_infos(hbBuffer, nullptr);
+		hb_glyph_position_t *positions = hb_buffer_get_glyph_positions(hbBuffer, nullptr);
 
 		result.glyphs().reserve(result.glyphs().size() + count);
 		for (size_t i = 0; i < count; )
@@ -502,14 +502,14 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 				if (m_story.hasObject(firstChar))
 				{
 					m_contextNeeded = true;
-					if (m_context != NULL)
+					if (m_context != nullptr)
 						gl.xadvance = m_context->getVisualBoundingBox(m_story.object(firstChar)).width();
 				}
 
 				if ((effects & ScStyle_Superscript) || (effects & ScStyle_Subscript))
 				{
 					m_contextNeeded = true;
-					if (m_context != NULL)
+					if (m_context != nullptr)
 					{
 						double scale;
 						double asce = style.font().ascent(style.fontSize() / 10.0);
@@ -532,7 +532,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 				if (smallCaps.contains(firstCluster))
 				{
 					m_contextNeeded = true;
-					if (m_context != NULL)
+					if (m_context != nullptr)
 					{
 						
 						double smallcapsScale = m_context->typographicPrefs().valueSmallCaps / 100.0;

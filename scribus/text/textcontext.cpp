@@ -89,7 +89,7 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 		case ExpansionPoint::MarkCE:
 			{
 				Mark* mark = expansion.getMark();
-				if (mark != NULL)
+				if (mark != nullptr)
 				{
 					mark->OwnPage = m_frame->OwnPage;
 					//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
@@ -110,7 +110,7 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 
 
 						TextNote* note = mark->getNotePtr();
-						if (note == NULL)
+						if (note == nullptr)
 							return QString();
 
 					}

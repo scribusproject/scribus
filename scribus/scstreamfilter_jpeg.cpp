@@ -105,9 +105,9 @@ struct ScJpegEncodeFilterData
 	~ScJpegEncodeFilterData();
 };
 
-ScJpegEncodeFilterData::ScJpegEncodeFilterData() : cdest(NULL)
+ScJpegEncodeFilterData::ScJpegEncodeFilterData() : cdest(nullptr)
 {
-	row_pointer[0] = NULL;
+	row_pointer[0] = nullptr;
 }
 
 ScJpegEncodeFilterData::~ScJpegEncodeFilterData()
@@ -122,7 +122,7 @@ ScJpegEncodeFilter::ScJpegEncodeFilter(QDataStream* stream, unsigned int imgWidt
 		            ScJpegEncodeFilter::Color color) : ScStreamFilter(stream), m_width(imgWidth), m_height(imgHeight),
 					m_quality(75), m_color(color)
 {
-	m_filterData = NULL;
+	m_filterData = nullptr;
 	m_openedFilter = false;
 }
 
@@ -130,7 +130,7 @@ ScJpegEncodeFilter::ScJpegEncodeFilter(ScStreamFilter* filter, unsigned int imgW
 					ScJpegEncodeFilter::Color color) : ScStreamFilter(filter), m_width(imgWidth), m_height(imgHeight),
 					m_quality(75), m_color(color)
 {
-	m_filterData = NULL;
+	m_filterData = nullptr;
 	m_openedFilter = false;
 }
 
@@ -145,7 +145,7 @@ void ScJpegEncodeFilter::freeData(void)
 {
 	if (m_filterData)
 		delete m_filterData;
-	m_filterData = NULL;
+	m_filterData = nullptr;
 }
 
 bool ScJpegEncodeFilter::openFilter (void)
@@ -156,7 +156,7 @@ bool ScJpegEncodeFilter::openFilter (void)
 		return false;
 
 	m_filterData = new ScJpegEncodeFilterData();
-	if (m_filterData == NULL)
+	if (m_filterData == nullptr)
 		return false;
 
 	struct ScJpegErrorMgr jerr;
@@ -165,7 +165,7 @@ bool ScJpegEncodeFilter::openFilter (void)
 	m_filterData->row_pointer[0] = 0;
 
 	m_filterData->cdest = new ScJpegDestinationMgr(this);
-	if (m_filterData->cdest == NULL)
+	if (m_filterData->cdest == nullptr)
 		return false;
 
 	bool success = false;
@@ -200,7 +200,7 @@ bool ScJpegEncodeFilter::openFilter (void)
 	if (success)
 	{
 		m_filterData->row_pointer[0] = new uchar[m_filterData->cinfo.image_width * m_filterData->cinfo.input_components];
-		if (m_filterData->row_pointer[0] == NULL)
+		if (m_filterData->row_pointer[0] == nullptr)
 			success = false;
 	}
 	if (!success || !ScStreamFilter::openFilter())

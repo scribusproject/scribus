@@ -32,7 +32,7 @@ protected:
 	cmsHPROFILE     m_profileHandle;
 	mutable QString m_productDescription;
 
-	void closeProfile(void);
+	void closeProfile();
 };
 
 #endif

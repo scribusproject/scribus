@@ -202,7 +202,7 @@ public:
 
 
 
-ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(NULL),
+ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(nullptr),
 	m_hasGUI(false),
 	m_docFilePermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner),
 	m_appPrefsData(PrefsManager::instance()->appPrefs),
@@ -2183,7 +2183,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			{
 				if (is->get("MARK") == "new")
 				{
-					if (currItem == NULL)
+					if (currItem == nullptr)
 					{
 						qDebug() << "Wrong inItem in undo step for mark";
 						return;
@@ -2283,7 +2283,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				else if (is->get("MARK") == "delNonUnique")
 				{
 					//used if deleting non-unique marks by MarksManager
-					eraseMark(mrk, true, NULL, true);
+					eraseMark(mrk, true, nullptr, true);
 				}
 				else
 				{
@@ -2623,7 +2623,7 @@ ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, 
 {
 	assert(masterPageMode()==false);
 	ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count()*(m_docPrefsData.docSetupPrefs.pageHeight+m_docPrefsData.displayPrefs.scratch.bottom()+m_docPrefsData.displayPrefs.scratch.top())+m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
-	assert(addedPage!=NULL);
+	assert(addedPage!=nullptr);
 	addedPage->setDocument(this);
 	addedPage->Margins.setTop(m_docPrefsData.docSetupPrefs.margins.top());
 	addedPage->Margins.setBottom(m_docPrefsData.docSetupPrefs.margins.bottom());
@@ -2633,7 +2633,7 @@ ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, 
 	addedPage->setOrientation(m_docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
 	DocPages.insert(pageIndex, addedPage);
-	assert(DocPages.at(pageIndex)!=NULL);
+	assert(DocPages.at(pageIndex)!=nullptr);
 	setCurrentPage(addedPage);
 	if (!masterPageName.isEmpty())
 		applyMasterPage(masterPageName, pageIndex);
@@ -9240,7 +9240,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 		{
 			ParagraphStyle newStyle;
 			//for notes frames apply style from master frame
-			if (currItem->isNoteFrame() && (currItem->asNoteFrame()->masterFrame() != NULL))
+			if (currItem->isNoteFrame() && (currItem->asNoteFrame()->masterFrame() != nullptr))
 			{
 				newStyle.setParent(currItem->asNoteFrame()->masterFrame()->itemText.defaultStyle().parent());
 				newStyle.applyStyle(currItem->asNoteFrame()->masterFrame()->currentStyle());
@@ -9265,7 +9265,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
-		else if (currItem->isTextFrame() && currItem->asTextFrame()->hasNoteFrame(NULL, true))
+		else if (currItem->isTextFrame() && currItem->asTextFrame()->hasNoteFrame(nullptr, true))
 			setNotesChanged(true);
 	}
 	if (activeTransaction)
@@ -9423,7 +9423,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
-		else if (currItem->isTextFrame() && currItem->asTextFrame()->hasNoteFrame(NULL, true))
+		else if (currItem->isTextFrame() && currItem->asTextFrame()->hasNoteFrame(nullptr, true))
 			setNotesChanged(true);
 		currItem->invalidateLayout();
 	}
@@ -13974,7 +13974,7 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 {
 	*GxM = -1;
 	*GyM = -1;
-	ScPage* page = (refPage == NULL) ? currentPage() : refPage;
+	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;

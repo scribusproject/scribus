@@ -45,8 +45,8 @@ CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
 	CanvasMode(view)
 {
 	m_Mxp = m_Myp = -1;
-	m_mimeData = NULL;
-	m_trSettings = NULL;
+	m_mimeData = nullptr;
+	m_trSettings = nullptr;
 }
 
 CanvasMode_ObjImport::~CanvasMode_ObjImport()
@@ -112,8 +112,8 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 void CanvasMode_ObjImport::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
-	setMimeData(NULL);
-	setTransactionSettings(NULL);
+	setMimeData(nullptr);
+	setTransactionSettings(nullptr);
 	m_view->setRedrawMarkerShown(false);
 }
 

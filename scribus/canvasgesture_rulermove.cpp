@@ -95,7 +95,7 @@ void RulerGesture::prepare(Mode mode)
 
 void RulerGesture::activate(bool fromGesture)
 {
-	m_haveCursor = (qApp->overrideCursor() != NULL);
+	m_haveCursor = (qApp->overrideCursor() != nullptr);
 	if ( (!fromGesture) && qApp->overrideCursor())
 	{
 		m_haveCursor = true;

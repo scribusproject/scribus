@@ -193,7 +193,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem *currItem=m_doc->m_Selection->itemAt(i);
-			if (currItem!=NULL)
+			if (currItem!=nullptr)
 			{
 				if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
 					m_doc->itemSelection_SetFillColor(colorName); //Text colour

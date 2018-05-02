@@ -58,7 +58,7 @@ public:
 	QString  description;
 	QPixmap *actionPixmap;
 
-	TransactionSettings(void) { targetPixmap = actionPixmap = NULL; }  
+	TransactionSettings(void) { targetPixmap = actionPixmap = nullptr; }
 };
 
 /**

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 ScColorMgmtEngine::ScColorMgmtEngine(ScColorMgmtEngineData* data) : m_data(data)
 {
-	assert(data != NULL);
+	assert(data != nullptr);
 }
 
 int ScColorMgmtEngine::engineID() const

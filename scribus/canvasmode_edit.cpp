@@ -80,7 +80,7 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 inline bool CanvasMode_Edit::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 
@@ -936,7 +936,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=NULL)
+	if (m_doc->m_Selection->itemAt(0)!=nullptr)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
@@ -1026,7 +1026,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 	
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
@@ -1094,12 +1094,12 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 
 void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;
-	if(currItem!=NULL)
+	if(currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

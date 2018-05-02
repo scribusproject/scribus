@@ -32,7 +32,7 @@ class ShapedTextFeed
 	int m_endChar;
 	
 public:
-	ShapedTextFeed(ITextSource* source, int startChar, ITextContext* context, IShapedTextCache* cache = NULL);
+	ShapedTextFeed(ITextSource* source, int startChar, ITextContext* context, IShapedTextCache* cache = nullptr);
 	
 	bool haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs);
 	

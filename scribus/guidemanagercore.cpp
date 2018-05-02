@@ -243,9 +243,9 @@ Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 	Guides guides;
 	int value = m_horizontalAutoCount;
 	
-	if (page == NULL)
+	if (page == nullptr)
 		page = m_page;
-	if (page == NULL)
+	if (page == nullptr)
 		return guides;
 	if (m_horizontalAutoCount == 0)
 		return guides;
@@ -290,9 +290,9 @@ Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 	Guides guides;
 	int value = m_verticalAutoCount;
 	
-	if (page == NULL)
+	if (page == nullptr)
 		page = m_page;
-	if (page == NULL)
+	if (page == nullptr)
 		return guides;
 	if (m_verticalAutoCount == 0)
 		return guides;

@@ -21,7 +21,7 @@ bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 	{
 		page = doc->Pages->at( pageNumbers[index] - 1 );
 		ScPageOutput* outputComponent = createPageOutputComponent(index + 1);
-		if (outputComponent != NULL)
+		if (outputComponent != nullptr)
 		{
 			outputComponent->begin();
 			outputComponent->drawPage(page);

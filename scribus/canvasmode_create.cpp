@@ -71,7 +71,7 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 	createObjectSubMode  = 0;
 	modifiers            = 0;
 	m_MouseButtonPressed = false;
-	m_createTransaction  = NULL;
+	m_createTransaction  = nullptr;
 }
 
 
@@ -178,7 +178,7 @@ void CreateMode::drawControls(QPainter* p)
 inline bool CreateMode::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 // the following code was moved from scribusview.cpp:
@@ -603,7 +603,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		{
 			if (!doOneClick(createObjectPos, canvasCurrCoord))
 			{
-				return NULL;
+				return nullptr;
 			}
 		}
 	}
@@ -617,7 +617,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			hSize = wSize;
 	}
 
-	PageItem *newObject = NULL, *currItem = NULL;
+	PageItem *newObject = nullptr, *currItem = nullptr;
 	// FIXME for modeDrawLine
 	QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
 	if (createObjectMode != modeDrawLine)

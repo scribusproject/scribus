@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(), 
 	defaultStyle(), 
-	pstyleContext(NULL),
+	pstyleContext(nullptr),
 	refs(1), len(0), cursorPosition(0), trailingStyle()
 {
 	pstyleContext.setDefaultStyle( & defaultStyle );
@@ -128,7 +128,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 	// we are done here but will do a sanity check:
 	// assert that all chars point to the following parstyle
 	QListIterator<ScText*> it( *this );
-	const StyleContext* lastContext = NULL;
+	const StyleContext* lastContext = nullptr;
 	while ( it.hasNext() ) {
 		ScText* elem = it.next();
 		assert( elem );
@@ -143,9 +143,9 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 			{
 				assert( lastContext == elem->parstyle->charStyleContext() );
 			}
-			lastContext = NULL;
+			lastContext = nullptr;
 		}
-		else if (lastContext == NULL)
+		else if (lastContext == nullptr)
 		{
 			lastContext = elem->context();
 		}

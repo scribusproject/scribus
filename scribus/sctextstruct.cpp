@@ -15,7 +15,7 @@ PageItem* InlineFrame::getPageItem(ScribusDoc* doc) const
 {
 	if (doc->FrameItems.contains(m_object_id))
 		return doc->FrameItems[m_object_id];
-	return NULL;
+	return nullptr;
 }
 
 
@@ -23,8 +23,8 @@ ScText::~ScText()
 {
 	if (parstyle)
 		delete parstyle;
-	parstyle = NULL;
-	mark = NULL;
+	parstyle = nullptr;
+	mark = nullptr;
 }
 
 bool ScText::hasObject(ScribusDoc *doc) const
@@ -38,8 +38,8 @@ bool ScText::hasMark(Mark* MRK) const
 {
 	if (this->ch == SpecialChars::OBJECT)
 	{
-		if (MRK == NULL)
-			return mark != NULL;
+		if (MRK == nullptr)
+			return mark != nullptr;
 		else
 			return mark == MRK;
 	}
@@ -63,7 +63,7 @@ PageItem* ScText::getItem(ScribusDoc *doc)
 {
 	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
 		return doc->FrameItems[embedded];
-	return NULL;
+	return nullptr;
 }
 
 void ScText::setNewMark(Mark *mrk)

@@ -56,8 +56,8 @@ public:
 	double horizontal(uint ix, GuideType type);
 	double vertical(uint ix, GuideType type);
 
-	Guides getAutoHorizontals(ScPage* page = NULL);
-	Guides getAutoVerticals(ScPage* page = NULL);
+	Guides getAutoHorizontals(ScPage* page = nullptr);
+	Guides getAutoVerticals(ScPage* page = nullptr);
 
 	void clearHorizontals(GuideType type);
 	void clearVerticals(GuideType type);

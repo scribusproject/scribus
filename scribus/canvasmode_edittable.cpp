@@ -409,10 +409,10 @@ void CanvasMode_EditTable::makeLongTextCursorBlink()
 
 void CanvasMode_EditTable::createContextMenu(PageItem *currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
-	if(currItem!=NULL)
+	if(currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

@@ -99,7 +99,7 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 {
 	QTableWidget::removeCellWidget(row, column);
 	QHash<QWidget*, QPair<int, int> >::const_iterator i = widgetPositions.constBegin();
-	QWidget* t=NULL;
+	QWidget* t=nullptr;
 	while (i != widgetPositions.constEnd())
 	{
 		if (i.value().first==row && i.value().second==column)
@@ -109,6 +109,6 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 		}
 		++i;
 	}
-	if (t!=NULL)
+	if (t!=nullptr)
 		widgetPositions.remove(t);
 }

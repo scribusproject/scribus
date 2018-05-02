@@ -44,12 +44,12 @@ void TOCGenerator::setDoc(ScribusDoc *doc)
 
 PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 {
-	PageItem* targetFrame=NULL;
-	if (m_doc != NULL)
+	PageItem* targetFrame=nullptr;
+	if (m_doc != nullptr)
 	{
 		for (int d = 0; d < m_doc->DocItems.count(); ++d)
 		{
-			if (m_doc->DocItems.at(d) != NULL)
+			if (m_doc->DocItems.at(d) != nullptr)
 			{
 				if (m_doc->DocItems.at(d)->itemType()==PageItem::TextFrame && m_doc->DocItems.at(d)->itemName()==targetFrameName)
 				{
@@ -64,20 +64,20 @@ PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 
 void TOCGenerator::generateDefault()
 {
-	if (m_doc == NULL)
+	if (m_doc == nullptr)
 		return;
 	Q_ASSERT(!m_doc->masterPageMode());
 	for(ToCSetupVector::Iterator tocSetupIt = m_doc->tocSetups().begin(); tocSetupIt != m_doc->tocSetups().end(); ++tocSetupIt )
 	{
 		PageItem* tocFrame = findTargetFrame(tocSetupIt->frameName);
-		if (tocFrame == NULL)
+		if (tocFrame == nullptr)
 			continue;
 
 		PageItem *currentDocItem;
 		QMap<QString, QString> tocMap;
 
 		uint *pageCounter = new uint[m_doc->DocPages.count()];
-		if (pageCounter == NULL)
+		if (pageCounter == nullptr)
 			return;
 		uint pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
@@ -87,7 +87,7 @@ void TOCGenerator::generateDefault()
 		while (itemIter.next())
 		{
 			currentDocItem = itemIter.current();
-			if (currentDocItem == NULL)
+			if (currentDocItem == nullptr)
 				continue;
 			//Item not on a page, continue
 			if (currentDocItem->OwnPage == -1)

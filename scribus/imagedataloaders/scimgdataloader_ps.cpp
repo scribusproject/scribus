@@ -936,7 +936,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 	FILE     *infile;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = NULL;
+	infile = nullptr;
 	if (setjmp (jerr.setjmp_buffer))
 	{
 		jpeg_destroy_decompress (&cinfo);
@@ -946,10 +946,10 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 	}
 	jpeg_create_decompress (&cinfo);
 #if defined(Q_OS_WIN32)
-	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == nullptr)
 		return false;
 #else
-	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == nullptr)
 		return false;
 #endif
 	jpeg_stdio_src(&cinfo, infile);
@@ -1061,7 +1061,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 	FILE     *infile;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = NULL;
+	infile = nullptr;
 	if (setjmp (jerr.setjmp_buffer))
 	{
 		jpeg_destroy_decompress (&cinfo);
@@ -1071,10 +1071,10 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 	}
 	jpeg_create_decompress (&cinfo);
 #if defined(Q_OS_WIN32)
-	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == nullptr)
 		return false;
 #else
-	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == nullptr)
 		return false;
 #endif
 	jpeg_stdio_src(&cinfo, infile);

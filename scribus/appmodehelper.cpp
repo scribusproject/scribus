@@ -44,13 +44,13 @@ for which a new license (GPL+exception) is in place.
 AppModeHelper::AppModeHelper(QObject *parent) :
     QObject(parent)
 {
-	a_actMgr=NULL;
-	a_scrActions=NULL;
-	a_scrRecentFileActions=NULL;
-	a_scrWindowsActions=NULL;
-	a_scrScrapActions=NULL;
-	a_scrLayersActions=NULL;
-	a_scrRecentPasteActions=NULL;
+	a_actMgr=nullptr;
+	a_scrActions=nullptr;
+	a_scrRecentFileActions=nullptr;
+	a_scrWindowsActions=nullptr;
+	a_scrScrapActions=nullptr;
+	a_scrLayersActions=nullptr;
+	a_scrRecentPasteActions=nullptr;
 }
 
 void AppModeHelper::setup(ActionManager* am,
@@ -85,7 +85,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	assert(newMode < submodeFirstSubmode);
 
 	//If no doc and we end here, just reset the tool actions
-	if (doc==NULL)
+	if (doc==nullptr)
 	{
 		resetApplicationMode(scmw, newMode);
 		return;
@@ -130,7 +130,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeDrawBezierLine:
 		{
 			//if No nodes were created
-			if (currItem == NULL)
+			if (currItem == nullptr)
 			{
 				setSpecialEditMode(false);
 				break;
@@ -292,15 +292,15 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
 				scmw->charPalette->setEnabled(true, currItem);
-				if (currItem!=NULL && currItem->asTextFrame())
+				if (currItem!=nullptr && currItem->asTextFrame())
 				{
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
 					currItem->asTextFrame()->toggleEditModeActions();
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{
-					bool textFrameEditMode = ((currItem != NULL) && (currItem->asTextFrame()));
-					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == NULL) );
+					bool textFrameEditMode = ((currItem != nullptr) && (currItem->asTextFrame()));
+					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
 				}
 				setTextEditMode(true);
 
@@ -436,14 +436,14 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDoc* doc)
 {
 	int SelectedType = -1;
-	PageItem *currItem = NULL;
+	PageItem *currItem = nullptr;
 	const int docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount > 0)
 	{
 		currItem = doc->m_Selection->itemAt(0);
 		SelectedType = currItem->itemType();
 	}
-	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
+	assert (docSelectionCount == 0 || currItem != nullptr); // help coverity analysis
 
 	bool inAnEditMode = doc->inAnEditMode();
 
@@ -1008,7 +1008,7 @@ void AppModeHelper::setModeActionsPerMode(int newMode)
 
 void AppModeHelper::setActionGroupEnabled(QMap<QString, QPointer<ScrAction> >*ag, bool enabled)
 {
-	if (ag!=NULL)
+	if (ag!=nullptr)
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it = ag->begin(); it!=ag->end(); ++it )
 			(*it)->setEnabled(enabled);
 }

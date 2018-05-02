@@ -21,7 +21,7 @@ ScLcmsColorTransformImpl::~ScLcmsColorTransformImpl()
 
 bool ScLcmsColorTransformImpl::isNull() const
 {
-	return (m_transformHandle == NULL);
+	return (m_transformHandle == nullptr);
 }
 
 bool ScLcmsColorTransformImpl::apply(void* input, void* output, uint numElem)
@@ -49,7 +49,7 @@ void ScLcmsColorTransformImpl::deleteTransform(void)
 	if (m_transformHandle)
 	{
 		cmsDeleteTransform(m_transformHandle);
-		m_transformHandle = NULL;
+		m_transformHandle = nullptr;
 	}
 }
 

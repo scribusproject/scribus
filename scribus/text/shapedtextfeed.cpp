@@ -51,7 +51,7 @@ bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 
 ShapedText ShapedTextFeed::getMore(int fromChar, int toChar)
 {
-	if (m_cache != NULL)
+	if (m_cache != nullptr)
 	{
 		int len = toChar - fromChar;
 		if (!m_cache->contains(fromChar, len))

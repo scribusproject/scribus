@@ -37,7 +37,7 @@ ScFace::ScFaceData::ScFaceData() :
 	hasGlyphNames(false),
 	maxGlyph(0),
 	m_cachedStatus(ScFace::UNKNOWN),
-	m_hbFont(NULL)
+	m_hbFont(nullptr)
 {
 }
 
@@ -46,7 +46,7 @@ ScFace::ScFaceData::~ScFaceData()
 	if (m_hbFont)
 	{
 		hb_font_destroy(reinterpret_cast<hb_font_t*>(m_hbFont));
-		m_hbFont = NULL;
+		m_hbFont = nullptr;
 	}
 }
 
@@ -57,17 +57,17 @@ static hb_blob_t* referenceTable(hb_face_t*, hb_tag_t tag, void *userData)
 	FT_Byte *buffer;
 	FT_ULong length = 0;
 
-	if (FT_Load_Sfnt_Table(ftFace, tag, 0, NULL, &length))
-		return NULL;
+	if (FT_Load_Sfnt_Table(ftFace, tag, 0, nullptr, &length))
+		return nullptr;
 
 	buffer = reinterpret_cast<FT_Byte*>(malloc(length));
-	if (buffer == NULL)
-		return NULL;
+	if (buffer == nullptr)
+		return nullptr;
 
 	if (FT_Load_Sfnt_Table(ftFace, tag, 0, buffer, &length))
 	{
 		free(buffer);
-		return NULL;
+		return nullptr;
 	}
 
 	return hb_blob_create((const char *) buffer, length, HB_MEMORY_MODE_WRITABLE, buffer, free);
@@ -79,7 +79,7 @@ void* ScFace::ScFaceData::hbFont()
 	{
 		FT_Face face = ftFace();
 		if (!face)
-			return NULL;
+			return nullptr;
 
 		// #14699: Harfbuzz internal functions apparently do not support font with a single Apple Roman CMap
 		// Force use of FreeType function in such case

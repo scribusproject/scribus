@@ -271,7 +271,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
 				TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
 				tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
-				if (tile_buf == NULL)
+				if (tile_buf == nullptr)
 				{
 					TIFFClose(tif);
 					return false;

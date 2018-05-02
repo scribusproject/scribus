@@ -134,12 +134,12 @@ public:
 	QChar ch;
 	ScText() :
 		CharStyle(),
-		parstyle(NULL),
-		embedded(0), mark(NULL), ch() {}
+		parstyle(nullptr),
+		embedded(0), mark(nullptr), ch() {}
 	ScText(const ScText& other) :
 		CharStyle(other),
-		parstyle(NULL),
-		embedded(other.embedded), mark(NULL), ch(other.ch)
+		parstyle(nullptr),
+		embedded(other.embedded), mark(nullptr), ch(other.ch)
 	{
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
@@ -149,8 +149,8 @@ public:
 	~ScText();
 
 	bool hasObject(ScribusDoc *doc) const;
-	//returns true if given MRK is found, if MRK is NULL then any mark returns true
-	bool hasMark(Mark * MRK = NULL) const;
+	//returns true if given MRK is found, if MRK is nullptr then any mark returns true
+	bool hasMark(Mark * MRK = nullptr) const;
 	QList<PageItem*> getGroupedItems(ScribusDoc *doc);
 	PageItem* getItem(ScribusDoc *doc);
 private:

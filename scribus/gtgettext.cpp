@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 // Constructor
 gtGetText::gtGetText(ScribusDoc* doc)
 {
-	m_dias = NULL;
+	m_dias = nullptr;
 	// Attach to the active document
 	m_Doc = doc;
 	// Load the plugins array.
@@ -246,7 +246,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), idata.soFilePath);
 	// Attempt to load the plugin, store the pointer in gtplugin
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
-	// If gtplugin is NULL we failed to load the plugin. Report an error to the user and exit the method.
+	// If gtplugin is nullptr we failed to load the plugin. Report an error to the user and exit the method.
 	if (!gtplugin)
 	{
 		qWarning("Failed to load plugin %s", pluginFilePath.toLatin1().constData());
@@ -265,7 +265,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	{
 		// Attempt to map the old GetText method to to the pointer via the PluginManager. Store the result in fp_GetText.
 		fp_GetText = (sdem) PluginManager::resolveSym(gtplugin,"GetText");
-		// If fp_GetText is NULL, we could not find the symbol,report the error, unload the "DLL" and exit the method.
+		// If fp_GetText is nullptr, we could not find the symbol,report the error, unload the "DLL" and exit the method.
 		if (fp_GetText)
 		{
 			// Create a new writer object in "append"'s mode (true or false ) attached to the importItem
@@ -305,7 +305,7 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), name);
 	// Attempt to load the plugin.
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
-	// if gtplugin is NULL we were unable to load the plugin. Return an error and exit the method.
+	// if gtplugin is nullptr we were unable to load the plugin. Return an error and exit the method.
 	if (!gtplugin)
 	{
 		qWarning("Failed to load plugin %s", pluginFilePath.toLatin1().constData());
@@ -313,7 +313,7 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	}
 	// Attempt to resolve the plugin symbol to the importer name (FileFormatName)
 	fp_FileFormatName = (sdem0) PluginManager::resolveSym( gtplugin, "FileFormatName");
-	// if fp_FileFormatName is NULL, we could not find the FileFormatName symbol. The plugin is incomplete.
+	// if fp_FileFormatName is nullptr, we could not find the FileFormatName symbol. The plugin is incomplete.
 	// Report an error, unload the plugin, and exit the method.
 	if (!fp_FileFormatName)
 	{
@@ -323,7 +323,7 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	}
 	// Attempt to resolve the plugin symbol to the list of supported file extensions.
 	fp_FileExtensions = (sdem1) PluginManager::resolveSym( gtplugin, "FileExtensions");
-	// if fp_FileExtensions is NULL, we could not find the FileExtensions symbol. The plugin is incomplete.
+	// if fp_FileExtensions is nullptr, we could not find the FileExtensions symbol. The plugin is incomplete.
 	// Report an error, unload the plugin, and exit the method.
 	if (!fp_FileExtensions)
 	{

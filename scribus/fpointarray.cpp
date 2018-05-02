@@ -51,7 +51,7 @@ FPointArray FPointArray::copy() const
 FPointArray & FPointArray::operator=( const FPointArray &a )
 { 
 	QVector<FPoint>::operator=(a);
-	m_svgState = NULL;
+	m_svgState = nullptr;
 	QVector<FPoint>::squeeze();
 	return *this; 
 }

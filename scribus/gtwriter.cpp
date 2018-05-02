@@ -47,8 +47,8 @@ for which a new license (GPL+exception) is in place.
 gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
 	m_action = new gtAction(append, pageitem);
-	m_defaultStyle = NULL;
-	m_currentStyle = NULL;
+	m_defaultStyle = nullptr;
+	m_currentStyle = nullptr;
 	m_errorSet = false;
 
 	m_action->setProgressInfo();
@@ -88,12 +88,12 @@ void gtWriter::unsetFrameStyle()
 
 void gtWriter::unsetParagraphStyle()
 {
-	m_paragraphStyle = NULL;
+	m_paragraphStyle = nullptr;
 }
 
 void gtWriter::unsetCharacterStyle()
 {
-	m_characterStyle = NULL;
+	m_characterStyle = nullptr;
 }
 
 double gtWriter::getPreferredLineSpacing(int fontSize)
@@ -114,11 +114,11 @@ void gtWriter::append(const QString& text)
 		return;
 	if (inNote && !inNoteBody)
 		return;
-	if (m_characterStyle != NULL)
+	if (m_characterStyle != nullptr)
 	{
 		m_action->write(text, m_characterStyle, inNote);
 	}
-	else if (m_paragraphStyle != NULL)
+	else if (m_paragraphStyle != nullptr)
 	{
 		m_action->write(text, m_paragraphStyle, inNote);
 	}
@@ -153,7 +153,7 @@ void gtWriter::append(const QString& text, gtStyle *style)
 {
 	if (inNote && !inNoteBody)
 		return;
-	if (style == NULL)
+	if (style == nullptr)
 	{
 		append(text);
 		return;
@@ -161,7 +161,7 @@ void gtWriter::append(const QString& text, gtStyle *style)
 
 	m_currentStyle = style;
 	m_action->write(text, style, inNote);
-	m_currentStyle = NULL;
+	m_currentStyle = nullptr;
 }
 
 void gtWriter::append(const QString& text, gtStyle *style, bool updatePStyle)

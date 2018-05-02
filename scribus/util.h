@@ -96,7 +96,7 @@ bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 */
 int SCRIBUS_API System(const QString exename, const QStringList & args,
 					   const QString fileStdErr = "", const QString fileStdOut = "",
-					   bool* cancel = NULL);
+					   bool* cancel = nullptr);
 
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)

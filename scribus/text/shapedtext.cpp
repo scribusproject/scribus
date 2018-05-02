@@ -78,11 +78,11 @@ private:
 
 
 
-ShapedText ShapedText::Invalid = ShapedText(NULL);
+ShapedText ShapedText::Invalid = ShapedText(nullptr);
 
 bool ShapedText::isValid() const
 {
-	return p_impl != NULL && p_impl->m_source != NULL;
+	return p_impl != nullptr && p_impl->m_source != nullptr;
 }
 
 
