@@ -438,7 +438,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		// if itemAbove is given, we expect to find it among the masterpage items of this page
 		int currNr = itemAbove? m_doc->currentPage()->FromMaster.indexOf(itemAbove)-1 : m_doc->currentPage()->FromMaster.count()-1;
 		if (currNr < 0)
-			return NULL;
+			return nullptr;
 		while (currNr >= 0)
 		{
 			currItem = m_doc->currentPage()->FromMaster.at(currNr);
@@ -464,7 +464,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 					{
 						currItem->asGroupFrame()->adjustXYPosition();
 						PageItem* ret = itemInGroup(currItem, mouseArea);
-						if (ret != NULL)
+						if (ret != nullptr)
 							return ret;
 					}
 					return currItem;
@@ -475,7 +475,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	}
 	// now look for normal items
 	if (m_doc->Items->count() == 0)
-		return NULL;
+		return nullptr;
 
 	int currNr = itemAbove? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
 	while (currNr >= 0)
@@ -508,10 +508,10 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				{
 					currItem->asGroupFrame()->adjustXYPosition();
 					PageItem* ret = itemInGroup(currItem, mouseArea);
-					if (ret != NULL)
+					if (ret != nullptr)
 					{
 						if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !ret->isAnnotation())
-							return NULL;
+							return nullptr;
 						else
 							return ret;
 					}
@@ -521,7 +521,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		}
 		--currNr;
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
@@ -565,7 +565,7 @@ PageItem* Canvas::itemInGroup(PageItem* group, QRectF mouseArea) const
 			if (embedded->isGroup())
 			{
 				PageItem* ret = itemInGroup(embedded, mouseArea);
-				if (ret != NULL)
+				if (ret != nullptr)
 					return ret;
 			}
 			else
@@ -573,20 +573,20 @@ PageItem* Canvas::itemInGroup(PageItem* group, QRectF mouseArea) const
 		}
 		--currNr;
 	}
-	return NULL;
+	return nullptr;
 }
 
 PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 {
 	int indice = qMin(index, m_doc->Items->count());
 	if (index < 0 || indice < 0)
-		return NULL;
+		return nullptr;
 
 	int itemid = m_doc->Items->indexOf(item);
 	QRectF baseRect(item->getBoundingRect());
 	int itemLevel = m_doc->layerLevelFromID(item->LayerID);
 	if (itemLevel < 0)
-		return NULL;
+		return nullptr;
 
 	for(index = indice - 1; index >= 0; --index)
 	{
@@ -602,7 +602,7 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 				return item1;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 // __________________
@@ -1096,7 +1096,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->end();
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
-	painter=NULL;
+	painter=nullptr;
 // 	qDebug( "Time elapsed: %d ms, setup=%d, outlines=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup,Toutlines -Tsetup, Tbackground-Toutlines, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
@@ -1168,7 +1168,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 	if (m_doc->m_Selection->count() != 0)
 	{
 		int selectedItemCount = m_doc->m_Selection->count();
-		PageItem *currItem = NULL;
+		PageItem *currItem = nullptr;
 		if (selectedItemCount < moveWithBoxesOnlyThreshold)
 		{
 			for (int cu = 0; cu < selectedItemCount; cu++)
@@ -2181,7 +2181,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 				nextItem = m_viewMode.linkedFramesToShow.at(lks);
 				while (nextItem != 0)
 				{
-					if (nextItem->nextInChain() != NULL)
+					if (nextItem->nextInChain() != nullptr)
 					{
 						FPoint start, end;
 						calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
@@ -2202,7 +2202,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 			}
 			while (nextItem != 0)
 			{
-				if (nextItem->nextInChain() != NULL)
+				if (nextItem->nextInChain() != nullptr)
 				{
 					FPoint start, end;
 					calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
@@ -2224,7 +2224,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 void Canvas::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 {
 	//CB FIXME Add some checking that the painter is setup?
-	Q_ASSERT(painter!=NULL);
+	Q_ASSERT(painter!=nullptr);
 	painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);

@@ -580,7 +580,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
-		if (dd != NULL)
+		if (dd != nullptr)
 		{
 			dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
 			ret = dd->CreatePS(doc, options);
@@ -695,7 +695,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
-		if (dd != NULL)
+		if (dd != nullptr)
 		{
 			dd->PS_set_file(ScPaths::tempFileDir()+"/tmp.ps");
 			ret = dd->CreatePS(doc, options);
@@ -1023,7 +1023,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				QMap<QString, int>::Iterator sepit;
 				for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
 				{
-					const QCheckBox* checkBox = flagsVisible.value(sepit.key(), NULL);
+					const QCheckBox* checkBox = flagsVisible.value(sepit.key(), nullptr);
 					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;

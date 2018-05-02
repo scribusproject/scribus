@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 SwatchCombo::SwatchCombo( QWidget* parent ) : QToolButton(parent)
 {
-	dataTree = new QTreeWidget(NULL);
+	dataTree = new QTreeWidget(nullptr);
 	dataTree->setHeaderHidden(true);
 	dataTree->setMinimumSize(QSize(140, 200));
 	popUp = new QMenu();

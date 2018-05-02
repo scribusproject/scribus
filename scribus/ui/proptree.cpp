@@ -114,7 +114,7 @@ void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 
 QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &index) const
 {
-	QWidget *edito = NULL;
+	QWidget *edito = nullptr;
 	PropTreeItem* item = (PropTreeItem*) m_parent->indexToItem(index);
 	if (!item)
 		return 0;
@@ -255,7 +255,7 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 
 void PropTreeItemDelegate::destroyEditor(QWidget * editor, const QModelIndex & index) const
 {
-	m_edit = NULL;
+	m_edit = nullptr;
 	PropTreeItem* item = (PropTreeItem*)m_parent->indexToItem(index);
 	if (item)
 		emit item->editFinished();
@@ -440,9 +440,9 @@ PropTreeWidget::PropTreeWidget(QWidget* pa) : QTreeWidget(pa)
 
 void PropTreeWidget::handleMousePress(QTreeWidgetItem *item)
 {
-	if (item == NULL)
+	if (item == nullptr)
 		return;
-	if (item->parent() == NULL)
+	if (item->parent() == nullptr)
 	{
 		if (!(item->flags() & Qt::ItemIsEditable))
 			setItemExpanded(item, !isItemExpanded(item));

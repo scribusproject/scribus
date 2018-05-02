@@ -473,7 +473,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page=NULL;
+			QTreeWidgetItem * page=nullptr;
 			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( masterPageRootItem);
@@ -492,7 +492,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					(!showNonPrintingLayerErrors && doc->layerPrintable(masterItemErrorsIt.key()->LayerID)))
 					)
 				{
-					if (!showPagesWithoutErrors && page==NULL)
+					if (!showPagesWithoutErrors && page==nullptr)
 					{
 						page = new QTreeWidgetItem( masterPageRootItem);
 						masterPageMap.insert(page, doc->MasterPages.at(mPage));
@@ -536,10 +536,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			}
 			else
 			{
-				if (showPagesWithoutErrors && page!=NULL)
+				if (showPagesWithoutErrors && page!=nullptr)
 					page->setIcon(COLUMN_ITEM, noErrors );
 			}
-			if (page!=NULL)
+			if (page!=nullptr)
 				page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
 		}
 		masterPageRootItem->setExpanded(true);
@@ -553,7 +553,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page=NULL;
+			QTreeWidgetItem * page=nullptr;
 			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( reportDisplay);
@@ -567,7 +567,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			{
 				if (pageErrorsIt.key() == aPage)
 				{
-					if (page==NULL)
+					if (page==nullptr)
 					{
 						page = new QTreeWidgetItem( reportDisplay);
 						pageMap.insert(page, doc->DocPages.at(aPage));
@@ -593,7 +593,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					(!showNonPrintingLayerErrors && doc->layerPrintable(docItemErrorsIt.key()->LayerID)))
 					)
 				{
-					if (!showPagesWithoutErrors && page==NULL)
+					if (!showPagesWithoutErrors && page==nullptr)
 					{
 						page = new QTreeWidgetItem( reportDisplay);
 						pageMap.insert(page, doc->DocPages.at(aPage));
@@ -640,10 +640,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			}
 			else
 			{
-				if (showPagesWithoutErrors && page!=NULL)
+				if (showPagesWithoutErrors && page!=nullptr)
 					page->setIcon( 0, noErrors );
 			}
-			if (page!=NULL)
+			if (page!=nullptr)
 				page->setText(COLUMN_ITEM, tr("Page ")+tmp.setNum(aPage+1));
 		}
 		// END of PAGES

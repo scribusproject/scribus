@@ -49,7 +49,7 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 	menuStringTexts.insert(menuName, menuText);
 	if (rememberMenu)
 	{
-		rememberedMenus.insert(menuName, NULL);
+		rememberedMenus.insert(menuName, nullptr);
 	}
 	return retVal;
 }
@@ -68,7 +68,7 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 	if (menuStringTexts.contains(menuName))
 		menuStringTexts.insert(menuName, menuText);
 	//TODO rebuild all menus
-//	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+//	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
 //	{
 //		menuList[menuName]->setText(menuText);
 //		QString parent=menuList[menuName]->getParentMenuName();
@@ -79,16 +79,16 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 
 QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
-	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=NULL)
+	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
 		return menuBarMenus.value(menuName);
-	return NULL;
+	return nullptr;
 }
 
 void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 {
 	return;
 	// OSX UI rules don't allow this so let's not do it elsewhere.
-	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=NULL)
+	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
 	//	menuBarMenus.value(menuName)->setEnabled(enabled);
 }
 
@@ -114,7 +114,7 @@ bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QS
 	if (menuStrings.contains(menuName))
 	{
 		QList<QAction*> mba=scribusMenuBar->actions();
-		QAction* beforeAct=NULL;
+		QAction* beforeAct=nullptr;
 		foreach (beforeAct, mba)
 		{
 			if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
@@ -215,7 +215,7 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 void MenuManager::addMenuItemStringstoRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (rememberedMenus.contains(menuName))
-		if (rememberedMenus.value(menuName)!=NULL)
+		if (rememberedMenus.value(menuName)!=nullptr)
 			addMenuItemStringstoMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
@@ -223,7 +223,7 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 {
 	if (rememberedMenus.contains(menuName))
 	{
-		if (rememberedMenus.value(menuName)!=NULL)
+		if (rememberedMenus.value(menuName)!=nullptr)
 		{
 			rememberedMenus.value(menuName)->clear();
 		}
@@ -235,7 +235,7 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
 {
 	bool retVal=false;
-	/*if (menuList.contains(menuName) && menuList[menuName]!=NULL && action!=NULL)
+	/*if (menuList.contains(menuName) && menuList[menuName]!=nullptr && action!=nullptr)
 	{
 		 //qt4 cb replace with qwidgetaction or similar
 //		QWidget *w=action->getWidgetAddedTo();
@@ -245,7 +245,7 @@ bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *ac
 //			if (menuItemListClassName=="QToolButton")
 //			{
 //				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
-//				if (toolButton!=NULL)
+//				if (toolButton!=nullptr)
 //				{
 //					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
 //					retVal=true;
@@ -290,7 +290,7 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal=false;
 	/*
-	 if (menuList.contains(parent) && menuList[parent]!=NULL)
+	 if (menuList.contains(parent) && menuList[parent]!=nullptr)
 		retVal=menuList[parent]->removeMenuItem(menuAction);
 	*/
 	return retVal;
@@ -299,7 +299,7 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 {
 	/*
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
 	{	
 		QMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)

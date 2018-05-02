@@ -1197,7 +1197,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
 					delete pmen;
-					pmen=NULL;
+					pmen=nullptr;
 				}
 				else
 					re = 1;
@@ -1877,7 +1877,7 @@ void ScribusView::Deselect(bool /*prop*/)
 		return;
 
 	const double scale = m_canvas->scale();
-	PageItem* currItem = NULL;
+	PageItem* currItem = nullptr;
 	for (int a = 0; a < Doc->m_Selection->count(); ++a)
 	{
 		currItem = Doc->m_Selection->itemAt(a);
@@ -1894,13 +1894,13 @@ void ScribusView::Deselect(bool /*prop*/)
 	else
 	{
 		currItem = Doc->m_Selection->itemAt(0);
-		if (currItem != NULL)
+		if (currItem != nullptr)
 		{
 			currItem->itemText.deselectAll();
 			currItem->HasSel = false;
 		}
 		Doc->m_Selection->clear();
-		if (currItem != NULL)
+		if (currItem != nullptr)
 			updateContents(currItem->getRedrawBounding(scale));
 	}
 }
@@ -2723,7 +2723,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		else
 			im = pm.scaled(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		delete painter;
-		painter=NULL;
+		painter=nullptr;
 		m_canvas->setPreviewMode(false);
 		m_canvas->setForcedRedraw(false);
 		Doc->guidesPrefs().framesShown = frs;
@@ -2877,7 +2877,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	painter->endLayer();
 	painter->end();
 	delete painter;
-	painter=NULL;
+	painter=nullptr;
 
 	if (changedList.count() != 0)
 	{
@@ -3527,7 +3527,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			if (secondFrame && firstFrame)
 			{
 				firstFrame->link(secondFrame);
-				firstFrame = NULL;
+				firstFrame = nullptr;
 				secondFrame->emitAllToGUI();
 			}
 			linkAfterDraw = false;
@@ -3541,7 +3541,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			{
 				CanvasMode_ImageImport* cm = dynamic_cast<CanvasMode_ImageImport*>(canvasMode());
 				if (!cm)
-					qFatal("ScribusView::eventFilter cm NULL");
+					qFatal("ScribusView::eventFilter cm nullptr");
 				cm->setImage(frame);
 				cm->updateList();
 			}
@@ -3556,7 +3556,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		firstFrame = Doc->m_Selection->itemAt(0);
 		m_canvasMode->mousePressEvent(m);
 		//if user don't click any frame he want to draw new frame and link it
-		bool requestDrawMode = (Doc->ElemToLink == NULL);
+		bool requestDrawMode = (Doc->ElemToLink == nullptr);
 		requestDrawMode &= (firstFrame && !firstFrame->nextInChain());
 		if (linkmode && requestDrawMode)
 		{
@@ -3566,7 +3566,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			m_canvasMode->mousePressEvent(m);
 		}
 		else
-			firstFrame = NULL;
+			firstFrame = nullptr;
 		if(Doc->appMode == modeImportImage && ImageAfterDraw)
 		{
 			//switch to drawing new text frame

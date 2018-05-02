@@ -311,7 +311,7 @@ public:
 	inline void resetDragTimer();
 	inline bool dragTimerElapsed();
 
-	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = NULL);
+	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
 
 protected: // Protected methods
 	virtual void enterEvent(QEvent *);

@@ -5,8 +5,8 @@
 #include "util_math.h"
 
 NodeEditContext::NodeEditContext() :
-	oldClip(NULL),
-	nodeTransaction(NULL),
+	oldClip(nullptr),
+	nodeTransaction(nullptr),
 	m_submode(MOVE_POINT),
 	m_isContourLine(false),
 	m_ClRe(-1),
@@ -43,7 +43,7 @@ void NodeEditContext::reset()
 	m_SegP1 = -1;
 	m_SegP2 = -1;
 	delete oldClip;
-	oldClip = NULL;
+	oldClip = nullptr;
 	nodeTransaction.reset();
 	m_MoveSym = false;
 	m_SelNode.clear();
@@ -125,7 +125,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 {
 	ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
-	ScItemState<QPair<FPointArray, FPointArray> >* state = NULL;
+	ScItemState<QPair<FPointArray, FPointArray> >* state = nullptr;
 	
 	if (nodeTransaction) // is there the old clip stored for the undo action
 	{

@@ -62,7 +62,7 @@ PageItem_OSGFrame::PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double 
 	defaultView.colorFC = QColor(Qt::white);
 	viewMap.insert( tr("Default"), defaultView);
 	currentView = tr("Default");
-	loadedModel = NULL;
+	loadedModel = nullptr;
 	distanceToObj = 0.0;
 	modelFile = "";
 }
@@ -139,7 +139,7 @@ void PageItem_OSGFrame::clearContents()
 	defaultView.colorFC = QColor(Qt::white);
 	viewMap.insert( tr("Default"), defaultView);
 	currentView = tr("Default");
-	loadedModel = NULL;
+	loadedModel = nullptr;
 	distanceToObj = 0.0;
 	modelFile = "";
 	PageItem_ImageFrame::clearContents();

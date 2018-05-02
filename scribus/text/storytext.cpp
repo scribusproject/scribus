@@ -50,7 +50,7 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
 	else
-		d = new ScText_Shared(NULL);
+		d = new ScText_Shared(nullptr);
 
 	m_selFirst = 0;
 	m_selLast = -1;
@@ -61,13 +61,13 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	invalidateAll();
 }
 
-StoryText::StoryText() : m_doc(NULL)
+StoryText::StoryText() : m_doc(nullptr)
 {
-	d = new ScText_Shared(NULL);
+	d = new ScText_Shared(nullptr);
 
 	m_selFirst = 0;
 	m_selLast = -1;
-	m_shapedTextCache = NULL;
+	m_shapedTextCache = nullptr;
 }
 
 StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.m_doc)
@@ -83,7 +83,7 @@ StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.
 	
 	m_selFirst = 0;
 	m_selLast = -1;
-	m_shapedTextCache = NULL;
+	m_shapedTextCache = nullptr;
 
 	invalidateLayout();
 }
@@ -810,7 +810,7 @@ void StoryText::insertObject(int pos, int ob)
 
 void StoryText::insertMark(Mark* Mark, int pos)
 {
-	if (Mark == NULL)
+	if (Mark == nullptr)
 		return;
 	if (pos < 0)
 		pos = d->cursorPosition;
@@ -1032,11 +1032,11 @@ Mark* StoryText::mark(int pos) const
 void StoryText::applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const
 {
 	TextNote* note = mrk->getNotePtr();
-	if (note == NULL)
+	if (note == nullptr)
 		return;
 	
 	NotesStyle* nStyle = note->notesStyle();
-	Q_ASSERT(nStyle != NULL);
+	Q_ASSERT(nStyle != nullptr);
 	
 	QString chsName = nStyle->marksChStyle();
 	if (!chsName.isEmpty())
@@ -1262,12 +1262,12 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
-		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != nullptr)
 			itText->parstyle->charStyle().applyCharStyle(style);*/
 		
 		// Does not work well, do not reenable before checking #9337, #9376 and #9428
 		// #9173 et. al.: move charstyle to parstyle if whole paragraph is affected
-		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL && lastParStart >= 0)
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != nullptr && lastParStart >= 0)
 		{
 			eraseCharStyle(lastParStart, i - lastParStart, style);
 			itText->parstyle->charStyle().applyCharStyle(style);
@@ -1302,7 +1302,7 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
 		// FIXME?? see #6165 : should we really erase charstyle of paragraph style??
-		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != nullptr)
 			itText->parstyle->charStyle().eraseCharStyle(style);
 		itText->eraseCharStyle(style);
 	}
@@ -1415,7 +1415,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
-		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != nullptr)
 			itText->parstyle->charStyle() = style;*/
 		itText->setStyle(style);
 	}
@@ -1868,68 +1868,68 @@ void StoryText::fixSurrogateSelection()
 		m_selLast += 1;
 }
 
-BreakIterator* StoryText::m_graphemeIterator = NULL;
+BreakIterator* StoryText::m_graphemeIterator = nullptr;
 
 BreakIterator* StoryText::getGraphemeIterator()
 {
 	UErrorCode status = U_ZERO_ERROR;
-	if (m_graphemeIterator == NULL)
+	if (m_graphemeIterator == nullptr)
 		m_graphemeIterator = BreakIterator::createCharacterInstance(Locale(), status);
 
 	if (U_FAILURE(status))
 	{
 		delete m_graphemeIterator;
-		m_graphemeIterator = NULL;
+		m_graphemeIterator = nullptr;
 	}
 
 	return m_graphemeIterator;
 }
 
-BreakIterator* StoryText::m_wordIterator = NULL;
+BreakIterator* StoryText::m_wordIterator = nullptr;
 
 BreakIterator* StoryText::getWordIterator()
 {
 	UErrorCode status = U_ZERO_ERROR;
-	if (m_wordIterator == NULL)
+	if (m_wordIterator == nullptr)
 		m_wordIterator = BreakIterator::createWordInstance(Locale(), status);
 
 	if (U_FAILURE(status))
 	{
 		delete m_wordIterator;
-		m_wordIterator = NULL;
+		m_wordIterator = nullptr;
 	}
 	return m_wordIterator;
 }
 
-BreakIterator* StoryText::m_sentenceIterator = NULL;
+BreakIterator* StoryText::m_sentenceIterator = nullptr;
 
 BreakIterator* StoryText::getSentenceIterator()
 {
 	UErrorCode status = U_ZERO_ERROR;
-	if (m_sentenceIterator == NULL)
+	if (m_sentenceIterator == nullptr)
 		m_sentenceIterator = BreakIterator::createSentenceInstance(Locale(), status);
 
 	if (U_FAILURE(status))
 	{
 		delete m_sentenceIterator;
-		m_sentenceIterator = NULL;
+		m_sentenceIterator = nullptr;
 	}
 
 	return m_sentenceIterator;
 }
 
-BreakIterator* StoryText::m_lineIterator = NULL;
+BreakIterator* StoryText::m_lineIterator = nullptr;
 
 BreakIterator* StoryText::getLineIterator()
 {
 	UErrorCode status = U_ZERO_ERROR;
-	if (m_lineIterator == NULL)
+	if (m_lineIterator == nullptr)
 		m_lineIterator = BreakIterator::createLineInstance(Locale(), status);
 
 	if (U_FAILURE(status))
 	{
 		delete m_lineIterator;
-		m_lineIterator = NULL;
+		m_lineIterator = nullptr;
 	}
 
 	return m_lineIterator;
@@ -2155,14 +2155,14 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 //				mark_attr.insert("style_numother", pstyle.numOther() ? "1" : "0");
 //				mark_attr.insert("style_numhigher", pstyle.numHigher() ? "1" : "0");
 //			}
-			if (mrk->isType(MARK2ItemType) && (mrk->getItemPtr() != NULL))
+			if (mrk->isType(MARK2ItemType) && (mrk->getItemPtr() != nullptr))
 				mark_attr.insert("item", mrk->getItemPtr()->itemName());
 			else if (mrk->isType(MARK2MarkType))
 			{
 				QString l;
 				MarkType t;
 				mrk->getMark(l, t);
-				if (m_doc->getMark(l,t) != NULL)
+				if (m_doc->getMark(l,t) != nullptr)
 				{
 					mark_attr.insert("mark_l", l);
 					mark_attr.insert("mark_t", QString::number((int) t));
@@ -2171,7 +2171,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			else if (mrk->isType(MARKNoteMasterType))
 			{
 				TextNote * note = mrk->getNotePtr();
-				assert(note != NULL);
+				assert(note != nullptr);
 				mark_attr.insert("nStyle", note->notesStyle()->name());
 				mark_attr.insert("note",note->saxedText());
 				//store noteframe name for inserting into note if it is non-auto-removable
@@ -2349,7 +2349,7 @@ public:
 		QString l = "";
 		MarkType t = MARKNoType;
 		
-		Mark* mrk = NULL;
+		Mark* mrk = nullptr;
 		
 		if (tag == "mark")
 		{
@@ -2363,7 +2363,7 @@ public:
 			if (t != MARKBullNumType)
 			{
 				ScribusDoc* doc  = this->dig->lookup<ScribusDoc>("<scribusdoc>");
-				//				ParagraphStyle* pstyle = NULL;
+				//				ParagraphStyle* pstyle = nullptr;
 				if (t == MARKVariableTextType)
 					mrk = doc->getMark(l,t);
 				//			else if (t == MARKBullNumType)
@@ -2433,7 +2433,7 @@ public:
 					{
 						PageItem* item = doc->getItemFromName(Xml_data(iIt));
 						mrk->setItemPtr(item);
-						if (item == NULL)
+						if (item == nullptr)
 							mrk->setString("0");
 						else
 							mrk->setString(doc->getSectionPageNumberForPageIndex(item->OwnPage));
@@ -2443,7 +2443,7 @@ public:
 					{
 						Mark* targetMark = doc->getMark(Xml_data(m_lIt), (MarkType) parseInt(Xml_data(m_tIt)));
 						mrk->setMark(targetMark);
-						if (targetMark == NULL)
+						if (targetMark == nullptr)
 							mrk->setString("0");
 						else
 							mrk->setString(doc->getSectionPageNumberForPageIndex(targetMark->OwnPage));
@@ -2465,7 +2465,7 @@ public:
 						//					if (!NS->isAutoRemoveEmptyNotesFrames() && (nf_It != attr.end()))
 						//					{
 						//						PageItem_NoteFrame* nF = (PageItem_NoteFrame*) doc->getItemFromName(Xml_data(nf_It));
-						//						if (nF != NULL)
+						//						if (nF != nullptr)
 						//							doc->m_Selection->itemAt(0)->asTextFrame()->setNoteFrame(nF);
 						//					}
 						mrk->setNotePtr(note);
@@ -2474,10 +2474,10 @@ public:
 					doc->newMark(mrk);
 				}
 				story->insertMark(mrk);
-				//			if (pstyle != NULL)
+				//			if (pstyle != nullptr)
 				//			{
 				//				int i = story->cursorPosition() -1;
-				//				if (story->item(i)->parstyle == NULL) {
+				//				if (story->item(i)->parstyle == nullptr) {
 				//					story->item(i)->parstyle = new ParagraphStyle(*pstyle);
 				//					story->item(i)->parstyle->setContext( &doc->paragraphStyles());
 				//				}
@@ -2559,7 +2559,7 @@ struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&
 class Paragraph_body : public Action_body
 {
 public:
-	Paragraph_body() : lastPos(0), numPara(0), lastStyle(NULL)
+	Paragraph_body() : lastPos(0), numPara(0), lastStyle(nullptr)
 	{}
 	
 	~Paragraph_body() 
@@ -2582,7 +2582,7 @@ public:
 		else if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
-//			qDebug() << QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
+//			qDebug() << QString("startpar: %1->%2 %3->nullptr").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
 			lastPos = story->length();
 			if (numPara > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
@@ -2590,7 +2590,7 @@ public:
 			}
 			if (lastStyle)
 				delete lastStyle;
-			lastStyle = NULL;
+			lastStyle = nullptr;
 		}
 	}
 	
@@ -2630,7 +2630,7 @@ struct Paragraph : public MakeAction<Paragraph_body>
 class SpanAction_body : public Action_body
 {
 public:
-	SpanAction_body() : lastPos(0), lastStyle(NULL)
+	SpanAction_body() : lastPos(0), lastStyle(nullptr)
 	{}
 	
 	~SpanAction_body() 
@@ -2648,7 +2648,7 @@ public:
 			lastPos = story->length();
 			if (lastStyle)
 				delete lastStyle;
-			lastStyle = NULL;
+			lastStyle = nullptr;
 		}
 	}
 	

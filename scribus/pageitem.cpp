@@ -299,8 +299,8 @@ PageItem::PageItem(const PageItem & other)
 	hatchForeground(other.hatchForeground),
 	// protected
 	undoManager(other.undoManager),
-	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
-	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
+	BackBox(nullptr),  // otherwise other.BackBox->NextBox would be inconsistent
+	NextBox(nullptr),  // otherwise other.NextBox->BackBox would be inconsistent
 	firstChar(0),   // since this box is unlinked now
 	MaxChars(0),   // since the layout is invalid now
 	m_sampleItem(false),
@@ -394,7 +394,7 @@ PageItem::PageItem(const PageItem & other)
 		isInlineImage = false;
 		isTempFile = false;
 	}
-	Parent = NULL;
+	Parent = nullptr;
 	unWeld();
 }
 
@@ -424,7 +424,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_SizeVLocked(false),
 	textFlowModeVal(TextFlowDisabled)
 {
-	Parent = NULL;
+	Parent = nullptr;
 	m_Doc = pa;
 	QString tmp;
 	BackBox = 0;
@@ -930,12 +930,12 @@ PageItem::~PageItem()
 
 bool PageItem::isGroupChild() const
 {
-	return (dynamic_cast<PageItem_Group*>(Parent) != NULL);
+	return (dynamic_cast<PageItem_Group*>(Parent) != nullptr);
 }
 
 bool PageItem::isTableCell() const
 {
-	return (dynamic_cast<PageItem_Table*>(Parent) != NULL);
+	return (dynamic_cast<PageItem_Table*>(Parent) != nullptr);
 }
 
 void PageItem::setXPos(const double newXPos, bool drawingOnly)
@@ -1212,8 +1212,8 @@ PageItem * PageItem::frameTextEnd()
 bool PageItem::frameOverflows() const
 {
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
-	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
-	return ( NextBox == NULL )
+	/*return NextBox == nullptr && itemText.length() > static_cast<int>(MaxChars);*/
+	return ( NextBox == nullptr )
 	       && ( static_cast<int> ( firstChar ) < itemText.length() )
 		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
 	       /*&& ( firstChar < MaxChars )*/
@@ -1244,7 +1244,7 @@ int PageItem::maxCharsInFrame()
 /// returns true if text is ending before that frame
 bool PageItem::frameUnderflows() const
 {
-	if (BackBox == NULL)
+	if (BackBox == nullptr)
 		return false;
 	//FIX ME - I have found that condition if frame is empty
 	//and has been linked with previous frame
@@ -1320,7 +1320,7 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 	bool first = false;
 	bool createUndo = addPARSEP;
 
-	if (nxt->prevInChain() == NULL)
+	if (nxt->prevInChain() == nullptr)
 		first = true;
 	int textLen = itemText.length();
 	if (nxt->itemText.length() > 0)
@@ -1416,15 +1416,15 @@ void PageItem::unlink(bool createUndo)
 		}
 		// link following frames to new text
 		NextBox->firstChar = 0;
-		NextBox->BackBox = NULL;
+		NextBox->BackBox = nullptr;
 		while (NextBox) {
 			NextBox->itemText = follow;
 			NextBox->invalid = true;
 			NextBox->firstChar = 0;
 			NextBox = NextBox->NextBox;
 		}
-		// NextBox == NULL now
-		NextBox = NULL;
+		// NextBox == nullptr now
+		NextBox = nullptr;
 		if (UndoManager::undoEnabled() && createUndo)
 		{
 			ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
@@ -1481,8 +1481,8 @@ void PageItem::dropLinks()
 		undoManager->action(this, is);
 	}
 
-	// JG we should set BackBox and NextBox to NULL at a point
-	BackBox = NextBox = NULL;
+	// JG we should set BackBox and NextBox to nullptr at a point
+	BackBox = NextBox = nullptr;
 }
 
 bool PageItem::hasLinks() const
@@ -1502,7 +1502,7 @@ void PageItem::unlinkWithText(bool cutText)
 		layout();
 
 	//unlink first frame in chain
-	if (Prev == NULL)
+	if (Prev == nullptr)
 	{
 		if (Next->invalid)
 			Next->layout();
@@ -2946,7 +2946,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 		VisionDefectColor defect;
 		MQColor = defect.convertDefect(MQColor, m_Doc->previewVisual);
 	}
-	MeshPoint *mp = NULL;
+	MeshPoint *mp = nullptr;
 	if (forPatch)
 	{
 		meshGradientPatch *patch = &meshGradientPatches[x];
@@ -4642,7 +4642,7 @@ void PageItem::convertTo(ItemType newType)
 			break;
 		default:
 			toType = "";
-			setUPixmap(NULL);
+			setUPixmap(nullptr);
 			break;
 	}
 	/*
@@ -4680,7 +4680,7 @@ void PageItem::setLayer(int newLayerID)
 
 void PageItem::checkChanges(bool force)
 {
-	if (m_Doc->view() == NULL)
+	if (m_Doc->view() == nullptr)
 		return;
 	bool spreadChanges(false);
 	// has the item been resized
@@ -6201,7 +6201,7 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 		qFatal("PageItem::restoreGradientMeshColor: dynamic cast failed");
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
-	MeshPoint *mp=NULL;
+	MeshPoint *mp=nullptr;
 	if (is->getBool("PATCH"))
 	{
 		meshGradientPatch *patch = &meshGradientPatches[x];
@@ -6223,8 +6223,8 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 	}
 	else
 		mp = &meshGradientArray[x][y];
-	if (mp == NULL)
-		qFatal("PageItem::restoreGradientMeshColor: mp is NULL");
+	if (mp == nullptr)
+		qFatal("PageItem::restoreGradientMeshColor: mp is a nullptr");
 	if (isUndo)
 	{
 		mp->colorName = is->get("OLD_COLOR_NAME");
@@ -7324,13 +7324,13 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 		{
 			PageItem* prev = is->getItem().first;
 			PageItem* next  = is->getItem().second;
-			if (prev != NULL)
+			if (prev != nullptr)
 			{
 				if (!cutText)
 					itemText = StoryText(m_Doc);
 				prev->link(this, false);
 			}
-			else if (next != NULL)
+			else if (next != nullptr)
 			{
 				if (!cutText)
 					this->itemText = StoryText(m_Doc);
@@ -7963,7 +7963,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	if (it != newNames.lineStyles().end())
 		setCustomLineStyle(*it);
 
-	if (prevInChain() == NULL)
+	if (prevInChain() == nullptr)
 		itemText.replaceNamedResources(newNames);
 }
 
@@ -8759,7 +8759,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	lists.collectPattern(pattern());
 	lists.collectPattern(strokePattern());
 	lists.collectLineStyle(customLineStyle());
-	if (prevInChain() == NULL)
+	if (prevInChain() == nullptr)
 		itemText.getNamedResources(lists);
 }
 
@@ -9288,7 +9288,7 @@ QString PageItem::getImageEffectsModifier() const
 
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution, bool showMsg)
 {
-	bool useImage = (asImageFrame() != NULL);
+	bool useImage = (asImageFrame() != nullptr);
 	useImage |= (isAnnotation() && annotation().UseIcons());
 	if (!useImage)
 		return false;
@@ -9834,18 +9834,18 @@ void PageItem::setFileIconRollover(const QString& val)
 
 PageItem* PageItem::firstInChain()
 {
-	Q_ASSERT(this != NULL);
+	//huh? Q_ASSERT(this != nullptr);
 	PageItem* first = this;
-	while (first->prevInChain() != NULL)
+	while (first->prevInChain() != nullptr)
 		first = first->prevInChain();
 	return first;
 }
 
 PageItem* PageItem::lastInChain()
 {
-	Q_ASSERT(this != NULL);
+	//huh? Q_ASSERT(this != nullptr);
 	PageItem* last = this;
-	while (last->nextInChain() != NULL)
+	while (last->nextInChain() != nullptr)
 		last = last->nextInChain();
 	return last;
 }
@@ -10694,7 +10694,7 @@ void PageItem::unWeld()
 	{
 		WeldingInfo wInf = weldList.at(i);
 		PageItem *item = wInf.weldItem;
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			qDebug() << "unWeld - null pointer in weldList";
 			continue;

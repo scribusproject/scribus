@@ -244,7 +244,7 @@ public:
 	PageItem* finishNode( const QDomNode &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
 	bool isIgnorableNodeName( const QString &n );
-	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = NULL);
+	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = nullptr);
 	QSizeF  parseWidthHeight(const QDomElement &e);
 	QRectF  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);

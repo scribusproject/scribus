@@ -182,7 +182,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
-	bool emptyDoc = (m_Doc == NULL);
+	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
@@ -215,7 +215,7 @@ QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
 	if( fileName.isEmpty() )
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	OODPlug *dia = new OODPlug(m_Doc);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
@@ -295,17 +295,17 @@ QImage OODPlug::readThumbnail(QString fileName )
 	m_styleStack.setMode( mode );
 	QDomElement dp = drawPage.toElement();
 	QDomElement *master = m_styles[dp.attribute( "draw:master-page-name" )];
-	QDomElement *style = NULL;
+	QDomElement *style = nullptr;
 	QDomElement properties;
 	if (isOODraw2)
 	{
-		style = m_styles.value(master->attribute( "style:page-layout-name" ), NULL);
+		style = m_styles.value(master->attribute( "style:page-layout-name" ), nullptr);
 		if (style)
 			properties = style->namedItem("style:page-layout-properties" ).toElement();
 	}
 	else
 	{
-		style = m_styles.value(master->attribute( "style:page-master-name" ), NULL);
+		style = m_styles.value(master->attribute( "style:page-master-name" ), nullptr);
 		if (style)
 			properties = style->namedItem( "style:properties" ).toElement();
 	}
@@ -430,17 +430,17 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_styleStack.setMode( mode );
 	QDomElement dp = drawPage.toElement();
 	QDomElement *master = m_styles[dp.attribute( "draw:master-page-name" )];
-	QDomElement *style = NULL;
+	QDomElement *style = nullptr;
 	QDomElement properties;
 	if (isOODraw2)
 	{
-		style = m_styles.value(master->attribute( "style:page-layout-name" ), NULL);
+		style = m_styles.value(master->attribute( "style:page-layout-name" ), nullptr);
 		if (style)
 			properties = style->namedItem("style:page-layout-properties" ).toElement();
 	}
 	else
 	{
-		style = m_styles.value(master->attribute( "style:page-master-name" ), NULL);
+		style = m_styles.value(master->attribute( "style:page-master-name" ), nullptr);
 		if (style)
 			properties = style->namedItem( "style:properties" ).toElement();
 	}
@@ -1309,13 +1309,13 @@ void OODPlug::insertStyles( const QDomElement& styles )
 void OODPlug::fillStyleStack( const QDomElement& object )
 {
 	if( object.hasAttribute( "presentation:style-name" ) )
-		addStyles( m_styles.value(object.attribute( "presentation:style-name" ), NULL) );
+		addStyles( m_styles.value(object.attribute( "presentation:style-name" ), nullptr) );
 	if( object.hasAttribute( "draw:style-name" ) )
-		addStyles( m_styles.value(object.attribute( "draw:style-name" ), NULL) );
+		addStyles( m_styles.value(object.attribute( "draw:style-name" ), nullptr) );
 	if( object.hasAttribute( "draw:text-style-name" ) )
-		addStyles( m_styles.value(object.attribute( "draw:text-style-name" ), NULL) );
+		addStyles( m_styles.value(object.attribute( "draw:text-style-name" ), nullptr) );
 	if( object.hasAttribute( "text:style-name" ) )
-		addStyles( m_styles.value(object.attribute( "text:style-name" ), NULL) );
+		addStyles( m_styles.value(object.attribute( "text:style-name" ), nullptr) );
 }
 
 void OODPlug::addStyles( const QDomElement* style )
@@ -1323,7 +1323,7 @@ void OODPlug::addStyles( const QDomElement* style )
 	if (style)
 	{
 		if( style->hasAttribute( "style:parent-style-name" ) )
-			addStyles( m_styles.value(style->attribute( "style:parent-style-name" ), NULL) );
+			addStyles( m_styles.value(style->attribute( "style:parent-style-name" ), nullptr) );
 		m_styleStack.push( *style );
 	}
 }

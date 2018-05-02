@@ -86,8 +86,8 @@ gtAction::gtAction(bool append, PageItem* pageitem)
 	m_updateParagraphStyles = false;
 	m_overridePStyleFont = true;
 	m_undoManager = UndoManager::instance();
-	m_noteStory = NULL;
-	m_note = NULL;
+	m_noteStory = nullptr;
+	m_note = nullptr;
 }
 
 void gtAction::setProgressInfo()
@@ -148,10 +148,10 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
 	if (isNote)
 	{
-		if (m_note == NULL)
+		if (m_note == nullptr)
 		{
 			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
-			Q_ASSERT(m_noteStory == NULL);
+			Q_ASSERT(m_noteStory == nullptr);
 			m_noteStory = new StoryText(m_it->m_Doc);
 		}
 		if (textStr == SpecialChars::OBJECT)
@@ -166,7 +166,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 				label += " in " + m_it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
 				label += " in frame" + m_it->itemName();
-			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
 				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
@@ -194,7 +194,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 				is->insertItem("inItem", m_it);
 				m_undoManager->action(m_it->m_Doc, is);
 			}
-			m_note = NULL;
+			m_note = nullptr;
 			delete m_noteStory;
 		}
 		else
@@ -243,7 +243,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 	if (style->target() == "paragraph")
 	{
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
-		assert(pstyle != NULL);
+		assert(pstyle != nullptr);
 		paragraphStyle = applyParagraphStyle(pstyle);
 		if (m_isFirstWrite)
 			m_inPara = true;
@@ -251,7 +251,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 	else if (style->target() == "frame")
 	{
 		gtFrameStyle* fstyle = dynamic_cast<gtFrameStyle*>(style);
-		assert(fstyle != NULL);
+		assert(fstyle != nullptr);
 		applyFrameStyle(fstyle);
 	}
 
@@ -286,10 +286,10 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 
 	lastStyle = newStyle;
 	lastStyleStart = m_it->itemText.length();
-	StoryText* story = NULL;
+	StoryText* story = nullptr;
 	if (isNote)
 	{
-		if (m_noteStory == NULL)
+		if (m_noteStory == nullptr)
 		{
 			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
 			m_noteStory = new StoryText(m_it->m_Doc);
@@ -321,7 +321,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 				label += " in " + m_it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
 				label += " in frame" + m_it->itemName();
-			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
 				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
@@ -351,9 +351,9 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 			if (story->text(pos -1) == SpecialChars::PARSEP)
 				story->removeChars(pos-1, 1);
 			m_note->setSaxedText(saxedText(story));
-			m_note = NULL;
+			m_note = nullptr;
 			delete m_noteStory;
-			m_noteStory = NULL;
+			m_noteStory = nullptr;
 			return;
 		}
 		else

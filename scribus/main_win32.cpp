@@ -178,7 +178,7 @@ void setPythonEnvironment(const QString& appPath)
 	tmp += ";";
 	tmp += nativePath;
 	tmp += "\\python";
-	if (oldenv != NULL) {
+	if (oldenv != nullptr) {
 		tmp += ";";
 		tmp +=  QString::fromUtf16((const ushort*) oldenv);
 	}
@@ -389,7 +389,7 @@ void redirectIOToConsole(void)
 		if (hConHandle != -1)
 		{
 			_dup2(hConHandle, fileno(stdin));
-			setvbuf(stdin, NULL, _IONBF, 0);
+			setvbuf(stdin, nullptr, _IONBF, 0);
 			SetStdHandle(STD_INPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdin)));
 			_close(hConHandle);
 		}
@@ -403,7 +403,7 @@ void redirectIOToConsole(void)
 		if (hConHandle != -1)
 		{
 			_dup2(hConHandle, fileno(stdout));
-			setvbuf(stdout, NULL, _IONBF, 0);
+			setvbuf(stdout, nullptr, _IONBF, 0);
 			SetStdHandle(STD_OUTPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdout)));
 			_close(hConHandle);
 		}
@@ -417,7 +417,7 @@ void redirectIOToConsole(void)
 		if (hConHandle != -1)
 		{
 			_dup2(hConHandle, fileno(stderr));
-			setvbuf(stderr, NULL, _IONBF, 0);
+			setvbuf(stderr, nullptr, _IONBF, 0);
 			SetStdHandle(STD_ERROR_HANDLE, (HANDLE) _get_osfhandle(fileno(stderr)));
 			_close(hConHandle);
 		}

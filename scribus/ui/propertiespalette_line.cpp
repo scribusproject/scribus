@@ -39,7 +39,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	m_doc  = 0;
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	m_lineMode = false;
 	m_unitRatio = 1.0;
 	m_unitIndex = 0;
@@ -97,7 +97,7 @@ void PropertiesPalette_Line::changeEvent(QEvent *e)
 
 PageItem* PropertiesPalette_Line::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc)
 	{
@@ -133,7 +133,7 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
 
@@ -161,8 +161,8 @@ void PropertiesPalette_Line::unsetDoc()
 
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc   = NULL;
-	m_item  = NULL;
+	m_doc   = nullptr;
+	m_item  = nullptr;
 
 	updateLineStyles(0);
 
@@ -172,7 +172,7 @@ void PropertiesPalette_Line::unsetDoc()
 void PropertiesPalette_Line::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	dashEditor->hide();
 	handleSelectionChanged();
 }
@@ -201,7 +201,7 @@ void PropertiesPalette_Line::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			setEnabled(currItem->asOSGFrame() == NULL);
+			setEnabled(currItem->asOSGFrame() == nullptr);
 			break;
 		case PageItem::Line:
 			setEnabled(true);
@@ -245,7 +245,7 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 
@@ -288,9 +288,9 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	if (m_item->NamedLStyle.isEmpty())
 	{
 		setter = true;
-		QListWidgetItem *itemStl = NULL;
+		QListWidgetItem *itemStl = nullptr;
 		itemStl = lineStyles->item(0);
-		if (itemStl != NULL)
+		if (itemStl != nullptr)
 			itemStl->setSelected(true);
 	}
 	else
@@ -609,14 +609,14 @@ void PropertiesPalette_Line::handleStartArrowScale(double sc)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_ApplyArrowScale(static_cast<int>(sc), -1, NULL);
+	m_doc->itemSelection_ApplyArrowScale(static_cast<int>(sc), -1, nullptr);
 }
 
 void PropertiesPalette_Line::handleEndArrowScale(double sc)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_ApplyArrowScale(-1, static_cast<int>(sc), NULL);
+	m_doc->itemSelection_ApplyArrowScale(-1, static_cast<int>(sc), nullptr);
 }
 
 void PropertiesPalette_Line::handleDashChange()

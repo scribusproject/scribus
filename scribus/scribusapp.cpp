@@ -107,9 +107,9 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	m_GUILang("en_GB")
 {
 	ScQApp = this;
-	ScCore = 0;
-	m_scDLMgr = 0;
-	m_ScCore = NULL;
+	ScCore = nullptr;
+	m_scDLMgr = nullptr;
+	m_ScCore = nullptr;
 	initDLMgr();
 	setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 }
@@ -143,7 +143,7 @@ void ScribusQApp::initDLMgr()
 void ScribusQApp::parseCommandLine()
 {
 	m_showSplash=!neverSplashExists();
-	QString arg("");
+	QString arg;
 	bool usage=false;
 	bool header=false;
 	bool availlangs=false;
@@ -155,7 +155,7 @@ void ScribusQApp::parseCommandLine()
 	int testargsc;
 #endif
 	m_showFontInfo=false;
-	m_showProfileInfo=false;	
+	m_showProfileInfo=false;
 	bool neversplash = false;
 
 	//Parse for command line options

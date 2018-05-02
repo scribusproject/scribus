@@ -11,7 +11,7 @@
 #include "util.h"
 
 NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), m_Doc(NULL)
+	: ScrPaletteBase(parent, name), m_Doc(nullptr)
 {
 	setupUi(this);
 	QString pname(name);
@@ -117,12 +117,12 @@ void NotesStylesEditor::setDoc(ScribusDoc *doc)
 {
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
-	if (m_Doc != NULL)
+	if (m_Doc != nullptr)
 		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 	m_Doc = doc;
 	paraStyleCombo->setDoc(m_Doc);
 	charStyleCombo->setDoc(m_Doc);
-	if (m_Doc != NULL)
+	if (m_Doc != nullptr)
 	{
 		updateNSList();
 		NSlistBox->setCurrentIndex(0);
@@ -156,7 +156,7 @@ void NotesStylesEditor::updateNSList()
 {
 	bool wasSignalsBlocked = signalsBlocked();
 	NSlistBox->blockSignals(true);
-	if (m_Doc == NULL)
+	if (m_Doc == nullptr)
 		NSlistBox->setEnabled(false);
 	else
 	{
@@ -191,7 +191,7 @@ void NotesStylesEditor::setBlockSignals(bool block)
 
 void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 {
-	if (NS == NULL)
+	if (NS == nullptr)
 		return;
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
@@ -282,7 +282,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 	{
 		//remember current NStyle
 		QString currNS = NSlistBox->currentText();
-		NotesStyle* NS = NULL;
+		NotesStyle* NS = nullptr;
 		
 		foreach (const QString &nsName, changesMap.keys())
 		{
@@ -311,10 +311,10 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 			}
 			//change settings and update marks
 			NS = m_Doc->getNotesStyle(n.name());
-			Q_ASSERT(NS != NULL);
+			Q_ASSERT(NS != nullptr);
 			if (*NS != n)
 			{
-				SimpleState* ss = NULL;
+				SimpleState* ss = nullptr;
 				if (UndoManager::instance()->undoEnabled())
 				{
 					ss = new SimpleState(UndoManager::EditNotesStyle);

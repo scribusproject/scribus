@@ -84,7 +84,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	else if (m->button() == Qt::RightButton)
 	{
 		QMenu *pmen = new QMenu();
-		QMenu *pmen2 = NULL;
+		QMenu *pmen2 = nullptr;
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
 		pmen->addAction(currView->Doc->scMW()->scrActions["viewRulerMode"]);
 		if (currView->Doc->guidesPrefs().rulerMode)

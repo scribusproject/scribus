@@ -38,7 +38,8 @@ const qreal Zero = 10e-12;
 
 class FitVector {
 	public:
-	FitVector(const QPointF &p){
+	FitVector(const QPointF &p)
+	{
 		m_X=p.x();
 		m_Y=p.y();
 	}
@@ -516,17 +517,19 @@ QPointF *FitCubic(const QList<QPointF> &points,int first,int last,FitVector tHat
 	tHatCenter = ComputeCenterTangent(points, splitPoint);
 
 	int w1,w2;
-	QPointF *cu1=NULL, *cu2=NULL;
+	QPointF *cu1=nullptr, *cu2=nullptr;
 	cu1 = FitCubic(points, first, splitPoint, tHat1, tHatCenter, error,w1);
 
 	tHatCenter.negate();
 	cu2 = FitCubic(points, splitPoint, last, tHatCenter, tHat2, error,w2);
 
 	QPointF *newcurve = new QPointF[w1+w2];
-	for(int i=0;i<w1;i++){
+	for(int i=0;i<w1;i++)
+	{
 		newcurve[i]=cu1[i];
 	}
-	for(int i=0;i<w2;i++){
+	for(int i=0;i<w2;i++)
+	{
 		newcurve[i+w1]=cu2[i];
 	}
 	

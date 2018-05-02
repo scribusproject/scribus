@@ -38,7 +38,7 @@
 #include "undomanager.h"
 #include "util_math.h"
 
-CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
+CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(nullptr)
 {
 	m_Mxp = -1;  // last mouse position
 	m_Myp = -1;
@@ -223,7 +223,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		currItem->update();
 		m_doc->nodeEdit.finishTransaction(currItem);
 		delete m_rectangleSelect;
-		m_rectangleSelect = NULL;
+		m_rectangleSelect = nullptr;
 	}
 	else
 	{
@@ -244,7 +244,7 @@ void CanvasMode_NodeEdit::deactivate(bool forGesture)
 	{
 		m_rectangleSelect->clear();
 		delete m_rectangleSelect;
-		m_rectangleSelect = NULL;
+		m_rectangleSelect = nullptr;
 	}
 }
 
@@ -252,7 +252,7 @@ void CanvasMode_NodeEdit::deactivate(bool forGesture)
 inline bool CanvasMode_NodeEdit::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 
@@ -417,7 +417,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		double xposOrig = currItem->xPos();
 		double yposOrig = currItem->yPos();
 
-		ScItemState<QPair<FPointArray, FPointArray> > *state = NULL;
+		ScItemState<QPair<FPointArray, FPointArray> > *state = nullptr;
 		state = m_doc->nodeEdit.finishTransaction1(currItem);
 		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selNode().count() == 1))
 		{
@@ -484,7 +484,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		m_view->endGroupTransaction();
 	}
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=NULL)
+	if (m_doc->m_Selection->itemAt(0)!=nullptr)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}

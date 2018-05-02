@@ -225,7 +225,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			//<<#9046
 			FPointArray oldPOLine=currItem->PoLine;
 			FPointArray oldContourLine=currItem->ContourLine;
-			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = NULL;
+			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 			if (UndoManager::undoEnabled())
 			{
 				state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
@@ -276,7 +276,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				//<<#9046
 				FPointArray oldPOLine=Item1->PoLine;
 				FPointArray oldContourLine=Item1->ContourLine;
-				ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = NULL;
+				ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 				if (UndoManager::undoEnabled())
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
@@ -317,7 +317,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				//<<#9046
 				FPointArray oldPOLine=Item2->PoLine;
 				FPointArray oldContourLine=Item2->ContourLine;
-				ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = NULL;
+				ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 				if (UndoManager::undoEnabled())
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);

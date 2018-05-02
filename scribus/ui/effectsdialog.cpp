@@ -249,7 +249,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
 	WStackPage8Layout->addWidget( shade1, 1, 1 );
-	CurveD1 = new CurveWidget( NULL );
+	CurveD1 = new CurveWidget( nullptr );
 	CurveD1Pop = new QMenu();
 	CurveD1Act = new QWidgetAction(this);
 	CurveD1Act->setDefaultWidget(CurveD1);
@@ -271,7 +271,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
 	WStackPage8Layout->addWidget( shade2, 3, 1 );
-	CurveD2 = new CurveWidget( NULL );
+	CurveD2 = new CurveWidget( nullptr );
 	CurveD2Pop = new QMenu();
 	CurveD2Act = new QWidgetAction(this);
 	CurveD2Act->setDefaultWidget(CurveD2);
@@ -301,7 +301,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
 	WStackPage9Layout->addWidget( shadet1, 1, 1 );
-	CurveT1 = new CurveWidget( NULL );
+	CurveT1 = new CurveWidget( nullptr );
 	CurveT1Pop = new QMenu();
 	CurveT1Act = new QWidgetAction(this);
 	CurveT1Act->setDefaultWidget(CurveT1);
@@ -322,7 +322,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
 	WStackPage9Layout->addWidget( shadet2, 3, 1 );
-	CurveT2 = new CurveWidget( NULL );
+	CurveT2 = new CurveWidget( nullptr );
 	CurveT2Pop = new QMenu();
 	CurveT2Act = new QWidgetAction(this);
 	CurveT2Act->setDefaultWidget(CurveT2);
@@ -343,7 +343,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
 	WStackPage9Layout->addWidget( shadet3, 5, 1 );
-	CurveT3 = new CurveWidget( NULL );
+	CurveT3 = new CurveWidget( nullptr );
 	CurveT3Act = new QWidgetAction(this);
 	CurveT3Pop = new QMenu();
 	CurveT3Act->setDefaultWidget(CurveT3);
@@ -370,7 +370,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
 	WStackPage10Layout->addWidget( shadeq1, 1, 1 );
-	CurveQ1 = new CurveWidget( NULL );
+	CurveQ1 = new CurveWidget( nullptr );
 	CurveQ1Pop = new QMenu();
 	CurveQ1Act = new QWidgetAction(this);
 	CurveQ1Act->setDefaultWidget(CurveQ1);
@@ -391,7 +391,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
 	WStackPage10Layout->addWidget( shadeq2, 3, 1 );
-	CurveQ2 = new CurveWidget( NULL );
+	CurveQ2 = new CurveWidget( nullptr );
 	CurveQ2Pop = new QMenu();
 	CurveQ2Act = new QWidgetAction(this);
 	CurveQ2Act->setDefaultWidget(CurveQ2);
@@ -412,7 +412,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadeqc3 = new ShadeButton(WStackPage_10);
 	shadeqc3->setValue(100);
 	WStackPage10Layout->addWidget( shadeqc3, 5, 1 );
-	CurveQc3 = new CurveWidget( NULL );
+	CurveQc3 = new CurveWidget( nullptr );
 	CurveQc3Pop = new QMenu();
 	CurveQc3Act = new QWidgetAction(this);
 	CurveQc3Act->setDefaultWidget(CurveQc3);
@@ -433,7 +433,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);
 	WStackPage10Layout->addWidget( shadeq4, 7, 1 );
-	CurveQ4 = new CurveWidget( NULL );
+	CurveQ4 = new CurveWidget( nullptr );
 	CurveQ4Pop = new QMenu();
 	CurveQ4Act = new QWidgetAction(this);
 	CurveQ4Act->setDefaultWidget(CurveQ4);

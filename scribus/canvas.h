@@ -173,14 +173,14 @@ public:
 	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
 	FrameHandle frameHitTest(QPointF point, QRectF frame) const;
 	/**
-		Returns the item under the cursor or NULL if none found.
+		Returns the item under the cursor or nullptr if none found.
 	 Does *not* change the selection.
 	 If itemAbove is given, it will look for an item under itemAbove, allowing select under.
 	 The flag 'allowInGroup' controls if single items within a group or only whole groups are considered.
 	 The flag 'allowMasterItems' controls if items from a masterpage are considered.
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
-	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=NULL, bool allowInGroup=false, bool allowMasterItems=false) const;
+	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
 	PageItem* itemInGroup(PageItem* group, QRectF mouseArea) const;
 	PageItem* itemUnderItem(PageItem* item, int& index) const;
 	

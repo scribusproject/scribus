@@ -1309,9 +1309,9 @@ void PageItem_TextFrame::layout()
 {
 //	qDebug()<<"==Layout==" << itemName() ;
 // 	printBacktrace(24);
-	if (BackBox != NULL) {
+	if (BackBox != nullptr) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
-		PageItem_TextFrame* firstInvalid = NULL;
+		PageItem_TextFrame* firstInvalid = nullptr;
 		PageItem_TextFrame* prevInChain  = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		while (prevInChain)
 		{
@@ -1333,7 +1333,7 @@ void PageItem_TextFrame::layout()
 //		qDebug() << QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage);
 		return;
 	}
-	if (invalid && BackBox == NULL)
+	if (invalid && BackBox == nullptr)
 		firstChar = 0;
 
 //	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(m_xPos).arg(m_yPos).arg(itemText.length()).arg(firstInFrame());
@@ -1396,7 +1396,7 @@ void PageItem_TextFrame::layout()
 	if (itLen == 0 || firstInFrame() == itLen)
 	{
 		PageItem_TextFrame * next = this;
-		while (next != NULL)
+		while (next != nullptr)
 		{
 			next->invalid = false;
 			next->firstChar = itLen;
@@ -3014,7 +3014,7 @@ void PageItem_TextFrame::layout()
 		}
 		UndoManager::instance()->setUndoEnabled(true);
 	}
-	if (NextBox != NULL)
+	if (NextBox != nullptr)
 	{
 		PageItem_TextFrame * nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
 		while (nextFrame)
@@ -3068,7 +3068,7 @@ NoRoom:
 	}
 
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
-	if (next != NULL)
+	if (next != nullptr)
 	{
 		if (itemText.cursorPosition() > signed(MaxChars))
 		{
@@ -3135,11 +3135,11 @@ bool PageItem_TextFrame::isValidChainFromBegin()
 {
 	if (invalid)
 		return false;
-	if (BackBox == NULL)
+	if (BackBox == nullptr)
 		return !invalid;
 
 	PageItem* prev = prevInChain();
-	while (prev != NULL)
+	while (prev != nullptr)
 	{
 		if (prev->invalid)
 			return false;
@@ -3857,7 +3857,7 @@ void PageItem_TextFrame::clearContents()
 
 void PageItem_TextFrame::truncateContents()
 {
-	if ((this->nextInChain() == NULL) && frameOverflows())
+	if ((this->nextInChain() == nullptr) && frameOverflows())
 	{
 		ParagraphStyle defaultStyle = this->itemText.defaultStyle();
 		int pos = itemText.cursorPosition();
@@ -4607,9 +4607,9 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		int lastPos = start;
 		CharStyle lastParent = itemText.charStyle(start);
 		UndoState* state = undoManager->getLastUndo();
-		ScItemState<ParagraphStyle> *ip = NULL;
-		ScItemState<CharStyle> *is = NULL;
-		TransactionState *ts = NULL;
+		ScItemState<ParagraphStyle> *ip = nullptr;
+		ScItemState<CharStyle> *is = nullptr;
+		TransactionState *ts = nullptr;
 		bool added = false;
 		bool lastIsDelete = false;
 		while (state && state->isTransaction()) {
@@ -4644,7 +4644,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		//delete text
 		for (int i=start; i <= stop; ++i)
 		{
-			Mark* mark = i < itemText.length() && itemText.hasMark(i) ? itemText.mark(i) : NULL;
+			Mark* mark = i < itemText.length() && itemText.hasMark(i) ? itemText.mark(i) : nullptr;
 			const CharStyle& curParent = itemText.charStyle(i);
 			bool needParaAction = ((i < stop) && (itemText.text(i) == SpecialChars::PARSEP));
 			if (i==stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
@@ -4675,7 +4675,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 				if (!added)
 				{
 					UndoObject * undoTarget = this;
-					is = NULL;
+					is = nullptr;
 					if (i - lastPos > 0)
 					{
 						is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
@@ -4695,7 +4695,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
-							Q_ASSERT(note != NULL);
+							Q_ASSERT(note != nullptr);
 							if (note->textLen > 0)
 							{
 								itemText.deselectAll();
@@ -4707,7 +4707,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
-							Q_ASSERT(note != NULL);
+							Q_ASSERT(note != nullptr);
 							m_Doc->setUndoDelNote(note);
 							if (note->isEndNote())
 								m_Doc->flag_updateEndNotes = true;
@@ -4717,7 +4717,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 						{
 							if (!ts || !lastIsDelete) {
 								undoManager->action(undoTarget, is);
-								ts = NULL;
+								ts = nullptr;
 							}
 							else
 								ts->pushBack(undoTarget, is);
@@ -4728,7 +4728,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					{
 						if (!ts || !lastIsDelete) {
 							undoManager->action(undoTarget, is);
-							ts = NULL;
+							ts = nullptr;
 						}
 						else
 							ts->pushBack(undoTarget, is);
@@ -4751,15 +4751,15 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 				if (lastPos < itemText.length())
 					lastParent = itemText.charStyle(lastPos);
 				QString etea;
-				SimpleState* ss = ts ? dynamic_cast<SimpleState*>(ts->last()) : NULL;
+				SimpleState* ss = ts ? dynamic_cast<SimpleState*>(ts->last()) : nullptr;
 				if (ss)
 					etea = ss->get("ETEA");
 				if (ts && ((etea == "delete_frametext") || (etea == "delete_framepara")))
 					ts->pushBack(undoTarget, ip);
 				else
 					undoManager->action(undoTarget, ip);
-				is = NULL;
-				ts = NULL;
+				is = nullptr;
+				ts = nullptr;
 			}
 		}
 		if (trans)
@@ -4814,7 +4814,7 @@ void PageItem_TextFrame::updateBulletsNum()
 	for (int index = 0; index < itemText.length(); ++index)
 	{
 		Mark* mark = itemText.mark(index);
-		if ((mark != NULL) && (itemText.hasMark(index)))
+		if ((mark != nullptr) && (itemText.hasMark(index)))
 		{
 			mark->OwnPage = this->OwnPage;
 			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
@@ -4832,11 +4832,11 @@ void PageItem_TextFrame::updateBulletsNum()
 			if (mark->isNoteType())
 			{
 				TextNote* note = mark->getNotePtr();
-				if (note == NULL)
+				if (note == nullptr)
 					continue;
 				mark->setItemPtr(this);
 				NotesStyle* nStyle = note->notesStyle();
-				Q_ASSERT(nStyle != NULL);
+				Q_ASSERT(nStyle != nullptr);
 				QString chsName = nStyle->marksChStyle();
 				CharStyle currStyle(itemText.charStyle(index));
 				if (!chsName.isEmpty())
@@ -4880,7 +4880,7 @@ void PageItem_TextFrame::updateBulletsNum()
 			if (style.hasBullet() || style.hasNum())
 			{
 				bullet = true;
-				if (mark == NULL || !mark->isType(MARKBullNumType))
+				if (mark == nullptr || !mark->isType(MARKBullNumType))
 				{
 					itemText.insertMark(new BulNumMark(), index);
 					index--;
@@ -5166,7 +5166,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 	if (textLayout.lines() != 0)
 	{
 		actionList << "editClearContents";
-		if ((this->nextInChain() == NULL) && frameOverflows())
+		if ((this->nextInChain() == nullptr) && frameOverflows())
 			actionList << "editTruncateContents";
 		actionList << "itemAdjustFrameHeightToText";
 	}
@@ -5521,7 +5521,7 @@ bool PageItem_TextFrame::hasNoteMark(NotesStyle *NS)
 	if (isNoteFrame())
 		return (asNoteFrame()->notesStyle() == NS);
 
-	if (NS == NULL)
+	if (NS == nullptr)
 	{
 		//find any mark
 		if (!m_notesFramesMap.isEmpty())
@@ -5537,7 +5537,7 @@ bool PageItem_TextFrame::hasNoteMark(NotesStyle *NS)
 			if (itemText.hasMark(pos))
 			{
 				TextNote* note = itemText.mark(pos)->getNotePtr();
-				if (note != NULL && (note->notesStyle() == NS))
+				if (note != nullptr && (note->notesStyle() == NS))
 					return true;
 			}
 		}
@@ -5551,7 +5551,7 @@ bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
 		return false;
 	if (m_notesFramesMap.isEmpty())
 		return false;
-	if (NS == NULL)
+	if (NS == nullptr)
 	{ //check if any notes are in frame or whole chain
 		if (!inChain)
 			return !m_notesFramesMap.isEmpty();
@@ -5559,9 +5559,9 @@ bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
 		{
 			PageItem* item = this;
 			item = firstInChain();
-			while (item != NULL)
+			while (item != nullptr)
 			{
-				if (item->asTextFrame()->hasNoteFrame(NULL, false))
+				if (item->asTextFrame()->hasNoteFrame(nullptr, false))
 					return true;
 				item = item->nextInChain();
 			}
@@ -5571,7 +5571,7 @@ bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
 	PageItem* item = this;
 	if (inChain)
 		item = firstInChain();
-	while (item != NULL)
+	while (item != nullptr)
 	{
 		NotesInFrameMap::iterator it = m_notesFramesMap.begin();
 		NotesInFrameMap::iterator end = m_notesFramesMap.end();
@@ -5635,7 +5635,7 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 				start = itemText.cursorPosition();
 				stop = start + 1;
 				if (stop > itemText.length())
-					return NULL;
+					return nullptr;
 			}
 			else
 			{
@@ -5643,7 +5643,7 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 				start = firstInFrame();
 				stop = lastInFrame();
 				if (start == stop)
-					return NULL;
+					return nullptr;
 			}
 		}
 
@@ -5663,7 +5663,7 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 			return mark;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection)
@@ -5679,7 +5679,7 @@ TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection
 			stop = start + itemText.lengthOfSelection();
 		}
 		else
-			return NULL;
+			return nullptr;
 	}
 	MarkType typ = isNoteFrame()? MARKNoteFrameType : MARKNoteMasterType;
 	for (int pos = start; pos < stop; ++pos)
@@ -5690,7 +5690,7 @@ TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection
 			return itemText.mark(pos)->getNotePtr();
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 TextNote* PageItem_TextFrame::selectedNoteMark(bool onlySelection)
@@ -5714,8 +5714,8 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 			mark->setItemName(itemName());
 
 			TextNote* note = mark->getNotePtr();
-			Q_ASSERT(note != NULL);
-			if (note == NULL)
+			Q_ASSERT(note != nullptr);
+			if (note == nullptr)
 			{
 				qWarning() << "note mark without valid note pointer";
 				note = m_Doc->newNote(m_Doc->m_docNotesStylesList.at(0));
@@ -5723,12 +5723,12 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 				mark->setNotePtr(note);
 			}
 			NotesStyle* NS = note->notesStyle();
-			PageItem_NoteFrame* nF = NULL;
+			PageItem_NoteFrame* nF = nullptr;
 			if (NS->isEndNotes())
 				nF = m_Doc->endNoteFrame(NS, this);
 			else
 				nF = itemNoteFrame(NS);
-			if (nF == NULL)
+			if (nF == nullptr)
 			{
 				//creating new noteframe
 				if (NS->isEndNotes())
@@ -5744,7 +5744,7 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 					switch (NS->range())
 					{ //insert pointer to endnoteframe into m_Doc->m_endNotesFramesMap
 						case NSRdocument:
-							m_Doc->setEndNoteFrame(nF, (void*) NULL);
+							m_Doc->setEndNoteFrame(nF, (void*) nullptr);
 							break;
 						case NSRsection:
 							m_Doc->setEndNoteFrame(nF, m_Doc->getSectionKeyForPageIndex(OwnPage));
@@ -5885,7 +5885,7 @@ void PageItem_TextFrame::notesFramesLayout()
 {
 	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 	{
-		if (nF == NULL)
+		if (nF == nullptr)
 			continue;
 		if (nF->deleteIt)
 			continue;
@@ -5902,7 +5902,7 @@ int PageItem_TextFrame::removeMarksFromText(bool doUndo)
 	if (!isNoteFrame())
 	{
 		TextNote* note = selectedNoteMark(true);
-		while (note != NULL)
+		while (note != nullptr)
 		{
 			if (doUndo && UndoManager::undoEnabled())
 				m_Doc->setUndoDelNote(note);
@@ -5915,7 +5915,7 @@ int PageItem_TextFrame::removeMarksFromText(bool doUndo)
 	}
 
 	Mark* mrk = selectedMark(true);
-	while (mrk != NULL)
+	while (mrk != nullptr)
 	{
 		if (!mrk->isType(MARKBullNumType))
 		{
@@ -5940,7 +5940,7 @@ PageItem_NoteFrame *PageItem_TextFrame::itemNoteFrame(NotesStyle *nStyle)
 	for (PageItem_NoteFrame* nF : m_notesFramesMap.keys())
 		if (nF->notesStyle() == nStyle)
 			return nF;
-	return NULL;
+	return nullptr;
 }
 
 void PageItem_TextFrame::setNoteFrame(PageItem_NoteFrame *nF)

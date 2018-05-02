@@ -218,43 +218,43 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 
 void ScribusCore::initSplash(bool showSplash)
 {
-	m_SplashScreen = NULL;
+	m_SplashScreen = nullptr;
 	if (!showSplash)
 		return;
 	QPixmap pix = IconManager::instance()->loadPixmap("scribus_splash.png", true);
 	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
-	if (m_SplashScreen != NULL)
+	if (m_SplashScreen != nullptr)
 		m_SplashScreen->show();
-	if (m_SplashScreen != NULL && m_SplashScreen->isVisible())
+	if (m_SplashScreen != nullptr && m_SplashScreen->isVisible())
 		setSplashStatus(QObject::tr("Initializing..."));
 }
 
 void ScribusCore::setSplashStatus(const QString& newText)
 {
-	if (m_SplashScreen != NULL)
+	if (m_SplashScreen != nullptr)
 		m_SplashScreen->setStatus( newText );
 }
 
 void ScribusCore::showSplash(bool shown)
 {
-	if (m_SplashScreen!=NULL && shown!=m_SplashScreen->isVisible())
+	if (m_SplashScreen!=nullptr && shown!=m_SplashScreen->isVisible())
 		m_SplashScreen->setVisible(shown);
 }
 
 bool ScribusCore::splashShowing() const
 {
-	if (m_SplashScreen == NULL)
+	if (m_SplashScreen == nullptr)
 		return false;
 	return m_SplashScreen->isVisible();
 }
 
 void ScribusCore::closeSplash()
 {
-	if (m_SplashScreen==NULL)
+	if (m_SplashScreen==nullptr)
 		return;
 	m_SplashScreen->close();
 	delete m_SplashScreen;
-	m_SplashScreen = NULL;
+	m_SplashScreen = nullptr;
 }
 
 bool ScribusCore::usingGUI() const
@@ -563,7 +563,7 @@ void ScribusCore::recheckGS()
 
 bool ScribusCore::fileWatcherActive() const
 {
-	if (fileWatcher!=NULL)
+	if (fileWatcher!=nullptr)
 		return fileWatcher->isActive();
 	return false;
 }

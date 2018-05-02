@@ -34,17 +34,17 @@ bool PrinterUtil::getDefaultSettings(QString printerName, QByteArray& devModeA)
 	bool done;
 	uint size;
 	LONG result = IDOK+1;
-	Qt::HANDLE handle = NULL;
+	Qt::HANDLE handle = nullptr;
 	// Get the printer handle
-	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, NULL);
+	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, nullptr);
 	if (!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), nullptr, nullptr, 0);
 	// Allocate the memory needed by the DEVMODE structure
 	devModeA.resize(size);
 	// Retrieve printer default settings
-	result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+	result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), nullptr, DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter(handle);
 	return (result == IDOK);
@@ -57,13 +57,13 @@ bool PrinterUtil::initDeviceSettings(QString printerName, QByteArray& devModeA)
 	bool done;
 	uint size;
 	LONG result = IDOK+1;
-	Qt::HANDLE handle = NULL;
+	Qt::HANDLE handle = nullptr;
 	// Get the printer handle
-	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, NULL);
+	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, nullptr);
 	if (!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), nullptr, nullptr, 0);
 	// Compare size with DevMode structure size
 	if (devModeA.size() == size)
 	{
@@ -74,7 +74,7 @@ bool PrinterUtil::initDeviceSettings(QString printerName, QByteArray& devModeA)
 	{
 		// Retrieve default settings
 		devModeA.resize(size);
-		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), nullptr, DM_OUT_BUFFER);
 	}
 	done = (result == IDOK);
 	// Free the printer handle
@@ -159,7 +159,7 @@ bool PrinterUtil::isPostscriptPrinter(QString printerName)
 	char technology[MAX_PATH] = {0};
 	
 	// Create the default device context
-	dc = CreateDCW(NULL, (LPCWSTR) printerName.utf16(), NULL, NULL);
+	dc = CreateDCW(nullptr, (LPCWSTR) printerName.utf16(), nullptr, nullptr);
 	if (!dc)
 	{
 		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toLatin1().data());
@@ -167,24 +167,24 @@ bool PrinterUtil::isPostscriptPrinter(QString printerName)
 	}
 	// test if printer support the POSTSCRIPT_PASSTHROUGH escape code
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
 		DeleteDC(dc);
 		return true;
 	}
 	// test if printer support the POSTSCRIPT_DATA escape code
 	escapeCode = POSTSCRIPT_DATA;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
 		DeleteDC(dc);
 		return true;
 	}
 	// try to get postscript support by testing the printer technology
 	escapeCode = GETTECHNOLOGY;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
 		// if GETTECHNOLOGY is supported, then ... get technology
-		if (ExtEscape(dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology) > 0)
+		if (ExtEscape(dc, GETTECHNOLOGY, 0, nullptr, MAX_PATH, (LPSTR) technology) > 0)
 		{
 			// check technology string for postscript word
 			strupr(technology);

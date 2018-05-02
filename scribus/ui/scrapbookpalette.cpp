@@ -519,7 +519,7 @@ void BibView::ReadContents(QString name)
 		QDir d5(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		fileCount += d5.count();
 	}
-	QProgressDialog *pgDia = NULL;
+	QProgressDialog *pgDia = nullptr;
 	QStringList previewFiles;
 	previewFiles.clear();
 	if (ScCore->initialized())
@@ -1028,7 +1028,7 @@ void Biblio::libChanged(int index)
 
 void Biblio::closeOnDel(QString libName)
 {
-	BibView* bv = NULL;
+	BibView* bv = nullptr;
 	int libIndex = 0;
 	for (int a = 0; a < Frame3->count(); a++)
 	{

@@ -151,7 +151,7 @@ WMFImport::WMFImport( ScribusDoc* doc, int flags )
 	m_IsPlaceable  = false;
 	m_IsEnhanced   = false;
 	m_Valid        = false;
-	m_ObjHandleTab = NULL;
+	m_ObjHandleTab = nullptr;
 	m_Dpi          = 1440;
 }
 
@@ -199,7 +199,7 @@ QColor WMFImport::colorFromParam( short* params )
 
 QTextCodec* WMFImport::codecFromCharset( int charset )
 {
-	QTextCodec* codec = NULL;
+	QTextCodec* codec = nullptr;
 	if (charset == DEFAULT_CHARSET || charset == OEM_CHARSET)
 		codec = QTextCodec::codecForLocale();
 	else if (charset == ANSI_CHARSET)
@@ -600,11 +600,11 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -653,7 +653,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				m_Doc->m_Selection->setGroupRect();
-				if (m_Doc->view() != NULL)
+				if (m_Doc->view() != nullptr)
 					m_Doc->view()->updatesOn(true);
 			}
 			importCanceled = false;
@@ -691,7 +691,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
-		if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+		if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
@@ -711,7 +711,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 	if ( m_ObjHandleTab ) delete[] m_ObjHandleTab;
 	m_ObjHandleTab = new WmfObjHandle* [ MAX_OBJHANDLE ];
 	for ( i = MAX_OBJHANDLE-1; i >= 0; i-- )
-		m_ObjHandleTab[ i ] = NULL;
+		m_ObjHandleTab[ i ] = nullptr;
 
 	if ( WMFIMPORT_DEBUG )  {
 		cerr << "Bounding box : " << m_BBox.left() << " " << m_BBox.top() << " " << m_BBox.right() << " " << m_BBox.bottom() << endl;
@@ -731,7 +731,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 
 		if ( WMFIMPORT_DEBUG )  {
 			QString str = "", param;
-			if ( metaFuncTab[ idx ].name == NULL ) {
+			if ( metaFuncTab[ idx ].name == nullptr ) {
 				str += "UNKNOWN ";
 			}
 			if ( metaFuncTab[ idx ].method == &WMFImport::noop ) {
@@ -1410,7 +1410,7 @@ void WMFImport::addHandle( WmfObjHandle* handle )
 	int idx;
 
 	for ( idx =0; idx < MAX_OBJHANDLE ; idx++ )
-		if ( m_ObjHandleTab[ idx ] == NULL )  break;
+		if ( m_ObjHandleTab[ idx ] == nullptr )  break;
 
 	if ( idx < MAX_OBJHANDLE )
 		m_ObjHandleTab[ idx ] = handle;
@@ -1423,7 +1423,7 @@ void WMFImport::deleteHandle( int idx )
 	if ( idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[ idx ] )
 	{
 		delete m_ObjHandleTab[ idx ];
-		m_ObjHandleTab[ idx ] = NULL;
+		m_ObjHandleTab[ idx ] = nullptr;
 	}
 }
 

@@ -17,11 +17,11 @@ QList<FileFormat> LoadSavePlugin::formats;
 
 LoadSavePlugin::LoadSavePlugin()
 	: ScPlugin(),
-	m_Doc(0),
-	m_View(0),
-	m_ScMW(0),
-	m_mwProgressBar(0),
-	m_AvailableFonts(0),
+	m_Doc(nullptr),
+	m_View(nullptr),
+	m_ScMW(nullptr),
+	m_mwProgressBar(nullptr),
+	m_AvailableFonts(nullptr),
 	undoManager(UndoManager::instance())
 {
 }
@@ -40,7 +40,7 @@ const FileFormat * LoadSavePlugin::getFormatById(const int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id));
 	if (it == formats.end())
-		return 0;
+		return nullptr;
 	else
 		return &(*it);
 }
@@ -49,7 +49,7 @@ FileFormat * LoadSavePlugin::getFormatByID(int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id));
 	if (it == formats.end())
-		return 0;
+		return nullptr;
 	else
 		return &(*it);
 }
@@ -58,7 +58,7 @@ FileFormat* LoadSavePlugin::getFormatByExt(const QString ext)
 {
 	QList<FileFormat>::iterator it(findFormat(ext));
 	if (it == formats.end())
-		return 0;
+		return nullptr;
 	else
 		return &(*it);
 }

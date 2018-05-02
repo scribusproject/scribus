@@ -17,7 +17,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nStyle;
-	m_masterFrame = NULL;
+	m_masterFrame = nullptr;
 	itemText.clear();
 
 	AnName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
@@ -64,8 +64,8 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, QString fill, QString outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
-	m_nstyle = NULL;
-	m_masterFrame = NULL;
+	m_nstyle = nullptr;
+	m_masterFrame = nullptr;
 	textFlowModeVal = TextFlowUsesFrameShape;
 	deleteIt = false;
 }
@@ -110,7 +110,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	textFlowModeVal = TextFlowUsesFrameShape;
 	setColumns(1);
 
-	if (m_nstyle->isAutoWeldNotesFrames() && (m_masterFrame != NULL))
+	if (m_nstyle->isAutoWeldNotesFrames() && (m_masterFrame != nullptr))
 	{
 		addWelded(m_masterFrame);
 		m_masterFrame->addWelded(this);
@@ -135,7 +135,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
 {
 	m_nstyle = nStyle;
-	if (master != NULL)
+	if (master != nullptr)
 		m_masterFrame = master;
 	itemText.clear();
 
@@ -146,12 +146,12 @@ void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
 	ParagraphStyle newStyle;
 	if (nStyle->notesParStyle().isEmpty() || (nStyle->notesParStyle() == tr("No Style")))
 	{
-		if (nStyle->isEndNotes() || (m_masterFrame == NULL))
+		if (nStyle->isEndNotes() || (m_masterFrame == nullptr))
 		{
 			//set default doc style
 			newStyle.setParent(m_Doc->paragraphStyles()[0].name());
 		}
-		else if (master != NULL)
+		else if (master != nullptr)
 		{
 			newStyle.setParent(m_masterFrame->itemText.defaultStyle().parent());
 			newStyle.applyStyle(m_masterFrame->currentStyle());
@@ -185,7 +185,7 @@ void PageItem_NoteFrame::layout()
 		return;
 	if (itemText.length() == 0)
 		return;
-	if ((masterFrame() != NULL) && masterFrame()->invalid)
+	if ((masterFrame() != nullptr) && masterFrame()->invalid)
 		return;
 
 	//while layouting notes frames undo should be disabled
@@ -227,7 +227,7 @@ void PageItem_NoteFrame::layout()
 	}
 	if (oldH != height())
 	{
-		if (masterFrame() != NULL)
+		if (masterFrame() != nullptr)
 		{
 			foreach(PageItem_NoteFrame* nF, masterFrame()->notesFramesList())
 				nF->invalid = true;
@@ -241,7 +241,7 @@ void PageItem_NoteFrame::layout()
 void PageItem_NoteFrame::insertNote(TextNote *note)
 {
 	Mark* mrk = note->noteMark();
-	if (mrk == NULL)
+	if (mrk == nullptr)
 	{
 		mrk = m_Doc->newMark();
 		mrk->setType(MARKNoteFrameType);
@@ -321,8 +321,8 @@ void PageItem_NoteFrame::updateNotesText()
 	int oldSelLen = itemText.lengthOfSelection();
 	int pos = 0;
 	int startPos = 0;
-	TextNote *note = NULL;
-	Mark* prevMrk = NULL;
+	TextNote *note = nullptr;
+	Mark* prevMrk = nullptr;
 	while (pos < itemText.length())
 	{
 		if (itemText.hasMark(pos))
@@ -330,10 +330,10 @@ void PageItem_NoteFrame::updateNotesText()
 			Mark* mark = itemText.mark(pos);
 			if  (mark->isType(MARKNoteFrameType))
 			{
-				if (prevMrk != NULL)
+				if (prevMrk != nullptr)
 				{
 					note = prevMrk->getNotePtr();
-					if (note != NULL)
+					if (note != nullptr)
 					{
 						int offset = 0;
 						if (itemText.text(pos-1) == SpecialChars::PARSEP)
@@ -353,10 +353,10 @@ void PageItem_NoteFrame::updateNotesText()
 		}
 		++pos;
 	}
-	if (prevMrk != NULL)
+	if (prevMrk != nullptr)
 	{
 		note = prevMrk->getNotePtr();
-		Q_ASSERT(note != NULL);
+		Q_ASSERT(note != nullptr);
 		if (startPos != pos)
 		{
 			note->setSaxedText(getItemTextSaxed(startPos, pos - startPos));

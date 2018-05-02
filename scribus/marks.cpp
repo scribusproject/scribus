@@ -49,7 +49,7 @@ void Mark::setNotePtr(TextNote* note)
 
 bool Mark::hasItemPtr()
 {
-	return data.itemPtr != NULL;
+	return data.itemPtr != nullptr;
 }
 
 bool Mark::hasString()
