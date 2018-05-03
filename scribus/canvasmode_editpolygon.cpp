@@ -71,7 +71,7 @@ CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(v
 inline bool CanvasMode_EditPolygon::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0);
-	return (*pi) != NULL;
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditPolygon::drawControls(QPainter* p)

@@ -39,8 +39,8 @@ for which a new license (GPL+exception) is in place.
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	m_doc(dok),
-	m_hdict(NULL),
-	m_codec(NULL),
+	m_hdict(nullptr),
+	m_codec(nullptr),
 	m_automatic(m_doc->hyphAutomatic()),
 	AutoCheck(m_doc->hyphAutoCheck())
 {
@@ -67,7 +67,7 @@ bool Hyphenator::loadDict(const QString& name)
 
 		QFile file(LanguageManager::instance()->getHyphFilename(m_language));
 		
-		if (m_hdict != NULL)
+		if (m_hdict != nullptr)
 			hnj_hyphen_free(m_hdict);
 
 		if (file.open(QIODevice::ReadOnly))
@@ -79,7 +79,7 @@ bool Hyphenator::loadDict(const QString& name)
 		}
 		else
 		{
-			m_hdict = NULL;
+			m_hdict = nullptr;
 			return false;
 		}
 	}
@@ -109,13 +109,13 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 
 	QByteArray te = m_codec->fromUnicode(text);
 	char *buffer = static_cast<char*>(malloc(te.length() + 5));
-	if (buffer == NULL)
+	if (buffer == nullptr)
 		return;
-	char **rep = NULL;
-	int *pos = NULL;
-	int *cut = NULL;
+	char **rep = nullptr;
+	int *pos = nullptr;
+	int *cut = nullptr;
 	// TODO: support non-standard hyphenation, see hnj_hyphen_hyphenate2 docs
-	if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, NULL, &rep, &pos, &cut))
+	if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, nullptr, &rep, &pos, &cut))
 	{
 		buffer[te.length()] = '\0';
 		it->itemText.hyphenateWord(firstC, text.length(), buffer);
@@ -176,14 +176,14 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
 			QByteArray te = m_codec->fromUnicode(wordLower);
 			char *buffer = static_cast<char*>(malloc(te.length() + 5));
-			if (buffer == NULL)
+			if (buffer == nullptr)
 				break;
 
-			char **rep = NULL;
-			int *pos = NULL;
-			int *cut = NULL;
+			char **rep = nullptr;
+			int *pos = nullptr;
+			int *cut = nullptr;
 			// TODO: support non-standard hyphenation, see hnj_hyphen_hyphenate2 docs
-			if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, NULL, &rep, &pos, &cut))
+			if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, nullptr, &rep, &pos, &cut))
 			{
 	  			int i = 0;
 				buffer[te.length()] = '\0';
@@ -210,7 +210,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				if (!ignoredWords.contains(word))
 				{
 					if (!hasHyphen)
-						it->itemText.hyphenateWord(startC + firstC, wordLower.length(), NULL);
+						it->itemText.hyphenateWord(startC + firstC, wordLower.length(), nullptr);
 					else if (m_automatic)
 					{
 						if (specialWords.contains(word))
@@ -308,7 +308,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							else
 							{
 								free(buffer);
-								buffer = NULL;
+								buffer = nullptr;
 								prefs->set("Xposition", dia->xpos);
 								prefs->set("Yposition", dia->ypos);
 								delete dia;
@@ -345,11 +345,11 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 
 	if (it->itemText.lengthOfSelection() > 0)
 	{
-		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.lengthOfSelection(), NULL);
+		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.lengthOfSelection(), nullptr);
 	}
 	else {
 		uint a = it->itemText.length();
-		it->itemText.hyphenateWord(0, a, NULL);
+		it->itemText.hyphenateWord(0, a, nullptr);
 	}
 	m_doc->DoDrawing = true;
 }

@@ -95,7 +95,7 @@ private:
 Digester::Digester() : m_objects(), m_storage(), m_errors() 
 { 
 	m_state = new RuleState();
-	m_result_.ptr = NULL;
+	m_result_.ptr = nullptr;
 	m_result_.type = "";
 }
 
@@ -139,7 +139,7 @@ void Digester::reset()
 {
 	m_objects.clear();
 	m_storage.clear();
-	m_result_.ptr = NULL;
+	m_result_.ptr = nullptr;
 	m_result_.type = "";
 	m_errors.clear();
 }
@@ -214,10 +214,10 @@ Xml_string Digester::concat(const Xml_string& pattern1, const Xml_string& patter
 }
 
 
-RuleState::RuleState() : rules(), dfa(NULL), stateStack(), valid(false)
+RuleState::RuleState() : rules(), dfa(nullptr), stateStack(), valid(false)
 {}
 
-RuleState::RuleState(const RuleState& other) : rules(other.rules), dfa(NULL), stateStack(), valid(false)
+RuleState::RuleState(const RuleState& other) : rules(other.rules), dfa(nullptr), stateStack(), valid(false)
 {}
 
 RuleState::~RuleState()
@@ -290,7 +290,7 @@ inline
 void RuleState::open(const Xml_string& tag)
 {
 	dfa_state_t nstate = dfa->next(stateStack.back(), tokens[tag]);
-	assert(nstate != NULL);
+	assert(nstate != nullptr);
 #ifdef DESAXE_DEBUG
 	std::cerr << "to state " << nstate->ID << "\n"; 	
 #endif

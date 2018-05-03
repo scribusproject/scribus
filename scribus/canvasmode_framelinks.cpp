@@ -62,7 +62,7 @@ CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(vie
 inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_FrameLinks::drawControls(QPainter* p)
@@ -96,8 +96,8 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 			{
 				PageItem* item1 = m_doc->m_Selection->itemAt(i);
 				PageItem* item2 = m_doc->m_Selection->itemAt(i+1);
-				if ((item1 != NULL && item1->asTextFrame()) &&
-				    (item2 != NULL && item2->asTextFrame()) &&
+				if ((item1 != nullptr && item1->asTextFrame()) &&
+					(item2 != nullptr && item2->asTextFrame()) &&
 				     item1->testLinkCandidate(item2))
 				{
 					item1->link(item2);
@@ -185,14 +185,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	PageItem *currItem=NULL, *bb=NULL;
+	PageItem *currItem=nullptr, *bb=nullptr;
 	switch (m_doc->appMode)
 	{
 		case modeLinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
 			currItem = m_doc->ElemToLink;
-			if (currItem==NULL)
+			if (currItem==nullptr)
 				break;
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
@@ -203,9 +203,9 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				while (bblast->nextInChain())
 					bblast = bblast->nextInChain();
 				
-				if (currItem->nextInChain() == NULL && currItem != bblast) //possibility to insert empty frames into chain
+				if (currItem->nextInChain() == nullptr && currItem != bblast) //possibility to insert empty frames into chain
 				{
-					if (bb->prevInChain() != NULL)
+					if (bb->prevInChain() != nullptr)
 					{
 						ScMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
 										   "<qt>" + tr("You are trying to insert a frame into an existing text chain, where would you like to insert it?") + "<qt>");
@@ -226,7 +226,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 						}
 						else if ((QPushButton *) msgBox.clickedButton() == afterButton)
 						{
-							if (bb->nextInChain() != NULL)
+							if (bb->nextInChain() != nullptr)
 							{
 								if (currItem->prevInChain())
 									currItem->prevInChain()->unlink();
@@ -286,7 +286,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				}
 			}
 			else
-				m_doc->ElemToLink = NULL;
+				m_doc->ElemToLink = nullptr;
 			m_doc->m_Selection->delaySignalsOff();
 			break;
 		case modeUnlinkFrames:
@@ -436,7 +436,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 	
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
@@ -509,11 +509,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 	m_view->setObjectUndoMode();
 	m_Mxp = mx;
 	m_Myp = my;
-	if(currItem!=NULL)
+	if(currItem!=nullptr)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 		cmen->exec(QCursor::pos());

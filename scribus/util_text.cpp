@@ -62,7 +62,7 @@ StoryText desaxeString(ScribusDoc* doc, QString saxedString)
 	dig->parseMemory(saxedString);
 
 	StoryText* story = dig->result<StoryText>();
-	assert (story != NULL);
+	assert (story != nullptr);
 
 	StoryText res = *story;
 	res.setDoc(doc);

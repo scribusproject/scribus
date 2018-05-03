@@ -54,9 +54,9 @@ namespace PRIVATE {
 
 	template<class ObjType>
 	inline
-	void chkcell(const VarPtr& cell, std::vector<VarPtr>* stack = NULL)
+	void chkcell(const VarPtr& cell, std::vector<VarPtr>* stack = nullptr)
 	{
-		ObjType* dummy = NULL;
+		ObjType* dummy = nullptr;
 		if( cell.type != typeid(dummy).name() )
 		{
 			std::cerr << "requested type '" << typeid(dummy).name() << "' doesn't match cell type '" << cell.type << "'\n";
@@ -213,9 +213,9 @@ template<class ObjType>
 inline
 ObjType*  Digester::result() 
 { 
-	ObjType* dummy = NULL;
+	ObjType* dummy = nullptr;
 	if (m_result_.type != typeid(dummy).name())
-		return NULL;
+		return nullptr;
 #ifdef DESAXE_DEBUG
 	std::cerr << "result-> " << static_cast<ObjType*>(result_.ptr) << "\n";
 #endif
@@ -271,7 +271,7 @@ namespace PRIVATE {
 		typedef void (*FunType1)(LinkType*);
 		FunType1 fun;
 
-		Patch1(FunType1 fn, Patch* nxt = NULL) : Patch(nxt), fun(fn) {}
+		Patch1(FunType1 fn, Patch* nxt = nullptr) : Patch(nxt), fun(fn) {}
 
 		void run(VarPtr link) 
 		{ 
@@ -287,7 +287,7 @@ namespace PRIVATE {
 		ObjType* obj;
 		FunType2 fun;
 		
-		Patch2(ObjType* ob, FunType2 fn, Patch* nxt = NULL) : Patch(nxt), obj(ob), fun(fn) {}
+		Patch2(ObjType* ob, FunType2 fn, Patch* nxt = nullptr) : Patch(nxt), obj(ob), fun(fn) {}
 
 		void run(VarPtr link)
 		{
@@ -343,9 +343,9 @@ ObjType*  Digester::lookup(const Xml_string& idref)
 	if (cell == m_storage.end())
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "lookup[" << idref << "]-> NULL\n";
+		std::cerr << "lookup[" << idref << "]-> nullptr\n";
 #endif
-		return NULL;
+		return nullptr;
 	}
 	else
 	{

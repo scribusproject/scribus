@@ -192,7 +192,7 @@ bool CollectForOutput::collectItems()
 	uint counter = 0;
 	int c=0;
 	QList<PageItem*> allItems;
-	PageItem* ite = NULL;
+	PageItem* ite = nullptr;
 	for (uint lc = 0; lc < 2; ++lc)
 	{
 		switch (lc)

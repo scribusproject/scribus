@@ -26,9 +26,9 @@ ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int ble
 {
 	Q_ASSERT(w>=0);
 	Q_ASSERT(h>=0);
-	m_maskPattern = NULL;
-	m_pattern = NULL;
-	m_imageMask = NULL;
+	m_maskPattern = nullptr;
+	m_pattern = nullptr;
+	m_imageMask = nullptr;
 	m_image = target;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
@@ -125,7 +125,7 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	la.mask_gradientSkew = m_mask_gradientSkew;
 	la.mask_gradient = mask_gradient;
 	la.maskPattern = m_maskPattern;
-	if (clipArray != NULL)
+	if (clipArray != nullptr)
 		la.groupClip = *clipArray;
 	la.data = cairo_get_group_target(m_cr);
 	la.fillRule = m_fillRule;
@@ -752,10 +752,10 @@ void ScPainter::fillPathHelper()
 	}
 	else if (m_fillMode == 2)
 	{
-		cairo_pattern_t *pat = NULL;
-		cairo_surface_t *img = NULL;
-		cairo_t *cr = NULL;
-		cairo_pattern_t *mpat = NULL;
+		cairo_pattern_t *pat = nullptr;
+		cairo_surface_t *img = nullptr;
+		cairo_t *cr = nullptr;
+		cairo_pattern_t *mpat = nullptr;
 		if (fill_gradient.type() == VGradient::fourcolor)
 		{
 			double p1x = gradPatchP1.x();
@@ -1297,7 +1297,7 @@ void ScPainter::strokePathHelper()
 	if( m_array.count() > 0 )
 		cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 	else
-		cairo_set_dash( m_cr, NULL, 0, 0 );
+		cairo_set_dash( m_cr, nullptr, 0, 0 );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	if( PLineEnd == Qt::RoundCap )
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
@@ -1664,10 +1664,10 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 	assert(!m_font.isNone());
 
 #if CAIRO_HAS_FC_FONT
-	FcPattern *pattern = FcPatternBuild(NULL,
+	FcPattern *pattern = FcPatternBuild(nullptr,
 										FC_FILE, FcTypeString, QFile::encodeName(m_font.fontFilePath()).data(),
 										FC_INDEX, FcTypeInteger, m_font.faceIndex(),
-										NULL);
+										nullptr);
 	cairo_font_face_t *cairo_face = cairo_ft_font_face_create_for_pattern(pattern);
 	FcPatternDestroy(pattern);
 

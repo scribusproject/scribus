@@ -129,7 +129,7 @@ void LineStyle::getNamedResources(ResourceCollection& lists) const
 	QList<LineStyle>::const_iterator it, itend = m_Sublines.constEnd();
 
 	lists.collectColor(color());
-	for (const BaseStyle* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle* sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectLineStyle(sty->name());
 	for (it = m_Sublines.begin(); it != itend; ++it)
 		(*it).getNamedResources(lists);

@@ -27,7 +27,7 @@ bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
 	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
 }
 
-ParagraphStyle::ParagraphStyle() : BaseStyle(), m_cstyleContext(NULL), m_cstyleContextIsInh(true), m_cstyle()
+ParagraphStyle::ParagraphStyle() : BaseStyle(), m_cstyleContext(nullptr), m_cstyleContextIsInh(true), m_cstyle()
 {
 	setParent("");
 	m_cstyleContext.setDefaultStyle( &m_cstyle );
@@ -42,10 +42,10 @@ ParagraphStyle::ParagraphStyle() : BaseStyle(), m_cstyleContext(NULL), m_cstyleC
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : BaseStyle(other), m_cstyleContext(NULL), m_cstyleContextIsInh(other.m_cstyleContextIsInh), m_cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : BaseStyle(other), m_cstyleContext(nullptr), m_cstyleContextIsInh(other.m_cstyleContextIsInh), m_cstyle(other.charStyle())
 {
 	if (m_cstyleContextIsInh)
-		m_cstyle.setContext(NULL);
+		m_cstyle.setContext(nullptr);
 	else
 		m_cstyle.setContext(other.charStyle().context());
 	m_cstyleContext.setDefaultStyle( &m_cstyle );
@@ -124,7 +124,7 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 	if (m_cstyleContextIsInh)
 	{
 		const ParagraphStyle * parent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
-		m_cstyle.setContext(parent ? parent->charStyleContext() : NULL);
+		m_cstyle.setContext(parent ? parent->charStyleContext() : nullptr);
 	}
 	else
 	{
@@ -151,7 +151,7 @@ void ParagraphStyle::repairImplicitCharStyleInheritance()
 {
 	if (m_cstyleContextIsInh) {
 		const ParagraphStyle * newParent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
-		m_cstyle.setContext(newParent ? newParent->charStyleContext() : NULL);
+		m_cstyle.setContext(newParent ? newParent->charStyleContext() : nullptr);
 	}
 }
 
@@ -233,7 +233,7 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 
 void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const BaseStyle *sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle *sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
 

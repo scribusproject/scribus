@@ -183,13 +183,13 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 		{
 			resources = par->GetIndirectKey("Resources");
 		}
-		colorSpaceRes = resources?resources->GetIndirectKey("ColorSpace"):NULL;
-		xObjects = resources?resources->GetIndirectKey("XObject"):NULL;
-		extGState = resources?resources->GetIndirectKey("ExtGState"):NULL;
-		fontRes = resources?resources->GetIndirectKey("Font"):NULL;
+		colorSpaceRes = resources?resources->GetIndirectKey("ColorSpace"):nullptr;
+		xObjects = resources?resources->GetIndirectKey("XObject"):nullptr;
+		extGState = resources?resources->GetIndirectKey("ExtGState"):nullptr;
+		fontRes = resources?resources->GetIndirectKey("Font"):nullptr;
 
 		// getting the transparency group of this content stream (if available)
-		transGroup = canvasObject?canvasObject->GetIndirectKey("Group"):NULL;
+		transGroup = canvasObject?canvasObject->GetIndirectKey("Group"):nullptr;
 		if (transGroup)
 		{
 			PdfObject* subtype = transGroup->GetIndirectKey("S");
@@ -499,7 +499,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 						if (args.size() == 1 && args[0].IsName() && xObjects)
 						{
 							PdfObject* xObject = xObjects->GetIndirectKey(args[0].GetName());
-							PdfObject* subtypeObject = xObject?xObject->GetIndirectKey("Subtype"):NULL;
+							PdfObject* subtypeObject = xObject?xObject->GetIndirectKey("Subtype"):nullptr;
 							if (subtypeObject && subtypeObject->IsName())
 							{
 								if (subtypeObject->GetName() == "Image")
@@ -774,7 +774,7 @@ PDFFont PDFAnalyzer::getFontInfo(PdfObject* fontObj)
 		{
 			currFont.fontType = F_Type3;
 			currFont.isEmbedded = true;
-			fontDesc = NULL;
+			fontDesc = nullptr;
 		}
 		else if (subtype->GetName() == "Type0")
 		{

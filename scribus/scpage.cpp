@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),
-	SingleObservable<ScPage>(NULL),
+	SingleObservable<ScPage>(nullptr),
 	Margins(40,40,40,40),
 	initialMargins(40,40,40,40),
 	LeftPg(0),
@@ -52,7 +52,7 @@ ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	m_initialWidth(b),
 	m_initialHeight(h),
 	m_PageName(""),
-	m_Doc(NULL)
+	m_Doc(nullptr)
 {
 	guides.setPage(this);
 	marginPreset = 0;
@@ -81,7 +81,7 @@ ScPage::~ScPage()
 void ScPage::setDocument(ScribusDoc *doc)
 {
 	m_Doc=doc;
-	setMassObservable(doc? doc->pagesChanged() : NULL);
+	setMassObservable(doc? doc->pagesChanged() : nullptr);
 }
 
 void ScPage::setPageNr(int pageNr)
@@ -492,7 +492,7 @@ void ScPage::setPageSectionNumber(const QString& newPageSectionNumber)
 
 void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMargins)
 {
-	if (sourcePage==NULL)
+	if (sourcePage==nullptr)
 		return;
 	m_pageSize = sourcePage->m_pageSize;
 	m_orientation = sourcePage->m_orientation;

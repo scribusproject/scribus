@@ -760,7 +760,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 		else
 		{
 			ScImage scImg;
-			ScImage* pImage = NULL;
+			ScImage* pImage = nullptr;
 			double imScaleX = item->imageXScale();
 			double imScaleY = item->imageYScale();
 			if (m_reloadImages)

@@ -124,7 +124,7 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 	setDeviceParams(&doc, options, (DEVMODEW*) devMode.data());
 		
 	// Create the device context
-	printerDC = CreateDCW(NULL, (LPCWSTR) printerName.utf16(), NULL, (DEVMODEW*) devMode.data());
+	printerDC = CreateDCW(nullptr, (LPCWSTR) printerName.utf16(), nullptr, (DEVMODEW*) devMode.data());
 	if (printerDC)
 	{
 		success = printPages(&doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName);
@@ -142,7 +142,7 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale)
 {
 	bool success = true;
-	HCOLORSPACE hColorSpace  = NULL;
+	HCOLORSPACE hColorSpace  = nullptr;
 	int imagew, imageh;
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
@@ -206,7 +206,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 {
 	int  jobId;
 	QScopedPointer<MultiProgressDialog> progress;
-	PrintPageFunc printPageFunc = NULL;
+	PrintPageFunc printPageFunc = nullptr;
 	bool  success = true;
 	WCHAR docName[512];
 	DOCINFOW docInfo;
@@ -223,12 +223,12 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	ZeroMemory(&docInfo, sizeof(docInfo));
 	docInfo.cbSize = sizeof(docInfo);
 	docInfo.lpszDocName = docName;
-	docInfo.lpszOutput  = (LPCWSTR) (fileName.length() > 0 ? fileName.utf16() : NULL);
-	docInfo.lpszDatatype = NULL;
+	docInfo.lpszOutput  = (LPCWSTR) (fileName.length() > 0 ? fileName.utf16() : nullptr);
+	docInfo.lpszDatatype = nullptr;
 	docInfo.fwType = 0;
 
-	cairo_surface_t* prnSurface = NULL;
-	cairo_t* context            = NULL;
+	cairo_surface_t* prnSurface = nullptr;
+	cairo_t* context            = nullptr;
 	if (printPageFunc == &ScPrintEngine_GDI::printPage_GDI)
 	{
 		prnSurface = cairo_win32_printing_surface_create(printerDC);
@@ -300,7 +300,7 @@ bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOption
 	bool success = true;
 	QString inputProfile;
 	QString printerProfile;
-	HCOLORSPACE hColorSpace = NULL;
+	HCOLORSPACE hColorSpace = nullptr;
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
 
@@ -531,7 +531,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	scaley = -logPixelsY / 72.0;
 	sprintf((char*) sps.data, "%0.3f %0.3f scale\n", scalex, scaley);
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	// Set some necessary stuff for embedding ps into ps
@@ -550,13 +550,13 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	eBegin += "} if } if\n";
 	sprintf((char*) sps.data, "%s", eBegin.toLatin1().data());
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	// Match Postscript and GDI coordinate system
 	sprintf((char*) sps.data, "0 %0.3f neg translate\n", (double) physicalHeight);
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	// In case of landscape printing, pslib will rotate the page
@@ -565,7 +565,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	{
 		sprintf((char*) sps.data, "-90 rotate %0.3f %0.3f translate\n", (double) -pageHeight, 0.0);
 		sps.numBytes = strlen((char*) sps.data);
-		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 			return false;
 		transx = (physicalHeight - pageHeight) / -2.0;
 		transy = (physicalWidth  - pageWidth) / 2.0;
@@ -579,12 +579,12 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	// Center the printed page in paper zone
 	sprintf((char*) sps.data, "%0.3f %0.3f translate\n", transx, transy);
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	sprintf((char*) sps.data, "%s: %s\n", "%%BeginDocument", file.fileName().toLocal8Bit().data());
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	if (!file.open(QIODevice::ReadOnly))
@@ -595,7 +595,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	while (br > 0)
 	{
 		sps.numBytes = br;
-		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 			break;
 		bw += br;
 		br = file.read((char*) sps.data, sizeof(sps.data));
@@ -604,7 +604,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 
 	sprintf((char*) sps.data, "%s", "\n%%EndDocument\n");
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	// Set some necessary stuff for embedding ps into ps
@@ -613,7 +613,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	eEnd += "b4_Inc_state restore\n";
 	sprintf((char*) sps.data, "%s", eEnd.toLatin1().data());
 	sps.numBytes = strlen((char*) sps.data);
-	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, nullptr) <= 0)
 		return false;
 
 	return ((fileSize == bw) && (br >= 0));
@@ -635,7 +635,7 @@ void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, 
 		devMode->dmFields |= DM_DITHERTYPE;
 	}
 
-	OpenPrinterW((LPWSTR) printer.utf16(), &handle, NULL);
+	OpenPrinterW((LPWSTR) printer.utf16(), &handle, nullptr);
 	DocumentPropertiesW((HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 	ClosePrinter(handle);
 }
@@ -671,10 +671,10 @@ QString ScPrintEngine_GDI::getDefaultPrinter(void)
 	else
 	{
 		DWORD numPrinters;
-		PRINTER_INFO_2W* printerInfos = NULL;
-		EnumPrintersW (PRINTER_ENUM_DEFAULT, NULL, 2, NULL, 0, &buffSize, &numPrinters);
+		PRINTER_INFO_2W* printerInfos = nullptr;
+		EnumPrintersW (PRINTER_ENUM_DEFAULT, nullptr, 2, nullptr, 0, &buffSize, &numPrinters);
 		printerInfos = (PRINTER_INFO_2W*) malloc(buffSize);
-		if (EnumPrintersW (PRINTER_ENUM_LOCAL, NULL, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned))
+		if (EnumPrintersW (PRINTER_ENUM_LOCAL, nullptr, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned))
 		{
 			if (returned > 0)
 			{
@@ -696,18 +696,18 @@ bool ScPrintEngine_GDI::isPostscriptPrinter(HDC dc)
 	
 	// Test printer support for the POSTSCRIPT_PASSTHROUGH escape (available since win2k)
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 		return true;
 	// Test printer support  for the POSTSCRIPT_DATA escape (available since win95)
 	escapeCode = POSTSCRIPT_DATA;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 		return true;
 	// Test the printer technology
 	escapeCode = GETTECHNOLOGY;
-	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
 		// If GETTECHNOLOGY is supported, then ... get technology
-		if (ExtEscape(dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology) > 0)
+		if (ExtEscape(dc, GETTECHNOLOGY, 0, nullptr, MAX_PATH, (LPSTR) technology) > 0)
 		{
 			// Check technology string for postscript word
 			strupr(technology);
@@ -726,15 +726,15 @@ int	 ScPrintEngine_GDI::getPSPassthroughSupport(HDC printerDC)
 		return 0;
 	// Test printer support for the POSTSCRIPT_PASSTHROUGH escape (available since win2k)
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 		return POSTSCRIPT_PASSTHROUGH;
 	// Test printer support for the POSTSCRIPT_DATA escape (available since win95)
 	escapeCode = POSTSCRIPT_DATA;
-	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 		return POSTSCRIPT_DATA;
 	// Test printer support for the PASSTHROUGH escape
 	escapeCode = PASSTHROUGH;
-	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 		return PASSTHROUGH;
 	return 0;
 }
@@ -746,12 +746,12 @@ bool ScPrintEngine_GDI::printerUseFilePort(QString& printerName)
  HANDLE prnHandle;
  DWORD size = 0;
 
-	done = OpenPrinterW((LPWSTR) printerName.utf16(), &prnHandle, NULL);
+    done = OpenPrinterW((LPWSTR) printerName.utf16(), &prnHandle, nullptr);
 	if (!done)
 		return false;
 	
 	// Get buffer size for the PRINTER_INFO_2 structure
-	GetPrinterW(prnHandle, 2, NULL, 0, &size);
+	GetPrinterW(prnHandle, 2, nullptr, 0, &size);
 	if (size > 0)
 	{
 		PRINTER_INFO_2W* pInfos = (PRINTER_INFO_2W*) malloc(size);

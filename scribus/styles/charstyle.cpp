@@ -395,7 +395,7 @@ void CharStyle::setStyle(const CharStyle& other)
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const BaseStyle* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle* sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectCharStyle(sty->name());
 	lists.collectColor(fillColor());
 	lists.collectFontfeatures(fontFeatures());
@@ -424,7 +424,7 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 		setParent(it.value());
 
 	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
-		setFont(newNames.availableFonts->findFont(it.value(), NULL));
+		setFont(newNames.availableFonts->findFont(it.value(), nullptr));
 	updateFeatures();
 }
 

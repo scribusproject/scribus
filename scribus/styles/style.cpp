@@ -63,9 +63,9 @@ const BaseStyle* BaseStyle::parentStyle() const
 { 
 	//qDebug() << QString("follow %1").arg(reinterpret_cast<uint>(m_context),16);
 	if (m_isDefaultStyle)
-		return NULL;
-	const BaseStyle * par = m_context ? m_context->resolve(m_parent) : NULL;
-	if (par == this) return NULL; else return par;
+		return nullptr;
+	const BaseStyle * par = m_context ? m_context->resolve(m_parent) : nullptr;
+	if (par == this) return nullptr; else return par;
 }
 
 bool BaseStyle::canInherit(const QString& parentName) const
@@ -89,7 +89,7 @@ bool BaseStyle::canInherit(const QString& parentName) const
 			parentLoop = true;
 			break;
 		}
-		pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+		pStyle = pStyle->hasParent() ? pStyle->parentStyle() : nullptr;
 	}
 
 	return (!parentLoop);

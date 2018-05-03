@@ -64,7 +64,7 @@ void CellStyle::update(const StyleContext* context)
 
 void CellStyle::getNamedResources(ResourceCollection& lists) const
 {
-	for (const BaseStyle* style = parentStyle(); style != NULL; style = style->parentStyle())
+	for (const BaseStyle* style = parentStyle(); style != nullptr; style = style->parentStyle())
 		lists.collectCellStyle(style->name());
 	lists.collectColor(fillColor());
 	// TODO: Collect border colors.

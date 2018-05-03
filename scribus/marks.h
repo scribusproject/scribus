@@ -34,7 +34,7 @@ struct MarkData
 	QString itemName;
 	MarkType markTyp;
 	
-	MarkData() : itemPtr(NULL), destmarkType(MARKNoType), notePtr(NULL), markTyp(MARKNoType) {}
+	MarkData() : itemPtr(nullptr), destmarkType(MARKNoType), notePtr(nullptr), markTyp(MARKNoType) {}
 };
 
 class SCRIBUS_API Mark
@@ -66,7 +66,7 @@ public:
 	//for marks to marks - set label and type of target mark from mark pointer
 	void setMark(Mark* mP)
 	{
-		if (mP == NULL)
+		if (mP == nullptr)
 		{
 			data.destmarkName = "";
 			data.destmarkType = MARKNoType;
