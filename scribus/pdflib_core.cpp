@@ -8824,7 +8824,14 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, QString parentNam
 	if (ite->annotation().borderColor() != CommonStrings::None)
 		PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 	if (ite->rotation() != 0)
-		PutDoc("/R "+Pdf::toPdf((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
+	{
+		int rot = -(static_cast<int>(ite->rotation()) / 90) * 90;
+		while (rot < 0)
+			rot += 360;
+		while (rot >= 360)
+			rot -= 360;
+		PutDoc("/R " + Pdf::toPdf(rot) + " ");
+	}
 	PutDoc(">>\n");
 	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	if (ite->annotation().IsChk())
@@ -8855,7 +8862,13 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, QString parentNam
 			PutDoc("/AA " + Pdf::toPdf(AActionObj) + " 0 R\n");
 		}
 	}
-	switch (((abs(static_cast<int>(ite->rotation())) / 90)*90))
+
+	int rotation = -(static_cast<int>(ite->rotation()) / 90) * 90;
+	while (rotation < 0)
+		rotation += 360;
+	while (rotation >= 360)
+		rotation -= 360;
+	switch (rotation)
 	{
 		case 0:
 			break;
@@ -9203,7 +9216,14 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					break;
 			}
 			if (ite->rotation() != 0)
-				PutDoc("/R "+Pdf::toPdf((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
+			{
+				int rot = -(static_cast<int>(ite->rotation()) / 90) * 90;
+				while (rot < 0)
+					rot += 360;
+				while (rot >= 360)
+					rot -= 360;
+				PutDoc("/R " + Pdf::toPdf(rot) + " ");
+			}
 			PutDoc(">>\n");
 			if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 			{
@@ -9285,7 +9305,13 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		}
 	if ((ite->annotation().Type() < 2) || ((ite->annotation().Type() > Annotation::Listbox) && (ite->annotation().Type() < Annotation::Annot3D)))
 		PutDoc("/Border [ 0 0 0 ]\n");
-	switch (((abs(static_cast<int>(ite->rotation())) / 90)*90))
+
+	int rotation = -(static_cast<int>(ite->rotation()) / 90) * 90;
+	while (rotation < 0)
+		rotation += 360;
+	while (rotation >= 360)
+		rotation -= 360;
+	switch (rotation)
 	{
 		case 0:
 			break;
