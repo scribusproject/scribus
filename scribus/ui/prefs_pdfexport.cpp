@@ -1262,7 +1262,7 @@ void Prefs_PDFExport::SetEffOpts(int nr)
 
 void Prefs_PDFExport::SelEFont(QListWidgetItem *c)
 {
-	if (c != NULL)
+	if (c != nullptr)
 	{
 		if (c->flags() & Qt::ItemIsSelectable)
 			toSubsetButton->setEnabled(true);

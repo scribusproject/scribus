@@ -61,7 +61,7 @@ void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
 	case 1:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=NULL)
+			if (qcti!=nullptr)
 			{
 				int index=qcti->currentIndex();
 				if (index<typesData.count())
@@ -78,7 +78,7 @@ void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
 	case 4:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=NULL)
+			if (qcti!=nullptr)
 			{
 				int index=qcti->currentIndex();
 				if (index<relationshipsData.count())
@@ -92,7 +92,7 @@ void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
 	case 6:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=NULL)
+			if (qcti!=nullptr)
 			{
 				int index=qcti->currentIndex();
 				if (index<autoAddToData.count())
@@ -176,7 +176,7 @@ void Prefs_DocumentItemAttributes::updateTable()
 		item7->setCurrentIndex(index2);
 
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
-		if (t!=NULL)
+		if (t!=nullptr)
 			t->setText(QString("%1").arg(row));
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);

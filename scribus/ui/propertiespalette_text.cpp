@@ -158,7 +158,7 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
@@ -198,8 +198,8 @@ void PropertiesPalette_Text::unsetDoc()
 
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc      = NULL;
-	m_item     = NULL;
+	m_doc      = nullptr;
+	m_item     = nullptr;
 
 	paraStyleCombo->setDoc(0);
 	charStyleCombo->setDoc(0);
@@ -209,7 +209,7 @@ void PropertiesPalette_Text::unsetDoc()
 	colorWidgets->setDoc(0);
 	distanceWidgets->setDoc(0);
 	flopBox->setDoc(0);
-	hyphenationWidget->setDoc(NULL);
+	hyphenationWidget->setDoc(nullptr);
 	optMargins->setDoc(0);
 	orphanBox->setDoc(0);
 	parEffectWidgets->setDoc(0);
@@ -223,14 +223,14 @@ void PropertiesPalette_Text::unsetDoc()
 void PropertiesPalette_Text::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	colorWidgets->setCurrentItem(m_item);
 	handleSelectionChanged();
 }
 
 PageItem* PropertiesPalette_Text::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc)
 	{
@@ -318,7 +318,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 
@@ -427,7 +427,7 @@ void PropertiesPalette_Text::showFontFace(const QString& newFont)
 		return;
 	bool tmp = m_haveItem;
 	m_haveItem = false;
-	if (m_item != NULL)
+	if (m_item != nullptr)
 		fonts->RebuildList(m_doc, m_item->isAnnotation());
 	fonts->setCurrentFont(newFont);
 	m_haveItem = tmp;

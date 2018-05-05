@@ -108,7 +108,7 @@ void PropertiesPalette_Shadow::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
 	int precision = unitGetPrecisionFromIndex(m_unitIndex);
@@ -154,15 +154,15 @@ void PropertiesPalette_Shadow::unsetDoc()
 	}
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc   = NULL;
-	m_item  = NULL;
+	m_doc   = nullptr;
+	m_item  = nullptr;
 	setEnabled(false);
 }
 
 void PropertiesPalette_Shadow::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	handleSelectionChanged();
 }
 
@@ -174,7 +174,7 @@ void PropertiesPalette_Shadow::handleUpdateRequest(int updateFlags)
 
 PageItem* PropertiesPalette_Shadow::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 	if (m_doc)
 	{
 		if (m_doc->m_Selection->count() > 1)

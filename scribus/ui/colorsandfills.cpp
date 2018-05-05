@@ -1853,7 +1853,7 @@ void ColorsAndFillsDialog::loadScribusFormat(QString fileName)
 				else
 				{
 					const ScColor& col = m_colorList[name];
-					color = ScColorEngine::getShadeColorProof(col, NULL, shade);
+					color = ScColorEngine::getShadeColorProof(col, nullptr, shade);
 				}
 				gra.addStop(color, ramp, 0.5, opa, name, shade);
 				grad = grad.nextSibling();

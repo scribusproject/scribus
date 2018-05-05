@@ -113,7 +113,7 @@ bool ScTreeWidget::event(QEvent *e)
 	if (e->type() == QEvent::Shortcut)
 	{
 		QShortcutEvent *se = static_cast<QShortcutEvent *>(e);
-		if (se != NULL)
+		if (se != nullptr)
 		{
 			int k = se->shortcutId();
 			QTreeWidgetItem *item1 = keySList.value(k);
@@ -160,10 +160,10 @@ int ScTreeWidget::addItem(QWidget* widget, QString title)
 QWidget* ScTreeWidget::widget(int index)
 {
 	if ((index < 0) || (index >= topLevelItemCount()))
-		return NULL;
+		return nullptr;
 	QTreeWidgetItem *top = topLevelItem(index);
 	if (top->childCount() == 0)
-		return NULL;
+		return nullptr;
 	QTreeWidgetItem *child = top->child(0);
 	return itemWidget(child, 0);
 }
@@ -177,7 +177,7 @@ void ScTreeWidget::setItemEnabled(int index, bool enable)
 	else
 		topLevelItem(index)->setFlags(0);
 	QTreeWidgetItem *child = topLevelItem(index)->child(0);
-	if (child != NULL)
+	if (child != nullptr)
 		itemWidget(child, 0)->setEnabled(enable);
 }
 

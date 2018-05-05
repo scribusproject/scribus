@@ -167,7 +167,7 @@ void LayerPalette::ClearInhalt()
 	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	Table->clearContents();
 	Table->setRowCount(0);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	newLayerButton->setEnabled(false);
 	deleteLayerButton->setEnabled(false);
 	raiseLayerButton->setEnabled(false);

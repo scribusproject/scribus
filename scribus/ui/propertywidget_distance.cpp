@@ -77,7 +77,7 @@ void PropertyWidget_Distance::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{
@@ -106,7 +106,7 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 
@@ -194,7 +194,7 @@ void PropertyWidget_Distance::configureWidgets(void)
 		if (m_doc->appMode == modeEditTable)
 			textItem = m_item->asTable()->activeCell().textFrame();
 
-		enabled  = (textItem != NULL);
+		enabled  = (textItem != nullptr);
 		enabled &= (m_doc->m_Selection->count() == 1);
 
 		if (textItem)
@@ -345,7 +345,7 @@ void PropertyWidget_Distance::handleGapSwitch()
 	PageItem *textItem = m_item;
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
-	if (textItem != NULL)
+	if (textItem != nullptr)
 		showColumns(textItem->Cols, textItem->ColGap);
 
 	int index = columnGapLabel->currentIndex();
@@ -359,7 +359,7 @@ void PropertyWidget_Distance::handleVAlign()
 	PageItem *textItem = m_item;
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
-	if (textItem != NULL)
+	if (textItem != nullptr)
 	{
 		textItem->setVerticalAlignment(verticalAlign->currentIndex());
 		textItem->update();

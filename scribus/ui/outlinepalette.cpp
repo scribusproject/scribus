@@ -47,18 +47,18 @@ for which a new license (GPL+exception) is in place.
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
-	PageObject = NULL;
-	PageItemObject = NULL;
-	DocObject = NULL;
+	PageObject = nullptr;
+	PageItemObject = nullptr;
+	DocObject = nullptr;
 	type = -1;
 	LayerID = -1;
 }
 
 OutlineTreeItem::OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
-	PageObject = NULL;
-	PageItemObject = NULL;
-	DocObject = NULL;
+	PageObject = nullptr;
+	PageItemObject = nullptr;
+	DocObject = nullptr;
 	type = -1;
 	LayerID = -1;
 }
@@ -110,7 +110,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 	for (int i = 0; i < its.count(); ++i)
 	{
 		QTreeWidgetItem* it = its.at(i);
-		if (it == NULL)
+		if (it == nullptr)
 			continue;
 		OutlineTreeItem *itemPar = itemPars.at(i);
 		OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
@@ -314,7 +314,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  		if (it != 0)
  		{
 			OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
- 			if (item != NULL)
+			if (item != nullptr)
  			{
  				QString tipText("");
 				if (item->type == 5)
@@ -504,10 +504,10 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	annotLinkIcon = im->loadPixmap("goto.png");
 	annot3DIcon = im->loadPixmap("22/annot3d.png");
 	selectionTriggered = false;
-	m_MainWindow  = NULL;
-	freeObjects   = NULL;
-	rootObject    = NULL;
-	currentObject = NULL;
+	m_MainWindow  = nullptr;
+	freeObjects   = nullptr;
+	rootObject    = nullptr;
+	currentObject = nullptr;
 	languageChange();
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
@@ -521,30 +521,30 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_MainWindow=mw;
-	if (m_MainWindow==NULL)
+	if (m_MainWindow==nullptr)
 		clearPalette();
 }
 
 void OutlinePalette::setDoc(ScribusDoc *newDoc)
 {
-	if (m_MainWindow==NULL)
-		currDoc=NULL;
+	if (m_MainWindow==nullptr)
+		currDoc=nullptr;
 	else
 		currDoc=newDoc;
-	if (currDoc==NULL)
+	if (currDoc==nullptr)
 		clearPalette();
 }
 
 void OutlinePalette::unsetDoc()
 {
-	currDoc=NULL;
+	currDoc=nullptr;
 	clearPalette();
 }
 
 void OutlinePalette::setPaletteShown(bool visible)
 {
 	ScDockPalette::setPaletteShown(visible);
-	if ((visible) && (currDoc != NULL))
+	if ((visible) && (currDoc != nullptr))
 		BuildTree();
 }
 
@@ -553,7 +553,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	QTreeWidgetItem *ite = reportDisplay->itemAt(point);
-	if (ite == NULL)
+	if (ite == nullptr)
 		return;
 	if (!ite->isSelected())
 		slotMultiSelect();
@@ -561,14 +561,14 @@ void OutlinePalette::slotRightClick(QPoint point)
 		return;
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
 	
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		if ((item->type == 0) || (item->type == 2))
-			createContextMenu(NULL, point.x(), point.y());
+			createContextMenu(nullptr, point.x(), point.y());
 		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
 			PageItem *currItem = item->PageItemObject;
-			if (currItem!=NULL)
+			if (currItem!=nullptr)
 			{
 				currentObject = ite;
 				createContextMenu(currItem, point.x(), point.y());
@@ -662,7 +662,7 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 		return;
 	disconnect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
@@ -720,7 +720,7 @@ QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
 	QTreeWidgetItem *retVal = 0;
 	if (currDoc->masterPageMode())
 	{
-		if (Nr == NULL)
+		if (Nr == nullptr)
 		{
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
@@ -751,7 +751,7 @@ QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
 	}
 	else
 	{
-		if (Nr == NULL)
+		if (Nr == nullptr)
 		{
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
@@ -789,7 +789,7 @@ void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc==NULL)
+	if (currDoc==nullptr)
 		return;
 	if (currDoc->isLoading())
 		return;
@@ -961,7 +961,7 @@ void OutlinePalette::slotMultiSelect()
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc==NULL)
+	if (currDoc==nullptr)
 		return;
 	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	selectionTriggered = true;
@@ -980,7 +980,7 @@ void OutlinePalette::slotMultiSelect()
 			OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
 			if (!item)
 				qFatal("OutlineWidget::slotMultiSelect !item");
-			PageItem *pgItem = NULL;
+			PageItem *pgItem = nullptr;
 			switch (item->type)
 			{
 				case 0:
@@ -1019,7 +1019,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
 	if (!item)
 		qFatal("OutlineWidget::slotSelect !item");
-	PageItem *pgItem = NULL;
+	PageItem *pgItem = nullptr;
 	switch (item->type)
 	{
 		case 0:
@@ -1078,7 +1078,7 @@ void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
 	if (!item)
 		qFatal("OutlinePalette::slotDoubleClick !item");
-	PageItem *pgItem = NULL;
+	PageItem *pgItem = nullptr;
 	switch (item->type)
 	{
 		case 1:
@@ -1104,7 +1104,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc==NULL)
+	if (currDoc==nullptr)
 		return;
 	if (selectionTriggered)
 		return;
@@ -1340,7 +1340,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
-							object->PageObject = NULL;
+							object->PageObject = nullptr;
 							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
@@ -1351,13 +1351,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
-							object->PageObject = NULL;
+							object->PageObject = nullptr;
 							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
+							parseSubGroup(object, &pgItem->groupItemList, 4, nullptr);
 						}
 					}
 				}
@@ -1373,7 +1373,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
-							object->PageObject = NULL;
+							object->PageObject = nullptr;
 							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
@@ -1384,13 +1384,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
-							object->PageObject = NULL;
+							object->PageObject = nullptr;
 							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
+							parseSubGroup(object, &pgItem->groupItemList, 4, nullptr);
 						}
 					}
 				}
@@ -1404,7 +1404,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 	setUpdatesEnabled(true);
 	filterTree();
 	if (currDoc->m_Selection->count() > 0)
-		slotShowSelect(0, NULL);
+		slotShowSelect(0, nullptr);
 	update();
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
@@ -1412,12 +1412,12 @@ void OutlinePalette::BuildTree(bool storeVals)
 
 void OutlinePalette::filterTree(const QString& keyword)
 {
-	OutlineTreeItem *item = NULL;
+	OutlineTreeItem *item = nullptr;
 	QTreeWidgetItemIterator it( reportDisplay );
 	while ( (*it) )
 	{
 		item = dynamic_cast<OutlineTreeItem*>(*it);
-		if (item != NULL)
+		if (item != nullptr)
 		{
 			if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 			{
@@ -1499,11 +1499,11 @@ void OutlinePalette::clearPalette()
 
 void OutlinePalette::createContextMenu(PageItem * currItem, double /*mx*/, double /*my*/)
 {
-	if (m_MainWindow==NULL || currDoc==NULL)
+	if (m_MainWindow==nullptr || currDoc==nullptr)
 		return;
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if(currItem!=NULL)
+	if(currItem!=nullptr)
 		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
 	else
 		cmen = new ContextMenu(m_MainWindow, currDoc, currDoc->currentPage()->xOffset(), currDoc->currentPage()->yOffset());

@@ -19,8 +19,8 @@ for which a new license (GPL+exception) is in place.
 PropertyWidget_Hyphenation::PropertyWidget_Hyphenation(QWidget* parent)
 	: QFrame(parent)
 {
-	m_item = NULL;
-	m_ScMW = NULL;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 
 	setupUi(this);
 
@@ -98,7 +98,7 @@ void PropertyWidget_Hyphenation::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{

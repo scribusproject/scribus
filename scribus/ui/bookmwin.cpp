@@ -212,12 +212,12 @@ void BookMView::rebuildTree()
 		currItem->Pare = parent ? parent->ItemNr : 0;
 		if (currItem->Pare == 0) // top level item
 		{
-			BookMItem *prev   = NULL, *next = NULL;
+			BookMItem *prev   = nullptr, *next = nullptr;
 			int topLevelIndex = this->indexOfTopLevelItem(currItem);
 			if (topLevelIndex >= 0)
 			{
-				prev = (topLevelIndex > 0) ? (BookMItem *) this->topLevelItem(topLevelIndex - 1) : NULL;
-				next = (topLevelIndex < (topLevelCount - 1)) ? (BookMItem *) this->topLevelItem(topLevelIndex + 1) : NULL;
+				prev = (topLevelIndex > 0) ? (BookMItem *) this->topLevelItem(topLevelIndex - 1) : nullptr;
+				next = (topLevelIndex < (topLevelCount - 1)) ? (BookMItem *) this->topLevelItem(topLevelIndex + 1) : nullptr;
 			}
 			currItem->Prev = prev ? prev->ItemNr : 0;
 			currItem->Next = next ? next->ItemNr : 0;
@@ -229,7 +229,7 @@ void BookMView::rebuildTree()
 		int childCount  = currItem->childCount();
 		if (childCount > 0)
 		{
-			BookMItem * child = NULL, *prev = NULL, *next = NULL;
+			BookMItem * child = nullptr, *prev = nullptr, *next = nullptr;
 			BookMItem * firstChild = (BookMItem*) currItem->child(0);
 			BookMItem * lastChild  = (BookMItem*) currItem->child(childCount - 1);
 			currItem->First = firstChild->ItemNr;
@@ -237,7 +237,7 @@ void BookMView::rebuildTree()
 			for (int i = 0; i < childCount; ++i)
 			{
 				child = (BookMItem*) currItem->child(i);
-				next  = (i < (childCount - 1)) ? (BookMItem*) currItem->child(i + 1) : NULL;
+				next  = (i < (childCount - 1)) ? (BookMItem*) currItem->child(i + 1) : nullptr;
 				child->Prev = prev ? prev->ItemNr : 0;
 				child->Next = next ? next->ItemNr : 0;
 				prev = child;

@@ -41,13 +41,13 @@ for which a new license (GPL+exception) is in place.
 #include "undostack.h"
 #include "undotransaction.h"
 
-UndoManager* UndoManager::instance_          = 0;
+UndoManager* UndoManager::instance_          = nullptr;
 bool         UndoManager::undoEnabled_       = true;
 int          UndoManager::undoEnabledCounter_ = 0;
 
 UndoManager* UndoManager::instance()
 {
-	if (instance_ == 0)
+	if (instance_ == nullptr)
 		instance_ = new UndoManager();
 
 	return instance_;
@@ -98,7 +98,7 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 											  QPixmap *actionPixmap)
 {
 	if (!undoEnabled_)
-		return UndoTransaction(NULL);
+		return UndoTransaction(nullptr);
 	
 	/** @brief Dummy object for storing transaction target's name */
 	UndoObject* transactionTarget_ = new DummyUndoObject();
@@ -445,8 +445,8 @@ void UndoManager::showObject(int uid)
 
 UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
-	UndoObject *tmp = 0;
-	TransactionState* transaction_ = NULL;
+	UndoObject *tmp = nullptr;
+	TransactionState* transaction_ = nullptr;
 	if (transactions_.size() > 0)
 		transaction_ = transactions_.at(transactions_.size()-1)->transactionState;
 	for (uint i = 0; i < stacks_[currentDoc_].m_undoActions_.size(); ++i)
@@ -543,7 +543,7 @@ void UndoManager::deleteInstance()
 {
 	if (instance_)
 		delete instance_;
-	instance_ = 0;
+	instance_ = nullptr;
 }
 
 UndoManager::~UndoManager()

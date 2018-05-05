@@ -141,14 +141,14 @@ ScJpegEncodeFilter::~ScJpegEncodeFilter()
 	freeData();
 }
 
-void ScJpegEncodeFilter::freeData(void)
+void ScJpegEncodeFilter::freeData()
 {
 	if (m_filterData)
 		delete m_filterData;
 	m_filterData = nullptr;
 }
 
-bool ScJpegEncodeFilter::openFilter (void)
+bool ScJpegEncodeFilter::openFilter ()
 {
 	freeData();
 
@@ -212,7 +212,7 @@ bool ScJpegEncodeFilter::openFilter (void)
 	return true;
 }
 
-bool ScJpegEncodeFilter::closeFilter(void)
+bool ScJpegEncodeFilter::closeFilter()
 {
 	bool closeSucceed = true;
 

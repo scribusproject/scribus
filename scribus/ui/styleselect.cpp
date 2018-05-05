@@ -134,7 +134,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ssLayout->setSpacing( 0 );
 	ssLayout->setMargin( 0 );
 
-	UnderlineVal = new UnderlineValues( NULL );
+	UnderlineVal = new UnderlineValues( nullptr );
 	UnderlinePop = new QMenu();
 	UnderlineValAct = new QWidgetAction(this);
 	UnderlineValAct->setDefaultWidget(UnderlineVal);
@@ -177,7 +177,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	smallcapsButton->setCheckable( true );
 	ssLayout->addWidget( smallcapsButton );
 
-	StrikeVal = new StrikeValues( NULL );
+	StrikeVal = new StrikeValues( nullptr );
 	StrikePop = new QMenu();
 	StrikeValAct = new QWidgetAction(this);
 	StrikeValAct->setDefaultWidget(StrikeVal);
@@ -190,7 +190,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( strikeoutButton );
 
-	OutlineVal = new OutlineValues( NULL );
+	OutlineVal = new OutlineValues( nullptr );
 	OutlinePop = new QMenu();
 	OutlineValAct = new QWidgetAction(this);
 	OutlineValAct->setDefaultWidget(OutlineVal);
@@ -203,7 +203,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	outlineButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( outlineButton );
 
-	ShadowVal = new ShadowValues( NULL );
+	ShadowVal = new ShadowValues( nullptr );
 	ShadowPop = new QMenu();
 	ShadowValAct = new QWidgetAction(this);
 	ShadowValAct->setDefaultWidget(ShadowVal);

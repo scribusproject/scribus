@@ -47,7 +47,7 @@ CanvasMode_CopyProperties::CanvasMode_CopyProperties(ScribusView* view) : Canvas
 inline bool CanvasMode_CopyProperties::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_CopyProperties::drawControls(QPainter* p)
@@ -202,7 +202,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		m_doc->ElemToLink = NULL;
+		m_doc->ElemToLink = nullptr;
 		m_view->requestMode(submodePaintingDone);
 	}
 }
@@ -287,7 +287,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
@@ -360,7 +360,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 
 void CanvasMode_CopyProperties::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;

@@ -17,7 +17,7 @@ void PropertyWidgetBase::setDoc(ScribusDoc *doc)
 
 PageItem* PropertyWidgetBase::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc)
 	{

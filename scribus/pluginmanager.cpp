@@ -51,7 +51,7 @@ PluginManager::~PluginManager()
 
 void* PluginManager::loadDLL( QString plugin )
 {
-	void* lib = NULL;
+	void* lib = nullptr;
 #ifdef HAVE_DLFCN_H
 	QString libpath = QDir::toNativeSeparators( plugin );
 	lib = dlopen(libpath.toLocal8Bit().data(), RTLD_LAZY | RTLD_GLOBAL);
@@ -78,24 +78,24 @@ void* PluginManager::loadDLL( QString plugin )
 
 void* PluginManager::resolveSym( void* plugin, const char* sym )
 {
-	void* symAddr = NULL;
+	void* symAddr = nullptr;
 #ifdef HAVE_DLFCN_H
 	const char* error;
 	dlerror();
 	symAddr = dlsym( plugin, sym );
-	if ((error = dlerror()) != NULL)
+	if ((error = dlerror()) != nullptr)
 	{
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).toLocal8Bit().data());
-		symAddr = NULL;
+		symAddr = nullptr;
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
-	if ( symAddr == NULL)
+	if ( symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #else
 	QLibrary* qlib = (QLibrary*) plugin;
 	if( plugin ) symAddr = qlib->resolve(sym);
-	if ( symAddr == NULL)
+	if ( symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #endif
 	return symAddr;

@@ -126,7 +126,7 @@ void TransformDialog::newSkewing()
 
 void TransformDialog::setCurrentTransform(QListWidgetItem* item)
 {
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		TransformItem *ite = (TransformItem*)item;
 		switch (item->type())

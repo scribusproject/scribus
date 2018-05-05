@@ -104,7 +104,7 @@ void Prefs_TableOfContents::generatePageItemList()
 {
 	itemDestFrameComboBox->clear();
 	itemDestFrameComboBox->addItem(CommonStrings::tr_None);
-	if (m_Doc!=NULL)
+	if (m_Doc!=nullptr)
 	{
 		QList<PageItem*> allItems;
 		for (int a = 0; a < m_Doc->DocItems.count(); ++a)
@@ -172,7 +172,7 @@ void Prefs_TableOfContents::selectToC( int numberSelected )
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
-	if (m_Doc!=NULL)
+	if (m_Doc!=nullptr)
 	{
 		if (localToCSetupVector[numSelected].frameName==CommonStrings::None)
 			setCurrentComboItem(itemDestFrameComboBox, CommonStrings::tr_None);
@@ -245,7 +245,7 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 	paragraphStyleList.clear();
 	paragraphStyleList.append(CommonStrings::tr_None);
 
-	if(m_Doc!=NULL) // && m_Doc->docParagraphStyles.count()>5)
+	if(m_Doc!=nullptr) // && m_Doc->docParagraphStyles.count()>5)
 	{
 		for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
 			paragraphStyleList.append(m_Doc->paragraphStyles()[i].name());
@@ -262,7 +262,7 @@ void Prefs_TableOfContents::enableGUIWidgets()
 	tocDeleteButton->setEnabled(enabled);
 	itemAttrComboBox->setEnabled(enabled);
 	itemNumberPlacementComboBox->setEnabled(enabled);
-	bool haveDoc=enabled && m_Doc!=NULL;
+	bool haveDoc=enabled && m_Doc!=nullptr;
 	itemDestFrameComboBox->setEnabled(haveDoc);
 	itemParagraphStyleComboBox->setEnabled(haveDoc);
 }

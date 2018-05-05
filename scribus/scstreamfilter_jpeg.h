@@ -29,8 +29,8 @@ public:
 	ScJpegEncodeFilter(ScStreamFilter* filter, unsigned int imgWidth, unsigned int imgHeight, ScJpegEncodeFilter::Color color);
 	~ScJpegEncodeFilter();
 
-	virtual bool openFilter (void);
-	virtual bool closeFilter(void);
+	virtual bool openFilter ();
+	virtual bool closeFilter();
 
 	virtual bool writeData(const char* data, int dataLen);
 
@@ -40,7 +40,7 @@ protected:
 
 	ScJpegEncodeFilterData* m_filterData;
 
-	void  freeData(void);
+	void  freeData();
 	bool  m_openedFilter;
 
 	unsigned int m_width;

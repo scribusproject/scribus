@@ -297,10 +297,10 @@ void OSGEditorDialog::analyseGeode(osg::Geode *geode, double transparency)
 	if (theState)
 	{
 		pRAP = theState->getAttribute(osg::StateAttribute::MATERIAL);
-		if (pRAP != NULL)
+		if (pRAP != nullptr)
 		{
 			osg::Material *material = dynamic_cast<osg::Material*>(pRAP);
-			if (material != NULL)
+			if (material != nullptr)
 			{
 				material->setColorMode(osg::Material::OFF);
 				material->setAlpha(osg::Material::FRONT_AND_BACK, transparency);
@@ -319,10 +319,10 @@ void OSGEditorDialog::analyseGeode(osg::Geode *geode, double transparency)
 			if (theState)
 			{
 				pRAP = theState->getAttribute(osg::StateAttribute::MATERIAL);
-				if (pRAP != NULL)
+				if (pRAP != nullptr)
 				{
 					osg::Material *material = dynamic_cast<osg::Material*>(pRAP);
-					if (material != NULL)
+					if (material != nullptr)
 					{
 						material->setColorMode(osg::Material::OFF);
 						material->setAlpha(osg::Material::FRONT_AND_BACK, transparency);

@@ -200,13 +200,13 @@ void PropertiesPalette_XYZ::unsetDoc()
 
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc   = NULL;
-	m_item  = NULL;
+	m_doc   = nullptr;
+	m_item  = nullptr;
 	nameEdit->clear();
-	xposSpin->setConstants(NULL);
-	yposSpin->setConstants(NULL);
-	widthSpin->setConstants(NULL);
-	heightSpin->setConstants(NULL);
+	xposSpin->setConstants(nullptr);
+	yposSpin->setConstants(nullptr);
+	widthSpin->setConstants(nullptr);
+	heightSpin->setConstants(nullptr);
 	doGroup->setEnabled(false);
 	doUnGroup->setEnabled(false);
 	flipH->setEnabled(false);
@@ -226,7 +226,7 @@ void PropertiesPalette_XYZ::unsetDoc()
 void PropertiesPalette_XYZ::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	handleSelectionChanged();
 }
 
@@ -256,7 +256,7 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 
 PageItem* PropertiesPalette_XYZ::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc)
 	{
@@ -280,7 +280,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 

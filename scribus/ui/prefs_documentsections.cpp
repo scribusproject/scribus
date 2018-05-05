@@ -100,7 +100,7 @@ void Prefs_DocumentSections::updateTable()
 		sectionsTable->setItem(row, i++, item8);
 		//
 		QTableWidgetItem *t=sectionsTable->verticalHeaderItem(row);
-		if (t!=NULL)
+		if (t!=nullptr)
 			t->setText(QString("%1").arg(row));
 		row++;
 	}
@@ -148,7 +148,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 	case 5:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
-			if (qcti!=NULL)
+			if (qcti!=nullptr)
 			{
 				int index=qcti->currentIndex();
 				if (index<m_styles.count()-1)

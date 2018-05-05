@@ -115,7 +115,7 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 
 PageItem* PropertiesPalette_Group::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc)
 	{
@@ -158,12 +158,12 @@ void PropertiesPalette_Group::setDoc(ScribusDoc *d)
 	disconnect(this->transPalWidget, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
 
 	transPalWidget->setDocument(m_doc);
-	transPalWidget->setCurrentItem(NULL);
+	transPalWidget->setCurrentItem(nullptr);
 
 	m_haveDoc  = true;
 	m_haveItem = false;
@@ -188,11 +188,11 @@ void PropertiesPalette_Group::unsetDoc()
 
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc   = NULL;
-	m_item  = NULL;
+	m_doc   = nullptr;
+	m_item  = nullptr;
 
-	transPalWidget->setDocument(NULL);
-	transPalWidget->setCurrentItem(NULL);
+	transPalWidget->setDocument(nullptr);
+	transPalWidget->setCurrentItem(nullptr);
 
 	setEnabled(false);
 }
@@ -200,8 +200,8 @@ void PropertiesPalette_Group::unsetDoc()
 void PropertiesPalette_Group::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
-	transPalWidget->setCurrentItem(NULL);
+	m_item     = nullptr;
+	transPalWidget->setCurrentItem(nullptr);
 	handleSelectionChanged();
 }
 
@@ -276,7 +276,7 @@ void PropertiesPalette_Group::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 

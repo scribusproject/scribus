@@ -56,7 +56,7 @@ void PropertyWidget_PathText::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{
@@ -85,7 +85,7 @@ void PropertyWidget_PathText::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 

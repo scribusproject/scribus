@@ -111,7 +111,7 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 	setWidget( InlineViewWidget );
 
 	unsetDoc();
-	m_scMW  = NULL;
+	m_scMW  = nullptr;
 	currentEditedItem = -1;
 	languageChange();
 	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
@@ -209,7 +209,7 @@ void InlinePalette::editingFinished()
 void InlinePalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_scMW = mw;
-	if (m_scMW == NULL)
+	if (m_scMW == nullptr)
 	{
 		InlineViewWidget->clear();
 		disconnect(m_scMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
@@ -220,11 +220,11 @@ void InlinePalette::setMainWindow(ScribusMainWindow *mw)
 
 void InlinePalette::setDoc(ScribusDoc *newDoc)
 {
-	if (m_scMW == NULL)
-		m_doc = NULL;
+	if (m_scMW == nullptr)
+		m_doc = nullptr;
 	else
 		m_doc = newDoc;
-	if (m_doc == NULL)
+	if (m_doc == nullptr)
 	{
 		InlineViewWidget->clear();
 		setEnabled(true);
@@ -238,7 +238,7 @@ void InlinePalette::setDoc(ScribusDoc *newDoc)
 
 void InlinePalette::unsetDoc()
 {
-	m_doc = NULL;
+	m_doc = nullptr;
 	InlineViewWidget->clear();
 	setEnabled(true);
 }

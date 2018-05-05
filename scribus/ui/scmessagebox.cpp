@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 void ScMessageBox::initScMessageBox(void)
 {
 	messageTitle = "";
-	defaultBatchPushButton = NULL;
+	defaultBatchPushButton = nullptr;
 	defaultBatchStandardButton = QMessageBox::NoButton;
 }
 

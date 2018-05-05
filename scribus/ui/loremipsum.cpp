@@ -286,7 +286,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 	for (int i = 0; i < m_Doc->m_Selection->count(); ++i)
 	{
 		PageItem* currItem = m_Doc->m_Selection->itemAt(i);
-		if (currItem == NULL)
+		if (currItem == nullptr)
 			continue;
 		//do not insert lorem ipsum text into notes frames
 		if (currItem->isNoteFrame())
@@ -316,9 +316,9 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 				continue;
 		}
 		LoremParser *lp = new LoremParser(name);
-		if (lp == NULL)
+		if (lp == nullptr)
 		{
-			qDebug("LoremManager::okButton_clicked() *lp == NULL");
+			qDebug("LoremManager::okButton_clicked() *lp == nullptr");
 			return;
 		}
 		

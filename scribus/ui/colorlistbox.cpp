@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-ColorPixmapValue::ColorPixmapValue() : m_color(), m_doc(NULL), m_name("invalid")
+ColorPixmapValue::ColorPixmapValue() : m_color(), m_doc(nullptr), m_name("invalid")
 {}
 
 ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)
@@ -44,7 +44,7 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 
 ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName ) 
 {
-	m_doc = (doc) ? doc->guardedPtr() : NULL;
+	m_doc = (doc) ? doc->guardedPtr() : nullptr;
 	m_color = col;
 	m_name = colName;
 }
@@ -203,7 +203,7 @@ int ColorListBox::sortRule;
 ColorListBox::ColorListBox(QWidget * parent)
 	: QListView(parent)
 {
-	cList = NULL;
+	cList = nullptr;
 	if (initialized != 12345)
 		sortRule = 0;
 	initialized = 12345;
@@ -222,7 +222,7 @@ ColorListBox::ColorListBox(QWidget * parent)
 ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 	: QListView(parent)
 {
-	cList = NULL;
+	cList = nullptr;
 	if (initialized != 12345)
 		sortRule = 0;
 	initialized = 12345;
@@ -520,7 +520,7 @@ void ColorListBox::updateBox(ColorList& list)
 
 bool ColorListBox::viewportEvent(QEvent *event)
 {
-	if (event != NULL)
+	if (event != nullptr)
 	{
 		if (event->type() == QEvent::MouseButtonPress)
 		{

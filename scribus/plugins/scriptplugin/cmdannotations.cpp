@@ -20,16 +20,16 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 {
 	char *name = const_cast<char*>("");  
 	PyObject *deannotate = Py_False;
-	char *kwlist[] = {const_cast<char*>(""),const_cast<char*>("deannotate"), NULL};
+	char *kwlist[] = {const_cast<char*>(""),const_cast<char*>("deannotate"), nullptr};
 
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|esO", kwlist, "utf-8", &name, &deannotate))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
-	if (i == NULL)
-		return NULL;
+	if (i == nullptr)
+		return nullptr;
 
 	if (i->isAnnotation())
 	{
@@ -134,7 +134,7 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			  "Key", "Help", 
 			  "NewParagraph","Paragraph",
 			  "Insert","Cross",
-			  "Circle", NULL
+			  "Circle", nullptr
 			};
 			if (icon >= 0 && icon < 9)
 			{
@@ -177,20 +177,20 @@ PyObject *scribus_setlinkannotation(PyObject* /* self */, PyObject* args)
 	int page, x, y;
 
 	if (!PyArg_ParseTuple(args, "iii|es", &page, &x, &y, "utf-8", &name))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (!testPageItem(i))
-		return NULL;
+		return nullptr;
 
 	int numpages = ScCore->primaryMainWindow()->doc->Pages->count();
 	if (page <= 0 || page > numpages){
 		QString qnum = QString("%1").arg(numpages);
 		PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("which must be 1 to " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	prepareannotation(i);
@@ -217,18 +217,18 @@ PyObject *scribus_setfileannotation(PyObject * /*self*/, PyObject* args, PyObjec
 
 	char *kwlist[] = {const_cast<char*>("path"), const_cast<char*>("page"), 
 			  const_cast<char*>("x"), const_cast<char*>("y"), 
-			  const_cast<char*>("name"),const_cast<char*>("absolute"), NULL};
+			  const_cast<char*>("name"),const_cast<char*>("absolute"), nullptr};
 
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "esiii|esO", kwlist,
 					 "utf-8", &path, &page, &x, &y,
 					 "utf-8", &name, &absolute))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (!testPageItem(i))
-		return NULL;
+		return nullptr;
 
 	prepareannotation(i);
 	Annotation &a = i->annotation();
@@ -252,13 +252,13 @@ PyObject *scribus_seturiannotation(PyObject * /*self*/, PyObject* args)
 	char *name = const_cast<char*>("");
 
 	if (!PyArg_ParseTuple(args, "es|es","utf-8" ,&uri,"utf-8", &name))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (!testPageItem(i))
-		return NULL;
+		return nullptr;
 		
 	prepareannotation(i);
 	Annotation &a = i->annotation();
@@ -287,19 +287,19 @@ PyObject *scribus_settextannotation(PyObject * /*self*/, PyObject* args)
 	*/ 
 
 	if (!PyArg_ParseTuple(args, "iO|es",&icon,&isopen,"utf-8", &name))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (icon < 0 || icon > 8)
 	{
 		PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("Icon must be 0 to 8", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (!testPageItem(i))
-		return NULL;
+		return nullptr;
 	
 	prepareannotation(i);
 
@@ -326,14 +326,14 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 	char *name = const_cast<char*>("");
 
 	if (!PyArg_ParseTuple(args, "idddd|es", &which, &x, &y, &w, &h, "utf-8", &name))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	if (which < 0 || which > 8){
 		PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("which must be 0 to 8", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ScribusDoc *m_doc = ScCore->primaryMainWindow()->doc;
@@ -372,7 +372,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 		else{
 			PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("Doesn't have OSG can't create 3DAnnotation", "python error").toLocal8Bit().constData());
-			return NULL;
+			return nullptr;
 		}
 	}
 
@@ -504,7 +504,7 @@ static void setactioncoords(Annotation &a, int x, int y)
 
 static bool testPageItem(PageItem *i)
 {
-	if (i == NULL)
+	if (i == nullptr)
 		return false;
 	if (!i->asTextFrame())
 	{
@@ -540,7 +540,7 @@ static void add_text_to_dict(PyObject *drv, PageItem * i)
 			            "Reset Form",  "Import Data", 
 			            "Unknown",  "Goto File Relative", 
 			            "URI",  "Goto File Relative" , 
-			            "Named", NULL };
+						"Named", nullptr };
 
 	const char action[] = "action";
 	PyObject *akey = PyString_FromString(action);

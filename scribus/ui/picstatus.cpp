@@ -64,7 +64,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	imageViewArea->setIconSize(QSize(128, 128));
 	imageViewArea->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_Doc = docu;
-	currItem = NULL;
+	currItem = nullptr;
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	fillTable();
 	workTab->setCurrentIndex(0);
@@ -262,12 +262,12 @@ void PicStatus::slotRightClick()
 void PicStatus::newImageSelected()
 {
 	QList<QListWidgetItem*> items = imageViewArea->selectedItems();
-	imageSelected((items.count() > 0) ? items.at(0) : NULL);
+	imageSelected((items.count() > 0) ? items.at(0) : nullptr);
 }
 
 void PicStatus::imageSelected(QListWidgetItem *ite)
 {
-	if (ite != NULL)
+	if (ite != nullptr)
 	{
 		PicItem *item = (PicItem*)ite;
 		currItem = item->PageItemObject;
@@ -373,20 +373,20 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 	}
 	else
 	{
-		currItem = NULL;
+		currItem = nullptr;
 		imageViewArea->clearSelection();
 	}
 }
 
 void PicStatus::PrintPic()
 {
-	if (currItem != NULL)
+	if (currItem != nullptr)
 		currItem->setPrintEnabled(isPrinting->isChecked());
 }
 
 void PicStatus::visiblePic()
 {
-	if (currItem != NULL)
+	if (currItem != nullptr)
 	{
 		currItem->setImageVisible(isVisibleCheck->isChecked());
 		emit refreshItem(currItem);
@@ -395,7 +395,7 @@ void PicStatus::visiblePic()
 
 void PicStatus::GotoPic()
 {
-	if (currItem == NULL)
+	if (currItem == nullptr)
 		return;
 
 	if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
@@ -410,7 +410,7 @@ void PicStatus::GotoPic()
 
 void PicStatus::SelectPic()
 {
-	if (currItem == NULL)
+	if (currItem == nullptr)
 		return;
 
 	if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
@@ -438,7 +438,7 @@ bool PicStatus::loadPict(const QString & newFilePath)
 void PicStatus::SearchPic()
 {
 	// no action where is no item selected. It should never happen.
-	if (currItem == NULL)
+	if (currItem == nullptr)
 		return;
 	static QString lastSearchPath;
 
@@ -475,7 +475,7 @@ void PicStatus::SearchPic()
 
 void PicStatus::doImageEffects()
 {
-	if (currItem == NULL)
+	if (currItem == nullptr)
 		return;
 
 	EffectsDialog* dia = new EffectsDialog(this, currItem, m_Doc);
@@ -491,7 +491,7 @@ void PicStatus::doImageEffects()
 
 void PicStatus::doImageExtProp()
 {
-	if (currItem != NULL)
+	if (currItem != nullptr)
 	{
 		ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
 		dia.exec();
@@ -503,7 +503,7 @@ void PicStatus::doImageExtProp()
 
 void PicStatus::doEditImage()
 {
-	if (currItem != NULL)
+	if (currItem != nullptr)
 	{
 		SelectPic();
 		ScCore->primaryMainWindow()->callImageEditor();

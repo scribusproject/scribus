@@ -80,8 +80,8 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	ppd_file_t	*ppd;				/* PPD data */
 	ppd_group_t	*group;			/* Current group */
 	num_dests = cupsGetDests(&dests);
-	dest = cupsGetDest(Geraet.toLocal8Bit().constData(), NULL, num_dests, dests);
-	if (!(dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL || (ppd = ppdOpenFile(filename)) == NULL))
+	dest = cupsGetDest(Geraet.toLocal8Bit().constData(), nullptr, num_dests, dests);
+	if (!(dest == nullptr || (filename = cupsGetPPD(dest->name)) == nullptr || (ppd = ppdOpenFile(filename)) == nullptr))
 	{
 		ppdMarkDefaults(ppd);
 		cupsMarkOptions(ppd, dest->num_options, dest->options);

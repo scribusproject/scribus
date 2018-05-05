@@ -212,7 +212,7 @@ void StyleManager::setOkButtonText()
 void StyleManager::setDoc(ScribusDoc *doc)
 {
 	ScribusDoc* oldDoc = m_doc;
-	bool hasDoc = (doc != NULL);
+	bool hasDoc = (doc != nullptr);
 	if (m_doc && (m_doc != doc))
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 	m_doc = doc;

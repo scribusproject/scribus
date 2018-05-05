@@ -8,7 +8,7 @@ MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) :
 	setupUi(this);
 
 	labelEditWidget = (QWidget*) new QComboBox(parent);
-	((QComboBox*) labelEditWidget)->addItem(tr("New Mark"), QVariant::fromValue((void*) NULL));
+	((QComboBox*) labelEditWidget)->addItem(tr("New Mark"), QVariant::fromValue((void*) nullptr));
 	for (int i = 0; i < marks.size(); ++i)
 	{
 		if (marks[i]->isType(MARKVariableTextType))

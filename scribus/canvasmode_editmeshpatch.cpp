@@ -70,19 +70,19 @@ CanvasMode_EditMeshPatch::CanvasMode_EditMeshPatch(ScribusView* view) : CanvasMo
 	m_keyRepeat = false;
 	m_click_count = 0;
 	m_old_mesh = new MeshPoint();
-	m_currItem = NULL;
+	m_currItem = nullptr;
 }
 
 CanvasMode_EditMeshPatch::~CanvasMode_EditMeshPatch()
 {
 	delete m_old_mesh;
-	m_old_mesh = NULL;
+	m_old_mesh = nullptr;
 }
 
 inline bool CanvasMode_EditMeshPatch::GetItem(PageItem** pi)
 {
 	*pi = m_doc->m_Selection->itemAt(0);
-	return (*pi) != NULL;
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditMeshPatch::drawControls(QPainter* p)
@@ -985,7 +985,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL)
 				{
 					delete ss;
-					ss=NULL;
+					ss=nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL));
@@ -994,7 +994,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR)
 				{
 					delete ss;
-					ss=NULL;
+					ss=nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR));
@@ -1003,7 +1003,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR)
 				{
 					delete ss;
-					ss=NULL;
+					ss=nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR));
@@ -1012,7 +1012,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL)
 				{
 					delete ss;
-					ss=NULL;
+					ss=nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL));

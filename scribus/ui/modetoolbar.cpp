@@ -52,7 +52,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTable"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-	autoFormButtonGroup = new AutoformButtonGroup( NULL );
+	autoFormButtonGroup = new AutoformButtonGroup( nullptr );
 	m_ScMW->scrActions["toolsInsertShape"]->setMenu(autoFormButtonGroup);
 	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
 	tb->setPopupMode(QToolButton::DelayedPopup);

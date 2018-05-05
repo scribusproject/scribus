@@ -17,8 +17,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(parent)
 {
-	m_item = NULL;
-	m_ScMW = NULL;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 	m_unitIndex = 0;
 	m_unitRatio = 1.0;
 
@@ -65,7 +65,7 @@ void PropertyWidget_Advanced::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{
@@ -93,7 +93,7 @@ void PropertyWidget_Advanced::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 
@@ -204,7 +204,7 @@ void PropertyWidget_Advanced::handleBaselineOffset()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -219,7 +219,7 @@ void PropertyWidget_Advanced::handleMinWordTracking()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -236,7 +236,7 @@ void PropertyWidget_Advanced::handleNormWordTracking()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -253,7 +253,7 @@ void PropertyWidget_Advanced::handleMinGlyphExtension()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -270,7 +270,7 @@ void PropertyWidget_Advanced::handleMaxGlyphExtension()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -287,7 +287,7 @@ void PropertyWidget_Advanced::handleTextScaleH()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -302,7 +302,7 @@ void PropertyWidget_Advanced::handleTextScaleV()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -317,7 +317,7 @@ void PropertyWidget_Advanced::handleTracking()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);

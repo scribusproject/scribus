@@ -67,7 +67,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 	{
 		if (it.current().usable())
 		{
-			if (currentDoc != NULL)
+			if (currentDoc != nullptr)
 			{
 				if (currentDoc->DocName == it.current().localForDocument() || it.current().localForDocument().isEmpty())
 					rlist.insert(it.currentKey().toLower(), it.currentKey());
@@ -107,7 +107,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		fontStyleLabel(0),
 		showLabels(labels)
 {
-	currDoc = NULL;
+	currDoc = nullptr;
 	prefsManager = PrefsManager::instance();
 	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
 	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
@@ -213,7 +213,7 @@ void FontComboH::setCurrentFont(QString f)
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
-	if (currDoc != NULL)
+	if (currDoc != nullptr)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
@@ -252,7 +252,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	flist.clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
-		if (currentDoc != NULL)
+		if (currentDoc != nullptr)
 		{
 			QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[*it2];
 			slist.sort();
@@ -309,7 +309,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		for (QStringList::ConstIterator it = slist.begin(); it != slist.end(); ++it)
 		{

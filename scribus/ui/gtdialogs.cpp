@@ -124,7 +124,7 @@ gtImporterDialog::~gtImporterDialog()
 
 gtDialogs::gtDialogs()
 {
-	m_fdia = NULL;
+	m_fdia = nullptr;
 	m_fileName = "";
 	m_encoding = "";
 	m_importer = -1;

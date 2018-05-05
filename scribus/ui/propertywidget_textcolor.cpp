@@ -15,8 +15,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(parent)
 {
-	m_item = NULL;
-	m_ScMW = NULL;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 
 	setupUi(this);
 
@@ -71,7 +71,7 @@ void PropertyWidget_TextColor::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{
@@ -92,7 +92,7 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 
@@ -104,7 +104,7 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 	configureWidgets();
 
-	if (m_item == NULL)
+	if (m_item == nullptr)
 		return;
 	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->asPathText())
 		return;
@@ -329,7 +329,7 @@ void PropertyWidget_TextColor::handleOutlineWidth()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -347,7 +347,7 @@ void PropertyWidget_TextColor::handleShadowOffs()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -365,7 +365,7 @@ void PropertyWidget_TextColor::handleStrikeThru()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -381,7 +381,7 @@ void PropertyWidget_TextColor::handleTextFill()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -396,7 +396,7 @@ void PropertyWidget_TextColor::handleTextStroke()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -411,7 +411,7 @@ void PropertyWidget_TextColor::handleTextBackground()
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -429,7 +429,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -442,7 +442,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -455,7 +455,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
@@ -471,7 +471,7 @@ void PropertyWidget_TextColor::handleTypeStyle(int s)
 	PageItem *i2 = m_item;
 	if (m_doc->appMode == modeEditTable)
 		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(i2, true);
@@ -497,7 +497,7 @@ void PropertyWidget_TextColor::handleUnderline()
 		PageItem *i2 = m_item;
 		if (m_doc->appMode == modeEditTable)
 			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
+		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);

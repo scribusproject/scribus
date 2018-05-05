@@ -157,7 +157,7 @@ void PagePalette::updateMasterPageList()
 bool PagePalette::masterPageMode()
 {
 	PagePalette_MasterPages* mpWidget = dynamic_cast<PagePalette_MasterPages*>(this->currentWidget());
-	return (mpWidget != NULL);
+	return (mpWidget != nullptr);
 }
 
 void PagePalette::startMasterPageMode(QString masterPage)

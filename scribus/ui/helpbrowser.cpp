@@ -156,9 +156,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
-	menuModel=NULL;
+	menuModel=nullptr;
 	loadMenu();
-	if (menuModel!=NULL)
+	if (menuModel!=nullptr)
 	{
 		readBookmarks();
 		readHistory();
@@ -328,7 +328,7 @@ void HelpBrowser::languageChange()
 		else
 			language=ScCore->getGuiLanguage();
 		loadMenu();
-		if (menuModel!=NULL)
+		if (menuModel!=nullptr)
 			loadHelp(finalBaseDir + "/" + filename);
 	}
 	else
@@ -448,7 +448,7 @@ void HelpBrowser::bookmarkButton_clicked()
 void HelpBrowser::deleteBookmarkButton_clicked()
 {
 	QTreeWidgetItem *twi=helpNav->bookmarksView->currentItem();
-	if (twi!=NULL)
+	if (twi!=nullptr)
 	{
 		if (bookmarkIndex.contains(twi->text(0)))
 			bookmarkIndex.remove(twi->text(0));
@@ -610,7 +610,7 @@ void HelpBrowser::loadMenu()
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
 	if (baseFi.exists())
 	{
-		if (menuModel!=NULL)
+		if (menuModel!=nullptr)
 			delete menuModel;
 		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
 	
@@ -623,7 +623,7 @@ void HelpBrowser::loadMenu()
 		helpNav->listView->setColumnHidden(1,true);
 	}
 	else
-		menuModel=NULL;
+		menuModel=nullptr;
 }
 
 void HelpBrowser::readBookmarks()

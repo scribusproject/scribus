@@ -62,14 +62,14 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 		case 0:
 			{
 				QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-				if (qcti!=NULL)
+				if (qcti!=nullptr)
 					localAttributes[row].name=qcti->currentText();
 			}
 			break;
 		case 1:
 			{
 				QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-				if (qcti != NULL)
+				if (qcti != nullptr)
 				{
 					int index = qcti->currentIndex();
 					if (index < typesData.count())
@@ -86,7 +86,7 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 		case 4:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=NULL)
+			if (qcti!=nullptr)
 			{
 				int index=qcti->currentIndex();
 				if (index<relationshipsData.count())
@@ -102,7 +102,7 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			/*
 			{
 				QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
-				if (qcti!=NULL)
+				if (qcti!=nullptr)
 				{
 					uint index=qcti->currentItem();
 					if (index<autoAddToData.count())
@@ -250,7 +250,7 @@ void PageItemAttributes::updateTable()
 		item7->setCurrentItem(index2);
 		*/
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
- 		if (t != NULL)
+		if (t != nullptr)
 			t->setText(QString("%1").arg(row));
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);

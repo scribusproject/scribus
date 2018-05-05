@@ -342,13 +342,13 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	hboxLayout1->addWidget( CancelB );
 	vboxLayout->addLayout(hboxLayout1);
 
-	SaveZip=NULL;
-	WithFonts=NULL;
-	WithProfiles=NULL;
-	TxCodeM = NULL;
-	TxCodeT = NULL;
-	Layout = LayoutC = NULL;
-	Layout1 = Layout1C = NULL;
+	SaveZip=nullptr;
+	WithFonts=nullptr;
+	WithProfiles=nullptr;
+	TxCodeM = nullptr;
+	TxCodeT = nullptr;
+	Layout = LayoutC = nullptr;
+	Layout1 = Layout1C = nullptr;
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
@@ -401,11 +401,11 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 				vboxLayout->addWidget(Layout);
 		}
 		
-		if (SaveZip!=NULL)
+		if (SaveZip!=nullptr)
 			SaveZip->setToolTip( "<qt>" + tr( "Compress the Scribus document on save" ) + "</qt>");
-		if (WithFonts!=NULL)
+		if (WithFonts!=nullptr)
 			WithFonts->setToolTip( "<qt>" + tr( "Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute." ) + "</qt>");
-		if (WithProfiles!=NULL)
+		if (WithProfiles!=nullptr)
 			WithProfiles->setToolTip( "<qt>" + tr( "Include color profiles when collecting files for the document" ) + "</qt>");
 		
 		if (flags & fdShowCodecs)

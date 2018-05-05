@@ -27,7 +27,7 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(pare
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 
-	if (m_doc == NULL && !ScCore->primaryMainWindow()->HaveDoc)
+	if (m_doc == nullptr && !ScCore->primaryMainWindow()->HaveDoc)
 	{
 		connect(scratchSpaceColorButton, SIGNAL(clicked()), this, SLOT(changeScratchColor()));
 		connect(frameSelectedColorButton, SIGNAL(clicked()), this, SLOT(changeFrameColor()));

@@ -125,7 +125,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	noUpdt = true;
 	inRep = false;
 	pmen = new QMenu(this);
-	paraStyleAct = NULL;
+	paraStyleAct = nullptr;
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
@@ -174,7 +174,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	QLabel::paintEvent(e);
 	QPair<int, int> paraInfo;
 	QList< QPair<int,int> > paraList;
-	if (editor != NULL)
+	if (editor != nullptr)
 	{
 		QRect  edRect = editor->viewport()->rect();
 		QPoint pt1 = edRect.topLeft(), pt2 = edRect.bottomRight();
@@ -202,7 +202,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	}
 	QPainter p;
 	p.begin(this);
-	if ((editor != NULL) && (noUpdt))
+	if ((editor != nullptr) && (noUpdt))
 	{
 		QString trNoStyle = tr("No Style");
 		for (int pa = 0; pa < paraList.count(); ++pa)
@@ -1524,10 +1524,10 @@ void SToolBFont::SetScaleV(double s)
 // {
 // 	prefsManager=PrefsManager::instance();
 // 	m_doc = docc;
-// 	seMenuMgr=NULL;
+// 	seMenuMgr=nullptr;
 // 	buildGUI();
 // 	currItem = ite;
-// // 	charSelect = NULL;
+// // 	charSelect = nullptr;
 // 	m_firstSet = false;
 // 	activFromApp = true;
 // 	Editor->loadItemText(ite);
@@ -1550,14 +1550,14 @@ void SToolBFont::SetScaleV(double s)
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
 	activFromApp(true),
-	m_doc(NULL),
-	m_item(NULL),
+	m_doc(nullptr),
+	m_item(nullptr),
 	m_textChanged(false),
 	m_firstSet(false),
 	m_blockUpdate(false),
 //	m_currPara(0),
 //	m_currChar(0),
-	charSelect(NULL),
+	charSelect(nullptr),
 	charSelectUsed(false)
 {
 	m_spellActive=false;
@@ -1607,7 +1607,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)),
 					this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 		delete charSelect;
-		charSelect = NULL;
+		charSelect = nullptr;
 	}
 	savePrefs();
 }
@@ -1980,7 +1980,7 @@ void StoryEditor::buildGUI()
 	setCentralWidget( EdSplit );
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
-	if (prefsManager==NULL)
+	if (prefsManager==nullptr)
 		sDebug(QString("%1").arg("prefsmgr null"));
 
 	EditorBar->editor = Editor;
@@ -2125,7 +2125,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	Editor->setCurrentDocument(m_doc);
 	StyleTools->SetStyle(0);
 	m_item = item;
-	if (m_item != NULL)
+	if (m_item != nullptr)
 	{
 		setWindowTitle( tr("Story Editor - %1").arg(m_item->itemName()));
 		m_firstSet = false;
@@ -2210,9 +2210,9 @@ void StoryEditor::closeEvent(QCloseEvent *e)
 	}
 	else
 		m_result = QDialog::Rejected;
-	setCurrentDocumentAndItem(NULL, NULL);
+	setCurrentDocumentAndItem(nullptr, nullptr);
 	savePrefs();
-// 	if (charSelect != NULL)
+// 	if (charSelect != nullptr)
 // 		charSelect->close();
 	hide();
 	m_blockUpdate = false;
@@ -2235,7 +2235,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 	{
 		if ( ev->type() == QEvent::WindowDeactivate )
 		{
-			if ((m_item != NULL) && (!m_blockUpdate))
+			if ((m_item != nullptr) && (!m_blockUpdate))
 				updateTextFrame();
 			activFromApp = false;
 	//		Editor->getCursorPosition(&m_currPara, &m_currChar);
@@ -2245,7 +2245,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			if ((!activFromApp) && (!m_textChanged) && (!m_blockUpdate))
 			{
 				activFromApp = true;
-				if (m_item != NULL)
+				if (m_item != nullptr)
 				{
 					//set to false otherwise some dialog properties won't be set correctly
 					if (m_item->itemText.length() == 0)
@@ -2784,7 +2784,7 @@ void StoryEditor::Do_leave2()
 {
 	updateTextFrame();
 	m_result = QDialog::Accepted;
-	setCurrentDocumentAndItem(m_doc, NULL);
+	setCurrentDocumentAndItem(m_doc, nullptr);
 	hide();
 	m_blockUpdate = false;
 }
@@ -2807,7 +2807,7 @@ void StoryEditor::Do_leave()
 		}
 	}
 	m_result = QDialog::Rejected;
-	setCurrentDocumentAndItem(m_doc, NULL);
+	setCurrentDocumentAndItem(m_doc, nullptr);
 	hide();
 	m_blockUpdate = false;
 }

@@ -22,12 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "third_party/fparser/fparser.hh"
 
-ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(NULL)
+ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(nullptr)
 {
 	init(unitIndex);
 }
 
-ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa), m_constants(NULL)
+ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa), m_constants(nullptr)
 {
 	init(unitIndex);
 	setMinimum(minValue);
@@ -257,7 +257,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 
 	int ret = fp.Parse(str, "", true);
 	if(ret < 0)
-		erg = fp.Eval(NULL);
+		erg = fp.Eval(nullptr);
 
 	//qDebug() << "fp value =" << erg ;
 	return erg;

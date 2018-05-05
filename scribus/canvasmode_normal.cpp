@@ -79,22 +79,22 @@ CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_Sc
 	m_dragConstrainInitPtY = 0;
 	m_lastPosWasOverGuide = false;
 	m_shiftSelItems = false;
-	m_resizeGesture = NULL;
-	m_lineMoveGesture  = NULL;
-	m_guideMoveGesture = NULL;
+	m_resizeGesture = nullptr;
+	m_lineMoveGesture  = nullptr;
+	m_guideMoveGesture = nullptr;
 	m_mousePressPoint.setXY(0, 0);
 	m_mouseCurrentPoint.setXY(0, 0);
 	m_mouseSavedPoint.setXY(0, 0);
 	m_objectDeltaPos.setXY(0,0 );
 	ySnap = 0;
 	xSnap = 0;
-	m_hoveredItem = NULL;
+	m_hoveredItem = nullptr;
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_Normal::drawControls(QPainter* p)
@@ -135,7 +135,7 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	m_objectDeltaPos.setXY(0,0 );
 	m_frameResizeHandle = -1;
 	m_shiftSelItems = false;
-	m_hoveredItem = NULL;
+	m_hoveredItem = nullptr;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -304,7 +304,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
-	PageItem *currItem=NULL;
+	PageItem *currItem=nullptr;
 	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
@@ -366,7 +366,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	//<<#10116 Show overflow counter HUD
 	if (!movingOrResizing && mouseIsOnPage)
 	{
-		PageItem* hoveredItem = NULL;
+		PageItem* hoveredItem = nullptr;
 		hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
 		if (hoveredItem)
 		{
@@ -423,7 +423,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					if (QToolTip::isVisible())
 						QToolTip::hideText();
-					m_hoveredItem = NULL;
+					m_hoveredItem = nullptr;
 				}
 			}
 			else
@@ -448,7 +448,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			{
 				if (m_hoveredItem)
 					handleMouseLeave(m_hoveredItem);
-				m_hoveredItem = NULL;
+				m_hoveredItem = nullptr;
 			}
 		}
 	}
@@ -1010,7 +1010,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((!GetItem(&currItem)) && (!m_doc->drawAsPreview))
 		{
-			createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
+			createContextMenu(nullptr, mousePointDoc.x(), mousePointDoc.y());
 			return;
 		}
 		if ((GetItem(&currItem)) && (!(m_doc->drawAsPreview && !m_doc->editOnPreview)))
@@ -1020,7 +1020,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	//<<#10116: Click on overflow icon to get into link frame mode
-	PageItem* clickedItem=NULL;
+	PageItem* clickedItem=nullptr;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
 	if (clickedItem && clickedItem->asTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
 	{
@@ -1250,7 +1250,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->count() > 0)
 	{
-		if (m_doc->m_Selection->itemAt(0)!=NULL)
+		if (m_doc->m_Selection->itemAt(0)!=nullptr)
 		{
 			m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 		}
@@ -1565,7 +1565,7 @@ void CanvasMode_Normal::keyReleaseEvent(QKeyEvent *e)
 //CB-->Doc/Fix
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
-	PageItem *previousSelectedItem = NULL;
+	PageItem *previousSelectedItem = nullptr;
 	if (m_doc->m_Selection->count() != 0)
 		previousSelectedItem = m_doc->m_Selection->itemAt(0);
 	m_canvas->m_viewMode.operItemSelecting = true;
@@ -1674,7 +1674,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 	
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
@@ -1737,7 +1737,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
 		}
-		if (previousSelectedItem != NULL)
+		if (previousSelectedItem != nullptr)
 		{
 			if (currItem != previousSelectedItem)
 			{
@@ -1782,7 +1782,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		else
 			m_view->Deselect(true);
 	}
-	if (previousSelectedItem != NULL)
+	if (previousSelectedItem != nullptr)
 		handleFocusOut(previousSelectedItem);
 	return false;
 }
@@ -1889,11 +1889,11 @@ void CanvasMode_Normal::importToPage()
 
 void CanvasMode_Normal::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
+	ContextMenu* cmen=nullptr;
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	m_mouseCurrentPoint.setXY(mx, my);
-	if (currItem!=NULL)
+	if (currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

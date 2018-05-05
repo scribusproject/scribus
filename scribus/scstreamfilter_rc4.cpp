@@ -22,14 +22,14 @@ struct  ScRC4EncodeFilterData
 ScRC4EncodeFilter::ScRC4EncodeFilter(QDataStream* stream, const char* key, unsigned int keyLen)
 				 : ScStreamFilter(stream), m_key(key, keyLen)
 {
-	m_filterData = NULL;
+	m_filterData = nullptr;
 	m_openedFilter = false;
 }
 
 ScRC4EncodeFilter::ScRC4EncodeFilter(ScStreamFilter* filter, const char* key, unsigned int keyLen)
 				 : ScStreamFilter(filter), m_key(key, keyLen)
 {
-	m_filterData = NULL;
+	m_filterData = nullptr;
 	m_openedFilter = false;
 }
 
@@ -40,19 +40,19 @@ ScRC4EncodeFilter::~ScRC4EncodeFilter()
 	freeData();
 }
 
-void ScRC4EncodeFilter::freeData(void)
+void ScRC4EncodeFilter::freeData()
 {
 	if (m_filterData)
 		free (m_filterData);
-	m_filterData = NULL;
+	m_filterData = nullptr;
 }
 
-bool ScRC4EncodeFilter::openFilter (void)
+bool ScRC4EncodeFilter::openFilter ()
 {
 	freeData();
 
 	m_filterData = (ScRC4EncodeFilterData*) malloc(sizeof(ScRC4EncodeFilterData));
-	if (m_filterData == NULL)
+	if (m_filterData == nullptr)
 		return false;
 
 	rc4_init(&m_filterData->rc4_context, (uchar*) m_key.data(),m_key.length());
@@ -61,7 +61,7 @@ bool ScRC4EncodeFilter::openFilter (void)
 	return true;
 }
 
-bool ScRC4EncodeFilter::closeFilter(void)
+bool ScRC4EncodeFilter::closeFilter()
 {
 	bool closeSucceed = true;
 	if (m_filterData->available_in > 0)

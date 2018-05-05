@@ -339,7 +339,7 @@ double PagePropertiesDialog::right()
 
 QString PagePropertiesDialog::masterPage()
 {
-	if (masterPageComboBox != NULL)
+	if (masterPageComboBox != nullptr)
 		return masterPageComboBox->currentText();
 	return "";
 }

@@ -25,14 +25,14 @@ struct  ScFlateEncodeFilterData
 ScFlateEncodeFilter::ScFlateEncodeFilter(QDataStream* stream)
 				   : ScStreamFilter(stream)
 {
-	m_filterData   = NULL;
+	m_filterData   = nullptr;
 	m_openedFilter = false;
 }
 
 ScFlateEncodeFilter::ScFlateEncodeFilter(ScStreamFilter* filter)
 				   : ScStreamFilter(filter)
 {
-	m_filterData   = NULL;
+	m_filterData   = nullptr;
 	m_openedFilter = false;
 }
 
@@ -43,19 +43,19 @@ ScFlateEncodeFilter::~ScFlateEncodeFilter()
 	freeData();
 }
 
-void ScFlateEncodeFilter::freeData(void)
+void ScFlateEncodeFilter::freeData()
 {
 	if (m_filterData)
 		free (m_filterData);
-	m_filterData = NULL;
+	m_filterData = nullptr;
 }
 
-bool ScFlateEncodeFilter::openFilter (void)
+bool ScFlateEncodeFilter::openFilter()
 {
 	freeData();
 
 	m_filterData = (ScFlateEncodeFilterData*) malloc(sizeof(ScFlateEncodeFilterData));
-	if (m_filterData == NULL)
+	if (m_filterData == nullptr)
 		return false;
 
 	m_filterData->zlib_stream.zalloc = Z_NULL;
@@ -76,7 +76,7 @@ bool ScFlateEncodeFilter::openFilter (void)
 	m_openedFilter = ScStreamFilter::openFilter();
 	return m_openedFilter;
 }
-bool ScFlateEncodeFilter::closeFilter(void)
+bool ScFlateEncodeFilter::closeFilter()
 {
 	bool closeSucceed = writeDeflate(true);
     deflateEnd (&m_filterData->zlib_stream);

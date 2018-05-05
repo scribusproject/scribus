@@ -94,13 +94,13 @@ MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStru
 	}
 	else
 	{
-		marginsForPagesLayout=NULL;
-		marginsForPages=NULL;
-		marginsForAllPages=NULL;
-		marginsForAllMasterPages=NULL;
+		marginsForPagesLayout=nullptr;
+		marginsForPages=nullptr;
+		marginsForAllPages=nullptr;
+		marginsForAllMasterPages=nullptr;
 	}
 
-	usePrinterMarginsButton=NULL;
+	usePrinterMarginsButton=nullptr;
 	usePrinterMarginsButton = new QPushButton( tr("Printer Margins..."),marginPage );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
 	usePrinterMarginsButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");

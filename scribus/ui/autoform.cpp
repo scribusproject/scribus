@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent )
 {
-	buttonGroup1 = new AutoformButtonGroup( NULL );
+	buttonGroup1 = new AutoformButtonGroup( nullptr );
 	setMenu(buttonGroup1);
 	setPopupMode(QToolButton::InstantPopup);
 	setIcon(QIcon(buttonGroup1->getIconPixmap(0)));

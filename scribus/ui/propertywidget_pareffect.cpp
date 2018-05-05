@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 
-PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent), m_enhanced(NULL), m_item(NULL), m_ScMW(NULL)
+PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent), m_enhanced(nullptr), m_item(nullptr), m_ScMW(nullptr)
 {
 	setupUi(this);
 	setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -585,7 +585,7 @@ void PropertyWidget_ParEffect::handleChanges(PageItem *item, ParagraphStyle &new
 {
 	if (m_doc->appMode == modeEditTable)
 		item = item->asTable()->activeCell().textFrame();
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
@@ -633,7 +633,7 @@ void PropertyWidget_ParEffect::closeEnhanced(bool show)
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
-	m_enhanced = NULL;
+	m_enhanced = nullptr;
 }
 
 void PropertyWidget_ParEffect::on_bulletCharTableButton_toggled(bool checked)

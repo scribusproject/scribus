@@ -492,7 +492,7 @@ void ExtImageProps::noPath()
 
 void ExtImageProps::selPath(QListWidgetItem *c)
 {
-	if ((c != NULL) && (doPreview))
+	if ((c != nullptr) && (doPreview))
 	{
 		m_item->imageClip = m_item->pixm.imgInfo.PDSpathData[c->text()].copy();
 		m_item->pixm.imgInfo.usedPath = c->text();

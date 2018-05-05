@@ -42,8 +42,8 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	  m_haveItem(false),
 	  m_unitRatio(1.0),
 	  m_unitIndex(SC_PT),
-	  m_item(NULL),
-	  m_doc(NULL)
+	  m_item(nullptr),
+	  m_doc(nullptr)
 {
 	m_tmpSelection = new Selection(this, false);
 	m_tmpSelection->clear();
@@ -100,7 +100,7 @@ void PropertiesPalette_Shape::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
 
@@ -123,8 +123,8 @@ void PropertiesPalette_Shape::unsetDoc()
 
 	m_haveDoc  = false;
 	m_haveItem = false;
-	m_doc   = NULL;
-	m_item  = NULL;
+	m_doc   = nullptr;
+	m_item  = nullptr;
 
 	editShape->setEnabled(false);
 	roundRect->setEnabled(false);
@@ -135,13 +135,13 @@ void PropertiesPalette_Shape::unsetDoc()
 void PropertiesPalette_Shape::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = NULL;
+	m_item     = nullptr;
 	handleSelectionChanged();
 }
 
 PageItem* PropertiesPalette_Shape::currentItemFromSelection()
 {
-	PageItem *currentItem = NULL;
+	PageItem *currentItem = nullptr;
 
 	if (m_doc && m_doc->m_Selection->count()>0)
 		currentItem = m_doc->m_Selection->itemAt(0);
@@ -325,7 +325,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
 	//if (m_item == i)
 	//	return;
 

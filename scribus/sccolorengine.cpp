@@ -735,7 +735,7 @@ QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* 
 	if (doSoftProofing && doGamutCheck)
 	{
 		bool outOfGamutFlag = isOutOfGamut(color, doc);
-		if (outOfG != NULL)
+		if (outOfG != nullptr)
 			*outOfG = outOfGamutFlag;
 		tmp = outOfGamutFlag ? QColor(0, 255, 0) : getDisplayColor(color, doc);
 	}

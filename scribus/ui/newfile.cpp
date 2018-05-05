@@ -562,7 +562,7 @@ void NewDoc::ExitOK()
 		}
 		else if (m_tabSelected == NewDoc::OpenRecentTab) // open recent doc
 		{
-			if (recentDocListBox->currentItem() != NULL)
+			if (recentDocListBox->currentItem() != nullptr)
 			{
 				QString fileName(recentDocListBox->currentItem()->text());
 				if (!fileName.isEmpty())

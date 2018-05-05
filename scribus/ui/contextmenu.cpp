@@ -64,7 +64,7 @@ void ContextMenu::processSelection()
 	if (selectedItemCount == 0)
 		return;
 	
-	PageItem* currItem=NULL;
+	PageItem* currItem=nullptr;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = m_Sel.itemAt(i);

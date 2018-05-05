@@ -399,7 +399,7 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
+	void setCurrentDocumentAndItem(ScribusDoc *doc=nullptr, PageItem *item=nullptr);
 	void setSpellActive(bool ssa);
 
 	ScribusDoc* currentDocument() const;

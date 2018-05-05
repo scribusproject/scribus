@@ -83,7 +83,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : 
 	connect(optMarginDefaultButton, SIGNAL(clicked()), this, SLOT(slotDefaultOpticalMargins()));
 	if (m_Doc)
 		connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
-	m_enhanced = NULL;
+	m_enhanced = nullptr;
 }
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
@@ -233,7 +233,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentCombo->setEnabled(!pstyle->isDefaultStyle());
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
-	m_hasParent = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
+	m_hasParent = pstyle->hasParent() && parent != nullptr && parent->hasName() && pstyle->parent() != "";
 
 	lineSpacingMode->clear();
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
@@ -1032,7 +1032,7 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 {
 	ParagraphStyle::OpticalMarginType om( static_cast<ParagraphStyle::OpticalMarginType>(o) );
 
-	if (parent==NULL)
+	if (parent==nullptr)
 	{
 		if(om == ParagraphStyle::OM_Default)
 			optMarginRadioBoth->setChecked(true);
@@ -1230,7 +1230,7 @@ void SMPStyleWidget::closeEnhanced(bool show)
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
-	m_enhanced = NULL;
+	m_enhanced = nullptr;
 }
 
 void SMPStyleWidget::connectPESignals()

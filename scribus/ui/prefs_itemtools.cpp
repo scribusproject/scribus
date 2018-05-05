@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_doc(NULL),
+	m_doc(nullptr),
 	showFontPreview(false)
 {
 	setupUi(this);
@@ -78,7 +78,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitChange(docUnitIndex);
 
 	PrefsManager* prefsManager=PrefsManager::instance();
-	ColorList* colorList = (m_doc != NULL) ? (&m_doc->PageColors) : prefsManager->colorSetPtr();
+	ColorList* colorList = (m_doc != nullptr) ? (&m_doc->PageColors) : prefsManager->colorSetPtr();
 
 	//Text Tool
 	for (int i=0; i<textFontComboBox->count(); ++i)

@@ -300,7 +300,7 @@ int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget* tab)
 void PreferencesDialog::newItemSelected()
 {
 	QList<QListWidgetItem*> items = preferencesTypeList->selectedItems();
-	itemSelected((items.count() > 0) ? items.at(0) : NULL);
+	itemSelected((items.count() > 0) ? items.at(0) : nullptr);
 }
 
 void PreferencesDialog::itemSelected(QListWidgetItem* ic)
@@ -324,7 +324,7 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 
 void PreferencesDialog::setNewItemSelected(const QString &s)
 {
-	if (s=="Prefs_PageSizes" && prefs_PageSizes!=NULL)
+	if (s=="Prefs_PageSizes" && prefs_PageSizes!=nullptr)
 	{
 		int i=prefsStackWidget->indexOf(prefs_PageSizes);
 		if (i!=-1)

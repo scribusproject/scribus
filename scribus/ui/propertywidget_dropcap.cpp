@@ -199,7 +199,7 @@ void PropertyWidget_DropCap::handleDropCapUse()
 	PageItem *item = m_item;
 	if (m_doc->appMode == modeEditTable)
 		item = item->asTable()->activeCell().textFrame();
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(item, true);
@@ -218,7 +218,7 @@ void PropertyWidget_DropCap::handleDropCapLines()
 	PageItem *item = m_doc->m_Selection->itemAt(0);
 	if (m_doc->appMode == modeEditTable)
 		item = item->asTable()->activeCell().textFrame();
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(item, true);
@@ -236,7 +236,7 @@ void PropertyWidget_DropCap::handleDropCapOffset()
 	PageItem *item = m_item;
 	if (m_doc->appMode == modeEditTable)
 		item = item->asTable()->activeCell().textFrame();
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(item, true);
@@ -256,7 +256,7 @@ void PropertyWidget_DropCap::handleDropCapCharStyle()
 	PageItem *item = m_item;
 	if (m_doc->appMode == modeEditTable)
 		item = item->asTable()->activeCell().textFrame();
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(item, true);

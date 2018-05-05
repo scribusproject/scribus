@@ -16,8 +16,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFrame(parent)
 {
-	m_item = NULL;
-	m_ScMW = NULL;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -257,7 +257,7 @@ void PropertyWidget_FontFeatures::setDoc(ScribusDoc *d)
 	}
 
 	m_doc  = d;
-	m_item = NULL;
+	m_item = nullptr;
 
 	if (m_doc.isNull())
 	{

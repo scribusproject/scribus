@@ -32,9 +32,9 @@ for which a new license (GPL+exception) is in place.
 
 Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 {
-	currentItem = NULL;
-	patternList = NULL;
-	TGradDia = NULL;
+	currentItem = nullptr;
+	patternList = nullptr;
+	TGradDia = nullptr;
 	TGradDia = new GradientVectorDialog(this->parentWidget());
 	TGradDia->hide();
 	setupUi(this);
@@ -158,7 +158,7 @@ void Tpalette::setDocument(ScribusDoc* doc)
 
 	currentDoc = doc;
 
-	if (doc != NULL)
+	if (doc != nullptr)
 	{
 		gradEdit->setColors(doc->PageColors);
 		currentUnit = doc->unitIndex();
@@ -479,7 +479,7 @@ void Tpalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
 
 void Tpalette::selectPattern(QListWidgetItem *c)
 {
-	if (c == NULL)
+	if (c == nullptr)
 		return;
 	emit NewPattern(c->text());
 }

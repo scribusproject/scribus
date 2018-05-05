@@ -69,10 +69,10 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	Layout1->addWidget( AvailFields );
 	Layout5->addLayout( Layout1 );
 
-	Layout2 = Layout3 = NULL;
-	SelFields = NULL;
-	ToSel = FromSel = NULL;
-	Text2 = NULL;
+	Layout2 = Layout3 = nullptr;
+	SelFields = nullptr;
+	ToSel = FromSel = nullptr;
+	Text2 = nullptr;
 	if (Art > 1)
 	{
 		Layout2 = new QVBoxLayout;
@@ -174,7 +174,7 @@ void SelectFields::PutToSel()
 
 void SelectFields::SelAField(QListWidgetItem *c)
 {
-	if ((c != NULL) && (FTyp > 1))
+	if ((c != nullptr) && (FTyp > 1))
 	{
 		FromSel->setEnabled(false);
 		ToSel->setEnabled(true);
@@ -184,7 +184,7 @@ void SelectFields::SelAField(QListWidgetItem *c)
 
 void SelectFields::SelEField(QListWidgetItem *c)
 {
-	if (c != NULL)
+	if (c != nullptr)
 	{
 		FromSel->setEnabled(true);
 		ToSel->setEnabled(false);

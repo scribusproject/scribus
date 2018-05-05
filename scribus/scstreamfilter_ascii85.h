@@ -26,8 +26,8 @@ public:
 	ScASCII85EncodeFilter(QDataStream* stream);
 	ScASCII85EncodeFilter(ScStreamFilter* filter);
 
-	virtual bool openFilter (void);
-	virtual bool closeFilter(void);
+	virtual bool openFilter ();
+	virtual bool closeFilter();
 
 	virtual bool writeData(const char* data, int dataLen);
 };

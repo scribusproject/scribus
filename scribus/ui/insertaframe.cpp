@@ -206,7 +206,7 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	iafData.columnGap=textColumnGapScrSpinBox->value();
 	iafData.linkTextFrames=checkBoxLinkCreatedTextFrames->isChecked();
 	iafData.linkToExistingFrame=checkBoxLinkToExistingFrame->isChecked();
-	iafData.linkToExistingFramePtr=NULL;
+	iafData.linkToExistingFramePtr=nullptr;
 	if (comboBoxLinkToExistingFrameName->count()!=0)
 	{
 		QHashIterator<PageItem*, QString> i(pageItemMap);

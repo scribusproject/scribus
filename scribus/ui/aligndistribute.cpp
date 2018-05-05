@@ -51,7 +51,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-	currDoc=NULL;
+	currDoc=nullptr;
 	guideDirection=-1;
 	setObjectName(name);
 	
@@ -70,7 +70,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	languageChange();
 	init();
-	setDoc(NULL);
+	setDoc(nullptr);
 }
 
 AlignDistributePalette::~AlignDistributePalette()
@@ -291,7 +291,7 @@ void AlignDistributePalette::init()
 
 void AlignDistributePalette::unitChange()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 	{
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
 		distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
@@ -302,171 +302,171 @@ void AlignDistributePalette::unitChange()
 void AlignDistributePalette::setDoc( ScribusDoc* newDoc )
 {
 	currDoc=newDoc;
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		alignObjects=&(currDoc->AObjects);
 	else
-		alignObjects=NULL;
+		alignObjects=nullptr;
 	unitChange();
 }
 
 void AlignDistributePalette::alignLeftOut()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignLeftOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignLeftIn()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignLeftIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignCenterHor()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignCenterHor(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightIn()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignRightIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightOut()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignRightOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopOut()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignTopOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopIn()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignTopIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignCenterVer()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignCenterVer(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignBottomIn()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignBottomIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignBottomOut()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_AlignBottomOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::distributeLeft()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeLeft();
 }
 
 void AlignDistributePalette::distributeCenterH()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeCenterH();
 }
 
 void AlignDistributePalette::distributeRight()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeRight();
 }
 
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValH()
 {
 	distributeDistSpinBox->interpretText();
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		distributeDistH(true);
 }
 
 void AlignDistributePalette::distributeDistAcrossPage()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeAcrossPage();
 }
 
 void AlignDistributePalette::distributeDistDownPage()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeDownPage();
 }
 
 void AlignDistributePalette::distributeDistAcrossMargins()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeAcrossPage(true);
 }
 
 void AlignDistributePalette::distributeDistDownMargins()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeDownPage(true);
 }
 
 
 void AlignDistributePalette::distributeBottom()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeBottom();
 }
 
 void AlignDistributePalette::distributeCenterV()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeCenterV();
 }
 
 void AlignDistributePalette::distributeTop()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeTop();
 }
 
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValV()
 {
 	distributeDistSpinBox->interpretText();
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		distributeDistV(true);
 }
 
 void AlignDistributePalette::swapLeft()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_SwapLeft();
 }
 
 void AlignDistributePalette::swapRight()
 {
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 		currDoc->itemSelection_SwapRight();
 }
 
@@ -495,7 +495,7 @@ void AlignDistributePalette::enableGuideButtons()
 	QString suffix;
 	double unitRatio=1.0;
 	int precision=1;
-	if (currDoc!=NULL)
+	if (currDoc!=nullptr)
 	{
 		suffix=unitGetSuffixFromIndex(currDoc->unitIndex());
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
