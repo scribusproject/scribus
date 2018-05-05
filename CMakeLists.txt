@@ -685,10 +685,10 @@ include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
 add_definitions(${Qt5PrintSupport_DEFINITIONS})
 
 message(STATUS "Qt VERSION: ${Qt5Widgets_VERSION}")
-if (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
-	message(STATUS "Your Qt version is 5.7.0 or superior, enabling C++11 compiler features")
-	set(WANT_CPP11 1)
-endif()
+#if (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
+#	message(STATUS "Your Qt version is 5.7.0 or superior, enabling C++11 compiler features")
+#	set(WANT_CPP11 1)
+#endif()
 #>> Qt
 
 

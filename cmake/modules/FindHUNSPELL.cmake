@@ -28,7 +28,7 @@ string(REGEX MATCH "1\.([1-6])\.." HUNSPELL_MATCH ${HUNSPELL_VERSION})
 #set(HUNSPELL_MINOR_VERSION ${CMAKE_MATCH_1})
 if(CMAKE_MATCH_1 GREATER 4)
 	set(HUNSPELL_NEWAPI 1)
-	message(STATUS "New HUNSPELL API found")
+	message(STATUS "New HUNSPELL API found. Hunspell version ${HUNSPELL_VERSION}")
 endif()
 
 #find_path(HUNSPELL_INCLUDE_DIR hunspell/hunspell.hxx )
