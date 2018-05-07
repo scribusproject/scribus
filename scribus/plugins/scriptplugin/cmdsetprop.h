@@ -220,7 +220,7 @@ PyObject *scribus_setnewname(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setobjectattributes__doc__,
-QT_TR_NOOP("setObjectAttributes(attritbutes, [\"name\"])\n\
+QT_TR_NOOP("setObjectAttributes(attributes, [\"name\"])\n\
 \n\
 Sets attributes of the object \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
