@@ -65,7 +65,7 @@ DrwPlug::DrwPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	progressDialog = nullptr;
 }
 
 QImage DrwPlug::readThumbnail(QString fName)
@@ -76,7 +76,7 @@ QImage DrwPlug::readThumbnail(QString fName)
 	double h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -174,7 +174,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	b = 0.0;
 	h = 0.0;
@@ -225,12 +225,12 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -263,7 +263,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -367,7 +367,7 @@ bool DrwPlug::convert(QString fn)
 	recordCount = 0;
 	imageValid = false;
 	thumbRead = false;
-	currentItem = NULL;
+	currentItem = nullptr;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -535,7 +535,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 							path.lineTo(coor);
 					}
 				}
-				if (currentItem != NULL)
+				if (currentItem != nullptr)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
 					QRectF bBoxO = path.boundingRect();
@@ -544,14 +544,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					if (bBoxO.y() < 0)
 						currentItem->PoLine.translate(0, -bBoxO.y());
 					finishItem(currentItem);
-					if (currentItem != NULL)
+					if (currentItem != nullptr)
 					{
 						handleLineStyle(currentItem, flags, lineColor);
 						handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 					}
 				}
 				createObjCode = 0;
-				currentItem = NULL;
+				currentItem = nullptr;
 			}
 			else if (createObjCode == 2)
 			{
@@ -575,7 +575,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					a += 3;
 					path.cubicTo(p1, p2, p3);
 				}
-				if (currentItem != NULL)
+				if (currentItem != nullptr)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
 					QRectF bBoxO = path.boundingRect();
@@ -584,14 +584,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					if (bBoxO.y() < 0)
 						currentItem->PoLine.translate(0, -bBoxO.y());
 					finishItem(currentItem);
-					if (currentItem != NULL)
+					if (currentItem != nullptr)
 					{
 						handleLineStyle(currentItem, flags, lineColor);
 						handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 					}
 				}
 				createObjCode = 0;
-				currentItem = NULL;
+				currentItem = nullptr;
 			}
 			else if (createObjCode == 4)
 			{
@@ -615,7 +615,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					a++;
 					path.quadTo(p1, p2);
 				}
-				if (currentItem != NULL)
+				if (currentItem != nullptr)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
 					QRectF bBoxO = path.boundingRect();
@@ -624,14 +624,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					if (bBoxO.y() < 0)
 						currentItem->PoLine.translate(0, -bBoxO.y());
 					finishItem(currentItem);
-					if (currentItem != NULL)
+					if (currentItem != nullptr)
 					{
 						handleLineStyle(currentItem, flags, lineColor);
 						handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 					}
 				}
 				createObjCode = 0;
-				currentItem = NULL;
+				currentItem = nullptr;
 			}
 			break;
 		case 7:
@@ -667,14 +667,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				txS.translate(-bbox.x(), -bbox.y());
 				txS.translate(0, fm.leading() * scaleFactor);
 				path = txS.map(path);
-				if (currentItem != NULL)
+				if (currentItem != nullptr)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
 					currentItem->setWidth(bbox.width());
 					finishItem(currentItem, false);
 				}
 				createObjCode = 0;
-				currentItem = NULL;
+				currentItem = nullptr;
 			}
 			break;
 		case 9:
@@ -903,7 +903,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				}
 				if (scanLinesRead >= imageHeight)
 				{
-					if (currentItem != NULL)
+					if (currentItem != nullptr)
 					{
 						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
 						tempFile->setAutoRemove(false);
@@ -931,7 +931,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			ds.device()->seek(0x11);
 			if (createObjCode == 6)
 			{
-				if (currentItem != NULL)
+				if (currentItem != nullptr)
 				{
 					DRWParagraph para = paragraphList.at(paragraphCounter);
 					paragraphCounter++;
@@ -965,7 +965,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 35:
 			cmdText += "DRW Colortable";
-			if (currentItem != NULL)
+			if (currentItem != nullptr)
 			{
 				if (currentItem->asImageFrame())
 				{
@@ -1261,7 +1261,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	QRectF bBoxO;
 	QString fillC = CommonStrings::None;
 	createObjCode = 0;
-	currentItem = NULL;
+	currentItem = nullptr;
 	ds >> data8;							// reading Symbol Type
 // now reading common values
 	ds >> flags;
@@ -1389,7 +1389,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			finishItem(currentItem);
-			if (currentItem != NULL)
+			if (currentItem != nullptr)
 			{
 				handleLineStyle(currentItem, flags, lineColor);
 				handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1469,7 +1469,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
-			if (currentItem != NULL)
+			if (currentItem != nullptr)
 			{
 				if (data8 == 11)
 					currentItem->setCornerRadius(cornerRadius);
@@ -1494,7 +1494,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
-			if (currentItem != NULL)
+			if (currentItem != nullptr)
 				handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 			break;
 		case 14:
@@ -1554,7 +1554,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			bBoxO = path.controlPointRect();
 			currentItem->PoLine.translate(-bBoxO.x(), -bBoxO.y());
 			finishItem(currentItem);
-			if (currentItem != NULL)
+			if (currentItem != nullptr)
 			{
 				handleLineStyle(currentItem, flags, lineColor);
 				handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1750,7 +1750,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	//printMSG = false;
 //	if (printMSG)
 //	{
-//		if (currentItem != NULL)
+//		if (currentItem != nullptr)
 //			qDebug() << cmdText << " " << currentItem->itemName();
 //		else
 //			qDebug() << cmdText;
@@ -1971,7 +1971,7 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 		tmpSel->clear();
 		tmpSel->addItem(ite, true);
 		m_Doc->itemSelection_DeleteItem(tmpSel);
-		currentItem = NULL;
+		currentItem = nullptr;
 		createObjCode = 0;
 		tmpSel->clear();
 		return;

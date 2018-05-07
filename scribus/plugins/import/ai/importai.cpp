@@ -65,7 +65,7 @@ for which a new license (GPL+exception) is in place.
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
 AIPlug::AIPlug(ScribusDoc* doc, int flags) :
-	progressDialog(NULL),
+	progressDialog(nullptr),
 	meshMode(false),
 	meshXSize(0),
 	meshYSize(0),
@@ -172,7 +172,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		if (tempBuf.startsWith("%AI12_CompressedData"))
 			decompressAIData(fName);
 	}
-	progressDialog = NULL;
+	progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -283,7 +283,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 		if (tempBuf.startsWith("%AI12_CompressedData"))
 			decompressAIData(fName);
 	}
-	progressDialog = NULL;
+	progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -400,7 +400,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -470,12 +470,12 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			importedColors.append(it.key());
 		}
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -532,7 +532,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -635,33 +635,33 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 		PoDoFo::PdfError::EnableLogging( false );
 		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
-		if (curPage != NULL)
+		if (curPage != nullptr)
 		{
 			PoDoFo::PdfObject *piece = curPage->GetObject()->GetIndirectKey("PieceInfo");
-			if (piece != NULL)
+			if (piece != nullptr)
 			{
 				PoDoFo::PdfObject *illy = piece->GetIndirectKey("Illustrator");
-				if (illy != NULL)
+				if (illy != nullptr)
 				{
 					PoDoFo::PdfObject *priv = illy->GetIndirectKey("Private");
-					if (priv == NULL)
+					if (priv == nullptr)
 						priv = illy;
 					int num = 0;
 					PoDoFo::PdfObject *numBl = priv->GetIndirectKey("NumBlock");
-					if (numBl != NULL)
+					if (numBl != nullptr)
 						num = numBl->GetNumber() + 1;
 					if (num == 0)
 						num = 99999;
 					QString name = "AIPrivateData%1";
 					QString Key = name.arg(1);
 					PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
-					if (data == NULL)
+					if (data == nullptr)
 					{
 						name = "AIPDFPrivateData%1";
 						Key = name.arg(1);
 						data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 					}
-					if (data != NULL)
+					if (data != nullptr)
 					{
 						if (num == 2)
 						{
@@ -682,7 +682,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 							{
 								Key = name.arg(a);
 								data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
-								if (data == NULL)
+								if (data == nullptr)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
 								PoDoFo::PdfMemoryOutputStream oStream(1);

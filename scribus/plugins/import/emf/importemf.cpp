@@ -428,7 +428,7 @@ for which a new license (GPL+exception) is in place.
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
-	: clipGroup(NULL),
+	: clipGroup(nullptr),
 	  docWidth(0.0),
 	  docHeight(0.0),
 	  baseX(0.0),
@@ -447,7 +447,7 @@ EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
 	  winPextendY(0),
 	  winOrigX(0),
 	  winOrigY(0),
-	  progressDialog(NULL),
+	  progressDialog(nullptr),
 	  cancel(false),
 	  m_Doc(doc),
 	  importerFlags(flags),
@@ -484,7 +484,7 @@ QImage EmfPlug::readThumbnail(QString fName)
 	docY = y;
 	baseX = 0;
 	baseY = 0;
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -599,7 +599,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -666,12 +666,12 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -731,7 +731,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -787,7 +787,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
-		if (m_Doc->view() != NULL)
+		if (m_Doc->view() != nullptr)
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
@@ -1069,7 +1069,7 @@ bool EmfPlug::convert(QString fn)
 	sty.styType = U_OT_Pen;
 	emfStyleMap.insert(U_DC_PEN, sty);
 	emfStyleMapEMP.clear();
-	clipGroup = NULL;
+	clipGroup = nullptr;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -2347,7 +2347,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 			}
 		}
 	}
-	if (clipGroup != NULL)
+	if (clipGroup != nullptr)
 	{
 		QList<PageItem*> itemList;
 		itemList.append(ite);
@@ -2359,7 +2359,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 
 void EmfPlug::invalidateClipGroup()
 {
-	if (clipGroup != NULL)
+	if (clipGroup != nullptr)
 	{
 		if (clipGroup->asGroupFrame()->groupItemList.count() == 0)
 		{
@@ -2368,7 +2368,7 @@ void EmfPlug::invalidateClipGroup()
 			delete clipGroup;
 		}
 	}
-	clipGroup = NULL;
+	clipGroup = nullptr;
 }
 
 void EmfPlug::createClipGroup()
@@ -5693,7 +5693,7 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		if (emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
 			ext = "wmf";
 		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP[flagsH].imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
-		if (ite != NULL)
+		if (ite != nullptr)
 		{
 			if (QLineF(p1, p2).angle() != 0)
 				ite->setRotation(-QLineF(p1, p2).angle(), true);

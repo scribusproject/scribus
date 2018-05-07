@@ -82,7 +82,7 @@ PagesPlug::PagesPlug(ScribusDoc* doc, int flags) :
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	progressDialog = nullptr;
 }
 
 QImage PagesPlug::readThumbnail(QString fName)
@@ -93,7 +93,7 @@ QImage PagesPlug::readThumbnail(QString fName)
 	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -178,7 +178,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	b = 0.0;
 	h = 0.0;
@@ -229,12 +229,12 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -267,7 +267,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -474,7 +474,7 @@ PagesPlug::PagesPlug(ScribusDoc* doc, int flags)
 	  docHeight(0.0),
 	  m_Doc(doc),
 	  importerFlags(flags),
-	  progressDialog(NULL),
+	  progressDialog(nullptr),
 	  cancel(false),
 	  firstPage(false),
 	  pagecount(0),
@@ -485,7 +485,7 @@ PagesPlug::PagesPlug(ScribusDoc* doc, int flags)
 	  bottomMargin(0.0),
 	  pgCols(0.0),
 	  pgGap(0.0),
-	  uz(NULL)
+	  uz(nullptr)
 {
 	tmpSel = new Selection(this, false);
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -496,7 +496,7 @@ QImage PagesPlug::readThumbnail(QString fName)
 	QImage tmp;
 	if (!QFile::exists(fName))
 		return QImage();
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	uz = new ScZipHandler();
 	if (!uz->open(fName))
 	{
@@ -639,7 +639,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
@@ -684,12 +684,12 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -722,7 +722,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -845,7 +845,7 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 	if (compressed)
 	{
 		QTemporaryFile *tmpFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-		if (tmpFile == NULL)
+		if (tmpFile == nullptr)
 			return false;
 		tmpFile->open();
 		QString fname = getLongPathName(tmpFile->fileName());
@@ -1543,7 +1543,7 @@ void PagesPlug::parsePageReference(QDomElement &drawPag)
 	for(QDomElement draw = drawPag.firstChildElement(); !draw.isNull(); draw = draw.nextSiblingElement() )
 	{
 		PageItem* retObj = parseObjReference(draw);
-		if (retObj != NULL)
+		if (retObj != nullptr)
 		{
 			m_Doc->Items->append(retObj);
 			Elements.append(retObj);
@@ -1586,7 +1586,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 	itemText.clear();
 	itemText.setDoc(m_Doc);
 	int z = -1;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	if (draw.tagName() == "sf:group")
 	{
 		QList<PageItem*> GElements;
@@ -1612,7 +1612,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			else if ((spd.tagName() == "sf:media") || (spd.tagName() == "sf:drawable-shape") || (spd.tagName() == "sf:group"))
 			{
 				PageItem* ite = parseObjReference(spd);
-				if (ite != NULL)
+				if (ite != nullptr)
 					GElements.append(ite);
 			}
 		}

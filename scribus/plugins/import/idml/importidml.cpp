@@ -70,8 +70,8 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	fun = NULL;
+	progressDialog = nullptr;
+	fun = nullptr;
 }
 
 QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
@@ -155,7 +155,7 @@ QImage IdmlPlug::readThumbnail(QString fName)
 		}
 		if (!found)
 		{
-			progressDialog = NULL;
+			progressDialog = nullptr;
 			QFileInfo fi = QFileInfo(fName);
 			baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 			docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
@@ -313,7 +313,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
@@ -358,12 +358,12 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -396,7 +396,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -688,7 +688,7 @@ bool IdmlPlug::convert(QString fn)
 			}
 		}
 	}
-	if (fun != NULL)
+	if (fun != nullptr)
 		delete fun;
 	if (progressDialog)
 		progressDialog->close();
@@ -2747,7 +2747,7 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 		if (e.tagName() == "Story")
 		{
 			QString storyName = e.attribute("Self");
-			PageItem *item = NULL;
+			PageItem *item = nullptr;
 			if (!storyMap.contains(storyName))
 				return;
 			item = storyMap[storyName];

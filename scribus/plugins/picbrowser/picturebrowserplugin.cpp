@@ -122,13 +122,13 @@ void PictureBrowserPlugin::closePictureBrowser()
 		if (pictureBrowser->isVisible())
 			pictureBrowser->close();
 		delete pictureBrowser;
-		pictureBrowser = NULL;
+		pictureBrowser = nullptr;
 	}
 }
 
 void PictureBrowserPlugin::pictureBrowserClosed()
 {
-	pictureBrowser = NULL;
+	pictureBrowser = nullptr;
 }
 
 // Low level plugin API

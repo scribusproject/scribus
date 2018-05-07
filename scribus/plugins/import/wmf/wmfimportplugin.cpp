@@ -159,7 +159,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	trSettings.description  = filename;
 	trSettings.actionPixmap = Um::IWMF;
 	UndoTransaction activeTransaction;
-	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
+	if ((m_Doc == nullptr) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
@@ -168,7 +168,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	Q_CHECK_PTR(dia);
 	if (activeTransaction)
 		activeTransaction.commit();
-	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
+	if ((m_Doc == nullptr) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)
 	{
@@ -188,7 +188,7 @@ QImage WMFImportPlugin::readThumbnail(const QString& fileName)
 	if( fileName.isEmpty() )
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	WMFImport *dia = new WMFImport(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);

@@ -73,8 +73,8 @@ XpsPlug::XpsPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	uz = NULL;
+	progressDialog = nullptr;
+	uz = nullptr;
 }
 
 QImage XpsPlug::readThumbnail(QString fName)
@@ -82,7 +82,7 @@ QImage XpsPlug::readThumbnail(QString fName)
 	QImage tmp;
 	if (!QFile::exists(fName))
 		return QImage();
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	uz = new ScZipHandler();
 	if (!uz->open(fName))
 	{
@@ -226,7 +226,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
@@ -271,12 +271,12 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -309,7 +309,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -634,7 +634,7 @@ void XpsPlug::parsePageReference(QString designMap)
 				if ((dpg.tagName() == "Path") || (dpg.tagName() == "Glyphs") || (dpg.tagName() == "Canvas"))
 				{
 					PageItem* item = parseObjectXML(dpg, path);
-					if (item != NULL)
+					if (item != nullptr)
 					{
 						m_Doc->Items->append(item);
 						Elements.append(item);
@@ -701,7 +701,7 @@ void XpsPlug::parsePageReference(QString designMap)
 
 PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 {
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	ObjState obState;
 	obState.currentPath = QPainterPath();
 	obState.clipPath = QPainterPath();
@@ -1136,7 +1136,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			else if ((spe.tagName() == "Path") || (spe.tagName() == "Glyphs") || (spe.tagName() == "Canvas"))
 			{
 				PageItem* ite = parseObjectXML(spe, path);
-				if (ite != NULL)
+				if (ite != nullptr)
 					GElements.append(ite);
 			}
 			else if (spe.tagName() == "Canvas.OpacityMask")
@@ -1263,7 +1263,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			}
 		}
 	}
-	if (retObj != NULL)
+	if (retObj != nullptr)
 	{
 		if (!itemName.isEmpty())
 		{
@@ -1469,7 +1469,7 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 						if ((eo.tagName() == "Path") || (eo.tagName() == "Glyphs") || (eo.tagName() == "Canvas"))
 						{
 							PageItem* item = parseObjectXML(eo, path);
-							if (item != NULL)
+							if (item != nullptr)
 							{
 								m_Doc->sizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
 								ScPattern pat = ScPattern();
@@ -1633,7 +1633,7 @@ void XpsPlug::resolveLinks()
 			if (linkTargets.contains(target))
 			{
 				PageItem* linkT = linkTargets[target];
-				if (linkT != NULL)
+				if (linkT != nullptr)
 				{
 					int op = linkT->OwnPage;
 					if (op > -1)
@@ -1683,7 +1683,7 @@ PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 {
 	int z = -1;
-	PageItem* retObj = NULL;
+	PageItem* retObj = nullptr;
 	if (!obState.currentPath.isEmpty())
 	{
 		if (obState.itemType == 0)
@@ -1913,7 +1913,7 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	if (!uz->read(fileName, fontData))
 		return t;
 	QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-	if (tempImageFile == NULL)
+	if (tempImageFile == nullptr)
 		return t;
 	tempImageFile->setAutoRemove(false);
 	tempImageFile->open();

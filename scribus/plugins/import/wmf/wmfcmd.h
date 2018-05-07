@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 class WmfCmd
 {
 public:
-	WmfCmd()  { params = NULL; }
+	WmfCmd()  { params = nullptr; }
     ~WmfCmd() { if (params) delete params; }
     unsigned short funcIndex;
     long   numParam;

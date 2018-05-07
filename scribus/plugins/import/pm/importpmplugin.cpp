@@ -130,8 +130,8 @@ bool ImportPmPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = NULL;
-	bool emptyDoc = (m_Doc == NULL);
+	UndoTransaction* activeTransaction = nullptr;
+	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
@@ -150,7 +150,7 @@ bool ImportPmPlugin::import(QString fileName, int flags)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction = nullptr;
 	}
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
@@ -163,7 +163,7 @@ QImage ImportPmPlugin::readThumbnail(const QString& fileName)
 	if( fileName.isEmpty() )
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	PmPlug *dia = new PmPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);

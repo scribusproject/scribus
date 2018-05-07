@@ -72,8 +72,8 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	m_pdfDoc = NULL;
+	progressDialog = nullptr;
+	m_pdfDoc = nullptr;
 }
 
 QImage PdfPlug::readThumbnail(QString fName)
@@ -88,7 +88,7 @@ QImage PdfPlug::readThumbnail(QString fName)
 		GooString *fname = new GooString(QFile::encodeName(pdfFile).data());
 #endif
 		globalParams->setErrQuiet(gTrue);
-		PDFDoc *pdfDoc = new PDFDoc(fname, NULL, NULL, NULL);
+		PDFDoc *pdfDoc = new PDFDoc(fname, nullptr, nullptr, nullptr);
 		if (pdfDoc)
 		{
 			if (pdfDoc->getErrorCode() == errEncrypted)
@@ -217,7 +217,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 	b = 0.0;
 	h = 0.0;
@@ -268,12 +268,12 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -315,7 +315,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -402,7 +402,7 @@ bool PdfPlug::convert(const QString& fn)
 	}
 
 	globalParams = new GlobalParams();
-	GooString *userPW = NULL;
+	GooString *userPW = nullptr;
 	if (globalParams)
 	{
 #if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
@@ -414,13 +414,13 @@ bool PdfPlug::convert(const QString& fn)
 		GBool hasOcg = gFalse;
 		QList<OptionalContentGroup*> ocgGroups;
 //		globalParams->setPrintCommands(gTrue);
-		PDFDoc *pdfDoc = new PDFDoc(fname, NULL, NULL, NULL);
+		PDFDoc *pdfDoc = new PDFDoc(fname, nullptr, nullptr, nullptr);
 		if (pdfDoc)
 		{
 			if (pdfDoc->getErrorCode() == errEncrypted)
 			{
 				delete pdfDoc;
-				pdfDoc = NULL;
+				pdfDoc = nullptr;
 				if (progressDialog)
 					progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -435,7 +435,7 @@ bool PdfPlug::convert(const QString& fn)
 					fname = new GooString(QFile::encodeName(fn).data());
 #endif
 					userPW = new GooString(text.toLocal8Bit().data());
-					pdfDoc = new PDFDoc(fname, userPW, userPW, NULL);
+					pdfDoc = new PDFDoc(fname, userPW, userPW, nullptr);
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				}
 				if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))
@@ -775,9 +775,9 @@ bool PdfPlug::convert(const QString& fn)
 							{
 							//	int numObj = m_Doc->Items->count();
 							//	if (cropped)
-							//		pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+							//		pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
 							//	else
-							//		pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+							//		pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 							//	int numObj2 = m_Doc->Items->count();
 							//	int countObj = numObj2 - numObj;
 								for (int a = 0; a < ocgGroups.count(); a++)
@@ -787,9 +787,9 @@ bool PdfPlug::convert(const QString& fn)
 							//		currentLayer = m_Doc->activeLayer();
 									oc->setState(OptionalContentGroup::On);
 									if (cropped)
-										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
 									else
-										pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+										pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 									oc->setState(OptionalContentGroup::Off);
 							//		for (int dd = 0; dd < countObj; dd++)
 							//		{
@@ -802,9 +802,9 @@ bool PdfPlug::convert(const QString& fn)
 							else
 							{
 								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
 								else
-									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 							}
 							PDFPresentationData ef;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
@@ -906,7 +906,7 @@ bool PdfPlug::convert(const QString& fn)
 #endif
 								if (names.isDict())
 								{
-									LinkAction *linkAction = NULL;
+									LinkAction *linkAction = nullptr;
 									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 									if (linkAction)
 									{
@@ -974,7 +974,7 @@ bool PdfPlug::convert(const QString& fn)
 								ocgGroups[a]->setState(OptionalContentGroup::On);
 							}
 						}
-						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 					}
 				}
 				delete dev;
@@ -1066,7 +1066,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 
 QRectF PdfPlug::getCBox(int box, int pgNum)
 {
-	PDFRectangle *cBox = NULL;
+	PDFRectangle *cBox = nullptr;
 	if (box == Media_Box)
 		cBox = m_pdfDoc->getPage(pgNum)->getMediaBox();
 	else if (box == Bleed_Box)

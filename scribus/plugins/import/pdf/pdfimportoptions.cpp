@@ -15,7 +15,7 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 {
 	ui->setupUi(this);
 	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
-	m_plugin = NULL;
+	m_plugin = nullptr;
 	m_maxPage = 0;
 	m_resized = false;
 }

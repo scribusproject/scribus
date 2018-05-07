@@ -78,8 +78,8 @@ OdgPlug::OdgPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	uz = NULL;
+	progressDialog = nullptr;
+	uz = nullptr;
 }
 
 QImage OdgPlug::readThumbnail(QString fName)
@@ -87,7 +87,7 @@ QImage OdgPlug::readThumbnail(QString fName)
 	QImage tmp;
 	if (!QFile::exists(fName))
 		return QImage();
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	uz = new ScZipHandler();
 	if (!uz->open(fName))
 	{
@@ -170,7 +170,7 @@ bool OdgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
@@ -216,11 +216,11 @@ bool OdgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -253,7 +253,7 @@ bool OdgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}
@@ -487,7 +487,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
 						{
 							PageItem* retObj = parseObj(spm);
-							if (retObj != NULL)
+							if (retObj != nullptr)
 								m_Doc->Items->append(retObj);
 						}
 						m_Doc->setCurrentPage(oldCur);
@@ -613,7 +613,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
 						{
 							PageItem* retObj = parseObj(spm);
-							if (retObj != NULL)
+							if (retObj != nullptr)
 								m_Doc->Items->append(retObj);
 						}
 						m_Doc->setCurrentPage(oldCur);
@@ -713,7 +713,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 							for(QDomElement spe = spp.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
 							{
 								PageItem* retObj = parseObj(spe);
-								if (retObj != NULL)
+								if (retObj != nullptr)
 								{
 									m_Doc->Items->append(retObj);
 									Elements.append(retObj);
@@ -733,7 +733,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 	StoryText itemText;
 	itemText.clear();
 	itemText.setDoc(m_Doc);
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	if (draw.tagName() == "draw:g")
 	{
 		QList<PageItem*> GElements;
@@ -741,7 +741,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		for(QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
 		{
 			PageItem* ite = parseObj(spd);
-			if (ite != NULL)
+			if (ite != nullptr)
 			{
 				GElements.append(ite);
 				gLayer = ite->LayerID;
@@ -807,7 +807,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		retObj = parseForm(draw);
 	else
 		qDebug() << "Unhandled Tag" << draw.tagName();
-	if (retObj != NULL)
+	if (retObj != nullptr)
 	{
 		if (draw.hasAttribute("draw:layer"))
 		{
@@ -820,7 +820,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 
 PageItem* OdgPlug::parseForm(QDomElement &e)
 {
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	if (e.hasChildNodes())
 		qDebug() << "Unhandled Tag" << e.tagName();
 	return retObj;
@@ -829,7 +829,7 @@ PageItem* OdgPlug::parseForm(QDomElement &e)
 PageItem* OdgPlug::parseConnector(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
@@ -856,10 +856,10 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 				QList<PageItem*> GElements;
 				GElements.append(retObj);
 				PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
-				if (startArrow != NULL)
+				if (startArrow != nullptr)
 					GElements.append(startArrow);
 				PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
-				if (endArrow != NULL)
+				if (endArrow != nullptr)
 					GElements.append(endArrow);
 				if (GElements.count() > 1)
 					retObj = groupObjects(GElements);
@@ -874,7 +874,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	QList<PageItem*> GElements;
 	double x = parseUnit(e.attribute("svg:x"));
 	double y = parseUnit(e.attribute("svg:y")) ;
@@ -971,7 +971,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 							if(ret < 0)
 							{
 								QString formNam = itf.key();
-								erg = fpa.Eval(NULL);
+								erg = fpa.Eval(nullptr);
 								func_Results.insert("?" + formNam + " ", QString("%1 ").arg(erg));
 								formNam.prepend("Func_");
 								fpa.AddConstant(formNam.toStdString(), erg);
@@ -1232,7 +1232,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 PageItem* OdgPlug::parseMeasure(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	QList<PageItem*> GElements;
 	double x1 = e.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x1" ) );
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
@@ -1248,7 +1248,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	double dx = normRef.p2().x() - refLine.p1().x();
 	double dy = normRef.p2().y() - refLine.p1().y();
 	retObj = parseLine(e);
-	if (retObj != NULL)
+	if (retObj != nullptr)
 	{
 		retObj->moveBy(dx, dy, true);
 		GElements.append(retObj);
@@ -1311,7 +1311,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 PageItem* OdgPlug::parseLine( QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	double x1 = e.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x1" ) );
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
@@ -1336,10 +1336,10 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 		QList<PageItem*> GElements;
 		GElements.append(retObj);
 		PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
-		if (startArrow != NULL)
+		if (startArrow != nullptr)
 			GElements.append(startArrow);
 		PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
-		if (endArrow != NULL)
+		if (endArrow != nullptr)
 			GElements.append(endArrow);
 		if (GElements.count() > 1)
 			retObj = groupObjects(GElements);
@@ -1350,7 +1350,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 PageItem* OdgPlug::parseEllipse(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	double x = parseUnit(e.attribute("svg:x"));
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
@@ -1371,7 +1371,7 @@ PageItem* OdgPlug::parseEllipse(QDomElement &e)
 PageItem* OdgPlug::parseRect(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	double x = parseUnit(e.attribute("svg:x"));
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
@@ -1399,7 +1399,7 @@ PageItem* OdgPlug::parseRect(QDomElement &e)
 PageItem* OdgPlug::parsePolygon(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
@@ -1418,7 +1418,7 @@ PageItem* OdgPlug::parsePolygon(QDomElement &e)
 PageItem* OdgPlug::parsePolyline(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
@@ -1436,10 +1436,10 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 		QList<PageItem*> GElements;
 		GElements.append(retObj);
 		PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
-		if (startArrow != NULL)
+		if (startArrow != nullptr)
 			GElements.append(startArrow);
 		PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
-		if (endArrow != NULL)
+		if (endArrow != nullptr)
 			GElements.append(endArrow);
 		if (GElements.count() > 1)
 			retObj = groupObjects(GElements);
@@ -1450,7 +1450,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 PageItem* OdgPlug::parsePath(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
@@ -1492,10 +1492,10 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 				QList<PageItem*> GElements;
 				GElements.append(retObj);
 				PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
-				if (startArrow != NULL)
+				if (startArrow != nullptr)
 					GElements.append(startArrow);
 				PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
-				if (endArrow != NULL)
+				if (endArrow != nullptr)
 					GElements.append(endArrow);
 				if (GElements.count() > 1)
 					retObj = groupObjects(GElements);
@@ -1508,7 +1508,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 PageItem* OdgPlug::parseFrame(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	double x = parseUnit(e.attribute("svg:x"));
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
@@ -1593,7 +1593,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								ext = "emf";
 						}
 						retObj = getVectorFileFromData(m_Doc, f, ext, baseX + x, baseY + y, w, h);
-						if (retObj != NULL)
+						if (retObj != nullptr)
 							m_Doc->Items->removeLast();
 					}
 				}
@@ -1639,7 +1639,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							if ((ext == "eps") || (ext == "wmf") || (ext == "emf") || (ext == "svg") || (ext == "svm"))
 							{
 								retObj = getVectorFileFromData(m_Doc, buf, ext, baseX + x, baseY + y, w, h);
-								if (retObj != NULL)
+								if (retObj != nullptr)
 									m_Doc->Items->removeLast();
 							}
 							else
@@ -3373,7 +3373,7 @@ QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
 
 PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 {
-	PageItem *iteS = NULL;
+	PageItem *iteS = nullptr;
 	if (!obState.startMarkerName.isEmpty())
 	{
 		ObjStyle mStyle;
@@ -3441,7 +3441,7 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 
 PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 {
-	PageItem *iteS = NULL;
+	PageItem *iteS = nullptr;
 	if (!obState.endMarkerName.isEmpty())
 	{
 		ObjStyle mStyle;

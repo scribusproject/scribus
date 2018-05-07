@@ -58,7 +58,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);
 	m_Doc  = doc;
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
@@ -101,7 +101,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		qApp->processEvents();
 	}
 	else {
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	}
 	
 /* Set default Page to size defined in Preferences */
@@ -167,7 +167,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 			PoDoFo::PdfDocument doc( fName.toLocal8Bit().data() );
 #endif
 			PoDoFo::PdfPage *curPage = doc.GetPage(0);
-			if (curPage != NULL)
+			if (curPage != nullptr)
 			{
 				PoDoFo::PdfRect rect = curPage->GetMediaBox();
 				b = rect.GetWidth() - rect.GetLeft();
@@ -819,7 +819,7 @@ bool EPSPlug::Image(QString vals)
 			bool gs_error = false;
 			do {
 				len = diag.readLine(buf, 120);
-				gs_error |= (strstr(buf,"Error")==NULL);
+				gs_error |= (strstr(buf,"Error")==nullptr);
 				if (gs_error)
 					qDebug("\t%s", buf);
 			}
@@ -838,7 +838,7 @@ bool EPSPlug::Image(QString vals)
 				len = dat.readLine(buf, 120);
 				qDebug("\t%s", buf);
 			}
-			while ( len > 0 && !(strstr(buf, "image")==NULL) );
+			while ( len > 0 && !(strstr(buf, "image")==nullptr) );
 			dat.close();
 		}
 		else {

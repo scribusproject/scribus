@@ -72,7 +72,7 @@ VivaPlug::VivaPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	progressDialog = nullptr;
 }
 
 double VivaPlug::parseUnit(const QString &unit)
@@ -112,7 +112,7 @@ QImage VivaPlug::readThumbnail(QString fName)
 	QImage tmp;
 	if ( !QFile::exists(fName) )
 		return QImage();
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
@@ -236,7 +236,7 @@ bool VivaPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
@@ -756,7 +756,7 @@ void VivaPlug::parseMasterSpreadXML(const QDomElement& spNode)
 					if (eo.tagName() == "vo:object")
 					{
 						PageItem* ite = parseObjectXML(eo);
-						if (ite != NULL)
+						if (ite != nullptr)
 						{
 							m_Doc->Items->append(ite);
 							Elements.append(ite);
@@ -807,7 +807,7 @@ void VivaPlug::parseSpreadXML(const QDomElement& spNode)
 						if (eo.tagName() == "vo:object")
 						{
 							PageItem* ite = parseObjectXML(eo);
-							if (ite != NULL)
+							if (ite != nullptr)
 							{
 								m_Doc->Items->append(ite);
 								Elements.append(ite);
@@ -890,7 +890,7 @@ void VivaPlug::parseTextChainsXML(const QDomElement& obNode)
 
 PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 {
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	QDomElement eo = obNode.toElement();
 	QString id = eo.attribute("vo:id");
 	for(QDomNode ob = eo.firstChild(); !ob.isNull(); ob = ob.nextSibling() )
@@ -907,7 +907,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 				if (eog.tagName() == "vo:object")
 				{
 					PageItem *gItem = parseObjectXML(eog);
-					if (gItem != NULL)
+					if (gItem != nullptr)
 						GElements.append(gItem);
 				}
 				else if (eog.tagName() == "vo:transformation")
@@ -980,7 +980,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 
 PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseType)
 {
-	PageItem *retObj = NULL;
+	PageItem *retObj = nullptr;
 	QDomElement eo = obNode.toElement();
 	double ob_width = 0;
 	double ob_height = 0;
@@ -1825,7 +1825,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 														if (anco.tagName() == "vo:object")
 														{
 															PageItem* item = parseObjectXML(anco);
-															if (item != NULL)
+															if (item != nullptr)
 															{
 																item->isEmbedded = true;
 																item->gXpos = 0;

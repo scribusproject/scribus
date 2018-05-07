@@ -131,7 +131,7 @@ bool ImportXarPlugin::import(QString fileName, int flags)
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
-	bool emptyDoc = (m_Doc == NULL);
+	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
@@ -173,7 +173,7 @@ bool ImportXarPlugin::readColors(const QString& fileName, ColorList &colors)
 	if( fileName.isEmpty() )
 		return false;
 	UndoManager::instance()->setUndoEnabled(false);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	XarPlug *dia = new XarPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	bool ret = dia->readColors(fileName, colors);

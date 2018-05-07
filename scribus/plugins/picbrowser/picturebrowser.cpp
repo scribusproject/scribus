@@ -449,7 +449,7 @@ void PictureBrowser::actionsGoButtonClicked()
 		iafData.columnGap = 0;
 		iafData.linkTextFrames = false;
 		iafData.linkToExistingFrame = false;
-		iafData.linkToExistingFramePtr=NULL;
+		iafData.linkToExistingFramePtr=nullptr;
 
 		tmpImage->insertIntoDocument(m_Doc, iafData);
 	}
@@ -998,7 +998,7 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.columnGap = 0;
 	iafData.linkTextFrames = false;
 	iafData.linkToExistingFrame = false;
-	iafData.linkToExistingFramePtr=NULL;
+	iafData.linkToExistingFramePtr=nullptr;
 
 	tmpImage->insertIntoDocument(m_Doc, iafData);
 }
@@ -1701,7 +1701,7 @@ void PictureBrowser::closedDocument()
 {
 	documentWidget->clear();
 	documentItems.clear();
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	pImages->clearPreviewImagesList();
 	updateBrowser(false, false, false);
 	actionsGoButton->setEnabled(false);

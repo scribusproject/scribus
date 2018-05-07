@@ -465,7 +465,7 @@ RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, 
 	dashArray.clear();
 	firstPage = true;
 	actPage = 0;
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	fileType = fTyp;
 }
 
@@ -942,7 +942,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	Coords.resize(0);
 	Coords.svgInit();
-	PageItem *ite=NULL;
+	PageItem *ite=nullptr;
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
 	for(unsigned i = 1; i < vertices.count(); i++)
 	{
@@ -1101,7 +1101,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	Coords.resize(0);
 	Coords.svgInit();
 	Coords.parseSVG(svgString);
-	PageItem *ite=NULL;
+	PageItem *ite=nullptr;
 	if (isClosed)
 	{
 		if(m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
@@ -1243,7 +1243,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		PageItem *ite=NULL;
+		PageItem *ite=nullptr;
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
@@ -1363,7 +1363,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 {
 	if (!doProcessing)
 		return;
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	lineSpSet = false;
 	lineSpIsPT = false;
 //	if ((fileType == "pmd") || (fileType == "pm5") || (fileType == "p65"))
@@ -1451,7 +1451,7 @@ void RawPainter::endTextObject()
 		return;
 	if (actTextItem)
 		actTextItem->itemText.trim();
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	lineSpSet = false;
 	lineSpIsPT = false;
 }
@@ -1617,7 +1617,7 @@ void RawPainter::closeParagraph()
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	int posT = actTextItem->itemText.length();
 	if (posT > 0)
@@ -1745,7 +1745,7 @@ void RawPainter::insertTab()
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	int posT = actTextItem->itemText.length();
 	actTextItem->itemText.insertChars(posT, SpecialChars::TAB);
@@ -1756,7 +1756,7 @@ void RawPainter::insertSpace()
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	int posT = actTextItem->itemText.length();
 	actTextItem->itemText.insertChars(posT, SpecialChars::BLANK);
@@ -1767,7 +1767,7 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	if (lineSpSet)
 	{
@@ -1803,7 +1803,7 @@ void RawPainter::insertLineBreak()
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	int posT = actTextItem->itemText.length();
 	actTextItem->itemText.insertChars(posT, SpecialChars::LINEBREAK);
@@ -2233,7 +2233,7 @@ RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, 
 	dashArray.clear();
 	firstPage = true;
 	actPage = 0;
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	doProcessing = true;
 	fileType = fTyp;
 }
@@ -2625,7 +2625,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 	Coords.svgClosePath();
 	if (Coords.size() <= 0)
 		return;
-	PageItem *ite = NULL;
+	PageItem *ite = nullptr;
 	int z = 0;
 	if(m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
 	{
@@ -2908,7 +2908,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 	WPXString base64 = binaryData.getBase64Data();
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		PageItem *ite = NULL;
+		PageItem *ite = nullptr;
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
@@ -3026,7 +3026,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 {
 	if (!doProcessing)
 		return;
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	lineSpSet = false;
 	lineSpIsPT = false;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
@@ -3080,7 +3080,7 @@ void RawPainter::endTextObject()
 		return;
 	if (actTextItem)
 		actTextItem->itemText.trim();
-	actTextItem = NULL;
+	actTextItem = nullptr;
 	lineSpSet = false;
 	lineSpIsPT = false;
 }
@@ -3135,7 +3135,7 @@ void RawPainter::endTextLine()
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	int posT = actTextItem->itemText.length();
 	if (posT > 0)
@@ -3190,7 +3190,7 @@ void RawPainter::insertText(const ::WPXString &str)
 {
 	if (!doProcessing)
 		return;
-	if (actTextItem == NULL)
+	if (actTextItem == nullptr)
 		return;
 	if (lineSpSet)
 	{
@@ -3625,7 +3625,7 @@ void RawPainter::insertImage(PageItem* ite, QString imgExt, QByteArray &imageDat
 
 void RawPainter::applyShadow(PageItem* ite)
 {
-	if (ite == NULL)
+	if (ite == nullptr)
 		return;
 	if(m_style["draw:shadow"] && m_style["draw:shadow"]->getStr() == "visible")
 	{

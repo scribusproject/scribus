@@ -173,7 +173,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	}
 	
 	UndoTransaction activeTransaction;
-	bool emptyDoc = (m_Doc == NULL);
+	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
@@ -209,7 +209,7 @@ QImage SVGImportPlugin::readThumbnail(const QString& fileName)
 	if( fileName.isEmpty() )
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
-	m_Doc = NULL;
+	m_Doc = nullptr;
 	SVGPlug *dia = new SVGPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
@@ -393,11 +393,11 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -493,7 +493,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				m_Doc->m_Selection->setGroupRect();
-				if (m_Doc->view() != NULL)
+				if (m_Doc->view() != nullptr)
 					m_Doc->view()->updatesOn(true);
 			}
 			importCanceled = false;
@@ -596,8 +596,8 @@ void SVGPlug::setupTransform( const QDomElement &e )
 
 PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 {
-	PageItem* startArrow = NULL;
-	PageItem* endArrow = NULL;
+	PageItem* startArrow = nullptr;
+	PageItem* endArrow = nullptr;
 	SvgStyle *gc = m_gc.top();
 	QTransform gcm = gc->matrix;
 	double BaseX = m_Doc->currentPage()->xOffset();
@@ -916,13 +916,13 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 			}
 		}
 	}
-	if ((endArrow != NULL) || (startArrow != NULL))
+	if ((endArrow != nullptr) || (startArrow != nullptr))
 	{
 		QList<PageItem*> aElements;
 		aElements.append(item);
-		if (startArrow != NULL)
+		if (startArrow != nullptr)
 			aElements.append(startArrow);
-		if (endArrow != NULL)
+		if (endArrow != nullptr)
 			aElements.append(endArrow);
 		return m_Doc->groupObjectsList(aElements);
 	}
