@@ -52,11 +52,11 @@ ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 	toGray = false;
 	mirrorH = false;
 	mirrorV = false;
-	hProfile = NULL;
-	rgbToOutputColorTransform = NULL;
-	rgbToOutputImageTransform = NULL;
-	cmykToOutputColorTransform = NULL;
-	cmykToOutputImageTransform = NULL;
+	hProfile = nullptr;
+	rgbToOutputColorTransform = nullptr;
+	rgbToOutputImageTransform = nullptr;
+	cmykToOutputColorTransform = nullptr;
+	cmykToOutputImageTransform = nullptr;
 }
 
 ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, QRect& rect, ScPs2OutputParams& options ) : ScPainterExBase()
@@ -473,7 +473,7 @@ void ScPainterEx_Ps2::putColor(ScColorShade& colorShade, bool doFill)
 	{
 		unsigned long colorIn[4];
 		unsigned long colorOut[4];
-		ScColorTransform cmsTranform = NULL;
+		ScColorTransform cmsTranform = nullptr;
 		if( colorShade.color.getColorModel() == colorModelRGB )
 		{
 			RGBColorF rgb;

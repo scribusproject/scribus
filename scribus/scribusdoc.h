@@ -1160,9 +1160,9 @@ public:
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
 	bool hasTOCSetup() { return !m_docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
-	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = NULL);
+	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = nullptr);
 	//! \brief Get the closest border of another element to the given point
-	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = NULL);
+	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = nullptr);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y, bool elementSnap = false);
@@ -1716,7 +1716,7 @@ public:
 
 	//return mark with given label and given type
 	Mark* getMark(QString label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
-	Mark* newMark(Mark* mrk = NULL);
+	Mark* newMark(Mark* mrk = nullptr);
 	TextNote* newNote(NotesStyle* NS);
 	
 	bool isMarkUsed(Mark* mrk, bool visible = false);
@@ -1771,7 +1771,7 @@ public:
 	void updateChangedEndNotesFrames();
 	//finds mark position in text
 	//return true if mark was found, CPos is set for mark`s position
-	//if item==NULL then search in all items and if mark is found than item is set
+	//if item==nullptr then search in all items and if mark is found than item is set
 	int findMarkCPos(Mark* mrk, PageItem* &item, int Start = 0);
 	QList<PageItem_NoteFrame*> m_docEndNotesFramesChanged;
 

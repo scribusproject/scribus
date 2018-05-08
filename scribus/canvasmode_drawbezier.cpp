@@ -79,7 +79,7 @@ void BezierMode::drawControls(QPainter* p)
 inline bool BezierMode::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void BezierMode::finalizeItem(PageItem* currItem)
@@ -183,7 +183,7 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	mousePressEvent(m);
 	mouseReleaseEvent(m);
-	PageItem *currItem = NULL;
+	PageItem *currItem = nullptr;
 	if (m_doc->appMode == modeDrawBezierLine)
 	{
 		m_view->stopGesture();
@@ -481,7 +481,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 //???		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
 //	//Commit drag created items to undo manager.
-//	if (m_doc->m_Selection->itemAt(0)!=NULL)
+//	if (m_doc->m_Selection->itemAt(0)!=nullptr)
 //	{
 //		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
 //	}

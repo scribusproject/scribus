@@ -21,7 +21,7 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
 	setObjectName(name);
 	pointList.clear();
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
 	angleShift = 270;

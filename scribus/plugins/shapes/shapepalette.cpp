@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 {
 	shapes.clear();
-	scMW = NULL;
+	scMW = nullptr;
 
 	setDragEnabled(true);
 	setViewMode(QListView::IconMode);
@@ -74,7 +74,7 @@ void ShapeView::HandleContextMenu(QPoint)
 	if (this->count() != 0)
 	{
 		QListWidgetItem* it = currentItem();
-		if (it != NULL)
+		if (it != nullptr)
 		{
 			QAction* delAct = pmenu->addAction( tr("Delete selected Shape"));
 			connect(delAct, SIGNAL(triggered()), this, SLOT(delOne()));
@@ -106,7 +106,7 @@ void ShapeView::deleteAll()
 void ShapeView::delOne()
 {
 	QListWidgetItem* it = currentItem();
-	if (it != NULL)
+	if (it != nullptr)
 	{
 		QString key = it->data(Qt::UserRole).toString();
 		shapes.remove(key);
@@ -123,13 +123,13 @@ void ShapeView::changeDisplay()
 
 bool ShapeView::viewportEvent(QEvent *event)
 {
-	if (event != NULL)
+	if (event != nullptr)
 	{
 		if (event->type() == QEvent::ToolTip)
 		{
 			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 			QListWidgetItem* it = itemAt(helpEvent->pos());
-			if (it != NULL)
+			if (it != nullptr)
 			{
 				event->accept();
 				QString tipText = it->text();
@@ -158,7 +158,7 @@ void ShapeView::keyPressEvent(QKeyEvent* e)
 		case Qt::Key_Delete:
 			{
 				QListWidgetItem* it = currentItem();
-				if (it != NULL)
+				if (it != nullptr)
 				{
 					QString key = it->data(Qt::UserRole).toString();
 					if (shapes.contains(key))
@@ -307,7 +307,7 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", 0)
 	setWidget(containerWidget);
 
 	unsetDoc();
-	m_scMW  = NULL;
+	m_scMW  = nullptr;
 	languageChange();
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeTab()));
@@ -561,11 +561,11 @@ void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 
 void ShapePalette::setDoc(ScribusDoc *newDoc)
 {
-	if (m_scMW == NULL)
-		m_doc = NULL;
+	if (m_scMW == nullptr)
+		m_doc = nullptr;
 	else
 		m_doc = newDoc;
-	if (m_doc == NULL)
+	if (m_doc == nullptr)
 		setEnabled(true);
 	else
 		setEnabled(!m_doc->drawAsPreview);
@@ -573,7 +573,7 @@ void ShapePalette::setDoc(ScribusDoc *newDoc)
 
 void ShapePalette::unsetDoc()
 {
-	m_doc = NULL;
+	m_doc = nullptr;
 	setEnabled(true);
 }
 

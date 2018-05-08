@@ -71,7 +71,7 @@ void CsvIm::setupPStyles()
 		pstyleHeader->getFont()->setWeight(BOLD);
 	}
 	else
-		pstyleHeader = NULL;
+		pstyleHeader = nullptr;
 }
 
 void CsvIm::setFieldDelimiter(const QString& fdelim)

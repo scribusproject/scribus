@@ -91,7 +91,7 @@ nftsettings::~ nftsettings()
 	delete handler;
 	for (uint i = 0; i < templates.size(); ++i)
 	{
-		if (templates[i] != NULL)
+		if (templates[i] != nullptr)
 			delete templates[i];
 	}
 }

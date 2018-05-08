@@ -161,7 +161,7 @@ void tfDia::createLayout()
 void tfDia::createFilterRow(tfFilter* after)
 {
 	tfFilter* tmp = new tfFilter(vbox, "tfFilter");
-	if (after == NULL)
+	if (after == nullptr)
 	{
 		filters.push_back(tmp);
 		alayout->addWidget(tmp);
@@ -197,7 +197,7 @@ void tfDia::createFilterRow(tfFilter* after)
 void tfDia::createFilter(PrefsTable* table)
 {
 	if (table->width() != 10)
-		createFilterRow(NULL);
+		createFilterRow(nullptr);
 	else
 	{
 		for (uint i = 0; i < static_cast<uint>(table->height()); ++i)
@@ -260,7 +260,7 @@ void tfDia::saveTextChanged(const QString& text)
 void tfDia::clearClicked()
 {
 	clear();
-	createFilterRow(NULL);
+	createFilterRow(nullptr);
 }
 
 void tfDia::clear()

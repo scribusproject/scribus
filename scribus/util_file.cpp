@@ -110,7 +110,7 @@ bool copyFileAtomic(const QString& source, const QString& target)
 			// QTemporaryFile::close() do not really close file
 			tempFile->setAutoRemove(false);
 			delete tempFile; 
-			tempFile = NULL;
+			tempFile = nullptr;
 			success = QFile::rename(tempFileName, target);
 		}
 	}
@@ -189,10 +189,10 @@ bool moveFile(const QString& source, const QString& target)
 bool touchFile(const QString& file)
 {
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	return _wutime((const wchar_t*) file.utf16(), NULL) == 0;
+	return _wutime((const wchar_t*) file.utf16(), nullptr) == 0;
 #else
 	QByteArray fname = file.toLocal8Bit();
-	return utime(fname.data(), NULL) == 0;
+	return utime(fname.data(), nullptr) == 0;
 #endif
 }
 
@@ -243,7 +243,7 @@ bool fileInPath(const QString& filename)
 
 PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w, double h)
 {
-	PageItem* retObj = NULL;
+	PageItem* retObj = nullptr;
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
 	if (tempFile->open())
 	{

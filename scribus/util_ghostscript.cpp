@@ -364,7 +364,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	{
 		size = sizeof(regVersion)/sizeof(WCHAR) - 1;
 		DWORD keyIndex = 0;
-		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS)
+		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
 		{
 			int gsNumericVer, gsMajor, gsMinor;
 			wcscpy(regPath, (const wchar_t*) regKey.utf16());

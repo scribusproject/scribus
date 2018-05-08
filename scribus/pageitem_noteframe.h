@@ -28,7 +28,7 @@ public:
 	bool deleteIt;
 
 	//used while reading SLA file
-	void setNS(NotesStyle* nStyle, PageItem_TextFrame* master = NULL);
+	void setNS(NotesStyle* nStyle, PageItem_TextFrame* master = nullptr);
 	//returns Notes Style
 	NotesStyle* notesStyle() { return m_nstyle; }
 

@@ -53,13 +53,13 @@ CanvasMode_EditSpiral::CanvasMode_EditSpiral(ScribusView* view) : CanvasMode(vie
 	m_blockUpdateFromItem = 0;
 	m_startAngle = m_endAngle = 0.0;
 	m_arcPoint = noPointDefined;
-	m_VectorDialog = NULL;
+	m_VectorDialog = nullptr;
 }
 
 inline bool CanvasMode_EditSpiral::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0);
-	return (*pi) != NULL;
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditSpiral::drawControls(QPainter* p)

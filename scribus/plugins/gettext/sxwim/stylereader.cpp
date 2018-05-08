@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
  #include <gtfont.h>
 #include <QByteArray>
  
- StyleReader* StyleReader::sreader = NULL;
+ StyleReader* StyleReader::sreader = nullptr;
  
  extern xmlSAXHandlerPtr sSAXHandler;
  
@@ -47,8 +47,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	importTextOnly = textOnly;
  	usePrefix    = prefix;
 	packStyles   = combineStyles;
- 	currentStyle = NULL;
- 	parentStyle  = NULL;
+	currentStyle = nullptr;
+	parentStyle  = nullptr;
  	inList       = false;
  	currentList  = "";
 	defaultStyleCreated = false;
@@ -101,13 +101,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  					plist = styles[QString(currentList + "_%1").arg(level)]; 
  				}
  				gtParagraphStyle *pstyle;
- 				if (plist == NULL)
+				if (plist == nullptr)
  					plist = new gtStyle(*(styles["default-style"]));
  
  				if (plist->target() == "paragraph")
  				{
  					pstyle = dynamic_cast<gtParagraphStyle*>(plist);
-					assert(pstyle != NULL);
+					assert(pstyle != nullptr);
  					gtParagraphStyle* tmp = new gtParagraphStyle(*pstyle);
  					currentStyle = tmp;
  				}
@@ -135,7 +135,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  					if (ok)
  					{
  						gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
-						assert(s != NULL);
+						assert(s != nullptr);
  						s->setDropCapHeight(dh);
  						s->setDropCap(true);
  					}
@@ -169,7 +169,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::defaultStyle(const QXmlAttributes& attrs)
  {
- 	currentStyle = NULL;
+	currentStyle = nullptr;
  	for (int i = 0; i < attrs.count(); ++i)
  		if (attrs.localName(i) == "style:family")
  			if (attrs.value(i) == "paragraph")
@@ -185,13 +185,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::styleProperties(const QXmlAttributes& attrs)
  {
- 	if ((currentStyle == NULL) || (!readProperties))
+	if ((currentStyle == nullptr) || (!readProperties))
  		return;
- 	gtParagraphStyle* pstyle = NULL;
+	gtParagraphStyle* pstyle = nullptr;
  	if (currentStyle->target() == "paragraph")
  		pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
  	else
- 		pstyle = NULL;
+		pstyle = nullptr;
 	QString align;
 	QString force;
  	bool hasColorTag = false;
@@ -203,7 +203,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		{
 			double size = 0.0;
 			double psize = 0.0;
- 			if (parentStyle != NULL)
+			if (parentStyle != nullptr)
  				psize = static_cast<double>(parentStyle->getFont()->getSize());
  			else if (styles.contains("default-style"))
  				psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
@@ -215,13 +215,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (pstyle)
  				pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
  		}
- 		else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != NULL))
+		else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != nullptr))
  		{
  			gtParagraphStyle* ppstyle;
  			if (parentStyle->target() == "paragraph")
  			{
  				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
-				assert(ppstyle != NULL);
+				assert(ppstyle != nullptr);
  				ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
  			}
  		}
@@ -263,32 +263,32 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		        (((attrs.value(i)).indexOf("super") != -1) || 
  				(((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
  			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
- 		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != nullptr))
  			pstyle->setSpaceAbove(getSize(attrs.value(i)));
- 		else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != nullptr))
 			pstyle->setSpaceBelow(getSize(attrs.value(i)));
- 		else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != nullptr))
  		{
  			if (inList)
  				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
  			else
  				pstyle->setIndent(getSize(attrs.value(i)));	
  		}
- 		else if ((attrs.localName(i) == "text:space-before") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "text:space-before") && (pstyle != nullptr))
  		{
  			if (inList)
  				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
  			else
  				pstyle->setIndent(getSize(attrs.value(i)));
  		}
- 		else if ((attrs.localName(i) == "fo:text-indent") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "fo:text-indent") && (pstyle != nullptr))
  			pstyle->setFirstLineIndent(getSize(attrs.value(i)));
- 		else if ((attrs.localName(i) == "fo:text-align") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "fo:text-align") && (pstyle != nullptr))
  			align = attrs.value(i);
- 		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != NULL))
+		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != nullptr))
  			force = attrs.value(i);
  	}
-	if (!align.isEmpty() && (pstyle != NULL))
+	if (!align.isEmpty() && (pstyle != nullptr))
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -352,17 +352,17 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (styles.contains(attrs.value(i)))
  				parentStyle = styles[attrs.value(i)];
  			else
- 				parentStyle = NULL;
+				parentStyle = nullptr;
  		}
  		else if (attrs.localName(i) == "style:list-style-name")
  			listName = attrs.value(i);
  	}
- 	if ((parentStyle == NULL) && (styles.contains("default-style")))
+	if ((parentStyle == nullptr) && (styles.contains("default-style")))
  		parentStyle = styles["default-style"];
  
  	if (create)
  	{
- 		if (parentStyle == NULL)
+		if (parentStyle == nullptr)
  		{
  			parentStyle = new gtStyle("tmp-parent");
  		}
@@ -372,7 +372,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (parentStyle->target() == "paragraph")
  			{
  				tmpP = dynamic_cast<gtParagraphStyle*>(parentStyle);
-				assert(tmpP != NULL);
+				assert(tmpP != nullptr);
  				gtParagraphStyle* tmp = new gtParagraphStyle(*tmpP);
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
@@ -400,7 +400,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 		}
  	}
  	else
- 		currentStyle = NULL;
+		currentStyle = nullptr;
  }
  
  void StyleReader::tabStop(const QXmlAttributes& attrs)
@@ -408,7 +408,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if (currentStyle->target() == "paragraph")
  	{
  		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
-		assert(pstyle != NULL);
+		assert(pstyle != nullptr);
 		QString pos;
 		QString type;
  		for (int i = 0; i < attrs.count(); ++i)
@@ -438,21 +438,21 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  bool StyleReader::endElement(const QString&, const QString&, const QString &name)
  {
- 	if ((name == "style:default-style") && (currentStyle != NULL) && (readProperties))
+	if ((name == "style:default-style") && (currentStyle != nullptr) && (readProperties))
  	{
  		setStyle(currentStyle->getName(), currentStyle);
- 		currentStyle = NULL;
- 		parentStyle = NULL;
+		currentStyle = nullptr;
+		parentStyle = nullptr;
  		readProperties = false;
  	}
  	else if (((name == "style:style") || 
  	          (name == "text:list-level-style-bullet") || 
  			  (name == "text:list-level-style-number") ||
-			  (name == "text:list-level-style-image")) && (currentStyle != NULL))
+			  (name == "text:list-level-style-image")) && (currentStyle != nullptr))
  	{
  		setStyle(currentStyle->getName(), currentStyle);
- 		currentStyle = NULL;
- 		parentStyle = NULL;
+		currentStyle = nullptr;
+		parentStyle = nullptr;
  		readProperties = false;
  	}
  	else if (name == "text:list-style")
@@ -512,7 +512,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if ((style->target() == "paragraph") && (packStyles))
  	{
  		s = dynamic_cast<gtParagraphStyle*>(style);
-		assert(s != NULL);
+		assert(s != nullptr);
  		QString nameByAttrs = QString("%1-").arg(s->getSpaceAbove());
  		nameByAttrs += QString("%1-").arg(s->getSpaceBelow());
  		nameByAttrs += QString("%1-").arg(s->getLineSpacing());
@@ -588,11 +588,11 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value)
  {
- 	gtParagraphStyle* pstyle = NULL;
+	gtParagraphStyle* pstyle = nullptr;
  	if (style->target() == "paragraph")
  		pstyle = dynamic_cast<gtParagraphStyle*>(style);
  	else
- 		pstyle = NULL;
+		pstyle = nullptr;
 	QString align;
 	QString force;
  
@@ -602,7 +602,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	{
  		double size = 0;
  		double psize = 0;
- 		if (parent2Style != NULL)
+		if (parent2Style != nullptr)
  			psize = static_cast<double>(parent2Style->getFont()->getSize());
  		else if (styles.contains("default-style"))
  			psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
@@ -613,13 +613,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		if (pstyle)
  			pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
  	}
- 	else if ((key == "fo:line-height") && (parent2Style != NULL))
+	else if ((key == "fo:line-height") && (parent2Style != nullptr))
  	{
  		gtParagraphStyle* ppstyle;
  		if (parent2Style->target() == "paragraph")
  		{
  			ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
-			assert(ppstyle != NULL);
+			assert(ppstyle != nullptr);
  			ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
  		}
  	}
@@ -655,32 +655,32 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	        (((value).indexOf("super") != -1) || 
  			(((value).left(1) != "-") && ((value).left(1) != "0"))))
  		style->getFont()->toggleEffect(SUPERSCRIPT);
- 	else if ((key == "fo:margin-top") && (pstyle != NULL))
+	else if ((key == "fo:margin-top") && (pstyle != nullptr))
  		pstyle->setSpaceAbove(getSize(value));
- 	else if ((key == "fo:margin-bottom") && (pstyle != NULL))
+	else if ((key == "fo:margin-bottom") && (pstyle != nullptr))
  		pstyle->setSpaceBelow(getSize(value));
- 	else if ((key == "fo:margin-left") && (pstyle != NULL))
+	else if ((key == "fo:margin-left") && (pstyle != nullptr))
  	{
  		if (inList)
  			pstyle->setIndent(pstyle->getIndent() + getSize(value));
  		else
  			pstyle->setIndent(getSize(value));	
  	}
- 	else if ((key == "text:space-before") && (pstyle != NULL))
+	else if ((key == "text:space-before") && (pstyle != nullptr))
  	{
  		if (inList)
  			pstyle->setIndent(pstyle->getIndent() + getSize(value));
  		else
  			pstyle->setIndent(getSize(value));	
  	}
- 	else if ((key == "fo:text-indent") && (pstyle != NULL))
+	else if ((key == "fo:text-indent") && (pstyle != nullptr))
  		pstyle->setFirstLineIndent(getSize(value));
- 	else if ((key == "fo:text-align") && (pstyle != NULL))
+	else if ((key == "fo:text-align") && (pstyle != nullptr))
  		align = value;
- 	else if ((key == "style:justify-single-word") && (pstyle != NULL))
+	else if ((key == "style:justify-single-word") && (pstyle != nullptr))
  		force = value;
  
-	if (!align.isEmpty() && (pstyle != NULL))
+	if (!align.isEmpty() && (pstyle != nullptr))
 	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -753,53 +753,53 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  StyleReader::~StyleReader()
  {
- 	sreader = NULL;
+	sreader = nullptr;
  	StyleMap::Iterator it;
  	for (it = styles.begin(); it != styles.end(); ++it)
  	{
  		if (it.value())
  		{
  			delete it.value();
- 			it.value() = NULL;
+			it.value() = nullptr;
  		}
  	}
  }
  
  xmlSAXHandler sSAXHandlerStruct = {
- 	NULL, // internalSubset,
- 	NULL, // isStandalone,
- 	NULL, // hasInternalSubset,
- 	NULL, // hasExternalSubset,
- 	NULL, // resolveEntity,
- 	NULL, // getEntity,
- 	NULL, // entityDecl,
- 	NULL, // notationDecl,
- 	NULL, // attributeDecl,
- 	NULL, // elementDecl,
- 	NULL, // unparsedEntityDecl,
- 	NULL, // setDocumentLocator,
- 	NULL, // startDocument,
- 	NULL, // endDocument,
+	nullptr, // internalSubset,
+	nullptr, // isStandalone,
+	nullptr, // hasInternalSubset,
+	nullptr, // hasExternalSubset,
+	nullptr, // resolveEntity,
+	nullptr, // getEntity,
+	nullptr, // entityDecl,
+	nullptr, // notationDecl,
+	nullptr, // attributeDecl,
+	nullptr, // elementDecl,
+	nullptr, // unparsedEntityDecl,
+	nullptr, // setDocumentLocator,
+	nullptr, // startDocument,
+	nullptr, // endDocument,
  	StyleReader::startElement,
  	StyleReader::endElement,
- 	NULL, // reference,
- 	NULL, // characters
- 	NULL, // ignorableWhitespace,
- 	NULL, // processingInstruction,
- 	NULL, // comment,
- 	NULL, // warning,
- 	NULL, // error,
- 	NULL, // fatalError,
- 	NULL, // getParameterEntity,
- 	NULL, // cdata,
- 	NULL,
+	nullptr, // reference,
+	nullptr, // characters
+	nullptr, // ignorableWhitespace,
+	nullptr, // processingInstruction,
+	nullptr, // comment,
+	nullptr, // warning,
+	nullptr, // error,
+	nullptr, // fatalError,
+	nullptr, // getParameterEntity,
+	nullptr, // cdata,
+	nullptr,
  	1
  #ifdef HAVE_XML26
  	,
- 	NULL,
- 	NULL,
- 	NULL,
- 	NULL
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr
  #endif
  };
  
@@ -810,13 +810,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	QString name = QString((const char*) fullname).toLower();
  	QXmlAttributes attrs;
  	for(const xmlChar** cur = atts; cur && *cur; cur += 2)
- 		attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
- 	sreader->startElement(NULL, NULL, name, attrs);
+		attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
+	sreader->startElement(nullptr, nullptr, name, attrs);
  }
  
  void StyleReader::endElement(void*, const xmlChar * name)
  {
  	QString nname = QString((const char*) name).toLower();
- 	sreader->endElement(NULL, NULL, nname);
+	sreader->endElement(nullptr, nullptr, nname);
  }
  

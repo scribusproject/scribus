@@ -1036,21 +1036,21 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	if (!hasTableLinks || hasTextLinks)
 		return false;
 
-	PageItem *topLeft = NULL;
+	PageItem *topLeft = nullptr;
 	for (int i = 0; i < gpL.count(); i++)
 	{
 		PageItem* it = gpL[i];
-		if ((it->TopLink == NULL) && (it->LeftLink == NULL))	// we got the topleft item
+		if ((it->TopLink == nullptr) && (it->LeftLink == nullptr))	// we got the topleft item
 		{
 			topLeft = it;
 			PageItem *tl = it;
-			while (tl->RightLink != NULL)
+			while (tl->RightLink != nullptr)
 			{
 				colWidths.append(tl->width());
 				tl = tl->RightLink;
 			}
 			colWidths.append(tl->width());
-			while (tl->BottomLink != NULL)
+			while (tl->BottomLink != nullptr)
 			{
 				rowHeights.append(tl->height());
 				tl = tl->BottomLink;
@@ -1133,7 +1133,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	currItem->setLayer(gItem->LayerID);
 	currItem->setMasterPage(gItem->OwnPage, gItem->OnMasterPage);
 	currItem->adjustFrameToTable();
-	if (target != NULL)
+	if (target != nullptr)
 	{
 		int ind = target->indexOf(gItem);
 		target->replace(ind, currItem);

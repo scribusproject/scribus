@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "gtmeasure.h"
 
-HTMLReader* HTMLReader::hreader = NULL;
+HTMLReader* HTMLReader::hreader = nullptr;
 bool HTMLReader::elemJustStarted = false;
 bool HTMLReader::elemJustFinished = false;
 
@@ -137,9 +137,9 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 	if (atts)
 	{
 		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+			attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
-	hreader->startElement(NULL, NULL, name, attrs);
+	hreader->startElement(nullptr, nullptr, name, attrs);
 }
 
 bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
@@ -338,7 +338,7 @@ void HTMLReader::endElement(void*, const xmlChar * name)
 	elemJustStarted = false;
 	elemJustFinished = true;
 	QString nname(QString((const char*) name).toLower());
-	hreader->endElement(NULL, NULL, nname);
+	hreader->endElement(nullptr, nullptr, nname);
 }
 
 bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
@@ -625,7 +625,7 @@ void HTMLReader::parse(QString filename)
 	QByteArray fn(filename.toLocal8Bit());
 #endif
 	elemJustStarted = elemJustFinished = false;
-	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
+	htmlSAXParseFile(fn.data(), nullptr, mySAXHandler, nullptr);
 }
 
 void HTMLReader::createListStyle()
@@ -640,40 +640,40 @@ void HTMLReader::createListStyle()
 }
 
 htmlSAXHandler mySAXHandlerStruct = {
-	NULL, // internalSubset,
-	NULL, // isStandalone,
-	NULL, // hasInternalSubset,
-	NULL, // hasExternalSubset,
-	NULL, // resolveEntity,
-	NULL, // getEntity,
-	NULL, // entityDecl,
-	NULL, // notationDecl,
-	NULL, // attributeDecl,
-	NULL, // elementDecl,
-	NULL, // unparsedEntityDecl,
-	NULL, // setDocumentLocator,
-	NULL, // startDocument,
-	NULL, // endDocument,
+	nullptr, // internalSubset,
+	nullptr, // isStandalone,
+	nullptr, // hasInternalSubset,
+	nullptr, // hasExternalSubset,
+	nullptr, // resolveEntity,
+	nullptr, // getEntity,
+	nullptr, // entityDecl,
+	nullptr, // notationDecl,
+	nullptr, // attributeDecl,
+	nullptr, // elementDecl,
+	nullptr, // unparsedEntityDecl,
+	nullptr, // setDocumentLocator,
+	nullptr, // startDocument,
+	nullptr, // endDocument,
 	HTMLReader::startElement,
 	HTMLReader::endElement,
-	NULL, // reference,
+	nullptr, // reference,
 	HTMLReader::characters,
-	NULL, // ignorableWhitespace,
-	NULL, // processingInstruction,
-	NULL, // comment,
-	NULL, // warning,
-	NULL, // error,
-	NULL, // fatalError,
-	NULL, // getParameterEntity,
-	NULL, // cdata,
-	NULL,
+	nullptr, // ignorableWhitespace,
+	nullptr, // processingInstruction,
+	nullptr, // comment,
+	nullptr, // warning,
+	nullptr, // error,
+	nullptr, // fatalError,
+	nullptr, // getParameterEntity,
+	nullptr, // cdata,
+	nullptr,
 	1
 #ifdef HAVE_XML26
 	,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr
 #endif
 };
 
@@ -698,6 +698,6 @@ HTMLReader::~HTMLReader()
 	delete pstylecode;
 	delete pstylep;
 	delete pstylepre;
-	hreader = NULL;
+	hreader = nullptr;
 }
 

@@ -84,20 +84,20 @@ tfFilter::tfFilter(QWidget *parent, const char *name) : QWidget(parent)
 
 void tfFilter::createWidget()
 {
-	firstCombo = NULL;
-	firstLabel = NULL;
-	secondCombo = NULL;
-	secondLabel = NULL;
-	thirdCombo = NULL;
-	thirdLabel = NULL;
-	fourthCombo = NULL;
-	fourthLabel = NULL;
-	fifthCombo = NULL;
-	fifthLabel = NULL;
-	sixthCombo = NULL;
-	secondRegexpCheck = NULL;
-// 	thirdRegexpCheck = NULL;
-	fifthRegexpCheck = NULL;
+	firstCombo = nullptr;
+	firstLabel = nullptr;
+	secondCombo = nullptr;
+	secondLabel = nullptr;
+	thirdCombo = nullptr;
+	thirdLabel = nullptr;
+	fourthCombo = nullptr;
+	fourthLabel = nullptr;
+	fifthCombo = nullptr;
+	fifthLabel = nullptr;
+	sixthCombo = nullptr;
+	secondRegexpCheck = nullptr;
+// 	thirdRegexpCheck = nullptr;
+	fifthRegexpCheck = nullptr;
 
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");

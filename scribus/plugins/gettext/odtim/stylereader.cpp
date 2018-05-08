@@ -906,9 +906,9 @@ void StyleReader::startElement(void*, const xmlChar * fullname, const xmlChar **
 	if (atts)
 	{
 		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs->append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+			attrs->append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
-	sreader->startElement(nullptr, NULL, *name, *attrs);
+	sreader->startElement(nullptr, nullptr, *name, *attrs);
 }
  
 void StyleReader::endElement(void*, const xmlChar * name)

@@ -77,7 +77,7 @@ void nftdialog::setupListItems()
 	{
 		if (!settings->templates[i]->isDeleted)
 		{
-			ListItem* tmp = new ListItem(settings->templates[i], NULL);
+			ListItem* tmp = new ListItem(settings->templates[i], nullptr);
 			iconItems.push_back(tmp);
 		}
 	}
@@ -131,7 +131,7 @@ void nftdialog::setTNails()
 				iconItems[i]->second = tmpQIVI;
 			} 
 			else
-				iconItems[i]->second = NULL;
+				iconItems[i]->second = nullptr;
 		}
 		tnailGrid->sortItems();
 	}
@@ -214,7 +214,7 @@ void nftdialog::removeTemplate()
 	currentDocumentTemplate->isDeleted = true;
 	textBrowser->clear();
 	imageView->clear();
-	currentDocumentTemplate = NULL;
+	currentDocumentTemplate = nullptr;
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	setupListItems();
 	setupCategories();
@@ -239,7 +239,7 @@ nftdialog::~nftdialog()
 	delete settings;
 	for (uint i = 0; i < iconItems.size(); i++)
 	{
-		if (iconItems[i] != NULL)
+		if (iconItems[i] != nullptr)
 			delete iconItems[i];
 	}
 }

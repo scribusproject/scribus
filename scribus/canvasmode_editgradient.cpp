@@ -63,7 +63,7 @@ CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode
 inline bool CanvasMode_EditGradient::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditGradient::drawControls(QPainter* p)
