@@ -51,7 +51,7 @@ int HunspellDict::spell(QString word)
 
 QStringList HunspellDict::suggest(QString word)
 {
-	char **sugglist = NULL;
+	char **sugglist = nullptr;
 	QStringList replacements;
 
 	int suggCount = m_hunspell->suggest(&sugglist, m_codec->fromUnicode(word).constData());

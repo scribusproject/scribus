@@ -34,9 +34,9 @@ for which a new license (GPL+exception) is in place.
 HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 {
 //	numDicts=0;
-	m_doc=NULL;
+	m_doc=nullptr;
 	m_runningForSE=false;
-	m_SE=NULL;
+	m_SE=nullptr;
 }
 
 HunspellPluginImpl::~HunspellPluginImpl()
@@ -44,7 +44,7 @@ HunspellPluginImpl::~HunspellPluginImpl()
 	foreach (HunspellDict* h, hspellerMap)
 	{
 		delete h;
-		h = NULL;
+		h = nullptr;
 	}
 	hspellerMap.clear();
 //	numDicts = 0;

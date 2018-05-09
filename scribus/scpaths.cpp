@@ -34,8 +34,8 @@ const char ScPaths::envPathSeparator = ';';
 const char ScPaths::envPathSeparator = ':';
 #endif
 
-// Init the singleton's "self" address to NULL
-ScPaths* ScPaths::m_instance = NULL;
+// Init the singleton's "self" address to nullptr
+ScPaths* ScPaths::m_instance = nullptr;
 
 // Singleton's public constructor
 const ScPaths& ScPaths::instance()
@@ -136,7 +136,7 @@ QString ScPaths::bundleDir(void) const
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
 	const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
-	if (pathPtr!=NULL && strlen(pathPtr)>0)
+	if (pathPtr!=nullptr && strlen(pathPtr)>0)
 	{
 		// make sure we get the Scribus.app directory, not some subdir
 		// strip trailing '/':
@@ -672,7 +672,7 @@ QString ScPaths::windowsSpecialDir(int folder)
 	QString qstr;
 #ifdef Q_OS_WIN32
 	WCHAR dir[256];
-	if ( SHGetSpecialFolderPathW(NULL, dir, folder , false) )
+	if ( SHGetSpecialFolderPathW(nullptr, dir, folder , false) )
 	{
 		qstr = QString::fromUtf16((const unsigned short*) dir);
 		if( !qstr.endsWith("\\") )

@@ -49,7 +49,7 @@ previewImage::previewImage ( QString imageFile )
 //enable caching
 	fileInformation.setCaching ( true );
 
-	imgInfo = NULL;
+	imgInfo = nullptr;
 	currentSize = 1;
 }
 

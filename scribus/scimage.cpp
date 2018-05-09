@@ -369,11 +369,11 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 /*
 void ScImage::liberateMemory(void **memory)
 {
-	assert(memory != (void **)NULL);
-	if(*memory == (void *)NULL)
+	assert(memory != (void **)nullptr);
+	if(*memory == (void *)nullptr)
 		return;
 	free(*memory);
-	*memory=(void *) NULL;
+	*memory=(void *) nullptr;
 }
 */
 void ScImage::solarize(double factor, bool cmyk)
@@ -2122,7 +2122,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
 	ScColorProfile prof;
-	ScImgDataLoader* pDataLoader = NULL;
+	ScImgDataLoader* pDataLoader = nullptr;
 
 	profile->resize(0);
 	*components = 0;
@@ -2385,7 +2385,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 			}
 			else if (bilevel && (reqType == CMYKData))
-				inputProf = NULL; // Workaround to map directly gray to K channel
+				inputProf = nullptr; // Workaround to map directly gray to K channel
 			else if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
 			{
 				imgInfo.profileName = cmSettings.profileName();
@@ -2409,7 +2409,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	else if (cmSettings.colorManagementAllowed() && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
 	else if (cmSettings.colorManagementAllowed() && bilevel && (reqType == CMYKData))
-		inputProf = NULL; // Workaround to map directly gray to K channel
+		inputProf = nullptr; // Workaround to map directly gray to K channel
 	else if (cmSettings.colorManagementAllowed())
 		inputProf = ScCore->defaultRGBProfile;
 	ScColorProfile screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
@@ -2526,11 +2526,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
-			uchar* ptr2 = NULL;
+			uchar* ptr2 = nullptr;
 			for (int i = 0; i < height(); i++)
 			{
 				uchar* ptr = scanLine(i);
-				ptr2 = pDataLoader->useRawImage() ? pDataLoader->r_image.scanLine(i) : NULL;
+				ptr2 = pDataLoader->useRawImage() ? pDataLoader->r_image.scanLine(i) : nullptr;
 				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != ColorSpace_Cmyk) )
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);

@@ -33,7 +33,7 @@ ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
 	addItem( tr("No Style"));
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -56,7 +56,7 @@ void ParaStyleComboBox::updateFormatList()
 
 	bool sigBlocked = this->blockSignals(true);
 	clear();
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		QStringList st;
 		addItem( tr("No Style"));
@@ -97,7 +97,7 @@ CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
 	addItem( tr("No Style"));
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -120,7 +120,7 @@ void CharStyleComboBox::updateFormatList()
 
 	bool sigBlocked = this->blockSignals(true);
 	clear();
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		QStringList st;
 		addItem( tr("No Style"));
@@ -161,7 +161,7 @@ CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
 	addItem( tr("No Style"));
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -184,7 +184,7 @@ void CellStyleComboBox::updateFormatList()
 
 	bool sigBlocked = this->blockSignals(true);
 	clear();
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		QStringList st;
 		addItem( tr("No Style"));
@@ -226,7 +226,7 @@ TableStyleComboBox::TableStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
 	addItem( tr("No Style"));
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -249,7 +249,7 @@ void TableStyleComboBox::updateFormatList()
 
 	bool sigBlocked = this->blockSignals(true);
 	clear();
-	if (currentDoc != NULL)
+	if (currentDoc != nullptr)
 	{
 		QStringList st;
 		addItem( tr("No Style"));

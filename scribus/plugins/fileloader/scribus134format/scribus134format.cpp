@@ -152,7 +152,7 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 QIODevice* Scribus134Format::slaReader(const QString & fileName)
 {
 	if (!fileSupported(0, fileName))
-		return NULL;
+		return nullptr;
 
 	QIODevice* ioDevice = 0;
 	if (fileName.right(2) == "gz")
@@ -163,7 +163,7 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 		if (!compressor->open(QIODevice::ReadOnly))
 		{
 			delete compressor;
-			return NULL;
+			return nullptr;
 		}
 		ioDevice = compressor;
 	}
@@ -173,7 +173,7 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 		if (!ioDevice->open(QIODevice::ReadOnly))
 		{
 			delete ioDevice;
-			return NULL;
+			return nullptr;
 		}
 	}
 	return ioDevice;
@@ -707,7 +707,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -1530,7 +1530,7 @@ bool Scribus134Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
 bool Scribus134Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs)
 {
 	elem = attrs.valueAsInt("Element");
-	bookmark.PageObject = NULL;
+	bookmark.PageObject = nullptr;
 	bookmark.Title  = attrs.valueAsString("Title");
 	bookmark.Text   = attrs.valueAsString("Text");
 	bookmark.Aktion = attrs.valueAsString("Aktion");
@@ -2536,7 +2536,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (Pcolor2.isEmpty())
 		Pcolor2 = CommonStrings::None;
 	QColor tmpc;
-	PageItem *currItem=NULL;
+	PageItem *currItem=nullptr;
 	QString tmp;
 	double xf, yf, xf2;
 	QString clPath;
@@ -3145,7 +3145,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	ScPage* newPage = NULL;
+	ScPage* newPage = nullptr;
 	
 	QString tmp;
 	QMap<int,PageItem*> TableID;
@@ -3279,7 +3279,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "STYLE")
 		{
-			getStyle(vg, reader, NULL, m_Doc, true);
+			getStyle(vg, reader, nullptr, m_Doc, true);
 		}
 		if (((tagName == "PAGE") || (tagName == "MASTERPAGE")) && (attrs.valueAsInt("NUM") == pageNumber))
 		{

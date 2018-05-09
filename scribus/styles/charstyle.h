@@ -214,7 +214,6 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	m_Effects = other.m_Effects;
-//	m_context = NULL;
 	m_contextversion = -1;
 	return *this;
 }
@@ -227,7 +226,6 @@ inline CharStyle::CharStyle(const CharStyle & other) : BaseStyle(other)
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	m_Effects = other.m_Effects;
-//	m_context = NULL;
 	m_contextversion = -1;
 }
 

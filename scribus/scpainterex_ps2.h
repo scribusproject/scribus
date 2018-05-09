@@ -52,7 +52,7 @@ class ScribusDoc;
 class ScPs2OutputParams
 {
 public:
-	ScPs2OutputParams(ScribusDoc* doc = NULL);
+	ScPs2OutputParams(ScribusDoc* doc = nullptr);
 	ScPainterExBase::ColorMode colorMode;
 	ScribusDoc* document;
 	bool reloadImages;

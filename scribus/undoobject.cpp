@@ -36,7 +36,7 @@ UndoObject::UndoObject()
 	m_id = m_nextId;
 	++m_nextId;
 	m_uname = "";
-	m_upixmap = NULL;
+	m_upixmap = nullptr;
 }
 
 UndoObject::UndoObject(const UndoObject& other)

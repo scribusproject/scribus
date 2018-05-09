@@ -73,13 +73,13 @@ CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : Ca
 CanvasMode_EditMeshGradient::~CanvasMode_EditMeshGradient()
 {
 	delete m_old_mesh;
-	m_old_mesh = NULL;
+	m_old_mesh = nullptr;
 }
 
 inline bool CanvasMode_EditMeshGradient::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0);
-	return (*pi) != NULL;
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_EditMeshGradient::drawControls(QPainter* p)
@@ -982,7 +982,7 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 		if((*m_old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
 		{
 			delete ss;
-			ss=NULL;
+			ss=nullptr;
 		}
 		else
 			ss->setItem(qMakePair(*m_old_mesh,currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]));

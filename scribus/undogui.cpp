@@ -403,8 +403,8 @@ UndoPalette::~UndoPalette()
 
 UndoPalette::UndoItem::UndoItem() : QListWidgetItem()
 {
-	targetpixmap = NULL;
-	actionpixmap = NULL;
+	targetpixmap = nullptr;
+	actionpixmap = nullptr;
 	isUndoAction_ = true;
 }
 

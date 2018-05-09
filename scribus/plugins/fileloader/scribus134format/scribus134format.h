@@ -70,7 +70,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownNr = 0; item = NULL; isGroupFlag = false; };
+			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownNr = 0; item = nullptr; isGroupFlag = false; };
 			PageItem* item;
 			int groupLastItem;
 			int nextItem;

@@ -201,7 +201,7 @@ void VGradient::removeStop( uint n )
 
 void VGradient::filterStops(void)
 {
-	VColorStop* colorStop = NULL;
+	VColorStop* colorStop = nullptr;
 	bool zeroFound = false;
 	QMutableListIterator<VColorStop*> i(m_colorStops);
 	i.toBack();

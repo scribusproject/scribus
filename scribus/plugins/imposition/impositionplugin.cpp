@@ -42,7 +42,7 @@ void ImpositionPlugin::languageChange()
 
 bool ImpositionPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 {
-	if (doc==NULL)
+	if (doc==nullptr)
 		return false;
 	Imposition *imp = new Imposition(parent,doc);
 	imp->exec();

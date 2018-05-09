@@ -31,7 +31,7 @@ BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	: QDialog(parent),
-	  paintBarcodeTimer(NULL)
+	  paintBarcodeTimer(nullptr)
 {
 	ui.setupUi(this);
 	setObjectName(name);
@@ -322,7 +322,7 @@ BarcodeGenerator::~BarcodeGenerator()
 	if (!paintBarcodeTimer)
 		return;
 	delete paintBarcodeTimer;
-	paintBarcodeTimer=NULL;
+	paintBarcodeTimer=nullptr;
 }
 
 void BarcodeGenerator::updateOptions()

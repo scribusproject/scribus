@@ -1158,9 +1158,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
 				if (gItem->isGroupChild())
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &(gItem->asGroupFrame()->groupItemList));
 				else
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &m_Doc->DocItems);
 			}
 		}
 		allItems.clear();
@@ -1179,9 +1179,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
 				if (gItem->isGroupChild())
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &(gItem->asGroupFrame()->groupItemList));
 				else
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &m_Doc->MasterItems);
 			}
 		}
 		allItems.clear();
@@ -1503,7 +1503,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	handleOldColorShade(doc, Pcolor, Pshade);
 	handleOldColorShade(doc, Pcolor2, Pshade2);
 	QColor tmpc;
-	PageItem *currItem=NULL;
+	PageItem *currItem=nullptr;
 	QString tmp;
 	double xf, yf, xf2;
 	QString clPath;
@@ -2036,7 +2036,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
-	ScPage* Apage = NULL;
+	ScPage* Apage = nullptr;
 	FrameItems.clear();
 	itemRemap.clear();
 	itemNext.clear();
@@ -2113,7 +2113,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if (pg.tagName()=="STYLE")
 			{
-				GetStyle(&pg, &vg, NULL, m_Doc, true);
+				GetStyle(&pg, &vg, nullptr, m_Doc, true);
 				VorLFound = true;
 			}
 			if (pg.tagName()=="JAVA")
@@ -2484,9 +2484,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
 				if (gItem->isGroupChild())
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &(gItem->asGroupFrame()->groupItemList));
 				else
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &m_Doc->DocItems);
 			}
 		}
 		allItems.clear();
@@ -2505,9 +2505,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
 				if (gItem->isGroupChild())
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &(gItem->asGroupFrame()->groupItemList));
 				else
-					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, nullptr, &m_Doc->MasterItems);
 			}
 		}
 		allItems.clear();

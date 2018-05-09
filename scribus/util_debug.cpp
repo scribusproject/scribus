@@ -21,6 +21,9 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QDateTime>
+#include <QtGlobal>
+
 #if !defined(_WIN32) && !defined(Q_OS_MAC)
 #include <execinfo.h>
 #include <cxxabi.h>
@@ -28,16 +31,16 @@ for which a new license (GPL+exception) is in place.
 #if defined(_WIN32)
 #include <windows.h>
 #endif
-#include <QDateTime>
+
 #include "util_debug.h"
 
-void sDebug(QString message)
+void sDebug(const QString& message)
 {
 	qDebug("%s", message.toLatin1().constData());
 }
 
 
-void tDebug(QString message)
+void tDebug(const QString& message)
 {
 	QDateTime debugTime;
 	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz"), message).toLatin1().constData());
@@ -53,7 +56,7 @@ void printBacktrace ( int nFrames )
 {
 #if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD) && !defined(Q_OS_FREEBSD)
 	void ** trace = new void*[nFrames + 1];
-	char **messages = ( char ** ) NULL;
+	char **messages = ( char ** ) nullptr;
 	int i, trace_size = 0;
 
 	trace_size = backtrace ( trace, nFrames + 1 );

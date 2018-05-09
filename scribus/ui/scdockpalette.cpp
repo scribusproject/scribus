@@ -84,7 +84,7 @@ void ScDockPalette::setPrefsContext(QString context)
 				visibleOnStartup = palettePrefs->getBool("visible");
 		}
 		else
-			palettePrefs = NULL;
+			palettePrefs = nullptr;
 	}
 }
 

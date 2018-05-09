@@ -58,7 +58,7 @@ ShapePlug::ShapePlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	progressDialog = nullptr;
 }
 
 QImage ShapePlug::readThumbnail(QString fName)
@@ -73,7 +73,7 @@ QImage ShapePlug::readThumbnail(QString fName)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
-	progressDialog = NULL;
+	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -160,7 +160,7 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
 //	x = 0.0;
 //	y = 0.0;
@@ -214,12 +214,12 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -252,7 +252,7 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					if (m_Doc->view() != NULL)
+					if (m_Doc->view() != nullptr)
 						m_Doc->view()->updatesOn(true);
 				}
 			}

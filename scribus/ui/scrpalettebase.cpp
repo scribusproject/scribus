@@ -80,7 +80,7 @@ void ScrPaletteBase::setPrefsContext(QString context)
 				visibleOnStartup = palettePrefs->getBool("visible");
 		}
 		else
-			palettePrefs = NULL;
+			palettePrefs = nullptr;
 	}
 }
 

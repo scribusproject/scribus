@@ -63,7 +63,7 @@ public:
 	// Destructor.
 	virtual ~LinkSubmitForm();
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() POPPLER_CONST { return fileName != NULL; }
+	virtual GBool isOk() POPPLER_CONST { return fileName != nullptr; }
 	// Accessors.
 	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
 	GooString *getFileName() { return fileName; }
@@ -85,7 +85,7 @@ public:
 	// Destructor.
 	virtual ~LinkImportData();
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() POPPLER_CONST { return fileName != NULL; }
+	virtual GBool isOk() POPPLER_CONST { return fileName != nullptr; }
 	// Accessors.
 	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
 	GooString *getFileName() { return fileName; }

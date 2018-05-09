@@ -497,7 +497,7 @@ void SMCellStyle::slotParentChanged(const QString &parent)
 	Q_ASSERT(!parent.isNull());
 
 	bool  loop = false, parentLoop = false;
-	const BaseStyle* parentStyle = (!parent.isEmpty()) ? m_cachedStyles.resolve(parent) : NULL;
+	const BaseStyle* parentStyle = (!parent.isEmpty()) ? m_cachedStyles.resolve(parent) : nullptr;
 	QStringList  sel;
 
 	for (int i = 0; i < m_selection.count(); ++i)
@@ -512,7 +512,7 @@ void SMCellStyle::slotParentChanged(const QString &parent)
 				loop = parentLoop = true;
 				break;
 			}
-			pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+			pStyle = pStyle->hasParent() ? pStyle->parentStyle() : nullptr;
 		}
 		if (!loop)
 		{
