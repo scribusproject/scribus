@@ -302,7 +302,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesPrefs().gridShown));
 	docu.writeAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesPrefs().guidesShown));
 	docu.writeAttribute("showcolborders", static_cast<int>(m_Doc->guidesPrefs().colBordersShown));
-	docu.writeAttribute("previewMode", static_cast<int>(m_Doc->drawAsPreview));
+	// #15308: the preview mode state should not be stored in the .sla
+	// docu.writeAttribute("previewMode", static_cast<int>(m_Doc->drawAsPreview));
 	if (m_Doc->drawAsPreview)
 	{
 		docu.writeAttribute("SHOWFRAME", static_cast<int>(m_View->storedFramesShown));

@@ -2166,7 +2166,7 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 	doc->guidesPrefs().rulerMode    = attrs.valueAsBool("rulerMode", true);
 	doc->guidesPrefs().rulersShown  = attrs.valueAsBool("showrulers", true);
 	doc->guidesPrefs().showBleed    = attrs.valueAsBool("showBleed", true);
-	m_Doc->drawAsPreview		    = attrs.valueAsBool("previewMode", false);
+	m_Doc->drawAsPreview		    = false /*attrs.valueAsBool("previewMode", false)*/;
 	if (attrs.hasAttribute("MARGC"))
 		doc->guidesPrefs().marginColor  = QColor(attrs.valueAsString("MARGC"));
 	if (attrs.hasAttribute("MINORC"))
