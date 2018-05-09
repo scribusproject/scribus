@@ -966,9 +966,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	}
 	else
 		layerInfo[layer].thumb_mask = QImage();
-	if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
-		m_imageInfoRecord.RequestProps[layer].useMask = m_imageInfoRecord.RequestProps[layer].useMask;
-	else
+	if (!m_imageInfoRecord.isRequest || !m_imageInfoRecord.RequestProps.contains(layer))
 		m_imageInfoRecord.RequestProps[layer].useMask = true;
 	bool visible = !(layerInfo[layer].flags & 2);
 	if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
