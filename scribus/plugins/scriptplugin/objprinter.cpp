@@ -66,47 +66,46 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 {
 // do not create new object if there is no opened document
 	if (!checkHaveDocument()) {
-		return NULL;
+		return nullptr;
 	}
 
-	Printer *self;
-	self = (Printer *)type->tp_alloc(type, 0);
-	if (self != NULL) {
+	Printer *self = (Printer *)type->tp_alloc(type, 0);
+	if (self != nullptr) {
 // set allPrinters attribute
 		self->allPrinters = PyList_New(0);
-		if (self->allPrinters == NULL){
+		if (self->allPrinters == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set printer attribute
 		self->printer = PyString_FromString("");
-		if (self->printer == NULL){
+		if (self->printer == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set file attribute
 		self->file = PyString_FromString("");
-		if (self->file == NULL){
+		if (self->file == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set cmd attribute
 		self->cmd = PyString_FromString("");
-		if (self->cmd == NULL){
+		if (self->cmd == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set pages attribute
 		self->pages = PyList_New(0);
-		if (self->pages == NULL){
+		if (self->pages == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set separation attribute
 		self->separation = PyString_FromString("No");
-		if (self->separation == NULL){
+		if (self->separation == nullptr){
 			Py_DECREF(self);
-			return NULL;
+			return nullptr;
 		}
 // set color attribute
 		self->color = 1;
@@ -154,7 +153,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	PyList_Append(self->allPrinters, tmp2);
 	Py_DECREF(tmp2);
 // as defaut set to print into file
-	PyObject *printer = NULL;
+	PyObject *printer = nullptr;
 	printer = PyString_FromString("File");
 	if (printer){
 		Py_DECREF(self->printer);
@@ -166,7 +165,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
-	PyObject *file = NULL;
+	PyObject *file = nullptr;
 	file = PyString_FromString(tf.toLatin1());
 	if (file){
 		Py_DECREF(self->file);
@@ -176,7 +175,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		return -1;
 	}
 // alternative printer commands default to ""
-	PyObject *cmd = NULL;
+	PyObject *cmd = nullptr;
 	cmd = PyString_FromString("");
 	if (cmd){
 		Py_DECREF(self->cmd);
@@ -184,7 +183,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 // if document exist when created Printer instance
 // set to print all pages
-	PyObject *pages = NULL;
+	PyObject *pages = nullptr;
 	int num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
 	if (pages){
@@ -192,13 +191,13 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		self->pages = pages;
 	}
 	for (int i = 0; i<num; i++) {
-		PyObject *tmp=NULL;
+		PyObject *tmp=nullptr;
 		tmp = PyInt_FromLong((long)i+1L); // instead of 1 put here first page number
 		if (tmp)
 			PyList_SetItem(self->pages, i, tmp);
 	}
 // do not print separation
-	PyObject *separation = NULL;
+	PyObject *separation = nullptr;
 	separation = PyString_FromString("No");
 	if (separation){
 		Py_DECREF(self->separation);
@@ -229,7 +228,7 @@ static PyMemberDef Printer_members[] = {
 	{const_cast<char*>("mph"), T_INT, offsetof(Printer, mph), 0, const_cast<char*>("Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default")},
 	{const_cast<char*>("mpv"), T_INT, offsetof(Printer, mpv), 0, const_cast<char*>("Mirror Pages Vertical\n\t True\n\tFalse  --  Default")},
 	{const_cast<char*>("ucr"), T_INT, offsetof(Printer, ucr), 0, const_cast<char*>("Apply Under Color Removal\n\tTrue  --  Default\n\tFalse")},
-	{NULL, 0, 0, 0, NULL} // sentinel
+	{nullptr, 0, 0, 0, nullptr} // sentinel
 };
 
 /* Here begins Getter & Setter functions */
@@ -254,7 +253,7 @@ static PyObject *Printer_getprinter(Printer *self, void * /*closure*/)
 
 static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
 		return -1;
 	}
@@ -285,7 +284,7 @@ static PyObject *Printer_getfile(Printer *self, void * /*closure*/)
 
 static int Printer_setfile(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
 		return -1;
 	}
@@ -307,7 +306,7 @@ static PyObject *Printer_getcmd(Printer *self, void * /*closure*/)
 
 static int Printer_setcmd(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
 		return -1;
 	}
@@ -329,7 +328,7 @@ static PyObject *Printer_getpages(Printer *self, void * /*closure*/)
 
 static int Printer_setpages(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
 		return -1;
 	}
@@ -363,7 +362,7 @@ static PyObject *Printer_getseparation(Printer *self, void * /*closure*/)
 
 static int Printer_setseparation(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");
 		return -1;
 	}
@@ -379,20 +378,20 @@ static int Printer_setseparation(Printer *self, PyObject *value, void * /*closur
 
 
 static PyGetSetDef Printer_getseters [] = {
-	{const_cast<char*>("allPrinters"), (getter)Printer_getallPrinters, (setter)Printer_setallPrinters, const_cast<char*>("List of installed printers  --  read only"), NULL},
-	{const_cast<char*>("printer"), (getter)Printer_getprinter, (setter)Printer_setprinter, const_cast<char*>("Name of printer to use.\nDefault is 'File' for printing into file"), NULL},
-	{const_cast<char*>("file"), (getter)Printer_getfile, (setter)Printer_setfile, const_cast<char*>("Name of file to print into"), NULL},
-	{const_cast<char*>("cmd"), (getter)Printer_getcmd, (setter)Printer_setcmd, const_cast<char*>("Alternative Printer Command"), NULL},
-	{const_cast<char*>("pages"), (getter)Printer_getpages, (setter)Printer_setpages, const_cast<char*>("List of pages to be printed"), NULL},
-	{const_cast<char*>("separation"), (getter)Printer_getseparation, (setter)Printer_setseparation, const_cast<char*>("Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed"), NULL},
-	{NULL, NULL, NULL, NULL, NULL}  // sentinel
+	{const_cast<char*>("allPrinters"), (getter)Printer_getallPrinters, (setter)Printer_setallPrinters, const_cast<char*>("List of installed printers  --  read only"), nullptr},
+	{const_cast<char*>("printer"), (getter)Printer_getprinter, (setter)Printer_setprinter, const_cast<char*>("Name of printer to use.\nDefault is 'File' for printing into file"), nullptr},
+	{const_cast<char*>("file"), (getter)Printer_getfile, (setter)Printer_setfile, const_cast<char*>("Name of file to print into"), nullptr},
+	{const_cast<char*>("cmd"), (getter)Printer_getcmd, (setter)Printer_setcmd, const_cast<char*>("Alternative Printer Command"), nullptr},
+	{const_cast<char*>("pages"), (getter)Printer_getpages, (setter)Printer_setpages, const_cast<char*>("List of pages to be printed"), nullptr},
+	{const_cast<char*>("separation"), (getter)Printer_getseparation, (setter)Printer_setseparation, const_cast<char*>("Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed"), nullptr},
+	{nullptr, nullptr, nullptr, nullptr, nullptr}  // sentinel
 };
 
 // Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
 	if (!checkHaveDocument()) {
-		return NULL;
+		return nullptr;
 	}
 // copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp
 	QString fna, prn, cmd, cc, SepName;
@@ -451,7 +450,7 @@ static PyObject *Printer_print(Printer *self)
 #endif
 
 	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
-	if (dd != NULL)
+	if (dd != nullptr)
 	{
 		if (!fil)
 			fna = QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps");
@@ -498,7 +497,7 @@ static PyObject *Printer_print(Printer *self)
 		else {
 			delete dd;
 			PyErr_SetString(PyExc_SystemError, "Printing failed");
-			return NULL;
+			return nullptr;
 		}
 		delete dd;
 	}
@@ -509,11 +508,11 @@ static PyObject *Printer_print(Printer *self)
 
 static PyMethodDef Printer_methods[] = {
 	{const_cast<char*>("printNow"), (PyCFunction)Printer_print, METH_NOARGS, const_cast<char*>("Prints selected pages.")},
-	{NULL, (PyCFunction)(0), 0, NULL} // sentinel
+	{nullptr, (PyCFunction)(0), 0, nullptr} // sentinel
 };
 
 PyTypeObject Printer_Type = {
-	PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD
+	PyObject_HEAD_INIT(nullptr)   // PyObject_VAR_HEAD
 	0,			 //
 	const_cast<char*>("scribus.Printer"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(Printer),   // int tp_basicsize, /* For allocation */

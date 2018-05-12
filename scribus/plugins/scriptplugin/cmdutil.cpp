@@ -75,7 +75,7 @@ PageItem *GetItem(QString Name)
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 	}
-	return NULL;
+	return nullptr;
 }
 
 void ReplaceColor(QString col, QString rep)
@@ -107,7 +107,7 @@ PageItem* GetUniqueItem(QString name)
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
-			return NULL;
+			return nullptr;
 		}
 	else
 		return getPageItemByName(name);
@@ -118,7 +118,7 @@ PageItem* getPageItemByName(QString name)
 	if (name.length() == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
@@ -126,7 +126,7 @@ PageItem* getPageItemByName(QString name)
 			return ScCore->primaryMainWindow()->doc->Items->at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
-	return NULL;
+	return nullptr;
 }
 
 
@@ -159,7 +159,7 @@ bool checkHaveDocument()
 	if (ScCore->primaryMainWindow()->HaveDoc)
 		return true;
 	// Caller is required to check for false return from this function
-	// and return NULL.
+	// and return nullptr.
 	PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
 	return false;
 }
@@ -208,7 +208,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 
 	// Get the sequence of border lines.
 	PyObject* borderLinesList = PySequence_List(borderLines);
-	if (borderLinesList == NULL)
+	if (borderLinesList == nullptr)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
 		*ok = false;

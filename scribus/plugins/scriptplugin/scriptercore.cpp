@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
-	menuMgr = NULL;
+	menuMgr = nullptr;
 
 	pcon = new PythonConsole(parent);
 	scrScripterActions.clear();
@@ -241,16 +241,16 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 		return;
 	disableMainWindowMenu();
 
-	PyThreadState *state = NULL;
+	PyThreadState *state = nullptr;
 	QFileInfo fi(fileName);
 	QByteArray na = fi.fileName().toLocal8Bit();
 	// Set up a sub-interpreter if needed:
-	PyThreadState* global_state = NULL;
+	PyThreadState* global_state = nullptr;
 	if (!inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
 		ScCore->primaryMainWindow()->textPalette->unsetDoc();
-		ScCore->primaryMainWindow()->pagePalette->setView(NULL);
+		ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 		ScCore->primaryMainWindow()->setScriptRunning(true);
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
@@ -282,7 +282,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
-	if (m == NULL)
+	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
@@ -329,12 +329,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
 		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
-		// NULL is returned if an exception is set. We don't care about any
+		// nullptr is returned if an exception is set. We don't care about any
 		// other return value (most likely None anyway) and can ignore it.
-		if (result == NULL)
+		if (result == nullptr)
 		{
 			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
-			if (errorMsgPyStr == NULL)
+			if (errorMsgPyStr == nullptr)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
 				// we'd have to fail to retrive the string we just created.
@@ -360,10 +360,10 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 			}
 			// We've already processed the exception text, so clear the exception
 			PyErr_Clear();
-		} // end if result == NULL
-		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
+		} // end if result == nullptr
+		// Because 'result' may be nullptr, not a PyObject*, we must call PyXDECREF not Py_DECREF
 		Py_XDECREF(result);
-	} // end if m == NULL
+	} // end if m == nullptr
 	if (!inMainInterpreter)
 	{
 		Py_EndInterpreter(state);
@@ -395,12 +395,12 @@ void ScripterCore::slotRunScript(const QString Script)
 
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
 	ScCore->primaryMainWindow()->textPalette->unsetDoc();
-	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
+	ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;
 	QString cm;
 	cm = "# -*- coding: utf8 -*- \n";
-	if (PyThreadState_Get() != NULL)
+	if (PyThreadState_Get() != nullptr)
 	{
 		initscribus(ScCore->primaryMainWindow());
 		/* HACK: following loop handles all input line by line.
@@ -439,13 +439,13 @@ void ScripterCore::slotRunScript(const QString Script)
 	PySys_SetArgv(1, comm); */
 	// then run the code
 	PyObject* m = PyImport_AddModule((char*)"__main__");
-	if (m == NULL)
+	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
 		PyObject* globals = PyModule_GetDict(m);
 		PyObject* result = PyRun_String(cm.toUtf8().data(), Py_file_input, globals, globals);
-		if (result == NULL)
+		if (result == nullptr)
 		{
 			PyErr_Print();
 			ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
@@ -454,7 +454,7 @@ void ScripterCore::slotRunScript(const QString Script)
 					   "stderr. ") + "</qt>");
 		}
 		else
-		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
+		// Because 'result' may be nullptr, not a PyObject*, we must call PyXDECREF not Py_DECREF
 			Py_XDECREF(result);
 	}
 	ScCore->primaryMainWindow()->setScriptRunning(false);

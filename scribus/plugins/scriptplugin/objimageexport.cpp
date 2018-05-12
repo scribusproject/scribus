@@ -39,11 +39,11 @@ static void ImageExport_dealloc(ImageExport* self)
 static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 
 	ImageExport *self;
 	self = (ImageExport *)type->tp_alloc(type, 0);
-	if (self != NULL) {
+	if (self != nullptr) {
 		self->name = PyString_FromString("ImageExport.png");
 		self->type = PyString_FromString("PNG");
 		self->allTypes = PyList_New(0);
@@ -63,7 +63,7 @@ static PyMemberDef ImageExport_members[] = {
 	{const_cast<char*>("dpi"), T_INT, offsetof(ImageExport, dpi), 0, imgexp_dpi__doc__},
 	{const_cast<char*>("scale"), T_INT, offsetof(ImageExport, scale), 0, imgexp_scale__doc__},
 	{const_cast<char*>("quality"), T_INT, offsetof(ImageExport, quality), 0, imgexp_quality__doc__},
-	{NULL, 0, 0, 0, NULL} // sentinel
+	{nullptr, 0, 0, 0, nullptr} // sentinel
 };
 
 static PyObject *ImageExport_getName(ImageExport *self, void * /*closure*/)
@@ -97,7 +97,7 @@ static PyObject *ImageExport_getType(ImageExport *self, void * /*closure*/)
 
 static int ImageExport_setType(ImageExport *self, PyObject *value, void * /*closure*/)
 {
-	if (value == NULL) {
+	if (value == nullptr) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
@@ -132,16 +132,16 @@ static int ImageExport_setAllTypes(ImageExport * /*self*/, PyObject * /*value*/,
 }
 
 static PyGetSetDef ImageExport_getseters [] = {
-	{const_cast<char*>("name"), (getter)ImageExport_getName, (setter)ImageExport_setName, imgexp_filename__doc__, NULL},
-	{const_cast<char*>("type"), (getter)ImageExport_getType, (setter)ImageExport_setType, imgexp_type__doc__, NULL},
-	{const_cast<char*>("allTypes"), (getter)ImageExport_getAllTypes, (setter)ImageExport_setAllTypes, imgexp_alltypes__doc__, NULL},
-	{NULL, NULL, NULL, NULL, NULL}  // sentinel
+	{const_cast<char*>("name"), (getter)ImageExport_getName, (setter)ImageExport_setName, imgexp_filename__doc__, nullptr},
+	{const_cast<char*>("type"), (getter)ImageExport_getType, (setter)ImageExport_setType, imgexp_type__doc__, nullptr},
+	{const_cast<char*>("allTypes"), (getter)ImageExport_getAllTypes, (setter)ImageExport_setAllTypes, imgexp_alltypes__doc__, nullptr},
+	{nullptr, nullptr, nullptr, nullptr, nullptr}  // sentinel
 };
 
 static PyObject *ImageExport_save(ImageExport *self)
 {
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
 	ScribusView*view = ScCore->primaryMainWindow()->view;
 
@@ -157,7 +157,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type)))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
  //	return Py_True;
@@ -169,9 +169,9 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 {
 	char* value;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &value))
-		return NULL;
+		return nullptr;
 
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
 	ScribusView*view = ScCore->primaryMainWindow()->view;
@@ -188,7 +188,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	if (!im.save(value, PyString_AsString(self->type)))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
  //	return Py_True;
@@ -199,11 +199,11 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 static PyMethodDef ImageExport_methods[] = {
 	{const_cast<char*>("save"), (PyCFunction)ImageExport_save, METH_NOARGS, imgexp_save__doc__},
 	{const_cast<char*>("saveAs"), (PyCFunction)ImageExport_saveAs, METH_VARARGS, imgexp_saveas__doc__},
-	{NULL, (PyCFunction)(0), 0, NULL} // sentinel
+	{nullptr, (PyCFunction)(0), 0, nullptr} // sentinel
 };
 
 PyTypeObject ImageExport_Type = {
-	PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD
+	PyObject_HEAD_INIT(nullptr)   // PyObject_VAR_HEAD
 	0,
 	const_cast<char*>("scribus.ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */

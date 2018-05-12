@@ -21,16 +21,16 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	char *Image;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Image, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (!item->asImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->loadPict(QString::fromUtf8(Image), item);
 //	Py_INCREF(Py_None);
@@ -43,16 +43,16 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	// Grab the old selection - but use it only where is there any
@@ -85,16 +85,16 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	// Grab the old selection - but use it only where is there any
@@ -128,16 +128,16 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	// Grab the old selection - but use it only where is there any
@@ -172,16 +172,16 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double n;
 	if (!PyArg_ParseTuple(args, "d|es", &n, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ImageEffect ef;
@@ -202,16 +202,16 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ImageEffect ef;
@@ -231,12 +231,12 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item==NULL)
-		return NULL;
+	if (item==nullptr)
+		return nullptr;
 	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
@@ -269,12 +269,12 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
@@ -308,12 +308,12 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->doc->rotateItem(item->rotation() - x, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -325,12 +325,12 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->doc->rotateItem(x * -1.0, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -342,12 +342,12 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(x), ValueToPoint(y), item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -359,13 +359,13 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	PyObject *il = 0;
 	if (!PyArg_ParseTuple(args, "|O", &il))
-		return NULL;
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (il == 0 && ScCore->primaryMainWindow()->doc->m_Selection->count() < 2)
 	{
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	Selection *tempSelection=0;
 	Selection *finalSelection=0;
@@ -382,10 +382,10 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 			// so anyway.
 			Name = PyString_AsString(PyList_GetItem(il, i));
 			PageItem *ic = GetUniqueItem(QString::fromUtf8(Name));
-			if (ic == NULL)
+			if (ic == nullptr)
 			{
 				delete tempSelection;
-				return NULL;
+				return nullptr;
 			}
 			tempSelection->addItem (ic, true);
 		}
@@ -399,26 +399,26 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error").toLocal8Bit().constData());
 		finalSelection=0;
 		delete tempSelection;
-		return NULL;
+		return nullptr;
 	}
 
 	const PageItem* group = ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
 	finalSelection=0;
 	delete tempSelection;
 	
-	return (group ? PyString_FromString(group->itemName().toUtf8()) : NULL);
+	return (group ? PyString_FromString(group->itemName().toUtf8()) : nullptr);
 }
 
 PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == NULL)
-		return NULL;
+	if (i == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItem(i);
 	ScCore->primaryMainWindow()->UnGroupObj();
@@ -432,17 +432,17 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (sc == 0.0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot scale by 0%.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == NULL)
-		return NULL;
+	if (i == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItem(i);
 //	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
@@ -460,9 +460,9 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 {
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
 		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
 	else
@@ -473,7 +473,7 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->m_Selection->count()));
 }
 
@@ -481,12 +481,12 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == NULL)
-		return NULL;
+	if (i == nullptr)
+		return nullptr;
 	ScCore->primaryMainWindow()->view->SelectItem(i);
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -496,7 +496,7 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 PyObject *scribus_deselect(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	ScCore->primaryMainWindow()->view->Deselect();
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -507,12 +507,12 @@ PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	item->toggleLock();
 	if (item->locked())
 		return PyInt_FromLong(1);
@@ -523,14 +523,14 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
+		return nullptr;
 	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
 	// and instead provide a different function like toggleLock()
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (item->locked())
 		return PyBool_FromLong(1);
 	return PyBool_FromLong(0);
@@ -542,18 +542,18 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	long int scaleToFrame = 0;
 	long int proportional = 1;
 	char* kwargs[] = {const_cast<char*>("scaletoframe"),
-		const_cast<char*>("proportional"), const_cast<char*>("name"), NULL};
+		const_cast<char*>("proportional"), const_cast<char*>("name"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|ies", kwargs, &scaleToFrame, &proportional, "utf-8", &name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	// Set the item to scale if appropriate. ScaleType 1 is free
 	// scale, 0 is scale to frame.
@@ -579,12 +579,12 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	double h, v;
 	if (!PyArg_ParseTuple(args, "dd|es", &h, &v, "utf-8", &Name))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
-		return NULL;
+	if (item == nullptr)
+		return nullptr;
 	
 	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
