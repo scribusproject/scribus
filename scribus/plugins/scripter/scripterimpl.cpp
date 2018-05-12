@@ -31,7 +31,7 @@ ScripterImpl::~ScripterImpl()
 	delete python;
 	//Q_ASSERT(collected);
 	//delete collected;
-	_instance = NULL;
+	_instance = nullptr;
 	qDebug() << "Scripter deleted";
 };
 
@@ -118,7 +118,7 @@ QObject *ScripterImpl::openDocument(const QString & filename)
 	if (!ret)
 	{
 		RAISE("Failed to open " + filename);
-		return NULL;
+		return nullptr;
 	}
 	return activeDocument();
 }
@@ -135,7 +135,7 @@ QObject *ScripterImpl::activeDocument()
 	if (ScCore->primaryMainWindow()->HaveDoc)
 		return new DocumentAPI();
 	else
-		return NULL;
+		return nullptr;
 }
 
 
@@ -149,7 +149,7 @@ QObject *ScripterImpl::activeWindow()
 	if (ScCore->primaryMainWindow()->HaveDoc)
 		return new WindowAPI();
 	else
-		return NULL;
+		return nullptr;
 }
 
 /**
@@ -252,7 +252,7 @@ QObject *ScripterImpl::newDocument(
 	if (pagesType < firstPageOrder)
 	{
 		RAISE("firstPageOrder is bigger than allowed.");
-		return NULL;
+		return nullptr;
 	}
 	if (orientation == 1)
 	{
@@ -272,7 +272,7 @@ QObject *ScripterImpl::newDocument(
 	if (!ret)
 	{
 		RAISE("Page creation failed");
-		return NULL;
+		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
 	return activeDocument();

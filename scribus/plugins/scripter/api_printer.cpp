@@ -129,7 +129,7 @@ void PrinterAPI::doPrint()
 #endif
 
 	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
-	if (dd != NULL)
+	if (dd != nullptr)
 	{
 		if (!fil)
 			fna = QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps");

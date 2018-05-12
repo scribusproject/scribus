@@ -291,7 +291,7 @@ void ItemAPI::move(double dx, double dy)
 {
 	if (!checkHaveDocument())
 		return;
-	if (item==NULL)
+	if (item==nullptr)
 		return;
 	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
@@ -325,7 +325,7 @@ void ItemAPI::moveAbs(double x, double y)
 {
 	if (!checkHaveDocument())
 		return;
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
@@ -357,7 +357,7 @@ void ItemAPI::resize(double width, double height)
 {
 	if (!checkHaveDocument())
 		return;
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(width), ValueToPoint(height), item);
 }
@@ -366,7 +366,7 @@ void ItemAPI::rotate(double rot)
 {
 	if (!checkHaveDocument())
 		return;
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	ScCore->primaryMainWindow()->doc->rotateItem(item->rotation() - rot, item);
 
@@ -375,7 +375,7 @@ void ItemAPI::rotateAbs(double rot)
 {
 	if (!checkHaveDocument())
 		return;
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	ScCore->primaryMainWindow()->doc->rotateItem(rot * -1.0, item);
 }

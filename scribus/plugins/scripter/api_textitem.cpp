@@ -56,7 +56,7 @@ QString TextAPI::font()
 		for (int b = 0; b < item->itemText.length(); b++)
 			if (item->itemText.selected(b))
 				return item->itemText.charStyle(b).font().scName();
-		return NULL;
+		return nullptr;
 	}
 	else
 		return item->currentCharStyle().font().scName();
@@ -89,7 +89,7 @@ double TextAPI::fontSize()
 		for (int b = 0; b < item->itemText.length(); b++)
 			if (item->itemText.selected(b))
 				return item->itemText.charStyle(b).fontSize() / 10.0;
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -392,7 +392,7 @@ void TextAPI::linkToTextFrame(QString name2)
 		RAISE("No document open");
 
 	PageItem *toitem = GetUniqueItem(name2);
-	if (toitem == NULL)
+	if (toitem == nullptr)
 		return;
 	if (!(toitem->asTextFrame()))
 	{

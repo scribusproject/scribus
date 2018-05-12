@@ -303,7 +303,7 @@ int MSpinBox::mapTextToValue(bool *)
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
-	double erg = fp.Eval(NULL);
+	double erg = fp.Eval(nullptr);
 	return qRound(erg*Decimals);
 }
 

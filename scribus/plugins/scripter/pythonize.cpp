@@ -36,7 +36,7 @@ ObjectRef::ObjectRef (ObjectRef *oi, PyObject *o)
 Pythonize::Pythonize ()
 {
     pythonInit  = 1;
-    objects    = NULL;
+	objects    = nullptr;
 
     if (debug) printf ("\n\nPythonize constructor -- pid = %i\n", getpid ());
 
@@ -64,10 +64,10 @@ bool Pythonize::runScript (char *scriptPath)
 
     if (debug) printf ("Running script: %s\n", scriptPath);
 
-    if (scriptPath == NULL || strlen (scriptPath) == 0) return false;
+	if (scriptPath == nullptr || strlen (scriptPath) == 0) return false;
 
     f = fopen (scriptPath, "r");
-    if (f == NULL) return false;
+	if (f == nullptr) return false;
 
     res = PyRun_SimpleFile (f, scriptPath);
 
@@ -80,7 +80,7 @@ PyObject * Pythonize::runFunction (PyObject *object, PyObject *args)
 {
 
     if (!PyCallable_Check (object))
-        return NULL;
+		return nullptr;
 
     PyObject *res = PyObject_CallObject (object, args ? args : PyTuple_New (0));
     Py_XINCREF (res);
@@ -92,7 +92,7 @@ void * Pythonize::runFunctionVoid (PyObject *object, PyObject *args)
 {
 
     if (!PyCallable_Check (object))
-        return NULL;
+		return nullptr;
 
     PyObject *pyRes = PyObject_CallObject (object, args ? args : PyTuple_New (0));
     void *res = PyLong_AsVoidPtr (pyRes);
@@ -102,7 +102,7 @@ void * Pythonize::runFunctionVoid (PyObject *object, PyObject *args)
 
 bool Pythonize::runString (char *str)
 {
-    if (str == NULL || strlen (str) == 0) return false;
+	if (str == nullptr || strlen (str) == 0) return false;
 
     int res = PyRun_SimpleString (str);
 
@@ -111,7 +111,7 @@ bool Pythonize::runString (char *str)
 
 bool Pythonize::appendToSysPath (const char* newPath)
 {
-    if (newPath == NULL || strlen (newPath) == 0) return false;
+	if (newPath == nullptr || strlen (newPath) == 0) return false;
 
     char *fmtString = "import sys\nif not '%s' in sys.path:\n\tsys.path.append ('%s')\n"; //print sys.path\n";
     int length      = strlen (fmtString) + 2*strlen (newPath) + 1;
@@ -127,12 +127,12 @@ bool Pythonize::appendToSysPath (const char* newPath)
 
 PyObject *Pythonize::importModule (char *moduleName)
 {
-    if (moduleName == NULL || strlen (moduleName) == 0) return NULL;
+	if (moduleName == nullptr || strlen (moduleName) == 0) return nullptr;
 
     PyObject *module = PyImport_ImportModule (moduleName);
 
     objects = new ObjectRef (objects, module);
-    if (!objects) return NULL;
+	if (!objects) return nullptr;
 
     return module;
 }
@@ -173,7 +173,7 @@ extern "C"
         if (!_pythonize || !_pythonize->getPythonInit ())
         {
             if (_pythonize) delete _pythonize;
-            return NULL;
+			return nullptr;
         }
 
         return _pythonize;
@@ -197,14 +197,14 @@ extern "C"
     // or gets a PyObject for an already loaded module
     PyObject *importModule (char *moduleName)
     {
-        return _pythonize ? _pythonize->importModule (moduleName) : NULL;
+		return _pythonize ? _pythonize->importModule (moduleName) : nullptr;
     }
 
     // returns an object from a loaded module
     // you must decref the object returned when done with it (new reference returned)
     PyObject *getNewObjectRef (PyObject *module, char *object)
     {
-        return _pythonize ? _pythonize->getNewObjectRef (module, object) : NULL;
+		return _pythonize ? _pythonize->getNewObjectRef (module, object) : nullptr;
     }
 
     bool getPythonInit ()
@@ -233,6 +233,6 @@ extern "C"
     // runs a callable Python object
     PyObject *runFunction (PyObject *object, PyObject *args)
     {
-        return _pythonize ? _pythonize->runFunction (object, args) : NULL;
+		return _pythonize ? _pythonize->runFunction (object, args) : nullptr;
     }
 }

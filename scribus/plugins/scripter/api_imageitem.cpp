@@ -68,7 +68,7 @@ void ImageAPI::setGrayscale()
 {
     if (!checkHaveDocument())
         RAISE("No document open");
-    if (item == NULL)
+	if (item == nullptr)
         return;
     if (! item->asImageFrame())
     {
@@ -89,7 +89,7 @@ void ImageAPI::load(QString filename)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	if (!item->asImageFrame())
 	{
@@ -103,7 +103,7 @@ void ImageAPI::scale(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	if (! item->asImageFrame())
 	{
@@ -131,7 +131,7 @@ void ImageAPI::offset(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	if (! item->asImageFrame())
 	{
@@ -166,7 +166,7 @@ void ImageAPI::setBrightness(double n)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	if (item == NULL)
+	if (item == nullptr)
 		return ;
 	if (! item->asImageFrame())
 	{
@@ -189,7 +189,7 @@ void ImageAPI::scaleToFrame(bool scaleToFrame, bool proportional)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open.");
-	if (item == NULL)
+	if (item == nullptr)
 		return;
 	if (! item->asImageFrame())
 	{

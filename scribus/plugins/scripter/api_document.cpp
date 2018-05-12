@@ -38,7 +38,7 @@ DocumentAPI::~DocumentAPI()
  */
 QString DocumentAPI::getName()
 {
-	if (!check()) return NULL;
+	if (!check()) return nullptr;
 	if (! ScCore->primaryMainWindow()->doc->hasName)
 	{
 		return QString("");
@@ -91,7 +91,7 @@ void DocumentAPI::setModified(bool flag)
 
 bool DocumentAPI::modified()
 {
-	if (!check()) return NULL;
+	if (!check()) return nullptr;
 	return ScCore->primaryMainWindow()->doc->isModified();
 }
 
@@ -123,7 +123,7 @@ int DocumentAPI::unit()
  */
 bool DocumentAPI::close()
 {
-	if (!check()) return NULL;
+	if (!check()) return nullptr;
 	setModified(false);
 	bool ret = ScCore->primaryMainWindow()->slotFileClose();
 	qApp->processEvents();
@@ -137,7 +137,7 @@ bool DocumentAPI::close()
  */
 bool DocumentAPI::save()
 {
-	if (!check()) return NULL;
+	if (!check()) return nullptr;
 	bool ret = ScCore->primaryMainWindow()->slotFileSave();
 	qApp->processEvents();
 	return ret;
@@ -150,12 +150,12 @@ bool DocumentAPI::save()
  */
 bool DocumentAPI::saveAs(QString name)
 {
-	if (!check()) return NULL;
+	if (!check()) return nullptr;
 	bool ret = ScCore->primaryMainWindow()->DoFileSave(name);
 	if (!ret)
 	{
 		RAISE("Failed to save document.");
-		return NULL;
+		return nullptr;
 	}
 	return true;
 }
@@ -191,7 +191,7 @@ QObject *DocumentAPI::activePage()
 QObject *DocumentAPI::activeItem()
 {
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0)
-		return NULL;
+		return nullptr;
 	else
 	{
 		PageItem* item = ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
@@ -375,7 +375,7 @@ QObject *DocumentAPI::getActiveLayer()
 			return new LayerAPI(L);
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 QString DocumentAPI::getActiveLayerName()
@@ -587,7 +587,7 @@ QObject* DocumentAPI::selectItem(QString name)
 	if (!check())
 		RAISE("No document open");
 	PageItem *i = GetUniqueItem(name);
-	if (i == NULL)
+	if (i == nullptr)
 	{
 		RAISE("No item with this name");
 	}
@@ -605,7 +605,7 @@ void DocumentAPI::deleteItem(QString name)
 	if (!check())
 		return;
 	PageItem *i = GetUniqueItem(name);
-	if (i == NULL)
+	if (i == nullptr)
 	{
 		RAISE("Unable to find the item.");
 		return;
@@ -674,10 +674,10 @@ QString DocumentAPI::groupItems(QList< QVariant > list)
 			// so anyway.
 			name = list[i].toString();
 			PageItem *ic = GetUniqueItem(name);
-			if (ic == NULL)
+			if (ic == nullptr)
 			{
 				delete tempSelection;
-				return NULL;
+				return nullptr;
 			}
 			tempSelection->addItem(ic, true);
 		}
@@ -691,14 +691,14 @@ QString DocumentAPI::groupItems(QList< QVariant > list)
 		RAISE("Cannot group less than two items");
 		finalSelection=0;
 		delete tempSelection;
-		return NULL;
+		return nullptr;
 	}
 
 	const PageItem* group = ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
 	finalSelection=0;
 	delete tempSelection;
 
-	return (group ? group->itemName() : NULL);
+	return (group ? group->itemName() : nullptr);
 }
 
 void DocumentAPI::unGroupItems(QString name)
@@ -706,7 +706,7 @@ void DocumentAPI::unGroupItems(QString name)
 	if (!check())
 		RAISE("No document open");
 	PageItem *i = GetUniqueItem(name);
-	if (i == NULL)
+	if (i == nullptr)
 		RAISE("Item not found.");
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItem(i);
@@ -723,7 +723,7 @@ void DocumentAPI::scaleGroup(double factor, QString name)
 		return;
 	}
 	PageItem *i = GetUniqueItem(name);
-	if (i == NULL)
+	if (i == nullptr)
 		return;
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItem(i);
