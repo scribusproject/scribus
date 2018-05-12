@@ -44,31 +44,31 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-	if ( !QFile::exists(fn) )
+	if (!QFile::exists(fn))
 		return;
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if(tif)
+	if (!tif)
+		return;
+
+	uint32 EmbedLen = 0;
+	void*  EmbedBuffer;
+	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
-		uint32 EmbedLen = 0;
-		void*  EmbedBuffer;
-		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
+		if (tiffProf)
 		{
-			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
-			ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
-			if (tiffProf)
-			{
-				if (tiffProf.colorSpace() == ColorSpace_Rgb)
-					m_profileComponents = 3;
-				if (tiffProf.colorSpace() == ColorSpace_Cmyk)
-					m_profileComponents = 4;
-				if (tiffProf.colorSpace() == ColorSpace_Gray)
-					m_profileComponents = 1;
-				m_embeddedProfile = profArray;
-			}
+			if (tiffProf.colorSpace() == ColorSpace_Rgb)
+				m_profileComponents = 3;
+			if (tiffProf.colorSpace() == ColorSpace_Cmyk)
+				m_profileComponents = 4;
+			if (tiffProf.colorSpace() == ColorSpace_Gray)
+				m_profileComponents = 1;
+			m_embeddedProfile = profArray;
 		}
-		TIFFClose(tif);
 	}
+	TIFFClose(tif);
 }
 
 bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha)
@@ -86,7 +86,7 @@ bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int page, int 
 	{
 		if (hasAlpha == false)
 			success = true;
-		else if(loadPicture(fn, page, res, false))
+		else if (loadPicture(fn, page, res, false))
 		{
 			m_imageInfoRecord.valid = true;
 			hasAlpha = success = true;
@@ -113,28 +113,29 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 	struct PSDLayer lay;
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if (tif)
+	if (!tif)
+		return layerNum;
+
+	do
 	{
-		do
-		{
-			char *layerName=0;
-			TIFFGetField(tif, TIFFTAG_PAGENAME, &layerName);
-			QString name = QString(layerName);
-			if (name.isEmpty())
-				lay.layerName = QString("Layer #%1").arg(layerNum);
-			else
-				lay.layerName = name;
-			lay.blend = "norm";
-			lay.opacity = 255;
-			lay.flags = 0;
-			m_imageInfoRecord.layerInfo.append(lay);
-			m_imageInfoRecord.valid = true;
-			layerNum++;
-			test = TIFFReadDirectory(tif);
-		}
-		while (test == 1);
-		TIFFClose(tif);
+		char *layerName=0;
+		TIFFGetField(tif, TIFFTAG_PAGENAME, &layerName);
+		QString name = QString(layerName);
+		if (name.isEmpty())
+			lay.layerName = QString("Layer #%1").arg(layerNum);
+		else
+			lay.layerName = name;
+		lay.blend = "norm";
+		lay.opacity = 255;
+		lay.flags = 0;
+		m_imageInfoRecord.layerInfo.append(lay);
+		m_imageInfoRecord.valid = true;
+		layerNum++;
+		test = TIFFReadDirectory(tif);
 	}
+	while (test == 1);
+	TIFFClose(tif);
+
 	return layerNum;
 }
 
@@ -357,18 +358,18 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 	uint16  extrasamples(0), *extratypes(0);
 	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 		extrasamples = 0;
-	if(bits)
+	if (bits)
 	{
 		if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 		{
-			for(unsigned int y = 0; y < heightt; y++)
+			for (unsigned int y = 0; y < heightt; y++)
 			{
 				memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
 				if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
 				{
 					unsigned char *s = image->scanLine( heightt - 1 - y );
 					unsigned char r, g, b, a;
-					for(uint xi=0; xi < widtht; ++xi )
+					for (uint xi=0; xi < widtht; ++xi)
 					{
 						r = s[0];
 						g = s[1];
@@ -408,13 +409,13 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 	}
 	int w = r_image.width();
 	int h = r_image.height();
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		unsigned char *s = tmp->scanLine( yi );
 		unsigned char *d = r_image.scanLine( yi );
 		unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 		unsigned char a = 0;
-		for(int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			src_r = s[0];
 			src_g = s[1];
@@ -671,358 +672,360 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		m_random_table[i] = m_random_table[swap];
 		m_random_table[swap] = tmp;
 	}
+
+	initialize();
+
 	int test;
 	bool valid = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
-	initialize();
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
 	m_imageInfoRecord.type = ImageTypeTIF;
 	getLayers(fn, page);
+
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if (tif)
+	if (!tif)
+		return false;
+
+	bool isCMYK = false;
+	unsigned int widtht, heightt, size;
+	char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
+	uint16 bitspersample, fillorder, planar;
+
+	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
+	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
+	TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
+	TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
+	TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
+	size = widtht * heightt;
+	TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &m_photometric);
+	TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
+	TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
+	TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &m_samplesperpixel);
+	TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
+
+	TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
+	TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
+	TIFFGetField(tif, TIFFTAG_IMAGEDESCRIPTION, &description);
+	TIFFGetField(tif, TIFFTAG_COPYRIGHT, &copyright);
+	TIFFGetField(tif, TIFFTAG_DATETIME, &datetime);
+	TIFFGetField(tif, TIFFTAG_ARTIST, &artist);
+	m_imageInfoRecord.exifInfo.cameraName = QString(scannerModel);
+	m_imageInfoRecord.exifInfo.cameraVendor = QString(scannerMake);
+	m_imageInfoRecord.exifInfo.comment = QString(description);
+	m_imageInfoRecord.exifInfo.userComment = QString(copyright);
+	m_imageInfoRecord.exifInfo.width = widtht;
+	m_imageInfoRecord.exifInfo.height = heightt;
+	m_imageInfoRecord.exifInfo.dateTime = QString(datetime);
+	m_imageInfoRecord.exifInfo.artist = QString(artist);
+	m_imageInfoRecord.exifInfo.thumbnail = QImage();
+	m_imageInfoRecord.exifDataValid = true;
+	uint32 EmbedLen = 0;
+	void*  EmbedBuffer;
+	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
-		bool isCMYK = false;
-		unsigned int widtht, heightt, size;
-		char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
-		uint16 bitspersample, fillorder, planar;
-
-		TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
-		TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
-		TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
-		TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
-		TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
-		size = widtht * heightt;
-		TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &m_photometric);
-		TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
-		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
-		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &m_samplesperpixel);
-		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-
-		TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
-		TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
-		TIFFGetField(tif, TIFFTAG_IMAGEDESCRIPTION, &description);
-		TIFFGetField(tif, TIFFTAG_COPYRIGHT, &copyright);
-		TIFFGetField(tif, TIFFTAG_DATETIME, &datetime);
-		TIFFGetField(tif, TIFFTAG_ARTIST, &artist);
-		m_imageInfoRecord.exifInfo.cameraName = QString(scannerModel);
-		m_imageInfoRecord.exifInfo.cameraVendor = QString(scannerMake);
-		m_imageInfoRecord.exifInfo.comment = QString(description);
-		m_imageInfoRecord.exifInfo.userComment = QString(copyright);
-		m_imageInfoRecord.exifInfo.width = widtht;
-		m_imageInfoRecord.exifInfo.height = heightt;
-		m_imageInfoRecord.exifInfo.dateTime = QString(datetime);
-		m_imageInfoRecord.exifInfo.artist = QString(artist);
-		m_imageInfoRecord.exifInfo.thumbnail = QImage();
-		m_imageInfoRecord.exifDataValid = true;
-		uint32 EmbedLen = 0;
-		void*  EmbedBuffer;
-		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
+		m_embeddedProfile = profArray;
+		m_imageInfoRecord.profileName = tiffProf.productDescription();
+		m_imageInfoRecord.isEmbedded = true;
+	}
+	else
+	{
+		m_imageInfoRecord.isEmbedded = false;
+		m_imageInfoRecord.profileName = "";
+	}
+	unsigned int PhotoshopLen = 0;
+	unsigned char* PhotoshopBuffer;
+	if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )
+	{
+		if (PhotoshopLen != 0)
 		{
-			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
-			ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
-			m_embeddedProfile = profArray;
-			m_imageInfoRecord.profileName = tiffProf.productDescription();
-			m_imageInfoRecord.isEmbedded = true;
-		}
-		else
-		{
-			m_imageInfoRecord.isEmbedded = false;
-			m_imageInfoRecord.profileName = "";
-		}
-		unsigned int PhotoshopLen = 0;
-		unsigned char* PhotoshopBuffer;
-		if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )
-		{
-			if (PhotoshopLen != 0)
+			QByteArray arrayPhot = QByteArray((const char*)PhotoshopBuffer,PhotoshopLen);
+			QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
+			strPhot.setByteOrder( QDataStream::BigEndian );
+			PSDHeader fakeHeader;
+			fakeHeader.width = widtht;
+			fakeHeader.height = heightt;
+			parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+			m_imageInfoRecord.exifInfo.width = widtht;
+			m_imageInfoRecord.exifInfo.height = heightt;
+			if (!m_imageInfoRecord.valid)
+				m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
+			if (thumbnail)
 			{
-				QByteArray arrayPhot = QByteArray((const char*)PhotoshopBuffer,PhotoshopLen);
-				QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
-				strPhot.setByteOrder( QDataStream::BigEndian );
-				PSDHeader fakeHeader;
-				fakeHeader.width = widtht;
-				fakeHeader.height = heightt;
-				parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
-				m_imageInfoRecord.exifInfo.width = widtht;
-				m_imageInfoRecord.exifInfo.height = heightt;
-				if (!m_imageInfoRecord.valid)
-					m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
-				if (thumbnail)
-				{
-					if (m_photometric == PHOTOMETRIC_SEPARATED)
-					{
-						isCMYK = true;
-						m_imageInfoRecord.colorspace = ColorSpaceCMYK;
-					}
-					else if (m_samplesperpixel == 1)
-					{
-						m_imageInfoRecord.colorspace = ColorSpaceGray;
-						isCMYK = false;
-					}
-					else
-						m_imageInfoRecord.colorspace = ColorSpaceRGB;
-					if (bitspersample == 1)
-						bilevel = true;
-					if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
-					{
-						if (isCMYK)
-						{
-							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
-							m_pixelFormat = Format_CMYKA_8;;
-						}
-						else
-						{
-							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
-							m_pixelFormat = (m_imageInfoRecord.colorspace == ColorSpaceCMYK) ? Format_CMYK_8 : Format_RGBA_8;
-						}
-						r_image.fill(0);
-						QRgb *s;
-						uchar *d;
-						unsigned char cc, cm, cy, ck;
-						for( int yit=0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit )
-						{
-							s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
-							d = r_image.scanLine( yit );
-							for(int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit )
-							{
-								if (isCMYK)
-								{
-									cc = 255 - qRed(*s);
-									cm = 255 - qGreen(*s);
-									cy = 255 - qBlue(*s);
-									ck = qMin(qMin(cc, cm), cy);
-									d[0] = cc-ck;
-									d[1] = cm-ck;
-									d[2] = cy-ck;
-									d[3] = ck;
-									d[4] = 255;
-								}
-								else
-								{
-									d[0] = qRed(*s);
-									d[1] = qGreen(*s);
-									d[2] = qBlue(*s);
-									d[3] = 255;
-								}
-								s++;
-								d += r_image.channels();
-							}
-						}
-						TIFFClose(tif);
-						return true;
-					}
-				}
-			}
-		}
-
-		unsigned int PhotoshopLen2 = 0;
-		unsigned char* PhotoshopBuffer2;
-		int gotField = TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2);
-		if (gotField && (PhotoshopLen2 > 40))
-		{
-			m_imageInfoRecord.layerInfo.clear();
-			QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
-			QDataStream s(&arrayPhot,QIODevice::ReadOnly);
-			if (byteOrder[0] == 'M')
-				s.setByteOrder( QDataStream::BigEndian );
-			else
-				s.setByteOrder( QDataStream::LittleEndian );
-
-			failedPS = !loadLayerInfo(s, m_imageInfoRecord.layerInfo); 
-			if (!failedPS)
-			{
-				int chans = 4;
-				int numChannels = m_imageInfoRecord.layerInfo.last().channelType.count();
-				int numLayers = m_imageInfoRecord.layerInfo.count();
-				PSDHeader fakeHeader;
-				fakeHeader.width = widtht;
-				fakeHeader.height = heightt;
-				fakeHeader.channel_count = numChannels;
-				fakeHeader.depth = 8;
 				if (m_photometric == PHOTOMETRIC_SEPARATED)
 				{
 					isCMYK = true;
-					fakeHeader.color_mode = CM_CMYK;
-					chans = 5;
+					m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 				}
 				else if (m_samplesperpixel == 1)
 				{
-					fakeHeader.color_mode = CM_GRAYSCALE;
+					m_imageInfoRecord.colorspace = ColorSpaceGray;
 					isCMYK = false;
-					chans = 4;
 				}
 				else
+					m_imageInfoRecord.colorspace = ColorSpaceRGB;
+				if (bitspersample == 1)
+					bilevel = true;
+				if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
 				{
-					fakeHeader.color_mode = CM_RGB;
-					isCMYK = false;
-					chans = 4;
+					if (isCMYK)
+					{
+						r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
+						m_pixelFormat = Format_CMYKA_8;;
+					}
+					else
+					{
+						r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
+						m_pixelFormat = (m_imageInfoRecord.colorspace == ColorSpaceCMYK) ? Format_CMYK_8 : Format_RGBA_8;
+					}
+					r_image.fill(0);
+					QRgb *s;
+					uchar *d;
+					unsigned char cc, cm, cy, ck;
+					for (int yit=0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit)
+					{
+						s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+						d = r_image.scanLine( yit );
+						for (int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
+						{
+							if (isCMYK)
+							{
+								cc = 255 - qRed(*s);
+								cm = 255 - qGreen(*s);
+								cy = 255 - qBlue(*s);
+								ck = qMin(qMin(cc, cm), cy);
+								d[0] = cc-ck;
+								d[1] = cm-ck;
+								d[2] = cy-ck;
+								d[3] = ck;
+								d[4] = 255;
+							}
+							else
+							{
+								d[0] = qRed(*s);
+								d[1] = qGreen(*s);
+								d[2] = qBlue(*s);
+								d[3] = 255;
+							}
+							s++;
+							d += r_image.channels();
+						}
+					}
+					TIFFClose(tif);
+					return true;
 				}
-				if( !r_image.create( widtht, heightt, chans ))
-					return false;
-				r_image.fill(0);
-				bool firstLayer = true;
-				for (int layer = 0; layer < numLayers; layer++)
-				{
-					loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
-				}
-				arrayPhot.clear();
-				TIFFClose(tif);
-				foundPS = true;
-				if (m_imageInfoRecord.layerInfo.count() == 1)
-					m_imageInfoRecord.layerInfo.clear();
-			}
-			else
-			{
-				arrayPhot.clear();
-				getLayers(fn, page);
 			}
 		}
+	}
 
-		if( xres <= 1.0 || yres <= 1.0 )
-		{
-			xres = yres = 72.0;
-			QFileInfo qfi(fn);
-			m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
-			m_msgType = warningMsg;
-		}
-		if ((!foundPS) || (failedPS))
+	unsigned int PhotoshopLen2 = 0;
+	unsigned char* PhotoshopBuffer2;
+	int gotField = TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2);
+	if (gotField && (PhotoshopLen2 > 40))
+	{
+		m_imageInfoRecord.layerInfo.clear();
+		QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+		QDataStream s(&arrayPhot,QIODevice::ReadOnly);
+		if (byteOrder[0] == 'M')
+			s.setByteOrder( QDataStream::BigEndian );
+		else
+			s.setByteOrder( QDataStream::LittleEndian );
+
+		failedPS = !loadLayerInfo(s, m_imageInfoRecord.layerInfo); 
+		if (!failedPS)
 		{
 			int chans = 4;
+			int numChannels = m_imageInfoRecord.layerInfo.last().channelType.count();
+			int numLayers = m_imageInfoRecord.layerInfo.count();
+			PSDHeader fakeHeader;
+			fakeHeader.width = widtht;
+			fakeHeader.height = heightt;
+			fakeHeader.channel_count = numChannels;
+			fakeHeader.depth = 8;
 			if (m_photometric == PHOTOMETRIC_SEPARATED)
 			{
-				if (m_samplesperpixel > 5) 
-					chans = 4;
-				else
-					chans = m_samplesperpixel;
+				isCMYK = true;
+				fakeHeader.color_mode = CM_CMYK;
+				chans = 5;
+			}
+			else if (m_samplesperpixel == 1)
+			{
+				fakeHeader.color_mode = CM_GRAYSCALE;
+				isCMYK = false;
+				chans = 4;
 			}
 			else
+			{
+				fakeHeader.color_mode = CM_RGB;
+				isCMYK = false;
 				chans = 4;
+			}
 			if (!r_image.create(widtht, heightt, chans))
+				return false;
+			r_image.fill(0);
+			bool firstLayer = true;
+			for (int layer = 0; layer < numLayers; layer++)
+			{
+				loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
+			}
+			arrayPhot.clear();
+			TIFFClose(tif);
+			foundPS = true;
+			if (m_imageInfoRecord.layerInfo.count() == 1)
+				m_imageInfoRecord.layerInfo.clear();
+		}
+		else
+		{
+			arrayPhot.clear();
+			getLayers(fn, page);
+		}
+	}
+
+	if (xres <= 1.0 || yres <= 1.0)
+	{
+		xres = yres = 72.0;
+		QFileInfo qfi(fn);
+		m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+		m_msgType = warningMsg;
+	}
+	if ((!foundPS) || (failedPS))
+	{
+		int chans = 4;
+		if (m_photometric == PHOTOMETRIC_SEPARATED)
+		{
+			if (m_samplesperpixel > 5) 
+				chans = 4;
+			else
+				chans = m_samplesperpixel;
+		}
+		else
+			chans = 4;
+		if (!r_image.create(widtht, heightt, chans))
+		{
+			TIFFClose(tif);
+			return false;
+		}
+		r_image.fill(0);
+		int layerNum = 0;
+		do
+		{
+			RawImage tmpImg;
+			if (!tmpImg.create(widtht, heightt, chans))
 			{
 				TIFFClose(tif);
 				return false;
 			}
-			r_image.fill(0);
-			int layerNum = 0;
-			do
+
+			tmpImg.fill(0);
+			if (!getImageData(tif, &tmpImg, widtht, heightt, size, m_photometric, bitspersample, m_samplesperpixel, bilevel, isCMYK))
 			{
-				RawImage tmpImg;
-				if( !tmpImg.create(widtht, heightt, chans))
-				{
-					TIFFClose(tif);
-					return false;
-				}
-
-				tmpImg.fill(0);
-				if (!getImageData(tif, &tmpImg, widtht, heightt, size, m_photometric, bitspersample, m_samplesperpixel, bilevel, isCMYK))
-				{
-					TIFFClose(tif);
-					return false;
-				}
-				bool visible = true;
-				bool useMask = true;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-					visible = m_imageInfoRecord.RequestProps[layerNum].visible;
-				QString layBlend = "norm";
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-					layBlend = m_imageInfoRecord.RequestProps[layerNum].blend;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-					useMask = m_imageInfoRecord.RequestProps[layerNum].useMask;
-				int layOpa = 255;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-					layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
-				if (visible)
-				{
-					if ((layerNum == 0) && (layBlend != "diss"))
-						r_image = tmpImg;
-					else
-						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
-				}
-				//JG Copy should not be necessary as QImage is implicitly shared in Qt4
-				QImage imt; //QImage imt = tmpImg.copy();
-				double sx = tmpImg.width() / 40.0;
-				double sy = tmpImg.height() / 40.0;
-				imt = tmpImg.convertToQImage((chans > 4) ? true : false);
-				imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
-											imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-				m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
-				if (chans > 4)
-				{
-					QImage imt2 = imt.createAlphaMask();
-					imt2.invertPixels();
-					m_imageInfoRecord.layerInfo[layerNum].thumb_mask = imt2.copy();
-				}
-				else
-					m_imageInfoRecord.layerInfo[layerNum].thumb_mask = QImage();
-				layerNum++;
-
-				if ((m_imageInfoRecord.layerInfo.count() == 1) && (chans < 5))
-					m_imageInfoRecord.layerInfo.clear();
-				test = TIFFReadDirectory(tif);
-
-				// #10415 : check that image size for the current directory is the same as the main one
-				// Some progs use tiff directory to store previews, we do not handle such case
-				// and may perform reads in non allocated blocks if we continue
-				while (test == 1)
-				{
-					unsigned int dirWidth(0), dirHeight(0);
-					TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &dirWidth);
-					TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &dirHeight);
-					if (dirWidth == widtht && dirHeight == heightt)
-						break;
-					test = TIFFReadDirectory(tif);
-					layerNum++;
-				}
+				TIFFClose(tif);
+				return false;
 			}
-			while (test == 1);
-			TIFFClose(tif);
-		}
-		if (resolutionunit == RESUNIT_INCH)
-		{
-			m_image.setDotsPerMeterX ((int) (xres / 0.0254));
-			m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-			m_imageInfoRecord.xres = qRound(xres);
-			m_imageInfoRecord.yres = qRound(yres);
-		}
-		else if (resolutionunit == RESUNIT_CENTIMETER)
-		{
-			m_image.setDotsPerMeterX ((int) (xres * 100.0));
-			m_image.setDotsPerMeterY ((int) (yres * 100.0));
-			m_imageInfoRecord.xres = qRound(xres*2.54);
-			m_imageInfoRecord.yres = qRound(yres*2.54);
-		}
-		if (isCMYK)
-		{
-			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
-			m_pixelFormat = (r_image.channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
-		}
-		else if (m_samplesperpixel == 1)
-		{
-			// Do not set m_pixelFormat here as the real pixel format is most probably different than gray
-			if (bitspersample == 1)
+			bool visible = true;
+			bool useMask = true;
+			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+				visible = m_imageInfoRecord.RequestProps[layerNum].visible;
+			QString layBlend = "norm";
+			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+				layBlend = m_imageInfoRecord.RequestProps[layerNum].blend;
+			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+				useMask = m_imageInfoRecord.RequestProps[layerNum].useMask;
+			int layOpa = 255;
+			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+				layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
+			if (visible)
 			{
-				m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
+				if ((layerNum == 0) && (layBlend != "diss"))
+					r_image = tmpImg;
+				else
+					blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
+			}
+			//JG Copy should not be necessary as QImage is implicitly shared in Qt4
+			QImage imt; //QImage imt = tmpImg.copy();
+			double sx = tmpImg.width() / 40.0;
+			double sy = tmpImg.height() / 40.0;
+			imt = tmpImg.convertToQImage((chans > 4) ? true : false);
+			imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+										imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+			m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
+			if (chans > 4)
+			{
+				QImage imt2 = imt.createAlphaMask();
+				imt2.invertPixels();
+				m_imageInfoRecord.layerInfo[layerNum].thumb_mask = imt2.copy();
 			}
 			else
+				m_imageInfoRecord.layerInfo[layerNum].thumb_mask = QImage();
+			layerNum++;
+
+			if ((m_imageInfoRecord.layerInfo.count() == 1) && (chans < 5))
+				m_imageInfoRecord.layerInfo.clear();
+			test = TIFFReadDirectory(tif);
+
+			// #10415 : check that image size for the current directory is the same as the main one
+			// Some progs use tiff directory to store previews, we do not handle such case
+			// and may perform reads in non allocated blocks if we continue
+			while (test == 1)
 			{
-				m_imageInfoRecord.colorspace = ColorSpaceGray;
+				unsigned int dirWidth(0), dirHeight(0);
+				TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &dirWidth);
+				TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &dirHeight);
+				if (dirWidth == widtht && dirHeight == heightt)
+					break;
+				test = TIFFReadDirectory(tif);
+				layerNum++;
 			}
+		}
+		while (test == 1);
+		TIFFClose(tif);
+	}
+	if (resolutionunit == RESUNIT_INCH)
+	{
+		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
+		m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+		m_imageInfoRecord.xres = qRound(xres);
+		m_imageInfoRecord.yres = qRound(yres);
+	}
+	else if (resolutionunit == RESUNIT_CENTIMETER)
+	{
+		m_image.setDotsPerMeterX ((int) (xres * 100.0));
+		m_image.setDotsPerMeterY ((int) (yres * 100.0));
+		m_imageInfoRecord.xres = qRound(xres*2.54);
+		m_imageInfoRecord.yres = qRound(yres*2.54);
+	}
+	if (isCMYK)
+	{
+		m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+		m_pixelFormat = (r_image.channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
+	}
+	else if (m_samplesperpixel == 1)
+	{
+		// Do not set m_pixelFormat here as the real pixel format is most probably different than gray
+		if (bitspersample == 1)
+		{
+			m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
 		}
 		else
 		{
-			m_imageInfoRecord.colorspace = ColorSpaceRGB;
-			m_pixelFormat = Format_RGBA_8;
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		}
-		m_imageInfoRecord.BBoxX = 0;
-		m_imageInfoRecord.BBoxH = r_image.height();
-		if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
-			m_imageInfoRecord.valid = false;
-		else
-			m_imageInfoRecord.valid = true;
-		return true;
 	}
-	return false;
+	else
+	{
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
+		m_pixelFormat = Format_RGBA_8;
+	}
+	m_imageInfoRecord.BBoxX = 0;
+	m_imageInfoRecord.BBoxH = r_image.height();
+	if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
+		m_imageInfoRecord.valid = false;
+	else
+		m_imageInfoRecord.valid = true;
+	return true;
 }
 
 QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
@@ -1038,7 +1041,7 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 		s >> tmp;
 		return ret;
 	}
-	for( int i = 0; i < len; i++ )
+	for (int i = 0; i < len; i++)
 	{
 		s >> tmp;
 		ret += QChar(tmp);
@@ -1056,7 +1059,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
-	if( compression > 1 )
+	if (compression > 1)
 		return false;
 	if (compression == 0)
 	{
@@ -1099,11 +1102,11 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 			while( count < pixel_count )
 			{
 				uchar c;
-				if(s.atEnd())
+				if (s.atEnd())
 					return false;
 				s >> c;
 				uint len = c;
-				if( len < 128 )
+				if (len < 128)
 				{
 					// Copy next len+1 bytes literally.
 					len++;
@@ -1130,7 +1133,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 						len--;
 					}
 				}
-				else if( len > 128 )
+				else if (len > 128)
 				{
 					// Next -len+1 bytes in the dest are replicated from next source byte.
 					// (Interpret len as a negative 8-bit int.)
@@ -1160,7 +1163,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 						len--;
 					}
 				}
-				else if( len == 128 )
+				else if (len == 128)
 				{
 					// No-op.
 				}
@@ -1187,7 +1190,7 @@ bool ScImgDataLoader_TIFF::loadLayerInfo(QDataStream & s, QList<PSDLayer> &layer
 	struct PSDLayer lay;
 	do
 	{
-		if(s.atEnd())
+		if (s.atEnd())
 		{
 			layerInfo.clear();
 			failedPS = true;
@@ -1237,7 +1240,7 @@ bool ScImgDataLoader_TIFF::loadLayerInfo(QDataStream & s, QList<PSDLayer> &layer
 		}
 		s >> signature;
 		blend = "";
-		for( int i = 0; i < 4; i++ )
+		for (int i = 0; i < 4; i++)
 		{
 			s >> blendKey[i];
 			if (byteOrder == QDataStream::BigEndian)
@@ -1283,9 +1286,9 @@ bool ScImgDataLoader_TIFF::loadLayerInfo(QDataStream & s, QList<PSDLayer> &layer
 		lay.layerName = getLayerString(s);
 		layerInfo.append(lay);
 		s >> signature;
-		if( signature == 0x3842494D )
+		if (signature == 0x3842494D)
 		{
-			while (signature == 0x3842494D )
+			while (signature == 0x3842494D)
 			{
 				s >> signature;
 				s >> addRes;
@@ -1298,9 +1301,9 @@ bool ScImgDataLoader_TIFF::loadLayerInfo(QDataStream & s, QList<PSDLayer> &layer
 		{
 			s.device()->seek( s.device()->pos() - 2 );
 			s >> signature;
-			if( signature == 0x3842494D )
+			if (signature == 0x3842494D)
 			{
-				while (signature == 0x3842494D )
+				while (signature == 0x3842494D)
 				{
 					s >> signature;
 					s >> addRes;
@@ -1341,9 +1344,9 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint) 4));
 		r2_image.fill(0);
 	}
-	if( !createOk )
+	if (!createOk)
 	{
-		for(uint channel = 0; channel < channel_num; channel++)
+		for (uint channel = 0; channel < channel_num; channel++)
 		{
 			base2 += layerInfo[layer].channelLen[channel];
 		}
@@ -1352,7 +1355,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	}
 	channel_num = qMin(channel_num, (uint) 39);
 	uint components[40];
-	for(uint channel = 0; channel < channel_num; channel++)
+	for (uint channel = 0; channel < channel_num; channel++)
 	{
 		switch(layerInfo[layer].channelType[channel])
 		{
@@ -1397,7 +1400,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	}
 	if (!hasAlpha)
 		r2_image.fill((char) 255);
-	for(uint channel = 0; channel < channel_num; channel++)
+	for (uint channel = 0; channel < channel_num; channel++)
 	{
 		if (layerInfo[layer].channelType[channel] == -2)
 		{
@@ -1411,7 +1414,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], r2_image))
 			break;
 	}
-	for(uint channel = 0; channel < channel_num; channel++)
+	for (uint channel = 0; channel < channel_num; channel++)
 	{
 		base2 += layerInfo[layer].channelLen[channel];
 	}
@@ -1512,13 +1515,13 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		}
 		if (*firstLayer)
 		{
-			for( int yi=static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi )
+			for (int yi=static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi)
 			{
 				unsigned char *s = r2_image.scanLine( yi );
 				unsigned char *d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height()-1) );
 				d += qMin(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
 				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				for(int xi=static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi )
+				for (int xi=static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi )
 				{
 					d[0] = s[0];
 					d[1] = s[1];
