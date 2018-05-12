@@ -174,10 +174,10 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			{
 				QRgb *s;
 				unsigned char cc, cm, cy, ck;
-				for( int yit=0; yit < m_image.height(); ++yit )
+				for (int yit=0; yit < m_image.height(); ++yit)
 				{
 					s = (QRgb*)(m_image.scanLine( yit ));
-					for(int xit=0; xit < m_image.width(); ++xit )
+					for (int xit=0; xit < m_image.width(); ++xit)
 					{
 						cc = 255 - qRed(*s);
 						cm = 255 - qGreen(*s);
@@ -208,17 +208,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			xres = 72;
 			yres = 72;
 		}
-		else if ( cinfo.density_unit == 1 )
+		else if (cinfo.density_unit == 1)
 		{
 			xres = cinfo.X_density;
 			yres = cinfo.Y_density;
 		}
-		else if ( cinfo.density_unit == 2 )
+		else if (cinfo.density_unit == 2)
 		{
 			xres = cinfo.X_density * 2.54;
 			yres = cinfo.Y_density * 2.54;
 		}
-		if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+		if (xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0)
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
@@ -246,21 +246,21 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		m_image.setDotsPerMeterX(2834);
 		m_image.setDotsPerMeterY(2834);
 	}
-	else if ( cinfo.density_unit == 1 )
+	else if (cinfo.density_unit == 1)
 	{
 		xres = cinfo.X_density;
 		yres = cinfo.Y_density;
 		m_image.setDotsPerMeterX( int(100. * cinfo.X_density / 2.54) );
 		m_image.setDotsPerMeterY( int(100. * cinfo.Y_density / 2.54) );
 	}
-	else if ( cinfo.density_unit == 2 )
+	else if (cinfo.density_unit == 2)
 	{
 		xres = cinfo.X_density * 2.54;
 		yres = cinfo.Y_density * 2.54;
 		m_image.setDotsPerMeterX( int(100. * cinfo.X_density) );
 		m_image.setDotsPerMeterY( int(100. * cinfo.Y_density) );
 	}
-	if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+	if (xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0)
 	{
 		xres = yres = 72.0;
 		m_image.setDotsPerMeterX(2834);
@@ -341,7 +341,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		yres = m_imageInfoRecord.yres;
 		m_image.setDotsPerMeterX( int(100. * m_imageInfoRecord.xres / 2.54) );
 		m_image.setDotsPerMeterY( int(100. * m_imageInfoRecord.yres / 2.54) );
-		if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+		if (xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0)
 		{
 			xres = yres = 72.0;
 			m_imageInfoRecord.xres = qRound(xres);
@@ -362,11 +362,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				QRgb *d;
 				QRgb *s;
 				unsigned char cc, cm, cy, ck;
-				for( int yit=0; yit < m_image.height(); ++yit )
+				for (int yit=0; yit < m_image.height(); ++yit)
 				{
 					d = (QRgb*)(m_image.scanLine( yit ));
 					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
-					for(int xit=0; xit < m_image.width(); ++xit )
+					for (int xit=0; xit < m_image.width(); ++xit)
 					{
 						cc = 255 - qRed(*s);
 						cm = 255 - qGreen(*s);
@@ -396,9 +396,9 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		m_imageInfoRecord.exifDataValid = savEx;
 		fromPS = true;
 	}
-	if ( cinfo.output_components == 3 || cinfo.output_components == 4)
+	if (cinfo.output_components == 3 || cinfo.output_components == 4)
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_ARGB32 );
-	else if ( cinfo.output_components == 1 )
+	else if (cinfo.output_components == 1)
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
 		m_image.setColorCount(256);
@@ -414,7 +414,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			uchar *d = data + cinfo.output_scanline * bpl;
 			(void) jpeg_read_scanlines(&cinfo, &d, 1);
 		}
-		if ( cinfo.output_components == 3 )
+		if (cinfo.output_components == 3)
 		{
 			uchar *in;
 			QRgb *out;
@@ -430,7 +430,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			}
 			m_pixelFormat = Format_BGRA_8;
 		}
-		if ( cinfo.output_components == 4 )
+		if (cinfo.output_components == 4)
 		{
 			int method = 0;
 			if ((cinfo.jpeg_color_space == JCS_YCCK) || (cinfo.out_color_space == JCS_CMYK))
@@ -493,17 +493,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		}
 		//else
 		//	isCMYK = false;
-		if ( cinfo.output_components == 1 )
+		if (cinfo.output_components == 1)
 		{
 			QImage tmpImg = m_image.convertToFormat(QImage::Format_ARGB32);
 			m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_ARGB32 );
 			QRgb *s;
 			QRgb *d;
-			for( int yi=0; yi < tmpImg.height(); ++yi )
+			for (int yi=0; yi < tmpImg.height(); ++yi)
 			{
 				s = (QRgb*)(tmpImg.scanLine( yi ));
 				d = (QRgb*)(m_image.scanLine( yi ));
-				for(int xi=0; xi < tmpImg.width(); ++xi )
+				for (int xi=0; xi < tmpImg.width(); ++xi)
 				{
 					(*d) = (*s);
 					s++;
@@ -646,7 +646,7 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 			marker_present[seq_no] = 1;
 			data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
 		}
-		else if(requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker))
+		else if (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker))
 		{
 			num_markers = ++seq_no;
 			marker_present[seq_no] = 1;
@@ -687,9 +687,9 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 			JOCTET FAR *src_ptr;
 			JOCTET *dst_ptr;
 			unsigned int length;
-			if(requestmarker == ICC_MARKER)
+			if (requestmarker == ICC_MARKER)
 				seq_no = GETJOCTET(marker->data[12]);
-			else if(requestmarker == PHOTOSHOP_MARKER)
+			else if (requestmarker == PHOTOSHOP_MARKER)
 				seq_no++;
 			dst_ptr = icc_data + data_offset[seq_no];
 			src_ptr = marker->data + ICC_OVERHEAD_LEN;
