@@ -241,6 +241,15 @@ currently selected item is used.\n\
 /*! Status of locking 2004/7/10 pv.*/
 PyObject *scribus_islocked(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_setscaleframetoimage__doc__,
+QT_TR_NOOP("setScaleFrameToImage([name])\n\
+\n\
+Set frame size on the selected or specified image frame to image size.\n\
+\n\
+May raise WrongFrameTypeError.\n\
+"));
+PyObject *scribus_setscaleframetoimage(PyObject * /*self*/, PyObject* args);
+
 PyDoc_STRVAR(scribus_setscaleimagetoframe__doc__,
 QT_TR_NOOP("setScaleImageToFrame(scaletoframe, proportional=None, name=<selection>)\n\
 \n\

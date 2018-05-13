@@ -536,6 +536,29 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(0);
 }
 
+PyObject *scribus_setscaleframetoimage(PyObject* /* self */, PyObject* args)
+{
+	if(!checkHaveDocument())
+		return nullptr;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->asImageFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	Selection *sel = new Selection(ScCore->primaryMainWindow());
+	sel->addItem(item);
+	ScCore->primaryMainWindow()->doc->itemSelection_AdjustFrametoImageSize(sel);
+	delete sel;
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *name = const_cast<char*>("");
@@ -629,5 +652,6 @@ void cmdmanidocwarnings()
 	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
 	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
 	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__
+	  << scribus_setscaleframetoimage__doc__
 	  << scribus_flipobject__doc__;
 }
