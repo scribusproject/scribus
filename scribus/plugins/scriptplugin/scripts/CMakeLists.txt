@@ -3,6 +3,7 @@ include_directories(
 )
 
 install(FILES
+Align_image_in_frame.py
 Autoquote.py
 Autoquote2.py
 CalendarWizard.py
