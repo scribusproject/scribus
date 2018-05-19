@@ -121,7 +121,7 @@ def main(argv):
     while (new_height <= 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +
                                                  unitlabel +'. How tall\n do you want your ' +
-                                                 'infobox to be in '+ unitlabel +'?\n If you load an image and have the PIL module, height will be\n calculated, so the value here will not\n matter in that case.', str(o_height))
+                                                 'infobox to be in '+ unitlabel +'?\n If you load an image with the script, height will be\n calculated, so the value here will not\n matter in that case.', str(o_height))
         if (not new_height) :
             sys.exit(0)
         new_height = float(new_height)
