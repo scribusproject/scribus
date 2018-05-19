@@ -23,7 +23,9 @@
 
 (C) 2005 by Thomas R. Koll, <tomk32@gmx.de>, http://verlag.tomk32.de
 
-(c) 2008, 2010, 2012 modifications, additional features, and reversion back to using PIL again!    by Gregory Pittman
+(c) 2008, 2010, 2012, 2018 modifications, additional features, and no need for PIL
+
+by Gregory Pittman
 
 A simple script for exact placement of a frame (infobox)
 over the current textbox, asking the user for the width
@@ -61,13 +63,6 @@ except ImportError:
     print "Unable to import the 'scribus' module. This script will only run within"
     print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
     sys.exit(1)
-
-pil_found = 1
-
-try:
-    from PIL import Image
-except ImportError:
-    pil_found = 0
 
 def main(argv):
     unit = scribus.getUnit()
@@ -154,20 +149,18 @@ def main(argv):
         scribus.textFlowMode(new_textbox, 1)
     else:
         if (frametype == 'imageL'):
-	    imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
-            if (pil_found == 1):
-                im = Image.open(imageload)
-                xsize, ysize = im.size
-                new_height = float(ysize)/float(xsize)*new_width
-	    else:
-                scribus.messageBox('Please Note',"Your frame will be created once you click OK.\n\nUse the Context Menu to Adjust Frame to Image.\n\nIf your image does not fill the width completely,\nstretch the frame vertically first.",scribus.BUTTON_OK)
-            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
-	    scribus.loadImage(imageload, new_image)
+            imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, 100,framename)
+            scribus.textFlowMode(new_image, 1)
+            scribus.loadImage(imageload, new_image)
+            scribus.setScaleFrameToImage(new_image)
+            currwidth, currheight = scribus.getSize(new_image)
+            scribus.sizeObject(new_width, currheight/currwidth*new_width, new_image)
+            scribus.setScaleImageToFrame(1,1,new_image)
         else:
-	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
-        scribus.textFlowMode(new_image, 1)
-        scribus.setScaleImageToFrame(1,1,new_image)
-#        scribus.setScaleImageToFrame(scaletoframe=1, proportional=1, name=new_image)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
+            scribus.textFlowMode(new_image, 1)
+            scribus.setScaleImageToFrame(1,1,new_image)
 if __name__ == '__main__':
     # This script makes no sense without a document open
     if not scribus.haveDoc():
