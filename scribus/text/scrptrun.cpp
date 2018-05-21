@@ -37,6 +37,7 @@
   * This file is largely copied from the ICU project,
   * under folder source/extra/scrptrun/scrptrun.cpp
   */
+#include <unicode/urename.h>
 #include <unicode/utypes.h>
 #include <unicode/uscript.h>
 
