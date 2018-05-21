@@ -193,7 +193,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("ny",       "",         "Chewa",                   QObject::tr("Chewa")));
 	m_langTable.append(LangDef("chy",      "",         "Cheyenne",                QObject::tr("Cheyenne")));
 	m_langTable.append(LangDef("cgg",      "",         "Chiga",                   QObject::tr("Chiga")));
-	m_langTable.append(LangDef("zh",       "",         "Chinese",                 QObject::tr("Chinese")));
+	m_langTable.append(LangDef("zh",       "zh_CN",    "Chinese",                 QObject::tr("Chinese")));
 	m_langTable.append(LangDef("zh_TW",    "",         "Chinese (Trad.)",         QObject::tr("Chinese (Trad.)")));
 	m_langTable.append(LangDef("chp",      "",         "Chipewyan",               QObject::tr("Chipewyan")));
 	m_langTable.append(LangDef("ctg",      "",         "Chittagonian",            QObject::tr("Chittagonian")));
