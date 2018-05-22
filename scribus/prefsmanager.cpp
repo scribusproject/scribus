@@ -1308,6 +1308,7 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 	if (!tmpSet.contains(brushCpen2) && brushCpen2 != CommonStrings::None)
 		tmpSet[brushCpen2] = appPrefs.colorPrefs.DColors[brushCpen2];
 	appPrefs.colorPrefs.DColors = tmpSet;
+	appPrefs.colorPrefs.DColors.ensureDefaultColors();
 }
 
 void PrefsManager::setColorSetName(const QString& colorSetName)

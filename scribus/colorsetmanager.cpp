@@ -336,6 +336,7 @@ bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *do
 			return false;
 		colors = doc->PageColors;
 		colors.setDocument(doc);
+		colors.ensureDefaultColors();
 		gradients = doc->docGradients;
 		patterns = doc->docPatterns;
 		doc->PageColors = colorListBack;
@@ -344,10 +345,9 @@ bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *do
 	}
 	else
 	{
-		if (importColorsFromFile(paletteFileName, colors, &gradients, merge))
-			colors.ensureDefaultColors();
-		else
+		if (!importColorsFromFile(paletteFileName, colors, &gradients, merge))
 			return false;
+		colors.ensureDefaultColors();
 	}
 	return true;
 }
