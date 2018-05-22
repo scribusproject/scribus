@@ -7957,52 +7957,52 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	uint docSelectionCount   = itemSelection->count();
-	if (docSelectionCount != 0)
+	if (docSelectionCount <= 0)
+		return;
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
+	for (uint aa = 0; aa < docSelectionCount; ++aa)
 	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && docSelectionCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
-		for (uint aa = 0; aa < docSelectionCount; ++aa)
-		{
-			PageItem *currItem = itemSelection->itemAt(aa);
-			currItem->setCustomLineStyle(name);
-			currItem->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
-		changed();
+		PageItem *currItem = itemSelection->itemAt(aa);
+		currItem->setCustomLineStyle(name);
+		currItem->update();
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
+	changed();
 }
 
 
 void ScribusDoc::itemSelection_SetItemPen(QString farbe)
 {
 	int selectedItemCount = m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (farbe == CommonStrings::tr_NoneColor)
-			farbe = CommonStrings::None;
-		if (selectedItemCount > 1 && UndoManager::undoEnabled())
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
-		PageItem *currItem;
-		for (int i = 0; i < selectedItemCount; ++i)
-		{
-			currItem = m_Selection->itemAt(i);
-			if ((currItem->asLine()) && (farbe == CommonStrings::None))
-				continue;
+	if (selectedItemCount <= 0)
+		return;
 
-			currItem->setLineColor(farbe);
-			currItem->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (farbe == CommonStrings::tr_NoneColor)
+		farbe = CommonStrings::None;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+															Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
+	PageItem *currItem;
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = m_Selection->itemAt(i);
+		if ((currItem->asLine()) && (farbe == CommonStrings::None))
+			continue;
+
+		currItem->setLineColor(farbe);
+		currItem->update();
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
