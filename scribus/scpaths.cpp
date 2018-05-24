@@ -97,7 +97,12 @@ ScPaths::ScPaths() :
 	qDebug() << QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":"));
 
 #elif defined(_WIN32)
+	QFileInfo appInfo(qApp->applicationDirPath());
 	QString appPath = qApp->applicationDirPath();
+	QString cleanAppPath = appInfo.canonicalFilePath();
+	if (!cleanAppPath.isEmpty())
+		appPath = cleanAppPath;
+
 	m_shareDir = QString("%1/share/").arg(appPath);
 	m_docDir = QString("%1/share/doc/").arg(appPath);
 	m_fontDir = QString("%1/share/fonts/").arg(appPath);
