@@ -5301,7 +5301,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	{
 		if (!sourcePage->MPageNam.isEmpty() && MasterNames.contains(sourcePage->MPageNam))
 		{
-			ScPage* pageMaster=nullptr;
+			ScPage* pageMaster = nullptr;
 			for (int i=0; i < MasterPages.count(); ++i )
 			{
 				pageMaster=MasterPages[i];
@@ -5324,10 +5324,12 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 					{
 						ScriXmlDoc ss;
 						setMasterPageMode(true);
+						setCurrentPage(pageMaster); // Needed for WriteElem to write proper page relative coordinates
 						QString dataS = ss.WriteElem(this, &tempSelection);
 						setCurrentPage(targetPage);
 						ss.ReadElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
 						setMasterPageMode(false);
+						setCurrentPage(oldCurrentPage);
 					}
 					tempSelection.clear();
 				}
@@ -5351,11 +5353,13 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 			if (tempSelection.count() != 0)
 			{
 				ScriXmlDoc ss;
+				setCurrentPage(sourcePage); // Needed for WriteElem to write proper page relative coordinates
 				QString dataS = ss.WriteElem(this, &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
 				ss.ReadElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
 				setMasterPageMode(false);
+				setCurrentPage(oldCurrentPage);
 			}
 			tempSelection.clear();
 		}
@@ -5368,7 +5372,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		PageItem *newItem = MasterItems.at(a);
 		newItem->setMasterPage(MasterNames[masterPageName], masterPageName);
 	}
-	targetPage->MPageNam = "";
+	targetPage->MPageNam.clear();
 	setLoading(false);
 	GroupCounter = GrMax + 1;
 	//Reset the current page..
