@@ -118,10 +118,10 @@ void PagePalette::markPage(uint nr)
 
 void PagePalette::setView(ScribusView *view)
 {
-	PagePalette_Pages* pageWidget = dynamic_cast<PagePalette_Pages*>(this->currentWidget());
+	PagePalette_Pages* pageWidget = view ? dynamic_cast<PagePalette_Pages*>(this->currentWidget()) : this->pageWidget();
 	if (pageWidget)
 		pageWidget->setView(view);
-	PagePalette_MasterPages* mpWidget = dynamic_cast<PagePalette_MasterPages*>(this->currentWidget());
+	PagePalette_MasterPages* mpWidget = view ? dynamic_cast<PagePalette_MasterPages*>(this->currentWidget()) : this->masterpageWidget();
 	if (mpWidget)
 		mpWidget->setView(view);
 	m_view = view;
