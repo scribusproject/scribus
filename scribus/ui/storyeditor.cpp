@@ -2069,49 +2069,49 @@ void StoryEditor::languageChange()
 
 void StoryEditor::disconnectSignals()
 {
-	disconnect(Editor,0,0,0);
-	disconnect(Editor->document(), 0,0,0);
-	disconnect(EditorBar,0,0,0);
-	disconnect(AlignTools,0,0,0);
-	disconnect(FillTools,0,0,0);
-	disconnect(FontTools,0,0,0);
-	disconnect(StrokeTools,0,0,0);
-	disconnect(StyleTools,0,0,0);
+	Editor->disconnect();
+	Editor->document()->disconnect();
+	EditorBar->disconnect();
+	AlignTools->disconnect();
+	FillTools->disconnect();
+	FontTools->disconnect();
+	StrokeTools->disconnect();
+	StyleTools->disconnect();
 }
 
 void StoryEditor::connectSignals()
 {
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 //	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
-	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
+	connect(Editor, SIGNAL(setProps(int,int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
-	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
+	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool)));
 	connect(Editor, SIGNAL(PasteAvail()), this, SLOT(PasteAvail()));
-	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
+	connect(Editor, SIGNAL(contentsMoving(int,int)), EditorBar, SLOT(doMove(int,int )));
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
-	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
-	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
-	connect(Editor->document(), SIGNAL(contentsChange(int, int, int)), Editor, SLOT(handleContentsChange(int, int, int)));
+	connect(Editor, SIGNAL(SideBarUp(bool)), EditorBar, SLOT(setRepaint(bool )));
+	connect(Editor, SIGNAL(SideBarUpdate()), EditorBar, SLOT(doRepaint()));
+	connect(Editor->document(), SIGNAL(contentsChange(int,int,int)), Editor, SLOT(handleContentsChange(int,int,int)));
 	Editor->SuspendContentsChange = 0;
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString&)), this, SLOT(changeStyleSB(int, const QString&)));
 //	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
 	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(newDirection(int)), this, SLOT(newDirection(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
-	connect(FontTools, SIGNAL(newSize(double )), this, SLOT(newTxSize(double)));
-	connect(FontTools, SIGNAL(newFont(const QString& )), this, SLOT(newTxFont(const QString& )));
-	connect(FontTools, SIGNAL(newScaleH(double )), this, SLOT(newTxScale()));
-	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV()));
-	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
-	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
+	connect(FontTools, SIGNAL(newSize(double)), this, SLOT(newTxSize(double)));
+	connect(FontTools, SIGNAL(newFont(const QString&)), this, SLOT(newTxFont(const QString&)));
+	connect(FontTools, SIGNAL(newScaleH(double)), this, SLOT(newTxScale()));
+	connect(FontTools, SIGNAL(newScaleV(double)), this, SLOT(newTxScaleV()));
+	connect(StyleTools, SIGNAL(NewKern(double)), this, SLOT(newTxKern(double)));
+	connect(StyleTools, SIGNAL(newStyle(int)), this, SLOT(newTxStyle(int)));
 	connect(StyleTools, SIGNAL(NewShadow(double, double)), this, SLOT(newShadowOffs(double, double)));
-	connect(StyleTools, SIGNAL(newOutline(double )), this, SLOT(newTxtOutline(double )));
+	connect(StyleTools, SIGNAL(newOutline(double)), this, SLOT(newTxtOutline(double)));
 	connect(StyleTools, SIGNAL(newUnderline(double, double)), this, SLOT(newTxtUnderline(double, double)));
-	connect(StyleTools, SIGNAL(newStrike(double, double )), this, SLOT(newTxtStrike(double, double)));
+	connect(StyleTools, SIGNAL(newStrike(double, double)), this, SLOT(newTxtStrike(double, double)));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
@@ -2725,7 +2725,7 @@ void StoryEditor::Do_insSp()
 	charSelectUsed = true;
 	if (charSelect->isVisible())
 		return;
-	charSelect->setEnabled(true, 0);
+	charSelect->setEnabled(true, nullptr);
 	charSelect->setDoc(m_doc);
 	charSelect->show();
 }

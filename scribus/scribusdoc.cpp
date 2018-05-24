@@ -1208,14 +1208,14 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
 }
 
-bool ScribusDoc::styleExists(QString styleName)
+bool ScribusDoc::styleExists(const QString& styleName)
 {
 	for (int i = 0; i < paragraphStyles().count(); ++i)
 	{
@@ -1450,7 +1450,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			
 		QMap<QString,QString>::ConstIterator itc;
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().Stops(); ++cst)
 		{
 			itc = newNames.colors().find(cstops.at(cst)->name);
 			if (itc != newNames.colors().end())
@@ -16145,11 +16145,11 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
 		AddFont(*it3a);
 
-	uint itemCount=Items->count();
-	for (uint b=0; b<itemCount; ++b)
+	int itemCount=Items->count();
+	for (int i=0; i<itemCount; ++i)
 	{
-		if (Items->at(b)->itemType() == PageItem::ImageFrame)
-			Items->at(b)->setImageVisible(m_docPrefsData.guidesPrefs.showPic);
+		if (Items->at(i)->itemType() == PageItem::ImageFrame)
+			Items->at(i)->setImageVisible(m_docPrefsData.guidesPrefs.showPic);
 	}
 
 	double oldBaseGridValue  = oldPrefsData.guidesPrefs.valueBaselineGrid;
@@ -16536,7 +16536,7 @@ void ScribusDoc::setupNumerations()
 		if (!style.hasNum())
 			continue;
 
-		QString name = style.numName();
+		const QString& name = style.numName();
 		if (numerations.contains(name))
 			numS = numerations.value(name);
 		else
@@ -16584,7 +16584,7 @@ void ScribusDoc::setupNumerations()
 	flag_Renumber = true;
 }
 
-QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, const ParagraphStyle &style)
+QString ScribusDoc::getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style)
 {
 	Q_ASSERT(numerations.contains(numName));
 	NumStruct * numS = numerations.value(numName, (NumStruct*) 0);
@@ -16617,7 +16617,7 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, const P
 	return result;
 }
 
-void ScribusDoc::setNumerationCounter(QString numName, int level, int number)
+void ScribusDoc::setNumerationCounter(const QString& numName, int level, int number)
 {
 	if (!numerations.contains(numName))
 		return;
@@ -16642,7 +16642,7 @@ bool ScribusDoc::updateLocalNums(StoryText& itemText)
 		Mark* mark = itemText.mark(pos);
 		if (mark != nullptr && mark->isType(MARKBullNumType) && itemText.paragraphStyle(pos).hasNum())
 		{
-			ParagraphStyle style = itemText.paragraphStyle(pos);
+			const ParagraphStyle& style = itemText.paragraphStyle(pos);
 			if (style.numName() == "<local block>")
 			{
 				int level = style.numLevel();

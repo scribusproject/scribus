@@ -590,7 +590,7 @@ public:
 		ResourceCollection m_newNames;
 	};
 	void replaceNamedResources(ResourceCollection& newNames);
-	bool styleExists(QString styleName);
+	bool styleExists(const QString& styleName);
 	
 	QList<int> getSortedStyleList();
 	QList<int> getSortedCharStyleList();
@@ -1818,8 +1818,8 @@ public:
 	QMap<QString, NumStruct*> numerations;
 	QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overrided localy
 	void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
-	QString getNumberStr(QString numName, int level, bool reset, const ParagraphStyle &style);
-	void setNumerationCounter(QString numName, int level, int number);
+	QString getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style);
+	void setNumerationCounter(const QString& numName, int level, int number);
 	bool flag_Renumber;
 	bool flag_NumUpdateRequest;
 	// for local numeration of paragraphs

@@ -39,14 +39,14 @@ QVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
 ActionManager::ActionManager ( QObject * parent ) :
 	QObject ( parent),
-	mainWindow(0), 
-	undoManager(0), 
-	im(0), 
-	scrActions(0), 
-	scrActionGroups(0),
-	modeActionNames(0), 
-	nonEditActionNames(0), 
-	unicodeCharActionNames(0)
+	mainWindow(nullptr),
+	undoManager(nullptr),
+	im(nullptr),
+	scrActions(nullptr),
+	scrActionGroups(nullptr),
+	modeActionNames(nullptr),
+	nonEditActionNames(nullptr),
+	unicodeCharActionNames(nullptr)
 {
 }
 
@@ -86,7 +86,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 	setActionTooltips(scrActions);
 }
 
-bool ActionManager::compareKeySeqToShortcut(QKeySequence ks, QString actionName)
+bool ActionManager::compareKeySeqToShortcut(const QKeySequence& ks, const QString& actionName)
 {
 	if (!scrActions->contains(actionName))
 		return false;
@@ -95,7 +95,7 @@ bool ActionManager::compareKeySeqToShortcut(QKeySequence ks, QString actionName)
 	return false;
 }
 
-bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, QString actionName)
+bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, const QString& actionName)
 {
 	return compareKeySeqToShortcut(QKeySequence(k | km), actionName);
 }
@@ -937,7 +937,7 @@ void ActionManager::initToolsMenuActions()
 #ifdef HAVE_OSG
 	*modeActionNames << "toolsPDFAnnot3D";
 #endif
- 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 	{
  		(*scrActions)[*it]->setEnabled(false);
 		(*scrActions)[*it]->setToggleAction(true);
@@ -1213,40 +1213,40 @@ void ActionManager::connectModeActions()
 
 void ActionManager::disconnectNewDocActions()
 {
-	disconnect( (*scrActions)["tableInsertRows"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableInsertColumns"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableDeleteRows"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableDeleteColumns"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableMergeCells"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableSplitCells"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableSetRowHeights"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableSetColumnWidths"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableDistributeRowsEvenly"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableDistributeColumnsEvenly"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableAdjustFrameToTable"], 0, 0, 0 );
-	disconnect( (*scrActions)["tableAdjustTableToFrame"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemAdjustFrameHeightToText"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemAdjustImageToFrame"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPrintingEnabled"], 0, 0, 0);
-	disconnect( (*scrActions)["itemFlipH"], 0, 0, 0);
-	disconnect( (*scrActions)["itemFlipV"], 0, 0, 0);
-	disconnect( (*scrActions)["itemCombinePolygons"], 0, 0, 0);
-	disconnect( (*scrActions)["itemSplitPolygons"], 0, 0, 0);
-	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemDelete"], 0, 0, 0);
-	disconnect( (*scrActions)["extrasHyphenateText"], 0, 0, 0 );
-	disconnect( (*scrActions)["extrasDeHyphenateText"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemsUnWeld"], 0, 0, 0);
-	disconnect( (*scrActions)["itemWeld"], 0, 0, 0);
-	disconnect( (*scrActions)["itemEditWeld"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
-	disconnect( (*scrActions)["itemRaiseToTop"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
-	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
-	disconnect( (*scrActions)["toolsUnlinkTextFrameAndCutText"], 0, 0, 0 );
+	(*scrActions)["tableInsertRows"]->disconnect();
+	(*scrActions)["tableInsertColumns"]->disconnect();
+	(*scrActions)["tableDeleteRows"]->disconnect();
+	(*scrActions)["tableDeleteColumns"]->disconnect();
+	(*scrActions)["tableMergeCells"]->disconnect();
+	(*scrActions)["tableSplitCells"]->disconnect();
+	(*scrActions)["tableSetRowHeights"]->disconnect();
+	(*scrActions)["tableSetColumnWidths"]->disconnect();
+	(*scrActions)["tableDistributeRowsEvenly"]->disconnect();
+	(*scrActions)["tableDistributeColumnsEvenly"]->disconnect();
+	(*scrActions)["tableAdjustFrameToTable"]->disconnect();
+	(*scrActions)["tableAdjustTableToFrame"]->disconnect();
+	(*scrActions)["itemAdjustFrameHeightToText"]->disconnect();
+	(*scrActions)["itemAdjustFrameToImage"]->disconnect();
+	(*scrActions)["itemAdjustImageToFrame"]->disconnect();
+	(*scrActions)["itemLock"]->disconnect();
+	(*scrActions)["itemLockSize"]->disconnect();
+	(*scrActions)["itemPrintingEnabled"]->disconnect();
+	(*scrActions)["itemFlipH"]->disconnect();
+	(*scrActions)["itemFlipV"]->disconnect();
+	(*scrActions)["itemCombinePolygons"]->disconnect();
+	(*scrActions)["itemSplitPolygons"]->disconnect();
+	(*scrActions)["itemUpdateImage"]->disconnect();
+	(*scrActions)["itemDelete"]->disconnect();
+	(*scrActions)["extrasHyphenateText"]->disconnect();
+	(*scrActions)["extrasDeHyphenateText"]->disconnect();
+	(*scrActions)["itemsUnWeld"]->disconnect();
+	(*scrActions)["itemWeld"]->disconnect();
+	(*scrActions)["itemEditWeld"]->disconnect();
+	(*scrActions)["itemLowerToBottom"]->disconnect();
+	(*scrActions)["itemRaiseToTop"]->disconnect();
+	(*scrActions)["itemLower"]->disconnect();
+	(*scrActions)["itemRaise"]->disconnect();
+	(*scrActions)["toolsUnlinkTextFrameAndCutText"]->disconnect();
 }
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
@@ -1292,23 +1292,23 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 void ActionManager::disconnectNewViewActions()
 {
 	//qDebug()<<"disconnectNewViewActions"<<mainWindow->doc->DocName;
-	disconnect( (*scrActions)["viewPreviewMode"], 0, 0, 0);
-	disconnect( (*scrActions)["viewEditInPreview"], 0, 0, 0);
-	disconnect( (*scrActions)["viewToggleCMS"], 0, 0, 0);
-	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
-	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
-	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
-	disconnect( (*scrActions)["itemConvertToImageFrame"], 0, 0, 0);
-	disconnect( (*scrActions)["itemConvertToOutlines"], 0, 0, 0);
-	disconnect( (*scrActions)["itemConvertToPolygon"], 0, 0, 0);
-	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
-	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
-	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
-	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0);
+	(*scrActions)["viewPreviewMode"]->disconnect();
+	(*scrActions)["viewEditInPreview"]->disconnect();
+	(*scrActions)["viewToggleCMS"]->disconnect();
+	(*scrActions)["toolsZoomIn"]->disconnect();
+	(*scrActions)["toolsZoomOut"]->disconnect();
+	(*scrActions)["itemImageIsVisible"]->disconnect();
+	(*scrActions)["itemPreviewFull"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewNormal"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewLow"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemConvertToBezierCurve"]->disconnect();
+	(*scrActions)["itemConvertToImageFrame"]->disconnect();
+	(*scrActions)["itemConvertToOutlines"]->disconnect();
+	(*scrActions)["itemConvertToPolygon"]->disconnect();
+	(*scrActions)["itemConvertToTextFrame"]->disconnect();
+	(*scrActions)["itemAttachTextToPath"]->disconnect();
+	(*scrActions)["itemDetachTextFromPath"]->disconnect();
+	(*scrActions)["itemExtendedImageProperties"]->disconnect();
 }
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
@@ -1333,13 +1333,13 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 
 void ActionManager::disconnectNewSelectionActions()
 {
-	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+	(*scrActions)["itemImageIsVisible"]->disconnect();
 	//Only disconnect triggeredData for data based actions or you will disconnect the internal signal
-	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)) , 0, 0);
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0);
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)) , 0, 0);
-	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
-	disconnect( (*scrActions)["editTruncateContents"], 0, 0, 0);
+	(*scrActions)["itemPreviewFull"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewNormal"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewLow"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["editClearContents"]->disconnect();
+	(*scrActions)["editTruncateContents"]->disconnect();
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, ScribusDoc* currDoc)
@@ -1431,8 +1431,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	if (currItem==nullptr)
 		return;
 
-	disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
+	(*scrActions)["itemPDFIsBookmark"]->disconnect();
+	(*scrActions)["itemPDFIsAnnotation"]->disconnect();
 
 	if (!currItem->asTextFrame())
 	{

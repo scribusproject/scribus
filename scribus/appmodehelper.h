@@ -35,7 +35,7 @@ class AppModeHelper : public QObject
 	friend class ScribusMainWindow;
 
 	public:
-		explicit AppModeHelper(QObject *parent = 0);
+		explicit AppModeHelper(QObject *parent = nullptr);
 		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *);
 		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);

@@ -10026,7 +10026,7 @@ bool PageItem::disconnectFromGUI()
 	// and cause progressive slowdowns
 	// PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
 	// disconnect(this, 0, pp, 0);
-	disconnect(this, 0, 0, 0);
+	this->disconnect();
 	return true;
 }
 
