@@ -483,7 +483,7 @@ bool ScPrintEngine_GDI::printPage_PS_Sep(ScribusDoc* doc, ScPage* page, PrintOpt
 {
 	bool succeed = true;
 	QStringList separations;
-	if (options.separationName != QObject::tr("All"))
+	if (options.separationName != "All")
 		separations.append(options.separationName);
 	else
 		separations += options.allSeparations;

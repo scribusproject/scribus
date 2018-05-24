@@ -564,7 +564,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
 		options.outputSeparations = false;
-		options.separationName = tr("All");
+		options.separationName = "All";
 		options.allSeparations = QStringList();
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
@@ -679,7 +679,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
 		options.outputSeparations = false;
-		options.separationName = tr("All");
+		options.separationName = "All";
 		options.allSeparations = QStringList();
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
@@ -1158,9 +1158,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 		else
 		{
-			int w = qRound(b);
-			int w2 = 4*w;
+			int w  = qRound(b);
 			int h2 = qRound(h);
+			if (doc->Pages->at(Seite)->orientation() == 1)
+				std::swap(w, h2);
+			int w2 = 4 * w;
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QByteArray imgc(w2, ' ');
 			QFile f(ScPaths::tempFileDir()+"/sc.png");

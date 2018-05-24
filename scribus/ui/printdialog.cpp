@@ -593,6 +593,16 @@ bool PrintDialog::outputSeparations()
 
 QString PrintDialog::separationName()
 {
+	if (SepArt->currentIndex() == 0)
+		return QString("All");
+	if (SepArt->currentIndex() == 1)
+		return QString("Cyan");
+	if (SepArt->currentIndex() == 2)
+		return QString("Magenta");
+	if (SepArt->currentIndex() == 3)
+		return QString("Yellow");
+	if (SepArt->currentIndex() == 4)
+		return QString("Black");
 	return SepArt->currentText();
 }
 

@@ -1511,7 +1511,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool doClip = options.doClip;
 	int sepac;
 	int pagemult;
-	if ((sep) && (SepNam == QObject::tr("All")))
+	if ((sep) && (SepNam == "All"))
 		pagemult = spots.count();
 	else
 		pagemult = 1;
@@ -1707,15 +1707,15 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		}
 		if (sep)
 		{
-			if (SepNam == QObject::tr("Black"))
+			if (SepNam == "Black")
 				PS_plate(0);
-			else if (SepNam == QObject::tr("Cyan"))
+			else if (SepNam == "Cyan")
 				PS_plate(1);
-			else if (SepNam == QObject::tr("Magenta"))
+			else if (SepNam == "Magenta")
 				PS_plate(2);
-			else if (SepNam == QObject::tr("Yellow"))
+			else if (SepNam == "Yellow")
 				PS_plate(3);
-			else if (SepNam == QObject::tr("All"))
+			else if (SepNam == "All")
 				PS_plate(sepac, spots[sepac]);
 			else
 				PS_plate(4, SepNam);
@@ -1740,7 +1740,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			PS_end_page();
 		if (sep)
 		{
-			if (SepNam != QObject::tr("All"))
+			if (SepNam != "All")
 				aa++;
 			else
 			{

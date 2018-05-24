@@ -7013,7 +7013,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	PrintOptions options;
 	options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
 	options.outputSeparations = false;
-	options.separationName = tr("All");
+	options.separationName = "All";
 	options.allSeparations = spots;
 	options.useColor = true;
 	options.mirrorH = false;
