@@ -2,7 +2,8 @@
 
 """ Simple unicode map with comments strip for Scribus
 It converts original file taken from:
-http://www.unicode.org/Public/5.0.0/ucd/NamesList.txt
+https://www.unicode.org/Public/10.0.0/ucd/NamesList.txt
+(or https://unicode.org/Public/UNIDATA/NamesList.txt for the most recent)
 into simple hex:comment values map used in UnicodeSearch
 class
 Petr Vanek <petr@scribus.info>
