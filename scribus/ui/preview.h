@@ -74,10 +74,6 @@ public:
 	QCheckBox* AntiAlias;
 	QCheckBox* AliasTr;
 	QCheckBox* EnableCMYK;
-	QCheckBox* EnableCMYK_C;
-	QCheckBox* EnableCMYK_M;
-	QCheckBox* EnableCMYK_Y;
-	QCheckBox* EnableCMYK_K;
 	QCheckBox* EnableGCR;
 	QCheckBox* MirrorHor;
 	QCheckBox* MirrorVert;

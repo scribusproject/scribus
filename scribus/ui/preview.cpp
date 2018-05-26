@@ -136,8 +136,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	Layout2->addWidget(AliasTr);
 	EnableCMYK = new QCheckBox(devTitle);
 	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode : false);
-	EnableCMYK->setEnabled( postscriptPreview );
+	EnableCMYK->setChecked((HaveTiffSep && postscriptPreview) ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode : false);
+	EnableCMYK->setEnabled(HaveTiffSep && postscriptPreview);
 	Layout2->addWidget(EnableCMYK);
 	if (HaveTiffSep)
 	{
@@ -229,29 +229,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		connect(Table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
 		connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader()));
 	}
-	else
-	{
-		EnableCMYK_C = new QCheckBox(devTitle);
-		EnableCMYK_C->setText( tr("&C"));
-		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_C : true);
-		EnableCMYK_C->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_C);
-		EnableCMYK_M = new QCheckBox(devTitle);
-		EnableCMYK_M->setText( tr("&M"));
-		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_M : true);
-		EnableCMYK_M->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_M);
-		EnableCMYK_Y = new QCheckBox(devTitle);
-		EnableCMYK_Y->setText( tr("&Y"));
-		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Y : true);
-		EnableCMYK_Y->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_Y);
-		EnableCMYK_K = new QCheckBox(devTitle);
-		EnableCMYK_K->setText( tr("&K"));
-		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_K : true);
-		EnableCMYK_K->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_K);
-	}
 	
 	settingsBarLayout->addWidget(devTitle);
 	jobTitle = new QGroupBox( this );
@@ -336,13 +313,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	{
 		if (HaveTiffSep)
 			Table->setEnabled(false);
-		else
-		{
-			EnableCMYK_C->setEnabled(false);
-			EnableCMYK_M->setEnabled(false);
-			EnableCMYK_Y->setEnabled(false);
-			EnableCMYK_K->setEnabled(false);
-		}
 	}
 	PGSel->setGUIForPage(doc->currentPage()->pageNr());
 	// tooltips
@@ -363,17 +333,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	connect(ClipMarg, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(spotColors, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(useGray, SIGNAL(clicked()), this, SLOT(redisplay()));
-	if (!HaveTiffSep)
-	{
-		connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-		connect(EnableCMYK_M, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-		connect(EnableCMYK_Y, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-		connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-		EnableCMYK_C->setToolTip( tr( "Enable/disable the C (Cyan) ink plate" ) );
-		EnableCMYK_M->setToolTip( tr( "Enable/disable the M (Magenta) ink plate" ) );
-		EnableCMYK_Y->setToolTip( tr( "Enable/disable the Y (Yellow) ink plate" ) );
-		EnableCMYK_K->setToolTip( tr( "Enable/disable the K (Black) ink plate" ) );
-	}
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
@@ -432,13 +391,6 @@ void PPreview::ToggleCMYK()
 		EnableInkCover->setEnabled(c);
 		if (EnableInkCover->isChecked())
 			CoverThresholdValue->setEnabled(c);
-	}
-	else
-	{
-		EnableCMYK_C->setEnabled(c);
-		EnableCMYK_M->setEnabled(c);
-		EnableCMYK_Y->setEnabled(c);
-		EnableCMYK_K->setEnabled(c);
 	}
 		
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
@@ -605,11 +557,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 	{
 		if (HaveTiffSep)
 			args.append( "-sDEVICE=tiffsep" );
-		else
-		{
-			args.append( "-sDEVICE=bitcmyk" );
-			args.append( "-dGrayValues=256" ); 
-		}
 	}
 	else
 	{
@@ -626,7 +573,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-		if (EnableCMYK->isChecked() && HaveTiffSep)
+		if (EnableCMYK->isChecked())
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
@@ -634,7 +581,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-		if (EnableCMYK->isChecked() && HaveTiffSep)
+		if (EnableCMYK->isChecked())
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultRGBProfile.profilePath()));
@@ -650,7 +597,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if (!cmd1.isEmpty())
 		args.append( cmd1 );
 	// then add any final args and call gs
-	if ((EnableCMYK->isChecked()) && HaveTiffSep)
+	if (EnableCMYK->isChecked())
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
 	else
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.png")) );
@@ -928,9 +875,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	QImage image;
 	if (EnableCMYK->isChecked())
 	{
-		int cyan, magenta, yellow, black, alpha;
-		uint *p;
 		bool loaderror;
+		int cyan, magenta, yellow, black;
 		if (HaveTiffSep)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
@@ -1154,104 +1100,6 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						}
 					}
 				}
-			}
-		}
-		else
-		{
-			int w  = qRound(b);
-			int h2 = qRound(h);
-			if (doc->Pages->at(Seite)->orientation() == 1)
-				std::swap(w, h2);
-			int w2 = 4 * w;
-			image = QImage(w, h2, QImage::Format_ARGB32);
-			QByteArray imgc(w2, ' ');
-			QFile f(ScPaths::tempFileDir()+"/sc.png");
-			if (f.open(QIODevice::ReadOnly))
-			{
-				if (doc->HasCMS || ScCore->haveCMS())
-				{
-					QRgb alphaFF = qRgba(0,0,0,255);
-					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorMgmtEngine engine = doc->colorEngine;
-					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
-					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
-					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
-					for (int y=0; y < h2; ++y )
-					{
-						uchar* ptr = image.scanLine( y );
-						f.read(imgc.data(), w2);
-						p = (uint *)image.scanLine( y );
-						for (int x=0; x < w2; x += 4 )
-						{
-							cyan = uchar(imgc[x]);
-							magenta = uchar(imgc[x + 1]);
-							yellow = uchar(imgc[x + 2]);
-							black = uchar(imgc[x + 3]);
-							if (!EnableCMYK_C->isChecked())
-								cyan = 0;
-							if (!EnableCMYK_M->isChecked())
-								magenta = 0;
-							if (!EnableCMYK_Y->isChecked())
-								yellow = 0;
-							if (!EnableCMYK_K->isChecked())
-								black = 0;
-							*p = qRgba(cyan, magenta, yellow, black);
-							p++;
-						}
-						transCMYK.apply(ptr, ptr, image.width());
-						QRgb *q = (QRgb *) ptr;
-						for (int xi = 0; xi < image.width(); xi++, q++)
-						{
-							if (AliasTr->isChecked())
-							{
-								cyan = qRed(*q);
-								magenta = qGreen(*q);
-								yellow = qBlue(*q);
-								if	((cyan == 255) && (magenta == 255) && (yellow == 255))
-									*q = alphaOO;
-								else
-									*q |= alphaFF;
-							}
-							else
-								*q |= alphaFF;
-						}
-					}
-				}
-				else
-				{
-					for (int y=0; y < h2; ++y )
-					{
-						p = (uint *)image.scanLine( y );
-						f.read(imgc.data(), w2);
-						for (int x=0; x < w2; x += 4 )
-						{
-							cyan = uchar(imgc[x]);
-							magenta = uchar(imgc[x + 1]);
-							yellow = uchar(imgc[x + 2]);
-							black = uchar(imgc[x + 3]);
-							if (!EnableCMYK_C->isChecked())
-								cyan = 0;
-							if (!EnableCMYK_M->isChecked())
-								magenta = 0;
-							if (!EnableCMYK_Y->isChecked())
-								yellow = 0;
-							if (!EnableCMYK_K->isChecked())
-								black = 0;
-							if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
-								alpha = 0;
-							else
-								alpha = 255;
-							*p = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), alpha);
-							p++;
-						}
-					}
-				}
-				f.close();
-			}
-			else
-			{
-				imageLoadError(Bild, Seite);
-				return Bild;
 			}
 		}
 	}

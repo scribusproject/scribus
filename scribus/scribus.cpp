@@ -6938,14 +6938,7 @@ void ScribusMainWindow::doPrintPreview()
 	prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
 	prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
 	prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-	if ( !ScCore->haveTIFFSep() || !dia->postscriptPreview )
-	{
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
-	}
-	else
+	if (ScCore->haveTIFFSep() && dia->postscriptPreview)
 	{
 		prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
 		prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
