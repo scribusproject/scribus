@@ -156,8 +156,8 @@ public:
 	void requestUpdate(int);
 	void setTBvals(PageItem *currItem);
 	int ShowSubs();
-	void applyNewMaster(QString name);
-	void updateRecent(QString fn);
+	void applyNewMaster(const QString& name);
+	void updateRecent(const QString& fn);
 	void doPasteRecent(QString data);
 	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
 	bool DoSaveAsEps(QString fn, QString& error);
@@ -166,7 +166,7 @@ public:
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
-	void recalcColors(QProgressBar *dia = 0);
+	void recalcColors();
 	void SwitchWin();
 	void RestoreBookMarks();
 	QStringList  scrapbookNames();
@@ -310,7 +310,7 @@ public slots:
 	void setCurrentPage(int p);
 	void ManageJava();
 	void editSelectedSymbolStart();
-	void editSymbolStart(QString temp);
+	void editSymbolStart(const QString& temp);
 	void editSymbolEnd();
 	void editInlineStart(int id);
 	void editInlineEnd();
@@ -332,18 +332,18 @@ public slots:
 	*/
 	void slotFileAppend();
 
-	void removeRecent(QString fn, bool fromFileWatcher = false);
-	void removeRecentFromWatcher(QString filename);
-	void loadRecent(QString filename);
+	void removeRecent(const QString& fn, bool fromFileWatcher = false);
+	void removeRecentFromWatcher(const QString& filename);
+	void loadRecent(const QString& filename);
 	void rebuildRecentFileMenu();
 	void rebuildRecentPasteMenu();
 	void rebuildScrapbookMenu();
-	void pasteRecent(QString fn);
-	void pasteFromScrapbook(QString fn);
+	void pasteRecent(const QString& fn);
+	void pasteFromScrapbook(const QString& fn);
 	void importVectorFile();
 	void rebuildLayersList();
 	bool slotFileOpen();
-	bool loadDoc(QString);
+	bool loadDoc(const QString& );
 	/**
 	 * @brief Do post loading functions
 	 */
@@ -398,7 +398,7 @@ public slots:
 	void ToggleTips();
 	void ToggleMouseTips();
 	/** \brief Erzeugt eine neue Seite */
-	void slotNewPageP(int wo, QString templ);
+	void slotNewPageP(int wo, const QString& templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
 	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
@@ -462,7 +462,7 @@ public slots:
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFontSize(int fontSize);
-	void setItemLanguage(QString language);
+	void setItemLanguage(const QString& language);
 	/** Color Replacement */
 	void slotReplaceColors();
 	/** Style Manager */
@@ -507,7 +507,7 @@ public slots:
 	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
 	*/
 	void ApplyMasterPage();
-	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
+	void Apply_MasterPage(const QString& pageName, int pageNumber, bool reb = true);
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void AdjustGroupObj();
@@ -638,7 +638,7 @@ private:
 	bool m_objectSpecificUndo;
 
 	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
-	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
+	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, const QString& siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
 	int m_DocNr;
 	bool m_PrinterUsed;

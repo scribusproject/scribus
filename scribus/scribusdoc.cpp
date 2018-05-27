@@ -1133,7 +1133,7 @@ void ScribusDoc::enableCMS(bool enable)
 		HasCMS = false;
 		if (oldCM)
 		{
-			m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+			m_ScMW->recalcColors();
 			RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 		}
 	}
@@ -1146,7 +1146,7 @@ void ScribusDoc::enableCMS(bool enable)
 		m_docPrefsData.pdfPrefs.PrintProf = m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile;
 		m_docPrefsData.pdfPrefs.Intent  = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentColors;
 		m_docPrefsData.pdfPrefs.Intent2 = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
-		m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+		m_ScMW->recalcColors();
 		RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 	}
 	else
@@ -3360,7 +3360,7 @@ bool ScribusDoc::layerOutline(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerMarker(const int layerID, QColor color)
+bool ScribusDoc::setLayerMarker(const int layerID, const QColor& color)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -7182,7 +7182,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	ScPage* lastDest = nullptr;
 	setCurrentPage(from);
 
-	uint oldItems = Items->count();
+	int oldItems = Items->count();
 	QList<QString> itemBuffer;
 	Selection tempSelection(this, false);
 	m_Selection->clear();
@@ -7458,12 +7458,12 @@ void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, Profiles
 
 
 
-void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k)
+void ScribusDoc::insertColor(const QString& name, double c, double m, double y, double k)
 {
-	if (PageColors.contains(nam))
+	if (PageColors.contains(name))
 		return;
 	ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
-	PageColors.insert(nam, tmp);
+	PageColors.insert(name, tmp);
 }
 
 struct objOrdHelper
@@ -8979,7 +8979,7 @@ void ScribusDoc::itemSelection_ToggleBookMark(Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 
@@ -9023,7 +9023,7 @@ void ScribusDoc::itemSelection_ToggleAnnotation(Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 
@@ -9067,7 +9067,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -9120,7 +9120,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -9212,7 +9212,7 @@ void ScribusDoc::itemSelection_ClearBulNumStrings(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
@@ -9281,7 +9281,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	itemSelection_ClearBulNumStrings(itemSelection);
@@ -9370,7 +9370,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection, QString ETEA)
 {
 	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -9509,7 +9509,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -9589,7 +9589,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -9894,20 +9894,20 @@ void ScribusDoc::disconnectDocSignals()
 }
 
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
-void ScribusDoc::updatePict(QString name)
+void ScribusDoc::updatePict(const QString& name)
 {
 	bool updated=false;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < DocItems.count(); ++a)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *currItem = DocItems.at(a);
+		PageItem *currItem = DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!currItem->imageIsAvailable) || (currItem->Pfile != name))
 				continue;
 			bool fho = currItem->imageFlippedH();
@@ -9923,16 +9923,16 @@ void ScribusDoc::updatePict(QString name)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < MasterItems.count(); ++a)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem *currItem = MasterItems.at(a);
+		PageItem *currItem = MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!currItem->imageIsAvailable) || (currItem->Pfile != name))
 				continue;
 			bool fho = currItem->imageFlippedH();
@@ -9955,9 +9955,9 @@ void ScribusDoc::updatePict(QString name)
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!currItem->imageIsAvailable) || (currItem->Pfile != name))
 				continue;
 			bool fho = currItem->imageFlippedH();
@@ -9974,21 +9974,21 @@ void ScribusDoc::updatePict(QString name)
 		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	for (int i = 0; i < patterns.count(); ++i)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		ScPattern pa = docPatterns[patterns[i]];
 		if (pa.items.count() <= 0)
 			continue;
-		for (int o = 0; o < pa.items.count(); o++)
+		for (int j = 0; j < pa.items.count(); j++)
 		{
-			PageItem *currItem = pa.items.at(o);
+			PageItem *currItem = pa.items.at(j);
 			if (currItem->isGroup())
 				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int k = 0; k < allItems.count(); k++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(k);
 				if ((!currItem->imageIsAvailable) || (currItem->Pfile != name))
 					continue;
 				bool fho = currItem->imageFlippedH();
@@ -10015,7 +10015,7 @@ void ScribusDoc::updatePict(QString name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		docPatterns[patterns[i]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10024,7 +10024,7 @@ void ScribusDoc::updatePict(QString name)
 	}
 }
 
-void ScribusDoc::updatePictDir(QString name)
+void ScribusDoc::updatePictDir(const QString& name)
 {
 	bool updated=false;
 	QList<PageItem*> allItems;
@@ -10410,7 +10410,7 @@ int ScribusDoc::previewQuality()
 }
 
 
-void ScribusDoc::removePict(QString name)
+void ScribusDoc::removePict(const QString& name)
 {
 	bool updated=false;
 	QList<PageItem*> allItems;
@@ -11371,7 +11371,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWarning)
 {
 	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount <= 0)
@@ -11402,7 +11402,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWar
 void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount <= 0)
@@ -12000,7 +12000,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -13705,7 +13705,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	}
 	if (activeTransaction)
 	{
-		activeTransaction.commit("", 0, "", tooltip, 0);
+		activeTransaction.commit("", nullptr, "", tooltip, nullptr);
 	}
 	DoDrawing = true;
 	view()->updatesOn(true);
@@ -13744,7 +13744,7 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -13789,7 +13789,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
-	assert(itemSelection != 0);
+	assert(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -14579,7 +14579,7 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 	rotateGroup(angle, rotationPoint, itemSelection);
 }
 
-void ScribusDoc::rotateGroup(double angle, FPoint RCenter, Selection* customSelection)
+void ScribusDoc::rotateGroup(double angle, const FPoint& RCenter, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection != nullptr);
@@ -16132,7 +16132,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			}
 			if (updCol)
 			{
-				m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+				m_ScMW->recalcColors();
 				RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 			}
 			m_ScMW->mainWindowProgressBar->setValue(cc);

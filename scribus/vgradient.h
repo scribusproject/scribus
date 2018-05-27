@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API VColorStop
 {
 public:
-	VColorStop( double r, double m, QColor c, double o, QString n, int s )
+	VColorStop( double r, double m, const QColor& c, double o, const QString& n, int s )
 	{
 		rampPoint = r;
 		midPoint = m; 
@@ -44,7 +44,7 @@ public:
 		opacity = o; 
 		name = n;
 		shade = s;
-	};
+	}
 	
 	VColorStop( const VColorStop& colorStop )
 	{
@@ -54,7 +54,7 @@ public:
 		opacity = colorStop.opacity;
 		name = colorStop.name;
 		shade = colorStop.shade;
-	};
+	}
 
 	QColor color;
 
@@ -68,7 +68,7 @@ public:
 	int shade;
 	QString name;
 	friend inline bool operator== ( VColorStop& s1, VColorStop& s2 )
-	{ return s1.rampPoint == s2.rampPoint; };
+	{ return s1.rampPoint == s2.rampPoint; }
 }
 ; // VColorStop
 
@@ -118,11 +118,11 @@ public:
 	void removeStop( VColorStop& colorStop );
 	void removeStop( uint n );
 	void clearStops();
-	uint Stops()  const { return m_colorStops.count(); }
+	int Stops()  const { return m_colorStops.count(); }
 
 	// This function let only one stop with offset value equal to 0 and 1.0
 	// by removing the firsts with 0.0 value and the lasts with 1.0 value;
-	void filterStops(void);
+	void filterStops();
 
 	FPoint origin() const { return m_origin; }
 	void setOrigin( const FPoint &origin ) { m_origin = origin; }

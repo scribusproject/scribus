@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "iconmanager.h"
 
-CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
+CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( parent )
 {
 	FlagsOpt.clear();
 	setModal(true);
@@ -76,11 +76,11 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	cups_dest_t *dests;
 	cups_dest_t *dest;
 	int num_dests;
-	const char	*filename;	/* PPD filename */
-	ppd_file_t	*ppd;				/* PPD data */
-	ppd_group_t	*group;			/* Current group */
+	const char *filename;	/* PPD filename */
+	ppd_file_t *ppd = nullptr;				/* PPD data */
+	ppd_group_t *group = nullptr;			/* Current group */
 	num_dests = cupsGetDests(&dests);
-	dest = cupsGetDest(Geraet.toLocal8Bit().constData(), nullptr, num_dests, dests);
+	dest = cupsGetDest(device.toLocal8Bit().constData(), nullptr, num_dests, dests);
 	if (!(dest == nullptr || (filename = cupsGetPPD(dest->name)) == nullptr || (ppd = ppdOpenFile(filename)) == nullptr))
 	{
 		ppdMarkDefaults(ppd);
@@ -100,8 +100,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 				Marked = "";
 				struct OpData Daten;
 				opts.clear();
-				for (j = option->num_choices, choice = option->choices;
-						j > 0; j --, ++choice)
+				for (j = option->num_choices, choice = option->choices; j > 0; j --, ++choice)
 				{
 					opts.append(QString(choice->choice));
 					if (choice->marked)

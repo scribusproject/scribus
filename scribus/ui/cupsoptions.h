@@ -46,7 +46,7 @@ class SCRIBUS_API CupsOptions : public QDialog
     Q_OBJECT
 
 public: 
-	CupsOptions(QWidget* parent, QString Geraet);
+	CupsOptions(QWidget* parent, const QString& device);
 	~CupsOptions();
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
