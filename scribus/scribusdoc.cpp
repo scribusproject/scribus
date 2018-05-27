@@ -4071,7 +4071,7 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection) con
 	return results2;
 }
 
-QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &results) const
+QStringList ScribusDoc::getUsedPatternsHelper(const QString& pattern, QStringList &results) const
 {
 	auto patIter = docPatterns.constFind(pattern);
 	if (patIter == docPatterns.end())
@@ -4122,7 +4122,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	return results;
 }
 
-QStringList ScribusDoc::getPatternDependencyList(QStringList used) const
+QStringList ScribusDoc::getPatternDependencyList(const QStringList& used) const
 {
 	QStringList results;
 	QStringList pp;
@@ -4247,7 +4247,7 @@ QStringList ScribusDoc::getUsedSymbols() const
 	return results;
 }
 
-QStringList ScribusDoc::getUsedSymbolsHelper(QString pattern, QStringList &results) const
+QStringList ScribusDoc::getUsedSymbolsHelper(const QString& pattern, QStringList &results) const
 {
 	auto patIter = docPatterns.constFind(pattern);
 	if (patIter == docPatterns.end())

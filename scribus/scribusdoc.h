@@ -705,13 +705,13 @@ public:
 	*/
 	QStringList getUsedPatterns() const;
 	QStringList getUsedPatternsSelection(Selection* customSelection) const;
-	QStringList getUsedPatternsHelper(QString pattern, QStringList &results) const;
-	QStringList getPatternDependencyList(QStringList used) const;
+	QStringList getUsedPatternsHelper(const QString& pattern, QStringList &results) const;
+	QStringList getPatternDependencyList(const QStringList& used) const;
 	/*!
 	* @brief Builds a QStringList of the symbols used within the document
 	*/
 	QStringList getUsedSymbols() const;
-	QStringList getUsedSymbolsHelper(QString pattern, QStringList &results) const;
+	QStringList getUsedSymbolsHelper(const QString& pattern, QStringList &results) const;
 
 	/*!
 	* @brief Check if document use Acrobat Form Fields
