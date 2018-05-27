@@ -319,9 +319,28 @@ public:
 	void selectCells(int startRow, int startColumn, int endRow, int endColumn);
 
 	/**
+	 * Adds the cells in specified column to the selection.
+	 *
+	 * If specified column is outside the table, this function does nothing.
+	 */
+	void selectColumn(int column);
+
+	/**
+	* Adds the cells in specified row to the selection.
+	*
+	* If specified row is outside the table, this function does nothing.
+	*/
+	void selectRow(int row);
+
+	/**
 	 * Clears the cell selection.
 	 */
 	void clearSelection();
+
+	/**
+	 * Test if item has an active cell selection
+	 */
+	bool hasSelection() const { return m_selection.count() > 0; }
 
 	/**
 	 * Returns the cell at @a row, @a column.

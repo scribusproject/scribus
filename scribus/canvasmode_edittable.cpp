@@ -147,8 +147,11 @@ void CanvasMode_EditTable::keyPressEvent(QKeyEvent* event)
 	}
 
 	// Pass all other keys to text frame of active cell.
-	bool repeat;
-	m_table->activeCell().textFrame()->handleModeEditKey(event, repeat);
+	if (!m_table->hasSelection())
+	{
+		bool repeat;
+		m_table->activeCell().textFrame()->handleModeEditKey(event, repeat);
+	}
 	updateCanvas(true);
 }
 
@@ -207,6 +210,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPos()).toQPointF();
 	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
+	TableCell cell;
 
 	if (event->button() == Qt::LeftButton)
 	{
@@ -214,6 +218,20 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 		{
 			case TableHandle::RowSelect:
 				// Not implemented.
+				m_table->clearSelection();
+				cell = m_table->cellAt(canvasPoint);
+				if (!cell.isValid())
+					break;
+				// Deselect text in active frame.
+				activeFrame = m_table->activeCell().textFrame();
+				activeFrame->itemText.deselectAll();
+				activeFrame->HasSel = false;
+				// Select row and pre-position text cursor
+				m_table->moveTo(cell);
+				m_table->selectRow(cell.row());
+				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+				m_lastCursorPos = -1;
+				updateCanvas(true);
 				break;
 			case TableHandle::RowResize:
 				// Start row resize gesture.
@@ -222,6 +240,20 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				break;
 			case TableHandle::ColumnSelect:
 				// Not implemented.
+				m_table->clearSelection();
+				cell = m_table->cellAt(canvasPoint);
+				if (!cell.isValid())
+					break;
+				// Deselect text in active frame.
+				activeFrame = m_table->activeCell().textFrame();
+				activeFrame->itemText.deselectAll();
+				activeFrame->HasSel = false;
+				// Select column and pre-position text cursor
+				m_table->moveTo(cell);
+				m_table->selectColumn(cell.column());
+				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+				m_lastCursorPos = -1;
+				updateCanvas(true);
 				break;
 			case TableHandle::ColumnResize:
 				// Start column resize gesture.
@@ -235,6 +267,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				break;
 			case TableHandle::CellSelect:
 				// Move to the pressed cell and position the text cursor.
+				m_table->clearSelection();
 				m_table->moveTo(m_table->cellAt(canvasPoint));
 				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
 				m_lastCursorPos = m_table->activeCell().textFrame()->itemText.cursorPosition();
@@ -320,7 +353,48 @@ void CanvasMode_EditTable::drawControls(QPainter* p)
 {
 	p->save();
 	commonDrawControls(p, false);
-	drawTextCursor(p);
+	if (!m_table->hasSelection())
+		drawTextCursor(p);
+	p->restore();
+
+	if (m_table->hasSelection())
+		paintCellSelection(p);
+}
+
+void CanvasMode_EditTable::paintCellSelection(QPainter* p)
+{
+	if (!m_table || !m_canvas || !p)
+		return;
+
+	p->save();
+	p->scale(m_canvas->scale(), m_canvas->scale());
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	p->setTransform(m_table->getTransform(), true);
+	p->setRenderHint(QPainter::Antialiasing);
+	p->setPen(QPen(QColor(100, 200, 255), 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p->setBrush(QColor(100, 200, 255, 50));
+
+	/*
+	* The code below makes selectionPath a union of the cell rectangles of the selected cells.
+	* Since the cell rectangles are adjacent, they must be expanded slightly (1.0) for the
+	* uniting to work. This may not be the fastest way to compose the path of the selection,
+	* but it makes for some very simple code. And the result looks good.
+	*/
+
+	const QPointF offset = m_table->gridOffset();
+	QPainterPath selectionPath;
+
+	for (const TableCell& cell : m_table->selectedCells())
+	{
+		QRectF cellRect = cell.boundingRect();
+		cellRect.translate(offset);
+		cellRect.adjust(-1.0, -1.0, 1.0, 1.0);
+		QPainterPath cellPath;
+		cellPath.addRect(cellRect);
+		selectionPath = selectionPath.united(cellPath);
+	}
+
+	p->drawPath(selectionPath);
 	p->restore();
 }
 

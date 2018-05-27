@@ -26,6 +26,11 @@ for which a new license (GPL+exception) is in place.
 #include "tableutils.h"
 #include "ui/scmwmenumanager.h"
 
+void CellSelect::activate(bool fromGesture)
+{
+	m_view->setCursor(Qt::IBeamCursor);
+}
+
 void CellSelect::deactivate(bool forGesture)
 {
 	table()->clearSelection();

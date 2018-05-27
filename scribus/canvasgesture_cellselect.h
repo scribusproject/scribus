@@ -36,7 +36,7 @@ public:
 	explicit CellSelect(CanvasMode* parent) : TableGesture(parent) {}
 	virtual ~CellSelect() {}
 
-	virtual void activate(bool fromGesture) {}
+	virtual void activate(bool fromGesture);
 	virtual void deactivate(bool forGesture);
 	virtual void keyPressEvent(QKeyEvent* event);
 	virtual void mousePressEvent(QMouseEvent* event);

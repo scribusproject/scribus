@@ -768,6 +768,20 @@ void PageItem_Table::selectCells(int startRow, int startColumn, int endRow, int 
 	emit selectionChanged();
 }
 
+void PageItem_Table::selectColumn(int column)
+{
+	if (!validCell(0, column))
+		return;
+	selectCells(0, column, rows() - 1, column);
+}
+
+void PageItem_Table::selectRow(int row)
+{
+	if (!validCell(row, 0))
+		return;
+	selectCells(row, 0, row, columns() - 1);
+}
+
 void PageItem_Table::clearSelection()
 {
 	m_selection.clear();

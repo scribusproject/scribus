@@ -49,6 +49,12 @@ public:
 	virtual void mouseDoubleClickEvent(QMouseEvent* event);
 	virtual void drawControls(QPainter* p);
 
+protected:
+	/**
+	* Paints the selection of the currently edited table.
+	*/
+	void paintCellSelection(QPainter* p);
+
 private slots:
 	/**
 	 * Updates the part of the canvas containing the table.
