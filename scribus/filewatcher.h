@@ -35,13 +35,13 @@ public:
 	
 public slots:
 	//Add a file to the watch list for monitoring
-	void addFile(QString fileName, bool fast = false, ScribusDoc* doc=0); //see struct note for doc var
+	void addFile(const QString& fileName, bool fast = false, ScribusDoc* doc=nullptr); //see struct note for doc var
 	//Remove a file from the watch list
-	void removeFile(QString fileName);
+	void removeFile(const QString& fileName);
 	//Add a directory to the watch list for monitoring
-	void addDir(QString fileName, bool fast = false);
+	void addDir(const QString& fileName, bool fast = false);
 	//Remove a directory from the watch list
-	void removeDir(QString fileName);
+	void removeDir(const QString& fileName);
 	//Start the watcher's timer for file monitoring
 	void start();
 	//Stop the watcher's timer

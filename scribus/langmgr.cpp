@@ -33,9 +33,9 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "scpaths.h"
 
-LanguageManager * LanguageManager::m_instance = 0;
+LanguageManager* LanguageManager::m_instance = nullptr;
 
-LanguageManager * LanguageManager::instance()
+LanguageManager* LanguageManager::instance()
 {
 	if(!m_instance)
 	{
@@ -50,7 +50,7 @@ void LanguageManager::deleteInstance()
 {
 	if (m_instance)
 		delete m_instance;
-	m_instance = 0;
+	m_instance = nullptr;
 }
 
 void LanguageManager::languageChange()
@@ -657,7 +657,7 @@ void LanguageManager::generateInstalledGUILangList()
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0))
 	{
-		for (uint i = 0; i < dir.count(); ++i) 
+		for (int i = 0; i < dir.count(); ++i)
 		{
 			QFileInfo file(path + dir[i]);
 			if (file.suffix().toLower() == "qm")
@@ -773,7 +773,7 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 	return "";
 }
 
-const QString LanguageManager::getAbbrevFromLang(QString lang, bool useInstalled)
+const QString LanguageManager::getAbbrevFromLang(const QString& lang, bool useInstalled)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -792,7 +792,7 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool useInstalled
 	return "";
 }
 
-const QString LanguageManager::getLangFromTransLang(QString transLang)
+const QString LanguageManager::getLangFromTransLang(const QString& transLang)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -802,7 +802,7 @@ const QString LanguageManager::getLangFromTransLang(QString transLang)
 	return "";
 }
 
-const QString LanguageManager::getTransLangFromLang(QString lang)
+const QString LanguageManager::getTransLangFromLang(const QString& lang)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -831,7 +831,7 @@ const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 	return "";
 }
 
-const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(QString langAbbrev)
+const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev)
 {
 	int tIndex = langTableIndex(langAbbrev);
 	if (tIndex >= 0)
@@ -848,7 +848,7 @@ const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(QString lan
 	return "";
 }
 
-const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev)
+const QString LanguageManager::getAlternativeAbbrevfromAbbrev(const QString& langAbbrev)
 {
 	int i=langTableIndex(langAbbrev);
 	if (i!=-1)
@@ -856,7 +856,7 @@ const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev
 	return "";
 }
 
-QStringList LanguageManager::getAbbrevDecomposition(QString langAbbrev)
+QStringList LanguageManager::getAbbrevDecomposition(const QString& langAbbrev)
 {
 	QStringList abbrevs;
 	abbrevs.append(langAbbrev);
@@ -973,7 +973,7 @@ void LanguageManager::printInstalledList()
 	f.close();
 }
 
-QString LanguageManager::numericSequence(QString seq)
+QString LanguageManager::numericSequence(const QString& seq)
 {
 	QString retSeq;
 	const int nsBengali=0,nsDevanagari=1,nsGujarati=2,nsGurumukhi=3,nsKannada=4,nsMalayalam=5,nsOriya=6,nsTamil=7,nsTelugu=8,nsTibetan=9,nsLepcha=10;

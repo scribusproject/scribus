@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include <qdrawutil.h>
 #include <sstream>
 
-
 #include "appmodes.h"
 #include "canvas.h"
 #include "cmsettings.h"
@@ -93,7 +92,9 @@ using namespace std;
 
 PageItem::PageItem(const PageItem & other)
 	: QObject(other.parent()),
-	 UndoObject(other), SingleObservable<PageItem>(other.m_Doc->itemsChanged()), TextContext(this),
+	 UndoObject(other),
+	 SingleObservable<PageItem>(other.m_Doc->itemsChanged()),
+	 TextContext(this),
 
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
@@ -416,8 +417,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	lineTransparencyVal(0.0),
 	fillBlendmodeVal(0),
 	lineBlendmodeVal(0),
-	m_ImageIsFlippedH(0),
-	m_ImageIsFlippedV(0),
+	m_ImageIsFlippedH(false),
+	m_ImageIsFlippedV(false),
 	m_Locked(false),
 	m_SizeLocked(false),
 	m_SizeHLocked(false),
@@ -427,8 +428,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Parent = nullptr;
 	m_Doc = pa;
 	QString tmp;
-	BackBox = 0;
-	NextBox = 0;
+	BackBox = nullptr;
+	NextBox = nullptr;
 	gXpos = oldXpos = m_xPos = x;
 	gYpos = oldYpos = m_yPos = y;
 	//CB Surely we can remove some of these?
@@ -834,15 +835,15 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	firstLineOffsetP = FLOPRealGlyphHeight;
 	Cols = m_Doc->itemToolPrefs().textColumns;
 	ColGap = m_Doc->itemToolPrefs().textColumnGap;
-	LeftLink = 0;
-	RightLink = 0;
-	TopLink = 0;
-	BottomLink = 0;
+	LeftLink = nullptr;
+	RightLink = nullptr;
+	TopLink = nullptr;
+	BottomLink = nullptr;
 	LeftLinkID = 0;
 	RightLinkID = 0;
 	TopLinkID = 0;
 	BottomLinkID = 0;
-	LeftLine = 0;
+	LeftLine = false;
 	RightLine = false;
 	TopLine = false;
 	BottomLine = false;
@@ -890,7 +891,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	hatchForeground = "Black";
 	hatchForegroundQ = qcol;
 	selectedMeshControlPoint=0;
-	snapToPatchGrid=0;
+	snapToPatchGrid=false;
 	gridOffset_=0.0;
 	gridValue_=0.0;
 	FrameOnly=false;
@@ -1264,7 +1265,7 @@ void PageItem::drawOverflowMarker(ScPainter *p)
 	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
-	if ((BackBox != 0) || (NextBox != 0))
+	if ((BackBox != nullptr) || (NextBox != nullptr))
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;
@@ -1438,11 +1439,11 @@ void PageItem::unlink(bool createUndo)
 void PageItem::dropLinks()
 {
 	// update auto pointers
-	if (isAutoText && NextBox == 0)
+	if (isAutoText && NextBox == nullptr)
 	{
 		m_Doc->LastAuto = BackBox;
 	}
-	if (isAutoText && BackBox == 0)
+	if (isAutoText && BackBox == nullptr)
 	{
 		m_Doc->FirstAuto = NextBox;
 	}
@@ -1451,7 +1452,7 @@ void PageItem::dropLinks()
 	// leave text in remaining chain
 	PageItem* before = BackBox;
 	PageItem* after = NextBox;
-	if (after == 0 && before == 0)
+	if (after == nullptr && before == nullptr)
 		return;
 
 	itemText = StoryText(m_Doc);
@@ -1487,7 +1488,7 @@ void PageItem::dropLinks()
 
 bool PageItem::hasLinks() const
 {
-	return (BackBox != 0 || NextBox != 0);
+	return (BackBox != nullptr || NextBox != nullptr);
 }
 
 //unlink selected frame from text chain
@@ -2562,7 +2563,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 	return retImg;
 }
 
-void PageItem::SetQColor(QColor *tmp, QString colorName, double shad)
+void PageItem::SetQColor(QColor *tmp, const QString& colorName, double shad)
 {
 	if (colorName == CommonStrings::None)
 		return;
@@ -2576,7 +2577,7 @@ void PageItem::SetQColor(QColor *tmp, QString colorName, double shad)
 	}
 }
 
-void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
+void PageItem::DrawPolyL(QPainter *p, const QPolygon& pts)
 {
 	if (Segments.count() != 0)
 	{
@@ -2622,7 +2623,8 @@ void PageItem::setGradient(const QString &newGradient)
 	}
 }
 
-void PageItem::setMaskGradient(VGradient grad){
+void PageItem::setMaskGradient(const VGradient& grad)
+{
 	if (mask_gradient==grad)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2635,7 +2637,8 @@ void PageItem::setMaskGradient(VGradient grad){
 	mask_gradient=grad;
 }
 
-void PageItem::setFillGradient(VGradient grad){
+void PageItem::setFillGradient(const VGradient& grad)
+{
 	if (fill_gradient==grad)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2648,7 +2651,8 @@ void PageItem::setFillGradient(VGradient grad){
 	fill_gradient=grad;
 }
 
-void PageItem::setStrokeGradient(VGradient grad){
+void PageItem::setStrokeGradient(const VGradient& grad)
+{
 	if (stroke_gradient==grad)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2675,7 +2679,7 @@ void PageItem::set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4)
 	GrControl4 = c4;
 }
 
-void PageItem::setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)
+void PageItem::setDiamondGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5)
 {
 	GrControl1 = c1;
 	GrControl2 = c2;
@@ -2880,7 +2884,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		trans.commit();
 }
 
-void PageItem::get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4)
+void PageItem::get4ColorGeometry(FPoint& c1, FPoint& c2, FPoint& c3, FPoint& c4)
 {
 	c1 = GrControl1;
 	c2 = GrControl2;
@@ -2904,7 +2908,7 @@ void PageItem::get4ColorColors(QString &col1, QString &col2, QString &col3, QStr
 	col4 = GrColorP4;
 }
 
-void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double transparency, bool forPatch)
+void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, double transparency, bool forPatch)
 {
 	QString MColor(color);
 	QColor MQColor;
@@ -4275,7 +4279,7 @@ void PageItem::setOverprint(bool val) {
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Overprint, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::Overprint, nullptr, Um::IGroup);
 		ss->set("OVERPRINT", val);
 		undoManager->action(this, ss);
 	}
@@ -4289,7 +4293,7 @@ void PageItem::setHasSoftShadow(bool val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadow, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadow, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_hasSoftShadow);
@@ -4305,7 +4309,7 @@ void PageItem::setSoftShadowColor(const QString &val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowColor, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowColor, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_COLOR");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowColor);
@@ -4321,7 +4325,7 @@ void PageItem::setSoftShadowShade(int val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowShade, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowShade, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_SHADE");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowShade);
@@ -4337,7 +4341,7 @@ void PageItem::setSoftShadowBlurRadius(double val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowBlurRadius, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowBlurRadius, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_BLUR_RADIUS");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowBlurRadius);
@@ -7997,7 +8001,7 @@ void PageItem::setStrokeGradientType(int val)
 	GrTypeStroke = val;
 }
 
-void PageItem::setGradientCol1(QString val)
+void PageItem::setGradientCol1(const QString& val)
 {
 	if (GrColorP1==val)
 		return;
@@ -8012,7 +8016,7 @@ void PageItem::setGradientCol1(QString val)
 	GrColorP1 = val;
 }
 
-void PageItem::setGradientCol2(QString val)
+void PageItem::setGradientCol2(const QString& val)
 {
 	if (GrColorP2==val)
 		return;
@@ -8027,7 +8031,7 @@ void PageItem::setGradientCol2(QString val)
 	GrColorP2 = val;
 }
 
-void PageItem::setGradientCol3(QString val)
+void PageItem::setGradientCol3(const QString& val)
 {
 	if (GrColorP3==val)
 		return;
@@ -8042,7 +8046,7 @@ void PageItem::setGradientCol3(QString val)
 	GrColorP3 = val;
 }
 
-void PageItem::setGradientCol4(QString val)
+void PageItem::setGradientCol4(const QString& val)
 {
 	if (GrColorP4==val)
 		return;
@@ -8177,7 +8181,7 @@ void PageItem::setGradientTransp4(double val)
 	GrCol4transp = val;
 }
 
-void PageItem::setGradientColor1(QColor val)
+void PageItem::setGradientColor1(const QColor& val)
 {
 	if (GrColorP1QColor ==val)
 		return;
@@ -8191,7 +8195,7 @@ void PageItem::setGradientColor1(QColor val)
 	GrColorP1QColor = val;
 }
 
-void PageItem::setGradientColor2(QColor val)
+void PageItem::setGradientColor2(const QColor& val)
 {
 	if (GrColorP2QColor ==val)
 		return;
@@ -8205,7 +8209,7 @@ void PageItem::setGradientColor2(QColor val)
 	GrColorP2QColor = val;
 }
 
-void PageItem::setGradientColor3(QColor val)
+void PageItem::setGradientColor3(const QColor& val)
 {
 	if (GrColorP3QColor ==val)
 		return;
@@ -8219,7 +8223,7 @@ void PageItem::setGradientColor3(QColor val)
 	GrColorP3QColor = val;
 }
 
-void PageItem::setGradientColor4(QColor val)
+void PageItem::setGradientColor4(const QColor& val)
 {
 	if (GrColorP4QColor ==val)
 		return;
@@ -8492,7 +8496,8 @@ void PageItem::setGradientMaskSkew(double val){
 	GrMaskSkew = val;
 }
 
-void PageItem::setGradientControl1(FPoint val){
+void PageItem::setGradientControl1(const FPoint& val)
+{
 	if (GrControl1==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8505,7 +8510,8 @@ void PageItem::setGradientControl1(FPoint val){
 	GrControl1 = val;
 }
 
-void PageItem::setGradientControl2(FPoint val){
+void PageItem::setGradientControl2(const FPoint& val)
+{
 	if (GrControl2==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8518,7 +8524,8 @@ void PageItem::setGradientControl2(FPoint val){
 	GrControl2 = val;
 }
 
-void PageItem::setGradientControl3(FPoint val){
+void PageItem::setGradientControl3(const FPoint& val)
+{
 	if (GrControl3==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8531,7 +8538,8 @@ void PageItem::setGradientControl3(FPoint val){
 	GrControl3 = val;
 }
 
-void PageItem::setGradientControl4(FPoint val){
+void PageItem::setGradientControl4(const FPoint& val)
+{
 	if (GrControl4==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8544,7 +8552,8 @@ void PageItem::setGradientControl4(FPoint val){
 	GrControl4 = val;
 }
 
-void PageItem::setGradientControl5(FPoint val){
+void PageItem::setGradientControl5(const FPoint& val)
+{
 	if (GrControl5==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8557,7 +8566,8 @@ void PageItem::setGradientControl5(FPoint val){
 	GrControl5 = val;
 }
 
-void PageItem::setGradientStrokeScale(double val){
+void PageItem::setGradientStrokeScale(double val)
+{
 	if (GrStrokeScale==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8571,7 +8581,8 @@ void PageItem::setGradientStrokeScale(double val){
 	GrStrokeScale = val;
 }
 
-void PageItem::setGradientStrokeSkew(double val){
+void PageItem::setGradientStrokeSkew(double val)
+{
 	if (GrStrokeSkew==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8585,7 +8596,8 @@ void PageItem::setGradientStrokeSkew(double val){
 	GrStrokeSkew = val;
 }
 
-void PageItem::setGradientStrokeFocalX(double val){
+void PageItem::setGradientStrokeFocalX(double val)
+{
 	if (GrStrokeFocalX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8599,7 +8611,8 @@ void PageItem::setGradientStrokeFocalX(double val){
 	GrStrokeFocalX = val;
 }
 
-void PageItem::setGradientStrokeFocalY(double val){
+void PageItem::setGradientStrokeFocalY(double val)
+{
 	if (GrStrokeFocalY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8613,7 +8626,8 @@ void PageItem::setGradientStrokeFocalY(double val){
 	GrStrokeFocalY = val;
 }
 
-void PageItem::setGradientStrokeStartX(double val){
+void PageItem::setGradientStrokeStartX(double val)
+{
 	if (GrStrokeStartX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8627,7 +8641,8 @@ void PageItem::setGradientStrokeStartX(double val){
 	GrStrokeStartX = val;
 }
 
-void PageItem::setGradientStrokeStartY(double val){
+void PageItem::setGradientStrokeStartY(double val)
+{
 	if (GrStrokeStartY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8641,7 +8656,8 @@ void PageItem::setGradientStrokeStartY(double val){
 	GrStrokeStartY = val;
 }
 
-void PageItem::setGradientStrokeEndX(double val){
+void PageItem::setGradientStrokeEndX(double val)
+{
 	if (GrStrokeEndX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8655,7 +8671,8 @@ void PageItem::setGradientStrokeEndX(double val){
 	GrStrokeEndX = val;
 }
 
-void PageItem::setGradientStrokeEndY(double val){
+void PageItem::setGradientStrokeEndY(double val)
+{
 	if (GrStrokeEndY==val)
 		return;
 	if (UndoManager::undoEnabled())

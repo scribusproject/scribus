@@ -150,8 +150,8 @@ public:
 
 	double scale() const { return m_viewMode.scale; }
 	void setScale(double scale);
-	QPoint canvasToLocal(FPoint p) const;
-	QPoint canvasToGlobal(FPoint p) const;
+	QPoint canvasToLocal(const FPoint& p) const;
+	QPoint canvasToGlobal(const FPoint& p) const;
 	QPoint canvasToLocal(QPointF p) const;
 	QPoint canvasToGlobal(QPointF p) const;
 	QRect canvasToLocal(QRectF p) const;
@@ -163,7 +163,7 @@ public:
 //	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
 //	QRectF globalToCanvas(QRectF p) const;
-	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
+	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
 	bool hitsCanvasPoint(FPoint globalPoint, QPointF canvasPoint) const;
 	QRect exposedRect() const;

@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "localemgr.h"
 #include "scpaths.h"
 
-LocaleManager * LocaleManager::m_instance = 0;
+LocaleManager * LocaleManager::m_instance = nullptr;
 
 LocaleManager * LocaleManager::instance()
 {
@@ -49,7 +49,7 @@ void LocaleManager::deleteInstance()
 {
 	if (m_instance)
 		delete m_instance;
-	m_instance = 0;
+	m_instance = nullptr;
 }
 
 void LocaleManager::init()
@@ -102,10 +102,9 @@ void LocaleManager::printSelectedForLocale(const QString& locale)
 
 QString LocaleManager::pageSizeForLocale(const QString& locale)
 {
-	QString selectedLocale(locale);
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale==locale)
 			return m_localeTable[i].m_pageSize;
 	}
 
@@ -115,16 +114,15 @@ QString LocaleManager::pageSizeForLocale(const QString& locale)
 		return "A4";
 	else
 		return "Letter";
-	qFatal("Page Size not found in LocaleManager");
-	return "";
+//	qFatal("Page Size not found in LocaleManager");
+//	return "";
 }
 
 QString LocaleManager::unitForLocale(const QString &locale)
 {
-	QString selectedLocale(locale);
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale==locale)
 			return m_localeTable[i].m_unit;
 	}
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
@@ -133,8 +131,8 @@ QString LocaleManager::unitForLocale(const QString &locale)
 		return "mm";
 	else
 		return "in";
-	qFatal("Unit not found in LocaleManager");
-	return "";
+//	qFatal("Unit not found in LocaleManager");
+//	return "";
 }
 
 LocaleManager::~LocaleManager()

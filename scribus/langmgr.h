@@ -47,19 +47,19 @@ public:
 	QStringList languageList(bool getTranslated=true);
 	
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
-	const QString getAbbrevFromLang(QString, bool useInstalled=true);
-	const QString getLangFromTransLang(QString transLang);
-	const QString getTransLangFromLang(QString lang);
+	const QString getAbbrevFromLang(const QString&, bool useInstalled=true);
+	const QString getLangFromTransLang(const QString& transLang);
+	const QString getTransLangFromLang(const QString& lang);
 	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
-	const QString getShortAbbrevFromAbbrevDecomposition(QString langAbbrev);
-	const QString getAlternativeAbbrevfromAbbrev(QString langAbbrev);
-	QStringList   getAbbrevDecomposition(QString langAbbrev);
+	const QString getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev);
+	const QString getAlternativeAbbrevfromAbbrev(const QString& langAbbrev);
+	QStringList   getAbbrevDecomposition(const QString& langAbbrev);
 	void fillInstalledStringList(QStringList *stringListToFill);
 	void fillInstalledGUIStringList(QStringList *stringListToFill);
 	void fillInstalledHyphStringList(QStringList *stringListToFill);
 	void fillInstalledSpellStringList(QStringList *stringListToFill);
 	void printInstalledList();
-	QString numericSequence(QString seq);
+	QString numericSequence(const QString& seq);
 	bool findSpellingDictionaries(QStringList& sl);
 	void findSpellingDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	bool findHyphDictionaries(QStringList& sl);

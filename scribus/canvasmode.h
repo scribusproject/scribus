@@ -142,7 +142,7 @@ public:
 	void setModeCursor();
 	
 	/** main canvas modes don't have a delegate */
-	virtual CanvasMode* delegate() { return 0; }
+	virtual CanvasMode* delegate() { return nullptr; }
 	ScribusView* view() const { return m_view; }
 	virtual ~CanvasMode();
 	
@@ -168,7 +168,7 @@ private:
 	QMap<QString,QBrush> m_brush;
 
 	bool m_keyRepeat;
-	bool m_arrowKeyDown;	
+	bool m_arrowKeyDown;
 	//FPoint m_mousePointDoc;
 };
 

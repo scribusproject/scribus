@@ -285,7 +285,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		PageItem *curItem(0);
+		PageItem *curItem(nullptr);
 		for(int a=0; a<m_doc->m_Selection->count(); ++a)
 		{
 			curItem = m_doc->m_Selection->itemAt(a);
@@ -296,9 +296,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		// items inside a a multi
 		if (m_doc->m_Selection->count() > 1)
 		{
-			uint docSelectionCount = m_doc->m_Selection->count();
+			int docSelectionCount = m_doc->m_Selection->count();
 			PageItem *currItem;
-			for (uint a=0; a<docSelectionCount; ++a)
+			for (int a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (!m_doc->Items->contains(currItem))
@@ -356,9 +356,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	}
 	else if (m_doc->m_Selection->count() != 0)
 	{
-		uint docSelectionCount = m_doc->m_Selection->count();
+		int docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
-		for (uint a = 0; a < docSelectionCount; ++a)
+		for (int a = 0; a < docSelectionCount; ++a)
 		{
 			currItem = m_doc->m_Selection->itemAt(a);
 			psx->save();
@@ -578,7 +578,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					p->setClipping(true);
 					p->setClipRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					PageItem_Group* gItem = currItem->asGroupFrame();
-					uint itemCountG = gItem->groupItemList.count();
+					int itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
 					{
 						if (gItem->imageFlippedH())
@@ -656,12 +656,12 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-		uint docSelectionCount = m_doc->m_Selection->count();
+		int docSelectionCount = m_doc->m_Selection->count();
 		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
 		{
 			PageItem *currItem;
 // 			p->translate(x, y);
-			for (uint a=0; a<docSelectionCount; ++a)
+			for (int a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (!m_doc->Items->contains(currItem))

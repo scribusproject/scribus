@@ -238,7 +238,7 @@ FPoint FPointArray::WidthHeight() const
 	return FPoint(maxx - minx,maxy - miny);
 }
 
-void FPointArray::map( QTransform m )
+void FPointArray::map( const QTransform& m )
 {
 	const double m11 = m.m11();
 	const double m12 = m.m12();
@@ -296,7 +296,7 @@ void FPointArray::addPoint(double x, double y)
 	QVector<FPoint>::append(FPoint(x, y));
 }
 
-void FPointArray::addPoint(FPoint p)
+void FPointArray::addPoint(const FPoint& p)
 {
 	QVector<FPoint>::append(p);
 }
@@ -332,7 +332,7 @@ void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, doubl
 	QVector<FPoint>::append(FPoint(x4, y4));
 }
 
-void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
+void FPointArray::addQuadPoint(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4)
 {
 	QVector<FPoint>::append(p1);
 	QVector<FPoint>::append(p2);
@@ -403,9 +403,9 @@ void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn
 	// Calculate derivative if necessary.
 	FPoint d;
 	if( tn || n )
-		pointDerivativesAt( seg, t, p, &d, 0L );
+		pointDerivativesAt( seg, t, p, &d, nullptr );
 	else
-		pointDerivativesAt( seg, t, p, 0L, 0L );
+		pointDerivativesAt( seg, t, p, nullptr, nullptr );
 	// Normalize derivative.
 	if( tn || n )
 	{

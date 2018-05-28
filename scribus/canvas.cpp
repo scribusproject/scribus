@@ -182,7 +182,7 @@ FPoint Canvas::localToCanvas(QPointF p) const
 */
 
 
-QPoint Canvas::canvasToLocal(FPoint p) const
+QPoint Canvas::canvasToLocal(const FPoint& p) const
 {
 	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
 				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
@@ -213,7 +213,7 @@ QRectF Canvas::canvasToLocalF(QRectF p) const
 }
 
 
-QPoint Canvas::canvasToGlobal(FPoint p) const
+QPoint Canvas::canvasToGlobal(const FPoint& p) const
 {
 	return mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)) + canvasToLocal(p);
 }
@@ -266,7 +266,7 @@ QRectF Canvas::globalToCanvas(QRectF p) const
 // Tests for Finding Things:
 
 
-bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
+bool Canvas::hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
@@ -964,8 +964,8 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 //	QTime tim;
 //	tim.start();
 // 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
-	uint docPagesCount=m_doc->Pages->count();
-	ScPainter *painter=0;
+	int docPagesCount=m_doc->Pages->count();
+	ScPainter *painter=nullptr;
 	QImage img = QImage(clipw * devicePixelRatio(), cliph * devicePixelRatio(), QImage::Format_ARGB32_Premultiplied);
 	img.setDevicePixelRatio(devicePixelRatio());
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
@@ -1382,11 +1382,11 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 
 	PageItem *currItem;
 	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
-	uint layerCount = m_doc->layerCount();
+	int layerCount = m_doc->layerCount();
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
-	uint pageFromMasterCount=page->FromMaster.count();
-	for (uint a = 0; a < pageFromMasterCount; ++a)
+	int pageFromMasterCount=page->FromMaster.count();
+	for (int a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
 		if (currItem->LayerID != layer.ID)
@@ -1458,7 +1458,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
-	uint layerCount = m_doc->layerCount();
+	int layerCount = m_doc->layerCount();
 	int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
@@ -1598,7 +1598,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
  */
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-	uint docPagesCount=m_doc->Pages->count();
+	int docPagesCount=m_doc->Pages->count();
 	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 	{
 		painter->setBrush(QColor(128,128,128));
@@ -1704,12 +1704,12 @@ void Canvas::getLinkedFrames(PageItem* currItem)
 		}
 
 	}
-	else if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
+	else if ((currItem->asTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
 	{
 		PageItem *nextItem = currItem;
-		while (nextItem != 0)
+		while (nextItem != nullptr)
 		{
-			if (nextItem->prevInChain() != 0)
+			if (nextItem->prevInChain() != nullptr)
 				nextItem = nextItem->prevInChain();
 			else
 				break;
@@ -1792,8 +1792,8 @@ void Canvas::DrawPageBorder(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
@@ -1854,8 +1854,8 @@ void Canvas::DrawPageMargins(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
@@ -1908,8 +1908,8 @@ void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
@@ -2036,8 +2036,8 @@ void Canvas::DrawPageGrid(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
@@ -2087,8 +2087,8 @@ void Canvas::DrawPageGuides(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
@@ -2137,8 +2137,8 @@ void Canvas::DrawPageIndicator(ScPainter *p, QRectF clip, bool master)
 	}
 	else
 	{
-		uint docPagesCount = m_doc->Pages->count();
-		for (uint a = 0; a < docPagesCount; ++a)
+		int docPagesCount = m_doc->Pages->count();
+		for (int a = 0; a < docPagesCount; ++a)
 		{
 			ScPage *page = m_doc->Pages->at(a);
 			if (page == m_doc->currentPage())
@@ -2193,14 +2193,14 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 		}
 		else
 		{
-			while (nextItem != 0)
+			while (nextItem != nullptr)
 			{
-				if (nextItem->prevInChain() != 0)
+				if (nextItem->prevInChain() != nullptr)
 					nextItem = nextItem->prevInChain();
 				else
 					break;
 			}
-			while (nextItem != 0)
+			while (nextItem != nullptr)
 			{
 				if (nextItem->nextInChain() != nullptr)
 				{
@@ -2328,7 +2328,7 @@ void Canvas::TransformM(PageItem *currItem, QPainter *p)
 
 void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & start, FPoint & end)
 {
-	if (pi1==0 || pi2==0)
+	if (pi1==nullptr || pi2==nullptr)
 		return;
 	//Calculate the link points of the frames
 	double x11 = pi1->xPos();

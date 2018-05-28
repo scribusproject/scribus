@@ -61,7 +61,7 @@ public:
 	void scale( double sx, double sy );
 	QRectF boundingRect();
 	FPoint WidthHeight() const;
-	void map(QTransform m);
+	void map(const QTransform& m);
 	FPointArray &operator=( const FPointArray &a );
 	FPointArray copy() const;
 	void setMarker();
@@ -69,10 +69,10 @@ public:
 	bool isMarkerI(ConstIterator p) const;
 	bool isMarkerD(double x, double y) const;
 	void addPoint(double x, double y);
-	void addPoint(FPoint p);
+	void addPoint(const FPoint& p);
 	bool hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const;
 	void addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
-	void addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4);
+	void addQuadPoint(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4);
 	double lenPathSeg(int seg) const;
 	double lenPathDist(int seg, double t1, double t2) const;
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const;

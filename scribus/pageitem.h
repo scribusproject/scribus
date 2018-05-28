@@ -416,8 +416,8 @@ public: // Start public functions
 	const CharStyle& currentCharStyle() const;
 	/// Return current text properties (current char + paragraph properties)
 	virtual void currentTextProps(ParagraphStyle& parStyle) const;
-	void SetQColor(QColor *tmp, QString farbe, double shad);
-	void DrawPolyL(QPainter *p, QPolygon pts);
+	void SetQColor(QColor *tmp, const QString& farbe, double shad);
+	void DrawPolyL(QPainter *p, const QPolygon& pts);
 	const FPointArray shape() const { return PoLine; }
 	void setShape(const FPointArray& val) { PoLine = val; }
 	const FPointArray contour() const { return ContourLine; }
@@ -569,15 +569,15 @@ public: // Start public functions
 	double gradientMaskSkew() const { return GrMaskSkew; }
 	void setGradientMaskSkew(double val);
 	FPoint gradientControl1() const { return GrControl1; }
-	void setGradientControl1(FPoint val);
+	void setGradientControl1(const FPoint& val);
 	FPoint gradientControl2() const { return GrControl2; }
-	void setGradientControl2(FPoint val);
+	void setGradientControl2(const FPoint& val);
 	FPoint gradientControl3() const { return GrControl3; }
-	void setGradientControl3(FPoint val);
+	void setGradientControl3(const FPoint& val);
 	FPoint gradientControl4() const { return GrControl4; }
-	void setGradientControl4(FPoint val);
+	void setGradientControl4(const FPoint& val);
 	FPoint gradientControl5() const { return GrControl5; }
-	void setGradientControl5(FPoint val);
+	void setGradientControl5(const FPoint& val);
 	double gradientStrokeScale() const { return GrStrokeScale; }
 	void setGradientStrokeScale(double val);
 	double gradientStrokeSkew() const { return GrStrokeSkew; }
@@ -595,13 +595,13 @@ public: // Start public functions
 	double gradientStrokeEndY() const { return GrStrokeEndY; }
 	void setGradientStrokeEndY(double val);
 	QString gradientCol1() const { return GrColorP1; }
-	void setGradientCol1(QString val);
+	void setGradientCol1(const QString& val);
 	QString gradientCol2() const { return GrColorP2; }
-	void setGradientCol2(QString val);
+	void setGradientCol2(const QString& val);
 	QString gradientCol3() const { return GrColorP3; }
-	void setGradientCol3(QString val);
+	void setGradientCol3(const QString& val);
 	QString gradientCol4() const { return GrColorP4; }
-	void setGradientCol4(QString val);
+	void setGradientCol4(const QString& val);
 	double gradientTransp1() const { return GrCol1transp; }
 	void setGradientTransp1(double val);
 	double gradientTransp2() const { return GrCol2transp; }
@@ -619,13 +619,13 @@ public: // Start public functions
 	int gradientShade4() const { return GrCol4Shade; }
 	void setGradientShade4(int val);
 	QColor gradientColor1() const { return GrColorP1QColor; }
-	void setGradientColor1(QColor val);
+	void setGradientColor1(const QColor& val);
 	QColor gradientColor2() const { return GrColorP2QColor; }
-	void setGradientColor2(QColor val);
+	void setGradientColor2(const QColor& val);
 	QColor gradientColor3() const { return GrColorP3QColor; }
-	void setGradientColor3(QColor val);
+	void setGradientColor3(const QColor& val);
 	QColor gradientColor4() const { return GrColorP4QColor; }
-	void setGradientColor4(QColor val);
+	void setGradientColor4(const QColor& val);
 	void setGradientExtend(VGradient::VGradientRepeatMethod val);
 	void setStrokeGradientExtend(VGradient::VGradientRepeatMethod val);
 	VGradient::VGradientRepeatMethod getGradientExtend();
@@ -637,18 +637,18 @@ public: // Start public functions
 
 	bool getSnapToPatchGrid() const { return snapToPatchGrid; }
 	void setSnapToPatchGrid(bool val);
-	void setMaskGradient(VGradient grad);
-	void setFillGradient(VGradient grad);
-	void setStrokeGradient(VGradient grad);
+	void setMaskGradient(const VGradient& grad);
+	void setFillGradient(const VGradient& grad);
+	void setStrokeGradient(const VGradient& grad);
 	void set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	void set4ColorTransparency(double t1, double t2, double t3, double t4);
 	void set4ColorShade(int t1, int t2, int t3, int t4);
 	void set4ColorColors(QString col1, QString col2, QString col3, QString col4);
-	void get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4);
-	void setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
+	void get4ColorGeometry(FPoint& c1, FPoint& c2, FPoint& c3, FPoint& c4);
+	void setDiamondGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5);
 	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
 	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
-	void setMeshPointColor(int x, int y, QString color, int shade, double transparency, bool forPatch = false);
+	void setMeshPointColor(int x, int y, const QString& color, int shade, double transparency, bool forPatch = false);
 	void createGradientMesh(int rows, int cols);
 	void resetGradientMesh();
 	void meshToShape();

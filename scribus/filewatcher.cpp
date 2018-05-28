@@ -54,7 +54,7 @@ int FileWatcher::timeOut() const
 	return m_timeOut;
 }
 
-void FileWatcher::addFile(QString fileName, bool fast, ScribusDoc* doc)
+void FileWatcher::addFile(const QString& fileName, bool fast, ScribusDoc* doc)
 {
 	if (fileName.isEmpty())
 	{
@@ -81,7 +81,7 @@ void FileWatcher::addFile(QString fileName, bool fast, ScribusDoc* doc)
 		m_watchTimer->start(m_timeOut);
 }
 
-void FileWatcher::removeFile(QString fileName)
+void FileWatcher::removeFile(const QString& fileName)
 {
 	m_watchTimer->stop();
 	if (m_watchedFiles.contains(fileName))
@@ -94,12 +94,12 @@ void FileWatcher::removeFile(QString fileName)
 		m_watchTimer->start(m_timeOut);
 }
 
-void FileWatcher::addDir(QString fileName, bool fast)
+void FileWatcher::addDir(const QString& fileName, bool fast)
 {
 	addFile(fileName, fast);
 }
 
-void FileWatcher::removeDir(QString fileName)
+void FileWatcher::removeDir(const QString& fileName)
 {
 	removeFile(fileName);
 }
@@ -241,7 +241,7 @@ void FileWatcher::checkFiles()
 		m_watchedFiles.clear();
 	else
 	{
-		for( int i=0; i<toRemove.count(); ++i)
+		for(int i=0; i<toRemove.count(); ++i)
 			m_watchedFiles.remove(toRemove[i]);
 		m_stateFlags &= ~AddRemoveBlocked;
 		m_stateFlags &= ~TimerStopped;
