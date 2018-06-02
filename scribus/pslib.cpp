@@ -222,7 +222,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	usingGUI=ScCore->usingGUI();
 	abortExport=false;
 	QStringList wt;
-	Seiten = 0;
+	PageIndex = 0;
 	User = "";
 	Creator = "Scribus" + QString(VERSION);
 	Titel = "";
@@ -686,8 +686,8 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	GetBleeds(pg, bleedLeft, bleedRight);
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = pg->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
-	Seiten++;
-	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
+	PageIndex++;
+	PutStream("%%Page: " + IToStr(PageIndex) + " " + IToStr(PageIndex) + "\n");
 	if (psExport)
 	{
 		if (pg->orientation() == 0)
@@ -3482,7 +3482,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	gradient.setRepeatMethod(c->getGradientExtend());
 	QList<VColorStop*> colorStops = gradient.colorStops();
 	QList<double> qStopRampPoints;
-	for (uint cst = 0; cst < gradient.Stops(); ++cst)
+	for (int cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		if (cst == 0)
 		{
@@ -3895,7 +3895,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 	PutStream("/PatternType 2\n");
 	PutStream("/Shading\n");
 	PutStream("<<\n");
-	for (uint cst = 0; cst < gradient.Stops(); ++cst)
+	for (int cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		double actualStop = cstops.at(cst)->rampPoint;
 		if ((cst == 0) && (actualStop != 0.0))

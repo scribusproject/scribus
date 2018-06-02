@@ -181,7 +181,7 @@ class SCRIBUS_API PSLib : public QObject
 		QString PDev;
 		QString GrayCalc;
 		bool GraySc;
-		int Seiten;
+		int  PageIndex;
 		QString FillColor;
 		QString StrokeColor;
 		double LineW;

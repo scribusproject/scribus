@@ -475,7 +475,7 @@ void PPreview::scaleBox_valueChanged(int value)
 	Anz->resize(Anz->pixmap()->size());
 }
 
-int PPreview::RenderPreview(int Seite, int Res)
+int PPreview::RenderPreview(int pageIndex, int res)
 {
 	int ret = -1;
 	QString cmd1;
@@ -487,34 +487,34 @@ int PPreview::RenderPreview(int Seite, int Res)
 		ScPage* page;
 		ScPrintEngine_GDI winPrint;
 		PrintOptions options;
-		page = doc->Pages->at( Seite );
+		page = doc->Pages->at(pageIndex);
 		options.copies = 1;
 		options.doGCR = false;
 		//options.mirrorH = options.mirrorV = false;
 		options.mirrorH = MirrorHor->isChecked();
 		options.mirrorV = MirrorVert->isChecked();
 		options.outputSeparations = false;
-		options.pageNumbers.push_back( Seite );
+		options.pageNumbers.push_back(pageIndex);
 		options.prnEngine = WindowsGDI;
 		options.separationName = "All";
 		options.toFile = false;
 		options.useColor = !useGray->isChecked();
 		options.useSpotColors = false;
-		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
+		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, res / 72.0);
 		if (done)
 			image.save( ScPaths::tempFileDir() + "/sc.png", "PNG" );
 		return (done ? 0 : 1);
 	}
 #endif
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (useGray->isChecked() != fGray)
+	if ((pageIndex != APage)  || (EnableGCR->isChecked() != GMode)  || (useGray->isChecked() != fGray)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
 		|| (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
 		PrintOptions options;
-		options.pageNumbers.push_back(Seite+1);
+		options.pageNumbers.push_back(pageIndex + 1);
 		options.outputSeparations = false;
 		options.separationName = "All";
 		options.allSeparations = QStringList();
@@ -532,26 +532,23 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
-		if (dd != nullptr)
-		{
-			dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
-			ret = dd->CreatePS(doc, options);
-			delete dd;
-			if (ret != 0) return 1;
-		}
-		else
+		if (!dd)
 			return ret;
+		dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
+		ret = dd->CreatePS(doc, options);
+		delete dd;
+		if (ret != 0) return 1;
 	}
 	QStringList args;
 	QString tmp, tmp2, tmp3;
-	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	if (doc->Pages->at(Seite)->orientation() == 1)
+	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
+	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
+	if (doc->Pages->at(pageIndex)->orientation() == 1)
 		std::swap(b, h);
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
-	args.append( QString("-r%1").arg(tmp.setNum(Res)) );
+	args.append( QString("-r%1").arg(tmp.setNum(res)) );
 	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) );
 	if (EnableCMYK->isChecked())
 	{
@@ -610,21 +607,21 @@ int PPreview::RenderPreview(int Seite, int Res)
 	return ret;
 }
 
-int PPreview::RenderPreviewSep(int Seite, int Res)
+int PPreview::RenderPreviewSep(int pageIndex, int res)
 {
 	int ret = -1;
 	QString cmd;
 	QStringList args, args1, args2, args3;
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
+	if ((pageIndex != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
 		|| (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
 		PrintOptions options;
-		options.pageNumbers.push_back(Seite+1);
+		options.pageNumbers.push_back(pageIndex + 1);
 		options.outputSeparations = false;
 		options.separationName = "All";
 		options.allSeparations = QStringList();
@@ -653,15 +650,15 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	if (doc->Pages->at(Seite)->orientation() == 1)
+	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
+	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
+	if (doc->Pages->at(pageIndex)->orientation() == 1)
 		std::swap(b, h);
 
 	args1.append( "-q" );
 	args1.append( "-dNOPAUSE" );
 	args1.append( "-dPARANOIDSAFER" );
-	args1.append( QString("-r%1").arg(tmp.setNum(Res)) );
+	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
 	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) ); 
 	if (AntiAlias->isChecked())
 	{
@@ -849,14 +846,14 @@ void PPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
 	}
 }
 
-QPixmap PPreview::CreatePreview(int Seite, int Res)
+QPixmap PPreview::CreatePreview(int pageIndex, int res)
 {
 	int ret = -1;
-	QPixmap Bild;
-	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
+	QPixmap pixmap;
+	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
+	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
+	if ((pageIndex != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	        || (AntiAlias->isChecked() != GsAl) || (((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode))
 			&& (!EnableCMYK->isChecked()))
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
@@ -864,11 +861,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	{
 		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
 		{
-			ret = RenderPreview(Seite, Res);
+			ret = RenderPreview(pageIndex, res);
 			if (ret > 0)
 			{
-				imageLoadError(Bild, Seite);
-				return Bild;
+				imageLoadError(pixmap, pageIndex);
+				return pixmap;
 			}
 		}
 	}
@@ -879,23 +876,23 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		int cyan, magenta, yellow, black;
 		if (HaveTiffSep)
 		{
-			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
+			if ((pageIndex != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
 	       	 || (useGray->isChecked() != fGray)  || (MirrorHor->isChecked() != mHor)|| (MirrorVert->isChecked() != mVer)
 	       	 || (ClipMarg->isChecked() != fClip) || (spotColors->isChecked() != fSpot))
 			{
-				ret = RenderPreviewSep(Seite, Res);
+				ret = RenderPreviewSep(pageIndex, res);
 				if (ret > 0)
 				{
-					imageLoadError(Bild, Seite);
-					return Bild;
+					imageLoadError(pixmap, pageIndex);
+					return pixmap;
 				}
 			}
 			ScImage im;
 			bool mode;
 			int w = qRound(b);
 			int h2 = qRound(h);
-			if (doc->Pages->at(Seite)->orientation() == 1)
+			if (doc->Pages->at(pageIndex)->orientation() == 1)
 				std::swap(w, h2);
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QRgb clean = qRgba(0, 0, 0, 0);
@@ -920,8 +917,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild, Seite);
-					return Bild;
+					imageLoadError(pixmap, pageIndex);
+					return pixmap;
 				}
 				if (EnableInkCover->isChecked())
 					blendImagesSumUp(image, im);
@@ -938,8 +935,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild, Seite);
-					return Bild;
+					imageLoadError(pixmap, pageIndex);
+					return pixmap;
 				}
 				if (EnableInkCover->isChecked())
 					blendImagesSumUp(image, im);
@@ -956,8 +953,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild, Seite);
-					return Bild;
+					imageLoadError(pixmap, pageIndex);
+					return pixmap;
 				}
 				if (EnableInkCover->isChecked())
 					blendImagesSumUp(image, im);
@@ -981,8 +978,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 							fnam = QString(ScPaths::tempFileDir()+"/sc(%1).tif").arg(sepit.key());
 						if (!im.loadPicture(fnam, 1, cms, ScImage::RGBData, 72, &mode))
 						{
-							imageLoadError(Bild, Seite);
-							return Bild;
+							imageLoadError(pixmap, pageIndex);
+							return pixmap;
 						}
 						if (EnableInkCover->isChecked())
 							blendImagesSumUp(image, im);
@@ -1003,8 +1000,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild, Seite);
-					return Bild;
+					imageLoadError(pixmap, pageIndex);
+					return pixmap;
 				}
 				if (EnableInkCover->isChecked())
 					blendImagesSumUp(image, im);
@@ -1107,8 +1104,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	{
 		if (!image.load(ScPaths::tempFileDir()+"/sc.png"))
 		{
-			imageLoadError(Bild, Seite);
-			return Bild;
+			imageLoadError(pixmap, pageIndex);
+			return pixmap;
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if ((AliasTr->isChecked()) && (HavePngAlpha))
@@ -1127,24 +1124,24 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 		}
 	}
-	const ScPage* page = doc->Pages->at(Seite);
+	const ScPage* page = doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
 		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
 	if (AliasTr->isChecked())
 	{
-		Bild = QPixmap(image.width(), image.height());
+		pixmap = QPixmap(image.width(), image.height());
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
-		p.begin(&Bild);
+		p.begin(&pixmap);
 		p.fillRect(0, 0, image.width(), image.height(), b);
 		p.drawImage(0, 0, image);
 		p.end();
 	}
 	else
-		Bild = QPixmap::fromImage(image);
+		pixmap = QPixmap::fromImage(image);
 	qApp->restoreOverrideCursor();
-	getUserSelection(Seite);
-	return Bild;
+	getUserSelection(pageIndex);
+	return pixmap;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1181,9 +1178,9 @@ void PPreview::getUserSelection(int page)
 	fGray = useGray->isChecked();
 }
 
-void PPreview::imageLoadError(QPixmap &Bild, int page)
+void PPreview::imageLoadError(QPixmap &pixmap, int page)
 {
-	Bild = QPixmap(1,1);
+	pixmap = QPixmap(1,1);
 	qApp->restoreOverrideCursor();
 	getUserSelection(page);
 }

@@ -53,23 +53,23 @@ public:
 	/*!
 	\author Franz Schmid
 	\brief Renders the Preview to a file on Disk
-	\param Seite int page number
-	\param Res int
+	\param pageIndex int page number
+	\param res int resolution
 	\retval int Flag indicating error
 	*/
-	int RenderPreview(int Seite, int Res);
-	int RenderPreviewSep(int Seite, int Res);
+	int RenderPreview(int pageIndex, int res);
+	int RenderPreviewSep(int pageIndex, int res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
 	void blendImagesSumUp(QImage &target, ScImage &scsource);
 	static bool usePostscriptPreview(QString printerName, PrintEngine engine);
 	/*!
 	\author Franz Schmid
 	\brief Creates the Preview of the Actual Page
-	\param Seite int page number
-	\param Res int
-	\retval Bild QPixmap print preview
+	\param pageIndex int page number
+	\param res int resolution
+	\retval pixmap QPixmap print preview
 	*/
-	QPixmap CreatePreview(int Seite, int Res);
+	QPixmap CreatePreview(int pageIndex, int res);
 	PageSelector *PGSel;
 	QCheckBox* AntiAlias;
 	QCheckBox* AliasTr;
