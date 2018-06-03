@@ -126,13 +126,13 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	Layout2->setAlignment( Qt::AlignTop );
 	AntiAlias = new QCheckBox(devTitle);
 	AntiAlias->setText( tr("Enable &Antialiasing"));
-	AntiAlias->setChecked( postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing : false);
-	AntiAlias->setEnabled( postscriptPreview );
+	AntiAlias->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing : false);
+	AntiAlias->setEnabled(postscriptPreview);
 	Layout2->addWidget(AntiAlias);
 	AliasTr = new QCheckBox(devTitle);
 	AliasTr->setText( tr("Display Trans&parency"));
-	AliasTr->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency);
-	AliasTr->setEnabled( postscriptPreview );
+	AliasTr->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency : false);
+	AliasTr->setEnabled(postscriptPreview);
 	Layout2->addWidget(AliasTr);
 	EnableCMYK = new QCheckBox(devTitle);
 	EnableCMYK->setText( tr("&Display CMYK"));
@@ -554,13 +554,15 @@ int PPreview::RenderPreview(int pageIndex, int res)
 	{
 		if (HaveTiffSep)
 			args.append( "-sDEVICE=tiffsep" );
+		else
+			return 1;
 	}
 	else
 	{
-		if ((!AliasTr->isChecked()) || (!HavePngAlpha))
-			args.append( "-sDEVICE=png16m" );
+		if (AliasTr->isChecked() && HavePngAlpha)
+			args.append("-sDEVICE=pngalpha");
 		else
-			args.append( "-sDEVICE=pngalpha" );
+			args.append("-sDEVICE=tiff24nc");	
 	}
 	if (AntiAlias->isChecked())
 	{
@@ -596,8 +598,10 @@ int PPreview::RenderPreview(int pageIndex, int res)
 	// then add any final args and call gs
 	if (EnableCMYK->isChecked())
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
-	else
+	else if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.png")) );
+	else
+		args.append(QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")));
 	args.append( QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps") );
 	args.append( "-c" );
 	args.append( "showpage" );
@@ -1102,7 +1106,12 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 	}
 	else
 	{
-		if (!image.load(ScPaths::tempFileDir()+"/sc.png"))
+		QString previewFile;
+		if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
+			previewFile = ScPaths::tempFileDir() + "/sc.png";
+		else
+			previewFile = ScPaths::tempFileDir() + "/sc.tif";
+		if (!image.load(previewFile))
 		{
 			imageLoadError(pixmap, pageIndex);
 			return pixmap;
