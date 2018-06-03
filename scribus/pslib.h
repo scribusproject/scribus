@@ -121,9 +121,9 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateStart(QString Name);
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
-		virtual bool ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool master, bool embedded = false, bool useTemplate = false);
-		virtual void ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep = false, bool farb = true);
-		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
+		virtual bool ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr, bool sep, bool farb, bool master, bool embedded = false, bool useTemplate = false);
+		virtual void ProcessPage(ScribusDoc* Doc, ScPage* page, uint PNr, bool sep = false, bool farb = true);
+		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
 		virtual bool ProcessPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
 		virtual void PS_HatchFill(PageItem *currItem);
 		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
