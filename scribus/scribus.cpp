@@ -2981,10 +2981,10 @@ void ScribusMainWindow::loadRecent(const QString& filename)
 
 void ScribusMainWindow::rebuildRecentFileMenu()
 {
+	QString strippedName, localName;
 	scrMenuMgr->clearMenuStrings("FileOpenRecent");
 	scrRecentFileActions.clear();
-	uint max = qMin(m_prefsManager->appPrefs.uiPrefs.recentDocCount, RecentDocs.count());
-	QString strippedName, localName;
+	int max = qMin(m_prefsManager->appPrefs.uiPrefs.recentDocCount, RecentDocs.count());
 	for (int i = 0; i < max; ++i)
 	{
 		strippedName = localName = QDir::toNativeSeparators(RecentDocs[i]);

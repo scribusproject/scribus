@@ -6235,7 +6235,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			mpa.scale(1, Gscale);
 		}
 		QColor qStopColor;
-		for (uint cst = 0; cst < gradient.Stops(); ++cst)
+		for (int cst = 0; cst < gradient.Stops(); ++cst)
 		{
 			double actualStop = cstops.at(cst)->rampPoint;
 			qStopColor = cstops.at(cst)->color;
@@ -7411,7 +7411,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 	Gcolors.clear();
 	colorNames.clear();
 	colorShades.clear();
-	for (uint cst = 0; cst < gradient.Stops(); ++cst)
+	for (int cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		double actualStop = cstops.at(cst)->rampPoint;
 		if (cst == 0)
@@ -8252,7 +8252,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	double lastStop = -1.0;
 	double actualStop = 0.0;
 	bool   isFirst = true, transparencyFound = false;
-	for (uint cst = 0; cst < gradient.Stops(); ++cst)
+	for (int cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
 		if ((actualStop == lastStop) && (!isFirst))
