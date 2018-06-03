@@ -2995,7 +2995,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb)
 {
 	bool success = true;
-	
 	if (!layer.isPrintable || abortExport)
 		return true;
 
