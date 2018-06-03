@@ -1193,6 +1193,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, QString fn, double scal
 {
 	bool dummy;
 	QByteArray tmp;
+
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
@@ -1232,129 +1233,127 @@ bool PSLib::PS_image(PageItem *item, double x, double y, QString fn, double scal
 		}
 		return false;
 	}
-	else
+
+	ScImage image;
+	image.imgInfo.valid = false;
+	image.imgInfo.clipPath = "";
+	image.imgInfo.PDSpathData.clear();
+	image.imgInfo.layerInfo.clear();
+	image.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+	image.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+	CMSettings cms(item->doc(), Prof, item->IRender);
+	cms.allowColorManagement(true);
+	cms.setUseEmbeddedProfile(UseEmbedded);
+	int resolution = 300;
+	if (item->asLatexFrame())
+		resolution = item->asLatexFrame()->realDpi();
+	else if (item->pixm.imgInfo.type == ImageType7)
+		resolution = 72;
+//	int resolution = (item->pixm.imgInfo.type == ImageType7) ? 72 : 300;
+	if ( !image.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, resolution, &dummy) )
 	{
-		ScImage image;
-		image.imgInfo.valid = false;
-		image.imgInfo.clipPath = "";
-		image.imgInfo.PDSpathData.clear();
-		image.imgInfo.layerInfo.clear();
-		image.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
-		image.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-		CMSettings cms(item->doc(), Prof, item->IRender);
-		cms.allowColorManagement(true);
-		cms.setUseEmbeddedProfile(UseEmbedded);
-		int resolution = 300;
-		if (item->asLatexFrame())
-			resolution = item->asLatexFrame()->realDpi();
-		else if (item->pixm.imgInfo.type == ImageType7)
-			resolution = 72;
-//		int resolution = (item->pixm.imgInfo.type == ImageType7) ? 72 : 300;
-		if ( !image.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, resolution, &dummy) )
+		PS_Error_ImageLoadFailure(fn);
+		return false;
+	}
+	image.applyEffect(item->effectsInUse, colorsToUse, true);
+	int w = image.width();
+	int h = image.height();
+	PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
+	PutStream("0 " + ToStr(h*scaley) + " tr\n");
+	PutStream(ToStr(-item->imageRotation()) + " ro\n");
+	PutStream("0 " + ToStr(-h*scaley) + " tr\n");
+	if ((extensionIndicatesPDF(ext)) && (!item->asLatexFrame()))
+	{
+		scalex *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
+		scaley *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
+	}
+//	PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
+	PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
+	PutStream(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
+	QByteArray maskArray;
+	ScImage img2;
+	img2.imgInfo.clipPath = "";
+	img2.imgInfo.PDSpathData.clear();
+	img2.imgInfo.layerInfo.clear();
+	img2.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+	img2.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+	if (item->pixm.imgInfo.type != ImageType7)
+	{
+		bool alphaLoaded = img2.getAlpha(fn, item->pixm.imgInfo.actualPageNumber, maskArray, false, true, resolution);
+		if (!alphaLoaded)
 		{
-			PS_Error_ImageLoadFailure(fn);
+			PS_Error_MaskLoadFailure(fn);
 			return false;
 		}
-		image.applyEffect(item->effectsInUse, colorsToUse, true);
-		int w = image.width();
-		int h = image.height();
-		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
-		PutStream("0 " + ToStr(h*scaley) + " tr\n");
-		PutStream(ToStr(-item->imageRotation()) + " ro\n");
-		PutStream("0 " + ToStr(-h*scaley) + " tr\n");
-		if ((extensionIndicatesPDF(ext)) && (!item->asLatexFrame()))
+	}
+ 	if ((maskArray.size() > 0) && (item->pixm.imgInfo.type != ImageType7))
+ 	{
+		int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+		// JG - Experimental code using Type3 image instead of patterns
+		PutStream("<< /ImageType 3\n");
+		PutStream("   /DataDict <<\n");
+		PutStream("      /ImageType 1\n");
+		PutStream("      /Width  " + IToStr(w) + "\n");
+		PutStream("      /Height " + IToStr(h) + "\n");
+		PutStream("      /BitsPerComponent 8\n");
+		PutStream( (GraySc || DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
+		PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
+		if (Name.length() > 0)
+			PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
+		else
+			PutStream("      /DataSource currentfile /ASCII85Decode filter /FlateDecode filter\n");
+		PutStream("      >>\n");
+		PutStream("   /MaskDict <<\n");
+		PutStream("      /ImageType 1\n");
+		PutStream("      /Width  " + IToStr(w) + "\n");
+		PutStream("      /Height " + IToStr(h) + "\n");
+		PutStream("      /BitsPerComponent 8\n");
+		PutStream("      /Decode [1 0]\n");
+		PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
+		PutStream("      >>\n");
+		PutStream("   /InterleaveType 1\n");
+		PutStream(">>\n");
+		PutStream("image\n");
+		if (Name.isEmpty())
 		{
-			scalex *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
-			scaley *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
-		}
-//		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
-		PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
-		PutStream(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
-		QByteArray maskArray;
-		ScImage img2;
-		img2.imgInfo.clipPath = "";
-		img2.imgInfo.PDSpathData.clear();
-		img2.imgInfo.layerInfo.clear();
-		img2.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
-		img2.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-		if (item->pixm.imgInfo.type != ImageType7)
-		{
-			bool alphaLoaded = img2.getAlpha(fn, item->pixm.imgInfo.actualPageNumber, maskArray, false, true, resolution);
-			if (!alphaLoaded)
+			if (!PutImageToStream(image, maskArray, plate))
 			{
-				PS_Error_MaskLoadFailure(fn);
+				PS_Error_ImageDataWriteFailure();
 				return false;
-			}
-		}
- 		if ((maskArray.size() > 0) && (item->pixm.imgInfo.type != ImageType7))
- 		{
-			int plate = DoSep ? Plate : (GraySc ? -2 : -1);
-			// JG - Experimental code using Type3 image instead of patterns
-			PutStream("<< /ImageType 3\n");
-			PutStream("   /DataDict <<\n");
-			PutStream("      /ImageType 1\n");
-			PutStream("      /Width  " + IToStr(w) + "\n");
-			PutStream("      /Height " + IToStr(h) + "\n");
-			PutStream("      /BitsPerComponent 8\n");
-			PutStream( (GraySc || DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
-			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			if (Name.length() > 0)
-				PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
-			else
-			    PutStream("      /DataSource currentfile /ASCII85Decode filter /FlateDecode filter\n");
-			PutStream("      >>\n");
-			PutStream("   /MaskDict <<\n");
-			PutStream("      /ImageType 1\n");
-			PutStream("      /Width  " + IToStr(w) + "\n");
-			PutStream("      /Height " + IToStr(h) + "\n");
-			PutStream("      /BitsPerComponent 8\n");
-			PutStream("      /Decode [1 0]\n");
-			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			PutStream("      >>\n");
-			PutStream("   /InterleaveType 1\n");
-			PutStream(">>\n");
-			PutStream("image\n");
-			if (Name.isEmpty())
-			{
-				if (!PutImageToStream(image, maskArray, plate))
-				{
-					PS_Error_ImageDataWriteFailure();
-					return false;
-				}
-			}
-			else
-			{
-				PutStream(PSEncode(Name)+"Bild resetfile\n");
-				//PutStream(PSEncode(Name)+"Mask resetfile\n");
 			}
 		}
 		else
 		{
-			PutStream("<< /ImageType 1\n");
-			PutStream("   /Width " + IToStr(w) + "\n");
-			PutStream("   /Height " + IToStr(h) + "\n");
-			PutStream("   /BitsPerComponent 8\n");
-			if (DoSep)
-				PutStream("   /Decode [1 0]\n");
-			else
-				PutStream( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
-			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			if (!Name.isEmpty())
+			PutStream(PSEncode(Name)+"Bild resetfile\n");
+			//PutStream(PSEncode(Name)+"Mask resetfile\n");
+		}
+	}
+	else
+	{
+		PutStream("<< /ImageType 1\n");
+		PutStream("   /Width " + IToStr(w) + "\n");
+		PutStream("   /Height " + IToStr(h) + "\n");
+		PutStream("   /BitsPerComponent 8\n");
+		if (DoSep)
+			PutStream("   /Decode [1 0]\n");
+		else
+			PutStream( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
+		PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
+		if (!Name.isEmpty())
+		{
+			PutStream("   /DataSource "+PSEncode(Name)+"Bild >>\n");
+			PutStream("image\n");
+			PutStream(PSEncode(Name)+"Bild resetfile\n");
+		}
+		else
+		{
+			int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+			PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
+			PutStream("image\n");
+			if (!PutImageToStream(image, plate))
 			{
-				PutStream("   /DataSource "+PSEncode(Name)+"Bild >>\n");
-				PutStream("image\n");
-				PutStream(PSEncode(Name)+"Bild resetfile\n");
-			}
-			else
-			{
-				int plate = DoSep ? Plate : (GraySc ? -2 : -1);
-				PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
-				PutStream("image\n");
-				if (!PutImageToStream(image, plate))
-				{
-					PS_Error_ImageDataWriteFailure();
-					return false;
-				}
+				PS_Error_ImageDataWriteFailure();
+				return false;
 			}
 		}
 	}
