@@ -8,4 +8,5 @@
 	<Import Project="profiles\install.targets" />
 	<Import Project="swatches\install.targets" />
 	<Import Project="templates\install.targets" />
+	<Import Project="unicodemap\install.targets" />
 </Project>

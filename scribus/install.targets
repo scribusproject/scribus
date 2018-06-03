@@ -2,7 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<Import Project=".\plugins\install.targets" />
-	<Import Project=".\unicodemap\install.targets" />
 
 	<PropertyGroup>
 		<AfterBuildDependsOn>

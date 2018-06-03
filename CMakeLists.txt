@@ -1029,6 +1029,7 @@ add_subdirectory(resources/profiles)
 add_subdirectory(resources/swatches)
 add_subdirectory(resources/templates)
 add_subdirectory(resources/translations)
+add_subdirectory(resources/unicodemap)
 
 #Install our READMEs etc.
 install(FILES
