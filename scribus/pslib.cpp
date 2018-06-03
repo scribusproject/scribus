@@ -219,9 +219,9 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 {
 	Options = options;
 	optimization = OptimizeCompat;
-	usingGUI=ScCore->usingGUI();
-	abortExport=false;
-	QStringList wt;
+	m_Doc = nullptr;
+	progressDialog = nullptr;
+	abortExport = false;
 	PageIndex = 0;
 	User = "";
 	Creator = "Scribus" + QString(VERSION);
@@ -396,6 +396,12 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 		Prolog += "/rb { [ /Separation (All)\n/DeviceCMYK { dup 0 mul exch dup 0 mul exch dup 0 mul exch 1 mul }\n] setcolorspace setcolor} bind def\n";
 	Prolog += "%%EndProlog\n";
+}
+
+PSLib::~PSLib()
+{
+	if (progressDialog)
+		progressDialog->deleteLater();
 }
 
 void PSLib::PutStream(const QString& c)
@@ -1528,15 +1534,13 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		solidTransform = Doc->colorEngine.createTransform(Doc->DocInputCMYKProf, Format_CMYK_16, Doc->DocPrinterProf, Format_CMYK_16, Doc->IntentColors, 0);
 	else
 		solidTransform = ScColorTransform();
-	if (usingGUI)
+	if (ScCore->usingGUI())
 	{
-		QString title=QObject::tr("Exporting PostScript File");
+		QString title = QObject::tr("Exporting PostScript File");
 		if (psExport)
-			title=QObject::tr("Printing File");
-		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
-		if (progressDialog==0)
-			usingGUI=false;
-		else
+			title = QObject::tr("Printing File");
+		progressDialog = new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
+		if (progressDialog)
 		{
 			QStringList barNames, barTexts;
 			barNames << "EMP" << "EP";
@@ -1615,7 +1619,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	int ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)
 	{
-		if (usingGUI)
+		if (progressDialog)
 		{
 			progressDialog->setOverallProgress(ap);
 			progressDialog->setProgress("EMP", ap);
@@ -1635,7 +1639,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 					for (int api = 0; api < Doc->MasterItems.count() && !abortExport; ++api)
 					{
 						PageItem *it = Doc->MasterItems.at(api);
-						if (usingGUI)
+						if (progressDialog)
 							ScQApp->processEvents();
 						if ((it->LayerID != ll.ID) || (!it->printEnabled()))
 							continue;
@@ -1676,7 +1680,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	PutStream("%%EndSetup\n");
 	while (aa < pageNs.size() && !abortExport && !errorOccured)
 	{
-		if (usingGUI)
+		if (progressDialog)
 		{
 			progressDialog->setProgress("EP", aa);
 			progressDialog->setOverallProgress(ap+aa);
@@ -1757,7 +1761,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			aa++;
 	}
 	PS_close();
-	if (usingGUI)
+	if (progressDialog)
 		progressDialog->close();
 	if (errorOccured)
 		return 1;
@@ -2572,7 +2576,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 			for (int b = 0; b < PItems.count() && !abortExport; ++b)
 			{
 				c = PItems.at(b);
-				if (usingGUI)
+				if (progressDialog)
 					ScQApp->processEvents();
 				if (c->LayerID != ll.ID)
 					continue;
@@ -2622,7 +2626,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 		for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
 		{
 			PageItem *ite = page->FromMaster.at(am);
-			if (usingGUI)
+			if (progressDialog)
 				ScQApp->processEvents();
 			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
@@ -2998,7 +3002,7 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 		for (b = 0; b < items.count() && !abortExport; ++b)
 		{
 			PageItem *item = items.at(b);
-			if (usingGUI)
+			if (progressDialog)
 				ScQApp->processEvents();
 			if (item->LayerID != layer.ID)
 				continue;

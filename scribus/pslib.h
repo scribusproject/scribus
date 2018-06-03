@@ -67,7 +67,7 @@ class SCRIBUS_API PSLib : public QObject
 		} Optimization;
 
 		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
-		virtual ~PSLib() {};
+		virtual ~PSLib();
 
 		void setOptimization (Optimization opt) { optimization = opt; }
 
@@ -203,7 +203,6 @@ class SCRIBUS_API PSLib : public QObject
 		ScribusDoc *m_Doc;
 		QMap<QString, QString> spotMap;
 		MultiProgressDialog* progressDialog;
-		bool usingGUI;
 		bool abortExport;
 		PrintOptions Options;
 		ScPage* ActPage;
