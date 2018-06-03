@@ -2995,51 +2995,51 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb)
 {
 	bool success = true;
-	int b;
-//	int h, s, v, k;
+	
+	if (!layer.isPrintable || abortExport)
+		return true;
+
 	QList<PageItem*> items;
 	items = (page->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
-	if (layer.isPrintable && !abortExport)
+
+	for (int i = 0; i < items.count() && !abortExport; ++i)
 	{
-		for (b = 0; b < items.count() && !abortExport; ++b)
-		{
-			PageItem *item = items.at(b);
-			if (progressDialog)
-				ScQApp->processEvents();
-			if (item->LayerID != layer.ID)
-				continue;
-			if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
-				continue;
-			if ((!page->pageName().isEmpty()) && (item->asPathText()))
-				continue;
-			if ((!page->pageName().isEmpty()) && (item->asTable()))
-				continue;
-			if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
-				continue;
-			//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
-			if ((!psExport) && (!item->isSelected()) && (Doc->m_Selection->count() != 0))
-				continue;
-			double bLeft, bRight, bBottom, bTop;
-			GetBleeds(page, bLeft, bRight, bBottom, bTop);
-			double x1 = page->xOffset() - bLeft;
-			double y1 = page->yOffset() - bTop;
-			double w1 = page->width() + bLeft + bRight;
-			double h1 = page->height() + bBottom + bTop;
-			double lw = item->visualLineWidth();
-			double x2 = item->BoundingX - lw / 2.0;
-			double y2 = item->BoundingY - lw / 2.0;
-			double w2 = qMax(item->BoundingW + lw, 1.0);
-			double h2 = qMax(item->BoundingH + lw, 1.0);
-			if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
-				continue;
-			if (item->ChangedMasterItem)
-				continue;
-			if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
-				continue;
-			success &= ProcessItem(Doc, page, item, PNr, sep, farb, false);
-			if (!success)
-				break;
-		}
+		PageItem *item = items.at(i);
+		if (progressDialog)
+			ScQApp->processEvents();
+		if (item->LayerID != layer.ID)
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asPathText()))
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asTable()))
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
+			continue;
+		//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
+		if ((!psExport) && (!item->isSelected()) && (Doc->m_Selection->count() != 0))
+			continue;
+		double bLeft, bRight, bBottom, bTop;
+		GetBleeds(page, bLeft, bRight, bBottom, bTop);
+		double x1 = page->xOffset() - bLeft;
+		double y1 = page->yOffset() - bTop;
+		double w1 = page->width() + bLeft + bRight;
+		double h1 = page->height() + bBottom + bTop;
+		double lw = item->visualLineWidth();
+		double x2 = item->BoundingX - lw / 2.0;
+		double y2 = item->BoundingY - lw / 2.0;
+		double w2 = qMax(item->BoundingW + lw, 1.0);
+		double h2 = qMax(item->BoundingH + lw, 1.0);
+		if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
+			continue;
+		if (item->ChangedMasterItem)
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
+			continue;
+		success &= ProcessItem(Doc, page, item, PNr, sep, farb, false);
+		if (!success)
+			break;
 	}
 	return success;
 }
