@@ -754,9 +754,8 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	int retg;
-	int GsMajor;
-	int GsMinor;
-	getNumericGSVersion(GsMajor, GsMinor);
+	int GsVersion;
+	getNumericGSVersion(GsVersion);
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	double x, y, b, h;
 	ts2 >> x >> y >> b >> h;
@@ -765,7 +764,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 		args.append("-dEPSCrop");
 	if (m_psMode == 4)
 		args.append("-dGrayValues=256");
-	if ((GsMajor >= 8) && (GsMinor >= 53))
+	if (GsVersion >= 853)
 		args.append("-dNOPSICC");		// prevent GS from applying an embedded ICC profile as it will be applied later on in ScImage.
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile=" + tmpFile);

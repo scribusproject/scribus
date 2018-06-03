@@ -103,7 +103,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	fGray = false;
 	scaleFactor = 1.0;
 	SMode = 1;
-	getNumericGSVersion(GsMajor, GsMinor);
+	getNumericGSVersion(GsVersion);
 	PLayout = new QVBoxLayout(this);
 	PLayout->setMargin(0);
 	PLayout->setSpacing(0);
@@ -567,7 +567,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
+	if ((doc->HasCMS) && (GsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		if (EnableCMYK->isChecked())
@@ -575,7 +575,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	else if (ScCore->haveCMS() && (GsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		if (EnableCMYK->isChecked())
@@ -665,12 +665,12 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
+	if ((doc->HasCMS) && (GsVersion >= 900))
 	{
 		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	else if (ScCore->haveCMS() && (GsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
@@ -909,9 +909,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			cms.allowColorManagement(false);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -927,9 +927,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -945,9 +945,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -970,9 +970,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;
-						if ((GsMinor < 54) && (GsMajor < 9))
+						if (GsVersion < 854)
 							fnam = QString(ScPaths::tempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
-						else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+						else if (GsVersion <= 905)
 							fnam = QString(ScPaths::tempFileDir()+"/sc.s%1.tif").arg(sepit.value());
 						else
 							fnam = QString(ScPaths::tempFileDir()+"/sc(%1).tif").arg(sepit.key());
@@ -992,9 +992,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			{
 				CMSettings cms(doc, "", Intent_Perceptual);
 				cms.allowColorManagement(false);
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);

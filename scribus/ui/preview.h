@@ -99,8 +99,7 @@ public:
 	int APage;
 	int MPage;
 	int SMode;
-	int GsMajor;
-	int GsMinor;
+	int GsVersion;
 	int inkMax;
 	bool CMode;
 	bool GsAl;
