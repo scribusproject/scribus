@@ -247,11 +247,11 @@ QString getGSVersion()
 
 bool getNumericGSVersion(int &version)
 {
+	int gsMajor(0), gsMinor(0);
 	version = 0;
-	int major(0), minor(0);
-	if (getNumericGSVersion(major, minor))
+	if (getNumericGSVersion(gsMajor, gsMinor))
 	{
-		version = 100 * major + minor;
+		version = 100 * gsMajor + gsMinor;
 		return true;
 	}
 	return false;
