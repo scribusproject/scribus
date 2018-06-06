@@ -79,6 +79,7 @@ private slots:
 	\brief Searches for the given Picture. Displays a Dialog when more than one Picture is found.
 	*/
 	void SearchPic();
+	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();
 	void doEditImage();
@@ -90,6 +91,9 @@ signals:
 	void refreshItem(PageItem*);
 
 protected:
+	/*! \brief Enable widgets depending on currently selected item */
+	void enableWidgets(bool enabled);
+
 	/*! \brief Load the image specified into the PageItem
 	\param newFilePath a file path */
 	bool loadPict(const QString & newFilePath);

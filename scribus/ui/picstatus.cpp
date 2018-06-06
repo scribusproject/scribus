@@ -22,17 +22,20 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "picstatus.h"
 
-#include <QListWidget>
-#include <QPushButton>
-#include <QToolButton>
-#include <QLabel>
-#include <QCheckBox>
-#include <QMessageBox>
-#include <QPixmap>
-#include <QFileInfo>
-#include <QPainter>
 #include <QAction>
+#include <QCheckBox>
+#include <QDesktopServices>
+#include <QFileInfo>
+#include <QLabel>
+#include <QListWidget>
 #include <QMenu>
+#include <QMessageBox>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QScopedPointer>
+#include <QToolButton>
+
 #include <cstdio>
 
 #include "commonstrings.h"
@@ -75,6 +78,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
 	connect(selectButton, SIGNAL(clicked()), this, SLOT(SelectPic()));
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
+	connect(fileManagerButton, SIGNAL(clicked()), this, SLOT(FileManager()));
 	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
 	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
 	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
@@ -111,6 +115,19 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.drawRect(12, 12, 104, 104);
 	p.end();
 	return pm;
+}
+
+void PicStatus::enableWidgets(bool enabled)
+{
+	isPrinting->setEnabled(enabled);
+	isVisibleCheck->setEnabled(enabled);
+	goPageButton->setEnabled(enabled);
+	selectButton->setEnabled(enabled);
+	searchButton->setEnabled(enabled);
+	fileManagerButton->setEnabled(enabled);
+	effectsButton->setEnabled(enabled);
+	buttonLayers->setEnabled(enabled);
+	buttonEdit->setEnabled(enabled);
 }
 
 void PicStatus::fillTable()
@@ -186,30 +203,32 @@ void PicStatus::sortByName()
 {
 	QListWidgetItem *firstItem = 0;
 	QMap<QString, PicItem*> sorted;
+
 	int num = imageViewArea->count();
-	if (num != 0)
+	if (num == 0)
+		return;
+
+	firstItem = imageViewArea->currentItem();
+	for (int a = num-1; a > -1; --a)
 	{
-		firstItem = imageViewArea->currentItem();
-		for (int a = num-1; a > -1; --a)
-		{
-			QListWidgetItem *ite = imageViewArea->takeItem(a);
-			PicItem *item = (PicItem*)ite;
-			QFileInfo fi = QFileInfo(item->PageItemObject->Pfile);
-			sorted.insertMulti(fi.fileName(), item);
-		}
-		int counter = 0;
-		foreach (const QString& i, sorted.uniqueKeys())
-		{
-			foreach (PicItem* val, sorted.values(i))
-			{
-				imageViewArea->insertItem(counter, val);
-				counter++;
-			}
-		}
-		imageViewArea->setCurrentItem(firstItem);
-		imageSelected(firstItem);
-		sortOrder = 0;
+		QListWidgetItem *ite = imageViewArea->takeItem(a);
+		PicItem *item = (PicItem*)ite;
+		QFileInfo fi = QFileInfo(item->PageItemObject->Pfile);
+		sorted.insertMulti(fi.fileName(), item);
 	}
+
+	int counter = 0;
+	foreach (const QString& i, sorted.uniqueKeys())
+	{
+		foreach (PicItem* val, sorted.values(i))
+		{
+			imageViewArea->insertItem(counter, val);
+			counter++;
+		}
+	}
+	imageViewArea->setCurrentItem(firstItem);
+	imageSelected(firstItem);
+	sortOrder = 0;
 }
 
 void PicStatus::sortByPage()
@@ -267,114 +286,119 @@ void PicStatus::newImageSelected()
 
 void PicStatus::imageSelected(QListWidgetItem *ite)
 {
-	if (ite != nullptr)
+	if (ite == nullptr)
 	{
-		PicItem *item = (PicItem*)ite;
-		currItem = item->PageItemObject;
-		if (!currItem->OnMasterPage.isEmpty())
-			displayPage->setText(currItem->OnMasterPage);
+		currItem = nullptr;
+		enableWidgets(false);
+		return;
+	}
+
+	enableWidgets(true);
+
+	PicItem *item = (PicItem*) ite;
+	currItem = item->PageItemObject;
+	if (!currItem->OnMasterPage.isEmpty())
+		displayPage->setText(currItem->OnMasterPage);
+	else
+	{
+		if (currItem->OwnPage == -1)
+			displayPage->setText(  tr("Not on a Page"));
 		else
+			displayPage->setText(QString::number(currItem->OwnPage + 1));
+	}
+	displayObjekt->setText(currItem->itemName());
+	if (currItem->imageIsAvailable)
+	{
+		QFileInfo fi = QFileInfo(currItem->Pfile);
+		QString ext = fi.suffix().toLower();
+		if (currItem->isInlineImage)
 		{
-			if (currItem->OwnPage == -1)
-				displayPage->setText(  tr("Not on a Page"));
-			else
-				displayPage->setText(QString::number(currItem->OwnPage + 1));
-		}
-		displayObjekt->setText(currItem->itemName());
-		if (currItem->imageIsAvailable)
-		{
-			QFileInfo fi = QFileInfo(currItem->Pfile);
-			QString ext = fi.suffix().toLower();
-			if (currItem->isInlineImage)
-			{
-				displayName->setText( tr("Embedded Image"));
-				displayPath->setText("");
-				searchButton->setEnabled(false);
-			}
-			else
-			{
-				displayName->setText(fi.fileName());
-				displayPath->setText(QDir::toNativeSeparators(fi.path()));
-				searchButton->setEnabled(true);
-			}
-			QString format = "";
-			switch (currItem->pixm.imgInfo.type)
-			{
-				case 0:
-					format = tr("JPG");
-					break;
-				case 1:
-					format = tr("TIFF");
-					break;
-				case 2:
-					format = tr("PSD");
-					break;
-				case 3:
-					format = tr("EPS/PS");
-					break;
-				case 4:
-					format = tr("PDF");
-					break;
-				case 5:
-					format = tr("JPG2000");
-					break;
-				case 6:
-					format = ext.toUpper();
-					break;
-				case 7:
-					format = tr("emb. PSD");
-					break;
-			}
-			displayFormat->setText(format);
-			QString cSpace;
-			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != ImageType7))
-				cSpace = tr("Unknown");
-			else
-				cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
-			displayColorspace->setText(cSpace);
-			displayDPI->setText(QString("%1 x %2").arg(currItem->pixm.imgInfo.xres).arg(currItem->pixm.imgInfo.yres));
-			displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));
-			displaySizePixel->setText(QString("%1 x %2").arg(currItem->OrigW).arg(currItem->OrigH));
-			displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));
-			displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
-			isPrinting->setChecked(currItem->printEnabled());
-			isVisibleCheck->setChecked(currItem->imageVisible());
-			buttonEdit->setEnabled(currItem->isRaster);
-			effectsButton->setEnabled(currItem->isRaster);
-			buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
+			displayName->setText( tr("Embedded Image"));
+			displayPath->setText("");
+			searchButton->setEnabled(false);
+			fileManagerButton->setEnabled(false);
 		}
 		else
 		{
-			QString trNA = tr("n/a");
-			if (!currItem->Pfile.isEmpty())
-			{
-				QFileInfo fi = QFileInfo(currItem->Pfile);
-				displayName->setText(fi.fileName());
-				displayPath->setText(QDir::toNativeSeparators(fi.path()));
-				searchButton->setEnabled(true);
-			}
-			else
-			{
-				displayName->setText(trNA);
-				displayPath->setText(trNA);
-				searchButton->setEnabled(false);
-			}
-			displayFormat->setText(trNA);
-			displayColorspace->setText(trNA);
-			displayDPI->setText(trNA);
-			displayEffDPI->setText(trNA);
-			displaySizePixel->setText(trNA);
-			displayScale->setText(trNA);
-			displayPrintSize->setText(trNA);
-			buttonEdit->setEnabled(false);
-			effectsButton->setEnabled(false);
-			buttonLayers->setEnabled(false);
+			displayName->setText(fi.fileName());
+			displayPath->setText(QDir::toNativeSeparators(fi.path()));
+			searchButton->setEnabled(true);
+			fileManagerButton->setEnabled(true);
 		}
+		QString format = "";
+		switch (currItem->pixm.imgInfo.type)
+		{
+			case 0:
+				format = tr("JPG");
+				break;
+			case 1:
+				format = tr("TIFF");
+				break;
+			case 2:
+				format = tr("PSD");
+				break;
+			case 3:
+				format = tr("EPS/PS");
+				break;
+			case 4:
+				format = tr("PDF");
+				break;
+			case 5:
+				format = tr("JPG2000");
+				break;
+			case 6:
+				format = ext.toUpper();
+				break;
+			case 7:
+				format = tr("emb. PSD");
+				break;
+		}
+		displayFormat->setText(format);
+		QString cSpace;
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != ImageType7))
+			cSpace = tr("Unknown");
+		else
+			cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
+		displayColorspace->setText(cSpace);
+		displayDPI->setText(QString("%1 x %2").arg(currItem->pixm.imgInfo.xres).arg(currItem->pixm.imgInfo.yres));
+		displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));
+		displaySizePixel->setText(QString("%1 x %2").arg(currItem->OrigW).arg(currItem->OrigH));
+		displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));
+		displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
+		isPrinting->setChecked(currItem->printEnabled());
+		isVisibleCheck->setChecked(currItem->imageVisible());
+		buttonEdit->setEnabled(currItem->isRaster);
+		effectsButton->setEnabled(currItem->isRaster);
+		buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
 	}
 	else
 	{
-		currItem = nullptr;
-		imageViewArea->clearSelection();
+		QString trNA = tr("n/a");
+		if (!currItem->Pfile.isEmpty())
+		{
+			QFileInfo fi = QFileInfo(currItem->Pfile);
+			displayName->setText(fi.fileName());
+			displayPath->setText(QDir::toNativeSeparators(fi.path()));
+			searchButton->setEnabled(true);
+			fileManagerButton->setEnabled(true);
+		}
+		else
+		{
+			displayName->setText(trNA);
+			displayPath->setText(trNA);
+			searchButton->setEnabled(false);
+			fileManagerButton->setEnabled(false);
+		}
+		displayFormat->setText(trNA);
+		displayColorspace->setText(trNA);
+		displayDPI->setText(trNA);
+		displayEffDPI->setText(trNA);
+		displaySizePixel->setText(trNA);
+		displayScale->setText(trNA);
+		displayPrintSize->setText(trNA);
+		buttonEdit->setEnabled(false);
+		effectsButton->setEnabled(false);
+		buttonLayers->setEnabled(false);
 	}
 }
 
@@ -444,33 +468,41 @@ void PicStatus::SearchPic()
 
 	if (lastSearchPath.isEmpty())
 		lastSearchPath = displayPath->text();
-	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), lastSearchPath);
-	if (dia->exec())
+
+	QScopedPointer<PicSearchOptions> dia(new PicSearchOptions(this, displayName->text(), lastSearchPath));
+	if (dia->exec() != QDialog::Accepted)
+		return;
+
+	lastSearchPath = dia->getLastDirSearched();
+	if (dia->getMatches().count() == 0)
 	{
-		lastSearchPath = dia->getLastDirSearched();
-		if (dia->getMatches().count() == 0)
-		{
-			ScMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
-					QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-					QMessageBox::NoButton);
-		}
-		else
-		{
-			PicSearch *dia2 = new PicSearch(this, dia->getFileName(), dia->getMatches());
-			if (dia2->exec())
-			{
-				Q_ASSERT(!dia2->currentImage.isEmpty());
-				loadPict(dia2->currentImage);
-				refreshItem(currItem);
-				QFileInfo fi = QFileInfo(currItem->Pfile);
-				imageViewArea->currentItem()->setText(fi.fileName());
-				imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
-				imageSelected(imageViewArea->currentItem());
-			}
-			delete dia2;
-		}
+		ScMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
+				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+				QMessageBox::NoButton);
+		return;
 	}
-	delete dia;
+
+	QScopedPointer<PicSearch> dia2(new PicSearch(this, dia->getFileName(), dia->getMatches()));
+	if (dia2->exec() != QDialog::Accepted)
+		return;
+	Q_ASSERT(!dia2->currentImage.isEmpty());
+	loadPict(dia2->currentImage);
+	refreshItem(currItem);
+	QFileInfo fi = QFileInfo(currItem->Pfile);
+	imageViewArea->currentItem()->setText(fi.fileName());
+	imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
+	imageSelected(imageViewArea->currentItem());
+}
+
+void PicStatus::FileManager()
+{
+	if (currItem == nullptr)
+		return;
+	QFileInfo fi = QFileInfo(currItem->Pfile);
+	QString path = fi.canonicalPath();
+	if (path.isEmpty())
+		return;
+	QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 }
 
 void PicStatus::doImageEffects()
@@ -491,10 +523,12 @@ void PicStatus::doImageEffects()
 
 void PicStatus::doImageExtProp()
 {
-	if (currItem != nullptr)
+	if (currItem == nullptr)
+		return;
+
+	ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
+	if (dia.exec())
 	{
-		ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
-		dia.exec();
 		loadPict(currItem->Pfile);
 		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
