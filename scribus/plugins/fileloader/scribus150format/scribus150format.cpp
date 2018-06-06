@@ -4624,10 +4624,13 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 			else
 			{
 				//set pointer to item holds mark in his text
+				CharStyle newStyle;
 				if (t == MARKAnchorType)
 					mark->setItemPtr(item);
 				mark->OwnPage = item->OwnPage;
 				item->itemText.insertMark(mark, item->itemText.length());
+				readCharacterStyleAttrs(doc, tAtt, newStyle);
+				item->itemText.setCharStyle(item->itemText.length() - 1, 1, newStyle);
 			}
 		}
 	}

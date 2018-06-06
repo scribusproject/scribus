@@ -635,7 +635,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 		VGradient gra = itGrad.value();
 		docu.writeAttribute("Ext", gra.repeatMethod());
 		QList<VColorStop*> cstops = gra.colorStops();
-		for (uint cst = 0; cst < gra.Stops(); ++cst)
+		for (int cst = 0; cst < gra.Stops(); ++cst)
 		{
 			docu.writeEmptyElement("CSTOP");
 			docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
@@ -1685,6 +1685,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 				docu.writeEmptyElement("MARK");
 				docu.writeAttribute("label", mark->label);
 				docu.writeAttribute("type", mark->getType());
+				putCStyle(docu, lastStyle);
 			}
 		}
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
@@ -2072,7 +2073,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11) && (item->GrType != 14)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				docu.writeEmptyElement("CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
@@ -2084,7 +2085,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if ((item->GrTypeStroke > 0) && (item->strokeGradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < item->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < item->stroke_gradient.Stops(); ++cst)
 			{
 				docu.writeEmptyElement("S_CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
@@ -2096,7 +2097,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if ((item->GrMask > 0) && (item->gradientMask().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->mask_gradient.colorStops();
-			for (uint cst = 0; cst < item->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < item->mask_gradient.Stops(); ++cst)
 			{
 				docu.writeEmptyElement("M_CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
