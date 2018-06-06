@@ -4128,10 +4128,15 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				else
 				{
 					//set pointer to item holds mark in his text
+					CharStyle newStyle;
 					if (t == MARKAnchorType)
 						mark->setItemPtr(newItem);
 					mark->OwnPage = newItem->OwnPage;
 					newItem->itemText.insertMark(mark, newItem->itemText.length());
+					readCharacterStyleAttrs(doc, tAtt, newStyle);
+					newItem->itemText.setCharStyle(newItem->itemText.length() - 1, 1, newStyle);
+					lastStyle->StyleStart = newItem->itemText.length() - 1;
+					lastStyle->Style = newStyle;
 				}
 			}
 		}
@@ -4631,6 +4636,8 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 				item->itemText.insertMark(mark, item->itemText.length());
 				readCharacterStyleAttrs(doc, tAtt, newStyle);
 				item->itemText.setCharStyle(item->itemText.length() - 1, 1, newStyle);
+				lastStyle->StyleStart = item->itemText.length() - 1;
+				lastStyle->Style = newStyle;
 			}
 		}
 	}
