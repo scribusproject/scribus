@@ -235,29 +235,30 @@ void PicStatus::sortByPage()
 {
 	QListWidgetItem *firstItem = 0;
 	QMap<int, PicItem*> sorted;
+
 	int num = imageViewArea->count();
-	if (num != 0)
+	if (num == 0)
+		return;
+
+	firstItem = imageViewArea->currentItem();
+	for (int a = num-1; a > -1; --a)
 	{
-		firstItem = imageViewArea->currentItem();
-		for (int a = num-1; a > -1; --a)
-		{
-			QListWidgetItem *ite = imageViewArea->takeItem(a);
-			PicItem *item = (PicItem*)ite;
-			sorted.insertMulti(item->PageItemObject->OwnPage, item);
-		}
-		int counter = 0;
-		foreach (int i, sorted.uniqueKeys())
-		{
-			foreach (PicItem* val, sorted.values(i))
-			{
-				imageViewArea->insertItem(counter, val);
-				counter++;
-			}
-		}
-		imageViewArea->setCurrentItem(firstItem);
-		imageSelected(firstItem);
-		sortOrder = 1;
+		QListWidgetItem *ite = imageViewArea->takeItem(a);
+		PicItem *item = (PicItem*)ite;
+		sorted.insertMulti(item->PageItemObject->OwnPage, item);
 	}
+	int counter = 0;
+	foreach (int i, sorted.uniqueKeys())
+	{
+		foreach (PicItem* val, sorted.values(i))
+		{
+			imageViewArea->insertItem(counter, val);
+			counter++;
+		}
+	}
+	imageViewArea->setCurrentItem(firstItem);
+	imageSelected(firstItem);
+	sortOrder = 1;
 }
 
 void PicStatus::slotRightClick()
@@ -410,11 +411,10 @@ void PicStatus::PrintPic()
 
 void PicStatus::visiblePic()
 {
-	if (currItem != nullptr)
-	{
-		currItem->setImageVisible(isVisibleCheck->isChecked());
-		emit refreshItem(currItem);
-	}
+	if (currItem == nullptr)
+		return;
+	currItem->setImageVisible(isVisibleCheck->isChecked());
+	emit refreshItem(currItem);
 }
 
 void PicStatus::GotoPic()
@@ -537,9 +537,8 @@ void PicStatus::doImageExtProp()
 
 void PicStatus::doEditImage()
 {
-	if (currItem != nullptr)
-	{
-		SelectPic();
-		ScCore->primaryMainWindow()->callImageEditor();
-	}
+	if (currItem == nullptr)
+		return;
+	SelectPic();
+	ScCore->primaryMainWindow()->callImageEditor();
 }
