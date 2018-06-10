@@ -6587,17 +6587,17 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/ui/cxfimportdialog.cpp" line="32"/>
         <source>Lab</source>
-        <translation type="unfinished">Lab</translation>
+        <translation>Lab</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cxfimportdialog.cpp" line="38"/>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cxfimportdialog.cpp" line="44"/>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
 </context>
 <context>
@@ -7982,17 +7982,17 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontembeddingmodel.cpp" line="43"/>
         <source>Embed or Subset</source>
-        <translation type="unfinished">Incorpora o crea sottoinsieme</translation>
+        <translation>Incorpora o crea sottoinsieme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontembeddingmodel.cpp" line="45"/>
         <source>Outline All Fonts</source>
-        <translation type="unfinished">Contorna tutti i font</translation>
+        <translation>Contorna tutti i font</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontembeddingmodel.cpp" line="47"/>
         <source>Do Not Embed</source>
-        <translation type="unfinished">Non incorporare</translation>
+        <translation>Non incorporare</translation>
     </message>
 </context>
 <context>
@@ -9171,7 +9171,8 @@ Termini da ignorare</translation>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="81"/>
         <source>Imports most Illustrator files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Illustrator nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="167"/>
@@ -9238,7 +9239,8 @@ Termini da ignorare</translation>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="77"/>
         <source>Imports most Corel Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Corel Draw nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
@@ -9297,7 +9299,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="82"/>
         <source>Imports most binary CGM files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file binari CGM nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
@@ -9320,7 +9323,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="75"/>
         <source>Imports most Calamus Vector Graphics files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Calamus Vector Graphics nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
@@ -9363,7 +9367,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="83"/>
         <source>Imports most DRW files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file DRW nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
@@ -9406,7 +9411,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
         <source>Imports most EMF files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file EMF nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
@@ -9441,7 +9447,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="75"/>
         <source>Imports most Freehand files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Freehand nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
@@ -9523,7 +9530,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
         <source>Imports most IDML files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file IDML nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
@@ -9572,7 +9580,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
         <source>Imports most ODF Drawing files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file ODF nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
@@ -9627,7 +9636,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
         <source>Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file iWorks Pages nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
@@ -9650,7 +9660,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
         <source>Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Macintosh Pict nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
@@ -9673,7 +9684,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="90"/>
         <source>Imports most PDF files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file PDF nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
@@ -9713,7 +9725,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
         <source>Imports most Pagemaker files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Pagemaker nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
@@ -9748,7 +9761,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
         <source>Imports most MS Publisher files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file MS Publisher nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
@@ -9761,34 +9775,35 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="53"/>
         <source>Import QuarkXPress...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa QuarkXPress...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="90"/>
         <source>QuarkXPress</source>
-        <translation type="unfinished"></translation>
+        <translation>QuarkXPress</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="56"/>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="91"/>
         <source>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</source>
-        <translation type="unfinished"></translation>
+        <translation>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="74"/>
         <source>Imports QuarkXPress Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file QuarkXPress</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="75"/>
         <source>Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file QuarkXPress 3.1-4.1 nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Tutti i formati supportati</translation>
+        <translation>Tutti i formati supportati</translation>
     </message>
 </context>
 <context>
@@ -9817,7 +9832,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="75"/>
         <source>Imports most Dia shapes into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte delle forme Dia nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
@@ -9900,7 +9916,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="80"/>
         <source>Imports most SVM files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file SVM nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="127"/>
@@ -9935,7 +9952,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
         <source>Imports most Viva files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Viva nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
@@ -9970,7 +9988,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
         <source>Imports most MS Visio files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file MS Visio nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -9993,7 +10012,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
         <source>Imports most WordPerfect Graphics files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file WordPerfect Graphics nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
@@ -10021,7 +10041,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
         <source>Imports most Xara files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Xara nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="90"/>
@@ -10059,7 +10080,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports most Xfig files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Xfig nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -10106,7 +10128,8 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="84"/>
         <source>Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file XPS e XML Papers nel documento corrente,
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
@@ -10119,34 +10142,35 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="53"/>
         <source>Import Zoner Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Zoner Draw...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="90"/>
         <source>Zoner Draw</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoner Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="91"/>
         <source>Zoner Draw (*.zmf *.ZMF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoner Draw (*.zmf *.ZMF)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="74"/>
         <source>Imports Zoner Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Zoner Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="75"/>
         <source>Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Zoner Draw 4-5 nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Tutti i formati supportati</translation>
+        <translation>Tutti i formati supportati</translation>
     </message>
 </context>
 <context>
@@ -15566,32 +15590,32 @@ Il risultato è una combinazione di &quot;Intersezione&quot; ed &quot;Esclusione
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="43"/>
         <source>PDF 1.3 (Acrobat 4)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.3 (Acrobat 4)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="45"/>
         <source>PDF 1.4 (Acrobat 5)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.4 (Acrobat 5)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="47"/>
         <source>PDF 1.5 (Acrobat 6)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.5 (Acrobat 6)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="49"/>
         <source>PDF/X-1a</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-1a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="51"/>
         <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="53"/>
         <source>PDF/X-4</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-4</translation>
     </message>
 </context>
 <context>
@@ -31351,12 +31375,12 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="66"/>
         <source>QuarkXPress Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore QuarkXPress</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="66"/>
         <source>Zoner Draw Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore Zoner Draw</translation>
     </message>
 </context>
 <context>
@@ -31506,12 +31530,12 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="147"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importazione: %1</translation>
+        <translation>Importazione: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="150"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analisi file:</translation>
+        <translation>Analisi file:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
@@ -31519,7 +31543,7 @@ Si prega di sceglierne un altro.</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished">Analisi fallita!
+        <translation>Analisi fallita!
 
 Invia il tuo file (se possibile) al
 Document Liberation Project http://www.documentliberation.org</translation>
@@ -33251,7 +33275,8 @@ Attenzione: questo aumenterà la dimensione del file!</translation>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file SVG nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
@@ -40662,7 +40687,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="93"/>
         <source>Imports most WMF files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file WMF nel documento corrente,
+convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="176"/>
@@ -40987,12 +41013,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="147"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importazione: %1</translation>
+        <translation>Importazione: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="150"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analisi file:</translation>
+        <translation>Analisi file:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="355"/>
@@ -41000,7 +41026,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished">Analisi fallita!
+        <translation>Analisi fallita!
 
 Invia il tuo file (se possibile) al
 Document Liberation Project http://www.documentliberation.org</translation>
