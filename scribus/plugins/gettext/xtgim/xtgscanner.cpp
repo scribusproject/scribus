@@ -69,12 +69,9 @@ XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool pre
 	initLanguages();
 	prevMode = textMode;
 	styleEffects = ScStyle_None;
-	m_codecList = QTextCodec::availableCodecs();
-	if (m_codecList.contains("cp1252"))
-		m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
-	else
+	m_codec = QTextCodec::codecForName("cp1252");
+	if (!m_codec)
 		m_codec = QTextCodec::codecForLocale();
-
 }
 
 /** Initialise a QHash which maps the values of n## to corresponding language strings
@@ -874,10 +871,11 @@ void XtgScanner::setEncoding()
 		encTest = "windows-949";
 	else if (enc == 20)
 		encTest = "KSC_5601";
-	if (m_codecList.contains(encTest))
-		m_codec = QTextCodec::codecForName(encTest);
-	else
+	m_codec = QTextCodec::codecForName(encTest);
+	if (!m_codec)
 		m_codec = QTextCodec::codecForName("cp1252");
+	if (!m_codec)
+		m_codec = QTextCodec::codecForLocale();
 }
 
 /** Functions corresponding to tokens in textMode

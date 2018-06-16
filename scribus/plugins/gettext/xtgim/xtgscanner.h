@@ -32,8 +32,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem.h"
 
+#include <QByteArray>
 #include <QHash>
+#include <QString>
+#include <QSet>
 #include <QTextCodec>
+
+
 /**
 Enum datatype for determining the Scanner mode 
 */
@@ -107,7 +112,6 @@ private:
 	 */
 	int define;
 	QTextCodec *m_codec;
-	QList<QByteArray> m_codecList;
 	bool m_isBold;
 	bool m_isItalic;
 	
