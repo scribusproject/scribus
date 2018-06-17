@@ -26,10 +26,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "xtgscanner.h"
 
-#include <QString>
-#include <QList>
 #include <QApplication>
 #include <QDebug>
+#include <QList>
+#include <QString>
+#include <QTextCodec>
+#include <QTextDecoder>
 
 #include "fonts/scface.h"
 #include "scribusdoc.h"
@@ -47,10 +49,12 @@ XtgScanner::XtgScanner(PageItem *item, bool textOnly, bool prefix, bool append)
     newlineFlag(false),
     xflag(false),
     inDef(false),
+	m_bufferIndex(0),
     top(0),
     define(0),
     m_isBold(false),
-    m_isItalic(false)
+    m_isItalic(false),
+	m_decoder(nullptr)
 {
 	doc = item->doc();
 	initTagMode();
@@ -59,9 +63,17 @@ XtgScanner::XtgScanner(PageItem *item, bool textOnly, bool prefix, bool append)
 	initLanguages();
 	prevMode = textMode;
 	styleEffects = ScStyle_None;
-	m_codec = QTextCodec::codecForName("cp1252");
-	if (!m_codec)
-		m_codec = QTextCodec::codecForLocale();
+
+	QTextCodec* codec = QTextCodec::codecForName("cp1252");
+	if (!codec)
+		codec = QTextCodec::codecForLocale();
+	m_decoder = new QTextDecoder(codec, QTextCodec::IgnoreHeader);
+}
+
+XtgScanner::~XtgScanner()
+{
+	if (m_decoder)
+		delete m_decoder;
 }
 
 bool XtgScanner::open(const QString& fileName)
@@ -69,10 +81,21 @@ bool XtgScanner::open(const QString& fileName)
 	bool forceUTF8 = false;
 
 	input_Buffer.clear();
+	decoded_text.clear();
+	if (m_decoder)
+	{
+		delete m_decoder;
+		m_decoder = nullptr;
+	}
+
 	newlineFlag = false;
 	xflag = false;
 	inDef = false;
+	m_bufferIndex = 0;
 	top = 0;
+	textToAppend.clear();
+	token.clear();
+	sfcName.clear();
 	define = 0;
 	m_isBold = false;
 	m_isItalic = false;
@@ -102,12 +125,16 @@ bool XtgScanner::open(const QString& fileName)
 			forceUTF8  = true;
 		}
 	}
-	prevMode = textMode;
+	Mode = prevMode = textMode;
 	styleEffects = ScStyle_None;
-	m_codec = QTextCodec::codecForName(forceUTF8 ? "UTF-8" : "cp1252");
-	if (!m_codec)
-		m_codec = QTextCodec::codecForLocale();
 
+	QTextCodec* codec = QTextCodec::codecForName(forceUTF8 ? "UTF-8" : "cp1252");
+	if (!codec)
+		codec = QTextCodec::codecForLocale();
+	m_decoder = new QTextDecoder(codec, QTextCodec::IgnoreHeader);
+
+	if (input_Buffer.size() > 0)
+		decoded_text.reserve(input_Buffer.size());
 	return (input_Buffer.size() > 0);
 }
 
@@ -149,7 +176,6 @@ void XtgScanner::initLanguages()
 	languages.insert(8,"Spanish");
 	languages.insert(7,"Swedish");
 	languages.insert(62,"Ukranian");
-
 }
 
 /** Initialise the tagModeHash with the tokens returned in tagMode and its corresponding function pointers */
@@ -908,11 +934,16 @@ void XtgScanner::setEncoding()
 		encTest = "windows-949";
 	else if (enc == 20)
 		encTest = "KSC_5601";
-	m_codec = QTextCodec::codecForName(encTest);
-	if (!m_codec)
-		m_codec = QTextCodec::codecForName("cp1252");
-	if (!m_codec)
-		m_codec = QTextCodec::codecForLocale();
+
+	QTextCodec* codec = QTextCodec::codecForName(encTest);
+	if (!codec)
+		codec = QTextCodec::codecForName("cp1252");
+	if (!codec)
+		codec = QTextCodec::codecForLocale();
+	
+	if (m_decoder)
+		delete m_decoder;
+	m_decoder = new QTextDecoder(codec, QTextCodec::IgnoreHeader);
 }
 
 /** Functions corresponding to tokens in textMode
@@ -1203,7 +1234,7 @@ void XtgScanner::definePStyles()
 	top++; // to ensure that ] is avoided
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
-	if (s1 != "")
+	if (s1.length() > 0)
 	{
 		if (doc->paragraphStyles().contains(m_item->itemName() + "_" + s1))
 			newStyle.setParent(m_item->itemName() + "_" + s1);
@@ -1219,7 +1250,7 @@ void XtgScanner::definePStyles()
 	else
 		newStyle.setName((sfcName));
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	if (s3 != "")
+	if (s3.length() > 0)
 	{
 		if (doc->charStyles().contains(m_item->itemName() + "_" + s3))
 			newStyle.charStyle().setParent(m_item->itemName() + "_" + s3);
@@ -1441,12 +1472,12 @@ QString XtgScanner::getToken()
 		}
 		else
 		{ // find the name and return it as a tag
-			while( 1 )
+			while (1)
 			{
 				temp = lookAhead();
 				if (temp == ':' || temp == '=' )
 					break;
-				if (top >= input_Buffer.length())
+				if (m_bufferIndex >= input_Buffer.length())
 					break;
 				token.append(nextSymbol());
 			}
@@ -1470,54 +1501,62 @@ scannerMode XtgScanner::previousState()
 	return prevMode;
 }
 
+bool XtgScanner::decodeText(int index)
+{
+	if (decoded_text.length() > index)
+		return true;
+	if (m_bufferIndex >= input_Buffer.length())
+		return false;
+
+	QString txt;
+	const char* bufferData = input_Buffer.data() + m_bufferIndex;
+
+	while (m_bufferIndex < input_Buffer.length() &&
+		   decoded_text.length() <= index)
+	{
+		txt = m_decoder->toUnicode(bufferData, 1);
+		if (!txt.isEmpty())
+			decoded_text += txt;
+		++bufferData;
+		++m_bufferIndex;
+	}
+
+	return (decoded_text.length() > index);
+}
+
 QChar XtgScanner::lookAhead(int adj)
 {
-	char ch = 0;
-	if (top < input_Buffer.length())
-	{
-		ch = input_Buffer.at(top + adj);
-		QByteArray ba;
-		ba.append(ch);
-		QString m_txt = m_codec->toUnicode(ba);
-		if (!m_txt.isEmpty())
-			return m_txt.at(0);
-		else
-			return QChar(0);
-	}
-	return QChar(0);
+	if (!decodeText(top + adj))
+		return QChar(0);
+	if (top + adj >= decoded_text.length())
+		return QChar(0);
+	return decoded_text.at(top + adj);
 }
 
 QChar XtgScanner::nextSymbol()
 {
-	char ch = 0;
-	if (top < input_Buffer.length())
-	{
-		ch = input_Buffer.at(top++);
-		QByteArray ba;
-		ba.append(ch);
-		QString m_txt = m_codec->toUnicode(ba);
-		if (!m_txt.isEmpty())
-			return m_txt.at(0);
-		else
-			return QChar(0);
-	}
-	return QChar(0);
+	if (!decodeText(top))
+		return QChar(0);
+	if (top >= decoded_text.length())
+		return QChar(0);
+	QChar newChar = decoded_text.at(top);
+	++top;
+	return newChar;
 }
 
 void XtgScanner::flushText()
 {
-	if (!textToAppend.isEmpty())
-	{
-		textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
-		textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
-		textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
-		textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
-		int posC = m_item->itemText.length();
-		m_item->itemText.insertChars(posC, textToAppend);
-		m_item->itemText.applyStyle(posC, currentParagraphStyle);
-		m_item->itemText.applyCharStyle(posC, textToAppend.length(), currentCharStyle);
-		textToAppend="";
-	}
+	if (textToAppend.isEmpty())
+		return;
+	textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
+	textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
+	textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
+	textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
+	int posC = m_item->itemText.length();
+	m_item->itemText.insertChars(posC, textToAppend);
+	m_item->itemText.applyStyle(posC, currentParagraphStyle);
+	m_item->itemText.applyCharStyle(posC, textToAppend.length(), currentCharStyle);
+	textToAppend.clear();
 }
 
 bool XtgScanner::styleStatus(QStringList &name,QString &sfcname)
@@ -1599,7 +1638,7 @@ void XtgScanner::xtgParse()
 		//	}
 		//	currentCharStyle = writer->getCurrentCharStyle();
 		}
-		if (top >= input_Buffer.length())
+		if (m_bufferIndex >= input_Buffer.length())
 			break;
 	}
 	if (!textToAppend.isEmpty())
@@ -1616,8 +1655,4 @@ void XtgScanner::xtgParse()
 		m_item->itemText.applyCharStyle(posC, textToAppend.length(), currentCharStyle);
 	}
 //	qDebug()<<"Unsupported : "<<unSupported;
-}
-
-XtgScanner::~XtgScanner()
-{
 }

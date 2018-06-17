@@ -36,7 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include <QHash>
 #include <QString>
 #include <QSet>
-#include <QTextCodec>
+
+class QTextCodec;
+class QTextDecoder;
 
 /**
 Enum datatype for determining the Scanner mode 
@@ -76,9 +78,12 @@ private:
 	bool xflag;
 	bool inDef;
 	 /**
-	 \variable Input Buffer to which properly encoded file is loaded
+	 \variable Input buffer to which properly encoded file is loaded
 	 */
 	QByteArray input_Buffer;
+	int m_bufferIndex;
+
+	QString decoded_text;
 	int top;
 
 	ScribusDoc* doc;
@@ -113,7 +118,12 @@ private:
 	bool m_isBold;
 	bool m_isItalic;
 
-	QTextCodec *m_codec;
+	QTextDecoder *m_decoder;
+
+	/**
+	 \brief Decode text from input buffer until specified index
+	 */
+	bool decodeText(int index);
 	
 public:
 	XtgScanner(PageItem* item, bool textOnly, bool prefix, bool append);
