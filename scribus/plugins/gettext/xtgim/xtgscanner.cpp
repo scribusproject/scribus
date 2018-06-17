@@ -39,29 +39,19 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool prefix, bool append)
-	: m_item(item),
-	  importTextOnly(textOnly),
-	  m_prefixName(prefix),
-	  m_append(append),
-	  newlineFlag(false),
-	  xflag(false),
-	  inDef(false),
-	  top(0),
-	  define(0),
-	  m_isBold(false),
-	  m_isItalic(false)
+XtgScanner::XtgScanner(PageItem *item, bool textOnly, bool prefix, bool append)
+    : m_item(item),
+    importTextOnly(textOnly),
+    m_prefixName(prefix),
+    m_append(append),
+    newlineFlag(false),
+    xflag(false),
+    inDef(false),
+    top(0),
+    define(0),
+    m_isBold(false),
+    m_isItalic(false)
 {
-	loadRawBytes(filename, input_Buffer);
-	if ((input_Buffer[0] == '\xFF') && (input_Buffer[1] == '\xFE'))
-	{
-		QByteArray tmpBuf;
-		for (int a = 2; a < input_Buffer.count(); a += 2)
-		{
-			tmpBuf.append(input_Buffer[a]);
-		}
-		input_Buffer = tmpBuf;
-	}
 	doc = item->doc();
 	initTagMode();
 	initTextMode();
@@ -72,6 +62,53 @@ XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool pre
 	m_codec = QTextCodec::codecForName("cp1252");
 	if (!m_codec)
 		m_codec = QTextCodec::codecForLocale();
+}
+
+bool XtgScanner::open(const QString& fileName)
+{
+	bool forceUTF8 = false;
+
+	input_Buffer.clear();
+	newlineFlag = false;
+	xflag = false;
+	inDef = false;
+	top = 0;
+	define = 0;
+	m_isBold = false;
+	m_isItalic = false;
+
+	if (!loadRawBytes(fileName, input_Buffer))
+		return false;
+	if (input_Buffer.size() >= 2)
+	{
+		if ((input_Buffer[0] == '\xFF') && (input_Buffer[1] == '\xFE'))
+		{
+			QTextCodec* utf8Codec  = QTextCodec::codecForName("UTF-8");
+			QTextCodec* utf16Codec = QTextCodec::codecForName("UTF-16LE");
+			if (!utf8Codec || !utf16Codec)
+				return false;
+			QString text = utf16Codec->toUnicode(input_Buffer.constData(), input_Buffer.length());
+			input_Buffer = utf8Codec->fromUnicode(text);
+			forceUTF8 = true;
+		}
+		else if ((input_Buffer[0] == '\xFE') && (input_Buffer[1] == '\xFF'))
+		{
+			QTextCodec* utf8Codec = QTextCodec::codecForName("UTF-8");
+			QTextCodec* utf16Codec = QTextCodec::codecForName("UTF-16BE");
+			if (!utf8Codec || !utf16Codec)
+				return false;
+			QString text = utf16Codec->toUnicode(input_Buffer.constData(), input_Buffer.length());
+			input_Buffer = utf8Codec->fromUnicode(text);
+			forceUTF8  = true;
+		}
+	}
+	prevMode = textMode;
+	styleEffects = ScStyle_None;
+	m_codec = QTextCodec::codecForName(forceUTF8 ? "UTF-8" : "cp1252");
+	if (!m_codec)
+		m_codec = QTextCodec::codecForLocale();
+
+	return (input_Buffer.size() > 0);
 }
 
 /** Initialise a QHash which maps the values of n## to corresponding language strings

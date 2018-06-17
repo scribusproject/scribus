@@ -38,7 +38,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSet>
 #include <QTextCodec>
 
-
 /**
 Enum datatype for determining the Scanner mode 
 */
@@ -111,12 +110,13 @@ private:
 		2	Paragraph Stylesheet Definition
 	 */
 	int define;
-	QTextCodec *m_codec;
 	bool m_isBold;
 	bool m_isItalic;
+
+	QTextCodec *m_codec;
 	
 public:
-	XtgScanner(QString filename, PageItem* item, bool textOnly, bool prefix, bool append);
+	XtgScanner(PageItem* item, bool textOnly, bool prefix, bool append);
 	~XtgScanner();
 
 	/**
@@ -128,9 +128,15 @@ public:
 	void initNameMode();
 	void initLanguages();
 	/**
-	\brief parse function which will parse the inputBuffer and append it into the PageItem
+	\brief Open file and initialize inputBuffer for parsing
+	*/
+	bool open(const QString& fileName);
+
+	/**
+	\brief Parse function which will parse the inputBuffer and append it into the PageItem
 	*/
 	void xtgParse();
+
 	/**
 	\brief This function will return the character in Buffer to which top is now pointing to 
 	*/
