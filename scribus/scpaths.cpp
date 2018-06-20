@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scpaths.h"
 #include <QApplication>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QProcess>
@@ -66,9 +67,34 @@ ScPaths::ScPaths() :
 	m_shareDir(SHAREDIR),
 	m_templateDir(TEMPLATEDIR)
 {
+
+#ifdef Q_OS_LINUX
+    QString pathPtr = QCoreApplication::applicationDirPath() + QString("/..");
+	m_shareDir = QString("%1/share/scribus/").arg(pathPtr);
+	m_docDir = QString("%1/share/doc/scribus/").arg(pathPtr);
+	//m_fontDir = QString("%1/share/scribus/fonts/").arg(pathPtr);
+	m_iconDir = QString("%1/share/scribus/icons/").arg(pathPtr);
+	m_sampleScriptDir = QString("%1/share/scribus/samples/").arg(pathPtr);
+	m_scriptDir = QString("%1/share/scribus/scripts/").arg(pathPtr);
+	m_templateDir = QString("%1/share/scribus/templates/").arg(pathPtr);
+	m_libDir = QString("%1/lib/").arg(pathPtr);
+	m_pluginDir = QString("%1/lib/scribus/plugins/").arg(pathPtr);
+	m_qmlDir = QString("%1/share/scribus/qml/").arg(pathPtr);
+
+	qDebug() << QString("scpaths: doc dir=%1").arg(m_docDir);
+	qDebug() << QString("scpaths: icon dir=%1").arg(m_iconDir);
+	//qDebug() << QString("scpaths: font dir=%1").arg(m_fontDir);
+	qDebug() << QString("scpaths: sample dir=%1").arg(m_sampleScriptDir);
+	qDebug() << QString("scpaths: script dir=%1").arg(m_scriptDir);
+	qDebug() << QString("scpaths: template dir=%1").arg(m_templateDir);
+	qDebug() << QString("scpaths: lib dir=%1").arg(m_libDir);
+	qDebug() << QString("scpaths: plugins dir=%1").arg(m_pluginDir);
+	qDebug() << QString("scpaths: qml dir=%1").arg(m_qmlDir);
+
+
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef Q_OS_MAC
+#elif Q_OS_MAC
 	QString pathPtr(bundleDir());
 	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);

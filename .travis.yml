@@ -64,10 +64,23 @@ script:
       else
         export NPROC=1;
       fi;
-    cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
-    make -j"$NPROC";
-    make install;
-    bash -ex ./AppImage-package/bundle.sh;
+      cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
+      make -j"$NPROC";
+      make DESTDIR=appdir -j"$NPROC" install ; find appdir/;
+      cp /usr/lib/python2.7/lib-dynload/_tkinter.so appdir/usr/;
+      cp -r /usr/lib/tcltk appdir/usr/lib/;
+      cp -r /usr/share/tcltk appdir/usr/share/;
+      wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage";
+      chmod a+x linuxdeployqt-continuous-x86_64.AppImage;
+      unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH;
+      export VERSION=$(git rev-parse --short HEAD);
+      ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -bundle-non-qt-libs;
+      ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract;
+      mv appdir/usr/_tkinter.so appdir/usr/lib/;
+      ( cd appdir/usr/ ; ln -s ./lib/_tkinter.so . );
+      ./squashfs-root/usr/bin/linuxdeployqt -bundle-non-qt-libs appdir/usr/lib/_tkinter.so;
+      ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage;
+      curl --upload-file "${TRAVIS_BUILD_DIR}/Scribus-${VERSION}-x86_64.AppImage" https://transfer.sh/"Scribus-${VERSION}-x86_64.AppImage";
     fi
 
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
@@ -76,13 +89,12 @@ script:
       make install;
     fi
 
-notifications:
-  irc:
-    channels:
-    -  "chat.freenode.net#scribus"
-    -  "chat.freenode.net#scribus-dev"
-    template:
-    - "%{repository}/%{branch} (%{author}): %{build_url}: %{message}"
-    on_success: always
-    on_failure: always
-
+#notifications:
+#  irc:
+#    channels:
+#    -  "chat.freenode.net#scribus"
+#    -  "chat.freenode.net#scribus-dev"
+#    template:
+#    - "%{repository}/%{branch} (%{author}): %{build_url}: %{message}"
+#    on_success: always
+#    on_failure: always
