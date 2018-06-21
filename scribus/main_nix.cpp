@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QMessageBox>
+#include <QDebug>
 
 #define BASE_QM "scribus"
 
@@ -51,6 +52,7 @@ bool emergencyActivated;
 
 int main(int argc, char *argv[])
 {
+	qDebug() << "main";
 	return mainApp(argc, argv);
 }
 
