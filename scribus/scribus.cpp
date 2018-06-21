@@ -319,6 +319,7 @@ ScribusMainWindow::ScribusMainWindow()
  */
 int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
+	qDebug() << "test";
 	int retVal=0;
 	qsrand(1234);
 	QByteArray stylesheet;
