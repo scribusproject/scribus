@@ -68,6 +68,8 @@ ScPaths::ScPaths() :
 	m_templateDir(TEMPLATEDIR)
 {
 
+// Build an appimage and redirect the paths to 
+// ones inside the bundle, relative to the executable.
 #ifdef Q_OS_LINUX
     QString pathPtr = QCoreApplication::applicationDirPath() + QString("/..");
 	m_shareDir = QString("%1/share/scribus/").arg(pathPtr);
@@ -77,7 +79,7 @@ ScPaths::ScPaths() :
 	m_sampleScriptDir = QString("%1/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/share/scribus/scripts/").arg(pathPtr);
 	m_templateDir = QString("%1/share/scribus/templates/").arg(pathPtr);
-	m_libDir = QString("%1/lib/").arg(pathPtr);
+	m_libDir = QString("%1/lib/scribus/").arg(pathPtr);
 	m_pluginDir = QString("%1/lib/scribus/plugins/").arg(pathPtr);
 	m_qmlDir = QString("%1/share/scribus/qml/").arg(pathPtr);
 
