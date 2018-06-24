@@ -89,12 +89,12 @@ script:
       make install;
     fi
 
-#notifications:
-#  irc:
-#    channels:
-#    -  "chat.freenode.net#scribus"
-#    -  "chat.freenode.net#scribus-dev"
-#    template:
-#    - "%{repository}/%{branch} (%{author}): %{build_url}: %{message}"
-#    on_success: always
-#    on_failure: always
+notifications:
+  irc:
+    channels:
+    -  "chat.freenode.net#scribus"
+    -  "chat.freenode.net#scribus-dev"
+    template:
+    - "%{repository}/%{branch} (%{author}): %{build_url}: %{message}"
+    on_success: always
+    on_failure: always

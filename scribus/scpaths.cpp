@@ -92,11 +92,11 @@ ScPaths::ScPaths() :
 	qDebug() << QString("scpaths: lib dir=%1").arg(m_libDir);
 	qDebug() << QString("scpaths: plugins dir=%1").arg(m_pluginDir);
 	qDebug() << QString("scpaths: qml dir=%1").arg(m_qmlDir);
-
+#endif
 
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#elif Q_OS_MAC
+#ifdef Q_OS_MAC
 	QString pathPtr(bundleDir());
 	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
@@ -122,8 +122,9 @@ ScPaths::ScPaths() :
 	qDebug() << QString("scpaths: plugin dir=%1").arg(m_pluginDir);
 	qDebug() << QString("scpaths: QML dir=%1").arg(m_qmlDir);
 	qDebug() << QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":"));
+#endif
 
-#elif defined(_WIN32)
+#ifdef defined(_WIN32)
 	QFileInfo appInfo(qApp->applicationDirPath());
 	QString appPath = qApp->applicationDirPath();
 	QString cleanAppPath = appInfo.canonicalFilePath();
