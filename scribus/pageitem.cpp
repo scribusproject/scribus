@@ -2172,7 +2172,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
 					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				if ((BackBox != 0) || (NextBox != 0))
+				if ((BackBox != nullptr) || (NextBox != nullptr))
 					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
 					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -3314,7 +3314,7 @@ void PageItem::createConicalMesh()
 	double lastStop = -1.0;
 	double actualStop = 0.0;
 	bool   isFirst = true;
-	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
 		if ((actualStop == lastStop) && (!isFirst))
@@ -3780,7 +3780,7 @@ void PageItem::setFillBlendmode(int newBlendmode)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::BlendMode, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::BlendMode, nullptr, Um::IGroup);
 		ss->set("FILLBLENDMODE", newBlendmode);
 		ss->set("FILLBLENDMODE_OLD", fillBlendmodeVal);
 		undoManager->action(this, ss);
@@ -3991,7 +3991,7 @@ void PageItem::setFillQColor()
 	}
 }
 
-void PageItem::setHatchParameters(int mode, double distance, double angle, bool useBackground, QString background, QString foreground)
+void PageItem::setHatchParameters(int mode, double distance, double angle, bool useBackground, const QString& background, const QString& foreground)
 {
 	hatchType = mode;
 	hatchDistance = distance;
@@ -4054,7 +4054,7 @@ void PageItem::setLineBlendmode(int newBlendmode)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::BlendMode, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::BlendMode, nullptr, Um::IGroup);
 		ss->set("LINEBLENDMODE", newBlendmode);
 		ss->set("LINEBLENDMODE_OLD", lineBlendmodeVal);
 		undoManager->action(this, ss);
@@ -4212,7 +4212,7 @@ void PageItem::flipImageH()
 {
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::FlipH, 0, Um::IFlipH);
+		SimpleState *ss = new SimpleState(Um::FlipH, nullptr, Um::IFlipH);
 		ss->set("IMAGEFLIPH");
 		undoManager->action(this, ss);
 	}
@@ -4229,7 +4229,7 @@ void PageItem::flipImageV()
 {
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::FlipV, 0, Um::IFlipV);
+		SimpleState *ss = new SimpleState(Um::FlipV, nullptr, Um::IFlipV);
 		ss->set("IMAGEFLIPV");
 		undoManager->action(this, ss);
 	}
@@ -4357,7 +4357,7 @@ void PageItem::setSoftShadowXOffset(double val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowXOffset, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowXOffset, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_XOFFSET");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowXOffset);
@@ -4373,7 +4373,7 @@ void PageItem::setSoftShadowYOffset(double val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowYOffset, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowYOffset, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_YOFFSET");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowYOffset);
@@ -4389,7 +4389,7 @@ void PageItem::setSoftShadowOpacity(double val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowOpacity, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowOpacity, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_OPACITY");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowOpacity);
@@ -4405,7 +4405,7 @@ void PageItem::setSoftShadowBlendMode(int val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowBlendMode, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowBlendMode, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_BLEND_MODE");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowBlendMode);
@@ -4421,7 +4421,7 @@ void PageItem::setSoftShadowErasedByObject(bool val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowErase, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowErase, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_ERASE");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowErasedByObject);
@@ -4437,7 +4437,7 @@ void PageItem::setSoftShadowHasObjectTransparency(bool val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowObjectTrans, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowObjectTrans, nullptr, Um::IGroup);
 		ss->set("SOFT_SHADOW_OBJTRANS");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowHasObjectTransparency);
@@ -4452,9 +4452,9 @@ void PageItem::toggleLock()
 	{
 		SimpleState *ss;
 		if (m_Locked)
-			ss = new SimpleState(Um::UnLock, 0, Um::IUnLock);
+			ss = new SimpleState(Um::UnLock, nullptr, Um::IUnLock);
 		else
-			ss = new SimpleState(Um::Lock, 0, Um::ILock);
+			ss = new SimpleState(Um::Lock, nullptr, Um::ILock);
 		ss->set("LOCK");
 		undoManager->action(this, ss);
 	}
@@ -4486,9 +4486,9 @@ void PageItem::toggleSizeLock()
 	{
 		SimpleState *ss;
 		if (m_SizeLocked)
-			ss = new SimpleState(Um::SizeUnLock, 0, Um::IUnLock);
+			ss = new SimpleState(Um::SizeUnLock, nullptr, Um::IUnLock);
 		else
-			ss = new SimpleState(Um::SizeLock, 0, Um::ILock);
+			ss = new SimpleState(Um::SizeLock, nullptr, Um::ILock);
 		ss->set("SIZE_LOCK");
 		undoManager->action(this, ss);
 	}
@@ -4515,9 +4515,9 @@ void PageItem::togglePrintEnabled()
 	{
 		SimpleState *ss;
 		if (m_PrintEnabled)
-			ss = new SimpleState(Um::DisablePrint, 0, Um::IDisablePrint);
+			ss = new SimpleState(Um::DisablePrint, nullptr, Um::IDisablePrint);
 		else
-			ss = new SimpleState(Um::EnablePrint, 0, Um::IEnablePrint);
+			ss = new SimpleState(Um::EnablePrint, nullptr, Um::IEnablePrint);
 		ss->set("PRINT_ENABLED");
 		undoManager->action(this, ss);
 	}
@@ -6698,9 +6698,9 @@ void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
-		itemText.setCharStyle(start,length, is->getItem().second);
+		itemText.setCharStyle(start, length, is->getItem().second);
 	else
-		itemText.setCharStyle(start,length, is->getItem().first);
+		itemText.setCharStyle(start, length, is->getItem().first);
 }
 
 void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
@@ -7246,11 +7246,11 @@ void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
 		}
 
 		// update auto pointers
-		if (isAutoText && NextBox == 0)
+		if (isAutoText && NextBox == nullptr)
 		{
 			m_Doc->LastAuto = this;
 		}
-		if (isAutoText && BackBox == 0)
+		if (isAutoText && BackBox == nullptr)
 		{
 			m_Doc->FirstAuto = this;
 		}
@@ -7625,7 +7625,7 @@ ObjAttrVector* PageItem::getObjectAttributes()
 	return &pageItemAttributes;
 }
 
-QList<ObjectAttribute> PageItem::getObjectAttributes(QString attributeName) const
+QList<ObjectAttribute> PageItem::getObjectAttributes(const QString& attributeName) const
 {
 	QList<ObjectAttribute> attributes;
 	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
@@ -7638,7 +7638,7 @@ QList<ObjectAttribute> PageItem::getObjectAttributes(QString attributeName) cons
 	return attributes;
 }
 
-ObjectAttribute PageItem::getObjectAttribute(QString attributeName) const
+ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 {
 	int countFound=0;
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
@@ -7665,7 +7665,7 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 }
 
 //if not `prependCopy` then string "Copy of" wil not be prepended
-QString PageItem::generateUniqueCopyName(const QString originalName, bool prependCopy) const
+QString PageItem::generateUniqueCopyName(const QString& originalName, bool prependCopy) const
 {
 	if (!m_Doc->itemNameExists(originalName))
 		return originalName;
@@ -7745,7 +7745,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		GrColorP4 = *it;
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
-	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -7780,7 +7780,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 			meshGradientPatches[col].BR.colorName = *it;
 	}
 	cstops = stroke_gradient.colorStops();
-	for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < stroke_gradient.Stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -7790,7 +7790,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		}
 	}
 	cstops = mask_gradient.colorStops();
-	for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < mask_gradient.Stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -8272,7 +8272,8 @@ void PageItem::setSnapToPatchGrid(bool val)
 	snapToPatchGrid = val;
 }
 
-void PageItem::setGradientStartX(double val){
+void PageItem::setGradientStartX(double val)
+{
 	if (GrStartX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8286,7 +8287,8 @@ void PageItem::setGradientStartX(double val){
 	GrStartX = val;
 }
 
-void PageItem::setGradientStartY(double val){
+void PageItem::setGradientStartY(double val)
+{
 	if (GrStartY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8300,7 +8302,8 @@ void PageItem::setGradientStartY(double val){
 	GrStartY = val;
 }
 
-void PageItem::setGradientEndX(double val){
+void PageItem::setGradientEndX(double val)
+{
 	if (GrEndX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8314,7 +8317,8 @@ void PageItem::setGradientEndX(double val){
 	GrEndX = val;
 }
 
-void PageItem::setGradientEndY(double val){
+void PageItem::setGradientEndY(double val)
+{
 	if (GrEndY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8328,7 +8332,8 @@ void PageItem::setGradientEndY(double val){
 	GrEndY = val;
 }
 
-void PageItem::setGradientFocalX(double val){
+void PageItem::setGradientFocalX(double val)
+{
 	if (GrFocalX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8342,7 +8347,8 @@ void PageItem::setGradientFocalX(double val){
 	GrFocalX = val;
 }
 
-void PageItem::setGradientFocalY(double val){
+void PageItem::setGradientFocalY(double val)
+{
 	if (GrFocalY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8356,7 +8362,8 @@ void PageItem::setGradientFocalY(double val){
 	GrFocalY = val;
 }
 
-void PageItem::setGradientScale(double val){
+void PageItem::setGradientScale(double val)
+{
 	if (GrScale==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8370,7 +8377,8 @@ void PageItem::setGradientScale(double val){
 	GrScale = val;
 }
 
-void PageItem::setGradientSkew(double val){
+void PageItem::setGradientSkew(double val)
+{
 	if (GrSkew==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8384,7 +8392,8 @@ void PageItem::setGradientSkew(double val){
 	GrSkew = val;
 }
 
-void PageItem::setGradientMaskStartX(double val){
+void PageItem::setGradientMaskStartX(double val)
+{
 	if (GrMaskStartX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8398,7 +8407,8 @@ void PageItem::setGradientMaskStartX(double val){
 	GrMaskStartX = val;
 }
 
-void PageItem::setGradientMaskStartY(double val){
+void PageItem::setGradientMaskStartY(double val)
+{
 	if (GrMaskStartY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8412,7 +8422,8 @@ void PageItem::setGradientMaskStartY(double val){
 	GrMaskStartY = val;
 }
 
-void PageItem::setGradientMaskEndX(double val){
+void PageItem::setGradientMaskEndX(double val)
+{
 	if (GrMaskEndX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8426,7 +8437,8 @@ void PageItem::setGradientMaskEndX(double val){
 	GrMaskEndX = val;
 }
 
-void PageItem::setGradientMaskEndY(double val){
+void PageItem::setGradientMaskEndY(double val)
+{
 	if (GrMaskEndY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8440,7 +8452,8 @@ void PageItem::setGradientMaskEndY(double val){
 	GrMaskEndY = val;
 }
 
-void PageItem::setGradientMaskFocalX(double val){
+void PageItem::setGradientMaskFocalX(double val)
+{
 	if (GrMaskFocalX==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8454,7 +8467,8 @@ void PageItem::setGradientMaskFocalX(double val){
 	GrMaskFocalX = val;
 }
 
-void PageItem::setGradientMaskFocalY(double val){
+void PageItem::setGradientMaskFocalY(double val)
+{
 	if (GrMaskFocalY==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8468,7 +8482,8 @@ void PageItem::setGradientMaskFocalY(double val){
 	GrMaskFocalY = val;
 }
 
-void PageItem::setGradientMaskScale(double val){
+void PageItem::setGradientMaskScale(double val)
+{
 	if (GrMaskScale==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8482,7 +8497,8 @@ void PageItem::setGradientMaskScale(double val){
 	GrMaskScale = val;
 }
 
-void PageItem::setGradientMaskSkew(double val){
+void PageItem::setGradientMaskSkew(double val)
+{
 	if (GrMaskSkew==val)
 		return;
 	if (UndoManager::undoEnabled())
@@ -8698,7 +8714,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		if ((!gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
 			lists.collectGradient(gradientVal);
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
-		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -8738,7 +8754,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		if ((!gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 			lists.collectGradient(gradientStrokeVal);
 		QList<VColorStop*> cstops = stroke_gradient.colorStops();
-		for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < stroke_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -8746,7 +8762,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
-		for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < mask_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -9049,7 +9065,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,				xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(-extraSpace, 				visualHeight()-extraSpace,	xPos(), yPos(), m_rotation, 1.0, 1.0));
-		for (uint pc = 0; pc < 4; ++pc)
+		for (int pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
 			miny = qMin(miny, pb.point(pc).y());
@@ -9464,7 +9480,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9473,7 +9489,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9489,7 +9505,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9498,7 +9514,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9507,7 +9523,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9523,7 +9539,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9532,7 +9548,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9541,7 +9557,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9550,7 +9566,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += " "+tmp;
 				for (int p = 0; p < Vals.size(); p++)
 				{
-					FPoint pv = Vals.point(p);
+					const FPoint& pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
@@ -9813,9 +9829,9 @@ void PageItem::AdjustPictScale()
 	}
 }
 
-void PageItem::setExternalFile(QString val)
+void PageItem::setExternalFile(const QString& filename)
 {
-	Pfile = val;
+	Pfile = filename;
 	if (!Pfile.isEmpty())
 	{
 		QString test = Pfile;
@@ -9827,9 +9843,9 @@ void PageItem::setExternalFile(QString val)
 	}
 }
 
-void PageItem::setFileIconPressed(const QString& val)
+void PageItem::setFileIconPressed(const QString& filename)
 {
-	Pfile2 = val;
+	Pfile2 = filename;
 	if (!Pfile2.isEmpty())
 	{
 		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile2));
@@ -9838,9 +9854,9 @@ void PageItem::setFileIconPressed(const QString& val)
 	}
 }
 
-void PageItem::setFileIconRollover(const QString& val)
+void PageItem::setFileIconRollover(const QString& filename)
 {
-	Pfile3 = val;
+	Pfile3 = filename;
 	if (!Pfile3.isEmpty())
 	{
 		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile3));
@@ -10005,10 +10021,10 @@ void PageItem::updatePolyClip()
 {
 	int asce = 1;
 	int desc = 1;
-	uint itemTextCount=itemText.length();
-	for (uint a = 0; a < itemTextCount; ++a)
+	int itemTextCount=itemText.length();
+	for (int i = 0; i < itemTextCount; ++i)
 	{
-		const CharStyle& hl (itemText.charStyle(a));
+		const CharStyle& hl (itemText.charStyle(i));
 		int des = static_cast<int>(hl.font().descent(hl.fontSize() / 10.0));
 		int asc = static_cast<int>(hl.font().ascent(hl.fontSize() / 10.0));
 		asce = qMax(asce, asc);
@@ -10078,7 +10094,7 @@ void PageItem::setIsAnnotation(bool isAnnot)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::ActionPDF, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::ActionPDF, nullptr, Um::IGroup);
 		ss->set("ACTIONPDFANNOTATION", isAnnot);
 		undoManager->action(this, ss);
 	}
@@ -10091,7 +10107,7 @@ void PageItem::setIsBookMark(bool isBM)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::ActionPDF, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::ActionPDF, nullptr, Um::IGroup);
 		ss->set("ACTIONPDFBOOKMARK", isBM);
 		undoManager->action(this, ss);
 	}
