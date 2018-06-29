@@ -452,25 +452,19 @@ void PropTreeWidget::handleMousePress(QTreeWidgetItem *item)
 void PropTreeWidget::mousePressEvent(QMouseEvent *event)
 {
 	QTreeWidgetItem *item = itemAt(event->pos());
-	if (item)
-	{
-		if (item->flags() & Qt::ItemIsEditable)
-		{
-			if ((event->button() == Qt::LeftButton) && (header()->logicalIndexAt(event->pos().x()) == 1))
-				QTreeWidget::mousePressEvent(event);
-			else
-				event->ignore();
-		}
-		else
-			QTreeWidget::mousePressEvent(event);
-	}
-	else
+	if (!item)
 		QTreeWidget::mousePressEvent(event);
+	if (!(item->flags() & Qt::ItemIsEditable))
+		QTreeWidget::mousePressEvent(event);
+	if ((event->button() == Qt::LeftButton) && (header()->logicalIndexAt(event->pos().x()) == 1))
+		QTreeWidget::mousePressEvent(event);
+	else
+		event->ignore();
 }
 
 PropTreeItem* PropTreeWidget::indexToItem(const QModelIndex &index)
 {
-	return (PropTreeItem*)itemFromIndex(index);
+	return dynamic_cast<PropTreeItem*>(itemFromIndex(index));
 }
 
 void PropTreeWidget::drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const

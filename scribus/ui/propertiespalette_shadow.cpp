@@ -27,9 +27,9 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeWidget(parent)
 {
-	m_ScMW = 0;
-	m_doc = 0;
-	m_item = 0;
+	m_ScMW = nullptr;
+	m_doc = nullptr;
+	m_item = nullptr;
 	m_haveDoc  = false;
 	m_haveItem = false;
 	m_unitIndex = 0;
@@ -51,8 +51,8 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 
 	softShadowBlurRadius = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "Blur:"));
 	softShadowBlurRadius->setUnitValue(0);
-	softShadowBlurRadius->setDecimalsValue(1);
-	softShadowBlurRadius->setMinMaxValues(-20.0, 20.0);
+	softShadowBlurRadius->setDecimalsValue(2);
+	softShadowBlurRadius->setMinMaxValues(-200.0, 200.0);
 	softShadowBlurRadius->setDoubleValue(2.0);
 
 	softShadowColor = new PropTreeItem(this, PropTreeItem::ColorComboBox, tr( "Color:"));
@@ -128,8 +128,8 @@ void PropertiesPalette_Shadow::setDoc(ScribusDoc *d)
 	softShadowYOffset->setDoubleValue(minXYVal);
 
 	softShadowBlurRadius->setUnitValue(m_unitIndex);
-	softShadowBlurRadius->setDecimalsValue(1);
-	softShadowBlurRadius->setMinMaxValues(0.0, 20.0);
+	softShadowBlurRadius->setDecimalsValue(precision);
+	softShadowBlurRadius->setMinMaxValues(0.0, 200.0);
 	softShadowBlurRadius->setDoubleValue(5);
 
 	softShadowShade->setDecimalsValue(0);
@@ -249,21 +249,20 @@ void PropertiesPalette_Shadow::updateColorList()
 
 void PropertiesPalette_Shadow::handleNewValues()
 {
-	if (m_haveItem)
+	if (!m_haveItem)
+		return;
+	double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
+	double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
+	double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
+	QString color = softShadowColor->valueAsString();
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
+	int b = softShadowBlendMode->valueAsInt();
+	double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
+	int s = softShadowShade->valueAsInt();
+	if (m_haveDoc)
 	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
+		m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
 	}
 }
 
