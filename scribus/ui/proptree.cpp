@@ -453,9 +453,15 @@ void PropTreeWidget::mousePressEvent(QMouseEvent *event)
 {
 	QTreeWidgetItem *item = itemAt(event->pos());
 	if (!item)
+	{
 		QTreeWidget::mousePressEvent(event);
+		return;
+	}
 	if (!(item->flags() & Qt::ItemIsEditable))
+	{
 		QTreeWidget::mousePressEvent(event);
+		return;
+	}
 	if ((event->button() == Qt::LeftButton) && (header()->logicalIndexAt(event->pos().x()) == 1))
 		QTreeWidget::mousePressEvent(event);
 	else
