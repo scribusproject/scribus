@@ -64,9 +64,9 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 	StopM.clear();
 	contextStop = 0;
 	ActStop = 0;
-	for (uint a = 0; a < fill_gradient.Stops(); ++a)
+	for (int i = 0; i < fill_gradient.Stops(); ++i)
 	{
-		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
+		int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
 		StopM.append(center);
 	}
 } 
@@ -75,9 +75,9 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 {
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	StopM.clear();
-	for (uint a = 0; a < fill_gradient.Stops(); ++a)
+	for (int i = 0; i < fill_gradient.Stops(); ++i)
 	{
-		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
+		int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
 		StopM.append(center);
 	}
 	QImage pixm(width()-20, 37, QImage::Format_ARGB32_Premultiplied);
@@ -100,9 +100,9 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	pw.drawImage(10, 5, pixm);
 	if (isEditable)
 	{
-		for (uint a = 0; a < fill_gradient.Stops(); ++a)
+		for (int i = 0; i < fill_gradient.Stops(); ++i)
 		{
-			int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
+			int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
 			pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			if (StopM[qMax(ActStop,0)] == center)
 				pw.setBrush(Qt::red);

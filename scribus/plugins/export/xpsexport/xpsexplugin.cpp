@@ -2112,7 +2112,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			bool   isFirst = true;
 			double actualStop = 0.0, lastStop = 0.0;
 			QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
 			{
 				actualStop = cstops.at(cst)->rampPoint;
 				if ((actualStop != lastStop) || (isFirst))
@@ -2213,7 +2213,7 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 			bool   isFirst = true;
 			double actualStop = 0.0, lastStop = 0.0;
 			QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 			{
 				actualStop = cstops.at(cst)->rampPoint;
 				if ((actualStop != lastStop) || (isFirst))
@@ -2345,7 +2345,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		bool   isFirst = true;
 		double actualStop = 0.0, lastStop = 0.0;
 		QList<VColorStop*> cstops = Item->mask_gradient.colorStops();
-		for (uint cst = 0; cst < Item->mask_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < Item->mask_gradient.Stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
 			if ((actualStop != lastStop) || (isFirst))

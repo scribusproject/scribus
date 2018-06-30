@@ -5062,13 +5062,13 @@ void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
 				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->mask_gradient.colorStops();
-			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->GrType == 13)
 				ite->createConicalMesh();
@@ -5107,13 +5107,13 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 			ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 		}
 		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		cstops = ite->stroke_gradient.colorStops();
-		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		cstops = ite->mask_gradient.colorStops();
-		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		if (ite->GrType == 13)
 			ite->createConicalMesh();
@@ -5131,7 +5131,7 @@ void ScribusDoc::recalculateColors()
 	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
 	{
 		QList<VColorStop*> cstops = itGrad.value().colorStops();
-		for (uint cst = 0; cst < itGrad.value().Stops(); ++cst)
+		for (int cst = 0; cst < itGrad.value().Stops(); ++cst)
 		{
 			if (cstops.at(cst)->name != CommonStrings::None)
 			{
@@ -5182,13 +5182,13 @@ void ScribusDoc::recalculateColors()
 				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->mask_gradient.colorStops();
-			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->GrType == 13)
 				ite->createConicalMesh();
@@ -5232,13 +5232,13 @@ void ScribusDoc::recalculateColors()
 					ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 				}
 				QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops = ite->stroke_gradient.colorStops();
-				for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops = ite->mask_gradient.colorStops();
-				for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				if (ite->asImageFrame())
 					loadPict(ite->Pfile, ite, true, false);
@@ -7187,7 +7187,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	Selection tempSelection(this, false);
 	m_Selection->clear();
 	tempSelection.delaySignalsOn();
-	if (oldItems>0)
+	if (oldItems > 0)
 	{
 		if (Layers.count()!= 0)
 		{
@@ -7195,7 +7195,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 			{
 				setActiveLayer(it->ID);
-				for (uint ite = 0; ite < oldItems; ++ite)
+				for (int ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
 					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->ID == itemToCopy->LayerID))
@@ -8983,12 +8983,12 @@ void ScribusDoc::itemSelection_ToggleBookMark(Selection *customSelection)
 	if (selectedItemCount == 0)
 		return;
 
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		UndoTransaction activeTransaction;
 		if (UndoManager::undoEnabled())
 			activeTransaction = m_undoManager->beginTransaction();
-		PageItem* currItem = itemSelection->itemAt(a);
+		PageItem* currItem = itemSelection->itemAt(i);
 		if (currItem->asTextFrame())
 		{
 			if (currItem->OwnPage != -1)
@@ -9023,16 +9023,16 @@ void ScribusDoc::itemSelection_ToggleAnnotation(Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		UndoTransaction activeTransaction;
 		if (UndoManager::undoEnabled())
 			activeTransaction = m_undoManager->beginTransaction();
-		PageItem* currItem = itemSelection->itemAt(a);
+		PageItem* currItem = itemSelection->itemAt(i);
 		if (currItem->asTextFrame())
 		{
 			bool old = currItem->isBookmark;
@@ -9067,20 +9067,20 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetStyle, newStyle.displayName(), Um::IFont);
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->firstInFrame();
-			int stop = currItem->lastInFrame()+1;
+			int stop = currItem->lastInFrame() + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
@@ -9088,7 +9088,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				if (start >= stop)
 					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
-			for (int pos=start; pos < stop; ++pos)
+			for (int pos = start; pos < stop; ++pos)
 			{
 				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
 				{
@@ -9120,15 +9120,15 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
@@ -9212,12 +9212,12 @@ void ScribusDoc::itemSelection_ClearBulNumStrings(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem->itemText.length() == 0)
 			continue;
 		int currItemTextCount = currItem->itemText.length();
@@ -9293,9 +9293,9 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		QPixmap* targetPixmap = (selectedItemCount > 1) ? Um::IGroup : currItem->getUPixmap();
 		activeTransaction = m_undoManager->beginTransaction(targetName, targetPixmap, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
 	}
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem->isTable() && appMode == modeEditTable)
 			currItem = currItem->asTable()->activeCell().textFrame();
 		int currItemTextCount = currItem->itemText.length();
@@ -9509,15 +9509,15 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.asString(), Um::IFont);
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
@@ -9589,15 +9589,15 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct char formatting" ), Um::IFont);
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
