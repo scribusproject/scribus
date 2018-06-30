@@ -68,10 +68,12 @@ ScPaths::ScPaths() :
 	m_templateDir(TEMPLATEDIR)
 {
 
-// Build an appimage and redirect the paths to 
+// Build an appimage and redirect the paths to
 // ones inside the bundle, relative to the executable.
 #ifdef Q_OS_LINUX
-    QString pathPtr = QCoreApplication::applicationDirPath() + QString("/..");
+	// Set the application name expliticly.
+	QCoreApplication::setApplicationName("scribus");
+	QString pathPtr = QCoreApplication::applicationDirPath() + QString("/..");
 	m_shareDir = QString("%1/share/scribus/").arg(pathPtr);
 	m_docDir = QString("%1/share/doc/scribus/").arg(pathPtr);
 	//m_fontDir = QString("%1/share/scribus/fonts/").arg(pathPtr);
@@ -451,10 +453,17 @@ QStringList ScPaths::systemProfilesDirs()
 	winSysDir = winSysDir.replace('\\','/');
 	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
 	{
+<<<<<<< HEAD
 		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 
 			iccProfDirs.append(winSysDir + "/Spool/Drivers/Color/");
 	}
 	else if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) // Windows 9x/Me 
+=======
+		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5
+			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
+	}
+	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me
+>>>>>>> Add explicit appname on linux.
 	{
 		if (osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
 			iccProfDirs.append(winSysDir + "/Color/");
