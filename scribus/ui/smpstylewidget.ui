@@ -615,7 +615,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Tabulators and Indentation</string>
+          <string>Tabs and Indentation</string>
          </property>
          <layout class="QVBoxLayout">
           <item>
