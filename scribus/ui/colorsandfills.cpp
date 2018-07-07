@@ -1464,7 +1464,7 @@ ColorList ColorsAndFillsDialog::getGradientColors()
 	for (itg = dialogGradients.begin(); itg != dialogGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().Stops(); ++cst)
 		{
 			if ((!colorList.contains(cstops.at(cst)->name)) && (cstops.at(cst)->name != CommonStrings::None))
 				colorList.insert(cstops.at(cst)->name, m_colorList[cstops.at(cst)->name]);
@@ -1501,19 +1501,19 @@ ColorList ColorsAndFillsDialog::getGradientColors()
 				}
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if ((!colorList.contains(cstops.at(cst)->name)) && (cstops.at(cst)->name != CommonStrings::None))
 					colorList.insert(cstops.at(cst)->name, m_colorList[cstops.at(cst)->name]);
 			}
 			cstops = ite->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 			{
 				if ((!colorList.contains(cstops.at(cst)->name)) && (cstops.at(cst)->name != CommonStrings::None))
 					colorList.insert(cstops.at(cst)->name, m_colorList[cstops.at(cst)->name]);
 			}
 			cstops = ite->mask_gradient.colorStops();
-			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			{
 				if ((!colorList.contains(cstops.at(cst)->name)) && (cstops.at(cst)->name != CommonStrings::None))
 					colorList.insert(cstops.at(cst)->name, m_colorList[cstops.at(cst)->name]);
@@ -1530,7 +1530,7 @@ void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName
 	for (itg = dialogGradients.begin(); itg != dialogGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().Stops(); ++cst)
 		{
 			if (oldName == cstops.at(cst)->name)
 			{
@@ -1577,7 +1577,7 @@ void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName
 				}
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (oldName == cstops.at(cst)->name)
 				{
@@ -1586,7 +1586,7 @@ void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName
 				}
 			}
 			cstops = ite->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
 			{
 				if (oldName == cstops.at(cst)->name)
 				{
@@ -1595,7 +1595,7 @@ void ColorsAndFillsDialog::updateGradientColors(QString newName, QString oldName
 				}
 			}
 			cstops = ite->mask_gradient.colorStops();
-			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			{
 				if (oldName == cstops.at(cst)->name)
 				{
