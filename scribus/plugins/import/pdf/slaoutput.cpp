@@ -209,7 +209,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		double Mc = colToDbl(cmyk.m);
 		double Yc = colToDbl(cmyk.y);
 		double Kc = colToDbl(cmyk.k);
-		tmp.setColorF(Cc, Mc, Yc, Kc);
+		tmp.setCmykColorF(Cc, Mc, Yc, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	else if ((color_space->getMode() == csCalGray) || (color_space->getMode() == csDeviceGray))
@@ -217,7 +217,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		GfxGray gray;
 		color_space->getGray(color, &gray);
 		double Kc = 1.0 - colToDbl(gray);
-		tmp.setColorF(0, 0, 0, Kc);
+		tmp.setCmykColorF(0, 0, 0, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	else if (color_space->getMode() == csSeparation)
@@ -228,7 +228,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
         bool isRegistrationColor = (name == "All");
         if (isRegistrationColor)
         {
-            tmp.setColorF(1.0, 1.0, 1.0, 1.0);
+            tmp.setCmykColorF(1.0, 1.0, 1.0, 1.0);
             tmp.setRegistrationColor(true);
             name = "Registration";
         }
@@ -4004,7 +4004,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		double Mc = colToDbl(cmyk.m);
 		double Yc = colToDbl(cmyk.y);
 		double Kc = colToDbl(cmyk.k);
-		tmp.setColorF(Cc, Mc, Yc, Kc);
+		tmp.setCmykColorF(Cc, Mc, Yc, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	else if ((color_space->getMode() == csCalGray) || (color_space->getMode() == csDeviceGray))
@@ -4012,7 +4012,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		GfxGray gray;
 		color_space->getGray(color, &gray);
 		double Kc = 1.0 - colToDbl(gray);
-		tmp.setColorF(0, 0, 0, Kc);
+		tmp.setCmykColorF(0, 0, 0, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	else if (color_space->getMode() == csSeparation)
@@ -4023,7 +4023,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		bool isRegistrationColor = (name == "All");
         if (isRegistrationColor)
         {
-            tmp.setColorF(1.0, 1.0, 1.0, 1.0);
+            tmp.setCmykColorF(1.0, 1.0, 1.0, 1.0);
             tmp.setRegistrationColor(true);
             name = "Registration";
         }
@@ -4104,14 +4104,14 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 		double Mc = color_data[1];
 		double Yc = color_data[2];
 		double Kc = color_data[3];
-		tmp.setColorF(Cc, Mc, Yc, Kc);
+		tmp.setCmykColorF(Cc, Mc, Yc, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	else if (color->getSpace() == AnnotColor::colorGray)
 	{
 		const double *color_data = color->getValues();
 		double Kc = 1.0 - color_data[0];
-		tmp.setColorF(0, 0, 0, Kc);
+		tmp.setCmykColorF(0, 0, 0, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	if (fNam == namPrefix+tmp.name())
