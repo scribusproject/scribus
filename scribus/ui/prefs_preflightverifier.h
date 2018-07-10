@@ -38,7 +38,7 @@ class SCRIBUS_API Prefs_PreflightVerifier : public Prefs_Pane, Ui::Prefs_Preflig
 
 	protected:
 		QString tempNewProfileName;
-		CheckerPrefsList checkerProfile;
+		CheckerPrefsList checkerProfiles;
 		QString currentProfile;
 		void updateProfile(const QString& name);
 };
