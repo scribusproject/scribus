@@ -114,6 +114,7 @@ void Prefs_PreflightVerifier::putProfile()
 		checkerProfile[currentProfile].ignoreOffLayers = checkNonPrintableLayersCheckBox->isChecked();
 		checkerProfile[currentProfile].checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
 		checkerProfile[currentProfile].checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
+		checkerProfile[currentProfile].checkEmptyTextFrames = checkEmptyTextFramesCheckBox->isChecked();
 	}
 }
 
@@ -150,6 +151,9 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	disconnect(checkPDFAnnotFieldsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkNonPrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+
 	ignoreAllErrorsCheckBox->setChecked(checkerProfile[name].ignoreErrors);
 	autoCheckBeforePrintExportCheckBox->setChecked(checkerProfile[name].autoCheck);
 	checkMissingGlyphsCheckBox->setChecked(checkerProfile[name].checkGlyphs);
@@ -166,7 +170,10 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	checkGIFsCheckBox->setChecked(checkerProfile[name].checkForGIF);
 	checkNonPrintableLayersCheckBox->setChecked(checkerProfile[name].ignoreOffLayers);
 	checkVisiblePrintableLayersCheckBox->setChecked(checkerProfile[name].checkOffConflictLayers);
+	checkAppliedMasterPageLocationCheckBox->setChecked(checkerProfile[name].checkAppliedMasterDifferentSide);
+	checkEmptyTextFramesCheckBox->setChecked(checkerProfile[name].checkEmptyTextFrames);
 	currentProfile = name;
+
 	connect(ignoreAllErrorsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(autoCheckBeforePrintExportCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkMissingGlyphsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -182,6 +189,8 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	connect(checkPDFAnnotFieldsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkNonPrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 void Prefs_PreflightVerifier::addProf()
@@ -203,6 +212,8 @@ void Prefs_PreflightVerifier::addProf()
 	checkerSettings.checkForGIF = checkGIFsCheckBox->isChecked();
 	checkerSettings.ignoreOffLayers = checkNonPrintableLayersCheckBox->isChecked();
 	checkerSettings.checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
+	checkerSettings.checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
+	checkerSettings.checkEmptyTextFrames = checkEmptyTextFramesCheckBox->isChecked();
 	checkerProfile.insert(tempNewProfileName, checkerSettings);
 	currentProfile = tempNewProfileName;
 	if (checkerProfile.count() > 1)
