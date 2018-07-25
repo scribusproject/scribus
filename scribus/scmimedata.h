@@ -33,18 +33,18 @@ public:
 	static const QString ScribusFragmentMimeType;
 	static const QString ScribusTextMimeType;
 
-	static bool clipboardHasScribusData(void);
-	static bool clipboardHasScribusElem(void);
-	static bool clipboardHasScribusFragment(void);
-	static bool clipboardHasScribusText(void);
-	static bool clipboardHasPlainText(void);
-	static bool clipboardHasKnownData(void);
-	static QString clipboardKnownDataExt(void);
-	static QByteArray clipboardKnownDataData(void);
+	static bool clipboardHasScribusData();
+	static bool clipboardHasScribusElem();
+	static bool clipboardHasScribusFragment();
+	static bool clipboardHasScribusText();
+	static bool clipboardHasPlainText();
+	static bool clipboardHasKnownData();
+	static QString clipboardKnownDataExt();
+	static QByteArray clipboardKnownDataData();
 
-	static QString clipboardScribusElem(void);
-	static QByteArray clipboardScribusFragment(void);
-	static QByteArray clipboardScribusText(void);
+	static QString clipboardScribusElem();
+	static QByteArray clipboardScribusFragment();
+	static QByteArray clipboardScribusText();
 };
 
 class SCRIBUS_API ScFragmentMimeData : public QMimeData
@@ -52,10 +52,10 @@ class SCRIBUS_API ScFragmentMimeData : public QMimeData
 	Q_OBJECT
 
 public:
-	ScFragmentMimeData(void) : QMimeData() {}
+	ScFragmentMimeData() : QMimeData() {}
 
 	void setScribusFragment(const QByteArray& fragment) { setData(ScMimeData::ScribusFragmentMimeType, fragment); }
-	QByteArray scribusFragment(void) { return data(ScMimeData::ScribusFragmentMimeType); }
+	QByteArray scribusFragment() { return data(ScMimeData::ScribusFragmentMimeType); }
 };
 
 class SCRIBUS_API ScElemMimeData : public QMimeData
@@ -69,7 +69,7 @@ protected:
 	virtual QVariant retrieveData ( const QString & mimeType, QVariant::Type type ) const;
 
 public:
-	ScElemMimeData(void);
+	ScElemMimeData();
 
 	virtual QStringList formats() const { return m_formats; }
 	virtual bool hasFormat ( const QString & mimeType ) const;
@@ -83,10 +83,10 @@ class SCRIBUS_API ScTextMimeData : public QMimeData
 	Q_OBJECT
 
 public:
-	ScTextMimeData(void) : QMimeData() {}
+	ScTextMimeData() : QMimeData() {}
 
 	void setScribusText(const QByteArray& scText) { setData(ScMimeData::ScribusTextMimeType, scText); }
-	QByteArray scribusText(void) { return data(ScMimeData::ScribusFragmentMimeType); }
+	QByteArray scribusText() { return data(ScMimeData::ScribusFragmentMimeType); }
 };
 
 #endif

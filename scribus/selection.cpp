@@ -500,7 +500,7 @@ bool Selection::itemsAreSameType() const
 	return true;
 }
 
-int Selection::objectsLayer(void) const
+int Selection::objectsLayer() const
 {
 	if (m_SelList.isEmpty())
 		return -1;
@@ -516,7 +516,7 @@ int Selection::objectsLayer(void) const
 	return layerID;
 }
 
-bool Selection::objectsHaveSameParent(void) const
+bool Selection::objectsHaveSameParent() const
 {
 	int selectedItemCount = m_SelList.count();
 	if (selectedItemCount <= 1)
@@ -535,17 +535,17 @@ bool Selection::objectsHaveSameParent(void) const
 	return haveSameParent;
 }
 
-bool Selection::signalsDelayed(void)
+bool Selection::signalsDelayed()
 {
 	return (m_isGUISelection && (m_delaySignals > 0));
 }
 
-void Selection::delaySignalsOn(void)
+void Selection::delaySignalsOn()
 {
 	++m_delaySignals;
 }
 
-void Selection::delaySignalsOff(void)
+void Selection::delaySignalsOff()
 {
 	--m_delaySignals;
 	if (m_delaySignals <= 0)

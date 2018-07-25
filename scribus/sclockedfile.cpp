@@ -33,7 +33,7 @@ ScLockedFile::ScLockedFile()
 {
 }
 
-ScLockedFile::ScLockedFile(const QString & name)
+ScLockedFile::ScLockedFile(const QString& name)
 	: m_fileName(name), m_isOpened(false), m_isLocked(false)
 {
 }
@@ -44,7 +44,7 @@ ScLockedFile::~ScLockedFile()
 		unlock();
 }
 
-void ScLockedFile::setName(const QString & name)
+void ScLockedFile::setName(const QString& name)
 {
 	m_fileName = name;
 }
@@ -182,7 +182,7 @@ ScLockedFileRO::ScLockedFileRO()
 {
 }
 
-ScLockedFileRO::ScLockedFileRO(const QString & name)
+ScLockedFileRO::ScLockedFileRO(const QString& name)
 	: ScLockedFile(name)
 {
 }

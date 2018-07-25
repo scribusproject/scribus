@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 //=====================================================//
 
 ScPlugin::ScPlugin()
-	: QObject(0)
+	: QObject(nullptr)
 {
 }
 
@@ -137,14 +137,14 @@ bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, QString /* target */)
 // Stub for plugins that don't implement this method to inherit
 DeferredTask* ScActionPlugin::runAsync(QString /* target */)
 {
-	return 0;
+	return nullptr;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
 DeferredTask* ScActionPlugin::runAsync(QIODevice* /* target */)
 {
-	return 0;
+	return nullptr;
 }
 
 // Legacy code support; avoid relying on in new code.
@@ -161,7 +161,7 @@ const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 
 bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 {
-	const uint docSelectionCount=doc->m_Selection->count();
+	const int docSelectionCount=doc->m_Selection->count();
 	ActionInfo ai(actionInfo());
 	if (SelectedType != -1)
 	{
@@ -179,7 +179,7 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 				if (ai.needsNumObjects > 2)
 				{
 					bool setter = true;
-					for (uint bx = 0; bx < docSelectionCount; ++bx)
+					for (int bx = 0; bx < docSelectionCount; ++bx)
 					{
 						if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
 							setter = false;
@@ -188,7 +188,7 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 				}
 				else
 				{
-					if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
+					if (docSelectionCount == ai.needsNumObjects)
 					{
 						if (ai.needsNumObjects == 2)
 						{

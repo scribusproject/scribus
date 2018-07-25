@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 PropTreeItemDelegate::PropTreeItemDelegate(PropTreeWidget *parent) : QItemDelegate(parent)
 {
 	m_parent = parent;
-	m_edit = 0;
+	m_edit = nullptr;
 }
 
 void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -117,7 +117,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 	QWidget *edito = nullptr;
 	PropTreeItem* item = (PropTreeItem*) m_parent->indexToItem(index);
 	if (!item)
-		return 0;
+		return nullptr;
 
 	if (item->m_type == PropTreeItem::IntSpinBox)
 	{
@@ -168,7 +168,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		connect(editor, SIGNAL(activated(QString)), item, SIGNAL(valueChanged(QString)));
 	}
 	else
-		edito = 0;
+		edito = nullptr;
 	m_edit = edito;
 	if (item && m_edit)
 		emit item->editStarted();
@@ -278,7 +278,7 @@ QSize PropTreeItemDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMod
 	return sz;
 }
 
-PropTreeItem::PropTreeItem(QTreeWidget *parent, int typ, QString title) : QObject(parent), QTreeWidgetItem(parent),
+PropTreeItem::PropTreeItem(QTreeWidget *parent, int typ, const QString& title) : QObject(parent), QTreeWidgetItem(parent),
 	m_type(typ),
 	m_unit(0),
 	m_decimals(0),
@@ -297,7 +297,7 @@ PropTreeItem::PropTreeItem(QTreeWidget *parent, int typ, QString title) : QObjec
 		setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 }
 
-PropTreeItem::PropTreeItem(PropTreeItem *parent, int typ, QString title) : QObject(parent), QTreeWidgetItem(parent)
+PropTreeItem::PropTreeItem(PropTreeItem *parent, int typ, const QString& title) : QObject(parent), QTreeWidgetItem(parent)
 {
 	setText(0, title);
 	m_type = typ;
@@ -371,7 +371,7 @@ void PropTreeItem::setBoolValue(bool value)
 	setData(1, Qt::DisplayRole, value);
 }
 
-void PropTreeItem::setStringValue(QString value)
+void PropTreeItem::setStringValue(const QString& value)
 {
 	setData(1, Qt::UserRole, value);
 	setData(1, Qt::DisplayRole, value);
@@ -401,7 +401,7 @@ void PropTreeItem::setDecimalsValue(int unit)
 		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString()).arg(unitGetSuffixFromIndex(m_unit)));
 }
 
-void PropTreeItem::setComboStrings(QStringList value)
+void PropTreeItem::setComboStrings(const QStringList& value)
 {
 	setData(1, Qt::UserRole + 1, value);
 }
@@ -418,7 +418,7 @@ void PropTreeItem::setMinMaxValues(double min, double max)
 	m_fmax = max;
 }
 
-void PropTreeItem::setColorList(ColorList colors)
+void PropTreeItem::setColorList(const ColorList& colors)
 {
 	m_colors = colors;
 }

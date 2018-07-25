@@ -45,7 +45,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 	Q_OBJECT
 
 	public:
-		PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+		PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 		~PageItem_LatexFrame();
 		
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }

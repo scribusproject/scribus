@@ -42,12 +42,12 @@ QDataStream & operator>> (QDataStream& stream, ExifValues & exif)
 	return stream;
 }
 
-ExifValues::ExifValues(void)
+ExifValues::ExifValues()
 {
 	init();
 }
 
-void ExifValues::init(void)
+void ExifValues::init()
 {
 	width = 0;
 	height = 0;
@@ -67,12 +67,12 @@ void ExifValues::init(void)
 
 const qint32 ImageInfoRecord::iirVersion = 1;
 
-ImageInfoRecord::ImageInfoRecord(void)
+ImageInfoRecord::ImageInfoRecord()
 {
 	init();
 }
 
-void ImageInfoRecord::init(void)
+void ImageInfoRecord::init()
 {
 	type = ImageTypeOther;	/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
 	xres = 72;

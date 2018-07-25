@@ -13,7 +13,7 @@
 
 #include <cmath>
 
-PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nStyle;
@@ -61,7 +61,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	deleteIt = false;
 }
 
-PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nullptr;

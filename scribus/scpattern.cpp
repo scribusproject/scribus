@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 ScPattern::ScPattern()
 {
 	items.clear();
-	doc = 0;
+	doc = nullptr;
 	pattern = QImage();
 	scaleX = 1.0;
 	scaleY = 1.0;
@@ -61,7 +61,7 @@ QImage* ScPattern::getPattern()
 	return &pattern;
 }
 
-void ScPattern::setPattern(QString name)
+void ScPattern::setPattern(const QString& name)
 {
 	items.clear();
 	doc->setLoading(true);

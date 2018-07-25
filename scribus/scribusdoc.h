@@ -657,7 +657,7 @@ public:
 	 */
 	QStringList getItemAttributeNames();
 
-	bool AddFont(QString name, int fsize = 10);
+	bool AddFont(const QString& name, int fsize = 10);
 	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 * CB: almost the same as getUsedFonts???
@@ -694,7 +694,7 @@ public:
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
-	void removePattern(QString name);
+	void removePattern(const QString& name);
 	void setPatterns(const QHash<QString, ScPattern> &patterns);
 	/*!
 	* @brief Check pattern with specified name and return it if valid
@@ -823,7 +823,7 @@ public:
 
 	int getItemNrfromUniqueID(uint unique);
 	//return pointer to item
-	PageItem* getItemFromName(QString name);
+	PageItem* getItemFromName(const QString& name);
 	//itemDelete
 	//itemBlah...
 
@@ -847,7 +847,7 @@ public:
 	 * @param reload 
 	 * @return 
 	 */
-	bool loadPict(QString fn, PageItem *pageItem, bool reload = false, bool showMsg = false);
+	bool loadPict(const QString& fn, PageItem *pageItem, bool reload = false, bool showMsg = false);
 	/**
 	 * \brief Handle image with color profiles
 	 * @param Pr profile
@@ -913,7 +913,7 @@ public:
 	 * @author Craig Ringer
 	 ** CB Moved from PageItem
 	 */
-	bool itemNameExists(const QString itemName);
+	bool itemNameExists(const QString& itemName);
 	
 	/**
 	 * @brief Set the doc into Master page mode
@@ -926,7 +926,7 @@ public:
 	/**
 	 * @brief Set the doc into symbol edit mode
 	 */
-	void setSymbolEditMode(bool mode, QString symbolName = "");
+	void setSymbolEditMode(bool mode, const QString& symbolName = "");
 
 	/*** Is the document in symbol edit mode? */
 	bool symbolEditMode() const { return m_symbolEditMode; }
@@ -1044,7 +1044,7 @@ public:
 	void itemSelection_convertItemsToSymbol(QString& patternName);
 	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection = nullptr, bool rmDirectFormatting = false);
 	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection = nullptr);
-	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr, QString ETEA = "");
+	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr, const QString& ETEA = "");
 	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr);
 	void itemSelection_EraseParagraphStyle(Selection* customSelection = nullptr);
 	void itemSelection_EraseCharStyle(Selection* customSelection = nullptr);
@@ -1065,7 +1065,7 @@ public:
 	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection = nullptr);
 	void itemSelection_SetLanguage(QString w, Selection* customSelection = nullptr);
 	void itemSetFont(const QString& newFont);
-	void itemSelection_SetFont(QString fon, Selection* customSelection = nullptr);
+	void itemSelection_SetFont(const QString& fon, Selection* customSelection = nullptr);
 	void itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection = nullptr);
 	void itemSelection_SetParBackgroundShade(int sha, Selection* customSelection = nullptr);
 	void itemSelection_SetBackgroundColor(QString farbe, Selection* customSelection = nullptr);
@@ -1169,7 +1169,7 @@ public:
 	bool ApplyGuides(FPoint* point, bool elementSnap = false);
 	bool moveItem(double newX, double newY, PageItem* ite);
 	void rotateItem(double win, PageItem *currItem);
-	void moveRotated(PageItem *currItem, FPoint npv);
+	void moveRotated(PageItem *currItem, const FPoint& npv);
 	bool sizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool moveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void adjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
@@ -1457,7 +1457,7 @@ public slots:
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion=false);
 	void itemSelection_SetItemFillTransparency(double t);
-	void itemSelection_SetFontFeatures(QString fontfeature, Selection* customSelection = nullptr);
+	void itemSelection_SetFontFeatures(const QString& fontfeature, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenChar(uint hyphenChar, Selection* customSelection = nullptr);
@@ -1715,7 +1715,7 @@ public:
 	QStringList marksLabelsList(MarkType type);
 
 	//return mark with given label and given type
-	Mark* getMark(QString label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
+	Mark* getMark(const QString& label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
 	Mark* newMark(Mark* mrk = nullptr);
 	TextNote* newNote(NotesStyle* NS);
 	
@@ -1731,12 +1731,12 @@ public:
 	bool invalidateVariableTextFrames(Mark* mrk, bool forceUpdate = false); //returns if any text was changed
 
 	//for foot/endnotes
-	NotesStyle* newNotesStyle(NotesStyle NS);
-	void renameNotesStyle(NotesStyle* NS, QString newName);
+	NotesStyle* newNotesStyle(const NotesStyle& NS);
+	void renameNotesStyle(NotesStyle* NS, const QString& newName);
 	//delete whole notes style with its notesframes and notes
 	void deleteNotesStyle(QString nsName);
 	void undoSetNotesStyle(SimpleState* ss, NotesStyle* ns);
-	NotesStyle* getNotesStyle(QString nsName);
+	NotesStyle* getNotesStyle(const QString& nsName);
 	//delete note, if fromText than marks for given note will be removed
 	void deleteNote(TextNote* note);
 	void setUndoDelNote(TextNote* note);
@@ -1750,7 +1750,7 @@ public:
 	//set new text styles for notes marks
 	void updateNotesFramesStyles(NotesStyle* nStyle);
 	//check conflicts beetween notes styles
-	bool validateNSet(NotesStyle NS, QString newName = "");
+	bool validateNSet(const NotesStyle& NS, QString newName = "");
 	//update layout remove empty notesframes
 	bool notesFramesUpdate();
 	//update notesframes after changing automatic features of notes style

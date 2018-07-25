@@ -400,7 +400,7 @@ PageItem::PageItem(const PageItem & other)
 }
 
 
-PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	// Initialize superclass(es)
 	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()), TextContext(this),
 	// Initialize member variables

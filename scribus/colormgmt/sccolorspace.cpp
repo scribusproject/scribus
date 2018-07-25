@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolorspace.h"
 
-ScColorSpace::ScColorSpace() : m_data(NULL)
+ScColorSpace::ScColorSpace() : m_data(nullptr)
 {
 }
 
@@ -40,28 +40,28 @@ ScColorProfile ScColorSpace::profile() const
 	return ScColorProfile();
 }
 
-uint ScColorSpace::numChannels(void) const
+uint ScColorSpace::numChannels() const
 {
 	if (m_data)
 		return m_data->numChannels();
 	return 0;
 }
 
-uint ScColorSpace::bytesPerChannel(void) const
+uint ScColorSpace::bytesPerChannel() const
 {
 	if (m_data)
 		return m_data->bytesPerChannel();
 	return 0;
 }
 
-bool ScColorSpace::hasAlphaChannel(void) const
+bool ScColorSpace::hasAlphaChannel() const
 {
 	if (m_data)
 		return m_data->hasAlphaChannel();
 	return false;
 }
 
-uint  ScColorSpace::alphaIndex(void) const
+uint  ScColorSpace::alphaIndex() const
 {
 	if (m_data)
 		return m_data->alphaIndex();

@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolorprofile.h"
 
-ScColorProfile::ScColorProfile() : m_data(NULL)
+ScColorProfile::ScColorProfile() : m_data(nullptr)
 {
 }
 

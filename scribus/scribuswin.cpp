@@ -36,9 +36,9 @@ for which a new license (GPL+exception) is in place.
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
 	QMainWindow(parent),
-	m_subWindow(0),
-	m_ScMW(0),
-	m_View(0),
+	m_subWindow(nullptr),
+	m_ScMW(nullptr),
+	m_View(nullptr),
 	m_winIndex(0)
 {
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon2.png"));
@@ -57,7 +57,7 @@ void ScribusWin::setView(ScribusView* newView)
 	++m_Doc->viewCount;
 	m_winIndex = ++m_Doc->viewID;
 	setCentralWidget(newView);
-	setStatusBar(0);
+	setStatusBar(nullptr);
 }
 
 void ScribusWin::closeEvent(QCloseEvent *ce)

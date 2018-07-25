@@ -79,8 +79,8 @@ struct PSDDuotone_Color
 class ExifValues
 {
 public:
-	ExifValues(void);
-	void init(void);
+	ExifValues();
+	void init();
 
 	// Remember to increment this version number and update
 	// the QDataStream operators if this class in changed.
@@ -126,8 +126,8 @@ typedef enum
 class ImageInfoRecord
 {
 public:
-	ImageInfoRecord(void);
-	void init(void);
+	ImageInfoRecord();
+	void init();
 
 	// Remember to increment this version number and update
 	// the serialization routines if this class in changed.

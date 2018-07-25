@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 ScLayer::ScLayer()
 {
 	Name         = QObject::tr("New Layer");
-	ID          = 0;
+	ID           = 0;
 	Level        = 0;
 	isPrintable  = true;
 	isViewable   = true;

@@ -73,7 +73,7 @@ class SCRIBUS_API PageItem_OSGFrame : public PageItem_ImageFrame
 			SolidOutline					= 13,
 			ShadedIllustration				= 14
 		};
-		PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+		PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 		~PageItem_OSGFrame();
 		
 		virtual PageItem_OSGFrame * asOSGFrame() { return this; }

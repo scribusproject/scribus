@@ -72,7 +72,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
 	init();
@@ -95,7 +95,7 @@ void PageItem_TextFrame::init()
 	verticalAlign = 0;
 	incompleteLines = 0;
 	maxY = 0.0;
-	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
+	connect(&itemText,SIGNAL(changed(int,int)), this, SLOT(slotInvalidateLayout(int,int)));
 }
 
 static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
@@ -1644,7 +1644,7 @@ void PageItem_TextFrame::layout()
 				if (current.startOfCol && !current.afterOverflow && current.recalculateY)
 					current.yPos = qMax(current.yPos, m_textDistanceMargins.top());
 				// more about par gap and dropcaps
-				if ((a > firstInFrame() && itemText.isBlockStart(a)) || (a == 0 && BackBox == 0 && current.startOfCol))
+				if ((a > firstInFrame() && itemText.isBlockStart(a)) || (a == 0 && BackBox == nullptr && current.startOfCol))
 				{
 					if (!current.afterOverflow && current.recalculateY && !current.startOfCol)
 						current.yPos += style.gapBefore();
@@ -1899,7 +1899,7 @@ void PageItem_TextFrame::layout()
 				}
 			}
 			current.recalculateY = true;
-			maxYAsc = 0.0, maxYDesc = 0.0;
+			maxYAsc = maxYDesc = 0.0;
 			double addAsce = 0.0;
 			if (current.startOfCol)
 			{
@@ -4188,7 +4188,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			else
 			{
 				itemText.setCursorPosition( firstInFrame() );
-				if (BackBox != 0)
+				if (BackBox != nullptr)
 				{
 					view->Deselect(true);
 					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
@@ -4201,7 +4201,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_PageUp:
-		if (itemText.cursorPosition() == firstInFrame() && BackBox != 0)
+		if (itemText.cursorPosition() == firstInFrame() && BackBox != nullptr)
 		{
 			view->Deselect(true);
 			BackBox->itemText.setCursorPosition( BackBox->firstInFrame() );
@@ -4215,7 +4215,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_PageDown:
-		if (!frameDisplays(itemText.length()-1) && itemText.cursorPosition() >= lastInFrame() && NextBox != 0)
+		if (!frameDisplays(itemText.length()-1) && itemText.cursorPosition() >= lastInFrame() && NextBox != nullptr)
 		{
 			view->Deselect(true);
 			itemText.setCursorPosition( NextBox->lastInFrame() );
@@ -4246,7 +4246,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (itemText.cursorPosition() < firstInFrame())
 			{
 				itemText.setCursorPosition( firstInFrame() );
-				if (BackBox != 0)
+				if (BackBox != nullptr)
 				{
 					view->Deselect(true);
 					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
@@ -4286,7 +4286,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 //				--CPos;
 				itemText.setCursorPosition(lastInFrame() + 1);
-				if (NextBox != 0)
+				if (NextBox != nullptr)
 				{
 					if (NextBox->frameDisplays(itemText.cursorPosition()))
 					{
@@ -4347,7 +4347,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 		{
 			layout();
-			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+			if (oldLast != lastInFrame() && NextBox != nullptr && NextBox->invalid)
 				NextBox->updateLayout();
 		}
 //		Tinput = false;
@@ -4404,13 +4404,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 		{
 			layout();
-			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+			if (oldLast != lastInFrame() && NextBox != nullptr && NextBox->invalid)
 				NextBox->updateLayout();
 		}
 		if (itemText.cursorPosition() < firstInFrame())
 		{
 			itemText.setCursorPosition( firstInFrame() );
-			if (BackBox != 0)
+			if (BackBox != nullptr)
 			{
 				view->Deselect(true);
 				if (BackBox->invalid)
@@ -4493,7 +4493,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (UndoManager::undoEnabled())
 			{
-				ScItemState<ParagraphStyle> *ip = 0;
+				ScItemState<ParagraphStyle> *ip = nullptr;
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 				UndoObject *undoTarget = this;
 				int cursorPos = itemText.cursorPosition();
@@ -4571,12 +4571,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 			else
 				update();
-			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+			if (oldLast != lastInFrame() && NextBox != nullptr && NextBox->invalid)
 				NextBox->updateLayout();
 		}
 		//check if cursor need to jump to next linked frame
 		//but not for notes frames can`t be updated as may disapper during update
-		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != 0)
+		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != nullptr)
 		{
 			view->Deselect(true);
 			NextBox->update();
@@ -5072,7 +5072,7 @@ bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGro
 	QLabel *charCT = new QLabel(infoGroup);
 	QLabel *charT = new QLabel(infoGroup);
 
-	if ((nextInChain() != 0) || (prevInChain() != 0))
+	if ((nextInChain() != nullptr) || (prevInChain() != nullptr))
 		infoCT->setText(tr("Linked Text"));
 	else
 		infoCT->setText(tr("Text Frame"));
@@ -5157,7 +5157,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		else
 			actionList << "itemPDFFieldProps";
 	}
-	if ((prevInChain() == 0) && (nextInChain() == 0))
+	if ((prevInChain() == nullptr) && (nextInChain() == nullptr))
 	{
 		actionList << "itemConvertToImageFrame";
 		actionList << "itemConvertToPolygon";
@@ -5961,7 +5961,7 @@ void PageItem_TextFrame::setTextFrameHeight()
 	if (textLayout.lines() <= 0)
 		return;
 
-	if (NextBox == 0) // Vertical alignment is not used inside a text chain
+	if (NextBox == nullptr) // Vertical alignment is not used inside a text chain
 	{
 		textLayout.box()->moveTo(textLayout.box()->x(), 0);
 		double newHeight = textLayout.box()->naturalHeight();

@@ -83,8 +83,7 @@ public:
 
 public:
 	/// Construct a new table item with @a numRows rows and @a numColumns columns.
-	PageItem_Table(ScribusDoc *pa, double x, double y, double w, double h, double w2,
-		QString fill, QString outline, int numRows = 1, int numColumns = 1);
+	PageItem_Table(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline, int numRows = 1, int numColumns = 1);
 
 	/// Destructor.
 	~PageItem_Table();

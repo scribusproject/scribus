@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-PageItem_Symbol::PageItem_Symbol(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_Symbol::PageItem_Symbol(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	: PageItem(pa, PageItem::Symbol, x, y, w, h, 0, CommonStrings::None, CommonStrings::None)
 {
 }

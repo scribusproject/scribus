@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "util.h"
 
-PageItem_OSGFrame::PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_OSGFrame::PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
 	setUPixmap(Um::ILatexFrame);

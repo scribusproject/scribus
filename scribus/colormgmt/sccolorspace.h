@@ -32,11 +32,11 @@ public:
 	eColorFormat colorFormat() const;
 	ScColorProfile profile() const;
 
-	uint  numChannels(void)     const;
-	uint  bytesPerChannel(void) const;
+	uint  numChannels()     const;
+	uint  bytesPerChannel() const;
 
-	bool  hasAlphaChannel(void) const;
-	uint  alphaIndex(void)      const;
+	bool  hasAlphaChannel() const;
+	uint  alphaIndex()      const;
 
 	// Restore full opacity of alpha channel
 	void flattenAlpha(void* dataIn, uint numElems);

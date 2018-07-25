@@ -41,7 +41,7 @@ public:
 
 	QImage* getPattern();
 	void setDoc(ScribusDoc *theDoc);
-	void setPattern(QString file);
+	void setPattern(const QString& file);
 	void createPreview();
 
 	double scaleX;

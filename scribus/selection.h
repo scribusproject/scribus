@@ -159,17 +159,17 @@ class SCRIBUS_API Selection : public QObject
 		 * \brief get the layer ID of items in the selection
 		 * @return the layer ID or -1 if items do not belong to the same layer
 		 */
-		int objectsLayer(void) const;
+		int objectsLayer() const;
 
 		/**
 		 * \brief detect if selected object have all same parent (doc or group)
 		 * @return true if objects share same parent, false otherwise
 		 */
-		bool objectsHaveSameParent(void) const;
+		bool objectsHaveSameParent() const;
 
-		bool signalsDelayed(void);
-		void delaySignalsOn(void);
-		void delaySignalsOff(void);
+		bool signalsDelayed();
+		void delaySignalsOn();
+		void delaySignalsOff();
 		
 	protected:
 		PageItem *itemAt_(int index=0);

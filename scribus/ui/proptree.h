@@ -59,8 +59,8 @@ class SCRIBUS_API PropTreeItem : public QObject, public QTreeWidgetItem
 	Q_OBJECT
 
 public:
-	PropTreeItem(QTreeWidget* parent, int typ, QString title);
-	PropTreeItem(PropTreeItem* parent, int typ, QString title);
+	PropTreeItem(QTreeWidget* parent, int typ, const QString& title);
+	PropTreeItem(PropTreeItem* parent, int typ, const QString& title);
 //	PropTreeItem(QTreeWidget *parent, QString title, int value, int min, int max, int unit);
 //	PropTreeItem(QTreeWidget* parent, QString title, double value, double min, double max, int decimals, int unit);
 //	PropTreeItem(QTreeWidget *parent, QString title, QString value, QStringList values);
@@ -85,13 +85,13 @@ public:
 	void setIntValue(int value);
 	void setDoubleValue(double value);
 	void setBoolValue(bool value);
-	void setStringValue(QString value);
+	void setStringValue(const QString& value);
 	void setUnitValue(int unit);
 	void setDecimalsValue(int unit);
-	void setComboStrings(QStringList value);
+	void setComboStrings(const QStringList& value);
 	void setMinMaxValues(int min, int max);
 	void setMinMaxValues(double min, double max);
-	void setColorList(ColorList colors);
+	void setColorList(const ColorList& colors);
 	int m_type;
 	int m_unit;
 	int m_decimals;

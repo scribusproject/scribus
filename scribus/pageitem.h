@@ -230,7 +230,7 @@ public:	// Start enumerator definitions
 
 public: // Start public functions
 
-	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	virtual ~PageItem();
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
