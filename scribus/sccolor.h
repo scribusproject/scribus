@@ -136,6 +136,8 @@ public:
 	/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK or #RRGGBB */
 	void setNamedColor(QString nam);
 
+	/** \brief If the color is a process color (ie neither spot, nor registration) */
+	bool isProcessColor() const;
 	/** \brief If the color is a spot color */
 	bool isSpotColor() const;
 	/** \brief Set a color to be a spot color or not. No effect if color is the None color. */

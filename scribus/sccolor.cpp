@@ -401,6 +401,11 @@ void ScColor::setNamedColor(QString name)
 	}
 }
 
+bool ScColor::isProcessColor() const
+{
+	return (!m_Regist && !m_Spot);
+}
+
 bool ScColor::isRegistrationColor() const
 {
 	return m_Regist;
