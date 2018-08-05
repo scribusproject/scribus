@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************************/
 /***************************************************************************************/
 
-ScGTPluginManager* ScGTPluginManager::instance_ = 0; // init static variables
+ScGTPluginManager* ScGTPluginManager::instance_ = nullptr; // init static variables
 
 ScGTPluginManager::ScGTPluginManager()
 {
@@ -37,7 +37,7 @@ ScGTPluginManager* ScGTPluginManager::instance()
 void ScGTPluginManager::deleteInstance()
 {
 	delete instance_;
-	instance_ = 0;
+	instance_ = nullptr;
 }
 
 void ScGTPluginManager::registerGTPlugin(ScGTPlugin *plugin)
@@ -54,7 +54,7 @@ void ScGTPluginManager::unRegisterGTPlugin(ScGTPlugin *plugin)
 void ScGTPluginManager::run()
 {
 	// TODO prefs
-	ScGTFileDialog *dia = new ScGTFileDialog(".", fileFilter(), 0, "dia");
+	ScGTFileDialog *dia = new ScGTFileDialog(".", fileFilter(), nullptr, "dia");
 	if (dia->exec())
 	{
 		

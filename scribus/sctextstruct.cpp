@@ -21,8 +21,7 @@ PageItem* InlineFrame::getPageItem(ScribusDoc* doc) const
 
 ScText::~ScText() 
 {
-	if (parstyle)
-		delete parstyle;
+	delete parstyle;
 	parstyle = nullptr;
 	mark = nullptr;
 }
@@ -40,8 +39,7 @@ bool ScText::hasMark(Mark* MRK) const
 	{
 		if (MRK == nullptr)
 			return mark != nullptr;
-		else
-			return mark == MRK;
+		return mark == MRK;
 	}
 	return false;
 }

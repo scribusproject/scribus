@@ -390,7 +390,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	initKeyboardShortcuts();
 
 	resize(610, 600);
-	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow *)));
+	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
 	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , mdiArea, SLOT(cascadeSubWindows()) );
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
@@ -463,14 +463,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 ScribusMainWindow::~ScribusMainWindow()
 {
-	if (actionManager)
-		delete actionManager;
-	if (appModeHelper)
-		delete appModeHelper;
-	if (m_doc)
-		delete m_doc;
-	if (m_tocGenerator)
-		delete m_tocGenerator;
+	delete actionManager;
+	delete appModeHelper;
+	delete m_doc;
+	delete m_tocGenerator;
 }
 
 void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
@@ -606,19 +602,19 @@ void ScribusMainWindow::initPalettes()
 	// these must be filtered too as they take control of the palettes events
 	outlinePalette = new OutlinePalette(this);
 	outlinePalette->setMainWindow(this);
-	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)));
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
 
 	propertiesPalette = new PropertiesPalette(this);
 	propertiesPalette->setMainWindow(this);
-	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)));
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
 	emit UpdateRequest(reqDefFontListUpdate);
 	propertiesPalette->installEventFilter(this);
 
 	textPalette = new TextPalette(this);
 	textPalette->setMainWindow(this);
-	connect( scrActions["toolsText"], SIGNAL(toggled(bool)) , textPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsText"], SIGNAL(toggled(bool)) , textPalette, SLOT(setPaletteShown(bool)));
 	connect( textPalette, SIGNAL(paletteShown(bool)), scrActions["toolsText"], SLOT(setChecked(bool)));
 	emit UpdateRequest(reqDefFontListUpdate);
 	textPalette->installEventFilter(this);
@@ -627,12 +623,12 @@ void ScribusMainWindow::initPalettes()
 	layerPalette = new LayerPalette(this);
 	guidePalette = new GuideManager(this);
 	charPalette = new CharSelect(this);
-	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)));
 	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setChecked(bool)));
 	layerPalette->installEventFilter(this);
 	layerPalette->Table->installEventFilter(this);
 	scrapbookPalette = new Biblio(this);
-	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)));
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
 	connect( scrapbookPalette, SIGNAL(pasteToActualPage(QString)), this, SLOT(pasteFromScrapbook(QString)));
 	connect( scrapbookPalette, SIGNAL(scrapbookListChanged()), this, SLOT(rebuildScrapbookMenu()));
@@ -649,7 +645,7 @@ void ScribusMainWindow::initPalettes()
 	connect( scrActions["toolsDownloads"], SIGNAL(toggled(bool)) , downloadsPalette, SLOT(setPaletteShown(bool)) );
 	connect( downloadsPalette, SIGNAL(paletteShown(bool)), scrActions["toolsDownloads"], SLOT(setChecked(bool)));
 	downloadsPalette->installEventFilter(this);
-	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool,int)) , this, SLOT(setAppModeByToggle(bool,int)) );
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
@@ -713,11 +709,11 @@ void ScribusMainWindow::initPalettes()
 	connect( nsEditor, SIGNAL(paletteShown(bool)), scrActions["editNotesStyles"], SLOT(setChecked(bool)));
 	nsEditor->installEventFilter(this);
 
-	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
-	connect(docCheckerPalette, SIGNAL(selectElement(PageItem *, bool, int)), this, SLOT(selectItemFromOutlines(PageItem *, bool, int)));
+	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem*,bool)), this, SLOT(selectItemsFromOutlines(PageItem*,bool)));
+	connect(docCheckerPalette, SIGNAL(selectElement(PageItem*,bool,int)), this, SLOT(selectItemFromOutlines(PageItem*,bool,int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
-	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
+	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem*,bool)));
 	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
@@ -1960,7 +1956,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 				if (tw == ActWin)
 				{
 					ce->ignore();
-					connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
+					connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 					return;
 				}
 			}
@@ -2880,7 +2876,7 @@ void ScribusMainWindow::HaveNewSel()
 			Q_ASSERT(ixplug);
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
-			if (pluginAction != 0)
+			if (pluginAction != nullptr)
 				pluginAction->setEnabled(ixplug->handleSelection(doc, SelectedType));
 		}
 	}
@@ -3055,7 +3051,7 @@ void ScribusMainWindow::pasteRecent(const QString& fn)
 	doPasteRecent(scrapbookPalette->tempBView->objectMap[fn].Data);
 }
 
-void ScribusMainWindow::doPasteRecent(QString data)
+void ScribusMainWindow::doPasteRecent(const QString& data)
 {
 	if (!HaveDoc)
 		return;
@@ -3143,7 +3139,7 @@ void ScribusMainWindow::importVectorFile()
 	QString allFormats = tr("All Supported Formats")+" (";
 	int fmtCode = FORMATID_FIRSTUSER;
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
-	while (fmt != 0)
+	while (fmt != nullptr)
 	{
 		if (fmt->load)
 		{
@@ -3303,7 +3299,7 @@ bool ScribusMainWindow::slotPageImport()
 	bool ret = false;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, 0, Um::ILock);
+		activeTransaction = m_undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, nullptr, Um::ILock);
 
 	m_mainWindowStatusLabel->setText( tr("Importing Pages..."));
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -3398,7 +3394,7 @@ bool ScribusMainWindow::slotPageImport()
 	return ret;
 }
 
-bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName)
+bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName)
 {
 	bool ret = false;
 	if (!fileName.isEmpty())
@@ -3850,7 +3846,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
-		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString)), doc, SLOT(updatePictDir(QString )));
+		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString)), doc, SLOT(updatePictDir(QString)));
 		connect(m_undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
 		connect(m_undoManager, SIGNAL(undoRedoDone()), doc, SLOT(undoRedoDone()));
 		connect(m_undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
@@ -4314,7 +4310,7 @@ bool ScribusMainWindow::DoFileClose()
 	textPalette->unsetDoc();
 	inlinePalette->unsetDoc();
 	symbolPalette->unsetDoc();
-	pagePalette->setView(0);
+	pagePalette->setView(nullptr);
 	pagePalette->Rebuild();
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
@@ -4727,7 +4723,7 @@ void ScribusMainWindow::slotEditPaste()
 	if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
 		return;
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+		activeTransaction = m_undoManager->beginTransaction(doc->currentPage()->getUName(), nullptr, Um::Paste, "", Um::IPaste);
 	PageItem* selItem = doc->m_Selection->itemAt(0);
 	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && selItem && (selItem->isTextFrame() || selItem->isTable()))
 	{
@@ -5098,14 +5094,14 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 			currItem = currItem->asTable()->activeCell().textFrame();
 		PageItem *nextItem = currItem;
 		nextItem->itemText.selectAll();
-		while (nextItem != 0)
+		while (nextItem != nullptr)
 		{
-			if (nextItem->prevInChain() != 0)
+			if (nextItem->prevInChain() != nullptr)
 				nextItem = nextItem->prevInChain();
 			else
 				break;
 		}
-		while (nextItem != 0)
+		while (nextItem != nullptr)
 		{
 			nextItem->HasSel = true;
 			nextItem = nextItem->nextInChain();

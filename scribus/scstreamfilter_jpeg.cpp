@@ -112,8 +112,7 @@ ScJpegEncodeFilterData::ScJpegEncodeFilterData() : cdest(nullptr)
 
 ScJpegEncodeFilterData::~ScJpegEncodeFilterData()
 {
-	if (cdest)
-		delete cdest;
+	delete cdest;
 	if (row_pointer[0])
 		delete [] row_pointer[0];
 }
@@ -143,8 +142,7 @@ ScJpegEncodeFilter::~ScJpegEncodeFilter()
 
 void ScJpegEncodeFilter::freeData()
 {
-	if (m_filterData)
-		delete m_filterData;
+	delete m_filterData;
 	m_filterData = nullptr;
 }
 
@@ -162,7 +160,7 @@ bool ScJpegEncodeFilter::openFilter ()
 	struct ScJpegErrorMgr jerr;
 	jerr.pub.error_exit     = ScJpegErrorMgr::jpegErrorExit;
 	m_filterData->cinfo.err = jpeg_std_error (&jerr.pub);
-	m_filterData->row_pointer[0] = 0;
+	m_filterData->row_pointer[0] = nullptr;
 
 	m_filterData->cdest = new ScJpegDestinationMgr(this);
 	if (m_filterData->cdest == nullptr)

@@ -203,7 +203,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 		str.replace(SpecialChars::SHYPHEN, SpecialChars::ZWNJ);
 
 		//set style for paragraph effects
-		if (m_story.isBlockStart(i) && (m_context != 0) && (m_context->getDoc() != 0))
+		if (m_story.isBlockStart(i) && (m_context != nullptr) && (m_context->getDoc() != nullptr))
 		{
 			const ScribusDoc* doc = m_context->getDoc();
 			const ParagraphStyle& style = m_story.paragraphStyle(i);
@@ -376,7 +376,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		// at the point, shaping with graphite fonts is either buggy (harfbuzz 1.4.2)
 		// or trigger weird results (harfbuzz 1.4.3), so disable graphite for now.
 		// Prevent also use of platform specific shapers for cross-platform reasons
-		const char* shapers[] = { "ot", "fallback", 0 };
+		const char* shapers[] = { "ot", "fallback", nullptr };
 		hb_shape_full(hbFont, hbBuffer, hbFeatures.data(), hbFeatures.length(), shapers);
 
 		unsigned int count = hb_buffer_get_length(hbBuffer);

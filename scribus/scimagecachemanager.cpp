@@ -349,15 +349,14 @@ ScImageCacheManager & ScImageCacheManager::instance()
 ScImageCacheManager::ScImageCacheManager()
 	: m_isEnabled(false), m_haveMasterLock(false), m_inCleanup(false), m_writeLockCount(0),
 	  m_compressionLevel(-1), m_maxEntries(0), m_maxSizeMiB(0), m_maxTotalSize(0),
-	  m_totalCacheSize(0), m_writeLockFile(0), m_root(0)
+	  m_totalCacheSize(0), m_writeLockFile(nullptr), m_root(nullptr)
 {
 }
 
 ScImageCacheManager::~ScImageCacheManager()
 {
 	// no tryCleanup here, I guess we rather want Scribus to exit fast
-	if (m_root)
-		delete m_root;
+	delete m_root;
 }
 
 QString ScImageCacheManager::absolutePath(const QString & fn)
@@ -698,7 +697,7 @@ void ScImageCacheManager::updateCache()
 			if (!d1)
 			{
 				delete m_root;
-				m_root = 0;
+				m_root = nullptr;
 				return;
 			}
 		
@@ -709,7 +708,7 @@ void ScImageCacheManager::updateCache()
 				if (!d2)
 				{
 					delete m_root;
-					m_root = 0;
+					m_root = nullptr;
 					return;
 				}
 
@@ -808,7 +807,7 @@ ScImageCacheFile *ScImageCacheManager::getOldestCacheEntry()
 {
 	ScImageCacheFile *file;
 
-	while ((file = m_metaAge.getOldest()) != 0)
+	while ((file = m_metaAge.getOldest()) != nullptr)
 	{
 		QFileInfo info(file->path());
 		if (!info.exists())
@@ -953,7 +952,7 @@ bool ScImageCacheManager::acquireWriteLock()
 {
 	if (!m_haveMasterLock && m_writeLockCount == 0)
 	{
-		Q_ASSERT(m_writeLockFile == 0);
+		Q_ASSERT(m_writeLockFile == nullptr);
 		if (!createLockDir())
 		{
 			scDebug() << "failed to create lock directory";
@@ -973,14 +972,14 @@ bool ScImageCacheManager::acquireWriteLock()
 		{
 			scDebug() << "failed to create write lock file";
 			delete m_writeLockFile;
-			m_writeLockFile = 0;
+			m_writeLockFile = nullptr;
 			return false;
 		}
 		if (master.exists())
 		{
 			scDebug() << "master lock active";
 			delete m_writeLockFile;
-			m_writeLockFile = 0;
+			m_writeLockFile = nullptr;
 			return false;
 		}
 	}
@@ -992,17 +991,17 @@ bool ScImageCacheManager::releaseWriteLock()
 {
 	if (m_writeLockCount == 0)
 	{
-		Q_ASSERT(m_writeLockFile == 0);
+		Q_ASSERT(m_writeLockFile == nullptr);
 		return false;
 	}
 	m_writeLockCount--;
 	if (!m_haveMasterLock)
 	{
-		Q_ASSERT(m_writeLockFile != 0);
+		Q_ASSERT(m_writeLockFile != nullptr);
 		if (m_writeLockCount == 0)
 		{
 			delete m_writeLockFile;
-			m_writeLockFile = 0;
+			m_writeLockFile = nullptr;
 		}
 	}
 	return true;

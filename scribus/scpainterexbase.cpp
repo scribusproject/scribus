@@ -27,9 +27,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scpainterexbase.h"
 
-ScPainterExBase::ScPainterExBase(void)
+ScPainterExBase::ScPainterExBase()
 {
 	m_capabilities = 0;
-	m_pattern = 0;
-	m_maskPattern = 0;
+	m_pattern = nullptr;
+	m_maskPattern = nullptr;
 }

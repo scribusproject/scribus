@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/boxes.h"
 
 
-MarksOptions::MarksOptions(void)
+MarksOptions::MarksOptions()
 {
 	markLength = 20.0;
 	markOffset = 0.0;
@@ -596,7 +596,7 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, QRect 
 	QPointF ipc = invMat.map(pc), ipd = invMat.map(pd);
 
 	painter->save();
-	if (item->imageClip.size() != 0)
+	if (!item->imageClip.empty())
 	{
 		painter->setupPolygon(&item->imageClip);
 		painter->setClipPath();
@@ -795,7 +795,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				pImage = &item->pixm;
 
 			painter->save();
-			if (item->imageClip.size() != 0)
+			if (!item->imageClip.empty())
 			{
 				painter->setupPolygon(&item->imageClip);
 				painter->setClipPath();

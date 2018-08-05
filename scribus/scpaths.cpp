@@ -48,8 +48,7 @@ const ScPaths& ScPaths::instance()
 // Singleton's public destructor
 void ScPaths::destroy()
 {
-	if (ScPaths::m_instance)
-		delete ScPaths::m_instance;
+	delete ScPaths::m_instance;
 }
 
 // Protected "real" constructor
@@ -444,7 +443,7 @@ QStringList ScPaths::systemProfilesDirs()
 	return iccProfDirs;
 }
 
-QStringList ScPaths::dirsFromEnvVar(const QString envVar, const QString dirToFind)
+QStringList ScPaths::dirsFromEnvVar(const QString& envVar, const QString& dirToFind)
 {
 	QChar sep(':');
 #ifdef _WIN32

@@ -32,20 +32,20 @@ class SCRIBUS_API SampleItem : QObject
 
 		/*! \brief Set sample text.
 		\param aText QString to set. */
-		void setText(QString aText);
+		void setText(const QString& aText);
 		/*! \brief Use lorem ipsum generator as text source.
 		\param para count of the LI paragraphs */
 		void setLoremIpsum(int para);
 		/*! \brief Set backgroud color of the pixmap.
 		\param c a QColor */
-		void setBgColor(QColor c);
+		void setBgColor(const QColor& c);
 		void setBgShade(int c);
 		/*! \brief Set color management for backgroud color of the pixmap.
 		\param enable if color management should be enabled */
 		void setBgColorMgmt(bool enable);
 		/*! \brief Set Text color of the pixmap.
 		\param c a QColor */
-		void setTxColor(QColor c);
+		void setTxColor(const QColor& c);
 		void setTxShade(int c);
 
 		/*! \brief Set whole Scribus paragraph style in one.
@@ -60,7 +60,7 @@ class SCRIBUS_API SampleItem : QObject
 		void setFirst(double first);
 		void setGapBefore(double gapBefore);
 		void setGapAfter(double gapAfter);
-		void setFont(QString font);
+		void setFont(const QString& font);
 		/*! \brief Set size of the font.
 		\param fontSize fontSize * 10.0 usually
 		\param autoLineSpa if true - use automatic line spacing computing */
@@ -72,9 +72,9 @@ class SCRIBUS_API SampleItem : QObject
 		void setDropLin(int dropLin);
 		void setParEffectDist(double dropDist);
 		void setFontEffect(int fontEffect);
-		void setFColor(QString fColor);
+		void setFColor(const QString& fColor);
 		void setFShade(int fShade);
-		void setSColor(QString sColor);
+		void setSColor(const QString& sColor);
 		void setSShade(int sShade);
 		void setBaseAdj(bool baseAdj);
 		void setTxtShadowX(int txtShadowX);

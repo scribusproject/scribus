@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorshade.h"
 #include "sccolorengine.h"
 
-ScColorShade::ScColorShade(void)
+ScColorShade::ScColorShade()
 {
 	color.setColor( 0, 0, 0, 0 );
 	shade = 100;
@@ -42,19 +42,19 @@ ScColorShade::ScColorShade( const ScColor& c, int level )
 	shade = level;
 }
 
-ScColor ScColorShade::getShadedColor(void)
+ScColor ScColorShade::getShadedColor()
 {
 	ScColor value;
 	if (color.getColorModel() == colorModelRGB)
 	{
 		RGBColorF rgb;
-		ScColorEngine::getShadeColorRGB(color, NULL, rgb, shade);
+		ScColorEngine::getShadeColorRGB(color, nullptr, rgb, shade);
 		value.setRgbColorF(rgb.r, rgb.g, rgb.b);
 	}
 	else if (color.getColorModel() == colorModelCMYK)
 	{
 		CMYKColorF cmyk;
-		ScColorEngine::getShadeColorCMYK(color, NULL, cmyk, shade);
+		ScColorEngine::getShadeColorCMYK(color, nullptr, cmyk, shade);
 		value.setColorF(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 	}
 	else if (color.getColorModel() == colorModelLab)

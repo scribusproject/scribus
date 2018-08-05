@@ -47,18 +47,18 @@ for which a new license (GPL+exception) is in place.
 
 extern ScribusQApp* ScQApp;
 
-ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
+ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
 {
 	m_ScribusInitialized = false;
 	m_currScMW = 0;
 
-	pluginManager = 0;
-	fileWatcher = 0;
+	pluginManager = nullptr;
+	fileWatcher = nullptr;
 
-	m_SplashScreen = 0;
-	m_iconManager = 0;
-	m_undoManager = 0;
-	m_prefsManager = 0;
+	m_SplashScreen = nullptr;
+	m_iconManager = nullptr;
+	m_undoManager = nullptr;
+	m_prefsManager = nullptr;
 
 	m_UseGUI = false;
 	m_HaveCMS = false;
@@ -106,7 +106,7 @@ const QString& ScribusCore::getGuiLanguage() const
 	return ScQApp->currGUILanguage();
 }
 
-int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage)
+int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
 {
 	ScribusMainWindow* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
@@ -159,8 +159,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	return EXIT_SUCCESS;
 }
 
-int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, 
-								 const QString newGuiLanguage)
+int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage)
 {
 	CommonStrings::languageChange();
 	m_iconManager = IconManager::instance();
@@ -292,7 +291,7 @@ bool ScribusCore::initFonts(bool showFontInfo)
 		closeSplash();
 		QString mess = tr("There are no fonts found on your system.");
 		mess += "\n" + tr("Exiting now.");
-		ScMessageBox::critical(0, tr("Fatal Error"), mess);
+		ScMessageBox::critical(nullptr, tr("Fatal Error"), mess);
 	}
 	else
 		setSplashStatus( tr("Font System Initialized") );
@@ -328,7 +327,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 		m_HaveCMS = false;
 }
 
-void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
+void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive)
 {
 	QString profileName;
 	QList<ScColorProfileInfo> profileInfos = defaultEngine.getAvailableProfileInfo(pfad, recursive);
@@ -412,7 +411,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 	}
 }
 
-void ScribusCore::InitDefaultColorTransforms(void)
+void ScribusCore::InitDefaultColorTransforms()
 {
 	QString defaultRGBString  = "sRGB IEC61966-2.1";
 	QString defaultCMYKString = "Fogra27L CMYK Coated Press";
@@ -479,7 +478,7 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	}
 }
 
-void ScribusCore::ResetDefaultColorTransforms(void)
+void ScribusCore::ResetDefaultColorTransforms()
 {
 	defaultRGBProfile  = ScColorProfile();
 	defaultCMYKProfile = ScColorProfile();
@@ -547,10 +546,10 @@ void ScribusCore::initCMS()
 ScribusMainWindow * ScribusCore::primaryMainWindow()
 {
 	if (m_ScMWList.count() == 0 || m_currScMW > m_ScMWList.count())
-		return 0;
+		return nullptr;
 	ScribusMainWindow* mw=m_ScMWList.at(m_currScMW);
 	if (!mw)
-		return 0;
+		return nullptr;
 	return mw;
 }
 

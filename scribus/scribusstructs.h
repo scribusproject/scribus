@@ -44,6 +44,7 @@ struct RGBColor
 	int r;
 	int g;
 	int b;
+	RGBColor() {r=g=b=0;}
 	void getValues(int& vr, int& vg, int& vb) { vr = r; vg = g; vb = b; }
 };
 
@@ -52,6 +53,7 @@ struct RGBColorF
 	double r;
 	double g;
 	double b;
+	RGBColorF() {r=g=b=0.0;}
 	void getValues(double& vr, double& vg, double& vb) { vr = r; vg = g; vb = b; }
 };
 
@@ -61,7 +63,8 @@ struct CMYKColor
 	int m;
 	int y;
 	int k;
-	void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
+	CMYKColor() {c=m=y=k=0;}
+		void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
 };
 
 struct CMYKColorF
@@ -70,6 +73,7 @@ struct CMYKColorF
 	double m;
 	double y;
 	double k;
+	CMYKColorF() {c=m=y=k=0.0;}
 	void getValues(double& vc, double& vm, double& vy, double& vk) { vc = c; vm = m; vy = y; vk = k; }
 };
 

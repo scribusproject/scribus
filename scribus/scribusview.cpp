@@ -611,13 +611,11 @@ void ScribusView::paintEvent ( QPaintEvent * p )
 void ScribusView::enterEvent(QEvent * e)
 {
 	m_canvasMode->enterEvent(e);
-	return;
 }
 
 void ScribusView::leaveEvent(QEvent *e)
 {
 	m_canvasMode->leaveEvent(e);
-	return;
 }
 
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
@@ -1046,9 +1044,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (b->itemText.length() != 0)
 					{
 						int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
-									QMessageBox::Yes | QMessageBox::No,
-									QMessageBox::No,	// GUI default
-									QMessageBox::Yes);	// batch default
+													  QMessageBox::Yes | QMessageBox::No,
+													  QMessageBox::No,	// GUI default
+													  QMessageBox::Yes);	// batch default
 						if (t == QMessageBox::No)
 						{
 							delete gt;
@@ -1086,7 +1084,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	{
 		Deselect(true);
 		int oldDocItemCount = Doc->Items->count();
-		if (((!img) || (vectorFile)) && (Doc->DraggedElem == 0))
+		if (((!img) || (vectorFile)) && (Doc->DraggedElem == nullptr))
 		{
 			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
 			if (fi.exists())
@@ -1179,7 +1177,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 		else
 		{
-			if (Doc->DraggedElem != 0)
+			if (Doc->DraggedElem != nullptr)
 			{
 				if (!Doc->leaveDrag)
 				{
@@ -1227,12 +1225,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					{
 						bb = pasted.at(dre);
 						currItem = Doc->m_Selection->itemAt(dre);
-						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
+						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
 						{
 							PageItem* before = currItem->prevInChain();
 							PageItem* after = currItem->nextInChain();
 							currItem->unlink();
-							if (before != 0)
+							if (before != nullptr)
 							{
 								fin = Doc->m_Selection->findItem(before);
 								if (fin != -1)
@@ -1240,7 +1238,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								before->unlink();
 								before->link(bb);
 							}
-							if (after != 0)
+							if (after != nullptr)
 							{
 								fin = Doc->m_Selection->findItem(after);
 								if (fin != -1)
@@ -1255,7 +1253,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			if ((!img) && ((re == 0)))
 				emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-			Doc->DraggedElem = 0;
+			Doc->DraggedElem = nullptr;
 			Doc->DragElements.clear();
 			Selection tmpSelection(this, false);
 			tmpSelection.copy(*Doc->m_Selection, true);
@@ -1747,14 +1745,11 @@ bool ScribusView::slotSetCurs(int x, int y)
 			emit ItemTextAlign(textFrame->itemText.paragraphStyle(pos).alignment());
 			return true;
 		}
-		else
-		{
-			Doc->currentStyle.charStyle() = textFrame->itemText.defaultStyle().charStyle();
-			emit ItemCharStyle(textFrame->itemText.defaultStyle().charStyle());
-			emit ItemTextEffects(textFrame->itemText.defaultStyle().charStyle().effects());
-			emit ItemTextAlign(0);
-			return true;
-		}
+		Doc->currentStyle.charStyle() = textFrame->itemText.defaultStyle().charStyle();
+		emit ItemCharStyle(textFrame->itemText.defaultStyle().charStyle());
+		emit ItemTextEffects(textFrame->itemText.defaultStyle().charStyle().effects());
+		emit ItemTextAlign(0);
+		return true;
 	}
 	return false;
 }
@@ -1912,12 +1907,12 @@ void ScribusView::PasteToPage()
 	UndoTransaction activeTransaction;
 	int ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
-		activeTransaction = undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+		activeTransaction = undoManager->beginTransaction(Doc->currentPage()->getUName(), nullptr, Um::Paste, "", Um::IPaste);
 
 	QString buffer = ScMimeData::clipboardScribusElem();
 	emit LoadElem(buffer, dragX, dragY, false, false, Doc, this);
 
-	Doc->DraggedElem = 0;
+	Doc->DraggedElem = nullptr;
 	Doc->DragElements.clear();
 	updateContents();
 	Selection newObjects(this, false);
@@ -2050,8 +2045,8 @@ void ScribusView::resetMousePressed()
 
 void ScribusView::startGroupTransaction(const QString& action, const QString& description, QPixmap* actionIcon, Selection* customSelection)
 {
-	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
-	assert(itemSelection!=0);
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : Doc->m_Selection;
+	assert(itemSelection!=nullptr);
 	int selectedItemCount=itemSelection->count();
 	Q_ASSERT(selectedItemCount > 0);
 	if (!m_groupTransaction)
@@ -2177,9 +2172,9 @@ void ScribusView::setRulerPos(int x, int y)
 ScPage* ScribusView::addPage(int nr, bool mov)
 {
 	ScPage* fe=Doc->Pages->at(nr);
-	Q_ASSERT(fe!=0);
-	if (fe==0)
-		return 0;
+	Q_ASSERT(fe!=nullptr);
+	if (fe==nullptr)
+		return nullptr;
 	//Note this picks up the new page or master page depending on the mode.
 //	reformPages(mov);
 	Doc->reformPages(mov);
@@ -2667,7 +2662,7 @@ void ScribusView::hideInlinePage()
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
-QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
+QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame)
 {
 	QImage pm;
 	QImage im;
@@ -3230,20 +3225,20 @@ void ScribusView::TextToPath()
 	Selection tmpSelection(this, false);
 	tmpSelection.copy(*Doc->m_Selection, false);
 	PageItem *currItem = tmpSelection.itemAt(0);
-	if ((currItem->prevInChain() != 0) || (currItem->nextInChain() != 0))
+	if ((currItem->prevInChain() != nullptr) || (currItem->nextInChain() != nullptr))
 	{
 		// select whole chain
 		PageItem *backItem = currItem;
-		while (backItem->prevInChain() != 0)
+		while (backItem->prevInChain() != nullptr)
 			backItem = backItem->prevInChain();
 		currItem = backItem;
 		Deselect(true);
 		tmpSelection.addItem(currItem);
 		backItem = currItem->nextInChain();
-		while (backItem != 0)
+		while (backItem != nullptr)
 		{
 			tmpSelection.addItem(backItem);
-			if (backItem->nextInChain() != 0)
+			if (backItem->nextInChain() != nullptr)
 				backItem = backItem->nextInChain();
 			else
 				break;
@@ -3254,7 +3249,7 @@ void ScribusView::TextToPath()
 	int selectedItemCount = tmpSelection.count();
 	if (selectedItemCount != 0)
 	{
-		UndoTransaction trans(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0));
+		UndoTransaction trans(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", nullptr));
 		int offset=0;
 		for(int i=0; i<selectedItemCount; ++i)
 		{

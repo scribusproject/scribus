@@ -28,11 +28,8 @@ uint RunIndex::insert(int pos)
 		runEnds.push_back(pos);
 		return runEnds.size() - 1;
 	}
-	else
-	{
-		runEnds.insert(runEnds.begin() + i, pos);
-		return i;
-	}
+	runEnds.insert(runEnds.begin() + i, pos);
+	return i;
 }
 
 

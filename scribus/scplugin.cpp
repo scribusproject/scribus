@@ -64,15 +64,12 @@ const QString ScPlugin::pluginTypeName() const
 	// ie most specific to least specific.
 	if (inherits("LoadSavePlugin"))
 		return tr("Load/Save/Import/Export");
-	else if (inherits("ScPersistentPlugin"))
+	if (inherits("ScPersistentPlugin"))
 		return tr("Persistent", "plugin manager plugin type");
-	else if (inherits("ScActionPlugin"))
+	if (inherits("ScActionPlugin"))
 		return tr("Action", "plugin manager plugin type");
-	else
-	{
-		qDebug("Unknown plugin type: %s", metaObject()->className());
-		return tr("Unknown");
-	}
+	qDebug("Unknown plugin type: %s", metaObject()->className());
+	return tr("Unknown");
 }
 
 void ScPlugin::setDoc(ScribusDoc* )
@@ -174,57 +171,52 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 		{
 			if (ai.needsNumObjects == -1)
 				return true;
-			else
+
+
+			if (ai.needsNumObjects > 2)
 			{
-				if (ai.needsNumObjects > 2)
+				bool setter = true;
+				for (int bx = 0; bx < docSelectionCount; ++bx)
 				{
-					bool setter = true;
-					for (int bx = 0; bx < docSelectionCount; ++bx)
-					{
-						if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
-							setter = false;
-					}
-					return setter;
+					if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
+						setter = false;
 				}
-				else
-				{
-					if (docSelectionCount == ai.needsNumObjects)
-					{
-						if (ai.needsNumObjects == 2)
-						{
-							int sel1 = doc->m_Selection->itemAt(0)->itemType();
-							int sel2 = doc->m_Selection->itemAt(1)->itemType();
-							if (ai.notSuitableFor.contains(sel1))
-								return false;
-							else if (ai.notSuitableFor.contains(sel2))
-								return false;
-							else
-							{
-								if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
-									return true;
-								else if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
-								{
-									if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
-										return true;
-								}
-								else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
-								{
-									if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
-										return true;
-								}
-								if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
-									return true;
-							}
-						}
-						else if (!ai.notSuitableFor.contains(SelectedType))
-							return true;
-						else
-							return false;
-					}
-					else
-						return false;
-				}
+				return setter;
 			}
+
+
+			if (docSelectionCount == ai.needsNumObjects)
+			{
+				if (ai.needsNumObjects == 2)
+				{
+					int sel1 = doc->m_Selection->itemAt(0)->itemType();
+					int sel2 = doc->m_Selection->itemAt(1)->itemType();
+					if (ai.notSuitableFor.contains(sel1))
+						return false;
+					if (ai.notSuitableFor.contains(sel2))
+						return false;
+					if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
+						return true;
+					if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
+					{
+						if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
+							return true;
+					}
+					else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
+					{
+						if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
+							return true;
+					}
+					if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
+						return true;
+				}
+				else if (!ai.notSuitableFor.contains(SelectedType))
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
 		}
 		else
 			return false;
@@ -240,13 +232,10 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 		{
 			if (ai.needsNumObjects == -1)
 				return true;
-			else if ((ai.needsNumObjects > 2) && (docSelectionCount > 0))
+			if ((ai.needsNumObjects > 2) && (docSelectionCount > 0))
 				return true;
-			else
-				return false;
-		}
-		else
 			return false;
+		}
 	}
 	return false;
 }

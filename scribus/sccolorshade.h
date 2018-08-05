@@ -30,11 +30,11 @@ class ScColorShade
 {
 public:
 
-	ScColorShade( void );
-	ScColorShade( const QColor& c, int level );
-	ScColorShade( const ScColor& c, int level );
+	ScColorShade();
+	ScColorShade(const QColor& c, int level);
+	ScColorShade(const ScColor& c, int level);
 
-	ScColor getShadedColor(void);
+	ScColor getShadedColor();
 
 	ScColor color;
 	int shade;

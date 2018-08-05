@@ -23,7 +23,7 @@ protected:
 	virtual bool begin(void) { return true; }
 	virtual void end(void) {}
 
-	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return NULL; }
+	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return nullptr; }
 
 public:
 	virtual ~ScDocOutput() {}

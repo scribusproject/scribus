@@ -20,8 +20,7 @@ QString CellStyle::displayName() const
 		return CommonStrings::trDefaultCellStyle;
 	if (hasName() || !hasParent() || !m_context)
 		return name();
-	else 
-		return parentStyle()->displayName() + "+";
+	return parentStyle()->displayName() + "+";
 }
 
 bool CellStyle::equiv(const BaseStyle& other) const

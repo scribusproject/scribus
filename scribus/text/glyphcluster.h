@@ -9,7 +9,7 @@
 class SCRIBUS_API GlyphCluster
 {
 public:
-	GlyphCluster(const CharStyle* style, LayoutFlags flags, int first, int last, const InlineFrame& o, int visualIdx, QString str);
+	GlyphCluster(const CharStyle* style, LayoutFlags flags, int first, int last, const InlineFrame& o, int visualIdx, const QString& str);
 
 	void append(GlyphLayout&);
 

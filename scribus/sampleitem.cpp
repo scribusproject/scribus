@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QPixmap>
 
-SampleItem::SampleItem() : QObject()
+SampleItem::SampleItem()
 {
 	m_Doc = new ScribusDoc();
 	if (!m_Doc)
@@ -27,7 +27,7 @@ SampleItem::SampleItem() : QObject()
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	// tmp colors. to be removed in descrictor
 	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
 	m_Doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
@@ -73,7 +73,7 @@ SampleItem::~SampleItem()
 	delete m_Doc;
 }
 
-void SampleItem::setText(QString aText)
+void SampleItem::setText(const QString& aText)
 {
 	m_text = aText;
 }
@@ -92,7 +92,7 @@ void SampleItem::setStyle(const ParagraphStyle& aStyle)
 	m_tmpStyle = aStyle;
 }
 
-void SampleItem::setBgColor(QColor c)
+void SampleItem::setBgColor(const QColor& c)
 {
 	m_Doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
 }
@@ -107,7 +107,7 @@ void SampleItem::setBgColorMgmt(bool enable)
 	m_Doc->PageColors["__whiteforpreviewbg__"].setSpotColor(!enable);
 }
 
-void SampleItem::setTxColor(QColor c)
+void SampleItem::setTxColor(const QColor& c)
 {
 	m_Doc->PageColors["__blackforpreview__"].fromQColor(c);
 }
@@ -152,7 +152,7 @@ void SampleItem::setGapAfter(double gapAfter)
 	m_tmpStyle.setGapAfter(gapAfter);
 }
 
-void SampleItem::setFont(QString font)
+void SampleItem::setFont(const QString& font)
 {
 	m_tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
 }
@@ -199,7 +199,7 @@ void SampleItem::setFontEffect(int fontEffect)
 	m_tmpStyle.charStyle().setFeatures(static_cast<StyleFlag>(fontEffect).featureList());
 }
 
-void SampleItem::setFColor(QString fColor)
+void SampleItem::setFColor(const QString& fColor)
 {
 	m_tmpStyle.charStyle().setFillColor(fColor);
 }
@@ -209,7 +209,7 @@ void SampleItem::setFShade(int fShade)
 	m_tmpStyle.charStyle().setFillShade(fShade);
 }
 
-void SampleItem::setSColor(QString sColor)
+void SampleItem::setSColor(const QString& sColor)
 {
 	m_tmpStyle.charStyle().setStrokeColor(sColor);
 }

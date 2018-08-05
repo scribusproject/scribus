@@ -60,21 +60,18 @@ ShapedText ShapedTextFeed::getMore(int fromChar, int toChar)
 		}
 		return m_cache->get(fromChar, len);
 	}
-	else
-	{
-		return m_shaper.shape(fromChar, toChar);
-	}
+	return m_shaper.shape(fromChar, toChar);
 }
 
 
 
 QList<GlyphCluster> ShapedTextFeed::putInVisualOrder(const QList<GlyphCluster>& glyphs, int start, int end)
 {
-    int glyphsCount = end - start;
-    QList<GlyphCluster> runs;
-    for (int i = 0; i < glyphsCount; ++i)
-        runs.append(glyphs.at(start + i));
-    std::sort(runs.begin(), runs.end(), visualGlyphRunComp);
-    return runs;
+	int glyphsCount = end - start;
+	QList<GlyphCluster> runs;
+	for (int i = 0; i < glyphsCount; ++i)
+		runs.append(glyphs.at(start + i));
+	std::sort(runs.begin(), runs.end(), visualGlyphRunComp);
+	return runs;
 }
 

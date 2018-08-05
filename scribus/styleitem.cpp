@@ -7,13 +7,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "styleitem.h"
 
-StyleItem::StyleItem() : QObject()
+StyleItem::StyleItem()
 {}
 
 StyleItem::~StyleItem()
 {}
 
-StyleItem::StyleItem(const StyleItem&) : QObject()
+StyleItem::StyleItem(const StyleItem&)
 {}
 	
 void StyleItem::operator=(const StyleItem&)

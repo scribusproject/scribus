@@ -38,8 +38,7 @@ uchar *RawImage::scanLine(int row)
 {
 	if (row < m_height)
 		return (uchar*)(data() + (row * m_channels * m_width));
-	else
-		return (uchar*)data();
+	return (uchar*)data();
 }
 
 void RawImage::setAlpha(int x, int y, int alpha)

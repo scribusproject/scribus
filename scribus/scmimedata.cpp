@@ -139,7 +139,7 @@ QByteArray ScMimeData::clipboardScribusText()
 	return data;
 }
 
-ScElemMimeData::ScElemMimeData() : QMimeData()
+ScElemMimeData::ScElemMimeData()
 {
 	m_formats << "application/x-scribus-elem" << "text/plain";
 }

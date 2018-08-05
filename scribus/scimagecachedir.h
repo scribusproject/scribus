@@ -42,7 +42,7 @@ class ScImageCacheDir : public QObject
 public:
 	typedef unsigned int AccessCounter;
 
-	ScImageCacheDir(const QString & dir, ScImageCacheDir *parent = 0, bool scanFiles = false, const QStringList & suffixList = QStringList());
+	ScImageCacheDir(const QString& dir, ScImageCacheDir *parent = 0, bool scanFiles = false, const QStringList & suffixList = QStringList());
 	~ScImageCacheDir();
 	ScImageCacheDir *newSubDir(const QString & dir, bool scanFiles = false, const QStringList & suffixList = QStringList());
 	const QString & name() const { return m_name; }

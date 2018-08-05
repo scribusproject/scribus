@@ -59,7 +59,7 @@ public:
 	// drawing
 	virtual void moveTo( const double &, const double & );
 	virtual void lineTo( const double &, const double & );
-	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
+	virtual void curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3 );
 	virtual void newPath();
 	virtual void closePath();
 	virtual void fillPath();

@@ -494,8 +494,7 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* do
 	}
 }
 
-void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, 
-										  CMYKColorF& cmyk, double level)
+void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, CMYKColorF& cmyk, double level)
 {
 	if (color.getColorModel() == colorModelRGB)
 	{

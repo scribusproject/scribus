@@ -20,7 +20,7 @@ ScPreview::ScPreview()
 {
 }
 
-QImage ScPreview::createPreview(QString data)
+QImage ScPreview::createPreview(const QString& data)
 {
 	PrefsManager *prefsManager = PrefsManager::instance();
 	double gx, gy, gw, gh;
@@ -40,55 +40,43 @@ QImage ScPreview::createPreview(QString data)
 			tmp.loadFromData(inlineImageData);
 			return tmp;
 		}
-		else
+
+		ScribusDoc *m_Doc = new ScribusDoc();
+		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+		m_Doc->setPage(gw, gh, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
+		m_Doc->setLoading(true);
+		m_Doc->DoDrawing = false;
+		if(ss.ReadElem(data, prefsManager->appPrefs.fontPrefs.AvailFonts, m_Doc, 0, 0, false, true, prefsManager->appPrefs.fontPrefs.GFontSub))
 		{
-			ScribusDoc *m_Doc = new ScribusDoc();
-			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-			m_Doc->setPage(gw, gh, 0, 0, 0, 0, 0, 0, false, false);
-			m_Doc->addPage(0);
-			m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-			m_Doc->setLoading(true);
-			m_Doc->DoDrawing = false;
-			if(ss.ReadElem(data, prefsManager->appPrefs.fontPrefs.AvailFonts, m_Doc, 0, 0, false, true, prefsManager->appPrefs.fontPrefs.GFontSub))
+			QList<PageItem*> Elements = *m_Doc->Items;
+			Selection *tmpSel = new Selection(m_Doc, false);
+			if (Elements.count() > 0)
 			{
-				QList<PageItem*> Elements = *m_Doc->Items;
-				Selection *tmpSel = new Selection(m_Doc, false);
-				if (Elements.count() > 0)
+				if (Elements.count() > 1)
+					m_Doc->groupObjectsList(Elements);
+				m_Doc->DoDrawing = true;
+				m_Doc->m_Selection->delaySignalsOn();
+				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					if (Elements.count() > 1)
-						m_Doc->groupObjectsList(Elements);
-					m_Doc->DoDrawing = true;
-					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						tmpSel->addItem(Elements.at(dre), true);
-					}
-					tmpSel->setGroupRect();
-					double xs = tmpSel->width();
-					double ys = tmpSel->height();
+					tmpSel->addItem(Elements.at(dre), true);
+				}
+				tmpSel->setGroupRect();
+				double xs = tmpSel->width();
+				double ys = tmpSel->height();
 				//	double sc = 60.0 / qMax(xs, ys);
 				//	m_Doc->scaleGroup(sc, sc, true, tmpSel);
-					QImage tmpImage = Elements.at(0)->DrawObj_toImage(128);
-					tmpImage.setText("XSize", QString("%1").arg(xs));
-					tmpImage.setText("YSize", QString("%1").arg(ys));
-					m_Doc->m_Selection->delaySignalsOff();
-					delete tmpSel;
-					delete m_Doc;
-					return tmpImage;
-				}
-				else
-				{
-					delete m_Doc;
-					return QImage();
-				}
-			}
-			else
-			{
+				QImage tmpImage = Elements.at(0)->DrawObj_toImage(128);
+				tmpImage.setText("XSize", QString("%1").arg(xs));
+				tmpImage.setText("YSize", QString("%1").arg(ys));
+				m_Doc->m_Selection->delaySignalsOff();
+				delete tmpSel;
 				delete m_Doc;
-				return QImage();
+				return tmpImage;
 			}
 		}
+		delete m_Doc;
 	}
-	else
-		return QImage();
+	return QImage();
 }

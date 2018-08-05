@@ -40,12 +40,12 @@ protected:
 
 	QRect   m_clip;
 
-	virtual bool begin(void);
-	virtual void end(void);
+	virtual bool begin();
+	virtual void end();
 
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex);
 
-	bool initializeCmsTransforms(void);
+	bool initializeCmsTransforms();
 
 public:
 	ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, std::vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options);

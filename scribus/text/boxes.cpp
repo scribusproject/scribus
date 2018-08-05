@@ -513,7 +513,7 @@ void GlyphBox::render(ScreenPainter *p, ITextContext *ctx) const
 	}
 
 	if (((selectionFirst >= 0 && item->isSelected()) ||
-	     ((item->nextInChain() != 0 || item->prevInChain() != 0) && selectionFirst >= 0)) &&
+		 ((item->nextInChain() != nullptr || item->prevInChain() != nullptr) && selectionFirst >= 0)) &&
 		(item->doc()->appMode == modeEdit || item->doc()->appMode == modeEditTable))
 	{
 		if (selectionFirst == firstChar() && selectionLast == lastChar())
@@ -567,7 +567,7 @@ void GlyphBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 	p->setStrokeWidth(0);
 
 	if (((selectionFirst >= 0 && item->isSelected()) ||
-		 ((item->nextInChain() != 0 || item->prevInChain() != 0) && selectionFirst >= 0)) &&
+		 ((item->nextInChain() != nullptr || item->prevInChain() != nullptr) && selectionFirst >= 0)) &&
 			(item->doc()->appMode == modeEdit || item->doc()->appMode == modeEditTable))
 	{
 		if (selectionFirst == firstChar() && selectionLast == lastChar())

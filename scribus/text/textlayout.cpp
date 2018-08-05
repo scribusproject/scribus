@@ -337,7 +337,7 @@ int TextLayout::endOfFrame() const
 	const QList<Box*>& boxes = m_box->boxes();
 
 	// Beware of columns hidden by other objects
-	const GroupBox* column = 0;
+	const GroupBox* column = nullptr;
 	int columnIndex = boxes.count() - 1;
 	do
 	{

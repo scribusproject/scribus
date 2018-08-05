@@ -123,7 +123,7 @@ QString ScImageCacheProxy::referenceFile(const QString & base)
 QString ScImageCacheProxy::getBaseName(const QString & metafile)
 {
 	QString base;
-	return loadMetadata(metafile, 0, 0, 0, &base) ? base : QString();
+	return loadMetadata(metafile, nullptr, nullptr, nullptr, &base) ? base : QString();
 }
 
 bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap *mod, MetaMap *info, QString *base)
@@ -259,7 +259,7 @@ bool ScImageCacheProxy::canUseCachedImage() const
 		return false;
 	}
 
-	if (!loadMetadata(&cmeta, &cmod, 0, &base))
+	if (!loadMetadata(&cmeta, &cmod, nullptr, &base))
 	{
 		scDebug() << "cannot use cached image, load metadata failed";
 		return false;
@@ -460,7 +460,7 @@ bool ScImageCacheProxy::save(const QImage & image)
 
 	if (meta.exists())
 	{
-		if (!loadMetadata(0, 0, 0, &oldBase))
+		if (!loadMetadata(nullptr, nullptr, nullptr, &oldBase))
 		{
 			scDebug() << "could not read metadata from" << meta.name();
 			return false;

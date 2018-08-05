@@ -116,10 +116,8 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 
 ScribusQApp::~ScribusQApp()
 {
-	if (m_ScCore)
-		delete m_ScCore;
-	if (m_scDLMgr)
-		delete m_scDLMgr;
+	delete m_ScCore;
+	delete m_scDLMgr;
 	PrefsManager::deleteInstance();
 	LocaleManager::deleteInstance();
 	LanguageManager::deleteInstance();
@@ -194,7 +192,7 @@ void ScribusQApp::parseCommandLine()
 			}
 			break;
 		}
-		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
 		{
 			if  (++argi < argsc)
 				m_lang = args[argi];
@@ -371,8 +369,7 @@ int ScribusQApp::init()
 	 * and delete if (true)
 	 */
 	// if (useGUI)
-	if (true)
-		retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
+	retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
 
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
@@ -481,24 +478,24 @@ QStringList ScribusQApp::getLang(QString lang)
 
 void ScribusQApp::installTranslators(const QStringList & langs)
 {
-	static QTranslator *transQt = 0;
-	static QTranslator *trans = 0;
+	static QTranslator *transQt = nullptr;
+	static QTranslator *trans = nullptr;
 
 	if (transQt)
 	{
 		removeTranslator( transQt );
 		delete transQt;
-		transQt=0;
+		transQt=nullptr;
 	}
 	if (trans)
 	{
 		removeTranslator( trans );
 		delete trans;
-		trans=0;
+		trans=nullptr;
 	}
 
-	transQt = new QTranslator(0);
-	trans = new QTranslator(0);
+	transQt = new QTranslator(nullptr);
+	trans = new QTranslator(nullptr);
 	QString path(ScPaths::instance().translationDir());
 
 	bool loadedQt = false;
@@ -512,20 +509,18 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 			m_GUILang=lang;
 			break;
 		}
-		else
+
+		//CB: This might need adjusting for qm files distribution locations
+		if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			loadedQt = true;
+		if (trans->load(QString("scribus." + lang), path))
+			loadedScribus = true;
+		if (!loadedScribus)
 		{
-			//CB: This might need adjusting for qm files distribution locations
-			if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-				loadedQt = true;
-			if (trans->load(QString("scribus." + lang), path))
-				loadedScribus = true;
-			if (!loadedScribus)
-			{
-				QString altLang(LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(lang));
-				if (!altLang.isEmpty())
-					if (trans->load(QString("scribus." + altLang), path))
-						loadedScribus = true;
-			}
+			QString altLang(LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(lang));
+			if (!altLang.isEmpty())
+				if (trans->load(QString("scribus." + altLang), path))
+					loadedScribus = true;
 		}
 	}
 	if (loadedQt)
@@ -572,7 +567,7 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 
 /*! \brief Format an arguments line for printing
 Helper procedure */
-static void printArgLine(QTextStream & ts, const char * smallArg, const char* fullArg, const QString desc)
+static void printArgLine(QTextStream & ts, const char * smallArg, const char* fullArg, const QString& desc)
 {
 	ts << QString("     %1 %2 %3").arg(QString("%1,").arg(smallArg), -5).arg(fullArg, -32).arg(desc);
 	endl(ts);

@@ -158,7 +158,7 @@ void ScPainter::endLayer()
 	if (la.pushed)
 	{
 		cairo_pop_group_to_source (m_cr);
-		if (la.groupClip.size() != 0)
+		if (!la.groupClip.empty())
 		{
 			if( m_fillRule )
 				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -284,7 +284,7 @@ ScPainter::lineTo( const double &x, const double &y )
 	cairo_line_to( m_cr, x, y);
 }
 
-void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
+void ScPainter::curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3 )
 {
 	cairo_curve_to(m_cr, p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 }

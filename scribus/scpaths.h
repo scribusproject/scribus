@@ -68,7 +68,7 @@ public:
 	/** @brief Return paths to system create project directories*/
 	static QStringList systemCreatePalettesDirs();
 	/** @brief Return paths to directories held in an environment variable*/
-	static QStringList dirsFromEnvVar(const QString envVar, const QString dirToFind);
+	static QStringList dirsFromEnvVar(const QString& envVar, const QString& dirToFind);
 	/** @brief Return path to application prefs dir*/
 	static QString preferencesDir(bool createIfNotExists = false);
 	/** @brief Return path to application data dir*/

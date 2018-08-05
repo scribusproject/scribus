@@ -158,7 +158,7 @@ public:
 	int ShowSubs();
 	void applyNewMaster(const QString& name);
 	void updateRecent(const QString& fn);
-	void doPasteRecent(QString data);
+	void doPasteRecent(const QString& data);
 	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
 	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString workingDirectory = ".", QString dialogCaption = "", QString fileFilter = "", QString defNa = "",
@@ -320,7 +320,7 @@ public slots:
 	bool slotFileNew();
 	void newFileFromTemplate();
 	bool slotPageImport();
-	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
+	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
 	void GotoLa(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006

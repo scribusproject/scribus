@@ -18,7 +18,7 @@ class SCRIBUS_API ScPreview
 public:
 	ScPreview();
 	~ScPreview() {};
-	QImage createPreview(QString data);
+	QImage createPreview(const QString& data);
 };
 #endif
 

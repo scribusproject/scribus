@@ -76,7 +76,7 @@ public:
 	void closeSplash();
 	void setSplashStatus(const QString&);
 	bool usingGUI() const;
-	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage);
+	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
 	/**
 	* @brief Are we trying to adhere to Apple Mac HIG ?
 	* @retval bool true if we are on Qt/Mac
@@ -92,9 +92,9 @@ public:
 	bool havePNGAlpha() const {return m_HavePngAlpha;}
 	bool haveTIFFSep() const {return m_HaveTiffSep;}
 	void getCMSProfiles(bool showInfo);
-	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
-	void InitDefaultColorTransforms(void);
-	void ResetDefaultColorTransforms(void);
+	void getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive);
+	void InitDefaultColorTransforms();
+	void ResetDefaultColorTransforms();
 	bool fileWatcherActive() const;
 	void recheckGS();
 	
