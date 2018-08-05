@@ -657,7 +657,7 @@ void LanguageManager::generateInstalledGUILangList()
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0))
 	{
-		for (int i = 0; i < dir.count(); ++i)
+		for (uint i = 0; i < dir.count(); ++i)
 		{
 			QFileInfo file(path + dir[i]);
 			if (file.suffix().toLower() == "qm")
