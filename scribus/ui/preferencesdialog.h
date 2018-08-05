@@ -80,7 +80,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 
 	protected:
-		int addItem(QString name, QPixmap icon, QWidget *tab);
+		int addItem(const QString& name, const QPixmap& icon, QWidget *tab);
 		void setupListWidget();
 		void arrangeIcons();
 		void initPreferenceValues();

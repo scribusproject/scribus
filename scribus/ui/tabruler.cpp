@@ -493,12 +493,12 @@ void RulerT::moveLeftIndent(double t)
 }
 
 Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent ),
-	firstLineLabel(0),
-	leftIndentLabel(0),
-	rightIndentLabel(0),
-	firstLineData(0),
-	leftIndentData(0),
-	rightIndentData(0)
+	firstLineLabel(nullptr),
+	leftIndentLabel(nullptr),
+	rightIndentLabel(nullptr),
+	firstLineData(nullptr),
+	leftIndentData(nullptr),
+	rightIndentData(nullptr)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww = (wid < 0) ? 4000 : wid;

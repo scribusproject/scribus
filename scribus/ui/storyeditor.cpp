@@ -121,7 +121,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setPalette(pal);
 	offs = 0;
 	currentPar = 0;
-	editor = 0;
+	editor = nullptr;
 	noUpdt = true;
 	inRep = false;
 	pmen = new QMenu(this);
@@ -2298,7 +2298,7 @@ void StoryEditor::setBackPref()
 void StoryEditor::setFontPref()
 {
 	m_blockUpdate = true;
-	Editor->setFont( QFontDialog::getFont( 0, Editor->font(), this ) );
+	Editor->setFont( QFontDialog::getFont( nullptr, Editor->font(), this ) );
 	prefsManager->appPrefs.storyEditorPrefs.guiFont = Editor->font().toString();
 	EditorBar->doRepaint();
 	m_blockUpdate = false;
@@ -2934,9 +2934,9 @@ void StoryEditor::updateTextFrame()
 //#if 0
 	if (m_item->asTextFrame())
 	{
-		while (nextItem != 0)
+		while (nextItem != nullptr)
 		{
-			if (nextItem->prevInChain() != 0)
+			if (nextItem->prevInChain() != nullptr)
 				nextItem = nextItem->prevInChain();
 			else
 				break;

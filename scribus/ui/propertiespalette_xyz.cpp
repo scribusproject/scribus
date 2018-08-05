@@ -45,8 +45,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW=0;
-	m_doc=0;
+	m_ScMW=nullptr;
+	m_doc=nullptr;
 	m_haveDoc  = false;
 	m_haveItem = false;
 	m_lineMode = false;

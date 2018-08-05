@@ -369,7 +369,7 @@ void PropertyWidget_ParEffect::handleUpdateRequest(int updateFlags)
 	if (updateFlags & reqCharStylesUpdate)
 		updateCharStyles();
 	if (updateFlags & reqStyleComboDocUpdate)
-		setDoc(m_doc ? m_doc : 0);
+		setDoc(m_doc ? m_doc : nullptr);
 	if (updateFlags & reqNumUpdate)
 		fillNumerationsCombo();
 }

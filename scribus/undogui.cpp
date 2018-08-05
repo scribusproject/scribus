@@ -66,8 +66,8 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name) : UndoGui(parent, name
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCopy"]);
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editPaste"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("EditPasteRecent", ScCore->primaryMainWindow()->scrActions["editPaste"]);
-	connect(undoMenu, SIGNAL(triggered(QAction *)), this, SLOT(undoMenuClicked(QAction *)));
-	connect(redoMenu, SIGNAL(triggered(QAction *)), this, SLOT(redoMenuClicked(QAction *)));
+	connect(undoMenu, SIGNAL(triggered(QAction*)), this, SLOT(undoMenuClicked(QAction*)));
+	connect(redoMenu, SIGNAL(triggered(QAction*)), this, SLOT(redoMenuClicked(QAction*)));
 }
 
 void UndoWidget::clear()
@@ -84,13 +84,13 @@ void UndoWidget::clear()
 
 void UndoWidget::undoClicked()
 {
-	if (undoItems.size() > 0)
+	if (!undoItems.empty())
 		emit undo(1);
 }
 
 void UndoWidget::redoClicked()
 {
-	if (redoItems.size() > 0)
+	if (!redoItems.empty())
 		emit redo(1);
 }
 
@@ -173,7 +173,7 @@ void UndoWidget::updateRedo(int steps)
 
 void UndoWidget::popBack()
 {
-	if (undoItems.size() > 0)
+	if (!undoItems.empty())
 	{
 		undoItems.erase(undoItems.end() - 1);
 		updateUndoMenu();
@@ -401,14 +401,14 @@ UndoPalette::~UndoPalette()
 
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem() : QListWidgetItem()
+UndoPalette::UndoItem::UndoItem()
 {
 	targetpixmap = nullptr;
 	actionpixmap = nullptr;
 	isUndoAction_ = true;
 }
 
-UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListWidgetItem()
+UndoPalette::UndoItem::UndoItem(const UndoItem &another)
 {
 	target = another.target;
 	action = another.action;

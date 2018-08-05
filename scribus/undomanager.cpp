@@ -57,7 +57,7 @@ void UndoManager::setUndoEnabled(bool isEnabled)
 {
 	if (isEnabled && undoEnabledCounter_ == 0)
 		return; // nothing to do undo is already enabled.
-	else if (isEnabled && undoEnabledCounter_ > 0)
+	if (isEnabled && undoEnabledCounter_ > 0)
 		--undoEnabledCounter_;
 	else if (!isEnabled)
 		++undoEnabledCounter_;
@@ -67,7 +67,7 @@ void UndoManager::setUndoEnabled(bool isEnabled)
 		connectGuis();
 	else if (undoEnabledCounter_ == 1)
 		disconnectGuis(); // disconnect only once when setUndoEnabled(false) has been called
-		                  // no need to call again if next setUndoEnabled() call will also be false.
+	// no need to call again if next setUndoEnabled() call will also be false.
 }
 
 bool UndoManager::undoEnabled()
@@ -128,12 +128,12 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 
 bool UndoManager::isTransactionMode()
 {
-	return transactions_.size() > 0;
+	return !transactions_.empty();
 }
 
 void UndoManager::registerGui(UndoGui* gui)
 {
-	if (gui == 0)
+	if (gui == nullptr)
 		return;
 
 	setUndoEnabled(false);
@@ -227,8 +227,7 @@ void UndoManager::connectGuis()
 
 		connect(gui, SIGNAL(undo(int)), this, SLOT(undo(int)));
 		connect(gui, SIGNAL(redo(int)), this, SLOT(redo(int)));
-		connect(this, SIGNAL(newAction(UndoObject*, UndoState*)),
-                gui, SLOT(insertUndoItem(UndoObject*, UndoState*)));
+		connect(this, SIGNAL(newAction(UndoObject*,UndoState*)), gui, SLOT(insertUndoItem(UndoObject*,UndoState*)));
 		connect(this, SIGNAL(popBack()), gui, SLOT(popBack()));
 		connect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		connect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
@@ -278,7 +277,7 @@ void UndoManager::switchStack(const QString& stackName)
 		stacks_[currentDoc_] = UndoStack();
 
 	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 100));
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (int i = 0; i < undoGuis_.size(); ++i)
 		setState(undoGuis_[i]);
 
 	setTexts();
@@ -308,7 +307,7 @@ void UndoManager::removeStack(const QString& stackName)
 		stacks_.remove(stackName);
 		if (currentDoc_ == stackName)
 		{
-			for (uint i = 0; i < undoGuis_.size(); ++i)
+			for (int i = 0; i < undoGuis_.size(); ++i)
 				undoGuis_[i]->clear();
 			currentDoc_ = "__no_name__";
 		}
@@ -318,7 +317,7 @@ void UndoManager::removeStack(const QString& stackName)
 void UndoManager::clearStack()
 {
 	stacks_[currentDoc_].clear();
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (int i = 0; i < undoGuis_.size(); ++i)
 	{
 		undoGuis_[i]->clear();
 		setState(undoGuis_[i]);
@@ -327,7 +326,7 @@ void UndoManager::clearStack()
 
 void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPixmap)
 {
-	QPixmap *oldIcon = 0;
+	QPixmap *oldIcon = nullptr;
 	if (targetPixmap)
 	{
 		oldIcon = target->getUPixmap();
@@ -447,7 +446,7 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
 	UndoObject *tmp = nullptr;
 	TransactionState* transaction_ = nullptr;
-	if (transactions_.size() > 0)
+	if (!transactions_.empty())
 		transaction_ = transactions_.at(transactions_.size()-1)->transactionState;
 	for (uint i = 0; i < stacks_[currentDoc_].m_undoActions_.size(); ++i)
 	{
@@ -501,7 +500,7 @@ void UndoManager::setAllHistoryLengths(int steps)
 
 int UndoManager::getHistoryLength()
 {
-	if (stacks_.size() > 0 && stacks_[currentDoc_].redoItems() > 0)
+	if (!stacks_.empty() && stacks_[currentDoc_].redoItems() > 0)
 		return -1;
 	return static_cast<int>(stacks_[currentDoc_].maxSize());
 }
@@ -541,8 +540,7 @@ void UndoManager::setTexts()
 
 void UndoManager::deleteInstance()
 {
-	if (instance_)
-		delete instance_;
+	delete instance_;
 	instance_ = nullptr;
 }
 
@@ -1081,56 +1079,56 @@ QString UndoManager::SoftShadowErase    = "";
 QString UndoManager::SoftShadowObjectTrans = "";
 
 /*** Icons for UndoObjects *******************************************/
-QPixmap *UndoManager::IImageFrame      = 0;
-QPixmap *UndoManager::ITextFrame       = 0;
-QPixmap *UndoManager::ILatexFrame      = 0;
-QPixmap *UndoManager::ILine            = 0;
-QPixmap *UndoManager::IPolygon         = 0;
-QPixmap *UndoManager::IPolyline        = 0;
-QPixmap *UndoManager::IPathText        = 0;
-QPixmap *UndoManager::IGroup           = 0;
-QPixmap *UndoManager::ITable           = 0;
+QPixmap *UndoManager::IImageFrame      = nullptr;
+QPixmap *UndoManager::ITextFrame       = nullptr;
+QPixmap *UndoManager::ILatexFrame      = nullptr;
+QPixmap *UndoManager::ILine            = nullptr;
+QPixmap *UndoManager::IPolygon         = nullptr;
+QPixmap *UndoManager::IPolyline        = nullptr;
+QPixmap *UndoManager::IPathText        = nullptr;
+QPixmap *UndoManager::IGroup           = nullptr;
+QPixmap *UndoManager::ITable           = nullptr;
 /*** Icons for actions ***********************************************/
-QPixmap *UndoManager::IMove            = 0;
-QPixmap *UndoManager::IResize          = 0;
-QPixmap *UndoManager::IRotate          = 0;
-QPixmap *UndoManager::IGuides          = 0;
-QPixmap *UndoManager::ILockGuides      = 0;
-QPixmap *UndoManager::IAlignDistribute = 0;
-QPixmap *UndoManager::IFill            = 0;
-QPixmap *UndoManager::IShade           = 0;
-QPixmap *UndoManager::IFlipH           = 0;
-QPixmap *UndoManager::IFlipV           = 0;
-QPixmap *UndoManager::ILock            = 0;
-QPixmap *UndoManager::IUnLock          = 0;
-QPixmap *UndoManager::IEnablePrint     = 0;
-QPixmap *UndoManager::IDisablePrint    = 0;
-QPixmap *UndoManager::IDelete          = 0;
-QPixmap *UndoManager::ICreate          = 0;
-QPixmap *UndoManager::IPaste           = 0;
-QPixmap *UndoManager::ICut             = 0;
-QPixmap *UndoManager::ITransparency    = 0;
-QPixmap *UndoManager::ILineStyle       = 0;
-QPixmap *UndoManager::IArrow           = 0;
-QPixmap *UndoManager::IFont            = 0;
-QPixmap *UndoManager::ISVG             = 0;
-QPixmap *UndoManager::IUniconv         = 0;
-QPixmap *UndoManager::IEPS             = 0;
-QPixmap *UndoManager::IAI              = 0;
-QPixmap *UndoManager::IXFIG            = 0;
-QPixmap *UndoManager::IWMF             = 0;
-QPixmap *UndoManager::IImportOOoDraw   = 0;
-QPixmap *UndoManager::IImageScaling    = 0;
-QPixmap *UndoManager::IBorder          = 0;
-QPixmap *UndoManager::IDocument        = 0;
-QPixmap *UndoManager::ILayer           = 0;
-QPixmap *UndoManager::ILayerAction     = 0;
-QPixmap *UndoManager::IUp              = 0;
-QPixmap *UndoManager::IDown            = 0;
-QPixmap *UndoManager::IPrint           = 0;
-QPixmap *UndoManager::IGetImage        = 0;
-QPixmap *UndoManager::IChangeFormula   = 0;
-QPixmap *UndoManager::IMultipleDuplicate = 0;
+QPixmap *UndoManager::IMove            = nullptr;
+QPixmap *UndoManager::IResize          = nullptr;
+QPixmap *UndoManager::IRotate          = nullptr;
+QPixmap *UndoManager::IGuides          = nullptr;
+QPixmap *UndoManager::ILockGuides      = nullptr;
+QPixmap *UndoManager::IAlignDistribute = nullptr;
+QPixmap *UndoManager::IFill            = nullptr;
+QPixmap *UndoManager::IShade           = nullptr;
+QPixmap *UndoManager::IFlipH           = nullptr;
+QPixmap *UndoManager::IFlipV           = nullptr;
+QPixmap *UndoManager::ILock            = nullptr;
+QPixmap *UndoManager::IUnLock          = nullptr;
+QPixmap *UndoManager::IEnablePrint     = nullptr;
+QPixmap *UndoManager::IDisablePrint    = nullptr;
+QPixmap *UndoManager::IDelete          = nullptr;
+QPixmap *UndoManager::ICreate          = nullptr;
+QPixmap *UndoManager::IPaste           = nullptr;
+QPixmap *UndoManager::ICut             = nullptr;
+QPixmap *UndoManager::ITransparency    = nullptr;
+QPixmap *UndoManager::ILineStyle       = nullptr;
+QPixmap *UndoManager::IArrow           = nullptr;
+QPixmap *UndoManager::IFont            = nullptr;
+QPixmap *UndoManager::ISVG             = nullptr;
+QPixmap *UndoManager::IUniconv         = nullptr;
+QPixmap *UndoManager::IEPS             = nullptr;
+QPixmap *UndoManager::IAI              = nullptr;
+QPixmap *UndoManager::IXFIG            = nullptr;
+QPixmap *UndoManager::IWMF             = nullptr;
+QPixmap *UndoManager::IImportOOoDraw   = nullptr;
+QPixmap *UndoManager::IImageScaling    = nullptr;
+QPixmap *UndoManager::IBorder          = nullptr;
+QPixmap *UndoManager::IDocument        = nullptr;
+QPixmap *UndoManager::ILayer           = nullptr;
+QPixmap *UndoManager::ILayerAction     = nullptr;
+QPixmap *UndoManager::IUp              = nullptr;
+QPixmap *UndoManager::IDown            = nullptr;
+QPixmap *UndoManager::IPrint           = nullptr;
+QPixmap *UndoManager::IGetImage        = nullptr;
+QPixmap *UndoManager::IChangeFormula   = nullptr;
+QPixmap *UndoManager::IMultipleDuplicate = nullptr;
 
 
 

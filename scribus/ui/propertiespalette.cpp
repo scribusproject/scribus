@@ -57,11 +57,11 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 
-PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, "PropertiesPalette", 0)
+PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, "PropertiesPalette", nullptr)
 {
 	undoManager = UndoManager::instance();
-	m_ScMW=0;
-	m_doc=0;
+	m_ScMW=nullptr;
+	m_doc=nullptr;
 	m_haveDoc = false;
 	m_haveItem = false;
 	m_unitRatio = 1.0;
@@ -115,14 +115,14 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
-	connect(Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double, double, double )));
+	connect(Cpal, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradient(double,double,double,double,double,double,double,double,double,double )));
 	connect(Cpal, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
-	connect(Tpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
+	connect(Tpal, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradientM(double,double,double,double,double,double,double,double )));
 	connect(Tpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
 
 	m_haveItem = false;
-	for (int ws = 1; ws < 10; ++ws)
-		TabStack->setItemEnabled(ws, false);
+	for (int i = 1; i < 10; ++i)
+		TabStack->setItemEnabled(i, false);
 	TabStack->setCurrentIndex(0);
 	TabStack->widget(0)->setEnabled(false);
 	TabStack->setItemEnabled(0, false);

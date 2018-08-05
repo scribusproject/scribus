@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "undoobject.h"
 #include "undostate.h"
 
-UndoTransaction::UndoTransaction() : Transaction(0)
+UndoTransaction::UndoTransaction() : Transaction(nullptr)
 {};
 
 UndoTransaction::UndoTransaction(TransactionData* data) : Transaction(data) 
@@ -63,9 +63,9 @@ bool UndoTransaction::cancel()
 //			qDebug() << "UndoManager::cancelTransaction" << data << data->transactionObject->getUName() << data->transactionState->getName() << stackLevel;
 			data->m_status = Transaction::STATE_FAILED;
 			delete data->transactionObject;
-			data->transactionObject = 0;
+			data->transactionObject = nullptr;
 			delete data->transactionState;
-			data->transactionState = 0;
+			data->transactionState = nullptr;
 			//brutal for now:
 			assert (stackLevel + 1 == signed(UM->transactions_.size()));
 			if (stackLevel < signed(UM->transactions_.size()))
@@ -144,9 +144,9 @@ bool UndoTransaction::commit()
 			else
 			{
 				delete tmpu;
-				tmpu = 0;
+				tmpu = nullptr;
 				delete tmps;
-				tmps = 0;
+				tmps = nullptr;
 			}
 			return true;
 			break;

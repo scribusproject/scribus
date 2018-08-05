@@ -99,7 +99,7 @@ public slots:
 	void updateTextStyles();
 	
 	void handleLineSpacingMode(int id);
-	void handleTextFont(QString);
+	void handleTextFont(const QString&);
 
 	// update widget layout
 	void updateTreeLayout();

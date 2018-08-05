@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstylewidget.h"
 
 SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget(),
-	m_Doc(0)
+	m_Doc(nullptr)
 {
 	setupUi(this);
 
@@ -62,7 +62,7 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 		return;
 	parentCombo->setEnabled(!cellStyle->isDefaultStyle());
 	const CellStyle *parent = dynamic_cast<const CellStyle*>(cellStyle->parentStyle());
-	bool hasParent =  cellStyle->hasParent() && parent != 0 && parent->hasName() && cellStyle->parent() != "";
+	bool hasParent =  cellStyle->hasParent() && parent != nullptr && parent->hasName() && cellStyle->parent() != "";
 	if (hasParent)
 	{
 		fillColor->setCurrentText(cellStyle->fillColor(), cellStyle->isInhFillColor());

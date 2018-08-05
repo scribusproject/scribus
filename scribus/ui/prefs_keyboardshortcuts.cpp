@@ -68,8 +68,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 
 	clearSearchButton->setIcon(IconManager::instance()->loadIcon("clear_right.png"));
 	// signals and slots connections
-	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
-			 this, SLOT(dispKey(QTreeWidgetItem *, QTreeWidgetItem *)));
+	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(dispKey(QTreeWidgetItem*, QTreeWidgetItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 	connect( loadSetButton, SIGNAL(clicked()), this, SLOT(loadKeySetFile()));
@@ -77,7 +76,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	connect( exportSetButton, SIGNAL(clicked()), this, SLOT(exportKeySetFile()));
 	connect( resetSetButton, SIGNAL(clicked()), this, SLOT(resetKeySet()));
 	connect( clearSearchButton, SIGNAL(clicked()), this, SLOT(clearSearchString()));
-	connect( searchTextLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(applySearch(const QString&)));
+	connect( searchTextLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(applySearch(const QString&)));
 
 }
 
@@ -95,7 +94,7 @@ void Prefs_KeyboardShortcuts::restoreDefaults(struct ApplicationPrefs *prefsData
 	loadableSets->clear();
 	loadableSets->addItems(scanForSets());
 	insertActions();
-	dispKey(0);
+	dispKey(nullptr);
 }
 
 void Prefs_KeyboardShortcuts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -107,7 +106,7 @@ void Prefs_KeyboardShortcuts::setNoKey()
 {
 	if (noKey->isChecked())
 	{
-		if (selectedLVI!=0)
+		if (selectedLVI!=nullptr)
 		{
 			selectedLVI->setText(1,"");
 			keyMap[lviToActionMap[selectedLVI]].keySequence=QKeySequence();
@@ -140,7 +139,7 @@ void Prefs_KeyboardShortcuts::exportKeySetFile()
 		exportKeySet(s);
 }
 
-void Prefs_KeyboardShortcuts::importKeySet(QString filename)
+void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 {
 	searchTextLineEdit->clear();
 	QFileInfo fi = QFileInfo(filename);
@@ -195,7 +194,7 @@ void Prefs_KeyboardShortcuts::importKeySet(QString filename)
 	insertActions();
 }
 
-bool Prefs_KeyboardShortcuts::exportKeySet(QString filename)
+bool Prefs_KeyboardShortcuts::exportKeySet(const QString& filename)
 {
 	QString exportFileName;
 	if (filename.endsWith(".xml"))
@@ -285,19 +284,19 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 	return QStringList();
 }
 
-QString Prefs_KeyboardShortcuts::getKeyText(QKeySequence KeyC)
+QString Prefs_KeyboardShortcuts::getKeyText(const QKeySequence& KeyC)
 {
 	return KeyC.toString();
 }
 
-QString Prefs_KeyboardShortcuts::getTrKeyText(QKeySequence KeyC)
+QString Prefs_KeyboardShortcuts::getTrKeyText(const QKeySequence& KeyC)
 {
 	return KeyC.toString(QKeySequence::NativeText);
 }
 
 void Prefs_KeyboardShortcuts::setKeyText()
 {
-	if (keyTable->currentItem()==0)
+	if (keyTable->currentItem()==nullptr)
 	{
 		setKeyButton->setChecked(false);
 		return;
@@ -338,8 +337,8 @@ void Prefs_KeyboardShortcuts::insertActions()
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
-		currLVI=0;
-		prevLVI=0;
+		currLVI=nullptr;
+		prevLVI=nullptr;
 		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
 			QString actionName = actionStrings.second.at(j);
@@ -383,8 +382,8 @@ void Prefs_KeyboardShortcuts::insertActions()
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
-		currLVI=0;
-		prevLVI=0;
+		currLVI=nullptr;
+		prevLVI=nullptr;
 		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
 			QString actionName = actionStrings.second.at(j);
@@ -441,7 +440,7 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 		releaseKeyboard();
 		setKeyButton->setChecked(false);
 	}
-	if (qlvi!=0 && lviToActionMap.contains(qlvi))
+	if (qlvi!=nullptr && lviToActionMap.contains(qlvi))
 	{
 		selectedLVI = qlvi;
 		QString actionName=lviToActionMap[qlvi];
@@ -457,12 +456,12 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 	{
 		noKey->setChecked(true);
 		keyDisplay->setText("");
-		selectedLVI = 0;
+		selectedLVI = nullptr;
 	}
-	noKey->setEnabled(selectedLVI != 0);
-	userDef->setEnabled(selectedLVI != 0);
-	setKeyButton->setEnabled(selectedLVI != 0);
-	keyDisplay->setEnabled(selectedLVI != 0);
+	noKey->setEnabled(selectedLVI != nullptr);
+	userDef->setEnabled(selectedLVI != nullptr);
+	setKeyButton->setEnabled(selectedLVI != nullptr);
+	keyDisplay->setEnabled(selectedLVI != nullptr);
 }
 
 bool Prefs_KeyboardShortcuts::event( QEvent* ev )

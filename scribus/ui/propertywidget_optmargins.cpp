@@ -17,8 +17,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_OptMargins::PropertyWidget_OptMargins(QWidget* parent) : QFrame(parent)
 {
-	m_item = 0;
-	m_ScMW = 0;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 
 	setupUi(this);
 

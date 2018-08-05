@@ -35,8 +35,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = 0;
-	m_doc  = 0;
+	m_ScMW = nullptr;
+	m_doc  = nullptr;
 	m_haveDoc  = false;
 	m_haveItem = false;
 	m_item     = nullptr;
@@ -164,7 +164,7 @@ void PropertiesPalette_Line::unsetDoc()
 	m_doc   = nullptr;
 	m_item  = nullptr;
 
-	updateLineStyles(0);
+	updateLineStyles(nullptr);
 
 	setEnabled(false);
 }
@@ -375,7 +375,7 @@ void PropertiesPalette_Line::updateLineStyles(ScribusDoc *dd)
 	
 	lineStyles->blockSignals(true);
 	lineStyles->clear();
-	if (dd != 0)
+	if (dd != nullptr)
 	{
 		QHash<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)

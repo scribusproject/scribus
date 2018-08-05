@@ -164,7 +164,7 @@ void Prefs_ExternalTools::rescanForTools()
 			uniconvertorLineEdit->setText("uniconv");
 		else
 		{
-			ScMessageBox::warning(0, CommonStrings::trWarning, tr("Uniconvertor executable not found!"));
+			ScMessageBox::warning(nullptr, CommonStrings::trWarning, tr("Uniconvertor executable not found!"));
 			uniconvertorLineEdit->setText("");
 		}
 	}

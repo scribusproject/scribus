@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtablestylewidget.h"
 #include "ui/scmessagebox.h"
 
-SMTableStyle::SMTableStyle() : StyleItem(),m_widget(0), m_page(0), m_doc(0)
+SMTableStyle::SMTableStyle() : StyleItem(), m_widget(nullptr), m_page(nullptr), m_doc(nullptr)
 {
 	m_widget = new QTabWidget();
 	Q_CHECK_PTR(m_widget);
@@ -31,8 +31,8 @@ SMTableStyle::~SMTableStyle()
 {
 	delete m_page;
 	delete m_widget;
-	m_page = 0;
-	m_widget = 0;
+	m_page = nullptr;
+	m_widget = nullptr;
 }
 
 QTabWidget* SMTableStyle::widget()

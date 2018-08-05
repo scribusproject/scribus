@@ -1416,9 +1416,9 @@ void TabPDFOptions::SubsetAll()
 
 QListWidgetItem* TabPDFOptions::addFontItem(QString fontName, QListWidget* fontList)
 {
-	QListWidgetItem* item = 0;
+	QListWidgetItem* item = nullptr;
 	if (!AllFonts.contains(fontName))
-		return 0;
+		return nullptr;
 
 	const ScFace& face = AllFonts.value(fontName);
 	if (face.isReplacement())

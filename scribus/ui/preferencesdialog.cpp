@@ -23,31 +23,31 @@ for which a new license (GPL+exception) is in place.
 
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
 	: QDialog(parent),
-	prefs_ColorManagement(0),
-	prefs_Display(0),
-	prefs_DocumentInformation(0),
-	prefs_DocumentItemAttributes(0),
-	prefs_DocumentSections(0),
-	prefs_DocumentSetup(0),
-	prefs_ExternalTools(0),
-	prefs_Fonts(0),
-	prefs_Guides(0),
-	prefs_Hyphenator(0),
-	prefs_ImageCache(0),
-	prefs_ItemTools(0),
-	prefs_KeyboardShortcuts(0),
-	prefs_Miscellaneous(0),
-	prefs_OperatorTools(0),
-	prefs_PDFExport(0),
-	prefs_PageSizes(0),
-	prefs_Paths(0),
-	prefs_Plugins(0),prefs_PreflightVerifier(0),
-	prefs_Printer(0),
-	prefs_Scrapbook(0),
-//	prefs_Spelling(0),
-	prefs_TableOfContents(0),
-	prefs_Typography(0),
-	prefs_UserInterface(0),
+	prefs_ColorManagement(nullptr),
+	prefs_Display(nullptr),
+	prefs_DocumentInformation(nullptr),
+	prefs_DocumentItemAttributes(nullptr),
+	prefs_DocumentSections(nullptr),
+	prefs_DocumentSetup(nullptr),
+	prefs_ExternalTools(nullptr),
+	prefs_Fonts(nullptr),
+	prefs_Guides(nullptr),
+	prefs_Hyphenator(nullptr),
+	prefs_ImageCache(nullptr),
+	prefs_ItemTools(nullptr),
+	prefs_KeyboardShortcuts(nullptr),
+	prefs_Miscellaneous(nullptr),
+	prefs_OperatorTools(nullptr),
+	prefs_PDFExport(nullptr),
+	prefs_PageSizes(nullptr),
+	prefs_Paths(nullptr),
+	prefs_Plugins(nullptr),prefs_PreflightVerifier(nullptr),
+	prefs_Printer(nullptr),
+	prefs_Scrapbook(nullptr),
+//	prefs_Spelling(nullptr),
+	prefs_TableOfContents(nullptr),
+	prefs_Typography(nullptr),
+	prefs_UserInterface(nullptr),
 	counter(0),
 	m_Doc(doc)
 {
@@ -55,7 +55,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
 	setupListWidget();
 	IconManager* im = IconManager::instance();
-	while (prefsStackWidget->currentWidget()!=0)
+	while (prefsStackWidget->currentWidget()!=nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
 	applyButton->hide();
@@ -286,7 +286,7 @@ void PreferencesDialog::setupListWidget()
 	preferencesTypeList->clear();
 }
 
-int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget* tab)
+int PreferencesDialog::addItem(const QString& name, const QPixmap& icon, QWidget* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(icon, name, preferencesTypeList);
@@ -305,7 +305,7 @@ void PreferencesDialog::newItemSelected()
 
 void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 {
-	if (ic == 0)
+	if (ic == nullptr)
 		return;
 	if (stackWidgetMap.contains(ic))
 	{
@@ -362,8 +362,8 @@ void PreferencesDialog::addPlugins()
 	// Scan for plugins that provide a prefs widget, and add it to the
 	// prefs dialog.
 	// For each plugin, enabled or not:
-	ScPlugin* plugin = 0;
-	Prefs_Pane* panel = 0;
+	ScPlugin* plugin = nullptr;
+	Prefs_Pane* panel = nullptr;
 	QString panelCaption;
 	QPixmap panelIcon;
 

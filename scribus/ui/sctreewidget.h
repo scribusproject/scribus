@@ -59,7 +59,7 @@ public:
 	bool isItemEnabled(int index);
 	void setCurrentIndex(int index);
 	int currentIndex();
-	void setItemText(int index, QString text);
+	void setItemText(int index, const QString& text);
 
 private slots:
 	void handleMousePress(QTreeWidgetItem *item);

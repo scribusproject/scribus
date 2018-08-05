@@ -36,8 +36,8 @@ for which a new license (GPL+exception) is in place.
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
 StyleManager::StyleManager(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), m_item(0), m_widget(0),
-	m_shortcutWidget(0), m_currentType(QString::null), m_isEditMode(true), m_doc(0)
+	: ScrPaletteBase(parent, name), m_item(nullptr), m_widget(nullptr),
+	m_shortcutWidget(nullptr), m_currentType(QString::null), m_isEditMode(true), m_doc(nullptr)
 {
 	setupUi(this);
 	styleView->hideColumn(SHORTCUT_COL);
@@ -67,7 +67,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	m_rightClickPopup->setEnabled(false);
 	m_newPopup->setEnabled(false);
 	
-	m_selectedStyleAction = 0;
+	m_selectedStyleAction = nullptr;
 
 	connect(m_newPopup, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
@@ -198,7 +198,7 @@ ItemType* StyleManager::item()
 		if (typedItem)
 			return typedItem;
 	}
-	return 0;
+	return nullptr;
 }
 
 void StyleManager::setOkButtonText()
@@ -230,7 +230,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	if (m_selectedStyleAction)
 	{
 		m_rightClickPopup->removeAction(m_selectedStyleAction);
-		m_selectedStyleAction = 0;
+		m_selectedStyleAction = nullptr;
 	}
 	m_styleActions.clear();
 	for (int i = 0; i < m_items.count(); ++i)
@@ -353,9 +353,9 @@ void StyleManager::slotImport()
 //       implementation
 // Start hack
 
-		SMParagraphStyle *pstyle = 0;
-		SMCharacterStyle *cstyle = 0;
-		SMLineStyle      *lstyle = 0;
+		SMParagraphStyle *pstyle = nullptr;
+		SMCharacterStyle *cstyle = nullptr;
+		SMLineStyle      *lstyle = nullptr;
 		for (int i = 0; i < m_items.count(); ++i)
 		{
 			pstyle = dynamic_cast<SMParagraphStyle*>(m_items.at(i));
@@ -653,7 +653,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
-			m_selectedStyleAction = 0;
+			m_selectedStyleAction = nullptr;
 		}
 		if (styleView->selectedItems().count() == 1)
 		{
@@ -684,7 +684,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
-			m_selectedStyleAction = 0;
+			m_selectedStyleAction = nullptr;
 		}
 	}
 	else
@@ -700,7 +700,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
-			m_selectedStyleAction = 0;
+			m_selectedStyleAction = nullptr;
 		}
 	}
 
@@ -751,7 +751,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 // 	qDebug() << "created new style:" << newName << " : " << m_item->isDefaultStyle(newName);
 	if (newName.isNull())
 		return;
-	StyleViewItem *root = 0;
+	StyleViewItem *root = nullptr;
 	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::NotSelectable);
 	while (*it)
 	{
@@ -1029,7 +1029,7 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 	{
 		if (!m_shortcutWidget)
 		{
-			m_shortcutWidget = new ShortcutWidget(0);
+			m_shortcutWidget = new ShortcutWidget(nullptr);
 			m_shortcutWidget->setAllowedModifiers(Qt::META|Qt::CTRL|Qt::SHIFT|Qt::ALT,0);
 			connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
 					this, SLOT(slotShortcutChanged(const QString&)));
@@ -1088,7 +1088,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 		if (m_selectedStyleAction == a)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
-			m_selectedStyleAction = 0;
+			m_selectedStyleAction = nullptr;
 		}
 		delete a;
 		m_styleActions[newKey] = b;
@@ -1349,7 +1349,7 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 // for editing styles
 void StyleManager::loadType(const QString &name)
 {
-	m_item = 0;
+	m_item = nullptr;
 	for (int i = 0; i < m_items.count(); ++i)
 	{
 		if (m_items.at(i)->typeNameSingular() == name || m_items.at(i)->typeName() == name)

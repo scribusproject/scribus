@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "spiralvectordialog.h"
 
-SpiralVectorDialog::SpiralVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "SpiralVectorDialog", false, 0 )
+SpiralVectorDialog::SpiralVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "SpiralVectorDialog", false, nullptr )
 {
 	setupUi(this);
 	startAngle->setNewUnit(6);

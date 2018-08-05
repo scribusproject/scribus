@@ -30,11 +30,11 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = 0;
-	m_doc  = 0;
+	m_ScMW = nullptr;
+	m_doc  = nullptr;
 	m_haveDoc    = false;
 	m_haveItem   = false;
-	m_item       = 0;
+	m_item       = nullptr;
 	m_unitRatio  = 1.0;
 	m_unitIndex  = 0;
 
@@ -222,7 +222,7 @@ PageItem* PropertiesPalette_Image::currentItemFromSelection()
 
 void PropertiesPalette_Image::installSniffer(ScrSpinBox *spinBox)
 {
-	const QList<QObject*> list = spinBox->children();
+	const QList<QObject*>& list = spinBox->children();
 	if (!list.isEmpty())
 	{
 		QListIterator<QObject*> it(list);
@@ -237,7 +237,7 @@ void PropertiesPalette_Image::installSniffer(ScrSpinBox *spinBox)
 
 void PropertiesPalette_Image::installSniffer(QSpinBox *spinBox)
 {
-	const QList<QObject*> list = spinBox->children();
+	const QList<QObject*>& list = spinBox->children();
 	if (!list.isEmpty())
 	{
 		QListIterator<QObject*> it(list);

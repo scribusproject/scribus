@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtablestylewidget.h"
 
 SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget(),
-	m_Doc(0)
+	m_Doc(nullptr)
 {
 	setupUi(this);
 
@@ -62,7 +62,7 @@ void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableSt
 		return;
 	parentCombo->setEnabled(!tableStyle->isDefaultStyle());
 	const TableStyle *parent = dynamic_cast<const TableStyle*>(tableStyle->parentStyle());
-	bool hasParent =  tableStyle->hasParent() && parent != 0 && parent->hasName() && tableStyle->parent() != "";
+	bool hasParent =  tableStyle->hasParent() && parent != nullptr && parent->hasName() && tableStyle->parent() != "";
 	if (hasParent)
 	{
 		fillColor->setCurrentText(tableStyle->fillColor(), tableStyle->isInhFillColor());

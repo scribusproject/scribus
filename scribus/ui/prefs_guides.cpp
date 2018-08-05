@@ -53,7 +53,7 @@ void Prefs_Guides::languageChange()
 	int renderStackCount = renderStackOrder.count();
 	for (int r = renderStackCount - 1; r > -1; r--)
 	{
-		QListWidgetItem *item(0);
+		QListWidgetItem *item(nullptr);
 		int it = renderStackOrder[r];
 		if (it == 4)
 			item = new QListWidgetItem( tr("Content Objects"), guidePlacementListBox);
@@ -121,7 +121,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	int renderStackCount = renderStackOrder.count();
 	for (int r = renderStackCount - 1; r > -1; r--)
 	{
-		QListWidgetItem *item(0);
+		QListWidgetItem *item(nullptr);
 		int it = renderStackOrder[r];
 		if (it == 4)
 			item = new QListWidgetItem( tr("Content Objects"), guidePlacementListBox);

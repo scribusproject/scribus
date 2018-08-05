@@ -175,7 +175,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	lineFillColorShadingSpinBox->setValue(prefsData->itemToolPrefs.lineColorShade);
 	lineStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.lineStyle) - 1);
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		lineStartArrowComboBox->rebuildList(&m_doc->arrowStyles());
 		lineEndArrowComboBox->rebuildList(&m_doc->arrowStyles());
@@ -372,7 +372,7 @@ void Prefs_ItemTools::updateFontPreview()
 	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (textFrameFillColorComboBox->currentText() != CommonStrings::tr_NoneColor)
 	{
-		if (m_doc != 0)
+		if (m_doc != nullptr)
 		{
 			si.setBgColor(m_doc->PageColors[textFrameFillColorComboBox->currentText()].getRawRGBColor());
 		}
@@ -389,7 +389,7 @@ void Prefs_ItemTools::updateFontPreview()
 
 	if (textColorComboBox->currentText() != CommonStrings::tr_NoneColor)
 	{
-		if (m_doc != 0)
+		if (m_doc != nullptr)
 		{
 			si.setTxColor(m_doc->PageColors[textColorComboBox->currentText()].getRawRGBColor());
 		}

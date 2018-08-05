@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
 	: QPushButton(parent),
-	m_searchDialog(0)
+	m_searchDialog(nullptr)
 {
 	languageChange();
 	setCheckable(true);

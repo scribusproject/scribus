@@ -45,7 +45,7 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	delegate = new ScListWidgetDelegate(this, this);
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
-	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
+	connect(this, SIGNAL(customContextMenuRequested (const QPoint&)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
 void SymbolView::HandleContextMenu(QPoint p)
@@ -150,7 +150,7 @@ bool SymbolView::viewportEvent(QEvent *event)
 	clearSelection();
 }
 
-SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", 0)
+SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", nullptr)
 {
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Symb"));
@@ -164,7 +164,7 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", 
 	editItemNames.clear();
 	languageChange();
 	m_item = nullptr;
-	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
 	connect(SymbolViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
 	connect(SymbolViewWidget, SIGNAL(objectDropped()), this, SIGNAL(objectDropped()));
 }

@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o) : QToolBar(name, parent),
 	m_name(QString("ToolBar-%1").arg(prefName)),
 	floatOrientation(Qt::Horizontal),
-	prefsButton(0),
+	prefsButton(nullptr),
 	parentMW(parent),
 	dockTop(false),
 	dockRight(false),

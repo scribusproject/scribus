@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) : StyleItem(),
-m_pwidget(0), m_cstyleItem(cstyleItem), m_doc(0), m_selectionIsDirty(false), m_unitRatio(1.0)
+m_pwidget(nullptr), m_cstyleItem(cstyleItem), m_doc(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
 {
 	Q_ASSERT(m_cstyleItem);
 	m_cstyles = m_cstyleItem->tmpStyles();
@@ -78,7 +78,7 @@ void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 	else
 	{
 		if (m_pwidget)
-			m_pwidget->setDoc(0);
+			m_pwidget->setDoc(nullptr);
 		removeConnections();
 		m_selection.clear();
 		m_tmpStyles.clear();
@@ -2080,13 +2080,13 @@ void SMParagraphStyle::slotCharStylesDeleted(const QList<RemoveItem> &removeList
 SMParagraphStyle::~SMParagraphStyle()
 {
 	delete m_pwidget;
-	m_pwidget = 0;
+	m_pwidget = nullptr;
 }
 
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : StyleItem(), m_widget(0), m_page(0), m_doc(0), m_selectionIsDirty(false)
+SMCharacterStyle::SMCharacterStyle() : StyleItem(), m_widget(nullptr), m_page(nullptr), m_doc(nullptr), m_selectionIsDirty(false)
 {
 	m_widget = new QTabWidget();
 	Q_CHECK_PTR(m_widget);
@@ -3099,7 +3099,7 @@ SMCharacterStyle::~SMCharacterStyle()
 {
 	delete m_page;
 	delete m_widget;
-	m_page = 0;
-	m_widget = 0;
+	m_page = nullptr;
+	m_widget = nullptr;
 }
 

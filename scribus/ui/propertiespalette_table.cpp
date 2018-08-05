@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 
 PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(parent),
-	m_mainWindow(0), m_doc(0), m_item(0), m_previousItem(0)
+	m_mainWindow(nullptr), m_doc(nullptr), m_item(nullptr), m_previousItem(nullptr)
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
@@ -95,7 +95,7 @@ void PropertiesPalette_Table::unsetDocument()
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 	}
 
-	m_doc = 0;
+	m_doc = nullptr;
 
 	tableStyleCombo->setDoc(m_doc);
 	cellStyleCombo->setDoc(m_doc);
@@ -114,7 +114,7 @@ void PropertiesPalette_Table::unsetItem()
 
 //	if ((m_item) && (m_item->isTable()))
 //		disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
-	m_item = 0;
+	m_item = nullptr;
 }
 
 void PropertiesPalette_Table::handleSelectionChanged()
@@ -126,7 +126,7 @@ void PropertiesPalette_Table::handleSelectionChanged()
 	if (m_doc->m_Selection->count() >= 1 && m_doc->m_Selection->itemAt(0)->isTable())
 		m_item = m_doc->m_Selection->itemAt(0);
 	else
-		m_item = 0;
+		m_item = nullptr;
 
 	// HACK: Guard against "false" re-selections resulting from m_item->update().
 	if (m_item == m_previousItem)
@@ -422,7 +422,7 @@ void PropertiesPalette_Table::on_borderLineList_currentRowChanged(int row)
 	{
 		QList<TableBorderLine> borderLines = m_currentBorder.borderLines();
 		Q_ASSERT(borderLineList->count() == borderLines.size());
-		TableBorderLine line = borderLines.at(row);
+		const TableBorderLine& line = borderLines.at(row);
 
 		// Enable editing widgets.
 		borderLineWidth->setEnabled(true);

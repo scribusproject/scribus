@@ -41,7 +41,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 {
 	setupUi(this);
 	setModal(true);
-	cdia = 0;
+	cdia = nullptr;
 	m_doc = doc;
 	unit = doc->unitIndex();
 	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
@@ -161,7 +161,7 @@ PrintDialog::~PrintDialog()
 #ifdef HAVE_CUPS
 	delete cdia;
 #endif
-	cdia = 0;
+	cdia = nullptr;
 }
 
 void PrintDialog::SetOptions()
@@ -173,7 +173,7 @@ void PrintDialog::SetOptions()
 	if (!cdia->exec())
 	{
 		delete cdia; // if options was canceled delete dia 
-		cdia = 0;    // so that getoptions() in the okButtonClicked() will get 
+		cdia = nullptr;    // so that getoptions() in the okButtonClicked() will get
 		             // the default values from the last successful run
 	}
 
@@ -307,7 +307,7 @@ void PrintDialog::SelEngine(const QString& eng)
 
 void PrintDialog::SelPrinter(const QString& prn)
 {
-	bool toFile = prn == tr("File") ? true : false;
+	bool toFile = prn == tr("File");
 	DateiT->setEnabled(toFile);
 	LineEdit1->setEnabled(toFile);
 	ToolButton1->setEnabled(toFile);
@@ -618,10 +618,7 @@ QStringList PrintDialog::allSeparations()
 
 bool PrintDialog::color()
 {
-	if (colorType->currentIndex() == 0)
-		return true;
-	else
-		return false;
+	return colorType->currentIndex() == 0;
 }
 
 bool PrintDialog::mirrorHorizontal()
@@ -704,7 +701,7 @@ void PrintDialog::doDocBleeds()
 
 void PrintDialog::createPageNumberRange( )
 {
-	if (m_doc!=0)
+	if (m_doc!=nullptr)
 	{
 		CreateRange cr(pageNr->text(), m_doc->DocPages.count(), this);
 		if (cr.exec())

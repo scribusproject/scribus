@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 
-PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase( parent, "PolyVectorDialog", false, 0 )
+PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase( parent, "PolyVectorDialog", false, nullptr )
 {
 	setWindowTitle( tr( "Polygon Properties" ) );
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
@@ -24,7 +24,7 @@ PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, boo
 	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature, true);
 	PolygonPropsLayout->addWidget( polyWidget );
 	// signals and slots connections
-	connect(polyWidget, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SIGNAL(NewVectors(int, double, bool, double, double, double, double)));
+	connect(polyWidget, SIGNAL(NewVectors(int,double,bool,double,double,double,double)), this, SIGNAL(NewVectors(int,double,bool,double,double,double,double)));
 	connect (this, SIGNAL(accepted()), this, SIGNAL(endEdit()));
 }
 

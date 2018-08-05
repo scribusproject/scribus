@@ -14,7 +14,7 @@ SMStyleImport::SMStyleImport(QWidget* parent,
 							 StyleSet<ParagraphStyle> *pstyleList,
 							 StyleSet<CharStyle> *cstyleList,
 							 QHash<QString, multiLine> *lstyleList)
-	: QDialog( parent, 0 )
+	: QDialog( parent, nullptr )
 {
 	setupUi(this);
 	setModal(true);

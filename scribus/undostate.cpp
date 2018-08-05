@@ -28,11 +28,11 @@ for which a new license (GPL+exception) is in place.
 #include "undoobject.h"
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
-transactionCode(0),
-actionName_(name),
-actionDescription_(description),
-actionPixmap_(pixmap),
-undoObject_(0)
+	transactionCode(0),
+	actionName_(name),
+	actionDescription_(description),
+	actionPixmap_(pixmap),
+	undoObject_(nullptr)
 {
 
 }
@@ -214,20 +214,19 @@ UndoState* TransactionState::at(int index) const
 {
 	if (index >= 0 && static_cast<uint>(index) < sizet())
 		return states_[index];
-	else
-		return 0;
+	return nullptr;
 }
 
 UndoState* TransactionState::last() const
 {
-	if (states_.size() > 0)
+	if (!states_.empty())
 		return states_.at(size_ - 1);
-	return 0;
+	return nullptr;
 }
 
 bool TransactionState::contains(int uid) const
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (int i = 0; i < states_.size(); ++i)
 	{
 		UndoObject* undoObject = states_[i]->undoObject();
 		if (undoObject && undoObject->getUId() == static_cast<uint>(uid))
@@ -238,7 +237,7 @@ bool TransactionState::contains(int uid) const
 
 bool TransactionState::containsOnly(int uid) const
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (int i = 0; i < states_.size(); ++i)
 	{
 		UndoObject* undoObject = states_[i]->undoObject();
 		if (undoObject && undoObject->getUId() != static_cast<uint>(uid))
@@ -270,8 +269,8 @@ void TransactionState::useActionName()
 
 UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
 {
-	UndoObject *tmp = 0;
-	for (uint i = 0; i < states_.size(); ++i)
+	UndoObject *tmp = nullptr;
+	for (int i = 0; i < states_.size(); ++i)
 	{
 		TransactionState *ts = dynamic_cast<TransactionState*>(states_[i]);
 		if (ts) // are we having a transaction_inside a transaction
@@ -329,12 +328,12 @@ void TransactionState::redo() // redo all attached states
 
 TransactionState::~TransactionState()
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (int i = 0; i < states_.size(); ++i)
 	{
 		if (states_[i])
 		{
 			delete states_[i];
-			states_[i] = 0;
+			states_[i] = nullptr;
 		}
 	}
 }

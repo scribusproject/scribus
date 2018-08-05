@@ -52,9 +52,9 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW=0;
-	m_doc=0;
-	m_item=0;
+	m_ScMW=nullptr;
+	m_doc=nullptr;
+	m_item=nullptr;
 	m_haveDoc = false;
 	m_haveItem = false;
 	m_unitIndex = 0;
@@ -180,7 +180,7 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	orphanBox->setDoc(m_doc);
 	pathTextWidgets->setDoc(m_doc);
 
-	fonts->RebuildList(m_doc);
+	fonts->rebuildList(m_doc);
 	paraStyleCombo->setDoc(m_doc);
 	charStyleCombo->setDoc(m_doc);
 
@@ -201,19 +201,19 @@ void PropertiesPalette_Text::unsetDoc()
 	m_doc      = nullptr;
 	m_item     = nullptr;
 
-	paraStyleCombo->setDoc(0);
-	charStyleCombo->setDoc(0);
+	paraStyleCombo->setDoc(nullptr);
+	charStyleCombo->setDoc(nullptr);
 
-	advancedWidgets->setDoc(0);
-	fontfeaturesWidget->setDoc(0);
-	colorWidgets->setDoc(0);
-	distanceWidgets->setDoc(0);
-	flopBox->setDoc(0);
+	advancedWidgets->setDoc(nullptr);
+	fontfeaturesWidget->setDoc(nullptr);
+	colorWidgets->setDoc(nullptr);
+	distanceWidgets->setDoc(nullptr);
+	flopBox->setDoc(nullptr);
 	hyphenationWidget->setDoc(nullptr);
-	optMargins->setDoc(0);
-	orphanBox->setDoc(0);
-	parEffectWidgets->setDoc(0);
-	pathTextWidgets->setDoc(0);
+	optMargins->setDoc(nullptr);
+	orphanBox->setDoc(nullptr);
+	parEffectWidgets->setDoc(nullptr);
+	pathTextWidgets->setDoc(nullptr);
 
 	m_haveItem = false;
 
@@ -300,14 +300,14 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	if (updateFlags & reqParaStylesUpdate)
 		paraStyleCombo->updateFormatList();
 	if (updateFlags & reqDefFontListUpdate)
-		fonts->RebuildList(0);
+		fonts->rebuildList(nullptr);
 	if (updateFlags & reqDocFontListUpdate)
-		fonts->RebuildList(m_haveDoc ? m_doc : 0);
+		fonts->rebuildList(m_haveDoc ? m_doc : nullptr);
 	if (updateFlags & reqStyleComboDocUpdate)
 	{
-		paraStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
-		charStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
-		parEffectWidgets->setDoc(m_haveDoc ? m_doc : 0);
+		paraStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
+		charStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
+		parEffectWidgets->setDoc(m_haveDoc ? m_doc : nullptr);
 	}
 }
 
@@ -428,7 +428,7 @@ void PropertiesPalette_Text::showFontFace(const QString& newFont)
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 	if (m_item != nullptr)
-		fonts->RebuildList(m_doc, m_item->isAnnotation());
+		fonts->rebuildList(m_doc, m_item->isAnnotation());
 	fonts->setCurrentFont(newFont);
 	m_haveItem = tmp;
 }
@@ -649,7 +649,7 @@ void PropertiesPalette_Text::handleDirection(int d)
 	}
 }
 
-void PropertiesPalette_Text::handleTextFont(QString c)
+void PropertiesPalette_Text::handleTextFont(const QString& c)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;

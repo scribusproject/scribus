@@ -150,9 +150,9 @@ QStringList Prefs_PDFExport::fontsToOutline()
 
 QListWidgetItem* Prefs_PDFExport::addFontItem(QString fontName, QListWidget* fontList)
 {
-	QListWidgetItem* item = 0;
+	QListWidgetItem* item = nullptr;
 	if (!AllFonts.contains(fontName))
-		return 0;
+		return nullptr;
 
 	const ScFace face = AllFonts.value(fontName);
 	if (face.isReplacement())
@@ -290,7 +290,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	maxExportResolutionSpinBox->setEnabled(prefsData->pdfPrefs.RecalcPic);
 
 	fontEmbeddingCombo->setEmbeddingMode(prefsData->pdfPrefs.FontEmbedding);
-	if (m_doc != 0 && exportingPDF)
+	if (m_doc != nullptr && exportingPDF)
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
@@ -352,7 +352,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			subsettedFontsListWidget->clear();
 			for (int fe = 0; fe < docFonts.count(); ++ fe)
 			{
-				QString fontName = docFonts.at(fe);
+				const QString& fontName = docFonts.at(fe);
 				if (Opts.EmbedList.contains(fontName))
 					addFontItem(fontName, embeddedFontsListWidget);
 				else
@@ -474,7 +474,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	QString tp(prefsData->pdfPrefs.SolidProf);
 	if (!ScCore->InputProfiles.contains(tp))
 	{
-		if (m_doc != 0 && exportingPDF)
+		if (m_doc != nullptr && exportingPDF)
 			tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp = defaultSolidColorRGBProfile;
@@ -495,7 +495,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
-		if (m_doc != 0 && exportingPDF)
+		if (m_doc != nullptr && exportingPDF)
 			tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp1 = defaultSolidColorRGBProfile;
@@ -524,7 +524,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	QString tp3(Opts.PrintProf);
 	if (!PDFXProfiles.contains(tp3))
 	{
-		if (m_doc != 0 && exportingPDF)
+		if (m_doc != nullptr && exportingPDF)
 			tp3 = m_doc->cmsSettings().DefaultPrinterProfile;
 		else
 			tp3 = defaultPrinterProfile;
@@ -541,7 +541,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		pdfx3InfoStringLineEdit->setText(Opts.Info);
 	else
 	{
-		if (m_doc != 0 && exporting)
+		if (m_doc != nullptr && exporting)
 		{
 			QFileInfo fi(m_doc->DocName);
 			pdfx3InfoStringLineEdit->setText(fi.fileName());
@@ -550,7 +550,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			pdfx3InfoStringLineEdit->setText( tr("InfoString"));
 	}
 
-	if (m_doc != 0 && exportingPDF)
+	if (m_doc != nullptr && exportingPDF)
 	{
 		useDocumentBleedsCheckBox->setChecked(Opts.useDocBleeds);
 		doDocBleeds();
@@ -576,7 +576,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	else
 		enablePDFXWidgets(false);
 
-	if (m_doc != 0  && exportingPDF)
+	if (m_doc != nullptr  && exportingPDF)
 	{
 		effectTypeComboBox->clear();
 		effectTypeComboBox->addItem( tr("No Effect"));
@@ -617,7 +617,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		*/
 	}
 
-	if (m_doc != 0 && exportingPDF)
+	if (m_doc != nullptr && exportingPDF)
 	{
 		connect(embedAllButton, SIGNAL(clicked()), this, SLOT(EmbedAll()));
 		connect(embeddedFontsListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEFont(QListWidgetItem*)));
@@ -626,7 +626,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		connect(toSubsetButton, SIGNAL(clicked()), this, SLOT(PutToSubset()));
 		connect(fromSubsetButton, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
 		connect(showPagePreviewsCheckBox, SIGNAL(clicked()), this, SLOT(PagePr()));
-		connect(effectsPageListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
+		connect(effectsPageListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetPgEff()));
 		connect(effectTypeComboBox, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 		connect(effectDirectionComboBox, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 		connect(enabledEffectsCheckBox, SIGNAL(clicked()), this, SLOT(DoEffects()));
@@ -763,7 +763,7 @@ void Prefs_PDFExport::enableRangeControls(bool enabled)
 {
 	exportPageListLineEdit->setEnabled( enabled );
 	exportRangeMorePushButton->setEnabled( enabled );
-	if (enabled == false)
+	if (!enabled)
 		includeBookmarksCheckBox->setChecked(false);
 }
 
@@ -797,7 +797,7 @@ void Prefs_PDFExport::enablePDFExportTabs(bool enabled)
 
 void Prefs_PDFExport::createPageNumberRange()
 {
-	if (m_doc!=0)
+	if (m_doc!=nullptr)
 	{
 		CreateRange cr(exportPageListLineEdit->text(), m_doc->DocPages.count(), this);
 		if (cr.exec())
@@ -839,7 +839,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		QString tp(Opts.SolidProf);
 		if (!ScCore->InputProfiles.contains(tp))
 		{
-			if (m_doc != 0)
+			if (m_doc != nullptr)
 				tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp = defaultSolidColorRGBProfile;
@@ -861,7 +861,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		QString tp1 = Opts.ImageProf;
 		if (!ScCore->InputProfiles.contains(tp1))
 		{
-			if (m_doc != 0)
+			if (m_doc != nullptr)
 				tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp1 = defaultSolidColorRGBProfile;
@@ -883,7 +883,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		//Disabling vs hiding
 		enableSolidsImagesWidgets(cmsEnabled);
 		convertSpotsToProcessCheckBox->setEnabled(true);
-		if (m_doc!=0)
+		if (m_doc!=nullptr)
 		{
 			useCustomRenderingCheckBox->setEnabled(true);
 			enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
@@ -900,7 +900,7 @@ void Prefs_PDFExport::enableLPI(int i)
 
 void Prefs_PDFExport::enableLPI2()
 {
-	if (m_doc!=0)
+	if (m_doc!=nullptr)
 		enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
 }
 
@@ -977,15 +977,14 @@ void Prefs_PDFExport::enablePGI()
 
 void Prefs_PDFExport::enablePGI2()
 {
-	bool setter = doNotUseEmbeddedImageProfileCheckBox->isChecked() ? true : false;
+	bool setter = doNotUseEmbeddedImageProfileCheckBox->isChecked();
 	imageProfileComboBox->setEnabled(setter);
 	imageRenderingIntentComboBox->setEnabled(setter);
 }
 
 void Prefs_PDFExport::enablePG()
 {
-	bool setter = useSolidColorProfileCheckBox->isChecked() ? true : false;
-
+	bool setter = useSolidColorProfileCheckBox->isChecked();
 	solidColorProfileComboBox->setEnabled(setter);
 	solidColorRenderingIntentComboBox->setEnabled(setter);
 }
@@ -995,7 +994,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 	includeLayersCheckBox->setEnabled((i == 2) || (i == 5));
 	if (useLayersRadioButton)
 		useLayersRadioButton->setEnabled((i == 2) || (i == 5));
-	if (m_doc != 0 && exportingPDF)
+	if (m_doc != nullptr && exportingPDF)
 	{
 		int currentEff = effectTypeComboBox->currentIndex();
 		disconnect(effectTypeComboBox, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -1042,7 +1041,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 		outputIntentionComboBox->setEnabled(true);
 		useImageProfileCheckBox->setEnabled(true);
 		emit hasInfo();
-		if (m_doc != 0 && exportingPDF)
+		if (m_doc != nullptr && exportingPDF)
 		{
 			enabledEffectsCheckBox->setEnabled(true);
 			embedAllButton->setEnabled(true);
@@ -1060,7 +1059,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 		useImageProfileCheckBox->setChecked(true);
 		useImageProfileCheckBox->setEnabled(false);
 	}
-	if (m_doc != 0 && exportingPDF)
+	if (m_doc != nullptr && exportingPDF)
 	{
 //		EmbedFonts->setChecked(true);
 		EmbedAll();
@@ -1138,7 +1137,7 @@ void Prefs_PDFExport::EmbedAll()
 
 	for (int a=0; a < docFonts.count(); ++a)
 	{
-		QString fontName = docFonts.at(a);
+		const QString& fontName = docFonts.at(a);
 		if (!AllFonts[fontName].subset())
 		{
 			QListWidgetItem* item = addFontItem(fontName, embeddedFontsListWidget);
@@ -1170,7 +1169,7 @@ void Prefs_PDFExport::SubsetAll()
 
 	for (int a = 0; a < docFonts.count(); ++a)
 	{
-		QString fontName = docFonts.at(a);
+		const QString& fontName = docFonts.at(a);
 		if (AnnotationFonts.contains(fontName))
 		{
 			QListWidgetItem* item = addFontItem(fontName, embeddedFontsListWidget);
@@ -1320,7 +1319,7 @@ void Prefs_PDFExport::PagePr()
 		effectsPageListWidget->setCurrentRow(ci);
 	else
 		effectsPageListWidget->clearSelection();
-	connect(effectsPageListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
+	connect(effectsPageListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetPgEff()));
 }
 
 void Prefs_PDFExport::DoDownsample()

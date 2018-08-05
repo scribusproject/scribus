@@ -71,9 +71,9 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = 0;
-	m_doc  = 0;
-	m_item = 0;
+	m_ScMW = nullptr;
+	m_doc  = nullptr;
+	m_item = nullptr;
 	m_haveDoc   = false;
 	m_haveItem  = false;
 	m_unitIndex = 0;
@@ -151,11 +151,11 @@ void PropertiesPalette_Group::setDoc(ScribusDoc *d)
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 	}
 	
-	disconnect(this->transPalWidget, SIGNAL(NewTrans(double)), 0, 0);
-	disconnect(this->transPalWidget, SIGNAL(NewBlend(int)), 0, 0);
-	disconnect(this->transPalWidget, SIGNAL(NewGradient(int)), 0, 0);
-	disconnect(this->transPalWidget, SIGNAL(NewPattern(QString)), 0, 0);
-	disconnect(this->transPalWidget, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
+	this->transPalWidget->disconnect(SIGNAL(NewTrans(double)));
+	this->transPalWidget->disconnect(SIGNAL(NewBlend(int)));
+	this->transPalWidget->disconnect(SIGNAL(NewGradient(int)));
+	this->transPalWidget->disconnect(SIGNAL(NewPattern(QString)));
+	this->transPalWidget->disconnect(SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
 
 	m_doc  = d;
 	m_item = nullptr;

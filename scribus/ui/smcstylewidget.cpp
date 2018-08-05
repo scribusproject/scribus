@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget(),
-	m_Doc(0)
+	m_Doc(nullptr)
 {
 	setupUi(this);
 
@@ -187,7 +187,7 @@ void SMCStyleWidget::setDoc(ScribusDoc *doc)
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	fillLangComboFromList(languageList);
 	fillColorCombo(m_Doc->PageColors);
-	fontFace_->RebuildList(m_Doc);
+	fontFace_->rebuildList(m_Doc);
 
 	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
@@ -197,7 +197,7 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	parentCombo->setEnabled(!cstyle->isDefaultStyle());
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
-	bool hasParent =  cstyle->hasParent() && parent != 0 && parent->hasName() && cstyle->parent() != "";
+	bool hasParent =  cstyle->hasParent() && parent != nullptr && parent->hasName() && cstyle->parent() != "";
 	if (hasParent)
 	{
 		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());

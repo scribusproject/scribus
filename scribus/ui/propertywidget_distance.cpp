@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(parent)
 {
-	m_item = 0;
-	m_ScMW = 0;
+	m_item = nullptr;
+	m_ScMW = nullptr;
 
 	m_unitRatio = 1.0;
 	m_unitIndex = 0;
@@ -247,7 +247,7 @@ void PropertyWidget_Distance::showColumns(int r, double g)
 		if (m_doc->appMode == modeEditTable)
 			textItem = m_item->asTable()->activeCell().textFrame();
 
-		if (textItem != 0)
+		if (textItem != nullptr)
 		{
 //#14427: columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
 			if (columnGapLabel->currentIndex() == 0)
@@ -374,7 +374,7 @@ void PropertyWidget_Distance::handleTabs()
 	if (m_doc && m_item)
 	{
 		PageItem_TextFrame *tItem = m_item->asTextFrame();
-		if (tItem == 0)
+		if (tItem == nullptr)
 			return;
 		const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
 		TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());

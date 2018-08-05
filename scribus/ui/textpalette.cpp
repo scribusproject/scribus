@@ -41,11 +41,11 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 
 
-TextPalette::TextPalette( QWidget* parent) : ScDockPalette( parent, "TextPalette", 0)
+TextPalette::TextPalette( QWidget* parent) : ScDockPalette( parent, "TextPalette", nullptr)
 {
 	undoManager = UndoManager::instance();
-	m_ScMW=0;
-	m_doc=0;
+	m_ScMW=nullptr;
+	m_doc=nullptr;
 	m_haveDoc = false;
 	m_haveItem = false;
 	m_unitRatio = 1.0;
