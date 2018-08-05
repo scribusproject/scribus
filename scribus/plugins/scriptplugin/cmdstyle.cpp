@@ -37,7 +37,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("dropcaplines"),
 			const_cast<char*>("dropcapoffset"),
 			const_cast<char*>("charstyle"),
-			NULL};
+			nullptr};
 	char *Name = const_cast<char*>(""), *CharStyle = const_cast<char*>("");
 	int LineSpacingMode = 0, Alignment = 0, DropCapLines = 2, HasDropCap = 0;
 	double LineSpacing = 15.0, LeftMargin = 0.0, RightMargin = 0.0;
@@ -46,13 +46,13 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		 keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
 		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
 		&HasDropCap, &DropCapLines, &PEOffset, "utf-8", &CharStyle))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ParagraphStyle TmpParagraphStyle;
@@ -72,7 +72,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	else
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap has to be 0 or 1.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 	TmpParagraphStyle.setDropCapLines(DropCapLines);
 	TmpParagraphStyle.setParEffectOffset(PEOffset);
@@ -116,7 +116,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 					  							const_cast<char*>("scalev"),
 					  							const_cast<char*>("tracking"),
 					  							const_cast<char*>("language"),
-					  						NULL};
+											nullptr};
 	char *Name = const_cast<char*>(""), *Font = const_cast<char*>("Times"), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
 	double FontSize = 200, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
@@ -124,13 +124,13 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 																									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset,
 																									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
 																									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
-		return NULL;
+		return nullptr;
 	if(!checkHaveDocument())
-		return NULL;
+		return nullptr;
 	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	QStringList FeaturesList = QString(Features).split(QString(","));
@@ -176,11 +176,11 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	PyObject *obj;
 
 	if (!PyArg_ParseTuple(args, "esO", "utf-8", &Name, &obj))
-		return NULL;
+		return nullptr;
 
 	if (!PyList_Check(obj)) {
 		PyErr_SetString(PyExc_TypeError, "'style' must be list.");
-		return NULL;
+		return nullptr;
 	}
 
 	multiLine ml;
@@ -188,7 +188,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		PyObject *line = PyList_GetItem(obj, i);
 		if (!PyDict_Check(line)) {
 			PyErr_SetString(PyExc_TypeError, "elements of list must be Dictionary.");
-			return NULL;
+			return nullptr;
 		}
 		struct SingleLine sl;
 		PyObject *val;
@@ -230,7 +230,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 			ml.shortcut = "";
 		ml.push_back(sl);
 	}
-	if (ml.size() > 0)
+	if (!ml.empty())
 		ScCore->primaryMainWindow()->doc->MLineStyles[Name] = ml;
 	Py_RETURN_NONE;
 }

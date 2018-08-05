@@ -1019,12 +1019,12 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Target frame must be empty.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}*/
-	if (toitem->nextInChain() != 0)
+	if (toitem->nextInChain() != nullptr)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame links to another frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (toitem->prevInChain() != 0)
+	if (toitem->prevInChain() != nullptr)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -1060,7 +1060,7 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	// only linked
-	if (item->prevInChain() == 0)
+	if (item->prevInChain() == nullptr)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Object is not a linked text frame, can't unlink.","python error").toLocal8Bit().constData());
 		return nullptr;

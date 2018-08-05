@@ -168,7 +168,7 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if(!checkHaveDocument())
 		return nullptr;
-	if (Name == 0)
+	if (Name == nullptr)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return nullptr;

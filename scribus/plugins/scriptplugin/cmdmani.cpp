@@ -357,21 +357,21 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
-	PyObject *il = 0;
+	PyObject *il = nullptr;
 	if (!PyArg_ParseTuple(args, "|O", &il))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (il == 0 && ScCore->primaryMainWindow()->doc->m_Selection->count() < 2)
+	if (il == nullptr && ScCore->primaryMainWindow()->doc->m_Selection->count() < 2)
 	{
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	Selection *tempSelection=0;
-	Selection *finalSelection=0;
+	Selection *tempSelection=nullptr;
+	Selection *finalSelection=nullptr;
 	//uint ap = ScCore->primaryMainWindow()->doc->currentPage()->pageNr();
 	// If we were passed a list of items to group...
-	if (il != 0)
+	if (il != nullptr)
 	{
 		int len = PyList_Size(il);
 		tempSelection = new Selection(ScCore->primaryMainWindow(), false);
@@ -397,13 +397,13 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 	{
 		// We can't very well group only one item
 		PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error").toLocal8Bit().constData());
-		finalSelection=0;
+		finalSelection=nullptr;
 		delete tempSelection;
 		return nullptr;
 	}
 
 	const PageItem* group = ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
-	finalSelection=0;
+	finalSelection=nullptr;
 	delete tempSelection;
 	
 	return (group ? PyString_FromString(group->itemName().toUtf8()) : nullptr);

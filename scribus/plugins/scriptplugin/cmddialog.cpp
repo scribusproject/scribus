@@ -78,7 +78,7 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
 	int butt[3] = { QMessageBox::Ok|QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton };
-	QMessageBox::StandardButtons buttons = QMessageBox::StandardButtons(0);
+	QMessageBox::StandardButtons buttons = QMessageBox::StandardButtons(nullptr);
 	enum QMessageBox::StandardButton defaultButton = QMessageBox::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
@@ -145,8 +145,7 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 		ScCore->primaryMainWindow()->styleMgr()->setDoc(d);
 		return PyString_FromString(s.toUtf8());
 	}
-	else
-		Py_RETURN_NONE;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings

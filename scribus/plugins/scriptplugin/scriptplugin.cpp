@@ -98,7 +98,7 @@ int scriptplugin_getPluginAPIVersion()
 
 ScPlugin* scriptplugin_getPlugin()
 {
-	scripterCore=0;
+	scripterCore=nullptr;
 	ScriptPlugin* plug = new ScriptPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
@@ -592,7 +592,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTextAnnotation"), scribus_settextannotation, METH_VARARGS,tr(scribus_settextannotation__doc__)},
 	{const_cast<char*>("createPdfAnnotation"), scribus_createpdfannotation, METH_VARARGS,tr(scribus_createpdfannotation__doc__)},
 	{const_cast<char*>("isAnnotated"),(PyCFunction)scribus_isannotated, METH_VARARGS|METH_KEYWORDS,tr(scribus_isannotated__doc__)},
-	{nullptr, (PyCFunction)(0), 0, nullptr} /* sentinel */
+	{nullptr, (PyCFunction)(nullptr), 0, nullptr} /* sentinel */
 };
 
 void initscribus_failed(const char* fileName, int lineNo)

@@ -1544,7 +1544,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 static PyMethodDef PDFfile_methods[] = {
 	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, const_cast<char*>("Save selected pages to pdf file")},
-	{nullptr, (PyCFunction)(0), 0, nullptr} // sentinel
+	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
 };
 
 PyTypeObject PDFfile_Type = {
@@ -1557,28 +1557,28 @@ PyTypeObject PDFfile_Type = {
 	/* Methods to implement standard operations */
 
 	(destructor) PDFfile_dealloc, //     destructor tp_dealloc;
-	0, //     printfunc tp_print;
-	0, //     getattrfunc tp_getattr;
-	0, //     setattrfunc tp_setattr;
-	0, //     cmpfunc tp_compare;
-	0, //     reprfunc tp_repr;
+	nullptr, //     printfunc tp_print;
+	nullptr, //     getattrfunc tp_getattr;
+	nullptr, //     setattrfunc tp_setattr;
+	nullptr, //     cmpfunc tp_compare;
+	nullptr, //     reprfunc tp_repr;
 
 	/* Method suites for standard classes */
 
-	0, //     PyNumberMethods *tp_as_number;
-	0, //     PySequenceMethods *tp_as_sequence;
-	0, //     PyMappingMethods *tp_as_mapping;
+	nullptr, //     PyNumberMethods *tp_as_number;
+	nullptr, //     PySequenceMethods *tp_as_sequence;
+	nullptr, //     PyMappingMethods *tp_as_mapping;
 
 	/* More standard operations (here for binary compatibility) */
 
-	0, //     hashfunc tp_hash;
-	0, //     ternaryfunc tp_call;
-	0, //     reprfunc tp_str;
-	0, //     getattrofunc tp_getattro;
-	0, //     setattrofunc tp_setattro;
+	nullptr, //     hashfunc tp_hash;
+	nullptr, //     ternaryfunc tp_call;
+	nullptr, //     reprfunc tp_str;
+	nullptr, //     getattrofunc tp_getattro;
+	nullptr, //     setattrofunc tp_setattro;
 
 	/* Functions to access object as input/output buffer */
-	0, //     PyBufferProcs *tp_as_buffer;
+	nullptr, //     PyBufferProcs *tp_as_buffer;
 
 	/* Flags to define presence of optional/expanded features */
 	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
@@ -1587,43 +1587,43 @@ PyTypeObject PDFfile_Type = {
 
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
-	0, //     traverseproc tp_traverse;
+	nullptr, //     traverseproc tp_traverse;
 
 	/* delete references to contained objects */
-	0, //     inquiry tp_clear;
+	nullptr, //     inquiry tp_clear;
 
 	/* Assigned meaning in release 2.1 */
 	/* rich comparisons */
-	0, //     richcmpfunc tp_richcompare;
+	nullptr, //     richcmpfunc tp_richcompare;
 
 	/* weak reference enabler */
 	0, //     long tp_weaklistoffset;
 
 	/* Added in release 2.2 */
 	/* Iterators */
-	0, //     getiterfunc tp_iter;
-	0, //     iternextfunc tp_iternext;
+	nullptr, //     getiterfunc tp_iter;
+	nullptr, //     iternextfunc tp_iternext;
 
 	/* Attribute descriptor and subclassing stuff */
 	PDFfile_methods, //     struct PyMethodDef *tp_methods;
 	PDFfile_members, //     struct PyMemberDef *tp_members;
 	PDFfile_getseters, //     struct PyGetSetDef *tp_getset;
-	0, //     struct _typeobject *tp_base;
-	0, //     PyObject *tp_dict;
-	0, //     descrgetfunc tp_descr_get;
-	0, //     descrsetfunc tp_descr_set;
+	nullptr, //     struct _typeobject *tp_base;
+	nullptr, //     PyObject *tp_dict;
+	nullptr, //     descrgetfunc tp_descr_get;
+	nullptr, //     descrsetfunc tp_descr_set;
 	0, //     long tp_dictoffset;
 	(initproc)PDFfile_init, //     initproc tp_init;
-	0, //     allocfunc tp_alloc;
+	nullptr, //     allocfunc tp_alloc;
 	PDFfile_new, //     newfunc tp_new;
-	0, //     freefunc tp_free; /* Low-level free-memory routine */
-	0, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
-	0, //     PyObject *tp_bases;
-	0, //     PyObject *tp_mro; /* method resolution order */
-	0, //     PyObject *tp_cache;
-	0, //     PyObject *tp_subclasses;
-	0, //     PyObject *tp_weaklist;
-	0, //     destructor tp_del;
+	nullptr, //     freefunc tp_free; /* Low-level free-memory routine */
+	nullptr, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
+	nullptr, //     PyObject *tp_bases;
+	nullptr, //     PyObject *tp_mro; /* method resolution order */
+	nullptr, //     PyObject *tp_cache;
+	nullptr, //     PyObject *tp_subclasses;
+	nullptr, //     PyObject *tp_weaklist;
+	nullptr, //     destructor tp_del;
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */

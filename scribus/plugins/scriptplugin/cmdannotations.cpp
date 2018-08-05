@@ -488,7 +488,8 @@ PyObject *getLinkData(PyObject *rv,int page, QString action)
 
 static void prepareannotation(PageItem *i)
 {
-	if (i->isBookmark == true){
+	if (i->isBookmark)
+	{
 	  i->isBookmark = false;
 	  ScCore->primaryMainWindow()->DelBookMark(i);
 	}

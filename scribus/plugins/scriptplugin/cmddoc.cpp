@@ -325,7 +325,7 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 
 PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = 0;
+	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
 	if(!checkHaveDocument())
@@ -346,7 +346,7 @@ PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = 0;
+	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
 	if(!checkHaveDocument())
@@ -365,7 +365,7 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = 0;
+	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
 	if(!checkHaveDocument())
@@ -408,7 +408,7 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = 0;
+	char* name = nullptr;
 	int page = 0;
 	if (!PyArg_ParseTuple(args, "esi", const_cast<char*>("utf-8"), &name, &page))
 		return nullptr;

@@ -183,7 +183,7 @@ bool setSelectedItemsByName(QStringList& itemNames)
 	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
-		PageItem* item = 0;
+		PageItem* item = nullptr;
 		for (int j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
 			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 				item = ScCore->primaryMainWindow()->doc->Items->at(j);
