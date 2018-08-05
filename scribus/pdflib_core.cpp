@@ -5905,9 +5905,8 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 {
 	QByteArray tmp;
-	RGBColor rgb;
-	CMYKColor cmyk;
-	int h, s, v, k;
+	RGBColorF rgb;
+	CMYKColorF cmyk;
 	if (farbe == CommonStrings::None)
 	{
 		if (Options.isGrayscale)
@@ -5929,31 +5928,27 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 		return tmp;
 	}
 	ScColor tmpC(doc.PageColors[farbe]);
-	QColor tmpR;
 	if (Options.isGrayscale)
 	{
 		bool kToGray = false;
 		if (tmpC.getColorModel() == colorModelCMYK)
 		{
 			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-			cmyk.getValues(h, s, v, k);
-			kToGray = (h == 0 && s == 0 && v == 0);
+			kToGray = (cmyk.c == 0.0 && cmyk.m == 0.0 && cmyk.y == 0.0);
 		}
 		if (kToGray)
-			tmp = FToStr(1.0 - k / 255.0);
+			tmp = FToStr(1.0 - cmyk.k);
 		else
 		{
-			tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-			tmpR.getRgb(&h, &s, &v);
-			tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+			tmp = FToStr(0.3 * rgb.r + 0.59 * rgb.g + 0.11 * rgb.b);
 		}
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
-		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.getRgb(&h, &s, &v);
-		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+		ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+		tmp = FToStr(rgb.r) + " " + FToStr(rgb.g) + " " + FToStr(rgb.b);
 	}
 	else
 	{
@@ -5962,21 +5957,18 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 			if (Options.SComp == 3)
 			{
 				ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
-				rgb.getValues(h, s, v);
-				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+				tmp = FToStr(rgb.r) + " " + FToStr(rgb.g) + " " + FToStr(rgb.b);
 			}
 			else
 			{
 				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-				cmyk.getValues(h, s, v, k);
-				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+				tmp = FToStr(cmyk.c) + " " + FToStr(cmyk.m) + " " + FToStr(cmyk.y) + " " + FToStr(cmyk.k);
 			}
 		}
 		else
 		{
 			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-			cmyk.getValues(h, s, v, k);
-			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			tmp = FToStr(cmyk.c) + " " + FToStr(cmyk.m) + " " + FToStr(cmyk.y) + " " + FToStr(cmyk.k);
 		}
 	}
 	return tmp;
