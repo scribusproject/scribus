@@ -50,7 +50,7 @@ private:
 	void handleDHText(QDataStream &ts);
 	void handleDVText(QDataStream &ts);
 	void handleDHVText(QDataStream &ts);
-	void createTextPath(QByteArray textString);
+	void createTextPath(const QByteArray& textString);
 	void handlePenMode(QDataStream &ts);
 	void handlePenSize(QDataStream &ts);
 	void handleOvalSize(QDataStream &ts);

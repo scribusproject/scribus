@@ -84,7 +84,7 @@ bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int page, int 
 	hasAlpha = false;
 	if (testAlphaChannelAvailability(fn, page, hasAlpha))
 	{
-		if (hasAlpha == false)
+		if (!hasAlpha)
 			success = true;
 		else if (loadPicture(fn, page, res, false))
 		{
@@ -118,7 +118,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 
 	do
 	{
-		char *layerName=0;
+		char *layerName=nullptr;
 		TIFFGetField(tif, TIFFTAG_PAGENAME, &layerName);
 		QString name = QString(layerName);
 		if (name.isEmpty())
@@ -250,7 +250,7 @@ void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
 
 bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
-	uint32 *bits = 0;
+	uint32 *bits = nullptr;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
 		if (samplesperpixel > 5)
@@ -355,7 +355,7 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 {
 	bool gotData = false;
 	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-	uint16  extrasamples(0), *extratypes(0);
+	uint16  extrasamples(0), *extratypes(nullptr);
 	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 		extrasamples = 0;
 	if (bits)
@@ -690,7 +690,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 
 	bool isCMYK = false;
 	unsigned int widtht, heightt, size;
-	char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
+	char *description=nullptr, *copyright=nullptr, *datetime=nullptr, *artist=nullptr, *scannerMake=nullptr, *scannerModel=nullptr;
 	uint16 bitspersample, fillorder, planar;
 
 	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
@@ -752,7 +752,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 			m_imageInfoRecord.exifInfo.width = widtht;
 			m_imageInfoRecord.exifInfo.height = heightt;
 			if (!m_imageInfoRecord.valid)
-				m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
+				m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0;
 			if (thumbnail)
 			{
 				if (m_photometric == PHOTOMETRIC_SEPARATED)
@@ -948,7 +948,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 			QImage imt; //QImage imt = tmpImg.copy();
 			double sx = tmpImg.width() / 40.0;
 			double sy = tmpImg.height() / 40.0;
-			imt = tmpImg.convertToQImage((chans > 4) ? true : false);
+			imt = tmpImg.convertToQImage(chans > 4);
 			imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
 										imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 			m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
@@ -1555,7 +1555,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 				unsigned char *s = r2_image.scanLine(qMin(i, r2_image.height()-1));
 				d += qMin(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
 				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				unsigned char *sm = 0;
+				unsigned char *sm = nullptr;
 				if (hasMask)
 				{
 					sm = mask.scanLine(qMin(i, mask.height()-1));

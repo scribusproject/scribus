@@ -202,7 +202,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					f2.close();
 					imgc.resize(0);
 					ScImage thum;
-					CMSettings cms(0, "", Intent_Perceptual);
+					CMSettings cms(nullptr, "", Intent_Perceptual);
 					cms.allowColorManagement(false);
 					bool mode = true;
 					if (thum.loadPicture(tmpFile, 1, cms, ScImage::RGBData, 72, &mode))
@@ -410,8 +410,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								fakeHeader.width = qRound(b);
 								fakeHeader.height = qRound(h);
 								parseRessourceData(strPhot, fakeHeader, psdata.size());
-								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0 ? true : false;
-								if (m_imageInfoRecord.PDSpathData.size() > 0)
+								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0;
+								if (!m_imageInfoRecord.PDSpathData.empty())
 								{
 									QTransform mm;
 									mm.scale(m_imageInfoRecord.xres / 72.0, m_imageInfoRecord.yres / 72.0);
@@ -1757,10 +1757,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 			m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 			return true;
 		}
-		else
-		{
-			qDebug() << "Ghostscript returned result" << retg;
-		}
+		qDebug() << "Ghostscript returned result" << retg;
 		return false;
 	}
 	m_imageInfoRecord.actualPageNumber = page;

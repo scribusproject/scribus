@@ -37,7 +37,7 @@ ScImgDataLoader_PSD::ScImgDataLoader_PSD(void)
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_PSD::initSupportedFormatList(void)
+void ScImgDataLoader_PSD::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "psd" );
@@ -509,21 +509,15 @@ bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & hea
 			m_imageInfoRecord.valid = true;
 			return re;
 		}
-		else
-		{
-			// Try to decode simple psd file, no layers
-			s.device()->seek(startLayers + layerDataLen);
-			if(s.atEnd())
-				return false;
-			return loadLayer( s, header);
-		}
+		// Try to decode simple psd file, no layers
+		s.device()->seek(startLayers + layerDataLen);
+		if(s.atEnd())
+			return false;
+		return loadLayer( s, header);
 	}
-	else
-	{
-		// Decoding simple psd file, no layers
-		s.device()->seek( s.device()->pos() + layerDataLen );
-		loadLayer( s, header);
-	}
+	// Decoding simple psd file, no layers
+	s.device()->seek( s.device()->pos() + layerDataLen );
+	loadLayer( s, header);
 	return true;
 }
 
@@ -1075,7 +1069,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		{
 			unsigned char *s;
 			unsigned char *d;
-			unsigned char *sm = 0;
+			unsigned char *sm = nullptr;
 			unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 			unsigned char a = 0;
 			uchar new_r, new_g, new_b;
@@ -1086,7 +1080,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 				s = r2_image.scanLine(qMin(i, r2_image.height()-1));
 				d += qMin(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
 				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				sm = 0;
+				sm = nullptr;
 				if (hasMask)
 				{
 					sm = mask.scanLine(qMin(i, mask.height()-1));
@@ -1556,9 +1550,7 @@ QString ScImgDataLoader_PSD::getLayerString(QDataStream & s)
 
 bool ScImgDataLoader_PSD::IsValid( const PSDHeader & header )
 {
-	if( header.signature != 0x38425053 )
-		return false;
-	return true;
+	return header.signature == 0x38425053;
 }
 
 // Check that the header is supported.
@@ -1570,10 +1562,8 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 		return false;
 	if ( header.depth != 8 )
 		return false;
-	if ((header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_LABCOLOR)
-	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE))
-		return true;
-	return false;
+	return (header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_LABCOLOR)
+	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE);
 }
 
 void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
@@ -1591,13 +1581,13 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (m_colorTableSc.count() == 2)
 	{
-		ScColorEngine::getCMYKValues(m_colorTableSc[0], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[0], nullptr, cmyk);
 		cmyk.getValues(c, m, y, k);
 		c = qMin((c * m_curveTable1[(int)cb]) >> 8, 255);
 		m = qMin((m * m_curveTable1[(int)cb]) >> 8, 255);
 		y = qMin((y * m_curveTable1[(int)cb]) >> 8, 255);
 		k = qMin((k * m_curveTable1[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[1], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[1], nullptr, cmyk);
 		cmyk.getValues(c1, m1, y1, k1);
 		c1 = qMin((c1 * m_curveTable2[(int)cb]) >> 8, 255);
 		m1 = qMin((m1 * m_curveTable2[(int)cb]) >> 8, 255);
@@ -1611,19 +1601,19 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (m_colorTableSc.count() == 3)
 	{
-		ScColorEngine::getCMYKValues(m_colorTableSc[0], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[0], nullptr, cmyk);
 		cmyk.getValues(c, m, y, k);
 		c = qMin((c * m_curveTable1[(int)cb]) >> 8, 255);
 		m = qMin((m * m_curveTable1[(int)cb]) >> 8, 255);
 		y = qMin((y * m_curveTable1[(int)cb]) >> 8, 255);
 		k = qMin((k * m_curveTable1[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[1], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[1], nullptr, cmyk);
 		cmyk.getValues(c1, m1, y1, k1);
 		c1 = qMin((c1 * m_curveTable2[(int)cb]) >> 8, 255);
 		m1 = qMin((m1 * m_curveTable2[(int)cb]) >> 8, 255);
 		y1 = qMin((y1 * m_curveTable2[(int)cb]) >> 8, 255);
 		k1 = qMin((k1 * m_curveTable2[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[2], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[2], nullptr, cmyk);
 		cmyk.getValues(c2, m2, y2, k2);
 		c2 = qMin((c2 * m_curveTable3[(int)cb]) >> 8, 255);
 		m2 = qMin((m2 * m_curveTable3[(int)cb]) >> 8, 255);
@@ -1637,25 +1627,25 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (m_colorTableSc.count() == 4)
 	{
-		ScColorEngine::getCMYKValues(m_colorTableSc[0], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[0], nullptr, cmyk);
 		cmyk.getValues(c, m, y, k);
 		c = qMin((c * m_curveTable1[(int)cb]) >> 8, 255);
 		m = qMin((m * m_curveTable1[(int)cb]) >> 8, 255);
 		y = qMin((y * m_curveTable1[(int)cb]) >> 8, 255);
 		k = qMin((k * m_curveTable1[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[1], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[1], nullptr, cmyk);
 		cmyk.getValues(c1, m1, y1, k1);
 		c1 = qMin((c1 * m_curveTable2[(int)cb]) >> 8, 255);
 		m1 = qMin((m1 * m_curveTable2[(int)cb]) >> 8, 255);
 		y1 = qMin((y1 * m_curveTable2[(int)cb]) >> 8, 255);
 		k1 = qMin((k1 * m_curveTable2[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[2], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[2], nullptr, cmyk);
 		cmyk.getValues(c2, m2, y2, k2);
 		c2 = qMin((c2 * m_curveTable3[(int)cb]) >> 8, 255);
 		m2 = qMin((m2 * m_curveTable3[(int)cb]) >> 8, 255);
 		y2 = qMin((y2 * m_curveTable3[(int)cb]) >> 8, 255);
 		k2 = qMin((k2 * m_curveTable3[(int)cb]) >> 8, 255);
-		ScColorEngine::getCMYKValues(m_colorTableSc[3], NULL, cmyk);
+		ScColorEngine::getCMYKValues(m_colorTableSc[3], nullptr, cmyk);
 		cmyk.getValues(c3, m3, y3, k3);
 		c3 = qMin((c3 * m_curveTable4[(int)cb]) >> 8, 255);
 		m3 = qMin((m3 * m_curveTable4[(int)cb]) >> 8, 255);

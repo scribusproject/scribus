@@ -23,7 +23,7 @@ ScrPainterIm::ScrPainterIm(): libwpg::WPGPaintInterface(),
 	isGradient(false),
 	fillSet(false),
 	strokeSet(false),
-	image(NULL)
+	image(nullptr)
 {
 }
 
