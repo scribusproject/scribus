@@ -1197,13 +1197,13 @@ PageItem * PageItem::frameTextEnd()
 	if (frameOverflows() && NextBox)
 	{ // text ending in some next frame
 		LastBox = NextBox;
-		while (LastBox != 0 && !LastBox->frameDisplays(itemText.length()-1))
+		while (LastBox != nullptr && !LastBox->frameDisplays(itemText.length()-1))
 			LastBox = LastBox->nextInChain();
 	}
 	else if (frameUnderflows() && BackBox)
 	{ //text ending in some previous frame
 		LastBox = BackBox;
-		while (LastBox != 0 && !LastBox->frameDisplays(itemText.length()-1))
+		while (LastBox != nullptr && !LastBox->frameDisplays(itemText.length()-1))
 			LastBox = LastBox->prevInChain();
 	}
 	return LastBox;
@@ -1586,8 +1586,7 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 	// Note: cursor position can be past last characters, don't use frameDisplays() here
 	if (cursorPosition >= 0 && cursorPosition <= itemText.length())
 		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(cursorPosition));
-	else
-		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
+	return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 }
 
 /// returns the style at the current charpos
@@ -1603,8 +1602,7 @@ const CharStyle& PageItem::currentCharStyle() const
 	// Note: cursor position can be past last characters, don't use frameDisplays() here
 	if (cursorPosition >= 0 && cursorPosition <= itemText.length())
 		return itemText.charStyle(cursorPosition);
-	else
-		return itemText.defaultStyle().charStyle();
+	return itemText.defaultStyle().charStyle();
 }
 
 void PageItem::currentTextProps(ParagraphStyle& parStyle) const
@@ -2201,7 +2199,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->strokePath();
 			}
 		}
-		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (!ContourLine.empty()))
 		{
 			p->setPen(Qt::darkGray, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupSharpPolygon(&ContourLine);
@@ -9819,7 +9817,7 @@ void PageItem::AdjustPictScale()
 		m_imageXOffset = imgXOffs;
 		m_imageYOffset = imgYOffs;
 	}
-	if (imageClip.size() != 0)
+	if (!imageClip.empty())
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 		QTransform cl;
@@ -10170,7 +10168,7 @@ void PageItem::moveImageInFrame(double newX, double newY)
 	else
 		dY=newY;
 	moveImageXYOffsetBy(dX, dY);
-	if (imageClip.size() != 0)
+	if (!imageClip.empty())
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 		QTransform cl;

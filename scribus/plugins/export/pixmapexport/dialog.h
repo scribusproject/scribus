@@ -17,7 +17,7 @@ class ExportForm : public QDialog, public Ui::ExportForm
 	Q_OBJECT
 
 public:
-	ExportForm( QWidget* parent, ScribusDoc* doc, int size, int quality, QString type);
+	ExportForm( QWidget* parent, ScribusDoc* doc, int size, int quality, const QString& type);
 	~ExportForm();
 
 public slots:

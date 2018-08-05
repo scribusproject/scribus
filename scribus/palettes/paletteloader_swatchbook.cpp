@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 PaletteLoader_Swatchbook::PaletteLoader_Swatchbook()
-                 : PaletteLoader()
 {
 
 }
@@ -31,10 +30,7 @@ bool PaletteLoader_Swatchbook::isFileSupported(const QString & fileName) const
 {
 	QFileInfo fi = QFileInfo(fileName);
 	QString ext = fi.suffix().toLower();
-	if (ext != "sbz")
-		return false;
-	
-	return true;
+	return ext == "sbz";
 }
 
 bool PaletteLoader_Swatchbook::importFile(const QString& fileName, bool /*merge*/)

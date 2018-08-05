@@ -18,9 +18,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "util.h"
 
-UrlLauncher* UrlLauncher::_instance = 0;
+UrlLauncher* UrlLauncher::_instance = nullptr;
 
-UrlLauncher::UrlLauncher() : QObject()
+UrlLauncher::UrlLauncher()
 {
 }
 
@@ -30,7 +30,7 @@ UrlLauncher::~UrlLauncher()
 
 UrlLauncher* UrlLauncher::instance()
 {
-	if (_instance == 0)
+	if (_instance == nullptr)
 		_instance = new UrlLauncher();
 
 	return _instance;
@@ -38,22 +38,21 @@ UrlLauncher* UrlLauncher::instance()
 
 void UrlLauncher::deleteInstance()
 {
-	if (_instance)
-		delete _instance;
-	_instance = 0;
+	delete _instance;
+	_instance = nullptr;
 }
 
-void UrlLauncher::launchUrlExt(QString link, QWidget *parent)
+void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
 {
 	launchUrlExt(QUrl(link), parent);
 }
 
-void UrlLauncher::launchUrlExt(QUrl link, QWidget *parent)
+void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 {
 	if (link.scheme()=="http" || link.scheme()=="https")
 	{
 		QWidget *p=parent;
-		if (p==0)
+		if (p==nullptr)
 			p=ScCore->primaryMainWindow();
 		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
 		if (extBrowser.isEmpty())

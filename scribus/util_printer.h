@@ -91,7 +91,7 @@ class SCRIBUS_API PrinterUtil
 		 * @return true is printer support postscript, false otherwise.
 		 *
 		 */
-		static bool isPostscriptPrinter( QString printerName );
+		static bool isPostscriptPrinter( const QString& printerName );
 };
 
 #endif // DRUCK_H

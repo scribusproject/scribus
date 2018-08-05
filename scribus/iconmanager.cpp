@@ -24,7 +24,7 @@
 #include "prefsmanager.h"
 #include "scpaths.h"
 
-IconManager* IconManager::m_instance = 0;
+IconManager* IconManager::m_instance = nullptr;
 
 IconManager::IconManager(QObject *parent)
  : QObject(parent)
@@ -37,7 +37,7 @@ IconManager::~IconManager()
 
 IconManager* IconManager::instance()
 {
-	if (m_instance == 0)
+	if (m_instance == nullptr)
 		m_instance = new IconManager();
 
 	return m_instance;
@@ -47,7 +47,7 @@ void IconManager::deleteInstance()
 {
 	if (m_instance)
 		delete m_instance;
-	m_instance = 0;
+	m_instance = nullptr;
 }
 
 bool IconManager::setup()

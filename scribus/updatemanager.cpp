@@ -44,13 +44,8 @@ void UpdateManager::setUpdatesEnabled(bool val)
 bool UpdateManager::requestUpdate(UpdateManaged* observable, UpdateMemento* what)
 {
 	if (m_updatesDisabled == 0)
-	{
 		return true;	
-	}
-	else
-	{
-		m_pending.insert(PendingUpdate(observable, what));
-		return false;
-	}
+	m_pending.insert(PendingUpdate(observable, what));
+	return false;
 }
 

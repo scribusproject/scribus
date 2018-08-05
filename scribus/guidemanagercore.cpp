@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 GuideManagerCore::GuideManagerCore():
 	gx(0), gy(0), gw(0), gh(0),
 	m_undoManager(UndoManager::instance()),
-	m_page(0),
+	m_page(nullptr),
 	m_horizontalAutoGap(0.0),
 	m_verticalAutoGap(0.0),
 	m_horizontalAutoCount(0),
@@ -75,7 +75,7 @@ void GuideManagerCore::addHorizontal(double value, GuideType type)
 				m_horizontalStdG.append(value);
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState* ss = new SimpleState(Um::AddHGuide, 0, Um::IGuides);
+					SimpleState* ss = new SimpleState(Um::AddHGuide, nullptr, Um::IGuides);
 					ss->set("ADD_H", value);
 					m_undoManager->action(m_page, ss);
 				}
@@ -116,7 +116,7 @@ void GuideManagerCore::addVertical(double value, GuideType type)
 				m_verticalStdG.append(value);
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
+					SimpleState* ss = new SimpleState(Um::AddVGuide, nullptr, Um::IGuides);
 					ss->set("ADD_V", value);
 					m_undoManager->action(m_page, ss);
 				}
@@ -155,7 +155,7 @@ void GuideManagerCore::deleteHorizontal(double value, GuideType type)
 			m_horizontalStdG.removeAt(m_horizontalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
+				SimpleState* ss = new SimpleState(Um::DelHGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_H", value);
 				m_undoManager->action(m_page, ss);
 			}
@@ -173,7 +173,7 @@ void GuideManagerCore::deleteVertical(double value, GuideType type)
 			m_verticalStdG.removeAt(m_verticalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
+				SimpleState* ss = new SimpleState(Um::DelVGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_V", value);
 				m_undoManager->action(m_page, ss);
 			}
@@ -341,7 +341,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			{
 				for (int i = 0; i < m_horizontalStdG.count(); ++i)
 				{
-					SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
+					SimpleState* ss = new SimpleState(Um::DelHGuide, nullptr, Um::IGuides);
 					ss->set("REMOVE_H", m_horizontalStdG[i]);
 					m_undoManager->action(m_page, ss);
 				}
@@ -351,7 +351,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 		case Auto:
 			if (m_undoManager->undoEnabled())
 			{
-				SimpleState * ss = new SimpleState(Um::DelHAGuide, 0, Um::IGuides);
+				SimpleState * ss = new SimpleState(Um::DelHAGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_HA_GAP", m_horizontalAutoGap);
 				ss->set("REMOVE_HA_COUNT", m_horizontalAutoCount);
 				ss->set("REMOVE_HA_REFER", m_horizontalAutoRefer);
@@ -375,7 +375,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			{
 				for (int i = 0; i < m_verticalStdG.count(); ++i)
 				{
-					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
+					SimpleState* ss = new SimpleState(Um::DelVGuide, nullptr, Um::IGuides);
 					ss->set("REMOVE_V", m_verticalStdG[i]);
 					m_undoManager->action(m_page, ss);
 				}
@@ -385,7 +385,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 		case Auto:
 			if (m_undoManager->undoEnabled())
 			{
-				SimpleState * ss = new SimpleState(Um::DelVAGuide, 0, Um::IGuides);
+				SimpleState * ss = new SimpleState(Um::DelVAGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_VA_GAP", m_verticalAutoGap);
 				ss->set("REMOVE_VA_COUNT", m_verticalAutoCount);
 				ss->set("REMOVE_VA_REFER", m_verticalAutoRefer);
@@ -408,7 +408,7 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 			m_horizontalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState* ss = new SimpleState(Um::MoveHGuide, 0, Um::IGuides);
+				SimpleState* ss = new SimpleState(Um::MoveHGuide, nullptr, Um::IGuides);
 				ss->set("MOVE_H_FROM", from);
 				ss->set("MOVE_H_TO", to);
 				m_undoManager->action(m_page, ss);
@@ -428,7 +428,7 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 			m_verticalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
+				SimpleState* ss = new SimpleState(Um::MoveVGuide, nullptr, Um::IGuides);
 				ss->set("MOVE_V_FROM", from);
 				ss->set("MOVE_V_TO", to);
 				m_undoManager->action(m_page, ss);
@@ -737,7 +737,7 @@ QString GuideManagerIO::writeSelection(ScPage *page)
 	return QString("%1 %2 %3 %4").arg(page->guides.gx).arg(page->guides.gy).arg(page->guides.gw).arg(page->guides.gh);
 }
 
-void GuideManagerIO::readSelection(const QString guideString, ScPage *page)
+void GuideManagerIO::readSelection(const QString& guideString, ScPage *page)
 {
 	if (guideString.isEmpty())
 		return;

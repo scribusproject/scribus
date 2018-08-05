@@ -17,20 +17,20 @@ for which a new license (GPL+exception) is in place.
 CxfColor::CxfColor(CxfDocument* cxfDoc)
 {
 	m_cxfDoc = cxfDoc;
-	m_colorSpec = 0;
+	m_colorSpec = nullptr;
 }
 
 bool CxfColor::isValid() const
 {
 	bool valid = true;
-	valid &= (m_cxfDoc != 0);
-	valid &= (m_colorSpec != 0);
+	valid &= (m_cxfDoc != nullptr);
+	valid &= (m_colorSpec != nullptr);
 	return valid;
 }
 
 void CxfColor::reset()
 {
-	m_colorSpec = 0;
+	m_colorSpec = nullptr;
 }
 
 CxfColorRGB::CxfColorRGB(CxfDocument* cxfDoc)

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 GuidesDelegate::GuidesDelegate(QObject *parent)
 	: QItemDelegate(parent),
-		m_doc(0)
+		m_doc(nullptr)
 {
 }
 
@@ -29,17 +29,14 @@ GuidesDelegate::GuidesDelegate(QObject *parent)
 // 	return editor;
 // }
 
-void GuidesDelegate::setEditorData(QWidget *editor,
-								   const QModelIndex &index) const
+void GuidesDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	double value = index.model()->data(index, Qt::EditRole).toDouble();
 	ScrSpinBox *w = static_cast<ScrSpinBox*>(editor);
 	w->setValue(value);
 }
 
-void GuidesDelegate::setModelData(QWidget *editor,
-								  QAbstractItemModel *model,
-								  const QModelIndex &index) const
+void GuidesDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 	ScrSpinBox *w = static_cast<ScrSpinBox*>(editor);
 	// When user exit widget, editor value may not be committed at this point
@@ -48,9 +45,7 @@ void GuidesDelegate::setModelData(QWidget *editor,
 	model->setData(index, value, Qt::EditRole);
 }
 
-void GuidesDelegate::updateEditorGeometry(QWidget *editor,
-										  const QStyleOptionViewItem &option,
-										  const QModelIndex &/* index */) const
+void GuidesDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
 }
@@ -68,20 +63,13 @@ GuidesHDelegate::GuidesHDelegate(QObject *parent)
 {
 }
 
-QWidget * GuidesHDelegate::createEditor(QWidget *parent,
-									   const QStyleOptionViewItem &/* option */,
-									   const QModelIndex &/* index */) const
+QWidget * GuidesHDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
 {
-	Q_ASSERT_X(m_doc != 0, "GuidesHDelegate::createEditor",
-			   "No reference to the doc");
+	Q_ASSERT_X(m_doc != nullptr, "GuidesHDelegate::createEditor", "No reference to the doc");
 	double uix = unitGetRatioFromIndex(m_doc->unitIndex());
 	double min = 0.0 - (m_doc->bleeds()->top() * uix);
-	double max = (m_doc->currentPage()->height() * uix)
-				 + (m_doc->bleeds()->bottom() * uix);
-	ScrSpinBox *editor =
-			new ScrSpinBox(min,
-						   max,
-						   parent, m_doc->unitIndex());
+	double max = (m_doc->currentPage()->height() * uix) + (m_doc->bleeds()->bottom() * uix);
+	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
 	return editor;
 }
 
@@ -92,19 +80,12 @@ GuidesVDelegate::GuidesVDelegate(QObject *parent)
 {
 }
 
-QWidget * GuidesVDelegate::createEditor(QWidget *parent,
-									   const QStyleOptionViewItem &/* option */,
-									   const QModelIndex &/* index */) const
+QWidget * GuidesVDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
 {
-	Q_ASSERT_X(m_doc != 0, "GuidesVDelegate::createEditor",
-			   "No reference to the doc");
+	Q_ASSERT_X(m_doc != nullptr, "GuidesVDelegate::createEditor", "No reference to the doc");
 	double uix = unitGetRatioFromIndex(m_doc->unitIndex());
 	double min = 0.0 - (m_doc->bleeds()->left() * uix);
-	double max = (m_doc->currentPage()->width() * uix)
-				 + (m_doc->bleeds()->right() * uix);
-	ScrSpinBox *editor =
-			new ScrSpinBox(min,
-						   max,
-						   parent, m_doc->unitIndex());
+	double max = (m_doc->currentPage()->width() * uix) + (m_doc->bleeds()->right() * uix);
+	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
 	return editor;
 }

@@ -77,14 +77,11 @@ bool Hyphenator::loadDict(const QString& name)
 			file.close();
 			return true;
 		}
-		else
-		{
-			m_hdict = nullptr;
-			return false;
-		}
+		m_hdict = nullptr;
+		return false;
 	}
 
-	return (m_codec != 0 && m_hdict != 0);
+	return (m_codec != nullptr && m_hdict != nullptr);
 }
 
 void Hyphenator::slotNewSettings(bool Autom, bool ACheck)
@@ -344,12 +341,11 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 		return;
 
 	if (it->itemText.lengthOfSelection() > 0)
-	{
 		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.lengthOfSelection(), nullptr);
-	}
-	else {
-		uint a = it->itemText.length();
-		it->itemText.hyphenateWord(0, a, nullptr);
+	else
+	{
+		int i = it->itemText.length();
+		it->itemText.hyphenateWord(0, i, nullptr);
 	}
 	m_doc->DoDrawing = true;
 }

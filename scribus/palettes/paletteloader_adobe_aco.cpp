@@ -41,9 +41,7 @@ bool PaletteLoader_Adobe_aco::isFileSupported(const QString & fileName) const
 	ts >> vers;
 	file.close();
 	
-	if (vers == 1)
-		return true;
-	return false;
+	return vers == 1;
 }
 
 bool PaletteLoader_Adobe_aco::importFile(const QString& fileName, bool /*merge*/)

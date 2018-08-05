@@ -69,7 +69,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 			Emits formulaAutoUpdate() when undoable is false.
 			@return Returns true if the frame has to be updated, false if nothing changed.
 		*/
-		bool setFormula(QString formula, bool undoable=true);
+		bool setFormula(const QString& formula, bool undoable=true);
 		/** @brief Get current source. */
 		QString formula() const { return formulaText; }
 		

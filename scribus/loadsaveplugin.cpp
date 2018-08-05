@@ -370,7 +370,7 @@ LoadSavePlugin::findFormat(unsigned int id, LoadSavePlugin* plug, QList<FileForm
 	QList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it)
 	{
-		if ((it->formatId == id) && ((plug == 0) || (plug == it->plug)))
+		if ((it->formatId == id) && ((plug == nullptr) || (plug == it->plug)))
 			return it;
 	}
 	return itEnd;
@@ -382,7 +382,7 @@ LoadSavePlugin::findFormat(const QString& extension, LoadSavePlugin* plug, QList
 	QList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it)
 	{
-		if ((it->fileExtensions.contains(extension.toLower())) && ((plug == 0) || (plug == it->plug)) )
+		if ((it->fileExtensions.contains(extension.toLower())) && ((plug == nullptr) || (plug == it->plug)) )
 			return it;
 	}
 	return itEnd;
@@ -482,7 +482,7 @@ FileFormat::FileFormat() :
 	colorReading(false),
 	nativeScribus(false),
 	priority(0),
-	plug(0)
+	plug(nullptr)
 {
 }
 

@@ -29,7 +29,7 @@ void colorwheel_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ColorWheelPlugin::ColorWheelPlugin() : ScActionPlugin()
+ColorWheelPlugin::ColorWheelPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -83,9 +83,9 @@ bool ColorWheelPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isNull());
 	ScribusDoc* currDoc=doc;
-	if (currDoc==0)
+	if (currDoc==nullptr)
 		currDoc=ScCore->primaryMainWindow()->doc;
-	if (currDoc==0)
+	if (currDoc==nullptr)
 		return false;
 	CWDialog *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true);
 	if (dlg)
@@ -94,6 +94,5 @@ bool ColorWheelPlugin::run(ScribusDoc* doc, QString target)
 		delete dlg;
 		return true;
 	}
-	else
-		return false;
+	return false;
 }

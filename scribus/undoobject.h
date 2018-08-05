@@ -84,7 +84,7 @@ public:
 	 * @brief Set the name of the UndoObject
 	 * @param newUName New name for the UndoObject
 	 */
-	virtual void setUName(QString newUName);
+	virtual void setUName(const QString& newUName);
 
 	/**
 	 * @brief Returns the pixmap connected to this object.

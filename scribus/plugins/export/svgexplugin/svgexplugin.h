@@ -70,7 +70,7 @@ public:
 	SVGExPlug( ScribusDoc* doc );
 	~SVGExPlug();
 
-	bool doExport( QString fName, SVGOptions &Opts );
+	bool doExport( const QString& fName, SVGOptions &Opts );
 	SVGOptions Options;
 
 private:
@@ -84,16 +84,16 @@ private:
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob);
 	QString processDropShadow(PageItem *Item);
-	QDomElement processHatchFill(PageItem *Item, QString transl = "");
-	QDomElement processSymbolStroke(PageItem *Item, QString trans);
-	QDomElement processSymbolItem(PageItem *Item, QString trans);
-	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);
-	QDomElement processLineItem(PageItem *Item, QString trans, QString stroke);
-	QDomElement processImageItem(PageItem *Item, QString trans, QString fill, QString stroke);
-	QDomElement processTextItem(PageItem *Item, QString trans, QString fill, QString stroke);
-	QDomElement processInlineItem(PageItem* embItem, QString trans, double scaleH, double scaleV);
-	QString handleGlyph(uint gid, const ScFace font);
-	QDomElement processArrows(PageItem *Item, QDomElement line, QString trans);
+	QDomElement processHatchFill(PageItem *Item, const QString& transl = "");
+	QDomElement processSymbolStroke(PageItem *Item, const QString& trans);
+	QDomElement processSymbolItem(PageItem *Item, const QString& trans);
+	QDomElement processPolyItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QDomElement processLineItem(PageItem *Item, const QString& trans, const QString& stroke);
+	QDomElement processImageItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QDomElement processTextItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QDomElement processInlineItem(PageItem* embItem, const QString& trans, double scaleH, double scaleV);
+	QString handleGlyph(uint gid, const ScFace& font);
+	QDomElement processArrows(PageItem *Item, const QDomElement& line, const QString& trans);
 	QString handleMask(PageItem *Item, double xOffset, double yOffset);
 	QString getFillStyle(PageItem *Item);
 	QString getStrokeStyle(PageItem *Item);

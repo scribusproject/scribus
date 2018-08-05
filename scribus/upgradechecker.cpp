@@ -28,14 +28,14 @@ for which a new license (GPL+exception) is in place.
 #define sleep(t) Sleep(t*1000)
 #endif
 
-UpgradeChecker::UpgradeChecker() : QObject()
+UpgradeChecker::UpgradeChecker()
 {
 	init();
 
 	m_fin = false;
-	m_file = 0;
-	m_networkManager = 0;
-	m_networkReply = 0;
+	m_file = nullptr;
+	m_networkManager = nullptr;
+	m_networkReply = nullptr;
 	m_writeToConsole = true;
 }
 
@@ -77,7 +77,7 @@ void UpgradeChecker::fetch()
 
 	m_file=new QFile(m_tempFile);
 	m_networkManager=new QNetworkAccessManager(this);
-	if (m_networkManager!=0 && m_file!=0)
+	if (m_networkManager!=nullptr && m_file!=nullptr)
 	{
 		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
@@ -115,7 +115,7 @@ void UpgradeChecker::fetch()
 		m_file->remove();
 	}
 	delete m_file;
-	m_file=0;
+	m_file=nullptr;
 	outputText( tr("Finished") );
 	m_networkReply->deleteLater();
 	m_networkManager->deleteLater();
@@ -185,18 +185,18 @@ bool UpgradeChecker::process()
 						if (verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2 && m_isCVS && !verIsCVS && !m_updates.contains(verA))
 							newVersion = true;
 						else
-						//If we found a version that is not the same as what we are running
-						if (!(verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2))
-						{
-							if (
-								((verMajor>major) ||
-								(verMajor==major && verMinor>minor) ||
-								(verMajor==major && verMinor==minor && verRevsion1>m_revision1) ||
-								(verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2>m_revision2))
-								&& !m_updates.contains(verA)
-								)
-								newVersion = true;
-						}
+							//If we found a version that is not the same as what we are running
+							if (!(verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2))
+							{
+								if (
+										((verMajor>major) ||
+										 (verMajor==major && verMinor>minor) ||
+										 (verMajor==major && verMinor==minor && verRevsion1>m_revision1) ||
+										 (verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2>m_revision2))
+										&& !m_updates.contains(verA)
+										)
+									newVersion = true;
+							}
 						if (newVersion)
 						{
 							QString ver(verA);
@@ -212,10 +212,10 @@ bool UpgradeChecker::process()
 				}
 			}
 			else
-			if (e.tagName()=="message")
-			{
-				m_message+=e.text();
-			}
+				if (e.tagName()=="message")
+				{
+					m_message+=e.text();
+				}
 		}
 		n = n.nextSibling();
 	}
@@ -248,7 +248,7 @@ void UpgradeChecker::show(bool error)
 	outputText(m_message);
 }
 
-void UpgradeChecker::outputText(QString text, bool /*noLineFeed*/)
+void UpgradeChecker::outputText(const QString& text, bool /*noLineFeed*/)
 {
 	QString outText(text);
 	outText.remove("<b>");
@@ -280,20 +280,20 @@ UpgradeCheckerGUI::~UpgradeCheckerGUI()
 {
 }
 
-void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
+void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 {
 	QTextBrowser* w=m_outputWidget;
-	if (w)
-	{
-		QString wText(w->toPlainText());
-		wText.replace("\n","<br>");
-		wText.remove("<qt>");
-		wText.remove("</qt>");
-		if (noLineFeed)
-			w->setHtml("<qt>"+wText+text+"</qt>");
-		else
-			w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
-	}	
+	if (!w)
+		return;
+
+	QString wText(w->toPlainText());
+	wText.replace("\n","<br>");
+	wText.remove("<qt>");
+	wText.remove("</qt>");
+	if (noLineFeed)
+		w->setHtml("<qt>"+wText+text+"</qt>");
+	else
+		w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
 }
 
 

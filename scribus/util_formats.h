@@ -29,7 +29,7 @@ bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPattern(const QString &ext);
 bool SCRIBUS_API extensionIndicatesTIFF(const QString &ext);
-QString SCRIBUS_API getImageType(QString filename);
+QString SCRIBUS_API getImageType(const QString& filename);
 
 class SCRIBUS_API FormatsManager
 {

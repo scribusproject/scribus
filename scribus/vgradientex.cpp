@@ -34,7 +34,7 @@ bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
-	return ( r1 < r2 ? true : false );
+	return ( r1 < r2 );
 }
 
 int VGradientEx::compareItems( const VColorStopEx* item1, const VColorStopEx* item2 ) const

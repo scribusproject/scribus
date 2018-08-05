@@ -96,12 +96,12 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	
 	// If the targetframe is 0 ( no frame selected/created? ) then reassign it to the 
 	// (questionable interpretation here) first frame in the documentation.
-	if (targetFrame==0)
+	if (targetFrame==nullptr)
 		targetFrame=m_Doc->m_Selection->itemAt(0);
 
 	// If the targetframe is not zero, and we do need to call the importer, 
 	// Run the importer via "CallDLL" and pass it what it needs to know.
-	if (targetFrame!=0 && callImporter)
+	if (targetFrame!=nullptr && callImporter)
 		CallDLL(ida, filename, encoding, textOnly, append, prefix, targetFrame);
 }  //void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
    //						const QString& encoding, bool append, PageItem* target)

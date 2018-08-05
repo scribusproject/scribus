@@ -137,9 +137,9 @@ bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngin
 	bool psSupported = toFile || PrinterUtil::isPostscriptPrinter(printerName);
 	if (psSupported && (engine >= PostScript1 && engine <= PostScript3))
 		return true;
-	else if (!psSupported && (engine >= PostScript1 && engine <= PostScript3))
+	if (!psSupported && (engine >= PostScript1 && engine <= PostScript3))
 		return false;
-	else if (engine == WindowsGDI)
+	if (engine == WindowsGDI)
 	{
 #if defined(_WIN32)
 		return true; //WindowsGDI
@@ -151,7 +151,7 @@ bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngin
 }
 
 //Parameter needed on win32..
-bool PrinterUtil::isPostscriptPrinter(QString printerName)
+bool PrinterUtil::isPostscriptPrinter(const QString& printerName)
 {
 #ifdef _WIN32
 	HDC dc;

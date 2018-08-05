@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList)
 {
-	m_current = 0;
+	m_current = nullptr;
 
 	if (itemList.count() > 0)
 	{
@@ -57,6 +57,6 @@ PageItem* PageItemIterator::next()
 	}
 
 	if (m_stateStack.isEmpty())
-		m_current = 0;
+		m_current = nullptr;
 	return m_current;
 }

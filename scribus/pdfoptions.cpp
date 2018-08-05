@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 PDFOptions::VerifyResults PDFOptions::verify()
 {
-	return verify(static_cast<QString*>(NULL));
+	return verify(static_cast<QString*>(nullptr));
 }
 
 PDFOptions::VerifyResults PDFOptions::verify(QString* /*problemDescription*/)

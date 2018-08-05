@@ -74,7 +74,7 @@ PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
 		nameMapInited = true;
 	}
 
-	m_doc = 0;
+	m_doc = nullptr;
 
 	PdfError::EnableDebug( false );
 	try {

@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/cxfimportdialog.h"
 
 PaletteLoader_CxF::PaletteLoader_CxF()
-                 : PaletteLoader(), m_spectrumConvertor(ScE308Table5_D50_2deg())
+				 : m_spectrumConvertor(ScE308Table5_D50_2deg())
 {
 	
 }
@@ -106,7 +106,7 @@ bool PaletteLoader_CxF::importFile(const QString& fileName, bool /*merge*/)
 			importFunctions.append(&PaletteLoader_CxF::importObjectAsLabColor);
 	}
 
-	ColorImportFunction singleImportFunc = 0;
+	ColorImportFunction singleImportFunc = nullptr;
 	if (importFunctions.count() == 1)
 		singleImportFunc = importFunctions.at(0);
 
@@ -153,9 +153,7 @@ bool PaletteLoader_CxF::canImportObjectAsRgb(const CxfObject* object) const
 
 bool PaletteLoader_CxF::canImportObjectAsCmyk(const CxfObject* object) const
 {
-	if (object->hasColor(cxfColorCMYK))
-		return true;
-	return false;
+	return object->hasColor(cxfColorCMYK);
 }
 
 bool PaletteLoader_CxF::canImportObjectAsLab(const CxfObject* object) const

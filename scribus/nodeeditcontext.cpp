@@ -113,7 +113,7 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 		
 		nodeTransaction.reset();
 		delete oldClip;
-		oldClip = 0;
+		oldClip = nullptr;
 	}
 }
 
@@ -142,7 +142,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 		else
 		{
 			delete oldClip;
-			oldClip = 0;
+			oldClip = nullptr;
 			nodeTransaction.cancel();
 		}
 	}
@@ -165,7 +165,7 @@ void NodeEditContext::finishTransaction2(PageItem* currItem, ScItemState<QPair<F
 	nodeTransaction.commit();
 	nodeTransaction.reset();
 	delete oldClip;
-	oldClip = 0;				
+	oldClip = nullptr;
 }	
 	
 
@@ -393,7 +393,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 		undoManager->action(currItem, state);
 	}
 	delete oldClip;
-	oldClip = 0;
+	oldClip = nullptr;
 }	
 
 
@@ -493,7 +493,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 		undoManager->action(currItem, state);
 	}
 	delete oldClip;
-	oldClip = 0;
+	oldClip = nullptr;
 	
 }
 

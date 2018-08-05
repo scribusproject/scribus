@@ -33,7 +33,7 @@ bool compareStops(const VColorStop* item1, const VColorStop* item2 )
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
-	return ( r1 < r2 ? true : false );
+	return ( r1 < r2 );
 }
 
 int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) const

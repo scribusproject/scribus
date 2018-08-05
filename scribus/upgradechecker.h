@@ -37,7 +37,7 @@ private slots:
 	
 protected:
 	void init();
-	virtual void outputText(QString text, bool noLineFeed=false);
+	virtual void outputText(const QString& text, bool noLineFeed=false);
 	void reportError(const QString& s);
 	bool m_writeToConsole;
 	QString m_version;
@@ -64,7 +64,7 @@ public:
 	~UpgradeCheckerGUI();
 	
 protected:
-	virtual void outputText(QString text, bool noLineFeed=false);
+	virtual void outputText(const QString& text, bool noLineFeed=false);
 	QTextBrowser *m_outputWidget;
 };
 

@@ -171,7 +171,7 @@ class SCRIBUS_API GuideManagerIO
 		static QString writeHorizontalGuides(ScPage *page, GuideManagerCore::GuideType type);
 		static QString writeVerticalGuides(ScPage *page, GuideManagerCore::GuideType type);
 
-		static void readSelection(const QString guideString, ScPage *page);
+		static void readSelection(const QString& guideString, ScPage *page);
 		static QString writeSelection(ScPage *page);
 };
 

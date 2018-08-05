@@ -12,13 +12,13 @@ for which a new license (GPL+exception) is in place.
 
 PaletteLoader::PaletteLoader()
 {
-	m_colors = 0;
-	m_gradients = 0;
+	m_colors = nullptr;
+	m_gradients = nullptr;
 }
 
 void PaletteLoader::setupTargets(ColorList* colors, QHash<QString, VGradient> *gradients)
 {
-	assert (colors != 0);
+	assert (colors != nullptr);
 	
 	m_colors = colors;
 	gradients = m_gradients;

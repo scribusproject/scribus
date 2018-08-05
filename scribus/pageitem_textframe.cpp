@@ -207,9 +207,9 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 
 		int LayerLev = m_Doc->layerLevelFromID(LayerID);
 		int docItemsCount = m_Doc->Items->count();
-		ScPage* Mp=0;
-		ScPage* Dp=0;
-		PageItem* docItem=0;
+		ScPage* Mp=nullptr;
+		ScPage* Dp=nullptr;
+		PageItem* docItem=nullptr;
 		int LayerLevItem;
 		QList<PageItem*> thisList;
 		if (!OnMasterPage.isEmpty())
@@ -1351,7 +1351,7 @@ void PageItem_TextFrame::layout()
 	TabControl tabs;
 	tabs.active    = false;     // RTab
 	tabs.status    = TabNONE;   // TabCode
-	tabs.tabGlyph  = 0;         // was int charIndex ~ StartRT
+	tabs.tabGlyph  = nullptr;         // was int charIndex ~ StartRT
 	tabs.xPos      = 0;         // RTabX
 
 	QList<ParagraphStyle::TabRecord> tTabValues;
@@ -1423,7 +1423,7 @@ void PageItem_TextFrame::layout()
 		return;
 	}
 
-	if ((itLen != 0)) // || (NextBox != 0))
+	if ((itLen != 0)) // || (NextBox != nullptr))
 	{
 		// determine layout area
 		m_availableRegion = calcAvailableRegion();
@@ -1752,8 +1752,7 @@ void PageItem_TextFrame::layout()
 					wide = 0.0; realAsce = 0.0;
 					const QList<GlyphLayout>& glyphs = glyphCluster.glyphs();
 					for (const GlyphLayout& gl : glyphs) {
-						GlyphMetrics gm;
-						gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
+						GlyphMetrics gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
 						gm = font.glyphBBox(gl.glyph, chsd / 10.0);
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
@@ -3094,13 +3093,13 @@ void PageItem_TextFrame::invalidateLayout(bool wholeChain)
 	if (wholeChain)
 	{
 		PageItem *prevFrame = this->prevInChain();
-		while (prevFrame != 0)
+		while (prevFrame != nullptr)
 		{
 			prevFrame->invalid = true;
 			prevFrame = prevFrame->prevInChain();
 		}
 		PageItem *nextFrame = this->nextInChain();
-		while (nextFrame != 0)
+		while (nextFrame != nullptr)
 		{
 			nextFrame->invalid = true;
 			nextFrame = nextFrame->nextInChain();
@@ -3771,7 +3770,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
+			if ((BackBox != nullptr) || (NextBox != nullptr))
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -3835,7 +3834,7 @@ void PageItem_TextFrame::clearContents()
 		return;
 
 	PageItem *nextItem = this;
-	while (nextItem->prevInChain() != 0)
+	while (nextItem->prevInChain() != nullptr)
 		nextItem = nextItem->prevInChain();
 
 	ParagraphStyle defaultStyle = nextItem->itemText.defaultStyle();
@@ -3848,7 +3847,7 @@ void PageItem_TextFrame::clearContents()
 		nextItem->itemText.setDefaultStyle(defaultStyle);
 	}
 
-	while (nextItem != 0)
+	while (nextItem != nullptr)
 	{
 		nextItem->invalid = true;
 		nextItem = nextItem->nextInChain();
@@ -4002,7 +4001,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					conv = 32;
 				if (UndoManager::undoEnabled())
 				{
-					ScItemState<ParagraphStyle> *ip = 0;
+					ScItemState<ParagraphStyle> *ip = nullptr;
 					SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 					UndoObject *undoTarget = this;
 					int cursorPos = itemText.cursorPosition();
@@ -4126,7 +4125,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(oldPos);
 				}
 				else
-					if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines()-1)->firstChar()) && (itemText.cursorPosition() >= lastInFrame()) && (NextBox != 0))
+					if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines()-1)->firstChar()) && (itemText.cursorPosition() >= lastInFrame()) && (NextBox != nullptr))
 					{
 						if (NextBox->frameDisplays(itemText.cursorPosition()))
 						{
@@ -4139,7 +4138,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 			else
 			{
-				if (NextBox != 0)
+				if (NextBox != nullptr)
 				{
 					if (NextBox->frameDisplays(lastInFrame()+1))
 					{
@@ -4177,7 +4176,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(oldPos);
 				}
 				else
-					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != 0))
+					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != nullptr))
 					{
 						view->Deselect(true);
 						// TODO position at the right place in previous frame
@@ -5004,7 +5003,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
-	if ((BackBox != 0) || (NextBox != 0))
+	if ((BackBox != nullptr) || (NextBox != nullptr))
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
 		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;

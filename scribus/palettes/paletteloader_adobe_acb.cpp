@@ -42,9 +42,7 @@ bool PaletteLoader_Adobe_acb::isFileSupported(const QString & fileName) const
 	ts >> vers;
 	file.close();
 	
-	if ((signature == 0x38424342) && (vers == 1))
-		return true;
-	return false;
+	return (signature == 0x38424342) && (vers == 1);
 }
 
 bool PaletteLoader_Adobe_acb::importFile(const QString& fileName, bool /*merge*/)

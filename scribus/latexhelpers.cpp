@@ -35,7 +35,7 @@ copyright            : Scribus Team
 LatexHighlighter::LatexHighlighter(QTextDocument *document)
 	: QSyntaxHighlighter(document)
 {
-	m_rules = 0;
+	m_rules = nullptr;
 }
 
 void LatexHighlighter::highlightBlock(const QString &text)
@@ -101,7 +101,7 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 	QFile f(fn);
 	if (!f.open(QIODevice::ReadOnly))
 	{
-		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+		ScMessageBox::critical(nullptr, QObject::tr("Error"), "<qt>" +
 				QObject::tr("Opening the configfile %1 failed! %2").arg(
 						fn, f.errorString())
 				+ "</qt>");
@@ -394,7 +394,7 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 	return result;
 }
 
-LatexConfigCache* LatexConfigCache::m_instance = 0;
+LatexConfigCache* LatexConfigCache::m_instance = nullptr;
 
 LatexConfigCache* LatexConfigCache::instance()
 {
@@ -428,7 +428,7 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 	m_error[filename] = hasError;
 	if (hasError)
 	{
-		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+		ScMessageBox::critical(nullptr, QObject::tr("Error"), "<qt>" +
 				QObject::tr("Parsing the configfile %1 failed! Depending on the type of the error "
 						"render frames might not work correctly!\n%2").arg(
 						filename, parser->error())

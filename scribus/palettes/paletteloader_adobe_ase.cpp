@@ -44,9 +44,7 @@ bool PaletteLoader_Adobe_ase::isFileSupported(const QString & fileName) const
 	ts >> vers1 >> vers2;
 	file.close();
 	
-	if ((signature == 0x41534546) && (vers1 == 1) && (vers2 == 0))
-		return true;
-	return false;
+	return (signature == 0x41534546) && (vers1 == 1) && (vers2 == 0);
 }
 
 bool PaletteLoader_Adobe_ase::importFile(const QString& fileName, bool /*merge*/)

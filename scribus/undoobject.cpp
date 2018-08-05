@@ -71,7 +71,7 @@ QString UndoObject::getUName()
 	return m_uname;	
 }
 
-void UndoObject::setUName(QString newUName)
+void UndoObject::setUName(const QString& newUName)
 {
 	m_uname = newUName;
 }

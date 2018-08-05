@@ -37,8 +37,8 @@ class SCRIBUS_API UrlLauncher : public QObject
 		static void deleteInstance();
 		
 	public slots:
-		void launchUrlExt(QString link, QWidget *parent=0);
-		void launchUrlExt(QUrl link, QWidget *parent=0);
+		void launchUrlExt(const QString& link, QWidget *parent=0);
+		void launchUrlExt(const QUrl& link, QWidget *parent=0);
 
 	private:
 		/**
