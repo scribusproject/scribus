@@ -2531,41 +2531,39 @@ void PDFLibCore::PDF_Begin_Colors()
 	if (((!Options.isGrayscale) && (!Options.UseRGB)) && (Options.UseSpotColors))
 	{
 		doc.getUsedColors(colorsToUse);
-		ColorList::Iterator itf;
-		for (itf = colorsToUse.begin(); itf != colorsToUse.end(); ++itf)
+		for (auto itf = colorsToUse.begin(); itf != colorsToUse.end(); ++itf)
 		{
 			const ScColor& colorToUse = itf.value();
-			if ((colorToUse.isSpotColor()) || (colorToUse.isRegistrationColor()))
-			{
-				CMYKColorF cmykValues;
-				PdfSpotC spotD;
-				ScColorEngine::getCMYKValues(colorToUse, &doc, cmykValues);
-				QByteArray colorDesc = "{\ndup " + FToStr(cmykValues.c) + "\nmul exch dup ";
-				colorDesc += FToStr(cmykValues.m) + "\nmul exch dup ";
-				colorDesc += FToStr(cmykValues.y) + "\nmul exch ";
-				colorDesc += FToStr(cmykValues.k) + " mul }";
-				PdfId separationFunction = writer.newObject();
-				writer.startObj(separationFunction);
-				PutDoc("<<\n/FunctionType 4\n");
-				PutDoc("/Domain [0.0 1.0]\n");
-				PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
-				PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
-				PutDoc(">>\nstream\n"+EncStream(colorDesc, separationFunction)+"\nendstream");
-				writer.endObj(separationFunction);
-				PdfId separationColorspace= writer.newObject();
-				writer.startObj(separationColorspace);
-				PutDoc("[ /Separation ");
-				if (colorsToUse[itf.key()].isRegistrationColor())
-					PutDoc("/All");
-				else
-					PutDoc(Pdf::toName(itf.key().simplified()));
-				PutDoc(" /DeviceCMYK "+Pdf::toObjRef(separationFunction)+" ]");
-				writer.endObj(separationColorspace);
-				spotD.ResName = spotNam+Pdf::toPdf(spotCount);
-				spotD.ResNum = separationColorspace;
-				spotMap.insert(itf.key(), spotD);
-				spotCount++;
-			}
+			if (colorToUse.isProcessColor())
+				continue;
+			CMYKColorF cmykValues;
+			PdfSpotC spotD;
+			ScColorEngine::getCMYKValues(colorToUse, &doc, cmykValues);
+			QByteArray colorDesc = "{\ndup " + FToStr(cmykValues.c) + "\nmul exch dup ";
+			colorDesc += FToStr(cmykValues.m) + "\nmul exch dup ";
+			colorDesc += FToStr(cmykValues.y) + "\nmul exch ";
+			colorDesc += FToStr(cmykValues.k) + " mul }";
+			PdfId separationFunction = writer.newObject();
+			writer.startObj(separationFunction);
+			PutDoc("<<\n/FunctionType 4\n");
+			PutDoc("/Domain [0.0 1.0]\n");
+			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+			PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+			PutDoc(">>\nstream\n"+EncStream(colorDesc, separationFunction)+"\nendstream");
+			writer.endObj(separationFunction);
+			PdfId separationColorspace= writer.newObject();
+			writer.startObj(separationColorspace);
+			PutDoc("[ /Separation ");
+			if (colorsToUse[itf.key()].isRegistrationColor())
+				PutDoc("/All");
+			else
+				PutDoc(Pdf::toName(itf.key().simplified()));
+			PutDoc(" /DeviceCMYK "+Pdf::toObjRef(separationFunction)+" ]");
+			writer.endObj(separationColorspace);
+			spotD.ResName = spotNam+Pdf::toPdf(spotCount);
+			spotD.ResNum = separationColorspace;
+			spotMap.insert(itf.key(), spotD);
+			spotCount++;
 		}
 	}
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
