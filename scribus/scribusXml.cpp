@@ -66,7 +66,7 @@ ScriXmlDoc::ScriXmlDoc()
 {
 }
 
-bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
+bool ScriXmlDoc::ReadElemHeader(const QString& file, bool isFile, double *x, double *y, double *w, double *h)
 {
 	QString ff = "";
 	if (isFile)
@@ -110,14 +110,14 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return (succeed && !sReader.hasError());
 }
 
-bool ScriXmlDoc::ReadElem(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub)
+bool ScriXmlDoc::ReadElem(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub)
 {
 	// Do not suppose the existence of layer with id = 0
 	// return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, view, 0);
 	return ReadElemToLayer(fileNameOrData, avail, doc, xPos, yPos, isDataFromFile, loc, FontSub, doc->activeLayer());
 }
 
-bool ScriXmlDoc::ReadElemToLayer(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer)
+bool ScriXmlDoc::ReadElemToLayer(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer)
 {
 	QString elementData;
 	QString fileDir = ScPaths::applicationDataDir();

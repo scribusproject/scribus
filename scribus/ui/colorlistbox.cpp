@@ -42,7 +42,7 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 	return *this;
 }
 
-ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName ) 
+ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName ) 
 {
 	m_doc = (doc) ? doc->guardedPtr() : nullptr;
 	m_color = col;
@@ -348,7 +348,7 @@ bool ColorListBox::hasSelection() const
 	return this->selectionModel()->hasSelection();
 }
 
-void ColorListBox::insertItem(int row, const ScColor& color, QString colorName)
+void ColorListBox::insertItem(int row, const ScColor& color, const QString& colorName)
 {
 	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
 	if (!colorListModel)
@@ -379,7 +379,7 @@ void ColorListBox::removeItem(int i)
 	model()->removeRow(i);
 }
 
-int ColorListBox::row(QString colorName)
+int ColorListBox::row(const QString& colorName)
 {
 	QAbstractItemModel* currentModel = model();
 
