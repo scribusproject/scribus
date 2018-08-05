@@ -16,7 +16,7 @@ PictureBrowserPlugin::PictureBrowserPlugin() : ScActionPlugin()
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
-	pictureBrowser = 0;
+	pictureBrowser = nullptr;
 }
 
 PictureBrowserPlugin::~PictureBrowserPlugin()
@@ -71,7 +71,7 @@ bool PictureBrowserPlugin::run ( ScribusDoc* doc, QString target )
 	//picturebrowser isn't running yet, so create it
 	if ( !pictureBrowser )
 	{
-		pictureBrowser = new PictureBrowser ( doc, 0 );
+		pictureBrowser = new PictureBrowser ( doc, nullptr );
 
 		if ( !pictureBrowser )
 		{

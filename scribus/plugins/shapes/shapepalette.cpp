@@ -217,7 +217,7 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
-		m_Doc->setGUI(false, scMW, 0);
+		m_Doc->setGUI(false, scMW, nullptr);
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, m_Doc->itemToolPrefs().shapeLineWidth, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = shapes[key].path.copy();
@@ -277,7 +277,7 @@ void ShapeView::updateShapeList()
 	}
 }
 
-ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", 0)
+ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", nullptr)
 {
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Shap"));

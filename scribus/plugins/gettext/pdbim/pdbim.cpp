@@ -69,8 +69,7 @@ PdbIm::PdbIm(const QString& fname, const QString& enc, gtWriter *w)
 
 PdbIm::~PdbIm()
 {
-	if (m_buf)
-		delete m_buf;
+	delete m_buf;
 }
 
 void PdbIm::write()
@@ -189,16 +188,14 @@ Word PdbIm::swap_Word( Word r )
 {
 	if (m_littlendian)
 		return (r >> 8) | (r << 8);
-	else
-		return r;
+	return r;
 }
 
 DWord PdbIm::swap_DWord( DWord r )
 {
 	if (m_littlendian)
 		return ( (r >> 24) & 0x00FF ) | (r << 24) | ( (r >> 8) & 0xFF00 ) | ( (r << 8) & 0xFF0000 );
-	else
-		return r;
+	return r;
 }
 
 void PdbIm::uncompress( buffer *m_buf )

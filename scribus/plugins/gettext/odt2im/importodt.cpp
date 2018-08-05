@@ -1354,11 +1354,8 @@ QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
 				fontName = it.current().family() + " " + slist[reInd];
 			return fontName;
 		}
-		else
-		{
-			fontName = it.current().family();
-			return fontName;
-		}
+		fontName = it.current().family();
+		return fontName;
 	}
 
 	// Still no font found
@@ -1372,7 +1369,7 @@ QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
 	}
 
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QScopedPointer<MissingFont> dia(new MissingFont(0, family, m_Doc));
+	QScopedPointer<MissingFont> dia(new MissingFont(nullptr, family, m_Doc));
 	if (dia->exec())
 		fontName = dia->getReplacementFont();
 	else

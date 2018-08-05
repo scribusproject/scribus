@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "iconmanager.h"
 
-SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
+SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(nullptr)
 {
 	setModal(true);
 	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));

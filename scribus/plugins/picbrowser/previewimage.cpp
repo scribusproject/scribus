@@ -39,7 +39,7 @@ ImageInformation::ImageInformation()
 
 
 
-previewImage::previewImage ( QString imageFile )
+previewImage::previewImage ( const QString& imageFile )
 {
 	filtered = false;
 	previewIconCreated = false;
@@ -98,12 +98,7 @@ bool previewImage::insertIntoDocument ( ScribusDoc *doc, InsertAFrameData &iafDa
 bool previewImage::insertIntoImageFrame ( ScribusDoc *doc, PageItem *imageFrame )
 {
 	//inserting image
-	if ( !imageFrame->loadImage ( fileInformation.absoluteFilePath(), false, -1, true ) )
-	{
-		return false;
-	}
-
-	return true;
+	return imageFrame->loadImage ( fileInformation.absoluteFilePath(), false, -1, true );
 }
 
 
@@ -116,15 +111,11 @@ previewImages::previewImages ( const QStringList& imageFiles )
 void previewImages::createPreviewImagesList ( const QStringList& imageFiles )
 {
 	//if there are already previewimages allocated, remove them
-	if ( previewImagesList.size() > 0 )
-	{
+	if ( !previewImagesList.empty() )
 		clearPreviewImagesList();
-	}
 
 	if ( imageFiles.isEmpty() )
-	{
 		return;
-	}
 
 
 	int s = imageFiles.size();
@@ -426,10 +417,8 @@ void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previe
 	pId++;
 
 	//if there are already items stored, remove them
-	if ( modelItemsList.size() > 0 )
-	{
+	if ( !modelItemsList.empty() )
 		clearModelItemsList();
-	}
 
 	pictureBrowser->imagesDisplayed = 0;
 	pictureBrowser->imagesFiltered = 0;
@@ -521,23 +510,13 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 
 			return QIcon ( defaultIcon );
 		}
-		else
-		{
-			return QIcon ( tmpImage->previewIcon );
-		}
-
-		return QVariant();
+		return QIcon ( tmpImage->previewIcon );
 	}
-	else if ( role == Qt::DisplayRole )
+	if ( role == Qt::DisplayRole )
 	{
 		if ( pictureBrowser->pbSettings.previewMode == 1 )
-		{
 			return tmpImage->fileInformation.fileName();
-		}
-		else
-		{
-			return QVariant();
-		}
+		return QVariant();
 	}
 
 	return QVariant();
@@ -547,9 +526,7 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 Qt::ItemFlags PreviewImagesModel::flags ( const QModelIndex &index ) const
 {
 	if ( index.isValid() )
-	{
 		return ( Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled );
-	}
 
 //Qt modeltest requests 0 here
 	return 0;
@@ -559,13 +536,8 @@ Qt::ItemFlags PreviewImagesModel::flags ( const QModelIndex &index ) const
 int PreviewImagesModel::rowCount ( const QModelIndex &parent ) const
 {
 	if ( parent.isValid() )
-	{
 		return 0;
-	}
-	else
-	{
-		return modelItemsList.size();
-	}
+	return modelItemsList.size();
 }
 
 

@@ -37,7 +37,7 @@ QStringList FileExtensions()
 	return QStringList("xtg");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	XtgIm* xtgim = new XtgIm(textItem, textOnly, prefix, append);
 	xtgim->import(filename);
@@ -53,11 +53,10 @@ XtgIm::XtgIm(PageItem *textItem, bool textOnly, bool prefix, bool append)
 
 XtgIm::~XtgIm()
 {
-	if (m_scanner)
-		delete m_scanner;
+	delete m_scanner;
 }
 
-bool XtgIm::import(QString fileName)
+bool XtgIm::import(const QString& fileName)
 {
 	if (!m_scanner)
 		return false;

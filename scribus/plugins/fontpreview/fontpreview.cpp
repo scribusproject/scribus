@@ -18,8 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 
 
-FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
-	: QDialog(parent, 0)
+FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* doc)
+	: QDialog(parent, nullptr)
 {
 	setupUi(this);
 	setModal(true);
@@ -66,7 +66,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		searchName = fontName;
 	else
 	{
-		Q_ASSERT(m_Doc!=0);
+		Q_ASSERT(m_Doc!=nullptr);
 		if (m_Doc->m_Selection->count() != 0)
 			searchName = m_Doc->currentStyle.charStyle().font().scName();
 		else
@@ -76,7 +76,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 											 Qt::DisplayRole, searchName,
 											 1,
 											 Qt::MatchContains | Qt::MatchWrap);
-	if (found.size() > 0)
+	if (!found.empty())
 	{
 		fontList->scrollTo(found.at(0), QAbstractItemView::PositionAtCenter);
 		fontList->selectRow(found.at(0).row());

@@ -72,8 +72,7 @@ XtgScanner::XtgScanner(PageItem *item, bool textOnly, bool prefix, bool append)
 
 XtgScanner::~XtgScanner()
 {
-	if (m_decoder)
-		delete m_decoder;
+	delete m_decoder;
 }
 
 bool XtgScanner::open(const QString& fileName)
@@ -441,22 +440,18 @@ QString XtgScanner::getFontName(const QString& name)
 		if (it.current().family().toLower() == fontName.toLower())
 		{
 			if (it.currentKey().toLower() == fontName.toLower()) // exact Match
-			{
 				return fontName;
-			}
-			else
+
+			QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+			slist.sort();
+			if (slist.count() > 0)
 			{
-				QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
-				slist.sort();
-				if (slist.count() > 0)
-				{
-					int reInd = slist.indexOf("Regular");
-					if (reInd < 0)
-						fontName = it.current().family() + " " + slist[0];
-					else
-						fontName = it.current().family() + " " + slist[reInd];
-					return fontName;
-				}
+				int reInd = slist.indexOf("Regular");
+				if (reInd < 0)
+					fontName = it.current().family() + " " + slist[0];
+				else
+					fontName = it.current().family() + " " + slist[reInd];
+				return fontName;
 			}
 		}
 	}
@@ -468,7 +463,7 @@ QString XtgScanner::getFontName(const QString& name)
 	}
 
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QScopedPointer<MissingFont> dia(new MissingFont(0, fontName, m_doc));
+	QScopedPointer<MissingFont> dia(new MissingFont(nullptr, fontName, m_doc));
 	if (dia->exec())
 	{
 		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia->getReplacementFont();
@@ -941,8 +936,7 @@ void XtgScanner::setEncoding()
 	if (!codec)
 		codec = QTextCodec::codecForLocale();
 	
-	if (m_decoder)
-		delete m_decoder;
+	delete m_decoder;
 	m_decoder = new QTextDecoder(codec, QTextCodec::IgnoreHeader);
 }
 
@@ -1472,7 +1466,7 @@ QString XtgScanner::getToken()
 		}
 		else
 		{ // find the name and return it as a tag
-			while (1)
+			while (true)
 			{
 				temp = lookAhead();
 				if (temp == ':' || temp == '=' )

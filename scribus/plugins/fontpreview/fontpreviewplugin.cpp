@@ -84,7 +84,7 @@ Create dialog and insert font into Style menu when user accepts.
 */
 bool FontPreviewPlugin::run(ScribusDoc* doc, QString target)
 {
-	ScribusMainWindow* scmw=(doc==0)?ScCore->primaryMainWindow():doc->scMW();
+	ScribusMainWindow* scmw=(doc==nullptr)?ScCore->primaryMainWindow():doc->scMW();
 	return run(scmw, doc, target);
 }
 

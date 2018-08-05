@@ -108,7 +108,7 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
 		MenuSAT* Sat = new MenuSAT();
 		Sat->RunSATPlug(m_Doc);
 		delete Sat;
-		Sat = 0;
+		Sat = nullptr;
 	}
 	return true;
 }

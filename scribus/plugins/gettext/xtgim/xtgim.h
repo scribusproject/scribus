@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 class StyleManager;
 class XtgScanner;
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(const QString& filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
@@ -46,7 +46,7 @@ public:
 	XtgIm(PageItem *textItem, bool textOnly, bool prefix, bool append);
 	~XtgIm();
 
-	bool import(QString fileName);
+	bool import(const QString& fileName);
 
 protected:
 	XtgScanner* m_scanner;

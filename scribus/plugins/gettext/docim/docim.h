@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 class gtWriter;
 class QProcess;
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 /*! \brief Returns the string with importer description.
 \retval QString a string or QString::null when the plugin should not be loaded.

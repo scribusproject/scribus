@@ -51,19 +51,17 @@ QString FileFormatName()
 {
 	if (hasAntiword())
 		return QObject::tr("Word Documents");
-	else
-		return QString::null;
+	return QString::null;
 }
 
 QStringList FileExtensions()
 {
 	if (hasAntiword())
 		return QStringList("doc");
-	else
-		return QStringList();
+	return QStringList();
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
 	if (!hasAntiword())
 		return;
@@ -76,7 +74,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 	delete dim;
 }
 
-DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : QObject(), textBuffer(this), errorBuffer(this)
+DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : textBuffer(this), errorBuffer(this)
 {
 	filename = fname;
 	encoding = enc;
@@ -162,7 +160,7 @@ bool DocIm::isRunning()
 
 void DocIm::write()
 {
-	QTextCodec *codec = 0;
+	QTextCodec *codec = nullptr;
 
 #if defined(Q_OS_WIN32)
 	// #10258 : use UTF-8 whenever possible
@@ -177,10 +175,10 @@ void DocIm::write()
 
 	if (failed)
 	{
-		QString error = codec->toUnicode( errorBuffer.data() ); 
-		ScMessageBox::information(0, tr("Importing failed"),
-		                         tr("Importing Word document failed \n%1").arg(error),
-		                         QMessageBox::Ok);
+		QString error = codec->toUnicode( errorBuffer.data() );
+		ScMessageBox::information(nullptr, tr("Importing failed"),
+								  tr("Importing Word document failed \n%1").arg(error),
+								  QMessageBox::Ok);
 		return;
 	}
 

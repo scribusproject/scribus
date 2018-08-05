@@ -63,14 +63,14 @@ private:
 	bool inList;
 	QString currentList;
 	bool defaultStyleCreated;
-	double getSize(QString s, double parentSize = -1);
+	double getSize(const QString& s, double parentSize = -1);
 	void styleProperties(const QXmlAttributes& attrs);
 	void defaultStyle(const QXmlAttributes& attrs);
 	void styleStyle(const QXmlAttributes& attrs);
 	void tabStop(const QXmlAttributes& attrs);
 	void setupFrameStyle();
 public:
-	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
+	StyleReader(const QString& documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
 	~StyleReader();
 	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);

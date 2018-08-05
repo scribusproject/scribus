@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 
-CsvDialog::CsvDialog() : QDialog(0)
+CsvDialog::CsvDialog() : QDialog(nullptr)
 {
 	setModal(true);
 	setWindowTitle( tr("CSV Importer Options"));

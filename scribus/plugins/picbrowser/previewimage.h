@@ -60,7 +60,7 @@ class previewImage
 {
 	public:
 		//constructor, sets filepath for an image
-		previewImage ( QString imageFile );
+		previewImage ( const QString& imageFile );
 		~previewImage();
 
 		//creates the previewicon in desired size in pixels

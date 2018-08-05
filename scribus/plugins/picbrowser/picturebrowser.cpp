@@ -26,8 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	QDialog(parent),
-	pModel(0),
-	pImages(0)
+	pModel(nullptr),
+	pImages(nullptr)
 {
 	setupUi(this);
 
@@ -107,10 +107,10 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	pImages = new previewImages(QStringList());
 
 //set threadpointer to 0
-	fit = 0;
-	crt = 0;
-	cdbwt = 0;
-	clrt = 0;
+	fit = nullptr;
+	crt = nullptr;
+	cdbwt = nullptr;
+	clrt = nullptr;
 
 
 	pModel = new PreviewImagesModel(this);
@@ -287,9 +287,9 @@ PictureBrowser::~PictureBrowser()
 void PictureBrowser::closeEvent(QCloseEvent* e)
 {
 	delete pImages;
-	pImages=0;
+	pImages=nullptr;
 	delete pModel;
-	pModel=0;
+	pModel=nullptr;
 }
 
 
@@ -723,7 +723,7 @@ void PictureBrowser::findImagesThreadFinished()
 		updateBrowser(true, true, false);
 
 		delete fit;
-		fit = 0;
+		fit = nullptr;
 	}
 }
 
@@ -806,7 +806,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 	}
 
 	delete crt;
-	crt = 0;
+	crt = nullptr;
 }
 
 
@@ -889,7 +889,7 @@ void PictureBrowser::collectionsDbWriterThreadFinished()
 	else
 	{
 		delete cdbwt;
-		cdbwt = 0;
+		cdbwt = nullptr;
 	}
 }
 

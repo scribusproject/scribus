@@ -37,11 +37,10 @@ for which a new license (GPL+exception) is in place.
  
  extern xmlSAXHandlerPtr sSAXHandler;
  
-StyleReader::StyleReader(QString documentName, gtWriter *w,
-                         bool textOnly, bool prefix, bool combineStyles)
+StyleReader::StyleReader(const QString& documentName, gtWriter *w, bool textOnly, bool prefix, bool combineStyles)
 {
  	sreader      = this;
- 	docname      = documentName;
+	docname      = documentName;
  	readProperties = false;
  	writer       = w;
  	importTextOnly = textOnly;
@@ -185,125 +184,125 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::styleProperties(const QXmlAttributes& attrs)
  {
-	if ((currentStyle == nullptr) || (!readProperties))
- 		return;
-	gtParagraphStyle* pstyle = nullptr;
- 	if (currentStyle->target() == "paragraph")
- 		pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
- 	else
-		pstyle = nullptr;
-	QString align;
-	QString force;
- 	bool hasColorTag = false;
- 	for (int i = 0; i < attrs.count(); ++i)
- 	{
- 		if ((attrs.localName(i) == "style:font-name") && (!inList))
- 			currentStyle->getFont()->setName(getFont(attrs.value(i)));
- 		else if (attrs.localName(i) == "fo:font-size")
- 		{
-			double size = 0.0;
-			double psize = 0.0;
-			if (parentStyle != nullptr)
- 				psize = static_cast<double>(parentStyle->getFont()->getSize());
- 			else if (styles.contains("default-style"))
- 				psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
- 
- 			psize = psize / 10;
- 			size = getSize(attrs.value(i), psize);
- 			int nsize = static_cast<int>(size * 10);
- 			currentStyle->getFont()->setSize(nsize);
- 			if (pstyle)
- 				pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
- 		}
-		else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != nullptr))
- 		{
- 			gtParagraphStyle* ppstyle;
- 			if (parentStyle->target() == "paragraph")
- 			{
- 				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
-				assert(ppstyle != nullptr);
- 				ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
- 			}
- 		}
- 		else if (attrs.localName(i) == "fo:color")
- 		{
- 			currentStyle->getFont()->setColor(attrs.value(i));
- 			hasColorTag = true;
- 		}
- 		else if ((attrs.localName(i) == "style:use-window-font-color") && (attrs.value(i) == "true"))
- 		{
- 			currentStyle->getFont()->setColor("Black");
- 			hasColorTag = true;
- 		}
- 		else if ((attrs.localName(i) == "fo:font-weight") && (attrs.value(i) == "bold"))
- 			currentStyle->getFont()->setWeight(BOLD);
- 		else if ((attrs.localName(i) == "fo:font-style") && (attrs.value(i) == "italic"))
- 			currentStyle->getFont()->setSlant(ITALIC);
- 		else if ((attrs.localName(i) == "style:text-underline") && (attrs.value(i) != "none"))
- 			currentStyle->getFont()->toggleEffect(UNDERLINE);
- 		else if ((attrs.localName(i) == "style:text-crossing-out") && (attrs.value(i) != "none"))
- 			currentStyle->getFont()->toggleEffect(STRIKETHROUGH);
- 		else if ((attrs.localName(i) == "fo:font-variant") && (attrs.value(i) == "small-caps"))
- 			currentStyle->getFont()->toggleEffect(SMALL_CAPS);
- 		else if ((attrs.localName(i) == "style:text-outline") && (attrs.value(i) == "true"))
- 		{
- 			currentStyle->getFont()->toggleEffect(OUTLINE);
- 			currentStyle->getFont()->setStrokeColor("Black");
- 			currentStyle->getFont()->setColor("White");
- 		}
- 		else if (attrs.localName(i) == "fo:letter-spacing")
- 			currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
- 		else if (attrs.localName(i) == "style:text-scale")
- 			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
- 		else if ((attrs.localName(i) == "style:text-position") && 
- 		        (((attrs.value(i)).indexOf("sub") != -1) || 
- 				(((attrs.value(i)).left(1) == "-") && ((attrs.value(i)).left(1) != "0"))))
- 			currentStyle->getFont()->toggleEffect(SUBSCRIPT);
- 		else if ((attrs.localName(i) == "style:text-position") && 
- 		        (((attrs.value(i)).indexOf("super") != -1) || 
- 				(((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
- 			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
-		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != nullptr))
- 			pstyle->setSpaceAbove(getSize(attrs.value(i)));
-		else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != nullptr))
-			pstyle->setSpaceBelow(getSize(attrs.value(i)));
-		else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != nullptr))
- 		{
- 			if (inList)
- 				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
- 			else
- 				pstyle->setIndent(getSize(attrs.value(i)));	
- 		}
-		else if ((attrs.localName(i) == "text:space-before") && (pstyle != nullptr))
- 		{
- 			if (inList)
- 				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
- 			else
- 				pstyle->setIndent(getSize(attrs.value(i)));
- 		}
-		else if ((attrs.localName(i) == "fo:text-indent") && (pstyle != nullptr))
- 			pstyle->setFirstLineIndent(getSize(attrs.value(i)));
-		else if ((attrs.localName(i) == "fo:text-align") && (pstyle != nullptr))
- 			align = attrs.value(i);
-		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != nullptr))
- 			force = attrs.value(i);
- 	}
-	if (!align.isEmpty() && (pstyle != nullptr))
- 	{
- 		if (align == "end")
- 			pstyle->setAlignment(RIGHT);
- 		else if (align == "center")
- 			pstyle->setAlignment(CENTER);
- 		else if (align == "justify")
- 		{
- 			if (force == "false")
- 				pstyle->setAlignment(BLOCK);
- 			else
- 				pstyle->setAlignment(FORCED);
- 		}
- 	}
-	if (!hasColorTag)
-		currentStyle->getFont()->setColor("Black");
+	 if ((currentStyle == nullptr) || (!readProperties))
+		 return;
+	 gtParagraphStyle* pstyle = nullptr;
+	 if (currentStyle->target() == "paragraph")
+		 pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
+	 else
+		 pstyle = nullptr;
+	 QString align;
+	 QString force;
+	 bool hasColorTag = false;
+	 for (int i = 0; i < attrs.count(); ++i)
+	 {
+		 if ((attrs.localName(i) == "style:font-name") && (!inList))
+			 currentStyle->getFont()->setName(getFont(attrs.value(i)));
+		 else if (attrs.localName(i) == "fo:font-size")
+		 {
+			 double size = 0.0;
+			 double psize = 0.0;
+			 if (parentStyle != nullptr)
+				 psize = static_cast<double>(parentStyle->getFont()->getSize());
+			 else if (styles.contains("default-style"))
+				 psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
+
+			 psize = psize / 10;
+			 size = getSize(attrs.value(i), psize);
+			 int nsize = static_cast<int>(size * 10);
+			 currentStyle->getFont()->setSize(nsize);
+			 if (pstyle)
+				 pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
+		 }
+		 else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != nullptr))
+		 {
+			 gtParagraphStyle* ppstyle;
+			 if (parentStyle->target() == "paragraph")
+			 {
+				 ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
+				 assert(ppstyle != nullptr);
+				 ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
+			 }
+		 }
+		 else if (attrs.localName(i) == "fo:color")
+		 {
+			 currentStyle->getFont()->setColor(attrs.value(i));
+			 hasColorTag = true;
+		 }
+		 else if ((attrs.localName(i) == "style:use-window-font-color") && (attrs.value(i) == "true"))
+		 {
+			 currentStyle->getFont()->setColor("Black");
+			 hasColorTag = true;
+		 }
+		 else if ((attrs.localName(i) == "fo:font-weight") && (attrs.value(i) == "bold"))
+			 currentStyle->getFont()->setWeight(BOLD);
+		 else if ((attrs.localName(i) == "fo:font-style") && (attrs.value(i) == "italic"))
+			 currentStyle->getFont()->setSlant(ITALIC);
+		 else if ((attrs.localName(i) == "style:text-underline") && (attrs.value(i) != "none"))
+			 currentStyle->getFont()->toggleEffect(UNDERLINE);
+		 else if ((attrs.localName(i) == "style:text-crossing-out") && (attrs.value(i) != "none"))
+			 currentStyle->getFont()->toggleEffect(STRIKETHROUGH);
+		 else if ((attrs.localName(i) == "fo:font-variant") && (attrs.value(i) == "small-caps"))
+			 currentStyle->getFont()->toggleEffect(SMALL_CAPS);
+		 else if ((attrs.localName(i) == "style:text-outline") && (attrs.value(i) == "true"))
+		 {
+			 currentStyle->getFont()->toggleEffect(OUTLINE);
+			 currentStyle->getFont()->setStrokeColor("Black");
+			 currentStyle->getFont()->setColor("White");
+		 }
+		 else if (attrs.localName(i) == "fo:letter-spacing")
+			 currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
+		 else if (attrs.localName(i) == "style:text-scale")
+			 currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
+		 else if ((attrs.localName(i) == "style:text-position") &&
+				  (((attrs.value(i)).indexOf("sub") != -1) ||
+				   (((attrs.value(i)).left(1) == "-") && ((attrs.value(i)).left(1) != "0"))))
+			 currentStyle->getFont()->toggleEffect(SUBSCRIPT);
+		 else if ((attrs.localName(i) == "style:text-position") &&
+				  (((attrs.value(i)).indexOf("super") != -1) ||
+				   (((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
+			 currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
+		 else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != nullptr))
+			 pstyle->setSpaceAbove(getSize(attrs.value(i)));
+		 else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != nullptr))
+			 pstyle->setSpaceBelow(getSize(attrs.value(i)));
+		 else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != nullptr))
+		 {
+			 if (inList)
+				 pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
+			 else
+				 pstyle->setIndent(getSize(attrs.value(i)));
+		 }
+		 else if ((attrs.localName(i) == "text:space-before") && (pstyle != nullptr))
+		 {
+			 if (inList)
+				 pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
+			 else
+				 pstyle->setIndent(getSize(attrs.value(i)));
+		 }
+		 else if ((attrs.localName(i) == "fo:text-indent") && (pstyle != nullptr))
+			 pstyle->setFirstLineIndent(getSize(attrs.value(i)));
+		 else if ((attrs.localName(i) == "fo:text-align") && (pstyle != nullptr))
+			 align = attrs.value(i);
+		 else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != nullptr))
+			 force = attrs.value(i);
+	 }
+	 if (!align.isEmpty() && (pstyle != nullptr))
+	 {
+		 if (align == "end")
+			 pstyle->setAlignment(RIGHT);
+		 else if (align == "center")
+			 pstyle->setAlignment(CENTER);
+		 else if (align == "justify")
+		 {
+			 if (force == "false")
+				 pstyle->setAlignment(BLOCK);
+			 else
+				 pstyle->setAlignment(FORCED);
+		 }
+	 }
+	 if (!hasColorTag)
+		 currentStyle->getFont()->setColor("Black");
  }
  
  void StyleReader::styleStyle(const QXmlAttributes& attrs)
@@ -501,8 +500,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  		return tmp;
  	}
- 	else
-		return getDefaultStyle();
+	return getDefaultStyle();
  }
  
  void StyleReader::setStyle(const QString& name, gtStyle* style)
@@ -560,8 +558,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  {
  	if (fonts.contains(key))
  		return fonts[key];
- 	else
- 		return key;
+	return key;
  }
  
  void StyleReader::setupFrameStyle()
@@ -588,117 +585,117 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value)
  {
-	gtParagraphStyle* pstyle = nullptr;
- 	if (style->target() == "paragraph")
- 		pstyle = dynamic_cast<gtParagraphStyle*>(style);
- 	else
-		pstyle = nullptr;
-	QString align;
-	QString force;
- 
- 	if (key == "style:font-name")
- 		style->getFont()->setName(getFont(value));
- 	else if (key == "fo:font-size")
- 	{
- 		double size = 0;
- 		double psize = 0;
-		if (parent2Style != nullptr)
- 			psize = static_cast<double>(parent2Style->getFont()->getSize());
- 		else if (styles.contains("default-style"))
- 			psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
- 		psize = psize / 10;
- 		size = getSize(value, psize);
- 		int nsize = static_cast<int>(size * 10);
- 		style->getFont()->setSize(nsize);
- 		if (pstyle)
- 			pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
- 	}
-	else if ((key == "fo:line-height") && (parent2Style != nullptr))
- 	{
- 		gtParagraphStyle* ppstyle;
- 		if (parent2Style->target() == "paragraph")
- 		{
- 			ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
-			assert(ppstyle != nullptr);
- 			ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
- 		}
- 	}
- 	else if (key == "fo:color")
-		style->getFont()->setColor(value);
-	else if ((key == "style:use-window-font-color") && (value == "true"))
- 			style->getFont()->setColor("Black");
- 	else if ((key == "fo:font-weight") && (value == "bold"))
- 		style->getFont()->setWeight(BOLD);
- 	else if ((key == "fo:font-style") && (value == "italic"))
- 		style->getFont()->setSlant(ITALIC);
- 	else if ((key == "style:text-underline") && (value != "none"))
- 		style->getFont()->toggleEffect(UNDERLINE);
- 	else if ((key == "style:text-crossing-out") && (value != "none"))
- 		style->getFont()->toggleEffect(STRIKETHROUGH);
- 	else if ((key == "fo:font-variant") && (value == "small-caps"))
- 		style->getFont()->toggleEffect(SMALL_CAPS);
- 	else if ((key == "style:text-outline") && (value == "true"))
- 	{
- 		style->getFont()->toggleEffect(OUTLINE);
- 		style->getFont()->setStrokeColor("Black");
- 		style->getFont()->setColor("White");
- 	}
- 	else if (key == "fo:letter-spacing")
- 		style->getFont()->setKerning(static_cast<int>(getSize(value, -1.0)));
- 	else if (key == "style:text-scale")
- 		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
- 	else if ((key == "style:text-position") && 
- 	        (((value).indexOf("sub") != -1) || 
- 			(((value).left(1) == "-") && ((value).left(1) != "0"))))
- 		style->getFont()->toggleEffect(SUBSCRIPT);
- 	else if ((key == "style:text-position") && 
- 	        (((value).indexOf("super") != -1) || 
- 			(((value).left(1) != "-") && ((value).left(1) != "0"))))
- 		style->getFont()->toggleEffect(SUPERSCRIPT);
-	else if ((key == "fo:margin-top") && (pstyle != nullptr))
- 		pstyle->setSpaceAbove(getSize(value));
-	else if ((key == "fo:margin-bottom") && (pstyle != nullptr))
- 		pstyle->setSpaceBelow(getSize(value));
-	else if ((key == "fo:margin-left") && (pstyle != nullptr))
- 	{
- 		if (inList)
- 			pstyle->setIndent(pstyle->getIndent() + getSize(value));
- 		else
- 			pstyle->setIndent(getSize(value));	
- 	}
-	else if ((key == "text:space-before") && (pstyle != nullptr))
- 	{
- 		if (inList)
- 			pstyle->setIndent(pstyle->getIndent() + getSize(value));
- 		else
- 			pstyle->setIndent(getSize(value));	
- 	}
-	else if ((key == "fo:text-indent") && (pstyle != nullptr))
- 		pstyle->setFirstLineIndent(getSize(value));
-	else if ((key == "fo:text-align") && (pstyle != nullptr))
- 		align = value;
-	else if ((key == "style:justify-single-word") && (pstyle != nullptr))
- 		force = value;
- 
-	if (!align.isEmpty() && (pstyle != nullptr))
-	{
- 		if (align == "end")
- 			pstyle->setAlignment(RIGHT);
- 		else if (align == "center")
- 			pstyle->setAlignment(CENTER);
- 		else if (align == "justify")
- 		{
- 			if (force != "false")
- 				pstyle->setAlignment(FORCED);
- 			else
- 				pstyle->setAlignment(BLOCK);
- 		}
- 	}
- 	
- 	return true;
+	 gtParagraphStyle* pstyle = nullptr;
+	 if (style->target() == "paragraph")
+		 pstyle = dynamic_cast<gtParagraphStyle*>(style);
+	 else
+		 pstyle = nullptr;
+	 QString align;
+	 QString force;
+
+	 if (key == "style:font-name")
+		 style->getFont()->setName(getFont(value));
+	 else if (key == "fo:font-size")
+	 {
+		 double size = 0;
+		 double psize = 0;
+		 if (parent2Style != nullptr)
+			 psize = static_cast<double>(parent2Style->getFont()->getSize());
+		 else if (styles.contains("default-style"))
+			 psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
+		 psize = psize / 10;
+		 size = getSize(value, psize);
+		 int nsize = static_cast<int>(size * 10);
+		 style->getFont()->setSize(nsize);
+		 if (pstyle)
+			 pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
+	 }
+	 else if ((key == "fo:line-height") && (parent2Style != nullptr))
+	 {
+		 gtParagraphStyle* ppstyle;
+		 if (parent2Style->target() == "paragraph")
+		 {
+			 ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
+			 assert(ppstyle != nullptr);
+			 ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
+		 }
+	 }
+	 else if (key == "fo:color")
+		 style->getFont()->setColor(value);
+	 else if ((key == "style:use-window-font-color") && (value == "true"))
+		 style->getFont()->setColor("Black");
+	 else if ((key == "fo:font-weight") && (value == "bold"))
+		 style->getFont()->setWeight(BOLD);
+	 else if ((key == "fo:font-style") && (value == "italic"))
+		 style->getFont()->setSlant(ITALIC);
+	 else if ((key == "style:text-underline") && (value != "none"))
+		 style->getFont()->toggleEffect(UNDERLINE);
+	 else if ((key == "style:text-crossing-out") && (value != "none"))
+		 style->getFont()->toggleEffect(STRIKETHROUGH);
+	 else if ((key == "fo:font-variant") && (value == "small-caps"))
+		 style->getFont()->toggleEffect(SMALL_CAPS);
+	 else if ((key == "style:text-outline") && (value == "true"))
+	 {
+		 style->getFont()->toggleEffect(OUTLINE);
+		 style->getFont()->setStrokeColor("Black");
+		 style->getFont()->setColor("White");
+	 }
+	 else if (key == "fo:letter-spacing")
+		 style->getFont()->setKerning(static_cast<int>(getSize(value, -1.0)));
+	 else if (key == "style:text-scale")
+		 style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
+	 else if ((key == "style:text-position") &&
+			  (((value).indexOf("sub") != -1) ||
+			   (((value).left(1) == "-") && ((value).left(1) != "0"))))
+		 style->getFont()->toggleEffect(SUBSCRIPT);
+	 else if ((key == "style:text-position") &&
+			  (((value).indexOf("super") != -1) ||
+			   (((value).left(1) != "-") && ((value).left(1) != "0"))))
+		 style->getFont()->toggleEffect(SUPERSCRIPT);
+	 else if ((key == "fo:margin-top") && (pstyle != nullptr))
+		 pstyle->setSpaceAbove(getSize(value));
+	 else if ((key == "fo:margin-bottom") && (pstyle != nullptr))
+		 pstyle->setSpaceBelow(getSize(value));
+	 else if ((key == "fo:margin-left") && (pstyle != nullptr))
+	 {
+		 if (inList)
+			 pstyle->setIndent(pstyle->getIndent() + getSize(value));
+		 else
+			 pstyle->setIndent(getSize(value));
+	 }
+	 else if ((key == "text:space-before") && (pstyle != nullptr))
+	 {
+		 if (inList)
+			 pstyle->setIndent(pstyle->getIndent() + getSize(value));
+		 else
+			 pstyle->setIndent(getSize(value));
+	 }
+	 else if ((key == "fo:text-indent") && (pstyle != nullptr))
+		 pstyle->setFirstLineIndent(getSize(value));
+	 else if ((key == "fo:text-align") && (pstyle != nullptr))
+		 align = value;
+	 else if ((key == "style:justify-single-word") && (pstyle != nullptr))
+		 force = value;
+
+	 if (!align.isEmpty() && (pstyle != nullptr))
+	 {
+		 if (align == "end")
+			 pstyle->setAlignment(RIGHT);
+		 else if (align == "center")
+			 pstyle->setAlignment(CENTER);
+		 else if (align == "justify")
+		 {
+			 if (force != "false")
+				 pstyle->setAlignment(FORCED);
+			 else
+				 pstyle->setAlignment(BLOCK);
+		 }
+	 }
+
+	 return true;
  }
  
- double StyleReader::getSize(QString s, double parentSize)
+ double StyleReader::getSize(const QString& s, double parentSize)
  {
 	QString dbl("0.0");
  	QString lowerValue = s.toLower();

@@ -51,7 +51,7 @@ QStringList FileExtensions()
 	return QStringList("sxw");
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
 	SxwIm* sim = new SxwIm(filename, encoding, writer, textOnly);
 	delete sim;

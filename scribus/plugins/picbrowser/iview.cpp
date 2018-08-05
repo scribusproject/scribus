@@ -21,7 +21,7 @@
 IView::IView ( QWidget * parent )
 		:QGraphicsView ( parent )
 {
-	curImage = 0;
+	curImage = nullptr;
 	setScene ( new QGraphicsScene );
 	setInteractive ( true );
 	isPanning = false;
@@ -34,8 +34,7 @@ IView::IView ( QWidget * parent )
 IView::~ IView()
 {
 	QGraphicsScene * s(scene());
-	if(s)
-		delete s;
+	delete s;
 }
 
 void IView::mouseMoveEvent ( QMouseEvent * e )
@@ -85,7 +84,7 @@ void IView::setImage(const QPixmap & pixmap)
 	if ( curImage )
 	{
 		delete curImage;
-		curImage = 0;
+		curImage = nullptr;
 	}
 	
 	curImage = scene()->addPixmap ( pixmap );

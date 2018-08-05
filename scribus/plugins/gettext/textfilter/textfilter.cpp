@@ -31,7 +31,7 @@ QStringList FileExtensions()
 	return QStringList();
 }
 
-void GetText(QString filename, QString encoding, bool, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool, gtWriter *writer)
 {
 	TextFilter* tf = new TextFilter(filename, encoding, writer);
 	delete tf;
@@ -43,7 +43,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 {
 	filename = fname;
 	encoding = enc;
-	filters = 0;
+	filters = nullptr;
 	writer = w;
 	writer->setOverridePStyleFont(false);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
@@ -122,7 +122,7 @@ void TextFilter::write()
 			}
 		}
 	}
-	if (pstyles.size() == 0)
+	if (pstyles.empty())
 		writer->append(text);
 	else
 	{

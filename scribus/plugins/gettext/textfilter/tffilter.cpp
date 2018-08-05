@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
-                   int action, QString regExp, QString replace, QString pstyleName,
+				   int action, const QString& regExp, const QString& replace, const QString& pstyleName,
                    int less, int more, int style, bool match, bool enabled, bool regexp)
                    : QWidget(parent)
 {
@@ -134,12 +134,12 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(IconManager::instance()->loadIcon("22/list-remove.png"), 0, this);
+	removeButton = new QPushButton(IconManager::instance()->loadIcon("22/list-remove.png"), nullptr, this);
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton, 0, Qt::AlignTop);
-	addButton = new QPushButton(IconManager::instance()->loadIcon("22/list-add.png"), 0, this);
+	addButton = new QPushButton(IconManager::instance()->loadIcon("22/list-add.png"), nullptr, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
@@ -547,8 +547,7 @@ int tfFilter::getLessThan()
 	int i = text.toInt(&ok);
 	if (ok)
 		return i;
-	else
-		return -1;
+	return -1;
 }
 
 int tfFilter::getStyle()

@@ -211,7 +211,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		--append;
 		if (inList || inNote || inNoteBody)
 		{
-			if (styleNames.size() != 0)
+			if (!styleNames.empty())
 				styleNames.pop_back();
 		}
 		else
@@ -221,7 +221,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	{
 		inSpan = false;
 		currentStyle = pstyle;
-		if (styleNames.size() != 0)
+		if (!styleNames.empty())
 			styleNames.pop_back();	
 		currentStyle = sreader->getStyle(getName());
 	}
@@ -357,7 +357,7 @@ QString ContentReader::getName()
 void ContentReader::getStyle()
 {
 	gtStyle *style = nullptr, *tmp = nullptr;
-	if (styleNames.size() == 0)
+	if (styleNames.empty())
 		style = sreader->getStyle("default-style");
 	else
 		style = sreader->getStyle(styleNames[0]);
