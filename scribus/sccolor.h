@@ -31,8 +31,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-class ScribusDoc;
-
+class  ScribusDoc;
+struct RGBColorF;
 
 /**
   *@author Franz Schmid
@@ -94,6 +94,7 @@ public:
 
 	/** \brief Returns the RGB color  
 	* Must not be called if color is the None Color. */
+	void getRawRGBColor(RGBColorF* rgb) const;
 	void getRawRGBColor(int *r, int *g, int *b) const;
 	QColor getRawRGBColor() const;
 

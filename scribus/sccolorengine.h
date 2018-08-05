@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "sccolor.h"
-#include "scribusstructs.h"
+#include "sccolorstructs.h"
 class ScribusDoc;
 
 class SCRIBUS_API ScColorEngine

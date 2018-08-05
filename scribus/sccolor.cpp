@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 
 ScColor::ScColor(void)
 {
@@ -178,6 +179,21 @@ void ScColor::fromQColor(QColor color)
 	}
 }
 
+void  ScColor::getRawRGBColor(RGBColorF* rgb) const
+{
+	if (m_Model == colorModelRGB)
+	{
+		rgb->r = m_values[0];
+		rgb->g = m_values[1];
+		rgb->b = m_values[2];
+		return;
+	}
+
+	rgb->r = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
+	rgb->g = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
+	rgb->b = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
+}
+
 void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 {
 	if (m_Model == colorModelRGB)
@@ -185,29 +201,31 @@ void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 		*r = qRound(m_values[0] * 255.0);
 		*g = qRound(m_values[1] * 255.0);
 		*b = qRound(m_values[2] * 255.0);
+		return;
 	}
-	else
-	{
-		*r = 255 - qMin(255, qRound((m_values[0] + m_values[3]) * 255.0));
-		*g = 255 - qMin(255, qRound((m_values[1] + m_values[3]) * 255.0));
-		*b = 255 - qMin(255, qRound((m_values[2] + m_values[3]) * 255.0));
-	}
+
+	double dR = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
+	double dG = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
+	double dB = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
+	*r = qRound(dR * 255.0);
+	*g = qRound(dG * 255.0);
+	*b = qRound(dB * 255.0);
 }
 
 QColor ScColor::getRawRGBColor() const
 {
 	if (m_Model == colorModelRGB)
 	{
-		int r = qRound(m_values[0] * 255.0);
-		int g = qRound(m_values[1] * 255.0);
-		int b = qRound(m_values[2] * 255.0);
-		return QColor(r, g, b);
+		double r = m_values[0];
+		double g = m_values[1];
+		double b = m_values[2];
+		return QColor::fromRgbF(r, g, b);
 	}
 
 	double dR = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
 	double dG = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
 	double dB = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
-	return QColor(qRound(dR * 255.0), qRound(dG * 255.0), qRound(dB * 255.0));
+	return QColor::fromRgbF(dR, dG, dB);
 }
 
 void ScColor::getRGB(int *r, int *g, int *b) const

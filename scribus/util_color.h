@@ -28,6 +28,7 @@ QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
 QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
 QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
 QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
+
 /*! \brief Put toPaint pixmap into target at the x, y place.
 There is handled the alpha channel/transparency too. In the beginning
 is the target pixmap filled with all_transparent mask. In the case of
@@ -55,6 +56,7 @@ void SCRIBUS_API handleOldColorShade(ScribusDoc* doc, QString& colName, int& sha
  * \param shade shade value.
  */
 QColor SCRIBUS_API getOldColorShade(const QColor& color, int shade);
+
 /*! \brief Compute color shade of a rgb color using pre-1.3.4 method
  * \param red the red component.
  * \param green the green component.
@@ -62,6 +64,7 @@ QColor SCRIBUS_API getOldColorShade(const QColor& color, int shade);
  * \param shade shade value.
  */
 QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shade);
+
 /*! \brief Convert a color in RGB space to HSV space (Hue, Saturation, Value).
  * \param red the red component (modified in place).
  * \param green the green component (modified in place).
@@ -77,12 +80,14 @@ unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
  * \param value the value component (modified in place).
  */
 void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
+
 /*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
  * \param red the red component.
  * \param green the green component.
  * \param blue the blue component.
  */
 void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
+
 /*! \brief Implement the HLS "double hex-cone".
  * \param n1 lightness fraction (?)
  * \param n2 saturation fraction (?)
@@ -90,6 +95,7 @@ void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
  * \return HLS value.
  */
 double SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
+
 /*! \brief Convert a color in HLS space to RGB space.
  * \param hue the hue component (modified in place).
  * \param lightness the lightness component (modified in place).

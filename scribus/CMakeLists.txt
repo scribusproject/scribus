@@ -699,6 +699,7 @@ set(SCRIBUS_SOURCES
 	sccolor.cpp
 	sccolorengine.cpp
 	sccolorshade.cpp
+	sccolorstructs.cpp
 	scdocoutput.cpp
 	scdocoutput_ps2.cpp
 	scdomelement.cpp

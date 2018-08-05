@@ -21,11 +21,12 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <cmath>
+
 #include "sccolorengine.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "colormgmt/sccolormgmtengine.h"
-#include <cmath>
 
 QColor ScColorEngine::getRGBColor(const ScColor& color, const ScribusDoc* doc)
 {
@@ -538,17 +539,17 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 	}
 	else if (color.getColorModel() == colorModelRGB)
 	{
-		int h, s, v, snew, vnew;
-		QColor tmpR = color.getRawRGBColor();
-		tmpR.getHsv(&h, &s, &v);
-		snew = qRound(s * level / 100.0);
-		vnew = 255 - qRound(((255 - v) * level / 100.0));
-		tmpR.setHsv(h, snew, vnew);
-		tmpR.getRgb(&rgb.r, &rgb.g, &rgb.b);
+		HSVColorF hsv;
+		RGBColorF rgbF;
+		color.getRawRGBColor(&rgbF);
+		rgbF.toHsv(hsv);
+		hsv.s = hsv.s * (level / 100.0);
+		hsv.v = 1.0 - (1.0 - hsv.v) * (level / 100.0);
+		hsv.toRgb(rgb);
 		//We could also compute rgb shade using rgb directly
-		/*rgb.CR = 255 - ((255 - color.CR) * level / 100);
-		rgb.MG = 255 - ((255 - color.MG) * level / 100);
-		rgb.YB = 255 - ((255 - color.YB) * level / 100);*/
+		/*rgb.r = 255 - ((255 - color.m_values[0]) * level / 100);
+		rgb.g = 255 - ((255 - color.m_values[1]) * level / 100);
+		rgb.b = 255 - ((255 - color.m_values[2]) * level / 100);*/
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
@@ -577,17 +578,12 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 	}
 	else if (color.getColorModel() == colorModelRGB)
 	{
-		int h, s, v, snew, vnew;
-		QColor tmpR = color.getRawRGBColor();
-		tmpR.getHsv(&h, &s, &v);
-		snew = qRound(s * level / 100.0);
-		vnew = 255 - qRound(((255 - v) * level / 100.0));
-		RGBColor tmpRgb;
-		tmpR.setHsv(h, snew, vnew);
-		tmpR.getRgb(&tmpRgb.r, &tmpRgb.g, &tmpRgb.b);
-		rgb.r = tmpRgb.r / 255.0;
-		rgb.g = tmpRgb.g / 255.0;
-		rgb.b = tmpRgb.b / 255.0;
+		HSVColorF hsv;
+		color.getRawRGBColor(&rgb);
+		rgb.toHsv(hsv);
+		hsv.s = hsv.s * (level / 100.0);
+		hsv.v = 1.0 - (1.0 - hsv.v) * (level / 100.0);
+		hsv.toRgb(rgb);
 		//We could also compute rgb shade using rgb directly
 		/*rgb.r = 1.0 - ((1.0 - color.m_values[0]) * level / 100);
 		rgb.g = 1.0 - ((1.0 - color.m_values[1]) * level / 100);

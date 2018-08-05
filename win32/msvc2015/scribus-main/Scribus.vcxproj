@@ -345,6 +345,7 @@
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_swatchbook.h" />
     <ClInclude Include="..\..\..\scribus\pdfstructs.h" />
     <ClInclude Include="..\..\..\scribus\pdfwriter.h" />
+    <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
     <moc Include="..\..\..\scribus\ui\charselectenhanced.h" />
@@ -882,6 +883,7 @@
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
+    <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
     <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
