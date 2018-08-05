@@ -46,7 +46,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
+		virtual void getReplacedFontData(bool& getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
 
 	private:
 		void registerFormats();

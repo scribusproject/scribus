@@ -40,8 +40,7 @@ for which a new license (GPL+exception) is in place.
 // Please don't implement the functionality of your plugin here; do that
 // in scribus12formatimpl.h and scribus12formatimpl.cpp .
 
-Scribus12Format::Scribus12Format() :
-	LoadSavePlugin()
+Scribus12Format::Scribus12Format()
 {
 	VorlC = -1;
 
@@ -148,9 +147,7 @@ bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileN
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	if (docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>"))
-		return true;
-	return false;
+	return docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>");
 }
 
 QString Scribus12Format::readSLA(const QString & fileName)
@@ -527,14 +524,14 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->setLayer(Buffer->LayerID);
 	currItem->PoLine = Buffer->PoLine.copy();
 	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);
-	if (Buffer->ContourLine.size() == 0)
+	if (Buffer->ContourLine.empty())
 		currItem->ContourLine = currItem->PoLine.copy();
 	else
 		currItem->ContourLine = Buffer->ContourLine.copy();
 	if (!currItem->asLine())
 	{
 		// OBSOLETE CR 2005-02-06
-		if ((currItem->PoLine.size() == 0) && (currItem->itemType() != PageItem::ItemType1))
+		if ((currItem->PoLine.empty()) && (currItem->itemType() != PageItem::ItemType1))
 			currItem->convertClip();
 		else
 			//
@@ -687,7 +684,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 }
 
 
-void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
+void Scribus12Format::getReplacedFontData(bool& getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=false;
 	getReplacedFonts.clear();
@@ -699,11 +696,11 @@ static long long scribus12itemID(int itemNr, int pageNr)
 	return 100000 * ((long long) itemNr) + pageNr; 
 }
 
-bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
+bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
+	if (m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr)
 	{
-		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
+		Q_ASSERT(m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr);
 		return false;
 	}
 // 	ReplacedFonts.clear();
@@ -761,7 +758,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
-	if (m_mwProgressBar!=0)
+	if (m_mwProgressBar!=nullptr)
 	{
 		m_mwProgressBar->setMaximum(DOC.childNodes().count());
 		m_mwProgressBar->setValue(0);
@@ -889,13 +886,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->guidesPrefs().majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
 		m_Doc->itemToolPrefs().lineStartArrow = 0;
 		m_Doc->itemToolPrefs().lineEndArrow = 0;
-		m_Doc->LastAuto = 0;
+		m_Doc->LastAuto = nullptr;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())
 		{
 			ObCount++;
-			if (m_mwProgressBar!=0)
+			if (m_mwProgressBar!=nullptr)
 				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
@@ -1118,19 +1115,19 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						if (ta->TopLinkID != -1)
 							ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
 						else
-							ta->TopLink = 0;
+							ta->TopLink = nullptr;
 						if (ta->LeftLinkID != -1)
 							ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
 						else
-							ta->LeftLink = 0;
+							ta->LeftLink = nullptr;
 						if (ta->RightLinkID != -1)
 							ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
 						else
-							ta->RightLink = 0;
+							ta->RightLink = nullptr;
 						if (ta->BottomLinkID != -1)
 							ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 						else
-							ta->BottomLink = 0;
+							ta->BottomLink = nullptr;
 					}
 				}
 			}
@@ -1307,19 +1304,19 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 	{
 		PageItem* item = m_Doc->DocItems.at(i);
-		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
 		PageItem* item = m_Doc->MasterItems.at(i);
-		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
 	for (auto itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
 		PageItem *item = itf.value();
-		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
 	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
@@ -1366,7 +1363,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	
 	setCurrentComboItem(m_ScMW->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
-	if (m_mwProgressBar!=0)
+	if (m_mwProgressBar!=nullptr)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
@@ -1814,9 +1811,9 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
 {
 //	qDebug() << QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber);
-	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
+	if (m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr)
 	{
-		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
+		Q_ASSERT(m_Doc==nullptr || m_View==nullptr|| m_AvailableFonts==nullptr);
 		return false;
 	}
 
@@ -2117,19 +2114,19 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						if (ta->TopLinkID != -1)
 							ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
 						else
-							ta->TopLink = 0;
+							ta->TopLink = nullptr;
 						if (ta->LeftLinkID != -1)
 							ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
 						else
-							ta->LeftLink = 0;
+							ta->LeftLink = nullptr;
 						if (ta->RightLinkID != -1)
 							ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
 						else
-							ta->RightLink = 0;
+							ta->RightLink = nullptr;
 						if (ta->BottomLinkID != -1)
 							ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 						else
-							ta->BottomLink = 0;
+							ta->BottomLink = nullptr;
 					}
 				}
 				// reestablish textframe links
@@ -2155,19 +2152,19 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 				{
 					PageItem* item = m_Doc->DocItems.at(i);
-					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+					if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}
 				for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 				{
 					PageItem* item = m_Doc->MasterItems.at(i);
-					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+					if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}
 				for (auto itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 				{
 					PageItem *item = itf.value();
-					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+					if (item->prevInChain() == nullptr && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}
 				for (int i = 0; i < m_Doc->DocItems.count(); ++i)

@@ -132,8 +132,8 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	writeLinestyles(writer);
 	writePatterns(writer, fileDir, true, selection);
 	if (!emF.isEmpty())
-		WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionFrame, &emF);
-	WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionElements, &emG);
+		WriteObjects(m_Doc, writer, fileDir, nullptr, 0, ItemSelectionFrame, &emF);
+	WriteObjects(m_Doc, writer, fileDir, nullptr, 0, ItemSelectionElements, &emG);
 	writer.writeEndElement();
 //	writer.writeEndDocument();
 	documentStr.squeeze();
@@ -1513,14 +1513,14 @@ void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& ba
 		docu.writeAttribute("scaleY", pa.scaleY);
 		docu.writeAttribute("xoffset", pa.xoffset);
 		docu.writeAttribute("yoffset", pa.yoffset);
-		WriteObjects(m_Doc, docu, baseDir, 0, 0, ItemSelectionPattern, &pa.items);
+		WriteObjects(m_Doc, docu, baseDir, nullptr, 0, ItemSelectionPattern, &pa.items);
 		docu.writeEndElement();
 	}	
 }
 
 void Scribus150Format::writeContent(ScXmlStreamWriter & docu, const QString& baseDir) 
 {
-	if (m_mwProgressBar != 0)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
 		m_mwProgressBar->setValue(0);
@@ -1544,7 +1544,7 @@ void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 	for (uint i = 0; i < pages; ++i)
 	{
 		ObCount++;
-		if (dia2 != 0)
+		if (dia2 != nullptr)
 			dia2->setValue(ObCount);
 		if (master)
 		{
@@ -1799,7 +1799,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	for (uint j = 0; j < objects;++j)
 	{
 		ObCount++;
-		if (dia2 != 0)
+		if (dia2 != nullptr)
 			dia2->setValue(ObCount);
 		item = items->at(j);
 		switch (master)
@@ -2012,12 +2012,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 
 		if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
 		{
-			if (item->nextInChain() != 0)
+			if (item->nextInChain() != nullptr)
 				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()) & 0x7FFFFFFF);
 			else
 				docu.writeAttribute("NEXTITEM", -1);
 			
-			if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
+			if (item->prevInChain() != nullptr && items->contains(item->prevInChain()))
 				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()) & 0x7FFFFFFF);
 			else
 			{
@@ -2259,7 +2259,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 #endif
 		if (item->asGroupFrame())
 		{
-			WriteObjects(m_Doc, docu, baseDir, 0, 0, ItemSelectionGroup, &item->groupItemList);
+			WriteObjects(m_Doc, docu, baseDir, nullptr, 0, ItemSelectionGroup, &item->groupItemList);
 		}
 		//Write all the cells and their data to the document, as sub-elements of the pageitem.
 		if (item->isTable())

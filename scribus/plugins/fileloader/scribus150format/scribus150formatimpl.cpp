@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 // Initialize members here, if any
-Scribus150FormatImpl::Scribus150FormatImpl() : QObject(0)
+Scribus150FormatImpl::Scribus150FormatImpl() : QObject(nullptr)
 {
 }
 
