@@ -163,7 +163,7 @@ void ButtonIcon::SetAllVals()
 
 void ButtonIcon::SetScaleHow(int s)
 {
-	bool setter = (s == 3) ? true : false;
+	bool setter = s == 3;
 	GroupButton->setEnabled(setter);
 	TextLabel3->setEnabled(setter);
 	SliderX->setEnabled(setter);

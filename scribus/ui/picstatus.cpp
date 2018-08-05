@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-PicItem::PicItem(QListWidget* parent, QString text, QPixmap pix, PageItem* pgItem)
+PicItem::PicItem(QListWidget* parent, const QString& text, const QPixmap& pix, PageItem* pgItem)
 	: QListWidgetItem(pix, text, parent)
 {
 	PageItemObject = pgItem;
@@ -134,8 +134,8 @@ void PicStatus::fillTable()
 {
 	PageItem *item;
 	imageViewArea->clear();
-	QListWidgetItem *firstItem=0;
-	QListWidgetItem *tempItem=0;
+	QListWidgetItem *firstItem=nullptr;
+	QListWidgetItem *tempItem=nullptr;
 
 	QList<PageItem*> allItems;
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
@@ -156,7 +156,7 @@ void PicStatus::fillTable()
 				Iname = fi.fileName();
 			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
-			if (firstItem == 0)
+			if (firstItem == nullptr)
 				firstItem = tempItem;
 		}
 		allItems.clear();
@@ -182,13 +182,13 @@ void PicStatus::fillTable()
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 			// if an image is selected in a doc, Manage Pictures should
 			// display the selected image and its values
-			if (firstItem == 0 || item->isSelected())
+			if (firstItem == nullptr || item->isSelected())
 				firstItem = tempItem;
 		}
 		allItems.clear();
 	}
 	imageViewArea->setCurrentItem(firstItem);
-	if (firstItem!=0)
+	if (firstItem!=nullptr)
 		imageSelected(firstItem);
 
 	// Disable all features when there is no image in the document.
@@ -201,7 +201,7 @@ void PicStatus::fillTable()
 
 void PicStatus::sortByName()
 {
-	QListWidgetItem *firstItem = 0;
+	QListWidgetItem *firstItem = nullptr;
 	QMap<QString, PicItem*> sorted;
 
 	int num = imageViewArea->count();
@@ -233,7 +233,7 @@ void PicStatus::sortByName()
 
 void PicStatus::sortByPage()
 {
-	QListWidgetItem *firstItem = 0;
+	QListWidgetItem *firstItem = nullptr;
 	QMap<int, PicItem*> sorted;
 
 	int num = imageViewArea->count();

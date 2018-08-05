@@ -216,7 +216,7 @@ void PageLayouts::itemSelected(int ic)
 
 void PageLayouts::itemSelected(QListWidgetItem* ic)
 {
-	if (ic == 0)
+	if (ic == nullptr)
 		return;
 	itemSelectedPost(layoutsView->row(ic));
 	emit selectedLayout(layoutsView->row(ic));

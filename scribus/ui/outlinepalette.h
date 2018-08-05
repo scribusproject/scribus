@@ -45,7 +45,7 @@ public:
 	OutlineWidget(QWidget* parent);
 	~OutlineWidget() {};
 
-	void selectItems(QList<QTreeWidgetItem*> items);
+	void selectItems(const QList<QTreeWidgetItem*>& items);
 
 protected:
 	void dropEvent(QDropEvent *e);

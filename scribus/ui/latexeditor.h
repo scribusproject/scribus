@@ -51,7 +51,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void revert();
 		void apply(bool force=false);
 		void initialize();
-		static QIcon icon(QString config, QString fn);
+		static QIcon icon(const QString& config, const QString& fn);
 		static QString iconFile(QString config);
 	protected:
 		PageItem_LatexFrame *frame;
@@ -69,7 +69,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		FileWatcher *fileWatcher;
 	protected slots:
 		void extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus);
-		void extEditorFileChanged(QString filename);
+		void extEditorFileChanged(const QString& filename);
 		void extEditorError(QProcess::ProcessError error);
 	public slots:
 		void okClicked();
@@ -77,12 +77,12 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void updateClicked(bool);
 		void revertClicked(bool);
 		void dpiChanged();
-		void formulaChanged(QString, QString);
+		void formulaChanged(const QString&, const QString&);
 		void applicationChanged();
 		void latexFinished();
 		void stateChanged(QProcess::ProcessState);
 		//Slots for the dynamic interface
-		void tagButtonClicked(QString);
+		void tagButtonClicked(const QString&);
 		void insertButtonClicked(QObject *);
 		void newItemSelected(QListWidgetItem *, QListWidgetItem *);
 		void itemDoubleClicked(QListWidgetItem *);
@@ -159,8 +159,8 @@ class SCRIBUS_API IconBuffer
 	public:
 		IconBuffer() { len = 0; basePos = 0; file = 0; }
 		static IconBuffer *instance();
-		void loadFile(QString filename);
-		QIcon *icon(QString filename, QString name);
+		void loadFile(const QString& filename);
+		QIcon *icon(const QString& filename, const QString& name);
 	protected:
 		QFile *file;
 		QMap<QString, QIcon> icons;

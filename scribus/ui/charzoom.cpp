@@ -6,7 +6,7 @@
 #include "scpainter.h"
 
 
-CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
+CharZoom::CharZoom(QWidget* parent, uint currentChar, const ScFace& face)
 #ifdef Q_OS_MAC
 	: QDialog( parent, Qt::FramelessWindowHint | Qt::Popup)
 #else

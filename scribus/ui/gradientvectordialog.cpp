@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "iconmanager.h"
 
-GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
+GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, nullptr )
 {
 	m_unitRatio = 1.0;
 

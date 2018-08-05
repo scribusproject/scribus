@@ -22,7 +22,7 @@ PdfVersionCombo::~PdfVersionCombo()
 	if (m_pdfVersionModel)
 	{
 		delete m_pdfVersionModel;
-		m_pdfVersionModel = 0;
+		m_pdfVersionModel = nullptr;
 	}
 }
 

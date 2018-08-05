@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmarkpalette.h"
 
-BookPalette::BookPalette(QWidget* parent) : ScDockPalette( parent, "Books", 0 )
+BookPalette::BookPalette(QWidget* parent) : ScDockPalette( parent, "Books", nullptr )
 {
 	setObjectName(QString::fromLocal8Bit("Books"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

@@ -44,7 +44,7 @@ class SCRIBUS_API SeItem : public QTableWidgetItem
 	friend class SeView;
 
 public:
-	SeItem(QString text, uint pgnr, const QPixmap& Pix);
+	SeItem(const QString& text, uint pgnr, const QPixmap& Pix);
 	~SeItem() {};
 
 	const QString& getPageName();

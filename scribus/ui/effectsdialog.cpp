@@ -48,7 +48,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	m_item = item;
 	effectsList = m_item->effectsInUse;
 	m_doc = docc;
-	currentOptions = 0;
+	currentOptions = nullptr;
 
 //	CMSettings cms(docc, "", Intent_Perceptual);
 //	cms.allowColorManagement(false);
@@ -936,7 +936,7 @@ void EffectsDialog::moveFromEffects()
 	int curr = usedEffects->currentRow();
 	QListWidgetItem *it = usedEffects->takeItem(curr);
 	delete it;
-	currentOptions = 0;
+	currentOptions = nullptr;
 	usedEffects->clearSelection();
 	if (usedEffects->count() == 0)
 	{
@@ -1003,7 +1003,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 		{
 			effectUp->setEnabled(true);
 			effectDown->setEnabled(true);
-			if (usedEffects->currentItem() == 0)
+			if (usedEffects->currentItem() == nullptr)
 				effectUp->setEnabled(false);
 			if (usedEffects->currentRow() == static_cast<int>(usedEffects->count())-1)
 				effectDown->setEnabled(false);
@@ -1402,7 +1402,7 @@ void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
 	effectDown->setEnabled(false);
 	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	selectEffectHelper();
-	currentOptions = 0;
+	currentOptions = nullptr;
 	usedEffects->clearSelection();
 	optionStack->setCurrentIndex(0);
 	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
@@ -1410,7 +1410,7 @@ void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
 
 void EffectsDialog::selectEffectHelper(bool final)
 {
-	if (currentOptions != 0)
+	if (currentOptions != nullptr)
 	{
 		if (currentOptions->text() == tr("Colorize"))
 		{

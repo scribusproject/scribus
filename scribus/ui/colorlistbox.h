@@ -69,7 +69,7 @@ class SCRIBUS_API ColorListBox : public QListView
 		bool hasSelection() const;
 
 		/*! Insert color at specified position */
-		void insertItem(int row, const ScColor& color, QString colorName);
+		void insertItem(int row, const ScColor& color, const QString& colorName);
 
 		/*! Return if none color is shown at beginning oh list */
 		bool isNoneColorShown() const;
@@ -87,7 +87,7 @@ class SCRIBUS_API ColorListBox : public QListView
 		void removeItem(int i);
 
 		/*! Find row index for specified colorname */
-		int row(QString colorName);
+		int row(const QString& colorName);
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with

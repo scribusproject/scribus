@@ -90,7 +90,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	}
 	SizeGroupLayout->addWidget( spinHeight, 1, 1 );
 	
-	linkSize = 0;
+	linkSize = nullptr;
 	if (mode == 0)
 	{
 		linkSize = new LinkButton( SizeGroup );

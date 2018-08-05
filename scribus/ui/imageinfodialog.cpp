@@ -79,7 +79,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	UserComment = new QLabel(info->exifInfo.userComment, ExGroup);
 	layout2->addWidget( UserComment, 1, 1 );
 	int a = 2;
-	Artist = Text5 = 0;
+	Artist = Text5 = nullptr;
 	if (info->type == 1)
 	{
 		Text5 = new QLabel( tr("Artist:"), ExGroup);
@@ -107,10 +107,10 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 		if ((exposureTime > 0.0) && (exposureTime <= 0.5))
 			tag += QString().sprintf(" (1/%d)", (int)(0.5 + 1/exposureTime) );
 	}
-	Text7 = Text8 = 0;
-	ExposureTime = 0;
-	ApertureFNumber= 0;
-	ISOequivalent = 0;
+	Text7 = Text8 = nullptr;
+	ExposureTime = nullptr;
+	ApertureFNumber= nullptr;
+	ISOequivalent = nullptr;
 	if (info->type == 0)
 	{
 		ExposureTime = new QLabel(tag, ExGroup);

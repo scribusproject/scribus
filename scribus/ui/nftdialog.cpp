@@ -29,9 +29,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent)
 
 bool nftdialog::isTemplateSelected()
 {
-	if (nftGui->currentDocumentTemplate)
-		return true;
-	return false;
+	return nftGui->currentDocumentTemplate != nullptr;
 }
 
 nfttemplate* nftdialog::currentTemplate()

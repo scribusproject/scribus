@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_os.h"
 
 
-PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, QString masterPageName) : QWidget(parent)
+PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, const QString& masterPageName) : QWidget(parent)
 {
 	m_doc  = pCurrentView->Doc;
 	m_view = pCurrentView;
@@ -66,14 +66,14 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 	connectSignals();
 }
 
-void PagePalette_MasterPages::setView(ScribusView* view, QString masterPageName)
+void PagePalette_MasterPages::setView(ScribusView* view, const QString& masterPageName)
 {
 //	ScribusView* oldView = m_view;
 //	QString oldPage = m_currentPage;
 
 	disconnectSignals();
 	m_view = view;
-	m_doc = m_view ? m_view->Doc : 0;
+	m_doc = m_view ? m_view->Doc : nullptr;
 
 	if (!view)
 	{
@@ -462,7 +462,7 @@ void PagePalette_MasterPages::selectMasterPage(QString name)
 	this->setEnabled(true);
 }
 
-void PagePalette_MasterPages::updateMasterPageList(void)
+void PagePalette_MasterPages::updateMasterPageList()
 {
 	QString masterPageName = (m_doc->MasterNames.contains(m_currentPage)) ? m_currentPage : CommonStrings::masterPageNormal;
 	updateMasterPageList(masterPageName);
@@ -557,7 +557,7 @@ void PagePalette_MasterPages::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
-	else if (e->type() == QEvent::StyleChange)
+	if (e->type() == QEvent::StyleChange)
 	{
 		styleChange();
 		return;

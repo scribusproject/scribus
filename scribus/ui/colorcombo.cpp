@@ -20,9 +20,6 @@ for which a new license (GPL+exception) is in place.
 
 ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 {
-#ifdef Q_OS_MAC
-//	setStyle( new ColorCombo::ScMacStyle() );
-#endif
 	setEditable(false);
 	ColorListBox* lb = new ColorListBox(this);
 	setModel( lb->model() );
@@ -32,9 +29,7 @@ ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 
 ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox(parent)
 {
-#ifdef Q_OS_MAC
-//	setStyle( new ColorCombo::ScMacStyle() );
-#endif
+
 	setEditable(false);
 	ColorListBox::PixmapType clbType = ColorListBox::smallPixmap;
 	if (type == ColorCombo::widePixmaps)
@@ -49,9 +44,6 @@ ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox
 
 ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 {
-#ifdef Q_OS_MAC
-//	setStyle( new ColorCombo::ScMacStyle() );
-#endif
 	setEditable(rw);
 	ColorListBox* lb = new ColorListBox(this);
 	setModel( lb->model() );
@@ -62,7 +54,7 @@ ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 
 QString ColorCombo::currentColor() const
 {
-	QString  colorName = currentText();
+	QString colorName(currentText());
 	if (colorName == CommonStrings::tr_NoneColor)
 		colorName = CommonStrings::None;
 	return colorName;
@@ -95,7 +87,7 @@ void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
 		clb->setPixmapType(ColorListBox::fancyPixmap);
 }
 
-void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, QString colorValue)
+void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, const QString& colorValue)
 {
 	clear();
 	setPixmapType(ColorCombo::fancyPixmaps);

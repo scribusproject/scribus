@@ -79,7 +79,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 void JavaDocs::slotAdd()
 {
 	QString nam;
-	Query dia(this, "tt", 1, tr("&New Script:"), tr("New Script"));
+	Query dia(this, "tt", true, tr("&New Script:"), tr("New Script"));
 	dia.setEditText( tr("New Script"), false );
 	dia.setTestList(m_Doc->JavaScripts.keys());
 	if (dia.exec())
@@ -121,11 +121,11 @@ void JavaDocs::slotDelete()
 		return;
 
 	int exit = ScMessageBox::warning(this,
-	                   CommonStrings::trWarning,
-	                   tr("Do you really want to delete this script?"),
-				       QMessageBox::Yes | QMessageBox::No,
-				       QMessageBox::NoButton,	// GUI default
-				       QMessageBox::Yes);	// batch default
+					   CommonStrings::trWarning,
+					   tr("Do you really want to delete this script?"),
+					   QMessageBox::Yes | QMessageBox::No,
+					   QMessageBox::NoButton,	// GUI default
+					   QMessageBox::Yes);	// batch default
 	if (exit == QMessageBox::Yes)
 	{
 		QString name = currentItem->text();
@@ -146,6 +146,6 @@ void JavaDocs::slotDelete()
 void JavaDocs::slotSelectionChanged()
 {
 	QListWidgetItem* currentItem = Scripts->currentItem();
-	EditScript->setEnabled(currentItem != 0);
-	DeleteScript->setEnabled(currentItem != 0);
+	EditScript->setEnabled(currentItem != nullptr);
+	DeleteScript->setEnabled(currentItem != nullptr);
 }

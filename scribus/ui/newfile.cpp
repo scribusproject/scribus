@@ -481,7 +481,7 @@ void NewDoc::selectItem(uint nr)
 
 void NewDoc::itemSelected(QListWidgetItem* ic)
 {
-	if (ic == 0)
+	if (ic == nullptr)
 		return;
 	selectItem(layoutsView->row(ic));
 	setDocLayout(layoutsView->row(ic));

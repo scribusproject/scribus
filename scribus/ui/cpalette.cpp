@@ -117,7 +117,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	gradientTypeStroke->setCurrentIndex(0);
 	
 	tabFillStroke->setCurrentIndex(0);
-	setCurrentItem(0);
+	setCurrentItem(nullptr);
 	hatchAngle->setDecimals(0);
 	hatchAngle->setNewUnit(6);
 	hatchDist->setDecimals(0);
@@ -350,18 +350,18 @@ void Cpalette::updateFromItem()
 
 void Cpalette::setDocument(ScribusDoc* doc)
 {
-	disconnect(this, SIGNAL(NewPen(QString)), 0, 0);
-	disconnect(this, SIGNAL(NewBrush(QString)), 0, 0);
-	disconnect(this, SIGNAL(NewPenShade(double)), 0, 0);
-	disconnect(this, SIGNAL(NewBrushShade(double)), 0, 0);
-	disconnect(this, SIGNAL(NewGradient(int)), 0, 0);
-	disconnect(this, SIGNAL(NewGradientS(int)), 0, 0);
-	disconnect(this, SIGNAL(NewPattern(QString)), 0, 0);
-	disconnect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
-	disconnect(this, SIGNAL(NewOverprint(int)), 0, 0);
-	disconnect(this, SIGNAL(NewPatternS(QString)), 0, 0);
-	disconnect(this, SIGNAL(NewPatternTypeS(bool)), 0, 0);
-	disconnect(this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), 0, 0);
+	this->disconnect(SIGNAL(NewPen(QString)));
+	this->disconnect(SIGNAL(NewBrush(QString)));
+	this->disconnect(SIGNAL(NewPenShade(double)));
+	this->disconnect(SIGNAL(NewBrushShade(double)));
+	this->disconnect(SIGNAL(NewGradient(int)));
+	this->disconnect(SIGNAL(NewGradientS(int)));
+	this->disconnect(SIGNAL(NewPattern(QString)));
+	this->disconnect(SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	this->disconnect(SIGNAL(NewOverprint(int)));
+	this->disconnect(SIGNAL(NewPatternS(QString)));
+	this->disconnect(SIGNAL(NewPatternTypeS(bool)));
+	this->disconnect(SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)));
 	disconnect(displayAllColors, SIGNAL(clicked()), this, SLOT(toggleColorDisplay()));
 
 	if (currentDoc)

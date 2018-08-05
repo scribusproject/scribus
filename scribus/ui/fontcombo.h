@@ -74,7 +74,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	QString currentFont();
-	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
+	void rebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
 public slots:
 	void setCurrentFont(QString f);

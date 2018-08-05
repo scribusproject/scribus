@@ -88,7 +88,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
-	Links=0;
+	Links=nullptr;
 	if ((doc->pagePositioning() != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7 );
@@ -281,7 +281,7 @@ void PagePropertiesDialog::setOrientation(int ori)
 int PagePropertiesDialog::pageOrder()
 {
 	int lp=0;
-	if (Links!=0)
+	if (Links!=nullptr)
 		lp = Links->currentIndex();
 	if (lp == 0)
 		lp = 1;

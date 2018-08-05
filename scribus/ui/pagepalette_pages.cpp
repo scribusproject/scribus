@@ -62,7 +62,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 
 	pix = IconManager::instance()->loadPixmap("32/page-simple.png");
 
-	currView = 0;
+	currView = nullptr;
 	Rebuild();
 	languageChange();
 
@@ -70,20 +70,20 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
 	connect(masterPageList, SIGNAL(DelMaster(QString)), this, SLOT(deleteMasterPage(QString)));
 
-	connect(pageLayout, SIGNAL(selectedLayout(int ))   , this, SLOT(handlePageLayout(int )));
-	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
-	connect(pageView  , SIGNAL(Click(int, int, int))   , this, SLOT(pageView_gotoPage(int, int, int)));
-	connect(pageView  , SIGNAL(movePage(int, int))     , this, SLOT(pageView_movePage(int, int)));
-	connect(pageView  , SIGNAL(DelPage(int))           , m_scMW, SLOT(deletePage2(int)));
-	connect(pageView  , SIGNAL(UseTemp(QString, int))  , this, SLOT(pageView_applyMasterPage(QString, int)));
-	connect(pageView  , SIGNAL(NewPage(int, QString))  , m_scMW, SLOT(slotNewPageP(int, QString)));
-	connect(trash     , SIGNAL(DelPage(int))           , m_scMW, SLOT(deletePage2(int)));
-	connect(trash     , SIGNAL(DelMaster(QString))     , this, SLOT(deleteMasterPage(QString)));
+	connect(pageLayout, SIGNAL(selectedLayout(int))   , this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+	connect(pageView  , SIGNAL(Click(int,int,int))    , this, SLOT(pageView_gotoPage(int,int,int)));
+	connect(pageView  , SIGNAL(movePage(int,int))     , this, SLOT(pageView_movePage(int,int)));
+	connect(pageView  , SIGNAL(DelPage(int))          , m_scMW, SLOT(deletePage2(int)));
+	connect(pageView  , SIGNAL(UseTemp(QString,int))  , this, SLOT(pageView_applyMasterPage(QString,int)));
+	connect(pageView  , SIGNAL(NewPage(int,QString))  , m_scMW, SLOT(slotNewPageP(int,QString)));
+	connect(trash     , SIGNAL(DelPage(int))          , m_scMW, SLOT(deletePage2(int)));
+	connect(trash     , SIGNAL(DelMaster(QString))    , this, SLOT(deleteMasterPage(QString)));
 	
 	connect(this, SIGNAL(gotoPage(int))          , m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
 
-void PagePalette_Pages::deleteMasterPage(QString tmp)
+void PagePalette_Pages::deleteMasterPage(const QString& tmp)
 {
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
@@ -94,11 +94,11 @@ void PagePalette_Pages::deleteMasterPage(QString tmp)
 			extraWarn = tr("This master page is used at least once in the document.");
 	}
 	int exit = ScMessageBox::warning(this,
-	                              CommonStrings::trWarning,
-	                              tr("Do you really want to delete this master page?")+"\n"+extraWarn,
-	                              QMessageBox::Yes | QMessageBox::No,
-	                              QMessageBox::NoButton,	// GUI default
-	                              QMessageBox::Yes);	// batch default
+									  CommonStrings::trWarning,
+									  tr("Do you really want to delete this master page?")+"\n"+extraWarn,
+									  QMessageBox::Yes | QMessageBox::No,
+									  QMessageBox::NoButton,	// GUI default
+									  QMessageBox::Yes);	// batch default
 	if (exit == QMessageBox::Yes)
 	{
 		bool oldMPMode = currView->Doc->masterPageMode();
@@ -148,10 +148,10 @@ void PagePalette_Pages::pageView_movePage(int r, int c)
 
 void PagePalette_Pages::pageView_gotoPage(int r, int c, int b)
 {
-	int p;
-	bool dummy;
 	if ((b == Qt::LeftButton) && (r != -1) && (c != -1))
 	{
+		int p;
+		bool dummy;
 		p = pageView->GetPage(r, c, &dummy);
 		emit gotoPage(p);
 	}
@@ -188,18 +188,18 @@ void PagePalette_Pages::rebuildMasters()
 	if (m_scMW->scriptIsRunning())
 		return;
 	masterPageList->clear();
-	if (currView == 0)
+	if (currView == nullptr)
 		return;
 	QPixmap pm;
 	QListWidgetItem* item;
 	QMap<QString,int>::Iterator it;
 	for (it = currView->Doc->MasterNames.begin(); it != currView->Doc->MasterNames.end(); ++it)
 	{
-		QString pageLabel = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
-		QString pageName = it.key();
+		const QString& pageName = it.key();
+		QString pageLabel = (pageName == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : pageName;
 		if (masterPageList->Thumb)
 		{
-			pm = QPixmap::fromImage(currView->MPageToPixmap(it.key(),60));
+			pm = QPixmap::fromImage(currView->MPageToPixmap(pageName, 60));
 			item = new QListWidgetItem(QIcon(pm), pageLabel, masterPageList);
 		}
 		else
@@ -213,15 +213,15 @@ void PagePalette_Pages::rebuildPages()
 	if (m_scMW->scriptIsRunning())
 		return;
 	QString str;
-	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
-	disconnect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+	disconnect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+	disconnect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 	pageView->clearContents();
 	pageView->setRowCount(1);
 	pageView->setColumnCount(1);
-	if (currView == 0)
+	if (currView == nullptr)
 	{
-		connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
-		connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+		connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+		connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 		return;
 	}
 	pageLayout->updateLayoutSelector(currView->Doc->pageSets());
@@ -304,28 +304,28 @@ void PagePalette_Pages::rebuildPages()
 		}
 	}
 	pageView->repaint();
-	if (currView != 0)
+	if (currView != nullptr)
 		markPage(currView->Doc->currentPageNumber());
-	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
-	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 }
 
 void PagePalette_Pages::Rebuild()
 {
 	rebuildMasters();
 	rebuildPages();
-	enablePalette(currView != 0);
+	enablePalette(currView != nullptr);
 }
 
 void PagePalette_Pages::markPage(uint nr)
 {
-	if (currView == 0)
+	if (currView == nullptr)
 		return;
 
 	SeItem *it;
-	for (int a = 0; a < pageList.count(); a++)
+	for (int i = 0; i < pageList.count(); i++)
 	{
-		it = pageList.at(a);
+		it = pageList.at(i);
 		if (it->pageNumber == nr)
 		{
 			pageView->clearSelection();
@@ -345,14 +345,13 @@ void PagePalette_Pages::setView(ScribusView *view)
 
 void PagePalette_Pages::selMasterPage()
 {
-	if (masterPageList->CurItem != 0)
-	{
-		QVariant pageVar = masterPageList->CurItem->data(Qt::UserRole);
-		emit gotoMasterPage(pageVar.toString());
-	}
+	if (masterPageList->CurItem == nullptr)
+		return;
+	QVariant pageVar = masterPageList->CurItem->data(Qt::UserRole);
+	emit gotoMasterPage(pageVar.toString());
 }
 
-QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin)
+QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, const QPixmap& pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable

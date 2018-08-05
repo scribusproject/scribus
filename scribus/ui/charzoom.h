@@ -17,7 +17,7 @@ class SCRIBUS_API CharZoom : public QDialog
 	Q_OBJECT
 
 	public:
-		CharZoom(QWidget* parent, uint currentChar, ScFace face);
+		CharZoom(QWidget* parent, uint currentChar, const ScFace& face);
 		~CharZoom() {};
 	private:
 		void paintEvent(QPaintEvent *);

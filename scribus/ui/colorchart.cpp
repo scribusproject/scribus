@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
-ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(0)
+ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(nullptr)
 {
 	Xp = 0;
 	Yp = 0;

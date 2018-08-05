@@ -244,7 +244,7 @@ void PDFExportDialog::ChangeFile()
 			wdir = wfile;
 	}
 
-	QString d = QFileDialog::getSaveFileName(this, tr("Save As"), wdir, tr("PDF Files (*.pdf);;All Files (*)"), 0, QFileDialog::DontConfirmOverwrite);
+	QString d = QFileDialog::getSaveFileName(this, tr("Save As"), wdir, tr("PDF Files (*.pdf);;All Files (*)"), nullptr, QFileDialog::DontConfirmOverwrite);
 	if (d.length() > 0)
 	{
 		QString fn(QDir::fromNativeSeparators(d));

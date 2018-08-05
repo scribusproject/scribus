@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 		: ScrPaletteBase(parent, "CharSelectEnhanced"),
-		m_doc(0),
+		m_doc(nullptr),
 		m_characterClass(0)
 {
 	setupUi(this);
@@ -412,7 +412,7 @@ void CharSelectEnhanced::newFont(int font)
 //     tDebug("newFont end");
 }
 
-void CharSelectEnhanced::newChar(uint i, QString)
+void CharSelectEnhanced::newChar(uint i, const QString&)
 {
 	chToIns.append(i);
 	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));

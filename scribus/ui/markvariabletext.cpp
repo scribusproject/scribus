@@ -2,7 +2,7 @@
 #include "marks.h"
 #include <QComboBox>
 
-MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent), m_widgetType(ComboBox), m_mark(0)
+MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent), m_widgetType(ComboBox), m_mark(nullptr)
 {
 	//for editing mark entry in text - user can change mark pointer inserted into text or create new mark entry
 	setupUi(this);

@@ -25,7 +25,7 @@ FontEmbeddingCombo::~FontEmbeddingCombo()
 	if (m_fontEmbeddingModel)
 	{
 		delete m_fontEmbeddingModel;
-		m_fontEmbeddingModel = 0;
+		m_fontEmbeddingModel = nullptr;
 	}
 }
 

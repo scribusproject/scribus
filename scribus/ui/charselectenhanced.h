@@ -35,7 +35,7 @@ signals:
 	void insertSpecialChars(const QVector<uint> & chars);
 
 public slots:
-	void newChar(uint i, QString);
+	void newChar(uint i, const QString&);
 	void delChar();
 	void newFont(int font);
 	void newCharClass(int c);

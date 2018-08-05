@@ -45,10 +45,10 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->addWidget( moveLabel, currentRow, 0);
 	fromToLayout->addWidget( fromPageData, currentRow, 1);
 
-	toLabel = 0;
-	toPageData = 0;
-	numberOfCopiesLabel = 0;
-	numberOfCopiesData  = 0;
+	toLabel = nullptr;
+	toPageData = nullptr;
+	numberOfCopiesLabel = nullptr;
+	numberOfCopiesData  = nullptr;
 	if (move)
 	{
 		toLabel = new QLabel( tr("To:"), this );

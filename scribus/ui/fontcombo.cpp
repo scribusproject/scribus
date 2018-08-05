@@ -54,7 +54,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 	setValidator(new FontComboValidator(this));
 	setInsertPolicy(QComboBox::NoInsert);
 	setItemDelegate(new FontFamilyDelegate(this));
-	RebuildList(0);
+	RebuildList(nullptr);
 }
 
 void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
@@ -103,8 +103,8 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 
 FontComboH::FontComboH(QWidget* parent, bool labels) :
 		QWidget(parent),
-		fontFaceLabel(0),
-		fontStyleLabel(0),
+		fontFaceLabel(nullptr),
+		fontStyleLabel(nullptr),
 		showLabels(labels)
 {
 	currDoc = nullptr;
@@ -135,7 +135,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	fontStyle = new ScComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
 	isForAnnotation = true;  // this is merely to ensure that the list is rebuilt
-	RebuildList(0);
+	rebuildList(nullptr);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	languageChange();
@@ -235,7 +235,7 @@ void FontComboH::setCurrentFont(QString f)
 	fontStyle->blockSignals(styleSigBlocked);
 }
 
-void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
+void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
 {
 	// if we already have the proper fonts loaded, we need to do nothing
 	if ((currDoc == currentDoc) && (forAnnotation == isForAnnotation) && (isForSubstitute == forSubstitute))

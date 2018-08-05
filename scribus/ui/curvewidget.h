@@ -42,7 +42,7 @@ protected:
 public:
 	double getCurveValue(double x);
 	FPointArray getCurve();
-	void setCurve(FPointArray inlist);
+	void setCurve(const FPointArray& inlist);
 	void resetCurve();
 	void setLinear(bool setter);
 	bool isLinear();

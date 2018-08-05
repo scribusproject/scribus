@@ -393,7 +393,7 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 
 void HelpBrowser::find()
 {
-	findText = QInputDialog::getText( this, tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0);
+	findText = QInputDialog::getText( this, tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, nullptr);
 	if (findText.isNull())
 		return;
 	findNext();

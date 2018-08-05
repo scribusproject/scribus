@@ -366,7 +366,7 @@ bool LoremManager::randomize()
 QString LoremManager::getName()
 {
 	QTreeWidgetItem *li;
-	if (loremList->currentItem()->parent() == 0)
+	if (loremList->currentItem()->parent() == nullptr)
 		li = loremList->currentItem();
 	else
 		li = loremList->currentItem()->parent();

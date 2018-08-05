@@ -76,8 +76,8 @@ private:
 
 	PageItem *m_Item;
 
-	void saveUserContent(QString f);
-	void loadUserContent(QString f);
+	void saveUserContent(const QString& f);
+	void loadUserContent(const QString& f);
 
 	void openEnhanced();
 	void closeEnhanced();
@@ -86,12 +86,12 @@ private slots:
 	void enhancedDialogButton_toggled(bool);
 	void slot_insertSpecialChar();
 	void slot_insertSpecialChars(const QVector<uint> & chars);
-	void slot_insertUserSpecialChar(QChar, QString font);
+	void slot_insertUserSpecialChar(QChar, const QString& font);
 	void slot_selectionChanged( const QItemSelection&, const QItemSelection& );
 	void uniClearButton_clicked();
 	void uniLoadButton_clicked();
 	void uniSaveButton_clicked();
-	void userNewChar(uint i, QString font);
+	void userNewChar(uint i, const QString& font);
 
 };
 

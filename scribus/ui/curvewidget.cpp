@@ -288,7 +288,7 @@ FPointArray KCurve::getCurve()
 	return m_points.copy();
 }
 
-void KCurve::setCurve(FPointArray inlist)
+void KCurve::setCurve(const FPointArray& inlist)
 {
 	m_points_back = m_points.copy();
 	m_points.resize(0);
@@ -465,7 +465,7 @@ void CurveWidget::doSave()
 			efval += tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (cDisplay->isLinear())

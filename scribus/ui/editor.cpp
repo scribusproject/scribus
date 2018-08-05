@@ -119,7 +119,7 @@ void Editor::del()
 
 void Editor::GetFieldNames()
 {
-	if (view != 0)
+	if (view != nullptr)
 	{
 		SelectFields* dia = new SelectFields(this, "", "", view->Doc, 0);
 		if (dia->exec())

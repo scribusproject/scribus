@@ -18,11 +18,11 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "iconmanager.h"
 
-NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
+NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, nullptr)
 {
 	IconManager* im = IconManager::instance();
 	QSize iconSize = QSize(22, 22);
-	m_doc=0;
+	m_doc=nullptr;
 	unitRatio=1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(2);
@@ -391,14 +391,14 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	if (m_doc!=0)
+	if (m_doc!=nullptr)
 	{
 		YSpin->setNewUnit(m_doc->unitIndex());
 		XSpin->setNewUnit(m_doc->unitIndex());
 	}
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		disconnectSignals();
 	else
 		connectSignals();
@@ -406,7 +406,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 
 void NodePalette::SplitPoly()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	MoveN();
 	m_doc->nodeEdit.setSubMode(NodeEditContext::SPLIT_PATH);
@@ -415,7 +415,7 @@ void NodePalette::SplitPoly()
 
 void NodePalette::IsOpen()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	PolySplit->setChecked(false);
 	BezierClose->setEnabled(true);
@@ -425,7 +425,7 @@ void NodePalette::IsOpen()
 
 void NodePalette::PolyStatus(int typ, uint size)
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	bool setter;
 	switch (typ)
@@ -448,7 +448,7 @@ void NodePalette::PolyStatus(int typ, uint size)
 
 void NodePalette::CloseBezier()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	MoveN();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -463,91 +463,91 @@ void NodePalette::CloseBezier()
 
 void NodePalette::doRotCCW()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(0, RotVal->value());
 }
 
 void NodePalette::doRotCW()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(1, RotVal->value());
 }
 
 void NodePalette::doShrink()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(2, 1, scalePercentage->value());
 }
 
 void NodePalette::doExpand()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(3, 1, scalePercentage->value());
 }
 
 void NodePalette::doReduce()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(8, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::doEnlarge()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(9, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::ShearR()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(4);
 }
 
 void NodePalette::ShearL()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(5);
 }
 
 void NodePalette::ShearU()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(6);
 }
 
 void NodePalette::ShearD()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_view->TransformPoly(7);
 }
 
 void NodePalette::MirrorH()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->MirrorPolyH(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::MirrorV()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->MirrorPolyV(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetControl()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->nodeEdit.resetControl(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::Reset1Control()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->nodeEdit.reset1Control(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetContour()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (UndoManager::undoEnabled())
@@ -567,7 +567,7 @@ void NodePalette::ResetContour()
 
 void NodePalette::ResetContourToImageClip()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->ContourLine = currItem->imageClip.copy();
@@ -579,7 +579,7 @@ void NodePalette::ResetContourToImageClip()
 
 void NodePalette::ResetShapeToImageClip()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->PoLine = currItem->imageClip.copy();
@@ -595,7 +595,7 @@ void NodePalette::ResetShapeToImageClip()
 
 void NodePalette::MovePoint()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 	{
@@ -621,7 +621,7 @@ void NodePalette::MovePoint()
 
 void NodePalette::SetSym()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->nodeEdit.setMoveSym(true);
 	SymMove->setChecked(true);
 	AsymMove->setChecked(false);
@@ -630,7 +630,7 @@ void NodePalette::SetSym()
 
 void NodePalette::SetAsym()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 		m_doc->nodeEdit.setMoveSym(false);
 	SymMove->setChecked(false);
 	AsymMove->setChecked(true);
@@ -639,7 +639,7 @@ void NodePalette::SetAsym()
 
 void NodePalette::SetXY(double x, double y)
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -659,7 +659,7 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
-	if (m_doc == 0)
+	if (m_doc == nullptr)
 		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -696,7 +696,7 @@ void NodePalette::ToggleConMode()
 {
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		m_doc->nodeEdit.setIsContourLine(EditCont->isChecked());
 		m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
@@ -738,7 +738,7 @@ void NodePalette::ToggleConMode()
 
 void NodePalette::TogglePreview()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		m_doc->nodeEdit.setPreviewMode(PreviewMode->isChecked());
 		m_doc->regionsChanged()->update(QRectF());
@@ -747,7 +747,7 @@ void NodePalette::TogglePreview()
 
 void NodePalette::HaveNode(bool have, bool mov)
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	bool setter = have ? true : false;
 	if (m_doc->nodeEdit.selNode().count() > 1)
@@ -818,7 +818,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 
 void NodePalette::MoveK()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 	m_doc->nodeEdit.setEdPoints(false);
@@ -843,7 +843,7 @@ void NodePalette::MoveK()
 
 void NodePalette::MoveN()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -868,7 +868,7 @@ void NodePalette::MoveN()
 
 void NodePalette::AddN()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::ADD_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -883,7 +883,7 @@ void NodePalette::AddN()
 
 void NodePalette::DelN()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::DEL_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -898,7 +898,7 @@ void NodePalette::DelN()
 
 void NodePalette::closeEvent(QCloseEvent *ce)
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		MoveN();
 		m_doc->nodeEdit.setClre(-1);
@@ -918,7 +918,7 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 
 void NodePalette::EndEdit()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		MoveN();
 		m_doc->nodeEdit.setClre(-1);
@@ -941,7 +941,7 @@ void NodePalette::EndEdit()
 
 void NodePalette::CancelEdit()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		MoveN();
 		m_doc->nodeEdit.setClre(-1);
@@ -969,7 +969,7 @@ void NodePalette::CancelEdit()
 
 void NodePalette::ResetToEditDefaults()
 {
-	if (m_doc != 0)
+	if (m_doc != nullptr)
 	{
 		m_doc->nodeEdit.setClre(-1);
 		m_doc->nodeEdit.setClre2(-1);
@@ -1070,7 +1070,7 @@ void NodePalette::languageChange()
 
 void NodePalette::unitChange()
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		return;
 	unitRatio = m_doc->unitRatio();
 

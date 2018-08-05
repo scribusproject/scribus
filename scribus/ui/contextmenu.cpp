@@ -84,7 +84,7 @@ void ContextMenu::createMenuItems_Selection()
 	bool itemsAreSameType=m_Sel.itemsAreSameType();
 	//Find our doc from first item in selection if we have an item
 	PageItem *currItem = m_Sel.itemAt(0);
-	assert(m_doc!=0 && currItem!=0);
+	assert(m_doc!=nullptr && currItem!=nullptr);
 	
 	QMenu *menuConvertTo = new QMenu(this);
 	QMenu *menuEditContent = new QMenu(this);
@@ -590,7 +590,6 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		QAction *act = addMenu(menuPasteRecent);
 		act->setText( tr("Paste Recent"));
 		
-		QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 		ScrAction *recentPasteAction;
 		foreach (recentPasteAction, m_ScMW->scrRecentPasteActions)
 			menuPasteRecent->addAction(recentPasteAction);

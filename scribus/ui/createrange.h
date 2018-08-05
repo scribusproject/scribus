@@ -18,7 +18,7 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 {
 	Q_OBJECT
 	public:
-		CreateRange(QString currText, int pageCount, QWidget* parent);
+		CreateRange(const QString& currText, int pageCount, QWidget* parent);
 		~CreateRange();
 		void getCreateRangeData(CreateRangeData&);
 		

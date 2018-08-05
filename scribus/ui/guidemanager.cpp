@@ -42,8 +42,8 @@ for which a new license (GPL+exception) is in place.
 
 GuideManager::GuideManager(QWidget* parent) :
 		ScrPaletteBase(parent, "GuideManager"),
-		m_Doc(0),
-		currentPage(0),
+		m_Doc(nullptr),
+		currentPage(nullptr),
 		m_drawGuides(true)
 {
 	docUnitIndex = 0;
@@ -117,7 +117,7 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	{
 		if (currentPage && (currentPage->doc() == m_Doc))
 			storePageValues(currentPage);
-		currentPage = 0;
+		currentPage = nullptr;
 	}
 
 	m_Doc = doc;
@@ -131,7 +131,7 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_Doc)
-		currentPage = 0;
+		currentPage = nullptr;
 	tabWidget->setEnabled(doc ? true : false);
 }
 

@@ -20,7 +20,7 @@ MarksManager::MarksManager(QWidget *parent, const char *name)
 	if (pname.isEmpty())
 		pname = "marksManager";
 	m_prefs = PrefsManager::instance()->prefsFile->getContext(pname);
-	setDoc(0);
+	setDoc(nullptr);
 	languageChange();
 	EditButton->setEnabled(false);
 	DeleteButton->setEnabled(false);
@@ -34,7 +34,7 @@ MarksManager::~MarksManager()
 	storeSize();
 }
 
-void MarksManager::addListItem(MarkType typeMrk, QString typeStr, const QList<Mark*> &marks, int &index)
+void MarksManager::addListItem(MarkType typeMrk, const QString& typeStr, const QList<Mark*> &marks, int &index)
 {
 	bool noSuchMarks = true;
 	QTreeWidgetItem *listItem = new QTreeWidgetItem(listView);

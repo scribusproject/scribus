@@ -52,7 +52,7 @@ public:
 	void setColors(ColorList& list, bool insertNone = true);
 	void setPixmapType(ColorCombo::PixmapType type);
 
-	void initColorList(ColorList* colorList, ScribusDoc* doc, QString colorValue);
+	void initColorList(ColorList* colorList, ScribusDoc* doc, const QString& colorValue);
 };
 
 #endif

@@ -89,20 +89,20 @@ class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 		void saveDefaults();
 
 	protected:
-		QTreeWidgetItem* updatePatternList(QString addedName = "");
-		QTreeWidgetItem* updateGradientList(QString addedName = "");
-		QTreeWidgetItem* updateColorList(QString addedName = "");
+		QTreeWidgetItem* updatePatternList(const QString& addedName = "");
+		QTreeWidgetItem* updateGradientList(const QString& addedName = "");
+		QTreeWidgetItem* updateColorList(const QString& addedName = "");
 		ColorList getGradientColors();
 		QString getColorTooltip(const ScColor& color);
-		bool isMandatoryColor(QString colorName);
+		bool isMandatoryColor(const QString& colorName);
 		void loadPatternDir();
-		void loadVectors(QString data);
-		void updateGradientColors(QString newName, QString oldName);
-		void loadGimpFormat(QString fileName);
+		void loadVectors(const QString& data);
+		void updateGradientColors(const QString& newName, const QString& oldName);
+		void loadGimpFormat(const QString& fileName);
 		void addGimpColor(QString &colorName, double r, double g, double b);
-		void loadScribusFormat(QString fileName);
-		QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
-		void doSaveDefaults(QString name, bool changed = false);
+		void loadScribusFormat(const QString& fileName);
+		QStringList getUsedPatternsHelper(const QString& pattern, QStringList &results);
+		void doSaveDefaults(const QString& name, bool changed = false);
 		ColorSetManager csm;
 		bool paletteLocked;
 		bool modified;

@@ -43,7 +43,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
 	m_view  = view;
-	m_timer = 0;
+	m_timer = nullptr;
 	if (info->layerInfo.count() != 0)
 	{
 		m_timer = new QTimer(this);

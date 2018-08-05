@@ -75,7 +75,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		pageNumberData = new QLineEdit( this );
 		pageNumberData->setEnabled(false);
 		importPageLabel->setBuddy( pageNumberData );
-		masterPageNameData = 0;
+		masterPageNameData = nullptr;
 		pageNumberData->setToolTip( "<qt>" + tr( "Insert a comma separated list of tokens import where "
 									"a token can be * for all the pages, 1-5 for "
 									"a range of pages or a single page number") + "</qt>");

@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 
 
-LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0 ), m_Doc(0)
+LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", nullptr ), m_Doc(nullptr)
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
@@ -179,11 +179,11 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	m_Doc=doc;
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
-	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
+	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
+	disconnect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	if (!m_Doc)
 	{
-		layers=0;
+		layers=nullptr;
 		newLayerButton->setEnabled(false);
 		duplicateLayerButton->setEnabled(false);
 		deleteLayerButton->setEnabled(false);
@@ -198,8 +198,8 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	newLayerButton->setEnabled(true);
 	duplicateLayerButton->setEnabled(true);
 
-	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
+	connect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
+	connect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
@@ -621,7 +621,7 @@ void LayerPalette::markActiveLayer(int layerID)
 		raiseLayerButton->setEnabled(false);
 		lowerLayerButton->setEnabled(false);
 	}
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
+	connect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
@@ -663,9 +663,7 @@ void LayerPalette::setActiveLayer(int row, int col)
 void LayerPalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		ScDockPalette::changeEvent(e);
 }

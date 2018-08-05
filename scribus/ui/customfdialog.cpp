@@ -159,7 +159,7 @@ void FDialogPreview::GenPreview(QString name)
 	{
 		ScImage im;
 		//No doc to send data anyway, so no doc to get into scimage.
-		CMSettings cms(0, "", Intent_Perceptual);
+		CMSettings cms(nullptr, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		if (im.loadPicture(name, 1, cms, ScImage::Thumbnail, 72, &mode))
 		{

@@ -23,7 +23,7 @@ struct SCRIBUS_API ColorPixmapValue
 	QString m_name;
 
 	ColorPixmapValue();
-	ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName );
+	ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName );
 	ColorPixmapValue(const ColorPixmapValue& other);
 	ColorPixmapValue& operator= (const ColorPixmapValue& other);
 };

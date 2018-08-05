@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
-		: QDialog( parent, 0 )
+	: QDialog( parent, nullptr )
 {
 	masterPageCombos.clear();
 	setModal(true);
@@ -64,7 +64,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout->addItem(new QSpacerItem(insCountLabel->fontMetrics().width( tr( "&Insert" )), 0), 0, 0);
 	dialogLayout->addLayout( whereLayout );
 	
-	masterPageLabel = 0;
+	masterPageLabel = nullptr;
 	masterPageGroup = new QGroupBox( this);
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageLayout = new QGridLayout( masterPageGroup );

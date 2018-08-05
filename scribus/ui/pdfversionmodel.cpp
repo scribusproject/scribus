@@ -60,9 +60,9 @@ QVariant PdfVersionModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags PdfVersionModel::flags(const QModelIndex &index) const
 {
 	if (!index.isValid())
-		return 0;
+		return nullptr;
 
-	Qt::ItemFlags flags = 0;
+	Qt::ItemFlags flags = nullptr;
 	if (m_enabledVec[index.row()])
 		flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 	return flags;

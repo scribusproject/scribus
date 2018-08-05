@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), m_doc(0), m_enhanced(0), m_Item(0)
+CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), m_doc(nullptr), m_enhanced(nullptr), m_Item(nullptr)
 {
 	setupUi(this);
 
@@ -45,21 +45,20 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 	m_userTable->setAcceptDrops(true);
 
 	// signals and slots connections
-	connect(m_userTable, SIGNAL(selectChar(uint, QString)), this, SLOT(userNewChar(uint, QString)));
-	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(const QItemSelection& ,const QItemSelection&)), this, SLOT(slot_selectionChanged(const QItemSelection&, const QItemSelection&)) );
-	connect(m_userTableModel, SIGNAL(rowAppended()), m_userTable, SLOT(resizeLastRow()));
-	connect(unicodeButton, SIGNAL(chosenUnicode(const QString &)), m_userTableModel, SLOT(appendUnicode(const QString &)));
-	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
-	connect(this, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
-	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
-	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
-	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
+	connect(m_userTable, SIGNAL(selectChar(uint,QString)),this,SLOT(userNewChar(uint,QString)));
+	connect(m_userTable->selectionModel(),SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),this,SLOT(slot_selectionChanged(const QItemSelection&,const QItemSelection&)));
+	connect(m_userTableModel,SIGNAL(rowAppended()),m_userTable,SLOT(resizeLastRow()));
+	connect(unicodeButton,SIGNAL(chosenUnicode(const QString&)),m_userTableModel,SLOT(appendUnicode(const QString&)));
+	connect(enhancedDialogButton, SIGNAL(toggled(bool)),this,SLOT(enhancedDialogButton_toggled(bool)));
+	connect(this,SIGNAL(insertUserSpecialChar(QChar,QString)),this,SLOT(slot_insertUserSpecialChar(QChar,QString)));
+	connect(uniLoadButton,SIGNAL(clicked()),this,SLOT(uniLoadButton_clicked()));
+	connect(uniSaveButton,SIGNAL(clicked()),this,SLOT(uniSaveButton_clicked()));
+	connect(uniClearButton,SIGNAL(clicked()),this,SLOT(uniClearButton_clicked()));
 }
 
 CharSelect::~CharSelect()
 {
-	if (m_unicodeSearchModel)
-		delete m_unicodeSearchModel;
+	delete m_unicodeSearchModel;
 }
 
 void CharSelect::setDoc(ScribusDoc* doc)
@@ -86,7 +85,7 @@ const QString & CharSelect::getCharacters()
 	return chToIns;
 }
 
-void CharSelect::userNewChar(uint i, QString font)
+void CharSelect::userNewChar(uint i, const QString& font)
 {
 	emit insertUserSpecialChar(QChar(i), font);
 }
@@ -134,7 +133,7 @@ void CharSelect::slot_insertSpecialChar()
 // 	delEdit();
 }
 
-void CharSelect::slot_insertUserSpecialChar(QChar ch, QString font)
+void CharSelect::slot_insertUserSpecialChar(QChar ch, const QString& font)
 {
 	if (!m_Item)
 		return;
@@ -213,7 +212,7 @@ void CharSelect::closeEnhanced()
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), enhancedDialogButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
-	m_enhanced = 0;
+	m_enhanced = nullptr;
 }
 
 void CharSelect::enhancedDialogButton_toggled(bool state)
@@ -260,7 +259,7 @@ void CharSelect::uniLoadButton_clicked()
 		loadUserContent(f);
 }
 
-void CharSelect::loadUserContent(QString f)
+void CharSelect::loadUserContent(const QString& f)
 {
 //     tDebug("loadUserContent start");
 	QFile file(f);
@@ -315,7 +314,7 @@ void CharSelect::uniSaveButton_clicked()
 	saveUserContent(f);
 }
 
-void CharSelect::saveUserContent(QString f)
+void CharSelect::saveUserContent(const QString& f)
 {
 	QFile file(f);
 	if (file.open(QIODevice::WriteOnly))

@@ -17,7 +17,7 @@ class PageItem;
 class SCRIBUS_API PicItem : public QListWidgetItem
 {
 public:
-	PicItem(QListWidget* parent, QString text, QPixmap pix, PageItem* pgItem);
+	PicItem(QListWidget* parent, const QString& text, const QPixmap& pix, PageItem* pgItem);
 	~PicItem() {};
 	PageItem *PageItemObject;
 };

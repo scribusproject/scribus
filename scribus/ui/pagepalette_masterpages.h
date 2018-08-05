@@ -29,10 +29,10 @@ class SCRIBUS_API PagePalette_MasterPages : public QWidget, Ui::PagePalette_Mast
 	friend class PagePalette;
 
 public:
-	PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, QString masterPageName);
+	PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, const QString& masterPageName);
 	~PagePalette_MasterPages() {};
 
-	void setView(ScribusView* view, QString masterPageName = "");
+	void setView(ScribusView* view, const QString& masterPageName = "");
 	
 	void updateMasterPageList(void);
 	void updateMasterPageList(QString MasterPageName);

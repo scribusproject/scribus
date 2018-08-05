@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 
-ColorPixmapValue ColorListModel::m_NoneColor(ScColor(), 0, CommonStrings::None);
+ColorPixmapValue ColorListModel::m_NoneColor(ScColor(), nullptr, CommonStrings::None);
 
 ColorListModel::ColorListModel(QObject *parent)
 	          : QAbstractItemModel(parent)
@@ -56,13 +56,13 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 			color.getRawRGBColor(&r, &g, &b);
 			return tr("R: %1 G: %2 B: %3").arg(r).arg(g).arg(b);
 		}
-		else if (color.getColorModel() == colorModelCMYK)
+		if (color.getColorModel() == colorModelCMYK)
 		{
 			double c, m, y, k;
 			color.getCMYK(&c, &m, &y, &k);
 			return tr("C: %1% M: %2% Y: %3% K: %4%").arg(c * 100, 0, 'f', 2).arg(m * 100, 0, 'f', 2).arg(y * 100, 0, 'f', 2).arg(k * 100, 0, 'f', 2);
 		}
-		else if (color.getColorModel() == colorModelLab)
+		if (color.getColorModel() == colorModelLab)
 		{
 			double L, a, b;
 			color.getLab(&L, &a, &b);
@@ -84,7 +84,7 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags ColorListModel::flags(const QModelIndex &index) const
 {
 	if (!index.isValid())
-		return 0;
+		return nullptr;
 
 	Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 	return flags;
@@ -172,12 +172,12 @@ void ColorListModel::setColorList(const ColorList& colorList, bool showNone)
 	m_colors.reserve(colorList.count());
 
 	if (m_isNoneColorShown)
-		m_colors.append(ColorPixmapValue(ScColor(), 0, CommonStrings::None));
+		m_colors.append(ColorPixmapValue(ScColor(), nullptr, CommonStrings::None));
 
 	ColorList::const_iterator iter;
 	for (iter = colorList.begin(); iter != colorList.end(); ++iter)
 	{
-		QString colorName = iter.key();
+		const QString& colorName = iter.key();
 		const ScColor& color = iter.value();
 		m_colors.append(ColorPixmapValue(color, doc, colorName));
 	}

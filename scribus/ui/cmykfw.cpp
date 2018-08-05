@@ -1145,9 +1145,6 @@ void CMYKChoose::leave()
 			ColorName->setFocus();
 			return;
 		}
-		else
-			accept();
 	}
-	else
-		accept();
+	accept();
 }

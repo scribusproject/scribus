@@ -68,7 +68,7 @@ OutlineWidget::OutlineWidget(QWidget* parent) : QTreeWidget(parent)
 	setDragDropMode(QAbstractItemView::InternalMove);
 }
 
-void OutlineWidget::selectItems(QList<QTreeWidgetItem*> items)
+void OutlineWidget::selectItems(const QList<QTreeWidgetItem*>& items)
 {
 	QItemSelection itemSelection;
 	for (int i = 0; i < items.count(); ++i)
@@ -92,8 +92,8 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 	for (int i = 0; i < idxs.count(); ++i)
 	{
 		id = idxs.at(i);
-		QTreeWidgetItem* it = id.isValid() ? itemFromIndex(id) : 0;
-		OutlineTreeItem *itemPar = it ? dynamic_cast<OutlineTreeItem*>(it->parent()) : 0;
+		QTreeWidgetItem* it = id.isValid() ? itemFromIndex(id) : nullptr;
+		OutlineTreeItem *itemPar = it ? dynamic_cast<OutlineTreeItem*>(it->parent()) : nullptr;
 		while (itemPar && (itemPar->type != 2))
 		{
 			if (itemPar->type == 5)
@@ -272,7 +272,7 @@ void OutlineWidget::keyPressEvent(QKeyEvent *e)
 	{
 		foreach (QTreeWidgetItem * twItem, selectedItems())
 		{
-			if (twItem != 0)
+			if (twItem != nullptr)
 			{
 				OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(twItem);
 				if (item)
@@ -311,7 +311,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	{
 		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 		QTreeWidgetItem* it = itemAt(helpEvent->pos());
- 		if (it != 0)
+		if (it != nullptr)
  		{
 			OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
 			if (item != nullptr)
@@ -447,7 +447,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	return QTreeWidget::viewportEvent(event);
 }
 
-OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree", 0)
+OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree", nullptr)
 {
 //	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
@@ -716,8 +716,8 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 
 QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
 {
-	OutlineTreeItem *item = 0;
-	QTreeWidgetItem *retVal = 0;
+	OutlineTreeItem *item = nullptr;
+	QTreeWidgetItem *retVal = nullptr;
 	if (currDoc->masterPageMode())
 	{
 		if (Nr == nullptr)
@@ -805,7 +805,7 @@ void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
 		{
 			PageItem *item = currDoc->m_Selection->itemAt(i);
 			QTreeWidgetItem *retVal = getListItem(item->OwnPage, item);
-			if (retVal != 0 && !retVal->isHidden())
+			if (retVal != nullptr && !retVal->isHidden())
 				itemSelection.append(retVal);
 		}
 		reportDisplay->selectItems(itemSelection);
@@ -813,7 +813,7 @@ void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
 	else
 	{
 		QTreeWidgetItem *retVal = getListItem(SNr, Nr);
-		if (retVal != 0 && !retVal->isHidden())
+		if (retVal != nullptr && !retVal->isHidden())
 			retVal->setSelected(true);
 	}
 	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
@@ -904,7 +904,7 @@ void OutlinePalette::reopenTree()
 		return;
 	if (currDoc->OpenNodes.count() == 0)
 		return;
-	OutlineTreeItem *item = 0;
+	OutlineTreeItem *item = nullptr;
 	QTreeWidgetItemIterator it( reportDisplay );
 	while ( (*it) )
 	{
@@ -939,7 +939,7 @@ void OutlinePalette::buildReopenVals()
 	if (reportDisplay->model()->rowCount() == 0)
 		return;
 	currDoc->OpenNodes.clear();
-	OutlineTreeItem *item = 0;
+	OutlineTreeItem *item = nullptr;
 	QTreeWidgetItemIterator it( reportDisplay );
 	while ( (*it) )
 	{
@@ -1114,13 +1114,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 	if (storeVals)
 		buildReopenVals();
 	clearPalette();
-	OutlineTreeItem * item = new OutlineTreeItem( reportDisplay, 0 );
+	OutlineTreeItem * item = new OutlineTreeItem( reportDisplay, nullptr );
 	rootObject = item;
 	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
 	item->type = -2;
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	OutlineTreeItem * pagep = 0;
-	freeObjects = 0;
+	OutlineTreeItem * pagep = nullptr;
+	freeObjects = nullptr;
 	PageItem* pgItem;
 	QString tmp;
 	if (currDoc->symbolEditMode() || currDoc->inlineEditMode())
@@ -1135,7 +1135,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 			pgItem = currDoc->Items->at(b);
 			if (!pgItem->isGroup())
 			{
-				OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+				OutlineTreeItem *object = new OutlineTreeItem( page, nullptr );
 				object->PageItemObject = pgItem;
 				object->PageObject = currDoc->DocPages.at(0);
 				object->DocObject = currDoc;
@@ -1146,7 +1146,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 			}
 			else
 			{
-				OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+				OutlineTreeItem *object = new OutlineTreeItem( page, nullptr );
 				object->PageItemObject = pgItem;
 				object->PageObject = currDoc->DocPages.at(0);
 				object->DocObject = currDoc;
@@ -1179,7 +1179,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				{
 					if (!pgItem->isGroup())
 					{
-						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						OutlineTreeItem *object = new OutlineTreeItem( page, nullptr );
 						object->PageItemObject = pgItem;
 						object->PageObject = currDoc->MasterPages.at(a);
 						object->DocObject = currDoc;
@@ -1190,7 +1190,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					}
 					else
 					{
-						OutlineTreeItem * object = new OutlineTreeItem( page, 0 );
+						OutlineTreeItem * object = new OutlineTreeItem(page, nullptr);
 						object->PageItemObject = pgItem;
 						object->PageObject = currDoc->MasterPages.at(a);
 						object->DocObject = currDoc;
@@ -1229,7 +1229,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 				{
 					currDoc->Layers.levelToLayer(layer, layerLevel);
-					OutlineTreeItem *ObjLayer = new OutlineTreeItem( page, 0 );
+					OutlineTreeItem *ObjLayer = new OutlineTreeItem(page, nullptr);
 					ObjLayer->type = 5;
 					ObjLayer->LayerID = layer.ID;
 					ObjLayer->DocObject = currDoc;
@@ -1242,7 +1242,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							continue;
 						if (!pgItem->isGroup())
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(ObjLayer, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = currDoc->DocPages.at(a);
 							object->DocObject = currDoc;
@@ -1253,7 +1253,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						}
 						else
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(ObjLayer, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = currDoc->DocPages.at(a);
 							object->DocObject = currDoc;
@@ -1277,7 +1277,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					{
 						if (!pgItem->isGroup())
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(page, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = currDoc->DocPages.at(a);
 							object->DocObject = currDoc;
@@ -1288,7 +1288,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						}
 						else
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(page, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = currDoc->DocPages.at(a);
 							object->DocObject = currDoc;
@@ -1325,7 +1325,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 				{
 					currDoc->Layers.levelToLayer(layer, layerLevel);
-					OutlineTreeItem *ObjLayer = new OutlineTreeItem( page, 0 );
+					OutlineTreeItem *ObjLayer = new OutlineTreeItem(page, nullptr);
 					ObjLayer->type = 5;
 					ObjLayer->LayerID = layer.ID;
 					ObjLayer->DocObject = currDoc;
@@ -1338,7 +1338,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							continue;
 						if (!pgItem->isGroup())
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(ObjLayer, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = nullptr;
 							object->DocObject = currDoc;
@@ -1349,7 +1349,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						}
 						else
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(ObjLayer, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = nullptr;
 							object->DocObject = currDoc;
@@ -1371,7 +1371,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					{
 						if (!pgItem->isGroup())
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(page, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = nullptr;
 							object->DocObject = currDoc;
@@ -1382,7 +1382,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						}
 						else
 						{
-							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							OutlineTreeItem *object = new OutlineTreeItem(page, nullptr);
 							object->PageItemObject = pgItem;
 							object->PageObject = nullptr;
 							object->DocObject = currDoc;
@@ -1407,7 +1407,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 		slotShowSelect(0, nullptr);
 	update();
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
-	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotDoRename(QTreeWidgetItem*,int)));
 }
 
 void OutlinePalette::filterTree(const QString& keyword)
@@ -1447,7 +1447,7 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 		pgItem = subGroupList->at(b);
 		if (!pgItem->isGroup())
 		{
-			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
+			OutlineTreeItem *grp = new OutlineTreeItem(object, nullptr);
 			grp->PageItemObject = pgItem;
 			grp->PageObject = a;
 			grp->DocObject = currDoc;
@@ -1461,7 +1461,7 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 		}
 		else
 		{
-			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
+			OutlineTreeItem *grp = new OutlineTreeItem(object, nullptr);
 			grp->PageItemObject = pgItem;
 			grp->PageObject = a;
 			grp->DocObject = currDoc;

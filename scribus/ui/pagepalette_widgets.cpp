@@ -28,7 +28,8 @@ for which a new license (GPL+exception) is in place.
 
 
 /* IconItems Code */
-SeItem::SeItem(QString text, uint nr, const QPixmap& Pix) : QTableWidgetItem(QIcon(Pix), "", 1002)
+SeItem::SeItem(const QString& text, uint nr, const QPixmap& Pix)
+	: QTableWidgetItem(QIcon(Pix), "", 1002)
 {
 	pageNumber = nr;
 	pageName = text;
@@ -43,7 +44,7 @@ const QString& SeItem::getPageName()
 /* ListBox Subclass */
 SeList::SeList(QWidget* parent) : QListWidget(parent)
 {
-	CurItem = 0;
+	CurItem = nullptr;
 	Mpressed = false;
 	Thumb = false;
 	setAcceptDrops(true);
@@ -75,7 +76,7 @@ void SeList::toggleThumbnail()
 void SeList::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
-	CurItem = 0;
+	CurItem = nullptr;
 	QListWidgetItem *i = itemAt(e->pos());
 	if (i)
 	{
@@ -201,7 +202,7 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 		if ((a != -1) && (b != -1))
 		{
 			QTableWidgetItem* ite = item(a, b);
-			if (ite != 0)
+			if (ite != nullptr)
 			{
 				if (ite->type() == 1002)
 				{
@@ -265,7 +266,7 @@ void SeView::dropEvent(QDropEvent * e)
 				{
 					emit UseTemp(tmp, p);
 					QTableWidgetItem* ite = item(a, b);
-					if (ite == 0)
+					if (ite == nullptr)
 						return;
 					if (ite->type() == 1002)
 					{
@@ -274,30 +275,27 @@ void SeView::dropEvent(QDropEvent * e)
 					}
 				}
 				return;
+			}
+			if ((b % 2) == 0)
+			{
+				if (lastPage)
+					emit NewPage(p+1, tmp);
+				else
+					emit NewPage(p, tmp);
 			}
 			else
 			{
-				if ((b % 2) == 0)
+				emit UseTemp(tmp, p);
+				QTableWidgetItem* ite = item(a, b);
+				if (ite == nullptr)
+					return;
+				if (ite->type() == 1002)
 				{
-					if (lastPage)
-						emit NewPage(p+1, tmp);
-					else
-						emit NewPage(p, tmp);
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
-				else
-				{
-					emit UseTemp(tmp, p);
-					QTableWidgetItem* ite = item(a, b);
-					if (ite == 0)
-						return;
-					if (ite->type() == 1002)
-					{
-						SeItem* it = (SeItem*)ite;
-						it->pageName = tmp;
-					}
-				}
-				return;
 			}
+			return;
 		}
 		if (str.startsWith("2"))
 		{
@@ -323,30 +321,27 @@ void SeView::dropEvent(QDropEvent * e)
 				else
 				{
 					emit UseTemp(tmp, p);
-					if (ite == 0)
+					if (ite == nullptr)
 						return;
 					SeItem* it = (SeItem*)ite;
 					it->pageName = tmp;
 				}
 				return;
 			}
+			if ((b % 2) == 0)
+				emit movePage(dr, lastPage ? p+1 : p);
 			else
 			{
-				if ((b % 2) == 0)
-					emit movePage(dr, lastPage ? p+1 : p);
-				else
+				emit UseTemp(tmp, p);
+				if (ite == nullptr)
+					return;
+				if (ite->type() == 1002)
 				{
-					emit UseTemp(tmp, p);
-					if (ite == 0)
-						return;
-					if (ite->type() == 1002)
-					{
-						SeItem* it = (SeItem*)ite;
-						it->pageName = tmp;
-					}
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
-				return;
 			}
+			return;
 		}
 	}
 }
@@ -464,23 +459,20 @@ int SeView::GetPage(int r, int c, bool *last)
 			ret = a;
 			return ret;
 		}
+		if (columnCount() == 1)
+		{
+			if ((rowcounter*rowmult) == r)
+			{
+				ret = a;
+				return ret;
+			}
+		}
 		else
 		{
-			if (columnCount() == 1)
+			if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
 			{
-				if ((rowcounter*rowmult) == r)
-				{
-					ret = a;
-					return ret;
-				}
-			}
-			else
-			{
-				if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
-				{
-					ret = a;
-					return ret;
-				}
+				ret = a;
+				return ret;
 			}
 		}
 		counter++;
@@ -508,7 +500,7 @@ SeItem* SeView::GetPageItem(int pageIndex)
 				return pageItem;
 		}
 	}
-	return 0;
+	return nullptr;
 }
 
 /* Der Muelleimer */

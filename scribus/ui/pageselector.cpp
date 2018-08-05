@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
+PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, nullptr )
 {
 	PageCountString = "%1" ;
 	m_lastPage = maxPg;
