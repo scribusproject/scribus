@@ -110,9 +110,9 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 						lf.fromQColor(QColor(pg.attribute("RGB")));
 					else
 					{
-						double L = pg.attribute("L", 0).toDouble();
-						double a = pg.attribute("A", 0).toDouble();
-						double b = pg.attribute("B", 0).toDouble();
+						double L = pg.attribute("L", nullptr).toDouble();
+						double a = pg.attribute("A", nullptr).toDouble();
+						double b = pg.attribute("B", nullptr).toDouble();
 						lf.setLabColor(L, a, b);
 					}
 					if (pg.hasAttribute("Spot"))
@@ -329,7 +329,7 @@ bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *do
 		const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT);
 		if (fmt)
 		{
-			fmt->setupTargets(doc, 0, doc->scMW(), 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+			fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 			fmt->loadPalette(paletteFileName);
 		}
 		else

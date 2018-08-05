@@ -297,7 +297,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&currItem) && (currItem->asTextFrame()))
 			{
-				if (currItem->prevInChain() != 0)
+				if (currItem->prevInChain() != nullptr)
 				{
 					currItem->prevInChain()->unlink();
 				}
@@ -329,7 +329,7 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 	{
 		m_view->updateContents();
-		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools || m_doc->ElemToLink == 0)
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools || m_doc->ElemToLink == nullptr)
 			m_view->requestMode(submodePaintingDone);
 		return;
 	}

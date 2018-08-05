@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 CharTableView::CharTableView(QWidget * parent)
 		: QTableView(parent),
-		zoom(0)
+		zoom(nullptr)
 {
 	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
@@ -137,7 +137,7 @@ void CharTableView::hideZoomedChar()
 	{
 		zoom->close();
 		delete zoom;
-		zoom = 0;
+		zoom = nullptr;
 	}
 }
 

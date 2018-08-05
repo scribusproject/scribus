@@ -24,7 +24,7 @@ void ScCIEData::destroy()
 	if (ScCIEData::m_instance)
 	{
 		delete ScCIEData::m_instance;
-		ScCIEData::m_instance = 0;
+		ScCIEData::m_instance = nullptr;
 	}
 }
 

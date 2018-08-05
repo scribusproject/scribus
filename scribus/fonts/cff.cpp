@@ -88,16 +88,11 @@ namespace cff {
 			int idx = id & 0xff;
 			if (idx >= 0 && idx <= 38)
 				return cffDictKeys0c[idx];
-			else
-				return "";
+			return "";
 		}
-		else
-		{
-			if ( /* id >= 0 && */  id <= 21)
-				return cffDictKeys[id];
-			else
-				return "";
-		}
+		if ( /* id >= 0 && */  id <= 21)
+			return cffDictKeys[id];
+		return "";
 	}
 	
 	static const char* stdStrings[] = {
@@ -1083,7 +1078,7 @@ namespace cff {
 					write(out, "    <Encoding>\n    ");
 					pos = encOffset;
 					QList<uint> enc = readEncoding(pos);
-					write(out, readSegment(encOffset, pos-encOffset).toHex());
+					write(out, readSegment(encOffset, pos - encOffset).toHex());
 					write(out, "\n    </Encoding>\n");
 				}
 				else
@@ -1155,12 +1150,11 @@ namespace cff {
 	{
 		if (dataLength < 255)
 			return 1;
-		else if (dataLength < 65535)
+		if (dataLength < 65535)
 			return 2;
-		else if (dataLength < 0xFFFFFF)
+		if (dataLength < 0xFFFFFF)
 			return 3;
-		else
-			return 4;
+		return 4;
 	}
 	
 	
@@ -1715,7 +1709,7 @@ namespace cff {
 		uint privateOffset = result.writeSegment(privateBytes);
 		
 		// write local subr
-		if (localSubrs.size() > 0)
+		if (!localSubrs.empty())
 		{
 			uint localSubrOffset = result.writeSegment(makeIndex(localSubrs));
 

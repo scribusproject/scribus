@@ -448,49 +448,49 @@ void CanvasMode_EditWeldPoint::snapToEdgePoints(double &x, double &y)
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(0.0 - y) < radius))
+	if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(0.0 - y) < radius))
 	{
 		x = m_currItem->width() / 2.0;
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(0.0 - y) < radius))
+	if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(0.0 - y) < radius))
 	{
 		x = m_currItem->width();
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs(0.0 - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
+	if ((qAbs(0.0 - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
 		x = 0.0;
 		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
+	if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
 		x = m_currItem->width() / 2.0;
 		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
+	if ((qAbs(m_currItem->width() - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
 		x = m_currItem->width();
 		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs(0.0 - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
+	if ((qAbs(0.0 - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
 		x = 0.0;
 		y = m_currItem->height();
 		return;
 	}
-	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
+	if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
 		x = m_currItem->width() / 2.0;
 		y = m_currItem->height();
 		return;
 	}
-	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
+	if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
 		x = m_currItem->width();
 		y = m_currItem->height();

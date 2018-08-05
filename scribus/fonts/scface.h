@@ -33,7 +33,8 @@ virtual:      dispatch to constituents, handle embedding (-)
 
 class CharStyle;
 
-struct GlyphMetrics {
+struct GlyphMetrics
+{
 	qreal width;
 	qreal ascent;
 	qreal descent;

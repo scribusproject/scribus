@@ -211,15 +211,13 @@ QVariant FontListModel::data(const QModelIndex & index,
 	{
 		if (isLive())
 			return (font.usable() ? Qt::Checked : Qt::Unchecked);
-		else
-			return (m_enabledFonts[index.row()] ? Qt::Checked : Qt::Unchecked);
+		return (m_enabledFonts[index.row()] ? Qt::Checked : Qt::Unchecked);
 	}
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontSubset)
 	{
 		if (isLive())
 			return (font.subset() ? Qt::Checked : Qt::Unchecked);
-		else
-			return ((m_embedFlags[index.row()] & SubsetPDF) ? Qt::Checked : Qt::Unchecked);
+		return ((m_embedFlags[index.row()] & SubsetPDF) ? Qt::Checked : Qt::Unchecked);
 	}
 
 	return QVariant();

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScFace_ttf : public FtFace
 {
 public:
-	ScFace_ttf (QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features);
+	ScFace_ttf (const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
 	~ScFace_ttf();
 
 	void load () const;

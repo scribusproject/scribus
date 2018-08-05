@@ -28,7 +28,7 @@ public:
 protected:
 	cmsHTRANSFORM m_transformHandle;
 
-	void deleteTransform(void);
+	void deleteTransform();
 };
 
 #endif

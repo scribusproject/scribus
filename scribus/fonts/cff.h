@@ -137,7 +137,8 @@ namespace cff {
 	};
 	
 	
-	enum CFF_Variant_Type {
+	enum CFF_Variant_Type
+	{
 		cff_varnt_Error    = 0,
 		cff_varnt_Bool     = 1,
 		cff_varnt_Card     = 2,
@@ -149,17 +150,20 @@ namespace cff {
 	};
 
 	
-	struct CFF_Number {
+	struct CFF_Number
+	{
 		long long   card;
 		int         exponent;
 		uchar       type;
 		bool        isCardinal() const;
 		double      toDouble() const;
 		int         toCardinal() const;
+		CFF_Number() : card(0),exponent(0),type(0) {};
 	};
 	
 
-	struct CFF_Variant {
+	struct CFF_Variant
+	{
 		uchar type;
 		QList<CFF_Number> array;
 		CFF_Variant()                      : type(cff_varnt_Error) {}

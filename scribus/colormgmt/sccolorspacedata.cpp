@@ -27,11 +27,7 @@ ScColorTransform ScColorSpaceData::createTransform(const ScColorProfile& outputP
 {
 	ScColorTransform colorTransform;
 	if (m_profile)
-	{
-		colorTransform = m_profile.engine().createTransform(m_profile, m_colorFormat, 
-		                                    outputProfile, outputFormat, renderIntent, 
-											transformFlags);
-	}
+		colorTransform = m_profile.engine().createTransform(m_profile, m_colorFormat, outputProfile, outputFormat, renderIntent, transformFlags);
 	return colorTransform;
 }
 

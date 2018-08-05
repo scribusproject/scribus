@@ -128,14 +128,14 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 {
 	GlyphMetrics res;
 	if (gl >= CONTROL_GLYPHS)
-	{	res.width   = glyphWidth(gl, sz);
+	{
+		res.width   = glyphWidth(gl, sz);
 		res.ascent  = (gl == 0? ascent(sz) : 0);
 		res.descent = 0;
 		return res;
 	}
-	else if (! m_glyphWidth.contains(gl)) {
+	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
-	}
 	const struct GlyphData & data(m_glyphOutline[gl]);
 	res.width = data.bbox_width * sz;
 	res.ascent = data.bbox_ascent * sz;
@@ -148,9 +148,8 @@ qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
-	else if (! m_glyphWidth.contains(gl)) {
+	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
-	}
 	return m_glyphWidth[gl] * size;
 }
 
@@ -159,9 +158,8 @@ FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal sz) const
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
-	else if (! m_glyphWidth.contains(gl)) {
+	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
-	}
 	FPointArray res = m_glyphOutline[gl].Outlines.copy();
 	if (sz != 1.0)
 		res.scale(sz, sz);
@@ -173,9 +171,8 @@ FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
-	else if (! m_glyphWidth.contains(gl)) {
+	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
-	}
 	const struct GlyphData & res(m_glyphOutline[gl]);
 	return FPoint(res.x, res.y) * sz; 
 }
@@ -219,10 +216,11 @@ ScFace::ScFace(const ScFace& other) : m_m(other.m_m), m_replacedName(other.m_rep
 
 ScFace::~ScFace()
 {
-	if ( m_m && --(m_m->refs) == 0 ) {
+	if ( m_m && --(m_m->refs) == 0 )
+	{
 		m_m->unload();
 		delete m_m;
-		m_m = 0;
+		m_m = nullptr;
 	}
 }
 
@@ -233,7 +231,8 @@ ScFace& ScFace::operator=(const ScFace& other)
 	{
 		if (other.m_m)
 			++(other.m_m->refs);
-		if ( m_m && --(m_m->refs) == 0 ) {
+		if ( m_m && --(m_m->refs) == 0 )
+		{
 			m_m->unload();
 			delete m_m;
 		}
@@ -432,14 +431,13 @@ ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
 		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
 		|| ch == SpecialChars::TAB || ch == SpecialChars::SHYPHEN
-		 || ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE || ch==SpecialChars::OBJECT)
+		|| ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE || ch==SpecialChars::OBJECT)
 		return CONTROL_GLYPHS + ch;
-	else if (ch == SpecialChars::NBSPACE)
+	if (ch == SpecialChars::NBSPACE)
 		return  m_m->char2CMap(' ');
-	else if(ch == SpecialChars::NBHYPHEN)
+	if(ch == SpecialChars::NBHYPHEN)
 		return hyphenGlyph();
-	else
-		return 0;
+	return 0;
 }
 ScFace::gid_type ScFace::hyphenGlyph() const
 {
@@ -473,9 +471,8 @@ QStringList ScFace::fontFeatures() const
 
 ScFace::gid_type ScFace::char2CMap(uint ch) const
 {
-	if (m_m->status == ScFace::UNKNOWN) {
+	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
-	}
 	
 	if (ch == SpecialChars::SHYPHEN)
 		return emulateGlyph(ch);
@@ -484,8 +481,7 @@ ScFace::gid_type ScFace::char2CMap(uint ch) const
 
 	if (gl == 0)
 		return emulateGlyph(ch);
-	else
-		return gl;
+	return gl;
 }
 
 
@@ -493,56 +489,50 @@ bool ScFace::canRender(QChar ch) const
 {
 	if (!usable())
 		return false;
-	else {
-		gid_type gl = char2CMap(ch.unicode());    //  calls load()
-		if (gl >= CONTROL_GLYPHS)   //  those are always empty
-			return true;
-		else if (gl != 0) {
-			m_m->loadGlyph(gl);
-			return ! m_m->m_glyphOutline[gl].broken; 
-		}
-		else  {
-			return false;
-		}
+	gid_type gl = char2CMap(ch.unicode());    //  calls load()
+	if (gl >= CONTROL_GLYPHS)   //  those are always empty
+		return true;
+	if (gl != 0)
+	{
+		m_m->loadGlyph(gl);
+		return !m_m->m_glyphOutline[gl].broken;
 	}
+	return false;
 }
 
 bool ScFace::embedFont(QByteArray &str)
 {
-	if (m_m->status == ScFace::UNKNOWN) {
+	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
-	}
 	return m_m->embedFont(str);
 }
 
 
 bool ScFace::glyphNames(FaceEncoding& gList)
 {
-	if (m_m->status == ScFace::UNKNOWN) {
+	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
-	}
 	return m_m->glyphNames(gList);
 }
 
 
 void ScFace::rawData(QByteArray & bb)
 {
-	if (m_m->status == ScFace::UNKNOWN) {
+	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
-	}
 	m_m->rawData(bb);
 }
 
 void ScFace::checkAllGlyphs()
 {
-	if (m_m->status == ScFace::UNKNOWN) {
+	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
-	}
-	if (m_m->status != ScFace::LOADED) {
+	if (m_m->status != ScFace::LOADED)
 		return;
-	}
-	for (gid_type gl=0; gl <= m_m->maxGlyph; ++gl) {
-		if (! m_m->m_glyphWidth.contains(gl)) {
+	for (gid_type gl=0; gl <= m_m->maxGlyph; ++gl)
+	{
+		if (! m_m->m_glyphWidth.contains(gl))
+		{
 			m_m->loadGlyph(gl);
 			m_m->m_glyphWidth.remove(gl);
 			m_m->m_glyphOutline.remove(gl);

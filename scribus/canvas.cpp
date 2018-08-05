@@ -512,8 +512,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 					{
 						if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !ret->isAnnotation())
 							return nullptr;
-						else
-							return ret;
+						return ret;
 					}
 				}
 				return currItem;
@@ -532,9 +531,7 @@ bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
 	qreal right = left + sideLength;
 	qreal top   = frame->yPos() + frame->height() - sideLength;// * 1.5;
 	qreal bottom = top + sideLength;
-	if(mp.x()>left && mp.x()<right && mp.y()>top && mp.y()<bottom)
-		return true;
-	return false;
+	return mp.x()>left && mp.x()<right && mp.y()>top && mp.y()<bottom;
 }
 
 bool Canvas::cursorOverFrameControl(QPoint globalPos, QRectF targetRect, PageItem* frame)
@@ -2179,7 +2176,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 			for (int lks = 0; lks < m_viewMode.linkedFramesToShow.count(); ++lks)
 			{
 				nextItem = m_viewMode.linkedFramesToShow.at(lks);
-				while (nextItem != 0)
+				while (nextItem != nullptr)
 				{
 					if (nextItem->nextInChain() != nullptr)
 					{

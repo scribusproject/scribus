@@ -44,7 +44,7 @@ bool ScLcms2ColorTransformImpl::apply(QByteArray& input, QByteArray& output, uin
 	return false;
 }
 
-void ScLcms2ColorTransformImpl::deleteTransform(void)
+void ScLcms2ColorTransformImpl::deleteTransform()
 {
 	if (m_transformHandle)
 	{

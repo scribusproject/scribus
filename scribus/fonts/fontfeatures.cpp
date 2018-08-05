@@ -65,7 +65,7 @@ quint64 FontFeatures::StyleSetsMask = FontFeatures::StyleSet01 + FontFeatures::S
 	                                  FontFeatures::StyleSet11 + FontFeatures::StyleSet12 + FontFeatures::StyleSet13 + FontFeatures::StyleSet14 + FontFeatures::StyleSet15 +
 	                                  FontFeatures::StyleSet16 + FontFeatures::StyleSet17 + FontFeatures::StyleSet18 + FontFeatures::StyleSet19 + FontFeatures::StyleSet20;
 
-quint64 FontFeatures::fontFlagsFromList(QStringList features)
+quint64 FontFeatures::fontFlagsFromList(const QStringList& features)
 {
 	quint64 flags = 0;
 
@@ -165,7 +165,7 @@ quint64 FontFeatures::fontFlagsFromList(QStringList features)
 	return flags;
 }
 
-quint64 FontFeatures::textFlagsFromList(QStringList features)
+quint64 FontFeatures::textFlagsFromList(const QStringList& features)
 {
 	quint64 flags = 0;
 	flags |= CommonLigatures;

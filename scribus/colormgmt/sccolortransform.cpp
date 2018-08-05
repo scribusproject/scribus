@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolortransform.h"
 
-ScColorTransform::ScColorTransform() : m_data(NULL)
+ScColorTransform::ScColorTransform() : m_data(nullptr)
 {
 }
 

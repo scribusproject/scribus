@@ -15,7 +15,7 @@ ScColorTransformPool::ScColorTransformPool(int engineID) : m_engineID(engineID)
 
 }
 
-void ScColorTransformPool::clear(void)
+void ScColorTransformPool::clear()
 {
 	m_pool.clear();
 }
@@ -57,7 +57,7 @@ void ScColorTransformPool::removeTransform(const ScColorTransformInfo& info)
 
 ScColorTransform ScColorTransformPool::findTransform(const ScColorTransformInfo& info) const
 {
-	ScColorTransform transform(NULL);
+	ScColorTransform transform(nullptr);
 	QList< QWeakPointer<ScColorTransformData> >::ConstIterator it = m_pool.begin();
 	for ( ; it != m_pool.end(); ++it)
 	{

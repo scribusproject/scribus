@@ -36,7 +36,7 @@ int CharTableModel::columnCount(const QModelIndex & /* parent */) const
 
 QVariant CharTableModel::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid() || m_doc == 0)
+	if (!index.isValid() || m_doc == nullptr)
 		return QVariant();
 
 	int ix = index.row() * m_cols + index.column();

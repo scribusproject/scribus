@@ -20,7 +20,7 @@ class ScColorTransformPool
 public:
 	ScColorTransformPool (int engineID);
 
-	void clear(void);
+	void clear();
 	void addTransform(const ScColorTransform& transform, bool force = false);
 	void removeTransform(const ScColorTransform& transform);
 	void removeTransform(const ScColorTransformInfo& info);

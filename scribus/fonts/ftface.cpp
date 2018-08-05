@@ -40,23 +40,21 @@ FT_Library FtFace::m_library = nullptr;
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
 
-FtFace::FtFace(QString fam, QString sty, QString vari, QString scname, 
-			   QString psname, QString path, int face, QStringList features)
-: ScFaceData(),
-	m_face(nullptr),
-	m_isBold(false),
-	m_isItalic(false),
-	m_encoding(0.0),
-	m_uniEM(0.0),
-	m_ascent(0.0),
-	m_descent(0.0),
-	m_height(0.0),
-	m_xHeight(0.0),
-	m_capHeight(0.0),
-	m_maxAdvanceWidth(0.0),
-	m_underlinePos(0.0),
-	m_strikeoutPos(0.0),
-	m_strokeWidth(0.0)
+FtFace::FtFace(const QString& fam, const QString& sty, const QString& vari, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features)
+	: 	m_face(nullptr),
+	  m_isBold(false),
+	  m_isItalic(false),
+	  m_encoding(0.0),
+	  m_uniEM(0.0),
+	  m_ascent(0.0),
+	  m_descent(0.0),
+	  m_height(0.0),
+	  m_xHeight(0.0),
+	  m_capHeight(0.0),
+	  m_maxAdvanceWidth(0.0),
+	  m_underlinePos(0.0),
+	  m_strikeoutPos(0.0),
+	  m_strokeWidth(0.0)
 {
 	family = fam;
 	style = sty;
@@ -66,10 +64,9 @@ FtFace::FtFace(QString fam, QString sty, QString vari, QString scname,
 	fontFile = path;
 	faceIndex = face;
 	fontFeatures = features;
-	if (!m_library) {
+	if (!m_library)
 		if (FT_Init_FreeType( &m_library ))
 			sDebug(QObject::tr("Freetype2 library not available"));
-	}
 }
 
 
@@ -78,16 +75,18 @@ FtFace::~FtFace() {
 }
 
 
-FT_Face FtFace::ftFace() const {
-	if (!m_face) {
-		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+FT_Face FtFace::ftFace() const
+{
+	if (!m_face)
+	{
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
+		{
 			status = ScFace::BROKEN;
 			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 		}
-		else {
+		else
 			load();
-		}
 	}
 	return m_face;
 }
@@ -97,7 +96,8 @@ void FtFace::load() const
 	ScFaceData::load();
 
 	if (!m_face) {
-		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
+		{
 			status = ScFace::BROKEN;
 			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));

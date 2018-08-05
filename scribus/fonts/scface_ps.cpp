@@ -24,16 +24,16 @@ QStringList ScFace_postscript::findFontMetrics(const QString& fontPath)  const
 	metricsFiles += findFontMetrics(fontDir, fontFile);
 
 	//if no metrics found look in afm and pfm subdirs
-	if ( metricsFiles.size() <= 0 )
+	if ( metricsFiles.empty() )
 	{
 		QDir dir;
 		if (dir.exists(fontDir + "/AFMs"))
 			metricsFiles += findFontMetrics(fontDir + "/AFMs", fontFile);
-		if (dir.exists(fontDir + "/afm") && metricsFiles.size() <= 0)
+		if (dir.exists(fontDir + "/afm") && metricsFiles.empty())
 			metricsFiles += findFontMetrics(fontDir + "/afm", fontFile);
-		if (dir.exists(fontDir + "/Pfm") && metricsFiles.size() <= 0)
+		if (dir.exists(fontDir + "/Pfm") && metricsFiles.empty())
 			metricsFiles += findFontMetrics(fontDir + "/Pfm", fontFile);
-		if (dir.exists(fontDir + "/pfm") && metricsFiles.size() <= 0)
+		if (dir.exists(fontDir + "/pfm") && metricsFiles.empty())
 			metricsFiles += findFontMetrics(fontDir + "/pfm", fontFile);
 	}
 	return metricsFiles;
@@ -82,7 +82,7 @@ bool ScFace_postscript::loadFontMetrics(FT_Face face, const QString& fontPath) c
 {
 	bool metricsFound = false;
 	QStringList fontMetrics = findFontMetrics(fontPath);
-	if (fontMetrics.size() > 0)
+	if (!fontMetrics.empty())
 	{
 		bool brokenMetric = false;
 		QString metricsFile;

@@ -58,7 +58,7 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 		QFileInfo fi(directory + "/" + file);
 		if (fi.isDir() && !recursive)
 			continue;
-		else if (fi.isDir() && !file.startsWith('.'))
+		if (fi.isDir() && !file.startsWith('.'))
 		{
 			QList<ScColorProfileInfo> profileInfos2 = getAvailableProfileInfo(fi.filePath()+"/", true);
 			profileInfos.append(profileInfos2);

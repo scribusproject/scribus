@@ -532,7 +532,7 @@ void CanvasMode_EditMeshGradient::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	PageItem *currItem = 0;
+	PageItem *currItem = nullptr;
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
 		if ((m_doc->m_Selection->isMultipleSelection()) && (m_doc->appMode == modeNormal))

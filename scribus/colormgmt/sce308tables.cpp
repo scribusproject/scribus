@@ -20,7 +20,6 @@ QVector<int> ScE308Table::wavelengths() const
 }
 
 ScE308Table5_D50_2deg::ScE308Table5_D50_2deg()
-                     : ScE308Table()
 {
 	m_wx[360] = 0.000, m_wy[360] = 0.000, m_wz[360] =  0.001;
 	m_wx[370] = 0.001, m_wy[370] = 0.000, m_wz[370] =  0.005;
@@ -76,7 +75,6 @@ ScE308Table5_D50_2deg::ScE308Table5_D50_2deg()
 }
 
 ScE308Table5_D50_10deg::ScE308Table5_D50_10deg()
-                     : ScE308Table()
 {
 	m_wx[360] = 0.000, m_wy[360] = 0.000, m_wz[360] =  0.000;
 	m_wx[370] = 0.000, m_wy[370] = 0.000, m_wz[370] =  0.000;
@@ -132,7 +130,6 @@ ScE308Table5_D50_10deg::ScE308Table5_D50_10deg()
 }
 
 ScE308Table6_D50_2deg::ScE308Table6_D50_2deg()
-                     : ScE308Table()
 {
 	m_wx[360] = 0.000, m_wy[360] = 0.000, m_wz[360] =  0.000;
 	m_wx[370] = 0.001, m_wy[370] = 0.000, m_wz[370] =  0.005;
@@ -188,7 +185,6 @@ ScE308Table6_D50_2deg::ScE308Table6_D50_2deg()
 }
 
 ScE308Table6_D50_10deg::ScE308Table6_D50_10deg()
-                     : ScE308Table()
 {
 	m_wx[360] = 0.000, m_wy[360] = 0.000, m_wz[360] =  0.000;
 	m_wx[370] = 0.000, m_wy[370] = 0.000, m_wz[370] =  0.000;

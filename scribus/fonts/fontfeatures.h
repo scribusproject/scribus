@@ -65,8 +65,8 @@ public:
 	static quint64 NumeralFractionsMask;
 	static quint64 StyleSetsMask;
 
-	static quint64 fontFlagsFromList(QStringList features);
-	static quint64 textFlagsFromList(QStringList features);
+	static quint64 fontFlagsFromList(const QStringList& features);
+	static quint64 textFlagsFromList(const QStringList& features);
 };
 
 #endif

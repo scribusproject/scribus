@@ -151,7 +151,7 @@ void CanvasMode_Normal::deactivate(bool forGesture)
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
-	PageItem *currItem = 0;
+	PageItem *currItem = nullptr;
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	if (m_doc->drawAsPreview)
@@ -226,10 +226,10 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 					m_view->requestMode(submodeStatusPic);
 				else if (currItem->imageVisible())
 					m_view->requestMode(modeEdit);
- 			}
- 			else if (currItem->itemType() == PageItem::TextFrame)
+			}
+			else if (currItem->itemType() == PageItem::TextFrame)
 			{
- 				m_view->requestMode(modeEdit);
+				m_view->requestMode(modeEdit);
 			}
 			else
 			{
@@ -492,7 +492,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_doc->DragP = false;
 				m_doc->leaveDrag = false;
 				m_canvas->m_viewMode.m_MouseButtonPressed = false;
-				m_doc->DraggedElem = 0;
+				m_doc->DraggedElem = nullptr;
 				m_doc->DragElements.clear();
 				m_view->setCursor(QCursor(Qt::ArrowCursor));
 				m_view->updateContents();
@@ -632,8 +632,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						if (abs(dX)>abs(dY))
 							dY=0;
 						else
-						if (abs(dY)>abs(dX))
-							dX=0;
+							if (abs(dY)>abs(dX))
+								dX=0;
 						erf=false;
 						dX+=m_dragConstrainInitPtX-qRound(gx);
 						dY+=m_dragConstrainInitPtY-qRound(gy);
@@ -930,7 +930,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 				m_view->updatesOn(true);
 				m_doc->m_Selection->delaySignalsOff();
 			}
-			if ((currItem && !currItem->locked() && m_frameResizeHandle > 0) == false && (!m_doc->drawAsPreview))
+			if (!(currItem && !currItem->locked() && m_frameResizeHandle > 0) && (!m_doc->drawAsPreview))
 			{
 				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
@@ -1260,7 +1260,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_view->m_ScMW->pageSelector->clearFocus();
 	if (m_doc->m_Selection->count() > 0)
 	{
-		if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+		if (m_doc->m_Selection->itemAt(0) != nullptr) // is there the old clip stored for the undo action
 		{
 			currItem = m_doc->m_Selection->itemAt(0);
 			m_doc->nodeEdit.finishTransaction(currItem);
@@ -1763,13 +1763,10 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_doc->m_Selection->connectItemToGUI();
 			return true;
 		}
-		else
-		{
-			// If we call startGesture now, a new guide is created each time.
-			// ### could be a weakness to avoid calling it tho.
-// 			m_view->startGesture(guideMoveGesture);
-			m_guideMoveGesture->mouseSelectGuide(m);
-		}
+		// If we call startGesture now, a new guide is created each time.
+		// ### could be a weakness to avoid calling it tho.
+		// 			m_view->startGesture(guideMoveGesture);
+		m_guideMoveGesture->mouseSelectGuide(m);
 	}
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
@@ -1794,7 +1791,7 @@ void CanvasMode_Normal::importToPage()
 	QStringList formats;
 	int fmtCode = FORMATID_FIRSTUSER;
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
-	while (fmt != 0)
+	while (fmt != nullptr)
 	{
 		if (fmt->load)
 		{

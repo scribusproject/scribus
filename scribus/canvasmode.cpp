@@ -108,8 +108,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 
 CanvasMode::~CanvasMode()
 {
-	if (m_panGesture)
-		delete m_panGesture;
+	delete m_panGesture;
 }
 
 CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)

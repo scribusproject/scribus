@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include FT_TRUETYPE_IDS_H
 
 
-ScFace_ttf::ScFace_ttf (QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features )
+ScFace_ttf::ScFace_ttf (const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features )
 		: FtFace (fam, sty, alt, scname, psname, path, face, features)
 {
 	formatCode = ScFace::SFNT;
@@ -166,7 +166,8 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 {
     QByteArray bb;
     FtFace::rawData(bb);
-	if (formatCode == ScFace::TYPE42) {
+	if (formatCode == ScFace::TYPE42)
+	{
 		//easy:
 		str = bb;
 		return true;
@@ -180,13 +181,12 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	FT_Face face = ftFace();
-	if (!face) {
+	if (!face)
 		return false;
-	}
 	const FT_Stream fts = face->stream;
-	if (ftIOFunc(fts, 0L, NULL, 0)) {
+	if (ftIOFunc(fts, 0L, nullptr, 0))
 		return(false);
-	}
+
 	str+="%!PS-TrueTypeFont\n";
 	str+="11 dict begin\n";
 	str+="/FontName /" + psName + " def\n";
@@ -234,7 +234,8 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 			poso = 0;
 			str += "00\n>";
 		}
-		else {
+		else
+		{
 			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
 			str += "\n] def\n";
 			status = qMax(status,ScFace::BROKENGLYPHS);

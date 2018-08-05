@@ -81,7 +81,7 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 	return m_productDescription;
 }
 
-void ScLcms2ColorProfileImpl::closeProfile(void)
+void ScLcms2ColorProfileImpl::closeProfile()
 {
 	if (m_profileHandle)
 	{

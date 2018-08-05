@@ -81,7 +81,7 @@ int setBestEncoding(FT_Face face)
 // the following line, assuming that the default charmap has the index 0
 	int defaultchmap = 0;
 	FT_ULong dbgInfo = 0;
-	FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, NULL, &dbgInfo );
+	FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, nullptr, &dbgInfo );
 	qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
@@ -108,7 +108,7 @@ int setBestEncoding(FT_Face face)
 			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
 			break;
 		}
-		else if (charmap->encoding == FT_ENCODING_MS_SYMBOL)
+		if (charmap->encoding == FT_ENCODING_MS_SYMBOL)
 		{
 			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
 
@@ -228,7 +228,7 @@ FPointArray traceChar(FT_Face face, ScFace::ucs4_type chr, int chs, qreal *x, qr
 }
 
 
-QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, QColor back, bool force)
+QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -474,15 +474,18 @@ QString adobeGlyphName(FT_ULong charcode)
 	QString result;
 	if (adobeGlyphNames.contains(charcode))
 		return adobeGlyphNames[charcode];
-	else if (charcode < 0x10000) {
+	if (charcode < 0x10000)
+	{
 		result = QString("uni") + HEX[charcode>>12 & 0xF] 
 		                        + HEX[charcode>> 8 & 0xF] 
 		                        + HEX[charcode>> 4 & 0xF] 
 		                        + HEX[charcode     & 0xF];
 	}
-	else  {
+	else
+	{
 		result = QString("u");
-		for (int i= 28; i >= 0; i-=4) {
+		for (int i= 28; i >= 0; i-=4)
+		{
 			if (charcode & (0xF << i))
 				result += HEX[charcode >> i & 0xF];
 		}

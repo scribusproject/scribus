@@ -39,7 +39,7 @@ class ScDLThread : public QThread
 		void runSlot();
 
 	private:
-		bool urlOK(QUrl url);
+		bool urlOK(const QUrl& url);
 		QStringList m_urlList;
 		QFile m_output;
 		QQueue<QPair<QUrl, QString> > m_downloadQueue;

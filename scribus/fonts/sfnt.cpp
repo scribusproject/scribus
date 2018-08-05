@@ -311,24 +311,16 @@ uint PostTable::numberOfGlyphs() const
 {
 	if (m_names.length() > 0)
 		return m_names.length();
-	else
-		return post_format10_names_count;
+	return post_format10_names_count;
 }
 
 QString PostTable::nameFor(uint glyph) const
 {
 	if (glyph < (uint) m_names.length())
-	{
 		return m_names[glyph];
-	}
-	else if (glyph < sfnt::post_format10_names_count)
-	{
+	if (glyph < sfnt::post_format10_names_count)
 		return post_format10_names[glyph];
-	}
-	else
-	{
-		return ".notdef";
-	}
+	return ".notdef";
 }
 
 
