@@ -5,12 +5,37 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "cmsettings.h"
-#include "scclocale.h"
-#include "scimage.h"
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <memory>
+#include <setjmp.h>
 
+#include <QByteArray>
+#include <QFile>
+#include <QImageReader>
+#include <QMessageBox>
+#include <QList>
+#include <QScopedPointer>
+
+#include "cmsettings.h"
+#include "commonstrings.h"
+#include "exif.h"
+#include "rawimage.h"
+#include "scclocale.h"
+#include "sccolorengine.h"
+#include "scimagecacheproxy.h"
+#include "scstreamfilter.h"
+#include "scimage.h"
 #include "scpaths.h"
 #include "scribuscore.h"
+#include "scstreamfilter_jpeg.h"
+#include "sctextstream.h"
+#include "util.h"
+#include "util_color.h"
+#include "util_formats.h"
+#include "util_ghostscript.h"
+
 #include "imagedataloaders/scimgdataloader_gimp.h"
 #ifdef GMAGICK_FOUND
 #include "imagedataloaders/scimgdataloader_gmagick.h"
@@ -26,30 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "imagedataloaders/scimgdataloader_qt.h"
 #include "imagedataloaders/scimgdataloader_tiff.h"
 #include "imagedataloaders/scimgdataloader_wpg.h"
-#include "scstreamfilter_jpeg.h"
-#include "sctextstream.h"
-#include <QFile>
-#include <QMessageBox>
-#include <QList>
-#include <QByteArray>
-#include <QImageReader>
-#include <QScopedPointer>
-#include <cassert>
-#include <cmath>
-#include <cstdlib>
-#include <memory>
-#include <setjmp.h>
 
-#include "commonstrings.h"
-#include "exif.h"
-#include "sccolorengine.h"
-#include "scimagecacheproxy.h"
-#include "scstreamfilter.h"
-#include "util.h"
-#include "util_color.h"
-#include "util_formats.h"
-#include "util_ghostscript.h"
-#include "rawimage.h"
 
 using namespace std;
 
