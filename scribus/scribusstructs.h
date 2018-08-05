@@ -64,7 +64,7 @@ struct CMYKColor
 	int y;
 	int k;
 	CMYKColor() {c=m=y=k=0;}
-		void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
+	void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
 };
 
 struct CMYKColorF
