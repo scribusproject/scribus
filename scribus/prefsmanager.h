@@ -119,13 +119,13 @@ public:
 	Here is the XML file created itself.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool WritePref(QString ho);
+	bool WritePref(const QString& ho);
 	/*! \brief Reads the preferences physically from the file.
 	Here is the XML file parsed itself. Returns false on error. 
 	It's the caller's job to make sure the prefs file actually exists.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool ReadPref(QString ho);
+	bool ReadPref(const QString& ho);
 	//! \brief Set up the main window with prefs values, recent files list, main window size etc
 	void setupMainWindow(ScribusMainWindow* mw);
 	void setGhostscriptExecutable(const QString&);
@@ -182,8 +182,8 @@ public:
 	QStringList toolColorNames();
 	static QStringList toolColorNames(const struct ItemToolPrefs& settings);
 	/*! \brief Replace used colors in tool prefs */
-	void replaceToolColors(const QMap<QString, QString> replaceMap);
-	static void replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString> replaceMap);
+	void replaceToolColors(const QMap<QString, QString>& replaceMap);
+	static void replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap);
 	/*! \brief Finds the fonts on the system
 	Must be run after: PrefsManager::setup()
 	Must be run before: PrefsManager::initDefaults()

@@ -30,8 +30,8 @@ PrefsReader::PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts)
 {
 	m_aContexts = appContexts;
 	m_pContexts = pluginContexts;
-	m_currentContext = 0;
-	m_currentTable = 0;
+	m_currentContext = nullptr;
+	m_currentTable = nullptr;
 	m_inApp = false;
 	m_rowIndex = 0;
 	m_colIndex = 0;

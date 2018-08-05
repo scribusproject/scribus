@@ -39,40 +39,40 @@ typedef std::vector<QStringList> Table;
 
 class SCRIBUS_API PrefsTable
 {
-private:
- QString m_name;
- Table m_table;
- int m_rowCount;
- int m_colCount;
- void checkSize(int rowIndex, int colIndex, QString defValue = "");
- void checkHeight(int rowIndex);
- void checkWidth(int rowIndex, int colIndex, QString defValue = "");
-public:
- PrefsTable(QString tableName);
- ~PrefsTable();
- QString getName();
- int     height();
- int     getRowCount();
- int     width();
- int     getColCount();
- QString get(int row, int col, const QString& defValue = "");
- void    set(int row, int col, const char* value);
- void    set(int row, int col, const std::string& value);
- void    set(int row, int col, const QString& value);
- int     getInt(int row, int col = 0, int defValue = -1);
- void    set(int row, int col, int value);
- void    set(int row, int col, uint value);
- uint    getUInt(int row, int col, uint defValue = 0);
- double  getDouble(int row, int col, double defValue = -1.0);
- void    set(int row, int col, double value);
- bool    getBool(int row, int col, bool defValue = false);
- void    set(int row, int col, bool value);
-/*** finds what in searchCol and returns the row index if found if not will return -1 */
- int  find(int searchCol, const QString& what);
-/*** Removes the row where in column colIndex can be found text what ********/
- void removeRow(int colIndex, const QString& what);
-/*** Empties the table ***/
- void clear();
+	private:
+		QString m_name;
+		Table m_table;
+		int m_rowCount;
+		int m_colCount;
+		void checkSize(int rowIndex, int colIndex, QString defValue = "");
+		void checkHeight(int rowIndex);
+		void checkWidth(int rowIndex, int colIndex, QString defValue = "");
+	public:
+		PrefsTable(const QString& tableName);
+		~PrefsTable();
+		QString getName();
+		int     height();
+		int     getRowCount();
+		int     width();
+		int     getColCount();
+		QString get(int row, int col, const QString& defValue = "");
+		void    set(int row, int col, const char* value);
+		void    set(int row, int col, const std::string& value);
+		void    set(int row, int col, const QString& value);
+		int     getInt(int row, int col = 0, int defValue = -1);
+		void    set(int row, int col, int value);
+		void    set(int row, int col, uint value);
+		uint    getUInt(int row, int col, uint defValue = 0);
+		double  getDouble(int row, int col, double defValue = -1.0);
+		void    set(int row, int col, double value);
+		bool    getBool(int row, int col, bool defValue = false);
+		void    set(int row, int col, bool value);
+		/*** finds what in searchCol and returns the row index if found if not will return -1 */
+		int  find(int searchCol, const QString& what);
+		/*** Removes the row where in column colIndex can be found text what ********/
+		void removeRow(int colIndex, const QString& what);
+		/*** Empties the table ***/
+		void clear();
 };
 
 #endif

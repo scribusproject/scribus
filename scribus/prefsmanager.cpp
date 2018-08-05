@@ -66,10 +66,10 @@ for which a new license (GPL+exception) is in place.
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
-PrefsManager* PrefsManager::m_instance = 0;
+PrefsManager* PrefsManager::m_instance = nullptr;
 
 PrefsManager::PrefsManager(QObject *parent) : QObject(parent),
-	prefsFile(0),
+	prefsFile(nullptr),
 	m_importingFrom12(false),
 	m_firstTimeIgnoreOldPrefs(false)
 {
@@ -83,7 +83,7 @@ PrefsManager::~PrefsManager()
 
 PrefsManager* PrefsManager::instance()
 {
-	if (m_instance == 0)
+	if (m_instance == nullptr)
 		m_instance = new PrefsManager();
 
 	return m_instance;
@@ -91,9 +91,8 @@ PrefsManager* PrefsManager::instance()
 
 void PrefsManager::deleteInstance()
 {
-	if (m_instance)
-		delete m_instance;
-	m_instance = 0;
+	delete m_instance;
+	m_instance = nullptr;
 }
 
 
@@ -149,7 +148,7 @@ void PrefsManager::initDefaults()
 	SCFonts& availableFonts = appPrefs.fontPrefs.AvailFonts;
 	for (int i = 0; i < defaultFonts.count(); ++i)
 	{
-		QString defCandidate = defaultFonts.at(i);
+		const QString& defCandidate = defaultFonts.at(i);
 		if (availableFonts.contains(defCandidate))
 		{
 			appPrefs.itemToolPrefs.textFont = defCandidate;
@@ -1239,12 +1238,12 @@ QStringList PrefsManager::toolColorNames(const struct ItemToolPrefs& settings)
 	return names;
 }
 
-void PrefsManager::replaceToolColors(const QMap<QString, QString> replaceMap)
+void PrefsManager::replaceToolColors(const QMap<QString, QString>& replaceMap)
 {
 	replaceToolColors(appPrefs.itemToolPrefs, replaceMap);
 }
 
-void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString> replaceMap)
+void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap)
 {
 	if (replaceMap.contains(settings.textColor))
 		settings.textColor = replaceMap[settings.textColor];
@@ -1370,7 +1369,7 @@ bool PrefsManager::showPageShadow() const
 	return appPrefs.displayPrefs.showPageShadow;
 }
 
-bool PrefsManager::WritePref(QString ho)
+bool PrefsManager::WritePref(const QString& ho)
 {
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
@@ -1939,7 +1938,7 @@ bool PrefsManager::WritePref(QString ho)
 	return result;
 }
 
-bool PrefsManager::ReadPref(QString ho)
+bool PrefsManager::ReadPref(const QString& ho)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
@@ -1998,7 +1997,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
 			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UseDocumentTabs", "0").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
-			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",0).toInt());
+			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());
 			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_5_0");
 		}
 
@@ -2229,11 +2228,11 @@ bool PrefsManager::ReadPref(QString ho)
 			if (dc.hasAttribute("FontFace"))
 			{
 				QString tmpf=dc.attribute("FontFace");
-				QString newFont = "";
+				QString newFont;
 				if (!appPrefs.fontPrefs.AvailFonts.contains(tmpf) || !appPrefs.fontPrefs.AvailFonts[tmpf].usable())
 				{
 					ScCore->showSplash(false);
-					MissingFont *dia = new MissingFont(0, tmpf, 0);
+					MissingFont *dia = new MissingFont(nullptr, tmpf, nullptr);
 					dia->exec();
 					newFont = dia->getReplacementFont();
 					delete dia;
@@ -2451,7 +2450,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			bool gsa1 = testGSAvailability(dc.attribute("Ghostscript", "gs"));
 			bool gsa2 = testGSAvailability(ghostscriptExecutable());
-			if( (gsa1 == true) || (gsa2 == false) )
+			if( (gsa1) || (!gsa2) )
 				setGhostscriptExecutable(dc.attribute("Ghostscript", "gs"));
 			appPrefs.extToolPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("GhostscriptAntiAliasText", "0").toInt());
 			appPrefs.extToolPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("GhostscriptAntiAliasGraphics", "0").toInt());
@@ -2768,7 +2767,7 @@ void PrefsManager::insertMissingCheckerProfiles(CheckerPrefsList& cp)
 	CheckerPrefsList::const_iterator it = defaultList.constBegin();
 	for (; it != defaultList.constEnd(); ++it)
 	{
-		QString name = it.key();
+		const QString& name = it.key();
 		if (cp.contains(name))
 			continue;
 		cp.insert(name, it.value());
