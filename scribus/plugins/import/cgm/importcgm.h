@@ -73,11 +73,11 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 
 private:
-	void parseHeader(QString fName, double &b, double &h);
-	bool convert(QString fn);
+	void parseHeader(const QString& fName, double &b, double &h);
+	bool convert(const QString& fn);
 	void decodeText(QFile &f);
 
 /* binary Decoder */
@@ -112,8 +112,8 @@ private:
 	void    handleStartMetaFile(QString value);
 	void    handleStartPicture(QString value);
 	void    handleStartPictureBody(double width, double height);
-	void    handleMetaFileDescription(QString value);
-	QString handleColor(ScColor &color, QString proposedName);
+	void    handleMetaFileDescription(const QString& value);
+	QString handleColor(ScColor &color, const QString& proposedName);
 	double  convertCoords(double input);
 	QPointF convertCoords(QPointF input);
 	void appendPath(QPainterPath &path1, QPainterPath &path2);

@@ -921,7 +921,7 @@ void RawPainter::drawPolyline(const librevenge::RVNGPropertyList &propList)
 	{
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
-	if (Coords.size() > 0)
+	if (!Coords.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
@@ -949,7 +949,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
 	Coords.svgClosePath();
-	if (Coords.size() > 0)
+	if (!Coords.empty())
 	{
 		if(m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
 		{
@@ -996,7 +996,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if( fmt )
 						  {
-							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -1149,7 +1149,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if( fmt )
 						  {
-							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -1291,7 +1291,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if( fmt )
 						{
-							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
@@ -1672,7 +1672,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	if (propList["style:text-position"])
 	{
 		QStringList pos = QString(propList["style:text-position"]->getStr().cstr()).split(' ', QString::SkipEmptyParts);
-		if (pos.size() > 0)
+		if (!pos.empty())
 		{
 			if (pos[0] == "super")
 				styleEffects |= ScStyle_Superscript;
@@ -3484,7 +3484,7 @@ QString RawPainter::constructFontName(QString fontBaseName, QString fontStyle)
 			if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(0, family, m_Doc);
+				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 				dia->exec();
 				fontName = dia->getReplacementFont();
 				delete dia;
@@ -3508,8 +3508,7 @@ double RawPainter::fromPercentage( const QString &s )
 		s1.chop(1);
 		return ScCLocale::toDoubleC(s1) / 100.0;
 	}
-	else
-		return ScCLocale::toDoubleC(s1) / 100.0;
+	return ScCLocale::toDoubleC(s1) / 100.0;
 }
 
 QColor RawPainter::parseColorN( const QString &rgbColor )

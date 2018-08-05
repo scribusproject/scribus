@@ -254,13 +254,13 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
 	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
 	void createGuideLine(QDataStream &ts);

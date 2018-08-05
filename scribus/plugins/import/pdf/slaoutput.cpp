@@ -92,8 +92,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 
 LinkSubmitForm::~LinkSubmitForm()
 {
-	if (fileName)
-		delete fileName;
+	delete fileName;
 }
 
 LinkImportData::LinkImportData(Object *actionObj)
@@ -131,16 +130,13 @@ LinkImportData::LinkImportData(Object *actionObj)
 
 LinkImportData::~LinkImportData()
 {
-	if (fileName)
-		delete fileName;
+	delete fileName;
 }
 
 AnoOutputDev::~AnoOutputDev()
 {
-	if (m_fontName)
-		delete m_fontName;
-	if (m_itemText)
-		delete m_itemText;
+	delete m_fontName;
+	delete m_itemText;
 }
 
 AnoOutputDev::AnoOutputDev(ScribusDoc* doc, QStringList *importedColors)
@@ -303,9 +299,9 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
 	xref = nullptr;
-	m_fontEngine = 0;
-	m_font = 0;
-	m_formWidgets = 0;
+	m_fontEngine = nullptr;
+	m_font = nullptr;
+	m_formWidgets = nullptr;
 	updateGUICounter = 0;
 	layersSetByOCG = false;
 	cropOffsetX = 0;
@@ -1016,7 +1012,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 	return retVal;
 }
 
-void SlaOutputDev::applyTextStyle(PageItem* ite, QString fontName, QString textColor, double fontSize)
+void SlaOutputDev::applyTextStyle(PageItem* ite, const QString& fontName, const QString& textColor, double fontSize)
 {
 	CharStyle newStyle;
 	newStyle.setFillColor(textColor);
@@ -1032,12 +1028,12 @@ void SlaOutputDev::applyTextStyle(PageItem* ite, QString fontName, QString textC
 				newStyle.setFont(face);
 				break;
 			}
-			else if ((face.family() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
+			if ((face.family() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
 			{
 				newStyle.setFont(face);
 				break;
 			}
-			else if ((face.scName() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
+			if ((face.scName() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
 			{
 				newStyle.setFont(face);
 				break;
@@ -1535,43 +1531,40 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 				tmpSel->clear();
 				return;
 			}
-			else
+			PageItem *ite;
+			for (int dre = 0; dre < gElements.Items.count(); ++dre)
 			{
-				PageItem *ite;
-				for (int dre = 0; dre < gElements.Items.count(); ++dre)
+				tmpSel->addItem(gElements.Items.at(dre), true);
+				m_Elements->removeAll(gElements.Items.at(dre));
+			}
+			if ((gElements.Items.count() != 1) || (gElements.isolated))
+				ite = m_doc->groupObjectsSelection(tmpSel);
+			else
+				ite = gElements.Items.first();
+			if (ite->isGroup())
+			{
+				ite->ClipEdited = true;
+				ite->FrameType = 3;
+				if (checkClip())
 				{
-					tmpSel->addItem(gElements.Items.at(dre), true);
-					m_Elements->removeAll(gElements.Items.at(dre));
+					FPointArray out = m_currentClipPath.copy();
+					out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+					out.translate(-ite->xPos(), -ite->yPos());
+					ite->PoLine = out.copy();
+					ite->setTextFlowMode(PageItem::TextFlowDisabled);
+					m_doc->adjustItemSize(ite, true);
+					m_doc->resizeGroupToContents(ite);
+					ite->OldB2 = ite->width();
+					ite->OldH2 = ite->height();
 				}
-				if ((gElements.Items.count() != 1) || (gElements.isolated))
-					ite = m_doc->groupObjectsSelection(tmpSel);
-				else
-					ite = gElements.Items.first();
-				if (ite->isGroup())
-				{
-					ite->ClipEdited = true;
-					ite->FrameType = 3;
-					if (checkClip())
-					{
-						FPointArray out = m_currentClipPath.copy();
-						out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-						out.translate(-ite->xPos(), -ite->yPos());
-						ite->PoLine = out.copy();
-						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_doc->adjustItemSize(ite, true);
-						m_doc->resizeGroupToContents(ite);
-						ite->OldB2 = ite->width();
-						ite->OldH2 = ite->height();
-					}
-				}
-				ite->setFillTransparency(1.0 - state->getFillOpacity());
-				ite->setFillBlendmode(getBlendMode(state));
-				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
-				{
-					applyMask(ite);
-					m_groupStack.top().Items.append(ite);
-				}
+			}
+			ite->setFillTransparency(1.0 - state->getFillOpacity());
+			ite->setFillBlendmode(getBlendMode(state));
+			m_Elements->append(ite);
+			if (m_groupStack.count() != 0)
+			{
+				applyMask(ite);
+				m_groupStack.top().Items.append(ite);
 			}
 		}
 		tmpSel->clear();
@@ -2459,11 +2452,11 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg)
 {
 //	qDebug() << "Draw Image Mask";
-	QImage * image = 0;
+	QImage * image = nullptr;
 	int invert_bit;
 	int row_stride;
 	int x, y, i, bit;
-	unsigned char *dest = 0;
+	unsigned char *dest = nullptr;
 	unsigned char *buffer;
 	Guchar *pix;
 	ImageStream * imgStr = new ImageStream(str, width, 1, 1);
@@ -2627,9 +2620,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 //	qDebug() << "Masked Image Components" << colorMap->getNumPixelComps();
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
-	unsigned int *dest = 0;
+	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
-	QImage * image = 0;
+	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
@@ -2646,7 +2639,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 	mskStr->reset();
-	Guchar *mdest = 0;
+	Guchar *mdest = nullptr;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
@@ -2770,9 +2763,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
-	unsigned int *dest = 0;
+	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
-	QImage * image = 0;
+	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
@@ -2789,7 +2782,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	}
 	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, 1, 1);
 	mskStr->reset();
-	Guchar *mdest = 0;
+	Guchar *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
 	memset(mbuffer, 0, maskWidth * maskHeight);
@@ -2921,7 +2914,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 //	qDebug() << "Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
 	imgStr->reset();
-	QImage * image = 0;
+	QImage* image = nullptr;
 	if (maskColors)
 	{
 		image = new QImage(width, height, QImage::Format_ARGB32);
@@ -3375,9 +3368,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 	if ((fontFile = m_fontEngine->getFontFile(id))) {
 		delete id;
 
-	} else {
-
-		if (!(fontLoc = gfxFont->locateFont(xref, 0))) {
+	}
+	else
+	{
+		if (!(fontLoc = gfxFont->locateFont(xref, nullptr)))
+		{
 			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
 			gfxFont->getName() ? gfxFont->getName()->getCString()
 			: "(unnamed)");
@@ -3567,7 +3562,6 @@ err2:
 err1:
 	if (fontsrc && !fontsrc->isFile)
 		fontsrc->unref();
-	return;
 }
 #else
 void SlaOutputDev::updateFont(GfxState *state)
@@ -4088,7 +4082,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	tmp.setRegistrationColor(false);
 	if (color->getSpace() == AnnotColor::colorTransparent)
 		return CommonStrings::None;
-	else if (color->getSpace() == AnnotColor::colorRGB)
+	if (color->getSpace() == AnnotColor::colorRGB)
 	{
 		const double *color_data = color->getValues();
 		double Rc = color_data[0];

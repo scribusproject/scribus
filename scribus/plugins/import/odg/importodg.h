@@ -228,7 +228,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
 
 private:
@@ -314,7 +314,7 @@ private:
 		AttributeValue opacityStart;
 	};
 
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	bool parseStyleSheets(QString designMap);
 	bool parseStyleSheetsXML(QDomDocument &designMapDom);
 	bool parseDocReference(QString designMap);

@@ -133,9 +133,9 @@ bool WMFImportPlugin::import(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	if (m_Doc == 0)
+	if (m_Doc == nullptr)
 		m_Doc = ScCore->primaryMainWindow()->doc;
-	ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+	ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;

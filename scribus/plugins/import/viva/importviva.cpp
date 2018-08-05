@@ -121,7 +121,7 @@ QImage VivaPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -158,13 +158,10 @@ QImage VivaPlug::readThumbnail(QString fName)
 		delete m_Doc;
 		return tmpImage;
 	}
-	else
-	{
-		QDir::setCurrent(CurDirP);
-		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->setScriptRunning(false);
-		delete m_Doc;
-	}
+	QDir::setCurrent(CurDirP);
+	m_Doc->DoDrawing = true;
+	m_Doc->scMW()->setScriptRunning(false);
+	delete m_Doc;
 	return tmp;
 }
 
@@ -175,7 +172,7 @@ bool VivaPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	importedColors.clear();
 	QByteArray f;
 	loadRawText(fNameIn, f);
@@ -220,7 +217,7 @@ bool VivaPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -323,7 +320,7 @@ bool VivaPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -340,7 +337,7 @@ bool VivaPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -376,8 +373,7 @@ bool VivaPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 
 VivaPlug::~VivaPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
@@ -458,7 +454,7 @@ void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 				pgGap = parseUnit(e.attribute("vd:distance", "0"));
 			}
 			else if (e.tagName() == "vd:pageMode")
-				facingPages = (e.text() == "doublePage") ? 1 : 0;
+				facingPages = e.text() == "doublePage";
 			else if (e.tagName() == "vd:pageFormat")
 				papersize = e.text();
 			else if (e.tagName() == "vd:pageOrientation")
@@ -532,7 +528,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						tmp.setRgbColor(r, g, b);
 						break;
 					}
-					else if (grs.tagName() == "vc:cmyk")
+					if (grs.tagName() == "vc:cmyk")
 					{
 						int c = grs.attribute("vc:cyan", "0").toInt();
 						int m = grs.attribute("vc:magenta", "0").toInt();
@@ -541,7 +537,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						tmp.setColor(c, m, y, k);
 						break;
 					}
-					else if (grs.tagName() == "vc:lab")
+					if (grs.tagName() == "vc:lab")
 					{
 						double L = grs.attribute("vc:l", "100").toDouble();
 						double a = grs.attribute("vc:a", "0").toDouble();
@@ -549,7 +545,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						tmp.setLabColor(L, a, b);
 						break;
 					}
-					else if (grs.tagName() == "vc:hsv")
+					if (grs.tagName() == "vc:hsv")
 					{
 						int h = grs.attribute("vc:hue", "0").toInt();
 						int s = grs.attribute("vc:saturation", "0").toInt();
@@ -560,7 +556,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						tmp = ScColorEngine::convertToModel(tmp, m_Doc, colorModelRGB);
 						break;
 					}
-					else if (grs.tagName() == "vc:registrationColor")
+					if (grs.tagName() == "vc:registrationColor")
 					{
 						seenRegC = true;
 						int r = e.attribute("vc:red", "0").toInt();
@@ -569,7 +565,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 						tmp.setRgbColor(r, g, b);
 						break;
 					}
-					else if (grs.tagName() == "vc:spotColor")
+					if (grs.tagName() == "vc:spotColor")
 						seenSpot = true;
 				}
 				tmp.setSpotColor(seenSpot);
@@ -2357,7 +2353,7 @@ QString VivaPlug::constructFontName(QString fontBaseName, QString fontStyle)
 			if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(0, family, m_Doc);
+				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 				dia->exec();
 				fontName = dia->getReplacementFont();
 				delete dia;

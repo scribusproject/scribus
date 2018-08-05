@@ -68,7 +68,7 @@ private:
 	\param h double
 	\retval bool true if conversion was ok
 	 */
-	bool parseHeader(QString fName, double &x, double &y, double &b, double &h);
+	bool parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	void parseColor(QString data);
 	void useColor(int colorNum, int area_fill, bool forFill);
 	QVector<double> getDashValues(double linewidth, int code);

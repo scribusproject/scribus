@@ -145,7 +145,7 @@ public:
 	QImage      readThumbnail(QString fn);
 
 private:
-	void        parseHeader(QString fName, double &x, double &y, double &b, double &h);
+	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool        convert(QString fn);
 	// Common functions
 	void        aligntoQuadWord(QDataStream &ds);

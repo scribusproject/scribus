@@ -60,10 +60,10 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 
 private:
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
 	void decodeSymbol(QDataStream &ds, bool last = false);

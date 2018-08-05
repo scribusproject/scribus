@@ -66,16 +66,16 @@ private:
 	\param outfile a filename for output
 	\retval bool true if conversion was ok
 	 */
-	bool extractFromPDF(QString infile, QString outfile);
+	bool extractFromPDF(const QString& infile, const QString& outfile);
 
 	bool decompressAIData(QString &fName);
-	bool parseHeader(QString fName, double &x, double &y, double &b, double &h);
+	bool parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	QString removeAIPrefix(QString comment);
 	QString parseColor(QString data);
 	QString parseColorGray(QString data);
 	QString parseColorRGB(QString data);
 	QString parseCustomColor(QString data, double &shade);
-	QString parseCustomColorX(QString data, double &shade, QString type);
+	QString parseCustomColorX(QString data, double &shade, const QString& type);
 	QStringList getStrings(QString data);
 	void getCommands(QString data, QStringList &commands);
 	void decodeA85(QByteArray &psdata, QString tmp);

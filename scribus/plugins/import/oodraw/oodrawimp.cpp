@@ -283,11 +283,8 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 		drawPage = offDraw.namedItem( "draw:page" );
 		if (drawPage.isNull())
 			return QImage();
-		else
-		{
-			isOODraw2 = true;
-			drawPagePNode = body.namedItem( "office:drawing" );
-		}
+		isOODraw2 = true;
+		drawPagePNode = body.namedItem( "office:drawing" );
 	}
 	else
 		drawPagePNode = body;
@@ -315,7 +312,7 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
@@ -418,11 +415,8 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			ScMessageBox::warning( m_Doc->scMW(), CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
 			return false;
 		}
-		else
-		{
-			isOODraw2 = true;
-			drawPagePNode = body.namedItem( "office:drawing" );
-		}
+		isOODraw2 = true;
+		drawPagePNode = body.namedItem( "office:drawing" );
 	}
 	else
 		drawPagePNode = body;
@@ -569,7 +563,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		else
 		{
 			m_Doc->DragP = true;
-			m_Doc->DraggedElem = 0;
+			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
@@ -586,7 +580,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
-			m_Doc->DraggedElem = 0;
+			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 		}
 	}

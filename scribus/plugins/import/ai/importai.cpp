@@ -156,8 +156,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 				image.setText("YSize", QString("%1").arg(image.height()));
 				return image;
 			}
-			else
-				return QImage();
+			return QImage();
 		}
 	}
 	QFile fT2(fName);
@@ -193,7 +192,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	ColorList::Iterator it;
@@ -298,7 +297,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	ColorList::Iterator it;
@@ -384,7 +383,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	}
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -539,7 +538,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -577,7 +576,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -614,12 +613,11 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 
 AIPlug::~AIPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
-bool AIPlug::extractFromPDF(QString infile, QString outfile)
+bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 {
 	bool ret = false;
 #ifdef HAVE_PODOFO
@@ -779,7 +777,7 @@ bool AIPlug::decompressAIData(QString &fName)
 	return true;
 }
 
-bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
+bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, double &h)
 {
 	QString tmp, BBox, FarNam;
 	ScColor cc;
@@ -1162,7 +1160,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	return ret;
 }
 
-QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
+QString AIPlug::parseCustomColorX(QString data, double &shade, const QString& type)
 {
 	QString ret = CommonStrings::None;
 	if (data.isEmpty())
@@ -2526,7 +2524,7 @@ void AIPlug::processData(QString data)
 					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						MissingFont *dia = new MissingFont(0, family, m_Doc);
+						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 						dia->exec();
 						QString tmpf = dia->getReplacementFont();
 						delete dia;
@@ -2798,9 +2796,9 @@ void AIPlug::processPattern(QDataStream &ts)
 				currentPatternDefName = "";
 				break;
 			}
-			else if (tmp.startsWith("Tile"))
+			if (tmp.startsWith("Tile"))
 				continue;
-			else if (tmp.contains(") @"))
+			if (tmp.contains(") @"))
 			{
 				tmpData += tmp;
 				tmpData.remove(") @");
@@ -3136,8 +3134,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 					tmp = removeAIPrefix(readLineFromDataStream(ts));
 					if (tmp.startsWith("EndGradient"))
 						break;
-					else
-						processGradientData(tmp);
+					processGradientData(tmp);
 				}
 			}
 			if (tmp.startsWith("BeginPattern:"))
@@ -3164,8 +3161,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndGradient"))
 				break;
-			else
-				processGradientData(tmp);
+			processGradientData(tmp);
 			if(progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
@@ -3360,8 +3356,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			}
 			if (tmp.startsWith("EndLayer"))
 				break;
-			else
-				processData(rl);
+			processData(rl);
 			if(progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());

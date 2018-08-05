@@ -54,10 +54,10 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 
 private:
-	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
+	void parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool convert(QString fn);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);

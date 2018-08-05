@@ -108,7 +108,7 @@ CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
 	progressDialog = nullptr;
 }
 
-QImage CgmPlug::readThumbnail(QString fName)
+QImage CgmPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
@@ -122,7 +122,7 @@ QImage CgmPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -159,13 +159,10 @@ QImage CgmPlug::readThumbnail(QString fName)
 		delete m_Doc;
 		return tmpImage;
 	}
-	else
-	{
-		QDir::setCurrent(CurDirP);
-		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->setScriptRunning(false);
-		delete m_Doc;
-	}
+	QDir::setCurrent(CurDirP);
+	m_Doc->DoDrawing = true;
+	m_Doc->scMW()->setScriptRunning(false);
+	delete m_Doc;
 	return QImage();
 }
 
@@ -188,7 +185,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -302,7 +299,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -319,7 +316,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -354,16 +351,15 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 CgmPlug::~CgmPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
-void CgmPlug::parseHeader(QString fName, double &b, double &h)
+void CgmPlug::parseHeader(const QString& fName, double &b, double &h)
 {
 }
 
-bool CgmPlug::convert(QString fn)
+bool CgmPlug::convert(const QString& fn)
 {
 	Coords.resize(0);
 	Coords.svgInit();
@@ -1658,8 +1654,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			Coords.resize(0);
 			Coords.svgInit();
 			Coords.svgMoveTo(pStart.x(), pStart.y());
-			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pInter.x(), pInter.y());
-			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pEnd.x(), pEnd.y());
+			Coords.svgArcTo(radius, radius, 0, false, rad1.angle() >= rad3.angle(), pInter.x(), pInter.y());
+			Coords.svgArcTo(radius, radius, 0, false, rad1.angle() >= rad3.angle(), pEnd.x(), pEnd.y());
 			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			if (recordRegion)
 				regionPath.connectPath(Coords.toQPainterPath(false));
@@ -1712,8 +1708,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			}
 			else
 				Coords.svgMoveTo(pStart.x(), pStart.y());
-			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pInter.x(), pInter.y());
-			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pEnd.x(), pEnd.y());
+			Coords.svgArcTo(radius, radius, 0, false, rad1.angle() >= rad3.angle(), pInter.x(), pInter.y());
+			Coords.svgArcTo(radius, radius, 0, false, rad1.angle() >= rad3.angle(), pEnd.x(), pEnd.y());
 			if (mode == 0)
 				Coords.svgLineTo(center.x(), center.y());
 			else
@@ -1958,12 +1954,12 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (dstX.angleTo(dstY) > 180)
 			{
 				Coords.svgMoveTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			else
 			{
 				Coords.svgMoveTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			ell = Coords.toQPainterPath(false);
@@ -2059,12 +2055,12 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (dstX.angleTo(dstY) > 180)
 			{
 				Coords.svgLineTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			else
 			{
 				Coords.svgLineTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			Coords.svgLineTo(cx, cy);
 			Coords.svgClosePath();
@@ -2074,12 +2070,12 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (dstX.angleTo(dstY) > 180)
 			{
 				Coords.svgMoveTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			else
 			{
 				Coords.svgMoveTo(stP.x(), stP.y());
-				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180, dstX.angleTo(dstY) > 180, enP.x(), enP.y());
 			}
 			Coords.svgLineTo(stP.x(), stP.y());
 			Coords.svgClosePath();
@@ -3324,7 +3320,7 @@ void CgmPlug::handleStartPictureBody(double width, double height)
 			else
 				m_Doc->setPageOrientation(0);
 			m_Doc->setPageSize("Custom");
-			m_Doc->changePageProperties(0, 0, 0, 0, height, width, height, width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
+			m_Doc->changePageProperties(0, 0, 0, 0, height, width, height, width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), false);
 		}
 		else
 		{
@@ -3340,14 +3336,14 @@ void CgmPlug::handleStartPictureBody(double width, double height)
 	}
 }
 
-void CgmPlug::handleMetaFileDescription(QString value)
+void CgmPlug::handleMetaFileDescription(const QString& value)
 {
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		m_Doc->documentInfo().setComments(value);
 	// qDebug() << "Metafile Description" << value;
 }
 
-QString CgmPlug::handleColor(ScColor &color, QString proposedName)
+QString CgmPlug::handleColor(ScColor &color, const QString& proposedName)
 {
 	QString tmpName = m_Doc->PageColors.tryAddColor(proposedName, color);
 	if (tmpName == proposedName)

@@ -41,7 +41,6 @@ ScPlugin* uniconvertorplugin_getPlugin()
 	UniconvImportPlugin* plug = new UniconvImportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
-	return 0;
 }
 
 void uniconvertorplugin_freePlugin(ScPlugin* plugin)
@@ -132,7 +131,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 
 	m_Doc = ScCore->primaryMainWindow()->doc;
 	ScribusMainWindow *mw =
-		(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 
 	//Get a temporary filename ending in .svg (sadly
 	//uniconvertor has no other way of specifying the output format

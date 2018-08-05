@@ -156,7 +156,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	if (!checkFlags(flags))
 		return false;
 	m_Doc = ScCore->primaryMainWindow()->doc;
-	ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+	ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;
@@ -237,7 +237,7 @@ SVGPlug::SVGPlug( ScribusDoc* doc, int flags )
 //	m_gc.setAutoDelete( true );
 }
 
-QImage SVGPlug::readThumbnail(QString fName)
+QImage SVGPlug::readThumbnail(const QString& fName)
 {
 	if (!loadData(fName))
 		return QImage();
@@ -251,7 +251,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(wh.width(), wh.height(), 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -501,7 +501,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		else
 		{
 			m_Doc->DragP = true;
-			m_Doc->DraggedElem = 0;
+			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
@@ -539,7 +539,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
-			m_Doc->DraggedElem = 0;
+			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 		}
 	}
@@ -937,9 +937,7 @@ bool SVGPlug::isIgnorableNode( const QDomElement &e )
 
 bool SVGPlug::isIgnorableNodeName( const QString &n )
 {
-	if (n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata")
-		return true;
-	return false;
+	return n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata";
 }
 
 FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
@@ -1267,13 +1265,13 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		}
 		groupLevel--;
 		SvgStyle *gc = m_gc.top();
-		if (clipPath.size() == 0)
+		if (clipPath.empty())
 		{
-			if (gc->clipPath.size() != 0)
+			if (!gc->clipPath.empty())
 				clipPath = gc->clipPath.copy();
 		}
 		parseFilterAttr(e, neu);
-		if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
+		if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.empty()) && (gc->Opacity == 1.0)))
 		{
 			// Unfortunately we have to take the long route here, or we risk crash on undo/redo
 			// FIXME : create group object after parsing grouped objects
@@ -1312,7 +1310,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			{
 				neu->setXYPos(gx, gy);
 				neu->setWidthHeight(gw, gh);
-				if (clipPath.size() != 0)
+				if (!clipPath.empty())
 				{
 					QTransform mm = gc->matrix;
 					neu->PoLine = clipPath.copy();
@@ -1612,7 +1610,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			m_Doc->loadPict(fileName, ite);
 		}
 	}
-	if (clipPath.size() != 0)
+	if (!clipPath.empty())
 		ite->PoLine = clipPath.copy();
 	clipPath.resize(0);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -1890,7 +1888,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	QPainterPath painterPath;
 	painterPath.addText( StartX, StartY, textFont, textString );
 	textPath.fromQPainterPath(painterPath);
-	if (textPath.size() > 0)
+	if (!textPath.empty())
 	{
 //		double  lineWidth = 0.0;
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor);
@@ -1935,14 +1933,11 @@ QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 		{
 			if (de.hasAttribute("requiredExtensions") || de.hasAttribute("requiredFeatures"))
 				continue;
-			else if (de.hasAttribute("id") && hrefs.contains(de.attribute("id")))
+			if (de.hasAttribute("id") && hrefs.contains(de.attribute("id")))
 				continue;
-			else
-			{
-				SElements = parseElement(de);
-				if (SElements.count() > 0)
-					break;
-			}
+			SElements = parseElement(de);
+			if (SElements.count() > 0)
+				break;
 		}
 	}
 	return SElements;
@@ -2130,8 +2125,7 @@ double SVGPlug::fromPercentage( const QString &s )
 		s1.chop(1);
 		return ScCLocale::toDoubleC(s1) / 100.0;
 	}
-	else
-		return ScCLocale::toDoubleC(s1);
+	return ScCLocale::toDoubleC(s1);
 }
 
 double SVGPlug::parseFontSize(const QString& fsize)
@@ -2431,7 +2425,7 @@ QString SVGPlug::parseIccColor( const QString &s )
 			iccColorFound = true;
 		}
 	}
-	if (iccColorFound == false)
+	if (!iccColorFound)
 		return ret;
 	ScColor tmp;
 	tmp.fromQColor(color);
@@ -2448,7 +2442,7 @@ QString SVGPlug::parseIccColor( const QString &s )
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
 	if (command == "display")
-		obj->Display = (params == "none") ? false : true;
+		obj->Display = params != "none";
 	else if (command == "stroke-opacity")
 		obj->StrokeOpacity  = fromPercentage(params);
 	else if (command == "fill-opacity")
@@ -2858,7 +2852,6 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 			parsePA(obj, command, params);
 		}
 	}
-	return;
 }
 
 void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)

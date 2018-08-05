@@ -164,7 +164,7 @@ QImage IdmlPlug::readThumbnail(QString fName)
 			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 			m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 			m_Doc->addPage(0);
-			m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+			m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 			baseX = m_Doc->currentPage()->xOffset();
 			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 			Elements.clear();
@@ -201,13 +201,10 @@ QImage IdmlPlug::readThumbnail(QString fName)
 				delete m_Doc;
 				return tmpImage;
 			}
-			else
-			{
-				QDir::setCurrent(CurDirP);
-				m_Doc->DoDrawing = true;
-				m_Doc->scMW()->setScriptRunning(false);
-				delete m_Doc;
-			}
+			QDir::setCurrent(CurDirP);
+			m_Doc->DoDrawing = true;
+			m_Doc->scMW()->setScriptRunning(false);
+			delete m_Doc;
 		}
 	}
 	return tmp;
@@ -221,7 +218,7 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	QByteArray f;
 	QFileInfo fi = QFileInfo(fNameIn);
 	QString ext = fi.suffix().toLower();
@@ -297,7 +294,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -403,7 +400,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -420,7 +417,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -456,12 +453,11 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 
 IdmlPlug::~IdmlPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
-bool IdmlPlug::convert(QString fn)
+bool IdmlPlug::convert(const QString& fn)
 {
 	Coords.resize(0);
 	Coords.svgInit();
@@ -688,8 +684,7 @@ bool IdmlPlug::convert(QString fn)
 			}
 		}
 	}
-	if (fun != nullptr)
-		delete fun;
+	delete fun;
 	if (progressDialog)
 		progressDialog->close();
 	return retVal;
@@ -1356,7 +1351,7 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 				bleedLeft = e.attribute("DocumentBleedInsideOrLeftOffset").toDouble();
 				bleedRight = e.attribute("DocumentBleedOutsideOrRightOffset").toDouble();
 				bleedBottom = e.attribute("DocumentBleedBottomOffset").toDouble();
-				facingPages = (e.attribute("FacingPages","") == "true") ? 1 : 0;
+				facingPages = e.attribute("FacingPages","") == "true";
 			}
 		}
 		if (e.tagName() == "MarginPreference")
@@ -2124,7 +2119,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				pathTextStart = ite.attribute("StartBracket").toDouble();
 		}
 	}
-	if (GCoords.size() > 0)
+	if (!GCoords.empty())
 	{
 		int z;
 		QTransform finalMat = transformation * pTrans;
@@ -3297,7 +3292,7 @@ QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
 					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						MissingFont *dia = new MissingFont(0, family, m_Doc);
+						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 						dia->exec();
 						fontName = dia->getReplacementFont();
 						delete dia;

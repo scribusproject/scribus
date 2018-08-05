@@ -68,7 +68,7 @@ DrwPlug::DrwPlug(ScribusDoc* doc, int flags)
 	progressDialog = nullptr;
 }
 
-QImage DrwPlug::readThumbnail(QString fName)
+QImage DrwPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
@@ -81,7 +81,7 @@ QImage DrwPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -130,13 +130,10 @@ QImage DrwPlug::readThumbnail(QString fName)
 		delete m_Doc;
 		return tmpImage;
 	}
-	else
-	{
-		QDir::setCurrent(CurDirP);
-		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->setScriptRunning(false);
-		delete m_Doc;
-	}
+	QDir::setCurrent(CurDirP);
+	m_Doc->DoDrawing = true;
+	m_Doc->scMW()->setScriptRunning(false);
+	delete m_Doc;
 	return QImage();
 }
 
@@ -158,7 +155,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -270,7 +267,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -301,7 +298,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -336,12 +333,11 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 DrwPlug::~DrwPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
-bool DrwPlug::convert(QString fn)
+bool DrwPlug::convert(const QString& fn)
 {
 	Coords.resize(0);
 	Coords.svgInit();
@@ -742,7 +738,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 						{
 							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-							MissingFont *dia = new MissingFont(0, fontName, m_Doc);
+							MissingFont *dia = new MissingFont(nullptr, fontName, m_Doc);
 							dia->exec();
 							textFont = dia->getReplacementFont();
 							delete dia;
@@ -788,7 +784,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				else
 					m_Doc->setPageOrientation(0);
 				m_Doc->setPageSize("Custom");
-				m_Doc->changePageProperties(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
+				m_Doc->changePageProperties(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), false);
 				cmdText = QString("DRW Page  Width %1  Height %2").arg(docWidth).arg(docHeight);
 			}
 			break;

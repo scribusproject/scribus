@@ -155,7 +155,7 @@ public:
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
-	void applyTextStyle(PageItem* ite, QString fontName, QString textColor, double fontSize);
+	void applyTextStyle(PageItem* ite, const QString& fontName, const QString& textColor, double fontSize);
 	void handleActions(PageItem* ite, AnnotWidget *ano);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 

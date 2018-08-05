@@ -96,7 +96,7 @@ private:
 		QString RightLineEnd;
 	};
 	QString getNodeValue(QDomNode &baseNode, QString path);
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	bool parseFontsXML(const QDomElement& grElem);
 	void parseFontsXMLNode(const QDomElement& grNode);
 	bool parseGraphicsXML(const QDomElement& grElem);

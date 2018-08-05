@@ -489,7 +489,7 @@ QImage EmfPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -555,17 +555,14 @@ QImage EmfPlug::readThumbnail(QString fName)
 		delete m_Doc;
 		return tmpImage;
 	}
-	else
-	{
-		QDir::setCurrent(CurDirP);
-		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->setScriptRunning(false);
-		delete m_Doc;
-	}
+	QDir::setCurrent(CurDirP);
+	m_Doc->DoDrawing = true;
+	m_Doc->scMW()->setScriptRunning(false);
+	delete m_Doc;
 	return QImage();
 }
 
-bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;
@@ -583,7 +580,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -738,7 +735,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -769,7 +766,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -805,8 +802,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 EmfPlug::~EmfPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
@@ -1098,8 +1094,7 @@ bool EmfPlug::convert(QString fn)
 			{
 				if (id == U_EMR_EOF)
 					break;
-				else if (id == U_EMR_COMMENT)
-					handleComment(ds);
+				handleComment(ds);
 			}
 			else
 			{
@@ -2615,12 +2610,12 @@ void EmfPlug::handleArcTo(QDataStream &ds)
 		if (enlin.angleTo(stlin) > 180)
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
+			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
 		}
 		else
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
+			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
 		}
 		currentDC.currentPoint = en;
 	}
@@ -2784,7 +2779,7 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 	if (currentDC.textAlignment & 0x0008)
 		painterPath.translate(0, fm.descent());
 	textPath.fromQPainterPath(painterPath);
-	if (textPath.size() > 0)
+	if (!textPath.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -2915,7 +2910,7 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 	painterPath = bm.map(painterPath);
 	FPointArray textPath;
 	textPath.fromQPainterPath(painterPath);
-	if (textPath.size() > 0)
+	if (!textPath.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -4903,7 +4898,7 @@ void EmfPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 
 	}
 	FPointArray textPath;
 	textPath.fromQPainterPath(painterPath);
-	if (textPath.size() > 0)
+	if (!textPath.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -4998,7 +4993,7 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	painterPath = bm.map(painterPath);
 	painterPath.translate(rect[0].x(), rect[0].y());
 	textPath.fromQPainterPath(painterPath);
-	if (textPath.size() > 0)
+	if (!textPath.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);

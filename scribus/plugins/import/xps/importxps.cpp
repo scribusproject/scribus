@@ -132,7 +132,7 @@ QImage XpsPlug::readThumbnail(QString fName)
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
-		m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		Elements.clear();
@@ -210,7 +210,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -316,7 +316,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -347,7 +347,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -384,8 +384,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 XpsPlug::~XpsPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 	for (int a = 0; a < tempFontFiles.count(); a++)
 	{
@@ -1929,23 +1928,17 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 		unsigned short guid[16];
 		if (!parseGUID(baseName, guid))
 			return t;
-		else
+		if (fontData.length() < 32)
 		{
-			if (fontData.length() < 32)
-			{
-				qDebug() << "Font file is too small";
-				return t;
-			}
-			else
-			{
-				// Obfuscation - xor bytes in font binary with bytes from guid (font's filename)
-				const static int mapping[] = {15, 14, 13, 12, 11, 10, 9, 8, 6, 7, 4, 5, 0, 1, 2, 3};
-				for (int i = 0; i < 16; i++)
-				{
-					fontData[i] = fontData[i] ^ guid[mapping[i]];
-					fontData[i+16] = fontData[i+16] ^ guid[mapping[i]];
-				}
-			}
+			qDebug() << "Font file is too small";
+			return t;
+		}
+		// Obfuscation - xor bytes in font binary with bytes from guid (font's filename)
+		const static int mapping[] = {15, 14, 13, 12, 11, 10, 9, 8, 6, 7, 4, 5, 0, 1, 2, 3};
+		for (int i = 0; i < 16; i++)
+		{
+			fontData[i] = fontData[i] ^ guid[mapping[i]];
+			fontData[i+16] = fontData[i+16] ^ guid[mapping[i]];
 		}
 	}
 	QFile ft(fname);

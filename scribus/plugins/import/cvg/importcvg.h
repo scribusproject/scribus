@@ -52,11 +52,11 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 
 private:
-	void parseHeader(QString fName, double &b, double &h);
-	bool convert(QString fn);
+	void parseHeader(const QString& fName, double &b, double &h);
+	bool convert(const QString& fn);
 	void getObjects(QDataStream &ts, bool colorFlag, quint32 lenData);
 	void parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag);
 	

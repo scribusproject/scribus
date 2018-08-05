@@ -133,7 +133,7 @@ bool ImportSvmPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	if (m_Doc == 0)
+	if (m_Doc == nullptr)
 		m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = nullptr;
 	bool emptyDoc = (m_Doc == nullptr);

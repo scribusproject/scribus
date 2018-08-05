@@ -92,7 +92,7 @@ bool XarPlug::readColors(const QString& fNameIn, ColorList &colors)
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
-		m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 		m_Doc->setLoading(true);
 		m_Doc->DoDrawing = false;
 		m_Doc->scMW()->setScriptRunning(true);
@@ -120,7 +120,7 @@ bool XarPlug::readColors(const QString& fNameIn, ColorList &colors)
 						tsc.skipRawData(dataLen);
 						break;
 					}
-					else if (opCode == 51)
+					if (opCode == 51)
 						handleComplexColor(tsc);
 					else
 						tsc.skipRawData(dataLen);
@@ -230,9 +230,9 @@ QImage XarPlug::readThumbnail(QString fName)
 	return image;
 }
 
-bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool XarPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
+	const QString& fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -247,7 +247,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -361,7 +361,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -392,7 +392,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -429,8 +429,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 XarPlug::~XarPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
+	delete progressDialog;
 	delete tmpSel;
 }
 
@@ -452,7 +451,7 @@ void XarPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 	}
 }
 
-bool XarPlug::convert(QString fn)
+bool XarPlug::convert(const QString& fn)
 {
 	Coords.resize(0);
 	Coords.svgInit();
@@ -1253,7 +1252,7 @@ void XarPlug::endTextLine()
 	double xpos = 0;
 	if (isPathText)
 	{
-		if (textPath.size() > 0)
+		if (!textPath.empty())
 		{
 			QPainterPath guidePath = textPath.toQPainterPath(false);
 			for (int a = 0; a < textLines.count(); a++)
@@ -1327,7 +1326,7 @@ void XarPlug::endTextLine()
 						Coords.fromQPainterPath(painterPath);
 						QPointF np = textMatrix.map(QPointF(TextX, TextY));
 						Coords.translate(np.x(), np.y());
-						if (Coords.size() > 0)
+						if (!Coords.empty())
 						{
 							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, txDat.FillCol, CommonStrings::None);
 							PageItem *item = m_Doc->Items->at(z);
@@ -1434,7 +1433,7 @@ void XarPlug::endTextLine()
 					double dist = qMax(gc->LineWidth, gc->LineWidth2) - (QFontMetricsF(textFont).width(txDat.itemText) / 10.0);
 					Coords.translate(dist, 0);
 				}
-				if (Coords.size() > 0)
+				if (!Coords.empty())
 				{
 					int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None);
 					PageItem *item = m_Doc->Items->at(z);
@@ -3182,7 +3181,7 @@ void XarPlug::finishItem(int z)
 		XarGroup gg = groupStack.top();
 		if (gg.clipping)
 		{
-			if (clipCoords.size() == 0)
+			if (clipCoords.empty())
 			{
 				gc->clipPath = ite->PoLine.copy();
 				gc->clipPath.translate(ite->xPos(), ite->yPos());
@@ -3669,7 +3668,7 @@ void XarPlug::popGraphicContext()
 				groupItem->FrameType = 3;
 				groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
 				groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-				if (gc->clipPath.size() > 0)
+				if (!gc->clipPath.empty())
 				{
 					groupItem->PoLine = gc->clipPath.copy();
 					groupItem->PoLine.translate(-minx + baseX, -miny + baseY);
