@@ -591,7 +591,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 							p->scale(1, -1);
 						}
 						p->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
-						for (uint cg = 0; cg < itemCountG; cg++)
+						for (int cg = 0; cg < itemCountG; cg++)
 						{
 							p->save();
 							currItem = gItem->groupItemList.at(cg);

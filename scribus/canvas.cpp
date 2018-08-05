@@ -1028,7 +1028,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 				{
 					m_doc->Layers.levelToLayer(layer, layerLevel);
-					for (uint a = 0; a < docPagesCount; ++a)
+					for (int a = 0; a < docPagesCount; ++a)
 					{
 						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
 					}
