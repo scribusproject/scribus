@@ -2537,15 +2537,13 @@ void PDFLibCore::PDF_Begin_Colors()
 			const ScColor& colorToUse = itf.value();
 			if ((colorToUse.isSpotColor()) || (colorToUse.isRegistrationColor()))
 			{
-				CMYKColor cmykValues;
-				int cc, cm, cy, ck;
+				CMYKColorF cmykValues;
 				PdfSpotC spotD;
 				ScColorEngine::getCMYKValues(colorToUse, &doc, cmykValues);
-				cmykValues.getValues(cc, cm, cy, ck);
-				QByteArray colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
-				colorDesc += FToStr(static_cast<double>(cm) / 255)+"\nmul exch dup ";
-				colorDesc += FToStr(static_cast<double>(cy) / 255)+"\nmul exch ";
-				colorDesc += FToStr(static_cast<double>(ck) / 255)+" mul }";
+				QByteArray colorDesc = "{\ndup " + FToStr(cmykValues.c) + "\nmul exch dup ";
+				colorDesc += FToStr(cmykValues.m) + "\nmul exch dup ";
+				colorDesc += FToStr(cmykValues.y) + "\nmul exch ";
+				colorDesc += FToStr(cmykValues.k) + " mul }";
 				PdfId separationFunction = writer.newObject();
 				writer.startObj(separationFunction);
 				PutDoc("<<\n/FunctionType 4\n");
