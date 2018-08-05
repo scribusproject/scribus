@@ -282,8 +282,8 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				Farben += "%%+ ";
 				FNamen += "%%+ ";
 			}
-			Farben += ToStr(static_cast<double>(c) / 255) + " " + ToStr(static_cast<double>(m) / 255) + " ";
-			Farben += ToStr(static_cast<double>(y) / 255) + " " + ToStr(static_cast<double>(k) / 255) + " (" + itf.key() + ")\n";
+			Farben += ToStr(c) + " " + ToStr(m) + " ";
+			Farben += ToStr(y) + " " + ToStr(k) + " (" + itf.key() + ")\n";
 			FNamen += "(" + itf.key() + ")\n";
 			erst = false;
 		}
