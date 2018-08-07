@@ -33,13 +33,14 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QImage>
 
+#include <cmath>
 #include <iostream>
 #include <memory>
 using namespace std;
- 
-#include <cmath>
+
 #include "colormgmt/sccolormgmtengine.h"
 #include "sccolorengine.h"
+#include "scimage.h"
 #include "util.h"
 
 ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)

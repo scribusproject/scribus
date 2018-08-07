@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "vgradient.h"
 #include "scpainterexbase.h"
 
+class ScImage;
 class ScribusDoc;
 
 class ScPs2OutputParams
