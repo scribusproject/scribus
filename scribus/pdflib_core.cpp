@@ -1433,23 +1433,21 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			}
 			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 			{
-				QString fon("");
 				QByteArray bb;
 				embeddedFontObject = newObject();
 				StartObj(embeddedFontObject);
 				face.RawData(bb);
-				//AV: += and append() dont't work because they stop at '\0' :-(
-				for (int i=0; i < bb.size(); i++)
-					fon += QChar(bb[i]);
-				int len = fon.length();
+				int len = bb.length();
 				if (Options.Compress)
-					fon = CompressStr(&fon);
+					bb = CompressArray(bb);
 				//qDebug() << QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length());
-				PutDoc("<<\n/Length "+QString::number(fon.length()+1)+"\n");
+				PutDoc("<<\n/Length "+QString::number(bb.length()+1)+"\n");
 				PutDoc("/Length1 "+QString::number(len)+"\n");
 				if (Options.Compress)
 					PutDoc("/Filter /FlateDecode\n");
-				PutDoc(">>\nstream\n"+EncStream(fon, embeddedFontObject)+"\nendstream\nendobj\n");
+				PutDoc(">>\nstream\n");
+				EncodeArrayToStream(bb, embeddedFontObject);
+				PutDoc("\nendstream\nendobj\n");
 			}
 			uint fontDescriptor = newObject();
 			StartObj(fontDescriptor);

@@ -457,6 +457,14 @@ uint word16(QByteArray const & bb, uint pos)
 	const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
 	return pp[0] << 8 | pp[1];
 }
+void putWord(QByteArray & bb, uint pos, quint32 val)
+{
+	unsigned char * pp = reinterpret_cast<unsigned char*>(bb.data()) + pos;
+	*pp++ = (val >> 24) & 0xFF;
+	*pp++ = (val >> 16) & 0xFF;
+	*pp++ = (val >> 8) & 0xFF;
+	*pp++ = (val) & 0xFF;
+}
 QString tag(QByteArray const & bb, uint pos)
 {
 	char buf[5] = "1234";
@@ -563,10 +571,11 @@ void ScFace_ttf::RawData(QByteArray & bb) const {
 			uint tableStart = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8);
 			sDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
 			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
-			if (!copy(bb, pos, coll, tableStart, tableSize)) break;
+			if (!copy(bb, pos, coll, tableStart, tableSize))
+				break;
 			// write new offset to table entry
 			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
-			memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
+			putWord(bb, OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, pos);
 			pos += tableSize;
 			// pad
 			while ((pos & 3) != 0)
