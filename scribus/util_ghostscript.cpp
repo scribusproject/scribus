@@ -148,25 +148,24 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( "-dBATCH" );
-	if( level == 2 )
+	if (level == 2)
 	{
-		int major = 0, minor = 0;
+		int gsVersion = 0;
 		// ps2write cannot be detected with testGSAvailability()
 		// so determine availability according to gs version.
-		getNumericGSVersion(major, minor);
-		if ((major >=8 && minor >= 53) || major > 8)
+		getNumericGSVersion(gsVersion);
+		if (gsVersion >= 853)
 			args.append( "-sDEVICE=ps2write" );
 		else
 		{
 			args.append( "-sDEVICE=pswrite" );
 			args.append( QString("-dLanguageLevel=%1").arg(level) );
-		}
-			
+		}	
 	}
 	else
 	{
 		args.append( "-sDEVICE=pswrite" );
-		if(level <= 3)
+		if (level <= 3)
 			args.append( QString("-dLanguageLevel=%1").arg(level) );
 	}
 	args += opts;
@@ -242,6 +241,18 @@ QString getGSVersion()
 	if (proc.exitStatus()==QProcess::NormalExit)
 		gsVer = proc.readAllStandardOutput();
 	return gsVer;
+}
+
+bool getNumericGSVersion(int &version)
+{
+	int gsMajor(0), gsMinor(0);
+	version = 0;
+	if (getNumericGSVersion(gsMajor, gsMinor))
+	{
+		version = 100 * gsMajor + gsMinor;
+		return true;
+	}
+	return false;
 }
 
 // Return the GhostScript major and minor version numbers.
@@ -376,9 +387,9 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 				{
 					// We now have GhostScript dll path, but we want gswin32c.exe
 					// Normally gswin32c.exe and gsdll.dll are in the same directory
-					if ( getNumericGSVersion(QString::fromUtf16((const ushort*) regVersion), gsMajor, gsMinor) )
+					if (getNumericGSVersion(QString::fromUtf16((const ushort*) regVersion), gsMajor, gsMinor))
 					{
-						gsNumericVer = gsMajor * 1000 + gsMinor;
+						gsNumericVer = gsMajor * 100 + gsMinor;
 						gsName = QString::fromUtf16((const ushort*) gsPath);
 						size   = gsName.lastIndexOf("\\");
 						if (size > 0)
@@ -401,7 +412,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	PrefsManager* prefsManager=PrefsManager::instance();
 	if (getNumericGSVersion(gsMajor, gsMinor))
 	{
-		gsNumericVer = gsMajor * 1000 + gsMinor;
+		gsNumericVer = gsMajor * 100 + gsMinor;
 		gsVersions.insert(gsNumericVer, prefsManager->ghostscriptExecutable());
 	}
 #endif

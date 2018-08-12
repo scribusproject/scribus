@@ -105,7 +105,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	fGray = false;
 	scaleFactor = 1.0;
 	SMode = 1;
-	getNumericGSVersion(GsMajor, GsMinor);
+	getNumericGSVersion(GsVersion);
 	PLayout = new QVBoxLayout(this);
 	PLayout->setMargin(0);
 	PLayout->setSpacing(0);
@@ -627,7 +627,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
+	if ((doc->HasCMS) && (GsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		if (EnableCMYK->isChecked() && HaveTiffSep)
@@ -635,7 +635,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocOutputProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	else if (ScCore->haveCMS() && (GsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		if (EnableCMYK->isChecked() && HaveTiffSep)
@@ -727,12 +727,12 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
+	if ((doc->HasCMS) && (GsVersion >= 900))
 	{
 		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	else if (ScCore->haveCMS() && (GsVersion >= 900))
 	{
 		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
@@ -965,9 +965,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			CMSettings cms(doc, "", Intent_Perceptual);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Cyan).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -983,9 +983,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Magenta).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -1001,9 +1001,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Yellow).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -1026,9 +1026,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;
-						if ((GsMinor < 54) && (GsMajor < 9))
+						if (GsVersion < 854)
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
-						else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+						else if (GsVersion <= 905)
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
 						else
 							fnam = QString(ScPaths::getTempFileDir()+"/sc(%1).tif").arg(sepit.key());
@@ -1047,9 +1047,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Black"]->isChecked())
 			{
 				CMSettings cms(doc, "", Intent_Perceptual);
-				if ((GsMinor < 54) && (GsMajor < 9))
+				if (GsVersion < 854)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
+				else if (GsVersion <= 905)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Black).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
