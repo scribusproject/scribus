@@ -190,7 +190,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				FontDesc += "cl\n} bind def\n";
 			}
 			FontDesc += "end\n";
-			FontSubsetMap.insert(face.scName(), encodedName);
+			FontSubsetMap.insert(face.replacementName(), encodedName);
 		}
 		else
 		{
@@ -210,7 +210,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			GlyphsOfFont.insert(it.key(), gl);
 			a++;
 		}
-		psNameMap.insert(encodedName, face.scName());
+		psNameMap.insert(encodedName, face.replacementName());
 	}
 	Prolog = "%%BeginProlog\n";
 	Prolog += "/Scribusdict 100 dict def\n";
@@ -2839,7 +2839,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					continue;
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				if (FontSubsetMap.contains(style.font().scName()))
+				if (FontSubsetMap.contains(style.font().replacementName()))
 				{
 //					uint chr = chstr.unicode();
 					uint chr = style.font().char2CMap(chstr);
@@ -2931,11 +2931,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									PS_save();
 									PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
 									putColorNoDraw(style.strokeColor(), style.strokeShade());
-									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+									PS_showSub(chr, FontSubsetMap[style.font().replacementName()], tsz / 10.0, false);
 									PS_restore();
 								}
 								putColorNoDraw(style.fillColor(), style.fillShade());
-								PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+								PS_showSub(chr, FontSubsetMap[style.font().replacementName()], tsz / 10.0, false);
 								if ((style.effects() & ScStyle_Outline))
 								{
 									if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -2943,7 +2943,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 										PS_save();
 										PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
 										putColorNoDraw(style.strokeColor(), style.strokeShade());
-										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
+										PS_showSub(chr, FontSubsetMap[style.font().replacementName()], tsz / 10.0, true);
 										PS_restore();
 									}
 								}
@@ -3846,7 +3846,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
 		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		if (FontSubsetMap.contains(cstyle.font().scName()))
+		if (FontSubsetMap.contains(cstyle.font().replacementName()))
 		{
 			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')) && (!SpecialChars::isBreak(chstr)))
 			{
@@ -3871,7 +3871,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a
 				if (cstyle.fillColor() != CommonStrings::None)
 				{
 					putColorNoDraw(cstyle.fillColor(), cstyle.fillShade());
-					PS_showSub(glyph, FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
+					PS_showSub(glyph, FontSubsetMap[cstyle.font().replacementName()], tsz / 10.0, false);
 				}
 				PS_restore();
 			}
