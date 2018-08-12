@@ -656,7 +656,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && HaveTiffSep)
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
-	else if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
+	else if ((EnableCMYK->isChecked() && !HaveTiffSep) || (AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
 	else
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
