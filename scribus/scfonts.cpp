@@ -123,7 +123,7 @@ void SCFonts::AddPath(QString p)
 		FontPath.insert(FontPath.count(),p);
 }
 
-void SCFonts::AddScalableFonts(const QString &path, QString DocName)
+void SCFonts::AddScalableFonts(const QString &path, const QString& DocName)
 {
 	//Make sure this is not empty or we will scan the whole drive on *nix
 	//QString::null+/ is / of course.
@@ -320,7 +320,7 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 	{
 		if (a.name_id == TT_NAME_ID_PREFERRED_FAMILY)
 			return true;
-		else if (b.name_id == TT_NAME_ID_PREFERRED_FAMILY)
+		if (b.name_id == TT_NAME_ID_PREFERRED_FAMILY)
 			return false;
 	}
 
@@ -331,11 +331,11 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 	{
 		if (a.platform_id == TT_PLATFORM_MICROSOFT)
 			return true;
-		else if (b.platform_id == TT_PLATFORM_MICROSOFT)
+		if (b.platform_id == TT_PLATFORM_MICROSOFT)
 			return false;
-		else if (a.platform_id == TT_PLATFORM_APPLE_UNICODE)
+		if (a.platform_id == TT_PLATFORM_APPLE_UNICODE)
 			return true;
-		else if (b.platform_id == TT_PLATFORM_APPLE_UNICODE)
+		if (b.platform_id == TT_PLATFORM_APPLE_UNICODE)
 			return false;
 	}
 
@@ -362,7 +362,7 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 		{
 			if (a.language_id == TT_MS_LANGID_ENGLISH_UNITED_STATES)
 				return true;
-			else if (b.language_id == TT_MS_LANGID_ENGLISH_UNITED_STATES)
+			if (b.language_id == TT_MS_LANGID_ENGLISH_UNITED_STATES)
 				return false;
 		}
 	}
@@ -901,12 +901,12 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		error = FT_New_Face(library, QFile::encodeName(filename), faceIndex, &face);
 	} //while
 	
-	if (face != 0)
+	if (face != nullptr)
 		FT_Done_Face(face);
 	return error && faceIndex == 0;
 }
 
-void SCFonts::removeFont(QString name)
+void SCFonts::removeFont(const QString& name)
 {
 	remove(name);
 	updateFontMap();
@@ -990,7 +990,7 @@ void SCFonts::AddFontconfigFonts()
 	// The ObjectSet tells FontConfig what information about each match to return.
 	// We currently just need FC_FILE, but other info like font family and style
 	// is available - see "man fontconfig".
-	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
+	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) nullptr);
 	if (!os)
 	{
 		qFatal("SCFonts::AddFontconfigFonts() FcObjectSet* os failed to build object set");
@@ -1100,7 +1100,7 @@ void SCFonts::AddXFontServerPath()
  * allowing a user to have extra fonts installed
  * only for this user. Can also be used also as an emergency
  * fallback if no suitable fonts are found elsewere */
-void SCFonts::AddUserPath(QString )
+void SCFonts::AddUserPath(const QString& pf)
 {
 	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraDirs = pc->getTable("ExtraFontDirs");
@@ -1108,7 +1108,7 @@ void SCFonts::AddUserPath(QString )
 		AddPath(extraDirs->get(i, 0));
 }
 
-void SCFonts::ReadCacheList(QString pf)
+void SCFonts::ReadCacheList(const QString& pf)
 {
 	QFile fr(pf + "/cfonts.xml");
 	QFileInfo fir(fr);

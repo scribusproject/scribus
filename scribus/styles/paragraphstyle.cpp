@@ -73,8 +73,7 @@ QString ParagraphStyle::displayName() const
 		return name();
 	//	else if ( inheritsAll() )
 	//		return parent()->displayName();
-	else 
-		return parentStyle()->displayName() + "+";
+	return parentStyle()->displayName() + "+";
 }
 
 
@@ -379,7 +378,7 @@ using namespace desaxe;
 
 const Xml_string ParagraphStyle::saxxDefaultElem("style");
 
-void ParagraphStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
+void ParagraphStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, const Xml_string& elemtag)
 {
 	typedef ParagraphStyle::TabRecord TabRecord;
 		

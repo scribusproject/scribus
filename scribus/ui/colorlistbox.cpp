@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-ColorPixmapValue::ColorPixmapValue() : m_color(), m_doc(nullptr), m_name("invalid")
+ColorPixmapValue::ColorPixmapValue() : m_doc(nullptr), m_name("invalid")
 {}
 
 ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)
@@ -42,7 +42,7 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 	return *this;
 }
 
-ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName ) 
+ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	m_doc = (doc) ? doc->guardedPtr() : nullptr;
 	m_color = col;
@@ -176,24 +176,21 @@ QString ColorSmallItemDelegate::text(const QVariant& data) const
 {
 	if (data.canConvert<ColorPixmapValue>())
 		return data.value<ColorPixmapValue>().m_name;
-	else
-		return data.toString();
+	return data.toString();
 }
 
 QString ColorWideItemDelegate::text(const QVariant& data) const
 {
 	if (data.canConvert<ColorPixmapValue>())
 		return data.value<ColorPixmapValue>().m_name;
-	else
-		return data.toString();
+	return data.toString();
 }
 
 QString ColorFancyItemDelegate::text(const QVariant& data) const
 {
 	if (data.canConvert<ColorPixmapValue>())
 		return data.value<ColorPixmapValue>().m_name;
-	else
-		return data.toString();
+	return data.toString();
 }
 
 
@@ -311,8 +308,7 @@ QString ColorListBox::currentColor() const
 		QAbstractItemModel* itemModel = model();
 		return itemModel->data(currentIndex(), Qt::DisplayRole).toString();
 	}
-	else
-		return CommonStrings::tr_NoneColor;
+	return CommonStrings::tr_NoneColor;
 }
 
 int ColorListBox::currentRow() const
@@ -354,7 +350,7 @@ void ColorListBox::insertItem(int row, const ScColor& color, const QString& colo
 	if (!colorListModel)
 		return;
 
-	ScribusDoc* doc = 0;
+	ScribusDoc* doc = nullptr;
 	if (cList)
 		doc = cList->document();
 
@@ -432,8 +428,7 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 		if (!colorDelegate)
 		{
 			setItemDelegate(new ColorFancyItemDelegate());
-			if (oldDelegate)
-				delete oldDelegate;
+			delete oldDelegate;
 			m_type = type;
 		}
 	}
@@ -444,8 +439,7 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 		if (!colorDelegate)
 		{
 			setItemDelegate(new ColorWideItemDelegate());
-			if (oldDelegate)
-				delete oldDelegate;
+			delete oldDelegate;
 			m_type = type;
 		}
 	}
@@ -456,8 +450,7 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 		if (!colorDelegate)
 		{
 			setItemDelegate(new ColorSmallItemDelegate());
-			if (oldDelegate)
-				delete oldDelegate;
+			delete oldDelegate;
 			m_type = type;
 		}
 	}

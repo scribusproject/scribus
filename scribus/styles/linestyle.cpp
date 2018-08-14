@@ -62,8 +62,7 @@ QString LineStyle::displayName() const
 		return name();
 //	else if ( inheritsAll() )
 //		return parent()->displayName();
-	else 
-		return parentStyle()->displayName() + "+";
+	return parentStyle()->displayName() + "+";
 }
 
 
@@ -250,7 +249,7 @@ using namespace desaxe;
 
 const Xml_string LineStyle::saxxDefaultElem("linestyle");
 
-void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
+void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, const Xml_string& elemtag)
 {
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<LineStyle>());

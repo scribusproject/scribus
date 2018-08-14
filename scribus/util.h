@@ -54,16 +54,16 @@ QStringList SCRIBUS_API sortQStringList(QStringList aList);
 bool SCRIBUS_API sortingQPairOfStrings( QPair<QString, QString> aP, QPair<QString, QString> bP);
 void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
-QString SCRIBUS_API Path2Relative(QString Path, const QString& baseDir = QDir::currentPath());
-QString SCRIBUS_API Relative2Path(QString File, const QString& baseDir = QDir::currentPath());
+bool SCRIBUS_API overwrite(QWidget *parent, const QString& filename);
+QString SCRIBUS_API Path2Relative(const QString& Path, const QString& baseDir = QDir::currentPath());
+QString SCRIBUS_API Relative2Path(const QString& File, const QString& baseDir = QDir::currentPath());
 char SCRIBUS_API *toAscii85( quint32 value, bool& allZero );
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
 QByteArray SCRIBUS_API CompressArray(const QByteArray& in);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
-bool SCRIBUS_API loadText(QString nam, QString *Buffer);
+bool SCRIBUS_API loadText(const QString& nam, QString *Buffer);
 /*! \brief Replacement version of loadText that returns a QCString as an out parameter.
 The QCString is filled with the contents of the specified file. The return
 byte string is of unknown encoding; the caller must handle encoding issues.
@@ -94,9 +94,9 @@ bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
    * @return Program exit code, or 1 on failure.
    *
 */
-int SCRIBUS_API System(const QString exename, const QStringList & args,
-					   const QString fileStdErr = "", const QString fileStdOut = "",
-					   bool* cancel = nullptr);
+int SCRIBUS_API System(const QString& exename, const QStringList & args,
+					   const QString& fileStdErr = "", const QString& fileStdOut = "",
+					   const bool* cancel = nullptr);
 
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)
@@ -124,20 +124,20 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
    \retval QString standardized filename
    \author Petr Vanek
  */
-QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, QString prefix=QString::null);
+QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix=QString::null);
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
-const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, QString asterix="*");
+const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
 const QString SCRIBUS_API numberToRoman(uint i);
 const QString SCRIBUS_API numberToCJK(uint i);
 QChar SCRIBUS_API cjkDigit(uint i);
 const QString SCRIBUS_API numberToLetterSequence(const QString& letters, uint num);
-void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
+void SCRIBUS_API parsePagesString(const QString& pages, std::vector<int>* pageNs, int sourcePageCount);
 
 QString SCRIBUS_API readLineFromDataStream(QDataStream &s);
-void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
-void SCRIBUS_API setCurrentComboItemFromData(QComboBox *box, QString data);
-void SCRIBUS_API removeComboItem(QComboBox *box, QString text);
+void SCRIBUS_API setCurrentComboItem(QComboBox *box, const QString& text);
+void SCRIBUS_API setCurrentComboItemFromData(QComboBox *box, const QString& data);
+void SCRIBUS_API removeComboItem(QComboBox *box, const QString& text);
 
 QString SCRIBUS_API readAdobeUniCodeString(QDataStream &s);
 QString SCRIBUS_API readAdobeUniCodeString16(QDataStream &s);
@@ -158,6 +158,6 @@ void SCRIBUS_API setWidgetBoldFont(QWidget* w, bool wantBold);
  * check if name exists in list
  * if exist then seprator and numbers are pre/append to name while it will be unique
 */
-void SCRIBUS_API getUniqueName(QString &name, QStringList list, QString separator = "", bool prepend = false);
+void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = "", bool prepend = false);
 
 #endif

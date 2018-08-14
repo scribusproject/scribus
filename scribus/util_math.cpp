@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-uint getDouble(const QByteArray in, bool raw)
+uint getDouble(const QByteArray& in, bool raw)
 {
 	QByteArray bb(4, ' ');
 	if (raw)
@@ -344,7 +344,8 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	const QVector<QRect> rects = shape.rects();
 	pbox = (rectCount == 1) ? &boundingRect : rects.constData();
 	pboxEnd = pbox + rectCount;
-	for (; pbox < pboxEnd; ++pbox) {
+	for (; pbox < pboxEnd; ++pbox)
+	{
 		if (pbox->bottom() < ry)
 			continue;
 
@@ -389,7 +390,7 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	/*bool newResult = partIn ? ((ry <= prect->bottom()) ? false : true) : false;
 	if (oldResult != newResult)
 		int test = 0;*/
-	return partIn ? ((ry <= prect->bottom()) ? false : true) : false;
+	return partIn ? (ry > prect->bottom()) : false;
 }
 
 QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
@@ -406,10 +407,10 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 			Segs.append(outa.size());
 			continue;
 		}
-		FPoint a1 = ina.point(poi);
-		FPoint a2 = ina.point(poi+1);
-		FPoint a3 = ina.point(poi+3);
-		FPoint a4 = ina.point(poi+2);
+		const FPoint& a1 = ina.point(poi);
+		const FPoint& a2 = ina.point(poi+1);
+		const FPoint& a3 = ina.point(poi+3);
+		const FPoint& a4 = ina.point(poi+2);
 		QPainterPath Bez;
 		Bez.moveTo(a1.x(), a1.y());
 		Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());

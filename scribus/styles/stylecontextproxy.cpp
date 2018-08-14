@@ -28,8 +28,7 @@ const BaseStyle* StyleContextProxy::resolve(const QString& name) const
 	
 	if (name.isEmpty() || ! context)
 		return m_default;
-	else if (this == context)
-		return NULL;
-	else
-		return context->resolve(name);
+	if (this == context)
+		return nullptr;
+	return context->resolve(name);
 }

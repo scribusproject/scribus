@@ -59,7 +59,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-int callGS(const QStringList& args_in, const QString device, const QString fileStdErr, const QString fileStdOut)
+int callGS(const QStringList& args_in, const QString& device, const QString& fileStdErr, const QString& fileStdOut)
 {
 	QString cmd;
  	QStringList args;
@@ -100,7 +100,7 @@ int callGS(const QStringList& args_in, const QString device, const QString fileS
 	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args, fileStdErr, fileStdOut );
 }
 
-int callGS(const QString& args_in, const QString device)
+int callGS(const QString& args_in, const QString& device)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
@@ -140,7 +140,7 @@ int callGS(const QString& args_in, const QString device)
 	return system(cmd1.toLocal8Bit().constData());
 }
 
-int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
+int convertPS2PS(const QString& in, const QString& out, const QStringList& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QStringList args;
@@ -177,7 +177,7 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	return ret;
 }
 
-int convertPS2PDF(QString in, QString out, const QStringList& opts)
+int convertPS2PDF(const QString& in, const QString& out, const QStringList& opts)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QStringList args;
@@ -194,7 +194,7 @@ int convertPS2PDF(QString in, QString out, const QStringList& opts)
 	return ret;
 }
 
-bool testGSAvailability( void )
+bool testGSAvailability()
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
@@ -273,12 +273,10 @@ bool getNumericGSVersion(const QString& ver, int& major, int& minor)
 	if (!success)
 		return false;
 	minor = ver.section('.', 1, 1).toInt(&success);
-	if (!success)
-		return false;
-	return true;
+	return success;
 }
 
-QString getGSDefaultExeName(void)
+QString getGSDefaultExeName()
 {
 	QString gsName("gs");
 #if defined _WIN32
@@ -421,7 +419,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	return gsVersions;
 }
 
-QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
+QPixmap LoadPDF(const QString& fn, int Page, int Size, int *w, int *h)
 {
 	QString tmp;
 	QString pdfFile = QDir::toNativeSeparators(fn);

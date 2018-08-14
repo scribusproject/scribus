@@ -65,7 +65,9 @@ const BaseStyle* BaseStyle::parentStyle() const
 	if (m_isDefaultStyle)
 		return nullptr;
 	const BaseStyle * par = m_context ? m_context->resolve(m_parent) : nullptr;
-	if (par == this) return nullptr; else return par;
+	if (par == this)
+		return nullptr;
+	return par;
 }
 
 bool BaseStyle::canInherit(const QString& parentName) const

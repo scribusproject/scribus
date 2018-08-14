@@ -18,9 +18,9 @@
 #include <QByteArray>
 #include <QDebug>
 
-ScCLocale * ScCLocale::m_instance = 0;
+ScCLocale * ScCLocale::m_instance = nullptr;
 ScCLocale::ScCLocale()
-	:qLocale(QLocale::C), cLocale(0)
+	:qLocale(QLocale::C), cLocale(nullptr)
 {
 	qLocale.setNumberOptions(QLocale::OmitGroupSeparator);
 

@@ -60,7 +60,7 @@ QString cleanupLang(const QString& lang)
 	return cleanLang;
 }
 
-int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
+int System(const QString& exename, const QStringList & args, const QString& fileStdErr, const QString& fileStdOut, const bool* cancel)
 {
 	QProcess proc;
 	if (!fileStdOut.isEmpty())
@@ -73,14 +73,14 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 		while (!proc.waitForFinished(15000))
 		{
 			qApp->processEvents();
-			if (cancel && (*cancel == true))
+			if (cancel && (*cancel))
 			{
 				proc.kill();
 				break;
 			}
 		}
 	}
-	if (cancel && (*cancel == true))
+	if (cancel && (*cancel))
 		return -1;
 	return proc.exitCode();
 }
@@ -130,7 +130,7 @@ QString getLongPathName(const QString & shortPath)
 // Use loadRawText instead.
 // FIXME XXX
 //
-bool loadText(QString filename, QString *Buffer)
+bool loadText(const QString& filename, QString *Buffer)
 {
 	QFile f(filename);
 	QFileInfo fi(f);
@@ -319,13 +319,13 @@ QString String2Hex(QString *in, bool lang)
 	return out;
 }
 
-QString Path2Relative(QString Path, const QString& baseDir)
+QString Path2Relative(const QString& Path, const QString& baseDir)
 {
 	QDir d(baseDir);
 	return d.relativeFilePath(Path);
 }
 
-QString Relative2Path(QString File, const QString& baseDir)
+QString Relative2Path(const QString& File, const QString& baseDir)
 {
 	QString   absPath;
 	QFileInfo fi(File);
@@ -350,7 +350,7 @@ QString Relative2Path(QString File, const QString& baseDir)
 // check if the file exists, if it does, ask if they're sure
 // return true if they're sure, else return false;
 
-bool overwrite(QWidget *parent, QString filename)
+bool overwrite(QWidget *parent, const QString& filename)
 {
 	bool retval = true;
 	QFileInfo fi(filename);
@@ -380,26 +380,22 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	bool first = true;
 	PageItem *nextItem = currItem;
 	PageItem *nbl = currItem;
-	while (nextItem != 0)
+	while (nextItem != nullptr)
 	{
-		if (nextItem->prevInChain() != 0)
+		if (nextItem->prevInChain() != nullptr)
 			nextItem = nextItem->prevInChain();
 		else
 			break;
 	}
-	while (nextItem != 0)
+	while (nextItem != nullptr)
 	{
 		for (int a = qMax(nextItem->firstInFrame(),0); a <= nextItem->lastInFrame() && a < nextItem->itemText.length(); ++a)
 		{
 			QChar b = nextItem->itemText.text(a);
 			if (b == SpecialChars::PARSEP)
-			{
 				para++;
-			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
-			{
 				ww++;
-			}
 			if (b.isSurrogate())
 				++a;
 			cc++;
@@ -409,19 +405,16 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 		nbl = nextItem;
 		nextItem = nextItem->nextInChain();
 	}
-	if (nbl->frameOverflows()) {
+	if (nbl->frameOverflows())
+	{
 		paraN++;
 		for (int a = nbl->lastInFrame()+1; a < nbl->itemText.length(); ++a)
 		{
 			QChar b = nbl->itemText.text(a);
 			if (b == SpecialChars::PARSEP)
-			{
 				paraN++;
-			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
-			{
 				wwN++;
-			}
 			if (b.isSurrogate())
 				++a;
 			ccN++;
@@ -479,11 +472,9 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 \param s2 second string
 \retval bool t/f related s1>s2
  */
-bool compareQStrings(QString s1, QString s2)
+bool compareQStrings(const QString& s1, const QString& s2)
 {
-	if (QString::localeAwareCompare(s1, s2) >= 0)
-		return false;
-	return true;
+	return QString::localeAwareCompare(s1, s2) < 0;
 }
 
 QStringList sortQStringList(QStringList aList)
@@ -522,7 +513,7 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	return newName;
 }
 
-QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, QString prefix)
+QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix)
 {
 	uint number = pageNo + currDoc->FirstPnum;
 	QString defaultName;
@@ -540,9 +531,9 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, Q
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
 }
 
-const QString getStringFromSequence(NumFormat type, uint position, QString asterix)
+const QString getStringFromSequence(NumFormat type, uint position, const QString& asterix)
 {
-	QString retVal("");
+	QString retVal;
 
 	const QString english("abcdefghijklmnopqrstuvwxyz");
 	const QString arabic("أبتثجحخدذرزسشصضطظعغفقكلمنهوي");
@@ -723,7 +714,7 @@ const QString numberToRoman(uint i)
 }
 
 //CB Moved from scribus.cpp
-void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount)
+void parsePagesString(const QString& pages, std::vector<int>* pageNs, int sourcePageCount)
 {
 	QString tmp(pages);
 	QString token;
@@ -802,7 +793,7 @@ QString readLineFromDataStream(QDataStream &s)
 	return ret.trimmed();
 }
 
-void setCurrentComboItem(QComboBox *box, QString text)
+void setCurrentComboItem(QComboBox *box, const QString& text)
 {
 	bool sigBlocked = box->blockSignals(true);
 	int ind = box->findText(text);
@@ -811,7 +802,7 @@ void setCurrentComboItem(QComboBox *box, QString text)
 	box->blockSignals(sigBlocked);
 }
 
-void setCurrentComboItemFromData(QComboBox *box, QString data)
+void setCurrentComboItemFromData(QComboBox *box, const QString& data)
 {
 	bool sigBlocked = box->blockSignals(true);
 	int ind = box->findData(data);
@@ -820,7 +811,7 @@ void setCurrentComboItemFromData(QComboBox *box, QString data)
 	box->blockSignals(sigBlocked);
 }
 
-void removeComboItem(QComboBox *box, QString text)
+void removeComboItem(QComboBox *box, const QString& text)
 {
 	bool sigBlocked = box->blockSignals(true);
 	int ind = box->findText(text);
@@ -1172,7 +1163,7 @@ void setWidgetBoldFont(QWidget* w, bool wantBold)
 	w->setFont(f);
 }
 
-void getUniqueName(QString &name, QStringList list, QString separator, bool prepend)
+void getUniqueName(QString &name, const QStringList& list, const QString& separator, bool prepend)
 {
 	if (!list.contains(name))
 		return;

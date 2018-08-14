@@ -19,14 +19,14 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
+QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, const QString& color, int shad);
 
 /*! \brief Create a cool all-infos pixmaps for the specified color.
 \param col Scribus color
 \retval QPixmap image with various icons depending on the col properties.
  */
-QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
-QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
+QPixmap SCRIBUS_API *getSmallPixmap(const QColor& rgb);
+QPixmap SCRIBUS_API *getWidePixmap(const QColor& rgb);
 QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
 
 /*! \brief Put toPaint pixmap into target at the x, y place.
@@ -117,6 +117,6 @@ QString SCRIBUS_API colorSpaceText(int cs);
  * \param EditColors Color list to store the imported colors
  * \return true if any colors have been found
 */
-bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString,VGradient> *dialogGradients = nullptr, bool merge = false);
+bool SCRIBUS_API importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<QString,VGradient> *dialogGradients = nullptr, bool merge = false);
 
 #endif
