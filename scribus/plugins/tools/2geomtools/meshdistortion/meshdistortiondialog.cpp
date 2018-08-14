@@ -128,7 +128,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 	buttonZoomOut->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
 	buttonZoomIn->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
 	m_doc = doc;
-	addItemsToScene(doc->m_Selection, doc, 0, 0);
+	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	for(unsigned dim = 0; dim < 2; dim++)
 	{
 		sb2[dim].us = 2;
@@ -208,7 +208,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	uint selectedItemCount = itemSelection->count();
-	if (parentItem == 0)
+	if (parentItem == nullptr)
 	{
 		w4 = qMax(gw, gh) / 2.0;
 		w2 = qMax(gw, gh);
@@ -228,7 +228,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		else
 			pp = path.toQPainterPath(true);
 		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, parentItem);
-		if (parentItem == 0)
+		if (parentItem == nullptr)
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx + deltaX, currItem->yPos() - gy + deltaY);

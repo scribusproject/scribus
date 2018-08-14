@@ -20,7 +20,7 @@ public:
 	HunspellDict(const QString& affPath, const QString& dictPath);
 	~HunspellDict();
 
-	int spell(QString word);
+	int spell(const QString& word);
 	QStringList suggest(QString word);
 
 protected:

@@ -111,7 +111,7 @@ void LensEffectsPlugin::deleteAboutData(const AboutData* about) const
 bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{

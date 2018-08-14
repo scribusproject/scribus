@@ -55,12 +55,12 @@ void pathalongpath_freePlugin(ScPlugin* plugin)
 }
 
 PathAlongPathPlugin::PathAlongPathPlugin() : ScActionPlugin(),
-	patternItem(0),
-	pathItem(0),
+	patternItem(nullptr),
+	pathItem(nullptr),
 	originalRot(0.0),
 	originalXPos(0.0),
 	originalYPos(0.0),
-	m_doc(0),
+	m_doc(nullptr),
 	firstUpdate(false),
 	m_scaling(0.0),
 	nbCopies(0),
@@ -176,7 +176,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 	originalXPosG.clear();
 	originalYPosG.clear();
 	patternItemG.clear();
-	if (m_doc == 0)
+	if (m_doc == nullptr)
 		m_doc = ScCore->primaryMainWindow()->doc;
 	if (m_doc->m_Selection->count() > 1)
 	{

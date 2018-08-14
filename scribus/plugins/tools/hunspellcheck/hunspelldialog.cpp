@@ -29,9 +29,9 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	m_returnToDefaultLang=false;
 	m_primaryLangIndex=0;
 
-	m_dictionaryMap = 0;
-	m_hspellerMap = 0;
-	m_wfList = 0;
+	m_dictionaryMap = nullptr;
+	m_hspellerMap = nullptr;
+	m_wfList = nullptr;
 	m_wfListIndex = 0;
 }
 

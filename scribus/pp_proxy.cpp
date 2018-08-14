@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 
 PP_Proxy::PP_Proxy(QObject *parent)
 	: QObject(parent),
-	  m_pageItem(NULL),
-	  m_scribusDoc(NULL)
+	  m_pageItem(nullptr),
+	  m_scribusDoc(nullptr)
 {
 }
 

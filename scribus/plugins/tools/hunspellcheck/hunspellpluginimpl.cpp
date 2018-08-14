@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 
 // Initialize members here, if any
-HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
+HunspellPluginImpl::HunspellPluginImpl() : QObject(nullptr)
 {
 //	numDicts=0;
 	m_doc=nullptr;

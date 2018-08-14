@@ -106,7 +106,7 @@ void SubdividePlugin::deleteAboutData(const AboutData* about) const
 bool SubdividePlugin::run(ScribusDoc* doc, QString)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	double nearT = 0.5;
 	uint docSelectionCount = currDoc->m_Selection->count();

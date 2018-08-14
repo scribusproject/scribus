@@ -127,7 +127,7 @@ void PathFinderPlugin::deleteAboutData(const AboutData* about) const
 bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() <= 1)
 		return true;

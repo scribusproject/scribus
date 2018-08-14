@@ -51,9 +51,9 @@ void pathconnect_freePlugin(ScPlugin* plugin)
 }
 
 PathConnectPlugin::PathConnectPlugin() : ScActionPlugin(),
-	m_item1(0),
-	m_item2(0),
-	m_doc(0),
+	m_item1(nullptr),
+	m_item2(nullptr),
+	m_doc(nullptr),
 	originalXPos(0.0),
 	originalYPos(0.0),
 	firstUpdate(false)
@@ -121,7 +121,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 {
 	m_doc = doc;
 	firstUpdate = true;
-	if (m_doc == 0)
+	if (m_doc == nullptr)
 		m_doc = ScCore->primaryMainWindow()->doc;
 	if (m_doc->m_Selection->count() > 1)
 	{

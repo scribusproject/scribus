@@ -255,7 +255,7 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	setModal(true);
 	buttonZoomOut->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
 	buttonZoomI->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
-	addItemsToScene(doc->m_Selection, doc, 0, 0);
+	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	previewWidget->setRenderHint(QPainter::Antialiasing);
 	previewWidget->setScene(&scene);
 	isFirst = true;
@@ -294,7 +294,7 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 			pp = path.toQPainterPath(true);
 		origPath.append(pp);
 		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, parentItem);
-		if (parentItem == 0)
+		if (parentItem == nullptr)
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);

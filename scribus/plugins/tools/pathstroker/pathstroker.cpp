@@ -124,7 +124,7 @@ void PathStrokerPlugin::deleteAboutData(const AboutData* about) const
 bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
