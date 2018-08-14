@@ -39,7 +39,7 @@ HunspellDict::~HunspellDict()
 }
 
 #ifndef HUNSPELL_NEWAPI
-int HunspellDict::spell(QString word)
+int HunspellDict::spell(const QString& word)
 {
 	if (m_hunspell)
 		return m_hunspell->spell(m_codec->fromUnicode(word).constData());
