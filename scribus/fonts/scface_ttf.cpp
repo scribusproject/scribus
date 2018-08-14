@@ -143,7 +143,8 @@ void ScFace_ttf::rawData(QByteArray & bb) const {
 //                   .arg(QString::number(sfnt::word16(coll,tableStart),16))
 //                   .arg(QString::number(sfnt::word16(coll,tableStart+2),16)));
 //			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
-			if (!sfnt::copy(bb, pos, coll, tableStart, tableSize)) break;
+			if (!sfnt::copy(bb, pos, coll, tableStart, tableSize))
+				break;
 			// write new offset to table entry
 //			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
 			// buggy: not endian aware: memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
