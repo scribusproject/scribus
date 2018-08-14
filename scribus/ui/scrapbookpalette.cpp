@@ -471,11 +471,11 @@ void BibView::ReadOldContents(QString name, QString newName)
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="OBJEKT")
 		{
-			QFile fi(QDir::cleanPath(QDir::toNativeSeparators(newName + "/" + dc.attribute("NAME", 0) + ".sce")));
+			QFile fi(QDir::cleanPath(QDir::toNativeSeparators(newName + "/" + dc.attribute("NAME", nullptr) + ".sce")));
 			if(!fi.open(QIODevice::WriteOnly))
 				continue ;
 			QDataStream s(&fi);
-			QString fn = dc.attribute("DATA", 0);
+			QString fn = dc.attribute("DATA", nullptr);
 			cf = isUtf8? fn.toUtf8() : fn.toLocal8Bit();
 			s.writeRawData(cf.data(), cf.length());
 			fi.close();
@@ -645,7 +645,7 @@ void BibView::ReadContents(QString name)
 			{
 				bool mode = false;
 				ScImage im;
-				CMSettings cms(0, "", Intent_Perceptual);
+				CMSettings cms(nullptr, "", Intent_Perceptual);
 				cms.allowColorManagement(false);
 				if (im.loadPicture(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])), 1, cms, ScImage::Thumbnail, 72, &mode))
 				{
@@ -699,7 +699,7 @@ void BibView::ReadContents(QString name)
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
+Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", nullptr)
 {
 //	resize( 230, 190 );
 	setObjectName(QString::fromLocal8Bit("Sclib"));
@@ -765,7 +765,7 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
 	Frame3->addItem(tempBView, tr("Copied Items"));
 	tempBView->visibleName = tr("Copied Items");
 	tempCount = 0;
-	actItem = 0;
+	actItem = nullptr;
 	BiblioLayout->addWidget( Frame3 );
 	setWidget( containerWidget );
 
@@ -1108,7 +1108,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 	{
 		emit pasteToActualPage(ite->text());
 		activeBView->clearSelection();
-		actItem = 0;
+		actItem = nullptr;
 	}
 }
 
@@ -1140,7 +1140,7 @@ void Biblio::handlePasteToPage()
 {
 	emit pasteToActualPage(actItem->text());
 	activeBView->clearSelection();
-	actItem = 0;
+	actItem = nullptr;
 }
 
 void Biblio::HandleMouse(QPoint p)
@@ -1149,7 +1149,7 @@ void Biblio::HandleMouse(QPoint p)
 	// scrapbook content, hence invalidating actItem while context menu is executing.
 	ScCore->fileWatcher->stop();
 	QListWidgetItem *ite = activeBView->itemAt(p);
-	if (ite != 0)
+	if (ite != nullptr)
 	{
 		actItem = ite;
 		QMenu *pmenu = new QMenu();
@@ -1212,7 +1212,7 @@ void Biblio::HandleMouse(QPoint p)
 		delete pmenu;
 	}
 	activeBView->clearSelection();
-	actItem = 0;
+	actItem = nullptr;
 	ScCore->fileWatcher->start();
 }
 
@@ -1361,7 +1361,7 @@ void Biblio::deleteObj()
 	delete activeBView->takeItem(activeBView->row(ite));
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
-	actItem = 0;
+	actItem = nullptr;
 }
 
 void Biblio::deleteAllObj()
@@ -1404,7 +1404,7 @@ void Biblio::deleteAllObj()
 	activeBView->objectMap.clear();
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
-	actItem = 0;
+	actItem = nullptr;
 }
 
 void Biblio::renameObj()
@@ -1608,7 +1608,7 @@ void Biblio::ObjFromFile(QString path, int testResult)
 			if (activeBView->objectMap.contains(nam))
 				nam += "("+ tmp.setNum(tempCount) + ")";
 		}
-		Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
+		Query dia(this, "tt", true, tr("&Name:"), tr("New Entry"));
 		dia.setValidator(QRegExp("[\\w()]+"));
 		dia.setEditText(nam, true);
 		dia.setTestList(activeBView->objectMap.keys());
@@ -1621,7 +1621,7 @@ void Biblio::ObjFromFile(QString path, int testResult)
 		{
 			bool mode = false;
 			ScImage im;
-			CMSettings cms(0, "", Intent_Perceptual);
+			CMSettings cms(nullptr, "", Intent_Perceptual);
 			cms.allowColorManagement(false);
 			if (im.loadPicture(path, 1, cms, ScImage::Thumbnail, 72, &mode))
 				img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);

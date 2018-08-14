@@ -844,7 +844,7 @@ libwpg::StreamIO::StreamIO( libwpg::StorageIO* s, libwpg::DirEntry* e) :
 	fail(false),
 	blocks(),
 	m_pos(0),
-	cache_data(0),
+	cache_data(nullptr),
 	cache_size(4096),
 	cache_pos(0)
 {
@@ -968,7 +968,7 @@ void libwpg::StreamIO::updateCache()
 // =========== Storage ==========
 
 libwpg::Storage::Storage( const std::stringstream &memorystream ) :
-	io(NULL)
+	io(nullptr)
 {
 	io = new StorageIO( this, memorystream );
 }

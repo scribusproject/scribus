@@ -183,8 +183,8 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	Passwd->setChecked(annotation.Flag() & Annotation::Flag_Password);
 	MaxChars->setMinimum(0);
 	MaxChars->setMaximum(32768);
-	bool setter = annotation.MaxChar() != -1 ? true : false;
-	MaxChars->setValue(setter == true ? annotation.MaxChar() : 0);
+	bool setter = annotation.MaxChar() != -1;
+	MaxChars->setValue(setter ? annotation.MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
 	NoScroll->setChecked(annotation.Flag() & Annotation::Flag_DoNotScroll);
@@ -553,7 +553,7 @@ void ScAnnot::RemoveRIcon()
 
 void ScAnnot::IconsEin()
 {
-	bool setter = !UseIcons->isChecked() ? false : true;
+	bool setter = UseIcons->isChecked();
 	IconN->setEnabled(setter);
 	IconP->setEnabled(setter);
 	IconR->setEnabled(setter);
@@ -562,9 +562,9 @@ void ScAnnot::IconsEin()
 	PiconPrev->setEnabled(setter);
 	RiconPrev->setEnabled(setter);
 	PlaceIcon->setEnabled(setter);
-	IconNR->setEnabled(!item->Pfile.isEmpty() ? true : false);
-	IconPR->setEnabled(!item->Pfile2.isEmpty() ? true : false);
-	IconRR->setEnabled(!item->Pfile3.isEmpty() ? true : false);
+	IconNR->setEnabled(!item->Pfile.isEmpty());
+	IconPR->setEnabled(!item->Pfile2.isEmpty());
+	IconRR->setEnabled(!item->Pfile3.isEmpty());
 	m_annotation.setUseIcons(UseIcons->isChecked());
 }
 
@@ -938,7 +938,7 @@ void ScAnnot::SetFormNum()
 
 void ScAnnot::HandleVali()
 {
-	bool setter = SimpleValid->isChecked() ? true : false;
+	bool setter = SimpleValid->isChecked();
 	MaxValid->setEnabled(setter);
 	MinValid->setEnabled(setter);
 	EditValScript->setEnabled(false);
@@ -974,7 +974,7 @@ void ScAnnot::SetVali()
 
 void ScAnnot::HandleCalc()
 {
-	bool setter = SimpleCalc->isChecked() ? true : false;
+	bool setter = SimpleCalc->isChecked();
 	CalcFields->setEnabled(setter);
 	CalcArt->setEnabled(setter);
 	EditCalc->setEnabled(false);
@@ -1012,7 +1012,7 @@ void ScAnnot::SetCalc()
 
 void ScAnnot::SetCurr()
 {
-	bool setter = UseCurr->isChecked() ? true : false;
+	bool setter = UseCurr->isChecked();
 	CurSym->setEnabled(setter);
 	PreCurr->setEnabled(setter);
 }
@@ -1447,8 +1447,8 @@ void ScAnnot::SetAnnotationType(int it)
 	NoScroll->setChecked(annotation.Flag() & Annotation::Flag_DoNotScroll);
 	ChkStil->setCurrentIndex(annotation.ChkStil());
 	isChkd->setChecked(annotation.IsChk());
-	setter = annotation.MaxChar() != -1 ? true : false;
-	MaxChars->setValue(setter == true ? annotation.MaxChar() : 0);
+	setter = annotation.MaxChar() != -1;
+	MaxChars->setValue(setter ? annotation.MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));

@@ -30,7 +30,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : 
 	m_parentBul(false),
 	m_parentNum(false),
 	m_Doc(doc),
-	m_currPStyle(0)
+	m_currPStyle(nullptr)
 {
 	m_cstyles = cstyles;
 

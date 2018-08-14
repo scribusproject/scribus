@@ -159,32 +159,32 @@ bool WPG1Parser::parse()
 	{
 		{ 0x01, "Fill Attributes",           &WPG1Parser::handleFillAttributes },	 
 		{ 0x02, "Line Attributes",           &WPG1Parser::handleLineAttributes },	 
-		{ 0x03, "Marker Atttibutes",         0 },	 
-		{ 0x04, "Polymarker",                0 },	 
+		{ 0x03, "Marker Atttibutes",         nullptr },
+		{ 0x04, "Polymarker",                nullptr },
 		{ 0x05, "Line",                      &WPG1Parser::handleLine },	 
 		{ 0x06, "Polyline",                  &WPG1Parser::handlePolyline },	 
 		{ 0x07, "Rectangle",                 &WPG1Parser::handleRectangle },	 
 		{ 0x08, "Polygon",                   &WPG1Parser::handlePolygon },	 
 		{ 0x09, "Ellipse",                   &WPG1Parser::handleEllipse },	 
-		{ 0x0a, "Reserved",                  0 },	 
+		{ 0x0a, "Reserved",                  nullptr },
 		{ 0x0b, "Bitmap (Type 1)",           &WPG1Parser::handleBitmapTypeOne },	 
-		{ 0x0c, "Graphics Text (Type 1)",    0 },	 
-		{ 0x0d, "Grephics Text Attributes",  0 },	 
+		{ 0x0c, "Graphics Text (Type 1)",    nullptr },
+		{ 0x0d, "Grephics Text Attributes",  nullptr },
 		{ 0x0e, "Colormap",                  &WPG1Parser::handleColormap },
 		{ 0x0f, "Start WPG",                 &WPG1Parser::handleStartWPG },
 		{ 0x10, "End WPG",                   &WPG1Parser::handleEndWPG },
 		{ 0x11, "Postscript Data (Type 1)",  &WPG1Parser::handlePostscriptTypeOne },	 
-		{ 0x12, "Output Attributes",         0 },	 
+		{ 0x12, "Output Attributes",         nullptr },
 		{ 0x13, "Curved Polyline",           &WPG1Parser::handleCurvedPolyline },	 
 		{ 0x14, "Bitmap (Type 2)",           &WPG1Parser::handleBitmapTypeTwo },	 
-		{ 0x15, "Start Figure",              0 },	 
-		{ 0x16, "Start Chart",               0 },	 
-		{ 0x17, "Planperfect Data",          0 },	 
-		{ 0x18, "Graphics Text (Type 2)",    0 },	 
-		{ 0x19, "Start WPG (Type 2)",        0 },	 
-		{ 0x1a, "Graphics Text (Type 3)",    0 },	 
+		{ 0x15, "Start Figure",              nullptr },
+		{ 0x16, "Start Chart",               nullptr },
+		{ 0x17, "Planperfect Data",          nullptr },
+		{ 0x18, "Graphics Text (Type 2)",    nullptr },
+		{ 0x19, "Start WPG (Type 2)",        nullptr },
+		{ 0x1a, "Graphics Text (Type 3)",    nullptr },
 		{ 0x1b, "Postscript Data (Type 2)",  &WPG1Parser::handlePostscriptTypeTwo },	 
-		{ 0x00, 0, 0 } // end marker
+		{ 0x00, nullptr, nullptr } // end marker
 	};	 
 
 	// initialization
@@ -702,7 +702,7 @@ void WPG1Parser::handleBitmapTypeOne()
 
 	std::vector<unsigned char> buffer;
 	decodeRLE(buffer, width, height, depth);
-	if (buffer.size() && buffer.size() == (size_t)((width*depth + 7)/8)*height)
+	if (!buffer.empty() && buffer.size() == (size_t)((width*depth + 7)/8)*height)
 	{
 		fillPixels(bitmap, &buffer[0], width, height, depth);
 		m_painter->drawBitmap(bitmap, hres, vres);

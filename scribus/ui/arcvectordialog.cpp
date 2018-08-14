@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "arcvectordialog.h"
 
-ArcVectorDialog::ArcVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "ArcVectorDialog", false, 0 )
+ArcVectorDialog::ArcVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "ArcVectorDialog", false, nullptr )
 {
 	setupUi(this);
 	startAngle->setNewUnit(6);

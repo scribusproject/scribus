@@ -188,12 +188,11 @@ int ApplyMasterPageDialog::getPageSelection()
 {
 	if (currentPageRadioButton->isChecked())
 		return CurrentPage;
-	else if (evenPagesRadioButton->isChecked())
+	if (evenPagesRadioButton->isChecked())
 		return EvenPages;
-	else if (oddPagesRadioButton->isChecked())
+	if (oddPagesRadioButton->isChecked())
 		return OddPages;
-	else
-		return AllPages;
+	return AllPages;
 }
 
 void ApplyMasterPageDialog::checkRangeFrom()

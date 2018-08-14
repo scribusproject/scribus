@@ -43,7 +43,7 @@ stream is a WordPerfect Graphics that libwpg is able to parse
 bool libwpg::WPGraphics::isSupported(WPXInputStream* input)
 {
 	input->seek(0, WPX_SEEK_SET);
-	WPXInputStream *graphics = 0;
+	WPXInputStream *graphics = nullptr;
 	bool isDocumentOLE = false;
 
 	if (input->isOLEStream())
@@ -83,9 +83,9 @@ WPGPaintInterface class implementation when needed. This is often commonly calle
 bool libwpg::WPGraphics::parse(::WPXInputStream* input, libwpg::WPGPaintInterface* painter)
 {
 	input->seek(0, WPX_SEEK_CUR);
-	WPGXParser *parser = 0;
+	WPGXParser *parser = nullptr;
 	
-	WPXInputStream *graphics = 0;
+	WPXInputStream *graphics = nullptr;
 	bool isDocumentOLE = false;
 
 	if (input->isOLEStream())
@@ -137,8 +137,7 @@ bool libwpg::WPGraphics::parse(::WPXInputStream* input, libwpg::WPGPaintInterfac
 			return false;
 	}
 	
-	if (parser)
-		delete parser;
+	delete parser;
 	if (graphics && isDocumentOLE)
 		delete graphics;
 	

@@ -57,7 +57,7 @@ class SCRIBUS_API ScDockPalette : public QDockWidget
 		
 	protected:
 		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
-		virtual void setPrefsContext(QString context);
+		virtual void setPrefsContext(const QString& context);
 		void storePosition();
 		void storePosition(int newX, int newY);
 		void storeSize();

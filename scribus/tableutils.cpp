@@ -196,7 +196,7 @@ TableBorder collapseBorders(const TableBorder& firstBorder, const TableBorder& s
 		// Both borders are null, so return a null border.
 		return collapsedBorder;
 	}
-	else if (firstBorder.isNull())
+	if (firstBorder.isNull())
 	{
 		// First border is null, so return second border.
 		collapsedBorder = secondBorder;

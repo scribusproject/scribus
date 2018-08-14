@@ -930,7 +930,7 @@ UINT32 CPGFImage::WriteHeader(CPGFStream* stream) THROW_ {
 		#pragma omp parallel for default(shared)
 #endif
 		for (int i=0; i < m_header.channels; i++) {
-			DataT *temp = NULL;
+			DataT *temp = nullptr;
 			if (error == NoError) {
 				if (m_wtChannel[i]) {
 					ASSERT(m_channel[i]);
@@ -940,7 +940,7 @@ UINT32 CPGFImage::WriteHeader(CPGFStream* stream) THROW_ {
 					if (temp) {
 						memcpy(temp, m_channel[i], size*DataTSize);
 						delete m_wtChannel[i];	// also deletes m_channel
-						m_channel[i] = NULL;
+						m_channel[i] = nullptr;
 					} else {
 						error = InsufficientMemory;
 					}
@@ -1231,7 +1231,7 @@ UINT32 CPGFImage::Write(int level, CallbackPtr cb /*= NULL*/, void *data /*=NULL
 			m_encoder->UpdateLevelLength();
 		}
 		// delete encoder
-		delete m_encoder; m_encoder = NULL;
+		delete m_encoder; m_encoder = nullptr;
 	}
 
 	return nWrittenBytes;
@@ -1334,7 +1334,7 @@ void CPGFImage::RgbToYuv(int pitch, UINT8* buff, BYTE bpp, int channelMap[], Cal
 	const double dP = 1.0/m_header.height;
 	int defMap[] = { 0, 1, 2, 3, 4, 5, 6, 7 }; ASSERT(sizeof(defMap)/sizeof(defMap[0]) == MaxChannels);
 
-	if (channelMap == NULL) channelMap = defMap;
+	if (channelMap == nullptr) channelMap = defMap;
 
 	switch(m_header.mode) {
 	case ImageModeBitmap:

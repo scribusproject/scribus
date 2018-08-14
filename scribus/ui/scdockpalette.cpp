@@ -44,7 +44,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 #else
 	: QDockWidget ( parent, f | Qt::Tool  | Qt::CustomizeWindowHint ),
 #endif
-	palettePrefs(0),
+	palettePrefs(nullptr),
 	prefsContextName(QString::null),
 	visibleOnStartup(false)
 {
@@ -64,7 +64,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 			  		");
 	}
 	originalParent=parent;
-	tempParent=0;
+	tempParent=nullptr;
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	setPrefsContext(prefsContext);
@@ -72,7 +72,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
-void ScDockPalette::setPrefsContext(QString context)
+void ScDockPalette::setPrefsContext(const QString& context)
 {
 	if (prefsContextName.isEmpty())
 	{

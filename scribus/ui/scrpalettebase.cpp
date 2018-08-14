@@ -41,7 +41,7 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 	: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
 			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
 			| Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint ),
-	palettePrefs(0),
+	palettePrefs(nullptr),
 	prefsContextName(QString::null),
 	visibleOnStartup(false)
 {
@@ -61,14 +61,14 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 			  		");
 	}
 	originalParent=parent;
-	tempParent=0;
+	tempParent=nullptr;
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setPrefsContext(prefsContext);
 	setModal(modal);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
-void ScrPaletteBase::setPrefsContext(QString context)
+void ScrPaletteBase::setPrefsContext(const QString& context)
 {
 	if (prefsContextName.isEmpty())
 	{
@@ -259,12 +259,12 @@ void ScrPaletteBase::storeVisibility(bool vis)
 
 int ScrPaletteBase::exec(QWidget* newParent)
 {
-	Q_ASSERT(tempParent==0 && newParent!=0);
+	Q_ASSERT(tempParent==nullptr && newParent!=nullptr);
 	tempParent=newParent;
 	Qt::WindowFlags wflags = windowFlags();
 	setParent(newParent, wflags);
 	int i=QDialog::exec();
 	setParent(originalParent, wflags);
-	tempParent=0;
+	tempParent=nullptr;
 	return i;
 }

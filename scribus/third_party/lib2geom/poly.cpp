@@ -141,41 +141,41 @@ Poly divide(Poly const &a, Poly const &b, Poly &r) {
 */
 
 Poly divide(Poly const &a, Poly const &b, Poly &r) {
-    Poly c;
-    r = a; // remainder
-    assert(b.size() > 0);
-    
-    const unsigned k = a.degree();
-    const unsigned l = b.degree();
-    c.resize(k, 0.);
-    
-    for(unsigned i = k; i >= l; i--) {
-        assert(i >= 0);
-        double ci = r.back()/b.back();
-        c[i-l] += ci;
-        Poly bb = ci*b;
-        //std::cout << ci <<"*(" << b.shifted(i-l) << ") = " 
-        //          << bb.shifted(i-l) << "     r= " << r << std::endl;
-        r -= bb.shifted(i-l);
-        r.pop_back();
-    }
-    //std::cout << "r= " << r << std::endl;
-    r.normalize();
-    c.normalize();
-    
-    return c;
+	Poly c;
+	r = a; // remainder
+	assert(!b.empty());
+
+	const unsigned k = a.degree();
+	const unsigned l = b.degree();
+	c.resize(k, 0.);
+
+	for(unsigned i = k; i >= l; i--) {
+		assert(i >= 0);
+		double ci = r.back()/b.back();
+		c[i-l] += ci;
+		Poly bb = ci*b;
+		//std::cout << ci <<"*(" << b.shifted(i-l) << ") = "
+		//          << bb.shifted(i-l) << "     r= " << r << std::endl;
+		r -= bb.shifted(i-l);
+		r.pop_back();
+	}
+	//std::cout << "r= " << r << std::endl;
+	r.normalize();
+	c.normalize();
+
+	return c;
 }
 
 Poly gcd(Poly const &a, Poly const &b, const double tol) {
-    if(a.size() < b.size())
-        return gcd(b, a);
-    if(b.size() <= 0)
-        return a;
-    if(b.size() == 1)
-        return a;
-    Poly r;
-    divide(a, b, r);
-    return gcd(b, r);
+	if(a.size() < b.size())
+		return gcd(b, a);
+	if(b.empty())
+		return a;
+	if(b.size() == 1)
+		return a;
+	Poly r;
+	divide(a, b, r);
+	return gcd(b, r);
 }
 
 

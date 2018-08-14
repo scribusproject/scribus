@@ -1171,7 +1171,7 @@ public:
 	void rotateItem(double win, PageItem *currItem);
 	void moveRotated(PageItem *currItem, const FPoint& npv);
 	bool sizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	bool moveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
+	bool moveSizeItem(const FPoint& newX, const FPoint& newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void adjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, Selection* customSelection = nullptr);
 	void rotateGroup(double angle, Selection* customSelection = nullptr);
@@ -1441,7 +1441,7 @@ public slots:
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ToggleBookMark(Selection* customSelection = nullptr);
 	void itemSelection_ToggleAnnotation(Selection* customSelection = nullptr);
-	void itemSelection_Transform(int nrOfCopies, QTransform matrix, int basepoint);
+	void itemSelection_Transform(int nrOfCopies, const QTransform& matrix, int basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 
 	/*! \brief Change display quality of all images in document.
@@ -1734,14 +1734,14 @@ public:
 	NotesStyle* newNotesStyle(const NotesStyle& NS);
 	void renameNotesStyle(NotesStyle* NS, const QString& newName);
 	//delete whole notes style with its notesframes and notes
-	void deleteNotesStyle(QString nsName);
+	void deleteNotesStyle(const QString& nsName);
 	void undoSetNotesStyle(SimpleState* ss, NotesStyle* ns);
 	NotesStyle* getNotesStyle(const QString& nsName);
 	//delete note, if fromText than marks for given note will be removed
 	void deleteNote(TextNote* note);
 	void setUndoDelNote(TextNote* note);
 	PageItem_NoteFrame* createNoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle, int index = -1);
-	PageItem_NoteFrame* createNoteFrame(NotesStyle *nStyle, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_NoteFrame* createNoteFrame(NotesStyle *nStyle, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	//delete noteframe
 	void delNoteFrame(PageItem_NoteFrame *nF, bool removeMarks=true, bool forceDeletion = true);
 	//renumber notes for given notes style

@@ -91,7 +91,7 @@ public:
 	bool writePSImageToFilter(ScStreamFilter* filter, int pl) const;
 	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const;
 
-	bool getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
+	bool getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
 	bool convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects

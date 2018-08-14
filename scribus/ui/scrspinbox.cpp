@@ -41,7 +41,7 @@ void ScrSpinBox::init(int unitIndex)
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setSingleStep(1.0);
-	lineEdit()->setValidator(0);
+	lineEdit()->setValidator(nullptr);
 	disconnect(this, SIGNAL(valueChanged(const QString &)), this, SLOT(textChanged()));
 	connect(this, SIGNAL(valueChanged(const QString &)), this, SLOT(textChanged()));
 	installEventFilter(this);
@@ -278,16 +278,10 @@ QString ScrSpinBox::textFromValue ( double value ) const
 
 QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
 {
-	if (input.endsWith(FinishTag))
-	{
-//		qDebug() << "spinbox validate acceptable:" << input;
-		return QValidator::Acceptable;
-	}
-	else
-	{
 //		qDebug() << "spinbox validate intermediate:" << input;
-		return QValidator::Intermediate;
-	}
+	if (input.endsWith(FinishTag))
+		return QValidator::Acceptable;
+	return QValidator::Intermediate;
 }
 
 void ScrSpinBox::fixup ( QString & input ) const

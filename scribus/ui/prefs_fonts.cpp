@@ -69,7 +69,7 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	// preferences, we let the user customize font search paths. Because things
 	// go rather badly if paths are changed/removed while a doc is open, the
 	// control is also not displayed if there is a document open.
-	if (m_doc==0 && !ScCore->primaryMainWindow()->HaveDoc)
+	if (m_doc==nullptr && !ScCore->primaryMainWindow()->HaveDoc)
 	{
 		whyBlankLabel->resize(0,0);
 		whyBlankLabel->hide();
@@ -221,7 +221,7 @@ void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 		face.subset(fontListTableView->isFontSubsetted(i));
 	}
 
-	if (m_doc==0)
+	if (m_doc==nullptr)
 		writePaths();
 
 	prefsData->fontPrefs.GFontSub.clear();
@@ -282,7 +282,7 @@ void Prefs_Fonts::DelEntry()
 
 void Prefs_Fonts::readPaths()
 {
-	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
+	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	pathListWidget->clear();
@@ -292,7 +292,7 @@ void Prefs_Fonts::readPaths()
 
 void Prefs_Fonts::writePaths() const
 {
-	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
+	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
@@ -302,7 +302,7 @@ void Prefs_Fonts::writePaths() const
 
 void Prefs_Fonts::SelectPath(QListWidgetItem *c)
 {
-	if (m_doc==0)
+	if (m_doc==nullptr)
 	{
 		changeButton->setEnabled(true);
 		removeButton->setEnabled(true);
@@ -312,7 +312,7 @@ void Prefs_Fonts::SelectPath(QListWidgetItem *c)
 
 void Prefs_Fonts::AddPath()
 {
-	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
+	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
@@ -339,7 +339,7 @@ void Prefs_Fonts::AddPath()
 
 void Prefs_Fonts::ChangePath()
 {
-	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
+	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
 	if (s.isEmpty())
 		return;
@@ -372,7 +372,7 @@ void Prefs_Fonts::ChangePath()
 
 void Prefs_Fonts::DelPath()
 {
-	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
+	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	QFile fx(PrefsManager::instance()->preferencesLocation()+"/scribusfont13.rc");
 	if (!fx.open(QIODevice::WriteOnly))
 		return;

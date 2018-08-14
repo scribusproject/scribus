@@ -87,7 +87,7 @@ public:
 	/**
 	 Introduces a new named character style into the document
 	 */
-	void defineCharStyle(const QString name, const CharStyle& cstyle);
+	void defineCharStyle(const QString& name, const CharStyle& cstyle);
 	/**
 	 Introduces a new named paragraph style into the document
 	 */

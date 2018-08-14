@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 TextWriter::TextWriter(ScribusDoc *doc)
 {
 	m_document = doc;
-	m_frame = 0;
+	m_frame = nullptr;
 	m_styledUptoPos = 0;
 }
 
@@ -104,7 +104,7 @@ void TextWriter::setStyle(const QString &name)
 	setStyle(pstyle);
 }
 
-void TextWriter::defineCharStyle(const QString name, const CharStyle &cstyle)
+void TextWriter::defineCharStyle(const QString& name, const CharStyle &cstyle)
 {
 	CharStyle* newStyle = m_charStyles.create(cstyle);
 	newStyle->setName(name);

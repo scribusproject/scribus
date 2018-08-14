@@ -533,7 +533,7 @@ void StoryText::removeParSep(int pos)
 //		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
 //		d->replaceParentStyle(pos, oldP, newP);
 		delete it->parstyle;
-		it->parstyle = 0;
+		it->parstyle = nullptr;
 	}
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesn't choke:
@@ -1442,7 +1442,7 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 }
 
 
-void StoryText::replaceStyles(QMap<QString,QString> newNameForOld)
+void StoryText::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
 	ResourceCollection newnames;
 	newnames.mapStyles(newNameForOld);
@@ -1615,16 +1615,14 @@ int StoryText::nextChar(int pos)
 {
 	if (pos < length())
 		return pos+1;
-	else
-		return length();
+	return length();
 }
 
 int StoryText::prevChar(int pos)
 {
 	if (pos > 0)
 		return pos - 1;
-	else 
-		return 0;
+	return 0;
 }
 
 int StoryText::firstWord()
@@ -2598,8 +2596,7 @@ public:
 	{
 		if (tag == ParagraphStyle::saxxDefaultElem)
 		{
-			if (lastStyle)
-				delete lastStyle;
+			delete lastStyle;
 			lastStyle = this->dig->top<ParagraphStyle>(0);
 //			qDebug() << QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle);
 		}
@@ -2635,8 +2632,7 @@ public:
 	
 	~SpanAction_body() 
 	{
-		if (lastStyle)
-			delete lastStyle;
+		delete lastStyle;
 	}
 	
 	void begin(const Xml_string& tag, Xml_attr attr)
@@ -2646,8 +2642,7 @@ public:
 		{
 			StoryText* story = this->dig->top<StoryText>();
 			lastPos = story->length();
-			if (lastStyle)
-				delete lastStyle;
+			delete lastStyle;
 			lastStyle = nullptr;
 		}
 	}
@@ -2657,8 +2652,7 @@ public:
 		if (tag == CharStyle::saxxDefaultElem)
 //			qDebug() << QString("spanaction: end %1").arg(tag);
 		{
-			if (lastStyle)
-				delete lastStyle;
+			delete lastStyle;
 			lastStyle = this->dig->top<CharStyle>(0);
 		}
 		else if (tag == "span")

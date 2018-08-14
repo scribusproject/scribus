@@ -250,19 +250,19 @@ bool WPG2Parser::parse()
 		{ 0x01, "Start WPG",            &WPG2Parser::handleStartWPG },
 		{ 0x02, "End WPG",              &WPG2Parser::handleEndWPG },
 		{ 0x03, "Form Settings",        &WPG2Parser::handleFormSettings },
-		{ 0x04, "Ruler Settings",       0 },     // ignored
-		{ 0x05, "Grid Settings",        0 },     // ignored
+		{ 0x04, "Ruler Settings",       nullptr },     // ignored
+		{ 0x05, "Grid Settings",        nullptr },     // ignored
 		{ 0x06, "Layer",                &WPG2Parser::handleLayer },
 		{ 0x08, "Pen Style Definition", &WPG2Parser::handlePenStyleDefinition },
-		{ 0x09, "Pattern Definition",   0 },
-		{ 0x0a, "Comment",              0 },     // ignored
-		{ 0x0b, "Color Transfer",       0 },
+		{ 0x09, "Pattern Definition",   nullptr },
+		{ 0x0a, "Comment",              nullptr },     // ignored
+		{ 0x0b, "Color Transfer",       nullptr },
 		{ 0x0c, "Color Palette",        &WPG2Parser::handleColorPalette },
 		{ 0x0d, "DP Color Palette",     &WPG2Parser::handleDPColorPalette },
 		{ 0x0e, "Bitmap Data",          &WPG2Parser::handleBitmapData },
-		{ 0x0f, "Text Data",            0 },
-		{ 0x10, "Chart Style",          0 },     // ignored
-		{ 0x11, "Chart Data",           0 },     // ignored
+		{ 0x0f, "Text Data",            nullptr },
+		{ 0x10, "Chart Style",          nullptr },     // ignored
+		{ 0x11, "Chart Data",           nullptr },     // ignored
 		{ 0x12, "Object Image",         &WPG2Parser::handleObjectImage },
 		{ 0x15, "Polyline",             &WPG2Parser::handlePolyline },
 		{ 0x16, "Polyspline",           &WPG2Parser::handlePolyspline },
@@ -295,17 +295,17 @@ bool WPG2Parser::parse()
 		{ 0x33, "Brush Back Color",     &WPG2Parser::handleBrushBackColor },
 		{ 0x34, "DP Brush Back Color",  &WPG2Parser::handleDPBrushBackColor },
 		{ 0x35, "Brush Pattern",        &WPG2Parser::handleBrushPattern },
-		{ 0x36, "Horizontal Line",      0 },
-		{ 0x37, "Vertical Line",        0 },
-		{ 0x38, "Poster Settings",      0 },
-		{ 0x39, "Image State",          0 },
-		{ 0x3a, "Envelope Definition",  0 },
-		{ 0x3b, "Envelope",             0 },
-		{ 0x3c, "Texture Definition",   0 },
-		{ 0x3d, "Brush Texture",        0 },
-		{ 0x3e, "Texture Alignment",    0 },
-		{ 0x3f, "Pen Texture ",         0 },
-		{ 0x00, 0, 0 } // end marker
+		{ 0x36, "Horizontal Line",      nullptr },
+		{ 0x37, "Vertical Line",        nullptr },
+		{ 0x38, "Poster Settings",      nullptr },
+		{ 0x39, "Image State",          nullptr },
+		{ 0x3a, "Envelope Definition",  nullptr },
+		{ 0x3b, "Envelope",             nullptr },
+		{ 0x3c, "Texture Definition",   nullptr },
+		{ 0x3d, "Brush Texture",        nullptr },
+		{ 0x3e, "Texture Alignment",    nullptr },
+		{ 0x3f, "Pen Texture ",         nullptr },
+		{ 0x00, nullptr, nullptr } // end marker
 	};
 	
 	// initialization

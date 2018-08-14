@@ -186,7 +186,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
  	void applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting = false);
  	void eraseCharStyle(int pos, uint len, const CharStyle& style);
  	void eraseStyle(int pos, const ParagraphStyle& style);
-	void replaceStyles(QMap<QString,QString> newNameForOld);
+	void replaceStyles(const QMap<QString,QString>& newNameForOld);
 	void replaceCharStyles(QMap<QString,QString> newNameForOld);
 
 	// Cleanup legacy formatting for whole story, ie remove direct

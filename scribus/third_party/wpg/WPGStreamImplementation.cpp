@@ -71,8 +71,8 @@ WPGFileStreamPrivate::WPGFileStreamPrivate() :
 	file(),
 	buffer(std::ios::binary | std::ios::in | std::ios::out),
 	streamSize(0),
-	buf(0),
-	readBuffer(0),
+	buf(nullptr),
+	readBuffer(nullptr),
 	readBufferLength(0),
 	readBufferPos(0)
 {	
@@ -89,7 +89,7 @@ WPGFileStreamPrivate::~WPGFileStreamPrivate()
 WPGMemoryStreamPrivate::WPGMemoryStreamPrivate(const std::string str) :
 	buffer(str, std::ios::binary | std::ios::in),
 	streamSize(0),
-	buf(0)
+	buf(nullptr)
 {
 }
 

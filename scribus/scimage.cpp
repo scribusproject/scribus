@@ -68,7 +68,7 @@ ScImage::ScImage(const ScImage & image) : QImage(image.copy())
 }
 
 
-ScImage::ScImage() : QImage()
+ScImage::ScImage()
 {
 	initialize();
 }
@@ -1567,20 +1567,20 @@ void ScImage::scaleImage(int nwidth, int nheight)
 void ScImage::scaleImage32bpp(int nwidth, int nheight)
 {
 	QImage dst(nwidth, nheight, QImage::Format_ARGB32);
-	QRgb* xelrow = 0;
-	QRgb* tempxelrow = 0;
-	QRgb* xP;
-	QRgb* nxP;
+	QRgb* xelrow = nullptr;
+	QRgb* tempxelrow = nullptr;
+	QRgb* xP = nullptr;
+	QRgb* nxP = nullptr;
 	int rows, cols, rowsread, newrows, newcols;
 	int row, col, needtoreadrow;
 	const uchar maxval = 255;
 	double xscale, yscale;
 	long sxscale, syscale;
 	long fracrowtofill, fracrowleft;
-	long* as;
-	long* rs;
-	long* gs;
-	long* bs;
+	long* as = nullptr;
+	long* rs = nullptr;
+	long* gs = nullptr;
+	long* bs = nullptr;
 	int rowswritten = 0;
 
 	int depth = this->depth();
@@ -1780,13 +1780,12 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 			d++;
 		}
 	}
-	return;
 }
 
 void ScImage::scaleImageGeneric(int nwidth, int nheight)
 {
-	unsigned char* xelrow = 0;
-	unsigned char* tempxelrow = 0;
+	unsigned char* xelrow = nullptr;
+	unsigned char* tempxelrow = nullptr;
 	unsigned char* xP;
 	unsigned char* nxP;
 	int rows, cols, rowsread, newrows, newcols;
@@ -1845,7 +1844,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 
 	for (int chIndex = 0; chIndex < nChannels; ++chIndex)
 	{
-		xelrow = 0;
+		xelrow = nullptr;
 		rowsread = rowswritten = 0;
 		fracrowleft = syscale;
 		needtoreadrow = 1;
@@ -1954,8 +1953,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 	}
 	if (newrows != rows && tempxelrow)// Robust, tempxelrow might be 0 1 day
 		delete [] tempxelrow;
-	if (ps)				// Avoid purify complaint
-		delete [] ps;
+	delete [] ps;
 
 	int scanWidth = dst.width() * nChannels;
 	QImage::operator=(QImage(nwidth, nheight, this->format()));
@@ -1965,10 +1963,9 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 		uchar *d = (scanLine( yi ));
 		memcpy(d, s, scanWidth);
 	}
-	return;
 }
 
-bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
+bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
 	QScopedPointer<ScImgDataLoader> pDataLoader;
@@ -2018,12 +2015,12 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-    else if (ext == "kra")
-    {
-        pDataLoader.reset( new ScImgDataLoader_KRA() );
-        if	(pDataLoader.data())
-            pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
-    }
+	else if (ext == "kra")
+	{
+		pDataLoader.reset( new ScImgDataLoader_KRA() );
+		if	(pDataLoader.data())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if (ext == "pgf")
@@ -2233,7 +2230,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	bool isCMYK = false;
 	bool ret = false;
 //	bool inputProfIsEmbedded = false;
-	if (realCMYK != 0)
+	if (realCMYK != nullptr)
 		*realCMYK = false;
 	bool bilevel = false;
 //	short resolutionunit = 0;
@@ -2298,11 +2295,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_ORA() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-    else if (ext == "kra")
-    {
-        pDataLoader.reset( new ScImgDataLoader_KRA() );
-        pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
-    }
+	else if (ext == "kra")
+	{
+		pDataLoader.reset( new ScImgDataLoader_KRA() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 #ifdef GMAGICK_FOUND
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
@@ -2369,7 +2366,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		{
 			QString profilePath;
 			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
-			Q_ASSERT(cmSettings.doc()!=0);
+			Q_ASSERT(cmSettings.doc()!=nullptr);
 			if (isCMYK)
 			{
 				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile))
@@ -2488,7 +2485,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			outputCSpace = screenCSpace;
 			break;
 		case RawData: // no Conversion just raw Data
-			xform = 0;
+			xform = nullptr;
 			if (pDataLoader->useRawImage())
 			{
 				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
