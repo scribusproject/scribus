@@ -46,7 +46,7 @@ int HunspellDict::spell(const QString& word)
 	return -1;
 }
 
-QStringList HunspellDict::suggest(QString word)
+QStringList HunspellDict::suggest(const QString& word)
 {
 	char **sugglist = nullptr;
 	QStringList replacements;
