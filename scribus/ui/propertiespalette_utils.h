@@ -49,7 +49,7 @@ struct SCRIBUS_API LineFormatValue
 	QString m_name;
 	
 	LineFormatValue();
-	LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString name );
+	LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString& name );
 	LineFormatValue(const LineFormatValue& other);
 	LineFormatValue& operator= (const LineFormatValue& other);
 };

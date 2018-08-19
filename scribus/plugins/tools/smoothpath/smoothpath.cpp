@@ -119,7 +119,7 @@ void SmoothPathPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SmoothPathPlugin::run(ScribusDoc* doc, QString)
+bool SmoothPathPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

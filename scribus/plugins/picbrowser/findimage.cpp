@@ -57,14 +57,11 @@ void findImagesThread::findFiles ( const QString& path )
 
 		for ( int i = 0 ; ( i < list.size() ) && ( !restartThread ) ; ++i )
 		{
-			QFileInfo fileInfo = list.at ( i );
-
+			const QFileInfo& fileInfo = list.at ( i );
 			if ( fileInfo.isDir() )
 			{
 				if ( searchSubfolders )
-				{
 					findFiles ( fileInfo.canonicalFilePath() );
-				}
 			}
 			else
 			{

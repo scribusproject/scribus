@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util.h"
 
-MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDialog( parent )
+MissingFont::MissingFont( QWidget* parent, const QString& fon, ScribusDoc* doc ) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr("Missing Font"));

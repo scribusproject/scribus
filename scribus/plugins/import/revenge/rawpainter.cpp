@@ -53,7 +53,7 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 #if HAVE_REVENGE
 
-RawPainterPres::RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp) : librevenge::RVNGRawTextGenerator(false)
+RawPainterPres::RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : librevenge::RVNGRawTextGenerator(false)
 {
 	painter = new RawPainter(Doc, x, y, w, h, iflags, Elem, iColors, iPatterns, tSel, fTyp);
 	mElements = Elem;
@@ -431,7 +431,7 @@ RawPainterPrivate::RawPainterPrivate()
 {
 }
 
-RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp) : m_pImpl(new RawPainterPrivate())
+RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : m_pImpl(new RawPainterPrivate())
 {
 	m_Doc = Doc;
 	baseX = x;
@@ -1931,10 +1931,10 @@ void RawPainter::applyFill(PageItem* ite)
 						points.setMarker();
 						continue;
 					}
-					FPoint base = gpath.point(a);
-					FPoint c1 = gpath.point(a+1);
-					FPoint base2 =  gpath.point(a+2);
-					FPoint c2 = gpath.point(a+3);
+					const FPoint& base = gpath.point(a);
+					const FPoint& c1 = gpath.point(a+1);
+					const FPoint& base2 =  gpath.point(a+2);
+					const FPoint& c2 = gpath.point(a+3);
 					FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
 					FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
 					FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
@@ -3431,7 +3431,7 @@ void RawPainter::applyFill(PageItem* ite)
 }
 #endif
 
-QString RawPainter::constructFontName(QString fontBaseName, QString fontStyle)
+QString RawPainter::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
 	QString fontName;
 	bool found = false;
@@ -3569,7 +3569,7 @@ QString RawPainter::parseColor( const QString &s )
 	return ret;
 }
 
-void RawPainter::insertImage(PageItem* ite, QString imgExt, QByteArray &imageData)
+void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData)
 {
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 	tempFile->setAutoRemove(false);
@@ -3668,7 +3668,7 @@ void RawPainter::applyFlip(PageItem* ite)
 	}
 }
 
-void RawPainter::recolorItem(PageItem* ite, QString efVal)
+void RawPainter::recolorItem(PageItem* ite, const QString& efVal)
 {
 	if (ite->itemType() != PageItem::Group)
 	{

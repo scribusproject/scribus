@@ -12,14 +12,14 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-nftrcreader::nftrcreader(std::vector<nfttemplate*> *tmplts,QString sourceDir)
+nftrcreader::nftrcreader(std::vector<nfttemplate*> *tmplts, const QString& sourceDir)
 {
 	templates = tmplts;
 	currentDir = sourceDir;
 	setupCategories();
 }
 
-bool nftrcreader::parse(QString filePath)
+bool nftrcreader::parse(const QString& filePath)
 {
 	bool firstElement = true;
 
@@ -137,17 +137,17 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 	return (nftTemplate->isValid());
 }
 
-void nftrcreader::setSourceDir(QString source) 
+void nftrcreader::setSourceDir(const QString& source)
 {
 	currentDir = source;
 }
 
-void nftrcreader::setSourceFile(QString sourceFile)
+void nftrcreader::setSourceFile(const QString& sourceFile)
 {
 	currentFile = sourceFile;
 }
 
-QString nftrcreader::getCategory(QString cat) 
+QString nftrcreader::getCategory(const QString& cat)
 {
 	QMap<QString, QString>::iterator it = cats.find(cat);
 	if (it==cats.end())

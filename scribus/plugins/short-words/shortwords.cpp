@@ -113,7 +113,7 @@ void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
+bool ShortWordsPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	if (doc==nullptr)
 		return false;

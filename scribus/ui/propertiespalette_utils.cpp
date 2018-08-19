@@ -40,9 +40,13 @@ for which a new license (GPL+exception) is in place.
 //using namespace std;
 
 
-LineFormatValue::LineFormatValue() : m_Line(), m_doc(nullptr), m_name() {};
+LineFormatValue::LineFormatValue() : m_doc(nullptr), m_name() {};
 
-LineFormatValue::LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString name ) : m_Line(line), m_doc(doc), m_name(name) {};
+LineFormatValue::LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString& name ) :
+	m_Line(line),
+	m_doc(doc),
+	m_name(name)
+{};
 
 LineFormatValue::LineFormatValue(const LineFormatValue& other)
 {

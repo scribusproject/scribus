@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API TransformItem : public QListWidgetItem
 {
 public:
-	TransformItem(QString text, QListWidget* parent, int type, double val1, double val2);
+	TransformItem(const QString& text, QListWidget* parent, int type, double val1, double val2);
 	~TransformItem() {};
 	double firstValue;
 	double secondValue;

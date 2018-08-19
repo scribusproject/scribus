@@ -74,9 +74,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// not found / not available.
 		static const FileFormat * getFormatById(const int id);
 		static FileFormat * getFormatByID(int id);
-		static FileFormat* getFormatByExt(const QString ext);
+		static FileFormat* getFormatByExt(const QString& ext);
 
-		virtual bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc);
+		virtual bool loadElements(const QString& data, const QString&, int, double, double, bool);
 		// Non-static members implemented by plugins:
 		//
 		// Load the requested format from the specified path.
@@ -87,7 +87,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 		virtual bool savePalette(const QString & fileName);
-		virtual QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData);
+		virtual QString saveElements(double, double, double, double, Selection*, QByteArray &prevData);
 
 		// Return last file saved, this may be the last fileName argument passed to saveFile(),
 		// a temporary file name or an empty string if last call to saveFile() could not create
@@ -108,7 +108,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		
 		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString::null);
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
@@ -195,7 +195,7 @@ class SCRIBUS_API FileFormat
 		// Standard ctor that sets up a valid FileFormat
 		FileFormat(LoadSavePlugin * plug);
 
-		bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
+		bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		bool loadPalette(const QString & fileName) const;
@@ -208,7 +208,7 @@ class SCRIBUS_API FileFormat
 		
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString::null) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;
 		bool readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty) const;

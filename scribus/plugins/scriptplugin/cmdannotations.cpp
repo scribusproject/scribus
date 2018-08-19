@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "scribuscore.h"
 
-static PyObject *getLinkData(PyObject *rv,int page, QString action);
+static PyObject *getLinkData(PyObject *rv, int page, const QString& action);
 static void prepareannotation(PageItem *i);
 static void setactioncoords(Annotation &a, int x, int y);
 static bool testPageItem(PageItem *i);
@@ -458,7 +458,7 @@ void cmdannotationsdocwarnings()
 
 //HELPER FUNCTIONS
 
-PyObject *getLinkData(PyObject *rv,int page, QString action)
+PyObject *getLinkData(PyObject *rv,int page, const QString& action)
 {
 	int x, y;
 

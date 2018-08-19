@@ -273,7 +273,7 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 	itemText.insert(itemText.length(), story);
 }
 
-void PageItem_NoteFrame::updateNotes(QList<TextNote*> nList, bool clear)
+void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 {
 	if (nList == l_notes && !clear)
 		return;

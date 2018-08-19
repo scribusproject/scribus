@@ -1280,10 +1280,10 @@ namespace cff {
 	}
 	
 	
-	uint CFF::writeTopDict(QByteArray name,
-	                       QMap<operator_type, CFF_Variant> dict,
-	                       QList<QByteArray> oldStrings,
-	                       QHash<operator_type, uint>& patchAddresses)
+	uint CFF::writeTopDict(const QByteArray& name,
+						   const QMap<operator_type, CFF_Variant>& dict,
+						   const QList<QByteArray>& oldStrings,
+						   QHash<operator_type, uint>& patchAddresses)
 	{
 		m_offsetSize = 4;
 		m_names.append(name);
@@ -1316,7 +1316,7 @@ namespace cff {
 	
 	
 	QByteArray CFF::makeDict(QMap<operator_type, CFF_Variant> dict,
-	                         QList<QByteArray> oldStrings,
+							 const QList<QByteArray>& oldStrings,
 	                         QHash<operator_type, uint>& patchAddresses)
 	{
 		QByteArray result;

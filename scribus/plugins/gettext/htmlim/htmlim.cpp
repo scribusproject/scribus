@@ -50,7 +50,7 @@ QStringList FileExtensions()
 	return endings;
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
 	HTMLIm* him = new HTMLIm(filename, encoding, writer, textOnly);
 	delete him;
@@ -58,7 +58,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 /******** Class HTMLIm ************************************/
 
-HTMLIm::HTMLIm(QString fname, QString coding, gtWriter *w, bool textOnly)
+HTMLIm::HTMLIm(const QString& fname, const QString& coding, gtWriter *w, bool textOnly)
 {
 	filename = fname;
 	encoding = coding;

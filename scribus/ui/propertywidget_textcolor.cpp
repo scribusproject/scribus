@@ -260,7 +260,7 @@ void PropertyWidget_TextColor::showStrikeThru(double p, double w)
 	textEffects->StrikeVal->LWidth->showValue(w / 10.0);
 }
 
-void PropertyWidget_TextColor::showTextColors(QString p, QString b, QString bc, double shp, double shb, double sbc)
+void PropertyWidget_TextColor::showTextColors(const QString& p, const QString& b, const QString& bc, double shp, double shb, double sbc)
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;

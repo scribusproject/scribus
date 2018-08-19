@@ -36,8 +36,8 @@ public:
 	MeshPoint();
 	void moveRel(double dx, double dy);
 	void moveAbs(double x, double y);
-	void transform(QTransform t);
-	void resetTo(FPoint p);
+	void transform(const QTransform& t);
+	void resetTo(const FPoint& p);
 	bool operator ==(const MeshPoint& p);
 	FPoint gridPoint;
 	FPoint controlTop;

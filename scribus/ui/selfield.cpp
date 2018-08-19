@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "iconmanager.h"
 
-SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art) : QDialog(parent)
+SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString& Own, ScribusDoc *Doc, int Art) : QDialog(parent)
 {
 	setModal(true);
 	setWindowTitle( tr( "Select Fields" ) );

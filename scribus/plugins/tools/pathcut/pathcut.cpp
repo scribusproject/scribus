@@ -119,14 +119,8 @@ void PathCutPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PathCutPlugin::run(ScribusDoc* doc, QString)
+bool PathCutPlugin::run(ScribusDoc* doc, const QString&)
 {
-	QString vers = QString(qVersion()).left(5);
-	if (vers < "4.3.3")
-	{
-		ScMessageBox::information(doc->scMW(), tr("Qt Version too old"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
-		return true;
-	}
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;

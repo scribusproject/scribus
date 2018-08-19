@@ -16,7 +16,7 @@ protected:
 	void initSupportedFormatList();
 
 public:
-	ScImgDataLoader_QT(void);
+	ScImgDataLoader_QT();
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);

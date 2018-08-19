@@ -45,7 +45,7 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 	QStringList langCodes = cfg->getAvailableLanguagesList();
 	for (int i = 0; i< langCodes.count(); ++i)
 	{
-		QString code = langCodes.at(i);
+		const QString& code = langCodes.at(i);
 		QString lang = LanguageManager::instance()->getLangFromAbbrev(code, true);
 		languageComboBox->addItem(lang, code);
 	}

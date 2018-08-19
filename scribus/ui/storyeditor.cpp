@@ -717,7 +717,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	//SelParaStart = 0;
 }
 
-void SEditor::loadText(QString tx, PageItem *currItem)
+void SEditor::loadText(const QString& tx, PageItem *currItem)
 {
 	setTextColor(Qt::black);
 	setUpdatesEnabled(false);
@@ -1430,7 +1430,7 @@ void SToolBAlign::SetDirection(int s)
 	QSignalBlocker sigBlocker(GroupDirection);
 }
 
-void SToolBAlign::SetParaStyle(QString s)
+void SToolBAlign::SetParaStyle(const QString& s)
 {
 	QSignalBlocker sigBlocker(paraStyleCombo);
 	paraStyleCombo->setFormat(s);
@@ -1494,7 +1494,7 @@ void SToolBFont::languageChange()
 	charScaleV->setToolTip( tr("Scaling height of characters"));
 }
 
-void SToolBFont::SetFont(QString f)
+void SToolBFont::SetFont(const QString& f)
 {
 	QSignalBlocker sigBlocker(Fonts);
 	setCurrentComboItem(Fonts, f);
@@ -2748,7 +2748,7 @@ void StoryEditor::slot_insertSpecialChar()
 	m_blockUpdate = false;
 }
 
-void StoryEditor::slot_insertUserSpecialChar(QChar c, QString)
+void StoryEditor::slot_insertUserSpecialChar(QChar c, const QString&)
 {
 	m_blockUpdate = true;
 	Editor->insertPlainText(c);

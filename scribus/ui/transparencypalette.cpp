@@ -245,7 +245,7 @@ void Tpalette::updateGradientList()
 		pm = QPixmap::fromImage(pixm);
 		namedGradient->addItem(pm, patK[a]);
 	}
-	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradient, SIGNAL(activated(const QString&)), this, SLOT(setNamedGradient(const QString&)));
 }
 
 void Tpalette::setGradients(QHash<QString, VGradient> *docGradients)
@@ -254,7 +254,7 @@ void Tpalette::setGradients(QHash<QString, VGradient> *docGradients)
 	updateGradientList();
 }
 
-void Tpalette::setColors(ColorList newColorList)
+void Tpalette::setColors(const ColorList& newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
@@ -484,7 +484,7 @@ void Tpalette::selectPattern(QListWidgetItem *c)
 	emit NewPattern(c->text());
 }
 
-void Tpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void Tpalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);

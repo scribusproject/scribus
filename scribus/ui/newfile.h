@@ -64,13 +64,13 @@ public:
 		OpenRecentTab
 	} ActionSelected;
 
-	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "");
+	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, const QString& lang = "");
 	~NewDoc() {}
 	void createNewDocPage();
 	void createNewFromTempPage();
 	void createOpenDocPage();
 	void createRecentDocPage();
-	void setSize(QString gr);
+	void setSize(const QString& gr);
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
 	PageLayoutsWidget* layoutsView;
@@ -145,7 +145,7 @@ public slots:
 	void recentDocListBox_doubleClicked();
 	void openFile();
 	void adjustTitles(int tab);
-	void locationDropped(QString fileUrl);
+	void locationDropped(const QString& fileUrl);
 	void gotoParentDirectory();
 	void gotoSelectedDirectory();
 	void gotoDesktopDirectory();

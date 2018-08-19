@@ -45,7 +45,7 @@ public:
 	/*! \brief Static methods for loading, unloading plugins and resolving symbols
 	 These methods are platform independent, but each platform uses a different
 	 implementation. */
-	static void* loadDLL( QString plugin );
+	static void* loadDLL(const QString& plugin );
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
@@ -82,7 +82,7 @@ public:
 	 * \param includeDisabled return true if a plugin is loaded but not enabled
 	 * \return bool
 	 */
-	bool DLLexists(QString pluginName, bool includeDisabled = false) const;
+	bool DLLexists(const QString& pluginName, bool includeDisabled = false) const;
 
 	/*! \brief Returns a pointer to the requested plugin, or 0 if not found.
 	 *
@@ -182,13 +182,13 @@ protected:
 	\param fileName a filename of the plugin without path
 	\retval int 0 init failed, 1 loaded.
 	 */
-	int initPlugin(const QString fileName);
+	int initPlugin(const QString& fileName);
 
 	/*! \brief Reads available info and fills PluginData structure */
 	bool loadPlugin(PluginData & pluginData);
 
 	/*! \brief Determines the plugin name from the file name and returns it. */
-	static QString getPluginName(QString fileName);
+	static QString getPluginName(const QString& fileName);
 
 	/*! \brief Called by loadPlugin to hook the loaded plugin into the GUI,
 	call its setup routine, etc. Not responsible for creating

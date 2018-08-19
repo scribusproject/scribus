@@ -94,7 +94,7 @@ namespace Pdf
 	 Cf. PDF32000-2008, 7.3.4.2
 	 */
 	QByteArray toLiteralString(QByteArray s);
-	QByteArray toLiteralString(QString s);
+	QByteArray toLiteralString(const QString& s);
 	
 	/**
 	 convert to PDF hex string in <> brackets. Cf. PDF32000-2008, 7.3.4.3
@@ -122,12 +122,12 @@ namespace Pdf
 	 Cf. PDF32000-2008, 7.3.5
 	 */
 	QByteArray toName(QByteArray s);
-	QByteArray toName(QString s);
+	QByteArray toName(const QString& s);
 
 	/**
 	 converts to a PDF date string, cf. PDF32000-2008, 8.9.4
 	 */
-	QByteArray toDateString(QDateTime dt);
+	QByteArray toDateString(const QDateTime& dt);
 	
 	/**
 	 converts to a PDF rectangle, cf. PDF32000-2008, 8.9.5

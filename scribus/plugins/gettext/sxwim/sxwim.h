@@ -44,7 +44,7 @@ const QString CONTENT = "content.xml";
 class SxwIm
 {
 public:
-	SxwIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
+	SxwIm(const QString& fileName, const QString& encoding, gtWriter* w, bool textOnly);
 	~SxwIm();
 
 private:

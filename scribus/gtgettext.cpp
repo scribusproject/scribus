@@ -289,7 +289,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 
 // Loads the "DLL", validates the importer is good, populates the passed parameters with 
 // the plugin information.
-bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
+bool gtGetText::DLLName(const QString& name, QString *ffName, QStringList *fEndings)
 {
 	// Pointer to the plugin, once loaded
 	void* gtplugin;

@@ -43,7 +43,7 @@ void ParaStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateFormatList();
 }
 
-void ParaStyleComboBox::setFormat(QString name)
+void ParaStyleComboBox::setFormat(const QString& name)
 {
 	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }
@@ -107,7 +107,7 @@ void CharStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateFormatList();
 }
 
-void CharStyleComboBox::setFormat(QString name)
+void CharStyleComboBox::setFormat(const QString& name)
 {
 	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }
@@ -171,7 +171,7 @@ void CellStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateFormatList();
 }
 
-void CellStyleComboBox::setFormat(QString name)
+void CellStyleComboBox::setFormat(const QString& name)
 {
 	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }
@@ -236,7 +236,7 @@ void TableStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateFormatList();
 }
 
-void TableStyleComboBox::setFormat(QString name)
+void TableStyleComboBox::setFormat(const QString& name)
 {
 	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }

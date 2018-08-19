@@ -86,7 +86,7 @@ void ScInputDialog::languageChange()
 
 double ScInputDialog::getDouble( const QString &caption, const QString &label, double num,
 								double from, double to, int decimals,
-								QString suffix, bool *ok,
+								const QString& suffix, bool *ok,
 								QWidget *parent, const char *name )
 {
 	ScInputDialog *dlg = new ScInputDialog(parent, name, true);

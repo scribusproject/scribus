@@ -133,7 +133,7 @@ void FDialogPreview::updtPix()
 	setPixmap(pm);
 }
 
-void FDialogPreview::GenPreview(QString name)
+void FDialogPreview::GenPreview(const QString& name)
 {
 	QPixmap pm;
 	QString Buffer = "";
@@ -292,7 +292,7 @@ void FDialogPreview::GenPreview(QString name)
 	}
 }
 
-CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QString filter, int flags)
+CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption, const QString& filter, int flags)
 			: QDialog(parent), optionFlags(flags)
 {
 	setModal(true);
@@ -545,7 +545,7 @@ void CustomFDialog::togglePreview()
 	repaint();
 }
 
-void CustomFDialog::setSelection(QString sel)
+void CustomFDialog::setSelection(const QString& sel)
 {
 	fileDialog->selectFile( QFileInfo(sel).fileName() );
 	if (previewIsShown)
@@ -596,7 +596,7 @@ void CustomFDialog::handleCompress()
 	setSelection(tmp.fileName());
 }
 
-void CustomFDialog::setExtension(QString e)
+void CustomFDialog::setExtension(const QString& e)
 {
 	ext = e;
 }
@@ -606,7 +606,7 @@ QString CustomFDialog::extension()
 	return ext;
 }
 
-void CustomFDialog::setZipExtension(QString e)
+void CustomFDialog::setZipExtension(const QString& e)
 {
 	extZip = e;
 }

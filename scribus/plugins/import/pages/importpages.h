@@ -134,8 +134,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 
 private:
 	struct ObjStyle
@@ -231,13 +231,13 @@ private:
 		QHash<QString, LayoutStyle> m_layoutStyles;
 	};
 
-	bool convert(QString fn);
-	bool parseDocReference(QString designMap, bool compressed);
+	bool convert(const QString& fn);
+	bool parseDocReference(const QString& designMap, bool compressed);
 	void parseStyleSheets(QDomElement &drawPag);
 	void parsePageReference(QDomElement &drawPag);
 	PageItem *parseObjReference(QDomElement &draw);
-	void applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, QString pAttrs);
-	void applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs);
+	void applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, const QString& pAttrs);
+	void applyCharAttrs(CharStyle &tmpCStyle, const QString& pAttrs);
 	void finishItem(PageItem* item, ObjState &obState);
 	QList<PageItem*> Elements;
 	double baseX, baseY;

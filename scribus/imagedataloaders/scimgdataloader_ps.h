@@ -15,16 +15,16 @@ class ScImgDataLoader_PS : public ScImgDataLoader
 protected:
 
 	void initSupportedFormatList();
-	void scanForFonts(QString fn);
-	bool parseData(QString fn);
-	void loadPhotoshop(QString fn, int gsRes);
-	void decodeA85(QByteArray &psdata, QString tmp);
-	bool loadPSjpeg(QString fn);
-	bool loadPSjpeg(QString fn, QImage &tmpImg);
-	void loadPhotoshopBinary(QString fn);
-	void loadPhotoshopBinary(QString fn, QImage &tmpImg);
-	void loadDCS1(QString fn, int gsRes);
-	void loadDCS2(QString fn, int gsRes);
+	void scanForFonts(const QString& fn);
+	bool parseData(const QString& fn);
+	void loadPhotoshop(const QString& fn, int gsRes);
+	void decodeA85(QByteArray &psdata, const QString& tmp);
+	bool loadPSjpeg(const QString& fn);
+	bool loadPSjpeg(const QString& fn, QImage &tmpImg);
+	void loadPhotoshopBinary(const QString& fn);
+	void loadPhotoshopBinary(const QString& fn, QImage &tmpImg);
+	void loadDCS1(const QString& fn, int gsRes);
+	void loadDCS2(const QString& fn, int gsRes);
 	void blendImages(QImage &source, ScColor col);
 	struct plateOffsets
 	{
@@ -57,9 +57,9 @@ protected:
 	QStringList m_FontListe;
 
 public:
-	ScImgDataLoader_PS(void);
+	ScImgDataLoader_PS();
 
-	virtual void initialize(void);
+	virtual void initialize();
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);

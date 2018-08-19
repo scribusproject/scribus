@@ -609,7 +609,7 @@ void StoryText::trim()
 	}
 }
 
-void StoryText::insertChars(QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
+void StoryText::insertChars(const QString& txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
 {
 	insertChars(d->cursorPosition, txt, applyNeighbourStyle);
 }
@@ -655,7 +655,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 	invalidate(pos, pos + txt.length());
 }
 
-void StoryText::insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeighbourStyle)
+void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool applyNeighbourStyle)
 {
 	if (pos < 0)
 		pos += length()+1;

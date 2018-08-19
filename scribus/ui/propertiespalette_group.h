@@ -69,7 +69,7 @@ private slots:
 	void handleGroupTransparency(double trans);
 	void handleGroupBlending(int blend);
 	void handleGroupGradMask(int typ);
-	void handleGroupPatternMask(QString pattern);
+	void handleGroupPatternMask(const QString& pattern);
 	void handleGroupPatternMaskProps(double, double, double, double, double, double, double, bool, bool);
 
 	void handleTextFlow();

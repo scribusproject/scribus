@@ -33,7 +33,7 @@ void ScColorSlider::paintEvent(QPaintEvent *)
 	}
 	
 	QPalette slPalette = this->palette();
-	QBrush hooverBrush = slPalette.brush(QPalette::Window);
+	const QBrush& hooverBrush = slPalette.brush(QPalette::Window);
 	QRect hooverRect = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this);
 	
 	painter.setPen(Qt::NoPen);

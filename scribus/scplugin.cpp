@@ -126,13 +126,13 @@ bool ScActionPlugin::run(ScribusDoc* /*doc*/, QIODevice* /* target */)
 	return false;
 }
 
-bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, QString /* target */)
+bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, const QString& /* target */)
 {
 	return false;
 }
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScActionPlugin::runAsync(QString /* target */)
+DeferredTask* ScActionPlugin::runAsync(const QString& /* target */)
 {
 	return nullptr;
 }

@@ -27,7 +27,7 @@ class PLUGIN_API ShortWordsPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		ShortWordsPlugin();
 		virtual ~ShortWordsPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

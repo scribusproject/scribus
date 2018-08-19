@@ -120,20 +120,18 @@ ScFace CharTableModel::fontFace()
 	return (*m_doc->AllFonts)[m_fontInUse];
 }
 
-void CharTableModel::setCharacters(CharClassDef ch)
+void CharTableModel::setCharacters(const CharClassDef& ch)
 {
 	beginResetModel();
 	m_characters.clear();
 	m_fonts.clear();
 	m_characters = ch;
-	for (int a = 0; a < m_characters.count(); a++)
-	{
+	for (int i = 0; i < m_characters.count(); i++)
 		m_fonts.append(m_fontInUse);
-	}
 	endResetModel();
 }
 
-void CharTableModel::setCharactersAndFonts(CharClassDef ch, QStringList fonts)
+void CharTableModel::setCharactersAndFonts(const CharClassDef& ch, const QStringList& fonts)
 {
 	beginResetModel();
 	m_characters.clear();
@@ -143,13 +141,13 @@ void CharTableModel::setCharactersAndFonts(CharClassDef ch, QStringList fonts)
 	endResetModel();
 }
 
-void CharTableModel::addCharacter(QString ch)
+void CharTableModel::addCharacter(const QString& ch)
 {
 	int orig = rowCount();
 	bool ok;
-	int a = ch.indexOf(" ");
-	QString si = ch.left(a);
-	QString sf = ch.mid(a+1);
+	int i = ch.indexOf(" ");
+	QString si = ch.left(i);
+	QString sf = ch.mid(i+1);
 	int val = si.toInt(&ok, 10);
 	if (!ok)
 		return;
@@ -161,7 +159,7 @@ void CharTableModel::addCharacter(QString ch)
 		emit rowAppended();
 }
 
-void CharTableModel::setFontInUse(QString font)
+void CharTableModel::setFontInUse(const QString& font)
 {
 	if (font != m_fontInUse)
 	{

@@ -31,7 +31,7 @@ BarcodeGeneratorRenderThread::~BarcodeGeneratorRenderThread()
 	wait();
 }
 
-void BarcodeGeneratorRenderThread::render(QString psCommand)
+void BarcodeGeneratorRenderThread::render(const QString& psCommand)
 {
 	QMutexLocker locker(&mutex);
 

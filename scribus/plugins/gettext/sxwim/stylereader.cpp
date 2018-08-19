@@ -462,7 +462,7 @@ StyleReader::StyleReader(const QString& documentName, gtWriter *w, bool textOnly
  	return true;
  }
  
- void StyleReader::parse(QString fileName)
+ void StyleReader::parse(const QString& fileName)
  {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(fileName);

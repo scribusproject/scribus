@@ -45,7 +45,7 @@ public:
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(QString name);
+	void setFormat(const QString& name);
 	void updateFormatList();
 	void selFormat(int e);
 	
@@ -66,7 +66,7 @@ public:
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(QString name);
+	void setFormat(const QString& name);
 	void updateFormatList();
 	void selFormat(int e);
 	
@@ -87,7 +87,7 @@ public:
 
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(QString name);
+	void setFormat(const QString& name);
 	void updateFormatList();
 	void selFormat(int e);
 
@@ -108,7 +108,7 @@ public:
 
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(QString name);
+	void setFormat(const QString& name);
 	void updateFormatList();
 	void selFormat(int e);
 

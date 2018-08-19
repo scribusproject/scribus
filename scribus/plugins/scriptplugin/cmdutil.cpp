@@ -60,7 +60,7 @@ double docUnitYToPageY(double pageUnitY)
 	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
-PageItem *GetItem(QString Name)
+PageItem *GetItem(const QString& Name)
 {
 	if (!Name.isEmpty())
 	{
@@ -78,7 +78,7 @@ PageItem *GetItem(QString Name)
 	return nullptr;
 }
 
-void ReplaceColor(QString col, QString rep)
+void ReplaceColor(const QString& col, const QString& rep)
 {
 	QMap<QString, QString> colorMap;
 	colorMap.insert(col, rep);
@@ -99,7 +99,7 @@ void ReplaceColor(QString col, QString rep)
 }
 
 /* 04/07/10 returns selection if is not name specified  pv  */
-PageItem* GetUniqueItem(QString name)
+PageItem* GetUniqueItem(const QString& name)
 {
 	if (name.length()==0)
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
@@ -113,7 +113,7 @@ PageItem* GetUniqueItem(QString name)
 		return getPageItemByName(name);
 }
 
-PageItem* getPageItemByName(QString name)
+PageItem* getPageItemByName(const QString& name)
 {
 	if (name.length() == 0)
 	{
@@ -135,7 +135,7 @@ PageItem* getPageItemByName(QString name)
  * if it does exist. Returns false if there is no such object, or
  * if the empty string ("") is passed.
  */
-bool ItemExists(QString name)
+bool ItemExists(const QString& name)
 {
 	if (name.length() == 0)
 		return false;

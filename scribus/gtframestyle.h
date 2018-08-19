@@ -39,7 +39,7 @@ private:
 	int     m_bgShade;
 	void init();
 public:
-	gtFrameStyle(QString name);
+	gtFrameStyle(const QString& name);
 	gtFrameStyle(const gtFrameStyle& f);
 	gtFrameStyle(const gtParagraphStyle& p);
 	gtFrameStyle(const gtStyle& s);
@@ -49,7 +49,7 @@ public:
 	double getColumnsGap();
 	void setColumnsGap(double newColumnsGap);
 	QString getBgColor();
-	void setBgColor(QString newBgColor);
+	void setBgColor(const QString& newBgColor);
 	int getBgShade();
 	void setBgShade(int newBgShade);
 	void getParagraphStyle(gtParagraphStyle* pstyle);

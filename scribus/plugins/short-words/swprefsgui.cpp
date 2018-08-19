@@ -147,7 +147,7 @@ void SWPrefsGui::cfgEdit_changed()
 	okButton->setEnabled(true);
 }
 
-bool SWPrefsGui::loadCfgFile(QString filename)
+bool SWPrefsGui::loadCfgFile(const QString& filename)
 {
 	QFile f(filename);
 	if (!f.open(QIODevice::ReadOnly))

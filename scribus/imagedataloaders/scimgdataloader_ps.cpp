@@ -40,7 +40,7 @@ extern "C"
 #endif
 }
 
-ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader(),
+ScImgDataLoader_PS::ScImgDataLoader_PS() :
 	 m_isDCS1(false),
 	 m_isDCS2(false),
 	 m_isDCS2multi(false),
@@ -62,7 +62,7 @@ ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader(),
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_PS::initialize(void)
+void ScImgDataLoader_PS::initialize()
 {
 	m_doThumbnail = false;
 	m_hasThumbnail = false;
@@ -70,12 +70,10 @@ void ScImgDataLoader_PS::initialize(void)
 	ScImgDataLoader::initialize();
 }
 
-void ScImgDataLoader_PS::initSupportedFormatList(void)
+void ScImgDataLoader_PS::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
-	m_supportedFormats.append( "ps" );
-	m_supportedFormats.append( "eps" );
-	m_supportedFormats.append( "epsi" );
+	m_supportedFormats<<"ps"<<"eps"<<"epsi";
 }
 
 void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
@@ -127,7 +125,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 	}
 }
 
-void ScImgDataLoader_PS::scanForFonts(QString fn)
+void ScImgDataLoader_PS::scanForFonts(const QString& fn)
 {
 	QFile f(fn);
 	if (!f.open(QIODevice::ReadOnly))
@@ -148,7 +146,7 @@ void ScImgDataLoader_PS::scanForFonts(QString fn)
 	}
 }
 
-bool ScImgDataLoader_PS::parseData(QString fn)
+bool ScImgDataLoader_PS::parseData(const QString& fn)
 {
 	QChar tc;
 	QString tmp, FarNam;
@@ -293,7 +291,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						uint pos = posStr.toUInt();
 						uint len = lenStr.toUInt();
 						struct plateOffsets offs;
-						if (m_Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
+						if (m_Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weird entries
 						{
 							pos -= (191 + plateCount * 83);
 							len -= 83;
@@ -742,7 +740,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	return false;
 }
 
-void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
+void ScImgDataLoader_PS::loadPhotoshop(const QString& fn, int gsRes)
 {
 	if ((m_psDataType >= 1) && (m_psDataType <= 6) && ((m_psMode == 3) || (m_psMode == 4)))
 	{
@@ -855,7 +853,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	}
 }
 
-void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
+void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, const QString& tmp)
 {
 	uchar byte;
 	ushort data;
@@ -926,13 +924,13 @@ static void my_error_exit (j_common_ptr cinfo)
 	longjmp (myerr->setjmp_buffer, 1);
 }
 
-bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
+bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn)
 {
 	if (!QFile::exists(fn))
 		return false;
 	struct jpeg_decompress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *infile;
+	struct my_error_mgr jerr;
+	FILE *infile;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
 	infile = nullptr;
@@ -1051,7 +1049,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 	return (!m_image.isNull());
 }
 
-bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
+bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn, QImage &tmpImg)
 {
 	if (!QFile::exists(fn))
 		return false;
@@ -1176,7 +1174,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 	return (!tmpImg.isNull());
 }
 
-void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
+void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn)
 {
 	double x, y, b, h;
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
@@ -1316,7 +1314,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	f.close();
 }
 
-void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
+void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn, QImage &tmpImg)
 {
 	double x, y, b, h;
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
@@ -1435,11 +1433,11 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 	}
 }
 
-void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
+void ScImgDataLoader_PS::loadDCS2(const QString& fn, int gsRes)
 {
 	QStringList args;
 	double x, y, b, h;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	QString tmpFile2 = QDir::toNativeSeparators(ScPaths::tempFileDir() + "tmp.eps");
@@ -1549,7 +1547,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	m_pixelFormat = Format_YMCK_8;
 }
 
-void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
+void ScImgDataLoader_PS::loadDCS1(const QString& fn, int gsRes)
 {
 	QStringList args;
 	double x, y, b, h;

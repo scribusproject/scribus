@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-TransformItem::TransformItem(QString text, QListWidget* parent, int type, double val1, double val2) : QListWidgetItem(text, parent, type)
+TransformItem::TransformItem(const QString& text, QListWidget* parent, int type, double val1, double val2) : QListWidgetItem(text, parent, type)
 {
 	firstValue = val1;
 	secondValue = val2;

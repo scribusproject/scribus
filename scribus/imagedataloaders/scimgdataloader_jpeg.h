@@ -34,7 +34,7 @@ protected:
 	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
 
 public:
-	ScImgDataLoader_JPEG(void);
+	ScImgDataLoader_JPEG();
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);

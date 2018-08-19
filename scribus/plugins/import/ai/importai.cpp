@@ -117,7 +117,7 @@ AIPlug::AIPlug(ScribusDoc* doc, int flags) :
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-QImage AIPlug::readThumbnail(QString fNameIn)
+QImage AIPlug::readThumbnail(const QString& fNameIn)
 {
 	QString fName = fNameIn;
 	double x, y, b, h;
@@ -330,7 +330,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 	return success;
 }
 
-bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;
@@ -1203,19 +1203,19 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, const QString& ty
 	return ret;
 }
 
-QStringList AIPlug::getStrings(QString data)
+QStringList AIPlug::getStrings(const QString& data)
 {
 	QStringList result;
 	result.clear();
 	QChar tmp;
-	QString tmp2 = "";
-	QString tmp3 = "";
+	QString tmp2;
+	QString tmp3;
 	bool paran = false;
 	bool skip = false;
 	int digitCount = 0;
-	for (int a = 0; a < data.count(); a++)
+	for (int i = 0; i < data.count(); i++)
 	{
-		tmp = data[a];
+		tmp = data[i];
 		if (skip)
 		{
 			if (paran)
@@ -1268,7 +1268,7 @@ QStringList AIPlug::getStrings(QString data)
 	return result;
 }
 
-void AIPlug::getCommands(QString data, QStringList &commands)
+void AIPlug::getCommands(const QString& data, QStringList &commands)
 {
 	QString tmp;
 	QString tmp2;
@@ -1337,7 +1337,7 @@ void AIPlug::getCommands(QString data, QStringList &commands)
 	}
 }
 
-void AIPlug::decodeA85(QByteArray &psdata, QString tmp)
+void AIPlug::decodeA85(QByteArray &psdata, const QString& tmp)
 {
 	uchar byte;
 	ushort data;
@@ -1395,7 +1395,7 @@ void AIPlug::decodeA85(QByteArray &psdata, QString tmp)
 	}
 }
 
-void AIPlug::processData(QString data)
+void AIPlug::processData(const QString& data)
 {
 	double x, y, x1, y1, x2, y2;
 	int z, tmpInt;
@@ -2630,10 +2630,10 @@ void AIPlug::processData(QString data)
 	}
 }
 
-void AIPlug::processGradientData(QString data)
+void AIPlug::processGradientData(const QString& data)
 {
-	QString command = "";
-	QString Cdata = "";
+	QString command;
+	QString Cdata;
 	QStringList da;
 	getCommands(data, da);
 	for (int a = 0; a < da.count(); a++)
@@ -3119,7 +3119,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		groupStack.top().append(ite);
 }
 
-void AIPlug::processComment(QDataStream &ts, QString comment)
+void AIPlug::processComment(QDataStream &ts, const QString& comment)
 {
 	QString tmp = removeAIPrefix(comment);
 	if (tmp.startsWith("Begin_NonPrinting"))
@@ -3366,7 +3366,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	}
 }
 
-bool AIPlug::convert(QString fn)
+bool AIPlug::convert(const QString& fn)
 {
 	QString tmp;
 	LineW = 1.0;

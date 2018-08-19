@@ -124,7 +124,7 @@ bool ScTreeWidget::event(QEvent *e)
 	return QTreeWidget::event(e);
 }
 
-QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
+QTreeWidgetItem* ScTreeWidget::addWidget(const QString& title, QWidget* widget)
 {
 	QTreeWidgetItem *item1 = new QTreeWidgetItem(this);
 	item1->setText(0, title);
@@ -151,7 +151,7 @@ void ScTreeWidget::setToolBoxMode(bool enable)
 	m_toolbox_mode = enable;
 }
 
-int ScTreeWidget::addItem(QWidget* widget, QString title)
+int ScTreeWidget::addItem(QWidget* widget, const QString& title)
 {
 	QTreeWidgetItem *top = addWidget(title, widget);
 	return indexOfTopLevelItem(top);

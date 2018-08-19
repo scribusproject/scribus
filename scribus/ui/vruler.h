@@ -53,7 +53,7 @@ private: // Private attributes
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 
-	void drawNumber(QString num, int starty, QPainter *p);
+	void drawNumber(const QString& num, int starty, QPainter *p);
 	double offs;
 	int oldMark;
 	bool Mpressed;

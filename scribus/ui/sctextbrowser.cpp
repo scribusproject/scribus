@@ -37,7 +37,7 @@ void ScTextBrowser::home()
 }
 
 
-void ScTextBrowser::catchHome(QUrl url)
+void ScTextBrowser::catchHome(const QUrl& url)
 {
 	if (homeUrl.isEmpty())
 	{
@@ -46,7 +46,7 @@ void ScTextBrowser::catchHome(QUrl url)
 	}
 }
 
-void ScTextBrowser::externalLinkClick(QUrl url)
+void ScTextBrowser::externalLinkClick(const QUrl& url)
 {
 	if (url.scheme()=="http")
 		UrlLauncher::instance()->launchUrlExt(url, parentWidget());

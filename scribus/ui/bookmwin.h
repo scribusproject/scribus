@@ -80,9 +80,9 @@ public:
 	BookMView(QWidget* parent);
 	~BookMView() {};
 
-	void addItem(QString text, QString Tit, PageItem *PageObject);
+	void addItem(const QString& text, const QString& Tit, PageItem *PageObject);
 	void deleteItem(PageItem *PageObject);
-	void setAction(PageItem *currItem, QString Act);
+	void setAction(PageItem *currItem, const QString& Act);
 
 	int NrItems;
 	int First;

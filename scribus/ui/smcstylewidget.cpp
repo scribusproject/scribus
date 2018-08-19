@@ -135,12 +135,13 @@ void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 */
-void SMCStyleWidget::fillLangComboFromList(QStringList langList)
+void SMCStyleWidget::fillLangComboFromList(const QStringList& langList)
 {
 	language_->clear();
 	language_->addItems(langList);
 
-	QListView *tmpView = dynamic_cast<QListView*>(language_->view()); Q_ASSERT(tmpView);
+	QListView *tmpView = dynamic_cast<QListView*>(language_->view());
+	Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
@@ -168,7 +169,7 @@ void SMCStyleWidget::handleUpdateRequest(int updateFlags)
 		fillColorCombo(m_Doc->PageColors);
 }
 
-void SMCStyleWidget::slotEnableFontFeatures(QString s)
+void SMCStyleWidget::slotEnableFontFeatures(const QString& s)
 {
 	const ScFace& font = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
 	fontfeaturesSetting->enableFontFeatures(font.fontFeatures());

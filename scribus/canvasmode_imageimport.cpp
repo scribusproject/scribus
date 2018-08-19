@@ -64,7 +64,7 @@ void CanvasMode_ImageImport::setImageList(QStringList l)
 		newToolTip(l.first());
 }
 
-void CanvasMode_ImageImport::newToolTip(QString name)
+void CanvasMode_ImageImport::newToolTip(const QString& name)
 {
 	QPainter p;
 	QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);

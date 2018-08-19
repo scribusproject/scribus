@@ -43,7 +43,7 @@ class PLUGIN_API PathFinderPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathFinderPlugin();
 		virtual ~PathFinderPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

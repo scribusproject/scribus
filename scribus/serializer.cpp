@@ -53,13 +53,13 @@ struct Collection
 	QList<QString> fonts;
 	QList<QString> patterns;
 
-	void collectItem(PageItem* p)              { items.append(p); }
-	void collectColor(QString name, ScColor c) { colors[name] = c; }
-	void collectStyle(ParagraphStyle* style)   { if (style && !style->name().isEmpty()) pstyles.append(style); }
-	void collectCharStyle(CharStyle* style)    { if (style && !style->name().isEmpty()) cstyles.append(style); }
-	void collectLineStyle(QString name, multiLine& m) { lstyles[name] = m; }
-	void collectFont(QString name)             { fonts.append(name); }
-	void collectPattern(QString name)          { patterns.append(name); }
+	void collectItem(PageItem* p) { items.append(p); }
+	void collectColor(const QString& name, ScColor c) { colors[name] = c; }
+	void collectStyle(ParagraphStyle* style) { if (style && !style->name().isEmpty()) pstyles.append(style); }
+	void collectCharStyle(CharStyle* style) { if (style && !style->name().isEmpty()) cstyles.append(style); }
+	void collectLineStyle(const QString& name, multiLine& m) { lstyles[name] = m; }
+	void collectFont(QString name) { fonts.append(name); }
+	void collectPattern(QString name) { patterns.append(name); }
 };
 
 

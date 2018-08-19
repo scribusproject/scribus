@@ -166,7 +166,7 @@ void LatexConfigParser::parseElements()
 	}
 }
 
-void LatexConfigParser::formatError(QString message)
+void LatexConfigParser::formatError(const QString& message)
 {
 	QString new_error = QString::number(xml.lineNumber()) + ":" + 
 			QString::number(xml.columnNumber()) + ":" + message;
@@ -403,7 +403,7 @@ LatexConfigCache* LatexConfigCache::instance()
 	return m_instance;
 }
 
-LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
+LatexConfigParser* LatexConfigCache::parser(const QString& filename, bool warnOnError)
 {
 	if (m_parsers.contains(filename))
 	{
@@ -420,7 +420,7 @@ LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
 }
 
 
-void LatexConfigCache::createParser(QString filename, bool warnOnError)
+void LatexConfigCache::createParser(const QString& filename, bool warnOnError)
 {
 	LatexConfigParser *parser = new LatexConfigParser();
 	bool hasError = !parser->parseConfigFile(filename);
@@ -436,7 +436,7 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 	}
 }
 
-bool LatexConfigCache::hasError(QString filename)
+bool LatexConfigCache::hasError(const QString& filename)
 {
 	if (!m_error.contains(filename))
 		return true;

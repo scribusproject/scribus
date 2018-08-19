@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pluginapi.h"
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 
@@ -43,7 +43,7 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class HTMLIm 
 {
 public:
-	HTMLIm(QString fname, QString encoding, gtWriter *w, bool textOnly);
+	HTMLIm(const QString& fname, const QString& encoding, gtWriter *w, bool textOnly);
 	~HTMLIm();
 private:
 	QString encoding;

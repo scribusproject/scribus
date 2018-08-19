@@ -28,7 +28,7 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 // because we don't want to clobber the output file until we know the
 // data has been generated ok, and we can't avoid clobbering the file
 // to create a QTextStream().
-bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
+bool PDFOptionsIO::writeTo(const QString& outFileName, bool includePasswords)
 {
 	m_includePasswords = includePasswords;
 	QString xml(buildXMLString());
@@ -180,28 +180,28 @@ void PDFOptionsIO::buildSettings()
 // Convenience functions to add a single-attribute element
 // of a particular type to the tree at a given point.
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, bool value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, bool value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value", value ? "true" : "false" );
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, QString value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, const QString& value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, int value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, int value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, double value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
@@ -210,7 +210,7 @@ void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
 
 // Save a QValueList<String> or QStringList as a list of
 // <item value=""> elements
-void PDFOptionsIO::addList(QDomElement& addTo, QString name, QList<QString>& value)
+void PDFOptionsIO::addList(QDomElement& addTo, const QString& name, QList<QString>& value)
 {
 	// List base element has no attributes, only children
 	QDomElement listbase = m_doc.createElement(name);
@@ -293,7 +293,7 @@ void PDFOptionsIO::addLPISettings()
 }
 
 // overload of bool readFrom(QTextStream& inStream)
-bool PDFOptionsIO::readFrom(QString inFileName)
+bool PDFOptionsIO::readFrom(const QString& inFileName)
 {
 	QFile f(inFileName);
 	if (!f.open(QIODevice::ReadOnly))
@@ -500,12 +500,12 @@ bool PDFOptionsIO::readPDFFontEmbeddingMode()
 		m_opts->FontEmbedding = PDFOptions::EmbedFonts;
 		return true;
 	}
-	else if (embeddingMode == "OutlineFonts")
+	if (embeddingMode == "OutlineFonts")
 	{
 		m_opts->FontEmbedding = PDFOptions::OutlineFonts;
 		return true;
 	}
-	else if (embeddingMode == "DontEmbed")
+	if (embeddingMode == "DontEmbed")
 	{
 		m_opts->FontEmbedding = PDFOptions::DontEmbed;
 		return true;
@@ -518,7 +518,7 @@ bool PDFOptionsIO::readPDFFontEmbeddingMode()
 }
 
 // returns a null node on failure
-QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, QString name)
+QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, const QString& name)
 {
 	QDomNodeList nodes = parent.elementsByTagName(name);
 	if (nodes.count() != 1)
@@ -534,7 +534,7 @@ QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, QString name)
 
 // Return the node as a QDomElement iff it is a QDomElement with
 // a `value' attribute; otherwise return a null element.
-QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isValue)
+QDomElement PDFOptionsIO::getValueElement(QDomNode& node, const QString& name, bool isValue)
 {
 	if (node.isNull())
 	{
@@ -576,7 +576,7 @@ QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isV
 	return elem;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, bool* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -603,7 +603,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
 	}
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, int* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -624,7 +624,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
 	return ok;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, double* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -645,7 +645,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
 	return ok;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, QString* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -659,7 +659,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 }
 
 // Read a stringlist saved as a list of child <item value=""> elements
-bool PDFOptionsIO::readList(QDomElement& parent, QString name, QList<QString>* value)
+bool PDFOptionsIO::readList(QDomElement& parent, const QString& name, QList<QString>* value)
 {
 	QDomNode basenode = getUniqueNode(parent, name);
 	QDomElement listbase = getValueElement(basenode, name, false);

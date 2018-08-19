@@ -93,7 +93,7 @@ private:
 	void drawMarks(QPainter& p);
 	void drawTextMarks(double pos, double endPos, QPainter& p);
 	void drawMarker(QPainter& p);
-	void drawNumber(QString num, int startx, int starty, QPainter & p);
+	void drawNumber(const QString& num, int startx, int starty, QPainter & p);
 	void UpdateTabList();
 
 	int Markp;

@@ -176,7 +176,7 @@ class PreviewImagesModel : public QAbstractListModel
 		//previewImage* loadedImage: pointer to identify the loaded image
 		//const QImage image: the actual image
 		//int tpId: the id the thread has been called from
-		void processLoadedImage ( int row, const QImage image, ImageInformation* imgInfo, int tpId );
+		void processLoadedImage ( int row, const QImage& image, ImageInformation* imgInfo, int tpId );
 		void processImageLoadError ( int row, int tpId, int errorcode );
 
 	private:

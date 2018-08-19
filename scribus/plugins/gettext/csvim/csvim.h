@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 class gtParagraphStyle;
 class gtWriter;
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 

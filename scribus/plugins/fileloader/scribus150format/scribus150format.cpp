@@ -6951,7 +6951,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 		{
 			TextNote* note = it.value();
 			assert(note != nullptr);
-			QString mrkLabel = it.key();
+			const QString& mrkLabel = it.key();
 			Mark* mrk = m_Doc->getMark(mrkLabel, MARKNoteMasterType);
 			if (mrk == nullptr)
 			{

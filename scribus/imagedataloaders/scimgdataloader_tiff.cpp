@@ -24,7 +24,7 @@ static void TagExtender(TIFF *tiff)
 	TIFFMergeFieldInfo(tiff, xtiffFieldInfo, sizeof (xtiffFieldInfo) / sizeof (xtiffFieldInfo[0]));
 }
 
-ScImgDataLoader_TIFF::ScImgDataLoader_TIFF(void) : ScImgDataLoader()
+ScImgDataLoader_TIFF::ScImgDataLoader_TIFF() : ScImgDataLoader()
 {
 	m_photometric = PHOTOMETRIC_MINISBLACK;
 	m_samplesperpixel = 72;
@@ -32,7 +32,7 @@ ScImgDataLoader_TIFF::ScImgDataLoader_TIFF(void) : ScImgDataLoader()
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_TIFF::initSupportedFormatList(void)
+void ScImgDataLoader_TIFF::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "tif" );
@@ -392,7 +392,7 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 	return gotData;
 }
 
-void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask)
+void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, const QString& layBlend, bool cmyk, bool useMask)
 {
 	if (layBlend == "diss")
 	{

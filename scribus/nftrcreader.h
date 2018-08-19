@@ -25,12 +25,12 @@ for which a new license (GPL+exception) is in place.
 class nftrcreader
 {
 public:
-	nftrcreader(std::vector<nfttemplate*> *tmplts, QString sourceDir);
+	nftrcreader(std::vector<nfttemplate*> *tmplts, const QString& sourceDir);
 
-	bool parse(QString filePath);
+	bool parse(const QString& filePath);
 
-	void setSourceDir(QString source);
-	void setSourceFile(QString sourceFile);
+	void setSourceDir(const QString& source);
+	void setSourceFile(const QString& sourceFile);
 
 private:
 	QString currentDir;
@@ -41,7 +41,7 @@ private:
 
 	bool parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTemplate);
 
-	QString getCategory(QString cat);
+	QString getCategory(const QString& cat);
 	void setupCategories();
 };
 

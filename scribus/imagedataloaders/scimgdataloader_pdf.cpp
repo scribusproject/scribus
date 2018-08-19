@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 
-ScImgDataLoader_PDF::ScImgDataLoader_PDF(void) : ScImgDataLoader()
+ScImgDataLoader_PDF::ScImgDataLoader_PDF() : ScImgDataLoader()
 {
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_PDF::initSupportedFormatList(void)
+void ScImgDataLoader_PDF::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "pdf" );

@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmessagebox.h"
 #include "iconmanager.h"
 
-Query::Query( QWidget* parent,  const char* name, bool modal, QString text, QString titel ) : QDialog( parent )
+Query::Query( QWidget* parent,  const char* name, bool modal, const QString& text, const QString& titel ) : QDialog( parent )
 {
 	setWindowTitle( titel );
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
@@ -106,19 +106,19 @@ const QString Query::getEditText()
 	return answerEdit->text();
 }
 
-void Query::setEditText(QString newText, bool setSelected)
+void Query::setEditText(const QString& newText, bool setSelected)
 {
 	answerEdit->setText(newText);
 	if (setSelected)
 		answerEdit->selectAll();
 }
 
-void Query::setTestList(QStringList tList)
+void Query::setTestList(const QStringList& tList)
 {
 	checkList = tList;
 }
 
-void Query::setForbiddenList(QStringList tList)
+void Query::setForbiddenList(const QStringList& tList)
 {
 	forbiddenList = tList;
 }
@@ -128,7 +128,7 @@ void Query::setCheckMode(bool mode)
 	checkMode = mode;
 }
 
-void Query::setValidator(QRegExp rx)
+void Query::setValidator(const QRegExp& rx)
 {
 	QValidator* vaild = new QRegExpValidator( rx, this );
 	answerEdit->setValidator(vaild);

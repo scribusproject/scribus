@@ -152,7 +152,7 @@ VGradientEx::addStop( const VColorStopEx& colorStop )
 } // VGradientEx::addStop
 
 void
-VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade )
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = qMax( 0.0, rampPoint );

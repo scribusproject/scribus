@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 
 ScZipHandler::ScZipHandler(bool forWrite)
 {
-	m_uz = NULL;
-	m_zi = NULL;
+	m_uz = nullptr;
+	m_zi = nullptr;
 	if (forWrite)
 		m_zi = new Zip();
 	else
@@ -37,21 +37,19 @@ ScZipHandler::ScZipHandler(bool forWrite)
 
 ScZipHandler::~ScZipHandler()
 {
-	if (m_uz != NULL)
-		delete m_uz;
-	if (m_zi != NULL)
-		delete m_zi;
+	delete m_uz;
+	delete m_zi;
 }
 
-bool ScZipHandler::open(QString fileName)
+bool ScZipHandler::open(const QString& fileName)
 {
 	bool retVal = false;
-	if (m_uz != NULL)
+	if (m_uz != nullptr)
 	{
 		UnZip::ErrorCode ec = m_uz->openArchive(fileName);
 		retVal = (ec == UnZip::Ok);
 	}
-	if (m_zi != NULL)
+	if (m_zi != nullptr)
 	{
 		Zip::ErrorCode ec = m_zi->createArchive(fileName);
 		retVal = (ec == Zip::Ok);
@@ -62,12 +60,12 @@ bool ScZipHandler::open(QString fileName)
 bool ScZipHandler::close()
 {
 	bool retVal = false;
-	if (m_uz != NULL)
+	if (m_uz != nullptr)
 	{
 		m_uz->closeArchive();
 		retVal = true;
 	}
-	if (m_zi != NULL)
+	if (m_zi != nullptr)
 	{
 		Zip::ErrorCode ec = m_zi->closeArchive();
 		retVal = (ec == Zip::Ok);
@@ -75,68 +73,61 @@ bool ScZipHandler::close()
 	return retVal;
 }
 
-bool ScZipHandler::contains(QString fileName)
+bool ScZipHandler::contains(const QString& fileName)
 {
-	bool retVal = false;
-	if (m_uz != NULL)
-		retVal = m_uz->contains(fileName);
+	if (m_uz == nullptr)
+		return false;
+	return m_uz->contains(fileName);
+}
+
+bool ScZipHandler::read(const QString& fileName, QByteArray &buf)
+{
+	if (m_uz == nullptr)
+		return false;
+	QByteArray byteArray;
+	QBuffer buffer(&byteArray);
+	buffer.open(QIODevice::WriteOnly);
+	UnZip::ErrorCode ec = m_uz->extractFile(fileName, &buffer);
+	bool retVal = (ec == UnZip::Ok);
+	if (retVal)
+		buf = byteArray;
 	return retVal;
 }
 
-bool ScZipHandler::read(QString fileName, QByteArray &buf)
+bool ScZipHandler::write(const QString& dirName)
 {
-	bool retVal = false;
-	if (m_uz != NULL)
-	{
-		QByteArray byteArray;
-		QBuffer buffer(&byteArray);
-		buffer.open(QIODevice::WriteOnly);
-		UnZip::ErrorCode ec = m_uz->extractFile(fileName, &buffer);
-		retVal = (ec == UnZip::Ok);
-		if (retVal)
-			buf = byteArray;
-	}
-	return retVal;
+	if (m_uz == nullptr)
+		return false;
+	Zip::ErrorCode ec = m_zi->addDirectory(dirName, "", Zip::IgnoreRoot);
+	return (ec == Zip::Ok);
 }
 
-bool ScZipHandler::write(QString dirName)
+bool ScZipHandler::extract(const QString& name, const QString& path, ExtractionOption eo)
 {
+	if (m_uz == nullptr)
+		return false;
 	bool retVal = false;
-	if (m_zi != NULL)
-	{
-		Zip::ErrorCode ec = m_zi->addDirectory(dirName, "", Zip::IgnoreRoot);
-		retVal = (ec == Zip::Ok);
-	}
-	return retVal;
-}
-
-bool ScZipHandler::extract(QString name, QString path, ExtractionOption eo)
-{
-	bool retVal = false;
-	if (m_uz != NULL)
-	{
-		QString pwd = QDir::currentPath();
-		QString outDir;
-		if (path.isNull())
-			outDir = ScPaths::tempFileDir();
-		else
-			outDir=path;
-		QFile f(outDir);
-		QFileInfo fi(f);
-		if (!fi.isWritable())
-			outDir = ScPaths::applicationDataDir();
-		QDir::setCurrent(outDir);
-		UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, static_cast<UnZip::ExtractionOption>(eo));
-		retVal = (ec == UnZip::Ok);
-		QDir::setCurrent(pwd);
-	}
+	QString pwd(QDir::currentPath());
+	QString outDir;
+	if (path.isNull())
+		outDir = ScPaths::tempFileDir();
+	else
+		outDir=path;
+	QFile f(outDir);
+	QFileInfo fi(f);
+	if (!fi.isWritable())
+		outDir = ScPaths::applicationDataDir();
+	QDir::setCurrent(outDir);
+	UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, static_cast<UnZip::ExtractionOption>(eo));
+	retVal = (ec == UnZip::Ok);
+	QDir::setCurrent(pwd);
 	return retVal;
 }
 
 QStringList ScZipHandler::files()
 {
-	QStringList retVal = QStringList();
-	if (m_uz != NULL)
+	QStringList retVal;
+	if (m_uz != nullptr)
 		retVal = m_uz->fileList();
 	return retVal;
 }

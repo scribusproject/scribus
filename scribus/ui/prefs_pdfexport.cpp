@@ -148,7 +148,7 @@ QStringList Prefs_PDFExport::fontsToOutline()
 	return QStringList();
 }
 
-QListWidgetItem* Prefs_PDFExport::addFontItem(QString fontName, QListWidget* fontList)
+QListWidgetItem* Prefs_PDFExport::addFontItem(const QString& fontName, QListWidget* fontList)
 {
 	QListWidgetItem* item = nullptr;
 	if (!AllFonts.contains(fontName))

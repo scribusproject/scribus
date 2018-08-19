@@ -42,7 +42,7 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	virtual bool run(ScribusDoc* doc=0, QString filename = QString::null);
+	virtual bool run(ScribusDoc* doc=0, const QString& filename = QString::null);
 	virtual const QString fullTrName() const;
 	virtual const AboutData* getAboutData() const;
 	virtual void deleteAboutData(const AboutData* about) const;
@@ -128,7 +128,7 @@ private:
 	\retval QString Colour settings
 	*/
 	QString MatrixToStr(QTransform &mat);
-	QString SetColor(QString farbe, int shad);
+	QString SetColor(const QString& farbe, int shad);
 	/*!
 	\author Franz Schmid
 	\param sl struct SingleLine *

@@ -76,7 +76,7 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	m_pdfDoc = nullptr;
 }
 
-QImage PdfPlug::readThumbnail(QString fName)
+QImage PdfPlug::readThumbnail(const QString& fName)
 {
 	QString pdfFile = QDir::toNativeSeparators(fName);
 	globalParams = new GlobalParams();
@@ -179,14 +179,13 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		showProgress = false;
 	#endif
 #endif
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -273,7 +272,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSele->clear();
 		QDir::setCurrent(CurDirP);

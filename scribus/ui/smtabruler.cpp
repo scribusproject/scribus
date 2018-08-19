@@ -11,8 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 
-SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
-					   QList<ParagraphStyle::TabRecord> Tabs, double wid)
+SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid)
 : Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
 	m_parentButton = new QToolButton(this);
@@ -83,7 +82,7 @@ void SMTabruler::unitChange(int unitIndex)
 	this->blockSignals(false);
 }
 
-void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex)
+void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitIndex)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
@@ -97,7 +96,7 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex)
 	tabData->setNewUnit(unitIndex);
 }
 
-void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, bool isParentValue)
+void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitIndex, bool isParentValue)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
@@ -118,7 +117,7 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, b
 	connect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
 }
 
-void SMTabruler::setParentTabs(QList<ParagraphStyle::TabRecord> Tabs)
+void SMTabruler::setParentTabs(const QList<ParagraphStyle::TabRecord>& Tabs)
 {
 	m_hasParent = true;
 	m_pTabs = Tabs;

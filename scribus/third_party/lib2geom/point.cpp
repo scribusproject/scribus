@@ -98,14 +98,14 @@ is_unit_vector(Point const &p)
        tolerance; most callers would be ok with a tolerance of 0.25. */
 }
 
-Coord atan2(Point const p) {
+Coord atan2(Point const& p) {
     return std::atan2(p[Y], p[X]);
 }
 
 /** compute the angle turning from a to b.  This should give \f$\pi/2\f$ for angle_between(a, rot90(a));
  * This works by projecting b onto the basis defined by a, rot90(a)
  */
-Coord angle_between(Point const a, Point const b) {
+Coord angle_between(Point const& a, Point const& b) {
     return std::atan2(cross(b,a), dot(b,a));
 }
 

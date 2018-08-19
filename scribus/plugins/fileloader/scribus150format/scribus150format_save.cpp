@@ -620,7 +620,7 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part)
 	}
 }
 
-void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
+void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 {
 	QHash<QString, VGradient>::Iterator itGrad;
 	QHash<QString, VGradient> gradMap;
@@ -634,7 +634,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 		docu.writeAttribute("Name",itGrad.key());
 		VGradient gra = itGrad.value();
 		docu.writeAttribute("Ext", gra.repeatMethod());
-		QList<VColorStop*> cstops = gra.colorStops();
+		const QList<VColorStop*>& cstops = gra.colorStops();
 		for (int cst = 0; cst < gra.Stops(); ++cst)
 		{
 			docu.writeEmptyElement("CSTOP");
@@ -647,7 +647,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 	}
 }
 
-void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter &docu)
+void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 {
 	docu.writeStartElement("HYPHEN");
 	for (QHash<QString, QString>::Iterator hyit = m_Doc->docHyphenator->specialWords.begin(); hyit != m_Doc->docHyphenator->specialWords.end(); ++hyit)
@@ -910,7 +910,7 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 		docu.writeAttribute("FillShade", style.fillShade());
 	if ( ! style.isInhLeftBorder())
 	{
-		TableBorder tbLeft = style.leftBorder();
+		const TableBorder& tbLeft = style.leftBorder();
 		docu.writeStartElement("TableBorderLeft");
 		for (const TableBorderLine& tbl : tbLeft.borderLines())
 		{
@@ -925,7 +925,7 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 	}
 	if ( ! style.isInhRightBorder())
 	{
-		TableBorder tbRight = style.rightBorder();
+		const TableBorder& tbRight = style.rightBorder();
 		docu.writeStartElement("TableBorderRight");
 		for (const TableBorderLine& tbl : tbRight.borderLines())
 		{
@@ -940,7 +940,7 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 	}
 	if ( ! style.isInhTopBorder())
 	{
-		TableBorder tbTop = style.topBorder();
+		const TableBorder& tbTop = style.topBorder();
 		docu.writeStartElement("TableBorderTop");
 		for (const TableBorderLine& tbl : tbTop.borderLines())
 		{
@@ -955,7 +955,7 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 	}
 	if ( ! style.isInhBottomBorder())
 	{
-		TableBorder tbBottom = style.bottomBorder();
+		const TableBorder& tbBottom = style.bottomBorder();
 		docu.writeStartElement("TableBorderBottom");
 		for (const TableBorderLine& tbl : tbBottom.borderLines())
 		{
@@ -992,7 +992,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 		docu.writeAttribute("BottomPadding", style.bottomPadding());
 	if ( ! style.isInhLeftBorder())
 	{
-		TableBorder tbLeft = style.leftBorder();
+		const TableBorder& tbLeft = style.leftBorder();
 		docu.writeStartElement("TableBorderLeft");
 		for (const TableBorderLine& tbl : tbLeft.borderLines())
 		{
@@ -1007,7 +1007,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 	}
 	if ( ! style.isInhRightBorder())
 	{
-		TableBorder tbRight = style.rightBorder();
+		const TableBorder& tbRight = style.rightBorder();
 		docu.writeStartElement("TableBorderRight");
 		for (const TableBorderLine& tbl : tbRight.borderLines())
 		{
@@ -1022,7 +1022,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 	}
 	if ( ! style.isInhTopBorder())
 	{
-		TableBorder tbTop = style.topBorder();
+		const TableBorder& tbTop = style.topBorder();
 		docu.writeStartElement("TableBorderTop");
 		for (const TableBorderLine& tbl : tbTop.borderLines())
 		{
@@ -1037,7 +1037,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 	}
 	if ( ! style.isInhBottomBorder())
 	{
-		TableBorder tbBottom = style.bottomBorder();
+		const TableBorder& tbBottom = style.bottomBorder();
 		docu.writeStartElement("TableBorderBottom");
 		for (const TableBorderLine& tbl : tbBottom.borderLines())
 		{

@@ -166,9 +166,8 @@ QImage CgmPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -176,7 +175,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	double b, h;
 	bool ret = false;
 	CustColors.clear();
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -261,7 +260,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -3295,14 +3294,14 @@ void CgmPlug::alignStreamToWord(QDataStream &ts, uint len)
 
 /* Start of core Functions common to both Decoders */
 
-void CgmPlug::handleStartMetaFile(QString value)
+void CgmPlug::handleStartMetaFile(const QString& value)
 {
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		m_Doc->documentInfo().setTitle(value);
 	// qDebug() << "Start Metafile" << value;
 }
 
-void CgmPlug::handleStartPicture(QString value)
+void CgmPlug::handleStartPicture(const QString& value)
 {
 	pictName = value;
 //	qDebug() << "Start Picture" << value;
@@ -3383,7 +3382,7 @@ void CgmPlug::appendPath(QPainterPath &path1, QPainterPath &path2)
 	}
 }
 
-PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, QString fill, QString stroke)
+PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& stroke)
 {
 	int z;
 	if (lineVisible)

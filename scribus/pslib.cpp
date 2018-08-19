@@ -537,7 +537,7 @@ QString PSLib::MatrixToStr(double m11, double m12, double m21, double m22, doubl
 	return  cc.arg(m11).arg(m12).arg(m21).arg(m22).arg(x).arg(y);
 }
 
-void PSLib::PS_set_Info(QString art, QString was)
+void PSLib::PS_set_Info(const QString& art, const QString& was)
 {
 	if (art == "Author")
 		User = was;
@@ -547,7 +547,7 @@ void PSLib::PS_set_Info(QString art, QString was)
 		Titel = was;
 }
 
-bool PSLib::PS_set_file(QString fn)
+bool PSLib::PS_set_file(const QString& fn)
 {
 	Spool.setFileName(fn);
 	if (Spool.exists())
@@ -657,20 +657,19 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 	return true;
 }
 
-QString PSLib::PSEncode(QString in)
+QString PSLib::PSEncode(const QString& in)
 {
 	static QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-	QString tmp = "";
-	tmp = in.simplified().replace( badchars, "_" );
+	QString tmp(in.simplified().replace( badchars, "_" ));
 	return tmp;
 }
 
-void PSLib::PS_TemplateStart(QString Name)
+void PSLib::PS_TemplateStart(const QString& Name)
 {
 	PutStream("/"+PSEncode(Name)+"\n{\n");
 }
 
-void PSLib::PS_UseTemplate(QString Name)
+void PSLib::PS_UseTemplate(const QString& Name)
 {
 	PutStream(PSEncode(Name)+"\n");
 }
@@ -1052,7 +1051,7 @@ void PSLib::PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
 		}
 }
 
-void PSLib::PS_selectfont(QString f, double s)
+void PSLib::PS_selectfont(const QString& f, double s)
 {
 	PutStream(UsedFonts[f] + " " + ToStr(s) + " se\n");
 }
@@ -1065,7 +1064,7 @@ void PSLib::PS_fill()
 		PutStream(FillColor + " cmyk fill\n");
 }
 
-void PSLib::PS_fillspot(QString color, double shade)
+void PSLib::PS_fillspot(const QString& color, double shade)
 {
 	if (fillRule)
 		PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" eofill\n");
@@ -1073,7 +1072,7 @@ void PSLib::PS_fillspot(QString color, double shade)
 		PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" fill\n");
 }
 
-void PSLib::PS_strokespot(QString color, double shade)
+void PSLib::PS_strokespot(const QString& color, double shade)
 {
 	PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" st\n");
 }
@@ -1102,13 +1101,13 @@ void PSLib::PS_show(double x, double y)
 	PutStream("/hyphen glyphshow\n");
 }
 
-void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
+void PSLib::PS_showSub(uint chr, const QString& font, double size, bool stroke)
 {
 	PutStream(" (G"+IToStr(chr)+") "+font+" "+ToStr(size / 10.0)+" ");
 	PutStream(stroke ? "shgs\n" : "shgf\n");
 }
 
-bool PSLib::PS_ImageData(PageItem *item, QString fn, QString Name, QString Prof, bool UseEmbedded)
+bool PSLib::PS_ImageData(PageItem *item, const QString& fn, const QString& Name, const QString& Prof, bool UseEmbedded)
 {
 	bool dummy;
 	QByteArray tmp;
@@ -1189,7 +1188,7 @@ bool PSLib::PS_ImageData(PageItem *item, QString fn, QString Name, QString Prof,
 	return true;
 }
 
-bool PSLib::PS_image(PageItem *item, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, QString Name)
+bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, double scalex, double scaley, const QString& Prof, bool UseEmbedded, const QString& Name)
 {
 	bool dummy;
 	QByteArray tmp;
@@ -1361,7 +1360,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, QString fn, double scal
 }
 
 
-void PSLib::PS_plate(int nr, QString name)
+void PSLib::PS_plate(int nr, const QString& name)
 {
 	switch (nr)
 	{
@@ -1401,13 +1400,13 @@ void PSLib::PS_setGray()
 	GraySc = true;
 }
 
-void PSLib::PDF_Bookmark(QString text, uint Seite)
+void PSLib::PDF_Bookmark(const QString& text, uint Seite)
 {
 	PutStream("[/Title ("+text+") /Page "+IToStr(Seite)+" /View [/Fit]\n");
 	PutStream("/OUT pdfmark\n");
 }
 
-void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, double b, double h)
+void PSLib::PDF_Annotation(PageItem *item, const QString& text, double x, double y, double b, double h)
 {
 	PutStream("[\n/Rect [ "+ToStr(x)+" "+ToStr(y) +" "+ToStr(b)+" "+ToStr(h)+" ]\n");
 	switch (item->annotation().Type())
@@ -1469,7 +1468,7 @@ void PSLib::PS_close()
 	Spool.close();
 }
 
-void PSLib::PS_insert(QString i)
+void PSLib::PS_insert(const QString& i)
 {
 	PutStream(i);
 }

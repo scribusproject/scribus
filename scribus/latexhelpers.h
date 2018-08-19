@@ -83,7 +83,7 @@ class LatexConfigParser
 		QString m_preamble, m_postamble, m_icon;
 		QString m_filename;
 		I18nXmlStreamReader xml;
-		void formatError(QString message);
+		void formatError(const QString& message);
 		void parseElements();
 		void parseTab();
 		void parseHighlighter();
@@ -98,10 +98,10 @@ class LatexConfigCache {
 		static QStringList defaultConfigs();
 		static QMap<QString, QString> defaultCommands();
 		LatexConfigCache() {}
-		LatexConfigParser* parser(QString filename, bool warnOnError = false);
-		bool hasError(QString filename);
+		LatexConfigParser* parser(const QString& filename, bool warnOnError = false);
+		bool hasError(const QString& filename);
 	protected:
-		void createParser(QString filename, bool warnOnError);
+		void createParser(const QString& filename, bool warnOnError);
 	private:
 		QMap<QString, LatexConfigParser*> m_parsers;
 		QMap<QString, bool> m_error;

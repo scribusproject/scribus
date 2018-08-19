@@ -132,7 +132,7 @@ private slots:
 	void slotTracking();
 	void slotWordTracking();
 	void slotBaselineOffset();
-	void slotFont(QString s);
+	void slotFont(const QString& s);
 	void slotParentChanged(const QString &parent);
 	void slotCharParentChanged(const QString &parent);
 	void slotFontFeatures();
@@ -205,7 +205,7 @@ private slots:
 	void slotBaselineOffset();
 	void slotHyphenChar();
 	void slotSmallestWord();
-	void slotFont(QString s);
+	void slotFont(const QString& s);
 	void slotParentChanged(const QString &parent);
 	void slotFontFeatures();
 

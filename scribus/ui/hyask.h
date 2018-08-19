@@ -32,7 +32,7 @@ class SCRIBUS_API HyAsk : public QDialog
 	Q_OBJECT
 
 public:
-	HyAsk ( QWidget* parent, QString HWort );
+	HyAsk (QWidget* parent, const QString& HWort );
 	~HyAsk() {};
 
 	WortEdit* Wort;

@@ -63,7 +63,7 @@ public:
 	 * @return True for success.
 	 */
 	bool writeTo(QIODevice& outDevice, bool includePasswords = false);
-	bool writeTo(QString outFileName, bool includePasswords = false);
+	bool writeTo(const QString& outFileName, bool includePasswords = false);
 
 	/**
 	 * @brief Load the PDF settings from a file or other data stream, overwriting
@@ -77,7 +77,7 @@ public:
 	 * @return True for success.
 	 */
 	bool readFrom(QIODevice& inStream);
-	bool readFrom(QString inFileName);
+	bool readFrom(const QString& inFileName);
 
 	/**
 	 * @brief Return human-readable explanation of last error.
@@ -97,11 +97,11 @@ protected:
 
 	// Helper functions. Add elements under the root element
 	// with a single attribute "value=" set to the passed value.
-	void addElem(QDomElement& addTo, QString name, bool value);
-	void addElem(QDomElement& addTo, QString name, QString value);
-	void addElem(QDomElement& addTo, QString name, int value);
-	void addElem(QDomElement& addTo, QString name, double value);
-	void addList(QDomElement& addTo, QString name, QList<QString>& value);
+	void addElem(QDomElement& addTo, const QString& name, bool value);
+	void addElem(QDomElement& addTo, const QString& name, const QString& value);
+	void addElem(QDomElement& addTo, const QString& name, int value);
+	void addElem(QDomElement& addTo, const QString& name, double value);
+	void addList(QDomElement& addTo, const QString& name, QList<QString>& value);
 
 	// Helper: add the PresentVals data to the document
 	void addPresentationData();
@@ -114,11 +114,11 @@ protected:
 	// Helper functions. Read various single elements into variables
 	// All of these return true for success. On failure, the passed
 	// value pointer is undefined.
-	bool readElem(QDomElement& parent, QString name, bool* value);
-	bool readElem(QDomElement& parent, QString name, int* value);
-	bool readElem(QDomElement& parent, QString name, double* value);
-	bool readElem(QDomElement& parent, QString name, QString* value);
-	bool readList(QDomElement& parent, QString name, QList<QString>* value);
+	bool readElem(QDomElement& parent, const QString& name, bool* value);
+	bool readElem(QDomElement& parent, const QString& name, int* value);
+	bool readElem(QDomElement& parent, const QString& name, double* value);
+	bool readElem(QDomElement& parent, const QString& name, QString* value);
+	bool readList(QDomElement& parent, const QString& name, QList<QString>* value);
 
 	bool readPDFVersion();
 	bool readPDFFontEmbeddingMode();
@@ -126,12 +126,12 @@ protected:
 	bool readLPISettings();
 
 	// Returns the named node under `parent' iff it's unique
-	QDomNode getUniqueNode(QDomElement& parent, QString name);
+	QDomNode getUniqueNode(QDomElement& parent, const QString& name);
 
 	// Return a QDomElement corresponding to the passed node, ensuring it's a
 	// valid element, the only one of its name under `parent', it has name
 	// `name', and (by default) has a `value' attribute.
-	QDomElement getValueElement(QDomNode& node, QString name, bool isValue = true);
+	QDomElement getValueElement(QDomNode& node, const QString& name, bool isValue = true);
 
 	// The QDomDocument used by the class for all its XML work
 	QDomDocument m_doc;

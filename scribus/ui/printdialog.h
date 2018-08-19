@@ -24,7 +24,7 @@ class SCRIBUS_API PrintDialog : public QDialog, Ui::PrintDialogBase
 	Q_OBJECT
 
 public:
-	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, QStringList spots);
+	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, const QStringList& spots);
 	~PrintDialog();
 	QString printerName();
 	QString outputFileName();

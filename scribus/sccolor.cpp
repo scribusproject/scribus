@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 
-ScColor::ScColor(void)
+ScColor::ScColor()
 {
 //	Model = colorModelCMYK;
 //	CR = MG = YB = K = 0;

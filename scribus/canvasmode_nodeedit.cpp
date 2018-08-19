@@ -96,10 +96,10 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			if (cli.isMarker(poi))
 				continue;
 			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			FPoint a1 = cli.point(poi);
-			FPoint a2 = cli.point(poi+1);
-			FPoint a3 = cli.point(poi+3);
-			FPoint a4 =	cli.point(poi+2);
+			const FPoint& a1 = cli.point(poi);
+			const FPoint& a2 = cli.point(poi+1);
+			const FPoint& a3 = cli.point(poi+3);
+			const FPoint& a4 =	cli.point(poi+2);
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
@@ -207,7 +207,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		{
 			if (Clip.isMarker(a))
 				continue;
-			FPoint np = Clip.point(a);
+			const FPoint& np = Clip.point(a);
 			FPoint npf2 = np.transformPoint(pm2, false);
 			if ((Sele.contains(npf2.x(), npf2.y())) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
@@ -600,10 +600,10 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 			for (int poi=0; poi<Clip.size()-3; poi += 4)
 			{
-				FPoint a1 = Clip.point(poi);
-				FPoint a2 = Clip.point(poi+1);
-				FPoint a3 = Clip.point(poi+3);
-				FPoint a4 = Clip.point(poi+2);
+				const FPoint& a1 = Clip.point(poi);
+				const FPoint& a2 = Clip.point(poi+1);
+				const FPoint& a3 = Clip.point(poi+3);
+				const FPoint& a4 = Clip.point(poi+2);
 				QPainterPath Bez;
 				Bez.moveTo(a1.x(), a1.y());
 				Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
@@ -811,7 +811,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			{
 				if (!(currItem->isLine() || currItem->isPathText() || currItem->isPolyLine()))
 				{
-					FPoint kp(Clip.point(EndInd-3));
+					const FPoint& kp(Clip.point(EndInd-3));
 					cli.putPoints(0, StartInd, Clip);
 					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
 					cli.setPoint(StartInd, cli.point(cli.size()-2));
@@ -859,10 +859,10 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 		for (int poi = 0; poi < Clip.size()-3; poi += 4)
 		{
-			FPoint a1 = Clip.point(poi);
-			FPoint a2 = Clip.point(poi+1);
-			FPoint a3 = Clip.point(poi+3);
-			FPoint a4 = Clip.point(poi+2);
+			const FPoint& a1 = Clip.point(poi);
+			const FPoint& a2 = Clip.point(poi+1);
+			const FPoint& a3 = Clip.point(poi+3);
+			const FPoint& a4 = Clip.point(poi+2);
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
@@ -896,8 +896,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			npf2 = nearPoint;
 			FPoint base = cli.point(cli.size()-2);
 			FPoint c1 = cli.point(cli.size()-1);
-			FPoint base2 =  Clip.point(m_doc->nodeEdit.clre2()+2);
-			FPoint c2 = Clip.point(m_doc->nodeEdit.clre2()+3);
+			const FPoint& base2 =  Clip.point(m_doc->nodeEdit.clre2()+2);
+			const FPoint& c2 = Clip.point(m_doc->nodeEdit.clre2()+3);
 			if ((base == c1) && (base2 == c2))
 			{
 				cli.resize(cli.size()+4);
@@ -977,7 +977,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 
 
 
-bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QTransform)
+bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, const QTransform&)
 {
 	QTransform itemPos = currItem->getTransform();
 	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))

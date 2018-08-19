@@ -39,9 +39,9 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 		void updateProgressBar();
 
 	protected:
-		QString affixFileName(QStringList files);
-		QString dictFileName(QStringList files);
-		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
+		QString affixFileName(const QStringList& files);
+		QString dictFileName(const QStringList& files);
+		void setAvailDictsXMLFile(const QString& availDictsXMLDataFile);
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 		QString downloadLocation;

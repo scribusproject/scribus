@@ -27,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "gtparagraphstyle.h"
 #include "scribusstructs.h"
 
-gtParagraphStyle::gtParagraphStyle(QString name) : gtStyle(name) 
+gtParagraphStyle::gtParagraphStyle(const QString& name) :
+	gtStyle(name)
 {
 	init();
 }
@@ -247,7 +248,7 @@ QString  gtParagraphStyle::getBullet()
 	return m_bulletStr;
 }
 
-void gtParagraphStyle::setBullet(bool newBullet, QString str)
+void gtParagraphStyle::setBullet(bool newBullet, const QString& str)
 {
 	m_bullet = newBullet;
 	if (str != "")
@@ -262,7 +263,7 @@ bool gtParagraphStyle::hasNum()
 	return m_numeration;
 }
 
-void gtParagraphStyle::setNum(bool newNum, int format, int level, int start, QString prefix, QString suffix)
+void gtParagraphStyle::setNum(bool newNum, int format, int level, int start, const QString& prefix, const QString& suffix)
 {
 	m_numeration = newNum;
 	if (newNum)

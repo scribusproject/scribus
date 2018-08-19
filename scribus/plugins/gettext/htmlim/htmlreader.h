@@ -104,7 +104,7 @@ private:
 public:
 	HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly);
 	~HTMLReader();
-	void parse(QString filename);
+	void parse(const QString& filename);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar * name);
 	static void characters(void *user_data, const xmlChar * ch, int len);

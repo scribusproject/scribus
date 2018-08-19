@@ -629,7 +629,7 @@ void ScImageCacheManager::sanitizeCache()
 
 		if (!references.contains(isi.key()))
 		{
-			QString ref = isi.key();
+			const QString& ref = isi.key();
 			QString img = ref;
 			img.replace(reRef, ScImageCacheProxy::imageSuffix);
 			scDebug() << "removing orphaned reference/image files" << ref << img;

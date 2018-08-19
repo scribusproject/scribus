@@ -27,8 +27,8 @@ double pageUnitYToDocY(double pageUnitY);
 /// \brief Doc units -> page-relative units
 double docUnitYToPageY(double pageUnitY);
 
-PageItem *GetItem(QString Name);
-void ReplaceColor(QString col, QString rep);
+PageItem *GetItem(const QString& Name);
+void ReplaceColor(const QString& col, const QString& rep);
 /*!
  * @brief Returns named PageItem, or selection if name '', or exception and NULL if no item.
  *
@@ -40,7 +40,7 @@ void ReplaceColor(QString col, QString rep);
  * @author 03/10/2004 petr vanek
  * @author 05/02/02 Craig Ringer
  */
-PageItem* GetUniqueItem(QString name);
+PageItem* GetUniqueItem(const QString& name);
 
 /*!
  * @brief Returns named PageItem, or exception and NULL if not found.
@@ -48,13 +48,13 @@ PageItem* GetUniqueItem(QString name);
  * @author 03/10/2004 Petr Vanek
  * @author 05/02/02 Craig Ringer
  */
-PageItem* getPageItemByName(QString name);
+PageItem* getPageItemByName(const QString& name);
 
 // 2004-10-27 Craig Ringer see cmdutil.cpp for description
 bool checkHaveDocument();
 
 // 2004-11-12 Craig Ringer see cmdutil.cpp for description
-bool ItemExists(QString name);
+bool ItemExists(const QString& name);
 
 /*!
  * @brief Returns a list of the names of all selected PageItems

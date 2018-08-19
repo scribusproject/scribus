@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QDesktopWidget>
 
-Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *parent ) : QDialog ( parent )
+Imagedialog::Imagedialog ( const QString& imageFile, ScribusDoc* doc , QWidget *parent ) : QDialog ( parent )
 {
 	setupUi ( this );
 	setAttribute ( Qt::WA_DeleteOnClose );

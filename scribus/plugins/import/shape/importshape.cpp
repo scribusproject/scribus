@@ -124,7 +124,6 @@ QImage ShapePlug::readThumbnail(const QString& fName)
 
 bool ShapePlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -132,7 +131,7 @@ bool ShapePlug::import(const QString& fNameIn, const TransactionSettings& trSett
 //	double x, y, b, h;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -168,7 +167,7 @@ bool ShapePlug::import(const QString& fNameIn, const TransactionSettings& trSett
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	parseHeader(fName, b, h);
+	parseHeader(fNameIn, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
@@ -222,7 +221,7 @@ bool ShapePlug::import(const QString& fNameIn, const TransactionSettings& trSett
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -313,7 +312,7 @@ ShapePlug::~ShapePlug()
 	delete tmpSel;
 }
 
-void ShapePlug::parseHeader(QString fName, double &b, double &h)
+void ShapePlug::parseHeader(const QString& fName, double &b, double &h)
 {
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -342,7 +341,7 @@ void ShapePlug::parseHeader(QString fName, double &b, double &h)
 	}
 }
 
-bool ShapePlug::convert(QString fn)
+bool ShapePlug::convert(const QString& fn)
 {
 	importedColors.clear();
 	QList<PageItem*> gElements;
@@ -1172,10 +1171,10 @@ void ShapePlug::svgLineTo(FPointArray *i, double x1, double y1)
 	WasM = false;
 	if (i->size() > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
+		const FPoint& b1 = i->point(i->size()-4);
+		const FPoint& b2 = i->point(i->size()-3);
+		const FPoint& b3 = i->point(i->size()-2);
+		const FPoint& b4 = i->point(i->size()-1);
 		FPoint n1 = FPoint(CurrX, CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
@@ -1201,10 +1200,10 @@ void ShapePlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2,
 	WasM = false;
 	if (PathLen > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
+		const FPoint& b1 = i->point(i->size()-4);
+		const FPoint& b2 = i->point(i->size()-3);
+		const FPoint& b3 = i->point(i->size()-2);
+		const FPoint& b4 = i->point(i->size()-1);
 		FPoint n1 = FPoint(CurrX, CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		FPoint n3 = FPoint(x3, y3);

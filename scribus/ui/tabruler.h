@@ -30,10 +30,10 @@ class SCRIBUS_API RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, const QList<ParagraphStyle::TabRecord>& Tabs, bool ind, double wid);
 	~RulerT() {};
 
-	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
 	void updateTabList();
 
 	bool mousePressed;
@@ -87,17 +87,17 @@ class SCRIBUS_API Tabruler : public QWidget
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent,
-	          bool haveFirst = true,
-	          int dEin = 1,
-	          QList<ParagraphStyle::TabRecord> Tabs = QList<ParagraphStyle::TabRecord>(),
-	          double wid = -1);
+	Tabruler(QWidget* parent,
+			 bool haveFirst = true,
+			 int dEin = 1,
+			 const QList<ParagraphStyle::TabRecord>& Tabs = QList<ParagraphStyle::TabRecord>(),
+			 double wid = -1);
 	~Tabruler() {};
 
 	virtual void changeEvent(QEvent *e);
 
 	void languageChange();
-	virtual void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
 
 	QList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;

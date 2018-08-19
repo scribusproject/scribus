@@ -314,7 +314,7 @@ void ScPainter::setStrokeMode( int stroke )
 	m_strokeMode = stroke;
 }
 
-void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
+void ScPainter::setGradient(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew)
 {
 	fill_gradient.setType(mode);
 	fill_gradient.setOrigin(orig);
@@ -342,7 +342,7 @@ void ScPainter::setMaskMode(int mask)
 	m_maskMode = mask;
 }
 
-void ScPainter::setGradientMask(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
+void ScPainter::setGradientMask(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew)
 {
 	mask_gradient.setType(mode);
 	mask_gradient.setOrigin(orig);
@@ -375,7 +375,7 @@ void ScPainter::setPatternMask(ScPattern *pattern, double scaleX, double scaleY,
 	m_mask_patternMirrorY = mirrorY;
 }
 
-void ScPainter::set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4)
+void ScPainter::set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4)
 {
 	fill_gradient.setType(VGradient::fourcolor);
 	gradPatchP1 = p1;
@@ -388,7 +388,7 @@ void ScPainter::set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FP
 	gradControlP4 = c4;
 }
 
-void ScPainter::set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4)
+void ScPainter::set4ColorColors(const QColor& col1, const QColor& col2, const QColor& col3, const QColor& col4)
 {
 	gradPatchColor1 = col1;
 	gradPatchColor2 = col2;
@@ -396,7 +396,7 @@ void ScPainter::set4ColorColors(QColor col1, QColor col2, QColor col3, QColor co
 	gradPatchColor4 = col4;
 }
 
-void ScPainter::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)
+void ScPainter::setDiamondGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5)
 {
 	fill_gradient.setType(VGradient::diamond);
 	gradPatchP1 = p1;
@@ -410,7 +410,7 @@ void ScPainter::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, F
 	gradControlP5 = c5;
 }
 
-void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)
+void ScPainter::setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const QList<QList<MeshPoint>>& meshArray)
 {
 	fill_gradient.setType(VGradient::mesh);
 	meshGradientArray = meshArray;
@@ -420,7 +420,7 @@ void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QLis
 	gradPatchP4 = p4;
 }
 
-void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches)
+void ScPainter::setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const QList<meshGradientPatch>& meshPatches)
 {
 	fill_gradient.setType(VGradient::freemesh);
 	meshGradientPatches = meshPatches;
@@ -430,7 +430,7 @@ void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QLis
 	gradPatchP4 = p4;
 }
 
-void ScPainter::setHatchParameters(int mode, double distance, double angle, bool useBackground, QColor background, QColor foreground, double width, double height)
+void ScPainter::setHatchParameters(int mode, double distance, double angle, bool useBackground, const QColor& background, const QColor& foreground, double width, double height)
 {
 	m_hatchType = mode;
 	m_hatchDistance = distance;
@@ -1582,7 +1582,7 @@ void ScPainter::drawPolyLine()
 	strokePath();
 }
 
-void ScPainter::drawLine(FPoint start, FPoint end)
+void ScPainter::drawLine(const FPoint& start, const FPoint& end)
 {
 	newPath();
 	moveTo(start.x(), start.y());
@@ -1647,7 +1647,7 @@ void ScPainter::drawSharpRect(double x, double y, double w, double h)
 	strokePath();
 }
 
-void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
+void ScPainter::drawText(QRectF area, const QString& text, bool filled, int align)
 {
 	cairo_text_extents_t extents;
 	cairo_font_extents_t extentsF;
@@ -1771,7 +1771,7 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 #endif
 }
 
-void ScPainter::drawShadeCircle(const QRectF &re, const QColor color, bool sunken, int lineWidth)
+void ScPainter::drawShadeCircle(const QRectF &re, const QColor& color, bool sunken, int lineWidth)
 {
 	setStrokeMode(1);
 	double bezierCircle = 0.55228475;
@@ -1819,7 +1819,7 @@ void ScPainter::drawShadeCircle(const QRectF &re, const QColor color, bool sunke
 	cairo_restore( m_cr );
 }
 
-void ScPainter::drawShadePanel(const QRectF &r, const QColor color, bool sunken, int lineWidth)
+void ScPainter::drawShadePanel(const QRectF &r, const QColor& color, bool sunken, int lineWidth)
 {
 	QColor shade;
 	QColor light;
@@ -1861,7 +1861,7 @@ void ScPainter::drawShadePanel(const QRectF &r, const QColor color, bool sunken,
 	fillPath();
 }
 
-void ScPainter::colorizeAlpha(QColor color)
+void ScPainter::colorizeAlpha(const QColor& color)
 {
 	cairo_surface_t *data = cairo_get_group_target(m_cr);
 	cairo_surface_flush(data);
@@ -1886,7 +1886,7 @@ void ScPainter::colorizeAlpha(QColor color)
 	cairo_surface_mark_dirty(data);
 }
 
-void ScPainter::colorize(QColor color)
+void ScPainter::colorize(const QColor& color)
 {
 	cairo_surface_t *data = cairo_get_group_target(m_cr);
 	cairo_surface_flush(data);

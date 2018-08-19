@@ -255,11 +255,11 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
-	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
+	void parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool convert(const QString& fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);

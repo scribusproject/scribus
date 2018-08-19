@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class ScImgDataLoader_ORA : public ScImgDataLoader
 {
 public:
-	ScImgDataLoader_ORA(void);
+	ScImgDataLoader_ORA();
 
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
@@ -24,8 +24,8 @@ public:
 protected:
 	void initSupportedFormatList();
 	void parseStackXML(QDomElement &elem, ScPainter *painter, ScZipHandler *uz);
-	int blendModeToInt(QString compositeOp);
-	QString blendModeToString(QString compositeOp);
+	int blendModeToInt(const QString& compositeOp);
+	QString blendModeToString(const QString& compositeOp);
 	int m_inSubLayer;
 	int m_layerCount;
 };

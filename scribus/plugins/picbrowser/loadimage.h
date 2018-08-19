@@ -80,7 +80,7 @@ class loadImagesThreadInstance : public QObject
 		//QString path: path to the image
 		//int size: desired size of the icon
 		//int tpId: unique id
-		void processLoadImageJob ( int row, QString path, int size, int tpId );
+		void processLoadImageJob (int row, const QString& path, int size, int tpId );
 };
 
 

@@ -52,7 +52,7 @@ public slots:
 	void languageChange();
 
 private slots:
-	void pageView_applyMasterPage(QString masterpageName, int pageIndex);
+	void pageView_applyMasterPage(const QString& masterpageName, int pageIndex);
 	void pageView_movePage(int r, int c);
 	void pageView_gotoPage(int r, int c, int b);
 

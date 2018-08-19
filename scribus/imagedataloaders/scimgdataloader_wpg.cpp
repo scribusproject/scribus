@@ -291,12 +291,12 @@ void ScrPainterIm::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
 }
 
 
-ScImgDataLoader_WPG::ScImgDataLoader_WPG(void) : ScImgDataLoader()
+ScImgDataLoader_WPG::ScImgDataLoader_WPG() : ScImgDataLoader()
 {
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_WPG::initSupportedFormatList(void)
+void ScImgDataLoader_WPG::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "wpg" );

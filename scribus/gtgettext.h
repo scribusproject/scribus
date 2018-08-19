@@ -74,7 +74,7 @@ private:
 	void CallDLL(const ImporterData& idata, const QString& filePath,
 				 const QString& encoding, bool textOnly, bool append, bool prefix, PageItem* importItem);
 												// Loads, validates, and executes the Importer code.
-	bool DLLName(QString name, QString *ffName, QStringList *fileEndings);
+	bool DLLName(const QString& name, QString *ffName, QStringList *fileEndings);
 												// Loads the "DLL", validates the importer is good, populates the passed parameters with 
 												// the plugin information.
 	void createMap();							// Create the importer Qmap.

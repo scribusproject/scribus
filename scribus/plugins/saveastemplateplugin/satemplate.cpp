@@ -89,7 +89,7 @@ void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
+bool SaveAsTemplatePlugin::run(ScribusDoc* doc, const QString& target)
 /*{
 	Q_ASSERT(target.isEmpty());
 	Sat = new MenuSAT();
@@ -175,7 +175,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 
 // --------------------- CLASS sat ------------------------------------------------//
 
-sat::sat(ScribusDoc* doc, SATDialog* satdia, QString fileName, QString tmplDir)
+sat::sat(ScribusDoc* doc, SATDialog* satdia, const QString& fileName, const QString& tmplDir)
 {
 	lang = ScCore->getGuiLanguage();
 	m_Doc = doc;
@@ -318,7 +318,7 @@ void sat::replaceIllegalChars(QString& s)
 	s.replace("\'", "&apos;");
 }
 
-QString sat::findTemplateXml(QString dir)
+QString sat::findTemplateXml(const QString& dir)
 {
 	QString tmp = dir + "/template." + lang + ".xml";
 	if (QFile(tmp).exists())

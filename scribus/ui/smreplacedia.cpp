@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 
 
-SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent)
+SMRowWidget::SMRowWidget(const QString &toBeDeleted, const QStringList& replaceOptions, QWidget *parent)
 : QWidget(parent)
 {
 	layout = new QHBoxLayout(this);

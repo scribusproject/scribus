@@ -52,8 +52,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
@@ -76,16 +76,16 @@ private:
 	QString parseColorRGB(QString data);
 	QString parseCustomColor(QString data, double &shade);
 	QString parseCustomColorX(QString data, double &shade, const QString& type);
-	QStringList getStrings(QString data);
-	void getCommands(QString data, QStringList &commands);
-	void decodeA85(QByteArray &psdata, QString tmp);
-	void processData(QString data);
-	void processGradientData(QString data);
+	QStringList getStrings(const QString& data);
+	void getCommands(const QString& data, QStringList &commands);
+	void decodeA85(QByteArray &psdata, const QString& tmp);
+	void processData(const QString& data);
+	void processGradientData(const QString& data);
 	void processSymbol(QDataStream &ts, bool sym);
 	void processPattern(QDataStream &ts);
 	void processRaster(QDataStream &ts);
-	void processComment(QDataStream &ts, QString comment);
-	bool convert(QString fn);
+	void processComment(QDataStream &ts, const QString& comment);
+	bool convert(const QString& fn);
 	
 	QList<PageItem*> Elements;
 	QList<PageItem*> PatternElements;

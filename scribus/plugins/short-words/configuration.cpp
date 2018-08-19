@@ -51,7 +51,7 @@ void SWConfig::saveConfig()
 	prefs->set("currentLanguage", currentLanguage);
 }
 
-QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
+QStringList SWConfig::getShortWordsFromFile(const QString& lang, const QString& filename)
 {
 	// path to the cfg. file
 	QFile f(filename);
@@ -87,14 +87,14 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 	return QStringList();
 }
 
-QStringList SWConfig::getShortWords(QString lang)
+QStringList SWConfig::getShortWords(const QString& lang)
 {
 	if (QFile::exists(RC_PATH_USR))
 		return getShortWordsFromFile(lang, RC_PATH_USR);
 	return getShortWordsFromFile(lang, RC_PATH);
 }
 
-QStringList SWConfig::getAvailableLanguageCodes(QString filename)
+QStringList SWConfig::getAvailableLanguageCodes(const QString& filename)
 {
 	QFile f(filename);
 	if (!f.open(QIODevice::ReadOnly))
@@ -143,13 +143,13 @@ QString SWConfig::getAvailableLanguages()
 	return allConfig.join("");
 }
 
-QStringList SWConfig::getLanguageStringsFromCodes(QStringList codes)
+QStringList SWConfig::getLanguageStringsFromCodes(const QStringList& codes)
 {
 	QStringList languages;
 
 	for (int i = 0; i < codes.count(); ++i)
 	{
-		QString code = codes.at(i);
+		const QString& code = codes.at(i);
 		QString lang = LanguageManager::instance()->getLangFromAbbrev(code, true);
 		if (lang.length() > 0)
 			languages.append(lang);

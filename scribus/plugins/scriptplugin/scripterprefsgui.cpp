@@ -110,7 +110,7 @@ void ScripterPrefsGui::setColor()
 	}
 }
 
-void ScripterPrefsGui::setButtonIcon(QPushButton* button, QColor color)
+void ScripterPrefsGui::setButtonIcon(QPushButton* button, const QColor& color)
 {
 	QSize  iconSize   = button->iconSize();
 	double iconWidth  = qMax(iconSize.width() , button->width() / 3);

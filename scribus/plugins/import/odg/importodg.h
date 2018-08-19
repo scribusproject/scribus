@@ -229,7 +229,7 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	QImage readThumbnail(const QString& fn);
 
 private:
 	struct DrawStyle
@@ -315,9 +315,9 @@ private:
 	};
 
 	bool convert(const QString& fn);
-	bool parseStyleSheets(QString designMap);
+	bool parseStyleSheets(const QString& designMap);
 	bool parseStyleSheetsXML(QDomDocument &designMapDom);
-	bool parseDocReference(QString designMap);
+	bool parseDocReference(const QString& designMap);
 	bool parseDocReferenceXML(QDomDocument &designMapDom);
 	PageItem* parseObj(QDomElement &draw);
 	PageItem* parseForm(QDomElement &e);
@@ -341,7 +341,7 @@ private:
 	void appendPoints(FPointArray *composite, const QDomElement& object, bool closePath);
 	void parseStyles(QDomElement &sp);
 	QString getStyleName(QDomElement &e);
-	void resovleStyle(ObjStyle &tmpOStyle, QString pAttrs);
+	void resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs);
 	double parseUnit(const QString &unit);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseEnhPath(const QString& svgPath, FPointArray &result, bool &fill, bool &stroke);
@@ -350,10 +350,10 @@ private:
 	double degSweepAngle(double start, double stop, bool clockwise);
 	void arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry, double startAngle, double sweepAngle);
 	int arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints);
-	QString modifyColor(QString name, bool darker, int amount);
+	QString modifyColor(const QString& name, bool darker, int amount);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
-	QString constructFontName(QString fontBaseName, QString fontStyle);
+	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
 	PageItem* applyStartArrow(PageItem* item, ObjStyle &obState);
 	PageItem* applyEndArrow(PageItem* ite, ObjStyle &obState);

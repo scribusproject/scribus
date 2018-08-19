@@ -23,7 +23,7 @@ class SCRIBUS_API CMYKChoose : public QDialog, Ui::CMYKChooseBase
 	Q_OBJECT
 
 public:
-	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, bool newCol );
+	CMYKChoose(QWidget* parent, ScribusDoc* doc, ScColor orig, const QString& name, ColorList *Colors, bool newCol );
 	~CMYKChoose() {};
 
 	QString colorName();

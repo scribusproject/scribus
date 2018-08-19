@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScZipHandler;
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
@@ -93,7 +93,7 @@ public:
 class ODTIm
 {
 	public:
-		ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
+		ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
 		~ODTIm();
 	private:
 		struct DrawStyle
@@ -130,16 +130,16 @@ class ODTIm
 			AttributeValue breakBefore;
 			AttributeValue breakAfter;
 		};
-		bool parseRawDocReference(QString designMap);
+		bool parseRawDocReference(const QString& designMap);
 		bool parseRawDocReferenceXML(QDomDocument &designMapDom);
 		void parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
 		void parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
 		void parseRawText(QDomElement &elem, PageItem* item);
 
-		bool parseStyleSheets(QString designMap);
+		bool parseStyleSheets(const QString& designMap);
 		bool parseStyleSheetsXML(QDomDocument &designMapDom);
-		void parseStyles(QDomElement &sp, QString type);
-		bool parseDocReference(QString designMap);
+		void parseStyles(QDomElement &sp, const QString& type);
+		bool parseDocReference(const QString& designMap);
 		bool parseDocReferenceXML(QDomDocument &designMapDom);
 		void parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT& tmpOStyle, int &posC);
 		void parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, ObjStyleODT &tmpOStyle, int &posC);
@@ -147,11 +147,11 @@ class ODTIm
 		void insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
 		void applyCharacterStyle(CharStyle &tmpCStyle, ObjStyleODT &oStyle);
 		void applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle);
-		void resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs);
+		void resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs);
 		double parseUnit(const QString &unit);
 		QColor parseColorN( const QString &rgbColor );
 		QString parseColor( const QString &s );
-		QString constructFontName(QString fontBaseName, QString fontStyle);
+		QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 		void setFontstyle(CharStyle &tmpCStyle, int kind);
 		ScZipHandler *uz;
 		ScribusDoc* m_Doc;

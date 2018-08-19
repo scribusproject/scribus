@@ -67,7 +67,7 @@ int HunspellDict::spell(const QString& word)
 	return m_hunspell->spell(s);
 }
 
-QStringList HunspellDict::suggest(QString word)
+QStringList HunspellDict::suggest(const QString& word)
 {
 	QStringList replacements;
 	if (!m_hunspell)

@@ -12,12 +12,12 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_qt.h"
 #include "util_formats.h"
 
-ScImgDataLoader_QT::ScImgDataLoader_QT(void) : ScImgDataLoader()
+ScImgDataLoader_QT::ScImgDataLoader_QT() : ScImgDataLoader()
 {
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_QT::initSupportedFormatList(void)
+void ScImgDataLoader_QT::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();

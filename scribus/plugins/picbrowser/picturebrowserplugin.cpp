@@ -66,7 +66,7 @@ void PictureBrowserPlugin::deleteAboutData ( const AboutData* about ) const
 	delete about;
 }
 
-bool PictureBrowserPlugin::run ( ScribusDoc* doc, QString target )
+bool PictureBrowserPlugin::run ( ScribusDoc* doc, const QString& target )
 {
 	//picturebrowser isn't running yet, so create it
 	if ( !pictureBrowser )

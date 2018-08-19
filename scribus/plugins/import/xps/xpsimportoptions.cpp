@@ -31,7 +31,7 @@ QString XpsImportOptions::getPagesString()
 	return ui->pageRangeString->text();
 }
 
-void XpsImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact)
+void XpsImportOptions::setUpOptions(const QString& fileName, int actPage, int numPages, bool interact)
 {
 	ui->fileLabel->setText(fileName);
 	ui->spinBox->setMaximum(numPages);

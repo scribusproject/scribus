@@ -24,7 +24,7 @@ class SCRIBUS_API SelectFields : public QDialog
 	Q_OBJECT
 
 public:
-	SelectFields( QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art);
+	SelectFields(QWidget* parent, const QString& Felder, const QString& Own, ScribusDoc *Doc, int Art);
 	~SelectFields() {};
 
 	QLabel* Text1;

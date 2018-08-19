@@ -353,7 +353,7 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 	return tmpImage;
 }
 
-bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, int flags )
+bool OODPlug::import(const QString& fileName, const TransactionSettings& trSettings, int flags )
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -1922,10 +1922,10 @@ void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 	WasM = false;
 	if (i->size() > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
+		const FPoint& b1 = i->point(i->size()-4);
+		const FPoint& b2 = i->point(i->size()-3);
+		const FPoint& b3 = i->point(i->size()-2);
+		const FPoint& b4 = i->point(i->size()-1);
 		FPoint n1 = FPoint(CurrX, CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
@@ -1951,10 +1951,10 @@ void OODPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 	WasM = false;
 	if (PathLen > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
+		const FPoint& b1 = i->point(i->size()-4);
+		const FPoint& b2 = i->point(i->size()-3);
+		const FPoint& b3 = i->point(i->size()-2);
+		const FPoint& b4 = i->point(i->size()-1);
 		FPoint n1 = FPoint(CurrX, CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		FPoint n3 = FPoint(x3, y3);

@@ -2712,7 +2712,7 @@ void PageItem::set4ColorShade(int t1, int t2, int t3, int t4)
 		trans.commit();
 }
 
-void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString col4)
+void PageItem::set4ColorColors(const QString& col1, const QString& col2, const QString& col3, const QString& col4)
 {
 	QColor tmp;
 	UndoTransaction trans;

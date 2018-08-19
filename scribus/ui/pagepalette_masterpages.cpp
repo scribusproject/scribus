@@ -424,7 +424,7 @@ void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
 	this->setEnabled(true);
 }
 
-void PagePalette_MasterPages::selectMasterPage(QString name)
+void PagePalette_MasterPages::selectMasterPage(const QString& name)
 {
 	if (!m_doc || !m_view)
 		return;

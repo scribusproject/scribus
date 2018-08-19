@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 
-DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc) : QDialog( parent )
+DelColor::DelColor( QWidget* parent, const ColorList& colorList, const QString& colorName, bool haveDoc) : QDialog( parent )
 {
 	setModal(true);
 	cList = colorList;

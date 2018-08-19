@@ -33,7 +33,7 @@ public:
 	NotesStyle* notesStyle() { return m_nstyle; }
 
 	//insert notes content into notesframe
-	void updateNotes(QList<TextNote*> nList, bool clear = true);
+	void updateNotes(const QList<TextNote*>& nList, bool clear = true);
 	//read notes text from notesframe itemText and store it in notes`s saxed text field
 	void updateNotesText();
 

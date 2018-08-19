@@ -23,7 +23,7 @@ class Imagedialog : public QDialog, Ui::imagedialog
 		Q_OBJECT
 
 	public:
-		Imagedialog ( const QString imageFile, ScribusDoc* doc, QWidget *parent = 0 );
+		Imagedialog ( const QString& imageFile, ScribusDoc* doc, QWidget *parent = 0 );
 		void resizeEvent ( QResizeEvent * event );
 
 		ScImage image;

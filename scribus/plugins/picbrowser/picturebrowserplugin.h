@@ -25,7 +25,7 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		virtual ~PictureBrowserPlugin();
 		virtual bool cleanupPlugin();
 		//! \brief main method to run the plug
-		virtual bool run ( ScribusDoc* doc, QString target = QString::null );
+		virtual bool run ( ScribusDoc* doc, const QString& target = QString::null );
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData ( const AboutData* about ) const;

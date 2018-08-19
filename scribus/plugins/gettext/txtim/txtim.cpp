@@ -26,7 +26,7 @@ QStringList FileExtensions()
 	return QStringList("txt");
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
 	TxtIm* tim = new TxtIm(filename, encoding, textOnly, writer);
 	tim->write();

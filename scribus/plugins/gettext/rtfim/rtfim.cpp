@@ -30,7 +30,7 @@ QStringList FileExtensions()
 	return QStringList("rtf");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly))

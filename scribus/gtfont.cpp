@@ -194,7 +194,7 @@ int gtFont::getEffectsValue()
 	return b;
 }
 
-void gtFont::setName(QString newName)
+void gtFont::setName(const QString& newName)
 {
 	m_name = newName;
 	setWeight(NO_WEIGHT);
@@ -205,7 +205,7 @@ void gtFont::setName(QString newName)
 	m_setflags |= familyWasSet;
 }
 
-void gtFont::setFamily(QString newFamily)
+void gtFont::setFamily(const QString& newFamily)
 {
 	m_family = newFamily;
 	m_useFullName = false;
@@ -236,7 +236,7 @@ void gtFont::setWeight(FontWeight newWeight)
 	}
 }
 
-void gtFont::setWeight(QString newWeight)
+void gtFont::setWeight(const QString& newWeight)
 {
 	m_weight = newWeight;
 	m_useFullName = false;
@@ -282,7 +282,7 @@ void gtFont::setSlant(FontSlant newSlant)
 	}
 }
 
-void gtFont::setSlant(QString newSlant)
+void gtFont::setSlant(const QString& newSlant)
 {
 	m_slant = newSlant;
 	m_useFullName = false;
@@ -329,7 +329,7 @@ void gtFont::setWidth(FontWidth newWidth)
 	}
 }
 
-void gtFont::setWidth(QString newWidth)
+void gtFont::setWidth(const QString& newWidth)
 {
 	m_width = newWidth;
 	m_useFullName = false;
@@ -367,7 +367,7 @@ void gtFont::setSize(double newSize)
 	m_setflags |= sizeWasSet;
 }
 
-void gtFont::setColor(QString newColor)
+void gtFont::setColor(const QString& newColor)
 {
 	m_color = newColor;
 	m_setflags |= fillColorWasSet;
@@ -379,7 +379,7 @@ void gtFont::setShade(int newShade)
 	m_setflags |= fillShadeWasSet;
 }
 
-void gtFont::setStrokeColor(QString newColor)
+void gtFont::setStrokeColor(const QString& newColor)
 {
 	m_strokeColor = newColor;
 	m_setflags |= strokeColorWasSet;

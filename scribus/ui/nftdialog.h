@@ -21,7 +21,7 @@ class nftdialog: public QDialog, Ui::nftdialog
 {
 	Q_OBJECT
 public:
-	nftdialog(QWidget* parent, QString lang);
+	nftdialog(QWidget* parent, const QString& lang);
 	~nftdialog() {};
 
 	bool isTemplateSelected();

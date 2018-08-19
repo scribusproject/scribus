@@ -44,9 +44,9 @@ class SCRIBUS_API PrefsTable
 		Table m_table;
 		int m_rowCount;
 		int m_colCount;
-		void checkSize(int rowIndex, int colIndex, QString defValue = "");
+		void checkSize(int rowIndex, int colIndex, const QString& defValue = "");
 		void checkHeight(int rowIndex);
-		void checkWidth(int rowIndex, int colIndex, QString defValue = "");
+		void checkWidth(int rowIndex, int colIndex, const QString& defValue = "");
 	public:
 		PrefsTable(const QString& tableName);
 		~PrefsTable();

@@ -104,7 +104,7 @@ void gtAction::setProgressInfoDone()
 	m_ScMW->mainWindowProgressBar->setMaximum(1);
 }
 
-void gtAction::setInfo(QString infoText)
+void gtAction::setInfo(const QString& infoText)
 {
 	m_ScMW->setStatusBarInfoText(infoText);
 }

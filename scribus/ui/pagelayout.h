@@ -40,10 +40,10 @@ class SCRIBUS_API PageLayouts : public QGroupBox
 
 public:
 	PageLayouts(QWidget* parent);
-	PageLayouts(QWidget* parent, QList<PageSet> pSets, bool mode = true);
+	PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode = true);
 	~PageLayouts() {};
 
-	void updateLayoutSelector(QList<PageSet> pSets);
+	void updateLayoutSelector(const QList<PageSet>& pSets);
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
 	PageListWidget* layoutsView;

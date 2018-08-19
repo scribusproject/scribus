@@ -140,7 +140,7 @@ private slots:
 	void slotDirty();
 	void slotClean();
 
-	void slotApplyStyle(QString keyString); // keyString == styleClass$$$$styleName
+	void slotApplyStyle(const QString& keyString); // keyString == styleClass$$$$styleName
 };
 
 #endif

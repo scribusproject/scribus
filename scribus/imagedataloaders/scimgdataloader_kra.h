@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class ScImgDataLoader_KRA : public ScImgDataLoader
 {
 public:
-        ScImgDataLoader_KRA(void);
+		ScImgDataLoader_KRA();
 
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);

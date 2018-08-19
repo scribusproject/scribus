@@ -137,16 +137,15 @@ QImage DrwPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool DrwPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -233,7 +232,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -1764,7 +1763,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 //	}
 }
 
-void DrwPlug::handleLineStyle(PageItem* currentItem, quint8 flags, QString lineColor)
+void DrwPlug::handleLineStyle(PageItem* currentItem, quint8 flags, const QString& lineColor)
 {
 	if ((flags & 0x0F) == 5)
 		currentItem->setLineColor(CommonStrings::None);
@@ -1782,7 +1781,7 @@ void DrwPlug::handleLineStyle(PageItem* currentItem, quint8 flags, QString lineC
 		currentItem->setLineStyle(Qt::SolidLine);
 }
 
-void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString fillColor, QString backColor, QRectF bBox)
+void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const QString& fillColor, const QString& backColor, QRectF bBox)
 {
 	if ((fillColor == CommonStrings::None) || (backColor == CommonStrings::None))
 		return;
@@ -1933,7 +1932,7 @@ void DrwPlug::handlePreviewBitmap(QDataStream &ds)
 	thumbnailImage.loadFromData(header, "BMP");
 }
 
-QString DrwPlug::handleColor(ScColor &color, QString proposedName)
+QString DrwPlug::handleColor(ScColor &color, const QString& proposedName)
 {
 	QString tmpName = m_Doc->PageColors.tryAddColor(proposedName, color);
 	if (tmpName == proposedName)

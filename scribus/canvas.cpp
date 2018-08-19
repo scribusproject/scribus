@@ -285,7 +285,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
 
-bool Canvas::hitsCanvasPoint(FPoint globalPoint, QPointF canvasPoint) const
+bool Canvas::hitsCanvasPoint(const FPoint& globalPoint, const QPointF& canvasPoint) const
 {
 	double radius = m_doc->guidesPrefs().grabRadius;
 	return qAbs(globalPoint.x() - canvasPoint.x()) < radius

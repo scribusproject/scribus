@@ -268,7 +268,7 @@ private:
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
-	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
+	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	bool checkClip();
 	bool pathIsClosed;

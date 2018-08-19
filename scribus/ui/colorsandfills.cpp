@@ -66,7 +66,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 
-ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, const QString& docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, const ColorList& doco, const QString& docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);

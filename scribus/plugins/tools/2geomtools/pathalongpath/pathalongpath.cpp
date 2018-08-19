@@ -167,7 +167,7 @@ bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 	return ret;
 }
 
-bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
+bool PathAlongPathPlugin::run(ScribusDoc* doc, const QString&)
 {
 	firstUpdate = true;
 	m_doc = doc;

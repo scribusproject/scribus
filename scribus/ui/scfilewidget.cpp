@@ -78,7 +78,7 @@ void ScFileWidget::accept()
 #endif
 }
 
-void ScFileWidget::locationDropped(QString fileUrl)
+void ScFileWidget::locationDropped(const QString& fileUrl)
 {
 	QFileInfo fi(fileUrl);
 	if (fi.isDir())

@@ -55,7 +55,7 @@ public:
 	friend class ScColorEngine;
 
 	/** \brief Constructs a ScColor with 4 Components set to 0 */
-	ScColor(void);
+	ScColor();
 	/** \brief Constructs a ScColor with 4 Components in the range from 0 - 255 */
 	ScColor(int c, int m, int y, int k);
 	/** \brief Constructs a RGB color with 3 Components in the range from 0 - 255 */

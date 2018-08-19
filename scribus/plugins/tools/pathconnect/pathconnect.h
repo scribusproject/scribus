@@ -46,7 +46,7 @@ class PLUGIN_API PathConnectPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathConnectPlugin();
 		virtual ~PathConnectPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

@@ -1150,7 +1150,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 	return false;
 }
 
-void StyleManager::slotApplyStyle(QString keyString)
+void StyleManager::slotApplyStyle(const QString& keyString)
 {
 	if (m_isEditMode)
 		return;

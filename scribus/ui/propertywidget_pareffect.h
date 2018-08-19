@@ -55,15 +55,15 @@ public slots:
 	void handleParEffectUse();
 	void handleBulletStr(QString);
 	void handleDropCapLines(int);
-	void handleNumName(QString);
+	void handleNumName(const QString&);
 	void handleNumFormat(int);
 	void handleNumLevel(int);
-	void handleNumPrefix(QString);
-	void handleNumSuffix(QString);
+	void handleNumPrefix(const QString&);
+	void handleNumSuffix(const QString&);
 	void handleNumStart(int);
 	void handlePEOffset(double);
 	void handlePEIndent(bool);
-	void handlePECharStyle(QString);
+	void handlePECharStyle(const QString&);
 
 private slots:
 	void on_bulletCharTableButton_toggled(bool checked);

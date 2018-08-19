@@ -4283,7 +4283,7 @@ void SlaOutputDev::applyMask(PageItem *ite)
 	}
 }
 
-void SlaOutputDev::pushGroup(QString maskName, GBool forSoftMask, GBool alpha, bool inverted)
+void SlaOutputDev::pushGroup(const QString& maskName, GBool forSoftMask, GBool alpha, bool inverted)
 {
 	groupEntry gElements;
 	gElements.forSoftMask = forSoftMask;

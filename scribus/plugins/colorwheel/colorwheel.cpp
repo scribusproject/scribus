@@ -79,7 +79,7 @@ void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 }
 
 /** Create dialog. Everything else is handled in separated classes. */
-bool ColorWheelPlugin::run(ScribusDoc* doc, QString target)
+bool ColorWheelPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	Q_ASSERT(target.isNull());
 	ScribusDoc* currDoc=doc;

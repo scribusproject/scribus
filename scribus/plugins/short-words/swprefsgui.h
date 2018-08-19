@@ -47,7 +47,7 @@ class SWPrefsGui : public PrefsPanel
 	protected:
 		/*! \brief Load cfg file.
 		\param filename string with full path and name.*/
-		bool loadCfgFile(QString filename);
+		bool loadCfgFile(const QString& filename);
 
 		QGridLayout* SWPrefsGuiLayout;
 		QVBoxLayout* editLayout;

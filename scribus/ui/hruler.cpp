@@ -862,7 +862,7 @@ void Hruler::drawTextMarks(double Pos, double EndPos, QPainter& p)
 	}
 }
 
-void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
+void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p)
 {
 	const int y = y0 - 3 + topline;
 	p.drawText(x,y,txt);

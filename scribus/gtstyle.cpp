@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "gtstyle.h"
 
-gtStyle::gtStyle(QString name)
+gtStyle::gtStyle(const QString& name)
 {
 	this->name = name;
 }
@@ -52,7 +52,7 @@ QString gtStyle::getName()
 	return name;
 }
 
-void gtStyle::setName(QString newName)
+void gtStyle::setName(const QString& newName)
 {
 	name = newName;
 }

@@ -601,7 +601,7 @@ void Cpalette::handleGradientExtend(int val)
 	}
 }
 
-void Cpalette::showColorValues(QString stroke, QString fill, int sShade, int fShade)
+void Cpalette::showColorValues(const QString& stroke, const QString& fill, int sShade, int fShade)
 {
 	bool sigBlocked1 = fillShade->blockSignals(true);
 	bool sigBlocked2 = strokeShade->blockSignals(true);
@@ -661,7 +661,7 @@ void Cpalette::selectColorF(int row)
 	emit NewBrush(colorName);
 }
 
-void Cpalette::setColors(ColorList newColorList)
+void Cpalette::setColors(const ColorList& newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
@@ -894,7 +894,7 @@ void Cpalette::selectPatternS(QListWidgetItem *c)
 	emit NewPatternS(c->text());
 }
 
-void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
+void Cpalette::setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
 {
 	bool sigBlocked = patternBoxStroke->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -919,7 +919,7 @@ void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY
 	patternBoxStroke->blockSignals(sigBlocked);
 }
 
-void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void Cpalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	bool sigBlocked = patternBox->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);

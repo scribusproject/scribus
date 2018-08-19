@@ -6,12 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimgdataloader.h"
 
-ScImgDataLoader::ScImgDataLoader(void)
+ScImgDataLoader::ScImgDataLoader()
 {
 	initialize();
 }
 
-void ScImgDataLoader::initialize(void)
+void ScImgDataLoader::initialize()
 {
 	m_msgType = noMsg;
 	m_message.resize(0);
@@ -22,7 +22,7 @@ void ScImgDataLoader::initialize(void)
 	m_pixelFormat = Format_Undefined;
 }
 
-void ScImgDataLoader::setRequest(bool valid, QMap<int, ImageLoadRequest> req)
+void ScImgDataLoader::setRequest(bool valid, const QMap<int, ImageLoadRequest>& req)
 {
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;

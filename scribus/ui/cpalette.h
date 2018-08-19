@@ -62,7 +62,7 @@ public:
 
 	void updateColorList();
 
-	void setColors(ColorList newColorList);
+	void setColors(const ColorList& newColorList);
 	void setGradients(QHash<QString, VGradient> *docGradients);
 	void setPatterns(QHash<QString, ScPattern> *docPatterns);
 
@@ -86,7 +86,7 @@ public slots:
 	void handleStrokeGradient();
 	void handleStrokeGradientExtend(int val);
 	void handleGradientExtend(int val);
-	void showColorValues(QString stroke, QString fille, int sShade, int fShade);
+	void showColorValues(const QString& stroke, const QString& fille, int sShade, int fShade);
 	void showGradient(int nr);
 	void showGradientStroke(int nr);
 	void showOverprint(int);
@@ -96,8 +96,8 @@ public slots:
 	void selectPattern(QListWidgetItem *c);
 	void selectPatternS(QListWidgetItem *c);
 	void hideEditedPatterns(QStringList names);
-	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
+	void setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
 	void selectColorS(int row);
 	void selectColorF(int row);
 	void slotGradStroke(int number);

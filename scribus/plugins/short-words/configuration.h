@@ -40,7 +40,7 @@ public:
 
 	/*! \brief Returns all options for specified language.
 	\param lang language of the ext frame */
-	QStringList getShortWords(QString lang);
+	QStringList getShortWords(const QString& lang);
 	/*! \brief available configs for UI about.
 	\retval QString with languages in the configuration. */
 	static QString getAvailableLanguages();
@@ -56,14 +56,14 @@ private:
 	\param lang language
 	\param filename configuration file.
 	\retval QStringList parsed SW. Each SW in one string item. */
-	QStringList getShortWordsFromFile(QString lang, QString filename);
+	QStringList getShortWordsFromFile(const QString& lang, const QString& filename);
 	/*! \brief getAvailableLanguages use this one. available config in the specified file for UI about
 	\param filename config file
 	\retval QStringList all supported language codes */
-	static QStringList getAvailableLanguageCodes(QString filename);
+	static QStringList getAvailableLanguageCodes(const QString& filename);
 	/*! \brief Retrieve translated language strings from language codes
 	\retval QStringList with languages. */
-	static QStringList getLanguageStringsFromCodes(QStringList codes);
+	static QStringList getLanguageStringsFromCodes(const QStringList& codes);
 };
 
 #endif

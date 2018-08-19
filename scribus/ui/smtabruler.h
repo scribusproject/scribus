@@ -25,9 +25,9 @@ public:
 
 	void unitChange(int unitIndex);
 
-	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex);
-	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, bool isParentValue);
-	void setParentTabs(QList<ParagraphStyle::TabRecord> Tabs);
+	void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitIndex);
+	void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitIndex, bool isParentValue);
+	void setParentTabs(const QList<ParagraphStyle::TabRecord>& Tabs);
 
 	void setFirstLineValue(double t);
 	void setFirstLineValue(double t, bool isParentValue);

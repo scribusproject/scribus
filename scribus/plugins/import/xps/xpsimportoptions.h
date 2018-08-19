@@ -21,7 +21,7 @@ class XpsImportOptions : public QDialog
 public:
 	explicit XpsImportOptions(QWidget *parent = 0);
 	~XpsImportOptions();
-	void setUpOptions(QString fileName, int actPage, int numPages, bool interact);
+	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact);
 	QString getPagesString();
 
 public slots:

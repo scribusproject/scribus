@@ -30,8 +30,8 @@ class SCRIBUS_API ScTextBrowser : public QTextBrowser
 		void home();
 
 	private slots:
-		void catchHome(QUrl url);
-		void externalLinkClick(QUrl url);
+		void catchHome(const QUrl& url);
+		void externalLinkClick(const QUrl& url);
 
 	protected:
 		QString m_baseDir;

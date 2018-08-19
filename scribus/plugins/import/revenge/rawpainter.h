@@ -33,7 +33,7 @@ struct RawPainterPrivate;
 class RawPainter : public librevenge::RVNGDrawingInterface
 {
 public:
-	RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp);
+	RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp);
 	~RawPainter();
 
 	void startDocument(const librevenge::RVNGPropertyList &propList);
@@ -97,15 +97,15 @@ public:
 	void insertLineBreak();
 	void insertField(const librevenge::RVNGPropertyList &propList);
 	double valueAsPoint(const librevenge::RVNGProperty *prop);
-	QString constructFontName(QString fontBaseName, QString fontStyle);
+	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	double fromPercentage(const QString &s );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
-	void insertImage(PageItem* ite, QString imgExt, QByteArray &imageData);
+	void insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData);
 	void applyFill(PageItem* ite);
 	void applyShadow(PageItem* ite);
 	void applyFlip(PageItem* ite);
-	void recolorItem(PageItem* ite, QString efVal);
+	void recolorItem(PageItem* ite, const QString& efVal);
 	void applyArrows(PageItem* ite);
 	void finishItem(PageItem* ite);
 private:
@@ -164,7 +164,7 @@ private:
 class RawPainterPres : public librevenge::RVNGRawTextGenerator
 {
 public:
-	RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp);
+	RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp);
 	~RawPainterPres();
 	void startDocument(const librevenge::RVNGPropertyList &propList);
 	void endDocument();

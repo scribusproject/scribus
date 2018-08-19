@@ -141,7 +141,7 @@ class BarcodeGenerator : public QDialog
 
 	protected slots:
 		void paintBarcode();
-		void updatePreview(QString);
+		void updatePreview(const QString&);
 		void bcFamilyComboChanged();
 		void bcComboChanged();
 		void bcComboChanged(int);

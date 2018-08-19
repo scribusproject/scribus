@@ -113,7 +113,7 @@ void FlattenPathPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool FlattenPathPlugin::run(ScribusDoc* doc, QString)
+bool FlattenPathPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

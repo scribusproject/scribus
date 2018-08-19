@@ -16,12 +16,12 @@ public:
 	SMLineEdit(QWidget *parent);
 	~SMLineEdit() {}
 
-	void setValue(QString val);
-	void setValue(QString val, bool isParentVal);
+	void setValue(const QString& val);
+	void setValue(const QString& val, bool isParentVal);
 
 	void clear();
 
-	void setParentValue(QString val);
+	void setParentValue(const QString& val);
 
 	bool useParentValue();
 private:

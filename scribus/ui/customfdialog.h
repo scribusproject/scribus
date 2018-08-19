@@ -65,7 +65,7 @@ public:
 	FDialogPreview(QWidget *pa);
 	~FDialogPreview() {};
 	void updtPix();
-	void GenPreview(QString name);
+	void GenPreview(const QString& name);
 };
 
 typedef enum {
@@ -96,20 +96,20 @@ public:
 	\param filter a mask/filter. E.g.: *.txt
 	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
-	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",  QString filter = "", int flags = fdExistingFiles);
+	CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption = "",  const QString& filter = "", int flags = fdExistingFiles);
 	~CustomFDialog();
 
 	/*! \brief Set the default extension of the resulting file name.
 	\param e string extension without any "."
 	*/
-	void setExtension(QString e);
+	void setExtension(const QString& e);
 	/*! \brief Get the file extension
 	\retval QString see setExtension(QString e) */
 	QString extension();
 	/*! \brief Set the "compress" extension of the resulting file name.
 	\param e string extension without any "."
 	*/
-	void setZipExtension(QString e);
+	void setZipExtension(const QString& e);
 	/*! \brief Get the zipped file extension
 	\retval QString see setZipExtension(QString e) */
 	QString zipExtension();
@@ -126,7 +126,7 @@ public:
 	QCheckBox *showPreview;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
-	void setSelection(QString );
+	void setSelection(const QString& );
 	QString selectedFile();
 	void addWidgets(QWidget *widgets);
 private slots:

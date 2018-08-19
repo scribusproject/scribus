@@ -156,7 +156,7 @@ void replaceColorsDialog::updateReplacementTable()
 	}
 }
 
-QPixmap replaceColorsDialog::getColorIcon(QString color)
+QPixmap replaceColorsDialog::getColorIcon(const QString& color)
 {
 	QPixmap smallPix(15, 15);
 	QPixmap pPixmap(60,15);

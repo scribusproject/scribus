@@ -35,7 +35,7 @@ class CollectForOutput : public QObject
 		\param withProfiles collect/move CMS profiles into output directory too
 		\param compressDoc use gzipped document
 		*/
-		CollectForOutput(ScribusDoc* doc, QString outputDirectory=QString::null, bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
+		CollectForOutput(ScribusDoc* doc, const QString& outputDirectory=QString::null, bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
 		~CollectForOutput(){};
 
 		/*! \brief Main method doing everything.
@@ -90,7 +90,7 @@ class CollectForOutput : public QObject
 		\param newFile suggested fullpath of the collected file
 		\retval QString really used fullpath of the new file
 		*/
-		QString collectFile(QString oldFile, QString newFile);
+		QString collectFile(const QString& oldFile, QString newFile);
 
 		ProfilesL docProfiles;
 		QStringList patterns;

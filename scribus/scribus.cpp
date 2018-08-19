@@ -469,7 +469,7 @@ ScribusMainWindow::~ScribusMainWindow()
 	delete m_tocGenerator;
 }
 
-void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
+void ScribusMainWindow::addScToolBar(ScToolBar *tb, const QString & name)
 {
 	if (!scrToolBars.contains(name))
 		scrToolBars.insert(name, tb);
@@ -1447,7 +1447,7 @@ void ScribusMainWindow::setTempStatusBarText(const QString &text)
 	}
 }
 
-void ScribusMainWindow::setStatusBarInfoText(QString newText)
+void ScribusMainWindow::setStatusBarInfoText(const QString & newText)
 {
 	if (m_mainWindowStatusLabel)
 		m_mainWindowStatusLabel->setText(newText);
@@ -2075,7 +2075,7 @@ QStringList ScribusMainWindow::findRecoverableFile()
 	return foundFiles.toList();
 }
 
-bool ScribusMainWindow::recoverFile(QStringList foundFiles)
+bool ScribusMainWindow::recoverFile(const QStringList& foundFiles)
 {
 	appModeHelper->setStartupActionsEnabled(false);
 	bool ret = false;
@@ -6985,7 +6985,7 @@ void ScribusMainWindow::printPreview()
 	doPrintPreview();
 }
 
-bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
+bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 {
 	QStringList spots;
 	bool return_value = true;
@@ -7473,7 +7473,7 @@ void ScribusMainWindow::StoreBookmarks()
 	doc->Last = bookmarkPalette->BView->Last;
 }
 
-void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
+void ScribusMainWindow::slotElemRead(const QString& xml, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
 {
 	if (doc == docc && docc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
@@ -7681,7 +7681,7 @@ void ScribusMainWindow::editInlineEnd()
 	updateActiveWindowCaption(doc->DocName);
 }
 
-void ScribusMainWindow::editMasterPagesStart(QString temp)
+void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 {
 	if (!HaveDoc)
 		return;
@@ -8070,7 +8070,7 @@ void ScribusMainWindow::StatusPic()
 	delete dia;
 }
 
-QString ScribusMainWindow::CFileDialog(QString workingDirectory, QString dialogCaption, QString fileFilter, QString defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)
+QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QString& dialogCaption, const QString& fileFilter, const QString& defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)
 {
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened
 	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
@@ -8964,7 +8964,7 @@ void ScribusMainWindow::slotItemTransform()
 	}
 }
 
-void ScribusMainWindow::PutToInline(QString buffer)
+void ScribusMainWindow::PutToInline(const QString& buffer)
 {
 	if (!HaveDoc)
 		return;

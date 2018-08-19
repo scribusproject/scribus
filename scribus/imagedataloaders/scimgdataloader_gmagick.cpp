@@ -16,14 +16,14 @@ for which a new license (GPL+exception) is in place.
 
 bool ScImgDataLoader_GMagick::gm_initialized = false;
 
-ScImgDataLoader_GMagick::ScImgDataLoader_GMagick(void)
+ScImgDataLoader_GMagick::ScImgDataLoader_GMagick()
 {
 	initSupportedFormatList();
 	m_useRawImage = true;
 }
 
 
-void ScImgDataLoader_GMagick::initSupportedFormatList(void)
+void ScImgDataLoader_GMagick::initSupportedFormatList()
 {
 	//This is unused! See util_formats.{h,cpp}
 	m_supportedFormats.clear();

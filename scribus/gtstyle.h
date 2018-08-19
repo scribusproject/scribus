@@ -37,12 +37,12 @@ protected:
 	QString name;
 	gtFont font;
 public:
-	gtStyle(QString name);
+	gtStyle(const QString& name);
 	gtStyle(const gtStyle& s);
 	void setFont(const gtFont& newFont);
 	gtFont* getFont();
 	QString getName();
-	void setName(QString newName);
+	void setName(const QString& newName);
 	virtual ~gtStyle();
 	virtual QString target();
 };

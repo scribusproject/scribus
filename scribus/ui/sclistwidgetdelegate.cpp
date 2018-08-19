@@ -53,7 +53,6 @@ void ScListWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 
 QSize ScListWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
-	QStyleOptionViewItem option = opt;
 	if (m_dispIconOnly)
 	{
 		QSize sz = m_view->iconSize();

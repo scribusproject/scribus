@@ -36,7 +36,7 @@ class SCRIBUS_API RecoverDialog : public QDialog, Ui::recoverDialogBase
 	Q_OBJECT
 
 public:
-	RecoverDialog(QWidget* parent, QStringList files);
+	RecoverDialog(QWidget* parent, const QStringList& files);
 	~RecoverDialog() {};
 	QStringList recoverFiles;
 	QStringList recoverNames;

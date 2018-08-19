@@ -28,7 +28,7 @@ class SCRIBUS_API Editor : public QDialog
 		Q_OBJECT
 
 public:
-	Editor ( QWidget* parent, QString daten, ScribusView* vie = 0 );
+	Editor (QWidget* parent, const QString& daten, ScribusView* vie = 0 );
 	~Editor() {};
 	QTextEdit* EditTex;
 	QMenu* fmenu;

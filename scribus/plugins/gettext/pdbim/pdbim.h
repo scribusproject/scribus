@@ -14,7 +14,7 @@ class gtParagraphStyle;
 class QString;
 class QStringList;
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 
@@ -139,7 +139,7 @@ private:
 	
 	/*! \brief Parse the PDB file.
 	\param fname a filename to open */
-	void loadFile(QString fname);
+	void loadFile(const QString& fname);
 	/*! \brief Learn which endian to use.
 	It fills the m_littlendian flag */
 	void selectSwap();

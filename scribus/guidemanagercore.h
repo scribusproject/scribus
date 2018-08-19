@@ -149,7 +149,7 @@ class SCRIBUS_API GuideManagerIO
 		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
-		static void readHorizontalGuides(const QString guideString,
+		static void readHorizontalGuides(const QString& guideString,
 										 ScPage *page,
 										 GuideManagerCore::GuideType type,
 										 bool useOldGuides=false);
@@ -163,7 +163,7 @@ class SCRIBUS_API GuideManagerIO
 		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
-		static void readVerticalGuides(const QString guideString,
+		static void readVerticalGuides(const QString& guideString,
 									   ScPage *page,
 									   GuideManagerCore::GuideType type,
 									   bool useOldGuides=false);

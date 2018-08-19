@@ -244,7 +244,7 @@ void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 	setBlockSignals(wasSignalsBlocked);
 }
 
-void NotesStylesEditor::readNotesStyle(QString nsName)
+void NotesStylesEditor::readNotesStyle(const QString& nsName)
 {
 	NotesStyle * NS = m_Doc->getNotesStyle(nsName);
 	setNotesStyle(NS);

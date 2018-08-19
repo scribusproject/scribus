@@ -115,7 +115,7 @@ bool VGradient::operator==(const VGradient &gradient) const
 {
 	if (static_cast<uint>(m_colorStops.count()) != gradient.Stops())
 		return false;
-	QList<VColorStop*> cs = gradient.colorStops();
+	const QList<VColorStop*>& cs = gradient.colorStops();
 	bool retVal = true;
 	for (int i = 0; i < m_colorStops.count(); ++i)
 	{
@@ -162,7 +162,7 @@ VGradient::addStop( const VColorStop& colorStop )
 } // VGradient::addStop
 
 void
-VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade )
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = qMax( 0.0, rampPoint );
@@ -175,7 +175,7 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 }
 
 void 
-VGradient::setStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+VGradient::setStop( const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade )
 {
 	for (int i = 0; i < m_colorStops.count(); ++i)
 	{
@@ -199,7 +199,7 @@ void VGradient::removeStop( uint n )
 	delete m_colorStops.takeAt(n);
 }
 
-void VGradient::filterStops(void)
+void VGradient::filterStops()
 {
 	VColorStop* colorStop = nullptr;
 	bool zeroFound = false;

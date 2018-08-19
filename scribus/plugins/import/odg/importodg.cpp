@@ -82,7 +82,7 @@ OdgPlug::OdgPlug(ScribusDoc* doc, int flags)
 	uz = nullptr;
 }
 
-QImage OdgPlug::readThumbnail(QString fName)
+QImage OdgPlug::readThumbnail(const QString& fName)
 {
 	QImage tmp;
 	if (!QFile::exists(fName))
@@ -137,7 +137,6 @@ QImage OdgPlug::readThumbnail(QString fName)
 
 bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -146,7 +145,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -226,7 +225,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -404,7 +403,7 @@ bool OdgPlug::convert(const QString& fn)
 	return retVal;
 }
 
-bool OdgPlug::parseStyleSheets(QString designMap)
+bool OdgPlug::parseStyleSheets(const QString& designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -531,7 +530,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 	return true;
 }
 
-bool OdgPlug::parseDocReference(QString designMap)
+bool OdgPlug::parseDocReference(const QString& designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -2277,7 +2276,7 @@ QString OdgPlug::getStyleName(QDomElement &e)
 	return styleName;
 }
 
-void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
+void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 {
 	if (m_Styles.contains(pAttrs))
 	{
@@ -3213,7 +3212,7 @@ PageItem* OdgPlug::groupObjects(QList<PageItem *> &GElements)
 	return retObj;
 }
 
-QString OdgPlug::modifyColor(QString name, bool darker, int amount)
+QString OdgPlug::modifyColor(const QString& name, bool darker, int amount)
 {
 	const ScColor& col = m_Doc->PageColors[name];
 	QColor c = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
@@ -3288,9 +3287,9 @@ QString OdgPlug::parseColor( const QString &s )
 	return ret;
 }
 
-QString OdgPlug::constructFontName(QString fontBaseName, QString fontStyle)
+QString OdgPlug::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
-	QString fontName = "";
+	QString fontName;
 	bool found = false;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())

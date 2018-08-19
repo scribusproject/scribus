@@ -123,9 +123,8 @@ QImage PctPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool PctPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -133,7 +132,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	double x, y, b, h;
 	bool ret = false;
 	CustColors.clear();
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -169,7 +168,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	parseHeader(fName, x, y, b, h);
+	parseHeader(fNameIn, x, y, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
@@ -238,7 +237,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -416,7 +415,7 @@ void PctPlug::parseHeader(const QString& fName, double &x, double &y, double &b,
 	}
 }
 
-bool PctPlug::convert(QString fn)
+bool PctPlug::convert(const QString& fn)
 {
 	CurrColorFill = "White";
 	CurrFillShade = 100.0;
@@ -1531,7 +1530,7 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	alignStreamToWord(ts, 0);
 }
 
-void PctPlug::createTextPath(QByteArray textString)
+void PctPlug::createTextPath(const QByteArray& textString)
 {
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
 	if (!codec)

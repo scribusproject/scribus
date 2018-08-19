@@ -11,14 +11,14 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ora.h"
 #include "util_formats.h"
 
-ScImgDataLoader_ORA::ScImgDataLoader_ORA(void) : ScImgDataLoader(),
+ScImgDataLoader_ORA::ScImgDataLoader_ORA() : ScImgDataLoader(),
 	m_inSubLayer(0),
 	m_layerCount(0)
 {
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_ORA::initSupportedFormatList(void)
+void ScImgDataLoader_ORA::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append("ora");
@@ -239,7 +239,7 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 	}
 }
 
-int ScImgDataLoader_ORA::blendModeToInt(QString compositeOp)
+int ScImgDataLoader_ORA::blendModeToInt(const QString& compositeOp)
 {
 	int ret = 0;
 	if (compositeOp == "svg:darken")
@@ -315,7 +315,7 @@ int ScImgDataLoader_ORA::blendModeToInt(QString compositeOp)
 	return ret;
 }
 
-QString ScImgDataLoader_ORA::blendModeToString(QString compositeOp)
+QString ScImgDataLoader_ORA::blendModeToString(const QString& compositeOp)
 {
 	QString ret = compositeOp;
 	if (compositeOp == "svg:darken")

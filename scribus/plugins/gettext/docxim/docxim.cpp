@@ -34,13 +34,13 @@ QStringList FileExtensions()
 	return QStringList("docx");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix, append);
 	delete docxim;
 }
 
-DocXIm::DocXIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+DocXIm::DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
@@ -666,7 +666,7 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	}
 }
 
-QString DocXIm::getFontName(QString name)
+QString DocXIm::getFontName(const QString& name)
 {
 	QString fontName = name;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);

@@ -23,8 +23,8 @@ class PLUGIN_API PathFinderDialog : public QDialog, Ui::PathFinderBase
 public:
 	PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *shape1, PageItem *shape2);
 	~PathFinderDialog() {};
-	void updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale);
-	void updatePartPreview(QColor color, double scale);
+	void updatePreview(QLabel *label, QPainterPath &path, const QColor& color, double scale);
+	void updatePartPreview(const QColor& color, double scale);
 	const QString getOtherFillColor();
 	const QString getOtherLineColor();
 
@@ -38,7 +38,7 @@ public:
 	QPainterPath result1;
 	QPainterPath result2;
 private:
-	QColor getColorFromItem(QString color, QColor in);
+	QColor getColorFromItem(const QString& color, const QColor& in);
 
 	ScribusDoc* m_doc;
 	PageItem* m_source1;

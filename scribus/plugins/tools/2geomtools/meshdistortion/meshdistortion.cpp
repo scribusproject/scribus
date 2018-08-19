@@ -113,7 +113,7 @@ void MeshDistortionPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool MeshDistortionPlugin::run(ScribusDoc* doc, QString)
+bool MeshDistortionPlugin::run(ScribusDoc* doc, const QString&)
 {
 	m_doc = doc;
 	if (m_doc == nullptr)

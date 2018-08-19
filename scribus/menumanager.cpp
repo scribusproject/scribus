@@ -41,7 +41,7 @@ MenuManager::~MenuManager()
 	m_redoMenu->deleteLater();
 }
 
-bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent, bool checkable, bool rememberMenu)
+bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString& parent, bool checkable, bool rememberMenu)
 {
 	bool retVal=false;
 	QList<QString> menuEntries;

@@ -77,7 +77,7 @@ private:
 	QString getName();
 	void getStyle();
 public:
-	ContentReader(QString documentName, StyleReader* s, gtWriter *w, bool textOnly);
+	ContentReader(const QString& documentName, StyleReader* s, gtWriter *w, bool textOnly);
 	~ContentReader();
 	static void startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar *name);
@@ -85,7 +85,7 @@ public:
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);
 	bool characters(const QString &ch);
-	void parse(QString fileName);
+	void parse(const QString& fileName);
 };
 
 #endif // HAVE_XML

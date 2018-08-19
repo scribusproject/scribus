@@ -21,7 +21,7 @@ class PdfImportOptions : public QDialog
 public:
 	explicit PdfImportOptions(QWidget *parent = 0);
 	~PdfImportOptions();
-	void setUpOptions(QString fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug);
+	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug);
 	QString getPagesString();
 	int getCropBox();
 	bool croppingEnabled();

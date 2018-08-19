@@ -8757,7 +8757,7 @@ void PDFLibCore::PDF_RadioButtons()
 	}
 }
 
-PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, QString parentName)
+PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& parentName)
 {
 	QMap<int, QByteArray> ind2PDFabr;
 	static const QByteArray bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
@@ -9747,7 +9747,7 @@ PdfId PDFLibCore::WritePDFString(const QString& cc, PdfId objId)
 	return WritePDFStream(tmp, objId);
 }
 
-void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, QByteArray im)
+void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, const QByteArray& im)
 {
 	writer.startObj(objNr);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
@@ -10141,7 +10141,7 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 		case PoDoFo::ePdfDataType_Dictionary:
 		{
 			const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
-			const PoDoFo::TKeyMap keys = dict.GetKeys();
+			const PoDoFo::TKeyMap& keys = dict.GetKeys();
 			PutDoc("<<");
 			for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
 			{

@@ -128,7 +128,7 @@ void RulerGesture::deactivate(bool)
 }
 
 
-bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
+bool RulerGesture::mouseHitsGuide(const FPoint& mousePointDoc)
 {
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
 	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && page >= 0)

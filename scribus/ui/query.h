@@ -23,15 +23,15 @@ class SCRIBUS_API Query : public QDialog
 	Q_OBJECT
 
 public:
-	Query( QWidget* parent=0, const char* name=nullptr, bool modal = false, QString text=0, QString titel=0 );
+	Query(QWidget* parent=0, const char* name=nullptr, bool modal = false, const QString& text=0, const QString& titel=0 );
 	~Query() {};
 
 	const QString getEditText();
-	void setEditText(QString newText, bool setSelected);
-	void setTestList(QStringList tList);
-	void setForbiddenList(QStringList tList);
+	void setEditText(const QString& newText, bool setSelected);
+	void setTestList(const QStringList& tList);
+	void setForbiddenList(const QStringList& tList);
 	void setCheckMode(bool mode);
-	void setValidator(QRegExp rx);
+	void setValidator(const QRegExp& rx);
 
 public slots:
 	void Leave();

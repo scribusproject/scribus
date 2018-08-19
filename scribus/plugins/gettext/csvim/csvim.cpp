@@ -21,13 +21,12 @@ QStringList FileExtensions()
     return QStringList("csv");
 }
 
-void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool /* textOnly */, gtWriter *writer)
 {
 	CsvDialog* csvdia = new CsvDialog();
 	if (csvdia->exec())
 	{
-		CsvIm *cim = new CsvIm(filename, encoding, writer, csvdia->getFDelim(), csvdia->getVDelim(),
-                               csvdia->hasHeader(), csvdia->useVDelim());
+		CsvIm *cim = new CsvIm(filename, encoding, writer, csvdia->getFDelim(), csvdia->getVDelim(), csvdia->hasHeader(), csvdia->useVDelim());
 		cim->write();
 		delete cim;
 	}

@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QFileInfo>
 
-RecoverDialog::RecoverDialog(QWidget* parent, QStringList files) : QDialog(parent)
+RecoverDialog::RecoverDialog(QWidget* parent, const QStringList& files) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);

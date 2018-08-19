@@ -124,7 +124,7 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
+bool SVGExportPlugin::run(ScribusDoc* doc, const QString& filename)
 {
 	Q_ASSERT(filename.isEmpty());
 	QString fileName;
@@ -2369,7 +2369,7 @@ QString SVGExPlug::MatrixToStr(QTransform &mat)
 	return  cc.arg(mat.m11()).arg(mat.m12()).arg(mat.m21()).arg(mat.m22()).arg(mat.dx()).arg(mat.dy());
 }
 
-QString SVGExPlug::SetColor(QString farbe, int shad)
+QString SVGExPlug::SetColor(const QString& farbe, int shad)
 {
 	if (farbe == CommonStrings::None)
 		return "#FFFFFF";

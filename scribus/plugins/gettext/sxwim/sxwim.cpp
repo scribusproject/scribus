@@ -59,7 +59,7 @@ void GetText(const QString& filename, const QString& encoding, bool textOnly, gt
 
 /********** Class SxwIm ************************************************************/
 
-SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
+SxwIm::SxwIm(const QString& fileName, const QString& enc, gtWriter* w, bool textOnly)
 {
 	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);

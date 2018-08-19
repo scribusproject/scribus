@@ -53,17 +53,17 @@ namespace Geom{
  * returns the area of the triangle defined by p0, p1, p2.  A clockwise triangle has positive area.
  */
 double
-SignedTriangleArea(Point p0, Point p1, Point p2) {
+SignedTriangleArea(const Point& p0, const Point& p1, const Point& p2) {
     return cross((p1 - p0), (p2 - p0));
 }
 
 class angle_cmp{
 public:
     Point o;
-    angle_cmp(Point o) : o(o) {}
+	angle_cmp(const Point& o) : o(o) {}
     
     bool
-    operator()(Point a, Point b) {
+	operator()(const Point& a, const Point& b) {
         Point da = a - o;
         Point db = b - o;
         
@@ -151,7 +151,7 @@ int mod(int i, int l) {
 /*** ConvexHull::left
  * Tests if a point is left (outside) of a particular segment, n. */
 bool
-ConvexHull::is_left(Point p, int n) {
+ConvexHull::is_left(const Point& p, int n) {
     return SignedTriangleArea((*this)[n], (*this)[n+1], p) > 0;
 }
 
@@ -159,7 +159,7 @@ ConvexHull::is_left(Point p, int n) {
  * May return any number n where the segment n -> n + 1 (possibly looped around) in the hull such
  * that the point is on the wrong side to be within the hull.  Returns -1 if it is within the hull.*/
 int
-ConvexHull::find_left(Point p) {
+ConvexHull::find_left(const Point& p) {
     int l = boundary.size(); //Who knows if C++ is smart enough to optimize this?
     for(int i = 0; i < l; i++) {
         if(is_left(p, i)) return i;

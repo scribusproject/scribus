@@ -1930,7 +1930,7 @@ void SMParagraphStyle::slotBaselineOffset()
 	}
 }
 
-void SMParagraphStyle::slotFont(QString s)
+void SMParagraphStyle::slotFont(const QString& s)
 {
 	if (m_pwidget->cpage->fontFace_->useParentFont())
 		for (int i = 0; i < m_selection.count(); ++i)
@@ -3015,7 +3015,7 @@ void SMCharacterStyle::slotSmallestWord()
 	}
 }
 
-void SMCharacterStyle::slotFont(QString s)
+void SMCharacterStyle::slotFont(const QString& s)
 {
 	if (m_page->fontFace_->useParentFont())
 		for (int i = 0; i < m_selection.count(); ++i)

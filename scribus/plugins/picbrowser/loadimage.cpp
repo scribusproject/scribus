@@ -64,7 +64,7 @@ loadImagesThreadInstance::loadImagesThreadInstance()
 {
 }
 */
-void loadImagesThread::processLoadImageJob ( int row, QString path, int size, int tpId )
+void loadImagesThread::processLoadImageJob ( int row, const QString& path, int size, int tpId )
 {
 	ScImageCacheManager &icm = ScImageCacheManager::instance();
 	bool cacheEnabled = icm.enabled();

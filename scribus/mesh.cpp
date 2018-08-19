@@ -51,7 +51,7 @@ void MeshPoint::moveAbs(double x, double y)
 	controlColor -= delta;
 }
 
-void MeshPoint::transform(QTransform t)
+void MeshPoint::transform(const QTransform& t)
 {
 	FPointArray gr;
 	gr.addPoint(gridPoint);
@@ -69,7 +69,7 @@ void MeshPoint::transform(QTransform t)
 	controlColor = gr.point(5);
 }
 
-void MeshPoint::resetTo(FPoint p)
+void MeshPoint::resetTo(const FPoint& p)
 {
 	gridPoint = p;
 	controlLeft = gridPoint;

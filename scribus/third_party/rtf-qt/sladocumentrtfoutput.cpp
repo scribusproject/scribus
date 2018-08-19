@@ -722,7 +722,7 @@ namespace RtfReader
 	{
 	}
 
-	QString SlaDocumentRtfOutput::getFontName(QString name)
+	QString SlaDocumentRtfOutput::getFontName(const QString& name)
 	{
 		QString fontName(name);
 		SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);

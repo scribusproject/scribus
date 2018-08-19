@@ -34,7 +34,7 @@ PrefsContext::PrefsContext()
 	m_isplugin = false;
 }
 
-PrefsContext::PrefsContext(QString contextName, bool persistent, bool plugin)
+PrefsContext::PrefsContext(const QString& contextName, bool persistent, bool plugin)
 {
 	m_name = contextName;
 	m_ispersistent = persistent;

@@ -124,7 +124,7 @@ void PathFinderPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PathFinderPlugin::run(ScribusDoc* doc, QString)
+bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

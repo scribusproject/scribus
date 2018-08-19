@@ -9,7 +9,7 @@ QString getStringFromNum(NumFormat format, int num, QChar leadingChar, int chars
 	return str;
 }
 
-QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar, int charsLen)
+QString getAsterixStringFromNum(int num, const QString& asterix, QChar leadingChar, int charsLen)
 {
 	QString str = getStringFromSequence(Type_asterix, num, asterix);
 	if (charsLen > str.length())

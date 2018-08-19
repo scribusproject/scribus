@@ -27,7 +27,7 @@ imageCollection::imageCollection()
 }
 
 
-collections::collections ( QString collectionsName )
+collections::collections ( const QString& collectionsName )
 {
 	name = collectionsName;
 }
@@ -304,7 +304,7 @@ void collectionListReaderThread::collectionReaderThreadFinished()
 }
 
 
-collectionsWriterThread::collectionsWriterThread ( QString &xmlFile2, QList<collections *> saveCollections2 )
+collectionsWriterThread::collectionsWriterThread ( const QString& xmlFile2, QList<collections *> saveCollections2 )
 {
 	xmlFile = xmlFile2;
 	saveCollections = saveCollections2;

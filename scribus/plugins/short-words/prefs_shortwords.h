@@ -37,7 +37,7 @@ class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 	protected:
 		/*! \brief Load cfg file.
 		\param filename string with full path and name.*/
-		bool loadCfgFile(QString filename);
+		bool loadCfgFile(const QString& filename);
 };
 
 #endif // PREFS_SHORTWORDS_H

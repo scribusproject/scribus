@@ -340,7 +340,7 @@ namespace Pdf
 	}
 	
 	
-	QByteArray toLiteralString(QString s)
+	QByteArray toLiteralString(const QString& s)
 	{
 		return toLiteralString(toPdfDocEncoding(s));
 	}
@@ -427,7 +427,7 @@ namespace Pdf
 	}
 	
 	
-	QByteArray toName(QString s)
+	QByteArray toName(const QString& s)
 	{
 		return toName(toPdfDocEncoding(s));
 	}
@@ -453,7 +453,7 @@ namespace Pdf
 		return result;
 	}
 	
-	QByteArray toDateString(QDateTime dt)
+	QByteArray toDateString(const QDateTime& dt)
 	{
 		QString tmp = dt.toString("yyyy:MM:dd:HH:mm:ss");
 		tmp = tmp.replace(":", "");

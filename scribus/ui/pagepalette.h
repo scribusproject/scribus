@@ -65,7 +65,7 @@ public slots:
 	void languageChange();
 
 	bool masterPageMode();
-	void startMasterPageMode(QString);
+	void startMasterPageMode(const QString&);
 	void endMasterPageMode();
 
 signals:

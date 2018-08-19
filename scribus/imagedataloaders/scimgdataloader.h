@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 class ScImgDataLoader
 {
 protected:
-	ScImgDataLoader(void);
+	ScImgDataLoader();
 
 	QStringList m_supportedFormats;
 
@@ -29,7 +29,8 @@ protected:
 	int             m_profileComponents;
 	eColorFormat    m_pixelFormat;
 
-	typedef enum {
+	typedef enum
+	{
 		noMsg = 0,
 		warningMsg = 1,
 		errorMsg = 2
@@ -37,7 +38,7 @@ protected:
 	MsgType m_msgType;
 	QString m_message;
 
-	void swapRGBA(void);
+	void swapRGBA();
 	void swapRGBA(QImage *img);
 
 	QString getPascalString(QDataStream & s);
@@ -45,18 +46,18 @@ protected:
 	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size );
 
 public:
-	virtual ~ScImgDataLoader(void) {};
+	virtual ~ScImgDataLoader() {};
 
-	const QStringList& supportedFormats(void) const { return m_supportedFormats; }
+	const QStringList& supportedFormats() const { return m_supportedFormats; }
 	bool  supportFormat(const QString& fmt);
 
 	RawImage    r_image;
 
-	QImage&          image(void) { return m_image; }
-	QByteArray&      embeddedProfile(void) { return m_embeddedProfile; }
-	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
-	eColorFormat     pixelFormat(void) { return m_pixelFormat; }
-	void             setRequest(bool valid, QMap<int, ImageLoadRequest> req);
+	QImage&          image() { return m_image; }
+	QByteArray&      embeddedProfile() { return m_embeddedProfile; }
+	ImageInfoRecord& imageInfoRecord() { return m_imageInfoRecord; }
+	eColorFormat     pixelFormat() { return m_pixelFormat; }
+	void             setRequest(bool valid, const QMap<int, ImageLoadRequest>& req);
 
 	bool  issuedErrorMsg(void)      const { return (m_msgType == errorMsg); }
 	bool  issuedWarningMsg(void)    const { return (m_msgType == warningMsg); }

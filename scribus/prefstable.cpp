@@ -181,7 +181,7 @@ void PrefsTable::removeRow(int colIndex, const QString& what)
 	}
 }
 
-void PrefsTable::checkSize(int rowIndex, int colIndex, QString defValue)
+void PrefsTable::checkSize(int rowIndex, int colIndex, const QString& defValue)
 {
 	checkHeight(rowIndex);
 	checkWidth(rowIndex, colIndex, defValue);
@@ -197,7 +197,7 @@ void PrefsTable::checkHeight(int rowIndex)
 	}
 }
 
-void PrefsTable::checkWidth(int rowIndex, int colIndex, QString defValue)
+void PrefsTable::checkWidth(int rowIndex, int colIndex, const QString& defValue)
 {
 	if (static_cast<int>(m_table[rowIndex].size()) <= (colIndex + 1))
 	{

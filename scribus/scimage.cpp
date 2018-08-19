@@ -955,7 +955,7 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	}
 }
 
-void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk)
+void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, const FPointArray& curve3, bool lin3, bool cmyk)
 {
 	int h = height();
 	int w = width();
@@ -1195,7 +1195,7 @@ bool ScImage::createLowRes(double scale)
 	return true;
 }
 
-bool ScImage::convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
+bool ScImage::convert2JPG(const QString& fn, int Quality, bool isCMYK, bool isGray)
 {
 	bool success = false;
 	QFile file(fn);

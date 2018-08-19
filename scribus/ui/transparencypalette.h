@@ -66,7 +66,7 @@ public:
 
 	void updateColorList();
 
-	void setColors(ColorList newColorList);
+	void setColors(const ColorList& newColorList);
 	void setGradients(QHash<QString, VGradient> *docGradients);
 	void setPatterns(QHash<QString, ScPattern> *docPatterns);
 
@@ -84,7 +84,7 @@ public slots:
 	void setActiveGradDia(bool active);
 	void hideEditedPatterns(QStringList names);
 	void selectPattern(QListWidgetItem *c);
-	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void changePatternProps();
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void setActTrans(double, double);

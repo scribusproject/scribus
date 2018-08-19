@@ -71,20 +71,20 @@ public:
 	virtual int  maskMode() { return m_maskMode; }
 	virtual void setStrokeMode( int stroke );
 	virtual int  strokeMode() { return m_strokeMode; }
-	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
+	virtual void setGradient( VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
 	virtual void setMaskMode( int mask );
-	virtual void setGradientMask( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
+	virtual void setGradientMask(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
 	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
-	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
-	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
-	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
+	virtual void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4);
+	virtual void set4ColorColors(const QColor& col1, const QColor& col2, const QColor& col3, const QColor& col4);
+	virtual void setDiamondGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5);
+	virtual void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const QList<QList<MeshPoint> >& meshArray);
+	virtual void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const QList<meshGradientPatch>& meshPatches);
 
-	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, QColor background, QColor foreground, double width, double height);
+	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, const QColor& background, const QColor& foreground, double width, double height);
 
 	virtual void setClipPath();
 
@@ -95,17 +95,17 @@ public:
 	virtual void sharpLineHelper(QPointF &pp);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
-	virtual void drawLine(FPoint start, FPoint end);
+	virtual void drawLine(const FPoint& start, const FPoint& end);
 	virtual void drawLine(const QPointF& start, const QPointF& end);
 	virtual void drawSharpLine(FPoint start, FPoint end);
 	virtual void drawSharpLine(QPointF start, QPointF end);
 	virtual void drawRect(double, double, double, double);
 	virtual void drawSharpRect(double x, double y, double w, double h);
-	virtual void drawText(QRectF area, QString text, bool filled = true, int align = 0);
-	virtual void drawShadeCircle(const QRectF &re, const QColor color, bool sunken, int lineWidth);
-	virtual void drawShadePanel(const QRectF &r, const QColor color, bool sunken, int lineWidth);
-	virtual void colorizeAlpha(QColor color);
-	virtual void colorize(QColor color);
+	virtual void drawText(QRectF area, const QString& text, bool filled = true, int align = 0);
+	virtual void drawShadeCircle(const QRectF &re, const QColor& color, bool sunken, int lineWidth);
+	virtual void drawShadePanel(const QRectF &r, const QColor& color, bool sunken, int lineWidth);
+	virtual void colorizeAlpha(const QColor& color);
+	virtual void colorize(const QColor& color);
 	virtual void blurAlpha(int radius);
 	virtual void blur(int radius);
 

@@ -128,7 +128,7 @@ void GuidesModel::insertRow()
 	endResetModel();
 }
 
-void GuidesModel::setValues(Guides values)
+void GuidesModel::setValues(const Guides& values)
 {
 	beginResetModel();
 	m_values = values;

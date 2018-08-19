@@ -50,7 +50,7 @@ class SCRIBUS_API MenuManager : public QObject
 		enum MenuType {Normal, DLL};
 
 		bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
-		bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false, bool rememberMenu = false);
+		bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString& parent = QString::null, bool checkable = false, bool rememberMenu = false);
 		void removeMenuItem(const QString& s, ScrAction *menuAction, const QString &parent);
 		bool removeMenuItem(ScrAction *menuAction, const QString &parent);
 		void generateKeyManList(QStringList *actionNames);

@@ -40,7 +40,7 @@ public:
 public slots:
 	void languageChange();
 	void styleChange();
-	void selectMasterPage(QString name);
+	void selectMasterPage(const QString& name);
 
 private:
 	QString      m_currentPage;

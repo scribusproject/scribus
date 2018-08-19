@@ -44,7 +44,7 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	virtual bool run(ScribusDoc* doc=0, QString filename = QString::null);
+	virtual bool run(ScribusDoc* doc=0, const QString& filename = QString::null);
 	virtual const QString fullTrName() const;
 	virtual const AboutData* getAboutData() const;
 	virtual void deleteAboutData(const AboutData* about) const;
@@ -70,7 +70,7 @@ public:
 	XPSExPlug(ScribusDoc* doc, int output_res);
 	~XPSExPlug();
 
-	bool doExport(QString fName);
+	bool doExport(const QString& fName);
 
 private:
 	void writePages(QDomElement &root);

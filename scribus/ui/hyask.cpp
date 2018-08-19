@@ -42,7 +42,7 @@ void WortEdit::keyPressEvent ( QKeyEvent *k )
 		QLineEdit::keyPressEvent ( k );
 }
 
-HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
+HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 {
 	xpos = ypos = 0;
 

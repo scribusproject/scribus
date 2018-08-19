@@ -36,7 +36,7 @@ ContentReader* ContentReader::creader = nullptr;
 
 extern xmlSAXHandlerPtr cSAXHandler;
 
-ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, bool textOnly)
+ContentReader::ContentReader(const QString& documentName, StyleReader *s, gtWriter *w, bool textOnly)
 {
 	creader = this;
 	docname = documentName;
@@ -270,7 +270,7 @@ void ContentReader::write(const QString& text)
 	lastStyle = currentStyle;
 }
 
-void ContentReader::parse(QString fileName)
+void ContentReader::parse(const QString& fileName)
 {
 	sreader->parse(fileName);
 #if defined(_WIN32)

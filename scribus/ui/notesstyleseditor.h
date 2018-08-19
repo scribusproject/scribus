@@ -23,7 +23,7 @@ private:
 	ScribusDoc         *m_Doc;
 	PrefsContext       *m_prefs;
 	QMap<QString, NotesStyle> changesMap; //<NSname to change, NSet new values>
-	void readNotesStyle(QString nsName);
+	void readNotesStyle(const QString& nsName);
 	void changeNotesStyle();
 	void setBlockSignals(bool block);
 	bool addNewNsMode;

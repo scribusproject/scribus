@@ -25,7 +25,7 @@ class SCRIBUS_API FontListView : public QTableView
 		FontListView(QWidget * parent = 0);
 
 		void setModel(QAbstractItemModel * model);
-		void setFonts(SCFonts f);
+		void setFonts(const SCFonts& f);
 
 		QString fontName(int i);
 		bool    isFontUsable(int i);

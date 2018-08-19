@@ -15,7 +15,7 @@ TextLayoutPainter::TextLayoutPainter()
 TextLayoutPainter::~TextLayoutPainter()
 { }
 
-void TextLayoutPainter::setFont(const ScFace font)
+void TextLayoutPainter::setFont(const ScFace& font)
 {
 	if (m_stack.top().font != font)
 		m_stack.top().font = font;
@@ -36,7 +36,7 @@ double TextLayoutPainter::fontSize() const
 	return m_stack.top().fontSize;
 }
 
-void TextLayoutPainter::setStrokeColor(const TextLayoutColor color)
+void TextLayoutPainter::setStrokeColor(const TextLayoutColor& color)
 {
 	m_stack.top().strokeColor = color;
 }
@@ -46,7 +46,7 @@ const TextLayoutColor& TextLayoutPainter::strokeColor() const
 	return m_stack.top().strokeColor;
 }
 
-void TextLayoutPainter::setFillColor(const TextLayoutColor color)
+void TextLayoutPainter::setFillColor(const TextLayoutColor& color)
 {
 	m_stack.top().fillColor = color;
 }
@@ -108,7 +108,7 @@ bool TextLayoutPainter::selected() const
 	return m_stack.top().selected;
 }
 
-void TextLayoutPainter::setMatrix(const QTransform matrix)
+void TextLayoutPainter::setMatrix(const QTransform& matrix)
 {
 	m_stack.top().matrix = matrix;
 }

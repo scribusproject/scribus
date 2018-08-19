@@ -33,12 +33,12 @@ class SCRIBUS_API BibView : public QListWidget
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
-	void checkForImg(QDomElement elem, bool &hasImage);
-	void checkAndChange(QString &text, QString nam, QString dir);
-	void checkAndChangeGroups(QDomElement elem, QString dir, QFileInfo fid);
-	void ReadOldContents(QString, QString newName);
-	void ReadContents(QString name);
+	void AddObj(const QString& name, const QString& daten, const QPixmap& Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
+	void checkForImg(const QDomElement& elem, bool &hasImage);
+	void checkAndChange(const QString& text, const QString& nam, const QString& dir);
+	void checkAndChangeGroups(const QDomElement& elem, const QString& dir, const QFileInfo& fid);
+	void ReadOldContents(const QString&, const QString& newName);
+	void ReadContents(const QString& name);
 	struct Elem
 	{
 		bool isDir;
@@ -76,17 +76,17 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	void ObjFromCopyAction(QString text, QString name);
-	void adjustReferences(QString nam);
-	void adjustReferencesGroups(QDomElement elem, QFileInfo fid);
+	void ObjFromCopyAction(const QString& text, const QString& name);
+	void adjustReferences(const QString& nam);
+	void adjustReferencesGroups(const QDomElement& elem, const QFileInfo& fid);
 	void CleanUpTemp();
-	void setScrapbookFileName(QString);
+	void setScrapbookFileName(const QString&);
 	const QString getScrapbookFileName();
 	const int objectCount();
 	bool tempHasContents();
-	void readContents(QString);
-	void readTempContents(QString);
-	void readOldContents(QString, QString);
+	void readContents(const QString&);
+	void readTempContents(const QString&);
+	void readOldContents(const QString&, const QString&);
 	void installEventFilter(QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
@@ -98,11 +98,11 @@ public:
 	
 public slots:
 	void languageChange();
-	void ObjFromFile(QString path, int testResult);
+	void ObjFromFile(const QString& path, int testResult);
 	void ObjFromMenu(QString text);
 	void ObjFromMainMenu(QString text, int scrapID);
-	void closeOnDel(QString libName);
-	void reloadLib(QString fileName);
+	void closeOnDel(const QString& libName);
+	void reloadLib(const QString& fileName);
 
 private slots:
 	void handleDoubleClick(QListWidgetItem *ite);

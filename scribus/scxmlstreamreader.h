@@ -29,7 +29,7 @@ public:
 	uint    valueAsUInt   (const QString& attrName, uint def = 0) const;
 	double  valueAsDouble (const char*    attrName, double def = 0.0) const;
 	double  valueAsDouble (const QString& attrName, double def = 0.0) const;
-	QString valueAsString (const char*    attrName, const QString def = QString()) const;
+	QString valueAsString (const char*    attrName, const QString& def = QString()) const;
 	QString valueAsString (const QString& attrName, const QString& def = QString()) const;
 };
 

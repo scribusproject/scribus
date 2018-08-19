@@ -39,7 +39,7 @@ GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 	stopOpacity->setDecimals(0);
 	stopShade->setDecimals(0);
 	connect(stopPos    , SIGNAL(valueChanged(double)), this, SLOT(changePos(double)));
-	connect(stopColor  , SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
+	connect(stopColor  , SIGNAL(activated(const QString&)), this, SLOT(setStopColor(const QString&)));
 	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopTrans(double)));
 	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopShade(double)));
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
@@ -48,7 +48,7 @@ GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 	connect(Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 }
 
-void GradientEditor::setGradient(VGradient grad)
+void GradientEditor::setGradient(const VGradient& grad)
 {
 	Preview->setGradient(grad);
 	Preview->updateDisplay();
@@ -86,7 +86,7 @@ void GradientEditor::slotDisplayStop(VColorStop* stop)
 	setGradTrans(stop->opacity);
 }
 
-void GradientEditor::slotColor(QString name, int shade)
+void GradientEditor::slotColor(const QString& name, int shade)
 {
 	stopColor->blockSignals(true);
 	stopShade->blockSignals(true);
@@ -123,7 +123,7 @@ void GradientEditor::changePos(double v)
 	emit gradientChanged();
 }
 
-QColor GradientEditor::setColor(QString colorName, int shad)
+QColor GradientEditor::setColor(const QString& colorName, int shad)
 {
 	const ScColor& color = m_colorList[colorName];
 	return ScColorEngine::getShadeColorProof(color, m_colorList.document(), shad);

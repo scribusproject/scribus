@@ -94,7 +94,7 @@ void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
+bool PixmapExportPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	Q_ASSERT(target.isEmpty());
 	Q_ASSERT(!doc->masterPageMode());

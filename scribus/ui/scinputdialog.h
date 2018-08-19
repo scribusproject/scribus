@@ -37,9 +37,9 @@ public:
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 
-	static double getDouble( const QString &caption, const QString &label, double num = 0,
+	static double getDouble(const QString &caption, const QString &label, double num = 0,
 							 double from = -2147483647, double to = 2147483647,
-							 int decimals = 1, QString suffix = "", bool *ok = 0,
+							 int decimals = 1, const QString& suffix = "", bool *ok = 0,
 							 QWidget *parent = 0, const char *name = 0 );
 
 protected:

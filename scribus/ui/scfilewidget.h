@@ -33,7 +33,7 @@ public:
 
 public slots:
 	void accept();
-	void locationDropped(QString fileUrl);
+	void locationDropped(const QString& fileUrl);
 	void gotoParentDirectory();
 	void gotoSelectedDirectory();
 	void gotoDesktopDirectory();

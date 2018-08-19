@@ -214,9 +214,8 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			FPoint nx = mousePointDoc;
-			int mx = qRound(nx.x());
-			int my = qRound(nx.y());
+			int mx = qRound(mousePointDoc.x());
+			int my = qRound(mousePointDoc.y());
 			m_view->Magnify ? m_view->slotZoomIn(mx,my) : m_view->slotZoomOut(mx,my);
 			if (sc == m_canvas->scale())
 			{

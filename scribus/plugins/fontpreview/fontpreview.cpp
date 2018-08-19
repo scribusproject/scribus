@@ -89,8 +89,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
 	connect(resetDisplayButton, SIGNAL(clicked()), this, SLOT(resetDisplayButton_clicked()));
 	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeSpin_valueChanged(int)));
-	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
-			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
+	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)), this, SLOT(fontList_currentChanged(const QModelIndex&, const QModelIndex&)));
 	connect(extendedCheckBox, SIGNAL(clicked(bool)), this, SLOT(setExtendedView(bool)));
 }
 

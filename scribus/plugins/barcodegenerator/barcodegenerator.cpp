@@ -605,7 +605,7 @@ void BarcodeGenerator::updateUIFromOptionsText()
 	ui.eccCombo->blockSignals(false);
 }
 
-void BarcodeGenerator::updatePreview(QString errorMsg)
+void BarcodeGenerator::updatePreview(const QString& errorMsg)
 {
 	QString pngFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.png");
 	if (errorMsg=="")

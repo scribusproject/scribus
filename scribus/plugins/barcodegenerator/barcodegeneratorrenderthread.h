@@ -20,7 +20,7 @@ class BarcodeGeneratorRenderThread : public QThread
 public:
 	BarcodeGeneratorRenderThread(QObject *parent = 0);
 	~BarcodeGeneratorRenderThread();
-	void render(QString);
+	void render(const QString&);
 
 signals:
 	void renderedImage(QString);

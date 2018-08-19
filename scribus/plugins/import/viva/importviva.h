@@ -62,8 +62,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
@@ -116,7 +116,7 @@ private:
 		AttributeValue tabulators;
 	};
 	double parseUnit(const QString &unit);
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	void parseSettingsXML(const QDomElement& grNode);
 	void parseColorsXML(const QDomElement& grNode);
 	void parsePreferencesXML(const QDomElement& spNode);
@@ -132,7 +132,7 @@ private:
 	void parseStylesheetsXML(const QDomElement& obNode);
 	void applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttrs);
 	void applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, AttributeSet &pAttrs);
-	QString constructFontName(QString fontBaseName, QString fontStyle);
+	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
 
 	QList<PageItem*> Elements;

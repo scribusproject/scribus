@@ -21,7 +21,7 @@ VisionDefectColor::VisionDefectColor(int r, int g, int b)
 	init();
 }
 
-VisionDefectColor::VisionDefectColor(QColor c)
+VisionDefectColor::VisionDefectColor(const QColor& c)
 {
 	m_red = (double)c.red();
 	m_green = (double)c.green();
@@ -156,7 +156,7 @@ void VisionDefectColor::convertDefect()
 	m_blue  = clamp(m_blue, 0.0, 255.0);
 }
 
-QColor VisionDefectColor::convertDefect(QColor c, int d)
+QColor VisionDefectColor::convertDefect(const QColor& c, int d)
 {
 	m_red = (double)c.red();
 	m_green = (double)c.green();

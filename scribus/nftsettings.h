@@ -26,11 +26,11 @@ private:
 	QString lang;
 
 	void read();
-	void addTemplates(nftrcreader& reader, QString dir);
-	QString findTemplateXml(QString dir);
+	void addTemplates(nftrcreader& reader, const QString& dir);
+	QString findTemplateXml(const QString& dir);
 
 public:
-	nftsettings(QString guilang);
+	nftsettings(const QString& guilang);
 	~nftsettings();
 
 	std::vector<nfttemplate*> templates;

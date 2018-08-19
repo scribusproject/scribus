@@ -8912,7 +8912,7 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
-void ScribusDoc::itemSelection_SetLanguage(QString m, Selection* customSelection)
+void ScribusDoc::itemSelection_SetLanguage(const QString & m, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setLanguage(m);

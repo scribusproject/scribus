@@ -1237,16 +1237,15 @@ void PropertiesPalette_XYZ::handleNewName()
 
 void PropertiesPalette_XYZ::installSniffer(ScrSpinBox *spinBox)
 {
-	const QList<QObject*> list = spinBox->children();
-	if (!list.isEmpty())
+	const QList<QObject*>& list = spinBox->children();
+	if (list.isEmpty())
+		return;
+	QListIterator<QObject*> it(list);
+	QObject *obj;
+	while (it.hasNext())
 	{
-		QListIterator<QObject*> it(list);
-		QObject *obj;
-		while (it.hasNext())
-		{
-			obj = it.next();
-			obj->installEventFilter(userActionSniffer);
-		}
+		obj = it.next();
+		obj->installEventFilter(userActionSniffer);
 	}
 }
 

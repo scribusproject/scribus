@@ -77,7 +77,7 @@ public:
 	void rebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
 public slots:
-	void setCurrentFont(QString f);
+	void setCurrentFont(const QString& f);
 	void languageChange();
 
 signals:

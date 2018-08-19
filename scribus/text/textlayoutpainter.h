@@ -56,7 +56,7 @@ public:
 
 	/// Sets the current font that will be used for all subsequent glyph
 	/// drawings.
-	virtual void setFont(const ScFace font);
+	virtual void setFont(const ScFace& font);
 	/// The current font.
 	virtual const ScFace& font() const;
 
@@ -67,12 +67,12 @@ public:
 	virtual double fontSize() const;
 
 	/// Sets the current color for line strokes.
-	virtual void setStrokeColor(const TextLayoutColor c);
+	virtual void setStrokeColor(const TextLayoutColor& c);
 	/// The current color for line strokes.
 	virtual const TextLayoutColor& strokeColor() const;
 
 	/// Sets the current foreground color.
-	virtual void setFillColor(const TextLayoutColor c);
+	virtual void setFillColor(const TextLayoutColor& c);
 	/// The current foreground color.
 	virtual const TextLayoutColor& fillColor() const;
 
@@ -104,7 +104,7 @@ public:
 
 	/// Sets the transformation matrix to be applied to subsequent drawing
 	/// operations.
-	virtual void setMatrix(const QTransform);
+	virtual void setMatrix(const QTransform&);
 	/// The current transformation matrix.
 	virtual const QTransform& matrix() const;
 

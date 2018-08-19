@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 
-NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText)
+NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, ScribusDoc *doc, const QString& answerText)
 		: QDialog( parent )
 {
 	setModal(true);

@@ -104,7 +104,7 @@ class SyntaxColors
 	private:
 		/*! \brief Converts QColor into #rrggbb string.
 		\param color a QColor to convert. */
-		QString qcolor2named(QColor color);
+		QString qcolor2named(const QColor& color);
 };
 
 /*! \brief Simple syntax highlighting for Scripter (QTextEdit).

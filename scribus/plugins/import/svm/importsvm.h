@@ -141,12 +141,12 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool        import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage      readThumbnail(QString fn);
+	bool        import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage      readThumbnail(const QString& fn);
 
 private:
 	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
-	bool        convert(QString fn);
+	bool        convert(const QString& fn);
 	// Common functions
 	void        aligntoQuadWord(QDataStream &ds);
 	double      convertLogical2Pts(double in);
@@ -178,7 +178,7 @@ private:
 	void        handleGradient(QDataStream &ds);
 	void        handleGradientEX(QDataStream &ds, quint16 version);
 	void        commonGradient(QDataStream &ds, PageItem* ite);
-	QString     handleColor(QColor col);
+	QString     handleColor(const QColor& col);
 	void        handleSetClipRegion(QDataStream &ds);
 	void        handleComment(QDataStream &ds);
 	// Functions for EMF+ Files

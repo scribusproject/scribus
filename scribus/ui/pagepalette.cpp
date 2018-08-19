@@ -160,7 +160,7 @@ bool PagePalette::masterPageMode()
 	return (mpWidget != nullptr);
 }
 
-void PagePalette::startMasterPageMode(QString masterPage)
+void PagePalette::startMasterPageMode(const QString& masterPage)
 {
 	ScribusDoc* doc = m_view->Doc;
 	

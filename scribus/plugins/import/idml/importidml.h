@@ -61,8 +61,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
@@ -95,7 +95,7 @@ private:
 		QString LeftLineEnd;
 		QString RightLineEnd;
 	};
-	QString getNodeValue(QDomNode &baseNode, QString path);
+	QString getNodeValue(QDomNode &baseNode, const QString& path);
 	bool convert(const QString& fn);
 	bool parseFontsXML(const QDomElement& grElem);
 	void parseFontsXMLNode(const QDomElement& grNode);
@@ -110,16 +110,16 @@ private:
 	void parsePreferencesXMLNode(const QDomElement& prNode);
 	bool parseSpreadXML(const QDomElement& spElem);
 	void parseSpreadXMLNode(const QDomElement& spNode);
-	QList<PageItem*> parseItemXML(const QDomElement& itElem, QTransform pTrans = QTransform());
+	QList<PageItem*> parseItemXML(const QDomElement& itElem, const QTransform& pTrans = QTransform());
 	bool parseStoryXML(const QDomElement& stElem);
 	void parseStoryXMLNode(const QDomElement& stNode);
 	void parseParagraphStyleRange(QDomElement &ste, PageItem* item);
 	void parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC);
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
-	void resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName);
-	int convertBlendMode(QString blendName);
-	QString constructFontName(QString fontBaseName, QString fontStyle);
+	void resolveObjectStyle(ObjectStyle &nstyle, const QString& baseStyleName);
+	int convertBlendMode(const QString& blendName);
+	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	
 	QList<PageItem*> Elements;
 	double baseX, baseY;

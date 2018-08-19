@@ -28,7 +28,7 @@ public:
 		CM_LABCOLOR = 9
 	};
 
-	ScImgDataLoader_PSD(void);
+	ScImgDataLoader_PSD();
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);

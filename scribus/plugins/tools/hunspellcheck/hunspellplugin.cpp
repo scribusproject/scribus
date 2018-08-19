@@ -74,7 +74,7 @@ void HunspellPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool HunspellPlugin::run(ScribusDoc* doc, QString target)
+bool HunspellPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	HunspellPluginImpl *hunspellPluginImpl = new HunspellPluginImpl();
 	Q_CHECK_PTR(hunspellPluginImpl);
@@ -83,7 +83,7 @@ bool HunspellPlugin::run(ScribusDoc* doc, QString target)
 	return result;
 }
 
-bool HunspellPlugin::run(QWidget *parent, ScribusDoc *doc, QString target)
+bool HunspellPlugin::run(QWidget *parent, ScribusDoc *doc, const QString& target)
 {
 	HunspellPluginImpl *hunspellPluginImpl = new HunspellPluginImpl();
 	Q_CHECK_PTR(hunspellPluginImpl);

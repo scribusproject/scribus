@@ -491,7 +491,7 @@ PagesPlug::PagesPlug(ScribusDoc* doc, int flags)
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-QImage PagesPlug::readThumbnail(QString fName)
+QImage PagesPlug::readThumbnail(const QString& fName)
 {
 	QImage tmp;
 	if (!QFile::exists(fName))
@@ -604,9 +604,8 @@ QImage PagesPlug::readThumbnail(QString fName)
 	return tmp;
 }
 
-bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool PagesPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -615,7 +614,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -695,7 +694,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -801,7 +800,7 @@ PagesPlug::~PagesPlug()
 	delete tmpSel;
 }
 
-bool PagesPlug::convert(QString fn)
+bool PagesPlug::convert(const QString& fn)
 {
 	bool retVal = true;
 	importedColors.clear();
@@ -835,7 +834,7 @@ bool PagesPlug::convert(QString fn)
 	return retVal;
 }
 
-bool PagesPlug::parseDocReference(QString designMap, bool compressed)
+bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -1974,7 +1973,7 @@ PageItem* PagesPlug::addClip(PageItem* retObj, ObjState &obState)
 	return retObj;
 }
 
-void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, QString pAttrs)
+void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, const QString& pAttrs)
 {
 	if (!m_StyleSheets.contains(m_currentStyleSheet))
 		return;
@@ -2033,7 +2032,7 @@ void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCSty
 	}
 }
 
-void PagesPlug::applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs)
+void PagesPlug::applyCharAttrs(CharStyle &tmpCStyle, const QString& pAttrs)
 {
 	if (!m_StyleSheets.contains(m_currentStyleSheet))
 		return;

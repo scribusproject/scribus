@@ -108,7 +108,7 @@ void Prefs_ShortWords::cfgEdit_changed()
 	saveButton->setEnabled(true);
 }
 
-bool Prefs_ShortWords::loadCfgFile(QString filename)
+bool Prefs_ShortWords::loadCfgFile(const QString& filename)
 {
 	QFile f(filename);
 	if (!f.open(QIODevice::ReadOnly))

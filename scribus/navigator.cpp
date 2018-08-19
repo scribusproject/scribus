@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util_ghostscript.h"
 
-Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
+Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, const QString& fn) : QLabel(parent)
 {
 	setScaledContents(false);
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -95,7 +95,7 @@ void Navigator::drawMark(int x, int y)
 	repaint();
 }
 
-bool Navigator::SetSeite(int Seite, int Size, QString fn)
+bool Navigator::SetSeite(int Seite, int Size, const QString& fn)
 {
 	bool ret = false;
 	if (!fn.isEmpty())

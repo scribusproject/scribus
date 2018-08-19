@@ -310,7 +310,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	return tmpImage;
 }
 
-bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int flags)
+bool SVGPlug::import(const QString& fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadData(fname))
 	{
@@ -325,7 +325,7 @@ bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int f
 	return true;
 }
 
-bool SVGPlug::loadData(QString fName)
+bool SVGPlug::loadData(const QString& fName)
 {
 	bool isCompressed = false, success = false;
 	QByteArray bb(3, ' ');
@@ -2931,7 +2931,7 @@ void SVGPlug::parseFilter(const QDomElement &b)
 		return;
 	}
 
-	QString blendModeStr = child.attribute("mode");
+	QString blendModeStr(child.attribute("mode"));
 	if (blendModeStr == "normal")
 		fspec.blendMode = 0;
 	if (blendModeStr == "darken")

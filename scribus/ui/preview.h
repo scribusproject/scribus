@@ -48,7 +48,7 @@ public:
 	\param printer a name of the printer
 	\param engine a printer engine
 	*/
-	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString printer, PrintEngine engine );
+	PPreview(QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine );
 	~PPreview() {};
 	/*!
 	\author Franz Schmid
@@ -61,7 +61,7 @@ public:
 	int RenderPreviewSep(int pageIndex, int res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
 	void blendImagesSumUp(QImage &target, ScImage &scsource);
-	static bool usePostscriptPreview(QString printerName, PrintEngine engine);
+	static bool usePostscriptPreview(const QString& printerName, PrintEngine engine);
 	/*!
 	\author Franz Schmid
 	\brief Creates the Preview of the Actual Page

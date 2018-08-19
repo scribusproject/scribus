@@ -121,7 +121,7 @@ void PathStrokerPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
+bool PathStrokerPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

@@ -48,7 +48,7 @@ protected:
 	bool initializeCmsTransforms();
 
 public:
-	ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, std::vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options);
+	ScDocOutput_Ps2(ScribusDoc* doc, const QString& fileName, std::vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options);
 	~ScDocOutput_Ps2();
 
 	void setAuthor(const QString& author) { m_author = author; }

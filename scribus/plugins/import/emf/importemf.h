@@ -142,11 +142,11 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool        import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage      readThumbnail(QString fn);
+	QImage      readThumbnail(const QString& fn);
 
 private:
-	void        parseHeader(QString fName, double &x, double &y, double &b, double &h);
-	bool        convert(QString fn);
+	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
+	bool        convert(const QString& fn);
 	// Common functions
 	bool        checkClip(FPointArray &clip);
 	void        aligntoQuadWord(QDataStream &ds);
@@ -154,12 +154,12 @@ private:
 	QPointF     convertDevice2Pts(QPointF in);
 	double      convertLogical2Pts(double in);
 	QPointF     convertLogical2Pts(QPointF in);
-	void        createPatternFromDIB(QImage img, quint32 brID);
+	void        createPatternFromDIB(const QImage& img, quint32 brID);
 	void        getPolyInfo(QDataStream &ds, QRectF &bounds, quint32 &count);
 	FPointArray getPolyPoints(QDataStream &ds, quint32 count, bool length, bool closed);
 	QPointF     getPoint(QDataStream &ds, bool size);
 	quint32     getColor(QDataStream &ds);
-	void        setWTransform(QTransform mm, quint32 how);
+	void        setWTransform(const QTransform& mm, quint32 how);
 	QPointF     intersectBoundingRect(PageItem *item, QLineF gradientVector);
 	void        finishItem(PageItem* ite, bool fill = true);
 	void        invalidateClipGroup();
@@ -178,14 +178,14 @@ private:
 	void        handlePie(QDataStream &ds);
 	void        handleSmallText(QDataStream &ds);
 	void        handleText(QDataStream &ds, qint64 posi, bool size);
-	void        handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QImage img);
+	void        handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, const QImage& img);
 	void        handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH);
 	QImage      handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quint32 sizeBitH, quint32 offBits, quint32 sizeBits);
 	void        handleBezier(QDataStream &ds, bool size);
 	void        handlePolygon(QDataStream &ds, bool size, bool fill);
 	void        handlePolyPolygon(QDataStream &ds, bool size, bool fill);
 	void        handlePenDef(quint32 penID, quint32 penStyle, quint32 penWidth, quint32 penColor);
-	QString     handleColor(QColor col);
+	QString     handleColor(const QColor& col);
 	void        handleFillRegion(QDataStream &ds);
 	void        handleFrameRegion(QDataStream &ds);
 	void        handleSetClipRegion(QDataStream &ds);

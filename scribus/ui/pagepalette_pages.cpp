@@ -123,7 +123,7 @@ void PagePalette_Pages::deleteMasterPage(const QString& tmp)
 	}
 }
 
-void PagePalette_Pages::pageView_applyMasterPage(QString masterpageName, int pageIndex)
+void PagePalette_Pages::pageView_applyMasterPage(const QString& masterpageName, int pageIndex)
 {
 	m_scMW->Apply_MasterPage(masterpageName, pageIndex, false);
 	currView->reformPages();

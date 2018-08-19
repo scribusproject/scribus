@@ -49,7 +49,7 @@ class collections
 {
 	public:
 		//sets name
-		collections ( QString collectionsName );
+		collections (const QString& collectionsName );
 
 		//contains name of the collections
 		QString name;
@@ -150,7 +150,7 @@ class collectionsWriterThread : public QXmlStreamWriter, public QThread
 		//QString &xmlFile2: the file to write
 		//int fileType: the type of file, 0 for collectionfile, 1 for collectionsdb
 		//QList<collections *> saveCollections2: the collectionsset to write to the file
-		collectionsWriterThread ( QString &xmlFile2, QList<collections *> saveCollections2 );
+		collectionsWriterThread (const QString& xmlFile2, QList<collections *> saveCollections2 );
 		//starts writing to the file
 		void writeFile();
 

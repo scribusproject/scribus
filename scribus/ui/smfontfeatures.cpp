@@ -107,7 +107,7 @@ QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo)
 	return features;
 }
 
-void SMFontFeatures::setFontFeatures(QString s, QStringList fontFeaturesList)
+void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesList)
 {
 	disconnectSignals();
 	m_hasParent = false;
@@ -209,7 +209,7 @@ void SMFontFeatures::setFontFeatures(QString s, QStringList fontFeaturesList)
 	}
 }
 
-void SMFontFeatures::setFontFeatures(QString val, QStringList fontFeatures, bool isParentVal)
+void SMFontFeatures::setFontFeatures(const QString& val, QStringList fontFeatures, bool isParentVal)
 {
 	disconnectSignals();
 	m_hasParent = true;
@@ -304,7 +304,7 @@ QString SMFontFeatures::fontFeatures()
 	return font_feature.join(",");
 }
 
-void SMFontFeatures::setParentValue(QString val)
+void SMFontFeatures::setParentValue(const QString& val)
 {
 	m_hasParent = true;
 	m_pValue = val;
@@ -390,7 +390,7 @@ void SMFontFeatures::hideAllFontFeatures()
 	}
 }
 
-void SMFontFeatures::enableFontFeatures(QStringList fontFeatures)
+void SMFontFeatures::enableFontFeatures(const QStringList& fontFeatures)
 {
 	int featureFlags = FontFeatures::fontFlagsFromList(fontFeatures);
 

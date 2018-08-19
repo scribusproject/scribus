@@ -48,7 +48,7 @@ class SCRIBUS_API LoremParser
 public:
 	/*! parse a XML file with given name
 	\param filename string fith the file name with full/relative path */
-	LoremParser(QString filename);
+	LoremParser(const QString& filename);
 	~LoremParser(){};
 
 	//! Is the LI correct?
@@ -93,7 +93,7 @@ public:
 	\param name filename of the selected LI
 	\param paraCount count of the paragraphs
 	*/
-	void insertLoremIpsum(QString name, int paraCount, bool random = true);
+	void insertLoremIpsum(const QString& name, int paraCount, bool random = true);
 
 	//! Lorem Ipsum as QString
 	QString loremIpsum();

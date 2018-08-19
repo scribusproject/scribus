@@ -45,12 +45,12 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 
-QString getLoremLocation(QString fname)
+QString getLoremLocation(const QString& fname)
 {
 	return QDir::toNativeSeparators(ScPaths::instance().shareDir() + "/loremipsum/" + fname);
 }
 
-LoremParser::LoremParser(QString fname)
+LoremParser::LoremParser(const QString& fname)
 {
 	name = author = url = "n/a";
 	correct = false;
@@ -277,7 +277,7 @@ void LoremManager::languageChange()
 	loremList->setToolTip( tr( "List of languages available to insert sample text in" ) );
 }
 
-void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
+void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool random)
 {
 	//CB: Avox please make insertText for text frame to nuke all this
 	// is it really applied?

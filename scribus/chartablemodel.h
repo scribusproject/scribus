@@ -40,14 +40,14 @@ public:
 	//! \brief Get a graphics representation/pixmap of the glyph
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-	void setFontInUse(QString font);
+	void setFontInUse(const QString& font);
 
 	//! \brief Font in use. It's used in model's view.
 	ScFace fontFace();
 
-	void setCharacters(CharClassDef ch);
-	void setCharactersAndFonts(CharClassDef ch, QStringList fonts);
-	void addCharacter(QString ch);
+	void setCharacters(const CharClassDef& ch);
+	void setCharactersAndFonts(const CharClassDef& ch, const QStringList& fonts);
+	void addCharacter(const QString& ch);
 	CharClassDef characters() {
 		return m_characters;
 	}

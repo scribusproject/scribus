@@ -22,7 +22,7 @@ class SMRowWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent);
+	SMRowWidget(const QString &toBeDeleted, const QStringList& replaceOptions, QWidget *parent);
 	~SMRowWidget();
 
 	QString toBeDeleted();

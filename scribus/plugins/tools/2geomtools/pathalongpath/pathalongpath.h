@@ -60,7 +60,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathAlongPathPlugin();
 		virtual ~PathAlongPathPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

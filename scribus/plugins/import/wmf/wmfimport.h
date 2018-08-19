@@ -42,8 +42,8 @@ public:
 	WMFImport(ScribusDoc* doc, int flags);
 	~WMFImport();
 
-	bool import(QString fname, const TransactionSettings& trSettings, int flags);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fname, const TransactionSettings& trSettings, int flags);
+	QImage readThumbnail(const QString& fn);
 
 	void wmfClosePath(FPointArray *i);
 	void wmfMoveTo(double x1, double y1);

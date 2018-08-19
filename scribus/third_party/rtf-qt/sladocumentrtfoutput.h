@@ -99,7 +99,7 @@ namespace RtfReader
 		virtual void setDropCapsLines(const int value);
 		virtual void setDropCaps();
 		virtual void addTabStop(const int value, const int type);
-		QString getFontName(QString name);
+		QString getFontName(const QString& name);
 		double pixelsFromTwips(const int twips);
 		virtual QTextCodec *getCurrentCodec() { return m_codec; }
 	private:

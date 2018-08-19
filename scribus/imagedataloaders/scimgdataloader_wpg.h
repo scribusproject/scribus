@@ -61,7 +61,7 @@ protected:
 	void initSupportedFormatList();
 
 public:
-	ScImgDataLoader_WPG(void);
+	ScImgDataLoader_WPG();
 
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);

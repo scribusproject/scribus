@@ -25,7 +25,7 @@ nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 	openAction = removeAction = nullptr;
 }
 
-void nftwidget::setupSettings(QString lang)
+void nftwidget::setupSettings(const QString& lang)
 {
 	settings = new nftsettings(lang);
 	// context menu

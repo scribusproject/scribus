@@ -46,7 +46,7 @@ class multiCombobox : public QComboBox
 		int checkstate ( int index );
 		void switchCheckstate ( int row );
 
-		int addItem ( QString text, int checked=0 );
+		int addItem ( const QString& text, int checked=0 );
 
 	private:
 		multiComboboxModel *mcbModel;

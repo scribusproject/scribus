@@ -343,7 +343,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * @returns bool True for success.
 		 *
 		 */
-		virtual bool run(ScribusDoc* doc, QString target = QString::null) = 0;
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null) = 0;
 
 		/**
 		 * @brief Run the plug-in's main action.
@@ -352,7 +352,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * a parent widget reference. It's useful e.g. when you need to
 		 * open a dialog on a specific parent one.
 		 */
-		virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(QWidget* parent, ScribusDoc* doc, const QString& target = QString::null);
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -411,7 +411,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * If this method is used, the plugin must not be unloaded until all
 		 * DeferredTask instances have been deleted.
 		 */
-		virtual DeferredTask* runAsync(QString target = QString::null);
+		virtual DeferredTask* runAsync(const QString& target = QString::null);
 
 		/**
 		 * @brief Run the plugin asynchronously

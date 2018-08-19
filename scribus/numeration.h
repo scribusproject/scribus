@@ -59,7 +59,7 @@ typedef struct {
 //convert passed num to string using numeration style
 QString getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int charsLen=0);
 //convert passed num to string with custom chars
-QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar='_', int charsLen=0);
+QString getAsterixStringFromNum(int num, const QString& asterix, QChar leadingChar='_', int charsLen=0);
 //return numeration name from type
 QStringList getFormatList();
 

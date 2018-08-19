@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 
 
-ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent)
+ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const QString& pMenuName, const QString& pMenuText, const QString& parentName, bool pCheckable ) : QObject(parent)
 {
 	parentMenuName=parentName;
 	parentMenuID=-1;
@@ -54,7 +54,7 @@ const QString ScrPopupMenu::getMenuText()
 	return menuText;
 }
 
-void ScrPopupMenu::setText(const QString pMenuText)
+void ScrPopupMenu::setText(const QString& pMenuText)
 {
 	menuText=pMenuText;
 	localPopupMenu->menuAction()->setText(menuText);
@@ -65,7 +65,7 @@ const QIcon ScrPopupMenu::getMenuIcon()
 	return menuIcon;
 }
 
-void ScrPopupMenu::setMenuIcon(const QIcon pMenuIcon)
+void ScrPopupMenu::setMenuIcon(const QIcon& pMenuIcon)
 {
 	menuIcon=pMenuIcon;
 }

@@ -59,7 +59,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(const QString& fn);
 
 private:
@@ -67,10 +67,10 @@ private:
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
 	void decodeSymbol(QDataStream &ds, bool last = false);
-	void handleLineStyle(PageItem* currentItem, quint8 flags, QString lineColor);
-	void handleGradient(PageItem* currentItem, quint8 patternIndex, QString fillColor, QString backColor, QRectF bBox);
+	void handleLineStyle(PageItem* currentItem, quint8 flags, const QString& lineColor);
+	void handleGradient(PageItem* currentItem, quint8 patternIndex, const QString& fillColor, const QString& backColor, QRectF bBox);
 	void handlePreviewBitmap(QDataStream &ds);
-	QString handleColor(ScColor &color, QString proposedName);
+	QString handleColor(ScColor &color, const QString& proposedName);
 	void getCommonData(QDataStream &ds);
 	QString getColor(QDataStream &ds);
 	void finishItem(PageItem* ite, bool scale = true);

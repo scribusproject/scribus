@@ -233,7 +233,7 @@ void Prefs_Spelling::updateProgressBar()
 	downloadProgressBar->setValue(downloadProgressBar->value()+1);
 }
 
-void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
+void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 {
 	QFile dataFile(availDictsXMLDataFile);
 	if (!dataFile.exists())
@@ -323,7 +323,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	spellDownloadButton->setEnabled(true);
 }
 
-QString Prefs_Spelling::affixFileName(QStringList files)
+QString Prefs_Spelling::affixFileName(const QStringList& files)
 {
 	for (int i = 0; i < files.count(); ++i)
 	{
@@ -334,7 +334,7 @@ QString Prefs_Spelling::affixFileName(QStringList files)
 	return QString();
 }
 
-QString Prefs_Spelling::dictFileName(QStringList files)
+QString Prefs_Spelling::dictFileName(const QStringList& files)
 {
 	for (int i = 0; i < files.count(); ++i)
 	{

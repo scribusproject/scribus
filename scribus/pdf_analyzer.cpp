@@ -108,12 +108,12 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 		// colorspace is either a name or an array
 		if (cs && cs->IsName())
 		{
-			PdfName csName = cs->GetName();
+			const PdfName& csName = cs->GetName();
 			if (csName == "DeviceGray")
 				return CS_DeviceGray;
-			else if (csName == "DeviceRGB")
+			if (csName == "DeviceRGB")
 				return CS_DeviceRGB;
-			else if (csName == "DeviceCMYK")
+			if (csName == "DeviceCMYK")
 				return CS_DeviceCMYK;
 		}
 		else if (cs && cs->IsArray())
@@ -122,16 +122,16 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 			PdfObject csTypePdfName = csArr[0];
 			if (csTypePdfName.IsName())
 			{
-				PdfName csTypeName = csTypePdfName.GetName();
+				const PdfName& csTypeName = csTypePdfName.GetName();
 				if (csTypeName == "ICCBased")
 					return CS_ICCBased;
-				else if (csTypeName == "CalGray")
+				if (csTypeName == "CalGray")
 					return CS_CalGray;
-				else if (csTypeName == "CalRGB")
+				if (csTypeName == "CalRGB")
 					return CS_CalRGB;
-				else if (csTypeName == "Lab")
+				if (csTypeName == "Lab")
 					return CS_Lab;
-				else if (csTypeName == "Indexed")
+				if (csTypeName == "Indexed")
 				{
 					PdfObject base = cs->GetArray()[1];
 					PdfObject* pBase = &base;
@@ -142,11 +142,11 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 					pBase->SetOwner(cs->GetOwner());
 					return getCSType(pBase);
 				}
-				else if (csTypeName == "Separation")
+				if (csTypeName == "Separation")
 					return CS_Separation;
-				else if (csTypeName == "DeviceN")
+				if (csTypeName == "DeviceN")
 					return CS_DeviceN;
-				else if (csTypeName == "Pattern")
+				if (csTypeName == "Pattern")
 					return CS_Pattern;
 			}
 		}

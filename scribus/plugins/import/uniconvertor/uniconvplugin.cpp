@@ -124,7 +124,7 @@ bool UniconvImportPlugin::loadFile(const QString & fileName,
 	return import(fileName, flags);
 }
 
-bool UniconvImportPlugin::import(QString fileName, int flags)
+bool UniconvImportPlugin::import(const QString& fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;

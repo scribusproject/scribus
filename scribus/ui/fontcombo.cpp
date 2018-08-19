@@ -199,7 +199,7 @@ QString FontComboH::currentFont()
 	return fontFamily->currentText() + " " + fontStyle->currentText();
 }
 
-void FontComboH::setCurrentFont(QString f)
+void FontComboH::setCurrentFont(const QString& f)
 {
 	QString family = prefsManager->appPrefs.fontPrefs.AvailFonts[f].family();
 	QString style = prefsManager->appPrefs.fontPrefs.AvailFonts[f].style();
@@ -454,7 +454,7 @@ QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLa
 	return QFontDatabase::Any;
 }
 
-const ScFace& getScFace(QString classname, QString text)
+const ScFace& getScFace(const QString& classname, const QString& text)
 {
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	PrefsManager* prefsManager = PrefsManager::instance();

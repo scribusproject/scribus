@@ -274,7 +274,7 @@ void DashPreview::setActStep(double t)
 	emit dashChanged();
 }
 
-void DashPreview::setDashValues(QVector<double> vals)
+void DashPreview::setDashValues(const QVector<double>& vals)
 {
 	DashValues = vals;
 	if ((ActStop >= vals.count()) || (ActStop == -1))

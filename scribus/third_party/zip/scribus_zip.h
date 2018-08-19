@@ -38,12 +38,12 @@ class ScZipHandler
 
 		ScZipHandler(bool forWrite = false);
 		virtual ~ScZipHandler();
-		bool open(QString fileName);
+		bool open(const QString& fileName);
 		bool close();
-		bool contains(QString fileName);
-		bool read(QString fileName, QByteArray &buf);
-		bool write(QString dirName);
-		bool extract(QString name, QString path, ExtractionOption eo);
+		bool contains(const QString& fileName);
+		bool read(const QString& fileName, QByteArray &buf);
+		bool write(const QString& dirName);
+		bool extract(const QString& name, const QString& path, ExtractionOption eo);
 		QStringList files();
 	private:
 		UnZip* m_uz;

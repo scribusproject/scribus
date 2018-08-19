@@ -41,7 +41,7 @@ QStringList FileExtensions()
 	return QStringList("pdb");
 }
 
-void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool /* textOnly */, gtWriter *writer)
 {
 	if (filename.isNull())
 		return;
@@ -88,7 +88,7 @@ void PdbIm::write()
 	writer->appendUnstyled(data);
 }
 
-void PdbIm::loadFile(QString fname)
+void PdbIm::loadFile(const QString& fname)
 {
 	FILE *m_pdfp = fopen(fname.toLocal8Bit(), "rb");
 	pdb_header m_header;

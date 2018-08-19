@@ -37,7 +37,7 @@ public:
 	int  fileType() const { return m_fileType; }
 	int  testFile();
 
-	bool loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
+	bool loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const QString& renamedPageName=QString::null);
 	bool loadFile(ScribusDoc* currDoc);
 	bool saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile = nullptr);
 	bool readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);

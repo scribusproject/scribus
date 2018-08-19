@@ -19,7 +19,7 @@ class SATDialog : public QDialog, public Ui::SATDialogBase
 	Q_OBJECT
 
 public:
-	SATDialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
+	SATDialog(QWidget* parent, const QString& tmplName = "", int pageW = 0, int pageH = 0);
 	~SATDialog();
 
 	QMap<QString, QString> cats;
@@ -32,7 +32,7 @@ private:
 	QString email;
 	bool isFullDetail;
 
-	QString findTemplateXml(QString dir);
+	QString findTemplateXml(const QString& dir);
 	void    readPrefs();
 	void    writePrefs();
 	void    addCategories(const QString& dir);

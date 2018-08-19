@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options)
+ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, const QString& fileName, vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options)
 {
 	m_doc = doc;
 	m_file.setFileName(fileName);

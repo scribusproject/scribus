@@ -48,7 +48,7 @@ void PropertyWidget_FontFeatures::languageChange()
 	retranslateUi(this);
 }
 
-void PropertyWidget_FontFeatures::showFontFeatures(QString s, QStringList availableFeatures)
+void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStringList& availableFeatures)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -444,7 +444,7 @@ void PropertyWidget_FontFeatures::disableAllFeatures()
 	StyleSet20->setChecked(false);
 }
 
-void PropertyWidget_FontFeatures::enableFeatures(QStringList fontFeatures)
+void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures)
 {
 	quint64 oldFlags = featureFlags();
 	quint64 newFlags = FontFeatures::fontFlagsFromList(fontFeatures);

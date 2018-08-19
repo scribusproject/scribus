@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QString>
 
-CollectForOutput::CollectForOutput(ScribusDoc* doc, QString outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
+CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
 	: QObject(ScCore),
 	m_Doc(nullptr),
 	m_outputDirectory(QString::null),
@@ -285,7 +285,7 @@ void CollectForOutput::processItem(PageItem *ite)
 		// end of hack
 			if (itf.exists())
 			{
-				QString oldFile = ofName;
+				const QString& oldFile = ofName;
 				ite->Pfile = collectFile(oldFile, itf.fileName());
 				ScCore->fileWatcher->removeFile(oldFile);
 				ScCore->fileWatcher->addFile(ite->Pfile);
@@ -494,7 +494,7 @@ bool CollectForOutput::collectProfiles()
 	return true;
 }
 
-QString CollectForOutput::collectFile(QString oldFile, QString newFile)
+QString CollectForOutput::collectFile(const QString& oldFile, QString newFile)
 {
 	uint cnt = 1;
 	bool copy = true;

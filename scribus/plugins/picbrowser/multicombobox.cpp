@@ -150,7 +150,7 @@ void multiCombobox::switchCheckstate ( int row )
 }
 
 
-int multiCombobox::addItem ( QString text, int checked )
+int multiCombobox::addItem ( const QString& text, int checked )
 {
 	QComboBox::addItem ( text );
 

@@ -42,13 +42,13 @@ public:
 	virtual void changeEvent(QEvent *e);
 	void languageChange();
 
-	void setFontFeatures(QString s, QStringList fontFeaturesList);
-	void setFontFeatures(QString val, QStringList fontFeatures, bool isParentVal);
+	void setFontFeatures(const QString& s, QStringList fontFeaturesList);
+	void setFontFeatures(const QString& val, QStringList fontFeatures, bool isParentVal);
 	QString fontFeatures();
-	void enableFontFeatures(QStringList fontFeatures);
+	void enableFontFeatures(const QStringList& fontFeatures);
 	void resetFontFeatures();
 
-	void setParentValue(QString val);
+	void setParentValue(const QString& val);
 	bool useParentValue();
 
 	StylisticSetsMenu *styleSetsMenu;

@@ -190,17 +190,17 @@ void IconManager::readIconConfigFiles()
 	}
 }
 
-QCursor IconManager::loadCursor(const QString nam, int hotX, int hotY, bool forceUseColor)
+QCursor IconManager::loadCursor(const QString& nam, int hotX, int hotY, bool forceUseColor)
 {
 	return QCursor(loadPixmap(nam, forceUseColor), hotX, hotY);
 }
 
-QIcon IconManager::loadIcon(const QString nam, bool forceUseColor)
+QIcon IconManager::loadIcon(const QString& nam, bool forceUseColor)
 {
 	return QIcon(loadPixmap(nam, forceUseColor));
 }
 
-QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor, bool rtlFlip)
+QPixmap IconManager::loadPixmap(const QString& nam, bool forceUseColor, bool rtlFlip)
 {
 	if (m_pxCache.contains(nam))
 		return *m_pxCache[nam];
@@ -242,7 +242,7 @@ void IconManager::iconToGrayscale(QPixmap* pm)
 	*pm=QPixmap::fromImage(qi);
 }
 
-bool IconManager::setActiveFromPrefs(QString prefsSet)
+bool IconManager::setActiveFromPrefs(const QString& prefsSet)
 {
 	//qDebug()<<"setting active from prefs to"<<prefsSet;
 	if (m_iconSets.contains(prefsSet))
@@ -254,7 +254,7 @@ bool IconManager::setActiveFromPrefs(QString prefsSet)
 	return false;
 }
 
-QString IconManager::baseNameForTranslation(QString transName) const
+QString IconManager::baseNameForTranslation(const QString& transName) const
 {
 	QString name;
 	for (const ScIconSetData& value : m_iconSets)
@@ -270,7 +270,7 @@ QString IconManager::baseNameForTranslation(QString transName) const
 	return name;
 }
 
-QString IconManager::pathForIcon(const QString nam)
+QString IconManager::pathForIcon(const QString& nam)
 {
 	//QString iconset(PrefsManager::instance()->appPrefs.uiPrefs.iconSet);
 	QString iconSubdir(m_iconSets[m_activeSetBasename].path+"/");
@@ -302,7 +302,7 @@ QStringList IconManager::pathList() const
 	return paths;
 }
 
-QStringList IconManager::nameList(QString language) const
+QStringList IconManager::nameList(const QString& language) const
 {
 	QStringList names;
 	for (const ScIconSetData& value : m_iconSets)

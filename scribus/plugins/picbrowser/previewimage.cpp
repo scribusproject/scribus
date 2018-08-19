@@ -575,7 +575,7 @@ QMimeData *PreviewImagesModel::mimeData (const QModelIndexList &indexes) const
 }
 
 
-void PreviewImagesModel::processLoadedImage ( int row, const QImage image, ImageInformation* imgInfo, int tpId )
+void PreviewImagesModel::processLoadedImage ( int row, const QImage& image, ImageInformation* imgInfo, int tpId )
 {
 	//check if list of files has changed and this job is obsolete
 	if ( tpId != pId )

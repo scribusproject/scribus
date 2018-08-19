@@ -20,7 +20,7 @@ class PLUGIN_API SaveAsTemplatePlugin : public ScActionPlugin
 		// Standard plugin implementation
 		SaveAsTemplatePlugin();
 		virtual ~SaveAsTemplatePlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -63,12 +63,12 @@ private:
 	QString lang;
 	void appendTmplXml();
 	QString getTemplateTag();
-	QString findTemplateXml(QString dir);
+	QString findTemplateXml(const QString& dir);
 	void replaceIllegalChars(QString& s);
 public:
 	void createTmplXml();
 	void createImages();
-	sat(ScribusDoc* doc, SATDialog* satdia, QString fileName, QString tmplDir);
+	sat(ScribusDoc* doc, SATDialog* satdia, const QString& fileName, const QString& tmplDir);
 	~sat();
 };
 

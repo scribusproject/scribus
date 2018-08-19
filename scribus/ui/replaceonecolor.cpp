@@ -49,12 +49,12 @@ const QString replaceColorDialog::getReplacementColor()
 	return replacementColor->currentText();
 }
 
-void replaceColorDialog::setOriginalColor(QString color)
+void replaceColorDialog::setOriginalColor(const QString& color)
 {
 	setCurrentComboItem(originalColor, color);
 }
 
-void replaceColorDialog::setReplacementColor(QString color)
+void replaceColorDialog::setReplacementColor(const QString& color)
 {
 	setCurrentComboItem(replacementColor, color);
 }

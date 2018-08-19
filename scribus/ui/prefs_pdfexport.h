@@ -71,7 +71,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void SetEffOpts(int nr);
 
 	protected:
-		QListWidgetItem* addFontItem(QString fontName, QListWidget* fontList);
+		QListWidgetItem* addFontItem(const QString& fontName, QListWidget* fontList);
 		void setCustomRenderingWidgetsShown(bool);
 		void setSolidsImagesWidgetsShown(bool);
 		void enableCustomRenderingWidgets(bool);

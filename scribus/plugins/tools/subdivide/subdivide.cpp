@@ -103,7 +103,7 @@ void SubdividePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SubdividePlugin::run(ScribusDoc* doc, QString)
+bool SubdividePlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

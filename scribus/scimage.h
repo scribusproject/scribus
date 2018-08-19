@@ -92,7 +92,7 @@ public:
 	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const;
 
 	bool getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
-	bool convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
+	bool convert2JPG(const QString& fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
 	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
@@ -132,7 +132,7 @@ private:
 	void invert(bool cmyk);
 	void colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk);
 	void duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, bool cmyk);
-	void tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk);
+	void tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, const FPointArray& curve3, bool lin3, bool cmyk);
 	void quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, ScColor color4, int shade4, FPointArray curve4, bool lin4, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void doGraduate(FPointArray curve, bool cmyk, bool linear);

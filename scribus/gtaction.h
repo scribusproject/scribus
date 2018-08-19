@@ -93,7 +93,7 @@ public:
 	void setTextFrame(PageItem* frame);
 	void setProgressInfo();
 	void setProgressInfoDone();
-	void setInfo(QString infoText);
+	void setInfo(const QString& infoText);
 	double getLineSpacing(int fontSize);
 	void clearFrame();
 	void getFrameFont(gtFont *font);

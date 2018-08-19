@@ -112,7 +112,7 @@ protected:
 	QList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
 
-	QListWidgetItem* addFontItem(QString fontName, QListWidget* fontList);
+	QListWidgetItem* addFontItem(const QString& fontName, QListWidget* fontList);
 
 private:
 	// Non-GUI protected members

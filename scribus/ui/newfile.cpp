@@ -90,7 +90,7 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 	return QSize(maxX, maxY);
 }
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QString lang) : QDialog( parent )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent )
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
@@ -616,7 +616,7 @@ void NewDoc::setPageSize(const QString &size)
 	marginGroup->setPageSize(size);
 }
 
-void NewDoc::setSize(QString gr)
+void NewDoc::setSize(const QString& gr)
 {
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
@@ -678,7 +678,7 @@ void NewDoc::adjustTitles(int tab)
 	OKButton->setEnabled(tab!=2);
 }
 
-void NewDoc::locationDropped(QString fileUrl)
+void NewDoc::locationDropped(const QString& fileUrl)
 {
 	QFileInfo fi(fileUrl);
 	if (fi.isDir())

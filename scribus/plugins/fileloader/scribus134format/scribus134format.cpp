@@ -48,8 +48,7 @@ for which a new license (GPL+exception) is in place.
 // Please don't implement the functionality of your plugin here; do that
 // in scribus134formatimpl.h and scribus134formatimpl.cpp .
 
-Scribus134Format::Scribus134Format() :
-	LoadSavePlugin()
+Scribus134Format::Scribus134Format()
 {
 	itemCount = itemCountM = 0;
 	legacyStyleCount = 0;

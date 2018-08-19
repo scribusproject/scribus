@@ -72,7 +72,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString printer, PrintEngine engine ) : QDialog( parent )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent )
 {
 	setModal(true);
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
@@ -1155,7 +1155,7 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 
 //-------------------------------------------------------------------------------------------------
 
-bool PPreview::usePostscriptPreview(QString printerName, PrintEngine engine)
+bool PPreview::usePostscriptPreview(const QString& printerName, PrintEngine engine)
 {
 #ifdef _WIN32
 	if (printerName == tr("File"))

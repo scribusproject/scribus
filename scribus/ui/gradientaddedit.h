@@ -38,7 +38,7 @@ class SCRIBUS_API gradientEditDialog : public QDialog, Ui::gradientAddEditDialog
 	Q_OBJECT
 
 	public:
-		gradientEditDialog(QWidget* parent, QString name, VGradient gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag);
+		gradientEditDialog(QWidget* parent, const QString& name, const VGradient& gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag);
 		~gradientEditDialog() {};
 		QString name();
 		VGradient gradient();

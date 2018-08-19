@@ -61,7 +61,7 @@ XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
 	progressDialog = nullptr;
 }
 
-QImage XfigPlug::readThumbnail(QString fName)
+QImage XfigPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
@@ -187,9 +187,8 @@ QImage XfigPlug::readThumbnail(QString fName)
 	return QImage();
 }
 
-bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool XfigPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -259,7 +258,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	CustColors.insert("Pink2", ScColor(255, 192, 192));
 	CustColors.insert("Pink", ScColor(255, 224, 224));
 	CustColors.insert("Gold", ScColor(255, 215, 0));
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -295,7 +294,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	parseHeader(fName, x, y, b, h);
+	parseHeader(fNameIn, x, y, b, h);
 	docX = x;
 	docY = y;
 	if (b == 0.0)
@@ -356,7 +355,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -763,11 +762,11 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 	}
 }
 
-void XfigPlug::processPolyline(QDataStream &ts, QString data)
+void XfigPlug::processPolyline(QDataStream &ts, const QString& data)
 {
 	QString tmp = data;
-	QString fArrowData = "";
-	QString bArrowData = "";
+	QString fArrowData;
+	QString bArrowData;
 	int		command;
 	int		subtype;				// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
 	int		line_style;				// (enumeration type)
@@ -900,7 +899,7 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	}
 }
 
-void XfigPlug::processSpline(QDataStream &ts, QString data)
+void XfigPlug::processSpline(QDataStream &ts, const QString& data)
 {
 	QString tmp = data;
 	QString fArrowData = "";
@@ -1018,7 +1017,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	}
 }
 
-void XfigPlug::processArc(QDataStream &ts, QString data)
+void XfigPlug::processArc(QDataStream &ts, const QString& data)
 {
 	QString tmp = data;
 	QString fArrowData = "";
@@ -1140,7 +1139,7 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 	}
 }
 
-void XfigPlug::processEllipse(QString data)
+void XfigPlug::processEllipse(const QString& data)
 {
 	QString tmp = data;
 	int		command;			// (always 1)
@@ -1200,10 +1199,10 @@ void XfigPlug::processEllipse(QString data)
 	}
 }
 
-QString XfigPlug::cleanText(QString text)
+QString XfigPlug::cleanText(const QString& text)
 {
-	QString ret = "";
-	QString tmp = "";
+	QString ret;
+	QString tmp;
 	bool sep = false;
 	int sepcount = 0;
 	for (int a = 1; a < text.count(); ++a)
@@ -1248,7 +1247,7 @@ QString XfigPlug::cleanText(QString text)
 	return ret;
 }
 
-void XfigPlug::processText(QString data)
+void XfigPlug::processText(const QString& data)
 {
 	QString tmp = data;
 	int		command;			// (always 4)
@@ -1516,7 +1515,7 @@ void XfigPlug::processText(QString data)
 	}
 }
 
-void XfigPlug::processData(QDataStream &ts, QString data)
+void XfigPlug::processData(QDataStream &ts, const QString& data)
 {
 	QString tmp = data;
 	int command, subtype;
@@ -1586,7 +1585,7 @@ double XfigPlug::fig2Pts(double in)
 	return in / 1200.0 * 72.0;
 }
 
-bool XfigPlug::convert(QString fn)
+bool XfigPlug::convert(const QString& fn)
 {
 	QString tmp;
 	CurrColorFill = "White";

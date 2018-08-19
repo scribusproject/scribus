@@ -285,7 +285,7 @@ void Prefs_ExternalTools::changeLatexPath()
 	}
 }
 
-void Prefs_ExternalTools::insertConfigItem(QString config, int row)
+void Prefs_ExternalTools::insertConfigItem(const QString& config, int row)
 {
 	QListWidgetItem *item = new QListWidgetItem();
 	item->setData(Qt::UserRole, config);

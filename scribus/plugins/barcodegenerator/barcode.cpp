@@ -76,7 +76,7 @@ void Barcode::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool Barcode::run(ScribusDoc* doc, QString /*target*/ )
+bool Barcode::run(ScribusDoc* doc, const QString& /*target*/ )
 {
 	if (!doc || !ScCore->haveGS())
 		return false;

@@ -146,7 +146,7 @@ double ScXmlStreamAttributes::valueAsDouble (const QString& attrName, double def
 	return retValue;
 }
 
-QString ScXmlStreamAttributes::valueAsString (const char*    attrName, const QString def) const
+QString ScXmlStreamAttributes::valueAsString (const char*    attrName, const QString& def) const
 {
 	QString retValue = def;
 	QStringRef att = value(QLatin1String(attrName));

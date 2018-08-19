@@ -23,7 +23,7 @@ class SCRIBUS_API MissingFont : public QDialog
     Q_OBJECT
 
 public:
-	MissingFont( QWidget* parent, QString fon, ScribusDoc* doc);
+	MissingFont(QWidget* parent, const QString& fon, ScribusDoc* doc);
 	~MissingFont() {};
 	
 	const QString getReplacementFont();

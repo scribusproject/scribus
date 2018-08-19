@@ -57,7 +57,7 @@ void SwatchCombo::itemActivated(QTreeWidgetItem* item)
 	}
 }
 
-QTreeWidgetItem* SwatchCombo::addTopLevelItem(QString name)
+QTreeWidgetItem* SwatchCombo::addTopLevelItem(const QString& name)
 {
 	QTreeWidgetItem* item = new QTreeWidgetItem(dataTree);
 	item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
@@ -65,7 +65,7 @@ QTreeWidgetItem* SwatchCombo::addTopLevelItem(QString name)
 	return item;
 }
 
-QTreeWidgetItem* SwatchCombo::addSubItem(QString name, QTreeWidgetItem* parent, bool selectable)
+QTreeWidgetItem* SwatchCombo::addSubItem(const QString& name, QTreeWidgetItem* parent, bool selectable)
 {
 	QTreeWidgetItem* item = new QTreeWidgetItem(parent);
 	if (selectable)
@@ -76,7 +76,7 @@ QTreeWidgetItem* SwatchCombo::addSubItem(QString name, QTreeWidgetItem* parent, 
 	return item;
 }
 
-void SwatchCombo::setCurrentComboItem(QString text)
+void SwatchCombo::setCurrentComboItem(const QString& text)
 {
 	QFontMetrics fm(font());
 	setToolTip(text);

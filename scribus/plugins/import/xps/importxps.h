@@ -60,8 +60,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 
 private:
 	struct ObjState
@@ -103,17 +103,17 @@ private:
 		QVector<double> DashPattern;
 		double DashOffset;
 	};
-	bool convert(QString fn);
-	bool parseDocSequence(QString designMap);
-	bool parseDocReference(QString designMap);
-	void parsePageReference(QString designMap);
-	PageItem* parseObjectXML(QDomElement& dpg, QString path);
-	void parseOpacityXML(QDomElement &spe, QString path, ObjState &obState);
-	void parseStrokeXML(QDomElement &spe, QString path, ObjState &obState);
-	void parseFillXML(QDomElement &spe, QString path, ObjState &obState);
+	bool convert(const QString& fn);
+	bool parseDocSequence(const QString& designMap);
+	bool parseDocReference(const QString& designMap);
+	void parsePageReference(const QString& designMap);
+	PageItem* parseObjectXML(QDomElement& dpg, const QString& path);
+	void parseOpacityXML(QDomElement &spe, const QString& path, ObjState &obState);
+	void parseStrokeXML(QDomElement &spe, const QString& path, ObjState &obState);
+	void parseFillXML(QDomElement &spe, const QString& path, ObjState &obState);
 	void parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip = false);
 	QString parsePathGeometryXML(QDomElement &spe);
-	void parseResourceFile(QString resFile);
+	void parseResourceFile(const QString& resFile);
 	void resolveLinks();
 	PageItem* addClip(PageItem* retObj, ObjState &obState);
 	PageItem* createItem(QDomElement &dpg, ObjState &obState);

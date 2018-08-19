@@ -218,10 +218,10 @@ private:
 	bool    PDF_3DAnnotation(PageItem *ite, uint PNr);
 #endif
 	void	PDF_RadioButtons();
-	uint    PDF_RadioButton(PageItem *ite, uint parent, QString parentName);
+	uint    PDF_RadioButton(PageItem *ite, uint parent, const QString& parentName);
 	bool    PDF_Annotation(PageItem *ite, uint PNr);
 	void    PDF_Form(const QByteArray& im);
-	void    PDF_xForm(uint objNr, double w, double h, QByteArray im);
+	void    PDF_xForm(uint objNr, double w, double h, const QByteArray& im);
 	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, eRenderIntent Intent = Intent_Relative_Colorimetric, QByteArray* output = nullptr);
 	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, ShIm& imgInfo, bool &fatalError);
 #if HAVE_PODOFO

@@ -121,16 +121,15 @@ QImage SmlPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool SmlPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -164,7 +163,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	parseHeader(fName, b, h);
+	parseHeader(fNameIn, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
@@ -218,7 +217,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -309,7 +308,7 @@ SmlPlug::~SmlPlug()
 	delete tmpSel;
 }
 
-void SmlPlug::parseHeader(QString fName, double &b, double &h)
+void SmlPlug::parseHeader(const QString& fName, double &b, double &h)
 {
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -333,7 +332,7 @@ void SmlPlug::parseHeader(QString fName, double &b, double &h)
 	}
 }
 
-bool SmlPlug::convert(QString fn)
+bool SmlPlug::convert(const QString& fn)
 {
 	CurrColorFill = "White";
 	CurrFillShade = 100.0;

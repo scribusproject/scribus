@@ -406,7 +406,7 @@ void SyntaxColors::saveToPrefs()
 	}
 }
 
-QString SyntaxColors::qcolor2named(QColor color)
+QString SyntaxColors::qcolor2named(const QColor& color)
 {
 	int r, g, b;
 	QString retval("#");

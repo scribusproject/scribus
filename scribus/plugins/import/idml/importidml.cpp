@@ -74,7 +74,7 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 	fun = nullptr;
 }
 
-QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
+QString IdmlPlug::getNodeValue(QDomNode &baseNode, const QString& path)
 {
 	QString ret = "";
 	QStringList pathParts = path.split("/", QString::SkipEmptyParts);
@@ -101,7 +101,7 @@ QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
 	return ret;
 }
 
-QImage IdmlPlug::readThumbnail(QString fName)
+QImage IdmlPlug::readThumbnail(const QString& fName)
 {
 	QImage tmp;
 	QByteArray f;
@@ -273,9 +273,8 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	return success;
 }
 
-bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -285,7 +284,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -366,7 +365,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
@@ -1666,10 +1665,9 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 			m_Doc->setMasterPageMode(false);
 		}
 	}
-	return;
 }
 
-QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pTrans)
+QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransform& pTrans)
 {
 	QList<PageItem*> GElements;
 	FPointArray GCoords;
@@ -3157,7 +3155,7 @@ void IdmlPlug::readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDom
 */
 }
 
-int IdmlPlug::convertBlendMode(QString blendName)
+int IdmlPlug::convertBlendMode(const QString& blendName)
 {
 	int mode = 0;
 	if (blendName == "Normal")
@@ -3195,7 +3193,7 @@ int IdmlPlug::convertBlendMode(QString blendName)
 	return mode;
 }
 
-void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
+void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, const QString& baseStyleName)
 {
 	QStringList styles;
 	styles.prepend(baseStyleName);
@@ -3261,7 +3259,7 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 	}
 }
 
-QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
+QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
 	QString fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 	if (fontTranslateMap.contains(fontBaseName))

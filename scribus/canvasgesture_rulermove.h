@@ -74,7 +74,7 @@ public:
 		Use this to test if there's a moveable guide near this position.
 		It prepares the gesture for moving this guide.
 	 */
-	bool mouseHitsGuide(FPoint mousePointDoc);
+	bool mouseHitsGuide(const FPoint& mousePointDoc);
 	/**
 	  It tests for a guide near position, that guide being moveable or not.
 	  If the test results in success, emits guideInfo;

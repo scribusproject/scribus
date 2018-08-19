@@ -440,7 +440,7 @@ void PropertiesPalette_Text::showFontSize(double s)
 	fontSize->showValue(s / 10.0);
 }
 
-void PropertiesPalette_Text::showLanguage(QString w)
+void PropertiesPalette_Text::showLanguage(const QString& w)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;

@@ -82,7 +82,7 @@ void xpsexplugin_freePlugin(ScPlugin* plugin)
 
 using namespace TableUtils;
 
-XPSExportPlugin::XPSExportPlugin() : ScActionPlugin()
+XPSExportPlugin::XPSExportPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -127,7 +127,7 @@ void XPSExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool XPSExportPlugin::run(ScribusDoc* doc, QString filename)
+bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 {
 	Q_ASSERT(filename.isEmpty());
 	QString fileName;
@@ -213,7 +213,7 @@ XPSExPlug::XPSExPlug(ScribusDoc* doc, int output_res)
 		m_dpi = 300.0;
 }
 
-bool XPSExPlug::doExport(QString fName)
+bool XPSExPlug::doExport(const QString& fName)
 {
 	zip = new ScZipHandler(true);
 	if (!zip->open(fName))

@@ -31,7 +31,7 @@ static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 	return s;
 }
 
-ScImgDataLoader_PSD::ScImgDataLoader_PSD(void)
+ScImgDataLoader_PSD::ScImgDataLoader_PSD()
 {
 	m_maxChannels = 0;
 	initSupportedFormatList();

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpaths.h"
 
-nftsettings::nftsettings(QString guilang)
+nftsettings::nftsettings(const QString& guilang)
 {
 	lang = guilang;
 	read();
@@ -26,7 +26,7 @@ void nftsettings::read()
 	addTemplates(reader, ScPaths::instance().userTemplateDir(true));
 }
 
-void nftsettings::addTemplates(nftrcreader& reader, QString dir) // dir will be searched for a sub folder called templates
+void nftsettings::addTemplates(nftrcreader& reader, const QString& dir) // dir will be searched for a sub folder called templates
 {
 	if (dir.isEmpty())
 		return;
@@ -56,7 +56,7 @@ void nftsettings::addTemplates(nftrcreader& reader, QString dir) // dir will be 
 	}
 }
 
-QString nftsettings::findTemplateXml(QString dir)
+QString nftsettings::findTemplateXml(const QString& dir)
 {
 	QString tmp = dir + "/template." + lang + ".xml";
 	if (QFile(tmp).exists())

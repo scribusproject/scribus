@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 class nfttemplate {
 public:
-	nfttemplate(QString tmplFilePath, const QString &tmplType);
+	nfttemplate(const QString& tmplFilePath, const QString &tmplType);
 	~nfttemplate();
 	QFile   tmplXml;
 	QString enCategory;

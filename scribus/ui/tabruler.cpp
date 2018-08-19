@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa),
+RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tabs, bool ind, double wid) : QWidget(pa),
 	mousePressed(false),
 	tabValues(Tabs),
 	haveInd(ind),
@@ -67,7 +67,7 @@ RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool
 	}
 }
 
-void RulerT::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
 {
 	unitIndex = dEin;
 	iter  = unitRulerGetIter1FromIndex(unitIndex);
@@ -492,7 +492,7 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent ),
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<ParagraphStyle::TabRecord>& Tabs, double wid ) : QWidget( parent ),
 	firstLineLabel(nullptr),
 	leftIndentLabel(nullptr),
 	rightIndentLabel(nullptr),
@@ -739,7 +739,7 @@ void Tabruler::languageChange()
 	tabData->setSuffix(unitSuffix);
 }
 
-void Tabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void Tabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	tabData->setNewUnit(dEin);

@@ -240,7 +240,7 @@ bool fileInPath(const QString& filename)
 	return false;
 }
 
-PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w, double h)
+PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QString& ext, double x, double y, double w, double h)
 {
 	PageItem* retObj = nullptr;
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);

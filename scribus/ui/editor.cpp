@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 
-Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent )
+Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle(tr("Editor"));

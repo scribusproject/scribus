@@ -1477,7 +1477,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveD1->cDisplay->isLinear())
@@ -1489,7 +1489,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveD2->cDisplay->isLinear())
@@ -1516,7 +1516,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveT1->cDisplay->isLinear())
@@ -1528,7 +1528,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveT2->cDisplay->isLinear())
@@ -1540,7 +1540,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveT3->cDisplay->isLinear())
@@ -1570,7 +1570,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveQ1->cDisplay->isLinear())
@@ -1582,7 +1582,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveQ2->cDisplay->isLinear())
@@ -1594,7 +1594,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveQc3->cDisplay->isLinear())
@@ -1606,7 +1606,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += " "+tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (CurveQ4->cDisplay->isLinear())
@@ -1624,7 +1624,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			efval += tmp;
 			for (int p = 0; p < Vals.size(); p++)
 			{
-				FPoint pv = Vals.point(p);
+				const FPoint& pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
 			if (Kdisplay->cDisplay->isLinear())

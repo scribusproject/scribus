@@ -47,7 +47,7 @@ public:
 	AttributeMap values;
 	TableMap tables;
 	PrefsContext();
-	PrefsContext(QString contextName, bool persistent = true, bool plugin = false);
+	PrefsContext(const QString& contextName, bool persistent = true, bool plugin = false);
 	~PrefsContext();
 	QString getName();
 	bool    isPersistent();

@@ -27,7 +27,7 @@ class ScripterPrefsGui : public PrefsPanel, public Ui::ScripterPrefsGui
 
 	protected:
 		void setupSyntaxColors();
-		void setButtonIcon(QPushButton* button, QColor color);
+		void setButtonIcon(QPushButton* button, const QColor& color);
 
 		SyntaxColors* syntaxColors;
 

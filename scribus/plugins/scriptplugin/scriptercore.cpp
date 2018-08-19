@@ -202,7 +202,7 @@ void ScripterCore::runScriptDialog()
 	FinishScriptRun();
 }
 
-void ScripterCore::StdScript(QString basefilename)
+void ScripterCore::StdScript(const QString& basefilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
@@ -215,7 +215,7 @@ void ScripterCore::StdScript(QString basefilename)
 	FinishScriptRun();
 }
 
-void ScripterCore::RecentScript(QString fn)
+void ScripterCore::RecentScript(const QString& fn)
 {
 	QFileInfo fd(fn);
 	if (!fd.exists())
@@ -228,12 +228,12 @@ void ScripterCore::RecentScript(QString fn)
 	FinishScriptRun();
 }
 
-void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
+void ScripterCore::slotRunScriptFile(const QString& fileName, bool inMainInterpreter)
 {
 	slotRunScriptFile(fileName, QStringList(), inMainInterpreter);
 }
 
-void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bool inMainInterpreter)
+void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter)
 /** run "filename" python script with the additional arguments provided in "arguments" */
 {
 	// Prevent two scripts to be run concurrently or face crash!
@@ -386,7 +386,7 @@ void ScripterCore::slotRunPythonScript()
 	}
 }
 
-void ScripterCore::slotRunScript(const QString Script)
+void ScripterCore::slotRunScript(const QString& Script)
 {
 	// Prevent two scripts to be run concurrently or face crash!
 	if (ScCore->primaryMainWindow()->scriptIsRunning())

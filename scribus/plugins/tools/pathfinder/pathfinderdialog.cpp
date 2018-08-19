@@ -145,7 +145,7 @@ void PathFinderDialog::swapObjects()
 	updateAllPreviews();
 }
 
-void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale)
+void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, const QColor& color, double scale)
 {
 	QPixmap pm(100, 100);
 	QPainter p;
@@ -164,7 +164,7 @@ void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor c
 	label->setPixmap(pm);
 }
 
-void PathFinderDialog::updatePartPreview(QColor color, double scale)
+void PathFinderDialog::updatePartPreview(const QColor& color, double scale)
 {
 	QPixmap pm(100, 100);
 	QPainter p;
@@ -261,9 +261,9 @@ void PathFinderDialog::updateResult()
 		updatePreview(resultShape, result, cc, scale);
 }
 
-QColor PathFinderDialog::getColorFromItem(QString color, QColor in)
+QColor PathFinderDialog::getColorFromItem(const QString& color, const QColor& in)
 {
-	QColor out = in;
+	QColor out(in);
 	QString fill = color;
 	if (fill == CommonStrings::tr_NoneColor)
 		fill = CommonStrings::None;

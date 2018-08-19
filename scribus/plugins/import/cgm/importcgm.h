@@ -72,7 +72,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(const QString& fn);
 
 private:
@@ -109,15 +109,15 @@ private:
 	void    alignStreamToWord(QDataStream &ts, uint len);
 
 /* core functions */
-	void    handleStartMetaFile(QString value);
-	void    handleStartPicture(QString value);
+	void    handleStartMetaFile(const QString& value);
+	void    handleStartPicture(const QString& value);
 	void    handleStartPictureBody(double width, double height);
 	void    handleMetaFileDescription(const QString& value);
 	QString handleColor(ScColor &color, const QString& proposedName);
 	double  convertCoords(double input);
 	QPointF convertCoords(QPointF input);
 	void appendPath(QPainterPath &path1, QPainterPath &path2);
-	PageItem* itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, QString fill, QString stroke);
+	PageItem* itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& stroke);
 	void    finishItem(PageItem* ite, bool line = true);
 
 /* common variables */

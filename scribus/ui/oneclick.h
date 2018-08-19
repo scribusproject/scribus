@@ -27,7 +27,7 @@ class SCRIBUS_API OneClick : public QDialog
 	Q_OBJECT
 
 public:
-	OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode );
+	OneClick(QWidget* parent, const QString& titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode );
 	~OneClick() {};
 	ScrSpinBox *spinWidth;
 	ScrSpinBox *spinHeight;

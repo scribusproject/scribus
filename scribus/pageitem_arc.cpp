@@ -46,7 +46,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	: PageItem(pa, PageItem::Arc, x, y, w, h, w2, fill, outline)
 {
 	arcHeight = h;

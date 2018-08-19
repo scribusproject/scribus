@@ -94,7 +94,7 @@ public:
 	void setDirection(int align);
 	void saveItemText(PageItem *currItem);
 	void loadItemText(PageItem *currItem);
-	void loadText(QString tx, PageItem *currItem);
+	void loadText(const QString& tx, PageItem *currItem);
 	void updateAll();
 	void updateFromChars(int p);
 	void updateSel(const CharStyle& style);
@@ -337,7 +337,7 @@ public:
 public slots:
 	void SetAlign(int s);
 	void SetDirection(int s);
-	void SetParaStyle(QString s);
+	void SetParaStyle(const QString& s);
 	void languageChange();
 
 signals:
@@ -364,7 +364,7 @@ public:
 	QAction* chScaleVAction;
 
 public slots:
-	void SetFont(QString f);
+	void SetFont(const QString& f);
 	void SetSize(double s);
 	void SetScaleH(double s);
 	void SetScaleV(double s);
@@ -492,7 +492,7 @@ protected slots:
 	void specialActionKeyEvent(int unicodevalue);
 	/*! \brief Slot to insert special characters from charSelect widget. */
 	void slot_insertSpecialChar();
-	void slot_insertUserSpecialChar(QChar, QString);
+	void slot_insertUserSpecialChar(QChar, const QString&);
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
 

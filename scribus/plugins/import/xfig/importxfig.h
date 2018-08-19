@@ -52,8 +52,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 
 private:
 	
@@ -73,16 +73,16 @@ private:
 	void useColor(int colorNum, int area_fill, bool forFill);
 	QVector<double> getDashValues(double linewidth, int code);
 	void processArrows(int forward_arrow, QString fArrowData, int backward_arrow, QString bArrowData, int depth, PageItem *ite);
-	void processPolyline(QDataStream &ts, QString data);
-	void processSpline(QDataStream &ts, QString data);
-	void processArc(QDataStream &ts, QString data);
-	void processEllipse(QString data);
-	QString cleanText(QString text);
-	void processText(QString data);
-	void processData(QDataStream &ts, QString data);
+	void processPolyline(QDataStream &ts, const QString& data);
+	void processSpline(QDataStream &ts, const QString& data);
+	void processArc(QDataStream &ts, const QString& data);
+	void processEllipse(const QString& data);
+	QString cleanText(const QString& text);
+	void processText(const QString& data);
+	void processData(QDataStream &ts, const QString& data);
 	double fig2Pts(double in);
 	void resortItems();
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 	
 	QList<PageItem*> Elements;
 	QList<PageItem*> PatternElements;

@@ -27,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "gtframestyle.h"
 #include "scribusstructs.h"
 
-gtFrameStyle::gtFrameStyle(QString name) : gtParagraphStyle(name) 
+gtFrameStyle::gtFrameStyle(const QString& name) :
+	gtParagraphStyle(name)
 {
 	init();
 }
@@ -83,7 +84,7 @@ QString gtFrameStyle::getBgColor()
 	return m_bgColor;
 }
 
-void gtFrameStyle::setBgColor(QString newBgColor)
+void gtFrameStyle::setBgColor(const QString& newBgColor)
 {
 	m_bgColor = newBgColor;
 }

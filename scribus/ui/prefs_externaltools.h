@@ -27,7 +27,7 @@ class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalToo
 		void languageChange();
 
 	protected:
-		void insertConfigItem(QString config, int row = -1);
+		void insertConfigItem(const QString& config, int row = -1);
 		void setConfigItemText(QListWidgetItem *item);
 		QMap<QString, QString> commands;
 

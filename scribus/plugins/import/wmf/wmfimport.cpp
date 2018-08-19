@@ -279,7 +279,7 @@ FPointArray WMFImport::pointsToPolyline( const FPointArray& points, bool closePa
 	polyline.svgInit();
 	for (int i = 0; i < points.size(); ++i )
 	{
-		FPoint point = points.point(i);
+		const FPoint& point = points.point(i);
 		x = point.x();
 		y = point.y();
 		if (bFirst)
@@ -307,7 +307,7 @@ void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double
 	if ( angleLength < 0 ) angleLength = 360.0 + angleLength;
 }
 
-QImage WMFImport::readThumbnail(QString fname)
+QImage WMFImport::readThumbnail(const QString& fname)
 {
 	if (!loadWMF(fname))
 	{
@@ -357,7 +357,7 @@ QImage WMFImport::readThumbnail(QString fname)
 	return tmpImage;
 }
 
-bool WMFImport::import(QString fname, const TransactionSettings& trSettings, int flags)
+bool WMFImport::import(const QString& fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadWMF(fname))
 	{

@@ -26,12 +26,12 @@ extern "C"
 #include <fcntl.h>
 }
 
-ScImgDataLoader_PGF::ScImgDataLoader_PGF(void) : ScImgDataLoader()
+ScImgDataLoader_PGF::ScImgDataLoader_PGF() : ScImgDataLoader()
 {
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_PGF::initSupportedFormatList(void)
+void ScImgDataLoader_PGF::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "pgf" );

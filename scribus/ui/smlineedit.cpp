@@ -15,7 +15,7 @@ SMLineEdit::SMLineEdit(QWidget *parent)
 
 }
 
-void SMLineEdit::setValue(QString val)
+void SMLineEdit::setValue(const QString& val)
 {
 	disconnect(this, SIGNAL(textChanged(QString)), this, SLOT(slotValueChanged()));
 	m_hasParent = false;
@@ -25,7 +25,7 @@ void SMLineEdit::setValue(QString val)
 	QLineEdit::setText(val);
 }
 
-void SMLineEdit::setValue(QString val, bool isParentVal)
+void SMLineEdit::setValue(const QString& val, bool isParentVal)
 {
 	disconnect(this, SIGNAL(textChanged(QString)), this, SLOT(slotValueChanged()));
 	m_hasParent = true;
@@ -43,7 +43,7 @@ void SMLineEdit::clear()
 	connect(this, SIGNAL(textChanged(QString)), this, SLOT(slotValueChanged()));
 }
 
-void SMLineEdit::setParentValue(QString val)
+void SMLineEdit::setParentValue(const QString& val)
 {
 	m_hasParent = true;
 	m_pValue = val;

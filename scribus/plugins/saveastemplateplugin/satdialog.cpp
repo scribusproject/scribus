@@ -36,7 +36,7 @@ public:
 	}
 };
 
-SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
+SATDialog::SATDialog(QWidget* parent, const QString& tmplName, int pageW, int pageH) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -91,7 +91,7 @@ void SATDialog::writePrefs()
 	prefs->set("isFullDetail", isFullDetail);
 }
 
-QString SATDialog::findTemplateXml(QString dir)
+QString SATDialog::findTemplateXml(const QString& dir)
 {
 	QString lang = ScCore->getGuiLanguage();
 	QString tmp = dir + "/template." + lang + ".xml";
@@ -142,7 +142,7 @@ void SATDialog::readCategories(const QString& fileName)
 	QStringList& categories = catReader.categories;
 	for (int i = 0; i < categories.count(); ++i)
 	{
-		QString category = categories.at(i);
+		const QString& category = categories.at(i);
 		if (!category.isEmpty() && !cats.contains(category))
 			cats.insert(category, category);
 	}

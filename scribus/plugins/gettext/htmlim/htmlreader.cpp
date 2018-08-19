@@ -616,7 +616,7 @@ void HTMLReader::unSetBoldFont()
 	pstylepre->getFont()->setWeight(defaultWeight);
 }
 
-void HTMLReader::parse(QString filename)
+void HTMLReader::parse(const QString& filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(filename);

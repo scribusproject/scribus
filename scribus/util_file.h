@@ -99,5 +99,5 @@ bool SCRIBUS_API fileInPath(const QString& filename);
 **/
 bool SCRIBUS_API checkFileHash(const QString& directory, const QString& filename, const QString& hashFilename, QCryptographicHash::Algorithm method);
 
-PageItem SCRIBUS_API * getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w = -1.0, double h = -1.0);
+PageItem SCRIBUS_API * getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QString& ext, double x, double y, double w = -1.0, double h = -1.0);
 #endif

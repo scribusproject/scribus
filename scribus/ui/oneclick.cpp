@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 
-OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode ) : QDialog( parent )
+OneClick::OneClick( QWidget* parent, const QString& titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode ) : QDialog( parent )
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);

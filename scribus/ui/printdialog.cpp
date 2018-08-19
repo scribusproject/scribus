@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool previewDinUse;
 
-PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, QStringList spots)
+PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, const QStringList& spots)
 		: QDialog( parent )
 {
 	setupUi(this);

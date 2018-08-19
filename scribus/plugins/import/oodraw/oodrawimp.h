@@ -98,7 +98,7 @@ public:
 	bool unsupported;
 	bool importFailed;
 	bool importCanceled;
-	bool import(QString fName, const TransactionSettings& trSettings, int flags);
+	bool import(const QString& fName, const TransactionSettings& trSettings, int flags);
 	QImage readThumbnail(const QString& fileName );
 	static double parseUnit(const QString &unit);
 

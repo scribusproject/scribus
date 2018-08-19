@@ -74,7 +74,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************/
 
-SCFonts::SCFonts() : QMap<QString,ScFace>(), FontPath()
+SCFonts::SCFonts()
 {
 //	insert("", ScFace::none()); // Wtf why inserting an empty entry here ????
 	showFontInformation=false;
@@ -628,7 +628,7 @@ static QString getFtError(int code)
 }
 
 // Load a single font into the library from the passed filename. Returns true on error.
-bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
+bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, const QString& DocName)
 {
 	static bool firstRun;
 	bool Subset = false;
@@ -946,7 +946,7 @@ const ScFace& SCFonts::findFont(const QString& fontFamily, const QString& fontSt
 	return findFont(fontFamily + " " + fontStyle, doc);
 }
 
-QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString> skip) const
+QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString>& skip) const
 {
 	QMap<QString,QString> result;
 	QMap<QString,ScFace>::ConstIterator it;
@@ -1155,7 +1155,7 @@ void SCFonts::WriteCacheList()
 	WriteCacheList(prefsLocation);
 }
 
-void SCFonts::WriteCacheList(QString pf)
+void SCFonts::WriteCacheList(const QString& pf)
 {
 	QDomDocument docu("fontcacherc");
 	QString st="<CachedFonts></CachedFonts>";
@@ -1184,7 +1184,7 @@ void SCFonts::WriteCacheList(QString pf)
 	}
 }
 
-void SCFonts::GetFonts(QString pf, bool showFontInfo)
+void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
 {
 	showFontInformation=showFontInfo;
 	FontPath.clear();

@@ -444,7 +444,7 @@ void PropertiesPalette_Group::handleGroupGradMask(int typ)
 	}
 }
 
-void PropertiesPalette_Group::handleGroupPatternMask(QString pattern)
+void PropertiesPalette_Group::handleGroupPatternMask(const QString& pattern)
 {
 	if ((m_haveDoc) && (m_haveItem))
 	{

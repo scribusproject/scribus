@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/useprintermarginsdialog.h"
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
+MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
 	pageWidth(0.0),
 	pageHeight(0.0),
 	pageType(0)

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "nfttemplate.h"
 #include <QFileInfo>
 
-nfttemplate::nfttemplate(QString tmplFilePath, const QString &tmplCategory)
+nfttemplate::nfttemplate(const QString& tmplFilePath, const QString &tmplCategory)
 	: tmplXml(tmplFilePath)
 {
 	templateCategory = tmplCategory;

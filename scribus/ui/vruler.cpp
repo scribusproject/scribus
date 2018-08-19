@@ -206,7 +206,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.end();
 }
 
-void Vruler::drawNumber(QString num, int starty, QPainter *p)
+void Vruler::drawNumber(const QString& num, int starty, QPainter *p)
 {
 	int textY = starty;
 	for (int a = 0; a < num.length(); ++a)

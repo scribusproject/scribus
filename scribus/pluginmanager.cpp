@@ -49,7 +49,7 @@ PluginManager::~PluginManager()
 {
 }
 
-void* PluginManager::loadDLL( QString plugin )
+void* PluginManager::loadDLL( const QString& plugin )
 {
 	void* lib = nullptr;
 #ifdef HAVE_DLFCN_H
@@ -120,7 +120,7 @@ void PluginManager::savePreferences()
 		prefs->set(it.value().pluginName, it.value().enableOnStartup);
 }
 
-QString PluginManager::getPluginName(QString fileName)
+QString PluginManager::getPluginName(const QString& fileName)
 {
 	// Must return plugin name. Note that this may be platform dependent;
 	// it's likely to need some adjustment for platform naming schemes.
@@ -143,7 +143,7 @@ QString PluginManager::getPluginName(QString fileName)
 	return baseName.toLatin1();
 }
 
-int PluginManager::initPlugin(const QString fileName)
+int PluginManager::initPlugin(const QString& fileName)
 {
 	PluginData pda;
 	pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir(), fileName);
@@ -476,7 +476,7 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 	}
 }
 
-bool PluginManager::DLLexists(QString name, bool includeDisabled) const
+bool PluginManager::DLLexists(const QString& name, bool includeDisabled) const
 {
 	// the plugin name must be known
 	if (pluginMap.contains(name))

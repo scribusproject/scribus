@@ -108,7 +108,7 @@ void LensEffectsPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
+bool LensEffectsPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)

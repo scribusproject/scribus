@@ -351,7 +351,7 @@ void GradientPreview::updateDisplay()
 	}
 }
 
-void GradientPreview::setActColor(QColor c, QString n, int s)
+void GradientPreview::setActColor(const QColor& c, const QString& n, int s)
 {
 	if (ActStop == -1)
 		return;

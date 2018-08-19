@@ -63,7 +63,7 @@ public:
 	/*! \brief QColor like constructors. Setup the RGB parts, then init().
 	\param c QColor object
 	 */
-	VisionDefectColor(QColor c);
+	VisionDefectColor(const QColor& c);
 
 	/*! \brief Default constructors. Setup the RGB parts to default values, then init().
 	 */
@@ -83,7 +83,7 @@ public:
 	\retval QColor converted color
 	Gama removing, RGB2LSM, matrix operation for selected deficiency,
 	LSM2RGB, gama applying. */
-	QColor convertDefect(QColor c, int d);
+	QColor convertDefect(const QColor& c, int d);
 
 	/*! \brief Return the color parts
 	\retval uint red part

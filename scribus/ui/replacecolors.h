@@ -52,7 +52,7 @@ private slots:
 
 private:
 	void updateReplacementTable();
-	QPixmap getColorIcon(QString color);
+	QPixmap getColorIcon(const QString& color);
 	int selectedRow;
 	QPixmap alertIcon;
 	QPixmap cmykIcon;

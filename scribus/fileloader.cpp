@@ -173,7 +173,7 @@ int FileLoader::testFile()
 	return ret;
 }
 
-bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName)
+bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const QString& renamedPageName)
 {
 	bool ret = false;
 // 	newReplacement = false;

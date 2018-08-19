@@ -41,13 +41,13 @@ QStringList FileExtensions()
 	return ret;
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix, append);
 	delete docxim;
 }
 
-ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
 	uz=nullptr;
 	m_Doc = textItem->doc();
@@ -139,7 +139,7 @@ ODTIm::~ODTIm()
 
 /* Raw Text import */
 
-bool ODTIm::parseRawDocReference(QString designMap)
+bool ODTIm::parseRawDocReference(const QString& designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -316,7 +316,7 @@ void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
 
 /* Styled Text import */
 
-bool ODTIm::parseStyleSheets(QString designMap)
+bool ODTIm::parseStyleSheets(const QString& designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -368,7 +368,7 @@ bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
 	return true;
 }
 
-void ODTIm::parseStyles(QDomElement &sp, QString type)
+void ODTIm::parseStyles(QDomElement &sp, const QString& type)
 {
 	for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
 	{
@@ -580,7 +580,7 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 	}
 }
 
-bool ODTIm::parseDocReference(QString designMap)
+bool ODTIm::parseDocReference(const QString& designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
@@ -962,7 +962,7 @@ void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle)
 	tmpStyle.setTabValues(oStyle.tabStops);
 }
 
-void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
+void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 {
 	if (m_Styles.contains(pAttrs))
 	{
@@ -1325,7 +1325,7 @@ QString ODTIm::parseColor( const QString &s )
 	return ret;
 }
 
-QString ODTIm::constructFontName(QString fontBaseName, QString fontStyle)
+QString ODTIm::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
 	QString fontName;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);

@@ -36,12 +36,12 @@ public:
 
 public slots:
 	void runScriptDialog();
-	void StdScript(QString filebasename);
-	void RecentScript(QString fn);
-	void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
-	void slotRunScriptFile(QString fileName, QStringList arguments, bool inMainInterpreter = false);
+	void StdScript(const QString& filebasename);
+	void RecentScript(const QString& fn);
+	void slotRunScriptFile(const QString& fileName, bool inMainInterpreter = false);
+	void slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter = false);
 	void slotRunPythonScript(); // needed for running python script from CLI
-	void slotRunScript(const QString script);
+	void slotRunScript(const QString& script);
 	void slotInteractiveScript(bool);
 	void slotExecute();
 	/*! \brief Show docstring of the script to the user.

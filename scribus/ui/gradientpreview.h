@@ -52,7 +52,7 @@ public:
 	void leaveEvent(QEvent*);
 	void enterEvent(QEvent*);
 	void updateDisplay();
-	void setActColor(QColor c, QString n, int s);
+	void setActColor(const QColor& c, const QString& n, int s);
 	void setActTrans(double t);
 	void setActStep(double t);
 	void setGradient(const VGradient& gradient);

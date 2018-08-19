@@ -25,14 +25,14 @@ protected:
 	void initSupportedFormatList();
 
 public:
-	ScImgDataLoader_PICT(void);
+	ScImgDataLoader_PICT();
 
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
 	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 
 private:
-	void parseHeader(QString fName, double &x, double &y, double &w, double &h);
+	void parseHeader(const QString& fName, double &x, double &y, double &w, double &h);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColor(QDataStream &ts, bool back);

@@ -56,8 +56,8 @@ public:
 	QImage readThumbnail(const QString& fn);
 
 private:
-	void parseHeader(QString fName, double &b, double &h);
-	bool convert(QString fn);
+	void parseHeader(const QString& fName, double &b, double &h);
+	bool convert(const QString& fn);
 	void finishItem(PageItem* ite);
 	void parseGroup(QDomNode &DOC);
 	void parseGroupProperties(QDomNode &DOC, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck);

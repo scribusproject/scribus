@@ -51,7 +51,7 @@ public:
 	QString label;
 	int OwnPage;
 
-	void setValues(const QString& l, int p, MarkType t, MarkData d);
+	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
 	MarkType getType() { return typ; }
 	void setType(MarkType t) { typ = t; }
 	const MarkData getData() { return data; }
@@ -81,7 +81,7 @@ public:
 	MarkType getMarkType() { return data.markTyp; }
 	void setMarkType(MarkType t) { data.markTyp = t; }
 	const QString getString();
-	void setString( const QString str );
+	void setString(const QString& str );
 	TextNote* getNotePtr() { return data.notePtr; }
 	void setNotePtr(TextNote *note);
 

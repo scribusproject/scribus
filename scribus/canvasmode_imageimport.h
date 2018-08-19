@@ -60,7 +60,7 @@ private:
 	QStringList m_imageList;
 	ScribusMainWindow *m_ScMW;
 	double m_Mx, m_My;
-	void newToolTip(QString name);
+	void newToolTip(const QString& name);
 };
 
 #endif // CANVASMODE_IMAGEIMPORT_H

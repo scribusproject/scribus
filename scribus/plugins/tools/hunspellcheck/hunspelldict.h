@@ -21,7 +21,7 @@ public:
 	~HunspellDict();
 
 	int spell(const QString& word);
-	QStringList suggest(QString word);
+	QStringList suggest(const QString& word);
 
 protected:
 	Hunspell*   m_hunspell;

@@ -64,7 +64,7 @@ private:
 	inline bool GetItem(PageItem** pi); 
 	void handleNodeEditPress(QMouseEvent*, QRect);
 	void handleNodeEditDrag(QMouseEvent*, PageItem*);
-	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, QTransform);
+	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, const QTransform&);
 	
 	ScribusMainWindow* m_ScMW;
 	

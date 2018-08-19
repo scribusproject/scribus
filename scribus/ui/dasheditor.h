@@ -53,7 +53,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m);
 	void leaveEvent(QEvent*);
 	void enterEvent(QEvent*);
-	void setDashValues(QVector<double> vals);
+	void setDashValues(const QVector<double>& vals);
 	QVector<double> DashValues;
 	QList<double> StopM;
 	bool Mpressed;

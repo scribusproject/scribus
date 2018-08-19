@@ -31,7 +31,7 @@ protected:
 	int  getLayers(const QString& fn, int page);
 	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 m_photometric, uint16 bitspersample, uint16 m_samplesperpixel, bool &bilevel, bool &isCMYK);
 	bool getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 m_samplesperpixel);
-	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask);
+	void blendOntoTarget(RawImage *tmp, int layOpa, const QString& layBlend, bool cmyk, bool useMask);
 	QString getLayerString(QDataStream & s);
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerInfo(QDataStream & s, QList<PSDLayer> &layerInfo);
@@ -44,7 +44,7 @@ protected:
 	uint16 m_photometric, m_samplesperpixel;
 
 public:
-	ScImgDataLoader_TIFF(void);
+	ScImgDataLoader_TIFF();
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
