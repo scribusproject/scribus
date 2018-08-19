@@ -96,7 +96,7 @@ bool ScZipHandler::read(const QString& fileName, QByteArray &buf)
 
 bool ScZipHandler::write(const QString& dirName)
 {
-	if (m_uz == nullptr)
+	if (m_zi == nullptr)
 		return false;
 	Zip::ErrorCode ec = m_zi->addDirectory(dirName, "", Zip::IgnoreRoot);
 	return (ec == Zip::Ok);
