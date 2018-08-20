@@ -351,13 +351,8 @@ void ExifData::DiscardData ( void )
 int ExifData::Get16u ( void * Short )
 {
 	if ( MotorolaOrder )
-	{
 		return ( ( ( uchar * ) Short ) [0] << 8 ) | ( ( uchar * ) Short ) [1];
-	}
-	else
-	{
-		return ( ( ( uchar * ) Short ) [1] << 8 ) | ( ( uchar * ) Short ) [0];
-	}
+	return ( ( ( uchar * ) Short ) [1] << 8 ) | ( ( uchar * ) Short ) [0];
 }
 
 //--------------------------------------------------------------------------
@@ -368,13 +363,10 @@ int ExifData::Get32s ( void * Long )
 	if ( MotorolaOrder )
 	{
 		return ( ( ( char * ) Long ) [0] << 24 ) | ( ( ( uchar * ) Long ) [1] << 16 )
-		       | ( ( ( uchar * ) Long ) [2] << 8 ) | ( ( ( uchar * ) Long ) [3] << 0 );
+				| ( ( ( uchar * ) Long ) [2] << 8 ) | ( ( ( uchar * ) Long ) [3] << 0 );
 	}
-	else
-	{
-		return ( ( ( char * ) Long ) [3] << 24 ) | ( ( ( uchar * ) Long ) [2] << 16 )
-		       | ( ( ( uchar * ) Long ) [1] << 8 ) | ( ( ( uchar * ) Long ) [0] << 0 );
-	}
+	return ( ( ( char * ) Long ) [3] << 24 ) | ( ( ( uchar * ) Long ) [2] << 16 )
+			| ( ( ( uchar * ) Long ) [1] << 8 ) | ( ( ( uchar * ) Long ) [0] << 0 );
 }
 
 //--------------------------------------------------------------------------

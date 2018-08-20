@@ -537,8 +537,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							if (abs(dX) > abs(dY))
 								dY=0;
 							else
-							if (abs(dY) > abs(dX))
-								dX=0;
+								if (abs(dY) > abs(dX))
+									dX=0;
 							erf=false;
 							dX+=qRound(m_dragConstrainInitPtX-currItem->xPos());
 							dY+=qRound(m_dragConstrainInitPtY-currItem->yPos());
@@ -1614,13 +1614,10 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				//	qDebug()<<"Out Of SeleItem"<<__LINE__;
 					return true;
 				}
-				else
-				{
 				// If we call startGesture now, a new guide is created each time.
 				// ### could be a weakness to avoid calling it tho.
 	 			//	m_view->startGesture(guideMoveGesture);
-					m_guideMoveGesture->mouseSelectGuide(m);
-				}
+				m_guideMoveGesture->mouseSelectGuide(m);
 			}
 		}
 	}

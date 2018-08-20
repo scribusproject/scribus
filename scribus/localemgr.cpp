@@ -112,8 +112,7 @@ QString LocaleManager::pageSizeForLocale(const QString& locale)
 	//No, we don't translate these, they are internal use that don't get to the GUI
 	if (m_sysLocale.measurementSystem()==0)
 		return "A4";
-	else
-		return "Letter";
+	return "Letter";
 //	qFatal("Page Size not found in LocaleManager");
 //	return "";
 }
@@ -129,8 +128,7 @@ QString LocaleManager::unitForLocale(const QString &locale)
 	//No, we don't translate these, they are internal use that don't get to the GUI
 	if (m_sysLocale.measurementSystem()==0)
 		return "mm";
-	else
-		return "in";
+	return "in";
 //	qFatal("Unit not found in LocaleManager");
 //	return "";
 }

@@ -549,7 +549,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
 	if (EnableCMYK->isChecked())
 	{
 		if (HaveTiffSep)
@@ -663,7 +663,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 	args1.append( "-dNOPAUSE" );
 	args1.append( "-dPARANOIDSAFER" );
 	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) ); 
+	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
 	if (AntiAlias->isChecked())
 	{
 		args1.append("-dTextAlphaBits=4");

@@ -102,7 +102,7 @@ void RulerT::paintEvent(QPaintEvent *)
 		{
 			case 2:
 			{
-				QString tx = "";
+				QString tx;
 				int num1 = static_cast<int>(xl / iter2);
 				if (num1 != 0)
 					tx = QString::number(num1);
@@ -864,32 +864,35 @@ void Tabruler::setTabFillChar(QChar t)
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentIndex(0);
 	}
-	else if (t == '.')
-	{
-		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentIndex(1);
-	}
-	else if (t == '-')
-	{
-		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentIndex(2);
-	}
-	else if (t == '_')
-	{
-		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentIndex(3);
-	}
 	else
-	{
-		tabFillCombo->setCurrentIndex(4);
-		tabFillCombo->setEditable(true);
-		if (!t.isNull())
+		if (t == '.')
 		{
-			bool sigBlocked = tabFillCombo->blockSignals(true);
-			tabFillCombo->setEditText(QString(t));
-			tabFillCombo->blockSignals(sigBlocked);
+			tabFillCombo->setEditable(false);
+			tabFillCombo->setCurrentIndex(1);
 		}
-	}
+		else
+			if (t == '-')
+			{
+				tabFillCombo->setEditable(false);
+				tabFillCombo->setCurrentIndex(2);
+			}
+			else
+				if (t == '_')
+				{
+					tabFillCombo->setEditable(false);
+					tabFillCombo->setCurrentIndex(3);
+				}
+				else
+				{
+					tabFillCombo->setCurrentIndex(4);
+					tabFillCombo->setEditable(true);
+					if (!t.isNull())
+					{
+						bool sigBlocked = tabFillCombo->blockSignals(true);
+						tabFillCombo->setEditText(QString(t));
+						tabFillCombo->blockSignals(sigBlocked);
+					}
+				}
 	emit tabrulerChanged();
 	emit tabsChanged();
 }

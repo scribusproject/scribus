@@ -354,7 +354,7 @@ void PageItem_Spiral::getBoundingRect(double *x1, double *y1, double *x2, double
 {
 	PageItem::getBoundingRect(x1, y1, x2, y2);
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
-	if (m_startArrowIndex != 0 && PoLine.size() > 0)
+	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
@@ -429,7 +429,7 @@ void PageItem_Spiral::getVisualBoundingRect(double * x1, double * y1, double * x
 {
 	PageItem::getVisualBoundingRect(x1, y1, x2, y2);
 	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
-	if (m_startArrowIndex != 0 && PoLine.size() > 0)
+	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();

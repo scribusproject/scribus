@@ -57,7 +57,7 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		m_handle = Canvas::OUTSIDE;
 		return;
 	}
-	else if (m_doc->m_Selection->isMultipleSelection())
+	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double ex, ey, eh, ew;
 		m_doc->m_Selection->getGroupRect(&ex, &ey, &ew, &eh);

@@ -223,7 +223,7 @@ void SymbolPalette::editingStart(QStringList names)
 	{
 		QList<QListWidgetItem*> items = SymbolViewWidget->findItems(names[a], Qt::MatchExactly);
 		if (items.count() > 0)
-			items[0]->setFlags(0);
+			items[0]->setFlags(Qt::NoItemFlags);
 	}
 }
 
@@ -301,7 +301,7 @@ void SymbolPalette::updateSymbolList()
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, patK[a], SymbolViewWidget);
 		if (editItemNames.contains(patK[a]))
-			item->setFlags(0);
+			item->setFlags(Qt::NoItemFlags);
 		else
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 	}

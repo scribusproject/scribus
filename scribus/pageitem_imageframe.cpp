@@ -154,7 +154,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->translate(0, m_height);
 				p->scale(1, -1);
 			}
-			if (imageClip.size() != 0)
+			if (!imageClip.empty())
 			{
 				p->setupPolygon(&imageClip);
 				p->setClipPath();
@@ -356,7 +356,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		if (dX != 0.0 || dY != 0.0)
-			if (imageClip.size() != 0)
+			if (!imageClip.empty())
 			{
 				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 				QTransform cl;

@@ -86,8 +86,7 @@ void Query::Leave()
 												QMessageBox::Yes);	// batch default
 				if (ret == QMessageBox::No)
 					return;
-				else
-					accept();
+				accept();
 			}
 			else
 			{

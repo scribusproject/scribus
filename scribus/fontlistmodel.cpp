@@ -232,8 +232,7 @@ Qt::ItemFlags FontListModel::flags(const QModelIndex &index) const
 	if (index.column() == FontListModel::FontUsable
 		   || index.column() == FontListModel::FontSubset)
 		return Qt::ItemIsUserCheckable | /*Qt::ItemIsEditable |*/ defaultFlags;
-	else
-		return defaultFlags;
+	return defaultFlags;
 }
 
 bool FontListModel::setData(const QModelIndex & idx,

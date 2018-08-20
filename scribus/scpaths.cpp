@@ -166,21 +166,18 @@ QString ScPaths::bundleDir() const
 		CFRelease(macPath);
 		return QString("%1").arg(pathPtr);
 	}
-	else
-	{
-		char buf[2048];
-		CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
-		QString q_pathPtr=QString::fromUtf8(buf);
-		if (q_pathPtr.endsWith("/bin"))
-			q_pathPtr.chop(4);
-		if (q_pathPtr.endsWith("/MacOS"))
-			q_pathPtr.chop(6);
-		if (q_pathPtr.endsWith("/Contents"))
-			q_pathPtr.chop(9);
-		CFRelease(pluginRef);
-		CFRelease(macPath);
-		return q_pathPtr;
-	}
+	char buf[2048];
+	CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
+	QString q_pathPtr=QString::fromUtf8(buf);
+	if (q_pathPtr.endsWith("/bin"))
+		q_pathPtr.chop(4);
+	if (q_pathPtr.endsWith("/MacOS"))
+		q_pathPtr.chop(6);
+	if (q_pathPtr.endsWith("/Contents"))
+		q_pathPtr.chop(9);
+	CFRelease(pluginRef);
+	CFRelease(macPath);
+	return q_pathPtr;
 #endif
 	return QString::null;
 }

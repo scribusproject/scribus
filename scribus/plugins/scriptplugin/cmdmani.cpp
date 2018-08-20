@@ -465,9 +465,8 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
 		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
-	else
-		// FIXME: Should probably return None if no selection?
-		return PyString_FromString("");
+	// FIXME: Should probably return None if no selection?
+	return PyString_FromString("");
 }
 
 PyObject *scribus_selcount(PyObject* /* self */)

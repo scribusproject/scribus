@@ -843,13 +843,11 @@ void EffectsDialog::saveValues(bool final)
 
 void EffectsDialog::selectAvailEffectDbl(QListWidgetItem* c)
 {
-	if (c)
-	{
-		if (!(c->flags() & Qt::ItemIsSelectable))
-			return;
-		else
-			moveToEffects();
-	}
+	if (!c)
+		return;
+	if (!(c->flags() & Qt::ItemIsSelectable))
+		return;
+	moveToEffects();
 }
 
 void EffectsDialog::moveToEffects()

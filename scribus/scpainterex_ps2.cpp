@@ -470,7 +470,7 @@ void ScPainterEx_Ps2::putColor(ScColorShade& colorShade, bool doFill)
 			m_stream << QString("%1 setgray stroke\n").arg(gray);
 		return;
 	}
-	else if (m_options.hProfile && m_options.rgbToOutputColorTransform && m_options.cmykToOutputColorTransform)
+	if (m_options.hProfile && m_options.rgbToOutputColorTransform && m_options.cmykToOutputColorTransform)
 	{
 		unsigned long colorIn[4];
 		unsigned long colorOut[4];

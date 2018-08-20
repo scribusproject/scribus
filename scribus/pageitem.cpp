@@ -2033,7 +2033,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->strokePath();
 			if (itemType()==ImageFrame)
 			{
-				if (imageClip.size() != 0)
+				if (!imageClip.empty())
 				{
 					p->setupPolygon(&imageClip);
 					p->strokePath();
@@ -10208,7 +10208,7 @@ void PageItem::updateClip(bool updateWelded)
 {
 	if (m_Doc->appMode == modeDrawBezierLine)
 		return;
-	if (ContourLine.size() == 0)
+	if (ContourLine.empty())
 		ContourLine = PoLine.copy();
 	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
 	bool clipBackup = ClipEdited;

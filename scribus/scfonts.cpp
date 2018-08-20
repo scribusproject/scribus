@@ -346,11 +346,11 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 		{
 			if (a.encoding_id == TT_MS_ID_UCS_4)
 				return true;
-			else if (b.encoding_id == TT_MS_ID_UCS_4)
+			if (b.encoding_id == TT_MS_ID_UCS_4)
 				return false;
-			else if (a.encoding_id == TT_MS_ID_UNICODE_CS)
+			if (a.encoding_id == TT_MS_ID_UNICODE_CS)
 				return true;
-			else if (b.encoding_id == TT_MS_ID_UNICODE_CS)
+			if (b.encoding_id == TT_MS_ID_UNICODE_CS)
 				return false;
 		}
 	}
@@ -661,9 +661,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 			FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
 		if (showFontInformation)
-			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"")
-					   .arg(filename)
-					   .arg(getFtError(error)));
+			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"").arg(filename, getFtError(error)));
 		return true;
 	}
 	getFontFormat(face, format, type);
@@ -878,7 +876,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 //debug
 			QByteArray bb;
 			t->rawData(bb);
-			QFile dump(QString("/tmp/fonts/%1-%2").arg(ts).arg(psName));
+			QFile dump(QString("/tmp/fonts/%1-%2").arg(ts, psName));
 			dump.open(IO_WriteOnly);
 			QDataStream os(&dump);
 			os.writeRawBytes(bb.data(), bb.size());

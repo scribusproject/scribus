@@ -3545,9 +3545,7 @@ bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 			{
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState *ss = new SimpleState(Um::SetLayerName,
-													QString(Um::FromTo).arg(Layers[i].Name).arg(newName),
-													Um::IDown);
+					SimpleState *ss = new SimpleState(Um::SetLayerName, QString(Um::FromTo).arg(Layers[i].Name).arg(newName), Um::IDown);
 					ss->set("CHANGE_NAME");
 					ss->set("ACTIVE", m_ActiveLayer);
 					ss->set("NEW_NAME", newName);
@@ -4790,7 +4788,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 	{
 		if (DocPages.at(pageNumber)->MPageNam != pageName)
 		{
-			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam).arg(pageName));
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam, pageName));
 			ss->set("PAGE_NUMBER", pageNumber);
 			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->MPageNam);
 			ss->set("NEW_MASTERPAGE", pageName);
@@ -14246,7 +14244,7 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		QString ohString  = QString::number(currItem->oldHeight * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nwString  = QString::number(newX * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString nhString  = QString::number(newY * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString transacDesc = QString(Um::ResizeFromTo).arg(owString).arg(ohString).arg(nwString).arg(nhString);
+		QString transacDesc = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
 		activeTransaction = m_undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize);
 	}
 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
@@ -18112,7 +18110,7 @@ bool ScribusDoc::validateNSet(const NotesStyle& NS, QString newName)
 		if (NS.range() == NS2->range())
 		{
 			if ((NS.getType() == NS2->getType()) && (NS.prefix() == NS2->prefix()) && (NS.suffix() == NS2->suffix()))
-				errStr.append(tr("%1 note style has document as range and provide same numbering style as set %2").arg(NS.name()).arg(NS2->name()) + "\n");
+				errStr.append(tr("%1 note style has document as range and provide same numbering style as set %2").arg(NS.name(), NS2->name()) + "\n");
 		}
 	}
 

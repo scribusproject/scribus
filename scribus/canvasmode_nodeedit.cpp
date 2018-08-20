@@ -67,7 +67,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
-	if ((m_doc->nodeEdit.isContourLine()) && (currItem->ContourLine.size() != 0))
+	if ((m_doc->nodeEdit.isContourLine()) && (!currItem->ContourLine.empty()))
 		cli = currItem->ContourLine;
 	else
 	{

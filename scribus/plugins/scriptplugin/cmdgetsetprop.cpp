@@ -19,7 +19,7 @@ QObject* getQObjectFromPyArg(PyObject* arg)
 		// It's a string. Look for a pageItem by that name. Do NOT accept a
 		// selection.
 		return getPageItemByName(QString::fromUtf8(PyString_AsString(arg)));
-	else if (PyCObject_Check(arg))
+	if (PyCObject_Check(arg))
 	{
 		// It's a PyCObject, ie a wrapped pointer. Check it's not nullptr
 		// and return it.
@@ -30,15 +30,11 @@ QObject* getQObjectFromPyArg(PyObject* arg)
 			PyErr_SetString(PyExc_TypeError, "INTERNAL: Passed nullptr PyCObject");
 			return nullptr;
 		}
-		else
-			return tempObject;
+		return tempObject;
 	}
-	else
-	{
-		// It's not a type we know what to do with
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Argument must be page item name, or PyCObject instance").toLocal8Bit().constData());
-		return nullptr;
-	}
+	// It's not a type we know what to do with
+	PyErr_SetString(PyExc_TypeError, QObject::tr("Argument must be page item name, or PyCObject instance").toLocal8Bit().constData());
+	return nullptr;
 }
 
 
@@ -327,8 +323,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		assert(PyErr_Occurred());
 		return nullptr;
 	}
-	else
-		return resultobj;
+	return resultobj;
 }
 
 
@@ -469,8 +464,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		Py_DECREF(objRepr);
 
 		// And return an error
-		PyErr_SetString(PyExc_TypeError,
-				QObject::tr("Couldn't convert '%1' to property type '%2'").arg(reprString).arg(propertyType).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert '%1' to property type '%2'").arg(reprString, propertyType).toLocal8Bit().constData());
 		return nullptr;
 	}
 

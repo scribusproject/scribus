@@ -63,7 +63,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/modetoolbar.h"
 #include "ui/prefs_keyboardshortcuts.h"
 
-extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::m_instance = nullptr;

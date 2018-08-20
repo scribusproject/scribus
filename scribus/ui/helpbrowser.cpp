@@ -610,8 +610,7 @@ void HelpBrowser::loadMenu()
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
 	if (baseFi.exists())
 	{
-		if (menuModel!=nullptr)
-			delete menuModel;
+		delete menuModel;
 		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
 	
 		helpNav->listView->setModel(menuModel);

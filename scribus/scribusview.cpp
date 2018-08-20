@@ -176,7 +176,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setWidget(m_canvas);
 	//already done by QScrollArea: widget()->installEventFilter(this);
 	installEventFilter(this); // FIXME:av
-//	viewport()->setBackgroundMode(Qt::PaletteBackground);
+	//	viewport()->setBackgroundMode(Qt::PaletteBackground);
 	setFocusPolicy(Qt::ClickFocus);
 	QFont fo = QFont(font());
 	// #8058: Better not use too small font size on Windows
@@ -210,17 +210,17 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	redrawMarker->hide();
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
-//  #13101 : "viewPreviewMode" is checked if necessary in ScribusMainWindow::newActWin()
-//  At this point the view and parent window may not be able to perform all what is necessary to
-//  enable preview mode anyway, especially when loading an existing doc.
-//	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
+	//  #13101 : "viewPreviewMode" is checked if necessary in ScribusMainWindow::newActWin()
+	//  At this point the view and parent window may not be able to perform all what is necessary to
+	//  enable preview mode anyway, especially when loading an existing doc.
+	//	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_mousePointDoc = FPoint(0,0);
 	Doc->regionsChanged()->connectObserver(this);
 	connect(this, SIGNAL(HaveSel()), Doc, SLOT(selectionChanged()));
-// Commented out to fix bug #7865
-//	m_dragTimer = new QTimer(this);
-//	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
-//	m_dragTimer->stop();
+	// Commented out to fix bug #7865
+	//	m_dragTimer = new QTimer(this);
+	//	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
+	//	m_dragTimer->stop();
 	m_dragTimerFired = false;
 	clockLabel = new ClockWidget(this, Doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
@@ -310,7 +310,7 @@ void ScribusView::togglePreview(bool inPreview)
 		// as from #4346: Add a preview for daltonian - PV
 		if (Doc->HasCMS && Doc->Gamut)
 			ScMessageBox::information(m_ScMW, tr("Preview Mode"),
-						"<qt>" + tr("CMS is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
+									  "<qt>" + tr("CMS is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
 	}
 	else
 	{
@@ -349,7 +349,7 @@ void ScribusView::changed(QRectF re, bool)
 	int newCanvasWidth = qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * scale);
 	int newCanvasHeight = qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * scale);
 	if (!re.isValid() && // don't check this all the time
-		( m_oldCanvasWidth != newCanvasWidth || m_oldCanvasHeight != newCanvasHeight))
+			( m_oldCanvasWidth != newCanvasWidth || m_oldCanvasHeight != newCanvasHeight))
 	{
 		QSize maxViewport = maximumViewportSize();
 		horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale),
@@ -414,8 +414,8 @@ void ScribusView::stopGesture()
 		if (PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		{
 			m_canvas->setForcedRedraw(true);
-//			Doc->m_Selection->clear();
-//			emit HaveSel();
+			//			Doc->m_Selection->clear();
+			//			emit HaveSel();
 			m_canvas->resetRenderMode();
 			updateContents();
 		}
@@ -433,7 +433,7 @@ switches between appmodes:
 void ScribusView::requestMode(int appMode)
 {
 	bool updateNecessary = false;
-//	qDebug() << "request mode:" << appMode;
+	//	qDebug() << "request mode:" << appMode;
 	switch(appMode) // filter submodes
 	{
 		case submodePaintingDone:   // return to normal mode
@@ -667,11 +667,11 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		dragH = gh;
 		DraggedGroup = true;
 		getDragRectScreen(&gx, &gy, &gw, &gh);
-//		QPoint evP = viewport()->mapToGlobal(e->pos());
-//		evP -= QPoint(contentsX(), contentsY());
-//		redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
-//		if (!redrawMarker->isVisible())
-//			redrawMarker->show();
+		//		QPoint evP = viewport()->mapToGlobal(e->pos());
+		//		evP -= QPoint(contentsX(), contentsY());
+		//		redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
+		//		if (!redrawMarker->isVisible())
+		//			redrawMarker->show();
 		emit ItemGeom();
 	}
 }
@@ -686,23 +686,23 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		text = e->mimeData()->text();
 		if (DraggedGroup)
 		{
-//			double gx, gy, gw, gh;
+			//			double gx, gy, gw, gh;
 			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
 			dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
-//			getDragRectScreen(&gx, &gy, &gw, &gh);
-//			QPoint evP = viewport()->mapToGlobal(e->pos());
-//			evP -= QPoint(contentsX(), contentsY());
-//			redrawMarker->setGeometry(QRect(evP.x() + 2, evP.y() + 2, qRound(gw - 2), qRound(gh - 2)).normalized());
-//			if (!redrawMarker->isVisible())
-//				redrawMarker->show();
+			//			getDragRectScreen(&gx, &gy, &gw, &gh);
+			//			QPoint evP = viewport()->mapToGlobal(e->pos());
+			//			evP -= QPoint(contentsX(), contentsY());
+			//			redrawMarker->setGeometry(QRect(evP.x() + 2, evP.y() + 2, qRound(gw - 2), qRound(gh - 2)).normalized());
+			//			if (!redrawMarker->isVisible())
+			//				redrawMarker->show();
 			emit MousePos(dragX, dragY); //+Doc->minCanvasCoordinate.x(), dragY+Doc->minCanvasCoordinate.y());
 			QPoint pos = m_canvas->canvasToLocal(dragPosDoc);
 			horizRuler->Draw(pos.x());
 			vertRuler->Draw(pos.y());
-//			return;
+			//			return;
 		}
-/*		QUrl ur(text);
+		/*		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.toLocalFile());
 		QString ext = fi.extension(false).toUpper();
 		QStrList imfo = QImageIO::inputFormats();
@@ -737,7 +737,7 @@ void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *)
 	{
 		DraggedGroup = false;
 		m_canvas->resetRenderMode();
-//		redrawMarker->hide();
+		//		redrawMarker->hide();
 		updateContents();
 	}
 }
@@ -926,7 +926,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 	}
 
-//	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
+	//	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
 	if (url.isEmpty())
 	{
 		e->ignore();
@@ -974,7 +974,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
 			vectorFile = true;
 	}
-//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
+	//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
 	//CB When we drag an image to a page from outside
 	//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 	if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
@@ -1017,7 +1017,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		return;
 	}
 	//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
+	//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
 	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
 	{
 		PageItem *b = Doc->m_Selection->itemAt(0);
@@ -1026,57 +1026,58 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			if ((fi.exists()) && (img))
 				Doc->loadPict(url.toLocalFile(), b);
 		}
-		else if (b->itemType() == PageItem::TextFrame)
-		{
-			if ((fi.exists()) && (!img))
+		else
+			if (b->itemType() == PageItem::TextFrame)
 			{
-				gtGetText* gt = new gtGetText(Doc);
-				QStringList exts = gt->getSupportedTypes();
-				if (exts.contains(fi.suffix().toLower()))
+				if ((fi.exists()) && (!img))
 				{
-					ImportSetup impsetup;
-					impsetup.runDialog = true;
-					impsetup.encoding = "";
-					impsetup.prefixNames = true;
-					impsetup.textOnly = false;
-					impsetup.importer = -1;
-					impsetup.filename = url.toLocalFile();
-					if (b->itemText.length() != 0)
+					gtGetText* gt = new gtGetText(Doc);
+					QStringList exts = gt->getSupportedTypes();
+					if (exts.contains(fi.suffix().toLower()))
 					{
-						int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
-													  QMessageBox::Yes | QMessageBox::No,
-													  QMessageBox::No,	// GUI default
-													  QMessageBox::Yes);	// batch default
-						if (t == QMessageBox::No)
+						ImportSetup impsetup;
+						impsetup.runDialog = true;
+						impsetup.encoding = "";
+						impsetup.prefixNames = true;
+						impsetup.textOnly = false;
+						impsetup.importer = -1;
+						impsetup.filename = url.toLocalFile();
+						if (b->itemText.length() != 0)
 						{
-							delete gt;
-							return;
+							int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
+														  QMessageBox::Yes | QMessageBox::No,
+														  QMessageBox::No,	// GUI default
+														  QMessageBox::Yes);	// batch default
+							if (t == QMessageBox::No)
+							{
+								delete gt;
+								return;
+							}
+						}
+						gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames, b);
+						m_ScMW->updateFromDrop();
+					}
+					else
+					{
+						QByteArray file;
+						QTextCodec *codec = QTextCodec::codecForLocale();
+						// TODO create a Dialog for selecting the codec
+						if (loadRawText(url.toLocalFile(), file))
+						{
+							QString txt = codec->toUnicode( file.data() );
+							txt.replace(QRegExp("\r"), QChar(13));
+							txt.replace(QRegExp("\n"), QChar(13));
+							txt.replace(QRegExp("\t"), QChar(9));
+							b->itemText.insertChars(txt, true);
 						}
 					}
-					gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames, b);
-					m_ScMW->updateFromDrop();
+					if (Doc->docHyphenator->AutoCheck)
+						Doc->docHyphenator->slotHyphenate(b);
+					b->invalidateLayout();
+					b->update();
+					delete gt;
 				}
-				else
-				{
-					QByteArray file;
-					QTextCodec *codec = QTextCodec::codecForLocale();
-					// TODO create a Dialog for selecting the codec
-					if (loadRawText(url.toLocalFile(), file))
-					{
-						QString txt = codec->toUnicode( file.data() );
-						txt.replace(QRegExp("\r"), QChar(13));
-						txt.replace(QRegExp("\n"), QChar(13));
-						txt.replace(QRegExp("\t"), QChar(9));
-						b->itemText.insertChars(txt, true);
-					}
-				}
-				if (Doc->docHyphenator->AutoCheck)
-					Doc->docHyphenator->slotHyphenate(b);
-				b->invalidateLayout();
-				b->update();
-				delete gt;
 			}
-		}
 		emit DocChanged();
 		update();
 	}
@@ -1160,16 +1161,16 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				PageItem *newItem = Doc->m_Selection->itemAt(0);
 				if ((newItem->width() > Doc->currentPage()->width()) || (newItem->height() > Doc->currentPage()->height()))
 				{
-				//	QMenu *pmen = new QMenu();
-				//	pmen->addAction( tr("Keep original Size"));
-				//	pmen->addAction( tr("Scale to Page Size"));
-				//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
-				//	delete pmen;
-				//	if (re == 1)
-				//	{
-						Doc->rescaleGroup(newItem, qMin(qMin(Doc->currentPage()->width() / newItem->width(), Doc->currentPage()->height() / newItem->height()), 1.0));
-						newItem->update();
-				//	}
+					//	QMenu *pmen = new QMenu();
+					//	pmen->addAction( tr("Keep original Size"));
+					//	pmen->addAction( tr("Scale to Page Size"));
+					//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+					//	delete pmen;
+					//	if (re == 1)
+					//	{
+					Doc->rescaleGroup(newItem, qMin(qMin(Doc->currentPage()->width() / newItem->width(), Doc->currentPage()->height() / newItem->height()), 1.0));
+					newItem->update();
+					//	}
 				}
 			}
 			activeTransaction.commit();
@@ -1377,7 +1378,7 @@ void ScribusView::normalizeSelectionRect() // unsused
 void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
 {
 	QPoint in(qRound(dragX*m_canvas->scale()), qRound(dragY*m_canvas->scale()));
-//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
+	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
@@ -1390,7 +1391,7 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 	double gx, gy, gh, gw;
 	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	QPoint in(qRound(gx*m_canvas->scale()), qRound(gy*m_canvas->scale()));
-//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
+	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
@@ -1486,65 +1487,65 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->ContourLine.translate(-qRound((tp.x() + tp2.x()) / 2.0), -qRound((tp.y() + tp2.y()) / 2.0));
 		switch (mode)
 		{
-		case 0:
-			ma.rotate(-rot);
-			break;
-		case 1:
-			ma.rotate(rot);
-			break;
-		case 2:
-			ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
-			break;
-		case 3:
-			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
-			break;
-		case 4:
-			ma.shear(0.017455, 0);
-			break;
-		case 5:
-			ma.shear(-0.017455, 0);
-			break;
-		case 6:
-			ma.shear(0, -0.017455);
-			break;
-		case 7:
-			ma.shear(0, 0.017455);
-			break;
-		case 8:
-			ma.scale(1.0 - (scaling / tpS.x()),1.0 - (scaling / tpS.y()));
-			break;
-		case 9:
-			ma.scale(1.0 + (scaling / tpS.x()),1.0 + (scaling / tpS.y()));
-			break;
-		//10-13 are for scaling the contour line in shape edit mode
-		case 10:
-			{
-				double s=1.0 - (scaling/(tp2.x() - tp.x()));
-				ma.scale(s, 1);
-				ma.translate(-scaling/s/2,0);
-			}
-			break;
-		case 11:
-			{
-				double s=1.0 - (scaling/(tp2.x() - tp.x()));
-				ma.scale(s, 1);
-				ma.translate(scaling/s/2,0);
-			}
-			break;
-		case 12:
-			{
-				double s=1.0 - (scaling/(tp2.y() - tp.y()));
-				ma.scale(1, s);
-				ma.translate(0,-scaling/s/2);
-			}
-			break;
-		case 13:
-			{
-				double s=1.0 - (scaling/(tp2.y() - tp.y()));
-				ma.scale(1, s);
-				ma.translate(0,scaling/s/2);
-			}
-			break;
+			case 0:
+				ma.rotate(-rot);
+				break;
+			case 1:
+				ma.rotate(rot);
+				break;
+			case 2:
+				ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
+				break;
+			case 3:
+				ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+				break;
+			case 4:
+				ma.shear(0.017455, 0);
+				break;
+			case 5:
+				ma.shear(-0.017455, 0);
+				break;
+			case 6:
+				ma.shear(0, -0.017455);
+				break;
+			case 7:
+				ma.shear(0, 0.017455);
+				break;
+			case 8:
+				ma.scale(1.0 - (scaling / tpS.x()),1.0 - (scaling / tpS.y()));
+				break;
+			case 9:
+				ma.scale(1.0 + (scaling / tpS.x()),1.0 + (scaling / tpS.y()));
+				break;
+				//10-13 are for scaling the contour line in shape edit mode
+			case 10:
+				{
+					double s=1.0 - (scaling/(tp2.x() - tp.x()));
+					ma.scale(s, 1);
+					ma.translate(-scaling/s/2,0);
+				}
+				break;
+			case 11:
+				{
+					double s=1.0 - (scaling/(tp2.x() - tp.x()));
+					ma.scale(s, 1);
+					ma.translate(scaling/s/2,0);
+				}
+				break;
+			case 12:
+				{
+					double s=1.0 - (scaling/(tp2.y() - tp.y()));
+					ma.scale(1, s);
+					ma.translate(0,-scaling/s/2);
+				}
+				break;
+			case 13:
+				{
+					double s=1.0 - (scaling/(tp2.y() - tp.y()));
+					ma.scale(1, s);
+					ma.translate(0,scaling/s/2);
+				}
+				break;
 		}
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
@@ -1575,36 +1576,36 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	ma.translate(-offsX, -offsY);
 	switch (mode)
 	{
-	case 0:
-		ma.rotate(-rot);
-		break;
-	case 1:
-		ma.rotate(rot);
-		break;
-	case 2:
-		ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
-		break;
-	case 3:
-		ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
-		break;
-	case 4:
-		ma.shear(0.017455, 0);
-		break;
-	case 5:
-		ma.shear(-0.017455, 0);
-		break;
-	case 6:
-		ma.shear(0, -0.017455);
-		break;
-	case 7:
-		ma.shear(0, 0.017455);
-		break;
-	case 8:
-		ma.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
-		break;
-	case 9:
-		ma.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
-		break;
+		case 0:
+			ma.rotate(-rot);
+			break;
+		case 1:
+			ma.rotate(rot);
+			break;
+		case 2:
+			ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
+			break;
+		case 3:
+			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+			break;
+		case 4:
+			ma.shear(0.017455, 0);
+			break;
+		case 5:
+			ma.shear(-0.017455, 0);
+			break;
+		case 6:
+			ma.shear(0, -0.017455);
+			break;
+		case 7:
+			ma.shear(0, 0.017455);
+			break;
+		case 8:
+			ma.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
+			break;
+		case 9:
+			ma.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
+			break;
 	}
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(offsX, offsY);
@@ -1616,36 +1617,36 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	FPoint n(-offsX, -offsY);
 	switch (mode)
 	{
-	case 0:
-		ma2.rotate(-rot);
-		break;
-	case 1:
-		ma2.rotate(rot);
-		break;
-	case 2:
-		ma2.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
-		break;
-	case 3:
-		ma2.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
-		break;
-	case 4:
-		ma2.shear(0.017455, 0);
-		break;
-	case 5:
-		ma2.shear(-0.017455, 0);
-		break;
-	case 6:
-		ma2.shear(0, -0.017455);
-		break;
-	case 7:
-		ma2.shear(0, 0.017455);
-		break;
-	case 8:
-		ma2.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
-		break;
-	case 9:
-		ma2.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
-		break;
+		case 0:
+			ma2.rotate(-rot);
+			break;
+		case 1:
+			ma2.rotate(rot);
+			break;
+		case 2:
+			ma2.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
+			break;
+		case 3:
+			ma2.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+			break;
+		case 4:
+			ma2.shear(0.017455, 0);
+			break;
+		case 5:
+			ma2.shear(-0.017455, 0);
+			break;
+		case 6:
+			ma2.shear(0, -0.017455);
+			break;
+		case 7:
+			ma2.shear(0, 0.017455);
+			break;
+		case 8:
+			ma2.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
+			break;
+		case 9:
+			ma2.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
+			break;
 	}
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
 	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
@@ -1759,14 +1760,14 @@ void ScribusView::dragTimerTimeOut()
 {
 	m_dragTimerFired = true;
 	// #0007865
-// 	qApp->changeOverrideCursor(QCursor(loadIcon("dragpix.png")));
+	// 	qApp->changeOverrideCursor(QCursor(loadIcon("dragpix.png")));
 }
 
 void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 {
 	QPoint tx, tx2;
 	QTransform ma;
-//	ma.translate(-Doc->minCanvasCoordinate.x()*m_canvas->scale(), -Doc->minCanvasCoordinate.y()*m_canvas->scale());
+	//	ma.translate(-Doc->minCanvasCoordinate.x()*m_canvas->scale(), -Doc->minCanvasCoordinate.y()*m_canvas->scale());
 	m_canvas->Transform(currItem, ma);
 	tx = ma.map(QPoint(static_cast<int>(currItem->width()), 0));
 	tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())));
@@ -1806,7 +1807,7 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 		{
 			double rr = fabs(currItem->rotation());
 			if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) ||
-			        ((rr >= 315.0) && (rr <= 360.0)))
+					((rr >= 315.0) && (rr <= 360.0)))
 				setCursor(QCursor(Qt::SizeFDiagCursor));
 			if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
 				setCursor(QCursor(Qt::SizeBDiagCursor));
@@ -1830,7 +1831,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			Doc->m_Selection->addItem(currItem);
 			currItem->isSingleSel = true;
 			updateContents();
-//			updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+			//			updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 		}
 		else
 		{
@@ -1853,15 +1854,15 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			getGroupRectScreen(&x, &y, &w, &h);
 			updateContents();
-	//		updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			//		updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			//CB move in here as the emitAllToGUI will do it otherwise
 			emit ItemGeom();
 			emit HaveSel();
 		}
 		//CB done by addItem for single selection or the frame data is already there
 		//else
-			//EmitValues(currItem);
-			//currItem->emitAllToGUI();
+		//EmitValues(currItem);
+		//currItem->emitAllToGUI();
 	}
 }
 
@@ -1900,7 +1901,7 @@ void ScribusView::Deselect(bool /*prop*/)
 	}
 }
 
- // FIXME:av -> CanvasMode_legacy / Doc
+// FIXME:av -> CanvasMode_legacy / Doc
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
@@ -1992,7 +1993,7 @@ void ScribusView::PasteToPage()
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
-// 	qDebug() << "ScribusView::resizeEvent";
+	// 	qDebug() << "ScribusView::resizeEvent";
 	QScrollArea::resizeEvent(event);
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
@@ -2136,13 +2137,13 @@ void ScribusView::setRulerPos(int x, int y)
 		horizRuler->shift(x / m_canvas->scale());
 		vertRuler->shift(y / m_canvas->scale());
 	}
-//	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
-//	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
+	//	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
+	//	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
 	horizRuler->shiftRel(0*Doc->minCanvasCoordinate.x()  - Doc->rulerXoffset);
 	vertRuler->shiftRel(0*Doc->minCanvasCoordinate.y()  - Doc->rulerYoffset);
 	horizRuler->update();
 	vertRuler->update();
-//	evSpon = true;
+	//	evSpon = true;
 	QString newStatusBarText(" ");
 	if ((verticalScrollBar()->isSliderDown()) || (horizontalScrollBar()->isSliderDown()))
 	{
@@ -2156,7 +2157,7 @@ void ScribusView::setRulerPos(int x, int y)
 			int ws = static_cast<int>(Doc->Pages->at(i)->width() * m_canvas->scale());
 			int hs = static_cast<int>(Doc->Pages->at(i)->height() * m_canvas->scale());
 			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
-//			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
+			//			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
 				pag.append(i+1);
 		}
@@ -2176,7 +2177,7 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 	if (fe==nullptr)
 		return nullptr;
 	//Note this picks up the new page or master page depending on the mode.
-//	reformPages(mov);
+	//	reformPages(mov);
 	Doc->reformPages(mov);
 	m_ScMW->slotSetCurrentPage(nr);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -2188,8 +2189,8 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 	Magnify = false;
 	Doc->nodeEdit.setEdPoints(true);
 	DraggedGroup = false;
-//FIXME:av	MoveGY = false;
-//FIXME:av	MoveGX = false;
+	//FIXME:av	MoveGY = false;
+	//FIXME:av	MoveGX = false;
 	Doc->nodeEdit.setIsContourLine(false);
 	return fe;
 }
@@ -2232,9 +2233,9 @@ void ScribusView::updateCanvas(QRectF box)
 		upperLeft.setY(qMax(0, upperLeft.y()-10));
 		lowerRight.setX(qMax(0, lowerRight.x()+10));
 		lowerRight.setY(qMax(0, lowerRight.y()+10));
-//		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
+		//		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
 		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x()-upperLeft.x(), lowerRight.y()-upperLeft.y());
-/*		double scale = m_canvas->scale();
+		/*		double scale = m_canvas->scale();
 		double x = box.x() * scale;
 		double y = box.y() * scale;
 		double w = box.width() * scale;
@@ -2491,8 +2492,8 @@ FPoint ScribusView::translateToViewport(FPoint in) // deprecated
 
 void ScribusView::DrawNew()
 {
-// 	qDebug("ScribusView::DrawNew");
-// 	printBacktrace(24);
+	// 	qDebug("ScribusView::DrawNew");
+	// 	printBacktrace(24);
 	if (m_ScMW->scriptIsRunning())
 		return;
 	m_canvas->setForcedRedraw(true);
@@ -2500,9 +2501,9 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	m_ScMW->slotSetCurrentPage(Doc->currentPage()->pageNr());
-//	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
-//	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
-//	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
+	//	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
+	//	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
+	//	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 }
 
 void ScribusView::SetCCPo(double x, double y)
@@ -2511,7 +2512,7 @@ void ScribusView::SetCCPo(double x, double y)
 		return;
 	QPoint nx = m_canvas->canvasToLocal(FPoint(x, y));
 	QSize viewsize = viewport()->size();
-//	qDebug() << "setCCPo" << nx << viewsize;
+	//	qDebug() << "setCCPo" << nx << viewsize;
 	setContentsPos(nx.x() - viewsize.width() / 2, nx.y() - viewsize.height() / 2);
 }
 
@@ -3074,92 +3075,123 @@ void ScribusView::FromPathText()
 // anyone who wants to fix and knows how to test it.
 class TextToPathPainter: public TextLayoutPainter
 {
-	ScribusView* m_view;
-	PageItem* m_item;
-	QList<PageItem*> &m_group;
-	int m_counter;
+		ScribusView* m_view;
+		PageItem* m_item;
+		QList<PageItem*> &m_group;
+		int m_counter;
 
-public:
-	TextToPathPainter(ScribusView* view, PageItem* item, QList<PageItem*> &group)
-		: m_view(view)
-		, m_item(item)
-		, m_group(group)
-		, m_counter(0)
-	{}
+	public:
+		TextToPathPainter(ScribusView* view, PageItem* item, QList<PageItem*> &group)
+			: m_view(view)
+			, m_item(item)
+			, m_group(group)
+			, m_counter(0)
+		{}
 
-	void drawGlyph(const GlyphCluster& gc)
-	{
-		for (const GlyphLayout& gl : gc.glyphs())
+		void drawGlyph(const GlyphCluster& gc)
 		{
-			FPointArray outline = font().glyphOutline(gl.glyph);
-			if (outline.size() < 4)
-				return;
-			QTransform transform;
-			if (m_item->isPathText())
-				transform = matrix();
-			if (m_item->imageFlippedH())
+			for (const GlyphLayout& gl : gc.glyphs())
 			{
-				transform.translate(m_item->width(), 0);
-				transform.scale(-1, 1);
+				FPointArray outline = font().glyphOutline(gl.glyph);
+				if (outline.size() < 4)
+					return;
+				QTransform transform;
+				if (m_item->isPathText())
+					transform = matrix();
+				if (m_item->imageFlippedH())
+				{
+					transform.translate(m_item->width(), 0);
+					transform.scale(-1, 1);
+				}
+				if (m_item->imageFlippedV())
+				{
+					transform.translate(0, m_item->height());
+					transform.scale(1, -1);
+				}
+				transform.translate(x(), y());
+				transform.translate(0, -(fontSize() * gl.scaleV));
+				transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
+				outline.map(transform);
+				int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), 0, fillColor().color, CommonStrings::None);
+				PageItem* item = m_view->Doc->Items->at(z);
+				m_view->undoManager->setUndoEnabled(false);
+				item->setTextFlowMode(m_item->textFlowMode());
+				item->setSizeLocked(m_item->sizeLocked());
+				item->setLocked(m_item->locked());
+				item->NamedLStyle = m_item->NamedLStyle;
+				item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
+				item->PoLine = outline.copy();
+				if (!m_item->asPathText())
+					item->setRotation(m_item->rotation());
+				item->setFillColor(fillColor().color);
+				item->setFillShade(fillColor().shade);
+				m_view->Doc->adjustItemSize(item);
+				item->ContourLine = item->PoLine.copy();
+				item->ClipEdited = true;
+				item->FrameType = 3;
+				item->OldB2 = item->width();
+				item->OldH2 = item->height();
+				m_view->Doc->setRedrawBounding(item);
+				m_view->undoManager->setUndoEnabled(true);
+				m_group.append(m_view->Doc->Items->takeAt(z));
 			}
-			if (m_item->imageFlippedV())
-			{
-				transform.translate(0, m_item->height());
-				transform.scale(1, -1);
-			}
-			transform.translate(x(), y());
-			transform.translate(0, -(fontSize() * gl.scaleV));
-			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
-			outline.map(transform);
-			int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), 0, fillColor().color, CommonStrings::None);
-			PageItem* item = m_view->Doc->Items->at(z);
-			m_view->undoManager->setUndoEnabled(false);
-			item->setTextFlowMode(m_item->textFlowMode());
-			item->setSizeLocked(m_item->sizeLocked());
-			item->setLocked(m_item->locked());
-			item->NamedLStyle = m_item->NamedLStyle;
-			item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
-			item->PoLine = outline.copy();
-			if (!m_item->asPathText())
-				item->setRotation(m_item->rotation());
-			item->setFillColor(fillColor().color);
-			item->setFillShade(fillColor().shade);
-			m_view->Doc->adjustItemSize(item);
-			item->ContourLine = item->PoLine.copy();
-			item->ClipEdited = true;
-			item->FrameType = 3;
-			item->OldB2 = item->width();
-			item->OldH2 = item->height();
-			m_view->Doc->setRedrawBounding(item);
-			m_view->undoManager->setUndoEnabled(true);
-			m_group.append(m_view->Doc->Items->takeAt(z));
 		}
-	}
-	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
-	{
-		for (const GlyphLayout& gl : gc.glyphs())
+		void drawGlyphOutline(const GlyphCluster& gc, bool fill)
 		{
-			FPointArray outline = font().glyphOutline(gl.glyph);
-			if (outline.size() < 4)
-				return;
-			QTransform transform;
-			if (m_item->isPathText())
-				transform = matrix();
-			if (m_item->imageFlippedH())
+			for (const GlyphLayout& gl : gc.glyphs())
 			{
-				transform.translate(m_item->width(), 0);
-				transform.scale(-1, 1);
+				FPointArray outline = font().glyphOutline(gl.glyph);
+				if (outline.size() < 4)
+					return;
+				QTransform transform;
+				if (m_item->isPathText())
+					transform = matrix();
+				if (m_item->imageFlippedH())
+				{
+					transform.translate(m_item->width(), 0);
+					transform.scale(-1, 1);
+				}
+				if (m_item->imageFlippedV())
+				{
+					transform.translate(0, m_item->height());
+					transform.scale(1, -1);
+				}
+				transform.translate(x(), y());
+				transform.translate(0, -(fontSize() * gl.scaleV));
+				transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
+				outline.map(transform);
+				int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), strokeWidth(), fillColor().color, strokeColor().color);
+				PageItem* item = m_view->Doc->Items->at(z);
+				m_view->undoManager->setUndoEnabled(false);
+				item->setTextFlowMode(m_item->textFlowMode());
+				item->setSizeLocked(m_item->sizeLocked());
+				item->setLocked(m_item->locked());
+				item->NamedLStyle = m_item->NamedLStyle;
+				item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
+				item->PoLine = outline.copy();
+				if (!m_item->asPathText())
+					item->setRotation(m_item->rotation());
+				item->setFillColor(fillColor().color);
+				item->setFillShade(fillColor().shade);
+				item->setLineColor(strokeColor().color);
+				item->setLineShade(strokeColor().shade);
+				item->setLineWidth(strokeWidth());
+				m_view->Doc->adjustItemSize(item);
+				item->ContourLine = item->PoLine.copy();
+				item->ClipEdited = true;
+				item->FrameType = 3;
+				item->OldB2 = item->width();
+				item->OldH2 = item->height();
+				m_view->Doc->setRedrawBounding(item);
+				m_view->undoManager->setUndoEnabled(true);
+				m_group.append(m_view->Doc->Items->takeAt(z));
 			}
-			if (m_item->imageFlippedV())
-			{
-				transform.translate(0, m_item->height());
-				transform.scale(1, -1);
-			}
+		}
+		void drawLine(QPointF start, QPointF end)
+		{
+			QTransform transform = matrix();
 			transform.translate(x(), y());
-			transform.translate(0, -(fontSize() * gl.scaleV));
-			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
-			outline.map(transform);
-			int z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), strokeWidth(), fillColor().color, strokeColor().color);
+			int z = m_view->Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
 			PageItem* item = m_view->Doc->Items->at(z);
 			m_view->undoManager->setUndoEnabled(false);
 			item->setTextFlowMode(m_item->textFlowMode());
@@ -3167,13 +3199,11 @@ public:
 			item->setLocked(m_item->locked());
 			item->NamedLStyle = m_item->NamedLStyle;
 			item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
-			item->PoLine = outline.copy();
-			if (!m_item->asPathText())
-				item->setRotation(m_item->rotation());
-			item->setFillColor(fillColor().color);
-			item->setFillShade(fillColor().shade);
-			item->setLineColor(strokeColor().color);
-			item->setLineShade(strokeColor().shade);
+			item->PoLine.resize(0);
+			item->PoLine.addQuadPoint(FPoint(start), FPoint(start), FPoint(end), FPoint(end));
+			item->PoLine.map(transform);
+			item->setLineColor(fillColor().color);
+			item->setLineShade(fillColor().shade);
 			item->setLineWidth(strokeWidth());
 			m_view->Doc->adjustItemSize(item);
 			item->ContourLine = item->PoLine.copy();
@@ -3185,37 +3215,8 @@ public:
 			m_view->undoManager->setUndoEnabled(true);
 			m_group.append(m_view->Doc->Items->takeAt(z));
 		}
-	}
-	void drawLine(QPointF start, QPointF end)
-	{
-		QTransform transform = matrix();
-		transform.translate(x(), y());
-		int z = m_view->Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
-		PageItem* item = m_view->Doc->Items->at(z);
-		m_view->undoManager->setUndoEnabled(false);
-		item->setTextFlowMode(m_item->textFlowMode());
-		item->setSizeLocked(m_item->sizeLocked());
-		item->setLocked(m_item->locked());
-		item->NamedLStyle = m_item->NamedLStyle;
-		item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
-		item->PoLine.resize(0);
-		item->PoLine.addQuadPoint(FPoint(start), FPoint(start), FPoint(end), FPoint(end));
-		item->PoLine.map(transform);
-		item->setLineColor(fillColor().color);
-		item->setLineShade(fillColor().shade);
-		item->setLineWidth(strokeWidth());
-		m_view->Doc->adjustItemSize(item);
-		item->ContourLine = item->PoLine.copy();
-		item->ClipEdited = true;
-		item->FrameType = 3;
-		item->OldB2 = item->width();
-		item->OldH2 = item->height();
-		m_view->Doc->setRedrawBounding(item);
-		m_view->undoManager->setUndoEnabled(true);
-		m_group.append(m_view->Doc->Items->takeAt(z));
-	}
-	void drawRect(QRectF rect) {}
-	void drawObject(PageItem* item) {}
+		void drawRect(QRectF rect) {}
+		void drawObject(PageItem* item) {}
 };
 
 void ScribusView::TextToPath()
@@ -3388,7 +3389,7 @@ void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
 
 QVariant ScribusView::inputMethodQuery ( Qt::InputMethodQuery query ) const
 {
-//	qDebug() << "IMQ" << query;
+	//	qDebug() << "IMQ" << query;
 	return QVariant();
 }
 
@@ -3496,8 +3497,8 @@ double ScribusView::scale() const
 
 bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 {
-//	if (obj == horizRuler || obj == vertRuler || obj == rulerMover)
-//		return true; // FIXME:av
+	//	if (obj == horizRuler || obj == vertRuler || obj == rulerMover)
+	//		return true; // FIXME:av
 
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
@@ -3510,7 +3511,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		m_canvasMode->mouseMoveEvent(m);
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::MouseButtonRelease)
+	if (obj == widget() && event->type() == QEvent::MouseButtonRelease)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseReleaseEvent(m);
@@ -3544,7 +3545,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		}
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::MouseButtonPress)
+	if (obj == widget() && event->type() == QEvent::MouseButtonPress)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		bool linkmode = (Doc->appMode == modeLinkFrames);
@@ -3571,13 +3572,13 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::MouseButtonDblClick)
+	if (obj == widget() && event->type() == QEvent::MouseButtonDblClick)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseDoubleClickEvent(m);
 		return true;
 	}
-	else if (event->type() == QEvent::KeyPress)
+	if (event->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if (m_canvasMode->handleKeyEvents())
@@ -3586,7 +3587,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			m_ScMW->keyPressEvent(m);
 		return true;
 	}
-	else if (event->type() == QEvent::KeyRelease)
+	if (event->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if (m_canvasMode->handleKeyEvents())
@@ -3595,25 +3596,25 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			m_ScMW->keyReleaseEvent(m);
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::DragEnter)
+	if (obj == widget() && event->type() == QEvent::DragEnter)
 	{
 		QDragEnterEvent* d = static_cast<QDragEnterEvent*> (event);
 		contentsDragEnterEvent(d);
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::DragLeave)
+	if (obj == widget() && event->type() == QEvent::DragLeave)
 	{
 		QDragLeaveEvent* d = static_cast<QDragLeaveEvent*> (event);
 		contentsDragLeaveEvent(d);
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::DragMove)
+	if (obj == widget() && event->type() == QEvent::DragMove)
 	{
 		QDragMoveEvent* d = static_cast<QDragMoveEvent*> (event);
 		contentsDragMoveEvent(d);
 		return true;
 	}
-	else if (obj == widget() && event->type() == QEvent::Drop)
+	if (obj == widget() && event->type() == QEvent::Drop)
 	{
 		QDropEvent* d = static_cast<QDropEvent*> (event);
 		contentsDropEvent(d);
@@ -3652,7 +3653,7 @@ void ScribusView::repaintContents(QRect box)
 
 void ScribusView::resizeContents(int w, int h)  // deprecated
 {
-//	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
+	//	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
 	int originX = qRound(Doc->minCanvasCoordinate.x() * scale());
 	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
 	widget()->resize(w - 0*originX, h - 0*originY);

@@ -523,14 +523,11 @@ void SearchReplace::slotDoSearch()
 				m_replStart = a;
 				break;
 			}
-			else
+			if (SText->isChecked())
 			{
-				if (SText->isChecked())
-				{
-					for (int xx = m_replStart; xx < a+1; ++xx)
-						m_item->itemText.select(qMin(xx, maxChar), 1, false);
-					m_item->HasSel = false;
-				}
+				for (int xx = m_replStart; xx < a+1; ++xx)
+					m_item->itemText.select(qMin(xx, maxChar), 1, false);
+				m_item->HasSel = false;
 			}
 		}
 		if ((!found) || (a == m_item->itemText.length()))

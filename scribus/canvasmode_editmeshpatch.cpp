@@ -265,7 +265,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 		{
 			psx->drawPoint(m_clickPointPolygon.value(col));
 		}
-		if (m_clickPointPolygon.size() > 0)
+		if (!m_clickPointPolygon.empty())
 		{
 			psx->setPen(p1bd);
 			psx->drawLine(m_clickPointPolygon.value(m_clickPointPolygon.count() - 1), m_currentPoint);
@@ -553,13 +553,10 @@ void CanvasMode_EditMeshPatch::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		else
+		if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->asTextFrame()))
 		{
-			if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->asTextFrame()))
-			{
-				mousePressEvent(m);
-				return;
-			}
+			mousePressEvent(m);
+			return;
 		}
 	}
 }

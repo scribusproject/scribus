@@ -196,7 +196,7 @@ void InlinePalette::editingStart(int itemID)
 	{
 		QListWidgetItem* item = InlineViewWidget->item(a);
 		if (item)
-			item->setFlags(0);
+			item->setFlags(Qt::NoItemFlags);
 	}
 }
 

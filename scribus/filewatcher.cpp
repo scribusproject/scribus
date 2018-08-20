@@ -169,71 +169,59 @@ void FileWatcher::checkFiles()
 						toRemove.append(it.key());
 					continue;
 				}
-				else
-				{
-					it.value().pendingCount = 5;
-					it.value().pending = true;
-					emit statePending(it.key());
-					continue;
-				}
+				it.value().pendingCount = 5;
+				it.value().pending = true;
+				emit statePending(it.key());
+				continue;
+			}
+			if (it.value().pendingCount != 0)
+			{
+				it.value().pendingCount--;
+				continue;
+			}
+			it.value().pending = false;
+			if (it.value().isDir)
+				emit dirDeleted(it.key());
+			else
+				emit fileDeleted(it.key());
+			if (m_stateFlags & FileCheckMustStop)
+				break;
+			it.value().refCount--;
+			if (it.value().refCount == 0)
+				toRemove.append(it.key());
+			continue;
+		}
+		//qDebug()<<it.key();
+		it.value().pending = false;
+		time = it.value().info.lastModified();
+		if (time != it.value().timeInfo)
+		{
+			//				qDebug()<<"Times different: last modified:"<<time<<"\t recorded time:"<<it.value().timeInfo;
+			if (it.value().isDir)
+			{
+				//					qDebug()<<"dir, ignoring"<<it.key();
+				it.value().timeInfo = time;
+				if (!(m_stateFlags & FileCheckMustStop))
+					emit dirChanged(it.key());
 			}
 			else
 			{
-				if (it.value().pendingCount != 0)
+				uint sizeo = it.value().info.size();
+				usleep(100);
+				it.value().info.refresh();
+				uint sizen = it.value().info.size();
+				//					qDebug()<<"Size comparison"<<sizeo<<sizen<<it.key();
+				while (sizen != sizeo)
 				{
-					it.value().pendingCount--;
-					continue;
-				}
-				else
-				{
-					it.value().pending = false;
-					if (it.value().isDir)
-						emit dirDeleted(it.key());
-					else
-						emit fileDeleted(it.key());
-					if (m_stateFlags & FileCheckMustStop)
-						break;
-					it.value().refCount--;
-					if (it.value().refCount == 0)
-						toRemove.append(it.key());
-					continue;
-				}
-			}
-		}
-		else
-		{
-			//qDebug()<<it.key();
-			it.value().pending = false;
-			time = it.value().info.lastModified();
-			if (time != it.value().timeInfo)
-			{
-//				qDebug()<<"Times different: last modified:"<<time<<"\t recorded time:"<<it.value().timeInfo;
-				if (it.value().isDir)
-				{
-//					qDebug()<<"dir, ignoring"<<it.key();
-					it.value().timeInfo = time;
-					if (!(m_stateFlags & FileCheckMustStop))
-						emit dirChanged(it.key());
-				}
-				else
-				{
-					uint sizeo = it.value().info.size();
+					sizeo = sizen;
 					usleep(100);
 					it.value().info.refresh();
-					uint sizen = it.value().info.size();
-//					qDebug()<<"Size comparison"<<sizeo<<sizen<<it.key();
-					while (sizen != sizeo)
-					{
-						sizeo = sizen;
-						usleep(100);
-						it.value().info.refresh();
-						sizen = it.value().info.size();
-					}
-					it.value().timeInfo = time;
-					if (m_stateFlags & FileCheckMustStop)
-						break;
-					emit fileChanged(it.key());
+					sizen = it.value().info.size();
 				}
+				it.value().timeInfo = time;
+				if (m_stateFlags & FileCheckMustStop)
+					break;
+				emit fileChanged(it.key());
 			}
 		}
 	}

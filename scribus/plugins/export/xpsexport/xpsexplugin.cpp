@@ -842,7 +842,7 @@ public:
 			current_x += gl.xadvance;
 		}
 		indices.chop(1);
-		glyph.setAttribute("Indices", QString("%1%2").arg(gcMap).arg(indices));
+		glyph.setAttribute("Indices", QString("%1%2").arg(gcMap, indices));
 		m_group.appendChild(glyph);
 	}
 

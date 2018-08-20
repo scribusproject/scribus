@@ -113,69 +113,69 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 	uint newDocPageSpec;
 	switch (col)
 	{
-	case 0:
-		m_localSections[row].name=sectionsTable->item(row, col)->text();
-		break;
-	case 1:
-		m_localSections[row].active=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
-		break;
-	case 2:
-		m_localSections[row].reversed=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
-		break;
-	case 3:
-	case 4:
-		// Validate to/from page specification before conversion to an index
-		//!!!	There is still a problem here if m_maxPageIndex == MAX_UINT ;)
-		newDocPageSpec=sectionsTable->item(row, col)->text().toUInt();
-		if (newDocPageSpec==0)
-		{
-			newDocPageSpec=1;
-			outOfRange=true;
-		}
-		else
-		if (newDocPageSpec>m_maxPageIndex+1)
-		{
-			newDocPageSpec=m_maxPageIndex+1;
-			outOfRange=true;
-		}
-		// Now, since newDocPageSpec >= 1, convert to index
-		--newDocPageSpec;
-		if (col==3)
-			m_localSections[row].fromindex=newDocPageSpec;
-		else
-			m_localSections[row].toindex=newDocPageSpec;
-		break;
-	case 5:
-		{
-			QComboBox* qcti=dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
-			if (qcti!=nullptr)
+		case 0:
+			m_localSections[row].name=sectionsTable->item(row, col)->text();
+			break;
+		case 1:
+			m_localSections[row].active=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
+			break;
+		case 2:
+			m_localSections[row].reversed=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
+			break;
+		case 3:
+		case 4:
+			// Validate to/from page specification before conversion to an index
+			//!!!	There is still a problem here if m_maxPageIndex == MAX_UINT ;)
+			newDocPageSpec=sectionsTable->item(row, col)->text().toUInt();
+			if (newDocPageSpec==0)
 			{
-				int index=qcti->currentIndex();
-				if (index<m_styles.count()-1)
-					m_localSections[row].type=(NumFormat)index;
-				else
-					if (index==m_styles.count()-1)
-						m_localSections[row].type=Type_None;
+				newDocPageSpec=1;
+				outOfRange=true;
 			}
-		}
-		break;
-	case 6:
-		m_localSections[row].sectionstartindex = sectionsTable->item(row, col)->text().toUInt();;
-		break;
-	case 7:
-		m_localSections[row].pageNumberWidth = sectionsTable->item(row, col)->text().toInt();
-		break;
-	case 8:
-		{
-			QString ch=sectionsTable->item(row, col)->text();
-			if (ch.length()>0)
-				m_localSections[row].pageNumberFillChar=sectionsTable->item(row, col)->text().at(0);
 			else
-				m_localSections[row].pageNumberFillChar=QChar();
-		}
-		break;
-	default:
-		break;
+				if (newDocPageSpec>m_maxPageIndex+1)
+				{
+					newDocPageSpec=m_maxPageIndex+1;
+					outOfRange=true;
+				}
+			// Now, since newDocPageSpec >= 1, convert to index
+			--newDocPageSpec;
+			if (col==3)
+				m_localSections[row].fromindex=newDocPageSpec;
+			else
+				m_localSections[row].toindex=newDocPageSpec;
+			break;
+		case 5:
+			{
+				QComboBox* qcti=dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
+				if (qcti!=nullptr)
+				{
+					int index=qcti->currentIndex();
+					if (index<m_styles.count()-1)
+						m_localSections[row].type=(NumFormat)index;
+					else
+						if (index==m_styles.count()-1)
+							m_localSections[row].type=Type_None;
+				}
+			}
+			break;
+		case 6:
+			m_localSections[row].sectionstartindex = sectionsTable->item(row, col)->text().toUInt();;
+			break;
+		case 7:
+			m_localSections[row].pageNumberWidth = sectionsTable->item(row, col)->text().toInt();
+			break;
+		case 8:
+			{
+				QString ch=sectionsTable->item(row, col)->text();
+				if (ch.length()>0)
+					m_localSections[row].pageNumberFillChar=ch.at(0);
+				else
+					m_localSections[row].pageNumberFillChar=QChar();
+			}
+			break;
+		default:
+			break;
 	}
 
 	if (outOfRange)

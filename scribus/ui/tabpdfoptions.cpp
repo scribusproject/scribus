@@ -169,7 +169,7 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
 	connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
 	connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
-	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*,QListWidgetItem*)));
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
@@ -368,7 +368,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		CQuality->setEnabled(false);
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
-	ValC->setEnabled(DSColor->isChecked() ? true : false);
+	ValC->setEnabled(DSColor->isChecked());
 
 	m_docFonts = DocFonts.keys();
 	if (Opts.Version == PDFOptions::PDFVersion_X1a ||
@@ -838,7 +838,7 @@ void TabPDFOptions::checkInfo()
 
 void TabPDFOptions::ToggleEncr()
 {
-	bool setter = Encry->isChecked() ? true : false;
+	bool setter = Encry->isChecked();
 	groupSecSet->setEnabled(setter);
 	groupPass->setEnabled(setter);
 }
@@ -965,7 +965,7 @@ void TabPDFOptions::EnablePGI()
 	if (EmbedProfs2->isChecked())
 	{
 		NoEmbedded->setEnabled(true);
-		bool setter = NoEmbedded->isChecked() ? true : false;
+		bool setter = NoEmbedded->isChecked();
 		imageProfileLabel->setEnabled(setter);
 		imageIntentLabel->setEnabled(setter);
 		ImageP->setEnabled(setter);
@@ -983,7 +983,7 @@ void TabPDFOptions::EnablePGI()
 
 void TabPDFOptions::EnablePGI2()
 {
-	bool setter = NoEmbedded->isChecked() ? true : false;
+	bool setter = NoEmbedded->isChecked();
 	imageProfileLabel->setEnabled(setter);
 	imageIntentLabel->setEnabled(setter);
 	ImageP->setEnabled(setter);
@@ -992,7 +992,7 @@ void TabPDFOptions::EnablePGI2()
 
 void TabPDFOptions::EnablePG()
 {
-	bool setter = EmbedProfs->isChecked() ? true : false;
+	bool setter = EmbedProfs->isChecked();
 	solidsProfileLabel->setEnabled(setter);
 	solidsIntentLabel->setEnabled(setter);
 	SolidPr->setEnabled(setter);
@@ -1095,10 +1095,10 @@ void TabPDFOptions::SelLPIcol(int c)
 
 void TabPDFOptions::SelRange(bool e)
 {
-	bool setter = e ? false : true;
+	bool setter = !e;
 	PageNr->setEnabled( setter );
 	pageNrButton->setEnabled( setter );
-	if (setter == false)
+	if (!setter)
 		CheckBM->setChecked(false);
 }
 
@@ -1129,7 +1129,7 @@ void TabPDFOptions::Rotation( int value )
 
 void TabPDFOptions::DoEffects()
 {
-	bool setter = CheckBox10->isChecked() ? true : false;
+	bool setter = CheckBox10->isChecked();
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
@@ -1234,7 +1234,7 @@ void TabPDFOptions::SetEffOpts(int nr)
 
 void TabPDFOptions::PagePr()
 {
-	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*,QListWidgetItem*)));
 	QString tmp;
 	QPixmap pm;
 	int ci = Pages->currentRow();
@@ -1263,7 +1263,7 @@ void TabPDFOptions::PagePr()
 		Pages->setCurrentRow(ci);
 	else
 		Pages->clearSelection();
-	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*,QListWidgetItem*)));
 }
 
 void TabPDFOptions::DoDownsample()

@@ -531,10 +531,7 @@ namespace Pdf
 			QByteArray step1 = ComputeRC4Key(objId);
 			return new ScRC4EncodeFilter(&m_outStream, step1.data(), qMin(m_KeyLen+5, 16));
 		}
-		else
-		{
-			return new ScNullEncodeFilter(&m_outStream);
-		}
+		return new ScNullEncodeFilter(&m_outStream);
 	}
 	
 	

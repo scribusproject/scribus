@@ -139,7 +139,7 @@ void BibView::dropEvent(QDropEvent *e)
 		if (e->source() == this)
 			return;
 		QString text = e->mimeData()->text();
-		int startElemPos = text.left(512).indexOf("<SCRIBUSELEM");
+		int startElemPos = text.leftRef(512).indexOf("<SCRIBUSELEM");
 		if (startElemPos >= 0)
 			emit objDropped(text);
 	}

@@ -904,7 +904,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		}
 	}
 	if (!hasAlpha)
-		r2_image.fill(255);
+		r2_image.fill('\xff');
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
 		if (layerInfo[layer].channelType[channel] == -2)
@@ -1344,7 +1344,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 		return false;
 	}
 	uint channel_num = header.channel_count;
-	r_image.fill(255);
+	r_image.fill('\xff');
 	const uint pixel_count = header.height * header.width;
 	static const uint components[5] = {0, 1, 2, 3, 4};
 	if( compression )

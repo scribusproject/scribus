@@ -65,14 +65,14 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame): frame(frame)
 	connect(killPushButton, SIGNAL(clicked(bool)), frame, SLOT(killProcess()));
 	connect(externalEditorPushButton, SIGNAL(clicked(bool)), this, SLOT(extEditorClicked()));
 	connect(dpiSpinBox, SIGNAL(editingFinished()), this, SLOT(dpiChanged()));
-	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), this, SLOT(formulaChanged(QString, QString)));
+	connect(frame, SIGNAL(formulaAutoUpdate(QString,QString)), this, SLOT(formulaChanged(QString,QString)));
 	connect(frame, SIGNAL(latexFinished()), this, SLOT(latexFinished()));
 	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(stateChanged(QProcess::ProcessState)));
 	connect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
 	updateConfigFile();
 	
 	extEditor = new QProcess();
-	connect(extEditor, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(extEditorFinished(int, QProcess::ExitStatus)));
+	connect(extEditor, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(extEditorFinished(int,QProcess::ExitStatus)));
 	connect(extEditor, SIGNAL(error(QProcess::ProcessError)), this, SLOT(extEditorError(QProcess::ProcessError)));	
 	extEditor->setProcessChannelMode(QProcess::MergedChannels);
 	
@@ -665,7 +665,7 @@ class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 {
 	public:
-		XmlSpinBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false), QSpinBox()
+		XmlSpinBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false)
 		{
 			setRange(
 				xml->attributes().value("min").toString().toInt(),
@@ -679,20 +679,17 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 		
 		QString toString() const
 		{
-			if (value() == minimum() && !specialValueText().isEmpty()) {
+			if (value() == minimum() && !specialValueText().isEmpty())
 				return specialValueText();
-			} else {
-				return QString::number(value());
-			}
+			return QString::number(value());
 		}
 		
 		void fromString(QString str)
 		{
-			if (str == specialValueText()) {
+			if (str == specialValueText())
 				setValue(minimum());
-			} else {
+			else
 				setValue(str.toInt());
-			}
 		}
 };
 
@@ -700,7 +697,7 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 {
 	public:
 		XmlDoubleSpinBox(I18nXmlStreamReader *xml) :
-			XmlWidget(xml, false), QDoubleSpinBox()
+			XmlWidget(xml, false)
 			{
 			setRange(
 				xml->attributes().value("min").toString().toDouble(),
@@ -732,7 +729,7 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 {
 	public:
-		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QLineEdit() {
+		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml) {
 			fromString(m_defaultValue);
 		}
 		
@@ -748,7 +745,7 @@ class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 {
 	public:
-		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QTextEdit() {
+		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml) {
 			fromString(m_defaultValue);
 		}
 		

@@ -24,7 +24,7 @@ static bool isEqual(double a, double b)
 }
 
 
-SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : QWidget(),
+SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	m_hasParent(false),
 	m_parentDC(false),
 	m_parentBul(false),
@@ -537,8 +537,7 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 			d = -30000;
 			break;
 		}
-		else
-			d = cstyles[i]->backgroundShade();
+		d = cstyles[i]->backgroundShade();
 	}
 	if (d == -30000)
 	{
@@ -557,8 +556,7 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 			s = emptyString;
 			break;
 		}
-		else
-			s = cstyles[i]->backgroundColor();
+		s = cstyles[i]->backgroundColor();
 	}
 	if (s.isEmpty())
 	{
@@ -585,8 +583,7 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 			tmpLP = -1;
 			break;
 		}
-		else
-			tmpLP = pstyles[i]->lineSpacingMode();
+		tmpLP = pstyles[i]->lineSpacingMode();
 	}
 
 	if (tmpLP == -1)
@@ -606,8 +603,7 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 			tmpLS = -1.0;
 			break;
 		}
-		else
-			tmpLS = pstyles[i]->lineSpacing();
+		tmpLS = pstyles[i]->lineSpacing();
 	}
 	lineSpacing->setEnabled(true);
 	if (tmpLS < 0)
@@ -627,8 +623,7 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 			tmpA = -1.2;
 			break;
 		}
-		else
-			tmpA = pstyles[i]->gapBefore();
+		tmpA = pstyles[i]->gapBefore();
 	}
 
 	if (tmpA < 0)
@@ -674,8 +669,7 @@ void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyl
 			lines = -1;
 			break;
 		}
-		else
-			lines = pstyles[i]->dropCapLines();
+		lines = pstyles[i]->dropCapLines();
 	}
 	if (lines == -1)
 		dropCapLines->clear();
@@ -711,8 +705,7 @@ void SMPStyleWidget::showBullet(QList<ParagraphStyle *> &pstyles, QList<CharStyl
 			chStr.clear();
 			break;
 		}
-		else
-			chStr = pstyles[i]->bulletStr();
+		chStr = pstyles[i]->bulletStr();
 	}
 	bulletStrEdit->setEditText(chStr);
 
@@ -731,8 +724,7 @@ void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<Char
 			prefix.clear();
 			break;
 		}
-		else
-			prefix = pstyles[i]->numPrefix();
+		prefix = pstyles[i]->numPrefix();
 	}
 	numPrefix->setText(prefix);
 	
@@ -744,8 +736,7 @@ void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<Char
 			suffix.clear();
 			break;
 		}
-		else
-			suffix = pstyles[i]->numSuffix();
+		suffix = pstyles[i]->numSuffix();
 	}
 	numSuffix->setText(suffix);
 
@@ -937,8 +928,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 			l = -4000.0;
 			break;
 		}
-		else
-			l = pstyles[i]->leftMargin();
+		l = pstyles[i]->leftMargin();
 	}
 	if (l < -3800.0)
 	{
@@ -956,8 +946,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 			l = -4000.0;
 			break;
 		}
-		else
-			l = pstyles[i]->firstIndent();
+		l = pstyles[i]->firstIndent();
 	}
 	if (l < -3800.0)
 	{
@@ -975,8 +964,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 			l = -4000.0;
 			break;
 		}
-		else
-			l = pstyles[i]->rightMargin();
+		l = pstyles[i]->rightMargin();
 	}
 	if (l < -3800.0)
 	{

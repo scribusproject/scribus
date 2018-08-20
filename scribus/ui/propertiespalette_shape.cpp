@@ -517,23 +517,22 @@ void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveItem)
 		return;
-	if (!m_item->isGroup())
-	{
-		if (mode == PageItem::TextFlowDisabled)
-			textFlowDisabled->setChecked(true);
-		else if (mode == PageItem::TextFlowUsesFrameShape)
-			textFlowUsesFrameShape->setChecked(true);
-		else if (mode == PageItem::TextFlowUsesBoundingBox)
-			textFlowUsesBoundingBox->setChecked(true);
-		else if (mode == PageItem::TextFlowUsesContourLine)
-			textFlowUsesContourLine->setChecked(true);
-		else if (mode == PageItem::TextFlowUsesImageClipping)
-			textFlowUsesImageClipping->setChecked(true);
-		if ((m_item->asImageFrame()) && (m_item->imageClip.size() != 0))
-			textFlowUsesImageClipping->setEnabled(true);
-		else
-			textFlowUsesImageClipping->setEnabled(false);
-	}
+	if (m_item->isGroup())
+		return;
+	if (mode == PageItem::TextFlowDisabled)
+		textFlowDisabled->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesFrameShape)
+		textFlowUsesFrameShape->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesBoundingBox)
+		textFlowUsesBoundingBox->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesContourLine)
+		textFlowUsesContourLine->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesImageClipping)
+		textFlowUsesImageClipping->setChecked(true);
+	if ((m_item->asImageFrame()) && (!m_item->imageClip.empty()))
+		textFlowUsesImageClipping->setEnabled(true);
+	else
+		textFlowUsesImageClipping->setEnabled(false);
 }
 
 void PropertiesPalette_Shape::languageChange()

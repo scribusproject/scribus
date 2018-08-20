@@ -97,9 +97,6 @@ for which a new license (GPL+exception) is in place.
 extern const char ARG_CONSOLE[] =  "--console";
 extern const char ARG_CONSOLE_SHORT[] = "-cl";
 
-extern ScribusQApp* ScQApp;
-extern ScribusCore* ScCore;
-
 bool ScribusQApp::useGUI=false;
 
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
@@ -586,11 +583,11 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG, tr("List the currently installed interface languages") );
 	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH, tr("Do not show the splashscreen on startup") );
 	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus") );
-	printArgLine(ts, ARG_PREFS_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PREFS).arg(tr("path"))), tr("Use path for user given preferences location") );
+	printArgLine(ts, ARG_PREFS_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PREFS, tr("path"))), tr("Use path for user given preferences location") );
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location of ICC profile information on console while starting") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
-	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT).arg(tr("script")).arg(tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
+	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT).arg(tr("script"), tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
  	

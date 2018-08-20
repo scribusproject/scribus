@@ -58,7 +58,7 @@ bool PrefsContext::isPlugin()
 
 bool PrefsContext::isEmpty()
 {
-	return (values.size() == 0 && tables.size() == 0);
+	return (values.empty() && tables.empty());
 }
 
 bool PrefsContext::contains(const QString& key)

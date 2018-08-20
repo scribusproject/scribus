@@ -328,7 +328,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
-										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+										if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
 											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
@@ -577,7 +577,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
-										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+										if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
 											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;

@@ -40,11 +40,8 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 			QFile::remove(filename);
 			if (psCreationRetVal==2)
 				return true;
-			else
-			{
-				m_errorMessage = dd->errorMessage();
-				return false;
-			}
+			m_errorMessage = dd->errorMessage();
+			return false;
 		}
 		if (options.prnEngine != PostScript3 && ScCore->haveGS())
 		{

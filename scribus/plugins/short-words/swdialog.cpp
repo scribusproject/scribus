@@ -80,9 +80,9 @@ int SWDialog::actionSelected()
 {
 	if (frameRadio->isChecked())
 		return 0;
-	else if (pageRadio->isChecked())
+	if (pageRadio->isChecked())
 		return 1;
-	else if (allRadio->isChecked())
+	if (allRadio->isChecked())
 		return 2;
 	return 0;
 }

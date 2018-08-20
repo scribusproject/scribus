@@ -117,13 +117,13 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 		}
 		res = QRegion(bb.toRect());
 	}
-	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
+	else if ((docItem->textFlowUsesImageClipping()) && (!docItem->imageClip.empty()))
 	{
 		QList<uint> Segs;
 		QPolygon Clip2 = FlattenPath(docItem->imageClip, Segs);
 		res = QRegion(pp.map(Clip2)).intersected(QRegion(pp.map(docItem->Clip)));
 	}
-	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+	else if ((docItem->textFlowUsesContourLine()) && (!docItem->ContourLine.empty()))
 	{
 		QList<uint> Segs;
 		QPolygon Clip2 = FlattenPath(docItem->ContourLine, Segs);
@@ -1158,10 +1158,9 @@ static int allowedCJKBreakBefore(QChar ch) {
 }
 
 static bool implicitBreak(QChar f, QChar s) {
-	if (SpecialChars::isCJK(f.unicode()) && SpecialChars::isCJK(s.unicode())) {
+	if (SpecialChars::isCJK(f.unicode()) && SpecialChars::isCJK(s.unicode()))
 		return allowedCJKBreakAfter(f) && allowedCJKBreakBefore(s);
-	} else
-		return false;
+	return false;
 }
 
 static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
@@ -1613,8 +1612,7 @@ void PageItem_TextFrame::layout()
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
 				}
-				else
-					current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
+				current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
@@ -1623,8 +1621,7 @@ void PageItem_TextFrame::layout()
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
 				}
-				else
-					current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
+				current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
 			}
 			if (current.isEmpty)
 			{
@@ -2041,11 +2038,8 @@ void PageItem_TextFrame::layout()
 							newColumn = true;
 							break;
 						}
-						else
-						{
-							MaxChars = a;
-							goto NoRoom;
-						}
+						MaxChars = a;
+						goto NoRoom;
 					}
 				}
 				if (newColumn)
@@ -2868,11 +2862,8 @@ void PageItem_TextFrame::layout()
 						i = current.restartLine(false,true);
 						continue;
 					}
-					else
-					{
-//						qDebug() << "breakline B no more text @" << i;
-						current.breakLine(i);
-					}
+//					qDebug() << "breakline B no more text @" << i;
+					current.breakLine(i);
 				}
 			}
 		}
@@ -3306,7 +3297,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			p->restore();
 			return;
 		}
-		else if (annotation().Type() == Annotation::Textfield)
+		if (annotation().Type() == Annotation::Textfield)
 		{
 			int wdt = annotation().Bwid();
 			m_textDistanceMargins.set(wdt, wdt, wdt, wdt);
@@ -3779,7 +3770,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setupSharpPolygon(&PoLine);
 			p->strokePath();
 		}
-		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (!ContourLine.empty()))
 		{
 			p->setPen(Qt::darkGray, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupSharpPolygon(&ContourLine);
@@ -5554,18 +5545,15 @@ bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
 	{ //check if any notes are in frame or whole chain
 		if (!inChain)
 			return !m_notesFramesMap.isEmpty();
-		else
+		PageItem* item = this;
+		item = firstInChain();
+		while (item != nullptr)
 		{
-			PageItem* item = this;
-			item = firstInChain();
-			while (item != nullptr)
-			{
-				if (item->asTextFrame()->hasNoteFrame(nullptr, false))
-					return true;
-				item = item->nextInChain();
-			}
-			return false;
+			if (item->asTextFrame()->hasNoteFrame(nullptr, false))
+				return true;
+			item = item->nextInChain();
 		}
+		return false;
 	}
 	PageItem* item = this;
 	if (inChain)

@@ -95,8 +95,7 @@ void HunspellDialog::goToNextWord(int i)
 		ignoreAllPushButton->setEnabled(false);
 		return;
 	}
-	else
-		statusLabel->setText("");
+	statusLabel->setText("");
 	currWF=m_wfList->at(m_wfListIndex);
 	setLanguageCombo(currWF.lang);
 	updateSuggestions(currWF.replacements);

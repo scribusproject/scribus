@@ -389,7 +389,7 @@ void PropTreeItem::setUnitValue(int unit)
 		setDoubleValue(oldVal * newUnitRatio);
 	}
 	else
-		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString()).arg(unitGetSuffixFromIndex(m_unit)));
+		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString(), unitGetSuffixFromIndex(m_unit)));
 }
 
 void PropTreeItem::setDecimalsValue(int unit)
@@ -398,7 +398,7 @@ void PropTreeItem::setDecimalsValue(int unit)
 	if (m_type == DoubleSpinBox)
 		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toDouble(), 0, 'f', unit).arg(unitGetSuffixFromIndex(m_unit)));
 	else
-		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString()).arg(unitGetSuffixFromIndex(m_unit)));
+		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString(), unitGetSuffixFromIndex(m_unit)));
 }
 
 void PropTreeItem::setComboStrings(const QStringList& value)

@@ -19,8 +19,7 @@ QString TableStyle::displayName() const
 		return CommonStrings::trDefaultTableStyle;
 	if (hasName() || !hasParent() || !m_context)
 		return name();
-	else 
-		return parentStyle()->displayName() + "+";
+	return parentStyle()->displayName() + "+";
 }
 
 bool TableStyle::equiv(const BaseStyle& other) const

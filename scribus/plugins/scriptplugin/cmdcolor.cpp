@@ -620,14 +620,9 @@ PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col))
-	{
 		return PyBool_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->PageColors[col].isSpotColor()));
-	}
-	else
-	{
-		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
-		return nullptr;
-	}
+	PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
+	return nullptr;
 // 	Py_RETURN_NONE;
 }
 

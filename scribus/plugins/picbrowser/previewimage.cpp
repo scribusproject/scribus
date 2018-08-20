@@ -132,15 +132,11 @@ void previewImages::createPreviewImagesList ( const QStringList& imageFiles )
 void previewImages::createPreviewImagesList ( const imageCollection *collection )
 {
 	//if there are already previewimages allocated, remove them
-	if ( previewImagesList.size() > 0 )
-	{
+	if (!previewImagesList.empty())
 		clearPreviewImagesList();
-	}
 
-	if ( collection->imageFiles.isEmpty() )
-	{
+	if (collection->imageFiles.isEmpty())
 		return;
-	}
 
 
 	int s = collection->imageFiles.size();

@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          hruler.cpp  -  description
-                             -------------------
-    begin                : Tue Apr 10 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  hruler.cpp  -  description
+							 -------------------
+	begin                : Tue Apr 10 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -47,9 +47,9 @@ for which a new license (GPL+exception) is in place.
 
 
 #ifdef Q_OS_MAC
-    #define topline 1
+#define topline 1
 #else
-    #define topline 3
+#define topline 3
 #endif
 #define bottomline 15
 #define rulerheight (bottomline - topline)
@@ -58,8 +58,8 @@ for which a new license (GPL+exception) is in place.
 
 enum ruler_code 
 { 
-	rc_none = 0, 
-	rc_leftFrameDist = 1, 
+	rc_none = 0,
+	rc_leftFrameDist = 1,
 	rc_rightFrameDist = 2,
 	rc_indentFirst = 3,
 	rc_leftMargin = 4,
@@ -446,7 +446,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					break;
 			}
 			MouseX = m->x();
-/*			if (RulerCode != rc_none)
+			/*			if (RulerCode != rc_none)
 			{
 				QPoint py = m_view->viewport()->mapFromGlobal(m->globalPos());
 				QPainter p;
@@ -456,7 +456,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				QPoint out = m_view->contentsToViewport(QPoint(0, qRound(m_doc->currentPage()->yOffset() * Scaling)));
 				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(m_doc->currentPage()->height() * Scaling));
 				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(m_doc->currentPage()->height() * Scaling));
-				p.end(); 
+				p.end();
 				Markp = py.x();
 			}*/
 			return;
@@ -466,7 +466,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			setCursor(IconManager::instance()->loadCursor("tab.png", 3));
 			switch(findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
 			{
-				case rc_leftFrameDist: 
+				case rc_leftFrameDist:
 					setCursor(QCursor(Qt::SplitHCursor));
 					break;
 				case rc_rightFrameDist:
@@ -776,32 +776,32 @@ void Hruler::drawTextMarks(double Pos, double EndPos, QPainter& p)
 		switch (m_doc->unitIndex())
 		{
 			case SC_IN:
-			{
-				QString tx = "";
-				int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
-				if (num1 != 0)
-					tx = QString::number(num1);
-				double frac = (xl / iter2 / cor) - num1;
-				if ((frac > 0.24) && (frac < 0.26))
-					tx += QChar(0xBC);
-				if ((frac > 0.49) && (frac < 0.51))
-					tx += QChar(0xBD);
-				if ((frac > 0.74) && (frac < 0.76))
-					tx += QChar(0xBE);
-				if (Revers)
 				{
-					p.save();
-					p.translate(xli-2, 0);
-					p.scale(-1,1);
-					drawNumber(tx, 0, 17, p);
-					//p.drawText(0, 17, tx);
-					p.restore();
+					QString tx = "";
+					int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
+					if (num1 != 0)
+						tx = QString::number(num1);
+					double frac = (xl / iter2 / cor) - num1;
+					if ((frac > 0.24) && (frac < 0.26))
+						tx += QChar(0xBC);
+					if ((frac > 0.49) && (frac < 0.51))
+						tx += QChar(0xBD);
+					if ((frac > 0.74) && (frac < 0.76))
+						tx += QChar(0xBE);
+					if (Revers)
+					{
+						p.save();
+						p.translate(xli-2, 0);
+						p.scale(-1,1);
+						drawNumber(tx, 0, 17, p);
+						//p.drawText(0, 17, tx);
+						p.restore();
+					}
+					else
+						drawNumber(tx, xli+2, 9, p);
+					//p.drawText(qRound((xl+2/sc) * sc), 9, tx);
+					break;
 				}
-				else
-					drawNumber(tx, xli+2, 9, p);
-				//p.drawText(qRound((xl+2/sc) * sc), 9, tx);
-				break;
-			}
 			case SC_P:
 				if (Revers)
 				{
@@ -879,7 +879,7 @@ void Hruler::Draw(int where)
 	whereToDraw = where;
 	drawMark = true;
 	repaint(oldMark-3, 0, 7, 17);
-//	drawMark = false;
+	//	drawMark = false;
 	oldMark = currentCoor;
 }
 
@@ -910,15 +910,15 @@ void Hruler::setItem(PageItem * item)
 	First = currentStyle.firstIndent();
 	Indent = currentStyle.leftMargin();
 	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
-				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
-				- 2*lineCorr) / item->columns();
+						  - item->textToFrameDistLeft() - item->textToFrameDistLeft()
+						  - 2*lineCorr) / item->columns();
 	RMargin = columnWidth - currentStyle.rightMargin();
 	if (item->imageFlippedH())
 		Revers = true;
 	else
 		Revers = false;
 	textEditMode = true;
-	TabValues = currentStyle.tabValues();	
+	TabValues = currentStyle.tabValues();
 }
 
 void Hruler::UpdateTabList()
@@ -962,12 +962,12 @@ void Hruler::unitChange()
 			if (sc < 0.3)
 			{
 				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+				iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
 			}
 			else if (sc < 0.5)
 			{
 				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
+				iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
 			}
 			else
 			{
@@ -1025,12 +1025,12 @@ void Hruler::unitChange()
 				iter2 = 60.0*4;
 			}
 			else
-			if (sc < 1)
-			{
-				cor = 1;
-				iter = 12.0;
-				iter2 = 60.0;
-			}
+				if (sc < 1)
+				{
+					cor = 1;
+					iter = 12.0;
+					iter2 = 60.0;
+				}
 			break;
 		case SC_CM:
 			if (sc > 1 && sc <= 4)
@@ -1046,8 +1046,8 @@ void Hruler::unitChange()
 			else
 			{
 				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
-	  		}
+				iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+			}
 			break;
 		case SC_C:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
@@ -1071,12 +1071,12 @@ void Hruler::unitChange()
 				iter2 = 72.0/25.4*4.512*5.0*10;
 			}
 			else
-			if (sc < 1)
-			{
-				cor = 1;
-				iter = 72.0/25.4*4.512;
-				iter2 = 72.0/25.4*4.512*5.0;
-			}
+				if (sc < 1)
+				{
+					cor = 1;
+					iter = 72.0/25.4*4.512;
+					iter2 = 72.0/25.4*4.512*5.0;
+				}
 			break;
 		default:
 			if (sc > 1 && sc <= 4)
@@ -1084,7 +1084,7 @@ void Hruler::unitChange()
 			if (sc > 4)
 				cor = 10;
 			iter = unitRulerGetIter1FromIndex(0) / cor;
-	 		iter2 = unitRulerGetIter2FromIndex(0) / cor;
+			iter2 = unitRulerGetIter2FromIndex(0) / cor;
 			break;
 	}
 }

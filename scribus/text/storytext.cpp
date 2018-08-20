@@ -935,12 +935,11 @@ ExpansionPoint StoryText::expansionPoint(int pos) const
 {
 	if (text(pos) == SpecialChars::PAGENUMBER)
 		return ExpansionPoint(ExpansionPoint::PageNumber);
-	else if( text(pos) == SpecialChars::PAGECOUNT)
+	if( text(pos) == SpecialChars::PAGECOUNT)
 		return ExpansionPoint(ExpansionPoint::PageCount);
-	else if (hasMark(pos))
+	if (hasMark(pos))
 		return ExpansionPoint(mark(pos));
-	else
-		return ExpansionPoint(ExpansionPoint::Invalid);
+	return ExpansionPoint(ExpansionPoint::Invalid);
 }
 
 
@@ -1155,7 +1154,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 //		qDebug() << "storytext::charstyle: default";
 		return defaultStyle().charStyle();
 	}
-	else if (pos == length())
+	if (pos == length())
 	{
 		qDebug() << "storytext::charstyle: access at end of text %i" << pos;
 		--pos;
@@ -1200,7 +1199,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 
 	if (pos >= length())
 		return that->d->trailingStyle;
-	else if ( !that->d->at(pos)->parstyle )
+	if ( !that->d->at(pos)->parstyle )
 	{
 		ScText* current = that->d->at(pos);
 		qDebug("inserting default parstyle at %i", pos);
@@ -1835,7 +1834,7 @@ void StoryText::extendSelection(int oldPos, int newPos)
 			m_selLast = newPos - 1;
 			return;
 		}
-		else if (m_selFirst == oldPos)
+		if (m_selFirst == oldPos)
 		{
 			m_selFirst = newPos;
 			return;

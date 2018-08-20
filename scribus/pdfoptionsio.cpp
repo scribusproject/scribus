@@ -418,23 +418,19 @@ bool PDFOptionsIO::readSettings()
 	double d=0.0;
 	if (!readElem(m_root, "bleedTop", &d))
 		return false;
-	else
-		m_opts->bleeds.setTop(d);
+	m_opts->bleeds.setTop(d);
 	d=0.0;
 	if (!readElem(m_root, "bleedLeft", &d))
 		return false;
-	else
-		m_opts->bleeds.setLeft(d);
+	m_opts->bleeds.setLeft(d);
 	d=0.0;
 	if (!readElem(m_root, "bleedBottom", &d))
 		return false;
-	else
-		m_opts->bleeds.setBottom(d);
+	m_opts->bleeds.setBottom(d);
 	d=0.0;
 	if (!readElem(m_root, "bleedRight", &d))
 		return false;
-	else
-		m_opts->bleeds.setRight(d);
+	m_opts->bleeds.setRight(d);
 	if (!readElem(m_root, "encrypt", &m_opts->Encrypt))
 		return false;
 	if (!readElem(m_root, "passOwner", &m_opts->PassOwner))
@@ -456,37 +452,33 @@ bool PDFOptionsIO::readPDFVersion()
 		m_opts->Version = PDFOptions::PDFVersion_X1a;
 		return true;
 	}
-	else if (pdfVersString == "X3")
+	if (pdfVersString == "X3")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_X3;
 		return true;
 	}
-	else if (pdfVersString == "X4")
+	if (pdfVersString == "X4")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_X4;
 		return true;
 	}
-	else if (pdfVersString == "13")
+	if (pdfVersString == "13")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_13;
 		return true;
 	}
-	else if (pdfVersString == "14")
+	if (pdfVersString == "14")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_14;
 		return true;
 	}
-	else if (pdfVersString == "15")
+	if (pdfVersString == "15")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_15;
 		return true;
 	}
-	else
-	{
-		m_error = QObject::tr("Unable to read settings XML: %1")
-			.arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
-		return false;
-	}
+	m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
+	return false;
 }
 
 bool PDFOptionsIO::readPDFFontEmbeddingMode()
@@ -588,19 +580,13 @@ bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, bool* valu
 		(*value) = true;
 		return true;
 	}
-	else if (elementText == "false")
+	if (elementText == "false")
 	{
 		(*value) = false;
 		return true;
 	}
-	else
-	{
-		m_error = QObject::tr("Unable to read settings XML: %1")
-			.arg(QObject::tr("element <%1> value must be `true' or `false'", "Load PDF settings")
-				.arg(name)
-			);
-		return false;
-	}
+	m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be `true' or `false'", "Load PDF settings").arg(name));
+	return false;
 }
 
 bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, int* value)
@@ -615,10 +601,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, int* value
 		(*value) = result;
 	else
 	{
-		m_error = QObject::tr("Unable to read settings XML: %1")
-			.arg(QObject::tr("element <%1> value must be an integer", "Load PDF settings")
-				.arg(name)
-			);
+		m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be an integer", "Load PDF settings").arg(name));
 		return false;
 	}
 	return ok;
@@ -636,10 +619,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, double* va
 		(*value) = result;
 	else
 	{
-		m_error = QObject::tr("Unable to read settings XML: %1")
-			.arg(QObject::tr("element <%1> value must be a double", "Load PDF settings")
-				.arg(name)
-			);
+		m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be a double", "Load PDF settings").arg(name));
 		return false;
 	}
 	return ok;

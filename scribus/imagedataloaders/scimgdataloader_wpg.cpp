@@ -259,9 +259,9 @@ void ScrPainterIm::drawPath(const libwpg::WPGPath& path)
 			imagePainter.setBrush(currentBrush);
 	}
 	if (!path.framed)
-			imagePainter.setPen(Qt::NoPen);
-		else
-			imagePainter.setPen(currentPen);
+		imagePainter.setPen(Qt::NoPen);
+	else
+		imagePainter.setPen(currentPen);
 	if(path.closed)
 		Coords.closeSubpath();
 	imagePainter.drawPath(Coords);

@@ -89,29 +89,24 @@ QIcon ImIconProvider::icon(const QFileInfo &fi) const
 		return QFileIconProvider::icon(fi);
 	if (fmts.contains(ext, Qt::CaseInsensitive))
 		return imagepm;
-	else
-	{
-		ext = fi.completeSuffix().toLower();
-		if (ext.endsWith("ps", Qt::CaseInsensitive))
-			return pspm;
-		else if (ext.endsWith("txt", Qt::CaseInsensitive))
-			return txtpm;
-		else if (ext.endsWith("scd", Qt::CaseInsensitive) || ext.endsWith("scd.gz", Qt::CaseInsensitive))
-			return docpm;
-		else if (ext.endsWith("sla", Qt::CaseInsensitive) || ext.endsWith("sla.gz", Qt::CaseInsensitive))
-			return docpm;
-		else if (ext.endsWith("pdf", Qt::CaseInsensitive))
-			return pdfpm;
-		else if (ext.endsWith("sxd", Qt::CaseInsensitive))
-			return oosxdpm;
-		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
-			return oosxwpm;
-		else if (allFormatsV.contains(ext) || ext.endsWith("sce", Qt::CaseInsensitive) || ext.endsWith("shape", Qt::CaseInsensitive))
-			return vectorpm;
-		else
-			return QFileIconProvider::icon(fi);
-	}
-	return QIcon();
+	ext = fi.completeSuffix().toLower();
+	if (ext.endsWith("ps", Qt::CaseInsensitive))
+		return pspm;
+	if (ext.endsWith("txt", Qt::CaseInsensitive))
+		return txtpm;
+	if (ext.endsWith("scd", Qt::CaseInsensitive) || ext.endsWith("scd.gz", Qt::CaseInsensitive))
+		return docpm;
+	if (ext.endsWith("sla", Qt::CaseInsensitive) || ext.endsWith("sla.gz", Qt::CaseInsensitive))
+		return docpm;
+	if (ext.endsWith("pdf", Qt::CaseInsensitive))
+		return pdfpm;
+	if (ext.endsWith("sxd", Qt::CaseInsensitive))
+		return oosxdpm;
+	if (ext.endsWith("sxw", Qt::CaseInsensitive))
+		return oosxwpm;
+	if (allFormatsV.contains(ext) || ext.endsWith("sce", Qt::CaseInsensitive) || ext.endsWith("shape", Qt::CaseInsensitive))
+		return vectorpm;
+	return QFileIconProvider::icon(fi);
 }
 
 FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)

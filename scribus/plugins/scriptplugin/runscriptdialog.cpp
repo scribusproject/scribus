@@ -45,8 +45,7 @@ bool RunScriptDialog::extensionRequested()
 {
 	if (m_extEnable)
 		return extChk->isChecked();
-	else
-		return false;
+	return false;
 }
 
 QString RunScriptDialog::selectedFile()

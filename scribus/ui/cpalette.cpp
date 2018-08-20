@@ -129,7 +129,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 
 void Cpalette::connectSignals()
 {
-	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
+	connect(CGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(CGradDia, SIGNAL(editGradient(int)), this, SIGNAL(editGradient(int)));
 	connect(CGradDia, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
@@ -189,7 +189,7 @@ void Cpalette::connectSignals()
 
 void Cpalette::disconnectSignals()
 {
-	disconnect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
+	disconnect(CGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
 	disconnect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	disconnect(CGradDia, SIGNAL(editGradient(int)), this, SIGNAL(editGradient(int)));
 	disconnect(CGradDia, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
@@ -357,11 +357,11 @@ void Cpalette::setDocument(ScribusDoc* doc)
 	this->disconnect(SIGNAL(NewGradient(int)));
 	this->disconnect(SIGNAL(NewGradientS(int)));
 	this->disconnect(SIGNAL(NewPattern(QString)));
-	this->disconnect(SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	this->disconnect(SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	this->disconnect(SIGNAL(NewOverprint(int)));
 	this->disconnect(SIGNAL(NewPatternS(QString)));
 	this->disconnect(SIGNAL(NewPatternTypeS(bool)));
-	this->disconnect(SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)));
+	this->disconnect(SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)));
 	disconnect(displayAllColors, SIGNAL(clicked()), this, SLOT(toggleColorDisplay()));
 
 	if (currentDoc)
@@ -397,11 +397,11 @@ void Cpalette::setDocument(ScribusDoc* doc)
 		connect(this, SIGNAL(NewGradient(int))     , doc, SLOT(itemSelection_SetItemGradFill(int)));
 		connect(this, SIGNAL(NewGradientS(int))    , doc, SLOT(itemSelection_SetItemGradStroke(int)));
 		connect(this, SIGNAL(NewPattern(QString))  , doc, SLOT(itemSelection_SetItemPatternFill(QString)));
-		connect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double, double, double, bool, bool)));
+		connect(this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), doc, SLOT(itemSelection_SetItemPatternProps(double,double,double,double,double,double,double,bool,bool)));
 		connect(this, SIGNAL(NewOverprint(int))    , this, SLOT(handleOverprint(int)));
 		connect(this, SIGNAL(NewPatternS(QString)) , doc, SLOT(itemSelection_SetItemStrokePattern(QString)));
 		connect(this, SIGNAL(NewPatternTypeS(bool)), doc, SLOT(itemSelection_SetItemStrokePatternType(bool)));
-		connect(this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double, double, double, double, bool, bool)));
+		connect(this, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double,double,double,double,double,double,double,double,bool,bool)));
 		connect(displayAllColors, SIGNAL(clicked()), this, SLOT(toggleColorDisplay()));
 
 		connect(currentDoc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
@@ -1782,7 +1782,7 @@ void Cpalette::changePatternProps()
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorX);
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
 	m_Pattern_scaleX = dia->spinXscaling->value();
 	m_Pattern_scaleY = dia->spinYscaling->value();
@@ -1838,7 +1838,7 @@ void Cpalette::changePatternPropsStroke()
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorXS);
 	dia->FlipV->setChecked(m_Pattern_mirrorYS);
-	connect(dia, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)));
+	connect(dia, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
 	m_Pattern_scaleXS = dia->spinXscaling->value();
 	m_Pattern_scaleYS = dia->spinYscaling->value();

@@ -61,7 +61,7 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			PyObject *rv = Py_BuildValue("(sO)", name3, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Link && actype == Annotation::Action_URI)
+		if (atype == Annotation::Link && actype == Annotation::Action_URI)
 		{
 			const char uri[] = "uri";
 			PyObject *ukey = PyString_FromString(uri);
@@ -72,7 +72,7 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			PyObject *rv = Py_BuildValue("(sO)", name4, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Link)
+		if (atype == Annotation::Link)
 		{
 			getLinkData(drv, a.Ziel(), a.Action());
 			const char name2[] = "Link";
@@ -80,49 +80,49 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			PyObject *rv = Py_BuildValue("(sO)", name2, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Button)
+		if (atype == Annotation::Button)
 		{
 			const char name5[] = "Button";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name5, drv);
 			return rv;
 		}
-		else if (atype == Annotation::RadioButton)
+		if (atype == Annotation::RadioButton)
 		{
 			const char name4[] = "RadioButton";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name4, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Textfield)
+		if (atype == Annotation::Textfield)
 		{
 			const char name6[] = "Textfield";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name6, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Checkbox)
+		if (atype == Annotation::Checkbox)
 		{
 			const char name7[] = "Checkbox";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name7, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Combobox)
+		if (atype == Annotation::Combobox)
 		{
 			const char name4[] = "Combobox";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name4, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Listbox)
+		if (atype == Annotation::Listbox)
 		{
 			const char name8[] = "Listbox";
 			add_text_to_dict(drv, i);
 			PyObject *rv = Py_BuildValue("(sO)", name8, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Text)
+		if (atype == Annotation::Text)
 		{
 			/** icons: 0 "Note", 1 "Comment", 2 "Key",
 			3 "Help", 4 "NewParagraph", 5 "Paragraph", 6 "Insert",
@@ -153,18 +153,15 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			PyObject *rv = Py_BuildValue("(sO)", name9, drv);
 			return rv;
 		}
-		else if (atype == Annotation::Annot3D)
+		if (atype == Annotation::Annot3D)
 		{
 			const char a3dname[] = "Annot3D";
 			PyObject *rv = Py_BuildValue("(sO)",a3dname, drv);
 			return rv;
 		}
-		else
-		{
-			const char unknown[] = "Unknown Annotation";
-			PyObject *rv = Py_BuildValue("(sO)", unknown, drv);
-			return rv;
-		}
+		const char unknown[] = "Unknown Annotation";
+		PyObject *rv = Py_BuildValue("(sO)", unknown, drv);
+		return rv;
 	}
 
 	Py_RETURN_NONE;

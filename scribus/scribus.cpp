@@ -5954,12 +5954,12 @@ void ScribusMainWindow::ToggleFrameEdit()
 	if (!doc->m_Selection->isEmpty())
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
+		nodePalette->EditCont->setEnabled(!currItem->ContourLine.empty());
 		nodePalette->ResetCont->setEnabled(false);
 		nodePalette->ResetContClip->setEnabled(false);
 		nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 		nodePalette->setDefaults(currItem);
-		if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
+		if ((currItem->asImageFrame()) && (!currItem->imageClip.empty()))
 		{
 			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 			nodePalette->ResetContClip->show();
@@ -7854,7 +7854,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			msgBox.exec();
 			if (msgBox.clickedButton() == abortButton)
 				return;
-			else if (msgBox.clickedButton() == lockButton)
+			if (msgBox.clickedButton() == lockButton)
 				lockObject = true;
 			modifyLock = true;
 		}
@@ -8733,17 +8733,14 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 				accepted = true;
 				break;
 			}
-			else
+			QUrl url( fileUrls[i] );
+			FileLoader *fileLoader = new FileLoader(url.path());
+			int testResult = fileLoader->testFile();
+			delete fileLoader;
+			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 			{
-				QUrl url( fileUrls[i] );
-				FileLoader *fileLoader = new FileLoader(url.path());
-				int testResult = fileLoader->testFile();
-				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
-				{
-					accepted = true;
-					break;
-				}
+				accepted = true;
+				break;
 			}
 		}
 	}

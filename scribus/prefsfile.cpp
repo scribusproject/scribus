@@ -86,7 +86,7 @@ void PrefsFile::load()
 
 void PrefsFile::write()
 {
-	if ((!m_ioEnabled) || ((m_contexts.size() == 0) && (m_pluginContexts.size() == 0)))
+	if ((!m_ioEnabled) || ((m_contexts.empty()) && (m_pluginContexts.empty())))
 		return; // No prefs file path set -> can't write or no prefs to write
 	QFile* prefsXML = new QFile(m_prefsFilePath);
 	if (prefsXML->open(QIODevice::WriteOnly))
@@ -95,19 +95,19 @@ void PrefsFile::write()
 		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<preferences>\n";
-		if (m_contexts.size() > 0)
+		if (!m_contexts.empty())
 		{
 			stream << "\t<level name=\"application\">\n";
 			writeContexts(&m_contexts, stream);
 			stream << "\t</level>\n";
 		}
-		if (m_userprefsContexts.size() > 0)
+		if (!m_userprefsContexts.empty())
 		{
 			stream << "\t<level name=\"plugin\">\n";
 			writeContexts(&m_userprefsContexts, stream);
 			stream << "\t</level>\n";
 		}
-		if (m_pluginContexts.size() > 0)
+		if (!m_pluginContexts.empty())
 		{
 			stream << "\t<level name=\"plugin\">\n";
 			writeContexts(&m_pluginContexts, stream);

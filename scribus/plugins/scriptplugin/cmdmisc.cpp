@@ -133,21 +133,19 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		// set in that case.
 		return stringPython;
 	}
-	else
+
 	// Save the pixmap to a file, since the filename is non-empty
+	ret = pm.save(QString::fromUtf8(FileName), format);
+	if (!ret)
 	{
-		ret = pm.save(QString::fromUtf8(FileName), format);
-		if (!ret)
-		{
-			PyErr_SetString(PyExc_Exception, QObject::tr("Unable to save pixmap","scripter error").toLocal8Bit().constData());
-			return nullptr;
-		}
-		// For historical reasons, we need to return true on success.
-//		Py_INCREF(Py_True);
-//		return Py_True;
-//		Py_RETURN_TRUE;
-		return PyBool_FromLong(static_cast<long>(true));
+		PyErr_SetString(PyExc_Exception, QObject::tr("Unable to save pixmap","scripter error").toLocal8Bit().constData());
+		return nullptr;
 	}
+	// For historical reasons, we need to return true on success.
+	//		Py_INCREF(Py_True);
+	//		return Py_True;
+	//		Py_RETURN_TRUE;
+	return PyBool_FromLong(static_cast<long>(true));
 }
 
 PyObject *scribus_getlayers(PyObject* /* self */)

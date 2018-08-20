@@ -181,10 +181,12 @@ void FontComboH::familySelected(int id)
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
 		setCurrentComboItem(fontStyle, curr);
-	else if (slist.contains("Regular"))
-		setCurrentComboItem(fontStyle, "Regular");
-	else if (slist.contains("Roman"))
-		setCurrentComboItem(fontStyle, "Roman");
+	else
+		if (slist.contains("Regular"))
+			setCurrentComboItem(fontStyle, "Regular");
+		else
+			if (slist.contains("Roman"))
+				setCurrentComboItem(fontStyle, "Roman");
 	emit fontSelected(fontFamily->itemText(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -298,7 +300,8 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		// Replacement fonts were systematically discarded in previous code
 		/*if (fon.isReplacement())
 			fontFamily->addItem(substFont, it2a.value());
-		else */if (type == ScFace::OTF)
+		else */
+		if (type == ScFace::OTF)
 			fontFamily->addItem(otfFont, it2a.key());
 		else if (type == ScFace::TYPE1)
 			fontFamily->addItem(psFont, it2a.key());
@@ -481,13 +484,10 @@ const ScFace& getScFace(const QString& classname, const QString& text)
 			QFontDatabase::addApplicationFont(fon.fontFilePath());
 		return fon;
 	}
-	else
-	{
-		const ScFace& scFace = availableFonts.findFont(text);
-		if (!fontDb.families().contains(scFace.family()))
-			QFontDatabase::addApplicationFont(scFace.fontFilePath());
-		return scFace;
-	}
+	const ScFace& scFace = availableFonts.findFont(text);
+	if (!fontDb.families().contains(scFace.family()))
+		QFontDatabase::addApplicationFont(scFace.fontFilePath());
+	return scFace;
 }
 
 FontFamilyDelegate::FontFamilyDelegate(QObject *parent)

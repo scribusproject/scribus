@@ -2086,7 +2086,7 @@ SMParagraphStyle::~SMParagraphStyle()
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : StyleItem(), m_widget(nullptr), m_page(nullptr), m_doc(nullptr), m_selectionIsDirty(false)
+SMCharacterStyle::SMCharacterStyle() : m_widget(nullptr), m_page(nullptr), m_doc(nullptr), m_selectionIsDirty(false)
 {
 	m_widget = new QTabWidget();
 	Q_CHECK_PTR(m_widget);

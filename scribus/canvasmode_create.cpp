@@ -69,7 +69,7 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 	inItemCreation = false;
 	createObjectMode     = 0;
 	createObjectSubMode  = 0;
-	modifiers            = 0;
+	modifiers            = Qt::NoModifier;
 	m_MouseButtonPressed = false;
 	m_createTransaction  = nullptr;
 }

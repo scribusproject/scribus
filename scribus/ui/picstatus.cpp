@@ -439,8 +439,9 @@ void PicStatus::SelectPic()
 
 	if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-	else if (!currItem->OnMasterPage.isEmpty() && !m_Doc->masterPageMode())
-		emit selectMasterPage(currItem->OnMasterPage);
+	else
+		if (!currItem->OnMasterPage.isEmpty() && !m_Doc->masterPageMode())
+			emit selectMasterPage(currItem->OnMasterPage);
 
 	emit selectElementByItem(currItem, true, 1);
 }

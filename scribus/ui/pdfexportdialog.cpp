@@ -171,7 +171,7 @@ void PDFExportDialog::DoExport()
 		}
 	}
 
-	if ((pageNumbers.size() == 0) || hasInvalidPageRange)
+	if ((pageNumbers.empty()) || hasInvalidPageRange)
 	{
 		ScMessageBox::warning(this, CommonStrings::trWarning, tr("The range of pages to export is invalid.\nPlease check it and try again."));
 		return;

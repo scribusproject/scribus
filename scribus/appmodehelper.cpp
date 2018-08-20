@@ -76,7 +76,6 @@ void AppModeHelper::resetApplicationMode(ScribusMainWindow* scmw, int newMode)
 	a_actMgr->disconnectModeActions();
 	setModeActionsPerMode(newMode);
 	a_actMgr->connectModeActions();
-	return;
 }
 
 void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode)
@@ -1166,7 +1165,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 	if (b2)
 	{
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
-		bool setter = doc->DocPages.count() > 1 ? true : false;
+		bool setter = doc->DocPages.count() > 1;
 		(*a_scrActions)["pageDelete"]->setEnabled(setter);
 		(*a_scrActions)["pageMove"]->setEnabled(setter);
 	}
@@ -1211,7 +1210,7 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
 		if ( ScCore->haveGS() || ScCore->isWinGUI() )
 			(*a_scrActions)["PrintPreview"]->setEnabled(true);
-		bool setter = doc->DocPages.count() > 1 ? true : false;
+		bool setter = doc->DocPages.count() > 1;
 		(*a_scrActions)["pageDelete"]->setEnabled(setter);
 		(*a_scrActions)["pageMove"]->setEnabled(setter);
 	}
@@ -1259,7 +1258,7 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
 		if ( ScCore->haveGS() || ScCore->isWinGUI() )
 			(*a_scrActions)["PrintPreview"]->setEnabled(true);
-		bool setter = doc->DocPages.count() > 1 ? true : false;
+		bool setter = doc->DocPages.count() > 1;
 		(*a_scrActions)["pageDelete"]->setEnabled(setter);
 		(*a_scrActions)["pageMove"]->setEnabled(setter);
 	}
@@ -1453,7 +1452,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(true);
-	bool setter = doc->DocPages.count() > 1 ? true : false;
+	bool setter = doc->DocPages.count() > 1;
 	(*a_scrActions)["pageDelete"]->setEnabled(setter);
 	(*a_scrActions)["pageMove"]->setEnabled(setter);
 	(*a_scrActions)["pageInsert"]->setEnabled(true);
@@ -1514,7 +1513,7 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 
 		if (!doc->isModified())
 		{
-			bool setter = doc->DocPages.count() > 1 ? true : false;
+			bool setter = doc->DocPages.count() > 1;
 			(*a_scrActions)["pageDelete"]->setEnabled(setter);
 			(*a_scrActions)["pageMove"]->setEnabled(setter);
 		}

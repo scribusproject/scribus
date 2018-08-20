@@ -70,9 +70,6 @@ void gradientEditDialog::quitDialog()
 			gradientName->setFocus();
 			return;
 		}
-		else
-			accept();
 	}
-	else
-		accept();
+	accept();
 }

@@ -169,7 +169,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
 		gsver = tr("No Ghostscript version available");
-	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p><p align=\"center\">%3<br>%4 %5<br>%6</p>").arg( tr("Scribus Version")).arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
+	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p><p align=\"center\">%3<br>%4 %5<br>%6</p>").arg( tr("Scribus Version"), version, built, tr("Build ID:"), bu, gsver));
 	tabLayout1->addWidget( buildID, 0, Qt::AlignHCenter );
 	tabWidget2->addTab( tab, tr( "&About" ) );
 

@@ -294,13 +294,10 @@ void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		else
+		if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
 		{
-			if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
-			{
-				mousePressEvent(m);
-				return;
-			}
+			mousePressEvent(m);
+			return;
 		}
 	}
 }

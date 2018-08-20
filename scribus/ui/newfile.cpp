@@ -673,7 +673,7 @@ void NewDoc::adjustTitles(int tab)
 		setWindowTitle(tr("Open Existing Document"));
 	else if (tab == 3)
 		setWindowTitle(tr("Open Recent Document"));
- 	else
+	else
 		setWindowTitle(tr("New Document"));
 	OKButton->setEnabled(tab!=2);
 }

@@ -98,8 +98,8 @@ protected:
 	ScGuardedPtr<ScribusDoc> m_styledTextDoc;
 
 public:
-	const StoryText&  styledText(void) const { return m_styledText; }
-	const ScribusDoc* document(void)   const { return m_styledTextDoc; }
+	const StoryText&  styledText() const { return m_styledText; }
+	const ScribusDoc* document()   const { return m_styledTextDoc; }
 
 	void  setStyledText(const StoryText& text, ScribusDoc* doc)
 	{
@@ -2100,18 +2100,18 @@ void StoryEditor::connectSignals()
 	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(newDirection(int)), this, SLOT(newDirection(int)));
-	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
-	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
+	connect(FillTools, SIGNAL(NewColor(int,int)), this, SLOT(newTxFill(int,int)));
+	connect(StrokeTools, SIGNAL(NewColor(int,int)), this, SLOT(newTxStroke(int,int)));
 	connect(FontTools, SIGNAL(newSize(double)), this, SLOT(newTxSize(double)));
 	connect(FontTools, SIGNAL(newFont(const QString&)), this, SLOT(newTxFont(const QString&)));
 	connect(FontTools, SIGNAL(newScaleH(double)), this, SLOT(newTxScale()));
 	connect(FontTools, SIGNAL(newScaleV(double)), this, SLOT(newTxScaleV()));
 	connect(StyleTools, SIGNAL(NewKern(double)), this, SLOT(newTxKern(double)));
 	connect(StyleTools, SIGNAL(newStyle(int)), this, SLOT(newTxStyle(int)));
-	connect(StyleTools, SIGNAL(NewShadow(double, double)), this, SLOT(newShadowOffs(double, double)));
+	connect(StyleTools, SIGNAL(NewShadow(double,double)), this, SLOT(newShadowOffs(double,double)));
 	connect(StyleTools, SIGNAL(newOutline(double)), this, SLOT(newTxtOutline(double)));
-	connect(StyleTools, SIGNAL(newUnderline(double, double)), this, SLOT(newTxtUnderline(double, double)));
-	connect(StyleTools, SIGNAL(newStrike(double, double)), this, SLOT(newTxtStrike(double, double)));
+	connect(StyleTools, SIGNAL(newUnderline(double,double)), this, SLOT(newTxtUnderline(double,double)));
+	connect(StyleTools, SIGNAL(newStrike(double,double)), this, SLOT(newTxtStrike(double,double)));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)

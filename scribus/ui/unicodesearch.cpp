@@ -88,7 +88,6 @@ void UnicodeChooseButton::self_toggled(bool state)
 // }
 
 UnicodeSearchModel::UnicodeSearchModel(QObject * /*parent*/)
-	: QAbstractTableModel()
 {
 	setObjectName("UnicodeSearchModel");
 
@@ -141,14 +140,11 @@ QVariant UnicodeSearchModel::data(const QModelIndex & index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
-	if (role == Qt::DisplayRole)
-	{
-		if (index.column() == 0)
-			return m_unicode.at(index.row()).hex;
-		else
-			return m_unicode.at(index.row()).description;
-	}
-	return QVariant();
+	if (role != Qt::DisplayRole)
+		return QVariant();
+	if (index.column() == 0)
+		return m_unicode.at(index.row()).hex;
+	return m_unicode.at(index.row()).description;
 }
 
 QString UnicodeSearchModel::hexData(const QModelIndex & index)

@@ -501,10 +501,7 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 					QString actionName = lviToActionMap[selectedLVI];
 					if (checkKey(keyCode))
 					{
-						ScMessageBox::information(this, CommonStrings::trWarning,
-												tr("The %1 key sequence is already in use by \"%2\"")
-													.arg(getTrKeyText(keyCode))
-													.arg(getAction(keyCode)));
+						ScMessageBox::information(this, CommonStrings::trWarning, tr("The %1 key sequence is already in use by \"%2\"").arg(getTrKeyText(keyCode),getAction(keyCode)));
 						selectedLVI->setText(1,keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
 						keyDisplay->setText(keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
 					}

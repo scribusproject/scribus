@@ -29,18 +29,18 @@ static int minmaxi(int val, int min, int max)
 {
 	if (val < min)
 		return min;
-	else if (val > max)
+	if (val > max)
 		return max;
-	else return val;
+	return val;
 }
 
 static double minmaxd(double val, double min, double max)
 {
 	if (val < min)
 		return min;
-	else if (val > max)
+	if (val > max)
 		return max;
-	else return val;
+	return val;
 }
 
 typedef struct

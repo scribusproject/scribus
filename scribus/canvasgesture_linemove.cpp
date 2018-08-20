@@ -65,8 +65,7 @@ double LineMove::rotation() const
 	double rot = xy2Deg(m_bounds.width(), m_bounds.height());
 	if (rot < 0.0)
 		return 360 + rot;
-	else
-		return rot;
+	return rot;
 }
 
 

@@ -112,7 +112,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
 		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
-		if (RecordP.size() > 0)
+		if (!RecordP.empty())
 		{
 			if (FPoint(newXF, newYF) != RecordP.point(RecordP.size()-1))
 				RecordP.addPoint(FPoint(newXF, newYF));

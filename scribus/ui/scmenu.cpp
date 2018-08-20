@@ -122,8 +122,7 @@ bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 			m->setText(newSubMenu->getMenuText());
 		return true;
 	}
-	else
-		return false;
+	return false;
 }
 
 bool ScrPopupMenu::removeSubMenu(ScrPopupMenu* subMenu)
@@ -156,8 +155,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 					menuListHasNoIcons = act->icon().isNull();
 				break;
 			}
-
-			else if (menuItemListClassName == "ScrPopupMenu")
+			if (menuItemListClassName == "ScrPopupMenu")
 			{
 				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(menuItem);
 				if (men!=nullptr)
@@ -173,8 +171,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		localPopupMenu->addAction(newMenuAction);
 		return true;
 	}
-	else 
-		return false;
+	return false;
 }
 
 /* Qt4
@@ -336,13 +333,13 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 			if (sca!=nullptr)
 				actNames->append(sca->objectName());
 		}
-		else 
-		if (menuItemListClassName=="ScrPopupMenu")
-		{
-			ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(listObj);
-			if (scp!=nullptr)
-				scp->generateEntryList(actNames);
-		}
+		else
+			if (menuItemListClassName=="ScrPopupMenu")
+			{
+				ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(listObj);
+				if (scp!=nullptr)
+					scp->generateEntryList(actNames);
+			}
 		++menuItemListIt;
 	}
 	return true;

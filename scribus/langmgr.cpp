@@ -766,8 +766,7 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 	{
 		if (getTranslated)
 			return m_langTable[i].m_transName;
-		else
-			return m_langTable[i].m_name;
+		return m_langTable[i].m_name;
 	}
 	//qDebug()<<langAbbrev<<"not found";
 	return "";

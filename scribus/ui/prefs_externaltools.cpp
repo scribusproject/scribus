@@ -306,9 +306,7 @@ void Prefs_ExternalTools::setConfigItemText(QListWidgetItem *item)
 		item->setText(description);
 	else
 	{
-		item->setText(QString("%1 (" + tr("Command: ") + "%2)" ).
-			arg(description).
-			arg(QDir::toNativeSeparators(QDir::cleanPath(command))));
+		item->setText(QString("%1 (" + tr("Command: ") + "%2)" ).arg(description, QDir::toNativeSeparators(QDir::cleanPath(command))));
 	}
 }
 

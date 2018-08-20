@@ -908,11 +908,8 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				}
 				if (postpone)
 					continue;
-				else 
-				{
-					qDebug() << QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(m_item->typeName()).arg(styles[i].first);
-					sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
-				}
+				qDebug() << QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second, m_item->typeName(), styles[i].first);
+				sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
 			}
 			
 			sitems[styles[i].first] = sitem;
@@ -1053,7 +1050,7 @@ void StyleManager::slotNameChanged(const QString& name)
 		applyButton->setEnabled(false);
 		return;
 	}
-	else if (uniqueLabel->isVisible())
+	if (uniqueLabel->isVisible())
 	{
 		uniqueLabel->hide();
 		okButton->setEnabled(true);
@@ -1322,10 +1319,8 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 		{
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it);
 			if (!item)
-			{
 				continue;
-			}
-			else if (typeName.isNull())
+			if (typeName.isNull())
 				typeName = item->rootName();
 			else if (!typeName.isNull() && typeName != item->rootName())
 			{

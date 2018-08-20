@@ -356,8 +356,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 			m_noteStory = nullptr;
 			return;
 		}
-		else
-			story->insertChars(pos, QString(ch));
+		story->insertChars(pos, QString(ch));
 		if (ch == SpecialChars::PARSEP) 
 		{
 			if (paraStyle.hasName())

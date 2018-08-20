@@ -407,7 +407,7 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 			break;
 		}
 		if (showInfo)
-			sDebug( QString("Color profile %1 loaded from %2").arg(profileName).arg(profInfo.file) );
+			sDebug( QString("Color profile %1 loaded from %2").arg(profileName, profInfo.file) );
 	}
 }
 

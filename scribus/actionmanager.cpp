@@ -2039,7 +2039,7 @@ void ActionManager::createDefaultMenuNames()
 void ActionManager::createDefaultMenus()
 {   //CB TODO use this to also create the menus
 
-	if (defMenuNames.size()==0)
+	if (defMenuNames.empty())
 		createDefaultMenuNames();
 
 	defMenus.clear();
@@ -2405,7 +2405,7 @@ void ActionManager::createDefaultNonMenuNames()
 void ActionManager::createDefaultNonMenuActions()
 {   //CB TODO use this to also create the menus
 
-	if (defNonMenuNames.size()==0)
+	if (defNonMenuNames.empty())
 		createDefaultNonMenuNames();
 
 	defNonMenuActions.clear();
