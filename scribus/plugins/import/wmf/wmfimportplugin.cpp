@@ -57,7 +57,7 @@ void wmfimplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-WMFImportPlugin::WMFImportPlugin() : LoadSavePlugin(),
+WMFImportPlugin::WMFImportPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do

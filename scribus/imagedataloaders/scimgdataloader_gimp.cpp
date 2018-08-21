@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include "scimgdataloader_gimp.h"
 
-ScImgDataLoader_GIMP::ScImgDataLoader_GIMP() : ScImgDataLoader()
+ScImgDataLoader_GIMP::ScImgDataLoader_GIMP()
 {
 	initSupportedFormatList();
 }

@@ -58,7 +58,7 @@ void scribusshortwords_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ShortWordsPlugin::ShortWordsPlugin() : ScActionPlugin()
+ShortWordsPlugin::ShortWordsPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

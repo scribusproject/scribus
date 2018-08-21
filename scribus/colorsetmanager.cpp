@@ -282,7 +282,7 @@ QString ColorSetManager::userPaletteFileFromName(const QString& paletteName)
 
 bool ColorSetManager::paletteLocationLocked(const QString& palettePath)
 {
-	return (paletteLocationLocks.contains(palettePath) && paletteLocationLocks.value(palettePath)==true);
+	return (paletteLocationLocks.contains(palettePath) && paletteLocationLocks.value(palettePath));
 }
 
 bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
@@ -302,9 +302,7 @@ bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
 	}
 	f.close();
 	QDomElement elem = docu.documentElement();
-	if (elem.tagName() != "SCRIBUSCOLORS")
-		return false;
-	return true;
+	return elem.tagName() == "SCRIBUSCOLORS";
 }
 
 bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge)

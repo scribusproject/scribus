@@ -238,7 +238,7 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 	double x = e->pos().x() / (float)width();
 	double y = 1.0 - e->pos().y() / (float)height();
 
-	if (m_dragging == false)   // If no point is selected set the the cursor shape if on top
+	if (!m_dragging)   // If no point is selected set the the cursor shape if on top
 	{
 		double distance = 1000;
 		double ydistance = 1000;

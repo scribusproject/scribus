@@ -50,7 +50,7 @@ void pathconnect_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathConnectPlugin::PathConnectPlugin() : ScActionPlugin(),
+PathConnectPlugin::PathConnectPlugin() :
 	m_item1(nullptr),
 	m_item2(nullptr),
 	m_doc(nullptr),

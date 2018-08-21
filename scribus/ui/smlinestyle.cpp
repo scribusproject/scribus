@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMLineStyle::SMLineStyle() : StyleItem(), m_doc(nullptr), m_widget(nullptr), m_twidget(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
+SMLineStyle::SMLineStyle() : m_doc(nullptr), m_widget(nullptr), m_twidget(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
 {
 	
 }

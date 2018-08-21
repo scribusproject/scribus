@@ -230,9 +230,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	SnapElement(false), GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
-	Pages(nullptr), MasterPages(), DocPages(),
-	MasterNames(),
-	Items(nullptr), MasterItems(), DocItems(), FrameItems(),
+	Pages(nullptr),
+	Items(nullptr),
 	m_Selection(new Selection(this, true)),
 	PageSp(1), PageSpa(0),
 	FirstPnum(1),
@@ -242,45 +241,26 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	ShapeValues(nullptr),
 	ValCount(0),
 	DocName( tr("Document")+"-"),
-	UsedFonts(),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
-	AObjects(),
 	CurrentSel(-1),
-	nodeEdit(),
 	LastAuto(nullptr), FirstAuto(nullptr),
 	DraggedElem(nullptr),
 	ElemToLink(nullptr),
-	DragElements(),
-	m_docParagraphStyles(),
-	m_docCharStyles(),
-	m_docTableStyles(),
-	m_docCellStyles(),
-	Layers(),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
-	JavaScripts(),
 	TotalItems(0),
 	RePos(false),
-	BookMarks(),
 	OldBM(false),
 	hasName(false),
 	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
-	MLineStyles(),
 	WinHan(nullptr),
 	DoDrawing(true),
-	OpenNodes(),
 	CurTimer(nullptr),
-	pageErrors(),
-	docLayerErrors(),
-	docItemErrors(),
-	masterItemErrors(),
-	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(nullptr),
 	m_itemCreationTransaction(nullptr),
 	m_alignTransaction(nullptr),
 	m_currentPage(nullptr),
-	m_updateManager(),
 	m_docUpdater(nullptr),
 	m_flag_notesChanged(false),
 	flag_restartMarksRenumbering(false),
@@ -347,9 +327,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
-	Pages(nullptr), MasterPages(), DocPages(),
-	MasterNames(),
-	Items(nullptr), MasterItems(), DocItems(), FrameItems(),
+	Pages(nullptr),
+	Items(nullptr),
 	m_Selection(new Selection(this, true)),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	FirstPnum(pagesSetup.firstPageNumber),
@@ -359,45 +338,26 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	ShapeValues(nullptr),
 	ValCount(0),
 	DocName(docName),
-	UsedFonts(),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
-	AObjects(),
 	CurrentSel(-1),
-	nodeEdit(),
 	LastAuto(nullptr), FirstAuto(nullptr),
 	DraggedElem(nullptr),
 	ElemToLink(nullptr),
-	DragElements(),
-	m_docParagraphStyles(),
-	m_docCharStyles(),
-	m_docTableStyles(),
-	m_docCellStyles(),
-	Layers(),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
-	JavaScripts(),
 	TotalItems(0),
 	RePos(false),
-	BookMarks(),
 	OldBM(false),
 	hasName(false),
 	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
-	MLineStyles(),
 	WinHan(nullptr),
 	DoDrawing(true),
-	OpenNodes(),
 	CurTimer(nullptr),
-	pageErrors(),
-	docLayerErrors(),
-	docItemErrors(),
-	masterItemErrors(),
-	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(nullptr),
 	m_itemCreationTransaction(nullptr),
 	m_alignTransaction(nullptr),
 	m_currentPage(nullptr),
-	m_updateManager(),
 	m_docUpdater(nullptr),
 	m_flag_notesChanged(false),
 	flag_restartMarksRenumbering(false),
@@ -778,20 +738,17 @@ ScribusDoc::~ScribusDoc()
 
 bool ScribusDoc::inAnEditMode() const
 {
-	bool inEditMode = (appMode == modeDrawBezierLine ||
-					   appMode == modeEdit ||
-					   appMode == modeEditArc ||
-					   appMode == modeEditClip ||
-					   appMode == modeEditGradientVectors ||
-					   appMode == modeEditMeshGradient ||
-					   appMode == modeEditMeshPatch ||
-					   appMode == modeEditPolygon ||
-					   appMode == modeEditSpiral ||
-					   appMode == modeEditTable ||
-					   appMode == modeEditWeldPoint
-					   ) ? true : false;
-
-	return inEditMode;
+	return appMode == modeDrawBezierLine ||
+			appMode == modeEdit ||
+			appMode == modeEditArc ||
+			appMode == modeEditClip ||
+			appMode == modeEditGradientVectors ||
+			appMode == modeEditMeshGradient ||
+			appMode == modeEditMeshPatch ||
+			appMode == modeEditPolygon ||
+			appMode == modeEditSpiral ||
+			appMode == modeEditTable ||
+			appMode == modeEditWeldPoint;
 }
 
 bool ScribusDoc::inASpecialEditMode() const

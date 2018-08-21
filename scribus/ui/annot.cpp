@@ -1392,7 +1392,7 @@ void ScAnnot::SetAnnotationType(int it)
 			for (uint prop = 0; prop < array_act; ++prop)
 				ActionCombo->addItem(tmp_actcom[prop]);
 			ActionCombo->setCurrentIndex(qMin(tmpac,6));
-			setter = ((annotation.ActionType() != Annotation::Action_GoToR_FileRel) && (annotation.ActionType() != Annotation::Action_GoToR_FileAbs)) ? true : false;
+			setter = (annotation.ActionType() != Annotation::Action_GoToR_FileRel) && (annotation.ActionType() != Annotation::Action_GoToR_FileAbs);
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
 			SetActionType(tmpac);

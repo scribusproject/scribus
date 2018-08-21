@@ -61,7 +61,7 @@ void pathstroker_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathStrokerPlugin::PathStrokerPlugin() : ScActionPlugin()
+PathStrokerPlugin::PathStrokerPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

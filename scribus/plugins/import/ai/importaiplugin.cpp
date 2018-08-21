@@ -45,7 +45,7 @@ void importai_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportAIPlugin::ImportAIPlugin() : LoadSavePlugin(),
+ImportAIPlugin::ImportAIPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

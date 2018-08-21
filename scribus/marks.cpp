@@ -78,7 +78,6 @@ bool Mark::isType(const MarkType t)
 }
 
 BulNumMark::BulNumMark()
-	: Mark()
 {
 	label = "BullNumMark";
 	typ = MARKBullNumType;

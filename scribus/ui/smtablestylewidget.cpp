@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "smtablestylewidget.h"
 
-SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget(),
+SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) :
 	m_Doc(nullptr)
 {
 	setupUi(this);

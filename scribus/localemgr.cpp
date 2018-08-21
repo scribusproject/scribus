@@ -47,8 +47,7 @@ LocaleManager * LocaleManager::instance()
 
 void LocaleManager::deleteInstance()
 {
-	if (m_instance)
-		delete m_instance;
+	delete m_instance;
 	m_instance = nullptr;
 }
 

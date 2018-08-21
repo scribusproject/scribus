@@ -290,7 +290,7 @@ bool printDinUse;
 QString DocDir;
 
 
-extern ScribusQApp* ScQApp;
+//extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
 
@@ -3888,9 +3888,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 bool ScribusMainWindow::postLoadDoc()
 {
 	//FIXME Just return for now, if we arent using the GUI
-	if (!ScCore->usingGUI())
-		return false;
-	return true;
+	return ScCore->usingGUI();
 }
 
 // This method was once named slotFileOpen(...) but it hasn't had anything to

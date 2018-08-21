@@ -69,9 +69,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 OdgPlug::OdgPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);
@@ -3114,7 +3111,6 @@ void OdgPlug::arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry
 	{
 		path.cubicTo(curvePoints[i], curvePoints[i+1], curvePoints[i+2]);
 	}
-	return;
 }
 
 int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints)

@@ -132,7 +132,7 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_Doc)
 		currentPage = nullptr;
-	tabWidget->setEnabled(doc ? true : false);
+	tabWidget->setEnabled(doc != nullptr);
 }
 
 void GuideManager::setupPage(bool storeValues)
@@ -163,7 +163,7 @@ void GuideManager::setupGui()
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
 	// restore: brand "auto guides into GUI restore algorithm"
-	bool enable = currentPage->guides.horizontalAutoGap() > 0.0 ? true : false;
+	bool enable = currentPage->guides.horizontalAutoGap() > 0.0;
 	horizontalAutoGapCheck->setChecked(enable);
 	horizontalAutoGapSpin->setEnabled(enable);
 	horizontalAutoGapSpin->setValue(pts2value(currentPage->guides.horizontalAutoGap(), docUnitIndex));
@@ -178,7 +178,7 @@ void GuideManager::setupGui()
 	horizontalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
 
 	// verticals
-	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
+	enable = currentPage->guides.verticalAutoGap() > 0.0;
 	verticalAutoGapCheck->setChecked(enable);
 	verticalAutoGapSpin->setEnabled(enable);
 	verticalAutoGapSpin->setValue(pts2value(currentPage->guides.verticalAutoGap(), docUnitIndex));
@@ -368,7 +368,7 @@ void GuideManager::applyToAllAutoButton_clicked()
 
 void GuideManager::horizontalAutoCountSpin_valueChanged(double val)
 {
-	bool enable = (val == 0) ? false : true;
+	bool enable = val != 0;
 	horizontalAutoGapCheck->setEnabled(enable);
 	if (enable && horizontalAutoGapCheck->isChecked())
 		horizontalAutoGapSpin->setEnabled(true);
@@ -399,7 +399,7 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 
 void GuideManager::verticalAutoCountSpin_valueChanged(double val)
 {
-	bool enable = (val == 0) ? false : true;
+	bool enable = val != 0;
 	verticalAutoGapCheck->setEnabled(enable);
 	if (enable && verticalAutoGapCheck->isChecked())
 		verticalAutoGapSpin->setEnabled(true);

@@ -49,7 +49,7 @@ void subdivide_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SubdividePlugin::SubdividePlugin() : ScActionPlugin()
+SubdividePlugin::SubdividePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

@@ -1814,7 +1814,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr,
 			PS_closepath();
 			if (item->GrType == 14)
 				PS_HatchFill(item);
-			else if ((item->GrType != 0) && (master == false))
+			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
 			else
 				putColor(item->fillColor(), item->fillShade(), true);
@@ -1931,7 +1931,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr,
 			PS_closepath();
 			if (item->GrType == 14)
 				PS_HatchFill(item);
-			else if ((item->GrType != 0) && (master == false))
+			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
 			else
 				putColor(item->fillColor(), item->fillShade(), true);
@@ -3285,7 +3285,6 @@ void PSLib::HandleMeshGradient(PageItem* item)
 			m_Doc->PageColors.remove(tmpAddedColors[cd]);
 		}
 	}
-	return;
 }
 
 void PSLib::HandlePatchMeshGradient(PageItem* item)
@@ -3466,7 +3465,6 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 		PutStream("gr\n");
 	}
 	PS_newpath();
-	return;
 }
 
 void PSLib::HandleDiamondGradient(PageItem* item)
@@ -3681,7 +3679,6 @@ void PSLib::HandleDiamondGradient(PageItem* item)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
-	return;
 }
 
 void PSLib::HandleTensorGradient(PageItem* item)
@@ -3802,7 +3799,6 @@ void PSLib::HandleTensorGradient(PageItem* item)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
-	return;
 }
 
 void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)

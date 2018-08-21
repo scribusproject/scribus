@@ -24,7 +24,7 @@ static void TagExtender(TIFF *tiff)
 	TIFFMergeFieldInfo(tiff, xtiffFieldInfo, sizeof (xtiffFieldInfo) / sizeof (xtiffFieldInfo[0]));
 }
 
-ScImgDataLoader_TIFF::ScImgDataLoader_TIFF() : ScImgDataLoader()
+ScImgDataLoader_TIFF::ScImgDataLoader_TIFF()
 {
 	m_photometric = PHOTOMETRIC_MINISBLACK;
 	m_samplesperpixel = 72;

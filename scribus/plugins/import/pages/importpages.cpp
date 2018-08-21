@@ -464,9 +464,6 @@ bool PagesPlug::convert(QString fn)
 #include "util_formats.h"
 #include "util_math.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 PagesPlug::PagesPlug(ScribusDoc* doc, int flags)
 	: baseX(0.0),
 	  baseY(0.0),

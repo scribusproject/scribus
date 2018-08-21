@@ -295,14 +295,14 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	int typ = -1;
 	uint counter = 0;
 	uint counter2 = 0;
-	uint pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
+	int pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
 	char *kwlist[] = {const_cast<char*>(""), const_cast<char*>("page"), nullptr};
 
 
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &typ, &pageNr))
 		return nullptr;
 
-	uint numpages = ScCore->primaryMainWindow()->doc->Pages->count();
+	int numpages = ScCore->primaryMainWindow()->doc->Pages->count();
 	if(pageNr < 0 || pageNr >= numpages){
 		PyErr_SetString(PyExc_RuntimeError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
 		return nullptr;

@@ -8795,20 +8795,20 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 }
 
 //Moved from View
-void PageItem::SetFrameShape(int count, double *vals)
+void PageItem::SetFrameShape(int count, const double *vals)
 {
 	PoLine.resize(0);
-	for (int a = 0; a < count-3; a += 4)
+	for (int i = 0; i < count-3; i += 4)
 	{
-		if (vals[a] < 0)
+		if (vals[i] < 0)
 		{
 			PoLine.setMarker();
 			continue;
 		}
-		double x1 = m_width * vals[a] / 100.0;
-		double y1 = m_height * vals[a+1] / 100.0;
-		double x2 = m_width * vals[a+2] / 100.0;
-		double y2 = m_height * vals[a+3] / 100.0;
+		double x1 = m_width * vals[i] / 100.0;
+		double y1 = m_height * vals[i+1] / 100.0;
+		double x2 = m_width * vals[i+2] / 100.0;
+		double y2 = m_height * vals[i+3] / 100.0;
 		PoLine.addPoint(x1, y1);
 		PoLine.addPoint(x2, y2);
 	}

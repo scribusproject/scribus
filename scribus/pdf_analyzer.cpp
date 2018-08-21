@@ -65,7 +65,7 @@ static void generateKWNameMap()
 }
 
 
-PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
+PDFAnalyzer::PDFAnalyzer(QString & filename)
 {
 	static bool nameMapInited = false;
 	if (!nameMapInited)
@@ -90,8 +90,7 @@ PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
 
 PDFAnalyzer::~PDFAnalyzer()
 {
-	if (m_doc)
-		delete m_doc;
+	delete m_doc;
 }
 
 bool PDFAnalyzer::inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)

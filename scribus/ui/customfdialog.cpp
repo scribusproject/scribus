@@ -63,7 +63,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QString DocDir;
 
-ImIconProvider::ImIconProvider() : QFileIconProvider()
+ImIconProvider::ImIconProvider()
 {
 	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};

@@ -42,7 +42,7 @@ void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PixmapExportPlugin::PixmapExportPlugin() : ScActionPlugin()
+PixmapExportPlugin::PixmapExportPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.

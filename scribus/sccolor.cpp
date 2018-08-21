@@ -426,7 +426,7 @@ void ScColor::setSpotColor(bool s)
 	m_Spot = s;
 }
 
-ColorList::ColorList(ScribusDoc* doc, bool retainDoc) : QMap<QString,ScColor>()
+ColorList::ColorList(ScribusDoc* doc, bool retainDoc)
 {
 	m_doc = doc;
 	m_retainDoc = retainDoc;

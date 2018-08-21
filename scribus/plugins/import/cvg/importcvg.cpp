@@ -47,9 +47,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 CvgPlug::CvgPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);

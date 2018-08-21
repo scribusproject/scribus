@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
-	m_doc(),
-	m_root(),
 	m_includePasswords(false),
 	m_error()
 {

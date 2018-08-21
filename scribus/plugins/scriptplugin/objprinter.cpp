@@ -402,7 +402,7 @@ static PyObject *Printer_print(Printer *self)
 //    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 	prn = QString(PyString_AsString(self->printer));
 	fna = QString(PyString_AsString(self->file));
-	fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
+	fil = QString(PyString_AsString(self->printer)) == QString("File");
 	std::vector<int> pageNs;
 	PrintOptions options;
 	for (int i = 0; i < PyList_Size(self->pages); ++i) {
@@ -414,7 +414,7 @@ static PyObject *Printer_print(Printer *self)
 	options.prnEngine = (PrintEngine) self->pslevel;
 	options.toFile    = fil;
 	options.separationName = SepName;
-	options.outputSeparations = (SepName == QString("No")) ?  false : true;
+	options.outputSeparations = SepName != QString("No");
 	options.useColor = self->color;
 	options.mirrorH  = self->mph;
 	options.mirrorV  = self->mpv;

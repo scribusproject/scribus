@@ -45,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 
 
-extern ScribusQApp* ScQApp;
+//extern ScribusQApp* ScQApp;
 
 ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
 {

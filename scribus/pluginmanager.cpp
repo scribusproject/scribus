@@ -36,9 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLibrary>
 #endif
 
-
-extern ScribusQApp *ScQApp;
-
 PluginManager::PluginManager() :
 	QObject(nullptr),
 	prefs(PrefsManager::instance()->prefsFile->getPluginContext("pluginmanager"))

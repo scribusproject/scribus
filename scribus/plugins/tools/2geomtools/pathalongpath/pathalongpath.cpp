@@ -54,7 +54,7 @@ void pathalongpath_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathAlongPathPlugin::PathAlongPathPlugin() : ScActionPlugin(),
+PathAlongPathPlugin::PathAlongPathPlugin() :
 	patternItem(nullptr),
 	pathItem(nullptr),
 	originalRot(0.0),
@@ -144,10 +144,7 @@ bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 			if (currItem->isGroup())
 			{
 				currItem = doc->m_Selection->itemAt(1);
-				if (currItem->itemType() != PageItem::PolyLine)
-					ret = false;
-				else
-					ret = true;
+				ret = currItem->itemType() == PageItem::PolyLine;
 			}
 			else
 			{

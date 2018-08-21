@@ -43,7 +43,6 @@ ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	initialMargins(40,40,40,40),
 	LeftPg(0),
 	MPageNam(""),
-	FromMaster(),
 	undoManager(UndoManager::instance()),
 	m_xOffset(x),
 	m_yOffset(y),

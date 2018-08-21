@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 PaletteLoader_sK1::PaletteLoader_sK1()
-                 : PaletteLoader()
 {
 
 }

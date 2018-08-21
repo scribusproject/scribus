@@ -45,7 +45,7 @@ void importidml_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportIdmlPlugin::ImportIdmlPlugin() : LoadSavePlugin(),
+ImportIdmlPlugin::ImportIdmlPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

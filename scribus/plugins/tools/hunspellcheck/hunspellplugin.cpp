@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 // Please don't implement the functionality of your plugin here; do that
 // in mypluginimpl.h and mypluginimpl.cpp .
 
-HunspellPlugin::HunspellPlugin() : ScActionPlugin()
+HunspellPlugin::HunspellPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "scpaths.h"
 
-Barcode::Barcode() : ScActionPlugin()
+Barcode::Barcode()
 {
 	languageChange();
 }

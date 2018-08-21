@@ -382,7 +382,7 @@ public: // Start public functions
 
 
 
-	void SetFrameShape(int count, double *vals);
+	void SetFrameShape(int count, const double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();
 	void SetFrameRound();

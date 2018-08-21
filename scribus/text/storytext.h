@@ -132,7 +132,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	int replaceWord(int pos, QString newWord);
 	void replaceObject(int pos, int obj);
 
-	void hyphenateWord(int pos, uint len, char* hyphens);
+	void hyphenateWord(int pos, uint len, const char* hyphens);
 	
  	// Retrieve length of story text
  	int length() const;

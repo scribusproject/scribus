@@ -49,7 +49,7 @@ void lenseffects_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-LensEffectsPlugin::LensEffectsPlugin() : ScActionPlugin()
+LensEffectsPlugin::LensEffectsPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

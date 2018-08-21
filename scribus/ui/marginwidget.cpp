@@ -236,8 +236,8 @@ void MarginWidget::setFacingPages(bool facing, int pagetype)
 {
 	facingPages = facing;
 	pageType = pagetype;
-	lText->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
-	rText->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	lText->setText(facing ? tr( "&Inside:" ) : tr( "&Left:" ));
+	rText->setText(facing ? tr( "O&utside:" ) : tr( "&Right:" ));
 	if (useBleeds)
 	{
 		if (facing)

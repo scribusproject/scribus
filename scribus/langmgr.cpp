@@ -48,8 +48,7 @@ LanguageManager* LanguageManager::instance()
 
 void LanguageManager::deleteInstance()
 {
-	if (m_instance)
-		delete m_instance;
+	delete m_instance;
 	m_instance = nullptr;
 }
 
@@ -1021,9 +1020,7 @@ QString LanguageManager::numericSequence(const QString& seq)
 bool LanguageManager::findSpellingDictionaries(QStringList &sl)
 {
 	sl=ScPaths::instance().spellDirs();
-	if (sl.count()==0)
-		return false;
-	return true;
+	return sl.count() != 0;
 }
 
 void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, QMap<QString, QString> &dictionaryMap)
@@ -1099,9 +1096,7 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 bool LanguageManager::findHyphDictionaries(QStringList& sl)
 {
 	sl=ScPaths::instance().hyphDirs();
-	if (sl.count()==0)
-		return false;
-	return true;
+	return sl.count() != 0;
 }
 
 void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap)

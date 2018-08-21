@@ -3129,7 +3129,7 @@ bool Scribus134Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 	return !reader.hasError();
 }
 
-bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
+bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName)
 {
 // 	qDebug() << QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber);
 	if (m_Doc==nullptr || m_AvailableFonts==nullptr)

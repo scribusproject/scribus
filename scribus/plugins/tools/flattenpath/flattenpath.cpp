@@ -57,7 +57,7 @@ void flattenpath_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-FlattenPathPlugin::FlattenPathPlugin() : ScActionPlugin()
+FlattenPathPlugin::FlattenPathPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

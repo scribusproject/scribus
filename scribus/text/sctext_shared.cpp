@@ -16,10 +16,9 @@ for which a new license (GPL+exception) is in place.
 #include "sctext_shared.h"
 #include "util.h"
 
-ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(), 
-	defaultStyle(), 
+ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
 	pstyleContext(nullptr),
-	refs(1), len(0), cursorPosition(0), trailingStyle()
+	refs(1), len(0), cursorPosition(0)
 {
 	pstyleContext.setDefaultStyle( & defaultStyle );
 	defaultStyle.setContext( pstyles );
@@ -29,7 +28,7 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(),
 }
 		
 
-ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(), 
+ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
 	refs(1), len(0), cursorPosition(other.cursorPosition),

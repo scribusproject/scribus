@@ -70,7 +70,7 @@ StoryText::StoryText() : m_doc(nullptr)
 	m_shapedTextCache = nullptr;
 }
 
-StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.m_doc)
+StoryText::StoryText(const StoryText & other) : m_doc(other.m_doc)
 {
 	d = other.d;
 	d->refs++;
@@ -770,7 +770,7 @@ int StoryText::replaceWord(int pos, QString newWord)
 	return lengthDiff;
 }
 
-void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
+void StoryText::hyphenateWord(int pos, uint len, const char* hyphens)
 {
 	assert(pos >= 0);
 	assert(pos + signed(len) <= length());
@@ -2561,8 +2561,7 @@ public:
 	
 	~Paragraph_body() 
 	{
-		if (lastStyle)
-			delete lastStyle;
+		delete lastStyle;
 	}
 
 	virtual void reset()
@@ -2585,8 +2584,7 @@ public:
 				story->insertChars(-1, SpecialChars::PARSEP);
 				++lastPos;
 			}
-			if (lastStyle)
-				delete lastStyle;
+			delete lastStyle;
 			lastStyle = nullptr;
 		}
 	}
@@ -2619,7 +2617,7 @@ private:
 
 struct Paragraph : public MakeAction<Paragraph_body>
 {
-	Paragraph() : MakeAction<Paragraph_body>() {}
+	Paragraph() {}
 };
 
 
@@ -2671,7 +2669,7 @@ private:
 
 struct SpanAction : public MakeAction<SpanAction_body>
 {
-	SpanAction() : MakeAction<SpanAction_body>() {}
+	SpanAction() {}
 };
 
 

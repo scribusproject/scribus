@@ -84,7 +84,5 @@ FPoint FPoint::transformPoint(const double dx, const double dy, const double rot
 
 bool FPoint::isNull() const
 {
-	if (xp == 0.0 && yp == 0.0)
-		return true;
-	return false;
+	return xp == 0.0 && yp == 0.0;
 }

@@ -26,7 +26,7 @@ extern "C"
 #include <fcntl.h>
 }
 
-ScImgDataLoader_PGF::ScImgDataLoader_PGF() : ScImgDataLoader()
+ScImgDataLoader_PGF::ScImgDataLoader_PGF()
 {
 	initSupportedFormatList();
 }

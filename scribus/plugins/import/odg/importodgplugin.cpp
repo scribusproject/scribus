@@ -45,7 +45,7 @@ void importodg_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportOdgPlugin::ImportOdgPlugin() : LoadSavePlugin(),
+ImportOdgPlugin::ImportOdgPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

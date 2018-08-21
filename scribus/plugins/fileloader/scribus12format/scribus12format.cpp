@@ -1808,7 +1808,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 }
 
-bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
+bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& /*renamedPageName*/)
 {
 //	qDebug() << QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber);
 	if (m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr)

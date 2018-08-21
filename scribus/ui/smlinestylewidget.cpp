@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMLineStyleWidget::SMLineStyleWidget() : QWidget()
+SMLineStyleWidget::SMLineStyleWidget()
 {
 	setupUi(this);
 

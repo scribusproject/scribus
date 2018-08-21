@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 PaletteLoader_Adobe_acb::PaletteLoader_Adobe_acb()
-                       : PaletteLoader()
 {
 
 }

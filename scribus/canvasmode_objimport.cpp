@@ -51,23 +51,19 @@ CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
 
 CanvasMode_ObjImport::~CanvasMode_ObjImport()
 {
-	if (m_mimeData)
-		delete m_mimeData;
-	if (m_trSettings)
-		delete m_trSettings;
+	delete m_mimeData;
+	delete m_trSettings;
 }
 
 void CanvasMode_ObjImport::setMimeData(QMimeData* mimeData)
 {
-	if (m_mimeData)
-		delete m_mimeData;
+	delete m_mimeData;
 	m_mimeData = mimeData;
 }
 
 void CanvasMode_ObjImport:: setTransactionSettings(TransactionSettings* settings)
 {
-	if (m_trSettings)
-		delete m_trSettings;
+	delete m_trSettings;
 	m_trSettings = settings;
 }
 

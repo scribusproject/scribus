@@ -15,8 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 QList<FileFormat> LoadSavePlugin::formats;
 
-LoadSavePlugin::LoadSavePlugin()
-	: ScPlugin(),
+LoadSavePlugin::LoadSavePlugin() :
 	m_Doc(nullptr),
 	m_View(nullptr),
 	m_ScMW(nullptr),

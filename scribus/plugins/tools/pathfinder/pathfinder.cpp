@@ -60,7 +60,7 @@ void pathfinder_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathFinderPlugin::PathFinderPlugin() : ScActionPlugin()
+PathFinderPlugin::PathFinderPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

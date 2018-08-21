@@ -425,8 +425,6 @@ for which a new license (GPL+exception) is in place.
 #define   U_RNDT_Empty                  0x10000002
 #define   U_RNDT_Infinite               0x10000003
 
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
 	: clipGroup(nullptr),
 	  docWidth(0.0),

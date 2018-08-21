@@ -39,7 +39,7 @@ void importpub_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportPubPlugin::ImportPubPlugin() : LoadSavePlugin(),
+ImportPubPlugin::ImportPubPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

@@ -48,9 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "rawpainter.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 #if HAVE_REVENGE
 
 RawPainterPres::RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : librevenge::RVNGRawTextGenerator(false)

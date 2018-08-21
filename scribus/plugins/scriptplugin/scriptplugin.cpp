@@ -111,7 +111,7 @@ void scriptplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ScriptPlugin::ScriptPlugin() : ScPersistentPlugin()
+ScriptPlugin::ScriptPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -600,7 +600,6 @@ void initscribus_failed(const char* fileName, int lineNo)
 	qDebug("Scripter setup failed (%s:%i)", fileName, lineNo);
 	if (PyErr_Occurred())
 		PyErr_Print();
-	return;
 }
 
 void initscribus(ScribusMainWindow *pl)

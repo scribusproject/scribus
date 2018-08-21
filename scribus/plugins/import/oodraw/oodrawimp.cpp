@@ -73,7 +73,6 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 }
 
 OODrawImportPlugin::OODrawImportPlugin() :
-	LoadSavePlugin(),
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do

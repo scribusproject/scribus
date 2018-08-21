@@ -58,7 +58,7 @@ void smoothpath_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SmoothPathPlugin::SmoothPathPlugin() : ScActionPlugin()
+SmoothPathPlugin::SmoothPathPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

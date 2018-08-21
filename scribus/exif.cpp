@@ -908,12 +908,9 @@ bool ExifData::scan ( const QString & path )
 	if ( !f.open ( QIODevice::ReadOnly ) )
 		return false;
 	ret = ReadJpegSections ( f, READ_EXIF );
-	if ( ret == false )
-	{
-		f.close();
-		return false;
-	}
 	f.close();
+	if ( ret == false )
+		return false;
 
 	//now make the strings clean,
 	// for example my Casio is a "QV-4000   "

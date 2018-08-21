@@ -45,7 +45,8 @@ void importsvm_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportSvmPlugin::ImportSvmPlugin() : LoadSavePlugin(), importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+ImportSvmPlugin::ImportSvmPlugin() :
+	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.

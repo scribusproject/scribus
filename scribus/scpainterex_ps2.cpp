@@ -60,7 +60,7 @@ ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 	cmykToOutputImageTransform = nullptr;
 }
 
-ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, QRect& rect, ScPs2OutputParams& options ) : ScPainterExBase()
+ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, QRect& rect, ScPs2OutputParams& options )
 {
 	m_stream.setDevice( iodev );
 	m_colorMode = options.colorMode;

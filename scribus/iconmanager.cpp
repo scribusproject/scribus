@@ -45,8 +45,7 @@ IconManager* IconManager::instance()
 
 void IconManager::deleteInstance()
 {
-	if (m_instance)
-		delete m_instance;
+	delete m_instance;
 	m_instance = nullptr;
 }
 
@@ -64,9 +63,7 @@ bool IconManager::setup()
 bool IconManager::initIcons()
 {
 	readIconConfigFiles();
-	if (m_iconSets.isEmpty() || m_activeSetBasename.isEmpty())
-		return false;
-	return true;
+	return !(m_iconSets.isEmpty() || m_activeSetBasename.isEmpty());
 }
 
 void IconManager::readIconConfigFiles()

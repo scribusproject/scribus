@@ -54,7 +54,7 @@ void pathcut_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathCutPlugin::PathCutPlugin() : ScActionPlugin()
+PathCutPlugin::PathCutPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

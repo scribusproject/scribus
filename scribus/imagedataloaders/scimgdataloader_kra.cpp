@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_kra.h"
 #include "util_formats.h"
 
-ScImgDataLoader_KRA::ScImgDataLoader_KRA() : ScImgDataLoader()
+ScImgDataLoader_KRA::ScImgDataLoader_KRA()
 {
 	initSupportedFormatList();
 }

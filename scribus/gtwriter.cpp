@@ -204,8 +204,6 @@ gtWriter::~gtWriter()
 {
 	if (!m_errorSet)
 		m_action->setProgressInfoDone();
-	if (m_action)
-		delete m_action;
-	if (m_defaultStyle)
-		delete m_defaultStyle;
+	delete m_action;
+	delete m_defaultStyle;
 }

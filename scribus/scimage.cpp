@@ -775,7 +775,6 @@ void ScImage::sharpen(double radius, double sigma)
 			d++;
 		}
 	}
-	return;
 }
 
 void ScImage::contrast(int contrastValue, bool cmyk)
@@ -1760,14 +1759,10 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 	}
 	if ( newrows != rows && tempxelrow )// Robust, tempxelrow might be 0 1 day
 		delete [] tempxelrow;
-	if ( as )				// Avoid purify complaint
-		delete [] as;
-	if ( rs )				// Robust, rs might be 0 one day
-		delete [] rs;
-	if ( gs )				// Robust, gs might be 0 one day
-		delete [] gs;
-	if ( bs )				// Robust, bs might be 0 one day
-		delete [] bs;
+	delete [] as;
+	delete [] rs;
+	delete [] gs;
+	delete [] bs;
 	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
 	for( int yi=0; yi < dst.height(); ++yi )
 	{

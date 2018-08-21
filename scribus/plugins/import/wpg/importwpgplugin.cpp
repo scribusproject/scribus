@@ -39,7 +39,7 @@ void importwpg_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportWpgPlugin::ImportWpgPlugin() : LoadSavePlugin(),
+ImportWpgPlugin::ImportWpgPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

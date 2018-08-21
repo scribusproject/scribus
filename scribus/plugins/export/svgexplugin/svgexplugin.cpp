@@ -79,7 +79,7 @@ void svgexplugin_freePlugin(ScPlugin* plugin)
 
 using namespace TableUtils;
 
-SVGExportPlugin::SVGExportPlugin() : ScActionPlugin()
+SVGExportPlugin::SVGExportPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

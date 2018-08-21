@@ -64,9 +64,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "xpsimportoptions.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 XpsPlug::XpsPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);

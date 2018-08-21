@@ -107,24 +107,9 @@ void selectDialog::getUsedAttributesValues(int &Type, QString &Fill, QString &Li
 	if (useLineWidth->isChecked())
 		LWidth = lineWidthSpin->value();
 	if (usePrintState->isChecked())
-	{
-		if (printStateCombo->currentIndex() == 0)
-			Print = true;
-		else
-			Print = false;
-	}
+		Print = (printStateCombo->currentIndex() == 0);
 	if (useLockedState->isChecked())
-	{
-		if (lockStateCombo->currentIndex() == 0)
-			Locked = true;
-		else
-			Locked = false;
-	}
+		Locked = (lockStateCombo->currentIndex() == 0);
 	if (useResizeState->isChecked())
-	{
-		if (resizeStateCombo->currentIndex() == 0)
-			Resize = false;
-		else
-			Resize = true;
-	}
+		Resize = (resizeStateCombo->currentIndex() != 0);
 }

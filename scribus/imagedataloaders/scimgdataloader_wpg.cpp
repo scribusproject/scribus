@@ -13,11 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cstdlib>
 
-#include <stdio.h>
+#include <cstdio>
 #include "scimgdataloader_wpg.h"
 #include "third_party/wpg/WPGStreamImplementation.h"
 
-ScrPainterIm::ScrPainterIm(): libwpg::WPGPaintInterface(),
+ScrPainterIm::ScrPainterIm() :
 	fillrule(false),
 	gradientAngle(0.0),
 	isGradient(false),
@@ -291,7 +291,7 @@ void ScrPainterIm::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
 }
 
 
-ScImgDataLoader_WPG::ScImgDataLoader_WPG() : ScImgDataLoader()
+ScImgDataLoader_WPG::ScImgDataLoader_WPG()
 {
 	initSupportedFormatList();
 }

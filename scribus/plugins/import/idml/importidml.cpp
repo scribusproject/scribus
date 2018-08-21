@@ -61,9 +61,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);
@@ -874,7 +871,6 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 			}
 		}
 	}
-	return;
 }
 
 bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
@@ -961,7 +957,6 @@ void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
 			}
 		}
 	}
-	return;
 }
 
 void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
@@ -1510,7 +1505,6 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	return;
 }
 
 bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
@@ -2762,7 +2756,6 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 			item->itemText.trim();
 		}
 	}
-	return;
 }
 
 void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)

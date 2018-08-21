@@ -73,7 +73,7 @@ void PageSize::init(const QString& sizeName)
 	else //build based on translated value.
 	{
 		PageSizeInfoMap::Iterator it;
-		for (it=m_pageSizeList.begin();it!=m_pageSizeList.end() && valuesSet!=true;++it)
+		for (it=m_pageSizeList.begin();it!=m_pageSizeList.end() && !valuesSet;++it)
 		{
 			if (sizeName==it.value().trSizeName)
 			{

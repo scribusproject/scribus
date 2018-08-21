@@ -126,9 +126,7 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 	if (xml.hasError())
 		formatError(xml.errorString());
 	f.close();
-	if (!m_error.isEmpty())
-		return false;
-	return true;
+	return m_error.isEmpty();
 }
 
 void LatexConfigParser::parseElements()

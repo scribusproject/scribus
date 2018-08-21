@@ -318,10 +318,7 @@ bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, d
 	if (p->xp != x3 || p->yp != y3)
 		return false;
 	++p; 
-	if (p->xp != x4 || p->yp != y4)
-		return false;
-	
-	return true;
+	return !(p->xp != x4 || p->yp != y4);
 }
 
 void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
@@ -463,7 +460,6 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 	if( p )
 		*p = q[ 0 ];
 	delete[]( q );
-	return;
 }
 
 
@@ -614,8 +610,7 @@ void FPointArray::fromQPainterPath(QPainterPath &path, bool close)
 
 FPointArray::~FPointArray()
 {
-	if (m_svgState)
-		delete m_svgState;
+	delete m_svgState;
 }
 
 

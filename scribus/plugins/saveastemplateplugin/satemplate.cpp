@@ -37,7 +37,7 @@ void saveastemplateplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SaveAsTemplatePlugin::SaveAsTemplatePlugin() : ScActionPlugin()
+SaveAsTemplatePlugin::SaveAsTemplatePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

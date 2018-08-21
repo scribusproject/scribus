@@ -51,7 +51,7 @@ void meshdistortion_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-MeshDistortionPlugin::MeshDistortionPlugin() : ScActionPlugin()
+MeshDistortionPlugin::MeshDistortionPlugin()
 {
 	m_doc = nullptr;
 	m_patternItem = nullptr;

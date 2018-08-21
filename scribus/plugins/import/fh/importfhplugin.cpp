@@ -39,7 +39,7 @@ void importfh_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportFhPlugin::ImportFhPlugin() : LoadSavePlugin(),
+ImportFhPlugin::ImportFhPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

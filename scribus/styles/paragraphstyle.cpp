@@ -27,7 +27,7 @@ bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
 	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
 }
 
-ParagraphStyle::ParagraphStyle() : BaseStyle(), m_cstyleContext(nullptr), m_cstyleContextIsInh(true), m_cstyle()
+ParagraphStyle::ParagraphStyle() : m_cstyleContext(nullptr), m_cstyleContextIsInh(true)
 {
 	setParent("");
 	m_cstyleContext.setDefaultStyle( &m_cstyle );

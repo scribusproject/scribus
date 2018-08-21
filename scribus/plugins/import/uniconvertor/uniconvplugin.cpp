@@ -50,7 +50,7 @@ void uniconvertorplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-UniconvImportPlugin::UniconvImportPlugin() : LoadSavePlugin()
+UniconvImportPlugin::UniconvImportPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format

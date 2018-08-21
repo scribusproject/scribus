@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstylewidget.h"
 #include "ui/scmessagebox.h"
 
-SMCellStyle::SMCellStyle() : StyleItem(),
+SMCellStyle::SMCellStyle() :
 	m_widget(nullptr),
 	m_page(nullptr),
 	m_doc(nullptr),

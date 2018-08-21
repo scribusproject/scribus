@@ -513,19 +513,10 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Options(doc.pdfOptions()),
 	Bvie(nullptr),
 	ucs2Codec(nullptr),
-//	ObjCounter(7),
 	ResNam("RE"),
 	ResCount(0),
 	NDnam("LI"),
 	NDnum(0),
-//	KeyGen(""),
-//	OwnerKey(""),
-//	UserKey(""),
-//	FileID(""),
-//	EncryKey(""),
-//	Encrypt(0),
-//	KeyLen(5),
-	colorsToUse(),
 	spotNam("Spot"),
 	spotCount(0),
 	progressDialog(nullptr),
@@ -5560,7 +5551,7 @@ QByteArray PDFLibCore::putColor(const QString& color, double shade, bool fill)
 	QByteArray colString = SetColor(color, shade);
 	ScColor tmpC;
 	tmpC = doc.PageColors[color];
-	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
+	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((!Options.isGrayscale) && (!Options.UseRGB))  && (Options.UseSpotColors))
 	{
 		if ((color != CommonStrings::None) && (spotMap.contains(color)))
 		{

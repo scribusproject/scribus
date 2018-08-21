@@ -969,7 +969,7 @@ void Prefs_PDFExport::enablePGI()
 {
 	bool setter=false;
 	if (useImageProfileCheckBox->isChecked())
-		setter = doNotUseEmbeddedImageProfileCheckBox->isChecked() ? true : false;
+		setter = doNotUseEmbeddedImageProfileCheckBox->isChecked();
 	imageProfileComboBox->setEnabled(setter);
 	imageRenderingIntentComboBox->setEnabled(setter);
 	doNotUseEmbeddedImageProfileCheckBox->setEnabled(useImageProfileCheckBox->isChecked());

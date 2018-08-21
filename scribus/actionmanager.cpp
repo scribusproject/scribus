@@ -90,9 +90,7 @@ bool ActionManager::compareKeySeqToShortcut(const QKeySequence& ks, const QStrin
 {
 	if (!scrActions->contains(actionName))
 		return false;
-	if (ks.matches((*scrActions)[actionName]->shortcut())==QKeySequence::ExactMatch)
-		return true;
-	return false;
+	return ks.matches((*scrActions)[actionName]->shortcut())==QKeySequence::ExactMatch;
 }
 
 bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, const QString& actionName)

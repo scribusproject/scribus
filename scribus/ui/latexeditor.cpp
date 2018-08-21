@@ -646,7 +646,7 @@ void LatexEditor::insertButtonClicked(QObject *widget)
 class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 {
 	public:
-		XmlFontComboBox(I18nXmlStreamReader *xml) : XmlWidget(xml), QFontComboBox()
+		XmlFontComboBox(I18nXmlStreamReader *xml) : XmlWidget(xml)
 		{
 			fromString(m_defaultValue);
 		}

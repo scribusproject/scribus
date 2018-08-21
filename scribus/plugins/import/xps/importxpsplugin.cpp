@@ -45,7 +45,7 @@ void importxps_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportXpsPlugin::ImportXpsPlugin() : LoadSavePlugin(),
+ImportXpsPlugin::ImportXpsPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

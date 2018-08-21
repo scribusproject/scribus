@@ -62,8 +62,6 @@ for which a new license (GPL+exception) is in place.
 	#include <podofo/podofo.h>
 #endif
 
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 AIPlug::AIPlug(ScribusDoc* doc, int flags) :
 	progressDialog(nullptr),
 	meshMode(false),

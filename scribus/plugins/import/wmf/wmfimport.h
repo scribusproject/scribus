@@ -119,7 +119,7 @@ protected:
     virtual int findFunc( unsigned short aFunc ) const;
 
 	/** Converts two parameters to long */
-	unsigned int toDWord( short* params );
+	unsigned int toDWord( const short* params );
 
 public:
 
@@ -134,7 +134,7 @@ public:
     /** move pen to coord */
     void moveTo( QList<PageItem*>& items, long num, short* params );
     /** draw ellipse */
-    void ellipse( QList<PageItem*>& items, long num, short* params );
+	void ellipse(QList<PageItem*>& items, long num, short* params );
     /** draw polygon */
     void polygon( QList<PageItem*>& items, long num, short* params );
     /** draw a list of polygons */
@@ -156,11 +156,11 @@ public:
     /** set background pen color */
     void setBkColor( QList<PageItem*>& items, long num, short* params );
     /** set background pen mode */
-    void setBkMode( QList<PageItem*>& items, long num, short* params );
+	void setBkMode( QList<PageItem*>& items, long num, short* params );
     /** save device context */
     void saveDC( QList<PageItem*>& items, long num, short* params );
     /** restore device context */
-    void restoreDC( QList<PageItem*>& items, long num, short* params );
+	void restoreDC( QList<PageItem*>& items, long num, short* params );
     /**  clipping region is the intersection of this region and the original region */
     void intersectClipRect( QList<PageItem*>& items, long num, short* params );
     /** delete a clipping rectangle of the original region */
@@ -177,7 +177,7 @@ public:
 
     /****************** Object handle *******************/
     /** Activate object handle */
-    void selectObject( QList<PageItem*>& items, long num, short* params );
+	void selectObject( QList<PageItem*>& items, long num, short* params );
     /** Free object handle */
     void deleteObject( QList<PageItem*>& items, long num, short* params );
     /** create an empty object in the object list */

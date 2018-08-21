@@ -105,8 +105,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		}
 		pmen->exec(QCursor::pos());
 		delete pmen;
-		if (pmen2)
-			delete pmen2;
+		delete pmen2;
 	}
 	if (currView->Doc->guidesPrefs().guidesShown)
 		currView->Doc->scMW()->guidePalette->setupPage();

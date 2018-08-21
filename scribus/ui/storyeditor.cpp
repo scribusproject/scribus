@@ -1087,9 +1087,8 @@ void SEditor::paste()
 
 bool SEditor::canInsertFromMimeData( const QMimeData * source ) const
 {
-	if (source->hasText() || source->hasFormat("application/x-scribus-styledtext"))
-		return true;
-	return false;
+	return (source->hasText() || source->hasFormat("application/x-scribus-styledtext"));
+
 }
 
 QMimeData* SEditor::createMimeDataFromSelection () const
@@ -1588,7 +1587,7 @@ void StoryEditor::showEvent(QShowEvent *)
 	charSelect = new CharSelect(this);
 	charSelect->userTableModel()->setCharactersAndFonts(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters(), ScCore->primaryMainWindow()->charPalette->userTableModel()->fonts());
 	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar,QString)), this, SLOT(slot_insertUserSpecialChar(QChar,QString)));
 
 	m_smartSelection = prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
 	seActions["settingsSmartTextSelection"]->setChecked(m_smartSelection);

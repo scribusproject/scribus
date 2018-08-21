@@ -336,8 +336,8 @@ void NewMarginWidget::setFacingPages(bool facing, int pagetype)
 {
 	facingPages = facing;
 	pageType = pagetype;
-	leftMarginLabel->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
-	rightMarginLabel->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	leftMarginLabel->setText(facing ? tr( "&Inside:" ) : tr( "&Left:" ));
+	rightMarginLabel->setText(facing ? tr( "O&utside:" ) : tr( "&Right:" ));
 	setPreset();
 }
 

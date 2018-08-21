@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 
-ScImgDataLoader_PDF::ScImgDataLoader_PDF() : ScImgDataLoader()
+ScImgDataLoader_PDF::ScImgDataLoader_PDF()
 {
 	initSupportedFormatList();
 }

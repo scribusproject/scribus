@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir)
-	: QDialog()
 {
 	setupUi(this);
 

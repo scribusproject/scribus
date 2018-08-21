@@ -1112,7 +1112,7 @@ void WMFImport::setBkColor( QList<PageItem*>& /*items*/, long, short* params )
 	m_context.setBackgroundColor( colorFromParam( params ) );
 }
 
-void WMFImport::setBkMode( QList<PageItem*>& /*items*/, long, short* params )
+void WMFImport::setBkMode(QList<PageItem*>& /*items*/, long, short* params )
 {
 	if ( params[ 0 ]==1 ) 
 		m_context.setBackgroundMode( Qt::TransparentMode );
@@ -1284,7 +1284,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	m_context.restore();
 }
 
-void WMFImport::selectObject( QList<PageItem*>& items, long num, short* params )
+void WMFImport::selectObject(QList<PageItem*>& items, long num, short* params )
 {
 	int idx = params[ 0 ];
 	if ( idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[ idx ] )
@@ -1453,7 +1453,7 @@ int WMFImport::findFunc( unsigned short aFunc ) const
 	return i;
 }
 
-unsigned int WMFImport::toDWord( short* params )
+unsigned int WMFImport::toDWord( const short* params )
 {
 	unsigned int l;
 #if !defined( WORDS_BIGENDIAN )

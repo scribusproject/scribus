@@ -435,7 +435,7 @@ void NodePalette::PolyStatus(int typ, uint size)
 			BezierClose->setEnabled(false);
 			break;
 		case PageItem::PolyLine:
-			setter = size > 7 ? true : false;
+			setter = size > 7;
 			BezierClose->setEnabled(setter);
 			PolySplit->setEnabled(setter);
 			break;
@@ -749,7 +749,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 {
 	if (m_doc==nullptr)
 		return;
-	bool setter = have ? true : false;
+	bool setter = have;
 	if (m_doc->nodeEdit.selNode().count() > 1)
 	{
 		XSpin->setEnabled(false);
@@ -760,7 +760,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 		XSpin->setEnabled(setter);
 		YSpin->setEnabled(setter);
 	}
-	if (setter == true)
+	if (setter)
 	{
 		if (m_doc->nodeEdit.edPoints())
 			ResNode->setEnabled(setter);

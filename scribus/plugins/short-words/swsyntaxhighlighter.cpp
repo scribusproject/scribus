@@ -30,6 +30,5 @@ void SWSyntaxHighlighter::highlightBlock(const QString &text)
 		myClassFormat.setForeground(Qt::gray);
 		setFormat(0, text.length(), myClassFormat);
 	}
-	return;
 }
 

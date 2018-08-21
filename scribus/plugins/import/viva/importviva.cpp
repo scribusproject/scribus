@@ -64,8 +64,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 VivaPlug::VivaPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);
@@ -640,7 +638,6 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 			gradientTypeMap.insert(grName, grTyp);
 		}
 	}
-	return;
 }
 
 void VivaPlug::parsePreferencesXML(const QDomElement& spNode)

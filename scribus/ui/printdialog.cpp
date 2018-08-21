@@ -263,8 +263,7 @@ void PrintDialog::getOptions()
 
 void PrintDialog::SelComm()
 {
-	/* PFJ - 29.02.04 - removed OthText, Command and PrintDest from switch */
-	bool test = OtherCom->isChecked() ? true : false;
+	bool test = OtherCom->isChecked();
 	OthText->setEnabled(test);
 	Command->setEnabled(test);
 	PrintDest->setEnabled(!test);

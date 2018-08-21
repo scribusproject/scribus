@@ -39,7 +39,7 @@ void importxar_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportXarPlugin::ImportXarPlugin() : LoadSavePlugin(),
+ImportXarPlugin::ImportXarPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

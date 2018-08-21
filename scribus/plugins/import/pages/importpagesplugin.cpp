@@ -45,7 +45,7 @@ void importpages_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportPagesPlugin::ImportPagesPlugin() : LoadSavePlugin(),
+ImportPagesPlugin::ImportPagesPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

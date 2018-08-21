@@ -45,7 +45,7 @@ void importviva_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportVivaPlugin::ImportVivaPlugin() : LoadSavePlugin(),
+ImportVivaPlugin::ImportVivaPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

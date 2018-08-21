@@ -39,7 +39,7 @@ void importshape_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportShapePlugin::ImportShapePlugin() : LoadSavePlugin(),
+ImportShapePlugin::ImportShapePlugin() :
 	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one

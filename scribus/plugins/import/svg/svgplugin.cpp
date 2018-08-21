@@ -72,7 +72,7 @@ void svgimplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
+SVGImportPlugin::SVGImportPlugin() :
 	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do

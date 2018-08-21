@@ -94,7 +94,7 @@ void PathDialog::newType(int val)
 	effectType = val;
 	if (previewCheck->isChecked())
 		emit updateValues(effectType, offset, offsetY, gap, rotate);
-	bool setter = (effectType < 2) ? false : true;
+	bool setter = effectType >= 2;
 	label_3->setEnabled(setter);
 	gapSpin->setEnabled(setter);
 }

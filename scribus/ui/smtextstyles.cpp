@@ -39,8 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) : StyleItem(),
-m_pwidget(nullptr), m_cstyleItem(cstyleItem), m_doc(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
+SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) :
+	m_pwidget(nullptr), m_cstyleItem(cstyleItem), m_doc(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
 {
 	Q_ASSERT(m_cstyleItem);
 	m_cstyles = m_cstyleItem->tmpStyles();

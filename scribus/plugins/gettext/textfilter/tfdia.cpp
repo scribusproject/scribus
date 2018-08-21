@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-tfDia::tfDia() : QDialog()
+tfDia::tfDia()
 {
 	setModal(true);
 	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));

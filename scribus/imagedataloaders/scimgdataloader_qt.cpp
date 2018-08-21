@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_qt.h"
 #include "util_formats.h"
 
-ScImgDataLoader_QT::ScImgDataLoader_QT() : ScImgDataLoader()
+ScImgDataLoader_QT::ScImgDataLoader_QT()
 {
 	initSupportedFormatList();
 }
