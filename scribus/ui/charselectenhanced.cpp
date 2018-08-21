@@ -34,7 +34,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	// signals and slots connections
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	connect(m_charTable, SIGNAL(selectChar(uint, QString)), this, SLOT(newChar(uint, QString)));
+	connect(m_charTable, SIGNAL(selectChar(uint,QString)), this, SLOT(newChar(uint,QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hexLineEdit, SIGNAL(returnPressed()), this, SLOT(hexLineEdit_returnPressed()));

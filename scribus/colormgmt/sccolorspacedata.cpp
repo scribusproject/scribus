@@ -5,25 +5,25 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "sccolorspacedata.h"
 #include "sccolormgmtengine.h"
 
 ScColorTransform ScColorSpaceData::createTransform(const ScColorSpaceData& outputSpace, eRenderIntent renderIntent, 
-	                               long transformFlags)
+												   long transformFlags)
 {
 	ScColorTransform colorTransform;
 	if (m_profile && outputSpace.profile())
 	{
-		colorTransform = m_profile.engine().createTransform(m_profile, m_colorFormat, 
-		                                    outputSpace.profile(), outputSpace.colorFormat(), 
-											renderIntent, transformFlags);
+		colorTransform = m_profile.engine().createTransform(m_profile, m_colorFormat,
+															outputSpace.profile(), outputSpace.colorFormat(),
+															renderIntent, transformFlags);
 	}
 	return colorTransform;
 }
 
 ScColorTransform ScColorSpaceData::createTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
-                                   eRenderIntent renderIntent, long transformFlags)
+												   eRenderIntent renderIntent, long transformFlags)
 {
 	ScColorTransform colorTransform;
 	if (m_profile)
@@ -32,40 +32,40 @@ ScColorTransform ScColorSpaceData::createTransform(const ScColorProfile& outputP
 }
 
 ScColorTransform ScColorSpaceData::createProofingTransform(const ScColorSpaceData& outputSpace, const ScColorProfile& proofing, 
-	                               eRenderIntent renderIntent,  eRenderIntent proofingIntent, long transformFlags)
+														   eRenderIntent renderIntent,  eRenderIntent proofingIntent, long transformFlags)
 {
 	ScColorTransform colorTransform;
 	if (m_profile && outputSpace.profile())
 	{
-		colorTransform = m_profile.engine().createProofingTransform(m_profile, m_colorFormat, 
-		                                    outputSpace.profile(), outputSpace.colorFormat(), 
-											proofing, renderIntent, proofingIntent, transformFlags);
+		colorTransform = m_profile.engine().createProofingTransform(m_profile, m_colorFormat,
+																	outputSpace.profile(), outputSpace.colorFormat(),
+																	proofing, renderIntent, proofingIntent, transformFlags);
 	}
 	return colorTransform;
 }
 
 ScColorTransform ScColorSpaceData::createProofingTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
-                                   const ScColorProfile& proofing, eRenderIntent renderIntent, 
-                                   eRenderIntent proofingIntent, long transformFlags)
+														   const ScColorProfile& proofing, eRenderIntent renderIntent,
+														   eRenderIntent proofingIntent, long transformFlags)
 {
 	ScColorTransform colorTransform;
 	if (m_profile)
 	{
-		colorTransform = m_profile.engine().createProofingTransform(m_profile, m_colorFormat, 
-		                                    outputProfile, outputFormat, proofing, renderIntent, 
-											proofingIntent, transformFlags);
+		colorTransform = m_profile.engine().createProofingTransform(m_profile, m_colorFormat,
+																	outputProfile, outputFormat, proofing, renderIntent,
+																	proofingIntent, transformFlags);
 	}
 	return colorTransform;
 }
 
 bool ScColorSpaceData::convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
-	                     void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans)
+							   void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans)
 {
 	ScColorTransform transform;
 	if (lastTrans)
 		transform = *lastTrans;
 	if (!transform)
-		transform = createTransform(data, renderIntent, transformFlags);	
+		transform = createTransform(data, renderIntent, transformFlags);
 
 	bool success = false;
 	if (transform)
@@ -81,7 +81,7 @@ bool ScColorSpaceData::convert(ScColorSpaceData& data, eRenderIntent renderInten
 }
 
 bool ScColorSpaceData::convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
-	                     void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans)
+							   void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans)
 {
 	bool success = false;
 	uint numChannels = data.numChannels();

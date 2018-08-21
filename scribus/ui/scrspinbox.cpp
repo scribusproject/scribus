@@ -367,22 +367,22 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		if (shiftB && !altB)
 		{
 			setSingleStep(0.1);
-			retval=QWidget::event(event);
+			retval=QAbstractSpinBox::event(event);
 		} 
 		else if (!shiftB && altB)
 		{
 			setSingleStep(10.0);
-			retval=QWidget::event(event);
+			retval=QAbstractSpinBox::event(event);
 		}
 		else if (shiftB && altB)
 		{
 			setSingleStep(0.01);
-			retval=QWidget::event(event);
+			retval=QAbstractSpinBox::event(event);
 		}
 		else if (!shiftB && !altB)
 		{
 			setSingleStep(1.0);
-			retval=QWidget::event(event);
+			retval=QAbstractSpinBox::event(event);
 		}
 	}
 	else

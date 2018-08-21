@@ -763,7 +763,7 @@ void AutoformButtonGroup::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		QWidget::changeEvent(e);
+		QMenu::changeEvent(e);
 }
 
 void AutoformButtonGroup::languageChange()

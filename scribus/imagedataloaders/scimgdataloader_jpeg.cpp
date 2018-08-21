@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QFileInfo>
 #include <QObject>
-#include <setjmp.h>
+#include <csetjmp>
 #include "scconfig.h"
 #include "colormgmt/sccolormgmtengine.h"
 #include "scimgdataloader_jpeg.h"

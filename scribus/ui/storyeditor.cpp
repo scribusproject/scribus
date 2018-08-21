@@ -1159,7 +1159,7 @@ void SToolBColorF::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QToolBar::changeEvent(e);
 }
 
 
@@ -1225,7 +1225,7 @@ void SToolBColorS::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QToolBar::changeEvent(e);
 }
 
 void SToolBColorS::languageChange()
@@ -1297,7 +1297,7 @@ void SToolBStyle::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QToolBar::changeEvent(e);
 }
 
 void SToolBStyle::languageChange()
@@ -1407,7 +1407,7 @@ void SToolBAlign::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QToolBar::changeEvent(e);
 }
 
 void SToolBAlign::languageChange()
@@ -1482,7 +1482,7 @@ void SToolBFont::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QToolBar::changeEvent(e);
 }
 
 void SToolBFont::languageChange()

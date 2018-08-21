@@ -186,7 +186,7 @@ void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 	getReplacedFonts.clear();
 }
 
-bool Scribus150Format::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
+bool Scribus150Format::loadElements(const QString& data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
 {
 	ParagraphStyle vg;
 	isNewFormat = false;
