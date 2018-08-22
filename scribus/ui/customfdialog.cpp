@@ -204,7 +204,7 @@ void FDialogPreview::GenPreview(const QString& name)
 		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-			if( fmt )
+			if (fmt)
 			{
 				QImage im = fmt->readThumbnail(name);
 				if (!im.isNull())
