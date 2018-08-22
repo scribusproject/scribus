@@ -264,16 +264,16 @@ public:
 	void startTextSpan(const ::WPXPropertyList &propList);
 	void endTextSpan();
 	void insertText(const ::WPXString &str);
-	QString constructFontName(QString fontBaseName, QString fontStyle);
+	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	double valueAsPoint(const WPXProperty *prop);
 	double fromPercentage(const QString &s );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
-	void insertImage(PageItem* ite, QString imgExt, QByteArray &imageData);
+	void insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData);
 	void applyFill(PageItem* ite);
 	void applyShadow(PageItem* ite);
 	void applyFlip(PageItem* ite);
-	void recolorItem(PageItem* ite, QString efVal);
+	void recolorItem(PageItem* ite, const QString& efVal);
 	void applyArrows(PageItem* ite);
 	void finishItem(PageItem* ite);
 
