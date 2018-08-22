@@ -1089,9 +1089,9 @@ void PictureBrowser::filterFilterButtonClicked()
 
 		currPath = searchDir;
 
-		if(!fit)
+		if (!fit)
 		{
-			fit = new findImagesThread(currPath, nameFilters, QDir::Name, true);
+			fit = new findImagesThread(currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs);
 			connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()));
 			fit->start();
 		}
@@ -1459,17 +1459,19 @@ void PictureBrowser::collectionsAddNewTagButtonClicked()
 
 void PictureBrowser::jumpToImageFolder()
 {
-	QString searchDir = informationFilepathLabel->text();
+	QString searchDir = informationFilePathLabel->text();
 	QDir dir(searchDir);
 
 	if (!dir.exists())
 		return;
 
 	currPath = searchDir;
+	folderView->setCurrentIndex(folderModel.index(currPath));
+	folderView->scrollTo(folderView->currentIndex(), QAbstractItemView::PositionAtTop);
 
 	if (!fit)
 	{
-		fit = new findImagesThread(currPath, nameFilters, QDir::Name, true);
+		fit = new findImagesThread(currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs);
 		connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()));
 		fit->start();
 	}
@@ -1737,7 +1739,6 @@ void PictureBrowser::previewImageSelectionChanged(const QItemSelection & selecte
 	QModelIndexList selection = selectionModel->selectedIndexes();
 	int tmpIndex;
 
-
 	selectedIndexes.clear();
 
 	for(int i = 0 ; i < selection.size() ; ++i)
@@ -1762,22 +1763,21 @@ void PictureBrowser::previewImageSelectionChanged(const QItemSelection & selecte
 
 void PictureBrowser::updateInformationTab(int index)
 {
-	if(pbSettings.showMore &&(tabWidget->currentIndex() == 0))
+	if (pbSettings.showMore &&(tabWidget->currentIndex() == 0))
 	{
-		if(( index >= 0)&&(index < pModel->modelItemsList.size()))
+		if ((index >= 0) && (index < pModel->modelItemsList.size()))
 		{
 			previewImage *tmpImage;
 			tmpImage = pModel->modelItemsList.at(index);
 
-			informationFilenameLabel->setText(tmpImage->fileInformation.fileName());
-			informationFilepathLabel->setText(tmpImage->fileInformation.absolutePath());
-			informationFilesizeLabel->setText(QString("%1 Bytes").arg(tmpImage->fileInformation.size()));
-			informationFiledateLabel->setText(tmpImage->fileInformation.lastModified().toString("dd.MM.yyyy hh:mm:ss"));
-			informationFilepathLabel->setToolTip(tmpImage->fileInformation.absoluteFilePath());
-
+			informationFileNameLabel->setText(tmpImage->fileInformation.fileName());
+			informationFilePathLabel->setText(tmpImage->fileInformation.absolutePath());
+			informationFileSizeLabel->setText(QString("%1 Bytes").arg(tmpImage->fileInformation.size()));
+			informationFileDateLabel->setText(tmpImage->fileInformation.lastModified().toString("dd.MM.yyyy hh:mm:ss"));
+			informationFilePathLabel->setToolTip(tmpImage->fileInformation.absoluteFilePath());
 
 			if(tmpImage->previewImageLoading)
-				informationFilenameLabel->setText (tr("Image still loading"));
+				informationFileNameLabel->setText (tr("Image still loading"));
 			else if(tmpImage->imgInfo->valid)
 			{
 				QString format;
@@ -1837,12 +1837,12 @@ void PictureBrowser::updateInformationTab(int index)
 					informationEmbeddedLabel->setText(QString("No"));
 				}
 
-				informationProfilenameLabel->setText(QString("%1").arg(tmpImage->imgInfo->profileName));
+				informationProfileNameLabel->setText(QString("%1").arg(tmpImage->imgInfo->profileName));
 			}
 		}
 		else
 		{
-			informationFilenameLabel->setText(tr("No image selected"));
+			informationFileNameLabel->setText(tr("No image selected"));
 		}
 	}
 }
