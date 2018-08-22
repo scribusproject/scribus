@@ -7834,7 +7834,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
         <location filename="../../scribus/ui/customfdialog.cpp" line="217"/>
         <location filename="../../scribus/ui/customfdialog.cpp" line="257"/>
         <source>Size:</source>
-        <translation>Corps :</translation>
+        <translation>Dimensions :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="192"/>
@@ -16330,7 +16330,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="936"/>
         <source>Size:</source>
-        <translation type="unfinished">Corps :</translation>
+        <translation type="unfinished">Taille :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="969"/>
