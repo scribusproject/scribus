@@ -196,7 +196,7 @@ QPoint Canvas::canvasToLocal(QPointF p) const
 }
 
 
-QRect Canvas::canvasToLocal(QRectF p) const
+QRect Canvas::canvasToLocal(const QRectF& p) const
 {
 	return 	QRect(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
 				  qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
@@ -204,7 +204,7 @@ QRect Canvas::canvasToLocal(QRectF p) const
 				  qRound(p.height() * m_viewMode.scale));
 }
 
-QRectF Canvas::canvasToLocalF(QRectF p) const
+QRectF Canvas::canvasToLocalF(const QRectF& p) const
 {
 	return 	QRectF((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
 				  (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
@@ -225,7 +225,7 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 }
 
 
-QRect Canvas::canvasToGlobal(QRectF p) const
+QRect Canvas::canvasToGlobal(const QRectF& p) const
 {
 	return QRect(mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
 				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
@@ -338,7 +338,7 @@ static double length2(const QPointF& p)
 }
 
 
-Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
+Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& frame) const
 {
 	FrameHandle result = INSIDE;
 	const double radius = m_doc->guidesPrefs().grabRadius / m_viewMode.scale;
@@ -534,14 +534,14 @@ bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
 	return mp.x()>left && mp.x()<right && mp.y()>top && mp.y()<bottom;
 }
 
-bool Canvas::cursorOverFrameControl(QPoint globalPos, QRectF targetRect, PageItem* frame)
+bool Canvas::cursorOverFrameControl(QPoint globalPos, const QRectF& targetRect, PageItem* frame)
 {
 	FPoint mp = globalToCanvas(globalPos);
 	QRectF tg = targetRect.translated(frame->xPos(), frame->yPos());
 	return tg.contains(QPointF(mp.x(), mp.y()));
 }
 
-PageItem* Canvas::itemInGroup(PageItem* group, QRectF mouseArea) const
+PageItem* Canvas::itemInGroup(PageItem* group, const QRectF& mouseArea) const
 {
 	int currNr = group->groupItemList.count() - 1;
 	while (currNr >= 0)
@@ -1773,7 +1773,7 @@ void Canvas::DrawPageBorderSub(ScPainter *p, ScPage *page)
 	p->restore();
 }
 
-void Canvas::DrawPageBorder(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageBorder(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (master)
 	{
@@ -1835,7 +1835,7 @@ void Canvas::DrawPageMarginsGridSub(ScPainter *p, ScPage *page)
 	p->restore();
 }
 
-void Canvas::DrawPageMargins(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageMargins(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (master)
 	{
@@ -1886,7 +1886,7 @@ void Canvas::DrawPageBaselineGridSub(ScPainter *p, ScPage *page)
 	p->restore();
 }
 
-void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageBaselineGrid(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (!m_doc->guidesPrefs().baselineGridShown)
 		return;
@@ -1920,7 +1920,7 @@ void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
 /**
   draws grid
  */
-void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, QRectF clip)
+void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip)
 {
 	if (!m_doc->guidesPrefs().gridShown)
 		return;
@@ -2014,7 +2014,7 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, QRectF clip)
 	p->restore();
 }
 
-void Canvas::DrawPageGrid(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageGrid(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (!m_doc->guidesPrefs().gridShown)
 		return;
@@ -2065,7 +2065,7 @@ void Canvas::DrawPageGuidesSub(ScPainter *p, ScPage *page)
 	p->restore();
 }
 
-void Canvas::DrawPageGuides(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageGuides(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (!m_doc->guidesPrefs().guidesShown)
 		return;
@@ -2118,7 +2118,7 @@ void Canvas::DrawPageIndicatorSub(ScPainter *p, ScPage *page)
 	p->restore();
 }
 
-void Canvas::DrawPageIndicator(ScPainter *p, QRectF clip, bool master)
+void Canvas::DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master)
 {
 	if (master)
 	{

@@ -53,7 +53,7 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
-	connect(TGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
+	connect(TGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
 	connect(TGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
@@ -149,7 +149,7 @@ void Tpalette::setDocument(ScribusDoc* doc)
 	this->disconnect(SIGNAL(NewBlend(int)));
 	this->disconnect(SIGNAL(NewBlendS(int)));
 	this->disconnect(SIGNAL(NewPattern(QString)));
-	this->disconnect(SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	this->disconnect(SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	
 	if (currentDoc)
 	{
@@ -171,7 +171,7 @@ void Tpalette::setDocument(ScribusDoc* doc)
 		connect(this, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
 		connect(this, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradMask(int)));
 		connect(this, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternMask(QString)));
-		connect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternMaskProps(double, double, double, double, double, double, double, bool, bool)));
+		connect(this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), doc, SLOT(itemSelection_SetItemPatternMaskProps(double,double,double,double,double,double,double,bool,bool)));
 		connect(doc->scMW(), SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 	}
 }
@@ -523,7 +523,7 @@ void Tpalette::changePatternProps()
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorX);
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
 	m_Pattern_scaleX = dia->spinXscaling->value();
 	m_Pattern_scaleY = dia->spinYscaling->value();

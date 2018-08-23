@@ -64,16 +64,16 @@ class CWDialog : public QDialog, Ui::CWDialog
 
 		/*! \brief A GUI setter for all components when is one of CMYK changed.
 		*/
-		void setupRGBComponent(ScColor col);
+		void setupRGBComponent(const ScColor& col);
 
 		/*! \brief A GUI setter for all components when is one of RGB changed.
 		*/
-		void setupCMYKComponent(ScColor col);
+		void setupCMYKComponent(const ScColor& col);
 
 		/*! \brief A GUI setter for all components when is one of HSV changed.
 		It uses a dummy QColor->ScColor conversion
 		*/
-		void setupHSVComponent(ScColor col);
+		void setupHSVComponent(const ScColor& col);
 
 		//! \brief Set named colors for labels
 		void updateNamedLabels();
@@ -94,7 +94,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		void processColors(int index, bool updateSpins=true);
 
 		//! \brief Get a #hhssvv string for given ScColor
-		QString getHexHsv(ScColor c);
+		QString getHexHsv(const ScColor& c);
 
 	private slots:
 		void colorspaceTab_currentChanged(int);

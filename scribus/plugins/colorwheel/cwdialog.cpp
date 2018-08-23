@@ -413,7 +413,7 @@ void CWDialog::vSpin_valueChanged( int )
 	setupColorComponents();
 }
 
-void CWDialog::setupRGBComponent(ScColor col)
+void CWDialog::setupRGBComponent(const ScColor& col)
 {
 	RGBColor rgb;
 	ScColorEngine::getRGBValues(col, m_Doc, rgb);
@@ -424,7 +424,7 @@ void CWDialog::setupRGBComponent(ScColor col)
 	connectSlots(true);
 }
 
-void CWDialog::setupCMYKComponent(ScColor col)
+void CWDialog::setupCMYKComponent(const ScColor& col)
 {
 	CMYKColorF cmyk;
 	ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
@@ -436,7 +436,7 @@ void CWDialog::setupCMYKComponent(ScColor col)
 	connectSlots(true);
 }
 
-void CWDialog::setupHSVComponent(ScColor col)
+void CWDialog::setupHSVComponent(const ScColor& col)
 {
 	int h, s, v;
 	QColor qc(ScColorEngine::getRGBColor(col, m_Doc));
@@ -559,7 +559,7 @@ void CWDialog::colorList_currentChanged(const QString& itemText)
 		currentColorTable->setColumnWidth(i, columnWidth);
 }
 
-QString CWDialog::getHexHsv(ScColor c)
+QString CWDialog::getHexHsv(const ScColor& c)
 {
 	int h, s, v;
 	QColor hsvCol(ScColorEngine::getRGBColor(c, m_Doc));
