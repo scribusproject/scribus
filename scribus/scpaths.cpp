@@ -118,15 +118,15 @@ ScPaths::ScPaths() :
 		QApplication::setLibraryPaths( QStringList(qtpluginDir) );
 #endif
 	
-// 	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
-// 	if(!m_docDir.endsWith("/"))          m_docDir += "/";
-// 	if(!m_fontDir.endsWith("/"))         m_fontDir += "/";
-	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
-// 	if(!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
-// 	if(!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
-// 	if(!m_templateDir.endsWith("/"))     m_templateDir += "/";
-// 	if(!m_libDir.endsWith("/"))          m_libDir += "/";
-// 	if(!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
+// 	if (!m_shareDir.endsWith("/"))        m_shareDir += "/";
+// 	if (!m_docDir.endsWith("/"))          m_docDir += "/";
+// 	if (!m_fontDir.endsWith("/"))         m_fontDir += "/";
+	if (!m_iconDir.endsWith("/"))         m_iconDir += "/";
+// 	if (!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
+// 	if (!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
+// 	if (!m_templateDir.endsWith("/"))     m_templateDir += "/";
+// 	if (!m_libDir.endsWith("/"))          m_libDir += "/";
+// 	if (!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
 }
 
 ScPaths::~ScPaths() {};
@@ -396,7 +396,7 @@ QStringList ScPaths::systemFontDirs()
 	fontDirs.append("/Network/Library/Fonts/");
 	fontDirs.append("/System/Library/Fonts/");
 #elif defined(_WIN32)
-	fontDirs.append( windowsSpecialDir(CSIDL_FONTS) );
+	fontDirs.append(windowsSpecialDir(CSIDL_FONTS));
 #endif
 	return fontDirs;
 }
@@ -420,21 +420,21 @@ QStringList ScPaths::systemProfilesDirs()
 	// On Windows it's more complicated, profiles location depends on OS version
 	WCHAR sysDir[MAX_PATH + 1];
 	OSVERSIONINFO osVersion;
-	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
+	ZeroMemory(&osVersion, sizeof(OSVERSIONINFO));
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
-	GetSystemDirectoryW( sysDir, MAX_PATH ); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	GetSystemDirectoryW(sysDir, MAX_PATH); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
 	QString winSysDir = QString::fromUtf16((const ushort*) sysDir);
 	winSysDir = winSysDir.replace('\\','/');
-	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
+	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
 	{
-		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5 
-			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
+		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 
+			iccProfDirs.append(winSysDir + "/Spool/Drivers/Color/");
 	}
-	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me 
+	else if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) // Windows 9x/Me 
 	{
-		if( osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
-			iccProfDirs.append( winSysDir + "/Color/");
+		if (osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
+			iccProfDirs.append(winSysDir + "/Color/");
 	}
 #endif
 	return iccProfDirs;
@@ -484,11 +484,11 @@ QStringList ScPaths::systemCreatePalettesDirs()
 	QString commonAppData = windowsSpecialDir(CSIDL_COMMON_APPDATA);
 	QString programFilesCommon = windowsSpecialDir(CSIDL_PROGRAM_FILES_COMMON);
 	createDirs.append(windowsSpecialDir(CSIDL_APPDATA) + "create/swatches/");
-	if ( !localAppData.isEmpty() )
+	if (!localAppData.isEmpty())
 		createDirs.append(localAppData + "create/swatches/");
-	if ( !commonAppData.isEmpty() )
+	if (!commonAppData.isEmpty())
 		createDirs.append(commonAppData + "create/swatches/");
-	if ( !programFilesCommon.isEmpty() )
+	if (!programFilesCommon.isEmpty())
 		createDirs.append(programFilesCommon + "create/swatches/");
 #endif
 	return createDirs;
@@ -561,7 +561,7 @@ QString ScPaths::imageCacheDir()
 QString ScPaths::pluginDataDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "plugins/");
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";
 }
@@ -574,7 +574,7 @@ QString ScPaths::userDictDir(ScPaths::DictType dictType, bool createIfNotExists)
 	if (dictType == ScPaths::Spell)
 		dictSuffix = "spell/";
 	QDir useFilesDirectory(applicationDataDir() + "dicts/" + dictSuffix);
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";
 }
@@ -582,7 +582,7 @@ QString ScPaths::userDictDir(ScPaths::DictType dictType, bool createIfNotExists)
 QString ScPaths::userFontDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "fonts/");
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";
 }
@@ -590,7 +590,7 @@ QString ScPaths::userFontDir(bool createIfNotExists)
 QString ScPaths::userHelpFilesDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "helpfiles/");
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";
 }
@@ -598,7 +598,7 @@ QString ScPaths::userHelpFilesDir(bool createIfNotExists)
 QString ScPaths::userPaletteFilesDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "palettes/");
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 	{
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/locked");
@@ -611,7 +611,7 @@ QString ScPaths::userTemplateDir(bool createIfNotExists)
 	if (PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates.isEmpty())
 		return QString();
 	QDir useFilesDirectory(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";
 }
@@ -627,7 +627,7 @@ QString ScPaths::userDocumentDir()
 QString ScPaths::scrapbookDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "scrapbook/");
-	if(createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists && !useFilesDirectory.exists())
 	{
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/main");
@@ -642,10 +642,10 @@ QString ScPaths::tempFileDir()
 	QString tempPath;
 	WCHAR wTempPath[1024];
 	DWORD result = GetTempPathW(1024, wTempPath);
-	if ( result )
+	if (result)
 	{
 		tempPath = QString::fromUtf16((const unsigned short*) wTempPath);
-		tempPath.replace( '\\', '/' );
+		tempPath.replace('\\', '/');
 		tempPath += "/";
 		// GetTempPath may return Windows directory, better not use this one
 		// for temporary files
@@ -673,12 +673,12 @@ QString ScPaths::windowsSpecialDir(int folder)
 	QString qstr;
 #ifdef Q_OS_WIN32
 	WCHAR dir[256];
-	if ( SHGetSpecialFolderPathW(nullptr, dir, folder , false) )
+	if (SHGetSpecialFolderPathW(nullptr, dir, folder , false))
 	{
 		qstr = QString::fromUtf16((const unsigned short*) dir);
-		if( !qstr.endsWith("\\") )
+		if (!qstr.endsWith("\\"))
 			qstr += "\\";
-		qstr.replace( '\\', '/' );
+		qstr.replace('\\', '/');
 	}
 #else
 	Q_ASSERT(false);
