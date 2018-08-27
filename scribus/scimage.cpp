@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cstdlib>
 #include <memory>
-#include <setjmp.h>
+#include <csetjmp>
 
 #include <QByteArray>
 #include <QFile>
@@ -1251,7 +1251,7 @@ QByteArray ScImage::ImageToArray() const
 	return imgArray;
 }
 
-void ScImage::convertToGray(void)
+void ScImage::convertToGray()
 {
 	int k;
 	int h = height();

@@ -139,14 +139,14 @@ public:
 		return m_updateEnabled > 0;
 	}
 
-	void beginUpdate(void)
+	void beginUpdate()
 	{ 
 		if (m_updateEnabled == 0)
 			m_docChangeNeeded = false;
 		++m_updateEnabled;
 	}
 
-	void endUpdate(void)
+	void endUpdate()
 	{
 		--m_updateEnabled;
 		if (m_updateEnabled <= 0)

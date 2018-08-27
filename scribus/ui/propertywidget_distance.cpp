@@ -185,7 +185,7 @@ void PropertyWidget_Distance::disconnectSignals()
 	disconnect(verticalAlign , SIGNAL(activated(int))      , this, SLOT(handleVAlign()));
 }
 
-void PropertyWidget_Distance::configureWidgets(void)
+void PropertyWidget_Distance::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

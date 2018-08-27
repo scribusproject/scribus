@@ -502,7 +502,7 @@ bool FileFormat::loadPalette(const QString & fileName) const
 	return (plug && load) ? plug->loadPalette(fileName) : false;
 }
 
-QString FileFormat::lastSavedFile(void) const
+QString FileFormat::lastSavedFile() const
 {
 	if (plug)
 		return plug->lastSavedFile();

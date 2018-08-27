@@ -473,7 +473,7 @@ void StyleReader::parse(const QString& fileName)
 	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
 }
 
-gtStyle* StyleReader::getDefaultStyle(void)
+gtStyle* StyleReader::getDefaultStyle()
 {
 	gtStyle* defStyle = writer->getDefaultStyle();
 	StyleMap::Iterator it, itEnd = styles.end();

@@ -33,7 +33,7 @@ protected:
 	double m_unitRatio;
 	int    m_unitIndex;
 
-	void configureWidgets(void);
+	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 
 	virtual void changeEvent(QEvent *e);

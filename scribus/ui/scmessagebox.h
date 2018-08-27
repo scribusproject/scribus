@@ -76,7 +76,7 @@ private:
 	StandardButton defaultBatchStandardButton;
 
 	// Initialize private variables
-	void initScMessageBox(void);
+	void initScMessageBox();
 
 	// Find the appropriate default button
 	static QMessageBox::StandardButton findDefaultButton(QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton, StandardButton defaultBatchButton);

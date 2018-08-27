@@ -90,7 +90,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <iostream>
 #include <sstream>
-#include <signal.h>
+#include <csignal>
 #include <string>
 
 

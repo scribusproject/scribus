@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "ui/scmessagebox.h"
 
-#include <signal.h>
+#include <csignal>
 
 #if !defined(_WIN32) && !defined(Q_OS_MAC) 
 #include <execinfo.h>

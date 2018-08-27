@@ -34,13 +34,13 @@ public:
 	ScStreamFilter(ScStreamFilter* filter);
 	virtual ~ScStreamFilter() {};
 
-	virtual bool openFilter (void);
-	virtual bool closeFilter(void);
+	virtual bool openFilter();
+	virtual bool closeFilter();
 
 	virtual bool writeData(const QByteArray& data);
 	virtual bool writeData(const char* data, int dataLen) = 0;
 
-	int writtenToStream(void);
+	int writtenToStream();
 };
 
 class ScNullEncodeFilter : public ScStreamFilter

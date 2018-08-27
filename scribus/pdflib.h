@@ -57,11 +57,11 @@ public:
 	/**
 	 * Return an error message in case export has failed.
 	 */
-	const QString& errorMessage(void);
+	const QString& errorMessage();
 	/**
 	 * Return if export has been aborted
 	 */
-	bool  exportAborted(void);
+	bool  exportAborted();
 
 private:
     /// A pointer to the real implementation of pdflib .

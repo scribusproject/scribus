@@ -25,9 +25,9 @@ public:
 	ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options);
 	virtual ~ScPageOutput_Ps2();
 
-	virtual void begin(void);
+	virtual void begin();
 	virtual void drawPage(ScPage* page);
-	virtual void end(void);
+	virtual void end();
 
 	const QRect clip(void);
 	void  setClip(const QRect& rect) { m_clip = rect; }

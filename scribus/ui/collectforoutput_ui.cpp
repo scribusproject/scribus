@@ -23,7 +23,7 @@ CollectForOutput_UI::CollectForOutput_UI(QWidget* parent, ScribusDoc* doc, const
 	CollectForOutput(doc, outputDirectory, withFonts, withProfiles, compressDoc)
 {
 	uiCollect = true;
-	progressDialog = 0;
+	progressDialog = nullptr;
 
 	connect(this, SIGNAL(fontsCollected(int)), this, SLOT(collectedFonts(int)));
 	connect(this, SIGNAL(itemsCollected(int)), this, SLOT(collectedItems(int)));

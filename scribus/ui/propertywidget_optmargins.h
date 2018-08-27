@@ -33,7 +33,7 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 
-	void configureWidgets(void);
+	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 
 	virtual void changeEvent(QEvent *e);

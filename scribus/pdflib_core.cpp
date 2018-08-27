@@ -2747,7 +2747,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						sr = 0;
 					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
-				PutPage(PDF_PutSoftShadow(ite,pag));
+				PutPage(PDF_PutSoftShadow(ite));
 				switch (ite->itemType())
 				{
 					case PageItem::ImageFrame:
@@ -4157,7 +4157,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	return retString;
 }
 
-QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
+QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 {
 	if ((Options.Version < PDFOptions::PDFVersion_14 && Options.Version != PDFOptions::PDFVersion_X4) || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
 		return "";
@@ -4444,7 +4444,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			sr = 0;
 		tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
 	}
-	tmp += PDF_PutSoftShadow(ite,pag);
+	tmp += PDF_PutSoftShadow(ite);
 	switch (ite->itemType())
 	{
 		case PageItem::ImageFrame:

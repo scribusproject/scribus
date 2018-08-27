@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/textshaper.h"
 #include "text/glyphcluster.h"
 
-#include <math.h>
+#include <cmath>
 #include <QDebug>
 
 ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int blendmode )

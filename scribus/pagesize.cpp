@@ -97,7 +97,7 @@ void PageSize::init(const QString& sizeName)
 	}
 }
 
-QStringList PageSize::sizeList(void) const
+QStringList PageSize::sizeList() const
 {
 	QStringList pageSizes;
 	pageSizes.clear();
@@ -107,7 +107,7 @@ QStringList PageSize::sizeList(void) const
 	return QStringList(pageSizes);
 }
 
-QStringList PageSize::sizeTRList(void) const
+QStringList PageSize::sizeTRList() const
 {
 	QStringList pageSizes;
 	pageSizes.clear();
@@ -117,7 +117,7 @@ QStringList PageSize::sizeTRList(void) const
 	return QStringList(pageSizes);
 }
 
-QStringList PageSize::activeSizeList(void) const
+QStringList PageSize::activeSizeList() const
 {
 	QStringList pageSizes=sizeList();
 	if (PrefsManager::instance()->appPrefs.activePageSizes.count()==0)
@@ -132,7 +132,7 @@ QStringList PageSize::activeSizeList(void) const
 	return QStringList(activeSizes);
 }
 
-QStringList PageSize::activeSizeTRList(void) const
+QStringList PageSize::activeSizeTRList() const
 {
 	QStringList pageTRSizes=sizeTRList();
 	QStringList pageSizes=sizeList();

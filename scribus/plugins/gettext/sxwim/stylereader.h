@@ -78,7 +78,7 @@ public:
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);
 	void parse(const QString& fileName);
-	gtStyle* getDefaultStyle(void);
+	gtStyle* getDefaultStyle();
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);
 	QString getFont(const QString& key);

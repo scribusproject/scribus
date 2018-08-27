@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scstreamfilter_flate.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <zlib.h>
 
 #include <QDataStream>

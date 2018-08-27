@@ -72,17 +72,17 @@ class SCRIBUS_API PSLib : public QObject
 		void setOptimization (Optimization opt) { optimization = opt; }
 
 		virtual int   CreatePS(ScribusDoc* Doc, PrintOptions &options);
-		virtual const QString& errorMessage(void);
+		virtual const QString& errorMessage();
 
 		virtual void PS_Error(const QString& message);
-		virtual void PS_Error_ImageDataWriteFailure(void);
+		virtual void PS_Error_ImageDataWriteFailure();
 		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
 		virtual void PS_Error_MaskLoadFailure(const QString& fileName);
-		virtual void PS_Error_InsufficientMemory(void);
+		virtual void PS_Error_InsufficientMemory();
 
 		virtual bool PS_set_file(const QString& fn);
 		virtual void PS_set_Info(const QString& art, const QString& was);
-		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb);
+		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool sep, bool farb);
 		virtual void PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);

@@ -5,9 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "colorblind.h"
-//#include "colorblind.moc"
 
-#include <math.h>
+#include <cmath>
 
 //#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 

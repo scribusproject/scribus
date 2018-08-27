@@ -81,7 +81,7 @@ public:
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray() const;
 
-	void convertToGray(void);
+	void convertToGray();
 
 	bool writeRGBDataToFilter(ScStreamFilter* filter) const;
 	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal) const;

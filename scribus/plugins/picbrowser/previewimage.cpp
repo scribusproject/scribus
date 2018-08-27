@@ -525,7 +525,7 @@ Qt::ItemFlags PreviewImagesModel::flags ( const QModelIndex &index ) const
 		return ( Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled );
 
 //Qt modeltest requests 0 here
-	return 0;
+	return Qt::NoItemFlags;
 }
 
 

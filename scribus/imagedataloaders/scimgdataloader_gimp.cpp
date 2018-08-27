@@ -13,7 +13,7 @@ ScImgDataLoader_GIMP::ScImgDataLoader_GIMP()
 	initSupportedFormatList();
 }
 
-void ScImgDataLoader_GIMP::initSupportedFormatList(void)
+void ScImgDataLoader_GIMP::initSupportedFormatList()
 {
 	m_supportedFormats.clear();
 	m_supportedFormats.append( "pat" );

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <assert.h>
+#include <cassert>
 
 #include "commonstrings.h"
 #include "sccolor.h"
@@ -381,22 +381,22 @@ QString ScColor::nameRGB(const ScribusDoc* doc) const
 	return name;
 }
 
-void ScColor::setNamedColor(QString name)
+void ScColor::setNamedColor(QString colorName)
 {
 	bool ok;
-	if (name.length () == 9)
+	if (colorName.length () == 9)
 	{
-		int c = name.midRef(1,2).toInt(&ok, 16);
-		int m = name.midRef(3,2).toInt(&ok, 16);
-		int y = name.midRef(5,2).toInt(&ok, 16);
-		int k = name.midRef(7,2).toInt(&ok, 16);
+		int c = colorName.midRef(1,2).toInt(&ok, 16);
+		int m = colorName.midRef(3,2).toInt(&ok, 16);
+		int y = colorName.midRef(5,2).toInt(&ok, 16);
+		int k = colorName.midRef(7,2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
-	else if (name.length () == 7)
+	else if (colorName.length () == 7)
 	{
-		int r = name.midRef(1,2).toInt(&ok, 16);
-		int g = name.midRef(3,2).toInt(&ok, 16);
-		int b = name.midRef(5,2).toInt(&ok, 16);
+		int r = colorName.midRef(1,2).toInt(&ok, 16);
+		int g = colorName.midRef(3,2).toInt(&ok, 16);
+		int b = colorName.midRef(5,2).toInt(&ok, 16);
 		setRgbColor(r, g, b);
 	}
 }
@@ -464,19 +464,19 @@ void ColorList::copyColors(const ColorList& colorList, bool overwrite)
 	addColors(colorList, overwrite);
 }
 
-ScribusDoc* ColorList::document(void) const
+ScribusDoc* ColorList::document() const
 { 
 	return m_doc;
 }
 
-void ColorList::ensureDefaultColors(void)
+void ColorList::ensureDefaultColors()
 {
 	ensureBlack();
 	ensureWhite();
 	ensureRegistration();
 }
 
-void ColorList::ensureBlack(void)
+void ColorList::ensureBlack()
 {
 	bool addBlack = true;
 	ColorList::Iterator itb = find("Black");
@@ -496,7 +496,7 @@ void ColorList::ensureBlack(void)
 		insert("Black", ScColor(0, 0, 0, 255));
 }
 
-void ColorList::ensureWhite(void)
+void ColorList::ensureWhite()
 {
 	bool addWhite = true;
 	ColorList::Iterator itw = find("White");
@@ -516,7 +516,7 @@ void ColorList::ensureWhite(void)
 		insert("White", ScColor(0, 0, 0, 0));
 }
 
-void ColorList::ensureRegistration(void)
+void ColorList::ensureRegistration()
 {
 	ScColor cc = ScColor(255, 255, 255, 255);
 	cc.setRegistrationColor(true);

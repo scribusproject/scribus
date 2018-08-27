@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlStreamReader>
 #include "qtiocompressor.h"
 
-void ScSlaInfoReader::resetFileInfos(void)
+void ScSlaInfoReader::resetFileInfos()
 {
 	m_title.resize(0);
 	m_author.resize(0);

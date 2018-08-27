@@ -204,7 +204,7 @@ class SCRIBUS_API FileFormat
 		bool savePalette(const QString & fileName) const;
 		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const;
 		// Get last saved file
-		QString lastSavedFile(void) const;
+		QString lastSavedFile() const;
 		
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;

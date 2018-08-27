@@ -26,7 +26,7 @@ protected:
 	QPointF viewportOrg;
 	QSizeF  viewportExt;
 
-	void updateWorldMatrix(void);
+	void updateWorldMatrix();
 
 public:
 	QFont		font;
@@ -44,7 +44,7 @@ public:
 	QTransform     worldMatrix;
 	
 public:
-	WMFGraphicsState(void);
+	WMFGraphicsState();
 
 	void setWindowOrg(double x, double y);
 	void setWindowExt(double x, double y);
@@ -56,27 +56,27 @@ class WMFContext : public QStack<WMFGraphicsState>
 {
 public:
 
-	WMFContext(void);
+	WMFContext();
 
-	void save(void);
-	void restore(void);
-	void reset(void);
+	void save();
+	void restore();
+	void reset();
 
-	WMFGraphicsState& current(void);
+	WMFGraphicsState& current();
 
-	QFont        font(void) { return current().font; }
-	QPoint       position(void) { return current().position; }
-	QPen         pen(void) { return current().pen; }
-	QBrush       brush(void) { return current().brush; }
-	QColor       backgroundColor(void) { return current().backgroundColor; }
-	Qt::BGMode   backgroundMode(void) { return current().backgroundMode; }
-	QColor       textColor(void) { return current().textColor; }
-	int          textAlign(void) { return current().textAlign; }
-	int          textCharSet(void)  { return current().textCharset; }
-	double       textRotation(void) { return current().textRotation; }
-	bool         windingFill(void) { return current().windingFill; }
-	FPointArray& path (void) { return current().path; }
-	QTransform&     worldMatrix (void) { return current().worldMatrix; }
+	QFont        font() { return current().font; }
+	QPoint       position() { return current().position; }
+	QPen         pen() { return current().pen; }
+	QBrush       brush() { return current().brush; }
+	QColor       backgroundColor() { return current().backgroundColor; }
+	Qt::BGMode   backgroundMode() { return current().backgroundMode; }
+	QColor       textColor() { return current().textColor; }
+	int          textAlign() { return current().textAlign; }
+	int          textCharSet()  { return current().textCharset; }
+	double       textRotation() { return current().textRotation; }
+	bool         windingFill() { return current().windingFill; }
+	FPointArray& path () { return current().path; }
+	QTransform&     worldMatrix () { return current().worldMatrix; }
 	void setFont (const QFont& font) { current().font = font; }
 	void setPosition (const QPoint& pos) { current().position = pos; }
 	void setPen   (const QPen& pen) { current().pen = pen; }

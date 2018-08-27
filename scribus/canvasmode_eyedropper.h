@@ -50,8 +50,8 @@ private:
 	bool m_mouseGrabbed;
 	ScribusMainWindow* m_ScMW;
 
-	void grabMouse(void);
-	void releaseMouse(void);
+	void grabMouse();
+	void releaseMouse();
 };
 
 

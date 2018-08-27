@@ -142,7 +142,7 @@ void PropertyWidget_Advanced::disconnectSignals()
 	disconnect(maxGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMaxGlyphExtension()) );
 }
 
-void PropertyWidget_Advanced::configureWidgets(void)
+void PropertyWidget_Advanced::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

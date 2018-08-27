@@ -118,10 +118,10 @@ PageItem* getPageItemByName(const QString& name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
 		return nullptr;
 	}
-	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); i++)
 	{
-		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
-			return ScCore->primaryMainWindow()->doc->Items->at(j);
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(i)->itemName())
+			return ScCore->primaryMainWindow()->doc->Items->at(i);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
 	return nullptr;
@@ -137,9 +137,9 @@ bool ItemExists(const QString& name)
 {
 	if (name.length() == 0)
 		return false;
-	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); i++)
 	{
-		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(i)->itemName())
 			return true;
 	} // for items
 	return false;

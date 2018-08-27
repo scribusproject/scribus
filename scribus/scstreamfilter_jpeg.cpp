@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter_jpeg.h"
 
 #include <cstdlib>
-#include <setjmp.h>
-#include <stdio.h>
-#include <string.h>
+#include <csetjmp>
+#include <cstdio>
+#include <cstring>
 
 extern "C"
 {

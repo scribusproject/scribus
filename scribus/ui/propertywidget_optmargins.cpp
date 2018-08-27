@@ -112,7 +112,7 @@ void PropertyWidget_OptMargins::disconnectSignals()
 	disconnect(optMarginResetButton, SIGNAL(clicked()), this, SLOT(resetOpticalMargins()) );
 }
 
-void PropertyWidget_OptMargins::configureWidgets(void)
+void PropertyWidget_OptMargins::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

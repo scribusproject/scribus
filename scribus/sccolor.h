@@ -134,7 +134,7 @@ public:
 	QString nameCMYK(const ScribusDoc* doc = nullptr) const;
 
 	/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK or #RRGGBB */
-	void setNamedColor(QString nam);
+	void setNamedColor(QString colorName);
 
 	/** \brief If the color is a process color (ie neither spot, nor registration) */
 	bool isProcessColor() const;
@@ -173,13 +173,13 @@ protected:
 	bool m_retainDoc;
 
 	/** \brief Ensure availability of black color. */
-	void ensureBlack(void);
+	void ensureBlack();
 
 	/** \brief Ensure availability of white color. */
-	void ensureWhite(void);
+	void ensureWhite();
 
 	/** \brief Ensure availability of registration color. */
-	void ensureRegistration(void);
+	void ensureRegistration();
 
 public:
 	ColorList(ScribusDoc* doc = nullptr, bool retainDoc = false);

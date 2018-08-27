@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scstreamfilter_rc4.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "rc4.h"
 
 #define BUFFER_SIZE 16384

@@ -36,7 +36,7 @@ void ScPageOutput_Ps2::initStream(QIODevice* dev)
 	m_stream.setDevice(m_device);
 }
 
-void ScPageOutput_Ps2::begin(void)
+void ScPageOutput_Ps2::begin()
 {
 	m_stream << QString("%%Page: %1 %2\n").arg(m_pageIndex).arg(m_pageIndex);
 	m_stream << QString("/saveobj save def \n");
@@ -71,7 +71,7 @@ void ScPageOutput_Ps2::drawPage(ScPage* page)
 	ScPageOutput::drawPage(page, &painter);
 }
 
-void ScPageOutput_Ps2::end(void)
+void ScPageOutput_Ps2::end()
 {
 	m_stream << "%%PageTrailer\n";
 	m_stream << "saveobj restore\n";

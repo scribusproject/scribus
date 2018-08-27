@@ -714,7 +714,7 @@ void EffectsDialog::setItemSelectable(QListWidget* widget, int itemNr, bool enab
 	if (enable)
 		widget->item(itemNr)->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	else
-		widget->item(itemNr)->setFlags(0);
+		widget->item(itemNr)->setFlags(Qt::NoItemFlags);
 }
 
 void EffectsDialog::leaveOK()

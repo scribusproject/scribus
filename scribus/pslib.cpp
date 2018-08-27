@@ -557,7 +557,7 @@ bool PSLib::PS_set_file(const QString& fn)
 	return ret;
 }
 
-bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb)
+bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool sep, bool farb)
 {
 	m_Doc = doc;
 	PutStream(Header);
@@ -1599,20 +1599,20 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
-		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight() - (gy+gh), gx + gw, Doc->pageHeight() - gy, 1*pagemult, false, sep, farb);
+		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight() - (gy+gh), gx + gw, Doc->pageHeight() - gy, 1*pagemult, sep, farb);
 	}
 	else
 	{
-		uint a;
+		int a;
 		double maxWidth = 0.0;
 		double maxHeight = 0.0;
-		for (uint aa = 0; aa < pageNs.size(); ++aa)
+		for (int i = 0; i < pageNs.size(); ++i)
 		{
-			a = pageNs[aa]-1;
+			a = pageNs[i]-1;
 			maxWidth = qMax(Doc->Pages->at(a)->width(), maxWidth);
 			maxHeight = qMax(Doc->Pages->at(a)->height(), maxHeight);
 		}
-		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb);
+		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, sep, farb);
 	}
 	int ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)

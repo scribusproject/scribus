@@ -175,7 +175,7 @@ void ScTreeWidget::setItemEnabled(int index, bool enable)
 	if (enable)
 		topLevelItem(index)->setFlags(Qt::ItemIsEnabled);
 	else
-		topLevelItem(index)->setFlags(0);
+		topLevelItem(index)->setFlags(Qt::NoItemFlags);
 	QTreeWidgetItem *child = topLevelItem(index)->child(0);
 	if (child != nullptr)
 		itemWidget(child, 0)->setEnabled(enable);

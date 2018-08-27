@@ -338,7 +338,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 //--------------------------------------------------------------------------
 // Discard read data.
 //--------------------------------------------------------------------------
-void ExifData::DiscardData ( void )
+void ExifData::DiscardData()
 {
 //	for ( int a=0; a < SectionsRead; a++ )
 //		free ( Sections[a].Data );

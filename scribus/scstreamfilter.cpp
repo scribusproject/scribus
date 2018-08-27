@@ -49,7 +49,7 @@ bool ScStreamFilter::writeData(const QByteArray& data)
 	return writeData(data.constData(), data.size());
 }
 
-bool ScStreamFilter::openFilter (void)
+bool ScStreamFilter::openFilter ()
 {
 	m_writtenToStream = 0;
 	if (m_filterMode == FilterToFilter)
@@ -57,14 +57,14 @@ bool ScStreamFilter::openFilter (void)
 	return true;
 }
 
-bool ScStreamFilter::closeFilter(void)
+bool ScStreamFilter::closeFilter()
 {
 	if (m_filterMode == FilterToFilter)
 		return m_filter->closeFilter();
 	return true;
 }
 
-int ScStreamFilter::writtenToStream(void)
+int ScStreamFilter::writtenToStream()
 {
 	if (m_filterMode == FilterToFilter)
 		return (m_writtenToStream + m_filter->writtenToStream());

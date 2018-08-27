@@ -85,7 +85,7 @@ class ExifData
 
 		int getch ( QFile &infile );
 		int ReadJpegSections ( QFile & infile, ReadMode_t ReadMode );
-		void DiscardData ( void );
+		void DiscardData();
 		int Get16u ( void * Short );
 		int Get32s ( void * Long );
 		unsigned Get32u ( void * Long );

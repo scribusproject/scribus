@@ -33,8 +33,8 @@ public slots:
 	void okClicked();
 
 protected:
-	void loadSettings(void);
-	void saveSettings(void);
+	void loadSettings();
+	void saveSettings();
 };
 
 #endif

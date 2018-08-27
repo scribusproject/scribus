@@ -83,7 +83,7 @@ void gtFileDialog::okClicked()
 		accept();
 }
 
-void gtFileDialog::loadSettings(void)
+void gtFileDialog::loadSettings()
 {
 	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
 	if (context->contains("filter"))
@@ -119,7 +119,7 @@ void gtFileDialog::loadSettings(void)
 	}
 }
 
-void gtFileDialog::saveSettings(void)
+void gtFileDialog::saveSettings()
 {
 	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
 	context->set("filter"  , fileWidget->selectedNameFilter());

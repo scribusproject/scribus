@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-WMFGraphicsState::WMFGraphicsState(void)
+WMFGraphicsState::WMFGraphicsState()
 				: windowOrg(0.0, 0.0),
 				  windowExt(1.0, 1.0),
 				  viewportOrg(0.0, 0.0),
@@ -49,7 +49,7 @@ void WMFGraphicsState::setViewportExt(double x, double y)
 	updateWorldMatrix();
 }
 
-void WMFGraphicsState::updateWorldMatrix(void)
+void WMFGraphicsState::updateWorldMatrix()
 {
 	double xscale = (windowExt.width()  != 0.0) ? (viewportExt.width()  / windowExt.width())  : 1.0;
 	double yscale = (windowExt.height() != 0.0) ? (viewportExt.height() / windowExt.height()) : 1.0;
@@ -58,12 +58,12 @@ void WMFGraphicsState::updateWorldMatrix(void)
 	worldMatrix = QTransform( xscale, 0.0, 0.0, yscale, dx, dy );
 }
 
-WMFContext::WMFContext(void)
+WMFContext::WMFContext()
 {
 	push( WMFGraphicsState() ) ;
 }
 
-void WMFContext::save(void)
+void WMFContext::save()
 {
 	if ( this->count() > 0 )
 		push( WMFGraphicsState(top()) );
@@ -73,7 +73,7 @@ void WMFContext::save(void)
 	}
 }
 
-void WMFContext::restore(void)
+void WMFContext::restore()
 {
 	if ( this->count() > 1 )
 		pop();
@@ -83,13 +83,13 @@ void WMFContext::restore(void)
 	}
 }
 
-void WMFContext::reset(void)
+void WMFContext::reset()
 {
 	clear();
 	push( WMFGraphicsState() ) ;
 }
 
-WMFGraphicsState& WMFContext::current(void)
+WMFGraphicsState& WMFContext::current()
 {
 	if ( this->count() <= 0 )
 		push( WMFGraphicsState() ) ;

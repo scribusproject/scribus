@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "ui/scmessagebox.h"
 
-void ScMessageBox::initScMessageBox(void)
+void ScMessageBox::initScMessageBox()
 {
 	messageTitle = "";
 	defaultBatchPushButton = nullptr;

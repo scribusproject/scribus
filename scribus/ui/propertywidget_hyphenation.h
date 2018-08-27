@@ -30,7 +30,7 @@ protected:
 	PageItem* m_item;
 	ScribusMainWindow* m_ScMW;
 
-	void configureWidgets(void);
+	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 	virtual void changeEvent(QEvent *e);
 

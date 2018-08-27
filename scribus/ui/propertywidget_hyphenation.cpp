@@ -163,7 +163,7 @@ void PropertyWidget_Hyphenation::disconnectSignals()
 	disconnect(hyphenCharLineEdit,         SIGNAL(textChanged(const QString&)), this, SLOT(handleHyphenChar(const QString&)));
 }
 
-void PropertyWidget_Hyphenation::configureWidgets(void)
+void PropertyWidget_Hyphenation::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

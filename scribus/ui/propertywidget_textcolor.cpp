@@ -157,7 +157,7 @@ void PropertyWidget_TextColor::disconnectSignals()
 	disconnect(textEffects->StrikeVal->LWidth   , SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()));
 }
 
-void PropertyWidget_TextColor::configureWidgets(void)
+void PropertyWidget_TextColor::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

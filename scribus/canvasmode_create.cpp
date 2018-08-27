@@ -580,7 +580,7 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 	}
 }
 
-PageItem* CreateMode::doCreateNewObject(void)
+PageItem* CreateMode::doCreateNewObject()
 {
 	int z = -1;
 	double rot, len;

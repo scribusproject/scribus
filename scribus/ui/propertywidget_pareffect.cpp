@@ -332,7 +332,7 @@ void PropertyWidget_ParEffect::disconnectSignals()
 	disconnect(peCharStyleCombo, SIGNAL(newStyle(QString)), this, SLOT(handlePECharStyle(QString)));
 }
 
-void PropertyWidget_ParEffect::configureWidgets(void)
+void PropertyWidget_ParEffect::configureWidgets()
 {
 	bool enabled = false;
 	if (m_item && m_doc)

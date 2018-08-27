@@ -5,7 +5,7 @@
  for which a new license (GPL+exception) is in place.
  */
 
-#include <math.h>
+#include <cmath>
 
 #include "pageitem.h"
 #include "boxes.h"

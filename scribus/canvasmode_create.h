@@ -57,7 +57,7 @@ private:
 	void selectPage(QMouseEvent *m);
 	void SetupDrawNoResize(int nr);
 
-	PageItem* doCreateNewObject(void);
+	PageItem* doCreateNewObject();
 	bool      doOneClick(FPoint& startPoint, FPoint& endPoint);
 
 	// We do not use PageItem::ItemType and PageItem::FrameType here

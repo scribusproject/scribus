@@ -202,7 +202,7 @@ private:
 //	QByteArray ComputeMD5(const QString& in);
 //	QByteArray ComputeRC4Key(PdfId ObjNum);
 
-	QByteArray PDF_PutSoftShadow(PageItem* ite, const ScPage* pag);
+	QByteArray PDF_PutSoftShadow(PageItem* ite);
 	bool    PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool	PDF_HatchFill(QByteArray& output, PageItem *currItem);
