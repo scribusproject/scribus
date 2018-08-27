@@ -165,6 +165,7 @@ PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setCmykColor(c, m, y, k);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -203,6 +204,7 @@ PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setCmykColorF(c, m, y, k);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -237,6 +239,7 @@ PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setRgbColor(r, g, b);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -274,6 +277,7 @@ PyObject *scribus_setcolorrgbfloat(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setRgbColorF(r, g, b);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -311,6 +315,7 @@ PyObject *scribus_setcolorlab(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setLabColor(L, a, b);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -350,6 +355,7 @@ PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 			// silently changing colours in newColour?
 			(*colorList)[col].setCmykColor(c, m, y, k);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -400,6 +406,7 @@ PyObject *scribus_newcolorcmykfloat(PyObject* /* self */, PyObject* args)
 			(*colorList)[col].setCmykColorF(c, m, y, k);
 		}
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -434,6 +441,7 @@ PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 			// silently changing colours in newColour?
 			(*colorList)[col].setRgbColor(r, g, b);
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -483,6 +491,7 @@ PyObject *scribus_newcolorrgbfloat(PyObject* /* self */, PyObject* args)
 			(*colorList)[col].setRgbColorF(r, g, b);
 		}
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -532,6 +541,7 @@ PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 			(*colorList)[col].setLabColor(L, a, b);
 		}
 	}
+
 	Py_RETURN_NONE;
 }
 
@@ -572,8 +582,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 			return nullptr;
 		}
 	}
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -600,8 +609,7 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 

@@ -199,8 +199,6 @@ PyObject *scribus_setlinkannotation(PyObject* /* self */, PyObject* args)
 	a.setExtern(QString::fromUtf8(""));
 	a.setActionType(Annotation::Action_GoTo);
 
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -240,7 +238,6 @@ PyObject *scribus_setfileannotation(PyObject * /*self*/, PyObject* args, PyObjec
 		a.setActionType(Annotation::Action_GoToR_FileRel);
 
 	Py_RETURN_NONE;
-
 }
 
 PyObject *scribus_seturiannotation(PyObject * /*self*/, PyObject* args)

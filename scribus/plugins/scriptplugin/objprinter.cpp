@@ -501,8 +501,6 @@ static PyObject *Printer_print(Printer *self)
 		}
 		delete dd;
 	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 

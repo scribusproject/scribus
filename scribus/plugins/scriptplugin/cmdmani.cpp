@@ -33,8 +33,6 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->loadPict(QString::fromUtf8(Image), item);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -75,8 +73,6 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	if (hadOrigSelection)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -119,8 +115,6 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	if (hadOrigSelection)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
@@ -162,8 +156,6 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	if (hadOrigSelection)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -193,8 +185,6 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
 	
 	ScCore->primaryMainWindow()->doc->updatePic();
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -221,8 +211,6 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
 	
 	ScCore->primaryMainWindow()->doc->updatePic();
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -315,8 +303,6 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->rotateItem(item->rotation() - x, item);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -332,8 +318,6 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->rotateItem(x * -1.0, item);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -349,8 +333,6 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(x), ValueToPoint(y), item);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -422,8 +404,6 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItem(i);
 	ScCore->primaryMainWindow()->UnGroupObj();
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -451,8 +431,6 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->scaleGroup(sc, sc);
 	ScCore->primaryMainWindow()->view->endGroupTransaction();
 //	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -487,8 +465,6 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 	if (i == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->view->SelectItem(i);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -497,8 +473,6 @@ PyObject *scribus_deselect(PyObject* /* self */)
 	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->view->Deselect();
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -592,8 +566,6 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
 
 	item->update();
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
@@ -631,8 +603,6 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	if (hadOrigSelection)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 

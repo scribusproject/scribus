@@ -321,8 +321,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	currItem->itemText.insertChars(0, Daten);
 	currItem->invalidateLayout();
 	currItem->Dirty = false;
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -427,8 +426,7 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->setNewAlignment(alignment);
 	ScCore->primaryMainWindow()->doc->appMode = Apm;
 	ScCore->primaryMainWindow()->view->Deselect();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -495,8 +493,7 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->itemSelection_SetFontSize(qRound(size * 10.0));
 	ScCore->primaryMainWindow()->doc->appMode = Apm;
 	ScCore->primaryMainWindow()->view->Deselect();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -526,8 +523,7 @@ PyObject *scribus_setfontfeatures(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->itemSelection_SetFontFeatures(QString::fromUtf8(fontfeature));
 	ScCore->primaryMainWindow()->doc->appMode = Apm;
 	ScCore->primaryMainWindow()->view->Deselect();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -563,8 +559,6 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Font not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -600,8 +594,6 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 		
 //	i->setLineSpacing(w);
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -661,8 +653,8 @@ PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	i->setTextToFrameDist(ValueToPoint(l), ValueToPoint(r), ValueToPoint(t), ValueToPoint(b));
-	Py_INCREF(Py_None);
-	return Py_None;
+
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
@@ -687,8 +679,7 @@ PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	i->ColGap = ValueToPoint(w);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -714,8 +705,7 @@ PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	i->Cols = w;
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -766,8 +756,7 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	}
 	it->itemText.select(start, selcount, true);
 	it->HasSel = true;
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -820,20 +809,18 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(it, QString::fromUtf8(Color)).apply(&CharStyle::setFillColor, 0, it->itemText.length());
-//		for (int b = 0; b < it->itemText.length(); b++)
+//	for (int b = 0; b < it->itemText.length(); b++)
+//	{
+//		//FIXME: doc method
+//		if (it->HasSel)
 //		{
-//			//FIXME: doc method
-//			if (it->HasSel)
-//			{
-//				if (it->itemText.selected(b))
-//					it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
-//			}
-//			else
+//			if (it->itemText.selected(b))
 //				it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
 //		}
-//		it->TxtFill = QString::fromUtf8(Color);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+//		else
+//			it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
+//	}
+//	it->TxtFill = QString::fromUtf8(Color);
 	Py_RETURN_NONE;
 }
 
@@ -854,20 +841,18 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(it, QString::fromUtf8(Color)).apply(&CharStyle::setStrokeColor, 0, it->itemText.length());
-//		for (int b = 0; b < it->itemText.length(); b++)
+//	for (int b = 0; b < it->itemText.length(); b++)
+//	{
+//		//FIXME:NLS use document method for this
+//		if (it->HasSel)
 //		{
-//			//FIXME:NLS use document method for this
-//			if (it->HasSel)
-//			{
-//				if (it->itemText.selected(b))
-//					it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
-//			}
-//			else
+//			if (it->itemText.selected(b))
 //				it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
 //		}
-//		it->TxtStroke = QString::fromUtf8(Color);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+//		else
+//			it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
+//	}
+//	it->TxtStroke = QString::fromUtf8(Color);
 	Py_RETURN_NONE;
 }
 
@@ -951,11 +936,8 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	if ((w < 0) || (w > 100))
-	{
-//		Py_INCREF(Py_None);
-//		return Py_None;
 		Py_RETURN_NONE;
-	}
+
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == nullptr)
 		return nullptr;
@@ -965,20 +947,18 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<double>(it, w).apply(&CharStyle::setFillShade, 0, it->itemText.length());
-//		//FIXME:NLS use document method for that
-//		for (int b = 0; b < it->itemText.length(); ++b)
+//	//FIXME:NLS use document method for that
+//	for (int b = 0; b < it->itemText.length(); ++b)
+//	{
+//		if (it->HasSel)
 //		{
-//			if (it->HasSel)
-//			{
-//				if (it->itemText.selected(b))
-//					it->itemText.item(b)->setFillShade(w);
-//			}
-//			else
+//			if (it->itemText.selected(b))
 //				it->itemText.item(b)->setFillShade(w);
 //		}
+//		else
+//			it->itemText.item(b)->setFillShade(w);
+//	}
 //	it->ShTxtFill = w;
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -1027,8 +1007,7 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->DrawNew();
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -1076,8 +1055,7 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
 	ScCore->primaryMainWindow()->view->DrawNew();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -1107,8 +1085,7 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect(true);
 	ScCore->primaryMainWindow()->view->SelectItem(item);
 	ScCore->primaryMainWindow()->view->TextToPath();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -1222,11 +1199,7 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	if (i->isBookmark == toggle)
-	{
-//		Py_INCREF(Py_None);
-//		return Py_None;
 		Py_RETURN_NONE;
-	}
 	if (toggle)
 	{
 		i->setIsAnnotation(false);
@@ -1235,8 +1208,7 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 	else
 		ScCore->primaryMainWindow()->DelBookMark(i);
 	i->isBookmark = toggle;
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 

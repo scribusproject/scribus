@@ -525,8 +525,7 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	ScCore->primaryMainWindow()->doc->itemSelection_DeleteItem();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -562,8 +561,7 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 		i->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	ScCore->primaryMainWindow()->slotDocCh(true);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -699,8 +697,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		currentDoc->itemSelection_SetNamedParagraphStyle(paraStyleName);
 		currentDoc->appMode = mode;
 	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -783,8 +780,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		currentDoc->itemSelection_SetNamedCharStyle(charStyleName);
 		currentDoc->appMode = mode;
 	}
-	//	Py_INCREF(Py_None);
-	//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -846,8 +842,7 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	// do the duplicate
 	ScCore->primaryMainWindow()->slotEditCopy();
 	ScCore->primaryMainWindow()->slotEditPaste();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -870,8 +865,7 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 		return nullptr;
 	// do the copy
 	ScCore->primaryMainWindow()->slotEditCopy();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -887,8 +881,7 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 
 	// do the paste
 	ScCore->primaryMainWindow()->slotEditPaste();
-//	Py_INCREF(Py_None);
-//	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
