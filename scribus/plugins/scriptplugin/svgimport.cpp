@@ -174,7 +174,7 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 	char *Image;
 	double x = 0.0;
 	double y = 0.0;
-	if (!nullptr(args, "es|dd", "utf-8", &Image, &x, &y))
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
 		return NULL;
 	if (!checkHaveDocument())
 		return nullptr;
