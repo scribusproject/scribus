@@ -101,16 +101,14 @@ void ReplaceColor(const QString& col, const QString& rep)
 /* 04/07/10 returns selection if is not name specified  pv  */
 PageItem* GetUniqueItem(const QString& name)
 {
-	if (name.length()==0)
+	if (name.length() == 0)
+	{
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
-		else
-		{
-			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
-			return nullptr;
-		}
-	else
-		return getPageItemByName(name);
+		PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return getPageItemByName(name);
 }
 
 PageItem* getPageItemByName(const QString& name)
