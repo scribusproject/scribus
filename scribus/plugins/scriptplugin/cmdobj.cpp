@@ -825,23 +825,24 @@ PyObject *scribus_getcharstylenames(PyObject* /* self */)
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	}
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
+
 	// Is there a special name given? Yes -> add this to selection
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
-	if (i != nullptr) {
-		ScCore->primaryMainWindow()->doc->m_Selection->clear();
-		ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
-	}
-	else
+	if (i == nullptr)
 		return nullptr;
+	currentDoc->m_Selection->clear();
+	currentDoc->m_Selection->addItem(i);
+
 	// do the duplicate
-	ScCore->primaryMainWindow()->slotEditCopy();
-	ScCore->primaryMainWindow()->slotEditPaste();
+	currentWin->slotEditCopy();
+	currentWin->slotEditPaste();
 
 	Py_RETURN_NONE;
 }
@@ -849,22 +850,23 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	}
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
+
 	// Is there a special name given? Yes -> add this to selection
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
-	if (i != nullptr) {
-		ScCore->primaryMainWindow()->doc->m_Selection->clear();
-		ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
-	}
-	else
+	if (i == nullptr)
 		return nullptr;
+	currentDoc->m_Selection->clear();
+	currentDoc->m_Selection->addItem(i);
+
 	// do the copy
-	ScCore->primaryMainWindow()->slotEditCopy();
+	currentWin->slotEditCopy();
 
 	Py_RETURN_NONE;
 }
@@ -872,12 +874,10 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	}
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
 
 	// do the paste
 	ScCore->primaryMainWindow()->slotEditPaste();

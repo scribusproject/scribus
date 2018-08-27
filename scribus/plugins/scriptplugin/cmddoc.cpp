@@ -120,11 +120,14 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	MarginStruct margins(ValueToPoint(tpr), ValueToPoint(lr), ValueToPoint(btr), ValueToPoint(rr));
-	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->pagePositioning(), &margins);
-	ScCore->primaryMainWindow()->view->reformPages();
-	ScCore->primaryMainWindow()->doc->setModified(true);
-	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());
-	ScCore->primaryMainWindow()->view->DrawNew();
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	currentDoc->resetPage(currentDoc->pagePositioning(), &margins);
+	currentView->reformPages();
+	currentDoc->setModified(true);
+	currentView->GotoPage(currentDoc->currentPageNumber());
+	currentView->DrawNew();
 
 	Py_RETURN_NONE;
 }
@@ -136,12 +139,15 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	ScCore->primaryMainWindow()->doc->guidesPrefs().valueBaselineGrid = ValueToPoint(grid);
-	ScCore->primaryMainWindow()->doc->guidesPrefs().offsetBaselineGrid = ValueToPoint(offset);
-	//ScCore->primaryMainWindow()->view->reformPages();
-	ScCore->primaryMainWindow()->doc->setModified(true);
-	//ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());
-	ScCore->primaryMainWindow()->view->DrawNew();
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	currentDoc->guidesPrefs().valueBaselineGrid = ValueToPoint(grid);
+	currentDoc->guidesPrefs().offsetBaselineGrid = ValueToPoint(offset);
+	//currentView->reformPages();
+	currentDoc->setModified(true);
+	//currentView->GotoPage(currentDoc->currentPageNumber());
+	currentView->DrawNew();
 
 	Py_RETURN_NONE;
 }
@@ -228,9 +234,11 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	ScCore->primaryMainWindow()->doc->documentInfo().setAuthor(QString::fromUtf8(Author));
-	ScCore->primaryMainWindow()->doc->documentInfo().setTitle(QString::fromUtf8(Title));
-	ScCore->primaryMainWindow()->doc->documentInfo().setComments(QString::fromUtf8(Desc));
+
+	DocumentInformation& docInfo = ScCore->primaryMainWindow()->doc->documentInfo();
+	docInfo.setAuthor(QString::fromUtf8(Author));
+	docInfo.setTitle(QString::fromUtf8(Title));
+	docInfo.setComments(QString::fromUtf8(Desc));
 	ScCore->primaryMainWindow()->slotDocCh();
 
 	Py_RETURN_NONE;
@@ -279,11 +287,15 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (ScCore->primaryMainWindow()->doc->pagePositioning() == fp)
-		ScCore->primaryMainWindow()->doc->setPageSetFirstPage(ScCore->primaryMainWindow()->doc->pagePositioning(), fsl);
-	ScCore->primaryMainWindow()->view->reformPages();
-	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber()); // is this needed?
-	ScCore->primaryMainWindow()->view->DrawNew();   // is this needed?
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+
+	if (currentDoc->pagePositioning() == fp)
+		currentDoc->setPageSetFirstPage(currentDoc->pagePositioning(), fsl);
+	currentView->reformPages();
+	currentView->GotoPage(currentDoc->currentPageNumber()); // is this needed?
+	currentView->DrawNew();   // is this needed?
 	//CB TODO ScCore->primaryMainWindow()->pagePalette->RebuildPage(); // is this needed?
 	ScCore->primaryMainWindow()->slotDocCh();
 
@@ -303,9 +315,11 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	PyObject* names = PyList_New(ScCore->primaryMainWindow()->doc->MasterPages.count());
-	QMap<QString,int>::const_iterator it(ScCore->primaryMainWindow()->doc->MasterNames.constBegin());
-	QMap<QString,int>::const_iterator itEnd(ScCore->primaryMainWindow()->doc->MasterNames.constEnd());
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+
+	PyObject* names = PyList_New(currentDoc->MasterPages.count());
+	QMap<QString,int>::const_iterator it(currentDoc->MasterNames.constBegin());
+	QMap<QString,int>::const_iterator itEnd(currentDoc->MasterNames.constEnd());
 	int n = 0;
 	for ( ; it != itEnd; ++it )
 	{
@@ -342,12 +356,14 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
-	if (ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (currentDoc->MasterNames.contains(masterPageName))
 	{
 		PyErr_SetString(PyExc_ValueError, "Master page already exists");
 		return nullptr;
 	}
-	ScCore->primaryMainWindow()->doc->addMasterPage(ScCore->primaryMainWindow()->doc->MasterPages.count(), masterPageName);
+	currentDoc->addMasterPage(currentDoc->MasterPages.count(), masterPageName);
 
 	Py_RETURN_NONE;
 }
@@ -360,7 +376,9 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
-	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (!currentDoc->MasterNames.contains(masterPageName))
 	{
 		PyErr_SetString(PyExc_ValueError, "Master page does not exist");
 		return nullptr;
@@ -370,10 +388,10 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, "Can not delete the Normal master page");
 		return nullptr;
 	}
-	bool oldMode = ScCore->primaryMainWindow()->doc->masterPageMode();
-	ScCore->primaryMainWindow()->doc->setMasterPageMode(true);
-	ScCore->primaryMainWindow()->deletePage2(ScCore->primaryMainWindow()->doc->MasterNames[masterPageName]);
-	ScCore->primaryMainWindow()->doc->setMasterPageMode(oldMode);
+	bool oldMode = currentDoc->masterPageMode();
+	currentDoc->setMasterPageMode(true);
+	ScCore->primaryMainWindow()->deletePage2(currentDoc->MasterNames[masterPageName]);
+	currentDoc->setMasterPageMode(oldMode);
 
 	Py_RETURN_NONE;
 }
@@ -386,12 +404,14 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if ((e < 0) || (e > static_cast<int>(currentDoc->Pages->count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->DocPages.at(e)->MPageNam.toUtf8());
+	return PyString_FromString(currentDoc->DocPages.at(e)->MPageNam.toUtf8());
 }
 
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
@@ -403,18 +423,20 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
-	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (!currentDoc->MasterNames.contains(masterPageName))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Master page does not exist: '%1'","python error").arg(masterPageName).toLocal8Bit().constData());
 		return nullptr;
 	}
-	if ((page < 1) || (page > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())))
+	if ((page < 1) || (page > static_cast<int>(currentDoc->Pages->count())))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: %1.","python error").arg(page).toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	if (!ScCore->primaryMainWindow()->doc->applyMasterPage(masterPageName, page-1))
+	if (!currentDoc->applyMasterPage(masterPageName, page-1))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to apply masterpage '%1' on page: %2","python error").arg(masterPageName).arg(page).toLocal8Bit().constData());
 		return nullptr;

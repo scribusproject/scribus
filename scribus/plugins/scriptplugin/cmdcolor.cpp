@@ -560,9 +560,10 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	QString rep = QString::fromUtf8(Repl);
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
-		if (ScCore->primaryMainWindow()->doc->PageColors.contains(col) && (ScCore->primaryMainWindow()->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
+		ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+		if (currentDoc->PageColors.contains(col) && (currentDoc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 		{
-			ScCore->primaryMainWindow()->doc->PageColors.remove(col);
+			currentDoc->PageColors.remove(col);
 			ReplaceColor(col, rep);
 		}
 		else

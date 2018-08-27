@@ -54,24 +54,26 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	}
 
 	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	currentDoc->m_Selection->clear();
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 
 	// scale
-	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
-	ScCore->primaryMainWindow()->doc->updatePic();
+	currentDoc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
+	currentDoc->updatePic();
 
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection=tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -94,26 +96,28 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	}
 
 	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	currentDoc->m_Selection->clear();
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 
 	// scale
 	double newScaleX = x / item->pixm.imgInfo.xres * 72.0;
 	double newScaleY = y / item->pixm.imgInfo.yres * 72.0;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(newScaleX, newScaleY); //CB why when this is done above?
-	ScCore->primaryMainWindow()->doc->updatePic();
+	currentDoc->itemSelection_SetImageScale(newScaleX, newScaleY); //CB why when this is done above?
+	currentDoc->updatePic();
 
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection=tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -135,26 +139,28 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	}
 
 	// Grab the old selection - but use it only where is there any
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	currentDoc->m_Selection->clear();
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 
 	// offset
 	double newOffsetX = x / ((item->imageXScale() != 0.0) ? item->imageXScale() : 1);
 	double newOffsetY = y / ((item->imageYScale() != 0.0) ? item->imageYScale() : 1);
-	ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(newOffsetX, newOffsetY); //CB why when this is done above?
-	ScCore->primaryMainWindow()->doc->updatePic();
+	currentDoc->itemSelection_SetImageOffset(newOffsetX, newOffsetY); //CB why when this is done above?
+	currentDoc->updatePic();
 
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection=tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -225,30 +231,33 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==nullptr)
 		return nullptr;
+
 	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	currentDoc->m_Selection->clear();
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 	// Move the item, or items
-	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+	if (currentDoc->m_Selection->count() > 1)
 	{
-		ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Move, "", Um::IMove);
-		ScCore->primaryMainWindow()->doc->moveGroup(ValueToPoint(x), ValueToPoint(y));
-		ScCore->primaryMainWindow()->view->endGroupTransaction();
+		currentView->startGroupTransaction(Um::Move, "", Um::IMove);
+		currentDoc->moveGroup(ValueToPoint(x), ValueToPoint(y));
+		currentView->endGroupTransaction();
 	}
 	else {
-		ScCore->primaryMainWindow()->doc->moveItem(ValueToPoint(x), ValueToPoint(y), item);
+		currentDoc->moveItem(ValueToPoint(x), ValueToPoint(y), item);
 		}
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection=tempSelection;
 	Py_RETURN_NONE;
 }
 
@@ -263,30 +272,33 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
+
 	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 	// Move the item, or items
-	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+	if (currentDoc->m_Selection->count() > 1)
 	{
-		ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Move, "", Um::IMove);
+		currentView->startGroupTransaction(Um::Move, "", Um::IMove);
 		double x2, y2, w, h;
-		ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-		ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-		ScCore->primaryMainWindow()->view->endGroupTransaction();
+		currentDoc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+		currentDoc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		currentView->endGroupTransaction();
 	}
 	else
-		ScCore->primaryMainWindow()->doc->moveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
+		currentDoc->moveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection=tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -401,9 +413,12 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
 		return nullptr;
-	ScCore->primaryMainWindow()->view->Deselect();
-	ScCore->primaryMainWindow()->view->SelectItem(i);
-	ScCore->primaryMainWindow()->UnGroupObj();
+
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	currentWin->view->Deselect();
+	currentWin->view->SelectItem(i);
+	currentWin->UnGroupObj();
+
 	Py_RETURN_NONE;
 }
 
@@ -423,14 +438,18 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
 		return nullptr;
-	ScCore->primaryMainWindow()->view->Deselect();
-	ScCore->primaryMainWindow()->view->SelectItem(i);
-//	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
-//	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
-	ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Resize, "", Um::IResize);
-	ScCore->primaryMainWindow()->doc->scaleGroup(sc, sc);
-	ScCore->primaryMainWindow()->view->endGroupTransaction();
-//	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+
+	currentView->Deselect();
+	currentView->SelectItem(i);
+//	int h = currentView->frameResizeHandle;
+//	currentView->frameResizeHandle = 1;
+	currentView->startGroupTransaction(Um::Resize, "", Um::IResize);
+	currentDoc->scaleGroup(sc, sc);
+	currentView->endGroupTransaction();
+//	currentView->frameResizeHandle = h;
 	Py_RETURN_NONE;
 }
 
@@ -581,27 +600,27 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	
 	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	currentDoc->m_Selection->clear();
 	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	currentView->SelectItem(item);
 
 	// flip
-	if (h == 1) {
-		ScCore->primaryMainWindow()->doc->itemSelection_FlipH();
-		}
-	if (v == 1) {
-		ScCore->primaryMainWindow()->doc->itemSelection_FlipV();
-		}
+	if (h == 1)
+		currentDoc->itemSelection_FlipH();
+	if (v == 1)
+		currentDoc->itemSelection_FlipV();
 	// Now restore the selection.
-	ScCore->primaryMainWindow()->view->Deselect();
+	currentView->Deselect();
 	if (hadOrigSelection)
-		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 
 	Py_RETURN_NONE;
 }

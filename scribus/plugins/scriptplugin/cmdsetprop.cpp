@@ -376,11 +376,12 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == nullptr)
 		return nullptr;
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	// apply rounding
 	currItem->setCornerRadius(w);
 	currItem->SetFrameRound();
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(currItem);
-	ScCore->primaryMainWindow()->doc->setFrameRounded();
+	currentDoc->setRedrawBounding(currItem);
+	currentDoc->setFrameRounded();
 	Py_RETURN_NONE;
 }
 

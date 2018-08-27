@@ -295,14 +295,16 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	int typ = -1;
 	uint counter = 0;
 	uint counter2 = 0;
-	int pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	int pageNr = currentDoc->currentPageNumber();
 	char *kwlist[] = {const_cast<char*>(""), const_cast<char*>("page"), nullptr};
 
 
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &typ, &pageNr))
 		return nullptr;
 
-	int numpages = ScCore->primaryMainWindow()->doc->Pages->count();
+	int numpages = currentDoc->Pages->count();
 	if (pageNr < 0 || pageNr >= numpages) {
 		PyErr_SetString(PyExc_RuntimeError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -314,37 +316,37 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	// have doc already
 	if (typ != -1)
 	{
-		for (int lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
+		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
 		{
-			if ((ScCore->primaryMainWindow()->doc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)))
+			if ((currentDoc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(currentDoc->Items->at(lam2)->OwnPage)))
 				counter++;
 		}
 	}
 	else
 	{
-		for (int lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
+		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
 		{
-			if (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage))
+			if (pageNr == static_cast<uint>(currentDoc->Items->at(lam2)->OwnPage))
 				counter++;
 		}
 	}
 
 	l = PyList_New(counter);
-	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Items->count(); ++lam)
+	for (int lam=0; lam < currentDoc->Items->count(); ++lam)
 	{
-		if  (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam)->OwnPage))
+		if  (pageNr == static_cast<uint>(currentDoc->Items->at(lam)->OwnPage))
 		{
 			if (typ != -1)
 			{
-				if (ScCore->primaryMainWindow()->doc->Items->at(lam)->itemType() == typ)
+				if (currentDoc->Items->at(lam)->itemType() == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().toUtf8()));
+					PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
 					counter2++;
 				}
 			}
 			else
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().toUtf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
 				counter2++;
 			}
 		}
