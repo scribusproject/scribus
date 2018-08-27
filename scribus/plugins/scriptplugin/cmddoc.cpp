@@ -117,7 +117,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	double lr, tpr, btr, rr;
 	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	MarginStruct margins(ValueToPoint(tpr), ValueToPoint(lr), ValueToPoint(btr), ValueToPoint(rr));
 	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->pagePositioning(), &margins);
@@ -135,7 +135,7 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 	double grid, offset;
 	if (!PyArg_ParseTuple(args, "dd", &grid, &offset))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->guidesPrefs().valueBaselineGrid = ValueToPoint(grid);
 	ScCore->primaryMainWindow()->doc->guidesPrefs().offsetBaselineGrid = ValueToPoint(offset);
@@ -151,7 +151,7 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_closedoc(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->setModified(false);
 	bool ret = ScCore->primaryMainWindow()->slotFileClose();
@@ -183,7 +183,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_savedoc(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->slotFileSave();
 //	Py_INCREF(Py_None);
@@ -193,7 +193,7 @@ PyObject *scribus_savedoc(PyObject* /* self */)
 
 PyObject *scribus_getdocname(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (! ScCore->primaryMainWindow()->doc->hasName)
 	{
@@ -207,7 +207,7 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
@@ -230,7 +230,7 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 	// will correctly handle nullptr.
 	if (!PyArg_ParseTuple(args, "zzz", &Author, &Title, &Desc))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->documentInfo().setAuthor(QString::fromUtf8(Author));
 	ScCore->primaryMainWindow()->doc->documentInfo().setTitle(QString::fromUtf8(Title));
@@ -246,7 +246,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if ((e < UNITMIN) || (e > UNITMAX))
 	{
@@ -261,7 +261,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getunit(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->unitIndex()));
 }
@@ -271,7 +271,7 @@ PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 	char *fileName;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &fileName))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->loadStylesFromFile(QString::fromUtf8(fileName));
 //	Py_INCREF(Py_None);
@@ -284,7 +284,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	int fp, fsl;
 	if (!PyArg_ParseTuple(args, "ii", &fp, &fsl))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (ScCore->primaryMainWindow()->doc->pagePositioning() == fp)
 		ScCore->primaryMainWindow()->doc->setPageSetFirstPage(ScCore->primaryMainWindow()->doc->pagePositioning(), fsl);
@@ -300,7 +300,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_closemasterpage(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->view->hideMasterPage();
 //	Py_INCREF(Py_None);
@@ -310,7 +310,7 @@ PyObject *scribus_closemasterpage(PyObject* /* self */)
 
 PyObject *scribus_masterpagenames(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PyObject* names = PyList_New(ScCore->primaryMainWindow()->doc->MasterPages.count());
 	QMap<QString,int>::const_iterator it(ScCore->primaryMainWindow()->doc->MasterNames.constBegin());
@@ -328,7 +328,7 @@ PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
 	const QMap<QString,int>& masterNames(ScCore->primaryMainWindow()->doc->MasterNames);
@@ -349,7 +349,7 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
 	if (ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
@@ -368,7 +368,7 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 	char* name = nullptr;
 	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
 	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
@@ -395,7 +395,7 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -412,7 +412,7 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 	int page = 0;
 	if (!PyArg_ParseTuple(args, "esi", const_cast<char*>("utf-8"), &name, &page))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name);
 	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))

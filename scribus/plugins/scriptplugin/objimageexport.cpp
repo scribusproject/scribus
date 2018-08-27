@@ -38,7 +38,7 @@ static void ImageExport_dealloc(ImageExport* self)
 
 static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 
 	ImageExport *self;
@@ -140,7 +140,7 @@ static PyGetSetDef ImageExport_getseters [] = {
 
 static PyObject *ImageExport_save(ImageExport *self)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
 	ScribusView*view = ScCore->primaryMainWindow()->view;
@@ -168,7 +168,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 {
 	char* value;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &value))
 		return nullptr;

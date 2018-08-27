@@ -125,7 +125,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 
 	ScribusDoc *d = ScCore->primaryMainWindow()->doc;

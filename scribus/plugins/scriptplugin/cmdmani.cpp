@@ -22,7 +22,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 	char *Image;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Image, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -44,7 +44,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -86,7 +86,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -129,7 +129,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -173,7 +173,7 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	double n;
 	if (!PyArg_ParseTuple(args, "d|es", &n, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -203,7 +203,7 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -232,7 +232,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==nullptr)
@@ -270,7 +270,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -309,7 +309,7 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -326,7 +326,7 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -343,7 +343,7 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
@@ -414,7 +414,7 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
@@ -433,7 +433,7 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (sc == 0.0)
 	{
@@ -461,7 +461,7 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
 		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
@@ -471,7 +471,7 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_selcount(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->m_Selection->count()));
 }
@@ -481,7 +481,7 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
@@ -494,7 +494,7 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_deselect(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->view->Deselect();
 //	Py_INCREF(Py_None);
@@ -507,7 +507,7 @@ PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
@@ -525,7 +525,7 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
 	// and instead provide a different function like toggleLock()
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
@@ -537,7 +537,7 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setscaleframetoimage(PyObject* /* self */, PyObject* args)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -567,7 +567,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 		const_cast<char*>("proportional"), const_cast<char*>("name"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|ies", kwargs, &scaleToFrame, &proportional, "utf-8", &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
@@ -602,7 +602,7 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	double h, v;
 	if (!PyArg_ParseTuple(args, "dd|es", &h, &v, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)

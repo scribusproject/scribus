@@ -25,7 +25,7 @@ PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->DoDrawing = static_cast<bool>(e);
 //	Py_INCREF(Py_None);
@@ -150,7 +150,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 PyObject *scribus_getlayers(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PyObject *l;
 	l = PyList_New(ScCore->primaryMainWindow()->doc->Layers.count());
@@ -164,7 +164,7 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (Name == nullptr)
 	{
@@ -186,7 +186,7 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getactlayer(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
 }
@@ -197,7 +197,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 	char *Layer = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Layer, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Layer) == 0)
 	{
@@ -241,7 +241,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -274,7 +274,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -307,7 +307,7 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -340,7 +340,7 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -373,7 +373,7 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -406,7 +406,7 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 	int vis = 0;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -439,7 +439,7 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 	double vis = 1.0;
 	if (!PyArg_ParseTuple(args, "esd", "utf-8", &Name, &vis))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -471,7 +471,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -502,7 +502,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -533,7 +533,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -564,7 +564,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -595,7 +595,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -626,7 +626,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -657,7 +657,7 @@ PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -689,7 +689,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -779,7 +779,7 @@ PyObject *scribus_moveselectiontoback(PyObject*)
 PyObject *scribus_savepdfoptions(PyObject* /* self */, PyObject* args)
 {
 	char* file;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &file))
 		return nullptr;
@@ -796,7 +796,7 @@ PyObject *scribus_savepdfoptions(PyObject* /* self */, PyObject* args)
 PyObject *scribus_readpdfoptions(PyObject* /* self */, PyObject* args)
 {
 	char* file;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &file))
 		return nullptr;

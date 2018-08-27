@@ -584,7 +584,7 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	//FIXME: this should definitely use keyword arguments
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strcmp(Name, "") == 0)
 	{
@@ -611,7 +611,7 @@ PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 	
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strcmp(Name, "") == 0)
 	{
@@ -633,7 +633,7 @@ PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &enable))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strcmp(Name, "") == 0)
 	{

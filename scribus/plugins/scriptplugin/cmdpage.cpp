@@ -16,14 +16,14 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_actualpage(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
 PyObject *scribus_redraw(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->view->DrawNew();
 	qApp->processEvents();
@@ -37,7 +37,7 @@ PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -53,7 +53,7 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	QString epsError;
 	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name), epsError);
@@ -76,7 +76,7 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -95,7 +95,7 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -116,7 +116,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 	QString qName(CommonStrings::trMasterPageNormal);
 	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 
 	int loc = (e > -1) ? e : ScCore->primaryMainWindow()->doc->Pages->count();
@@ -162,14 +162,14 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_pagecount(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->Pages->count()));
 }
 
 PyObject *scribus_pagedimension(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PyObject *t;
 	t = Py_BuildValue(
@@ -185,7 +185,7 @@ PyObject *scribus_pagensize(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -207,7 +207,7 @@ PyObject *scribus_pagenmargins(PyObject* /* self */, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
@@ -225,7 +225,7 @@ PyObject *scribus_pagenmargins(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getpageitems(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (ScCore->primaryMainWindow()->doc->Items->count() == 0)
 		return Py_BuildValue((char*)"[]");
@@ -257,7 +257,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 
 PyObject *scribus_getHguides(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->YGuides.count();
@@ -281,7 +281,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyList_Check(l))
 	{
@@ -308,7 +308,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getVguides(PyObject* /* self */)
 {
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->XGuides.count();
@@ -332,7 +332,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyList_Check(l))
 	{
@@ -360,7 +360,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 PyObject *scribus_getpagemargins(PyObject* /* self */)
 {
 	PyObject *margins = nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->margins()->top()),
 									PointToValue(ScCore->primaryMainWindow()->doc->margins()->left()),
@@ -426,7 +426,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "sO|iii", &doc, &pages, &createPageI, &importWhere, &importWherePage))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 
 	if (!PyTuple_Check(pages))

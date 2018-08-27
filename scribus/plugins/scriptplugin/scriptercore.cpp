@@ -540,7 +540,7 @@ void ScripterCore::aboutScript()
 	QString html("<html><body>");
 	QFileInfo fi = QFileInfo(fname);
 	QFile input(fname);
-	if(!input.open(QIODevice::ReadOnly))
+	if (!input.open(QIODevice::ReadOnly))
 		return;
 	QTextStream intputstream(&input);
 	QString content = intputstream.readAll();

@@ -47,7 +47,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
 		&HasDropCap, &DropCapLines, &PEOffset, "utf-8", &CharStyle))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
@@ -65,9 +65,9 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	TmpParagraphStyle.setRightMargin(RightMargin);
 	TmpParagraphStyle.setGapBefore(GapBefore);
 	TmpParagraphStyle.setGapAfter(GapAfter);
-	if(HasDropCap == 0)
+	if (HasDropCap == 0)
 		TmpParagraphStyle.setHasDropCap(false);
-	else if(HasDropCap == 1)
+	else if (HasDropCap == 1)
 		TmpParagraphStyle.setHasDropCap(true);
 	else
 	{
@@ -125,7 +125,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 																									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
 																									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (strlen(Name) == 0)
 	{
