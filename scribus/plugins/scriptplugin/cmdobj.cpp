@@ -24,7 +24,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
@@ -53,7 +53,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Ellipse,
 										pageUnitXToDocX(x),
@@ -79,7 +79,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified,
 									pageUnitXToDocX(x),
@@ -104,7 +104,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified,
 								pageUnitXToDocX(x),
@@ -164,7 +164,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	x = pageUnitXToDocX(x);
 	y = pageUnitYToDocY(y);
@@ -226,7 +226,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int len = PyList_Size(il);
 	if (len < 4)
@@ -303,7 +303,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int len = PyList_Size(il);
 	if (len < 6)
@@ -384,7 +384,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	int len = PyList_Size(il);
 	if (len < 8)
@@ -479,7 +479,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	char *PolyB = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "ddeses|es", &x, &y, "utf-8", &TextB, "utf-8", &PolyB, "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
@@ -517,7 +517,7 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
@@ -540,7 +540,7 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "es|i", "utf-8", &name, &state))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (i == nullptr)
@@ -552,13 +552,13 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 		else
 			i->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	}
-	else if( state == (int) PageItem::TextFlowDisabled )
+	else if (state == (int) PageItem::TextFlowDisabled )
 		i->setTextFlowMode(PageItem::TextFlowDisabled);
-	else if( state == (int) PageItem::TextFlowUsesFrameShape )
+	else if (state == (int) PageItem::TextFlowUsesFrameShape )
 		i->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-	else if( state == (int) PageItem::TextFlowUsesBoundingBox )
+	else if (state == (int) PageItem::TextFlowUsesBoundingBox )
 		i->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-	else if( state == (int) PageItem::TextFlowUsesContourLine )
+	else if (state == (int) PageItem::TextFlowUsesContourLine )
 		i->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	ScCore->primaryMainWindow()->slotDocCh(true);
@@ -573,12 +573,52 @@ PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 	char* name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (ItemExists(QString::fromUtf8(name)))
 		return PyBool_FromLong(static_cast<long>(true));
 	return PyBool_FromLong(static_cast<long>(false));
 }
+
+
+/*
+ * Vaclav Smilauer, 2017-21-21
+ * Return style name of the object (or currently selected object)
+ */
+PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get style of a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	int selectionLength = item->itemText.lengthOfSelection();	
+	if (selectionLength > 0)
+	{
+		int selectionStart = item->itemText.startOfSelection();
+		const ParagraphStyle& currentStyle = item->itemText.paragraphStyle(selectionStart);
+		if (currentStyle.hasParent())
+			return PyString_FromString(currentStyle.parentStyle()->name().toUtf8());
+	}
+	else
+	{
+		const ParagraphStyle& itemDefaultStyle = item->itemText.defaultStyle();
+		if (itemDefaultStyle.hasParent())
+			return PyString_FromString(itemDefaultStyle.parentStyle()->name().toUtf8());
+	}
+	Py_RETURN_NONE;
+};
+
+
 
 /*
  * Craig Ringer, 2004-09-09
@@ -591,7 +631,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
@@ -639,7 +679,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		currentView->Deselect(true);
 		//CB I dont think we need to draw here. Its faster if we dont.
 		currentView->SelectItem(item, false);
-		// Restore stext selection if necessary
+		// Restore text selection if necessary
 		if (selectionStart >= 0)
 		{
 			item->itemText.deselectAll();
@@ -723,7 +763,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		currentView->Deselect(true);
 		//CB I dont think we need to draw here. Its faster if we dont.
 		currentView->SelectItem(item, false);
-		// Restore stext selection if necessary
+		// Restore text selection if necessary
 		if (selectionStart >= 0)
 		{
 			item->itemText.deselectAll();
@@ -755,7 +795,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 PyObject *scribus_getstylenames(PyObject* /* self */)
 {
 	PyObject *styleList;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	styleList = PyList_New(0);
 	for (int i=0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
@@ -772,7 +812,7 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 PyObject *scribus_getcharstylenames(PyObject* /* self */)
 {
 	PyObject *charStyleList;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	charStyleList = PyList_New(0);
 	for (int i=0; i < ScCore->primaryMainWindow()->doc->charStyles().count(); ++i)
@@ -792,7 +832,7 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
 		return nullptr;
 	}
-	if(!checkHaveDocument()) {
+	if (!checkHaveDocument()) {
 		return nullptr;
 	}
 	// Is there a special name given? Yes -> add this to selection
@@ -817,7 +857,7 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
 		return nullptr;
 	}
-	if(!checkHaveDocument()) {
+	if (!checkHaveDocument()) {
 		return nullptr;
 	}
 	// Is there a special name given? Yes -> add this to selection
@@ -841,7 +881,7 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
 		return nullptr;
 	}
-	if(!checkHaveDocument()) {
+	if (!checkHaveDocument()) {
 		return nullptr;
 	}
 
@@ -858,5 +898,5 @@ PV */
 void cmdobjdocwarnings()
 {
 	QStringList s;
-	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__ <<scribus_copyobject__doc__ <<scribus_pasteobject__doc__;
+	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_getstyle__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__ <<scribus_copyobject__doc__ <<scribus_pasteobject__doc__;
 }
