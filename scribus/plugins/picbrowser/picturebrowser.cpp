@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QtGui>
 #include <QMessageBox>
+#include <QSignalBlocker>
+
 #include <iostream>
 #include "picturebrowser.h"
 #include "collection.h"
@@ -39,6 +41,11 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	pbSettings.load();
 
 	documentChanged = false;
+
+	insertPositionXSpinbox->setNewUnit(doc->unitIndex());
+	insertPositionYSpinbox->setNewUnit(doc->unitIndex());
+	insertWidthSpinbox->setNewUnit(doc->unitIndex());
+	insertHeightSpinbox->setNewUnit(doc->unitIndex());
 
 	connect(navigationBox, SIGNAL(currentIndexChanged(int)), this, SLOT(navigate(int)));
 	connect(sortCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(sortChanged(int)));
@@ -956,10 +963,10 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.pageList = pageList;
 	iafData.positionType = insertPositionCombobox->currentIndex();
 	iafData.sizeType = insertSizeCombobox->currentIndex();
-	iafData.x = insertPositionXSpinbox->value();
-	iafData.y = insertPositionYSpinbox->value();
-	iafData.width = insertWidthSpinbox->value();
-	iafData.height = insertHeightSpinbox->value();
+	iafData.x = insertPositionXSpinbox->value() / insertPositionXSpinbox->unitRatio();
+	iafData.y = insertPositionYSpinbox->value() / insertPositionYSpinbox->unitRatio();
+	iafData.width = insertWidthSpinbox->value() / insertWidthSpinbox->unitRatio();
+	iafData.height = insertHeightSpinbox->value() / insertHeightSpinbox->unitRatio();
 
 	/*dont need all this crap */
 //iafData.impsetup=m_ImportSetup;
@@ -996,7 +1003,7 @@ void PictureBrowser::insertPositionComboboxChanged(int index)
 
 void PictureBrowser::insertSizeComboboxChanged(int index)
 {
-	if ((index == 3)&& !insertCustomSize)
+	if ((index == 4) && !insertCustomSize)
 	{
 		insertWidthSpinbox->setEnabled(true);
 		insertHeightSpinbox->setEnabled(true);
@@ -2067,6 +2074,21 @@ void PictureBrowser::updateTagImagesTab()
 	}
 }
 
+void PictureBrowser::unitChange()
+{
+	if (m_Doc == nullptr)
+		return;
+
+	QSignalBlocker insertPositionXSpinboxBlocker(insertPositionXSpinbox);
+	QSignalBlocker insertPositionYSpinboxBlocker(insertPositionYSpinbox);
+	QSignalBlocker insertWidthSpinboxBlocker(insertWidthSpinbox);
+	QSignalBlocker insertHeightSpinboxBlocker(insertHeightSpinbox);
+
+	insertPositionXSpinbox->setNewUnit(m_Doc->unitIndex());
+	insertPositionYSpinbox->setNewUnit(m_Doc->unitIndex());
+	insertWidthSpinbox->setNewUnit(m_Doc->unitIndex());
+	insertHeightSpinbox->setNewUnit(m_Doc->unitIndex());
+}
 
 imageFilters::imageFilters()
 {

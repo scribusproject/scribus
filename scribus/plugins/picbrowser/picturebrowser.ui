@@ -1630,7 +1630,7 @@
            <string>Position of New Frame(s)</string>
           </property>
           <layout class="QGridLayout">
-           <item row="0" column="0" colspan="4">
+           <item row="0" column="0" colspan="2">
             <widget class="QComboBox" name="insertPositionCombobox">
              <property name="toolTip">
               <string>Set the position of the image frame(s) to insert</string>
@@ -1657,6 +1657,16 @@
              </item>
             </widget>
            </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="insertPositionYLabel">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Y:</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="0">
             <widget class="QLabel" name="insertPositionXLabel">
              <property name="enabled">
@@ -1668,7 +1678,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="insertPositionXSpinbox">
+            <widget class="ScrSpinBox" name="insertPositionXSpinbox">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -1676,22 +1686,12 @@
               <string>Horizontal position</string>
              </property>
              <property name="maximum">
-              <number>9999</number>
+              <double>9999.000000000000000</double>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="insertPositionYLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Y:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QSpinBox" name="insertPositionYSpinbox">
+           <item row="2" column="1">
+            <widget class="ScrSpinBox" name="insertPositionYSpinbox">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -1699,7 +1699,7 @@
               <string>Vertical position</string>
              </property>
              <property name="maximum">
-              <number>9999</number>
+              <double>9999.000000000000000</double>
              </property>
             </widget>
            </item>
@@ -1718,7 +1718,53 @@
            <string>Size</string>
           </property>
           <layout class="QGridLayout">
-           <item row="0" column="0" colspan="5">
+           <item row="1" column="0">
+            <widget class="QLabel" name="insertWidthLabel">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Width:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="insertHeightLabel">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Height:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="ScrSpinBox" name="insertHeightSpinbox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Height</string>
+             </property>
+             <property name="maximum">
+              <double>60000.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="ScrSpinBox" name="insertWidthSpinbox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Width</string>
+             </property>
+             <property name="maximum">
+              <double>60000.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
             <widget class="QComboBox" name="insertSizeCombobox">
              <property name="toolTip">
               <string>Set the size of the image frame(s) to insert</string>
@@ -1740,55 +1786,14 @@
              </item>
              <item>
               <property name="text">
+               <string>Same as Image</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
                <string>Custom Size</string>
               </property>
              </item>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="insertWidthLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Width:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="insertWidthSpinbox">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="toolTip">
-              <string>Width</string>
-             </property>
-             <property name="maximum">
-              <number>60000</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2" colspan="2">
-            <widget class="QLabel" name="insertHeightLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Height:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QSpinBox" name="insertHeightSpinbox">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="toolTip">
-              <string>Height</string>
-             </property>
-             <property name="maximum">
-              <number>60000</number>
-             </property>
             </widget>
            </item>
           </layout>
@@ -1939,6 +1944,11 @@
    <class>PictView</class>
    <extends>QListView</extends>
    <header>pictview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

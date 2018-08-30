@@ -128,6 +128,9 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void selectPage ( int );
 		void selectMasterPage ( QString );
 
+	public slots:
+		void unitChange();
+
 	private slots:
 		//slot for the navigation combobox, sets current browsingmode (folderbrowser, collectionsbrowser, documentbrowser)
 		void navigate ( int index );
