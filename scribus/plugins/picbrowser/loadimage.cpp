@@ -64,18 +64,18 @@ loadImagesThreadInstance::loadImagesThreadInstance()
 {
 }
 */
-void loadImagesThread::processLoadImageJob ( int row, const QString& path, int size, int tpId )
+void loadImagesThread::processLoadImageJob(int row, const QString& path, int size, int tpId)
 {
 	ScImageCacheManager &icm = ScImageCacheManager::instance();
 	bool cacheEnabled = icm.enabled();
 	icm.setEnabled(false);
 	//check if list of files has changed and this job is obsolete
-	if ( pModel->pId != tpId )
+	if (pModel->pId != tpId)
 	{
 		return;
 	}
 
-	if ( qAbs ( row - pictureBrowser->currentRow ) > 2* ( pictureBrowser->previewIconsVisible ) )
+	if (qAbs (row - pictureBrowser->currentRow) > (2 * pictureBrowser->previewIconsVisible))
 	{
 		emit imageLoadError ( row, tpId, 0 );
 		return;
@@ -92,31 +92,31 @@ void loadImagesThread::processLoadImageJob ( int row, const QString& path, int s
 		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-			if( fmt )
+			if (fmt)
 			{
 				QImage im = fmt->readThumbnail(path);
 				if (!im.isNull())
 				{
 					ImageInformation *imgInfo = new ImageInformation;
-					( *imgInfo ).width = im.text("XSize").toDouble();
-					( *imgInfo ).height = im.text("YSize").toDouble();
-					( *imgInfo ).type = 6;
-					( *imgInfo ).colorspace = 0;
-					( *imgInfo ).xdpi = 72;
-					( *imgInfo ).ydpi = 72;
-					( *imgInfo ).layers = 0;
-					( *imgInfo ).embedded = false;
-					( *imgInfo ).profileName = "";
-					( *imgInfo ).valid = true;
+					imgInfo->width = im.text("XSize").toDouble();
+					imgInfo->height = im.text("YSize").toDouble();
+					imgInfo->type = 6;
+					imgInfo->colorspace = 0;
+					imgInfo->xdpi = 72;
+					imgInfo->ydpi = 72;
+					imgInfo->layers = 0;
+					imgInfo->embedded = false;
+					imgInfo->profileName = "";
+					imgInfo->valid = true;
 
-					if ( ( im.width() > ( size-2 ) ) || ( im.height() > ( size-2 ) ) )
+					if ((im.width() > (size - 2)) || (im.height() > (size - 2)))
 					{
-						emit imageLoaded ( row, im.scaled ( ( size-2 ), ( size-2 ), Qt::KeepAspectRatio, Qt::SmoothTransformation ), imgInfo, tpId );
+						emit imageLoaded(row, im.scaled (size - 2, size - 2, Qt::KeepAspectRatio, Qt::SmoothTransformation), imgInfo, tpId);
 					}
 					//image is <= our icon -> put it in as it is
 					else
 					{
-						emit imageLoaded ( row, im.copy(), imgInfo, tpId );
+						emit imageLoaded(row, im.copy(), imgInfo, tpId);
 					}
 				}
 			}
@@ -136,10 +136,10 @@ void loadImagesThread::processLoadImageJob ( int row, const QString& path, int s
 	ImageInformation *imgInfo = new ImageInformation;
 
 	//load previewimage
-	if ( image.loadPicture ( path, 1, cms, ScImage::Thumbnail, 72, &mode ) )
+	if (image.loadPicture(path, 1, cms, ScImage::Thumbnail, 72, &mode))
 	{
 		int ix,iy;
-		if ( ( image.imgInfo.exifDataValid ) && ( !image.imgInfo.exifInfo.thumbnail.isNull() ) )
+		if ((image.imgInfo.exifDataValid) && (!image.imgInfo.exifInfo.thumbnail.isNull()))
 		{
 			ix = image.imgInfo.exifInfo.width;
 			iy = image.imgInfo.exifInfo.height;
@@ -149,33 +149,33 @@ void loadImagesThread::processLoadImageJob ( int row, const QString& path, int s
 			ix = image.width();
 			iy = image.height();
 		}
-		( *imgInfo ).width = ix;
-		( *imgInfo ).height = iy;
-		( *imgInfo ).type = image.imgInfo.type;
-		( *imgInfo ).colorspace = image.imgInfo.colorspace;
-		( *imgInfo ).xdpi = image.imgInfo.xres;
-		( *imgInfo ).ydpi = image.imgInfo.yres;
-		( *imgInfo ).layers = image.imgInfo.layerInfo.size();
-		( *imgInfo ).embedded = image.imgInfo.isEmbedded;
-		( *imgInfo ).profileName = image.imgInfo.profileName;
-		( *imgInfo ).valid = true;
+		imgInfo->width = ix;
+		imgInfo->height = iy;
+		imgInfo->type = image.imgInfo.type;
+		imgInfo->colorspace = image.imgInfo.colorspace;
+		imgInfo->xdpi = image.imgInfo.xres;
+		imgInfo->ydpi = image.imgInfo.yres;
+		imgInfo->layers = image.imgInfo.layerInfo.size();
+		imgInfo->embedded = image.imgInfo.isEmbedded;
+		imgInfo->profileName = image.imgInfo.profileName;
+		imgInfo->valid = true;
 
 		//image is bigger than our icon -> resize
-		if ( ( image.width() > ( size-2 ) ) || ( image.height() > ( size-2 ) ) )
+		if ((image.width() > (size - 2)) || ( image.height() > (size - 2)))
 		{
-			emit imageLoaded ( row, image.scaled ( ( size-2 ), ( size-2 ), Qt::KeepAspectRatio, Qt::SmoothTransformation ), imgInfo, tpId );
+			emit imageLoaded(row, image.scaled (size - 2, size - 2, Qt::KeepAspectRatio, Qt::SmoothTransformation), imgInfo, tpId);
 		}
 		//image is <= our icon -> put it in as it is
 		else
 		{
-			emit imageLoaded ( row, image.qImage().copy(), imgInfo, tpId );
+			emit imageLoaded(row, image.qImage().copy(), imgInfo, tpId);
 		}
 	}
 	else
 	{
 		//emit some errorsignal here
-		( *imgInfo ).valid = false;
-		emit imageLoaded ( row, QImage(), imgInfo, tpId );
+		imgInfo->valid = false;
+		emit imageLoaded (row, QImage(), imgInfo, tpId);
 	}
 	icm.setEnabled(cacheEnabled);
 }
