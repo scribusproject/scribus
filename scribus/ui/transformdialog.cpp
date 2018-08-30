@@ -126,57 +126,56 @@ void TransformDialog::newSkewing()
 
 void TransformDialog::setCurrentTransform(QListWidgetItem* item)
 {
-	if (item != nullptr)
-	{
-		TransformItem *ite = (TransformItem*)item;
-		switch (item->type())
-		{
-			case 1001:
-				transformStack->setCurrentIndex(1);
-				horizontalScale->setValue(ite->firstValue);
-				verticalScale->setValue(ite->secondValue);
-				break;
-			case 1002:
-				transformStack->setCurrentIndex(2);
-				translateHorizontal->setValue(ite->firstValue);
-				translateVertical->setValue(ite->secondValue);
-				break;
-			case 1003:
-				transformStack->setCurrentIndex(3);
-				rotationValue->setValue(ite->firstValue);
-				break;
-			case 1004:
-				transformStack->setCurrentIndex(4);
-				horizontalSkew->setValue(ite->firstValue);
-				verticalSkew->setValue(ite->secondValue);
-				break;
-			default:
-				transformStack->setCurrentIndex(0);
-				break;
-		}
-		if (transformSelector->count() > 1)
-		{
-			buttonUp->setEnabled(true);
-			buttonDown->setEnabled(true);
-			if (transformSelector->currentRow() == 0)
-				buttonUp->setEnabled(false);
-			if (transformSelector->currentRow() == transformSelector->count()-1)
-				buttonDown->setEnabled(false);
-		}
-		else
-		{
-			buttonUp->setEnabled(false);
-			buttonDown->setEnabled(false);
-		}
-		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-	}
-	else
+	if (item == nullptr)
 	{
 		transformStack->setCurrentIndex(0);
 		buttonRemove->setEnabled(false);
 		buttonUp->setEnabled(false);
 		buttonDown->setEnabled(false);
+		return;
 	}
+
+	TransformItem *ite = (TransformItem*) item;
+	switch (item->type())
+	{
+		case 1001:
+			transformStack->setCurrentIndex(1);
+			horizontalScale->setValue(ite->firstValue);
+			verticalScale->setValue(ite->secondValue);
+			break;
+		case 1002:
+			transformStack->setCurrentIndex(2);
+			translateHorizontal->setValue(ite->firstValue);
+			translateVertical->setValue(ite->secondValue);
+			break;
+		case 1003:
+			transformStack->setCurrentIndex(3);
+			rotationValue->setValue(ite->firstValue);
+			break;
+		case 1004:
+			transformStack->setCurrentIndex(4);
+			horizontalSkew->setValue(ite->firstValue);
+			verticalSkew->setValue(ite->secondValue);
+			break;
+		default:
+			transformStack->setCurrentIndex(0);
+			break;
+	}
+	if (transformSelector->count() > 1)
+	{
+		buttonUp->setEnabled(true);
+		buttonDown->setEnabled(true);
+		if (transformSelector->currentRow() == 0)
+			buttonUp->setEnabled(false);
+		if (transformSelector->currentRow() == transformSelector->count()-1)
+			buttonDown->setEnabled(false);
+	}
+	else
+	{
+		buttonUp->setEnabled(false);
+		buttonDown->setEnabled(false);
+	}
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
 void TransformDialog::changeHScale(double val)
