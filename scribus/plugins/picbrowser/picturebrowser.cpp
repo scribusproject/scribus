@@ -315,7 +315,7 @@ void PictureBrowser::navigate(int index)
 	{
 		if (index == 2)
 		{
-			updateDocumentbrowser();
+			updateDocumentBrowser();
 		}
 
 		navigationStack->setCurrentIndex(index);
@@ -1668,7 +1668,9 @@ void PictureBrowser::setSettings()
 void PictureBrowser::changedDocument(ScribusDoc* doc)
 {
 	m_Doc = doc;
-	updateDocumentbrowser();
+
+	unitChange();
+	updateDocumentBrowser();
 	actionsGoButton->setEnabled(true);
 	insertImageButton->setEnabled(true);
 	documentChanged=true;
@@ -1686,7 +1688,7 @@ void PictureBrowser::closedDocument()
 	insertImageButton->setEnabled(false);
 }
 
-void PictureBrowser::updateDocumentbrowser()
+void PictureBrowser::updateDocumentBrowser()
 {
 	documentWidget->clear();
 	documentItems.clear();
