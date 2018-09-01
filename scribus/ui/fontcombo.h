@@ -115,6 +115,9 @@ public:
 			   const QStyleOptionViewItem &option,
 			   const QModelIndex &index) const Q_DECL_OVERRIDE;
 
+	bool helpEvent(QHelpEvent * event, QAbstractItemView * view, 
+	               const QStyleOptionViewItem & option, const QModelIndex & index) Q_DECL_OVERRIDE;
+
 	QSize sizeHint(const QStyleOptionViewItem &option,
 				   const QModelIndex &index) const Q_DECL_OVERRIDE;
 

@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPixmap>
 #include <QStringList>
+#include <QTooltip>
 
 #include "fontcombo.h"
 #include "iconmanager.h"
@@ -457,14 +458,14 @@ QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLa
 	return QFontDatabase::Any;
 }
 
-const ScFace& getScFace(const QString& classname, const QString& text)
+const ScFace& getScFace(const QString& className, const QString& text)
 {
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	PrefsManager* prefsManager = PrefsManager::instance();
 	SCFonts& availableFonts = prefsManager->appPrefs.fontPrefs.AvailFonts;
 
 	// Handle FontComboH class witch has only Family names in the combo class.
-	if (classname == "FontComboH" || classname == "SMFontComboH")
+	if (className == "FontComboH" || className == "SMFontComboH")
 	{
 		// SMFontComboH's "Use Parent Font" case
 		if (!availableFonts.fontMap.contains(text))
@@ -617,6 +618,34 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 		painter->drawPixmap(option.rect.x(), option.rect.y(), pixmap);
 	pixmapCache.insert(cacheKey, pixmap);
 	pixmapCache.insert(cacheKey+"-selected", invPixmap);
+}
+
+bool FontFamilyDelegate::helpEvent(QHelpEvent * event, QAbstractItemView * view,
+	const QStyleOptionViewItem & option, const QModelIndex & index)
+{
+	if (!event || !view)
+		return false;
+
+	if (event->type() == QEvent::ToolTip)
+	{
+		QString text(index.data(Qt::DisplayRole).toString());
+		QString className = this->parent()->metaObject()->className();
+		const ScFace& scFace = getScFace(className, text);
+		if (!scFace.isNone())
+		{
+			QString tooltip = scFace.family();
+			if (className == QLatin1String("FontCombo"))
+			{
+				tooltip += QLatin1String(" ");
+				tooltip += scFace.style();
+			}
+			QHelpEvent *helpEvent = static_cast<QHelpEvent*>(event);
+			QToolTip::showText(helpEvent->globalPos(), tooltip, view);
+			return true;
+		}
+	}
+	
+	return QAbstractItemDelegate::helpEvent(event, view, option, index);
 }
 
 QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
