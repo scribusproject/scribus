@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "loadsaveplugin.h"
 #include "prefsmanager.h"
+#include "scpaths.h"
 #include "scribusdoc.h"
 #include "scstreamfilter.h"
 #include "selection.h"
@@ -215,9 +216,9 @@ bool fileInPath(const QString& filename)
 	}
 
 	//Get $PATH
-	QStringList env = QProcess::systemEnvironment();
 	QString path;
-	foreach (const QString& line, env)
+	const QStringList env = QProcess::systemEnvironment();
+	for (const QString& line : env)
 	{
 		if (line.indexOf("PATH") == 0)
 		{
@@ -225,13 +226,10 @@ bool fileInPath(const QString& filename)
 			break;
 		}
 	}
-	QStringList splitpath;
-	#if defined(Q_OS_WIN32) || defined (Q_OS_OS2)
-		splitpath = path.split(';', QString::SkipEmptyParts);
-	#else
-		splitpath = path.split(':', QString::SkipEmptyParts);
-	#endif
-	foreach (const QString& dir, splitpath)
+
+	QChar envPathSeparator(ScPaths::envPathSeparator);
+	const QStringList splitpath = path.split(envPathSeparator, QString::SkipEmptyParts);
+	for (const QString& dir : splitpath)
 	{
 		QFileInfo info(dir, file);
 		if (info.exists())
@@ -257,7 +255,7 @@ PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QStrin
 			if (testResult != -1)
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-				if( fmt )
+				if (fmt)
 				{
 					doc->m_Selection->clear();
 					doc->m_Selection->delaySignalsOn();

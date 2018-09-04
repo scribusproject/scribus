@@ -28,7 +28,7 @@ extern ScribusQApp* ScQApp;
 #include <shlobj.h>
 #endif
 
-#ifdef _WIN32
+#if defined(Q_OS_WIN32) || defined (Q_OS_OS2)
 const char ScPaths::envPathSeparator = ';';
 #else
 const char ScPaths::envPathSeparator = ':';

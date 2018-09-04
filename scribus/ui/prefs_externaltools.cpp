@@ -61,9 +61,9 @@ void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexForceDPICheckBox->setCheckState(prefsData->extToolPrefs.latexForceDpi?Qt::Checked:Qt::Unchecked);
 	latexEmptyFrameCheckBox->setCheckState(prefsData->extToolPrefs.latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
 	latexConfigsListWidget->clear();
-	QStringList configs = prefsData->extToolPrefs.latexConfigs;
+	const QStringList configs = prefsData->extToolPrefs.latexConfigs;
 	commands = prefsData->extToolPrefs.latexCommands;
-	foreach (const QString& config, configs)
+	for (const QString& config : configs)
 		insertConfigItem(config);
 	latexConfigsListWidget->setCurrentRow(0);
 	pdfViewerLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.pdfViewerExecutable));

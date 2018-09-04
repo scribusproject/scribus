@@ -87,11 +87,11 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 	return "";
 }
 
-void GuidesModel::removeValues(const Guides & v)
+void GuidesModel::removeValues(const Guides & guides)
 {
 	beginResetModel();
-	foreach(double i, v)
-		m_values.removeAll(value2pts(i, m_docUnitIndex));
+	for (double d : guides)
+		m_values.removeAll(value2pts(d, m_docUnitIndex));
 	endResetModel();
 }
 

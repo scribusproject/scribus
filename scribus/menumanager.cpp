@@ -109,23 +109,24 @@ bool MenuManager::addMenuStringToMenuBar(const QString &menuName, bool rememberM
 
 bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QString &beforeMenuName)
 {
-	bool retVal=false;
-	if (menuStrings.contains(menuName))
+	bool retVal = false;
+
+	if (!menuStrings.contains(menuName))
+		return false;
+
+	QList<QAction*> mba = scribusMenuBar->actions();
+	QAction* beforeAct=nullptr;
+	foreach (beforeAct, mba)
 	{
-		QList<QAction*> mba=scribusMenuBar->actions();
-		QAction* beforeAct=nullptr;
-		foreach (beforeAct, mba)
-		{
-			if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
-				break;
-		}
-		if (beforeAct)
-		{
-			QMenu *m=new QMenu(menuName);
-			scribusMenuBar->insertMenu(beforeAct, m);
-			menuBarMenus.insert(menuName, m);
-			retVal=true;
-		}
+		if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
+			break;
+	}
+	if (beforeAct)
+	{
+		QMenu *m=new QMenu(menuName);
+		scribusMenuBar->insertMenu(beforeAct, m);
+		menuBarMenus.insert(menuName, m);
+		retVal=true;
 	}
 	return retVal;
 }
@@ -369,9 +370,10 @@ void MenuManager::dumpMenuStrings()
 
 void MenuManager::languageChange()
 {
-	foreach (const QString &menuName, menuBarMenus.keys())
+	const auto menuBarKeys = menuBarMenus.keys();
+	for (const QString &menuName : menuBarKeys)
 	{
-		QMenu *m=menuBarMenus.value(menuName);
+		QMenu *m = menuBarMenus.value(menuName);
 		if (m && menuStringTexts.contains(menuName))
 			m->setTitle(menuStringTexts[menuName]);
 	}

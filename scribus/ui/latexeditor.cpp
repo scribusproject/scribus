@@ -45,8 +45,9 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame): frame(frame)
 	
 	//Fill application list
 	programComboBox->clear();
-	QStringList configs = PrefsManager::instance()->latexConfigs();
-	foreach (QString config, configs)
+
+	const QStringList configs = PrefsManager::instance()->latexConfigs();
+	for (const QString& config : configs)
 	{
 		QString name = LatexConfigCache::instance()->parser(config)->description();
 		programComboBox->addItem(name, config);
