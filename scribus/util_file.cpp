@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QString>
 #include <QProcess>
+#include <QScopedPointer>
 #include <QTemporaryFile>
 
 #include "fileloader.h"
@@ -241,43 +242,46 @@ bool fileInPath(const QString& filename)
 PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QString& ext, double x, double y, double w, double h)
 {
 	PageItem* retObj = nullptr;
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-	if (tempFile->open())
+
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext));
+	if (!tempFile->open())
+		return nullptr;
+
+	QString fileName = getLongPathName(tempFile->fileName());
+	if (fileName.isEmpty())
+		return nullptr;
+
+	tempFile->write(data);
+	tempFile->close();
+
+	FileLoader *fileLoader = new FileLoader(fileName);
+	int testResult = fileLoader->testFile();
+	delete fileLoader;
+
+	if (testResult == -1)
+		return nullptr;
+
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+	if (!fmt)
+		return nullptr;
+
+	doc->m_Selection->clear();
+	doc->m_Selection->delaySignalsOn();
+	fmt->setupTargets(doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+	fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+	if (!doc->m_Selection->isEmpty())
 	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
-		{
-			tempFile->write(data);
-			tempFile->close();
-			FileLoader *fileLoader = new FileLoader(fileName);
-			int testResult = fileLoader->testFile();
-			delete fileLoader;
-			if (testResult != -1)
-			{
-				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-				if (fmt)
-				{
-					doc->m_Selection->clear();
-					doc->m_Selection->delaySignalsOn();
-					fmt->setupTargets(doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-					if (!doc->m_Selection->isEmpty())
-					{
-						retObj = doc->groupObjectsSelection();
-						retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-						retObj->setXYPos(x, y, true);
-						if ((w >= 0) && (h >= 0))
-							retObj->setWidthHeight(w, h, true);
-						retObj->updateClip();
-						retObj->update();
-					}
-					doc->m_Selection->clear();
-					doc->m_Selection->delaySignalsOff();
-				}
-			}
-		}
+		retObj = doc->groupObjectsSelection();
+		retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+		retObj->setXYPos(x, y, true);
+		if ((w >= 0) && (h >= 0))
+			retObj->setWidthHeight(w, h, true);
+		retObj->updateClip();
+		retObj->update();
 	}
-	delete tempFile;
+	doc->m_Selection->clear();
+	doc->m_Selection->delaySignalsOff();
+
 	return retObj;
 }
 
