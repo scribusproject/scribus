@@ -276,11 +276,10 @@ void GuideManager::unitChange()
 
 void GuideManager::delHorButton_clicked()
 {
-	QModelIndexList indexes = horizontalView->selectionModel()->selectedRows(0);
-	QModelIndex ix;
+	const QModelIndexList indexes = horizontalView->selectionModel()->selectedRows(0);
 	Guides v;
 
-	foreach(ix, indexes)
+	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
 		v.append(horizontalModel->data(ix, Qt::EditRole).toDouble());
@@ -295,11 +294,10 @@ void GuideManager::delHorButton_clicked()
 
 void GuideManager::delVerButton_clicked()
 {
-	QModelIndexList indexes = verticalView->selectionModel()->selectedRows(0);
-	QModelIndex ix;
+	const QModelIndexList indexes = verticalView->selectionModel()->selectedRows(0);
 	Guides v;
 
-	foreach(ix, indexes)
+	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
 		v.append(verticalModel->data(ix, Qt::EditRole).toDouble());
@@ -440,26 +438,24 @@ void GuideManager::tabWidget_currentChanged(QWidget *)
 
 Guides GuideManager::selectedHorizontals()
 {
-	QModelIndex i;
-	QModelIndexList selectedIndexes = horizontalView->selectionModel()->selectedIndexes();
+	const QModelIndexList selectedIndexes = horizontalView->selectionModel()->selectedIndexes();
 	Guides ret;
 	Guides curr = horizontalModel->values();
-	foreach (i , selectedIndexes)
+	for (const QModelIndex& idx : selectedIndexes)
 	{
-		ret.append(curr.at(i.row()));
+		ret.append(curr.at(idx.row()));
 	}
 	return ret;
 }
 
 Guides GuideManager::selectedVerticals()
 {
-	QModelIndex i;
-	QModelIndexList selectedIndexes = verticalView->selectionModel()->selectedIndexes();
+	const QModelIndexList selectedIndexes = verticalView->selectionModel()->selectedIndexes();
 	Guides ret;
 	Guides curr = verticalModel->values();
-	foreach (i , selectedIndexes)
+	for (const QModelIndex& idx : selectedIndexes)
 	{
-		ret.append(curr.at(i.row()));
+		ret.append(curr.at(idx.row()));
 	}
 	return ret;
 }

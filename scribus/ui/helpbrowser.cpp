@@ -653,12 +653,11 @@ void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelec
 {
 	Q_UNUSED(deselected);
 
-	QModelIndex index;
-	QModelIndexList items = selected.indexes();
-	int i=0;
-	foreach (index, items)
+	int i = 0;
+	const QModelIndexList items = selected.indexes();
+	for (const QModelIndex& index : items)
 	{
-		if (i==1) // skip 0, as this is always the rootitem, even if we are selecting the rootitem. hmm
+		if (i == 1) // skip 0, as this is always the rootitem, even if we are selecting the rootitem. hmm
 		{
 			QString filename(menuModel->data(index, Qt::DisplayRole).toString());
 			if (!filename.isEmpty())

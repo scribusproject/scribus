@@ -790,24 +790,24 @@ bool PrefsManager::copyOldAppConfigAndData()
 
 	//Move plugin data files to new plugin data file directory
 	QDir oldPluginData(ScPaths::preferencesDir() + "/plugins");
-	QFileInfoList filPluginData(oldPluginData.entryInfoList());
-	foreach (const QFileInfo &fiP, filPluginData)
+	const QFileInfoList filPluginData(oldPluginData.entryInfoList());
+	for (const QFileInfo &fiP : filPluginData)
 		moveFile(fiP.absoluteFilePath(), ScPaths::pluginDataDir(true) + fiP.fileName());
 
 	//Move scrapbook files to new scrapbook directory
 	QDir oldScrapData(ScPaths::preferencesDir() + "/scrapbook");
-	QFileInfoList filScrapData(oldScrapData.entryInfoList());
-	foreach (const QFileInfo &fiS, filScrapData)
+	const QFileInfoList filScrapData(oldScrapData.entryInfoList());
+	for (const QFileInfo &fiS : filScrapData)
 		moveFile(fiS.absoluteFilePath(), ScPaths::scrapbookDir(true) + fiS.fileName());
 
 	//Move swatch files to new palette directory
 	QDir oldPaletteData(ScPaths::preferencesDir() + "/swatches");
-	QFileInfoList filPaletteData(oldPaletteData.entryInfoList());
-	foreach (const QFileInfo &fiPal, filPaletteData)
+	const QFileInfoList filPaletteData(oldPaletteData.entryInfoList());
+	for (const QFileInfo &fiPal : filPaletteData)
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
-	QDir oldPaletteData2=ScPaths::preferencesDir() + "/palettes";
-	QFileInfoList filPaletteData2(oldPaletteData2.entryInfoList());
-	foreach (const QFileInfo &fiPal, filPaletteData2)
+	QDir oldPaletteData2 = ScPaths::preferencesDir() + "/palettes";
+	const QFileInfoList filPaletteData2(oldPaletteData2.entryInfoList());
+	for (const QFileInfo &fiPal : filPaletteData2)
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
@@ -1759,8 +1759,8 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcExternalTools.setAttribute("LatexResolution", latexResolution());
 	dcExternalTools.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.extToolPrefs.latexForceDpi));
 	dcExternalTools.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.extToolPrefs.latexStartWithEmptyFrames));
-	QStringList configs = latexConfigs();
-	foreach (const QString& config, configs)
+	const QStringList configs = latexConfigs();
+	for (const QString& config : configs)
 	{
 		QDomElement domConfig = docu.createElement("LatexConfig");
 		domConfig.setAttribute("file", config);
