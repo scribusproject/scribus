@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPixmap>
 #include <QStringList>
-#include <QTooltip>
+#include <QToolTip>
 
 #include "fontcombo.h"
 #include "iconmanager.h"
