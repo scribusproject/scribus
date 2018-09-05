@@ -274,18 +274,16 @@ QStringList ScPaths::spellDirs() const
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			spellDirs.append(osxLibreOfficePath + "/" + dir + "/");
 	}
 	d.setPath(osxUserLibreOfficePath);
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			spellDirs.append(osxUserLibreOfficePath + "/" + dir + "/");
 	}
 
@@ -296,9 +294,8 @@ QStringList ScPaths::spellDirs() const
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
@@ -339,18 +336,16 @@ QStringList ScPaths::hyphDirs() const
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			hyphDirs.append(osxLibreOfficePath + "/" + dir + "/");
 	}
 	d.setPath(osxUserLibreOfficePath);
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			hyphDirs.append(osxUserLibreOfficePath + "/" + dir + "/");
 	}
 
@@ -361,9 +356,8 @@ QStringList ScPaths::hyphDirs() const
 	if (d.exists())
 	{
 		QStringList dictDirFilters("dict-*");
-		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
-		QString dir;
-		foreach (dir, dictDirList)
+		const QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		for (const QString& dir : dictDirList)
 			hyphDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
@@ -442,21 +436,18 @@ QStringList ScPaths::systemProfilesDirs()
 
 QStringList ScPaths::dirsFromEnvVar(const QString& envVar, const QString& dirToFind)
 {
-	QChar sep(':');
-#ifdef _WIN32
-	sep=';';
-#endif
+	QChar sep(ScPaths::envPathSeparator);
 	QStringList dirs;
 #if defined(Q_OS_MAC) || defined(Q_OS_UNIX)
-	QStringList env(QProcess::systemEnvironment());
+	const QStringList env(QProcess::systemEnvironment());
 	QString path_data;
-	foreach (QString line, env)
+	for (const QString& line : env)
 	{
 		if (line.indexOf(envVar) == 0)
 			path_data = line.mid(envVar.length()+1); //eg, Strip "XDG_DATA_DIRS="
 	}
-	QStringList splitpath_data(path_data.split(sep, QString::SkipEmptyParts));
-	foreach (QString dir, splitpath_data)
+	const QStringList splitpath_data(path_data.split(sep, QString::SkipEmptyParts));
+	for (QString dir : splitpath_data)
 	{
 		QFileInfo info(dir+dirToFind);
 		if (info.exists())
