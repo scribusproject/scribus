@@ -253,11 +253,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				itemError.insert(Transparency, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 				itemError.insert(ObjectNotOnPage, 0);
-	#ifdef HAVE_OSG
 			if (currItem->asImageFrame() && !currItem->asOSGFrame())
-	#else
-			if (currItem->asImageFrame())
-	#endif
 			{
 
 				// check image vs. frame sizes
@@ -502,11 +498,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				itemError.insert(PDFAnnotField, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 				itemError.insert(ObjectNotOnPage, 0);
-	#ifdef HAVE_OSG
 			if (currItem->asImageFrame() && !currItem->asOSGFrame())
-	#else
-			if (currItem->asImageFrame())
-	#endif
 			{
 
 				// check image vs. frame sizes

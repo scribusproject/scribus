@@ -5606,7 +5606,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 {
 	ParagraphStyle defaultParagraphStyle;
 	Q_ASSERT(newItem->realItemType()==itemType);
-	switch( itemType )
+	switch (itemType)
 	{
 		case PageItem::ImageFrame:
 			newItem->setImageXYScale(m_docPrefsData.itemToolPrefs.imageScaleX, m_docPrefsData.itemToolPrefs.imageScaleY);
@@ -5618,9 +5618,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setLineShade(m_docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
 		case PageItem::LatexFrame:
-#ifdef HAVE_OSG
 		case PageItem::OSGFrame:
-#endif
 			newItem->setFillShade(m_docPrefsData.itemToolPrefs.imageFillColorShade);
 			newItem->setLineShade(m_docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
@@ -10470,11 +10468,7 @@ void ScribusDoc::updatePic()
 			latexframe->rerunApplication();
 			toUpdate = true;
 		}
-#ifdef HAVE_OSG
 		else if ((currItem->asImageFrame()) || (currItem->asOSGFrame()))
-#else
-		else if (currItem->asImageFrame())
-#endif
 		{
 			if (currItem->imageIsAvailable)
 			{

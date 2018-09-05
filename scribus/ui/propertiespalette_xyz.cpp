@@ -524,13 +524,11 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-#ifdef HAVE_OSG
 			if (currItem->asOSGFrame())
 			{
 				setEnabled(true);
 				rotationSpin->setEnabled(false);
 			}
-#endif
 			break;
 		case PageItem::Line:
 			basePointWidget->setEnabled(false);

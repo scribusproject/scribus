@@ -467,11 +467,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	(*a_scrActions)["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable && currItem->isRaster);
-#ifdef HAVE_OSG
 	(*a_scrActions)["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
-#else
-	(*a_scrActions)["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame()));
-#endif
 	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
 	if (SelectedType!=PageItem::ImageFrame)
 	{
