@@ -268,183 +268,180 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 
 void OutlineWidget::keyPressEvent(QKeyEvent *e)
 {
-	if (e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete)
+	if (e->key() != Qt::Key_Backspace && e->key() != Qt::Key_Delete)
+		return;
+
+	foreach (QTreeWidgetItem * twItem, selectedItems())
 	{
-		foreach (QTreeWidgetItem * twItem, selectedItems())
+		if (!twItem)
+			continue;
+		OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(twItem);
+		if (!item)
+			continue;
+		switch (item->type)
 		{
-			if (twItem != nullptr)
-			{
-				OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(twItem);
-				if (item)
+			case 1: //PageItem on master page
 				{
-					switch (item->type)
-					{
-						case 1: //PageItem on master page
-							{
-								PageItem* pageItem = item->PageItemObject;
-								if (!pageItem->isGroupChild())
-									item->DocObject->itemSelection_DeleteItem();
-							}
-							break;
-						case 3: //PageItem on normal page
-							{
-								PageItem* pageItem = item->PageItemObject;
-								if (!pageItem->isGroupChild())
-									item->DocObject->itemSelection_DeleteItem();
-							}
-							break;
-						default:
-							{
-								//qDebug()<<item->type;
-							}
-							break;
-					}
+					PageItem* pageItem = item->PageItemObject;
+					if (!pageItem->isGroupChild())
+						item->DocObject->itemSelection_DeleteItem();
 				}
-			}
+				break;
+			case 3: //PageItem on normal page
+				{
+					PageItem* pageItem = item->PageItemObject;
+					if (!pageItem->isGroupChild())
+						item->DocObject->itemSelection_DeleteItem();
+				}
+				break;
+			default:
+				{
+					//qDebug()<<item->type;
+				}
+				break;
 		}
 	}
 }
 
 bool OutlineWidget::viewportEvent(QEvent *event)
 {
-	if (event->type() == QEvent::ToolTip)
+	if (event->type() != QEvent::ToolTip)
+		return QTreeWidget::viewportEvent(event);
+
+	QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+	QTreeWidgetItem* it = itemAt(helpEvent->pos());
+	if (!it)
+		return QTreeWidget::viewportEvent(event);
+
+	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
+	if (!item)
+		return QTreeWidget::viewportEvent(event);
+
+ 	QString tipText("");
+	if (item->type == 5)
 	{
-		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-		QTreeWidgetItem* it = itemAt(helpEvent->pos());
-		if (it != nullptr)
- 		{
-			OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(it);
-			if (item != nullptr)
- 			{
- 				QString tipText("");
-				if (item->type == 5)
-				{
-					tipText += "<b>" + tr("Layer is:") + "</b><br><br>";
-					if (item->DocObject->activeLayer() == item->LayerID)
-						tipText += tr("active") + "<br>";
-					if (item->DocObject->layerVisible(item->LayerID))
-						tipText += tr("visible") + "<br>";
-					else
-						tipText += tr("invisible") + "<br>";
-					if (item->DocObject->layerPrintable(item->LayerID))
-						tipText += tr("printing");
-					else
-						tipText += tr("non printing");
-					if (item->DocObject->layerLocked(item->LayerID))
-						tipText += "<br>" + tr("locked");
-				}
-				else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
- 				{
-					PageItem *pgItem = item->PageItemObject;
-					QPainter p;
-					QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
-					QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
-					p.begin(&pm);
-					p.fillRect(QRectF(0, 0, 80, 80), b);
-					QImage thumb = pgItem->DrawObj_toImage(80);
-					p.drawImage((80 - thumb.width()) / 2, (80 - thumb.height()) / 2, thumb);
-					p.end();
-					QBuffer buffer;
-					buffer.open(QIODevice::WriteOnly);
-					pm.save(&buffer, "PNG");
-					QByteArray ba = buffer.buffer().toBase64();
-					buffer.close();
-					tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p><p>";
- 					switch (pgItem->itemType())
- 					{
- 						case PageItem::ImageFrame:
- 							if (pgItem->asLatexFrame())
-								tipText += CommonStrings::itemType_LatexFrame;
-#ifdef HAVE_OSG
- 							else if (pgItem->asOSGFrame())
-								tipText += CommonStrings::itemType_OSGFrame;
-#endif
- 							else
-								tipText += CommonStrings::itemType_ImageFrame;
- 							break;
- 						case PageItem::TextFrame:
- 							switch (pgItem->annotation().Type())
- 							{
-								case Annotation::Button:
-									tipText += CommonStrings::itemSubType_PDF_PushButton;
- 									break;
-								case Annotation::Textfield:
-									tipText += CommonStrings::itemSubType_PDF_TextField;
- 									break;
-								case Annotation::Checkbox:
-									tipText += CommonStrings::itemSubType_PDF_CheckBox;
- 									break;
-								case Annotation::Combobox:
-									tipText += CommonStrings::itemSubType_PDF_ComboBox;
- 									break;
-								case Annotation::Listbox:
-									tipText += CommonStrings::itemSubType_PDF_ListBox;
- 									break;
-								case Annotation::Text:
-									tipText += CommonStrings::itemSubType_PDF_TextAnnotation;
- 									break;
-								case Annotation::Link:
-									tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
-									break;
-								case Annotation::RadioButton:
-									tipText += CommonStrings::itemSubType_PDF_RadioButton;
- 									break;
- 								default:
-									tipText += CommonStrings::itemType_TextFrame;
- 									break;
- 							}
- 							break;
- 						case PageItem::Line:
-							tipText += CommonStrings::itemType_Line;
- 							break;
- 						case PageItem::Arc:
-							tipText += CommonStrings::itemType_Arc;
-							break;
- 						case PageItem::Polygon:
-							tipText += CommonStrings::itemType_Polygon;
-							break;
-						case PageItem::RegularPolygon:
-							tipText += CommonStrings::itemType_RegularPolygon;
- 							break;
- 						case PageItem::PolyLine:
-							tipText += CommonStrings::itemType_Polyline;
-							break;
-						case PageItem::Spiral:
-							tipText += CommonStrings::itemType_Spiral;
- 							break;
- 						case PageItem::PathText:
-							tipText += CommonStrings::itemType_PathText;
- 							break;
- 						case PageItem::Symbol:
-							tipText += CommonStrings::itemType_Symbol;
- 							break;
-						case PageItem::Group:
-							tipText += CommonStrings::itemType_Group;
-							break;
-						case PageItem::Table:
-							tipText += CommonStrings::itemType_Table;
-							break;
- 						default:
- 							break;
-					}
-					tipText +="<br>" + tr("X-Pos:") + " ";
-					if (pgItem->OwnPage != -1)
-						tipText += value2String(pgItem->xPos() - item->PageObject->xOffset(), pgItem->doc()->unitIndex(), true, true);
-					else
-						tipText += value2String(pgItem->xPos(), pgItem->doc()->unitIndex(), true, true);
-					tipText +="<br>" + tr("Y-Pos:") + " ";
-					if (pgItem->OwnPage != -1)
-						tipText += value2String(pgItem->yPos() - item->PageObject->yOffset(), pgItem->doc()->unitIndex(), true, true);
-					else
-						tipText += value2String(pgItem->yPos(), pgItem->doc()->unitIndex(), true, true);
-					tipText += "</p>";
-				}
-				QToolTip::showText(helpEvent->globalPos(), tipText, this);
-				return true;
-			}
-		}
+		tipText += "<b>" + tr("Layer is:") + "</b><br><br>";
+		if (item->DocObject->activeLayer() == item->LayerID)
+			tipText += tr("active") + "<br>";
+		if (item->DocObject->layerVisible(item->LayerID))
+			tipText += tr("visible") + "<br>";
+		else
+			tipText += tr("invisible") + "<br>";
+		if (item->DocObject->layerPrintable(item->LayerID))
+			tipText += tr("printing");
+		else
+			tipText += tr("non printing");
+		if (item->DocObject->layerLocked(item->LayerID))
+			tipText += "<br>" + tr("locked");
 	}
-	return QTreeWidget::viewportEvent(event);
+	else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+ 	{
+		PageItem *pgItem = item->PageItemObject;
+		QPainter p;
+		QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
+		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		p.begin(&pm);
+		p.fillRect(QRectF(0, 0, 80, 80), b);
+		QImage thumb = pgItem->DrawObj_toImage(80);
+		p.drawImage((80 - thumb.width()) / 2, (80 - thumb.height()) / 2, thumb);
+		p.end();
+		QBuffer buffer;
+		buffer.open(QIODevice::WriteOnly);
+		pm.save(&buffer, "PNG");
+		QByteArray ba = buffer.buffer().toBase64();
+		buffer.close();
+		tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p><p>";
+ 		switch (pgItem->itemType())
+ 		{
+ 			case PageItem::ImageFrame:
+ 				if (pgItem->asLatexFrame())
+					tipText += CommonStrings::itemType_LatexFrame;
+#ifdef HAVE_OSG
+ 				else if (pgItem->asOSGFrame())
+					tipText += CommonStrings::itemType_OSGFrame;
+#endif
+ 				else
+					tipText += CommonStrings::itemType_ImageFrame;
+ 				break;
+ 			case PageItem::TextFrame:
+ 				switch (pgItem->annotation().Type())
+ 				{
+					case Annotation::Button:
+						tipText += CommonStrings::itemSubType_PDF_PushButton;
+ 						break;
+					case Annotation::Textfield:
+						tipText += CommonStrings::itemSubType_PDF_TextField;
+ 						break;
+					case Annotation::Checkbox:
+						tipText += CommonStrings::itemSubType_PDF_CheckBox;
+ 						break;
+					case Annotation::Combobox:
+						tipText += CommonStrings::itemSubType_PDF_ComboBox;
+ 						break;
+					case Annotation::Listbox:
+						tipText += CommonStrings::itemSubType_PDF_ListBox;
+ 						break;
+					case Annotation::Text:
+						tipText += CommonStrings::itemSubType_PDF_TextAnnotation;
+ 						break;
+					case Annotation::Link:
+						tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
+						break;
+					case Annotation::RadioButton:
+						tipText += CommonStrings::itemSubType_PDF_RadioButton;
+ 						break;
+ 					default:
+						tipText += CommonStrings::itemType_TextFrame;
+ 						break;
+ 				}
+ 				break;
+ 			case PageItem::Line:
+				tipText += CommonStrings::itemType_Line;
+ 				break;
+ 			case PageItem::Arc:
+				tipText += CommonStrings::itemType_Arc;
+				break;
+ 			case PageItem::Polygon:
+				tipText += CommonStrings::itemType_Polygon;
+				break;
+			case PageItem::RegularPolygon:
+				tipText += CommonStrings::itemType_RegularPolygon;
+ 				break;
+ 			case PageItem::PolyLine:
+				tipText += CommonStrings::itemType_Polyline;
+				break;
+			case PageItem::Spiral:
+				tipText += CommonStrings::itemType_Spiral;
+ 				break;
+ 			case PageItem::PathText:
+				tipText += CommonStrings::itemType_PathText;
+ 				break;
+ 			case PageItem::Symbol:
+				tipText += CommonStrings::itemType_Symbol;
+ 				break;
+			case PageItem::Group:
+				tipText += CommonStrings::itemType_Group;
+				break;
+			case PageItem::Table:
+				tipText += CommonStrings::itemType_Table;
+				break;
+ 			default:
+ 				break;
+		}
+		tipText +="<br>" + tr("X-Pos:") + " ";
+		if (pgItem->OwnPage != -1)
+			tipText += value2String(pgItem->xPos() - item->PageObject->xOffset(), pgItem->doc()->unitIndex(), true, true);
+		else
+			tipText += value2String(pgItem->xPos(), pgItem->doc()->unitIndex(), true, true);
+		tipText +="<br>" + tr("Y-Pos:") + " ";
+		if (pgItem->OwnPage != -1)
+			tipText += value2String(pgItem->yPos() - item->PageObject->yOffset(), pgItem->doc()->unitIndex(), true, true);
+		else
+			tipText += value2String(pgItem->yPos(), pgItem->doc()->unitIndex(), true, true);
+		tipText += "</p>";
+	}
+	QToolTip::showText(helpEvent->globalPos(), tipText, this);
+	return true;
 }
 
 OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree", nullptr)
@@ -559,65 +556,65 @@ void OutlinePalette::slotRightClick(QPoint point)
 		slotMultiSelect();
 	if (currDoc->drawAsPreview)
 		return;
+
 	OutlineTreeItem *item = dynamic_cast<OutlineTreeItem*>(ite);
+	if (!item)
+		return;
 	
-	if (item != nullptr)
+	if ((item->type == 0) || (item->type == 2))
+		createContextMenu(nullptr, point.x(), point.y());
+	else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 	{
-		if ((item->type == 0) || (item->type == 2))
-			createContextMenu(nullptr, point.x(), point.y());
-		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+		PageItem *currItem = item->PageItemObject;
+		if (currItem!=nullptr)
 		{
-			PageItem *currItem = item->PageItemObject;
-			if (currItem!=nullptr)
-			{
-				currentObject = ite;
-				createContextMenu(currItem, point.x(), point.y());
-			}
+			currentObject = ite;
+			createContextMenu(currItem, point.x(), point.y());
 		}
-		else if (item->type == 5)
+	}
+	else if (item->type == 5)
+	{
+		QMenu *pmenu = new QMenu();
+		QAction *actVis;
+		QAction *actPrint;
+		QAction *actLock;
+		if (item->DocObject->activeLayer() != item->LayerID)
 		{
-			QMenu *pmenu = new QMenu();
-			QAction *actVis;
-			QAction *actPrint;
-			QAction *actLock;
-			if (item->DocObject->activeLayer() != item->LayerID)
-			{
-				QAction *actActive;
-				QSignalMapper *signalMapper = new QSignalMapper(this);
-				actActive = pmenu->addAction( tr("Active"));
-				actActive->setCheckable(true);
-				actActive->setChecked(false);
-				signalMapper->setMapping(actActive, item->LayerID);
-				connect(actActive, SIGNAL(triggered()), signalMapper, SLOT(map()));
-				connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(setActiveLayer(int)));
-			}
-			QSignalMapper *signalMapper2 = new QSignalMapper(this);
-			actVis = pmenu->addAction( tr("Visible"));
-			actVis->setCheckable(true);
-			actVis->setChecked(item->DocObject->layerVisible(item->LayerID));
-			signalMapper2->setMapping(actVis, item->LayerID);
-			connect(actVis, SIGNAL(triggered()), signalMapper2, SLOT(map()));
-			connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(setLayerVisible(int)));
-
-			QSignalMapper *signalMapper3 = new QSignalMapper(this);
-			actPrint = pmenu->addAction( tr("Printing"));
-			actPrint->setCheckable(true);
-			actPrint->setChecked(item->DocObject->layerPrintable(item->LayerID));
-			signalMapper3->setMapping(actPrint, item->LayerID);
-			connect(actPrint, SIGNAL(triggered()), signalMapper3, SLOT(map()));
-			connect(signalMapper3, SIGNAL(mapped(int)), this, SLOT(setLayerPrintable(int)));
-
-			QSignalMapper *signalMapper4 = new QSignalMapper(this);
-			actLock = pmenu->addAction( tr("Locked"));
-			actLock->setCheckable(true);
-			actLock->setChecked(item->DocObject->layerLocked(item->LayerID));
-			signalMapper4->setMapping(actLock, item->LayerID);
-			connect(actLock, SIGNAL(triggered()), signalMapper4, SLOT(map()));
-			connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(setLayerLocked(int)));
-	//		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			pmenu->exec(QCursor::pos());
-			delete pmenu;
+			QAction *actActive;
+			QSignalMapper *signalMapper = new QSignalMapper(this);
+			actActive = pmenu->addAction( tr("Active"));
+			actActive->setCheckable(true);
+			actActive->setChecked(false);
+			signalMapper->setMapping(actActive, item->LayerID);
+			connect(actActive, SIGNAL(triggered()), signalMapper, SLOT(map()));
+			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(setActiveLayer(int)));
 		}
+		QSignalMapper *signalMapper2 = new QSignalMapper(this);
+		actVis = pmenu->addAction( tr("Visible"));
+		actVis->setCheckable(true);
+		actVis->setChecked(item->DocObject->layerVisible(item->LayerID));
+		signalMapper2->setMapping(actVis, item->LayerID);
+		connect(actVis, SIGNAL(triggered()), signalMapper2, SLOT(map()));
+		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(setLayerVisible(int)));
+
+		QSignalMapper *signalMapper3 = new QSignalMapper(this);
+		actPrint = pmenu->addAction( tr("Printing"));
+		actPrint->setCheckable(true);
+		actPrint->setChecked(item->DocObject->layerPrintable(item->LayerID));
+		signalMapper3->setMapping(actPrint, item->LayerID);
+		connect(actPrint, SIGNAL(triggered()), signalMapper3, SLOT(map()));
+		connect(signalMapper3, SIGNAL(mapped(int)), this, SLOT(setLayerPrintable(int)));
+
+		QSignalMapper *signalMapper4 = new QSignalMapper(this);
+		actLock = pmenu->addAction( tr("Locked"));
+		actLock->setCheckable(true);
+		actLock->setChecked(item->DocObject->layerLocked(item->LayerID));
+		signalMapper4->setMapping(actLock, item->LayerID);
+		connect(actLock, SIGNAL(triggered()), signalMapper4, SLOT(map()));
+		connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(setLayerLocked(int)));
+//		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		pmenu->exec(QCursor::pos());
+		delete pmenu;
 	}
 }
 
@@ -1503,7 +1500,7 @@ void OutlinePalette::createContextMenu(PageItem * currItem, double /*mx*/, doubl
 		return;
 	ContextMenu* cmen=nullptr;
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if(currItem!=nullptr)
+	if (currItem!=nullptr)
 		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
 	else
 		cmen = new ContextMenu(m_MainWindow, currDoc, currDoc->currentPage()->xOffset(), currDoc->currentPage()->yOffset());
