@@ -366,8 +366,11 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 
 				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length() == 0 || currItem->frameUnderflows()))
 				{
-					bool isLinkAnnotation = (currItem->isAnnotation() && (currItem->annotation().Type() == Annotation::Link));
-					if (!isLinkAnnotation)
+					bool isEmptyAnnotation = (currItem->isAnnotation() && 
+					                         ((currItem->annotation().Type() == Annotation::Link) ||
+					                          (currItem->annotation().Type() == Annotation::Checkbox) ||
+					                          (currItem->annotation().Type() == Annotation::RadioButton)));
+					if (!isEmptyAnnotation)
 						itemError.insert(EmptyTextFrame, 0);
 				}
 				
@@ -611,8 +614,11 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 
 				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length()==0 || currItem->frameUnderflows()))
 				{
-					bool isLinkAnnotation = (currItem->isAnnotation() && (currItem->annotation().Type() == Annotation::Link));
-					if (!isLinkAnnotation)
+					bool isEmptyAnnotation = (currItem->isAnnotation() && 
+					                         ((currItem->annotation().Type() == Annotation::Link) ||
+					                          (currItem->annotation().Type() == Annotation::Checkbox) ||
+					                          (currItem->annotation().Type() == Annotation::RadioButton)));
+					if (!isEmptyAnnotation)
 						itemError.insert(EmptyTextFrame, 0);
 				}
 
