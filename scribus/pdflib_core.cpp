@@ -8711,7 +8711,7 @@ void PDFLibCore::PDF_RadioButtons()
 		QList<PageItem*> bList = it.value();
 		QList<PdfId> kidsList;
 		PdfId parentObject = writer.newObject();
-		QByteArray onState = "";
+		QByteArray onState;
 		QByteArray anTitle;
 		if (it.key() == 0)
 			anTitle = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
@@ -8938,7 +8938,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	PdfId AActionObj = writeActions(ite->annotation(), annotationObj);
 	writer.startObj(annotationObj);
 	pageData.AObjects.append(annotationObj);
-	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	PutDoc("<<\n/Type /Annot\n");
 	switch (ite->annotation().Type())
 	{
@@ -9068,24 +9067,24 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				case Annotation::Textfield:
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
-					PutDoc("/DV "+ EncStringUTF16(bmUtf16, annotationObj) + "\n");
-					PutDoc("/Q "+Pdf::toPdf(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
+					PutDoc("/DV " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
+					PutDoc("/Q " + Pdf::toPdf(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned)) + "\n");
 					appearanceObj = writer.newObject();
 					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
-						PutDoc("/MaxLen "+Pdf::toPdf(ite->annotation().MaxChar())+"\n");
+						PutDoc("/MaxLen " + Pdf::toPdf(ite->annotation().MaxChar()) + "\n");
 					break;
 				case Annotation::Checkbox:
 					PutDoc("/FT /Btn\n");
 					if (ite->annotation().IsChk())
-						PutDoc("/V "+onState+"\n/DV "+onState+"\n/AS "+onState+"\n");
+						PutDoc("/V /Yes\n/DV /Yes\n/AS /Yes\n");
 					else
 						PutDoc("/V /Off\n/DV /Off\n/AS /Off\n");
 					appearanceObj1 = writer.newObject();
 					appearanceObj2 = writer.newObject();
 					PutDoc("/AP << /N <<\n");
-					PutDoc(onState + " " + Pdf::toPdf(appearanceObj1)+" 0 R\n");
-					PutDoc("/Off " + Pdf::toPdf(appearanceObj2)+" 0 R\n");
+					PutDoc("/Yes " + Pdf::toPdf(appearanceObj1) + " 0 R\n");
+					PutDoc("/Off " + Pdf::toPdf(appearanceObj2) + " 0 R\n");
 					PutDoc(">> >>\n");
 					break;
 				case Annotation::Combobox:
