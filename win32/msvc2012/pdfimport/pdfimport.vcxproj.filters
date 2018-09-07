@@ -38,6 +38,9 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\importpdfconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.ui">

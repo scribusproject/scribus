@@ -216,6 +216,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\importpdfconfig.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdf.h" />
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.h" />
