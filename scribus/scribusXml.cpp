@@ -160,14 +160,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	PageItem *item;
 	QString documentStr = "";
 	item = selection->itemAt(0);
-	QList<PageItem*> emG;
-	QMap<int, PageItem*> emMap;
-	emG.clear();
-	for (int cor = 0; cor < selection->count(); ++cor)
-	{
-		emMap.insert(doc->Items->indexOf(selection->itemAt(cor)), selection->itemAt(cor));
-	}
-	emG = emMap.values();
+
+	auto items = getItemsFromSelection(doc, selection);
+
 	double selectionWidth = 0;
 	double selectionHeight = 0;
 	if (selection->isMultipleSelection())
@@ -198,9 +193,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(scaleI);
-	for (int em = 0; em < emG.count(); ++em)
+	for (int em = 0; em < items.count(); ++em)
 	{
-		PageItem* embedded = emG.at(em);
+		PageItem* embedded = items.at(em);
 		painter->save();
 		painter->translate(-xp, -yp);
 		embedded->invalid = true;
@@ -233,4 +228,14 @@ ScElemMimeData* ScriXmlDoc::WriteToMimeData(ScribusDoc *doc, Selection *selectio
 	ScElemMimeData* md = new ScElemMimeData();
 	md->setScribusElem(WriteElem(doc, selection));
 	return md;
+}
+
+QList<PageItem*> ScriXmlDoc::getItemsFromSelection(ScribusDoc *doc, Selection* selection)
+{
+	QMap<int, PageItem*> items;
+
+	const QList<PageItem*> selectedItems = selection->items();
+	for (auto item : selectedItems)
+		items.insert(doc->Items->indexOf(item), item);
+	return items.values();
 }

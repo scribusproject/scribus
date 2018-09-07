@@ -53,9 +53,12 @@ public:
 	
 	static QString WriteElem(ScribusDoc *doc, Selection *selection);
 	static ScElemMimeData* WriteToMimeData(ScribusDoc *doc, Selection *selection);
+
+private:
+	static QList<PageItem*> getItemsFromSelection(ScribusDoc *doc, Selection* selection);
 };
 
-#endif // _SCRIBUS_CONFIG_
+#endif
 
 
 
