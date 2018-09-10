@@ -19,6 +19,12 @@
 #include <QClipboard>
 #include <QMimeData>
 
+// Define to 1 if you need to debug data contained in ScElemMimeData.
+// This will have the effect of enabling the pasting of stored data
+// in any text editor. Leave defined to 0 otherwise as this may trigger
+// unwanted pasting of text in story editor (#15402). 
+#define DEBUG_SCELEMMIMEDATA 0
+
 const QString ScMimeData::ScribusElemMimeType     = "application/x-scribus-elem";
 const QString ScMimeData::ScribusFragmentMimeType = "application/x-scribus-fragment";
 const QString ScMimeData::ScribusTextMimeType     = "application/x-scribus-text";
@@ -87,7 +93,7 @@ bool ScMimeData::clipboardHasKnownData()
 
 QString ScMimeData::clipboardKnownDataExt()
 {
-	QString ext = "";
+	QString ext;
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
 	if (mimeData)
 	{
@@ -103,7 +109,7 @@ QString ScMimeData::clipboardKnownDataExt()
 
 QByteArray ScMimeData::clipboardKnownDataData()
 {
-	QByteArray data = "";
+	QByteArray data;
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
 	if (mimeData)
 	{
@@ -141,31 +147,39 @@ QByteArray ScMimeData::clipboardScribusText()
 
 ScElemMimeData::ScElemMimeData()
 {
-	m_formats << "application/x-scribus-elem" << "text/plain";
+	m_formats << ScMimeData::ScribusElemMimeType;
+#if DEBUG_SCELEMMIMEDATA
+	m_formats << "text/plain";
+#endif 
 }
 
 bool ScElemMimeData::hasFormat (const QString & mimeType) const
 {
-//	bool hasFmt = false;
 	if (mimeType == ScMimeData::ScribusElemMimeType)
 	{
-		if (!m_scribusElemData.isEmpty())
-		{
-			QString elemtag = "SCRIBUSELEM";
-			return (m_scribusElemData.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0);
-		}
+		if (m_scribusElemData.isEmpty())
+			return false;
+		QString elemtag = "SCRIBUSELEM";
+		return (m_scribusElemData.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0);
 	}
-	else if (mimeType == "text/plain")
-		return true;
+#if DEBUG_SCELEMMIMEDATA
+	if (mimeType == "text/plain")
+		return (!m_scribusElemData.isEmpty());
+#endif
 	return QMimeData::hasFormat(mimeType);
 }
 
 QVariant ScElemMimeData::retrieveData (const QString &mimeType, QVariant::Type type) const
 {
-	QVariant variant;
 	if (mimeType == ScMimeData::ScribusElemMimeType)
-		variant = QVariant(m_scribusElemData);
+	{
+		if (m_scribusElemData.isEmpty())
+			return QVariant();
+		return QVariant(m_scribusElemData);
+	}
+#if DEBUG_SCELEMMIMEDATA
 	if (mimeType == "text/plain")
-		variant = QVariant(m_scribusElemData);
-	return variant;
+		return QVariant(m_scribusElemData);
+#endif
+	return QVariant();
 }

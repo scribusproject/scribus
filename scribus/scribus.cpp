@@ -4616,7 +4616,6 @@ void ScribusMainWindow::slotEditCut()
 		}
 		ScElemMimeData* mimeData = new ScElemMimeData();
 		mimeData->setScribusElem(BufferS);
-		mimeData->setText(BufferS);
 		QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		for (int i=0; i < doc->m_Selection->count(); ++i)
 		{
@@ -4694,7 +4693,6 @@ void ScribusMainWindow::slotEditCopy()
 			}
 			ScElemMimeData* mimeData = new ScElemMimeData();
 			mimeData->setScribusElem(BufferS);
-			mimeData->setText(BufferS);
 			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
 		else

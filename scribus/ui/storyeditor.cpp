@@ -2147,8 +2147,9 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		Editor->clear();
 		setWindowTitle( tr( "Story Editor" ));
 	}
-	if (!QApplication::clipboard()->text(QClipboard::Clipboard).isNull())
-		seActions["editPaste"]->setEnabled(true);
+
+	QString clipboardText = QApplication::clipboard()->text(QClipboard::Clipboard);
+	seActions["editPaste"]->setEnabled(!clipboardText.isEmpty());
 }
 
 void StoryEditor::setSpellActive(bool ssa)
