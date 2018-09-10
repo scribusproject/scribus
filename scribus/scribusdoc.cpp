@@ -13623,7 +13623,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		int unitPrecision = unitGetPrecisionFromIndex(this->unitIndex());
 		QString hString = QString::number(mdData.gridGapH, 'f', unitPrecision) + " " + unitSuffix;
 		QString vString = QString::number(mdData.gridGapV, 'f', unitPrecision) + " " + unitSuffix;
-		tooltip = tr("Number of copies: %1\nHorizontal gap: %2\nVertical gap: %3").arg(copyCount-1).arg(hString).arg(vString).arg(unitSuffix);
+		tooltip = tr("Number of rows: %1\nNumber of columns: %2\nHorizontal gap: %3\nVertical gap: %4").arg(mdData.gridRows).arg(mdData.gridCols).arg(hString).arg(vString).arg(unitSuffix);
 	}
 	if (activeTransaction)
 	{
