@@ -169,7 +169,7 @@ void AnoOutputDev::stroke(GfxState *state)
 	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 }
 
-void AnoOutputDev::drawString(GfxState *state, GooString *s)
+void AnoOutputDev::drawString(GfxState *state, POPPLER_CONST GooString *s)
 {
 	int shade = 100;
 	CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
@@ -3120,7 +3120,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	delete image;
 }
 
-void SlaOutputDev::beginMarkedContent(char *name, Object *dictRef)
+void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 {
 	mContent mSte;
 	mSte.name = QString(name);
@@ -3189,7 +3189,7 @@ void SlaOutputDev::beginMarkedContent(char *name, Object *dictRef)
 	m_mcStack.push(mSte);
 }
 
-void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
+void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Content with Name " << QString(name);
 	QString nam = QString(name);
@@ -3316,12 +3316,12 @@ void SlaOutputDev::endMarkedContent(GfxState *state)
 	}
 }
 
-void SlaOutputDev::markPoint(char *name)
+void SlaOutputDev::markPoint(POPPLER_CONST char *name)
 {
 //	qDebug() << "Begin Marked Point with Name " << QString(name);
 }
 
-void SlaOutputDev::markPoint(char *name, Dict *properties)
+void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Point with Name " << QString(name) << "and Properties";
 	beginMarkedContent(name, properties);

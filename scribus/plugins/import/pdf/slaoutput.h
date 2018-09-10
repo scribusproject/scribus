@@ -128,7 +128,7 @@ public:
 	virtual void stroke(GfxState *state);
 	virtual void eoFill(GfxState *state);
 	virtual void fill(GfxState *state);
-	virtual void drawString(GfxState *state, GooString *s);
+	virtual void drawString(GfxState *state, POPPLER_CONST GooString *s);
 
 	QString CurrColorText;
 	QString CurrColorFill;
@@ -209,11 +209,11 @@ public:
 	virtual void endMaskClip(GfxState *state) { qDebug() << "End Mask Clip"; }
 
   //----- grouping operators
-	virtual void beginMarkedContent(char *name, Dict *properties);
-	virtual void beginMarkedContent(char *name, Object *dictRef);
+	virtual void beginMarkedContent(POPPLER_CONST char *name, Dict *properties);
+	virtual void beginMarkedContent(POPPLER_CONST char *name, Object *dictRef);
 	virtual void endMarkedContent(GfxState *state);
-	virtual void markPoint(char *name);
-	virtual void markPoint(char *name, Dict *properties);
+	virtual void markPoint(POPPLER_CONST char *name);
+	virtual void markPoint(POPPLER_CONST char *name, Dict *properties);
 	//----- image drawing
 	virtual void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg);
 	virtual void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg);
