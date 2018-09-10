@@ -5,7 +5,7 @@ Scribus - Open Source Desktop Publishing
 ## Status
 This README.md file is geared toward the Scribus github repository which serves as a mirror for the Scribus Subversion repository `svn://scribus.net/trunk/Scribus`. 
 The Scribus development team prefer svn over git and recommend you also use the public subversion repository at svn://scribus.net. 
-This mirror is updated manually and is not supported by the Scribus team - for any issues, we will say get source from subversion.
+This mirror is updated manually and is not supported by the Scribus team - for any issues, we will request you  get the source from subversion before submitting bugs etc.
 
 Complex text layout features available right now:
 - support RTL languages (Arabic, Persian, Urdu, Hebrew).
