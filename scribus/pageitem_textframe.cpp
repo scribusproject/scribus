@@ -1669,17 +1669,18 @@ void PageItem_TextFrame::layout()
 				double realCharHeight = 0.0, realCharAscent = 0.0;
 				const QList<GlyphLayout>& glyphs = current.glyphs[currentIndex].glyphs();
 				for (const GlyphLayout& gl : glyphs) {
-					GlyphMetrics gm = font.glyphBBox(gl.glyph);
+					GlyphMetrics gm = font.glyphBBox(gl.glyph, style.charStyle().fontSize() / 10.0);
 					realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
 					realCharAscent = qMax(realCharAscent, gm.ascent);
 				}
-				double fontAscent = font.ascent(style.charStyle().fontSize() / 10.0);
 				if (realCharHeight == 0.0)
 					realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
 				if (realCharAscent == 0.0)
-					realCharAscent = fontAscent;
-				chsd = (10 * ((DropCapDrop + fontAscent) / realCharHeight));
-				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
+					realCharAscent = font.ascent(style.charStyle().fontSize() / 10.0);
+				if (current.startOfCol && (firstLineOffsetP == FLOPFontAscent))
+					realCharAscent = font.ascent(hlcsize10);
+				chsd = ((DropCapDrop + realCharAscent) / realCharHeight) * style.charStyle().fontSize();
+				chs  = ((DropCapDrop + realCharAscent) / realCharAscent) * style.charStyle().fontSize();
 				current.glyphs[currentIndex].setFlag(ScLayout_DropCap);
 				if (HasObject)
 				{
@@ -1745,12 +1746,13 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					double realCharHeight = 0.0;
+					double realCharHeight = 0.0, realCharAscent = 0.0;
 					wide = 0.0; realAsce = 0.0;
 					const QList<GlyphLayout>& glyphs = glyphCluster.glyphs();
 					for (const GlyphLayout& gl : glyphs) {
 						GlyphMetrics gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
+						realCharAscent = qMax(realCharAscent, gm.ascent);
 						gm = font.glyphBBox(gl.glyph, chsd / 10.0);
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
 						wide += gm.width;
@@ -1759,7 +1761,11 @@ void PageItem_TextFrame::layout()
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
-					asce = font.ascent(hlcsize10);
+					if (realCharAscent == 0)
+						realCharAscent = font.ascent(style.charStyle().fontSize() / 10.0);
+					asce = realCharAscent;
+					if (current.startOfCol && (firstLineOffsetP == FLOPFontAscent))
+						asce = font.ascent(hlcsize10);
 					glyphCluster.setScaleH(glyphCluster.scaleH() / glyphCluster.scaleV());
 					glyphCluster.setScaleV(realAsce / realCharHeight);
 					glyphCluster.setScaleH(glyphCluster.scaleH() * glyphCluster.scaleV());
