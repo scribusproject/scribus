@@ -4909,27 +4909,27 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 
 bool ScribusDoc::changePageProperties(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber, const int pageType)
 {
-	if (pageNumber==-1 || currentPage()==nullptr)
+	if (pageNumber == -1 || m_currentPage ==nullptr)
 		return false;
 
-	QRectF pagebox(currentPage()->xOffset(), currentPage()->yOffset(), qMax( currentPage()->width(), width), qMax(currentPage()->height(), height));
+	QRectF pagebox(m_currentPage->xOffset(), m_currentPage->yOffset(), qMax( m_currentPage->width(), width), qMax(m_currentPage->height(), height));
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::ChangePageProps);//, QString("%1").arg(pageNumber), Um::IPage);
 		ss->set("PAGE_CHANGEPROPS");
 		ss->set("PAGE_NUM", pageNumber);
-		ss->set("OLD_PAGE_INITIALTOP", currentPage()->initialMargins.top());
-		ss->set("OLD_PAGE_INITIALBOTTOM", currentPage()->initialMargins.bottom());
-		ss->set("OLD_PAGE_INITIALLEFT", currentPage()->initialMargins.left());
-		ss->set("OLD_PAGE_INITIALRIGHT", currentPage()->initialMargins.right());
-		ss->set("OLD_PAGE_INITIALHEIGHT", currentPage()->initialHeight());
-		ss->set("OLD_PAGE_INITIALWIDTH", currentPage()->initialWidth());
-		ss->set("OLD_PAGE_HEIGHT", currentPage()->height());
-		ss->set("OLD_PAGE_WIDTH", currentPage()->width());
-		ss->set("OLD_PAGE_ORIENTATION", currentPage()->orientation());
-		ss->set("OLD_PAGE_SIZE", currentPage()->m_pageSize);
-		ss->set("OLD_PAGE_TYPE", currentPage()->LeftPg);
-		ss->set("OLD_PAGE_MARGINPRESET", currentPage()->marginPreset);
+		ss->set("OLD_PAGE_INITIALTOP", m_currentPage->initialMargins.top());
+		ss->set("OLD_PAGE_INITIALBOTTOM", m_currentPage->initialMargins.bottom());
+		ss->set("OLD_PAGE_INITIALLEFT", m_currentPage->initialMargins.left());
+		ss->set("OLD_PAGE_INITIALRIGHT", m_currentPage->initialMargins.right());
+		ss->set("OLD_PAGE_INITIALHEIGHT", m_currentPage->initialHeight());
+		ss->set("OLD_PAGE_INITIALWIDTH", m_currentPage->initialWidth());
+		ss->set("OLD_PAGE_HEIGHT", m_currentPage->height());
+		ss->set("OLD_PAGE_WIDTH", m_currentPage->width());
+		ss->set("OLD_PAGE_ORIENTATION", m_currentPage->orientation());
+		ss->set("OLD_PAGE_SIZE", m_currentPage->m_pageSize);
+		ss->set("OLD_PAGE_TYPE", m_currentPage->LeftPg);
+		ss->set("OLD_PAGE_MARGINPRESET", m_currentPage->marginPreset);
 		ss->set("OLD_PAGE_MOVEOBJECTS", moveObjects);
 		ss->set("NEW_PAGE_INITIALTOP", initialTop);
 		ss->set("NEW_PAGE_INITIALBOTTOM", initialBottom);
@@ -4947,18 +4947,18 @@ bool ScribusDoc::changePageProperties(const double initialTop, const double init
 		m_undoManager->action(this, ss);
 	}
 	//set the current page's values
-	currentPage()->initialMargins.setTop(initialTop);
-	currentPage()->initialMargins.setBottom(initialBottom);
-	currentPage()->initialMargins.setLeft(initialLeft);
-	currentPage()->initialMargins.setRight(initialRight);
-	currentPage()->setInitialHeight(initialHeight);
-	currentPage()->setInitialWidth(initialWidth);
-	currentPage()->setHeight(height);
-	currentPage()->setWidth(width);
-	currentPage()->setOrientation(orientation);
-	currentPage()->m_pageSize = pageSize;
-	currentPage()->LeftPg = pageType;
-	currentPage()->marginPreset = marginPreset;
+	m_currentPage->initialMargins.setTop(initialTop);
+	m_currentPage->initialMargins.setBottom(initialBottom);
+	m_currentPage->initialMargins.setLeft(initialLeft);
+	m_currentPage->initialMargins.setRight(initialRight);
+	m_currentPage->setInitialHeight(initialHeight);
+	m_currentPage->setInitialWidth(initialWidth);
+	m_currentPage->setHeight(height);
+	m_currentPage->setWidth(width);
+	m_currentPage->setOrientation(orientation);
+	m_currentPage->m_pageSize = pageSize;
+	m_currentPage->LeftPg = pageType;
+	m_currentPage->marginPreset = marginPreset;
 	reformPages(moveObjects);
 	invalidateRegion(pagebox);
 	regionsChanged()->update(pagebox);
@@ -5464,16 +5464,16 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 
 int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 {
-	double x1=0.0,y1=0.0,w1=iafData.width,h1=iafData.height;
+	double x1 = 0.0,y1 = 0.0, w1 = iafData.width, h1 = iafData.height;
 	std::vector<int> pageNs;
+
 	if (iafData.locationType == 0) // On the current page or on a range of pages
-		pageNs.push_back(currentPage()->pageNr()+1);
-	else if (iafData.locationType==1) // On all pages
-	{
+		pageNs.push_back(m_currentPage->pageNr() + 1);
+	else if (iafData.locationType == 1) // On all pages
 		parsePagesString(QString("1-%1").arg(Pages->count()), &pageNs, Pages->count());
-	}
 	else
 		parsePagesString(iafData.pageList, &pageNs, Pages->count());
+
 	ScPage* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=nullptr; //Previous item for text frame linking
@@ -5889,12 +5889,12 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage()->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left());
-		int y = static_cast<int>(currentPage()->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top());
-		int w = static_cast<int>(currentPage()->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right());
-		int h = static_cast<int>(currentPage()->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top());
+		int x = static_cast<int>(m_currentPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left());
+		int y = static_cast<int>(m_currentPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top());
+		int w = static_cast<int>(m_currentPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right());
+		int h = static_cast<int>(m_currentPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top());
 		if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
-			retw = currentPage()->pageNr();
+			retw = m_currentPage->pageNr();
 	}
 	else
 	{
@@ -5931,7 +5931,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 	if (masterPageMode())
 	{
-		ScPage* currPage = currentPage();
+		ScPage* currPage = m_currentPage;
 		double x1 = currPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
 		double y1 = currPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
 		double w1 = currPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
@@ -6380,7 +6380,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::TextFrame:
 			newItem = new PageItem_TextFrame(*oldItem);
 			if (UndoManager::undoEnabled() && oldItem->itemType()==PageItem::PathText)
-				transactionConversion = m_undoManager->beginTransaction(currentPage()->getUName(), nullptr, Um::TextFrame, "", Um::ITextFrame);
+				transactionConversion = m_undoManager->beginTransaction(m_currentPage->getUName(), nullptr, Um::TextFrame, "", Um::ITextFrame);
 			break;
 		//We don't allow this
 /*		case PageItem::Line:
@@ -6396,7 +6396,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if (secondaryItem==nullptr)
 				return nullptr;
 			if (UndoManager::undoEnabled())
-				transactionConversion = m_undoManager->beginTransaction(currentPage()->getUName(), nullptr, Um::PathText, "", Um::ITextFrame);
+				transactionConversion = m_undoManager->beginTransaction(m_currentPage->getUName(), nullptr, Um::PathText, "", Um::ITextFrame);
 			newItem = new PageItem_PathText(*oldItem);
 			break;
 		default:
@@ -6543,7 +6543,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 
 int ScribusDoc::currentPageNumber()
 {
-	return currentPage()->pageNr();
+	return m_currentPage->pageNr();
 }
 
 
@@ -10559,7 +10559,7 @@ void ScribusDoc::selectionChanged()
 		if (docSelectionCount == 1)
 			m_undoManager->showObject(m_Selection->itemAt(0)->getUId());
 		else if (docSelectionCount == 0)
-			m_undoManager->showObject(currentPage()->getUId());
+			m_undoManager->showObject(m_currentPage->getUId());
 		else
 			m_undoManager->showObject(Um::NO_UNDO_STACK);
 	}
@@ -10773,7 +10773,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		for (int b = 0; b < nrOfCopies; b++)
 		{
 			uint ac = Items->count();
-			xmlDoc.readElem(copyBuffer, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			xmlDoc.readElem(copyBuffer, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 			for (int as = ac; as < Items->count(); ++as)
 			{
 				PageItem* bItem = Items->at(as);
@@ -12119,25 +12119,25 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod cur
 	int alignObjectsCount = AObjects.count();
 	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = std::numeric_limits<double>::max();
-	switch ( currAlignTo )
+	switch (currAlignTo)
 	{
 		case alignFirst:
 			newX = AObjects[0].x1;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
 			newX = AObjects[alignObjectsCount-1].x1;
-			loopEnd=alignObjectsCount-2;
+			loopEnd = alignObjectsCount-2;
 			break;
 		case alignPage:
-			newX = currentPage()->xOffset();
+			newX = m_currentPage->xOffset();
 			break;
 		case alignMargins:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->Margins.left();
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->Margins.left();
 			break;
 		case alignGuide:
-			newX=currentPage()->xOffset() + guidePosition;
+			newX = m_currentPage->xOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12161,21 +12161,21 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod curr
 	{
 		case alignFirst:
 			newX = AObjects[0].x1;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
 			newX = AObjects[alignObjectsCount-1].x1;
-			loopEnd=alignObjectsCount-2;
+			loopEnd = alignObjectsCount-2;
 			break;
 		case alignPage:
-			newX = currentPage()->xOffset();
+			newX = m_currentPage->xOffset();
 			break;
 		case alignMargins:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->Margins.left();
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->Margins.left();
 			break;
 		case alignGuide:
-			newX=currentPage()->xOffset() + guidePosition;
+			newX = m_currentPage->xOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12195,7 +12195,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 	int alignObjectsCount = AObjects.count();
 	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = 0.0;
-	switch ( currAlignTo ) 
+	switch (currAlignTo) 
 	{
 		case alignFirst:
 			newX = AObjects[0].x1 + (AObjects[0].width)/2;
@@ -12209,16 +12209,16 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 			}
 			break;
 		case alignPage:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->width()/2;
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->width()/2;
 			break;
 		case alignMargins:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->Margins.left();
-			newX += (currentPage()->width() - currentPage()->Margins.right() - currentPage()->Margins.left())/2;
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->Margins.left();
+			newX += (m_currentPage->width() - m_currentPage->Margins.right() - m_currentPage->Margins.left())/2;
 			break;
 		case alignGuide:
-			newX=currentPage()->xOffset() + guidePosition;
+			newX = m_currentPage->xOffset() + guidePosition;
 			break;
 		case alignSelection:
 			double minX =  std::numeric_limits<double>::max();
@@ -12228,7 +12228,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 				minX = qMin(AObjects[i].x1, minX);
 				maxX = qMax(AObjects[i].x2, maxX);
 			}
-			newX = minX + (maxX-minX)/2;
+			newX = minX + (maxX-minX) / 2;
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -12259,16 +12259,16 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod cur
 			loopEnd=alignObjectsCount-2;
 			break;
 		case alignPage:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->width();;
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->width();;
 			break;
 		case alignMargins:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->width();;
-			newX -= currentPage()->Margins.right();
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->width();;
+			newX -= m_currentPage->Margins.right();
 			break;
 		case alignGuide:
-			newX=currentPage()->xOffset() + guidePosition;
+			newX = m_currentPage->xOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12299,16 +12299,16 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod cu
 			loopEnd=alignObjectsCount-2;
 			break;
 		case alignPage:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->width();
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->width();
 			break;
 		case alignMargins:
-			newX = currentPage()->xOffset();
-			newX += currentPage()->width();
-			newX -= currentPage()->Margins.right();
+			newX = m_currentPage->xOffset();
+			newX += m_currentPage->width();
+			newX -= m_currentPage->Margins.right();
 			break;
 		case alignGuide:
-			newX=currentPage()->xOffset() + guidePosition;
+			newX = m_currentPage->xOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12339,14 +12339,14 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod curr
 			loopEnd=alignObjectsCount-2;
 			break;
 		case alignPage:
-			newY = currentPage()->yOffset();
+			newY = m_currentPage->yOffset();
 			break;
 		case alignMargins:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->Margins.top();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->Margins.top();
 			break;
 		case alignGuide:
-			newY=currentPage()->yOffset() + guidePosition;
+			newY = m_currentPage->yOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12370,21 +12370,21 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currA
 	{
 		case alignFirst:
 			newY = AObjects[0].y1;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
-			newY = AObjects[alignObjectsCount-1].y1;
-			loopEnd=alignObjectsCount-2;
+			newY = AObjects[alignObjectsCount - 1].y1;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
-			newY = currentPage()->yOffset();
+			newY = m_currentPage->yOffset();
 			break;
 		case alignMargins:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->Margins.top();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->Margins.top();
 			break;
 		case alignGuide:
-			newY=currentPage()->yOffset() + guidePosition;
+			newY = m_currentPage->yOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12418,16 +12418,16 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod c
 			}
 			break;
 		case alignPage:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->height()/2;
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->height()/2;
 			break;
 		case alignMargins:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->Margins.top();
-			newY += (currentPage()->height() - currentPage()->Margins.bottom() - currentPage()->Margins.top())/2;
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->Margins.top();
+			newY += (m_currentPage->height() - m_currentPage->Margins.bottom() - m_currentPage->Margins.top())/2;
 			break;
 		case alignGuide:
-			newY=currentPage()->yOffset() + guidePosition;
+			newY = m_currentPage->yOffset() + guidePosition;
 			break;
 		case alignSelection:
 			double minY =  std::numeric_limits<double>::max();
@@ -12468,16 +12468,16 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod cu
 			loopEnd=alignObjectsCount-2;
 			break;
 		case alignPage:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->height();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->height();
 			break;
 		case alignMargins:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->height();
-			newY -= currentPage()->Margins.bottom();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->height();
+			newY -= m_currentPage->Margins.bottom();
 			break;
 		case alignGuide:
-			newY=currentPage()->yOffset() + guidePosition;
+			newY = m_currentPage->yOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12504,20 +12504,20 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod c
 			loopStart=1;
 			break;
 		case alignLast:
-			newY = AObjects[alignObjectsCount-1].y2;
-			loopEnd=alignObjectsCount-2;
+			newY = AObjects[alignObjectsCount - 1].y2;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->height();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->height();
 			break;
 		case alignMargins:
-			newY = currentPage()->yOffset();
-			newY += currentPage()->height();
-			newY -= currentPage()->Margins.bottom();
+			newY = m_currentPage->yOffset();
+			newY += m_currentPage->height();
+			newY -= m_currentPage->Margins.bottom();
 			break;
 		case alignGuide:
-			newY=currentPage()->yOffset() + guidePosition;
+			newY = m_currentPage->yOffset() + guidePosition;
 			break;
 		case alignSelection:
 			for (int i = 0; i < alignObjectsCount; ++i)
@@ -12977,9 +12977,9 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	
 	double totalSpace = 0.0;
 	if (useMargins)
-		totalSpace = currentPage()->height()-currentPage()->Margins.top()-currentPage()->Margins.bottom();
+		totalSpace = m_currentPage->height() - m_currentPage->Margins.top() - m_currentPage->Margins.bottom();
 	else
-		totalSpace = currentPage()->height();
+		totalSpace = m_currentPage->height();
 	double totalHeight = 0.0;
 	uint insideObjectCount = 0;
 	for (int i = 0; i < alignObjectsCount; ++i)
@@ -12988,9 +12988,9 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 		++insideObjectCount;
 	}
 	double separation = (totalSpace - totalHeight) / (insideObjectCount + 1);
-	double currY = currentPage()->yOffset();
+	double currY = m_currentPage->yOffset();
 	if (useMargins)
-		currY += currentPage()->Margins.top();
+		currY += m_currentPage->Margins.top();
 	//Handle when our items are too high for the page.
 	if (separation < 0.0)
 	{
@@ -13541,7 +13541,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			uint ac = Items->count();
-			ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 			m_Selection->delaySignalsOn();
 			for (int as = ac; as < Items->count(); ++as)
 			{
@@ -13602,7 +13602,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				if (i==0 && j==0)
 					continue;
 				uint ac = Items->count();
-				ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+				ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 				for (int as = ac; as < Items->count(); ++as)
 				{
 					PageItem* bItem = Items->at(as);
@@ -16368,8 +16368,8 @@ void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
 	ScPage *currPage = Pages->at(item->OwnPage);
 	QMatrix ma;
 	ma.translate(item->xPos(), item->yPos());
-	double inX = ma.dx() - currentPage()->xOffset();
-	double inY = ma.dy() - currentPage()->yOffset();
+	double inX = ma.dx() - m_currentPage->xOffset();
+	double inY = ma.dy() - m_currentPage->yOffset();
 	if (fh == Canvas::NORTH || fh == Canvas::NORTHWEST || fh == Canvas::NORTHEAST)
 	{
 		double top = currPage->topMargin();
