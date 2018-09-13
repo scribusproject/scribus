@@ -90,8 +90,12 @@ void ScPattern::setPattern(const QString& name)
 void ScPattern::createPreview()
 {
 	double sc = 500.0 / qMax(width, height);
+
 	bool savedFlag = doc->guidesPrefs().framesShown;
+	bool savedDoDrawing = doc->DoDrawing;
 	doc->guidesPrefs().framesShown = false;
+	doc->DoDrawing = true;
+
 	pattern = QImage(qRound(width * sc), qRound(height * sc), QImage::Format_ARGB32_Premultiplied);
 	pattern.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&pattern, pattern.width(), pattern.height(), 1, 0);
@@ -109,5 +113,7 @@ void ScPattern::createPreview()
 	}
 	painter->end();
 	delete painter;
+
+	doc->DoDrawing = savedDoDrawing;
 	doc->guidesPrefs().framesShown = savedFlag;
 }
