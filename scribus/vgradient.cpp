@@ -113,7 +113,7 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 
 bool VGradient::operator==(const VGradient &gradient) const 
 {
-	if (static_cast<uint>(m_colorStops.count()) != gradient.Stops())
+	if (m_colorStops.count() != gradient.Stops())
 		return false;
 	const QList<VColorStop*>& cs = gradient.colorStops();
 	bool retVal = true;
