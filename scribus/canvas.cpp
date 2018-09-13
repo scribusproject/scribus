@@ -1162,115 +1162,108 @@ void Canvas::drawControls(QPainter *psx)
 */
 void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 {
-	if (m_doc->m_Selection->count() != 0)
+	int selectedItemCount = m_doc->m_Selection->count();
+	if (selectedItemCount <= 0)
+		return;
+		
+	PageItem *currItem = nullptr;
+	if (selectedItemCount >= moveWithBoxesOnlyThreshold)
 	{
-		int selectedItemCount = m_doc->m_Selection->count();
-		PageItem *currItem = nullptr;
-		if (selectedItemCount < moveWithBoxesOnlyThreshold)
+		double gx, gy, gw, gh;
+		m_doc->m_Selection->setGroupRect();
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		//QPoint out = contentsToViewport(QPoint(0, 0));
+		pp->translate(gx, gy);
+		pp->drawRect(QRectF(0.0, 0.0, gw, gh));
+		return;
+	}
+
+	for (int cu = 0; cu < selectedItemCount; cu++)
+	{
+		currItem = m_doc->m_Selection->itemAt(cu);
+		pp->save();
+		pp->translate(currItem->xPos(), currItem->yPos());
+		pp->rotate(currItem->rotation());							
+		pp->setBrush(Qt::NoBrush);
+		pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		if (currItem->isGroup())
 		{
-			for (int cu = 0; cu < selectedItemCount; cu++)
+			PageItem_Group* gItem = currItem->asGroupFrame();
+			pp->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
+			int itemCountG = gItem->groupItemList.count();
+			if (itemCountG < moveWithFullOutlinesThreshold)
 			{
-				currItem = m_doc->m_Selection->itemAt(cu);
-				pp->save();
-				pp->translate(currItem->xPos(), currItem->yPos());
-				pp->rotate(currItem->rotation());							
-				pp->setBrush(Qt::NoBrush);
-				pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-				if (currItem->isGroup())
+				for (int cg = 0; cg < itemCountG; cg++)
 				{
-					PageItem_Group* gItem = currItem->asGroupFrame();
-					pp->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
-					int itemCountG = gItem->groupItemList.count();
-					if (itemCountG < moveWithFullOutlinesThreshold)
+					currItem = gItem->groupItemList.at(cg);
+					if (!(currItem->asLine()))
+						currItem->DrawPolyL(pp, currItem->Clip);
+					else
 					{
-						for (int cg = 0; cg < itemCountG; cg++)
+						if (currItem->asLine())
 						{
-							currItem = gItem->groupItemList.at(cg);
-							if (!(currItem->asLine()))
-								currItem->DrawPolyL(pp, currItem->Clip);
+							int lw2 = 1;
+							int lw = 1;
+							Qt::PenCapStyle le = Qt::FlatCap;
+							if (currItem->NamedLStyle.isEmpty())
+							{
+								if (currItem->lineColor() != CommonStrings::None)
+								{
+									lw2 = qRound(currItem->lineWidth()  / 2.0);
+									lw = qRound(qMax(currItem->lineWidth(), 1.0));
+								}
+								le = currItem->PLineEnd;
+							}
 							else
 							{
-								if (currItem->asLine())
-								{
-									int lw2 = 1;
-									int lw = 1;
-									Qt::PenCapStyle le = Qt::FlatCap;
-									if (currItem->NamedLStyle.isEmpty())
-									{
-										if (currItem->lineColor() != CommonStrings::None)
-										{
-											lw2 = qRound(currItem->lineWidth()  / 2.0);
-											lw = qRound(qMax(currItem->lineWidth(), 1.0));
-										}
-										le = currItem->PLineEnd;
-									}
-									else
-									{
-										multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
-										lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-										lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-										le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-									}
-									if (le != Qt::FlatCap)
-										pp->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-									else
-										pp->drawRect(-1, -lw2, qRound(currItem->width()), lw);
-								}
+								multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+								lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+								lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
+								le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 							}
+							if (le != Qt::FlatCap)
+								pp->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+							else
+								pp->drawRect(-1, -lw2, qRound(currItem->width()), lw);
 						}
 					}
+				}
+			}
+		}
+		else if (selectedItemCount < moveWithFullOutlinesThreshold)
+		{
+			if (!currItem->asLine())
+				currItem->DrawPolyL(pp, currItem->Clip);
+			else
+			{
+				int lw2 = 1;
+				int lw = 1;
+				Qt::PenCapStyle le = Qt::FlatCap;
+				if (currItem->NamedLStyle.isEmpty())
+				{
+					if (currItem->lineColor() != CommonStrings::None)
+					{
+						lw2 = qRound(currItem->lineWidth()  / 2.0);
+						lw = qRound(qMax(currItem->lineWidth(), 1.0));
+					}
+					le = currItem->PLineEnd;
 				}
 				else
 				{
-					if (selectedItemCount < moveWithFullOutlinesThreshold)
-					{
-						if (!(currItem->asLine()))
-							currItem->DrawPolyL(pp, currItem->Clip);
-						else
-						{
-							if (currItem->asLine())
-							{
-								int lw2 = 1;
-								int lw = 1;
-								Qt::PenCapStyle le = Qt::FlatCap;
-								if (currItem->NamedLStyle.isEmpty())
-								{
-									if (currItem->lineColor() != CommonStrings::None)
-									{
-										lw2 = qRound(currItem->lineWidth()  / 2.0);
-										lw = qRound(qMax(currItem->lineWidth(), 1.0));
-									}
-									le = currItem->PLineEnd;
-								}
-								else
-								{
-									multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
-									lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-									lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-									le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-								}
-								if (le != Qt::FlatCap)
-									pp->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-								else
-									pp->drawRect(-1, -lw2, qRound(currItem->width()), lw);
-							}
-						}
-					}
-					else
-						pp->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
+					multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+					lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+					lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
+					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 				}
-				pp->restore();
+				if (le != Qt::FlatCap)
+					pp->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+				else
+					pp->drawRect(-1, -lw2, qRound(currItem->width()), lw);
 			}
 		}
 		else
-		{
-			double gx, gy, gw, gh;
-			m_doc->m_Selection->setGroupRect();
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			//QPoint out = contentsToViewport(QPoint(0, 0));
-			pp->translate(gx, gy);
-			pp->drawRect(QRectF(0.0, 0.0, gw, gh));
-		}
+			pp->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
+		pp->restore();
 	}
 }
 
