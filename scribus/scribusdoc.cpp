@@ -12646,76 +12646,76 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double,uint> X1sorted, X2sorted;
+	QMap<double, int> x1Sorted, x2Sorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!X1sorted.contains(AObjects[i].x1))
-			X1sorted.insert(AObjects[i].x1, i);
-		if (!X2sorted.contains(AObjects[i].x2))
-			X2sorted.insert(AObjects[i].x2, i);
+		if (!x1Sorted.contains(AObjects[i].x1))
+			x1Sorted.insert(AObjects[i].x1, i);
+		if (!x2Sorted.contains(AObjects[i].x2))
+			x2Sorted.insert(AObjects[i].x2, i);
 	}	
-	uint left=X1sorted.begin().value();
-	uint right=X2sorted[X2sorted.keys().back()];
-	double minX=AObjects[left].x2;
-	double maxX=AObjects[right].x2;
+	int left = x1Sorted.begin().value();
+	int right = x2Sorted[x2Sorted.keys().back()];
+	double minX = AObjects[left].x2;
+	double maxX = AObjects[right].x2;
 	double separation=0.0;
 	if (!usingDistance)
 	{
-		double maxX=AObjects[right].x1;
-		double totalSpace=maxX-minX;
-		double totalWidth=0;
-		uint insideObjectCount=0;
+		double maxX = AObjects[right].x1;
+		double totalSpace = maxX - minX;
+		double totalWidth = 0;
+		uint insideObjectCount = 0;
 		for (int i = 0; i < alignObjectsCount; ++i)
 		{
-			if (i==left)
+			if (i == left)
 				continue;
-			if (i==right)
+			if (i == right)
 				continue;
 			totalWidth += AObjects[i].width;
 			++insideObjectCount;
 		}
-		separation=(totalSpace-totalWidth)/(insideObjectCount+1);
+		separation = (totalSpace - totalWidth) / (insideObjectCount + 1);
 	}
 	else
-		separation=value2pts(distance, unitIndex());
+		separation = value2pts(distance, unitIndex());
 	if (!reverseDistribute)
 	{
-		double currX=minX;
-		for (QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it)
+		double currX = minX;
+		for (auto it = x1Sorted.constBegin(); it != x1Sorted.constEnd(); ++it)
 		{
-			if (it.value()==left)
+			if (it.value() == left)
 				continue;
-			if (it.value()==right && !usingDistance)
+			if (it.value() == right && !usingDistance)
 				continue;
 			currX+=separation;
 
-			double diff=currX-AObjects[it.value()].x1;
+			double diff = currX - AObjects[it.value()].x1;
 			if (!AObjects[it.value()].Object->locked())
 				AObjects[it.value()].Object->moveBy(diff, 0.0);
-			currX+=AObjects[it.value()].width;
+			currX += AObjects[it.value()].width;
 		}
 	}
 	else
 	{
-		QMapIterator<double,uint> it(X1sorted);
+		QMapIterator<double, int> it(x1Sorted);
 		it.toBack();
-		double currX=maxX;
+		double currX = maxX;
 		while (it.hasPrevious())
 		{
 			it.previous();
-			if (it.value()==right)
+			if (it.value() == right)
 			{
-				currX-=AObjects[it.value()].width;
+				currX -= AObjects[it.value()].width;
 				continue;
 			}
-			if (it.value()==left && !usingDistance)
+			if (it.value() == left && !usingDistance)
 				continue;
-			currX-=separation;
+			currX -= separation;
 
-			double diff=currX-AObjects[it.value()].x2;
+			double diff = currX-AObjects[it.value()].x2;
 			if (!AObjects[it.value()].Object->locked())
 				AObjects[it.value()].Object->moveBy(diff, 0.0);
-			currX-=AObjects[it.value()].width;
+			currX -= AObjects[it.value()].width;
 		}
 	}
 	endAlign();
@@ -12838,76 +12838,76 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double,uint> Y1sorted, Y2sorted;
+	QMap<double, int> y1sorted, y2sorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Y1sorted.contains(AObjects[i].y1))
-			Y1sorted.insert(AObjects[i].y1, i);
-		if (!Y2sorted.contains(AObjects[i].y2))
-			Y2sorted.insert(AObjects[i].y2, i);
+		if (!y1sorted.contains(AObjects[i].y1))
+			y1sorted.insert(AObjects[i].y1, i);
+		if (!y2sorted.contains(AObjects[i].y2))
+			y2sorted.insert(AObjects[i].y2, i);
 	}	
-	uint top=Y1sorted.begin().value();
-	uint bottom=Y2sorted[Y2sorted.keys().back()];
-	double minY=AObjects[top].y2;
-	double maxY=AObjects[bottom].y2;
+	int top = y1sorted.begin().value();
+	int bottom = y2sorted[y2sorted.keys().back()];
+	double minY = AObjects[top].y2;
+	double maxY = AObjects[bottom].y2;
 	double separation=0.0;
 	if (!usingDistance)
 	{
-		double maxY=AObjects[bottom].y1;
-		double totalSpace=maxY-minY;
-		double totalHeight=0;
-		uint insideObjectCount=0;
+		double maxY = AObjects[bottom].y1;
+		double totalSpace = maxY - minY;
+		double totalHeight = 0;
+		uint insideObjectCount = 0;
 		for (int i = 0; i < alignObjectsCount; ++i)
 		{
-			if (i==top)
+			if (i == top)
 				continue;
-			if (i==bottom)
+			if (i == bottom)
 				continue;
 			totalHeight += AObjects[i].height;
 			++insideObjectCount;
 		}
-		separation=(totalSpace-totalHeight)/(insideObjectCount+1);
+		separation = (totalSpace - totalHeight) / (insideObjectCount + 1);
 	}
 	else
 		separation=value2pts(distance, unitIndex());
 	if (!reverseDistribute)
 	{
-		double currY=minY;
-		for (QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it)
+		double currY = minY;
+		for (auto it = y1sorted.constBegin(); it != y1sorted.constEnd(); ++it)
 		{
-			if (it.value()==top)
+			if (it.value() == top)
 				continue;
-			if (it.value()==bottom && !usingDistance)
+			if (it.value() == bottom && !usingDistance)
 				continue;
-			currY+=separation;
+			currY += separation;
 
-			double diff=currY-AObjects[it.value()].y1;
+			double diff = currY-AObjects[it.value()].y1;
 			if (!AObjects[it.value()].Object->locked())
-				AObjects[it.value()].Object->moveBy(0.0,diff);
+				AObjects[it.value()].Object->moveBy(0.0, diff);
 			currY+=AObjects[it.value()].height;
 		}
 	}
 	else
 	{
-		QMapIterator<double,uint> it(Y1sorted);
+		QMapIterator<double, int> it(y1sorted);
 		it.toBack();
-		double currY=maxY;
+		double currY = maxY;
 		while (it.hasPrevious())
 		{
 			it.previous();
-			if (it.value()==bottom)
+			if (it.value() == bottom)
 			{
-				currY-=AObjects[it.value()].height;
+				currY -= AObjects[it.value()].height;
 				continue;
 			}
-			if (it.value()==top && !usingDistance)
+			if (it.value() == top && !usingDistance)
 				continue;
-			currY-=separation;
+			currY -= separation;
 
-			double diff=currY-AObjects[it.value()].y2;
+			double diff = currY - AObjects[it.value()].y2;
 			if (!AObjects[it.value()].Object->locked())
 				AObjects[it.value()].Object->moveBy(0.0, diff);
-			currY-=AObjects[it.value()].height;
+			currY -= AObjects[it.value()].height;
 		}
 	}
 	endAlign();
@@ -12918,46 +12918,45 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 {
 	if (!startAlign(2))
 		return;
+
+	QMap<double, int> x1Sorted;
 	int alignObjectsCount = AObjects.count();
-	QMap<double,uint> X1sorted, X2sorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!X1sorted.contains(AObjects[i].x1))
-			X1sorted.insert(AObjects[i].x1, i);
-		if (!X2sorted.contains(AObjects[i].x2))
-			X2sorted.insert(AObjects[i].x2, i);
+		if (!x1Sorted.contains(AObjects[i].x1))
+			x1Sorted.insert(AObjects[i].x1, i);
 	}	
 	
-	double totalSpace=0.0;
+	double totalSpace = 0.0;
 	if (useMargins)
-		totalSpace=currentPage()->width()-currentPage()->Margins.left()-currentPage()->Margins.right();
+		totalSpace = m_currentPage->width() - m_currentPage->Margins.left() - m_currentPage->Margins.right();
 	else
-		totalSpace=currentPage()->width();
-	double totalWidth=0.0;
-	uint insideObjectCount=0;
+		totalSpace = m_currentPage->width();
+	double totalWidth = 0.0;
+	uint insideObjectCount = 0;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
 		totalWidth += AObjects[i].width;
 		++insideObjectCount;
 	}
-	double separation=(totalSpace-totalWidth)/(insideObjectCount+1);
-	double currX=currentPage()->xOffset();
+	double separation = (totalSpace - totalWidth) / (insideObjectCount + 1);
+	double currX = m_currentPage->xOffset();
 	if (useMargins)
-		currX+=currentPage()->Margins.left();
+		currX += m_currentPage->Margins.left();
 	//Handle when our items are too wide for the page.
-	if (separation<0.0)
+	if (separation < 0.0)
 	{
-		separation=(totalSpace-totalWidth)/(insideObjectCount-1);
-		currX-=separation;
+		separation = (totalSpace - totalWidth) / (insideObjectCount - 1);
+		currX -= separation;
 	}
 		
-	for (QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it)
+	for (auto it = x1Sorted.constBegin(); it != x1Sorted.constEnd(); ++it)
 	{
-		currX+=separation;
-		double diff=currX-AObjects[it.value()].x1;
+		currX += separation;
+		double diff = currX - AObjects[it.value()].x1;
 		if (!AObjects[it.value()].Object->locked())
 			AObjects[it.value()].Object->moveBy(diff, 0.0);
-		currX+=AObjects[it.value()].width;
+		currX += AObjects[it.value()].width;
 	}
 	endAlign();
 }
@@ -12967,46 +12966,45 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 {
 	if (!startAlign(2))
 		return;
+	
+	QMap<double, int> y1sorted;
 	int alignObjectsCount = AObjects.count();
-	QMap<double,uint> Y1sorted, Y2sorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Y1sorted.contains(AObjects[i].y1))
-			Y1sorted.insert(AObjects[i].y1, i);
-		if (!Y2sorted.contains(AObjects[i].y2))
-			Y2sorted.insert(AObjects[i].y2, i);
+		if (!y1sorted.contains(AObjects[i].y1))
+			y1sorted.insert(AObjects[i].y1, i);
 	}	
 	
-	double totalSpace=0.0;
+	double totalSpace = 0.0;
 	if (useMargins)
-		totalSpace=currentPage()->height()-currentPage()->Margins.top()-currentPage()->Margins.bottom();
+		totalSpace = currentPage()->height()-currentPage()->Margins.top()-currentPage()->Margins.bottom();
 	else
-		totalSpace=currentPage()->height();
-	double totalHeight=0.0;
-	uint insideObjectCount=0;
+		totalSpace = currentPage()->height();
+	double totalHeight = 0.0;
+	uint insideObjectCount = 0;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
 		totalHeight += AObjects[i].height;
 		++insideObjectCount;
 	}
-	double separation=(totalSpace-totalHeight)/(insideObjectCount+1);
-	double currY=currentPage()->yOffset();
+	double separation = (totalSpace - totalHeight) / (insideObjectCount + 1);
+	double currY = currentPage()->yOffset();
 	if (useMargins)
-		currY+=currentPage()->Margins.top();
+		currY += currentPage()->Margins.top();
 	//Handle when our items are too high for the page.
-	if (separation<0.0)
+	if (separation < 0.0)
 	{
-		separation=(totalSpace-totalHeight)/(insideObjectCount-1);
-		currY-=separation;
+		separation = (totalSpace - totalHeight) / (insideObjectCount - 1);
+		currY -= separation;
 	}
 		
-	for (QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it)
+	for (auto it = y1sorted.constBegin(); it != y1sorted.constEnd(); ++it)
 	{
-		currY+=separation;
-		double diff=currY-AObjects[it.value()].y1;
+		currY += separation;
+		double diff = currY-AObjects[it.value()].y1;
 		if (!AObjects[it.value()].Object->locked())
 			AObjects[it.value()].Object->moveBy(0.0, diff);
-		currY+=AObjects[it.value()].height;
+		currY += AObjects[it.value()].height;
 	}
 	endAlign();
 }
