@@ -323,7 +323,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 					tmpSele->addItem(Elements.at(dre), true);
 				}
 				tmpSele->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSele);
+				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSele);
 				m_Doc->itemSelection_DeleteItem(tmpSele);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();

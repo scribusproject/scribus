@@ -2931,8 +2931,8 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	if (sourceSelection.count() != 0)
 	{
 		ScriXmlDoc ss;
-		QString dataS = ss.WriteElem(this, &sourceSelection);
-		ss.ReadElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, whereToInsert);
+		QString dataS = ss.writeElem(this, &sourceSelection);
+		ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, whereToInsert);
 	}
 	sourceSelection.clear();
 	changed();
@@ -5262,10 +5262,10 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 					{
 						ScriXmlDoc ss;
 						setMasterPageMode(true);
-						setCurrentPage(pageMaster); // Needed for WriteElem to write proper page relative coordinates
-						QString dataS = ss.WriteElem(this, &tempSelection);
+						setCurrentPage(pageMaster); // Needed for writeElem to write proper page relative coordinates
+						QString dataS = ss.writeElem(this, &tempSelection);
 						setCurrentPage(targetPage);
-						ss.ReadElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+						ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
 						setMasterPageMode(false);
 						setCurrentPage(oldCurrentPage);
 					}
@@ -5291,11 +5291,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 			if (tempSelection.count() != 0)
 			{
 				ScriXmlDoc ss;
-				setCurrentPage(sourcePage); // Needed for WriteElem to write proper page relative coordinates
-				QString dataS = ss.WriteElem(this, &tempSelection);
+				setCurrentPage(sourcePage); // Needed for writeElem to write proper page relative coordinates
+				QString dataS = ss.writeElem(this, &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss.ReadElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+				ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
 				setMasterPageMode(false);
 				setCurrentPage(oldCurrentPage);
 			}
@@ -7139,7 +7139,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				if (tempSelection.count() != 0)
 				{
 					ScriXmlDoc ss;
-					QString dataS = ss.WriteElem(this, &tempSelection);
+					QString dataS = ss.writeElem(this, &tempSelection);
 					itemBuffer.append(dataS);
 				}
 				else
@@ -7224,7 +7224,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					{
 						ScriXmlDoc ss;
 						QString fragment = itemBuffer[lcount];
-						ss.ReadElemToLayer(fragment, m_appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+						ss.readElemToLayer(fragment, m_appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
 					}
 					lcount++;
 				}
@@ -10768,12 +10768,12 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		int rotBack = rotationMode();
 		setRotationMode ( 0 );
 		ScriXmlDoc xmlDoc;
-		QString copyBuffer = xmlDoc.WriteElem(this, m_Selection);
+		QString copyBuffer = xmlDoc.writeElem(this, m_Selection);
 		view()->Deselect(true);
 		for (int b = 0; b < nrOfCopies; b++)
 		{
 			uint ac = Items->count();
-			xmlDoc.ReadElem(copyBuffer, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			xmlDoc.readElem(copyBuffer, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 			for (int as = ac; as < Items->count(); ++as)
 			{
 				PageItem* bItem = Items->at(as);
@@ -13535,13 +13535,13 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				dV2 += selection.height();
 		}
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(this, &selection);
+		QString BufferS = ss.writeElem(this, &selection);
 		//FIXME: stop using m_View
 		m_View->Deselect(true);
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			uint ac = Items->count();
-			ss.ReadElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 			m_Selection->delaySignalsOn();
 			for (int as = ac; as < Items->count(); ++as)
 			{
@@ -13593,7 +13593,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		double dX = mdData.gridGapH / m_docUnitRatio + selection.width();
 		double dY = mdData.gridGapV / m_docUnitRatio + selection.height();
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(this, &selection);
+		QString BufferS = ss.writeElem(this, &selection);
 		for (int i = 0; i < mdData.gridRows; ++i) //skip 0, the item is the one we are copying
 		{
 			for (int j = 0; j < mdData.gridCols; ++j) //skip 0, the item is the one we are copying
@@ -13602,7 +13602,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				if (i==0 && j==0)
 					continue;
 				uint ac = Items->count();
-				ss.ReadElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+				ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
 				for (int as = ac; as < Items->count(); ++as)
 				{
 					PageItem* bItem = Items->at(as);

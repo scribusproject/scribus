@@ -4608,7 +4608,7 @@ void ScribusMainWindow::slotEditCut()
 		if ((currItem->isSingleSel) && (currItem->isGroup()))
 			return;
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(doc, doc->m_Selection);
+		QString BufferS = ss.writeElem(doc, doc->m_Selection);
 		if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 		{
 			scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
@@ -4683,7 +4683,7 @@ void ScribusMainWindow::slotEditCopy()
 			*(doc->m_Selection) = tempSelection;
 
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(doc, doc->m_Selection);
+		QString BufferS = ss.writeElem(doc, doc->m_Selection);
 		if (!internalCopy)
 		{
 			if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
@@ -7469,7 +7469,7 @@ void ScribusMainWindow::slotElemRead(const QString& xml, double x, double y, boo
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if(ss.ReadElem(xml, m_prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager->appPrefs.fontPrefs.GFontSub))
+	if(ss.readElem(xml, m_prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager->appPrefs.fontPrefs.GFontSub))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8178,7 +8178,7 @@ void ScribusMainWindow::PutScrap(int scID)
 	if (doc->m_Selection->isEmpty())
 		return;
 	ScriXmlDoc ss;
-	QString objectString = ss.WriteElem(doc, doc->m_Selection);
+	QString objectString = ss.writeElem(doc, doc->m_Selection);
 	QDomDocument docu("scridoc");
 	docu.setContent(objectString);
 	QDomElement elem = docu.documentElement();
@@ -8777,7 +8777,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					data = QString::fromUtf8(cf.data());
 					double gx, gy, gw, gh;
 					ScriXmlDoc ss;
-					if (ss.ReadElemHeader(data, false, &gx, &gy, &gw, &gh))
+					if (ss.readElemHeader(data, false, &gx, &gy, &gw, &gh))
 					{
 						doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 						HaveNewDoc();
@@ -8815,7 +8815,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 			{
 				double gx, gy, gw, gh;
 				ScriXmlDoc ss;
-				if (ss.ReadElemHeader(text, false, &gx, &gy, &gw, &gh))
+				if (ss.readElemHeader(text, false, &gx, &gy, &gw, &gh))
 				{
 					doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 					HaveNewDoc();

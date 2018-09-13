@@ -300,8 +300,8 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			if (m_doc->m_Selection->count() != 0)
 			{
 				ScriXmlDoc ss;
-				QString buffer = ss.WriteElem(m_doc, m_doc->m_Selection);
-				ss.ReadElemToLayer(buffer, prefsManager->appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.fontPrefs.GFontSub, it->ID);
+				QString buffer = ss.writeElem(m_doc, m_doc->m_Selection);
+				ss.readElemToLayer(buffer, prefsManager->appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.fontPrefs.GFontSub, it->ID);
 				m_doc->m_Selection->clear();
 			}
 		}

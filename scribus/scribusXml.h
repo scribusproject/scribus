@@ -47,12 +47,12 @@ public:
 	\param file filename of file to test
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
-	bool ReadElemHeader(const QString& file, bool isFile, double *x, double *y, double *w, double *h);
-	bool ReadElem(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub);
-	bool ReadElemToLayer(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer);
+	bool readElemHeader(const QString& file, bool isFile, double *x, double *y, double *w, double *h);
+	bool readElem(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub);
+	bool readElemToLayer(const QString& fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer);
 	
-	static QString WriteElem(ScribusDoc *doc, Selection *selection);
-	static ScElemMimeData* WriteToMimeData(ScribusDoc *doc, Selection *selection);
+	static QString writeElem(ScribusDoc *doc, Selection *selection);
+	static ScElemMimeData* writeToMimeData(ScribusDoc *doc, Selection *selection);
 
 private:
 	static QList<PageItem*> getItemsFromSelection(ScribusDoc *doc, Selection* selection);

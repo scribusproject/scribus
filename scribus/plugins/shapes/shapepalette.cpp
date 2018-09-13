@@ -231,7 +231,7 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		m_Doc->m_Selection->addItem(ite, true);
-		ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_Doc->m_Selection);
+		ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_Doc->m_Selection);
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);
 		dr->setPixmap(currentItem()->icon().pixmap(QSize(48, 48)));

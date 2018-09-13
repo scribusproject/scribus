@@ -478,7 +478,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_doc->DragElements.clear();
 				for (int dre=0; dre<m_doc->m_Selection->count(); ++dre)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre));
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_doc, m_doc->m_Selection);
+				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_doc, m_doc->m_Selection);
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
 				const QPixmap& pm = IconManager::instance()->loadPixmap("dragpix.png");

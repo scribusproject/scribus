@@ -657,7 +657,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 
 	double gx, gy, gw, gh;
 	ScriXmlDoc ss;
-	if (ss.ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
+	if (ss.readElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
 	{
 		FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 		dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
