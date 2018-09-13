@@ -300,12 +300,11 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	int pageNr = currentDoc->currentPageNumber();
 	char *kwlist[] = {const_cast<char*>(""), const_cast<char*>("page"), nullptr};
 
-
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &typ, &pageNr))
 		return nullptr;
 
-	int numpages = currentDoc->Pages->count();
-	if (pageNr < 0 || pageNr >= numpages) {
+	int numPages = currentDoc->Pages->count();
+	if (pageNr < 0 || pageNr >= numPages) {
 		PyErr_SetString(PyExc_RuntimeError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
@@ -318,7 +317,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	{
 		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
 		{
-			if ((currentDoc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(currentDoc->Items->at(lam2)->OwnPage)))
+			if ((currentDoc->Items->at(lam2)->itemType() == typ) && (pageNr == currentDoc->Items->at(lam2)->OwnPage))
 				counter++;
 		}
 	}
@@ -326,7 +325,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	{
 		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
 		{
-			if (pageNr == static_cast<uint>(currentDoc->Items->at(lam2)->OwnPage))
+			if (pageNr == currentDoc->Items->at(lam2)->OwnPage)
 				counter++;
 		}
 	}
@@ -334,7 +333,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 	l = PyList_New(counter);
 	for (int lam=0; lam < currentDoc->Items->count(); ++lam)
 	{
-		if  (pageNr == static_cast<uint>(currentDoc->Items->at(lam)->OwnPage))
+		if  (pageNr == currentDoc->Items->at(lam)->OwnPage)
 		{
 			if (typ != -1)
 			{

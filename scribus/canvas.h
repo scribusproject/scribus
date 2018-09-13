@@ -82,8 +82,8 @@ class SCRIBUS_API Canvas : public QWidget
 	Q_OBJECT
 	
 public:	
-	static const uint moveWithFullOutlinesThreshold = 21;
-	static const uint moveWithBoxesOnlyThreshold = 41;
+	static const int moveWithFullOutlinesThreshold = 21;
+	static const int moveWithBoxesOnlyThreshold = 41;
 
 	Canvas(ScribusDoc* doc, ScribusView* parent);
 	
