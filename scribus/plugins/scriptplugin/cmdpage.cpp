@@ -119,8 +119,8 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 
+	ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
-	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 
 	int loc = (e > -1) ? e : currentDoc->Pages->count();
 	if (currentDoc->pageSets()[currentDoc->pagePositioning()].Columns != 1)
@@ -147,7 +147,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	if (e < 0)
-		ScCore->primaryMainWindow()->slotNewPageP(loc, qName);
+		mainWin->slotNewPageP(loc, qName);
 	else
 	{
 		e--;
@@ -156,7 +156,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 			return nullptr;
 		}
-		ScCore->primaryMainWindow()->slotNewPageP(e, qName);
+		mainWin->slotNewPageP(e, qName);
 	}
 // 	Py_INCREF(Py_None);
  //	return Py_None;
