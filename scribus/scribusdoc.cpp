@@ -13396,30 +13396,32 @@ void ScribusDoc::setCurrentPage(ScPage *newPage)
 
 QPoint ScribusDoc::ApplyGrid(const QPoint& in)
 {
-	QPoint np;
 	int onp = OnPage(in.x(), in.y());
-	if (SnapGrid && (onp != -1))
-	{
-		np.setX(static_cast<int>(qRound((in.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset()));
-		np.setY(static_cast<int>(qRound((in.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset()));
-	}
-	else
-		np = in;
+	if (!SnapGrid || (onp == -1))
+		return in;
+
+	QPoint np;
+	const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+	double pageX = Pages->at(onp)->xOffset();
+	double pageY = Pages->at(onp)->yOffset();
+	np.setX(static_cast<int>(qRound((in.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX));
+	np.setY(static_cast<int>(qRound((in.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY));
 	return np;
 }
 
 
 FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 {
-	FPoint np;
 	int onp = OnPage(in.x(), in.y());
-	if (SnapGrid && (onp != -1))
-	{
-		np.setX(qRound((in.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset());
-		np.setY(qRound((in.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset());
-	}
-	else
-		np = in;
+	if (!SnapGrid || (onp == -1))
+		return in;
+
+	FPoint np;
+	const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+	double pageX = Pages->at(onp)->xOffset();
+	double pageY = Pages->at(onp)->yOffset();
+	np.setX(qRound((in.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX);
+	np.setY(qRound((in.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY);
 	return np;
 }
 
@@ -13433,6 +13435,7 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	double dX = m_docPrefsData.guidesPrefs.minorGridSpacing;
 	double dY = m_docPrefsData.guidesPrefs.minorGridSpacing;
 	double newX = in.x(), newY = in.y();
+	double pageX, pageY;
 
 	FPoint fp1(in.x(), in.y());
 	FPoint fp2(in.x(), in.y() + in.height());
@@ -13442,8 +13445,11 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	int onp = OnPage(fp1.x(), fp1.y());
 	if (onp >= 0)
 	{
-		newX = qRound((fp1.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
-		newY = qRound((fp1.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+		pageX = Pages->at(onp)->xOffset();
+		pageY = Pages->at(onp)->yOffset();
+		newX  = qRound((fp1.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX;
+		newY  = qRound((fp1.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY;
 		if (fabs(newX - fp1.x()) < fabs(dX))
 			dX = newX - fp1.x();
 		if (fabs(newY - fp1.y()) < fabs(dY))
@@ -13454,8 +13460,11 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	onp = OnPage(fp2.x(), fp2.y());
 	if (onp >= 0)
 	{
-		newX = qRound((fp2.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
-		newY = qRound((fp2.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+		pageX = Pages->at(onp)->xOffset();
+		pageY = Pages->at(onp)->yOffset();
+		newX  = qRound((fp2.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX;
+		newY  = qRound((fp2.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY;
 		if (fabs(newX - fp2.x()) < fabs(dX))
 			dX = newX - fp2.x();
 		if (fabs(newY - fp2.y()) < fabs(dY))
@@ -13466,8 +13475,11 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	onp = OnPage(fp3.x(), fp3.y());
 	if (onp >= 0)
 	{
-		newX = qRound((fp3.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
-		newY = qRound((fp3.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+		pageX = Pages->at(onp)->xOffset();
+		pageY = Pages->at(onp)->yOffset();
+		newX  = qRound((fp3.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX;
+		newY  = qRound((fp3.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY;
 		if (fabs(newX - fp3.x()) < fabs(dX))
 			dX = newX - fp3.x();
 		if (fabs(newY - fp3.y()) < fabs(dY))
@@ -13478,8 +13490,11 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	onp = OnPage(fp4.x(), fp4.y());
 	if (onp >= 0)
 	{
-		newX = qRound((fp4.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
-		newY = qRound((fp4.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		const GuidesPrefs& guidesPrefs = m_docPrefsData.guidesPrefs;
+		pageX = Pages->at(onp)->xOffset();
+		pageY = Pages->at(onp)->yOffset();
+		newX  = qRound((fp4.x() - pageX) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageX;
+		newY  = qRound((fp4.y() - pageY) / guidesPrefs.minorGridSpacing) * guidesPrefs.minorGridSpacing + pageY;
 		if (fabs(newX - fp4.x()) < fabs(dX))
 			dX = newX - fp4.x();
 		if (fabs(newY - fp4.y()) < fabs(dY))
@@ -13519,7 +13534,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	for (int i = 0; i < selectedItems.count(); ++i)
 		selection.addItem(selectedItems.at(i));
 
-	if (mdData.type==0) // Copy and offset or set a gap
+	if (mdData.type == 0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / m_docUnitRatio;
 		double dV = mdData.copyShiftGapV / m_docUnitRatio;
@@ -13587,9 +13602,8 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		QString dString = QString::number(dR) + " " + unitGetStrFromIndex(SC_DEGREES);
 		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(hString).arg(vString).arg(dString);
 	}
-	else if (mdData.type==1) // Create a grid of duplicated items
+	else if (mdData.type == 1) // Create a grid of duplicated items
 	{
-		int copyCount = mdData.gridRows * mdData.gridCols;
 		double dX = mdData.gridGapH / m_docUnitRatio + selection.width();
 		double dY = mdData.gridGapV / m_docUnitRatio + selection.height();
 		ScriXmlDoc ss;
