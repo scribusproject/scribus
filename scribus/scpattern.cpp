@@ -96,9 +96,9 @@ void ScPattern::createPreview()
 	pattern.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&pattern, pattern.width(), pattern.height(), 1, 0);
 	painter->setZoomFactor(sc);
-	for (int em = 0; em < items.count(); ++em)
+	for (int i = 0; i < items.count(); ++i)
 	{
-		PageItem* embedded = items.at(em);
+		PageItem* embedded = items.at(i);
 		painter->save();
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;

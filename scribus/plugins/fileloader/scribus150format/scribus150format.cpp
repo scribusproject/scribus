@@ -4249,7 +4249,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	pat.xoffset = attrs.valueAsDouble("xoffset", 0.0);
 	pat.yoffset = attrs.valueAsDouble("yoffset", 0.0);
 
-	uint itemCount1 = m_Doc->Items->count();
+	int itemCount1 = m_Doc->Items->count();
 	bool savedAlignGrid = m_Doc->SnapGrid;
 	bool savedAlignGuides = m_Doc->SnapGuides;
 	bool savedAlignElement = m_Doc->SnapElement;
@@ -4439,7 +4439,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		}
 	}
 
-	uint itemCount2 = m_Doc->Items->count();
+	int itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
 	{
 		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
@@ -4447,9 +4447,9 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		double miny =  std::numeric_limits<double>::max();
 		double maxx = -std::numeric_limits<double>::max();
 		double maxy = -std::numeric_limits<double>::max();
-		for (uint as = itemCount1; as < itemCount2; ++as)
+		for (int i = itemCount1; i < itemCount2; ++i)
 		{
-			currItem = doc->Items->at(as);
+			currItem = doc->Items->at(i);
 			double x1, x2, y1, y2;
 			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 			minx = qMin(minx, x1);
@@ -4457,7 +4457,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			maxx = qMax(maxx, x2);
 			maxy = qMax(maxy, y2);
 		}
-		for (uint as = itemCount1; as < itemCount2; ++as)
+		for (int i = itemCount1; i < itemCount2; ++i)
 		{
 			newItem = doc->Items->takeAt(itemCount1);
 			newItem->gXpos = newItem->xPos() - minx;
