@@ -57,34 +57,32 @@ bool FileDialogEventCatcher::eventFilter(QObject *o, QEvent *e)
 				break;
 		}
 	}
-	else
-		if (e->type() == QEvent::DragEnter)
+	else if (e->type() == QEvent::DragEnter)
+	{
+		e->accept();
+		return true;
+	}
+	else if (e->type() == QEvent::Drop)
+	{
+		QDropEvent *dropEvent = static_cast<QDropEvent *>(e);
+		if (dropEvent)
 		{
-			e->accept();
-			return true;
-		}
-		else
-			if (e->type() == QEvent::Drop)
+			if (dropEvent->mimeData()->hasFormat("text/uri-list"))
 			{
-				QDropEvent *dropEvent = static_cast<QDropEvent *>(e);
-				if (dropEvent)
+				QString fileUrl;
+				QList<QUrl> fileUrls = dropEvent->mimeData()->urls();
+				if (fileUrls.count() > 0)
 				{
-					if ( dropEvent->mimeData()->hasFormat("text/uri-list"))
+					fileUrl = fileUrls[0].toLocalFile();
+					if (fileUrls[0].isLocalFile())
 					{
-						QString fileUrl;
-						QList<QUrl> fileUrls = dropEvent->mimeData()->urls();
-						if (fileUrls.count()>0)
-						{
-							fileUrl = fileUrls[0].toLocalFile();
-							if (fileUrls[0].isLocalFile())
-							{
-								emit dropLocation(fileUrl);
-							}
-						}
+						emit dropLocation(fileUrl);
 					}
 				}
-				e->accept();
-				return true;
 			}
+		}
+		e->accept();
+		return true;
+	}
 	return QObject::eventFilter(o, e);
 }
