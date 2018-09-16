@@ -74,7 +74,7 @@ public:
 	 * @brief Returns name of the state (action).
 	 * @return name of the state
 	 */
-	virtual QString getName();
+	virtual const QString& getName() const;
 
 	/**
 	 * @brief Set the name for this UndoState.
@@ -86,7 +86,7 @@ public:
 	 * @brief Returns description of the state.
 	 * @return description of the state
 	 */
-	virtual QString getDescription();
+	virtual const QString& getDescription() const;
 
 	/**
 	 * @brief Set the description for this UndoState
@@ -122,13 +122,13 @@ public:
 
 private:
 	/** @brief Name of the state (operation) (f.e. Move object) */
-	QString actionName_;
+	QString m_actionName;
 	/** @brief Detailed description of the state (operation). */
-	QString actionDescription_;
+	QString m_actionDescription;
 	/** @brief Icon related to the state (operation) */
-	QPixmap *actionPixmap_;
+	QPixmap *m_actionPixmap;
 	/** @brief UndoObject this state belongs to */
-	UndoObjectPtr undoObject_;
+	UndoObjectPtr m_undoObject;
 };
 
 /*** SimpleState **************************************************************************/
@@ -301,8 +301,10 @@ public:
 	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemState() {}
+
 	void setItem(const C &c) { item_ = c; }
 	C getItem() const { return item_; }
+
 private:
 	C item_;
 };
@@ -315,9 +317,11 @@ public:
 	ScItemsState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemsState() {}
+
 	void insertItem(QString itemname, void * item) { pointerMap.insert(itemname, item); }
 	void* getItem(QString itemname) const { if (pointerMap.contains(itemname)) return pointerMap.value(itemname, NULL); else return NULL;}
 	QList< QPair<void*, int> > insertItemPos;
+
 private:
 	QMap<QString,void*> pointerMap;
 };
@@ -397,11 +401,12 @@ public:
 	void undo();
 	/** @brief redo all UndoStates in this transaction */
 	void redo();
+
 private:
 	/** @brief Number of undo states stored in this transaction */
-	uint size_;
+	uint m_size;
 	/** @brief vector to keep the states in */
-	std::vector<UndoState*> states_;
+	std::vector<UndoState*> m_states;
 };
 
 #endif

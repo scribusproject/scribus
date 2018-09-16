@@ -277,7 +277,7 @@ void UndoManager::switchStack(const QString& stackName)
 		stacks_[currentDoc_] = UndoStack();
 
 	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 100));
-	for (int i = 0; i < undoGuis_.size(); ++i)
+	for (size_t i = 0; i < undoGuis_.size(); ++i)
 		setState(undoGuis_[i]);
 
 	setTexts();
@@ -307,7 +307,7 @@ void UndoManager::removeStack(const QString& stackName)
 		stacks_.remove(stackName);
 		if (currentDoc_ == stackName)
 		{
-			for (int i = 0; i < undoGuis_.size(); ++i)
+			for (size_t i = 0; i < undoGuis_.size(); ++i)
 				undoGuis_[i]->clear();
 			currentDoc_ = "__no_name__";
 		}
@@ -317,7 +317,7 @@ void UndoManager::removeStack(const QString& stackName)
 void UndoManager::clearStack()
 {
 	stacks_[currentDoc_].clear();
-	for (int i = 0; i < undoGuis_.size(); ++i)
+	for (size_t i = 0; i < undoGuis_.size(); ++i)
 	{
 		undoGuis_[i]->clear();
 		setState(undoGuis_[i]);
