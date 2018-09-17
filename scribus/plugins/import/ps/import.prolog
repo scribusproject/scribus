@@ -75,6 +75,7 @@ currentdict /doimage {
 	//doimage exec
 } .forceput
 end
+/.currentopacityalpha {//.currentopacityalpha} bind def
 setglobal
 .bindnow
 
