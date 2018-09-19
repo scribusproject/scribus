@@ -266,7 +266,7 @@ public:
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
 	ScMWMenuManager* scrMenuMgr;
 	ActionManager* actionManager;
-	QStringList RecentDocs;
+	QStringList m_recentDocsList;
 	QStringList patternsDependingOnThis;
 
 public slots:

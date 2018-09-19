@@ -791,7 +791,7 @@ void ScribusMainWindow::initMdiArea()
 
 void ScribusMainWindow::initMenuBar()
 {
-	RecentDocs.clear();
+	m_recentDocsList.clear();
 	scrMenuMgr->createMenu("File", ActionManager::defaultMenuNameEntryTranslated("File"));
 	scrMenuMgr->addMenuItemString("fileNew", "File");
 	scrMenuMgr->addMenuItemString("fileNewFromTemplate", "File");
@@ -2105,7 +2105,7 @@ void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
 	PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage());
+	NewDoc* dia = new NewDoc(this, m_recentDocsList, true, ScCore->getGuiLanguage());
 	if (dia->exec())
 	{
 		if (dia->tabSelected() == NewDoc::NewDocumentTab)
@@ -2189,7 +2189,7 @@ bool ScribusMainWindow::slotFileNew()
 		view->requestMode(submodeEndNodeEdit);
 	bool retVal = false;
 	bool docSet = false;
-	NewDoc* dia = new NewDoc(this, RecentDocs);
+	NewDoc* dia = new NewDoc(this, m_recentDocsList);
 	if (dia->exec())
 	{
 		int facingPages = dia->choosenLayout();
@@ -2940,17 +2940,17 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 
 void ScribusMainWindow::updateRecent(const QString& fn)
 {
-	if (RecentDocs.indexOf(fn) != -1)
-		RecentDocs.removeAll(fn);
-	RecentDocs.prepend(fn);
+	if (m_recentDocsList.indexOf(fn) != -1)
+		m_recentDocsList.removeAll(fn);
+	m_recentDocsList.prepend(fn);
 	rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::removeRecent(const QString& fn, bool fromFileWatcher)
 {
-	if (RecentDocs.indexOf(fn) != -1)
+	if (m_recentDocsList.indexOf(fn) != -1)
 	{
-		RecentDocs.removeAll(fn);
+		m_recentDocsList.removeAll(fn);
 		//#9845: if (!fromFileWatcher)
 		//#9845:	ScCore->fileWatcher->removeFile(fn);
 	}
@@ -2976,13 +2976,13 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	QString strippedName, localName;
 	scrMenuMgr->clearMenuStrings("FileOpenRecent");
 	scrRecentFileActions.clear();
-	int max = qMin(m_prefsManager->appPrefs.uiPrefs.recentDocCount, RecentDocs.count());
+	int max = qMin(m_prefsManager->appPrefs.uiPrefs.recentDocCount, m_recentDocsList.count());
 	for (int i = 0; i < max; ++i)
 	{
-		strippedName = localName = QDir::toNativeSeparators(RecentDocs[i]);
+		strippedName = localName = QDir::toNativeSeparators(m_recentDocsList[i]);
 		strippedName.remove(QDir::separator());
 		strippedName.prepend(QString("%1").arg(i+1, 2, 10, QChar('0')));
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(i+1).arg(localName.replace("&","&&")), QKeySequence(), this, RecentDocs[i]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(i+1).arg(localName.replace("&","&&")), QKeySequence(), this, m_recentDocsList[i]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
@@ -6845,25 +6845,25 @@ int ScribusMainWindow::ShowSubs()
 #else
 	if (!m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 	{
-		for (int a = 0; a < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); a++)
+		for (int i = 0; i < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); i++)
 		{
-			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].palettes;
+			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].palettes;
 			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
 			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
 			bool found = false;
-			for (int i = 0; i < bars.count(); ++i)
+			for (int j = 0; j < bars.count(); ++j)
 			{
-				QTabBar *bar = bars[i];
-				for (int ii = 0; ii < bar->count(); ii++)
+				QTabBar *bar = bars[j];
+				for (int k = 0; k < bar->count(); k++)
 				{
-					QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
+					QObject *obj = (QObject*)bar->tabData(k).toULongLong();
 					if (obj != nullptr)
 					{
 						if (obj->objectName() == container->objectName())
 						{
-							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
+							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
 							{
-								bar->setCurrentIndex(m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
+								bar->setCurrentIndex(m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
 								found = true;
 								break;
 							}
@@ -6939,7 +6939,7 @@ void ScribusMainWindow::doPrintPreview()
 	QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
-		for (uint i = 0; i < d.count(); i++)
+		for (int i = 0; i < d.count(); i++)
 			QFile::remove(prefsManager->preferencesLocation() +"/" + d[i]);
 	}
 }
@@ -6952,12 +6952,12 @@ void ScribusMainWindow::printPreview()
 		{
 			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
-				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default
 											QMessageBox::Ignore);	// batch default
-				if (t == QMessageBox::Abort)
+				if (i == QMessageBox::Abort)
 					return;
 			}
 			else
@@ -8870,14 +8870,14 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 		return;
 
 	PageItem_ImageFrame* imageItem=currItem->asImageFrame();
-	int t=QMessageBox::Yes;
+	int i=QMessageBox::Yes;
 	if (imageItem->imageIsAvailable)
-		t = ScMessageBox::warning(this, CommonStrings::trWarning,
+		i = ScMessageBox::warning(this, CommonStrings::trWarning,
 								tr("Do you really want to replace your existing image?"),
 								QMessageBox::Yes | QMessageBox::No,
 								QMessageBox::No,	// GUI default
 								QMessageBox::Yes);	// batch default
-	if (t != QMessageBox::Yes)
+	if (i != QMessageBox::Yes)
 		return;
 
 	imageItem->EmProfile = "";

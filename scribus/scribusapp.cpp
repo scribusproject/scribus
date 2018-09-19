@@ -203,7 +203,8 @@ void ScribusQApp::parseCommandLine()
 		{
 			header=true;
 			version=true;
-		} else if (arg == ARG_HELP || arg == ARG_HELP_SHORT)
+		}
+		else if (arg == ARG_HELP || arg == ARG_HELP_SHORT)
 		{
 			header=true;
 			usage=true;
@@ -222,7 +223,8 @@ void ScribusQApp::parseCommandLine()
 		{
 			header=true;
 			availlangs=true;
-		} else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT)
+		}
+		else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT)
 		{
 			header=true;
 			runUpgradeCheck=true;
@@ -404,8 +406,7 @@ QStringList ScribusQApp::getLang(QString lang)
 				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 				if (userprefsContext)
 				{
-					QString prefslang = userprefsContext->get("gui_language","");
-					prefslang = cleanupLang(prefslang);
+					QString prefslang(cleanupLang(userprefsContext->get("gui_language","")));
 					if (!prefslang.isEmpty())
 						langs.append(prefslang);
 				}

@@ -56,8 +56,7 @@ QString cleanupLang(const QString& lang)
 	if (dotIndex < 0)
 		return lang;
 
-	QString cleanLang = lang.left(dotIndex);
-	return cleanLang;
+	return lang.left(dotIndex);
 }
 
 int System(const QString& exename, const QStringList & args, const QString& fileStdErr, const QString& fileStdOut, const bool* cancel)
@@ -136,15 +135,14 @@ bool loadText(const QString& filename, QString *Buffer)
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return false;
-	bool ret;
 	QByteArray bb(f.size(), ' ');
-	if (f.open(QIODevice::ReadOnly))
-	{
-		f.read(bb.data(), f.size());
-		f.close();
-		for (int posi = 0; posi < bb.size(); ++posi)
-			*Buffer += QChar(bb[posi]);
-		/*
+	if (!f.open(QIODevice::ReadOnly))
+		return false;
+	f.read(bb.data(), f.size());
+	f.close();
+	for (int i = 0; i < bb.size(); ++i)
+		*Buffer += QChar(bb[i]);
+	/*
 		int len = bb.size();
 		int oldLen = Buffer->length();
 		Buffer->setLength( oldLen + len + 1);
@@ -155,11 +153,7 @@ bool loadText(const QString& filename, QString *Buffer)
 		*ucsString++ = *data++;
 		*ucsString = 0;
 		*/
-		ret = true;
-	}
-	else
-		ret = false;
-	return ret;
+	return true;
 }
 
 bool loadRawText(const QString & filename, QByteArray & buf)
@@ -305,10 +299,10 @@ QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
 	QString out;
-	for( int xi = 0; xi < in->length(); ++xi )
+	for(int j = 0; j < in->length(); ++j)
 	{
 		// Qt4 .cell() added ???
-		out += toHex(QChar(in->at(xi)).cell());
+		out += toHex(QChar(in->at(j)).cell());
 		++i;
 		if ((i>40) && (lang))
 		{
@@ -327,7 +321,7 @@ QString Path2Relative(const QString& Path, const QString& baseDir)
 
 QString Relative2Path(const QString& File, const QString& baseDir)
 {
-	QString   absPath;
+	QString absPath;
 	QFileInfo fi(File);
 	if (File.isEmpty())
 		absPath = File;

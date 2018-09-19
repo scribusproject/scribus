@@ -927,7 +927,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 		QFileInfo fd(appPrefs.uiPrefs.RecentDocs[m]);
 		if (fd.exists())
 		{
-			mw->RecentDocs.append(appPrefs.uiPrefs.RecentDocs[m]);
+			mw->m_recentDocsList.append(appPrefs.uiPrefs.RecentDocs[m]);
 			//#9845: ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
 		}
 	}
@@ -1020,10 +1020,10 @@ void PrefsManager::SavePrefs()
 	appPrefs.uiPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
 	appPrefs.uiPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
 	appPrefs.uiPrefs.RecentDocs.clear();
-	uint max = qMin(appPrefs.uiPrefs.recentDocCount, ScCore->primaryMainWindow()->RecentDocs.count());
+	uint max = qMin(appPrefs.uiPrefs.recentDocCount, ScCore->primaryMainWindow()->m_recentDocsList.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		appPrefs.uiPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
+		appPrefs.uiPrefs.RecentDocs.append(ScCore->primaryMainWindow()->m_recentDocsList[m]);
 	}
 	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
 	SavePrefsXML();

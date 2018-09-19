@@ -648,8 +648,7 @@ bool FontFamilyDelegate::helpEvent(QHelpEvent * event, QAbstractItemView * view,
 	return QAbstractItemDelegate::helpEvent(event, view, option, index);
 }
 
-QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
-								   const QModelIndex &index) const
+QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QString text(index.data(Qt::DisplayRole).toString());
 	QFont font(option.font);

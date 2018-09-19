@@ -246,7 +246,6 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	
 	double newX, newY;
 	PageItem *currItem;
-	QPoint np, np2, mop;
 	QPainter p;
 //	QRect tx;
 	m->accept();

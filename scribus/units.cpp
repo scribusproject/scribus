@@ -139,9 +139,7 @@ scUnit unitIndexFromString(const QString& value)
 const QString unitGetSuffixFromIndex(const int index)
 {
 	if (index==SC_P)
-	{
 		return "";
-	}
 	return QString(" %1").arg(unitGetStrFromIndex(index));
 }
 
@@ -357,8 +355,8 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
 		
 	double pts = 0.0, ret = 0.0;
 	//Can make this not convert to points at a later stage, for now, the function exists and works.
-	pts= primaryUnit==0 ? unitValue : unitValue / unitGetRatioFromIndex(primaryUnit);
-	ret= secondaryUnit==0 ? pts : pts * unitGetRatioFromIndex(secondaryUnit);
+	pts = primaryUnit == 0 ? unitValue : unitValue / unitGetRatioFromIndex(primaryUnit);
+	ret = secondaryUnit == 0 ? pts : pts * unitGetRatioFromIndex(secondaryUnit);
 	return ret;
 }
 
@@ -366,15 +364,15 @@ QString value2String(double unitValue, int unitIndex, bool round2Precision, bool
 {
 	QString s;
 
-	if (unitIndex==SC_PICAS)
+	if (unitIndex == SC_PICAS)
 	{
-		int a=(static_cast<int>(unitValue))/12;
-		double b=fabs(fmod(unitValue, 12));
-		QString prefix((a==0 && unitValue < 0.0) ? "-" : "");
+		int i = (static_cast<int>(unitValue))/12;
+		double d = fabs(fmod(unitValue, 12));
+		QString prefix((i == 0 && unitValue < 0.0) ? "-" : "");
 //		if (round2Precision)
 //			s=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(unitIndex)).arg(QString::number(b, 'f', unitGetPrecisionFromIndex(unitIndex)));
 //		else
-			s=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(unitIndex)).arg(b);
+			s=QString("%1%2%3%4").arg(prefix).arg(i).arg(unitGetStrFromIndex(unitIndex)).arg(d);
 	}
 	else
 	{
@@ -383,7 +381,7 @@ QString value2String(double unitValue, int unitIndex, bool round2Precision, bool
 		else
 			s=QString::number(pts2value(unitValue, unitIndex));
 		if (appendSuffix)
-			s += " "+unitGetStrFromIndex(unitIndex);
+			s += " " + unitGetStrFromIndex(unitIndex);
 	}
 	return s;
 }
@@ -414,9 +412,9 @@ double unitRulerGetIter2FromIndex(const int index)
 
 bool unitValidForDocUnit(const int index)
 {
-	if (index<UNITMIN || index>UNITMAX)
+	if (index < UNITMIN || index > UNITMAX)
 		return false;
-	if (index==6 || index==7)
+	if (index == SC_DEGREES || index == SC_PERCENT)
 		return false;
 	return true;
 }
