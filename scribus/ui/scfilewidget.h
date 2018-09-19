@@ -30,14 +30,17 @@ public:
 	ScFileWidget(QWidget * parent);
 
 	QString selectedFile();
+	void forceDoubleClickActivation(bool force);
 
 public slots:
-	void accept();
 	void locationDropped(const QString& fileUrl);
 	void gotoParentDirectory();
 	void gotoSelectedDirectory();
 	void gotoDesktopDirectory();
 	void gotoHomeDirectory();
+
+private:
+	bool m_forceDoubleClickActivation;
 };
 
 #endif

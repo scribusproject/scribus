@@ -5,8 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <cstdlib>
+
 #include <QDebug>
 #include <QStandardPaths>
+#include <QLineEdit>
 #include <QListView>
 #include <QPushButton>
 #include <QStringList>
@@ -18,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 
 ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 {
+	m_forceDoubleClickActivation = false;
+
 	setOption(QFileDialog::DontUseNativeDialog);
 	setSizeGripEnabled(false);
 	setModal(false);
@@ -58,6 +63,21 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
 
+void ScFileWidget::forceDoubleClickActivation(bool force)
+{
+	// Hack to make the previews in our file dialogs useable again,
+	// needed e.g on OpenSuse KDE. Otherwise file would open on first
+	// click, leaving user no time to see preview.
+	if (m_forceDoubleClickActivation == force)
+		return;
+
+	if (force)
+		setStyleSheet(QStringLiteral("QAbstractItemView { activate-on-singleclick: 0; }"));
+	else
+		setStyleSheet(QString());
+	m_forceDoubleClickActivation = force;
+}
+
 QString ScFileWidget::selectedFile()
 {
 	QStringList l(selectedFiles());
@@ -66,28 +86,20 @@ QString ScFileWidget::selectedFile()
 	return l.at(0);
 }
 
-/* Hack to make the previews in our file dialogs useable again,
-   needed e.g on OpenSuse KDE. Otherwise file would open on first
-   click, leaving user no time to see preview. Drawback: in other 
-   Linux desktop environment, this may force user to click OK for
-   opening/saving file. */
-void ScFileWidget::accept()
-{
-#ifndef Q_OS_LINUX
-	QFileDialog::accept();
-#endif
-}
-
 void ScFileWidget::locationDropped(const QString& fileUrl)
 {
 	QFileInfo fi(fileUrl);
 	if (fi.isDir())
-		setDirectory(fi.absoluteFilePath());
-	else
 	{
-		setDirectory(fi.absolutePath());
-		selectFile(fi.fileName());
+		setDirectory(fi.absoluteFilePath());
+		return;
 	}
+
+	QString absFilePath = fi.absolutePath();
+	QString fileName = fi.fileName();
+		
+	setDirectory(absFilePath);
+	selectFile(fileName);
 }
 
 void ScFileWidget::gotoParentDirectory()

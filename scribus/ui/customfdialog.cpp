@@ -362,6 +362,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		Layout1C->addItem( spacer2 );
 		vboxLayout->addWidget(LayoutC);
 		fileDialog->setFileMode(QFileDialog::DirectoryOnly);
+		fileDialog->forceDoubleClickActivation(false);
 		filePreview->hide();
 		showPreview->setVisible(false);
 		showPreview->setChecked(false);
@@ -482,6 +483,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		if (flags & fdCompressFile)
 			connect(saveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
+	fileDialog->forceDoubleClickActivation(m_previewIsShown);
 	fileDialog->setNameFilterDetailsVisible(false);
 	m_extZip = "gz";
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okClicked()));
@@ -518,6 +520,7 @@ void CustomFDialog::okClicked()
 void CustomFDialog::togglePreview()
 {
 	m_previewIsShown = !m_previewIsShown;
+	fileDialog->forceDoubleClickActivation(m_previewIsShown);
 	filePreview->setVisible(m_previewIsShown);
 	if (m_previewIsShown)
 	{
