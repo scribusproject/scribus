@@ -101,7 +101,6 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	double newX, newY;
 	PageItem *currItem;
-	QPoint np, np2, mop;
 	FPoint npf, npf2;
 //	QRect tx;
 	m->accept();

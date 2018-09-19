@@ -104,7 +104,6 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	
 	double newX, newY;
 	PageItem *currItem;
-	QPoint np, np2, mop;
 	FPoint npf, npf2;
 //	QRect tx;
 	m->accept();
