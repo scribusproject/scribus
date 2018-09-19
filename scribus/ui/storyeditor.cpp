@@ -3375,7 +3375,7 @@ void StoryEditor::LoadTextFile()
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files (*)"), fdExistingFiles | fdShowCodecs | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
 			return;
-		LoadEnc = dia.TxCodeM->currentText();
+		LoadEnc = dia.optionCombo->currentText();
 		if (LoadEnc == "UTF-16")
 			LoadEnc = "ISO-10646-UCS-2";
 		fileName =  dia.selectedFile();
@@ -3414,7 +3414,7 @@ void StoryEditor::SaveTextFile()
 		m_blockUpdate = false;
 		return;
 	}
-	LoadEnc = dia.TxCodeM->currentText();
+	LoadEnc = dia.optionCombo->currentText();
 	if (LoadEnc == "UTF-16")
 		LoadEnc = "ISO-10646-UCS-2";
 	fileName =  dia.selectedFile();

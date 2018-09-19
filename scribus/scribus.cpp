@@ -8074,17 +8074,17 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 		dia->setExtension(f.suffix());
 		dia->setZipExtension(f.suffix() + ".gz");
 		dia->setSelection(defaultFilename);
-		if (useCompression != nullptr && dia->SaveZip != nullptr)
-			dia->SaveZip->setChecked(*useCompression);
+		if (useCompression != nullptr && dia->saveZip != nullptr)
+			dia->saveZip->setChecked(*useCompression);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
-		if (useCompression != nullptr && dia->SaveZip != nullptr)
-			dia->SaveZip->setChecked(*useCompression);
+		if (useCompression != nullptr && dia->saveZip != nullptr)
+			dia->saveZip->setChecked(*useCompression);
 		if (useFonts != nullptr)
-			dia->WithFonts->setChecked(*useFonts);
+			dia->withFonts->setChecked(*useFonts);
 		if (useProfiles != nullptr)
-			dia->WithProfiles->setChecked(*useProfiles);
+			dia->withProfiles->setChecked(*useProfiles);
 	}
 	QString retval("");
 	if (dia->exec() == QDialog::Accepted)
@@ -8092,21 +8092,21 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 		LoadEnc = "";
 		if (!(optionFlags & fdDirectoriesOnly))
 		{
-			LoadEnc = (optionFlags & fdShowCodecs) ? dia->TxCodeM->currentText() : QString("");
+			LoadEnc = (optionFlags & fdShowCodecs) ? dia->optionCombo->currentText() : QString("");
 			if (optionFlags & fdCompressFile)
 			{
-				if (dia->SaveZip->isChecked())
+				if (dia->saveZip->isChecked())
 					dia->handleCompress();
 			}
 		}
 		else
 		{
-			if (useCompression != nullptr && dia->SaveZip != nullptr)
-				*useCompression = dia->SaveZip->isChecked();
+			if (useCompression != nullptr && dia->saveZip != nullptr)
+				*useCompression = dia->saveZip->isChecked();
 			if (useFonts != nullptr)
-				*useFonts = dia->WithFonts->isChecked();
+				*useFonts = dia->withFonts->isChecked();
 			if (useProfiles != nullptr)
-				*useProfiles = dia->WithProfiles->isChecked();
+				*useProfiles = dia->withProfiles->isChecked();
 		}
 		this->repaint();
 		retval = dia->selectedFile();

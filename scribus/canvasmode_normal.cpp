@@ -1852,12 +1852,12 @@ void CanvasMode_Normal::importToPage()
 		if (m_doc->m_Selection->count() > 0)
 		{
 			PageItem *newItem = m_doc->m_Selection->itemAt(0);
-			if (dia.TxCodeM->currentIndex() == 1)
+			if (dia.optionCombo->currentIndex() == 1)
 			{
 				if ((newItem->width() > m_doc->currentPage()->width()) || (newItem->height() > m_doc->currentPage()->height()))
 					m_doc->rescaleGroup(newItem, qMin(qMin(m_doc->currentPage()->width() / newItem->width(), m_doc->currentPage()->height() / newItem->height()), 1.0));
 			}
-			else if (dia.TxCodeM->currentIndex() == 2)
+			else if (dia.optionCombo->currentIndex() == 2)
 			{
 				m_doc->rescaleGroup(newItem, qMax(qMin(m_doc->currentPage()->width() / newItem->width(), m_doc->currentPage()->height() / newItem->height()), 1.0));
 			}
