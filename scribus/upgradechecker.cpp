@@ -14,19 +14,15 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QWidget>
 
-#include <iostream>
+#include <chrono>
 #include <cstdlib>
+#include <iostream>
+#include <thread>
 
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "upgradechecker.h"
-
-
-#ifdef _WIN32
-#include <windows.h>
-#define sleep(t) Sleep(t*1000)
-#endif
 
 UpgradeChecker::UpgradeChecker()
 {
@@ -97,19 +93,17 @@ void UpgradeChecker::fetch()
 			int waitCount=0;
 			while (!m_fin && waitCount<20)
 			{
-					sleep(1);
-					++waitCount;
-					if (m_writeToConsole)
-							std::cout << ". " << std::flush;
-					outputText( ".", true );
-					qApp->processEvents();
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+				++waitCount;
+				if (m_writeToConsole)
+					std::cout << ". " << std::flush;
+				outputText( ".", true );
+				qApp->processEvents();
 			}
 			if (m_writeToConsole)
-					std::cout << std::endl;
-			if (waitCount>=20)
-			{
-					outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
-			}
+				std::cout << std::endl;
+			if (waitCount >= 20)
+				outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 			m_file->close();
 		}
 		m_file->remove();

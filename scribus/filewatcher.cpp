@@ -7,13 +7,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include <chrono>
+#include <thread>
+
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
-
-#if defined(_WIN32) && !defined(usleep)
-#include <windows.h>
-#define usleep(t) Sleep((t > 1000) ? (t / 1000) : 1)
 #endif
 
 #include <QDebug>
@@ -116,7 +114,7 @@ void FileWatcher::stop()
 	m_watchTimer->stop();
 	m_stateFlags |= StopRequested;
 	while ((m_stateFlags & FileCheckRunning))
-		usleep(100);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	m_stateFlags &= ~StopRequested;
 	m_stateFlags |= TimerStopped;
 }
@@ -206,15 +204,15 @@ void FileWatcher::checkFiles()
 			}
 			else
 			{
-				uint sizeo = it.value().info.size();
-				usleep(100);
+				qint64 sizeo = it.value().info.size();
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				it.value().info.refresh();
-				uint sizen = it.value().info.size();
+				qint64 sizen = it.value().info.size();
 				//					qDebug()<<"Size comparison"<<sizeo<<sizen<<it.key();
 				while (sizen != sizeo)
 				{
 					sizeo = sizen;
-					usleep(100);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 					it.value().info.refresh();
 					sizen = it.value().info.size();
 				}

@@ -5,11 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "docim.h"
-#include "gtwriter.h"
-#include "scpaths.h"
-#include "scribusstructs.h"
-#include "ui/scmessagebox.h"
+#include <chrono>
+#include <thread>
+
 #include <QObject>
 #include <QByteArray>
 #include <QMessageBox>
@@ -18,10 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QTextCodec>
 
-#if defined(_WIN32) && !defined(usleep)
-#include <windows.h>
-#define usleep(t) Sleep((t > 1000) ? (t / 1000) : 1)
-#endif
+#include "docim.h"
+#include "gtwriter.h"
+#include "scpaths.h"
+#include "scribusstructs.h"
+#include "ui/scmessagebox.h"
 
 bool hasAntiword()
 {
@@ -39,7 +38,7 @@ bool hasAntiword()
 	{
 		found = true;
 		test->terminate();
-		usleep(5000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(5));
 		test->kill();	
 	}
 	delete test;
@@ -69,7 +68,7 @@ void GetText(const QString& filename, const QString& encoding, bool textOnly, gt
 	DocIm *dim = new DocIm(filename, encoding, textOnly, writer);
 	while (dim->isRunning())
 	{
-		usleep(5000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(5));
 	}
 	delete dim;
 }
@@ -113,7 +112,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	}
 	while (proc->waitForReadyRead())
 	{
-		usleep(5000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(5));
 	}
 
 	while(!proc->atEnd() || proc->state()==QProcess::Running)
@@ -136,7 +135,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 			}
 			else
 			{
-				usleep(5000);
+				std::this_thread::sleep_for(std::chrono::milliseconds(5));
 			}
 		}
 	}
