@@ -748,12 +748,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	PageItem *currItem;
 	UndoTransaction activeTransaction;
 	bool img = false;
-	m_canvas->resetRenderMode();
-	int re = 0;
-	e->accept();
 	bool selectedItemByDrag = false;
+	int re = 0;
+
+	m_canvas->resetRenderMode();
+	e->accept();
+	
 	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
+
 	//Loop through all items and see which one(s) were under the drop point on the current layer
 	//Should make a nice function for this.
 	//#9051 :  loop in reverse order so that items in front of others are prioritized
@@ -772,6 +775,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 	}
 	Doc->m_Selection->delaySignalsOff();
+
 	QStringList imfo;
 	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
 	for (int i = 0; i < imgs.count(); ++i )
@@ -780,12 +784,13 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
 	imfo += formatD.split("|");
+
 	if (e->mimeData()->hasUrls())
 	{
 		if ((e->mimeData()->urls().count() == 1) || selectedItemByDrag)
 		{
 			url = e->mimeData()->urls().at(0);
-			text = "";
+			text.clear();
 		}
 		else
 		{
@@ -841,10 +846,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 	}
-	else if (e->mimeData()->hasText() && (!e->mimeData()->text().isEmpty()))
+	else if (e->mimeData()->hasFormat("application/x-scribus-elem"))
 	{
-		text = e->mimeData()->text();
-		url = QUrl(text);
+		const ScElemMimeData* scMimeData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
+		if (scMimeData)
+			text = scMimeData->scribusElem();
 	}
 	else if (e->mimeData()->hasFormat("text/symbol"))
 	{
@@ -926,7 +932,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 
 	//	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
-	if (url.isEmpty())
+	if (url.isEmpty() && text.isEmpty())
 	{
 		e->ignore();
 		return;
@@ -946,7 +952,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	//>>
 	QFileInfo fi;
 	QString ext;
-	if (!e->mimeData()->formats().contains("application/x-scribus-elem"))
+	if (!e->mimeData()->hasFormat("application/x-scribus-elem"))
 	{
 		fi.setFile(url.toLocalFile());
 		ext = fi.suffix().toUpper();
