@@ -715,15 +715,15 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		}
 		else
 		{
-			b = SelItem.at(0);
+			item = SelItem.at(0);
 			if (img)
 			{
-				if (b->PType != 2)
+				if (item->PType != 2)
 					Deselect(true);
 			}
 			else
 			{
-				if (b->PType != 4)
+				if (item->PType != 4)
 					Deselect(true);
 			}
 		} */
@@ -804,42 +804,41 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				QString ext = fi.suffix().toUpper();
 				if (ext == "JPG")
 					ext = "JPEG";
-				if (imfo.contains(ext) && fi.exists() && !selectedItemByDrag)
+				if (!imfo.contains(ext) || !fi.exists() || selectedItemByDrag)
+					continue;
+				int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x() + dropOffsetX, dropPosDoc.y() + dropOffsetY, 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
+				PageItem *item = Doc->Items->at(z);
+				item->LayerID = Doc->activeLayer();
+				Doc->loadPict(url.toLocalFile(), item);
+				double iw = static_cast<double>(item->OrigW * 72.0 / item->pixm.imgInfo.xres);
+				double ih = static_cast<double>(item->OrigH * 72.0 / item->pixm.imgInfo.yres);
+				if (iw > ih)
 				{
-					int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x() + dropOffsetX, dropPosDoc.y() + dropOffsetY, 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
-					PageItem *b = Doc->Items->at(z);
-					b->LayerID = Doc->activeLayer();
-					Doc->loadPict(url.toLocalFile(), b);
-					double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
-					double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
-					if (iw > ih)
+					double pw = Doc->currentPage()->width();
+					if (iw > pw)
 					{
-						double pw = Doc->currentPage()->width();
-						if (iw > pw)
-						{
-							ih = pw * (ih / iw);
-							iw = pw;
-						}
+						ih = pw * (ih / iw);
+						iw = pw;
 					}
-					else
-					{
-						double ph = Doc->currentPage()->height();
-						if (ih > ph)
-						{
-							iw = ph * (iw / ih);
-							ih = ph;
-						}
-					}
-					b->setWidth(iw);
-					b->setHeight(ih);
-					b->OldB2 = b->width();
-					b->OldH2 = b->height();
-					b->updateClip();
-					b->AdjustPictScale();
-					b->update();
-					dropOffsetX += Doc->opToolPrefs().dispX;
-					dropOffsetY += Doc->opToolPrefs().dispY;
 				}
+				else
+				{
+					double ph = Doc->currentPage()->height();
+					if (ih > ph)
+					{
+						iw = ph * (iw / ih);
+						ih = ph;
+					}
+				}
+				item->setWidth(iw);
+				item->setHeight(ih);
+				item->OldB2 = item->width();
+				item->OldH2 = item->height();
+				item->updateClip();
+				item->AdjustPictScale();
+				item->update();
+				dropOffsetX += Doc->opToolPrefs().dispX;
+				dropOffsetY += Doc->opToolPrefs().dispY;
 			}
 			emit DocChanged();
 			update();
@@ -880,17 +879,17 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (!selectedItemByDrag)
 		{
 			int z = Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None);
-			PageItem *b = Doc->Items->at(z);
-			b->LayerID = Doc->activeLayer();
+			PageItem *item = Doc->Items->at(z);
+			item->LayerID = Doc->activeLayer();
 			ScPattern pat = Doc->docPatterns[patternVal];
-			b->setWidth(pat.width);
-			b->setHeight(pat.height);
-			b->OldB2 = b->width();
-			b->OldH2 = b->height();
-			b->setPattern(patternVal);
-			b->updateClip();
+			item->setWidth(pat.width);
+			item->setHeight(pat.height);
+			item->OldB2 = item->width();
+			item->OldH2 = item->height();
+			item->setPattern(patternVal);
+			item->updateClip();
 			Deselect(false);
-			Doc->m_Selection->addItem(b);
+			Doc->m_Selection->addItem(item);
 		}
 		emit DocChanged();
 		update();
@@ -900,8 +899,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	{
 		if (((Doc->appMode == modeEditTable) || (Doc->appMode == modeEdit)) && (!Doc->m_Selection->isEmpty()))
 		{
-			PageItem *b = Doc->m_Selection->itemAt(0);
-			if (b->isTextFrame() || b->isTable())
+			PageItem *item = Doc->m_Selection->itemAt(0);
+			if (item->isTextFrame() || item->isTable())
 			{
 				e->acceptProposedAction();
 				activateWindow();
@@ -913,17 +912,17 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				int id = patternVal.toInt();
 				PageItem_TextFrame *cItem;
 				if (Doc->appMode == modeEditTable)
-					cItem = b->asTable()->activeCell().textFrame();
+					cItem = item->asTable()->activeCell().textFrame();
 				else
-					cItem = b->asTextFrame();
+					cItem = item->asTextFrame();
 				if (cItem->HasSel)
 					cItem->deleteSelectedTextFromFrame();
 				cItem->invalidateLayout(false);
 				cItem->itemText.insertObject(id);
-				if (b->isTable())
-					b->asTable()->update();
+				if (item->isTable())
+					item->asTable()->update();
 				else
-					b->update();
+					item->update();
 				emit DocChanged();
 				update();
 				return;
@@ -985,12 +984,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 	{
 		int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
-		PageItem *b = Doc->Items->at(z);
-		b->LayerID = Doc->activeLayer();
-		Doc->loadPict(url.toLocalFile(), b);
+		PageItem *item = Doc->Items->at(z);
+		item->LayerID = Doc->activeLayer();
+		Doc->loadPict(url.toLocalFile(), item);
 
-		double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
-		double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
+		double iw = static_cast<double>(item->OrigW * 72.0 / item->pixm.imgInfo.xres);
+		double ih = static_cast<double>(item->OrigH * 72.0 / item->pixm.imgInfo.yres);
 		if (iw > ih)
 		{
 			double pw = Doc->currentPage()->width();
@@ -1010,13 +1009,13 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 		}
 
-		b->setWidth(iw);
-		b->setHeight(ih);
-		b->OldB2 = b->width();
-		b->OldH2 = b->height();
-		b->updateClip();
-		b->AdjustPictScale();
-		b->update();
+		item->setWidth(iw);
+		item->setHeight(ih);
+		item->OldB2 = item->width();
+		item->OldH2 = item->height();
+		item->updateClip();
+		item->AdjustPictScale();
+		item->update();
 		emit DocChanged();
 		update();
 		return;
@@ -1025,64 +1024,63 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
 	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
 	{
-		PageItem *b = Doc->m_Selection->itemAt(0);
-		if (b->itemType() == PageItem::ImageFrame)
+		PageItem *item = Doc->m_Selection->itemAt(0);
+		if (item->itemType() == PageItem::ImageFrame)
 		{
 			if ((fi.exists()) && (img))
-				Doc->loadPict(url.toLocalFile(), b);
+				Doc->loadPict(url.toLocalFile(), item);
 		}
-		else
-			if (b->itemType() == PageItem::TextFrame)
+		else if (item->itemType() == PageItem::TextFrame)
+		{
+			if ((fi.exists()) && (!img))
 			{
-				if ((fi.exists()) && (!img))
+				gtGetText* gt = new gtGetText(Doc);
+				QStringList exts = gt->getSupportedTypes();
+				if (exts.contains(fi.suffix().toLower()))
 				{
-					gtGetText* gt = new gtGetText(Doc);
-					QStringList exts = gt->getSupportedTypes();
-					if (exts.contains(fi.suffix().toLower()))
+					ImportSetup impsetup;
+					impsetup.runDialog = true;
+					impsetup.encoding = "";
+					impsetup.prefixNames = true;
+					impsetup.textOnly = false;
+					impsetup.importer = -1;
+					impsetup.filename = url.toLocalFile();
+					if (item->itemText.length() != 0)
 					{
-						ImportSetup impsetup;
-						impsetup.runDialog = true;
-						impsetup.encoding = "";
-						impsetup.prefixNames = true;
-						impsetup.textOnly = false;
-						impsetup.importer = -1;
-						impsetup.filename = url.toLocalFile();
-						if (b->itemText.length() != 0)
+						int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
+														QMessageBox::Yes | QMessageBox::No,
+														QMessageBox::No,	// GUI default
+														QMessageBox::Yes);	// batch default
+						if (t == QMessageBox::No)
 						{
-							int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
-														  QMessageBox::Yes | QMessageBox::No,
-														  QMessageBox::No,	// GUI default
-														  QMessageBox::Yes);	// batch default
-							if (t == QMessageBox::No)
-							{
-								delete gt;
-								return;
-							}
-						}
-						gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames, b);
-						m_ScMW->updateFromDrop();
-					}
-					else
-					{
-						QByteArray file;
-						QTextCodec *codec = QTextCodec::codecForLocale();
-						// TODO create a Dialog for selecting the codec
-						if (loadRawText(url.toLocalFile(), file))
-						{
-							QString txt = codec->toUnicode( file.data() );
-							txt.replace(QRegExp("\r"), QChar(13));
-							txt.replace(QRegExp("\n"), QChar(13));
-							txt.replace(QRegExp("\t"), QChar(9));
-							b->itemText.insertChars(txt, true);
+							delete gt;
+							return;
 						}
 					}
-					if (Doc->docHyphenator->AutoCheck)
-						Doc->docHyphenator->slotHyphenate(b);
-					b->invalidateLayout();
-					b->update();
-					delete gt;
+					gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames, item);
+					m_ScMW->updateFromDrop();
 				}
+				else
+				{
+					QByteArray file;
+					QTextCodec *codec = QTextCodec::codecForLocale();
+					// TODO create a Dialog for selecting the codec
+					if (loadRawText(url.toLocalFile(), file))
+					{
+						QString txt = codec->toUnicode( file.data() );
+						txt.replace(QRegExp("\r"), QChar(13));
+						txt.replace(QRegExp("\n"), QChar(13));
+						txt.replace(QRegExp("\t"), QChar(9));
+						item->itemText.insertChars(txt, true);
+					}
+				}
+				if (Doc->docHyphenator->AutoCheck)
+					Doc->docHyphenator->slotHyphenate(item);
+				item->invalidateLayout();
+				item->update();
+				delete gt;
 			}
+		}
 		emit DocChanged();
 		update();
 	}
