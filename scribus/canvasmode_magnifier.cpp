@@ -121,7 +121,7 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	m->accept();
 	if (commonMouseMove(m))
 		return;
-	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
+	if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(m_Myp + ((m_SeRx - m_Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
