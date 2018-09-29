@@ -191,46 +191,44 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-//	m_view->stopDragTimer();
-	if (m_doc->appMode == modeMagnifier)
+
+	double sc = m_canvas->scale();
+	if (m_view->HaveSelRect)
 	{
-		double sc = m_canvas->scale();
-		if (m_view->HaveSelRect)
+		QRect geom = m_view->redrawMarker->geometry().normalized();
+		geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
+		FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
+		double scaleH = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
+		double scaleV = m_view->visibleHeight() / static_cast<double>(qMax(geom.height(), 1));
+		double scaleAdjust = qMax(0.5, qMin(scaleH, scaleV));
+		m_view->zoom(nx.x(), nx.y(), m_canvas->scale() * scaleAdjust, false);
+		if (sc == m_canvas->scale())
 		{
-			QRect geom = m_view->redrawMarker->geometry().normalized();
-			geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
-			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
-			double scaleH = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
-			double scaleV = m_view->visibleHeight() / static_cast<double>(qMax(geom.height(), 1));
-			double scaleAdjust = qMax(0.5, qMin(scaleH, scaleV));
-			m_view->zoom(nx.x(), nx.y(), m_canvas->scale() * scaleAdjust, false);
-			if (sc == m_canvas->scale())
-			{
-				m_view->HaveSelRect = false;
-				m_view->setRedrawMarkerShown(false);
-				m_view->requestMode(submodePaintingDone);
-			}
+			m_view->HaveSelRect = false;
 			m_view->setRedrawMarkerShown(false);
+			m_view->requestMode(submodePaintingDone);
+		}
+		m_view->setRedrawMarkerShown(false);
+	}
+	else
+	{
+		int mx = qRound(mousePointDoc.x());
+		int my = qRound(mousePointDoc.y());
+		m_view->Magnify ? m_view->slotZoomIn(mx, my) : m_view->slotZoomOut(mx, my);
+		if (sc == m_canvas->scale())
+		{
+			m_view->HaveSelRect = false;
+			m_view->requestMode(submodePaintingDone);
 		}
 		else
 		{
-			int mx = qRound(mousePointDoc.x());
-			int my = qRound(mousePointDoc.y());
-			m_view->Magnify ? m_view->slotZoomIn(mx,my) : m_view->slotZoomOut(mx,my);
-			if (sc == m_canvas->scale())
-			{
-				m_view->HaveSelRect = false;
-				m_view->requestMode(submodePaintingDone);
-			}
+			if (m->modifiers() & Qt::ShiftModifier)
+				m_view->setCursor(IconManager::instance()->loadCursor("lupezm.png"));
 			else
-			{
-				if (m->modifiers() & Qt::ShiftModifier)
-					m_view->setCursor(IconManager::instance()->loadCursor("lupezm.png"));
-				else
-					m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
-			}
+				m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
 		}
 	}
+
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
