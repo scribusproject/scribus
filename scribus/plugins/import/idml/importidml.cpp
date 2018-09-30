@@ -666,7 +666,7 @@ bool IdmlPlug::convert(const QString& fn)
 				{
 					PageItem *Its = lc.key();
 					PageItem *Itn = frameTargets[lc.value()];
-					if (Its->testLinkCandidate(Itn))
+					if (Its->canBeLinkedTo(Itn))
 						Its->link(Itn);
 				}
 			}

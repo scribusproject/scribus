@@ -380,8 +380,6 @@ public: // Start public functions
 	ObjectAttribute getObjectAttribute(const QString&) const;
 	void setObjectAttributes(ObjAttrVector*);
 
-
-
 	void SetFrameShape(int count, const double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();
@@ -389,7 +387,6 @@ public: // Start public functions
 	QTransform getGroupTransform() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;
-
 
 	/// invalidates current layout information
 	virtual void invalidateLayout() { invalid = true; }
@@ -454,23 +451,22 @@ public: // Start public functions
 	void setCompressionMethodIndex(int val) { CompressionMethodIndex = val; }
 	void setOverrideCompressionQuality(bool val) { OverrideCompressionQuality = val; }
 	void setCompressionQualityIndex(int val) { CompressionQualityIndex = val; }
-	PageItem* prevInChain() { return BackBox; }
-	PageItem* nextInChain() { return NextBox; }
-	const PageItem* prevInChain() const { return BackBox; }
-	const PageItem* nextInChain() const { return NextBox; }
-	//simplify conditions checking if frame is in chain
-	//FIX: use it in other places
-	bool isInChain() { return ((prevInChain() != nullptr) || (nextInChain() != nullptr)); }
 
 	//you can change all code for search first or last item in chain
 	PageItem* firstInChain();
 	PageItem* lastInChain();
-	bool testLinkCandidate(PageItem* nextFrame);
+	PageItem* prevInChain() { return BackBox; }
+	PageItem* nextInChain() { return NextBox; }
+	const PageItem* prevInChain() const { return BackBox; }
+	const PageItem* nextInChain() const { return NextBox; }
+	bool isInChain() { return ((BackBox != nullptr) || (NextBox != nullptr)); }
+
+	bool canBeLinkedTo(PageItem* nextFrame);
 	void unlink(bool createUndo = true);
 	void link(PageItem* nextFrame, bool addPARSEP = true);
 	void dropLinks();
-	bool hasLinks() const;
 	void unlinkWithText(bool);
+
 	void setSampleItem(bool b) {m_sampleItem=b;}
 	const QVector<double>& dashes() const { return DashValues; }
 	QVector<double>& dashes() { return DashValues; }

@@ -1295,7 +1295,7 @@ int PageItem::lastInFrame() const
 	return qMin(signed(MaxChars), itemText.length()) - 1;
 }
 
-bool PageItem::testLinkCandidate(PageItem* nxt)
+bool PageItem::canBeLinkedTo(PageItem* nxt)
 {
 	if (this->nextInChain() )
 		return false;
@@ -1303,7 +1303,7 @@ bool PageItem::testLinkCandidate(PageItem* nxt)
 		return false;
 	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
 	{
-		if (ff == this) return false;
+		if (ff == this)return false;
 	}
 	return true;
 }
@@ -1484,11 +1484,6 @@ void PageItem::dropLinks()
 
 	// JG we should set BackBox and NextBox to nullptr at a point
 	BackBox = NextBox = nullptr;
-}
-
-bool PageItem::hasLinks() const
-{
-	return (BackBox != nullptr || NextBox != nullptr);
 }
 
 //unlink selected frame from text chain

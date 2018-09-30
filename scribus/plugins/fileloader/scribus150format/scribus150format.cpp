@@ -459,7 +459,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				{
 					PageItem * Its = LinkID[lc.key()];
 					PageItem * Itn = LinkID[lc.value()];
-					if (!Its->testLinkCandidate(Itn))
+					if (!Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -567,7 +567,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 						Its = m_Doc->DocItems.at(lc.key());
 					if (lc.value() < m_Doc->DocItems.count())
 						Itn = m_Doc->DocItems.at(lc.value());
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -958,7 +958,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				{
 					PageItem * Its = LinkID[lc.key()];
 					PageItem * Itn = LinkID[lc.value()];
-					if (!Its->testLinkCandidate(Itn))
+					if (!Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -1066,7 +1066,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 						Its = m_Doc->DocItems.at(lc.key());
 					if (lc.value() < m_Doc->DocItems.count())
 						Itn = m_Doc->DocItems.at(lc.value());
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -1087,7 +1087,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 						Its = m_Doc->MasterItems.at(lc.key());
 					if (lc.value() < m_Doc->MasterItems.count())
 						Itn = m_Doc->MasterItems.at(lc.value());
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -1641,7 +1641,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				{
 					PageItem * Its = LinkID[lc.key()];
 					PageItem * Itn = LinkID[lc.value()];
-					if (!Its->testLinkCandidate(Itn))
+					if (!Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -1748,7 +1748,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 						Its = m_Doc->DocItems.at(lc.key());
 					if (lc.value() < m_Doc->DocItems.count())
 						Itn = m_Doc->DocItems.at(lc.value());
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -1769,7 +1769,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 						Its = m_Doc->MasterItems.at(lc.key());
 					if (lc.value() < m_Doc->MasterItems.count())
 						Itn = m_Doc->MasterItems.at(lc.value());
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -6404,7 +6404,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				{
 					PageItem * Its = LinkID[lc.key()];
 					PageItem * Itn = LinkID[lc.value()];
-					if (!Its->testLinkCandidate(Itn))
+					if (!Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -6466,7 +6466,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						Its = m_Doc->DocItems.at(lc.key());
 					if (itemRemap[lc.value()] < m_Doc->DocItems.count())
 						Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
@@ -6487,7 +6487,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						Its = m_Doc->MasterItems.at(lc.key());
 					if (itemRemapM[lc.value()] < m_Doc->MasterItems.count())
 						Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
-					if (!Its || !Itn || !Its->testLinkCandidate(Itn))
+					if (!Its || !Itn || !Its->canBeLinkedTo(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
 						continue;
