@@ -16158,7 +16158,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 	}
 }
 
-void ScribusDoc::itemSelection_UnlinkTextFrameAndKeepText( Selection *customSelection, bool cutText)
+void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
@@ -16172,16 +16172,11 @@ void ScribusDoc::itemSelection_UnlinkTextFrameAndKeepText( Selection *customSele
 		if (!currItem || !currItem->asTextFrame())
 			continue;
 		if (currItem->nextInChain() || currItem->prevInChain())
-			currItem->unlinkWithText(cutText);
+			currItem->unlinkWithText();
 	}
 	regionsChanged()->update(QRectF());
 	changed();
 	itemSelection->itemAt(0)->emitAllToGUI();
-}
-
-void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelection)
-{
-	itemSelection_UnlinkTextFrameAndKeepText(customSelection, true);
 }
 
 void ScribusDoc::itemSelection_UnWeld()

@@ -461,11 +461,11 @@ public: // Start public functions
 	const PageItem* nextInChain() const { return NextBox; }
 	bool isInChain() { return ((BackBox != nullptr) || (NextBox != nullptr)); }
 
-	bool canBeLinkedTo(PageItem* nextFrame);
+	bool canBeLinkedTo(const PageItem* nextFrame) const;
 	void unlink(bool createUndo = true);
 	void link(PageItem* nextFrame, bool addPARSEP = true);
 	void dropLinks();
-	void unlinkWithText(bool);
+	void unlinkWithText();
 
 	void setSampleItem(bool b) {m_sampleItem=b;}
 	const QVector<double>& dashes() const { return DashValues; }

@@ -1295,15 +1295,16 @@ int PageItem::lastInFrame() const
 	return qMin(signed(MaxChars), itemText.length()) - 1;
 }
 
-bool PageItem::canBeLinkedTo(PageItem* nxt)
+bool PageItem::canBeLinkedTo(const PageItem* nxt) const
 {
 	if (this->nextInChain() )
 		return false;
 	if (!nxt || nxt->prevInChain() )
 		return false;
-	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
+	for (const PageItem* ff = nxt; ff; ff = ff->nextInChain())
 	{
-		if (ff == this)return false;
+		if (ff == this)
+			return false;
 	}
 	return true;
 }
@@ -1488,7 +1489,7 @@ void PageItem::dropLinks()
 
 //unlink selected frame from text chain
 //but copy or cut its content from itemText
-void PageItem::unlinkWithText(bool cutText)
+void PageItem::unlinkWithText()
 {
 	PageItem * Next = NextBox;
 	PageItem * Prev = BackBox;
@@ -1506,7 +1507,7 @@ void PageItem::unlinkWithText(bool cutText)
 		{
 			StoryText content(m_Doc);
 			itemText.select(lastInFrame() +1, length - (lastInFrame() +1));
-			content.insert(0, itemText, cutText);
+			content.insert(0, itemText, true);
 			itemText.removeSelection();
 			unlink(false);
 			Next->itemText.insert(0, content);
@@ -1515,11 +1516,6 @@ void PageItem::unlinkWithText(bool cutText)
 		else
 		{
 			unlink(false);
-			if (!cutText)
-			{
-				Next->itemText.insert(0, itemText);
-				Next->update();
-			}
 		}
 	}
 	else
@@ -1529,8 +1525,7 @@ void PageItem::unlinkWithText(bool cutText)
 		itemText.select(firstInFrame(), length - firstInFrame());
 		StoryText content(m_Doc);
 		content.insert(0, itemText, true);
-		if (cutText)
-			itemText.removeSelection();
+		itemText.removeSelection();
 		Prev->unlink(false);
 		itemText.insert(0, content);
 		update();
@@ -1539,7 +1534,6 @@ void PageItem::unlinkWithText(bool cutText)
 	{
 		ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
 		is->set("UNLINK_TEXT_FRAME");
-		is->set("CUT_TEXT", cutText);
 		is->setItem(qMakePair(Prev, Next));
 		undoManager->action(this, is);
 	}
@@ -7316,28 +7310,19 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 		qFatal("PageItem::restoreUnlinkTextFrame: dynamic cast failed");
 	if (is->contains("CUT_TEXT"))
 	{
-		bool cutText = is->getBool("CUT_TEXT");
 		if (isUndo)
 		{
 			PageItem* prev = is->getItem().first;
 			PageItem* next  = is->getItem().second;
 			if (prev != nullptr)
-			{
-				if (!cutText)
-					itemText = StoryText(m_Doc);
 				prev->link(this, false);
-			}
 			else if (next != nullptr)
-			{
-				if (!cutText)
-					this->itemText = StoryText(m_Doc);
 				this->link(next, false);
-			}
 			else
 				Q_ASSERT(prev || next);
 		}
 		else
-			unlinkWithText(cutText);
+			unlinkWithText();
 	}
 	else
 	{
