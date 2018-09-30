@@ -44,7 +44,7 @@ public:
 	virtual bool isArc() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Arc; }
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 	void recalcPath();
 	double arcHeight; //! height of the circumfering ellipse
 	double arcWidth;  //! width of the circumfering ellipse

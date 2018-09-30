@@ -44,7 +44,7 @@ public:
 	virtual bool isLine() const { return true; }
 	
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 
 	QPointF startPoint();
 	QPointF endPoint();

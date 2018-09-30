@@ -54,7 +54,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		virtual void clearContents();
 		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
 		virtual void applicableActions(QStringList& actionList);
-		virtual QString infoDescription();
+		virtual QString infoDescription() const;
 		void layout();
 		
 		/** @brief Perform undo/redo action */

@@ -44,7 +44,7 @@ public:
 	virtual bool isSpiral() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Spiral; }
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 	void recalcPath();
 	double spiralStartAngle;    //! angle where the spiral starts
 	double spiralEndAngle;    //! angle the spiral spans

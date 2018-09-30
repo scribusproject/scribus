@@ -498,7 +498,7 @@ public:
 	virtual void applicableActions(QStringList& actionList);
 
 	/// Returns a textual description of this item.
-	virtual QString infoDescription() { return QString(); }
+	virtual QString infoDescription() const { return QString(); }
 
 	/// Returns the Cell Areas from this table
 	const QList<CellArea>& cellAreas() const { return m_cellAreas; }

@@ -45,7 +45,7 @@ public:
 	virtual void layout();
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 
 	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 

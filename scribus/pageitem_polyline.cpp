@@ -210,7 +210,7 @@ void PageItem_PolyLine::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToPolygon";
 }
 
-QString PageItem_PolyLine::infoDescription()
+QString PageItem_PolyLine::infoDescription() const
 {
 	return QString();
 }

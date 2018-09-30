@@ -156,7 +156,7 @@ void PageItem_Line::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToBezierCurve";
 }
 
-QString PageItem_Line::infoDescription()
+QString PageItem_Line::infoDescription() const
 {
 	return QString();
 }

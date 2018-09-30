@@ -578,7 +578,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	}
 }
 
-QString PageItem_LatexFrame::infoDescription()
+QString PageItem_LatexFrame::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append("<h2>"+tr("Render Frame") + "</h2><table>");

@@ -380,7 +380,7 @@ void PageItem_PathText::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToOutlines";
 }
 
-QString PageItem_PathText::infoDescription()
+QString PageItem_PathText::infoDescription() const
 {
 	return QString();
 }

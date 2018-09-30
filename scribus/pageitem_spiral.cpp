@@ -345,7 +345,7 @@ void PageItem_Spiral::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToPolygon";
 }
 
-QString PageItem_Spiral::infoDescription()
+QString PageItem_Spiral::infoDescription() const
 {
 	return QString();
 }

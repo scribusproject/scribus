@@ -43,7 +43,7 @@ public:
 	virtual bool isPolyLine() const { return true; }
 	
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 
 	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;

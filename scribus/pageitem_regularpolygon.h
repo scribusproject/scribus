@@ -44,7 +44,8 @@ public:
 	virtual bool isRegularPolygon() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::RegularPolygon; }
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
+
 	void recalcPath();
 	/* Regular Polygon Tool */
 	int polyCorners;  //! Number of corners for a polygon

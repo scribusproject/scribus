@@ -5507,7 +5507,7 @@ void PageItem_TextFrame::setTextAnnotationOpen(bool open)
 	}
 }
 
-QString PageItem_TextFrame::infoDescription()
+QString PageItem_TextFrame::infoDescription() const
 {
 	return QString();
 }

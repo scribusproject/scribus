@@ -44,7 +44,7 @@ public:
 	virtual bool isSymbol() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Symbol; }
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

@@ -273,7 +273,7 @@ void PageItem_Group::applicableActions(QStringList & actionList)
 {
 }
 
-QString PageItem_Group::infoDescription()
+QString PageItem_Group::infoDescription() const
 {
 	return QString();
 }

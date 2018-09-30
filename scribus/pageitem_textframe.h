@@ -100,7 +100,7 @@ protected:
 	void drawNoteIcon(ScPainter *p);
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 	// Move incomplete lines from the previous frame if needed.
 	bool moveLinesFromPreviousFrame ();
 	void adjustParagraphEndings ();

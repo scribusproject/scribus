@@ -84,7 +84,7 @@ void PageItem_Arc::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToTextFrame";
 }
 
-QString PageItem_Arc::infoDescription()
+QString PageItem_Arc::infoDescription() const
 {
 	return QString();
 }

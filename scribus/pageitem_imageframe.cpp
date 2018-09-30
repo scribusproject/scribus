@@ -480,7 +480,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 	}
 }
 
-QString PageItem_ImageFrame::infoDescription()
+QString PageItem_ImageFrame::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append( tr("Image") + "<br/>");

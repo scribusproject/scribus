@@ -64,7 +64,7 @@ void PageItem_Polygon::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToTextFrame";
 }
 
-QString PageItem_Polygon::infoDescription()
+QString PageItem_Polygon::infoDescription() const
 {
 	return QString();
 }

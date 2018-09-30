@@ -162,7 +162,7 @@ void PageItem_Symbol::applicableActions(QStringList & actionList)
 {
 }
 
-QString PageItem_Symbol::infoDescription()
+QString PageItem_Symbol::infoDescription() const
 {
 	return QString();
 }

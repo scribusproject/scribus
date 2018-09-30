@@ -9882,7 +9882,7 @@ PageItem* PageItem::lastInChain()
 	return last;
 }
 
-QRect PageItem::getRedrawBounding(const double viewScale)
+QRect PageItem::getRedrawBounding(const double viewScale) const
 {
 	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
 	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
@@ -10492,7 +10492,7 @@ void PageItem::updateClip(bool updateWelded)
 	updateGradientVectors();
 }
 
-QString PageItem::infoDescription()
+QString PageItem::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append(ScribusView::tr("Print: "));

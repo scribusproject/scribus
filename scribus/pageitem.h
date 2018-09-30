@@ -274,7 +274,7 @@ public: // Start public functions
 	PageItem_Table* parentTable() const { return (Parent ? Parent->asTable() : nullptr); }
 
 	virtual void applicableActions(QStringList& actionList) = 0;
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
 
 	//<< ********* Functions related to drawing the item *********
@@ -292,7 +292,7 @@ public: // Start public functions
 	/**
 	 * @brief Set or get the redraw bounding box of the item, moved from the View
 	 */
-	QRect getRedrawBounding(const double);
+	QRect getRedrawBounding(const double viewScale) const;
 	void setRedrawBounding();
 	void setPolyClip(int up, int down = 0);
 	void updatePolyClip();

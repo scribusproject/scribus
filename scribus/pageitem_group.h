@@ -50,7 +50,7 @@ public:
 	virtual void getNamedResources(ResourceCollection& lists) const;
 	virtual void replaceNamedResources(ResourceCollection& newNames);
 	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	virtual QString infoDescription() const;
 
 	/// Retrieve child items of this item
 	virtual QList<PageItem*> getChildren() const { return groupItemList; }
