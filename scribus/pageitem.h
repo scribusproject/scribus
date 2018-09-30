@@ -434,15 +434,16 @@ public: // Start public functions
 	void setEmbeddedImageProfile(const QString& val) { EmProfile = val; }
 	bool drawFrame() { return ((m_ItemType == TextFrame && !m_sampleItem) || (m_ItemType == ImageFrame) || (m_ItemType == PathText)); }
 	QString externalFile() const { return Pfile; }
-	void setExternalFile(const QString& filename);
+	void setExternalFile(const QString& filename, const QString& baseDir = QString());
 	void setImagePagenumber(int num) { pixm.imgInfo.actualPageNumber = num; }
 	void setResolution(int);
 
 	//FIXME: maybe these should go into annotation?
 	QString fileIconPressed() const { return Pfile2; }
-	void setFileIconPressed(const QString& filename);
+	void setFileIconPressed(const QString& filename, const QString& baseDir = QString());
 	QString fileIconRollover() const { return Pfile3; }
-	void setFileIconRollover(const QString& filename);
+	void setFileIconRollover(const QString& filename, const QString& baseDir = QString());
+
 	int  cmsRenderingIntent() const { return IRender; }
 	void setCmsRenderingIntent(eRenderIntent val) { IRender = val; }
 	QString cmsProfile() const { return IProfile; }

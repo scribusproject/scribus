@@ -9807,40 +9807,61 @@ void PageItem::AdjustPictScale()
 	}
 }
 
-void PageItem::setExternalFile(const QString& filename)
+void PageItem::setExternalFile(const QString& filename, const QString& baseDir)
 {
 	Pfile = filename;
-	if (!Pfile.isEmpty())
+	if (Pfile.isEmpty())
+		return;
+
+	QString test = Pfile;
+	if (QDir::isRelativePath(test))
 	{
-		QString test = Pfile;
-		if (QDir::isRelativePath(test))
-			test = QDir::homePath()+"/"+Pfile;
-		test = QDir::cleanPath(QDir::toNativeSeparators(test));
-		QFileInfo pfi2(test);
-		Pfile = pfi2.absoluteFilePath();
+		if (baseDir.isEmpty())
+			test = QDir::homePath() + "/" + Pfile;
+		else
+			test = baseDir + "/" + Pfile;
 	}
+	test = QDir::cleanPath(QDir::toNativeSeparators(test));
+	QFileInfo pfi2(test);
+	Pfile = pfi2.absoluteFilePath();
 }
 
-void PageItem::setFileIconPressed(const QString& filename)
+void PageItem::setFileIconPressed(const QString& filename, const QString& baseDir)
 {
 	Pfile2 = filename;
-	if (!Pfile2.isEmpty())
+	if (Pfile2.isEmpty())
+		return;
+
+	QString test = Pfile2;
+	if (QDir::isRelativePath(test))
 	{
-		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile2));
-		QFileInfo pfi2(test);
-		Pfile2 = pfi2.absoluteFilePath();
+		if (baseDir.isEmpty())
+			test = QDir::homePath() + "/" + Pfile2;
+		else
+			test = baseDir + "/" + Pfile2;
 	}
+	test = QDir::cleanPath(QDir::toNativeSeparators(test));
+	QFileInfo pfi2(test);
+	Pfile2 = pfi2.absoluteFilePath();
 }
 
-void PageItem::setFileIconRollover(const QString& filename)
+void PageItem::setFileIconRollover(const QString& filename, const QString& baseDir)
 {
 	Pfile3 = filename;
-	if (!Pfile3.isEmpty())
+	if (Pfile3.isEmpty())
+		return;
+
+	QString test = Pfile3;
+	if (QDir::isRelativePath(test))
 	{
-		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile3));
-		QFileInfo pfi2(test);
-		Pfile3 = pfi2.absoluteFilePath();
+		if (baseDir.isEmpty())
+			test = QDir::homePath() + "/" + Pfile3;
+		else
+			test = baseDir + "/" + Pfile3;
 	}
+	test = QDir::cleanPath(QDir::toNativeSeparators(test));
+	QFileInfo pfi2(test);
+	Pfile3 = pfi2.absoluteFilePath();
 }
 
 PageItem* PageItem::firstInChain()
