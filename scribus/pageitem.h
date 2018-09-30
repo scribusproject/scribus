@@ -459,7 +459,7 @@ public: // Start public functions
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
-	bool isInChain() { return ((BackBox != nullptr) || (NextBox != nullptr)); }
+	bool isInChain() const { return ((BackBox != nullptr) || (NextBox != nullptr)); }
 
 	bool canBeLinkedTo(const PageItem* nextFrame) const;
 	void unlink(bool createUndo = true);
