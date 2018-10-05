@@ -244,7 +244,8 @@ QString WMFImport::symbolToUnicode ( const QByteArray& chars )
 	QString r;
 	const unsigned char * c = (const unsigned char *) chars.data();
 	
-	if( chars.size() == 0 ) return r;
+	if (chars.size() == 0)
+		return r;
 	
 	for (int i = 0; i < chars.size(); ++i) 
 	{
@@ -756,7 +757,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 	QTransform gcm  = m_context.worldMatrix();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
 	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
-	if( item->asImageFrame() )
+	if (item->asImageFrame())
 	{
 		item->moveBy(gcm.dx(), gcm.dy());
 		item->setWidthHeight(item->width() * gcm.m11(), item->height() * gcm.m22());
@@ -764,7 +765,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 		if (item->imageIsAvailable)
 			item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
 	}
-	else if( item->asTextFrame() )
+	else if (item->asTextFrame())
 	{
 		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 	}
@@ -864,7 +865,7 @@ void WMFImport::polygon( QList<PageItem*>& items, long, short* params )
 		lineWidth = 1.0;
 	FPointArray paramPoints = pointsFromParam( params[0], &params[1] );
 	FPointArray points      = pointsToPolyline( paramPoints, true );
-	if( !paramPoints.empty() )
+	if (!paramPoints.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -904,7 +905,7 @@ void WMFImport::polyPolygon( QList<PageItem*>& items, long num, short* params )
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
-	if( !pointsPoly.empty() )
+	if (!pointsPoly.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -928,7 +929,7 @@ void WMFImport::polyline( QList<PageItem*>& items, long, short* params )
 		lineWidth = 1.0;
 	FPointArray paramPoints = pointsFromParam( params[0], &params[1] );
 	FPointArray points      = pointsToPolyline( paramPoints, false );
-	if( !paramPoints.empty() )
+	if (!paramPoints.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -1017,7 +1018,7 @@ void WMFImport::arc( QList<PageItem*>& items, long, short* params )
 	painterPath.arcMoveTo(x, y, xWidth, yHeight, angleStart);
 	painterPath.arcTo(x, y, xWidth, yHeight, angleStart, angleLength);
 	pointArray.fromQPainterPath(painterPath);
-	if( !pointArray.empty() )
+	if (!pointArray.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -1054,7 +1055,7 @@ void WMFImport::chord( QList<PageItem*>& items, long, short* params )
 	painterPath.arcTo (x, y, xWidth, yHeight, angleStart, angleLength);
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
-	if( !pointArray.empty() )
+	if (!pointArray.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -1092,7 +1093,7 @@ void WMFImport::pie( QList<PageItem*>& items, long, short* params )
 	painterPath.lineTo(xCenter, yCenter);
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
-	if( !pointArray.empty() )
+	if (!pointArray.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);

@@ -69,7 +69,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 			QRgb *s = (QRgb*)(image.scanLine( yi ));
 			for(int xi=0; xi < wi; ++xi )
 			{
-				if((*s) == 0xffffffff)
+				if ((*s) == 0xffffffff)
 					(*s) &= 0x00ffffff;
 				s++;
 			}

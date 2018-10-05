@@ -412,7 +412,7 @@ void PSLib::PutStream(const QString& c)
 
 void PSLib::PutStream(const QByteArray& array, bool hexEnc)
 {
-	if(hexEnc)
+	if (hexEnc)
 		WriteASCII85Bytes(array);
 	else
 		spoolStream.writeRawData(array.data(), array.size());
@@ -420,7 +420,7 @@ void PSLib::PutStream(const QByteArray& array, bool hexEnc)
 
 void PSLib::PutStream(const char* array, int length, bool hexEnc)
 {
-	if(hexEnc)
+	if (hexEnc)
 		WriteASCII85Bytes((const unsigned char*) array, length);
 	else
 		spoolStream.writeRawData(array, length);
@@ -572,7 +572,6 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 	}
 	else
 	{
-		
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
 	}

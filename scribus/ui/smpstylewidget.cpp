@@ -748,7 +748,7 @@ void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<Char
 
 void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showAlignment called with an empty list of styles";
 		return;
@@ -772,7 +772,7 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 
 void SMPStyleWidget::showDirection(QList<ParagraphStyle*> &pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showDirection called with an empty list of styles";
 		return;
@@ -796,7 +796,7 @@ void SMPStyleWidget::showDirection(QList<ParagraphStyle*> &pstyles)
 
 void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showOpticalMargin called with an empty list of styles";
 		return;
@@ -826,7 +826,7 @@ void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 
 void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showMinSpace called with an empty list of styles";
 		return;
@@ -846,7 +846,7 @@ void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
 
 void SMPStyleWidget::showMinGlyphExt(QList< ParagraphStyle * > & pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showMinGlyphExt called with an empty list of styles";
 		return;
@@ -866,7 +866,7 @@ void SMPStyleWidget::showMinGlyphExt(QList< ParagraphStyle * > & pstyles)
 
 void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
 {
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showMaxGlyphExt called with an empty list of styles";
 		return;
@@ -887,7 +887,7 @@ void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
 void SMPStyleWidget::showConsecutiveLines(QList<ParagraphStyle *> &pstyles)
 {
 
-	if(pstyles.isEmpty())
+	if (pstyles.isEmpty())
 	{
 		qDebug()<<"Warning showConsecutiveLines called with an empty list of styles";
 		return;
@@ -1023,11 +1023,11 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 
 	if (parent==nullptr)
 	{
-		if(om == ParagraphStyle::OM_Default)
+		if (om == ParagraphStyle::OM_Default)
 			optMarginRadioBoth->setChecked(true);
-		else if(om == ParagraphStyle::OM_LeftHangingPunct)
+		else if (om == ParagraphStyle::OM_LeftHangingPunct)
 			optMarginRadioLeft->setChecked(true);
-		else if(om == ParagraphStyle::OM_RightHangingPunct)
+		else if (om == ParagraphStyle::OM_RightHangingPunct)
 			optMarginRadioRight->setChecked(true);
 		else
 			optMarginRadioNone->setChecked(true);
@@ -1036,13 +1036,13 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 	{
 		optMarginParentButton->setVisible(!inhO);
 
-		if(om == ParagraphStyle::OM_Default)
+		if (om == ParagraphStyle::OM_Default)
 			optMarginRadioBoth->setChecked(true,
 				(parent->opticalMargins() == ParagraphStyle::OM_Default));
-		else if(om == ParagraphStyle::OM_LeftHangingPunct)
+		else if (om == ParagraphStyle::OM_LeftHangingPunct)
 			optMarginRadioLeft->setChecked(true,
 				(parent->opticalMargins() == ParagraphStyle::OM_LeftHangingPunct));
-		else if(om == ParagraphStyle::OM_RightHangingPunct)
+		else if (om == ParagraphStyle::OM_RightHangingPunct)
 			optMarginRadioRight->setChecked(true,
 				(parent->opticalMargins() == ParagraphStyle::OM_RightHangingPunct));
 		else

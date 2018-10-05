@@ -531,7 +531,7 @@ bool XarPlug::convert(const QString& fn)
 	ignoreableTags << 2205 << 2900 << 2901;
 	ignoreableTags << 4031 << 4081 << 4082 << 4083 << 4087 << 4102 << 4103 << 4104 << 4105 << 4106 << 4107 << 4108 << 4109;
 	ignoreableTags << 4110 << 4111 << 4112 << 4113 << 4114 << 4115 << 4116 << 4124;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

@@ -56,7 +56,7 @@ public:
 	
 	void makeDefault(STYLE* def) { 
 		m_default = def; 
-		if(def) 
+		if (def) 
 			def->setContext(this);
 		invalidate();
 	}

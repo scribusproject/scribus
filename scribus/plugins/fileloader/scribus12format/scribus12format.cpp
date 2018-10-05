@@ -131,7 +131,7 @@ void Scribus12Format::registerFormats()
 bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	QByteArray docBytes("");
-	if(fileName.right(2) == "gz")
+	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
 		QtIOCompressor compressor(&file);
@@ -153,7 +153,7 @@ bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileN
 QString Scribus12Format::readSLA(const QString & fileName)
 {
 	QByteArray docBytes("");
-	if(fileName.right(2) == "gz")
+	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
 		QtIOCompressor compressor(&file);
@@ -766,7 +766,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	int ObCount = 0;
 	int activeLayer = 0;
 	PrefsManager* prefsManager=PrefsManager::instance();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 	/*
@@ -889,14 +889,14 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		m_Doc->LastAuto = nullptr;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			ObCount++;
 			if (m_mwProgressBar!=nullptr)
 				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -906,7 +906,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				lf.setRegistrationColor(false);
 				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
-			if(pg.tagName()=="STYLE")
+			if (pg.tagName()=="STYLE")
 			{
 				vg.erase();
 				GetStyle(&pg, &vg, nullptr, m_Doc, true);
@@ -914,9 +914,9 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				temp.create(vg);
 				m_Doc->redefineStyles(temp, false);
 			}
-			if(pg.tagName()=="JAVA")
+			if (pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
-			if(pg.tagName()=="LAYERS")
+			if (pg.tagName()=="LAYERS")
 			{
 				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
@@ -925,11 +925,11 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				m_Doc->Layers.append(la);
 			}
-			if(pg.tagName()=="MultiLine")
+			if (pg.tagName()=="MultiLine")
 			{
 				multiLine ml;
 				QDomNode MuLn = PAGE.firstChild();
-				while(!MuLn.isNull())
+				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
 					struct SingleLine sl;
@@ -944,7 +944,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				}
 				m_Doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
-			if(pg.tagName()=="PAGE")
+			if (pg.tagName()=="PAGE")
 			{
 				TableItems.clear();
 				TableID.clear();
@@ -993,7 +993,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				QDomNode OBJ=PAGE.firstChild();
 				int pageNo = a;
 				int pageItem = 0;
-				while(!OBJ.isNull())
+				while (!OBJ.isNull())
 				{
 					QDomElement obj=OBJ.toElement();
 					/*
@@ -1057,7 +1057,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					else
 						OB.Groups.clear();
 					QDomNode IT=OBJ.firstChild();
-					while(!IT.isNull())
+					while (!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="CSTOP")
@@ -1086,7 +1086,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					Neu->setRedrawBounding();
 					IT=OBJ.firstChild();
 					LastStyles * lastS = new LastStyles();
-					while(!IT.isNull())
+					while (!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
@@ -1135,10 +1135,10 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		}
 		m_Doc->setMasterPageMode(false);
 		PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="Bookmark")
+			if (pg.tagName()=="Bookmark")
 			{
 				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
@@ -1156,7 +1156,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					m_Doc->BookMarks.append(bok);
 				}
 			}
-			if(pg.tagName()=="PDF")
+			if (pg.tagName()=="PDF")
 			{
 				m_Doc->pdfOptions().Articles = static_cast<bool>(pg.attribute("Articles").toInt());
 				m_Doc->pdfOptions().Thumbnails = static_cast<bool>(pg.attribute("Thumbnails").toInt());
@@ -1208,10 +1208,10 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				m_Doc->pdfOptions().UseSpotColors = true;
 				m_Doc->pdfOptions().doMultiFile = false;
 				QDomNode PFO = PAGE.firstChild();
-				while(!PFO.isNull())
+				while (!PFO.isNull())
 				{
 					QDomElement pdfF = PFO.toElement();
-					if(pdfF.tagName() == "LPI")
+					if (pdfF.tagName() == "LPI")
 					{
 						struct LPIData lpo;
 						lpo.Angle = pdfF.attribute("Angle").toInt();
@@ -1219,17 +1219,17 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 						lpo.SpotFunc = pdfF.attribute("SpotFunction").toInt();
 						m_Doc->pdfOptions().LPISettings[pdfF.attribute("Color")] = lpo;
 					}
-					if(pdfF.tagName() == "Fonts")
+					if (pdfF.tagName() == "Fonts")
 					{
 						if (!m_Doc->pdfOptions().EmbedList.contains(pdfF.attribute("Name")))
 							m_Doc->pdfOptions().EmbedList.append(pdfF.attribute("Name"));
 					}
-					if(pdfF.tagName() == "Subset")
+					if (pdfF.tagName() == "Subset")
 					{
 						if (!m_Doc->pdfOptions().SubsetList.contains(pdfF.attribute("Name")))
 							m_Doc->pdfOptions().SubsetList.append(pdfF.attribute("Name"));
 					}
-					if(pdfF.tagName() == "Effekte")
+					if (pdfF.tagName() == "Effekte")
 					{
 						struct PDFPresentationData ef;
 						ef.pageEffectDuration = pdfF.attribute("pageEffectDuration").toInt();
@@ -1869,18 +1869,18 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
 		QDomNode PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1890,14 +1890,14 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				lf.setRegistrationColor(false);
 				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
-			if(pg.tagName()=="STYLE")
+			if (pg.tagName()=="STYLE")
 			{
 				GetStyle(&pg, &vg, nullptr, m_Doc, true);
 				VorLFound = true;
 			}
-			if(pg.tagName()=="JAVA")
+			if (pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
-			if(pg.tagName()=="LAYERS")
+			if (pg.tagName()=="LAYERS")
 			{
 				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
@@ -1918,11 +1918,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_Doc->Layers.append(la);
 				}
 			}
-			if(pg.tagName()=="MultiLine")
+			if (pg.tagName()=="MultiLine")
 			{
 				multiLine ml;
 				QDomNode MuLn = PAGE.firstChild();
-				while(!MuLn.isNull())
+				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
 					struct SingleLine sl;
@@ -1998,7 +1998,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				counter = m_Doc->Items->count();
 			//	baseobj = counter;
 				int pageItem = 0;
-				while(!OBJ.isNull())
+				while (!OBJ.isNull())
 				{
 					QDomElement obj=OBJ.toElement();
 				/*
@@ -2061,7 +2061,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					else
 						OB.Groups.clear();
 					QDomNode IT=OBJ.firstChild();
-					while(!IT.isNull())
+					while (!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="CSTOP")
@@ -2082,7 +2082,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					Neu = m_Doc->Items->at(counter);
 					IT=OBJ.firstChild();
 					LastStyles* last = new LastStyles();
-					while(!IT.isNull())
+					while (!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
@@ -2213,10 +2213,10 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				if (!Mpage)
 					m_View->reformPages();
 				PAGE=DOC.firstChild();
-				while(!PAGE.isNull())
+				while (!PAGE.isNull())
 				{
 					QDomElement pg=PAGE.toElement();
-					if(pg.tagName()=="Bookmark")
+					if (pg.tagName()=="Bookmark")
 					{
 						int elem = pg.attribute("Element").toInt();
 						if (elem < m_Doc->Items->count())
@@ -2318,7 +2318,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg->firstChild();
-		while(!IT.isNull())
+		while (!IT.isNull())
 		{
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="Tabs")
@@ -2401,20 +2401,20 @@ bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	if (!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 		QDomNode PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="STYLE")
+			if (pg.tagName()=="STYLE")
 			{
 				pstyle.erase();
 				GetStyle(&pg, &pstyle, &docParagraphStyles, doc, false);
@@ -2432,24 +2432,24 @@ bool Scribus12Format::readLineStyles(const QString& fileName, QHash<QString,mult
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	if (!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 		QDomNode PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="MultiLine")
+			if (pg.tagName()=="MultiLine")
 			{
 				multiLine ml;
 				QDomNode MuLn = PAGE.firstChild();
-				while(!MuLn.isNull())
+				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
 					struct SingleLine sl;
@@ -2490,7 +2490,7 @@ bool Scribus12Format::readColors(const QString& fileName, ColorList & colors)
 	if (f.isEmpty())
 		return false;
 	QDomDocument docu("scridoc");
-	if(!docu.setContent(f))
+	if (!docu.setContent(f))
 		return false;
 	colors.clear();
 	ScColor lf = ScColor();
@@ -2498,15 +2498,15 @@ bool Scribus12Format::readColors(const QString& fileName, ColorList & colors)
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 		QDomNode PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -2538,19 +2538,19 @@ bool Scribus12Format::readPageCount(const QString& fileName, int *num1, int *num
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	if (!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomNode PAGE=DOC.firstChild();
-		while(!PAGE.isNull())
+		while (!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="PAGE")
+			if (pg.tagName()=="PAGE")
 			{
 				PgNam = pg.attribute("NAM", "");
 				if (PgNam.isEmpty())

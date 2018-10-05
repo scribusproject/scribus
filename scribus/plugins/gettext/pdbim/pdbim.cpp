@@ -142,7 +142,7 @@ void PdbIm::loadFile(const QString& fname)
 		ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(rec_num);
 		fseek( m_pdfp, PDB_HEADER_SIZE + PDB_RECORD_HEADER_SIZE * rec_num, SEEK_SET);
 		GET_DWord( m_pdfp, offset );
-		if( rec_num < num_records )
+		if (rec_num < num_records)
 		{
 			fseek( m_pdfp, PDB_HEADER_SIZE + PDB_RECORD_HEADER_SIZE * (rec_num + 1), SEEK_SET);
 			GET_DWord( m_pdfp, next_offset );

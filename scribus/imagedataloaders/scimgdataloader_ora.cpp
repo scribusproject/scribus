@@ -63,7 +63,7 @@ bool ScImgDataLoader_ORA::loadPicture(const QString& fn, int /*page*/, int /*res
 					if (uz->read("stack.xml", f))
 					{
 						QDomDocument designMapDom;
-						if(designMapDom.setContent(f))
+						if (designMapDom.setContent(f))
 						{
 							QDomElement docElem = designMapDom.documentElement();
 							m_imageInfoRecord.exifInfo.height = docElem.attribute("h", "0").toInt();
@@ -91,7 +91,7 @@ bool ScImgDataLoader_ORA::loadPicture(const QString& fn, int /*page*/, int /*res
 			if (uz->read("stack.xml", f))
 			{
 				QDomDocument designMapDom;
-				if(designMapDom.setContent(f))
+				if (designMapDom.setContent(f))
 				{
 					m_inSubLayer = 0;
 					m_layerCount = 0;

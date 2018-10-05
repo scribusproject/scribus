@@ -1710,7 +1710,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 		c = *ptrIn++;
 		count++;
 		len = c;
-		if( len < 128 )
+		if (len < 128)
 		{
 			// Copy next len+1 bytes literally.
 			len++;
@@ -1728,7 +1728,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 				}
 			}
 		}
-		else if( len > 128 )
+		else if (len > 128)
 		{
 			// Next -len+1 bytes in the dest are replicated from next source byte.
 			// (Interpret len as a negative 8-bit int.)
@@ -1760,7 +1760,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 				}
 			}
 		}
-		else if( len == 128 )
+		else if (len == 128)
 		{
 			// No-op.
 		}

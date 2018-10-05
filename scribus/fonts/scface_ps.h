@@ -146,18 +146,21 @@ class ScFace_pfb : public ScFace_postscript
 					cxxc=0;
 					for (int j = 0; j < ulen; ++j)
 					{
-						unsigned char u=bb[posi];
-						linebuf[cxxc]=((u >> 4) & 15) + '0';
-						if(u>0x9f) linebuf[cxxc]+='a'-':';
+						unsigned char u = bb[posi];
+						linebuf[cxxc] = ((u >> 4) & 15) + '0';
+						if (u>0x9f)
+							linebuf[cxxc] += 'a'-':';
 						++cxxc;
-						u&=15; linebuf[cxxc]=u + '0';
-						if(u>0x9) linebuf[cxxc]+='a'-':';
+						u&=15;
+						linebuf[cxxc]=u + '0';
+						if (u>0x9)
+							linebuf[cxxc] += 'a'-':';
 						++posi;
 						++cxxc;
 						if (cxxc > 72)
 						{
-							linebuf[cxxc++]='\n';
-							linebuf[cxxc++]=0;
+							linebuf[cxxc++] = '\n';
+							linebuf[cxxc++] = 0;
 							str += linebuf;
 							cxxc = 0;
 						}
@@ -171,7 +174,7 @@ class ScFace_pfb : public ScFace_postscript
 				{
 					if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
 						break;
-					if(bb[j]=='\r')
+					if (bb[j]=='\r')
 						str+="\n";
 					else
 						str += bb[j];

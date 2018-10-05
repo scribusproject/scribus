@@ -152,7 +152,7 @@ void FontComboH::changeEvent(QEvent *e)
 
 void FontComboH::languageChange()
 {
-	if(showLabels)
+	if (showLabels)
 	{
 		fontFaceLabel->setText( tr("Family:"));
 		fontStyleLabel->setText( tr("Style:"));

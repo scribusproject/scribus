@@ -282,18 +282,18 @@ void ScPainterEx_Ps2::setPattern(ScPattern *pattern, double scaleX, double scale
 
 void ScPainterEx_Ps2::fillPath()
 {
-	if(!m_pathIsClosed)
+	if (!m_pathIsClosed)
 		closePath();
-	if( m_fillMode != 0)
+	if (m_fillMode != 0)
 		drawVPath( 0 );
 }
 
 void ScPainterEx_Ps2::strokePath()
 {
-	if( m_lineWidth == 0 )
+	if (m_lineWidth == 0)
 		return;
 	save();
-	if(!m_pathIsClosed)
+	if (!m_pathIsClosed)
 		closePath();
 	drawVPath( 1 );
 	restore();
@@ -421,20 +421,20 @@ void ScPainterEx_Ps2::drawVPath( int mode )
 		m_stream << "]";
 		m_stream << " 0 setdash\n";
 
-		if( m_lineEnd == Qt::RoundCap )
+		if (m_lineEnd == Qt::RoundCap)
 			m_stream << "1 setlinecap\n";
-		else if( m_lineEnd == Qt::SquareCap )
+		else if (m_lineEnd == Qt::SquareCap)
 			m_stream << "2 setlinecap\n";
-		else if( m_lineEnd == Qt::FlatCap )
+		else if (m_lineEnd == Qt::FlatCap)
 			m_stream << "0 setlinecap\n";
 		else
 			m_stream << "0 setlinecap\n";
 
-		if( m_lineJoin == Qt::RoundJoin )
+		if (m_lineJoin == Qt::RoundJoin)
 			m_stream << "1 setlinejoin\n";
-		else if( m_lineJoin == Qt::BevelJoin )
+		else if (m_lineJoin == Qt::BevelJoin)
 			m_stream << "2 setlinejoin\n";
-		else if( m_lineJoin == Qt::MiterJoin )
+		else if (m_lineJoin == Qt::MiterJoin)
 			m_stream << "0 setlinejoin\n";
 		else
 			m_stream << "0 setlinejoin\n";
@@ -475,7 +475,7 @@ void ScPainterEx_Ps2::putColor(ScColorShade& colorShade, bool doFill)
 		unsigned long colorIn[4];
 		unsigned long colorOut[4];
 		ScColorTransform cmsTranform = nullptr;
-		if( colorShade.color.getColorModel() == colorModelRGB )
+		if (colorShade.color.getColorModel() == colorModelRGB)
 		{
 			RGBColorF rgb;
 			ScColorEngine::getShadeColorRGB(colorShade.color, m_options.document, rgb, colorShade.shade);
@@ -701,7 +701,7 @@ bool ScPainterEx_Ps2::hasAlphaChannel( ScImage* image )
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
 		for( int x = 0; x < width; ++x )
 		{
-			if( qAlpha(*imageBits) != 255 )
+			if (qAlpha(*imageBits) != 255)
 			{
 				hasAlpha = true;
 				break;
@@ -1379,13 +1379,13 @@ void ScPainterEx_Ps2::getPathBoundingBox(const FPointArray* points, QRect& r )
 	for (int i = 0; i < points->size(); i++ )
 	{
 		point = points->point(i);
-		if( points->isMarker(i) )
+		if (points->isMarker(i))
 			continue;
 		transformPoint(point, point);
-		if( point.x() < left ) left = point.x();
-		if( point.x() > right ) right = point.x();
-		if( point.y() < bottom ) bottom = point.y();
-		if( point.y() > top ) top = point.y();
+		if (point.x() < left) left = point.x();
+		if (point.x() > right) right = point.x();
+		if (point.y() < bottom) bottom = point.y();
+		if (point.y() > top) top = point.y();
 	}
 	r.setCoords( qRound(left), qRound(bottom), qRound(right), qRound(top) );
 }

@@ -976,14 +976,14 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 		ss->set("ARRAY",true);
 		ss->set("X",currItem->selectedMeshPointX);
 		ss->set("Y",currItem->selectedMeshPointY);
-		if((*m_old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
+		if ((*m_old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
 		{
 			delete ss;
 			ss=nullptr;
 		}
 		else
 			ss->setItem(qMakePair(*m_old_mesh,currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]));
-		if(ss)
+		if (ss)
 			undoManager->action(currItem,ss);
 	}
 	currItem->update();

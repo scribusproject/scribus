@@ -110,7 +110,7 @@ QImage OdgPlug::readThumbnail(const QString& fName)
 			{
 				QDomDocument designMapDom;
 				QByteArray f;
-				if(designMapDom.setContent(f))
+				if (designMapDom.setContent(f))
 				{
 					QDomElement docElem = designMapDom.documentElement();
 					for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -336,7 +336,7 @@ bool OdgPlug::convert(const QString& fn)
 	m_Styles.clear();
 	m_Layers.clear();
 	firstLayer = true;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
@@ -963,7 +963,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						{
 							double erg = 0;
 							int ret = fpa.Parse(itf.value().toStdString(), "", false);
-							if(ret < 0)
+							if (ret < 0)
 							{
 								QString formNam = itf.key();
 								erg = fpa.Eval(nullptr);
@@ -1924,15 +1924,15 @@ void OdgPlug::parseTransform(const QString &transform, double *rotation, double 
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
-		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
+		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-		if(subtransform[0] == "rotate")
+		if (subtransform[0] == "rotate")
 		{
 			*rotation = -parseUnit(params[0]) * 180 / M_PI;
 		}
-		else if(subtransform[0] == "translate")
+		else if (subtransform[0] == "translate")
 		{
-			if(params.count() == 2)
+			if (params.count() == 2)
 			{
 				dx = parseUnit(params[0]);
 				dy = parseUnit(params[1]);
@@ -1962,17 +1962,17 @@ void OdgPlug::parseTransform(FPointArray *composite, const QString &transform)
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
-		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
+		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-		if(subtransform[0] == "rotate")
+		if (subtransform[0] == "rotate")
 		{
 			result = QTransform();
 			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "translate")
+		else if (subtransform[0] == "translate")
 		{
-			if(params.count() == 2)
+			if (params.count() == 2)
 			{
 				dx = parseUnit(params[0]);
 				dy = parseUnit(params[1]);
@@ -1986,13 +1986,13 @@ void OdgPlug::parseTransform(FPointArray *composite, const QString &transform)
 			result.translate(dx, dy);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "skewx")
+		else if (subtransform[0] == "skewx")
 		{
 			result = QTransform();
 			result.shear(-tan(ScCLocale::toDoubleC(params[0])), 0.0);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "skewy")
+		else if (subtransform[0] == "skewy")
 		{
 			result = QTransform();
 			result.shear(0.0, -tan(ScCLocale::toDoubleC(params[0])));
@@ -2003,7 +2003,7 @@ void OdgPlug::parseTransform(FPointArray *composite, const QString &transform)
 
 void OdgPlug::parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h )
 {
-	if( !object.attribute( "svg:viewBox" ).isEmpty() )
+	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
@@ -2770,30 +2770,30 @@ double OdgPlug::parseUnit(const QString &unit)
 	QString unitval=unit;
 	if (unit.isEmpty())
 		return 0.0;
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		unitval.replace( "pt", "" );
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		unitval.replace( "cm", "" );
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		unitval.replace( "mm" , "" );
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		unitval.replace( "in", "" );
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		unitval.replace( "px", "" );
-	else if( unit.right( 1 ) == "%" )
+	else if (unit.right( 1 ) == "%")
 		unitval.replace( "%", "" );
 	double value = ScCLocale::toDoubleC(unitval);
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		{}/* value = value; */ //no change
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		value = ( value / 2.54 ) * 72;
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		value = ( value / 25.4 ) * 72;
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		value = value * 72;
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		{}/* value = value; */ //no change
-	else if( unit.right( 1 ) == "%" )
+	else if (unit.right( 1 ) == "%")
 		value = value / 100.0;
 	return value;
 }
@@ -2812,9 +2812,9 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 	expsign = 1;
 
 	// read the sign
-	if(*ptr == '+')
+	if (*ptr == '+')
 		ptr++;
-	else if(*ptr == '-')
+	else if (*ptr == '-')
 	{
 		ptr++;
 		sign = -1;
@@ -2823,21 +2823,21 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 	// read the integer part
 	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
-	if(*ptr == '.') // read the decimals
+	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
 		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 
-	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	if (*ptr == 'e' || *ptr == 'E') // read the exponent part
 	{
 		ptr++;
 
 		// read the sign of the exponent
-		if(*ptr == '+')
+		if (*ptr == '+')
 			ptr++;
-		else if(*ptr == '-')
+		else if (*ptr == '-')
 		{
 			ptr++;
 			expsign = -1;
@@ -2855,7 +2855,7 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
 
 	// skip the following space
-	if(*ptr == ' ')
+	if (*ptr == ' ')
 		ptr++;
 
 	return ptr;
@@ -2868,7 +2868,7 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 	bool ret = false;
 	fill = true;
 	stroke = true;
-	if( !d.isEmpty() )
+	if (!d.isEmpty())
 	{
 		bool xDir = true;
 		bool yDir = false;
@@ -2883,11 +2883,11 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 		int moveCount = 0;
 		result.svgInit();
 		char command = *(ptr++), lastCommand = ' ';
-		while( ptr < end )
+		while (ptr < end)
 		{
-			if( *ptr == ' ' )
+			if (*ptr == ' ')
 				ptr++;
-			switch( command )
+			switch (command)
 			{
 			case 'A':
 			case 'B':
@@ -3038,10 +3038,10 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 				}
 			}
 			lastCommand = command;
-			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			if (*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
 			{
 				// there are still coords in this command
-				if(command == 'M')
+				if (command == 'M')
 					command = 'L';
 			}
 			else
@@ -3240,24 +3240,24 @@ QString OdgPlug::parseColor( const QString &s )
 	QString ret = CommonStrings::None;
 	if ((s == "") || s.isEmpty())
 		return ret;
-	if( s.startsWith( "rgb(" ) )
+	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', QString::SkipEmptyParts );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
-		if( r.contains( "%" ) )
+		if (r.contains( "%" ))
 		{
 			r.chop(1);
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
-		if( g.contains( "%" ) )
+		if (g.contains( "%" ))
 		{
 			g.chop(1);
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
-		if( b.contains( "%" ) )
+		if (b.contains( "%" ))
 		{
 			b.chop(1);
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
@@ -3267,7 +3267,7 @@ QString OdgPlug::parseColor( const QString &s )
 	else
 	{
 		QString rgbColor = s.trimmed();
-		if( rgbColor.startsWith( "#" ) )
+		if (rgbColor.startsWith( "#" ))
 			c.setNamedColor( rgbColor );
 		else
 			c = parseColorN( rgbColor );

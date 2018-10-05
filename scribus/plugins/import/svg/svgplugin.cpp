@@ -206,7 +206,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 
 QImage SVGImportPlugin::readThumbnail(const QString& fileName)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
@@ -263,7 +263,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	viewTransformY = 0;
 	viewScaleX = 1;
 	viewScaleY = 1;
-	if( !docElem.attribute( "viewBox" ).isEmpty() )
+	if (!docElem.attribute( "viewBox" ).isEmpty())
 	{
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
@@ -409,7 +409,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	viewTransformY = 0;
 	viewScaleX = 1;
 	viewScaleY = 1;
-	if( !docElem.attribute( "viewBox" ).isEmpty() )
+	if (!docElem.attribute( "viewBox" ).isEmpty())
 	{
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
@@ -670,7 +670,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 		if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
 		{
 			QString nodeId = e.toElement().attribute("id");
-			if( !nodeId.isEmpty() )
+			if (!nodeId.isEmpty())
 				item->setItemName(" "+nodeId);
 		}
 	}
@@ -1193,7 +1193,7 @@ QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
-		if( b.isNull() || isIgnorableNode(b) )
+		if (b.isNull() || isIgnorableNode(b))
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b);
@@ -1229,7 +1229,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 		{
 			QDomElement b = n.toElement();
-			if( b.isNull() || isIgnorableNode(b) )
+			if (b.isNull() || isIgnorableNode(b))
 				continue;
 			SvgStyle svgStyle;
 			parseStyle( &svgStyle, b);
@@ -1254,7 +1254,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 		{
 			QDomElement b = n.toElement();
-			if( b.isNull() || isIgnorableNode(b) )
+			if (b.isNull() || isIgnorableNode(b))
 				continue;
 			SvgStyle svgStyle;
 			parseStyle( &svgStyle, b);
@@ -1322,7 +1322,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 				}
 				else
 					neu->SetRectFrame();
-				if( !e.attribute("id").isEmpty() )
+				if (!e.attribute("id").isEmpty())
 					neu->setItemName(e.attribute("id"));
 				else
 					neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
@@ -1370,7 +1370,7 @@ QList<PageItem*> SVGPlug::parseDoc(const QDomElement &e)
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
-		if( b.isNull() || isIgnorableNode(b) )
+		if (b.isNull() || isIgnorableNode(b))
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b);
@@ -1506,7 +1506,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		fclose(source);
 		fclose(dest);
 	} */
-/*	else if( STag == "image" )
+/*	else if (STag == "image")
 		GElements = parseImage(e);
 	} */
 	else if (!isIgnorableNodeName(STag))
@@ -1736,7 +1736,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		{
 			x = ScCLocale::toDoubleC(*(it++));
 			y = ScCLocale::toDoubleC(*it);
-			if( bFirst )
+			if (bFirst)
 			{
 				ite->PoLine.svgMoveTo(x, y);
 				bFirst = false;
@@ -1879,9 +1879,9 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	QFontMetrics fm(textFont);
 	double width   = fm.width(textString);
 
-	if( gc->textAnchor == "middle" )
+	if (gc->textAnchor == "middle")
 		StartX -= chunkW / 2.0;
-	else if( gc->textAnchor == "end")
+	else if (gc->textAnchor == "end")
 		StartX -= chunkW;
 
 	FPointArray textPath;
@@ -1949,7 +1949,7 @@ QList<PageItem*> SVGPlug::parseSymbol(const QDomElement &e)
 {
 	QList<PageItem*> SElements;
 	QString id = e.attribute("id");
-	if( !id.isEmpty() )
+	if (!id.isEmpty())
 		m_nodeMap.insert(id, e);
 	return SElements;
 }
@@ -1958,7 +1958,7 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 {
 	QList<PageItem*> UElements;
 	setupNode(e);
-	if( e.hasAttribute("x") || e.hasAttribute("y") )
+	if (e.hasAttribute("x") || e.hasAttribute("y"))
 	{
 		QTransform matrix;
 		double  xAtt = ScCLocale::toDoubleC(e.attribute("x", "0.0"));
@@ -2217,7 +2217,7 @@ QTransform SVGPlug::parseTransform( const QString &transform )
 		}
 		else if (subtransform[0] == "scale")
 		{
-			if(params.count() == 2)
+			if (params.count() == 2)
 				result.scale(params[0], params[1]);
 			else    // Spec : if only one param given, assume uniform scaling
 				result.scale(params[0], params[0]);
@@ -2258,9 +2258,9 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	expsign = 1;
 
 	// read the sign
-	if(*ptr == '+')
+	if (*ptr == '+')
 		ptr++;
-	else if(*ptr == '-')
+	else if (*ptr == '-')
 	{
 		ptr++;
 		sign = -1;
@@ -2269,21 +2269,21 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	// read the integer part
 	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
-	if(*ptr == '.') // read the decimals
+	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
 		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 
-	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	if (*ptr == 'e' || *ptr == 'E') // read the exponent part
 	{
 		ptr++;
 
 		// read the sign of the exponent
-		if(*ptr == '+')
+		if (*ptr == '+')
 			ptr++;
-		else if(*ptr == '-')
+		else if (*ptr == '-')
 		{
 			ptr++;
 			expsign = -1;
@@ -2300,7 +2300,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	number = integer + decimal;
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
 	// skip the following space
-	if(*ptr == ' ')
+	if (*ptr == ' ')
 		ptr++;
 
 	return ptr;
@@ -2706,7 +2706,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if (command == "stroke-dasharray")
 	{
 		QVector<double> array;
-		if(params != "none")
+		if (params != "none")
 		{
 			QString params2 = params.simplified().replace(',', " ");
 			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
@@ -2773,7 +2773,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->startMarker = params.mid(start, end - start);
 		}
 	}
-	else if( !isIgnorableNodeName(command) )
+	else if (!isIgnorableNodeName(command))
 	{
 		if (!m_unsupportedFeatures.contains(command))
 		{
@@ -2870,7 +2870,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 		if (parseTagName(stop) == "stop")
 		{
 			QString temp = stop.attribute( "offset" );
-			if( temp.contains( '%' ) )
+			if (temp.contains( '%' ))
 			{
 				temp.chop(1);
 				offset = ScCLocale::toDoubleC(temp) / 100.0;
@@ -3052,7 +3052,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		}
 		m_nodeMap.insert(origName, b);
 		QString transf = b.attribute("patternTransform");
-		if( !transf.isEmpty() )
+		if (!transf.isEmpty())
 		{
 			gradhelper.matrix = parseTransform( b.attribute("patternTransform") );
 			gradhelper.matrixValid = true;
@@ -3184,7 +3184,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		gradhelper.cspaceValid = false;
 	}
 	QString transf = e.attribute("gradientTransform");
-	if( !transf.isEmpty() )
+	if (!transf.isEmpty())
 	{
 		gradhelper.matrix = parseTransform( e.attribute("gradientTransform") );
 		gradhelper.matrixValid = true;
@@ -3192,11 +3192,11 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	else
 		gradhelper.matrixValid = false;
 	QString spreadMethod = e.attribute( "spreadMethod" );
-	if( !spreadMethod.isEmpty() )
+	if (!spreadMethod.isEmpty())
 	{
-		if( spreadMethod == "reflect" )
+		if (spreadMethod == "reflect")
 			gradhelper.gradient.setRepeatMethod( VGradient::reflect );
-		else if( spreadMethod == "repeat" )
+		else if (spreadMethod == "repeat")
 			gradhelper.gradient.setRepeatMethod( VGradient::repeat );
 	}
 	parseColorStops(&gradhelper, e);

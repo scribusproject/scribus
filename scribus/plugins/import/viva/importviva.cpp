@@ -174,10 +174,10 @@ bool VivaPlug::readColors(const QString& fNameIn, ColorList & colors)
 	importedColors.clear();
 	QByteArray f;
 	loadRawText(fNameIn, f);
-	if(designMapDom.setContent(f))
+	if (designMapDom.setContent(f))
 	{
 		QDomElement docElem = designMapDom.documentElement();
-		for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+		for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 		{
 			QDomElement dpg = drawPag.toElement();
 			if (dpg.tagName() == "vc:colors")
@@ -380,7 +380,7 @@ bool VivaPlug::convert(const QString& fn)
 	Coords.svgInit();
 	importedColors.clear();
 	facingPages = false;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
@@ -391,7 +391,7 @@ bool VivaPlug::convert(const QString& fn)
 	storyMap.clear();
 	QByteArray f;
 	loadRawText(fn, f);
-	if(designMapDom.setContent(f))
+	if (designMapDom.setContent(f))
 	{
 		QDomElement docElem = designMapDom.documentElement();
 		for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )

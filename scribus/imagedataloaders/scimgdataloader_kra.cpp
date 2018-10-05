@@ -68,7 +68,7 @@ bool ScImgDataLoader_KRA::loadPicture(const QString& fn, int /*page*/, int /*res
 					if (uz->read("maindoc.xml", f))
 					{
 						QDomDocument designMapDom;
-						if(designMapDom.setContent(f))
+						if (designMapDom.setContent(f))
 						{
 							QDomElement docElem = designMapDom.documentElement().firstChildElement("IMAGE");
 							m_imageInfoRecord.exifInfo.height = docElem.attribute("height", "0").toInt();
@@ -106,7 +106,7 @@ bool ScImgDataLoader_KRA::loadPicture(const QString& fn, int /*page*/, int /*res
 			if (uz->read("maindoc.xml", f))
 			{
 				QDomDocument designMapDom;
-				if(designMapDom.setContent(f))
+				if (designMapDom.setContent(f))
 				{
 					QDomElement docElem = designMapDom.documentElement().firstChildElement("IMAGE");
 					m_imageInfoRecord.exifInfo.height = docElem.attribute("height", "0").toInt();

@@ -95,7 +95,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 		QDomDocument designMapDom;
 		if (!uz->read("_rels/.rels", f))
 			return QImage();
-		if(designMapDom.setContent(f))
+		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -398,7 +398,7 @@ bool XpsPlug::convert(const QString& fn)
 	linkTargets.clear();
 	linkSources.clear();
 	pathResources.clear();
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
@@ -575,7 +575,7 @@ void XpsPlug::parsePageReference(const QString& designMap)
 	if (uz->read(designMap, f))
 	{
 		QDomDocument designMapDom;
-		if(designMapDom.setContent(f))
+		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
@@ -1586,7 +1586,7 @@ void XpsPlug::parseResourceFile(const QString& resFile)
 	if (uz->read(resFile, f))
 	{
 		QDomDocument designMapDom;
-		if(designMapDom.setContent(f))
+		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )

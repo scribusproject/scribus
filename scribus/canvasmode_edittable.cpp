@@ -486,7 +486,7 @@ void CanvasMode_EditTable::createContextMenu(PageItem *currItem, double mx, doub
 	ContextMenu* cmen=nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
-	if(currItem!=nullptr)
+	if (currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

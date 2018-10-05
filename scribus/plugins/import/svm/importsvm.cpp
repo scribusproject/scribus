@@ -688,7 +688,7 @@ bool SvmPlug::convert(const QString& fn)
 	m_currObjSize = 0;
 	emfStyleMapEMP.clear();
 	seen_XGRAD_SEQ_BEGIN = false;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

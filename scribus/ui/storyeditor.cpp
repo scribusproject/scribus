@@ -311,14 +311,14 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	SuspendContentsChange = 1;	// prevent our handler from doing anything
 	bool changed = false;
 	int pos;
-	if(textCursor().hasSelection())
+	if (textCursor().hasSelection())
 	{
 		pos =  textCursor().selectionStart();
 		StyledText.removeChars(pos, textCursor().selectionEnd() - pos);
 		changed = true;
 	}
 	pos = -1;
-	if(!uc.isEmpty())
+	if (!uc.isEmpty())
 	{
 		pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
 		pos = qMin(pos, StyledText.length());
@@ -326,12 +326,12 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	}
 	QTextEdit::inputMethodEvent(event);
 	SuspendContentsChange = 0;
-	if(pos >= 0)
+	if (pos >= 0)
 	{
 		handleContentsChange(pos, 0, uc.length());
 		changed = true;
 	}
-	if(changed)
+	if (changed)
 	{
 		emit SideBarUp(true);
 		emit SideBarUpdate();
@@ -482,7 +482,7 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 {
 	// As of Qt 4.7.4, Cococa-QTextEdit output of input method is broken.
 	// We need a workaround to avoit the bug.
-	if(SuspendContentsChange != 0)
+	if (SuspendContentsChange != 0)
 		return;
 	if (blockContentsChangeHook <= 0)
 	{
@@ -2334,7 +2334,7 @@ void StoryEditor::newTxStroke(int c, int s)
 
 void StoryEditor::newTxFont(const QString &f)
 {
-	if(!m_doc->UsedFonts.contains(f)) {
+	if (!m_doc->UsedFonts.contains(f)) {
 		if (!m_doc->AddFont(f)) {
 //, prefsManager->appPrefs.AvailFonts[f]->Font)) {
 			FontTools->Fonts->RebuildList(m_doc);

@@ -346,7 +346,7 @@ void ColorsAndFillsDialog::selEditColor(QTreeWidgetItem *it)
 			duplicateButton->setEnabled(curCol != "Registration");
 			deleteButton->setEnabled(enableDel);
 			editButton->setEnabled(enableEdit);
-			if(enableEdit)
+			if (enableEdit)
 				editColorItem();
 		}
 	}
@@ -1335,7 +1335,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-			if( fmt )
+			if (fmt)
 			{
 				fmt->setupTargets(m_doc, nullptr, mainWin, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns|LoadSavePlugin::lfLoadAsPattern);
@@ -1760,14 +1760,14 @@ void ColorsAndFillsDialog::addGimpColor(QString &colorName, double r, double g, 
 void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 {
 	QFile f(fileName);
-	if(!f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 		return;
 	QDomDocument docu("scridoc");
 	QTextStream ts(&f);
 	ts.setCodec("UTF-8");
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
-	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
+	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
 		f.close();
 		return;

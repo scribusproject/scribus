@@ -1063,7 +1063,7 @@ bool EmfPlug::convert(const QString& fn)
 	emfStyleMap.insert(U_DC_PEN, sty);
 	emfStyleMapEMP.clear();
 	clipGroup = nullptr;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

@@ -211,7 +211,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 
 QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
@@ -234,10 +234,10 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	tmpSel=new Selection(this, false);
 }
 
-QImage OODPlug::readThumbnail(const QString& fileName )
+QImage OODPlug::readThumbnail(const QString& fileName)
 {
 	QByteArray f, f2, f3;
-	if ( !QFile::exists(fileName) )
+	if (!QFile::exists(fileName))
 		return QImage();
 	ScZipHandler* fun = new ScZipHandler();
 	if (!fun->open(fileName))
@@ -259,9 +259,9 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 		return QImage();
 	if (f2.isEmpty())
 		return QImage();
-	if(!inpStyles.setContent(f))
+	if (!inpStyles.setContent(f))
 		return QImage();
-	if(!inpContents.setContent(f2))
+	if (!inpContents.setContent(f2))
 		return QImage();
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
@@ -272,11 +272,11 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 	createStyleMap( inpStyles );
 	QDomElement docElem = inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
-	if( !automaticStyles.isNull() )
+	if (!automaticStyles.isNull())
 		insertStyles( automaticStyles.toElement() );
 	QDomNode body = docElem.namedItem( "office:body" );
 	QDomNode drawPage = body.namedItem( "draw:page" );
-	if ( drawPage.isNull() )
+	if (drawPage.isNull())
 	{
 		QDomNode offDraw = body.namedItem( "office:drawing" );
 		drawPage = offDraw.namedItem( "draw:page" );
@@ -352,12 +352,12 @@ QImage OODPlug::readThumbnail(const QString& fileName )
 	return tmpImage;
 }
 
-bool OODPlug::import(const QString& fileName, const TransactionSettings& trSettings, int flags )
+bool OODPlug::import(const QString& fileName, const TransactionSettings& trSettings, int flags)
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QByteArray f, f2, f3;
-	if ( !QFile::exists(fileName) )
+	if (!QFile::exists(fileName))
 		return false;
 	ScZipHandler* fun = new ScZipHandler();
 	if (!fun->open(fileName))
@@ -379,9 +379,9 @@ bool OODPlug::import(const QString& fileName, const TransactionSettings& trSetti
 		return false;
 	if (f2.isEmpty())
 		return false;
-	if(!inpStyles.setContent(f))
+	if (!inpStyles.setContent(f))
 		return false;
-	if(!inpContents.setContent(f2))
+	if (!inpContents.setContent(f2))
 		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
@@ -401,11 +401,11 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	createStyleMap( inpStyles );
 	QDomElement docElem = inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
-	if( !automaticStyles.isNull() )
+	if (!automaticStyles.isNull() )
 		insertStyles( automaticStyles.toElement() );
 	QDomNode body = docElem.namedItem( "office:body" );
 	QDomNode drawPage = body.namedItem( "draw:page" );
-	if ( drawPage.isNull() )
+	if (drawPage.isNull())
 	{
 		QDomNode offDraw = body.namedItem( "office:drawing" );
 		drawPage = offDraw.namedItem( "draw:page" );
@@ -482,7 +482,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		if (!mpg.isNull())
 		{
 			QString Keys = "";
-			for( QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling() )
+			for (QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling())
 			{
 				Keys += n.toElement().text()+", ";
 			}
@@ -501,7 +501,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+	for (QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (!interactive)
@@ -612,7 +612,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement b = n.toElement();
-		if( b.isNull() )
+		if (b.isNull() )
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
@@ -629,7 +629,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 	{
 		PageItem *neu = m_Doc->groupObjectsList(cElements);
 		elements.append(neu);
-		if( !e.attribute("id").isEmpty() )
+		if (!e.attribute("id").isEmpty() )
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
@@ -641,28 +641,28 @@ QList<PageItem*> OODPlug::parseElement(const QDomElement &e)
 {
 	QList<PageItem*> GElements;
 	QString STag = e.tagName();
-	if ( STag == "draw:g" )
+	if (STag == "draw:g")
 	{
 		GElements = parseGroup(e);
 		return GElements;
 	}
-	if ( STag == "draw:rect" )
+	if (STag == "draw:rect")
 		GElements = parseRect(e);
-	else if ( STag == "draw:circle" || STag == "draw:ellipse" )
+	else if (STag == "draw:circle" || STag == "draw:ellipse")
 		GElements = parseEllipse(e);
-	else if ( STag == "draw:line" )
+	else if (STag == "draw:line")
 		GElements = parseLine(e);
-	else if ( STag == "draw:polygon" )
+	else if (STag == "draw:polygon")
 		GElements = parsePolygon(e);
-	else if ( STag == "draw:polyline" )
+	else if (STag == "draw:polyline")
 		GElements = parsePolyline(e);
-	else if( STag == "draw:path" )
+	else if (STag == "draw:path")
 		GElements = parsePath(e);
-	else if ( STag == "draw:text-box" )
+	else if (STag == "draw:text-box")
 		GElements = parseTextBox(e);
-	else if ( STag == "draw:frame" )
+	else if (STag == "draw:frame")
 		GElements = parseFrame(e);
-	else if ( STag == "draw:connector" )
+	else if (STag == "draw:connector")
 		GElements = parseConnector(e);
 	else
 	{
@@ -892,7 +892,7 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 	parseStyle(oostyle, e);
 	QDomNode n = e.firstChild();
 	QString STag2 = n.toElement().tagName();
-	if ( STag2 == "draw:text-box" )
+	if (STag2 == "draw:text-box")
 	{
 		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), oostyle.strokeWidth, CommonStrings::None, oostyle.strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -927,34 +927,34 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 {
 	oostyle.haveGradient = false;
 	oostyle.gradient.clearStops();
-	if( m_styleStack.hasAttribute("draw:stroke") )
+	if (m_styleStack.hasAttribute("draw:stroke") )
 	{
-		if( m_styleStack.attribute( "draw:stroke" ) == "none" )
+		if (m_styleStack.attribute( "draw:stroke" ) == "none" )
 			oostyle.strokeWidth = 0.0;
 		else
 		{
-			if( m_styleStack.hasAttribute("svg:stroke-width"))
+			if (m_styleStack.hasAttribute("svg:stroke-width"))
 			{
 				oostyle.strokeWidth = parseUnit(m_styleStack.attribute("svg:stroke-width"));
 				if (oostyle.strokeWidth == 0)
 					oostyle.strokeWidth = 1;
 			}
-			if( m_styleStack.hasAttribute("svg:stroke-color"))
+			if (m_styleStack.hasAttribute("svg:stroke-color"))
 				oostyle.strokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
-			if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
+			if (m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
 				oostyle.strokeTrans = 1.0 - ScCLocale::toDoubleC(m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' )) / 100.0;
-			if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
+			if (m_styleStack.attribute( "draw:stroke" ) == "dash" )
 			{
 				QString style = m_styleStack.attribute( "draw:stroke-dash" );
-				if( style == "Ultrafine Dashed")
+				if (style == "Ultrafine Dashed")
 					oostyle.dashes << 1.4 << 1.4;
-				else if( style == "Fine Dashed" )
+				else if (style == "Fine Dashed" )
 					oostyle.dashes << 14.4 << 14.4;
-				else if( style == "Fine Dotted")
+				else if (style == "Fine Dotted")
 					oostyle.dashes << 13 << 13;
-				else if( style == "Ultrafine 2 Dots 3 Dashes")
+				else if (style == "Ultrafine 2 Dots 3 Dashes")
 					oostyle.dashes << 1.45 << 3.6 << 1.45 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6;
-				else if( style == "Line with Fine Dots")
+				else if (style == "Line with Fine Dots")
 				{
 					oostyle.dashes << 56.9 << 4.31;
 					for (int dd = 0; dd < 10; ++ dd)
@@ -962,22 +962,22 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 						oostyle.dashes << 8.6 << 4.31;
 					}
 				}
-				else if( style == "2 Dots 1 Dash" )
+				else if (style == "2 Dots 1 Dash" )
 					oostyle.dashes << 2.8 << 5.75 << 2.8 << 5.75 << 5.75 << 5.75;
 			}
 		}
 	}
-	if( m_styleStack.hasAttribute( "draw:fill" ) )
+	if (m_styleStack.hasAttribute( "draw:fill" ) )
 	{
 		QString fill = m_styleStack.attribute( "draw:fill" );
-		if( fill == "solid" )
+		if (fill == "solid" )
 		{
-			if( m_styleStack.hasAttribute( "draw:fill-color" ) )
+			if (m_styleStack.hasAttribute( "draw:fill-color" ) )
 				oostyle.fillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
-			if( m_styleStack.hasAttribute( "draw:transparency" ) )
+			if (m_styleStack.hasAttribute( "draw:transparency" ) )
 				oostyle.fillTrans = 1.0 - ScCLocale::toDoubleC(m_styleStack.attribute( "draw:transparency" ).remove( '%' )) / 100.0;
 		}
-		else if( fill == "gradient" )
+		else if (fill == "gradient" )
 		{
 			oostyle.haveGradient = true;
 			oostyle.gradientAngle = 0;
@@ -985,31 +985,31 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 			oostyle.gradient.setRepeatMethod( VGradient::none );
 			QString style = m_styleStack.attribute( "draw:fill-gradient-name" );
 			QDomElement* draw = m_draws[style];
-			if( draw )
+			if (draw )
 			{
 				double border = 0.0;
 				int shadeS = 100;
 				int shadeE = 100;
-				if( draw->hasAttribute( "draw:border" ) )
+				if (draw->hasAttribute( "draw:border" ) )
 					border += ScCLocale::toDoubleC(draw->attribute( "draw:border" ).remove( '%' )) / 100.0;
-				if( draw->hasAttribute( "draw:start-intensity" ) )
+				if (draw->hasAttribute( "draw:start-intensity" ) )
 					shadeS = draw->attribute( "draw:start-intensity" ).remove( '%' ).toInt();
-				if( draw->hasAttribute( "draw:end-intensity" ) )
+				if (draw->hasAttribute( "draw:end-intensity" ) )
 					shadeE = draw->attribute( "draw:end-intensity" ).remove( '%' ).toInt();
 				QString type = draw->attribute( "draw:style" );
-				if( type == "linear" || type == "axial" )
+				if (type == "linear" || type == "axial" )
 				{
 					oostyle.gradient.setType( VGradient::linear );
 					oostyle.gradientAngle = ScCLocale::toDoubleC(draw->attribute( "draw:angle" )) / 10;
 					oostyle.gradientType = 1;
 				}
-				else if( type == "radial" || type == "ellipsoid" )
+				else if (type == "radial" || type == "ellipsoid" )
 				{
-					if( draw->hasAttribute( "draw:cx" ) )
+					if (draw->hasAttribute( "draw:cx" ) )
 						oostyle.gradientPointX = ScCLocale::toDoubleC(draw->attribute( "draw:cx" ).remove( '%' )) / 100.0;
 					else
 						oostyle.gradientPointX = 0.5;
-					if( draw->hasAttribute( "draw:cy" ) )
+					if (draw->hasAttribute( "draw:cy" ) )
 						oostyle.gradientPointY = ScCLocale::toDoubleC(draw->attribute( "draw:cy" ).remove( '%' )) / 100.0;
 					else
 						oostyle.gradientPointY = 0.5;
@@ -1039,7 +1039,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 
 void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
 {
-	if ( m_styleStack.hasAttribute("fo:font-size") )
+	if (m_styleStack.hasAttribute("fo:font-size"))
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
 		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
@@ -1049,7 +1049,7 @@ void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
 
 void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
 {
-	if ( m_styleStack.hasAttribute("fo:text-align") )
+	if (m_styleStack.hasAttribute("fo:text-align"))
 	{
 		QString attValue = m_styleStack.attribute("fo:text-align");
 		if (attValue == "left")
@@ -1059,7 +1059,7 @@ void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
 		if (attValue == "right")
 			style.setAlignment(ParagraphStyle::Rightaligned);
 	}
-	if ( m_styleStack.hasAttribute("fo:font-size") )
+	if (m_styleStack.hasAttribute("fo:font-size"))
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
 		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
@@ -1072,10 +1072,10 @@ PageItem* OODPlug::parseTextP (const QDomElement& elm, PageItem* item)
 {
 	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
-		if ( !n.hasAttributes() && !n.hasChildNodes() )
+		if (!n.hasAttributes() && !n.hasChildNodes())
 			continue;
 		QDomElement e = n.toElement();
-		if ( e.text().isEmpty() )
+		if (e.text().isEmpty())
 			continue;
 		storeObjectStyles(e);
 		item->itemText.insertChars(-1, SpecialChars::PARSEP);
@@ -1104,14 +1104,14 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 		if (chars.isEmpty())
 			continue;
 		int pos = item->itemText.length();
-		if ( firstSpan && (m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size")) )
+		if (firstSpan && (m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size")))
 		{
 			ParagraphStyle newStyle;
 			parseParagraphStyle(newStyle, n.isElement() ? e : elm);
 			item->itemText.applyStyle(-1, newStyle);
 		}
 		item->itemText.insertChars( -2, chars);
-		if ( !firstSpan && m_styleStack.hasAttribute("fo:font-size") )
+		if (!firstSpan && m_styleStack.hasAttribute("fo:font-size"))
 		{
 			CharStyle newStyle;
 			parseCharStyle(newStyle, n.isElement() ? e : elm);
@@ -1254,76 +1254,76 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 	return item;
 }
 
-void OODPlug::createStyleMap( QDomDocument &docstyles )
+void OODPlug::createStyleMap( QDomDocument &docstyles)
 {
 	QDomElement styles = docstyles.documentElement();
-	if( styles.isNull() )
+	if (styles.isNull())
 		return;
 
 	QDomNode fixedStyles = styles.namedItem( "office:styles" );
-	if( !fixedStyles.isNull() )
+	if (!fixedStyles.isNull())
 	{
 		insertDraws( fixedStyles.toElement() );
 		insertStyles( fixedStyles.toElement() );
 	}
 	QDomNode automaticStyles = styles.namedItem( "office:automatic-styles" );
-	if( !automaticStyles.isNull() )
+	if (!automaticStyles.isNull())
 		insertStyles( automaticStyles.toElement() );
 
 	QDomNode masterStyles = styles.namedItem( "office:master-styles" );
-	if( !masterStyles.isNull() )
+	if (!masterStyles.isNull())
 		insertStyles( masterStyles.toElement() );
 }
 
-void OODPlug::insertDraws( const QDomElement& styles )
+void OODPlug::insertDraws(const QDomElement& styles)
 {
-	for( QDomNode n = styles.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = styles.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if( !e.hasAttribute( "draw:name" ) )
+		if (!e.hasAttribute( "draw:name" ))
 			continue;
 		QString name = e.attribute( "draw:name" );
-		m_draws.insert( name, new QDomElement( e ) );
+		m_draws.insert(name, new QDomElement(e) );
 	}
 }
 
 void OODPlug::insertStyles( const QDomElement& styles )
 {
-	for ( QDomNode n = styles.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = styles.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if( !e.hasAttribute( "style:name" ) )
+		if (!e.hasAttribute( "style:name" ))
 			continue;
 		QString name = e.attribute( "style:name" );
-		m_styles.insert( name, new QDomElement( e ) );
+		m_styles.insert(name, new QDomElement(e));
 	}
 }
 
 void OODPlug::fillStyleStack( const QDomElement& object )
 {
-	if( object.hasAttribute( "presentation:style-name" ) )
+	if (object.hasAttribute( "presentation:style-name" ))
 		addStyles( m_styles.value(object.attribute( "presentation:style-name" ), nullptr) );
-	if( object.hasAttribute( "draw:style-name" ) )
+	if (object.hasAttribute( "draw:style-name" ))
 		addStyles( m_styles.value(object.attribute( "draw:style-name" ), nullptr) );
-	if( object.hasAttribute( "draw:text-style-name" ) )
+	if (object.hasAttribute( "draw:text-style-name" ))
 		addStyles( m_styles.value(object.attribute( "draw:text-style-name" ), nullptr) );
-	if( object.hasAttribute( "text:style-name" ) )
+	if (object.hasAttribute( "text:style-name" ))
 		addStyles( m_styles.value(object.attribute( "text:style-name" ), nullptr) );
 }
 
-void OODPlug::addStyles( const QDomElement* style )
+void OODPlug::addStyles(const QDomElement* style)
 {
 	if (style)
 	{
-		if( style->hasAttribute( "style:parent-style-name" ) )
-			addStyles( m_styles.value(style->attribute( "style:parent-style-name" ), nullptr) );
-		m_styleStack.push( *style );
+		if (style->hasAttribute( "style:parent-style-name" ))
+			addStyles(m_styles.value(style->attribute( "style:parent-style-name" ), nullptr));
+		m_styleStack.push(*style);
 	}
 }
 
-void OODPlug::storeObjectStyles( const QDomElement& object )
+void OODPlug::storeObjectStyles(const QDomElement& object)
 {
-	fillStyleStack( object );
+	fillStyleStack(object);
 }
 
 double OODPlug::parseUnit(const QString &unit)
@@ -1331,26 +1331,26 @@ double OODPlug::parseUnit(const QString &unit)
 	QString unitval=unit;
 	if (unit.isEmpty())
 		return 0.0;
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		unitval.replace( "pt", "" );
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		unitval.replace( "cm", "" );
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		unitval.replace( "mm" , "" );
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		unitval.replace( "in", "" );
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		unitval.replace( "px", "" );
 	double value = ScCLocale::toDoubleC(unitval);
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		{}/* value = value; */ // no change
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		value = ( value / 2.54 ) * 72;
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		value = ( value / 25.4 ) * 72;
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		value = value * 72;
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		{}/* value = value; */ // no change
 	return value;
 }
@@ -1366,24 +1366,24 @@ QString OODPlug::parseColor( const QString &s )
 {
 	QColor c;
 	QString ret = CommonStrings::None;
-	if( s.startsWith( "rgb(" ) )
+	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', QString::SkipEmptyParts );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
-		if( r.contains( "%" ) )
+		if (r.contains( "%" ))
 		{
 			r.chop(1);
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
-		if( g.contains( "%" ) )
+		if (g.contains( "%" ))
 		{
 			g.chop(1);
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
-		if( b.contains( "%" ) )
+		if (b.contains( "%" ) )
 		{
 			b.chop(1);
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
@@ -1393,10 +1393,10 @@ QString OODPlug::parseColor( const QString &s )
 	else
 	{
 		QString rgbColor = s.trimmed();
-		if( rgbColor.startsWith( "#" ) )
-			c.setNamedColor( rgbColor );
+		if (rgbColor.startsWith( "#" ))
+			c.setNamedColor(rgbColor);
 		else
-			c = parseColorN( rgbColor );
+			c = parseColorN(rgbColor);
 	}
 	ScColor tmp;
 	tmp.fromQColor(c);
@@ -1423,17 +1423,17 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
-		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
+		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-		if(subtransform[0] == "rotate")
+		if (subtransform[0] == "rotate")
 		{
 			result = QTransform();
 			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "translate")
+		else if (subtransform[0] == "translate")
 		{
-			if(params.count() == 2)
+			if (params.count() == 2)
 			{
 				dx = parseUnit(params[0]);
 				dy = parseUnit(params[1]);
@@ -1447,13 +1447,13 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 			result.translate(dx, dy);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "skewx")
+		else if (subtransform[0] == "skewx")
 		{
 			result = QTransform();
 			result.shear(-tan(ScCLocale::toDoubleC(params[0])), 0.0);
 			composite->map(result);
 		}
-		else if(subtransform[0] == "skewy")
+		else if (subtransform[0] == "skewy")
 		{
 			result = QTransform();
 			result.shear(0.0, -tan(ScCLocale::toDoubleC(params[0])));
@@ -1462,12 +1462,12 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 	}
 }
 
-void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h )
+void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, double *w, double *h)
 {
-	if( !object.attribute( "svg:viewBox" ).isEmpty() )
+	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
 		*x = ScCLocale::toDoubleC(points[0]);
 		*y = ScCLocale::toDoubleC(points[1]);
 		*w = ScCLocale::toDoubleC(points[2]);
@@ -1491,7 +1491,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', QString::SkipEmptyParts );
 	FPoint point, firstP;
 	bool bFirst = true;
-	for( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it )
+	for (QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)
 	{
 		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
 		if (bFirst)
@@ -1534,39 +1534,39 @@ const char * OODPlug::getCoord( const char *ptr, double &number )
 	expsign = 1;
 
 	// read the sign
-	if(*ptr == '+')
+	if (*ptr == '+')
 		ptr++;
-	else if(*ptr == '-')
+	else if (*ptr == '-')
 	{
 		ptr++;
 		sign = -1;
 	}
 
 	// read the integer part
-	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+	while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
-	if(*ptr == '.') // read the decimals
+	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 
-	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	if (*ptr == 'e' || *ptr == 'E') // read the exponent part
 	{
 		ptr++;
 
 		// read the sign of the exponent
-		if(*ptr == '+')
+		if (*ptr == '+')
 			ptr++;
-		else if(*ptr == '-')
+		else if (*ptr == '-')
 		{
 			ptr++;
 			expsign = -1;
 		}
 
 		exponent = 0;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		{
 			exponent *= 10;
 			exponent += *ptr - '0';
@@ -1577,18 +1577,18 @@ const char * OODPlug::getCoord( const char *ptr, double &number )
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
 
 	// skip the following space
-	if(*ptr == ' ')
+	if (*ptr == ' ')
 		ptr++;
 
 	return ptr;
 }
 
-bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
+bool OODPlug::parseSVG(const QString &s, FPointArray *ite)
 {
 	QString d = s;
 	d = d.replace( QRegExp( "," ), " ");
 	bool ret = false;
-	if( !d.isEmpty() )
+	if (!d.isEmpty())
 	{
 		d = d.simplified();
 		QByteArray data = d.toLatin1();
@@ -1600,12 +1600,12 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 		FirstM = true;
 		char command = *(ptr++), lastCommand = ' ';
 		curx = cury = contrlx = contrly = 0.0;
-		while( ptr < end )
+		while (ptr < end)
 		{
-			if( *ptr == ' ' )
+			if (*ptr == ' ')
 				ptr++;
 			relative = false;
-			switch( command )
+			switch (command)
 			{
 			case 'm':
 				relative = true;
@@ -1769,18 +1769,18 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 				}
 			}
 			lastCommand = command;
-			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			if (*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
 			{
 				// there are still coords in this command
-				if(command == 'M')
+				if (command == 'M')
 					command = 'L';
-				else if(command == 'm')
+				else if (command == 'm')
 					command = 'l';
 			}
 			else
 				command = *(ptr++);
 
-			if( lastCommand != 'C' && lastCommand != 'c' &&
+			if (lastCommand != 'C' && lastCommand != 'c' &&
 			        lastCommand != 'S' && lastCommand != 's' &&
 			        lastCommand != 'Q' && lastCommand != 'q' &&
 			        lastCommand != 'T' && lastCommand != 't')
@@ -1811,12 +1811,12 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	sin_th = sin(angle * (M_PI / 180.0));
 	cos_th = cos(angle * (M_PI / 180.0));
 	double dx;
-	if(!relative)
+	if (!relative)
 		dx = (curx - x) / 2.0;
 	else
 		dx = -x / 2.0;
 	double dy;
-	if(!relative)
+	if (!relative)
 		dy = (cury - y) / 2.0;
 	else
 		dy = -y / 2.0;
@@ -1827,7 +1827,7 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	double Px = _x1 * _x1;
 	double Py = _y1 * _y1;
 	double check = Px / Pr1 + Py / Pr2;
-	if(check > 1)
+	if (check > 1)
 	{
 		r1 = r1 * sqrt(check);
 		r2 = r2 * sqrt(check);
@@ -1838,20 +1838,20 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	a11 = cos_th / r2;
 	x0 = a00 * curx + a01 * cury;
 	y0 = a10 * curx + a11 * cury;
-	if(!relative)
+	if (!relative)
 		x1 = a00 * x + a01 * y;
 	else
 		x1 = a00 * (curx + x) + a01 * (cury + y);
-	if(!relative)
+	if (!relative)
 		y1 = a10 * x + a11 * y;
 	else
 		y1 = a10 * (curx + x) + a11 * (cury + y);
 	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
 	sfactor_sq = 1.0 / d - 0.25;
-	if(sfactor_sq < 0)
+	if (sfactor_sq < 0)
 		sfactor_sq = 0;
 	sfactor = sqrt(sfactor_sq);
-	if(sweepFlag == largeArcFlag)
+	if (sweepFlag == largeArcFlag)
 		sfactor = -sfactor;
 	xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
 	yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
@@ -1859,9 +1859,9 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	th0 = atan2(y0 - yc, x0 - xc);
 	th1 = atan2(y1 - yc, x1 - xc);
 	th_arc = th1 - th0;
-	if(th_arc < 0 && sweepFlag)
+	if (th_arc < 0 && sweepFlag)
 		th_arc += 2 * M_PI;
-	else if(th_arc > 0 && !sweepFlag)
+	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
 	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
 	for(i = 0; i < n_segs; i++)
@@ -1891,11 +1891,11 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 			svgCurveToCubic(ite, a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
 		}
 	}
-	if(!relative)
+	if (!relative)
 		curx = x;
 	else
 		curx += x;
-	if(!relative)
+	if (!relative)
 		cury = y;
 	else
 		cury += y;

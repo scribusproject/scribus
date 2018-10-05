@@ -372,7 +372,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 void ScImage::liberateMemory(void **memory)
 {
 	assert(memory != (void **)nullptr);
-	if(*memory == (void *)nullptr)
+	if (*memory == (void *)nullptr)
 		return;
 	free(*memory);
 	*memory=(void *) nullptr;
@@ -660,16 +660,16 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 	long i;
 	int mcx, mcy;
 	widthk = order;
-	if((widthk % 2) == 0)
+	if ((widthk % 2) == 0)
 		return(false);
 	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
-	if(!normal_kernel)
+	if (!normal_kernel)
 		return(false);
 	*dest = QImage(width(), height(), QImage::Format_ARGB32);
 	normalize=0.0;
 	for(i=0; i < (widthk*widthk); i++)
 		normalize += kernel[i];
-	if(fabs(normalize) <= 1.0e-12)
+	if (fabs(normalize) <= 1.0e-12)
 		normalize=1.0;
 	normalize=1.0/normalize;
 	for(i=0; i < (widthk*widthk); i++)
@@ -718,7 +718,7 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 	long width;
 	long u;
 	assert(sigma != 0.0);
-	if(radius > 0.0)
+	if (radius > 0.0)
 		return((int)(2.0*ceil(radius)+1.0));
 	for(width=5; ;)
 	{
@@ -727,7 +727,7 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 			normalize+=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma);
 		u=width/2;
 		value=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma)/normalize;
-		if((long)(65535*value) <= 0)
+		if ((long)(65535*value) <= 0)
 			break;
 		width+=2;
 	}
@@ -740,13 +740,13 @@ void ScImage::sharpen(double radius, double sigma)
 	int widthk;
 	long i, u, v;
 	QImage dest;
-	if(sigma == 0.0)
+	if (sigma == 0.0)
 		return;
 	widthk = getOptimalKernelWidth(radius, sigma);
-	if(width() < widthk)
+	if (width() < widthk)
 		return;
 	kernel = (double *)malloc(widthk*widthk*sizeof(double));
-	if(!kernel)
+	if (!kernel)
 		return;
 	i = 0;
 	normalize=0.0;
@@ -2100,7 +2100,7 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 					for( int xi=0; xi < w2; ++xi )
 					{
 						u = *(s+xi);
-						if(PDF) u = ~u;
+						if (PDF) u = ~u;
 						alpha[i++] = u;
 					}
 				}
@@ -2322,7 +2322,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		if (imgInfo.colorspace == ColorSpaceCMYK)
 		{
 			isCMYK = true;
-			if(realCMYK)
+			if (realCMYK)
 				*realCMYK = true;
 		}
 		else if (imgInfo.colorspace == ColorSpaceGray)

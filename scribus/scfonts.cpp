@@ -117,9 +117,9 @@ void SCFonts::updateFontMap()
 */
 void SCFonts::AddPath(QString p)
 {
-	if(p.right(1) != "/")
-	  p += "/";
-	if(!FontPath.contains(p))
+	if (p.right(1) != "/")
+		p += "/";
+	if (!FontPath.contains(p))
 		FontPath.insert(FontPath.count(),p);
 }
 
@@ -242,47 +242,47 @@ void getFontFormat(FT_Face face, ScFace::FontFormat & fmt, ScFace::FontType & ty
 	type = ScFace::UNKNOWN_TYPE;
 	if (ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
 	{
-		if(strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
+		if (strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
 		{
 			fmt = ScFace::TYPE42;
 			type = ScFace::TTF;
 		}
-		else if(strncmp(buf,T1_HEAD,strlen(T1_HEAD)) == 0 ||
-			    strncmp(buf,T1_ADOBE_HEAD,strlen(T1_ADOBE_HEAD)) == 0) 
+		else if (strncmp(buf,T1_HEAD,strlen(T1_HEAD)) == 0 ||
+			     strncmp(buf,T1_ADOBE_HEAD,strlen(T1_ADOBE_HEAD)) == 0) 
 		{
 			fmt = ScFace::PFA;
 			type = ScFace::TYPE1;
 		}
-		else if(strncmp(buf,PSFONT_ADOBE2_HEAD,strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
-			    strncmp(buf,PSFONT_ADOBE21_HEAD,strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
-			    strncmp(buf,PSFONT_ADOBE3_HEAD,strlen(PSFONT_ADOBE3_HEAD)) ==0) 
+		else if (strncmp(buf,PSFONT_ADOBE2_HEAD,strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
+			     strncmp(buf,PSFONT_ADOBE21_HEAD,strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
+			     strncmp(buf,PSFONT_ADOBE3_HEAD,strlen(PSFONT_ADOBE3_HEAD)) ==0) 
 		{
 			// Type2(CFF), Type0(Composite/CID), Type 3, Type 14 etc would end here
 			fmt = ScFace::PFA;
 			type = ScFace::UNKNOWN_TYPE;
 		}
-		else if(buf[0] == '\200' && buf[1] == '\1')
+		else if (buf[0] == '\200' && buf[1] == '\1')
 		{
 			fmt = ScFace::PFB;
 			type = ScFace::TYPE1;
 		}
-		else if(buf[0] == '\0' && buf[1] == '\1' 
+		else if (buf[0] == '\0' && buf[1] == '\1' 
 				&& buf[2] == '\0' && buf[3] == '\0')
 		{
 			fmt = ScFace::SFNT;
 			type = ScFace::TTF;
 		}
-		else if(strncmp(buf,"true",4) == 0)
+		else if (strncmp(buf,"true",4) == 0)
 		{
 			fmt = ScFace::SFNT;
 			type = ScFace::TTF;
 		}
-		else if(strncmp(buf,"ttcf",4) == 0)
+		else if (strncmp(buf,"ttcf",4) == 0)
 		{
 			fmt = ScFace::TTCF;
 			type = ScFace::OTF;
 		}
-		else if(strncmp(buf,"OTTO",4) == 0)
+		else if (strncmp(buf,"OTTO",4) == 0)
 		{
 			fmt = ScFace::SFNT;
 			type = ScFace::OTF;
@@ -1045,13 +1045,13 @@ void SCFonts::AddXFontPath()
 void SCFonts::AddXFontServerPath()
 {
 	QFile fs("/etc/X11/fs/config");
-	if(!(fs.exists()))
+	if (!(fs.exists()))
 	{
 		fs.setName("/usr/X11R6/lib/X11/fs/config");
-		if(!(fs.exists()))
+		if (!(fs.exists()))
 		{
 			fs.setName("/usr/X11/lib/X11/fs/config");
-			if(!(fs.exists()))
+			if (!(fs.exists()))
 				return;
 		}
 	}
@@ -1072,7 +1072,7 @@ void SCFonts::AddXFontServerPath()
 			pos = paths.find("\n",pos+1);
 		} while (pos > -1 && paths.mid(pos-1, 1) == ",");
 
-		if(pos<0) pos=paths.length();
+		if (pos<0) pos=paths.length();
 		paths = paths.left(pos);
 		paths = paths.simplified();
 		paths.replace(QRegExp(" "), "");
@@ -1116,14 +1116,14 @@ void SCFonts::ReadCacheList(const QString& pf)
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
 	QFile f(pf + "/checkfonts150.xml");
-	if(!f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
 	QTextStream ts(&f);
 	ts.setCodec("UTF-8");
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
-	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
+	if ( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
 		f.close();
 		return;

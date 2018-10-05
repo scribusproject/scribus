@@ -435,7 +435,7 @@ ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 		return CONTROL_GLYPHS + ch;
 	if (ch == SpecialChars::NBSPACE)
 		return  m_m->char2CMap(' ');
-	if(ch == SpecialChars::NBHYPHEN)
+	if (ch == SpecialChars::NBHYPHEN)
 		return hyphenGlyph();
 	return 0;
 }

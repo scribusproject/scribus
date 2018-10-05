@@ -614,12 +614,12 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					QRgb alphaFF = qRgba(255,255,255,255);
 					QRgb alpha00 = qRgba(255,255,255,  0);
 					QRgb *s;
-					for( int yi=0; yi < hi; ++yi )
+					for (int yi = 0; yi < hi; ++yi)
 					{
 						s = (QRgb*)(m_image.scanLine( yi ));
-						for(int xi=0; xi < wi; ++xi )
+						for (int xi = 0; xi < wi; ++xi)
 						{
-							if((*s) == alphaFF)
+							if ((*s) == alphaFF)
 								(*s) &= alpha00;
 							s++;
 						}
@@ -816,12 +816,12 @@ void ScImgDataLoader_PS::loadPhotoshop(const QString& fn, int gsRes)
 				QRgb alphaFF = qRgba(255,255,255,255);
 				QRgb alpha00 = qRgba(255,255,255,  0);
 				QRgb *s;
-				for( int yi=0; yi < hi; ++yi )
+				for (int yi = 0; yi < hi; ++yi)
 				{
 					s = (QRgb*)(m_image.scanLine( yi ));
-					for(int xi=0; xi < wi; ++xi )
+					for (int xi = 0; xi < wi; ++xi)
 					{
-						if((*s) == alphaFF)
+						if ((*s) == alphaFF)
 							(*s) &= alpha00;
 						s++;
 					}
@@ -1730,12 +1730,12 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				QRgb alphaFF = qRgba(255,255,255,255);
 				QRgb alpha00 = qRgba(255,255,255,  0);
 				QRgb *s;
-				for( int yi=0; yi < hi; ++yi )
+				for (int yi = 0; yi < hi; ++yi)
 				{
-					s = (QRgb*)(m_image.scanLine( yi ));
-					for(int xi=0; xi < wi; ++xi )
+					s = (QRgb*)(m_image.scanLine(yi));
+					for (int xi = 0; xi < wi; ++xi)
 					{
-						if((*s) == alphaFF)
+						if ((*s) == alphaFF)
 							(*s) &= alpha00;
 						s++;
 					}

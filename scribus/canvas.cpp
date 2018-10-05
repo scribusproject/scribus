@@ -595,7 +595,7 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 			if ((level == itemLevel) && (item1id > itemid))
 				continue;
 			QRectF uRect(item1->getBoundingRect());
-			if(baseRect.intersects(uRect))
+			if (baseRect.intersects(uRect))
 				return item1;
 		}
 	}
@@ -1502,7 +1502,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			{
 //					qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 			}
-			else if(m_viewMode.operItemSelecting)
+			else if (m_viewMode.operItemSelecting)
 			{
 				currItem->invalid = false;
 				currItem->DrawObj(painter, cullingArea);
@@ -2566,7 +2566,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	static QString rulerItemRef;
 	static double rulerDumbHash(0.0);
 	
-	if( (rulerItemRef != item->itemName()) 
+	if ((rulerItemRef != item->itemName()) 
 		   || forceAndReset )
 	{
 		rulerItemRef = item->itemName();
@@ -2592,7 +2592,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 		controlHash += tabrec.tabPosition;
 	}
 // 	qDebug()<<"Canvas::setupEditHRuler"<<rulerItemRef<<controlHash<<rulerDumbHash;
-	if(controlHash == rulerDumbHash)
+	if (controlHash == rulerDumbHash)
 		return;
 	
 	rulerDumbHash = controlHash;

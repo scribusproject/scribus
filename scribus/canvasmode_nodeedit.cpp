@@ -1154,10 +1154,10 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 					int prev = (curr+cli.size()-4)%cli.size();
 					int next = (curr+4)%cli.size();
 
-					if(std::abs(cli.point(prev).x()-cli.point(curr).x())<std::abs(cli.point(next).x()-cli.point(curr).x()))
+					if (std::abs(cli.point(prev).x()-cli.point(curr).x())<std::abs(cli.point(next).x()-cli.point(curr).x()))
 						tmpNode=next;
-					else if(std::abs(cli.point(prev).x()-cli.point(curr).x())==std::abs(cli.point(next).x()-cli.point(curr).x())){
-						if(cli.point(prev).y()!=cli.point(curr).y())
+					else if (std::abs(cli.point(prev).x()-cli.point(curr).x())==std::abs(cli.point(next).x()-cli.point(curr).x())){
+						if (cli.point(prev).y()!=cli.point(curr).y())
 							tmpNode=next;
 						else
 							tmpNode=prev;
@@ -1176,7 +1176,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 
 					m_doc->nodeEdit.moveClipPoint(currItem, npf1);
 
-					if(m_doc->nodeEdit.clre()==prev)
+					if (m_doc->nodeEdit.clre()==prev)
 						m_doc->nodeEdit.setClre(next);
 					else
 						m_doc->nodeEdit.setClre(prev);

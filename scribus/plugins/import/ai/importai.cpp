@@ -2832,7 +2832,7 @@ void AIPlug::processPattern(QDataStream &ts)
 				tmp = readLineFromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
-				if(progressDialog)
+				if (progressDialog)
 				{
 					progressDialog->setProgress("GI", ts.device()->pos());
 					qApp->processEvents();
@@ -2930,7 +2930,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 				tmp = readLineFromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
-				if(progressDialog)
+				if (progressDialog)
 				{
 					progressDialog->setProgress("GI", ts.device()->pos());
 					qApp->processEvents();
@@ -3143,7 +3143,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 				processSymbol(ts, false);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3160,7 +3160,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (tmp.startsWith("EndGradient"))
 				break;
 			processGradientData(tmp);
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3174,7 +3174,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndPalette"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3192,7 +3192,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndSymbol"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3206,7 +3206,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndDocumentData"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3227,7 +3227,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			}
 		//	else
 		//		dataStringT += tmp.mid(1);
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3241,7 +3241,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndProlog"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3255,7 +3255,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndData"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3269,7 +3269,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("%%EndCrops"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3279,7 +3279,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 	else if (tmp.startsWith("BeginRaster"))
 	{
 		processRaster(ts);
-		if(progressDialog)
+		if (progressDialog)
 		{
 			progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
@@ -3292,7 +3292,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = readLineFromDataStream(ts);
 			if (tmp.contains("EndRaster"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3306,7 +3306,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndSVGFilter"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3320,7 +3320,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndArtStyles"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3334,7 +3334,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			tmp = removeAIPrefix(readLineFromDataStream(ts));
 			if (tmp.startsWith("EndPluginObject"))
 				break;
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3355,7 +3355,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (tmp.startsWith("EndLayer"))
 				break;
 			processData(rl);
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
@@ -3442,7 +3442,7 @@ bool AIPlug::convert(const QString& fn)
 	commandList << "P" << "R";							// unimplemented
 	commandList << "XI" << "XF" << "XG" << "XT" << "Z" << "`" << "~" << "_" << "@";	// unimplemented
 	commandList << "&" << "*w" << "*W" << "Ap" << "Ar";				// unimplemented
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
@@ -3465,7 +3465,7 @@ bool AIPlug::convert(const QString& fn)
 				processComment(ts, tmp);
 			else
 				processData(tmp);
-			if(progressDialog)
+			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();

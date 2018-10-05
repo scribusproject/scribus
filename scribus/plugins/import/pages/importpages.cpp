@@ -516,7 +516,7 @@ QImage PagesPlug::readThumbnail(const QString& fName)
 		{
 			if (uz->read("index.xml", f))
 			{
-				if(designMapDom.setContent(f))
+				if (designMapDom.setContent(f))
 				{
 					QDomElement docElem = designMapDom.documentElement();
 					for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -804,7 +804,7 @@ bool PagesPlug::convert(const QString& fn)
 	importedPatterns.clear();
 	m_StyleSheets.clear();
 	m_currentStyleSheet = "";
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

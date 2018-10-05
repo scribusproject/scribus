@@ -75,7 +75,7 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 	int aValue;
 	if (!PyArg_ParseTuple(args, "i", &aValue))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->slotDocCh(static_cast<bool>(aValue));
 	/*
@@ -91,7 +91,7 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 	double zoomFactor;
 	if (!PyArg_ParseTuple(args, "d", &zoomFactor))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	if (zoomFactor > 0.0 || zoomFactor == -100.0)
 		ScCore->primaryMainWindow()->slotZoom(zoomFactor);
@@ -110,9 +110,9 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 PyObject *scribus_scrolldocument(PyObject*,PyObject* args)
 {
 	int moveX = 0, moveY = 0;
-	if(!PyArg_ParseTuple(args, "ii", &moveX, &moveY))
+	if (!PyArg_ParseTuple(args, "ii", &moveX, &moveY))
 		return nullptr;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->view->scrollBy(moveX,moveY);
 	Py_RETURN_NONE;

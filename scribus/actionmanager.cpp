@@ -1387,9 +1387,9 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 
 void ActionManager::enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode, const QString& fontName)
 {
-	for ( QStringList::Iterator it = list->begin(); it != list->end(); ++it )
+	for (QStringList::Iterator it = list->begin(); it != list->end(); ++it)
 	{
-		if(!checkingUnicode)
+		if (!checkingUnicode)
 			(*actionMap)[*it]->setEnabled(enabled);
 		else
 		{
@@ -1397,7 +1397,7 @@ void ActionManager::enableActionStringList(QMap<QString, QPointer<ScrAction> > *
 			if (mainWindow->HaveDoc && (*actionMap)[*it]->actionType()==ScrAction::UnicodeChar)
 			{
 				int charCode=(*actionMap)[*it]->actionInt();
-				if(charCode==-1 ||
+				if (charCode==-1 ||
 					charCode==23 ||
 					charCode==24 ||
 					charCode==26 ||

@@ -114,7 +114,7 @@ bool ImportXfigPlugin::import(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importxfig");
@@ -155,7 +155,7 @@ bool ImportXfigPlugin::import(QString fileName, int flags)
 
 QImage ImportXfigPlugin::readThumbnail(const QString& fileName)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;

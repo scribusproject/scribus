@@ -513,7 +513,7 @@ void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, dou
 	m_view->setObjectUndoMode();
 	m_Mxp = mx;
 	m_Myp = my;
-	if(currItem!=nullptr)
+	if (currItem!=nullptr)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 		cmen->exec(QCursor::pos());

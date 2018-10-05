@@ -122,7 +122,7 @@ void HunspellDialog::ignoreAllWords()
 void HunspellDialog::changeWord()
 {
 	//If we have ignored a word or its already changed, skip to the next.
-	if(m_wfList->at(m_wfListIndex).ignore || m_wfList->at(m_wfListIndex).changed)
+	if (m_wfList->at(m_wfListIndex).ignore || m_wfList->at(m_wfListIndex).changed)
 		goToNextWord();
 	replaceWord(m_wfListIndex);
 	goToNextWord();
@@ -130,12 +130,12 @@ void HunspellDialog::changeWord()
 
 void HunspellDialog::changeAllWords()
 {
-	if(m_wfList->at(m_wfListIndex).ignore && !m_wfList->at(m_wfListIndex).changed)
+	if (m_wfList->at(m_wfListIndex).ignore && !m_wfList->at(m_wfListIndex).changed)
 		return;
 	QString wordToChange=m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for(int i=0;i<m_wfList->count();++i)
-		if(m_wfList->at(i).w==wordToChange)
+		if (m_wfList->at(i).w==wordToChange)
 			replaceWord(i);
 	goToNextWord();
 }

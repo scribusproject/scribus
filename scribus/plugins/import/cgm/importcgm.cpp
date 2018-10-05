@@ -428,7 +428,7 @@ bool CgmPlug::convert(const QString& fn)
 	textScaleMode = 1;
 	currentRegion = 0;
 	pictName = "";
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

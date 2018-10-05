@@ -48,11 +48,11 @@ CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(v
 void CanvasMode_ImageImport::setImageList(QStringList l)
 {
 	m_imageList = l;
-	if(l.size()==1)
+	if (l.size()==1)
 	{
 		while(!(m_doc->m_Selection->itemAt(0)->isImageFrame()))
 			m_doc->m_Selection->removeFirst();
-		if(!m_doc->m_Selection->isEmpty())
+		if (!m_doc->m_Selection->isEmpty())
 		{
 			setImage(m_doc->m_Selection->itemAt(0));
 			m_view->requestMode(submodePaintingDone);
@@ -72,7 +72,7 @@ void CanvasMode_ImageImport::newToolTip(const QString& name)
 	p.begin(&pm);
 	p.fillRect(QRectF(0, 0, 80, 80), b);
 	QImage thumb;
-	if(thumb.load(name))
+	if (thumb.load(name))
 	{
 		thumb = thumb.scaled(80,80,Qt::KeepAspectRatio);
 		p.drawImage((80 - thumb.width()) / 2, (80 - thumb.height()) / 2, thumb);
@@ -166,10 +166,10 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 	QToolTip::showText(m->globalPos(), m_tipText + "<b></b>", qApp->activeWindow());
 	m->accept();
 	PageItem *item;
-	if((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
+	if ((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
 	{
 		PageItem_ImageFrame *currItem;
-		if((currItem = item->asImageFrame()) != nullptr)
+		if ((currItem = item->asImageFrame()) != nullptr)
 			m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
@@ -191,12 +191,12 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	PageItem *item;
-	if(!m_imageList.empty())
+	if (!m_imageList.empty())
 	{
-		if((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
+		if ((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
 		{
 			PageItem_ImageFrame *currItem;
-			if((currItem = item->asImageFrame()) != nullptr)
+			if ((currItem = item->asImageFrame()) != nullptr)
 				setImage(currItem);
 		}
 		else
@@ -245,7 +245,7 @@ void CanvasMode_ImageImport::setImage(PageItem *currItem)
 
 void CanvasMode_ImageImport::updateList()
 {
-	if(m_imageList.isEmpty())
+	if (m_imageList.isEmpty())
 	{
 		m_view->requestMode(submodePaintingDone);
 		QToolTip::hideText();

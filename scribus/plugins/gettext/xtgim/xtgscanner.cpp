@@ -427,7 +427,7 @@ void XtgScanner::setFont()
 	if (m_token != "$")
 		font = getFontName(m_token);
 	m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
-	if(!m_doc->UsedFonts.contains(font))
+	if (!m_doc->UsedFonts.contains(font))
 		m_doc->AddFont(font);
 }
 

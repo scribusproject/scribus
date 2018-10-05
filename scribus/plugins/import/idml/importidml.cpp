@@ -124,7 +124,7 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	}
 	if (!f.isEmpty())
 	{
-		if(!designMapDom.setContent(f))
+		if (!designMapDom.setContent(f))
 			return QImage();
 		bool found = false;
 		QDomElement docElem = designMapDom.documentElement();
@@ -236,7 +236,7 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	}
 	if (!f.isEmpty())
 	{
-		if(designMapDom.setContent(f))
+		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			if (ext == "idms")
@@ -501,7 +501,7 @@ bool IdmlPlug::convert(const QString& fn)
 	styleTranslate.clear();
 	charStyleTranslate.clear();
 	ObjectStyles.clear();
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
@@ -530,7 +530,7 @@ bool IdmlPlug::convert(const QString& fn)
 	}
 	if (!f.isEmpty())
 	{
-		if(designMapDom.setContent(f))
+		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			QString activeLayer = docElem.attribute("ActiveLayer");
@@ -694,7 +694,7 @@ bool IdmlPlug::parseFontsXML(const QDomElement& grElem)
 	{
 		QByteArray f2;
 		fun->read(grElem.attribute("src"), f2);
-		if(grMapDom.setContent(f2))
+		if (grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
 			return false;
@@ -742,7 +742,7 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 	{
 		QByteArray f2;
 		fun->read(grElem.attribute("src"), f2);
-		if(grMapDom.setContent(f2))
+		if (grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
 			return false;
@@ -881,7 +881,7 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	{
 		QByteArray f2;
 		fun->read(sElem.attribute("src"), f2);
-		if(sMapDom.setContent(f2))
+		if (sMapDom.setContent(f2))
 			sNode = sMapDom.documentElement();
 		else
 			return false;
@@ -1303,7 +1303,7 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 	{
 		QByteArray f2;
 		fun->read(prElem.attribute("src"), f2);
-		if(prMapDom.setContent(f2))
+		if (prMapDom.setContent(f2))
 			prNode = prMapDom.documentElement();
 		else
 			return false;
@@ -1515,7 +1515,7 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 	{
 		QByteArray f2;
 		fun->read(spElem.attribute("src"), f2);
-		if(spMapDom.setContent(f2))
+		if (spMapDom.setContent(f2))
 			spNode = spMapDom.documentElement();
 		else
 			return false;
@@ -2710,7 +2710,7 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 	{
 		QByteArray f2;
 		fun->read(stElem.attribute("src"), f2);
-		if(stMapDom.setContent(f2))
+		if (stMapDom.setContent(f2))
 			stNode = stMapDom.documentElement();
 		else
 			return false;

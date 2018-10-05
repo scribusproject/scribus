@@ -161,22 +161,22 @@ int SpecialChars::getCJKAttr(QChar c)
 		CJK_FENCE_END
 	};
 	ushort code = c.unicode();
-	if(code >= 0x3100 && code < 0xa000){
+	if (code >= 0x3100 && code < 0xa000){
 		return CJK_KANJI;
 	}
 
 	int attr = 0;
-	if(code >= 0x3000 && code < 0x3100){
+	if (code >= 0x3000 && code < 0x3100){
 		attr = attr_3000[code - 0x3000];
-	} else if( code >= 0xff00 && code <= 0xff60 ){
+	} else if ( code >= 0xff00 && code <= 0xff60 ){
 		attr = attr_ff00[code - 0xff00];
 	}
-	if( attr != 0 ){
-		if(attr == CJK_COMMA || attr == CJK_PERIOD || attr == CJK_NOTOP || attr == CJK_FENCE_END )
+	if ( attr != 0 ){
+		if (attr == CJK_COMMA || attr == CJK_PERIOD || attr == CJK_NOTOP || attr == CJK_FENCE_END )
 			attr |= CJK_NOBREAK_BEFORE;
-		else if(attr == CJK_FENCE_BEGIN )
+		else if (attr == CJK_FENCE_BEGIN )
 			attr |= CJK_NOBREAK_AFTER;
-		else if(attr == CJK_MIDPOINT || attr == CJK_HYPHEN || attr == CJK_DELMITER )
+		else if (attr == CJK_MIDPOINT || attr == CJK_HYPHEN || attr == CJK_DELMITER )
 			attr |= CJK_NOBREAK_BEFORE;
 	}
 	return attr;

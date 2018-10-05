@@ -288,14 +288,14 @@ bool ColorSetManager::paletteLocationLocked(const QString& palettePath)
 bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
 {
 	QFile f(paletteFileName);
-	if(!f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 		return false;
 	QDomDocument docu("scridoc");
 	QTextStream ts(&f);
 	ts.setCodec("UTF-8");
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
-	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
+	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn))
 	{
 		f.close();
 		return false;

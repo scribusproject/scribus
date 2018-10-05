@@ -204,9 +204,9 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 		m_imageInfoRecord.exifDataValid = false;
 		float xres = m_image.dotsPerMeterX() * 0.0254;
 		float yres = m_image.dotsPerMeterY() * 0.0254;
-		if( xres <= 1.0 || xres > 3000.0 )
+		if (xres <= 1.0 || xres > 3000.0)
 			xres = 72.0;
-		if( yres <= 1.0 || yres > 3000.0 )
+		if (yres <= 1.0 || yres > 3000.0)
 			yres = 72.0;
 		int resInf = m_imageInfoRecord.lowResType;
 		m_image = m_image.convertToFormat(QImage::Format_ARGB32);

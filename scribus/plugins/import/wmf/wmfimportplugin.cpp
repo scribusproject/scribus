@@ -185,7 +185,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 
 QImage WMFImportPlugin::readThumbnail(const QString& fileName)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;

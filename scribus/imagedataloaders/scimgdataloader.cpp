@@ -123,7 +123,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 	{
 		s >> signature;
 		offset += 4;
-		if(((signature >> 24)&0xff) != '8' ||
+		if (((signature >> 24)&0xff) != '8' ||
 		        ((signature >> 16)&0xff) != 'B' ||
 		        ((signature >> 8)&0xff) != 'I' ||
 		        ((signature )&0xff) != 'M' )
@@ -134,7 +134,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 		resName = getPascalString(s);
 		offset += s.device()->pos() - adj;
 		s >> resSize;
-		if(offset + resSize > size)
+		if (offset + resSize > size)
 			break;
 		resBase = s.device()->pos();
 		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
@@ -271,6 +271,6 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			offset += 1;
 		}
 	}
-	if(offset<size)
+	if (offset<size)
 		s.device()->seek( size );
 }

@@ -1099,7 +1099,7 @@ void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;
-	if(currItem!=nullptr)
+	if (currItem!=nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

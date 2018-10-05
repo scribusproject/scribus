@@ -115,7 +115,7 @@ bool ImportXarPlugin::import(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importxar");
@@ -156,7 +156,7 @@ bool ImportXarPlugin::import(QString fileName, int flags)
 
 QImage ImportXarPlugin::readThumbnail(const QString& fileName)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = ScCore->primaryMainWindow()->doc;
@@ -170,7 +170,7 @@ QImage ImportXarPlugin::readThumbnail(const QString& fileName)
 
 bool ImportXarPlugin::readColors(const QString& fileName, ColorList &colors)
 {
-	if( fileName.isEmpty() )
+	if (fileName.isEmpty())
 		return false;
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;

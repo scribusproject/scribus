@@ -160,7 +160,7 @@ void ScPainter::endLayer()
 		cairo_pop_group_to_source (m_cr);
 		if (!la.groupClip.empty())
 		{
-			if( m_fillRule )
+			if( m_fillRule)
 				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 			else
 				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
@@ -450,7 +450,7 @@ void ScPainter::fillPath()
 
 void ScPainter::strokePath()
 {
-//	if( LineWidth == 0 )
+//	if (LineWidth == 0)
 //		return;
 	if (m_strokeMode != 0)
 		strokePathHelper();
@@ -724,7 +724,7 @@ void ScPainter::fillPathHelper()
 {
 	cairo_save( m_cr );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	if( m_fillRule )
+	if (m_fillRule)
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 	else
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
@@ -1290,26 +1290,26 @@ void ScPainter::strokePathHelper()
 {
 	cairo_save( m_cr );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	if( m_LineWidth == 0 )
+	if (m_LineWidth == 0)
 		cairo_set_line_width( m_cr, 1.0 / m_zoomFactor );
 	else
 		cairo_set_line_width( m_cr, m_LineWidth );
-	if( m_array.count() > 0 )
+	if (m_array.count() > 0)
 		cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 	else
 		cairo_set_dash( m_cr, nullptr, 0, 0 );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	if( PLineEnd == Qt::RoundCap )
+	if (PLineEnd == Qt::RoundCap)
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
-	else if( PLineEnd == Qt::SquareCap )
+	else if (PLineEnd == Qt::SquareCap)
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_SQUARE);
-	else if( PLineEnd == Qt::FlatCap )
+	else if (PLineEnd == Qt::FlatCap )
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_BUTT);
-	if( PLineJoin == Qt::RoundJoin )
+	if (PLineJoin == Qt::RoundJoin)
 		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_ROUND );
-	else if( PLineJoin == Qt::BevelJoin )
+	else if (PLineJoin == Qt::BevelJoin)
 		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
-	else if( PLineJoin == Qt::MiterJoin )
+	else if (PLineJoin == Qt::MiterJoin)
 		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
 	if (m_strokeMode == 3)
 	{

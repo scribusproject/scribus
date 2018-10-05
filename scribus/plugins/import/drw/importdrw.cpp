@@ -360,7 +360,7 @@ bool DrwPlug::convert(const QString& fn)
 	imageValid = false;
 	thumbRead = false;
 	currentItem = nullptr;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

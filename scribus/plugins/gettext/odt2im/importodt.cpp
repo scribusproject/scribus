@@ -1243,30 +1243,30 @@ double ODTIm::parseUnit(const QString &unit)
 	QString unitval=unit;
 	if (unit.isEmpty())
 		return 0.0;
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		unitval.replace( "pt", "" );
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		unitval.replace( "cm", "" );
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		unitval.replace( "mm" , "" );
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		unitval.replace( "in", "" );
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		unitval.replace( "px", "" );
-	else if( unit.right( 1 ) == "%" )
+	else if (unit.right( 1 ) == "%" )
 		unitval.replace( "%", "" );
 	double value = ScCLocale::toDoubleC(unitval);
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt" )
 		{}/* value = value; */ //no change
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		value = ( value / 2.54 ) * 72;
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		value = ( value / 25.4 ) * 72;
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		value = value * 72;
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		{}/* value = value; */ //no change
-	else if( unit.right( 1 ) == "%" )
+	else if (unit.right( 1 ) == "%")
 		value = value / 100.0;
 	return value;
 }
@@ -1284,24 +1284,24 @@ QString ODTIm::parseColor( const QString &s )
 	QString ret = CommonStrings::None;
 	if ((s == "") || s.isEmpty())
 		return ret;
-	if( s.startsWith( "rgb(" ) )
+	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', QString::SkipEmptyParts );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
-		if( r.contains( "%" ) )
+		if (r.contains( "%" ))
 		{
 			r.chop(1);
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
-		if( g.contains( "%" ) )
+		if (g.contains( "%" ))
 		{
 			g.chop(1);
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
-		if( b.contains( "%" ) )
+		if (b.contains( "%" ))
 		{
 			b.chop(1);
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
@@ -1311,7 +1311,7 @@ QString ODTIm::parseColor( const QString &s )
 	else
 	{
 		QString rgbColor = s.trimmed();
-		if( rgbColor.startsWith( "#" ) )
+		if (rgbColor.startsWith( "#" ))
 			c.setNamedColor( rgbColor );
 		else
 			c = parseColorN( rgbColor );

@@ -317,9 +317,9 @@ void Cpalette::setCurrentItem(PageItem* item)
 		setMeshPatchPoint();
 	else
 		setMeshPoint();
-	if(CGradDia && gradEditButton->isChecked())
+	if (CGradDia && gradEditButton->isChecked())
 	{
-		if(tabFillStroke->currentIndex() == 0)
+		if (tabFillStroke->currentIndex() == 0)
 			setGradientVectorValues();
 		else
 			setGradientVectorStrokeValues();
@@ -1374,7 +1374,7 @@ void Cpalette::resetOneControlPoint()
 		if ((grow == -1) || (gcol == 0))
 			return;
 		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = nullptr;
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
@@ -1390,7 +1390,7 @@ void Cpalette::resetOneControlPoint()
 					tmp.controlBottom = tmp.gridPoint;
 				if (cont == 4)
 					tmp.controlRight  = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].TL,tmp));
 				currentItem->meshGradientPatches[grow].TL = tmp;
 				break;
@@ -1400,7 +1400,7 @@ void Cpalette::resetOneControlPoint()
 					tmp.controlBottom = tmp.gridPoint;
 				if (cont == 3)
 					tmp.controlLeft   = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].TR,tmp));
 				currentItem->meshGradientPatches[grow].TR = tmp;
 				break;
@@ -1410,7 +1410,7 @@ void Cpalette::resetOneControlPoint()
 					tmp.controlTop  = tmp.gridPoint;
 				if (cont == 3)
 					tmp.controlLeft = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].BR,tmp));
 				currentItem->meshGradientPatches[grow].BR = tmp;
 				break;
@@ -1420,12 +1420,12 @@ void Cpalette::resetOneControlPoint()
 					tmp.controlTop   = tmp.gridPoint;
 				if (cont == 4)
 					tmp.controlRight = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].BL,tmp));
 				currentItem->meshGradientPatches[grow].BL = tmp;
 				break;
 		}
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 			undoManager->action(currentItem,ss);
 	}
 	else
@@ -1443,7 +1443,7 @@ void Cpalette::resetOneControlPoint()
 		else if (cont == 4)
 			tmp.controlRight  = tmp.gridPoint;
 
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 		{
 			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
@@ -1469,7 +1469,7 @@ void Cpalette::resetAllControlPoints()
 		if ((grow == -1) || (gcol == 0))
 			return;
 		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = nullptr;
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
@@ -1485,7 +1485,7 @@ void Cpalette::resetAllControlPoints()
 				tmp.controlLeft   = tmp.gridPoint;
 				tmp.controlRight  = tmp.gridPoint;
 				tmp.controlBottom = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].TL,tmp));
 				currentItem->meshGradientPatches[grow].TL = tmp;
 		break;
@@ -1495,7 +1495,7 @@ void Cpalette::resetAllControlPoints()
 				tmp.controlLeft   = tmp.gridPoint;
 				tmp.controlRight  = tmp.gridPoint;
 				tmp.controlBottom = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].TR,tmp));
 				currentItem->meshGradientPatches[grow].TR = tmp;
 		break;
@@ -1505,7 +1505,7 @@ void Cpalette::resetAllControlPoints()
 				tmp.controlLeft   = tmp.gridPoint;
 				tmp.controlRight  = tmp.gridPoint;
 				tmp.controlBottom = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].BR,tmp));
 				currentItem->meshGradientPatches[grow].BR = tmp;
 		break;
@@ -1515,12 +1515,12 @@ void Cpalette::resetAllControlPoints()
 				tmp.controlLeft   = tmp.gridPoint;
 				tmp.controlRight  = tmp.gridPoint;
 				tmp.controlBottom = tmp.gridPoint;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					ss->setItem(qMakePair(currentItem->meshGradientPatches[grow].BL,tmp));
 				currentItem->meshGradientPatches[grow].BL = tmp;
 		break;
 		}
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 			undoManager->action(currentItem,ss);
 	}
 	else
@@ -1532,7 +1532,7 @@ void Cpalette::resetAllControlPoints()
 		tmp.controlLeft   = tmp.gridPoint;
 		tmp.controlRight  = tmp.gridPoint;
 		tmp.controlBottom = tmp.gridPoint;
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 		{
 			ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
 			ss->set("MOVE_MESH_PATCH");
@@ -1697,7 +1697,7 @@ void Cpalette::handleRemovePatch()
 {
 	if ((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1))
 	{
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 		{
 			ScItemState<meshGradientPatch> *ss = new ScItemState<meshGradientPatch>(Um::RemoveMeshPatch,"",Um::ILine);
 			ss->set("REMOVE_MESH_PATCH");

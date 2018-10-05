@@ -297,9 +297,9 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
 				m_doc->ApplyGuides(&nx, &ny,true);
-				if(nx!=np2.x())
+				if (nx!=np2.x())
 					xSnap = nx;
-				if(ny!=np2.y())
+				if (ny!=np2.y())
 					ySnap = ny;
 				// #8959 : suppress qRound here as this prevent drawing line with angle constrain
 				// precisely and does not allow to stick precisely to grid or guides

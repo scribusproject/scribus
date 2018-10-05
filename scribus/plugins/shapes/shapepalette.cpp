@@ -317,7 +317,7 @@ void ShapePalette::writeToPrefs()
 {
 	QString prFile = QDir::toNativeSeparators(PrefsManager::instance()->preferencesLocation()+"/scribusshapes.xml");
 	QFile f(prFile);
-	if(!f.open(QIODevice::WriteOnly))
+	if (!f.open(QIODevice::WriteOnly))
 		return;
 	QDomDocument docu = QDomDocument("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";

@@ -335,7 +335,7 @@ bool CvgPlug::convert(const QString& fn)
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	currentItemNr = 0;
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));

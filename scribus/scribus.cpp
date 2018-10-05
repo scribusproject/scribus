@@ -3063,7 +3063,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-			if( fmt )
+			if (fmt)
 			{
 				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 			}
@@ -3092,7 +3092,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 	else
 	{
 		UndoTransaction pasteAction;
-		if(UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled())
 			pasteAction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
 		view->Deselect(true);
 		int docItemCount = doc->Items->count();
@@ -3403,7 +3403,7 @@ bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, cons
 		}
 		doc->setLoading(true);
 		int oldItemsCount = doc->Items->count();
-		if(!fl->loadPage(doc, Nr, Mpa, renamedPageName))
+		if (!fl->loadPage(doc, Nr, Mpa, renamedPageName))
 		{
 			delete fl;
 			doc->setLoading(false);
@@ -3791,7 +3791,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		for (auto iti = doc->Items->begin(); iti != doc->Items->end(); ++iti)
 		{
 			PageItem* ite = *iti;
-			if((ite->nextInChain() == nullptr) && !ite->isNoteFrame())  //do not layout notes frames
+			if ((ite->nextInChain() == nullptr) && !ite->isNoteFrame())  //do not layout notes frames
 				ite->layout();
 		}
 		if (!doc->marksList().isEmpty())
@@ -3804,7 +3804,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		{
 			PageItem *ite = itf.value();
 //			qDebug() << QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
-			if(ite->nextInChain() == nullptr)
+			if (ite->nextInChain() == nullptr)
 				ite->layout();
 		}
 		/*qDebug("Time elapsed: %d ms", t.elapsed());*/
@@ -5538,7 +5538,7 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 
 	if (zoomFactor == -200.0)
 		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), h / 2 + y);
-	else if(zoomFactor == -100.0)
+	else if (zoomFactor == -100.0)
 		view->rememberOldZoomLocation(w / 2 + x, qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
 		view->rememberOldZoomLocation(w / 2 + x, h / 2 + y);
@@ -5892,7 +5892,7 @@ void ScribusMainWindow::toggleSnapElements()
 
 void ScribusMainWindow::SetSnapElements(bool b)
 {
-	if(doc && doc->SnapElement != b)
+	if (doc && doc->SnapElement != b)
 		toggleSnapElements();
 }
 
@@ -5909,7 +5909,7 @@ void ScribusMainWindow::toggleNodeEdit()
 
 void ScribusMainWindow::enablePalettes(bool b)
 {
-	if(doc->appMode == modeEdit) //Keep Palettes enabled when editing text
+	if (doc->appMode == modeEdit) //Keep Palettes enabled when editing text
 		return;
 	layerPalette->setEnabled(b);
 	outlinePalette->setEnabled(b);
@@ -7469,7 +7469,7 @@ void ScribusMainWindow::slotElemRead(const QString& xml, double x, double y, boo
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if(ss.readElem(xml, m_prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager->appPrefs.fontPrefs.GFontSub))
+	if (ss.readElem(xml, m_prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager->appPrefs.fontPrefs.GFontSub))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8188,7 +8188,7 @@ void ScribusMainWindow::PutScrap(int scID)
 	while(!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
-		if(pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM")
 		{
 			if (first)
 				pg.setAttribute("ANNAME", doc->m_Selection->itemAt(0)->itemName());
@@ -8695,7 +8695,7 @@ void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 {
 	if (!HaveDoc)
 		return;
-	if(!doc->masterPageMode())
+	if (!doc->masterPageMode())
 		return;
 	editMasterPagesEnd();
 	qApp->processEvents();
