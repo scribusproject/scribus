@@ -52,7 +52,7 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 	QStringList printerNames = PrinterUtil::getPrinterNames();
 	int numPrinters = printerNames.count();
 	destinationComboBox->clear();
-	for( int i = 0; i < numPrinters; i++)
+	for (int i = 0; i < numPrinters; i++)
 	{
 		printerName = printerNames[i];
 		destinationComboBox->addItem(printerName);

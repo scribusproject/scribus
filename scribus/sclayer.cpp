@@ -480,7 +480,7 @@ void ScLayers::sort()
 	int level = 0;
 	ScLayers::Iterator it, itend = end();
 	qStableSort(begin(), end());
-	for(it = begin(); it != itend; ++it, ++level)
+	for (it = begin(); it != itend; ++it, ++level)
 		it->Level = level;
 }
 

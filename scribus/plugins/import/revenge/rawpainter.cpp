@@ -914,7 +914,7 @@ void RawPainter::drawPolyline(const librevenge::RVNGPropertyList &propList)
 	Coords.svgInit();
 	PageItem *ite;
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
-	for(unsigned i = 1; i < vertices.count(); i++)
+	for (unsigned i = 1; i < vertices.count(); i++)
 	{
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
@@ -941,7 +941,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 	Coords.svgInit();
 	PageItem *ite=nullptr;
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
-	for(unsigned i = 1; i < vertices.count(); i++)
+	for (unsigned i = 1; i < vertices.count(); i++)
 	{
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
@@ -1076,7 +1076,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	librevenge::RVNGPropertyListVector path = *propList.child("svg:d");
 	bool isClosed = false;
 	QString svgString;
-	for(unsigned i=0; i < path.count(); i++)
+	for (unsigned i=0; i < path.count(); i++)
 	{
 		librevenge::RVNGPropertyList pList = path[i];
 		if (pList["librevenge:path-action"] && pList["librevenge:path-action"]->getStr() == "M")
@@ -1884,7 +1884,7 @@ void RawPainter::applyFill(PageItem* ite)
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = currentGradient.colorStops();
-			for( int a = 0; a < colorStops.count() ; a++ )
+			for (int a = 0; a < colorStops.count() ; a++)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
@@ -1907,7 +1907,7 @@ void RawPainter::applyFill(PageItem* ite)
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = currentGradient.colorStops();
-			for( int a = 0; a < colorStops.count() ; a++ )
+			for (int a = 0; a < colorStops.count() ; a++)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
@@ -2592,7 +2592,7 @@ void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
 	Coords.svgInit();
 	PageItem *ite;
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
-	for(unsigned i = 1; i < vertices.count(); i++)
+	for (unsigned i = 1; i < vertices.count(); i++)
 	{
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
@@ -2615,7 +2615,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 	Coords.resize(0);
 	Coords.svgInit();
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
-	for(unsigned i = 1; i < vertices.count(); i++)
+	for (unsigned i = 1; i < vertices.count(); i++)
 	{
 		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
@@ -2746,7 +2746,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 		return;
 	bool isClosed = false;
 	QString svgString;
-	for(unsigned i=0; i < path.count(); i++)
+	for (unsigned i=0; i < path.count(); i++)
 	{
 		WPXPropertyList propList = path[i];
 		if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "M")
@@ -3289,7 +3289,7 @@ void RawPainter::applyFill(PageItem* ite)
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = currentGradient.colorStops();
-			for( int a = 0; a < colorStops.count() ; a++ )
+			for (int a = 0; a < colorStops.count() ; a++)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
@@ -3312,7 +3312,7 @@ void RawPainter::applyFill(PageItem* ite)
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = currentGradient.colorStops();
-			for( int a = 0; a < colorStops.count() ; a++ )
+			for(int a = 0; a < colorStops.count() ; a++)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}

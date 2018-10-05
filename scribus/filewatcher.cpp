@@ -227,7 +227,7 @@ void FileWatcher::checkFiles()
 		m_watchedFiles.clear();
 	else
 	{
-		for(int i=0; i<toRemove.count(); ++i)
+		for (int i=0; i<toRemove.count(); ++i)
 			m_watchedFiles.remove(toRemove[i]);
 		m_stateFlags &= ~AddRemoveBlocked;
 		m_stateFlags &= ~TimerStopped;

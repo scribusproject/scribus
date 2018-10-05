@@ -328,7 +328,7 @@ void ContentReader::startElement(void*, const xmlChar *fullname, const xmlChar *
 	QXmlAttributes attrs;
 	if (atts)
 	{
-		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
+		for (const xmlChar** cur = atts; cur && *cur; cur += 2)
 			attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
 	creader->startElement(nullptr, nullptr, name, attrs);

@@ -161,7 +161,7 @@ void PageLayouts::selectItem(uint nr)
 		firstPage->setEnabled(true);
 		firstPage->clear();
 		QStringList::Iterator pNames;
-		for(pNames = pageSets[nr].pageNames.begin(); pNames != pageSets[nr].pageNames.end(); ++pNames )
+		for (pNames = pageSets[nr].pageNames.begin(); pNames != pageSets[nr].pageNames.end(); ++pNames)
 		{
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
@@ -194,7 +194,7 @@ void PageLayouts::itemSelectedPost(int chosen)
 		firstPage->setEnabled(true);
 		firstPage->clear();
 		QStringList::Iterator pNames;
-		for(pNames = pageSets[chosen].pageNames.begin(); pNames != pageSets[chosen].pageNames.end(); ++pNames )
+		for (pNames = pageSets[chosen].pageNames.begin(); pNames != pageSets[chosen].pageNames.end(); ++pNames)
 		{
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
@@ -285,8 +285,8 @@ void PageLayouts::languageChange()
 		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 		int currFirstPageIndex=firstPage->currentIndex();
 		firstPage->clear();
-		if (currIndex>=0 && currIndex<pageSets.count())
-			for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
+		if (currIndex >= 0 && currIndex<pageSets.count())
+			for (QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames)
 			{
 				firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 			}

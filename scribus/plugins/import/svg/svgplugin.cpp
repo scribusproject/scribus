@@ -1130,7 +1130,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 	{
 		QString style = e.attribute( "style" ).simplified();
 		QStringList substyles = style.split(';', QString::SkipEmptyParts);
-		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+		for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 		{
 			QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
 			QString command(substyle[0].trimmed());
@@ -1732,7 +1732,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		bool bFirst = true;
 		double x = 0.0;
 		double y = 0.0;
-		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+		for (QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++)
 		{
 			x = ScCLocale::toDoubleC(*(it++));
 			y = ScCLocale::toDoubleC(*it);
@@ -1806,7 +1806,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 	SvgStyle *gc      = m_gc.top();
 	if (gc->textAnchor != "start")
 		getTextChunkWidth(e, chunkWidth);
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement())
 		{
@@ -1844,7 +1844,7 @@ QList<PageItem*> SVGPlug::parseTextSpan(const QDomElement& e, FPoint& currentPos
 		chunkW = 0;
 		getTextChunkWidth(e, chunkW);
 	}
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
 		{
@@ -2087,7 +2087,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 	bool doBreak = false;
 	setupNode(e);
 	QDomNode c = e.firstChild();
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
 		{
@@ -2712,7 +2712,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
 			if ((dashes.count() > 0) && (parseUnit(dashes[0]) != 0.0))
 			{
-				for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
+				for (QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it)
 					array.append( parseUnit(*it) );
 			}
 		}
@@ -2844,7 +2844,7 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA(obj, "marker-start", e.attribute( "marker-start" ));
 	QString style = e.attribute( "style" ).simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
-	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+	for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 	{
 		QStringList substyle = it->split(':', QString::SkipEmptyParts);
 		if (substyle.count() >= 2)
@@ -2863,7 +2863,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	double opa;
 	SvgStyle svgStyle;
 	parseStyle( &svgStyle, e );
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		opa = 1.0;
 		QDomElement stop = n.toElement();
@@ -2890,7 +2890,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			{
 				QString style = stop.attribute( "style" ).simplified();
 				QStringList substyles = style.split(';', QString::SkipEmptyParts);
-				for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+				for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 				{
 					QStringList substyle = it->split(':', QString::SkipEmptyParts);
 					if (substyle.count() >= 2)

@@ -1897,10 +1897,10 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		int te = transEnd;
 		QRgb *s;
 		QRgb r;
-		for( int yi=0; yi < h; ++yi )
+		for (int yi = 0; yi < h; ++yi)
 		{
 			s = (QRgb*)(image.scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -2693,10 +2693,10 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		endC.getRgb(&rE, &gE, &bE);
 		QRgb *s;
 		QRgb r;
-		for( int yi=0; yi < h; ++yi )
+		for (int yi = 0; yi < h; ++yi)
 		{
 			s = (QRgb*)(image.scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -2859,10 +2859,10 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 			int w = image.width();
 			QRgb *s;
 			QRgb r;
-			for( int yi=0; yi < h; ++yi )
+			for (int yi = 0; yi < h; ++yi)
 			{
 				s = (QRgb*)(image.scanLine( yi ));
-				for( int xi=0; xi < w; ++xi )
+				for (int xi = 0; xi < w; ++xi)
 				{
 					r = *s;
 					*s = qRgba(qRed(r), qGreen(r), qBlue(r), 255 - qAlpha(r));

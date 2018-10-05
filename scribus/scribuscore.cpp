@@ -311,7 +311,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	profDirs = ScPaths::systemProfilesDirs();
 	profDirs.prepend( m_prefsManager->appPrefs.pathPrefs.colorProfiles );
 	profDirs.prepend( ScPaths::instance().shareDir()+"profiles/");
-	for(int i = 0; i < profDirs.count(); i++)
+	for (int i = 0; i < profDirs.count(); i++)
 	{
 		profDir = profDirs[i];
 		if(!profDir.isEmpty())

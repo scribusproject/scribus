@@ -552,7 +552,7 @@ void ScribusMainWindow::initDefaultValues()
 	QStringList realSupportedExts;
 	QMap<QString, QString> formats;
 	osgDB::FileNameList plugins = osgDB::listAllAvailablePlugins();
-	for(osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
+	for (osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
 	{
 		osgDB::ReaderWriterInfoList infoList;
 		if (QString::fromStdString(*itr).contains("qfont"))
@@ -563,7 +563,7 @@ void ScribusMainWindow::initDefaultValues()
 			{
 				osgDB::ReaderWriterInfo& info = *(*rwi_itr);
 				osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
-				for(fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
+				for (fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
 				{
 					if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
 						formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
@@ -582,9 +582,9 @@ void ScribusMainWindow::initDefaultValues()
 
 void ScribusMainWindow::initKeyboardShortcuts()
 {
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
+	for (auto it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
-		if ((ScrAction*)(it.value())!=nullptr)
+		if ((ScrAction*)(it.value()) != nullptr)
 		{
 			QString accelerator = it.value()->shortcut().toString();
 			m_prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
@@ -3234,7 +3234,7 @@ void ScribusMainWindow::rebuildLayersList()
 	Q_ASSERT(found);
 	scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
 
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+	for (auto it = scrLayersActions.begin(); it != scrLayersActions.end(); ++it )
 	{
 		scrMenuMgr->addMenuItemString(it.key(), "ItemLayer");
 		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
@@ -3247,14 +3247,14 @@ void ScribusMainWindow::updateItemLayerList()
 	if (!HaveDoc)
 		return;
 	QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+	for (auto it = scrLayersActions.begin(); it!=itend; ++it)
 	{
 		(*it)->disconnect(SIGNAL(triggeredData(int)));
 		(*it)->setChecked(false);
 	}
 	if (!doc->m_Selection->isEmpty() && doc->m_Selection->itemAt(0))
 		scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+	for (auto it = scrLayersActions.begin(); it != itend; ++it)
 		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 }
 
@@ -5470,7 +5470,8 @@ void ScribusMainWindow::duplicateToMasterPage()
 	{
 		QStringList locationEntries;
 		QList<PageSet> pageSet(doc->pageSets());
-		for(QStringList::Iterator pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
+		QStringList pageNames = pageSet[doc->pagePositioning()].pageNames;
+		for (auto pNames = pageNames.cbegin(); pNames != pageNames.cend(); ++pNames)
 		{
 			locationEntries << CommonStrings::translatePageSetLocString(*pNames);
 		}
@@ -7339,7 +7340,7 @@ void ScribusMainWindow::RestoreBookMarks()
 	BookMItem *ite = new BookMItem(bookmarkPalette->BView, &(*it2));
 	bookmarkPalette->BView->NrItems++;
 	++it2;
-	for( ; it2 != doc->BookMarks.end(); ++it2 )
+	for ( ; it2 != doc->BookMarks.end(); ++it2)
 	{
 		if ((*it2).Parent == 0)
 		{
@@ -8715,7 +8716,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 	{
 		QString fileUrl;
 		QList<QUrl> fileUrls = e->mimeData()->urls();
-		for( int i = 0; i < fileUrls.count(); ++i )
+		for (int i = 0; i < fileUrls.count(); ++i)
 		{
 			fileUrl = fileUrls[i].toLocalFile().toLower();
 			if (fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") || fileUrl.endsWith(".shape") || fileUrl.endsWith(".sce"))

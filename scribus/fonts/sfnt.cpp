@@ -604,12 +604,12 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		QByteArray result;
 		if (longFormat)
 		{
-			for(int i=0; i < loca.length(); ++i)
+			for (int i=0; i < loca.length(); ++i)
 				appendWord(result, loca[i]);
 		}
 		else
 		{
-			for(int i=0; i < loca.length(); ++i)
+			for (int i=0; i < loca.length(); ++i)
 				appendWord16(result, loca[i] / 2);
 		}
 		return result;
@@ -804,7 +804,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		QMap<uint, uint>::ConstIterator cit;
 		//qDebug() << "writing cmap";
 		bool cmapHasData = false;
-		for(cit = cmap.cbegin(); cit != cmap.cend(); ++cit)
+		for (cit = cmap.cbegin(); cit != cmap.cend(); ++cit)
 		{
 			uint ch = cit.key();
 			if (!QChar::requiresSurrogates(ch) && cit.value() != 0)

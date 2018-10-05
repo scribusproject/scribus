@@ -93,7 +93,7 @@ bool HunspellPluginImpl::checkWithHunspell()
 {
 	PageItem *frameToCheck;
 
-	for( int i = 0; i < m_doc->m_Selection->count(); ++i )
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		frameToCheck = m_doc->m_Selection->itemAt(i);
 		StoryText *iText=&frameToCheck->itemText;

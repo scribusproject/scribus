@@ -132,12 +132,12 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 		QDomDocument rdfD;
 		rdfD.setContent(metaD);
 		QDomElement docElemR = rdfD.documentElement();
-		for(QDomNode drawPag = docElemR.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+		for (QDomNode drawPag = docElemR.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 		{
 			QDomElement dpg = drawPag.toElement();
 			if (dpg.tagName() == "rdf:RDF")
 			{
-				for(QDomNode drawPag2 = dpg.firstChild(); !drawPag2.isNull(); drawPag2 = drawPag2.nextSibling() )
+				for (QDomNode drawPag2 = dpg.firstChild(); !drawPag2.isNull(); drawPag2 = drawPag2.nextSibling())
 				{
 					QDomElement dpg2 = drawPag2.toElement();
 					if (dpg2.hasAttribute("xmlns:xmpGImg"))
@@ -245,7 +245,7 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 			}
 			else
 			{
-				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 				{
 					QDomElement dpg = drawPag.toElement();
 					if (dpg.tagName() == "idPkg:Graphic")
@@ -536,7 +536,7 @@ bool IdmlPlug::convert(const QString& fn)
 			QString activeLayer = docElem.attribute("ActiveLayer");
 			if (ext == "idms")
 			{
-				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 				{
 					QDomElement dpg = drawPag.toElement();
 					if (dpg.tagName() == "Layer")
@@ -568,7 +568,7 @@ bool IdmlPlug::convert(const QString& fn)
 			}
 			else
 			{
-				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 				{
 					QDomElement dpg = drawPag.toElement();
 					if (dpg.tagName() == "Layer")
@@ -719,7 +719,7 @@ void IdmlPlug::parseFontsXMLNode(const QDomElement& grNode)
 		{
 			QString family = e.attribute("Name");
 			QMap<QString, QString> styleMap;
-			for(QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
+			for (QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling())
 			{
 				QDomElement grs = gr.toElement();
 				if (grs.tagName() == "Font")
@@ -820,7 +820,7 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 			int grTyp = (e.attribute("Type") == "Linear") ? 6 : 7;
 			VGradient currentGradient = VGradient(VGradient::linear);
 			currentGradient.clearStops();
-			for(QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
+			for (QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling())
 			{
 				QDomElement grs = gr.toElement();
 				if (grs.tagName() == "GradientStop")
@@ -904,14 +904,14 @@ void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
 		QDomElement e = n.toElement();
 		if (e.tagName() == "RootCharacterStyleGroup")
 		{
-			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			for (QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling())
 			{
 				QDomElement itpg = it.toElement();
 				if (itpg.tagName() == "CharacterStyle")
 					parseCharacterStyle(itpg);
 				else if (itpg.tagName() == "CharacterStyleGroup")
 				{
-					for(QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling() )
+					for (QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling())
 					{
 						QDomElement itp = its.toElement();
 						if (itp.tagName() == "CharacterStyle")
@@ -922,14 +922,14 @@ void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
 		}
 		if (e.tagName() == "RootParagraphStyleGroup")
 		{
-			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			for (QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling())
 			{
 				QDomElement itpg = it.toElement();
 				if (itpg.tagName() == "ParagraphStyle")
 					parseParagraphStyle(itpg);
 				else if (itpg.tagName() == "ParagraphStyleGroup")
 				{
-					for(QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling() )
+					for (QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling())
 					{
 						QDomElement itp = its.toElement();
 						if (itp.tagName() == "ParagraphStyle")
@@ -940,14 +940,14 @@ void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
 		}
 		if (e.tagName() == "RootObjectStyleGroup")
 		{
-			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			for (QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling())
 			{
 				QDomElement itpg = it.toElement();
 				if (itpg.tagName() == "ObjectStyle")
 					parseObjectStyle(itpg);
 				else if (itpg.tagName() == "ObjectStyleGroup")
 				{
-					for(QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling() )
+					for (QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling())
 					{
 						QDomElement itp = its.toElement();
 						if (itp.tagName() == "ObjectStyle")
@@ -987,12 +987,12 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	nstyle.TextFlow = def_TextFlow;
 	nstyle.LeftLineEnd = def_LeftLineEnd;
 	nstyle.RightLineEnd = def_RightLineEnd;
-	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+	for (QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 	{
 		QDomElement itpr = itp.toElement();
 		if (itpr.tagName() == "Properties")
 		{
-			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "BasedOn")
@@ -1023,12 +1023,12 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 				nstyle.TextColumnGutter = itpr.attribute("TextColumnGutter").toDouble();
 			if (itpr.hasAttribute("TextColumnFixedWidth"))
 				nstyle.TextColumnFixedWidth = itpr.attribute("TextColumnFixedWidth").toDouble();
-			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "Properties")
 				{
-					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					for (QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling())
 					{
 						QDomElement itx = it.toElement();
 						if (itx.tagName() == "InsetSpacing")
@@ -1038,7 +1038,7 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 							else if (itx.attribute("type") == "list")
 							{
 								int cc = 0;
-								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								for (QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling())
 								{
 									QDomElement itxx = ity.toElement();
 									if (itxx.tagName() == "ListItem")
@@ -1139,12 +1139,12 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 	QString fontName = m_Doc->itemToolPrefs().textFont;
 	QString fontBaseName = "";
 	QString fontStyle = styleElem.attribute("FontStyle", "");
-	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+	for (QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 	{
 		QDomElement itpr = itp.toElement();
 		if (itpr.tagName() == "Properties")
 		{
-			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "AppliedFont")
@@ -1181,12 +1181,12 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	QString fontBaseName = "";
 	QString fontStyle = styleElem.attribute("FontStyle", "");
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+	for (QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 	{
 		QDomElement itpr = itp.toElement();
 		if (itpr.tagName() == "Properties")
 		{
-			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "AppliedFont")
@@ -1223,13 +1223,13 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 				{
 					QList<ParagraphStyle::TabRecord> tbs;
 					newStyle.resetTabValues();
-					for(QDomNode tabl = i.firstChild(); !tabl.isNull(); tabl = tabl.nextSibling() )
+					for (QDomNode tabl = i.firstChild(); !tabl.isNull(); tabl = tabl.nextSibling())
 					{
 						QDomElement ta = tabl.toElement();
 						if (ta.tagName() == "ListItem")
 						{
 							ParagraphStyle::TabRecord tb;
-							for(QDomNode tal = ta.firstChild(); !tal.isNull(); tal = tal.nextSibling() )
+							for (QDomNode tal = ta.firstChild(); !tal.isNull(); tal = tal.nextSibling())
 							{
 								QDomElement tab = tal.toElement();
 								QString tabVal = tab.text();
@@ -1359,10 +1359,10 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 		}
 		if (e.tagName() == "TransparencyDefaultContainerObject")
 		{
-			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			for (QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling())
 			{
 				QDomElement itpg = it.toElement();
-				for(QDomNode itp = itpg.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+				for (QDomNode itp = itpg.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 				{
 					QDomElement itpr = itp.toElement();
 					if (itpr.tagName() == "TransparencySetting")
@@ -1448,12 +1448,12 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 				def_TextColumnGutter = e.attribute("TextColumnGutter").toDouble();
 			if (e.hasAttribute("TextColumnFixedWidth"))
 				def_TextColumnFixedWidth = e.attribute("TextColumnFixedWidth").toDouble();
-			for(QDomNode itpp = e.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = e.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "Properties")
 				{
-					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					for (QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling())
 					{
 						QDomElement itx = it.toElement();
 						if (itx.tagName() == "InsetSpacing")
@@ -1463,7 +1463,7 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 							else if (itx.attribute("type") == "list")
 							{
 								int cc = 0;
-								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								for (QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling())
 								{
 									QDomElement itxx = ity.toElement();
 									if (itxx.tagName() == "ListItem")
@@ -1533,12 +1533,12 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 
 void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 {
-	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
 		if (e.tagName() == "Spread")
 		{
-			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			for (QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Page")
@@ -1591,7 +1591,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width() / 2.0;
 				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 			}
-			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			for (QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
 				QDomElement spe = sp.toElement();
 				if ((spe.tagName() == "Rectangle") || (spe.tagName() == "Oval") || (spe.tagName() == "GraphicLine") || (spe.tagName() == "Polygon") || (spe.tagName() == "TextFrame") || (spe.tagName() == "Group") || (spe.tagName() == "Button"))
@@ -1611,7 +1611,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 			QString pageNam = e.attribute("Self");
 			QStringList pages;
 			ScPage *oldCur = m_Doc->currentPage();
-			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			for (QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Page")
@@ -1633,7 +1633,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 						baseX = addedPage->xOffset() + addedPage->width() / 2.0;
 					else
 						baseX = addedPage->xOffset() - transformation.dx();
-					for(QDomNode spp = e.firstChild(); !spp.isNull(); spp = spp.nextSibling() )
+					for (QDomNode spp = e.firstChild(); !spp.isNull(); spp = spp.nextSibling())
 					{
 						QDomElement spe = spp.toElement();
 						if ((spe.tagName() == "Rectangle") || (spe.tagName() == "Oval") || (spe.tagName() == "GraphicLine") || (spe.tagName() == "Polygon") || (spe.tagName() == "TextFrame") || (spe.tagName() == "Group") || (spe.tagName() == "Button"))
@@ -1868,23 +1868,23 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	QString storyForPath = "";
 	int pathTextType = 0;
 	double pathTextStart = 0;
-	for(QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling() )
+	for (QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling())
 	{
 		QDomElement ite = it.toElement();
 		if (ite.tagName() == "Properties")
 		{
-			for(QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+			for (QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 			{
 				QDomElement itpg = itp.toElement();
 				if (itpg.tagName() == "PathGeometry")
 				{
-					for(QDomNode itg = itpg.firstChild(); !itg.isNull(); itg = itg.nextSibling() )
+					for (QDomNode itg = itpg.firstChild(); !itg.isNull(); itg = itg.nextSibling())
 					{
 						QDomElement itgg = itg.toElement();
 						if (itgg.tagName() == "GeometryPathType")
 						{
 							isOpen = (itgg.attribute("PathOpen") == "true");
-							for(QDomNode itpp = itgg.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+							for (QDomNode itpp = itgg.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 							{
 								QDomElement itpa = itpp.toElement();
 								if (itpa.tagName() == "PathPointArray")
@@ -1893,7 +1893,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 									QPointF firstBezPoint;
 									QPointF firstAncPoint;
 									QList<QPointF> pointList;
-									for(QDomNode itpap = itpa.firstChild(); !itpap.isNull(); itpap = itpap.nextSibling() )
+									for (QDomNode itpap = itpa.firstChild(); !itpap.isNull(); itpap = itpap.nextSibling())
 									{
 										QDomElement itpo = itpap.toElement();
 										if (itpo.tagName() == "PathPointType")
@@ -1999,7 +1999,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 		}
 		else if (ite.tagName() == "TransparencySetting")
 		{
-			for(QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+			for (QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 			{
 				QDomElement itpg = itp.toElement();
 				if (itpg.tagName() == "BlendingSetting")
@@ -2026,12 +2026,12 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				TextColumnGutter = ite.attribute("TextColumnGutter").toDouble();
 		//	if (ite.hasAttribute("TextColumnFixedWidth"))
 		//		TextColumnFixedWidth = ite.attribute("TextColumnFixedWidth").toDouble();
-			for(QDomNode itpp = ite.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			for (QDomNode itpp = ite.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
 			{
 				QDomElement i = itpp.toElement();
 				if (i.tagName() == "Properties")
 				{
-					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					for (QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling())
 					{
 						QDomElement itx = it.toElement();
 						if (itx.tagName() == "InsetSpacing")
@@ -2041,7 +2041,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 							else if (itx.attribute("type") == "list")
 							{
 								int cc = 0;
-								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								for (QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling())
 								{
 									QDomElement itxx = ity.toElement();
 									if (itxx.tagName() == "ListItem")
@@ -2073,7 +2073,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			double a, b, c, d, e, f;
 			list >> a >> b >> c >> d >> e >> f;
 			imageTransform = QTransform(a, b, c, d, e, f) * transformation;
-			for(QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+			for (QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 			{
 				QDomElement itpg = itp.toElement();
 				if (itpg.tagName() == "Properties")
@@ -2738,14 +2738,14 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 			if (!storyMap.contains(storyName))
 				return;
 			item = storyMap[storyName];
-			for(QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling() )
+			for (QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling())
 			{
 				QDomElement ste = st.toElement();
 				if (ste.tagName() == "ParagraphStyleRange")
 					parseParagraphStyleRange(ste, item);
 				else if (ste.tagName() == "XMLElement")
 				{
-					for(QDomNode stx = ste.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
+					for (QDomNode stx = ste.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 					{
 						QDomElement stxe = stx.toElement();
 						if (stxe.tagName() == "ParagraphStyleRange")
@@ -2777,21 +2777,21 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
 	QString fontBase = ttx.charStyle().font().family();
 	QString fontStyle = ttx.charStyle().font().style();
-	for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
+	for (QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling())
 	{
 		QDomElement stt = stc.toElement();
 		if (stt.tagName() == "CharacterStyleRange")
 			parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, item->itemText.length());
 		else if (stt.tagName() == "XMLElement")
 		{
-			for(QDomNode stx = stt.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
+			for (QDomNode stx = stt.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 			{
 				QDomElement stxe = stx.toElement();
 				if (stxe.tagName() == "CharacterStyleRange")
 					parseCharacterStyleRange(stxe, item, fontBase, fontStyle, newStyle, item->itemText.length());
 				else if (stxe.tagName() == "XMLElement")
 				{
-					for(QDomNode stxx = stxe.firstChild(); !stxx.isNull(); stxx = stxx.nextSibling() )
+					for (QDomNode stxx = stxe.firstChild(); !stxx.isNull(); stxx = stxx.nextSibling())
 					{
 						QDomElement stxxe = stxx.toElement();
 						if (stxxe.tagName() == "CharacterStyleRange")
@@ -2814,12 +2814,12 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 {
 	QString data = "";
 	bool hasChangedFont = false;
-	for(QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling() )
+	for (QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling())
 	{
 		QDomElement sp = stcp.toElement();
 		if (sp.tagName() == "Properties")
 		{
-			for(QDomNode spa = sp.firstChild(); !spa.isNull(); spa = spa.nextSibling() )
+			for (QDomNode spa = sp.firstChild(); !spa.isNull(); spa = spa.nextSibling())
 			{
 				QDomElement spf = spa.toElement();
 				if (spf.tagName() == "AppliedFont")
@@ -2872,13 +2872,13 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 	}
 	readCharStyleAttributes(nstyle, stt);
-	for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
+	for (QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling())
 	{
 		QDomElement s = stch.toElement();
 		if (s.tagName() == "Content")
 		{
 			QString ch = "";
-			for(QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling() )
+			for (QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling())
 			{
 				QString p = sh.nodeValue();
 				if (sh.nodeName() == "#text")
@@ -2935,7 +2935,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 			QList<double> colWidths;
 			double twidth = 0.0;
 			double theight = 0.0;
-			for(QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling() )
+			for (QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling())
 			{
 				QDomElement sr = st.toElement();
 				if (sr.tagName() == "Row")
@@ -2966,7 +2966,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 				currItem->resizeColumn(i, colWidths[i]);
 			}
 			m_Doc->dontResize = true;
-			for(QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling() )
+			for (QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling())
 			{
 				QDomElement sr = st.toElement();
 				if (sr.tagName() == "Cell")
@@ -2976,12 +2976,12 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 					if (itText)
 					{
 						m_Doc->dontResize = true;
-						for(QDomNode sct = sr.firstChild(); !sct.isNull(); sct = sct.nextSibling() )
+						for (QDomNode sct = sr.firstChild(); !sct.isNull(); sct = sct.nextSibling())
 						{
 							QDomElement spf = sct.toElement();
 							if (spf.tagName() == "XMLElement")
 							{
-								for(QDomNode sctx = spf.firstChild(); !sctx.isNull(); sctx = sctx.nextSibling() )
+								for (QDomNode sctx = spf.firstChild(); !sctx.isNull(); sctx = sctx.nextSibling())
 								{
 									QDomElement spfx = sctx.toElement();
 									if (spfx.tagName() == "ParagraphStyleRange")
@@ -3011,7 +3011,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 		else if (s.tagName() == "XMLElement")
 		{
-		//	for(QDomNode stx = s.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
+		//	for (QDomNode stx = s.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 		//	{
 				parseCharacterStyleRange(s, item, fontBase, fontStyle, newStyle, posC);
 		//	}

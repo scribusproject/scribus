@@ -1206,7 +1206,7 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	Coords.svgInit();
 	PageItem *ite;
 	Coords.svgMoveTo(x * resX, y * resY);
-	for(unsigned i = 0; i < polySize; i += 4)
+	for (unsigned i = 0; i < polySize; i += 4)
 	{
 		ts >> y >> x;
 		Coords.svgLineTo(x * resX, y * resX);

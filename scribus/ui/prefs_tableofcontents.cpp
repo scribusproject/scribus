@@ -205,7 +205,7 @@ void Prefs_TableOfContents::addToC()
 {
 	bool found=false;
 	QString newName=tocNameLineEdit->text();
-	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
+	for (ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
 	{
 		if ((*it).name==newName)
 			found=true;
@@ -235,7 +235,7 @@ void Prefs_TableOfContents::updateToCListBox()
 {
 	tocListBox->clear();
 	QStringList sl;
-	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
+	for (ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
 		sl << (*it).name;
 	tocListBox->insertItems(0, sl);
 }

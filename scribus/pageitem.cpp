@@ -861,7 +861,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
-	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
+	for (ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		if (((*objAttrIt).autoaddto=="textframes" && m_ItemType==TextFrame) ||
 			((*objAttrIt).autoaddto=="imageframes" && m_ItemType==ImageFrame)
@@ -4547,7 +4547,7 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 		if (!allItems)
 		{
 			int ids = items->indexOf(this) - 1;
-			for(int idx = ids; idx >= 0 ; --idx)
+			for (int idx = ids; idx >= 0 ; --idx)
 			{
 				if (items->at(idx)->asTextFrame()) // do not bother with no text frames
 				{
@@ -4561,7 +4561,7 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 		}
 		else
 		{
-			for(int idx = items->count() - 1; idx >= 0 ; --idx)
+			for (int idx = items->count() - 1; idx >= 0 ; --idx)
 			{
 				if (items->at(idx) != this) // avoids itself
 				{
@@ -7079,11 +7079,11 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	
 	QList<PageItem*> pList;
 	int id = m_Doc->Items->indexOf(this) - 1;
-	for(int i = id; i >= 0 ; --i)
+	for (int i = id; i >= 0 ; --i)
 		pList << m_Doc->Items->at(i);
 		
 	QRectF baseRect(getBoundingRect());
-	for(int i = 0; i < pList.count(); ++i)
+	for (int i = 0; i < pList.count(); ++i)
 	{
 		QRectF uRect(pList.at(i)->getBoundingRect());
 		if (baseRect.intersects(uRect))
@@ -7606,7 +7606,7 @@ ObjAttrVector* PageItem::getObjectAttributes()
 QList<ObjectAttribute> PageItem::getObjectAttributes(const QString& attributeName) const
 {
 	QList<ObjectAttribute> attributes;
-	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
 		if (objAttrIt->name == attributeName)
 		{
@@ -7620,7 +7620,7 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 {
 	int countFound=0;
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
-	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
 		if (objAttrIt->name==attributeName)
 		{
@@ -9587,10 +9587,10 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		int r, g, b, a;
 		QRgb *s;
 		QRgb rgb;
-		for( int yi=0; yi < h; ++yi )
+		for (int yi=0; yi < h; ++yi)
 		{
 			s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
-			for( int xi = 0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				rgb = *s;
 				tmpC.setRgb(rgb);

@@ -1436,7 +1436,7 @@ unsigned short WMFImport::calcCheckSum( WmfPlaceableHeader* apmfh )
 	// Start with the first word
 	wResult = *( lpWord = ( WORD16* )( apmfh ) );
 	// XOR in each of the other 9 words
-	for( i=1; i<=9; i++ )
+	for (i = 1; i <= 9; i++)
 	{
 		wResult ^= lpWord[ i ];
 	}

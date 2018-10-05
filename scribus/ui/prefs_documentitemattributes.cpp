@@ -121,7 +121,7 @@ void Prefs_DocumentItemAttributes::updateTable()
 {
 	attributesTable->setRowCount(localAttributes.count());
 
-	for(int row = 0; row < localAttributes.count(); ++row)
+	for (int row = 0; row < localAttributes.count(); ++row)
 	{
 		uint col = 0;
 		ObjectAttribute& objAttr = localAttributes[row];
@@ -191,7 +191,7 @@ void Prefs_DocumentItemAttributes::deleteEntry()
 	bool found=false;
 	ObjAttrVector::Iterator it;
 	int count=0;
-	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -221,7 +221,7 @@ void Prefs_DocumentItemAttributes::copyEntry()
 	bool found=false;
 	ObjAttrVector::Iterator it;
 	int count=0;
-	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -240,7 +240,7 @@ void Prefs_DocumentItemAttributes::copyEntry()
 QStringList Prefs_DocumentItemAttributes::getDocAttributesNames()
 {
 	QStringList nameList;
-	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 		nameList.append((*it).name);
 	return nameList;
 }

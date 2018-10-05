@@ -113,7 +113,7 @@ QImage OdgPlug::readThumbnail(const QString& fName)
 				if (designMapDom.setContent(f))
 				{
 					QDomElement docElem = designMapDom.documentElement();
-					for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+					for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 					{
 						if (drawPag.tagName() == "sl:slprint-info")
 						{
@@ -424,11 +424,11 @@ bool OdgPlug::parseStyleSheets(const QString& designMap)
 bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement sp = docElem.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+	for (QDomElement sp = docElem.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 	{
 		if (sp.tagName() == "office:font-face-decls")
 		{
-			for(QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "style:font-face")
 				{
@@ -442,7 +442,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 		if (sp.tagName() == "office:master-styles")
 		{
 			DrawStyle currStyle;
-			for(QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "style:master-page")
 				{
@@ -479,7 +479,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
-						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
+						for (QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement())
 						{
 							PageItem* retObj = parseObj(spm);
 							if (retObj != nullptr)
@@ -493,7 +493,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 				{
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
-						for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+						for (QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement())
 						{
 							if (spp.tagName() == "draw:layer")
 							{
@@ -551,11 +551,11 @@ bool OdgPlug::parseDocReference(const QString& designMap)
 bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "office:font-face-decls")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 			{
 				if (spf.tagName() == "style:font-face")
 				{
@@ -568,7 +568,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 			parseStyles(drawPag);
 		if (drawPag.tagName() == "office:master-styles")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "style:master-page")
 				{
@@ -605,7 +605,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
-						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
+						for (QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement())
 						{
 							PageItem* retObj = parseObj(spm);
 							if (retObj != nullptr)
@@ -619,7 +619,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 				{
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
-						for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+						for (QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement())
 						{
 							if (spp.tagName() == "draw:layer")
 							{
@@ -651,11 +651,11 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 		}
 		else if (drawPag.tagName() == "office:body")
 		{
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 			{
 				if ((sp.tagName() == "office:drawing") || (sp.tagName() == "office:presentation"))
 				{
-					for(QDomElement spp = sp.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+					for (QDomElement spp = sp.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement())
 					{
 						if (spp.tagName() == "draw:page")
 						{
@@ -705,7 +705,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 							firstPage = false;
 							baseX = m_Doc->currentPage()->xOffset();
 							baseY = m_Doc->currentPage()->yOffset();
-							for(QDomElement spe = spp.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+							for (QDomElement spe = spp.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 							{
 								PageItem* retObj = parseObj(spe);
 								if (retObj != nullptr)
@@ -733,7 +733,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 	{
 		QList<PageItem*> GElements;
 		int gLayer = -1;
-		for(QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+		for (QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 		{
 			PageItem* ite = parseObj(spd);
 			if (ite != nullptr)
@@ -878,7 +878,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	bool has_Text = false;
-	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
+	for (QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
 	{
 		if (p.tagName() == "text:p")
 		{
@@ -889,7 +889,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0) && (!has_Text))
 		return retObj;
 	QPolygonF texAreaPoints;
-	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
+	for (QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
 	{
 		if (p.tagName() == "draw:enhanced-geometry")
 		{
@@ -938,7 +938,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			if (p.hasChildNodes())
 			{
 				QMap<QString, QString> formulaMap;
-				for(QDomElement f = p.firstChildElement(); !f.isNull(); f = f.nextSiblingElement())
+				for (QDomElement f = p.firstChildElement(); !f.isNull(); f = f.nextSiblingElement())
 				{
 					if (f.tagName() == "draw:equation")
 					{
@@ -1595,7 +1595,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 			}
 			else if (n.hasChildNodes())
 			{
-				for(QDomElement nc = n.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
+				for (QDomElement nc = n.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
 				{
 					if (nc.tagName() == "office:binary-data")
 					{
@@ -1690,7 +1690,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 	ObjStyle pStyle = tmpOStyle;
 	if (elem.hasAttribute("text:style-name"))
 		resovleStyle(pStyle, elem.attribute("text:style-name"));
-	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
+	for (QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
 		pStyle = tmpOStyle;
 		if ((para.tagName() != "text:p") && (para.tagName() != "text:list") && (para.tagName() != "text:h"))
@@ -1712,7 +1712,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			}
 			else
 			{
-				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+				for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 				{
 					CharStyle tmpCStyle = tmpStyle.charStyle();
 					QDomElement sp = spn.toElement();
@@ -1748,14 +1748,14 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 						}
 						else if (sp.tagName() == "text:list-item")
 						{
-							for(QDomElement paral = sp.firstChildElement(); !paral.isNull(); paral = paral.nextSiblingElement())
+							for (QDomElement paral = sp.firstChildElement(); !paral.isNull(); paral = paral.nextSiblingElement())
 							{
 								ObjStyle plStyle = tmpOStyle;
 								if (paral.hasAttribute("text:style-name"))
 									resovleStyle(plStyle, paral.attribute("text:style-name"));
 								ParagraphStyle tmpStyle = newStyle;
 								applyParagraphStyle(tmpStyle, plStyle);
-								for(QDomNode spnl = paral.firstChild(); !spnl.isNull(); spnl = spnl.nextSibling())
+								for (QDomNode spnl = paral.firstChild(); !spnl.isNull(); spnl = spnl.nextSibling())
 								{
 									CharStyle tmpCStyle = tmpStyle.charStyle();
 									QDomElement spl = spnl.toElement();
@@ -2030,7 +2030,7 @@ void OdgPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', QString::SkipEmptyParts );
 	FPoint point, firstP;
 	bool bFirst = true;
-	for( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it )
+	for ( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)
 	{
 		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
 		if (bFirst)
@@ -2061,7 +2061,7 @@ void OdgPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 
 void OdgPlug::parseStyles(QDomElement &sp)
 {
-	for(QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+	for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 	{
 		if (spd.tagName() == "draw:marker")
 		{
@@ -2149,7 +2149,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 			{
 				if (spd.hasChildNodes())
 				{
-					for(QDomElement nc = spd.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
+					for (QDomElement nc = spd.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
 					{
 						if (nc.tagName() == "office:binary-data")
 							currStyle.patternData = AttributeValue(nc.text());
@@ -2166,7 +2166,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 		else if (spd.tagName() == "style:style")
 		{
 			DrawStyle currStyle;
-			for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+			for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 			{
 				if (spe.tagName() == "style:graphic-properties")
 				{
@@ -2245,7 +2245,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 		else if (spd.tagName() == "style:page-layout")
 		{
 			DrawStyle currStyle;
-			for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+			for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 			{
 				if (spe.tagName() == "style:page-layout-properties")
 				{

@@ -43,7 +43,7 @@ void PageItemAttributes::setup(ObjAttrVector *pageItemAttrs, ObjAttrVector *docI
 
 	nameList.clear();
 	nameList.append("");
-	for(ObjAttrVector::Iterator it = localDocAttributes.begin(); it!= localDocAttributes.end(); ++it)
+	for (ObjAttrVector::Iterator it = localDocAttributes.begin(); it!= localDocAttributes.end(); ++it)
 		nameList.append((*it).name);
 
 	updateTable();
@@ -134,7 +134,7 @@ void PageItemAttributes::deleteEntry()
 	bool found=false;
 	ObjAttrVector::Iterator it;
 	int count=0;
-	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -164,7 +164,7 @@ void PageItemAttributes::copyEntry()
 	bool found=false;
 	ObjAttrVector::Iterator it;
 	int count=0;
-	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -184,7 +184,7 @@ void PageItemAttributes::copyEntry()
 void PageItemAttributes::updateTable()
 {
 	attributesTable->setRowCount(localAttributes.count());
-	for(int row = 0; row < localAttributes.count(); ++row)
+	for (int row = 0; row < localAttributes.count(); ++row)
 	{
 		uint col = 0;
 		ObjectAttribute& objAttr = localAttributes[row];

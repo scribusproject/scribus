@@ -299,7 +299,7 @@ QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
 	QString out;
-	for(int j = 0; j < in->length(); ++j)
+	for (int j = 0; j < in->length(); ++j)
 	{
 		// Qt4 .cell() added ???
 		out += toHex(QChar(in->at(j)).cell());
@@ -479,7 +479,7 @@ QStringList sortQStringList(QStringList aList)
 	for (it = aList.begin(); it != aList.end(); ++it)
 		sortList.push_back(*it);
 	std::sort(sortList.begin(), sortList.end(), compareQStrings);
-	for(uint i = 0; i < sortList.size(); i++)
+	for (uint i = 0; i < sortList.size(); i++)
 		retList.append(sortList[i]);
 	return retList;
 }

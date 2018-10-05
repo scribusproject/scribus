@@ -1034,7 +1034,7 @@ void SCFonts::AddXFontPath()
 	int pathcount,i;
 	Display *display=XOpenDisplay(nullptr);
 	char **fontpath=XGetFontPath(display,&pathcount);
-	for(i=0; i<pathcount; ++i)
+	for (i=0; i<pathcount; ++i)
 		AddPath(fontpath[i]);
 	XFreeFontPath(fontpath);
 }
@@ -1204,7 +1204,7 @@ void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
 #if HAVE_FONTCONFIG
 	// Search fontconfig paths
 	QStringList::iterator fpi, fpend = FontPath.end();
-	for(fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
+	for (fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
 		AddScalableFonts(*fpi);
 	AddFontconfigFonts();
 #else
@@ -1215,7 +1215,7 @@ void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
 #endif
 // add user and X11 fonts:
 	QStringList::iterator fpi, fpend = FontPath.end();
-	for(fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
+	for (fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
 		AddScalableFonts(*fpi);
 #endif
 	updateFontMap();

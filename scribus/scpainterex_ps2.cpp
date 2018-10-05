@@ -176,7 +176,7 @@ void ScPainterEx_Ps2::transformPoint( const FPoint& in, FPoint& out )
 
 void ScPainterEx_Ps2::transformPoints( const FPoint* ArrayIn, FPoint* ArrayOut, uint length )
 {
-	for( uint i = 0; i < length; i++ )
+	for (uint i = 0; i < length; i++)
 	{
 		transformPoint( ArrayIn[i], ArrayOut[i] );
 	}
@@ -414,7 +414,7 @@ void ScPainterEx_Ps2::drawVPath( int mode )
 		m_stream << QString("%1 setlinewidth\n").arg(penWidth);
 
 		m_stream << "[";
-		for( int i = 0; i < m_array.count();++ i )
+		for (int i = 0; i < m_array.count();++ i)
 		{
 			m_stream << QString("%1").arg(m_array[i]) << " ";
 		}
@@ -696,10 +696,10 @@ bool ScPainterEx_Ps2::hasAlphaChannel( ScImage* image )
 	bool   hasAlpha = false;
 	int    width = image->width();
 	int    height = image->height();
-	for( int y = 0; y < height; y++ )
+	for (int y = 0; y < height; y++)
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; ++x )
+		for (int x = 0; x < width; ++x)
 		{
 			if (qAlpha(*imageBits) != 255)
 			{
@@ -720,10 +720,10 @@ void ScPainterEx_Ps2::writeMaskToStream( QImage* image )
 	int    height = image->height();
 	if ((image->width() % 8) != 0)
 		width++;
-	for( int y = 0; y < height; ++y )
+	for (int y = 0; y < height; ++y)
 	{
 		unsigned char* imageBits = image->scanLine(y);
-		for( int x = 0; x < width; x++ )
+		for (int x = 0; x < width; x++)
 		{
 			length++;
 			bits = imageBits[x];
@@ -746,10 +746,10 @@ void ScPainterEx_Ps2::writeRGBImageToStream_Ascii85( ScImage* image )
 
 	int width = image->width();
 	int height = image->height();
-	for( int y = 0; y < height; ++y )
+	for (int y = 0; y < height; ++y)
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; ++x )
+		for (int x = 0; x < width; ++x)
 		{
 			cindex = 0;
 			while (cindex < 3)
@@ -799,10 +799,10 @@ void ScPainterEx_Ps2::writeRGBImageToStream_AsciiHex ( ScImage* image )
 	int  length = 0;
 	int  width = image->width();
 	int  height = image->height();
-	for( int y = 0; y < height; ++y )
+	for (int y = 0; y < height; ++y)
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; ++x )
+		for (int x = 0; x < width; ++x)
 		{
 			length++;
 			uchar r = (uchar) qRed(*imageBits);
@@ -829,10 +829,10 @@ void ScPainterEx_Ps2::writeCMYKImageToStream_Ascii85( ScImage* image )
 
 	int width = image->width();
 	int height = image->height();
-	for( int y = 0; y < height; y++ )
+	for (int y = 0; y < height; y++)
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; x++ )
+		for (int x = 0; x < width; x++)
 		{
 			four_tuple[0] = (uchar) qRed(*imageBits);
 			four_tuple[1] = (uchar) qGreen(*imageBits);
@@ -861,10 +861,10 @@ void ScPainterEx_Ps2::writeCMYKImageToStream_AsciiHex( ScImage* image )
 	int length = 0;
 	int width = image->width();
 	int height = image->height();
-	for( int y = 0; y < height; ++y )
+	for (int y = 0; y < height; ++y)
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; ++x )
+		for (int x = 0; x < width; ++x)
 		{
 			length++;
 			uchar c = (uchar) qRed(*imageBits);
@@ -1132,7 +1132,7 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK(VGradientEx& gradient, const QRect
 	m_stream << QString("/DeviceCMYK setcolorspace\n");
 	m_stream << QString("%1 %2 %3 %4 setcolor fill\n").arg(c1).arg(m1).arg(j1).arg(n1);
 
-	for( uint index = 1; index < gradient.Stops(); index++)
+	for (uint index = 1; index < gradient.Stops(); index++)
 	{
 		stop2 = *colorStops[index];
 		ramp2 = stop2.rampPoint;
@@ -1233,7 +1233,7 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r2).arg(g2).arg(b2);
 	if ( gradient.Stops() < 2 ) return;
 
-	for( int index = gradient.Stops() - 2; index >= 0; index--)
+	for (int index = gradient.Stops() - 2; index >= 0; index--)
 	{
 		stop1 = *colorStops[index];
 		ramp1 = stop1.rampPoint;

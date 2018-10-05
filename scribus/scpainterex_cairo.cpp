@@ -674,7 +674,7 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for( uint index = 0 ; index < gradient.Stops(); index++)
+	for (uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -725,7 +725,7 @@ void ScPainterEx_Cairo::drawCircularGradient( VGradientEx& gradient, const QRect
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for( uint index = 0 ; index < gradient.Stops() ; index++)
+	for (uint index = 0 ; index < gradient.Stops() ; index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -858,7 +858,7 @@ void ScPainterEx_Cairo::drawDiamondGradient( VGradientEx& gradient, const QRect&
 	QList<QColor> qStopColors;
 	QList<double> qStopRampPoints;
 	QColor qStopColor;
-	for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+	for (int offset = 0 ; offset < colorStops.count() ; offset++)
 	{
 		stop = colorStops.at(offset);
 		qStopColor = transformColor( ScColorShade(stop->color, stop->shade), 1.0);
@@ -903,7 +903,7 @@ void ScPainterEx_Cairo::drawDiamondGradient( VGradientEx& gradient, const QRect&
 	cairo_fill(cr);
 	cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 	mpat = cairo_pattern_create_mesh();
-	for( int offset = 1 ; offset <  qStopRampPoints.count() ; offset++ )
+	for (int offset = 1 ; offset <  qStopRampPoints.count() ; offset++)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;
@@ -1241,7 +1241,7 @@ void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for( uint index = 0 ; index < gradient.Stops(); index++)
+	for (uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -1293,7 +1293,7 @@ void ScPainterEx_Cairo::strokeCircularGradient(VGradientEx& gradient)
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for( uint index = 0 ; index < gradient.Stops(); index++)
+	for (uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))

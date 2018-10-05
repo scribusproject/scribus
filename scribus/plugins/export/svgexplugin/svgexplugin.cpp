@@ -313,7 +313,7 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 	layerGroup.setAttribute("inkscape:groupmode", "layer");
 	if (layer.transparency != 1.0)
 		layerGroup.setAttribute("opacity", FToStr(layer.transparency));
-	for(int j = 0; j < Items.count(); ++j)
+	for (int j = 0; j < Items.count(); ++j)
 	{
 		Item = Items.at(j);
 		if (Item->LayerID != layer.ID)

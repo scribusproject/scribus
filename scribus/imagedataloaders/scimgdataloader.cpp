@@ -45,7 +45,7 @@ QString ScImgDataLoader::getPascalString(QDataStream & s)
 		s >> tmp;
 		return ret;
 	}
-	for( int i = 0; i < len; i++ )
+	for (int i = 0; i < len; i++)
 	{
 		s >> tmp;
 		ret += QChar(tmp);

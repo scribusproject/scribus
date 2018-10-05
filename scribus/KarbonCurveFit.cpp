@@ -524,11 +524,11 @@ QPointF *FitCubic(const QList<QPointF> &points,int first,int last,FitVector tHat
 	cu2 = FitCubic(points, splitPoint, last, tHatCenter, tHat2, error,w2);
 
 	QPointF *newcurve = new QPointF[w1+w2];
-	for(int i=0;i<w1;i++)
+	for (int i=0;i<w1;i++)
 	{
 		newcurve[i]=cu1[i];
 	}
-	for(int i=0;i<w2;i++)
+	for (int i=0;i<w2;i++)
 	{
 		newcurve[i+w1]=cu2[i];
 	}
@@ -556,7 +556,7 @@ QPainterPath bezierFit(const QList<QPointF> &points,float error)
 	if(width>3){
 		path.moveTo(curve[0]);
 		path.cubicTo(curve[1],curve[2],curve[3]);
-		for(int i=4;i<width;i+=4){
+		for (int i=4;i<width;i+=4){
 			path.cubicTo(curve[i+1],curve[i+2],curve[i+3]);	
 		}
 	}

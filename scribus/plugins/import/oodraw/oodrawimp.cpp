@@ -1864,7 +1864,7 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
 	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
-	for(i = 0; i < n_segs; i++)
+	for (i = 0; i < n_segs; i++)
 	{
 		{
 			double sin_th, cos_th;

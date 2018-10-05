@@ -53,7 +53,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 		Links = new QComboBox( this );
 		QStringList::Iterator pNames;
 		QList<PageSet> pageSet(doc->pageSets());
-		for(pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
+		for (pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
 		{
 			//Links->insertItem((*pNames));
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));

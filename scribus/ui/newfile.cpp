@@ -460,7 +460,7 @@ void NewDoc::selectItem(uint nr)
 		firstPage->setEnabled(true);
 		firstPage->clear();
 		QStringList::Iterator pNames;
-		for(pNames = prefsManager->appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[nr].pageNames.end(); ++pNames )
+		for (pNames = prefsManager->appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[nr].pageNames.end(); ++pNames )
 		{
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}

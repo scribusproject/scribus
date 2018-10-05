@@ -160,7 +160,7 @@ void ScribusQApp::parseCommandLine()
 
 	useGUI = true;
 	int argi = 1;
-	for( ; argi < argsc; argi++)
+	for ( ; argi < argsc; argi++)
 	{ //handle options (not positional parameters)
 		arg = args[argi];
 		if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT)

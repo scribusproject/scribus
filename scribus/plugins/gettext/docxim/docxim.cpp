@@ -92,7 +92,7 @@ void DocXIm::parseContentTypes()
 		return;
 	}
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "Override")
 		{
@@ -138,15 +138,15 @@ void DocXIm::parseTheme()
 		return;
 	}
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "a:themeElements")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "a:fontScheme")
 				{
-					for(QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement() )
+					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "a:minorFont")
 						{
@@ -191,15 +191,15 @@ void DocXIm::parseStyles()
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "w:docDefaults")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "w:rPrDefault")
 				{
-					for(QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement() )
+					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:rPr")
 							parseCharProps(spr, defaultParagraphStyle);
@@ -207,7 +207,7 @@ void DocXIm::parseStyles()
 				}
 				else if (spf.tagName() == "w:pPrDefault")
 				{
-					for(QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement() )
+					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:pPr")
 							parseParaProps(spr, defaultParagraphStyle);
@@ -232,7 +232,7 @@ void DocXIm::parseStyles()
 						newStyle.setName(m_item->itemName() + "_" + nam.attribute("w:val"));
 					else
 						newStyle.setName(nam.attribute("w:val"));
-					for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+					for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 					{
 						if (spf.tagName() == "w:basedOn")
 						{
@@ -287,18 +287,18 @@ void DocXIm::parseStyledText(PageItem *textItem)
 	}
 	textItem->itemText.setDefaultStyle(defaultParagraphStyle);
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "w:body")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "w:p")
 				{
 					currentParagraphStyle = defaultParagraphStyle;
 					bool hasStyle = false;
 					QString currStyleName = "";
-					for(QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement() )
+					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:pPr")
 						{
@@ -324,7 +324,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 								currentParagraphStyle.charStyle() = m_Doc->paragraphStyle(currStyleName).charStyle();
 							else
 								currentParagraphStyle.charStyle() = defaultParagraphStyle.charStyle();
-							for(QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
+							for (QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
 							{
 								if (spt.tagName() == "w:t")
 								{
@@ -368,7 +368,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 
 void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 {
-	for(QDomElement spt = props.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
+	for (QDomElement spt = props.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
 	{
 		if (spt.tagName() == "w:rPr")
 		{
@@ -439,7 +439,7 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 
 void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 {
-	for(QDomElement spc = props.firstChildElement(); !spc.isNull(); spc = spc.nextSiblingElement() )
+	for (QDomElement spc = props.firstChildElement(); !spc.isNull(); spc = spc.nextSiblingElement())
 	{
 		if (spc.tagName() == "w:u")
 		{
@@ -621,19 +621,19 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "w:body")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "w:p")
 				{
-					for(QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement() )
+					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:r")
 						{
-							for(QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
+							for (QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
 							{
 								if (spt.tagName() == "w:t")
 								{

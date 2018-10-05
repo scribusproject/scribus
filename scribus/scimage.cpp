@@ -422,7 +422,7 @@ void ScImage::blur(int radius)
 	yw = yi = 0;
 
 	int **stack = new int*[div];
-	for(int i = 0; i < div; ++i) {
+	for (int i = 0; i < div; ++i) {
 		stack[i] = new int[4];
 	}
 
@@ -440,7 +440,7 @@ void ScImage::blur(int radius)
 		rinsum = ginsum = binsum = ainsum
 			= routsum = goutsum = boutsum = aoutsum
 			= rsum = gsum = bsum = asum = 0;
-		for(i = -radius; i <= radius; ++i)
+		for (i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];
@@ -539,7 +539,7 @@ void ScImage::blur(int radius)
 
 		yp =- radius * w;
 
-		for(i=-radius; i <= radius; ++i)
+		for (i=-radius; i <= radius; ++i)
 		{
 			yi=qMax(0,yp)+x;
 
@@ -642,7 +642,7 @@ void ScImage::blur(int radius)
 	delete [] vmin;
 	delete [] dv;
 
-	for(int i = 0; i < div; ++i)
+	for (int i = 0; i < div; ++i)
 	{
 		delete [] stack[i];
 	}
@@ -667,27 +667,27 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 		return(false);
 	*dest = QImage(width(), height(), QImage::Format_ARGB32);
 	normalize=0.0;
-	for(i=0; i < (widthk*widthk); i++)
+	for (i=0; i < (widthk*widthk); i++)
 		normalize += kernel[i];
 	if (fabs(normalize) <= 1.0e-12)
 		normalize=1.0;
 	normalize=1.0/normalize;
-	for(i=0; i < (widthk*widthk); i++)
+	for (i=0; i < (widthk*widthk); i++)
 		normal_kernel[i] = normalize*kernel[i];
-	for(y=0; y < dest->height(); ++y)
+	for (y=0; y < dest->height(); ++y)
 	{
 		sy = y-(widthk/2);
 		q = (unsigned int *)dest->scanLine(y);
-		for(x=0; x < dest->width(); ++x)
+		for (x=0; x < dest->width(); ++x)
 		{
 			k = normal_kernel;
 			red = green = blue = alpha = 0;
 			sy = y-(widthk/2);
-			for(mcy=0; mcy < widthk; ++mcy, ++sy)
+			for (mcy=0; mcy < widthk; ++mcy, ++sy)
 			{
 				my = sy < 0 ? 0 : sy > height()-1 ? height()-1 : sy;
 				sx = x+(-widthk/2);
-				for(mcx=0; mcx < widthk; ++mcx, ++sx)
+				for (mcx=0; mcx < widthk; ++mcx, ++sx)
 				{
 					mx = sx < 0 ? 0 : sx > width()-1 ? width()-1 : sx;
 					int px = pixel(mx, my);
@@ -720,10 +720,10 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 	assert(sigma != 0.0);
 	if (radius > 0.0)
 		return((int)(2.0*ceil(radius)+1.0));
-	for(width=5; ;)
+	for (width=5; ;)
 	{
 		normalize=0.0;
-		for(u=(-width/2); u <= (width/2); u++)
+		for (u=(-width/2); u <= (width/2); u++)
 			normalize+=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma);
 		u=width/2;
 		value=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma)/normalize;
@@ -764,11 +764,11 @@ void ScImage::sharpen(double radius, double sigma)
 	convolveImage(&dest, widthk, kernel);
 	free(kernel);
 //	liberateMemory((void **) &kernel);
-	for( int yi=0; yi < dest.height(); ++yi )
+	for (int yi=0; yi < dest.height(); ++yi)
 	{
 		QRgb *s = (QRgb*)(dest.scanLine( yi ));
 		QRgb *d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < dest.width(); ++xi )
+		for (int xi=0; xi < dest.width(); ++xi)
 		{
 			(*d) = (*s);
 			s++;
@@ -821,10 +821,10 @@ void ScImage::applyCurve(const QVector<int>& curveTable, bool cmyk)
 	QRgb r;
 	int c, m, y, k;
 	unsigned char *p;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -873,10 +873,10 @@ void ScImage::colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk)
 		ScColorEngine::getShadeColorRGB(color, doc, rgbCol, shade);
 		rgbCol.getValues(cc, cm, cy);
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -922,10 +922,10 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	{
 		curveTable2[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			QRgb r=*s;
 			if (cmyk)
@@ -986,10 +986,10 @@ void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	{
 		curveTable3[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin3) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			QRgb r=*s;
 			if (cmyk)
@@ -1062,10 +1062,10 @@ void ScImage::quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray 
 	{
 		curveTable4[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve4, x / 255.0, lin4) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			QRgb r=*s;
 			if (cmyk)
@@ -1109,10 +1109,10 @@ void ScImage::invert(bool cmyk)
 	unsigned char *p;
 	QRgb * s;
 	unsigned char c, m, y, k;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			if (cmyk)
 			{
@@ -1140,10 +1140,10 @@ void ScImage::toGrayscale(bool cmyk)
 	int k;
 	QRgb * s;
 	QRgb r;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -1257,10 +1257,10 @@ void ScImage::convertToGray()
 	int h = height();
 	int w = width();
 	QRgb *s, r;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s;
 			k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -1286,7 +1286,7 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter) const
 	for (int yi = 0; yi < h; ++yi)
 	{
 		s = (const QRgb*) constScanLine(yi);
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s++;
 			buffer[pending++] = static_cast<unsigned char>(qRed(r));
@@ -1411,10 +1411,10 @@ bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter) const
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (const QRgb*) constScanLine(yi);
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s++;
 			buffer[pending++] = static_cast<unsigned char> (qRed(r));
@@ -1764,11 +1764,11 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 	delete [] gs;
 	delete [] bs;
 	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
-	for( int yi=0; yi < dst.height(); ++yi )
+	for (int yi=0; yi < dst.height(); ++yi)
 	{
 		QRgb *s = (QRgb*)(dst.scanLine( yi ));
 		QRgb *d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < dst.width(); ++xi )
+		for (int xi=0; xi < dst.width(); ++xi)
 		{
 			(*d) = (*s);
 			s++;
@@ -1952,7 +1952,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 
 	int scanWidth = dst.width() * nChannels;
 	QImage::operator=(QImage(nwidth, nheight, this->format()));
-	for( int yi=0; yi < dst.height(); ++yi )
+	for (int yi=0; yi < dst.height(); ++yi)
 	{
 		uchar *s = (dst.scanLine( yi ));
 		uchar *d = (scanLine( yi ));
@@ -2068,10 +2068,10 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 			alpha.resize(hm * wm);
 			if (alpha.size() > 0) // 
 			{
-				for( int yi=0; yi < hm; ++yi )
+				for (int yi=0; yi < hm; ++yi)
 				{
 					s = (QRgb*)(rImage.scanLine( yi ));
-					for( int xi=0; xi < wm; ++xi )
+					for (int xi=0; xi < wm; ++xi)
 					{
 						r = *s++;
 						u = qAlpha(r);
@@ -2094,10 +2094,10 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 			alpha.resize(hm * w2);
 			if (alpha.size() > 0)
 			{
-				for( int yi=0; yi < hm; ++yi )
+				for (int yi=0; yi < hm; ++yi)
 				{
 					s = iMask.scanLine( yi );
-					for( int xi=0; xi < w2; ++xi )
+					for (int xi=0; xi < w2; ++xi)
 					{
 						u = *(s+xi);
 						if (PDF) u = ~u;
@@ -2529,7 +2529,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
-					for( int uci = 0; uci < width(); ++uci )
+					for (int uci = 0; uci < width(); ++uci)
 					{
 						uc[uci] = *ucs;
 						ucs += 4;
@@ -2537,12 +2537,12 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == ColorSpace_Cmyk) )
+				else if (inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == ColorSpace_Cmyk))
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;
 					unsigned char* uc  = ptr;
-					for( int uci = 0; uci < width(); ++uci, uc += 4 )
+					for (int uci = 0; uci < width(); ++uci, uc += 4)
 					{
 						value = 255 - *(ucs + 1);
 						uc[0] = uc[1] = uc[2] = 0;

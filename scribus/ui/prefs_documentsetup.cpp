@@ -249,7 +249,7 @@ void Prefs_DocumentSetup::setupPageSets()
 	if (currIndex>0 && currIndex<pageSets.count())
 	{
 		layoutFirstPageIsComboBox->setEnabled(true);
-		for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
+		for (QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames)
 			layoutFirstPageIsComboBox->addItem(CommonStrings::translatePageSetLocString(*pNames));
 		layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
 	}

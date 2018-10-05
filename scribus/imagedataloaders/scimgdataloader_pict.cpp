@@ -822,7 +822,7 @@ void ScImgDataLoader_PICT::handlePolygon(QDataStream &ts, quint16 opCode)
 		fillBrush = setFillPattern();
 	else
 		fillBrush = QBrush(m_foreColor);
-	for(unsigned i = 0; i < polySize; i += 4)
+	for (unsigned i = 0; i < polySize; i += 4)
 	{
 		ts >> y >> x;
 		m_Coords.lineTo(x, y);

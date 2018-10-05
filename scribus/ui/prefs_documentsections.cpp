@@ -55,7 +55,7 @@ void Prefs_DocumentSections::updateTable()
 {
 	sectionsTable->setRowCount(m_localSections.count());
 	int row=0;
-	for(DocumentSectionMap::Iterator it = m_localSections.begin(); it!= m_localSections.end(); ++it)
+	for (DocumentSectionMap::Iterator it = m_localSections.begin(); it!= m_localSections.end(); ++it)
 	{
 		uint i=0;
 		//Name
@@ -191,7 +191,7 @@ void Prefs_DocumentSections::addEntry()
 	bool found=false;
 	DocumentSectionMap::Iterator it = m_localSections.begin();
 	int count=0;
-	for(; it!= m_localSections.end(); ++it)
+	for (; it!= m_localSections.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -221,7 +221,7 @@ void Prefs_DocumentSections::addEntry()
 		m_localSections.clear();
 		//Copy the temp map entries over. When we find the number of the current row, also insert a new entry.
 		uint i=0;
-		for(DocumentSectionMap::Iterator it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
+		for (DocumentSectionMap::Iterator it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
 		{
 			it2.value().number=i;
 			m_localSections.insert(i, it2.value());
@@ -253,7 +253,7 @@ void Prefs_DocumentSections::deleteEntry()
 	bool found=false;
 	DocumentSectionMap::Iterator it = m_localSections.begin();
 	int count=0;
-	for(; it!= m_localSections.end(); ++it)
+	for (; it!= m_localSections.end(); ++it)
 	{
 		if(count==currRow)
 		{
@@ -278,7 +278,7 @@ void Prefs_DocumentSections::deleteEntry()
 		m_localSections.clear();
 		uint i=0;
 		it = tempSections.begin();
-		for(; it!= tempSections.end(); ++it)
+		for (; it!= tempSections.end(); ++it)
 		{
 			it.value().number=i;
 			m_localSections.insert(i++, it.value());

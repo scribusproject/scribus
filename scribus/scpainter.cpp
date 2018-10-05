@@ -631,7 +631,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 		QList<VColorStop*> colorStops = mask_gradient.colorStops();
 		QColor qStopColor;
-		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+		for (int offset = 0 ; offset < colorStops.count() ; offset++)
 		{
 			qStopColor = colorStops[ offset ]->color;
 			double a = colorStops[offset]->opacity;
@@ -675,10 +675,10 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			int k;
 			QRgb *s;
 			QRgb r;
-			for( int yi=0; yi < h; ++yi )
+			for (int yi=0; yi < h; ++yi)
 			{
 				s = (QRgb*)(m_imageQ.scanLine( yi ));
-				for( int xi=0; xi < w; ++xi )
+				for (int xi=0; xi < w; ++xi)
 				{
 					r = *s;
 					if (qAlpha(r) == 0)
@@ -819,7 +819,7 @@ void ScPainter::fillPathHelper()
 			QList<QColor> qStopColors;
 			QList<double> qStopRampPoints;
 			QColor qStopColor;
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			for (int offset = 0 ; offset < colorStops.count() ; offset++)
 			{
 				qStopColor = colorStops[ offset ]->color;
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
@@ -857,7 +857,7 @@ void ScPainter::fillPathHelper()
 			cairo_fill(cr);
 			cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 			mpat = cairo_pattern_create_mesh();
-			for( int offset = 1 ; offset < qStopRampPoints.count() ; offset++ )
+			for (int offset = 1 ; offset < qStopRampPoints.count() ; offset++)
 			{
 				QLineF e1 = edge1;
 				QLineF e1s = edge1;
@@ -1093,7 +1093,7 @@ void ScPainter::fillPathHelper()
 				cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 			cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			for (int offset = 0 ; offset < colorStops.count() ; offset++)
 			{
 				rampPoint  = colorStops[ offset ]->rampPoint;
 				if ((lastPoint == rampPoint) && (!isFirst))
@@ -1365,7 +1365,7 @@ void ScPainter::strokePathHelper()
 			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		QList<VColorStop*> colorStops = stroke_gradient.colorStops();
-		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+		for (int offset = 0 ; offset < colorStops.count() ; offset++)
 		{
 			rampPoint  = colorStops[ offset ]->rampPoint;
 			if ((lastPoint == rampPoint) && (!isFirst))
@@ -1872,10 +1872,10 @@ void ScPainter::colorizeAlpha(const QColor& color)
 	int cr = color.red();
 	int cg = color.green();
 	int cb = color.blue();
-	for(int y = 0; y < h; ++y)
+	for (int y = 0; y < h; ++y)
 	{
 		QRgb *dst = (QRgb*)d;
-		for(int x = 0; x < w; ++x)
+		for (int x = 0; x < w; ++x)
 		{
 			if (qAlpha(*dst) > 0)
 				*dst = qRgba(cr, cg, cb, qAlpha(*dst));
@@ -1900,10 +1900,10 @@ void ScPainter::colorize(const QColor& color)
 	int hu, sa, v;
 	int cc2, cm2, cy2, k2;
 	QColor tmpR;
-	for(int y = 0; y < h; ++y)
+	for (int y = 0; y < h; ++y)
 	{
 		QRgb *dst = (QRgb*)d;
-		for(int x = 0; x < w; ++x)
+		for (int x = 0; x < w; ++x)
 		{
 			if (qAlpha(*dst) > 0)
 			{
@@ -1946,7 +1946,7 @@ void ScPainter::blurAlpha(int radius)
 	}
 	yw = yi = 0;
 	int **stack = new int*[div];
-	for(int i = 0; i < div; ++i)
+	for (int i = 0; i < div; ++i)
 	{
 		stack[i] = new int[1];
 	}
@@ -1960,7 +1960,7 @@ void ScPainter::blurAlpha(int radius)
 	for (y = 0; y < h; ++y)
 	{
 		ainsum = aoutsum = asum = 0;
-		for(i = -radius; i <= radius; ++i)
+		for (i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];
@@ -1998,7 +1998,7 @@ void ScPainter::blurAlpha(int radius)
 	{
 		ainsum = aoutsum = asum = 0;
 		yp = -radius * w;
-		for(i = -radius; i <= radius; ++i)
+		for (i = -radius; i <= radius; ++i)
 		{
 			yi=qMax(0,yp)+x;
 			sir = stack[i+radius];
@@ -2041,7 +2041,7 @@ void ScPainter::blurAlpha(int radius)
 	delete [] a;
 	delete [] vmin;
 	delete [] dv;
-	for(int i = 0; i < div; ++i)
+	for (int i = 0; i < div; ++i)
 	{
 		delete [] stack[i];
 	}
@@ -2077,7 +2077,7 @@ void ScPainter::blur(int radius)
 	}
 	yw = yi = 0;
 	int **stack = new int*[div];
-	for(int i = 0; i < div; ++i)
+	for (int i = 0; i < div; ++i)
 	{
 		stack[i] = new int[4];
 	}
@@ -2091,7 +2091,7 @@ void ScPainter::blur(int radius)
 	for (y = 0; y < h; ++y)
 	{
 		rinsum = ginsum = binsum = ainsum = routsum = goutsum = boutsum = aoutsum = rsum = gsum = bsum = asum = 0;
-		for(i = -radius; i <= radius; ++i)
+		for (i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];
@@ -2171,7 +2171,7 @@ void ScPainter::blur(int radius)
 	{
 		rinsum = ginsum = binsum = ainsum = routsum = goutsum = boutsum = aoutsum = rsum = gsum = bsum = asum = 0;
 		yp =- radius * w;
-		for(i=-radius; i <= radius; ++i)
+		for (i=-radius; i <= radius; ++i)
 		{
 			yi=qMax(0,yp)+x;
 			sir = stack[i+radius];
@@ -2254,7 +2254,7 @@ void ScPainter::blur(int radius)
 	delete [] a;
 	delete [] vmin;
 	delete [] dv;
-	for(int i = 0; i < div; ++i)
+	for (int i = 0; i < div; ++i)
 	{
 		delete [] stack[i];
 	}

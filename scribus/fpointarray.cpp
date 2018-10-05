@@ -437,9 +437,9 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 	q[ 3 ] = point(seg+2);
 	q[ 2 ] = point(seg+3);
 	// The De Casteljau algorithm.
-	for( unsigned short j = 1; j <= 3; j++ )
+	for (unsigned short j = 1; j <= 3; j++)
 	{
-		for( unsigned short i = 0; i <= 3 - j; i++ )
+		for (unsigned short i = 0; i <= 3 - j; i++)
 		{
 			q[ i ] = ( 1.0 - t ) * q[ i ] + t * q[ i + 1 ];
 		}
@@ -784,7 +784,7 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	else if(th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
 	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
-	for(i = 0; i < n_segs; i++)
+	for (i = 0; i < n_segs; i++)
 	{
 	{
 		double sin_th, cos_th;

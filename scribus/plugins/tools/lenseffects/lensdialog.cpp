@@ -339,7 +339,7 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 					}
 					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
 					QColor qStopColor;
-					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					for (int offset = 0 ; offset < colorStops.count() ; offset++)
 					{
 						qStopColor = colorStops[ offset ]->color;
 						int h, s, v, sneu, vneu;
@@ -419,7 +419,7 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
 				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
 				QColor qStopColor;
-				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				for (int offset = 0 ; offset < colorStops.count() ; offset++)
 				{
 					qStopColor = colorStops[ offset ]->color;
 					int h, s, v, sneu, vneu;

@@ -519,7 +519,7 @@ QImage PagesPlug::readThumbnail(const QString& fName)
 				if (designMapDom.setContent(f))
 				{
 					QDomElement docElem = designMapDom.documentElement();
-					for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+					for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 					{
 						if (drawPag.tagName() == "sl:slprint-info")
 						{
@@ -869,13 +869,13 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 	}
 	papersize = "Custom";
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
 		if (drawPag.tagName() == "sl:slprint-info")
 		{
 			docWidth = drawPag.attribute("sl:page-width", "0").toDouble();
 			docHeight = drawPag.attribute("sl:page-height", "0").toDouble();
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 			{
 				if (sp.tagName() == "sf:page-margins")
 				{
@@ -907,7 +907,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		}
 		else if (drawPag.tagName() == "sl:section-prototypes")
 		{
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 			{
 				if (sp.tagName() == "sl:prototype")
 				{
@@ -925,7 +925,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							baseX = addedPage->xOffset();
 							baseY = addedPage->yOffset();
 							mpagecount++;
-							for(QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+							for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 							{
 								if (spd.tagName() == "sl:stylesheet")
 								{
@@ -934,7 +934,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 								}
 								else if (spd.tagName() == "sl:drawables")
 								{
-									for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+									for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 									{
 										if (spe.tagName() == "sl:page-group")
 											parsePageReference(spe);
@@ -955,7 +955,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		}
 		else if (drawPag.tagName() == "sl:drawables")
 		{
-			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 			{
 				if (sp.tagName() == "sl:page-group")
 				{
@@ -1007,7 +1007,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		}
 		else if (drawPag.tagName() == "sf:text-storage")
 		{
-			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 			{
 				if (spf.tagName() == "sf:stylesheet-ref")
 				{
@@ -1029,7 +1029,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 					newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 					newStyle.setLineSpacing(nstyle.fontSize() / 10.0);
 					itemText.setDefaultStyle(newStyle);
-					for(QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement() )
+					for (QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement())
 					{
 					//	if (spg.tagName() == "sf:container-hint")
 					//	{
@@ -1055,7 +1055,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							int totalCount = 0;
 							if (spg.hasChildNodes())
 							{
-								for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+								for (QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement())
 								{
 									totalCount += sph.text().length();
 								//	if (sph.tagName() == "sf:container-hint")
@@ -1076,7 +1076,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							}
 							if (spg.hasChildNodes())
 							{
-								for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+								for (QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement())
 								{
 									if (sph.tagName() == "sf:span")
 									{
@@ -1109,20 +1109,20 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 {
 	QString sheetName = drawPag.attribute("sfa:ID");
 	StyleSheet styleSH;
-	for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+	for (QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
 	{
 		if ((sp.tagName() == "sf:styles") || (sp.tagName() == "sf:anon-styles"))
 		{
-			for(QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+			for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 			{
 				if (spd.tagName() == "sf:characterstyle")
 				{
 					ChrStyle currStyle;
-					for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+					for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 					{
 						if (spe.tagName() == "sf:property-map")
 						{
-							for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+							for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 							{
 								if (spf.tagName() == "sf:fontSize")
 								{
@@ -1218,11 +1218,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 				if (spd.tagName() == "sf:paragraphstyle")
 				{
 					ParStyle currStyle;
-					for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+					for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 					{
 						if (spe.tagName() == "sf:property-map")
 						{
-							for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+							for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 							{
 								if (spf.tagName() == "sf:fontSize")
 								{
@@ -1327,11 +1327,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 				else if (spd.tagName() == "sf:layoutstyle")
 				{
 					LayoutStyle currStyle;
-					for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+					for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 					{
 						if (spe.tagName() == "sf:property-map")
 						{
-							for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+							for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 							{
 								if (spf.tagName() == "sf:padding")
 								{
@@ -1365,11 +1365,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 				else if (spd.tagName() == "sf:graphic-style")
 				{
 					ObjStyle currStyle;
-					for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+					for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 					{
 						if (spe.tagName() == "sf:property-map")
 						{
-							for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+							for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 							{
 								if (spf.tagName() == "sf:stroke")
 								{
@@ -1535,7 +1535,7 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 
 void PagesPlug::parsePageReference(QDomElement &drawPag)
 {
-	for(QDomElement draw = drawPag.firstChildElement(); !draw.isNull(); draw = draw.nextSiblingElement() )
+	for (QDomElement draw = drawPag.firstChildElement(); !draw.isNull(); draw = draw.nextSiblingElement())
 	{
 		PageItem* retObj = parseObjReference(draw);
 		if (retObj != nullptr)
@@ -1585,12 +1585,12 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 	if (draw.tagName() == "sf:group")
 	{
 		QList<PageItem*> GElements;
-		for(QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+		for (QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 		{
 			if (spd.tagName() == "sf:geometry")
 			{
 				obState.rotation = spd.attribute("sf:angle", "0").toDouble();
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:position")
 					{
@@ -1647,12 +1647,12 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 	}
 	else if ((draw.tagName() == "sf:media") || (draw.tagName() == "sf:drawable-shape"))
 	{
-		for(QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+		for (QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement())
 		{
 			if (spd.tagName() == "sf:geometry")
 			{
 				obState.rotation = spd.attribute("sf:angle", "0").toDouble();
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:position")
 					{
@@ -1668,7 +1668,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			}
 			else if (spd.tagName() == "sf:style")
 			{
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:graphic-style-ref")
 					{
@@ -1678,11 +1678,11 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			}
 			else if (spd.tagName() == "sf:path")
 			{
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if ((spe.tagName() == "sf:bezier-path") || (spe.tagName() == "sf:editable-bezier-path"))
 					{
-						for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+						for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 						{
 							if (spf.tagName() == "sf:bezier")
 							{
@@ -1701,7 +1701,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			}
 			else if (spd.tagName() == "sf:wrap")
 			{
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:path")
 					{
@@ -1718,19 +1718,19 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			}
 			else if (spd.tagName() == "sf:content")
 			{
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:image-media")
 					{
-						for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+						for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 						{
 							if (spf.tagName() == "sf:filtered-image")
 							{
-								for(QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement() )
+								for (QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement())
 								{
 									if (spg.tagName() == "sf:unfiltered")
 									{
-										for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+										for (QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement())
 										{
 											if (sph.tagName() == "sf:data")
 											{
@@ -1747,11 +1747,11 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			else if (spd.tagName() == "sf:text")
 			{
 				obState.layoutStyleRef = spd.attribute("sf:layoutstyle");
-				for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+				for (QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement())
 				{
 					if (spe.tagName() == "sf:text-storage")
 					{
-						for(QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+						for (QDomElement spf = spe.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 						{
 							if (spf.tagName() == "sf:text-body")
 							{
@@ -1765,7 +1765,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 								newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 								newStyle.setLineSpacing(nstyle.fontSize() / 10.0);
 								itemText.setDefaultStyle(newStyle);
-								for(QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement() )
+								for (QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement())
 								{
 									if (spg.tagName() == "sf:p")
 									{
@@ -1786,7 +1786,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 										int totalCount = 0;
 										if (spg.hasChildNodes())
 										{
-											for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+											for (QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement())
 											{
 												totalCount += sph.text().length();
 											}
@@ -1803,7 +1803,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 										}
 										if (spg.hasChildNodes())
 										{
-											for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+											for (QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement())
 											{
 												if (sph.tagName() == "sf:span")
 												{

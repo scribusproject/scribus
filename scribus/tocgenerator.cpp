@@ -67,7 +67,9 @@ void TOCGenerator::generateDefault()
 	if (m_doc == nullptr)
 		return;
 	Q_ASSERT(!m_doc->masterPageMode());
-	for(ToCSetupVector::Iterator tocSetupIt = m_doc->tocSetups().begin(); tocSetupIt != m_doc->tocSetups().end(); ++tocSetupIt )
+
+	const ToCSetupVector& topSetups = m_doc->tocSetups();
+	for (auto tocSetupIt = topSetups.cbegin(); tocSetupIt != topSetups.cend(); ++tocSetupIt)
 	{
 		PageItem* tocFrame = findTargetFrame(tocSetupIt->frameName);
 		if (tocFrame == nullptr)

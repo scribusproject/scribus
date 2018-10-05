@@ -113,7 +113,7 @@ void HunspellDialog::ignoreAllWords()
 		return;
 	QString wordToIgnore = m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
-	for(int i = 0; i < m_wfList->count(); ++i)
+	for (int i = 0; i < m_wfList->count(); ++i)
 		if (m_wfList->at(i).w == wordToIgnore)
 			(*m_wfList)[i].ignore = true;
 	goToNextWord();
@@ -134,7 +134,7 @@ void HunspellDialog::changeAllWords()
 		return;
 	QString wordToChange=m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
-	for(int i=0;i<m_wfList->count();++i)
+	for (int i=0;i<m_wfList->count();++i)
 		if (m_wfList->at(i).w==wordToChange)
 			replaceWord(i);
 	goToNextWord();

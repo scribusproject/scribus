@@ -227,7 +227,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				else
 				{
 					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					for (int offset = 0 ; offset < colorStops.count() ; offset++)
 					{
 						if (colorStops[offset]->opacity != 1.0)
 						{
@@ -240,7 +240,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
 			{
 				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
-				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				for (int offset = 0 ; offset < colorStops.count() ; offset++)
 				{
 					if (colorStops[offset]->opacity != 1.0)
 					{
@@ -473,7 +473,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				else
 				{
 					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					for (int offset = 0 ; offset < colorStops.count() ; offset++)
 					{
 						if (colorStops[offset]->opacity != 1.0)
 						{
@@ -486,7 +486,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
 			{
 				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
-				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				for (int offset = 0 ; offset < colorStops.count() ; offset++)
 				{
 					if (colorStops[offset]->opacity != 1.0)
 					{

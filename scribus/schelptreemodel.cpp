@@ -124,7 +124,7 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 			QDomNodeList nl=n.childNodes();
 			if (nl.count()>0)
 				position=1;
-			for(int i=0 ; i<= nl.count() ; i++)
+			for (int i=0 ; i<= nl.count() ; i++)
 			{
 				QDomNode child=nl.item(i);
 				if (child.isElement())
@@ -163,11 +163,11 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 						}
 						//3rd level
 						QDomNodeList nl2=child.childNodes();
-						if (nl2.count()>0)
-							position=2;
-						for(int i2=0 ; i2<= nl2.count() ; i2++)
+						if (nl2.count() > 0)
+							position = 2;
+						for (int i2 = 0 ; i2 <= nl2.count(); i2++)
 						{
-							QDomNode childchild=nl2.item(i2);
+							QDomNode childchild = nl2.item(i2);
 							if (childchild.isElement())
 							{
 								QDomElement ecc = childchild.toElement();

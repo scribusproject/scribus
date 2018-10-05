@@ -289,7 +289,7 @@ void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
 				{
 					if (!spn.hasChildNodes())
 						continue;
-					for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
+					for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
 					{
 						if (spp.nodeName() == "text:p")
 						{
@@ -851,7 +851,7 @@ void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 				{
 					if (!spn.hasChildNodes())
 						continue;
-					for(QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
+					for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
 					{
 						if (spp.nodeName() == "text:p")
 						{

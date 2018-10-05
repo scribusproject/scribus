@@ -83,7 +83,7 @@ VGradient::VGradient( const VGradient& gradient )
 	clearStops();
 	QList<VColorStop*> cs = gradient.colorStops();
 	qStableSort(cs.begin(), cs.end(), compareStops);
-	for( int i = 0; i < cs.count(); ++i)
+	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 } // VGradient::VGradient
 
@@ -106,7 +106,7 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	clearStops();
 	QList<VColorStop*> cs = gradient.colorStops();
 	qStableSort(cs.begin(), cs.end(), compareStops);
-	for( int i = 0; i < cs.count(); ++i )
+	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	return *this;
 } // VGradient::operator=

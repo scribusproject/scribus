@@ -80,7 +80,7 @@ VGradientEx::VGradientEx( const VGradientEx& gradient )
 	clearStops();
 	QList<VColorStopEx*> cs = gradient.colorStops();
 	qStableSort( cs.begin(), cs.end(), compareStopsEx);
-	for( int i = 0; i < cs.count(); ++i)
+	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 }
 
@@ -96,7 +96,7 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 		delete m_colorStops.takeFirst();
 	QList<VColorStop*> stops = gradient.colorStops();
 	qStableSort( stops.begin(), stops.end(), compareStops);
-	for( int i = 0; i < stops.count(); ++i)
+	for (int i = 0; i < stops.count(); ++i)
 	{
 		VColorStop stop( *stops[i] );
 		ScColor color = doc.PageColors[stop.name];
@@ -123,7 +123,7 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 	clearStops();
 	QList<VColorStopEx*> cs = gradient.colorStops();
 	qStableSort( cs.begin(), cs.end(), compareStopsEx);
-	for( int i = 0; i < cs.count(); ++i )
+	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 	return *this;
 } // VGradientEx::operator=

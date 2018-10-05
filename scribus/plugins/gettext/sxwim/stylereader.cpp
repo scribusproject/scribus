@@ -806,7 +806,7 @@ void StyleReader::startElement(void*, const xmlChar * fullname, const xmlChar **
 {
 	QString name = QString((const char*) fullname).toLower();
 	QXmlAttributes attrs;
-	for(const xmlChar** cur = atts; cur && *cur; cur += 2)
+	for (const xmlChar** cur = atts; cur && *cur; cur += 2)
 		attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
 	sreader->startElement(nullptr, nullptr, name, attrs);
 }

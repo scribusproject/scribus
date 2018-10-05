@@ -98,7 +98,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
-			for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+			for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 			{
 				if (drawPag.tagName() != "Relationship")
 					continue;
@@ -441,7 +441,7 @@ bool XpsPlug::parseDocSequence(const QString& designMap)
 	bool parsed = false;
 	QString DocumentReference = "";
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+	for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (dpg.tagName() == "DocumentReference")
@@ -623,7 +623,7 @@ void XpsPlug::parsePageReference(const QString& designMap)
 			firstPage = false;
 			baseX = m_Doc->currentPage()->xOffset();
 			baseY = m_Doc->currentPage()->yOffset();
-			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+			for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 			{
 				QDomElement dpg = drawPag.toElement();
 				if ((dpg.tagName() == "Path") || (dpg.tagName() == "Glyphs") || (dpg.tagName() == "Canvas"))
@@ -637,7 +637,7 @@ void XpsPlug::parsePageReference(const QString& designMap)
 				}
 				else if (dpg.tagName() == "FixedPage.Resources")
 				{
-					for(QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+					for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 					{
 						QDomElement spe = sp.toElement();
 						if (spe.tagName() == "ResourceDictionary")
@@ -662,7 +662,7 @@ void XpsPlug::parsePageReference(const QString& designMap)
 							}
 							else if (spe.hasChildNodes())
 							{
-								for(QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement() )
+								for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 								{
 									if (dpgp.tagName() == "PathGeometry")
 									{
@@ -813,7 +813,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 	{
 		if (dpg.hasChildNodes())
 		{
-			for(QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Glyphs.Fill")
@@ -1041,7 +1041,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 		bool pathFromChild = false;
 		if (dpg.hasChildNodes())
 		{
-			for(QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Path.Fill")
@@ -1052,7 +1052,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 					parseStrokeXML(spe, path, obState);
 				else if (spe.tagName() == "Path.RenderTransform")
 				{
-					for(QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling() )
+					for (QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
 					{
 						QDomElement eog = obg.toElement();
 						if (eog.tagName() == "MatrixTransform")
@@ -1109,12 +1109,12 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 	else if (dpg.tagName() == "Canvas")
 	{
 		QList<PageItem*> GElements;
-		for(QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+		for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 		{
 			QDomElement spe = sp.toElement();
 			if (spe.tagName() == "Canvas.RenderTransform")
 			{
-				for(QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling() )
+				for (QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
 				{
 					QDomElement eog = obg.toElement();
 					if (eog.tagName() == "MatrixTransform")
@@ -1138,7 +1138,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 				parseOpacityXML(spe, path, obState);
 			else if (spe.tagName() == "Canvas.Resources")
 			{
-				for(QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling() )
+				for (QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
 				{
 					QDomElement eog = obg.toElement();
 					if (eog.tagName() == "ResourceDictionary")
@@ -1163,7 +1163,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 						}
 						else if (eog.hasChildNodes())
 						{
-							for(QDomElement dpgp = eog.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement() )
+							for (QDomElement dpgp = eog.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 							{
 								if (dpgp.tagName() == "PathGeometry")
 								{
@@ -1329,7 +1329,7 @@ void XpsPlug::parseStrokeXML(QDomElement &spe, const QString& path, ObjState &ob
 
 void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obState)
 {
-	for(QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling() )
+	for (QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
 	{
 		QDomElement eog = obg.toElement();
 		if (eog.tagName() == "SolidColorBrush")
@@ -1364,12 +1364,12 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 			double gen_opacity = 1.0;
 			if (eog.hasAttribute("Opacity"))
 				gen_opacity = eog.attribute("Opacity", "1.0").toDouble();
-			for(QDomNode gr = eog.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
+			for (QDomNode gr = eog.firstChild(); !gr.isNull(); gr = gr.nextSibling())
 			{
 				QDomElement grs = gr.toElement();
 				if (grs.tagName() == "LinearGradientBrush.GradientStops")
 				{
-					for(QDomNode spo = grs.firstChild(); !spo.isNull(); spo = spo.nextSibling() )
+					for (QDomNode spo = grs.firstChild(); !spo.isNull(); spo = spo.nextSibling())
 					{
 						QDomElement eo = spo.toElement();
 						if (eo.tagName() == "GradientStop")
@@ -1406,11 +1406,11 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 			double gen_opacity = 1.0;
 			if (eog.hasAttribute("Opacity"))
 				gen_opacity = eog.attribute("Opacity", "1.0").toDouble();
-			for(QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
+			for (QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
 			{
 				if (grs.tagName() == "RadialGradientBrush.GradientStops")
 				{
-					for(QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement() )
+					for (QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement())
 					{
 						if (eo.tagName() == "GradientStop")
 						{
@@ -1455,11 +1455,11 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 			listE >> Viewport_x1 >> Viewport_y1 >> Viewport_x2 >> Viewport_y2;
 			double vw = (Viewport_x2 * conversionFactor) / (Viewbox_x2 - Viewbox_x1);
 			double vh = (Viewport_y2 * conversionFactor) / (Viewbox_y2 - Viewbox_y1);
-			for(QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
+			for (QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
 			{
 				if (grs.tagName() == "VisualBrush.Visual")
 				{
-					for(QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement() )
+					for (QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement())
 					{
 						if ((eo.tagName() == "Path") || (eo.tagName() == "Glyphs") || (eo.tagName() == "Canvas"))
 						{
@@ -1508,7 +1508,7 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 	Coords.svgInit();
 	QString svgString = "";
 	bool windFill = false;
-	for(QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement() )
+	for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 	{
 		if (dpgp.tagName() == "PathGeometry")
 			svgString += parsePathGeometryXML(dpgp);
@@ -1535,13 +1535,13 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 {
 	QString svgString = "";
-	for(QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement() )
+	for (QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement())
 	{
 		if (dpg.tagName() == "PathFigure")
 		{
 			if (dpg.hasAttribute("StartPoint"))
 				svgString += "M " + dpg.attribute("StartPoint") + " ";
-			for(QDomElement dp = dpg.firstChildElement(); !dp.isNull(); dp = dp.nextSiblingElement() )
+			for (QDomElement dp = dpg.firstChildElement(); !dp.isNull(); dp = dp.nextSiblingElement())
 			{
 				if (dp.tagName() == "PolyLineSegment")
 					svgString += "L " + dp.attribute("Points") + " ";
@@ -1589,7 +1589,7 @@ void XpsPlug::parseResourceFile(const QString& resFile)
 		if (designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
-			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+			for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 			{
 				QDomElement dpg = drawPag.toElement();
 				if (dpg.tagName() == "PathGeometry")

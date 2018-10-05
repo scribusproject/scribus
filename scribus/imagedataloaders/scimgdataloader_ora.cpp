@@ -110,7 +110,7 @@ bool ScImgDataLoader_ORA::loadPicture(const QString& fn, int /*page*/, int /*res
 					m_image.fill( qRgba(0, 0, 0, 0) );
 					ScPainter *painter = new ScPainter(&m_image, m_image.width(), m_image.height(), 1, 0);
 					painter->setZoomFactor(1);
-					for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
+					for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 					{
 						if (drawPag.tagName() == "stack")
 						{
@@ -137,7 +137,7 @@ bool ScImgDataLoader_ORA::loadPicture(const QString& fn, int /*page*/, int /*res
 
 void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, ScZipHandler *uz)
 {
-	for(QDomElement lay = elem.lastChildElement(); !lay.isNull(); lay = lay.previousSiblingElement())
+	for (QDomElement lay = elem.lastChildElement(); !lay.isNull(); lay = lay.previousSiblingElement())
 	{
 		if (lay.tagName() == "layer")
 		{

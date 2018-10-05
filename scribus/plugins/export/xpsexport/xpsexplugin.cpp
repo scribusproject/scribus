@@ -376,7 +376,7 @@ void XPSExPlug::writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScP
 	QDomElement layerGroup = p_docu.createElement("Canvas");
 	if (layer.transparency != 1.0)
 		layerGroup.setAttribute("Opacity", layer.transparency);
-	for(int j = 0; j < Items.count(); ++j)
+	for (int j = 0; j < Items.count(); ++j)
 	{
 		Item = Items.at(j);
 		if (Item->LayerID != layer.ID)
@@ -1064,7 +1064,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		QString Indices = "";
 		QString UnicodeString = "";
 		QDomElement glyph;
-		for(QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement() )
+		for (QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement())
 		{
 			if (txtGrp.tagName() != "Glyphs")
 			{
