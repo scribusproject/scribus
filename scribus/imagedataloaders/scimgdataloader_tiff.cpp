@@ -1095,7 +1095,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 			uchar *ptr = tmpImg.scanLine(hh);
 			uchar *ptr2 = ptr+tmpImg.width() * tmpImg.channels();
 			ptr += component;
-			while( count < pixel_count )
+			while (count < pixel_count)
 			{
 				uchar c;
 				if (s.atEnd())
@@ -1107,7 +1107,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 					// Copy next len+1 bytes literally.
 					len++;
 					count += len;
-					while( len != 0 )
+					while (len != 0)
 					{
 						s >> cbyte;
 						if (ptr < ptr2)
@@ -1140,7 +1140,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 					s >> val;
 					if ((header.color_mode == CM_CMYK) && (component < 4))
 						val = 255 - val;
-					while( len != 0 )
+					while (len != 0)
 					{
 						if (ptr < ptr2)
 						{
@@ -1353,7 +1353,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	uint components[40];
 	for (uint channel = 0; channel < channel_num; channel++)
 	{
-		switch(layerInfo[layer].channelType[channel])
+		switch (layerInfo[layer].channelType[channel])
 		{
 		case 0:
 			components[channel] = 0;

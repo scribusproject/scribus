@@ -68,10 +68,10 @@ LoremParser::LoremParser(const QString& fname)
 	QDomElement docElement = doc.documentElement();
 
 	QDomNode node = docElement.firstChild();
-	while(!node.isNull())
+	while (!node.isNull())
 	{
 		QDomElement element = node.toElement();
-		if(!element.isNull())
+		if (!element.isNull())
 		{
 			if (element.tagName() == "name")
 				name = element.text();

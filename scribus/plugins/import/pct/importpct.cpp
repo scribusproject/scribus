@@ -2103,7 +2103,7 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 			// Copy next len+1 bytes literally.
 			len++;
 			len *= multByte;
-			while( len != 0 )
+			while (len != 0)
 			{
 				*ptrOut++ = *ptrIn++;
 				len--;
@@ -2129,7 +2129,7 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 				count++;
 				c2 = *ptrIn++;
 				count++;
-				while( len != 0 )
+				while (len != 0)
 				{
 					*ptrOut++ = c;
 					*ptrOut++ = c2;
@@ -2141,7 +2141,7 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 			{
 				c = *ptrIn++;
 				count++;
-				while( len != 0 )
+				while (len != 0)
 				{
 					*ptrOut++ = c;
 					len--;

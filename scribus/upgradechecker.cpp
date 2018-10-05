@@ -156,9 +156,11 @@ bool UpgradeChecker::process()
 	
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() ) {
+	while (!n.isNull())
+	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() ) {
+		if (!e.isNull())
+		{
 			if (e.tagName()=="release")
 			{
 				if (e.hasAttribute("stability") && e.hasAttribute("platform") && e.hasAttribute("version"))

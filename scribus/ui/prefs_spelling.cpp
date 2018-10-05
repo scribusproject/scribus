@@ -259,9 +259,11 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	dictList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() ) {
+	while (!n.isNull())
+	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() ) {
+		if (!e.isNull())
+		{
 			if (e.tagName()=="dictionary")
 			{
 				if (e.hasAttribute("type") && e.hasAttribute("filetype"))

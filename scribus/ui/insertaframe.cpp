@@ -180,7 +180,7 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 {
 	int type=typeButtonGroup->checkedId();
 	iafData.source="";
-	switch(type)
+	switch (type)
 	{
 		case 0:
 			iafData.frameType=PageItem::TextFrame;

@@ -412,7 +412,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 //	int fillStyle = 1;
 	double strokewidth = 0.1;
 //	bool poly = false;
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		double x1, y1, x2, y2;
 		StrokeCol = defStrokeCol;
@@ -658,7 +658,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 
 void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck)
 {
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		double x1, y1, x2, y2;
 		FPointArray PoLine;
@@ -884,12 +884,12 @@ const char * ShapePlug::getCoord( const char *ptr, double &number )
 	}
 
 	// read the integer part
-	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+	while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
 	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 
@@ -907,7 +907,7 @@ const char * ShapePlug::getCoord( const char *ptr, double &number )
 		}
 
 		exponent = 0;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		{
 			exponent *= 10;
 			exponent += *ptr - '0';
@@ -940,12 +940,12 @@ bool ShapePlug::parseSVG( const QString &s, FPointArray *ite )
 		FirstM = true;
 		char command = *(ptr++), lastCommand = ' ';
 		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
-		while( ptr < end )
+		while (ptr < end)
 		{
 			if (*ptr == ' ')
 				ptr++;
 			relative = false;
-			switch( command )
+			switch (command)
 			{
 			case 'm':
 				relative = true;

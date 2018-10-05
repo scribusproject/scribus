@@ -1705,7 +1705,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 	quint16 count = 0;
 	uchar c, c2;
 	quint16 len;
-	while( count < in.size() )
+	while (count < in.size())
 	{
 		c = *ptrIn++;
 		count++;
@@ -1715,7 +1715,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 			// Copy next len+1 bytes literally.
 			len++;
 			len *= multByte;
-			while( len != 0 )
+			while (len != 0)
 			{
 				*ptrOut++ = *ptrIn++;
 				len--;
@@ -1741,7 +1741,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 				count++;
 				c2 = *ptrIn++;
 				count++;
-				while( len != 0 )
+				while (len != 0)
 				{
 					*ptrOut++ = c;
 					*ptrOut++ = c2;
@@ -1753,7 +1753,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 			{
 				c = *ptrIn++;
 				count++;
-				while( len != 0 )
+				while (len != 0)
 				{
 					*ptrOut++ = c;
 					len--;

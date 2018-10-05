@@ -245,7 +245,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	{
 		QMap<QString, double>::ConstIterator itend = m_constants->constEnd();
 		QMap<QString, double>::ConstIterator it = m_constants->constBegin();
-		while(it != itend)
+		while (it != itend)
 		{
 			fp.AddConstant(it.key().toStdString(), it.value() * unitGetRatioFromIndex(m_unitIndex));
 			++it;

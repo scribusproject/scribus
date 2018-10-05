@@ -701,7 +701,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			format = symbolFormat;
 		}
 		//qDebug() << "reading cmap format" << format;
-		switch(format)
+		switch (format)
 		{
 			case 4:
 			{

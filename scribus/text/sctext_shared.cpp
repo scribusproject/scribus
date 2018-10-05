@@ -55,7 +55,7 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 
 void ScText_Shared::clear()
 {
-	while(!this->isEmpty())
+	while (!this->isEmpty())
 		delete this->takeFirst(); 
 	QList<ScText*>::clear();
 	cursorPosition = 0;
@@ -101,7 +101,7 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 ScText_Shared::~ScText_Shared() 
 {
 //		qDebug() << QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this));
-	while(!this->isEmpty())
+	while (!this->isEmpty())
 		delete this->takeFirst(); 
 }
 

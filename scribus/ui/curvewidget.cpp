@@ -116,7 +116,7 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 			int pos = 0;
 			int cc = 0;
 			double distance = 1000; // just a big number
-			while(cc < m_points.size())
+			while (cc < m_points.size())
 			{
 				p = m_points.point(cc);
 				if (fabs (m_grab_point.x() - p.x()) < distance)
@@ -154,7 +154,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 	int insert_pos =0;
 	int pos = 0;
 	int cc = 0;
-	while(cc < m_points.size())
+	while (cc < m_points.size())
 	{
 		p = m_points.point(cc);
 		if (fabs (x - p.x()) < distance)
@@ -207,7 +207,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 	m_leftmost = 0;
 	m_rightmost = 1;
 	cc = 0;
-	while(cc < m_points.size())
+	while (cc < m_points.size())
 	{
 		p = m_points.point(cc);
 		if (p != m_grab_point)
@@ -243,7 +243,7 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 		double distance = 1000;
 		double ydistance = 1000;
 		int cc = 0;
-		while(cc < m_points.size())
+		while (cc < m_points.size())
 		{
 			FPoint p = m_points.point(cc);
 			if (fabs (x - p.x()) < distance)

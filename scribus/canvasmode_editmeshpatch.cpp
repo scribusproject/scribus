@@ -977,7 +977,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 		ss->set("X",m_currItem->selectedMeshPointX);
 		ss->set("Y",m_currItem->selectedMeshPointY);
 		ss->set("ARRAY",false);
-		switch(m_currItem->selectedMeshPointY){
+		switch (m_currItem->selectedMeshPointY){
 			case 1:
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL)
 				{

@@ -262,7 +262,7 @@ bool HTMLReader::characters(const QString &ch)
 		// must be ignored, not exactly that, but better than nothing
 		if (elemJustStarted  || elemJustFinished)
 		{
-			while( !tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n') )
+			while (!tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n'))
 				tmp = tmp.right(tmp.length() - 1);
 			elemJustStarted = elemJustFinished = false;
 			if (tmp.isEmpty())

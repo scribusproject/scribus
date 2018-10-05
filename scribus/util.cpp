@@ -533,7 +533,7 @@ const QString getStringFromSequence(NumFormat type, uint position, const QString
 	const QString arabic("أبتثجحخدذرزسشصضطظعغفقكلمنهوي");
 	const QString abjad("أبجدهوزحطيكلمنسعفصقرشتثخذضظغ");
 
-	switch( type )
+	switch (type)
 	{
 		case Type_1_2_3:
 			retVal=QString::number(position);

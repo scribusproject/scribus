@@ -737,7 +737,7 @@ void StoryText::replaceChar(int pos, QChar ch)
 int StoryText::replaceWord(int pos, QString newWord)
 {
 	int eoWord=pos;
-	while(eoWord < length())
+	while (eoWord < length())
 	{
 		if (text(eoWord).isLetterOrNumber() || SpecialChars::isIgnorableCodePoint(text(eoWord).unicode()))
 			++eoWord;

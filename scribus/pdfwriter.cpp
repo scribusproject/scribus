@@ -47,7 +47,7 @@ namespace Pdf
 	{
 		uchar row = c.row();
 		uchar cell = c.cell();
-		switch(row)
+		switch (row)
 		{
 			case 0:
 				if (cell <= 23

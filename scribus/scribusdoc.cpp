@@ -2701,9 +2701,9 @@ void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
 	QMap<QString,int>::Iterator it = MasterNames.begin();
 	QListIterator<ScPage *> dpIt(DocPages);
 	ScPage* docPage=nullptr;
-	while(dpIt.hasNext())
+	while (dpIt.hasNext())
 	{
-		docPage=dpIt.next();
+		docPage = dpIt.next();
 		if (docPage->MPageNam == oldMasterPage)
 		{
 			PageLocation pageLoc = locationOfPage(pageIndex);
@@ -5323,7 +5323,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline)
 {
 	PageItem* newItem=nullptr;
-	switch( itemType )
+	switch (itemType)
 	{
 		//Q_ASSERTs here will warn on creation issues when a coder specifies the frameType incorrectly
 		//for items that do not have/need a frameType for creation.
@@ -8173,7 +8173,7 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 			{
 				if (!PageColors.contains(currItem->lineColor()))
 				{
-					switch(currItem->itemType())
+					switch (currItem->itemType())
 					{
 						case PageItem::TextFrame:
 						case PageItem::PathText:
@@ -8224,7 +8224,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 				{
 					if (!PageColors.contains(currItem->fillColor()))
 					{
-						switch(currItem->itemType())
+						switch (currItem->itemType())
 						{
 							case PageItem::ImageFrame:
 							case PageItem::LatexFrame:

@@ -109,10 +109,10 @@ void IconManager::readIconConfigFiles()
 			QDomElement docElem = xmlData.documentElement();
 			QDomNode n = docElem.firstChild();
 			ScIconSetData isd;
-			while( !n.isNull() )
+			while (!n.isNull())
 			{
 				QDomElement e = n.toElement();
-				if( !e.isNull() )
+				if (!e.isNull())
 				{
 					//qDebug()<<e.tagName()<<e.text();
 					if (e.tagName()=="path")

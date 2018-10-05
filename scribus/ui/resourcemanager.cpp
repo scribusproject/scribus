@@ -133,10 +133,10 @@ void ResourceManager::readAvailableFonts()
 	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.tagName()=="font")
 			{
@@ -192,10 +192,10 @@ void ResourceManager::readAvailableHelp()
 	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.tagName()=="help")
 			{
@@ -251,10 +251,10 @@ void ResourceManager::readAvailablePalettes()
 	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.tagName()=="palette")
 			{
@@ -568,10 +568,10 @@ void ResourceManager::updateAvailableHyph()
 	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.tagName()=="dictionary")
 			{
@@ -669,10 +669,10 @@ void ResourceManager::updateAvailableSpell()
 	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.tagName()=="dictionary")
 			{

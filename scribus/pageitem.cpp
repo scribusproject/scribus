@@ -2280,7 +2280,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		embedded->invalid = true;
 		double pws = embedded->m_lineWidth;
 		embedded->DrawObj_Pre(p);
-		switch(embedded->itemType())
+		switch (embedded->itemType())
 		{
 			case ImageFrame:
 			case TextFrame:
@@ -2712,7 +2712,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	{
 		if (!m_Doc->PageColors.contains(GrColorP1))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -2752,7 +2752,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	{
 		if (!m_Doc->PageColors.contains(GrColorP2))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -2792,7 +2792,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	{
 		if (!m_Doc->PageColors.contains(GrColorP3))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -2832,7 +2832,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	{
 		if (!m_Doc->PageColors.contains(GrColorP4))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -2903,7 +2903,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 	{
 		if (!m_Doc->PageColors.contains(MColor))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -3122,7 +3122,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 	{
 		if (!m_Doc->PageColors.contains(fillColorVal))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -3680,7 +3680,7 @@ void PageItem::setFillColor(const QString &newColor)
 	{
 		if (!m_Doc->PageColors.contains(newColor))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -3782,7 +3782,7 @@ void PageItem::setLineColor(const QString &newColor)
 	{
 		if (!m_Doc->PageColors.contains(newColor))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case TextFrame:
 				case PathText:
@@ -3904,7 +3904,7 @@ void PageItem::setLineQColor()
 	{
 		if (!m_Doc->PageColors.contains(lineColorVal))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case TextFrame:
 				case PathText:
@@ -3945,7 +3945,7 @@ void PageItem::setFillQColor()
 	{
 		if (!m_Doc->PageColors.contains(fillColorVal))
 		{
-			switch(itemType())
+			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
@@ -6108,7 +6108,8 @@ void PageItem::restoreMoveMeshPatch(SimpleState *state, bool isUndo)
 		if (is->getBool("ARRAY"))
 			meshGradientArray[x][y] = is->getItem().first;
 		else
-			switch(y){
+			switch (y)
+			{
 				case 1:
 					meshGradientPatches[x].TL = is->getItem().first;
 					break;
@@ -6128,7 +6129,8 @@ void PageItem::restoreMoveMeshPatch(SimpleState *state, bool isUndo)
 		if (is->getBool("ARRAY"))
 			meshGradientArray[x][y] = is->getItem().second;
 		else
-			switch(y){
+			switch (y)
+			{
 				case 1:
 					meshGradientPatches[x].TL = is->getItem().second;
 					break;

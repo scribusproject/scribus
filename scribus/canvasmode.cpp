@@ -1695,7 +1695,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			}
 		}
 	}
-	switch(kk)
+	switch (kk)
 	{
 		case Qt::Key_Left:
 		case Qt::Key_Right:

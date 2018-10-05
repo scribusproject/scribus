@@ -254,7 +254,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
@@ -1087,7 +1087,7 @@ bool Scribus134Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	ScXmlStreamAttributes attrs;
 
 	doc->clearPageSets();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		QStringRef tagName = reader.name();
@@ -1501,7 +1501,7 @@ bool Scribus134Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
 	ml = multiLine();
 	ScXmlStreamAttributes rattrs = reader.scAttributes();
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		ScXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType == ScXmlStreamReader::EndElement && reader.name() == tagName)
@@ -1606,7 +1606,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().openAction    = attrs.valueAsString("openAction", "");
 
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && (reader.name() == tagName))
@@ -1687,7 +1687,7 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	doc->Print_Options.copies = 1;
 
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		ScXmlStreamReader::TokenType tType = reader.readNext();
 		QStringRef tName = reader.name();
@@ -1703,7 +1703,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 {
 	QStringRef tagName = reader.name();
 	doc->clearItemAttributes();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -1729,7 +1729,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 {
 	QStringRef tagName = reader.name();
 	m_Doc->clearTocSetups();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -1759,7 +1759,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 bool Scribus134Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -1801,7 +1801,7 @@ bool Scribus134Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
 		doc->createHyphenator();
 
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -1956,7 +1956,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	QList<ParagraphStyle::TabRecord> tabValues;
 
 	LastStyles * lastStyle = new LastStyles();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		ScXmlStreamReader::TokenType tType = reader.readNext();
 		if (reader.isEndElement() && tagName == reader.name())
@@ -2145,7 +2145,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	m_Doc->SnapGuides = false;
 
 	QStringRef tagName = reader.name();
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -2487,7 +2487,7 @@ bool Scribus134Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader&
 {
 	QStringRef tagName = reader.name();
 	ObjAttrVector pageItemAttributes;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
@@ -3557,7 +3557,7 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
@@ -3594,7 +3594,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
@@ -3632,7 +3632,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
@@ -3682,7 +3682,7 @@ bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
@@ -3724,7 +3724,7 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
-	while(!reader.atEnd() && !reader.hasError())
+	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)

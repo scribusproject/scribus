@@ -226,7 +226,7 @@ void ScrPainterIm::drawPath(const libwpg::WPGPath& path)
 	{
 		libwpg::WPGPathElement element = path.element(i);
 		libwpg::WPGPoint point = element.point;
-		switch(element.type)
+		switch (element.type)
 		{
 			case libwpg::WPGPathElement::MoveToElement:
 				Coords.moveTo(72 * point.x, 72 * point.y);

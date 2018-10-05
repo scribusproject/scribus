@@ -678,11 +678,11 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 {
 	if ((pixmapSize == 16) || (pixmapSize == 22))
 	{
-		if (nr<18)
+		if (nr < 18)
 		{
 			QString strSize=QString("%1").arg(pixmapSize);
 			IconManager* im=IconManager::instance();
-			switch(nr)
+			switch (nr)
 			{
 				case 0:
 					return im->loadPixmap(strSize+"/draw-rectangle.png");

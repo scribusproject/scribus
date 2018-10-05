@@ -10012,7 +10012,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				{
 					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
 
-					while(nextObj != nullptr)
+					while (nextObj != nullptr)
 					{
 
 						if (nextObj->IsReference())

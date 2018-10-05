@@ -1979,7 +1979,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
 		appPrefs.verifierPrefs.checkerPrefsList.clear();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		ScDomElement dc = DOC.toElement();
 
@@ -2302,7 +2302,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.scrapbookPrefs.writePreviews = static_cast<bool>(dc.attribute("WritePreviews", "1").toInt());
 			appPrefs.scrapbookPrefs.numScrapbookCopies = dc.attribute("ScrapbookCopies", "10").toInt();
 			QDomNode scrp = dc.firstChild();
-			while(!scrp.isNull())
+			while (!scrp.isNull())
 			{
 				QDomElement scrpElem = scrp.toElement();
 				if (scrpElem.tagName() == "Recent")
@@ -2322,7 +2322,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			if  (!PGS.namedItem("PageNames").isNull())
 			{
 				appPrefs.pageSets.clear();
-				while(!PGS.isNull())
+				while (!PGS.isNull())
 				{
 					QDomElement PgsAttr = PGS.toElement();
 					if(PgsAttr.tagName() == "Set")
@@ -2337,7 +2337,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 //						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
 						pageS.pageNames.clear();
 						QDomNode PGSN = PGS.firstChild();
-						while(!PGSN.isNull())
+						while (!PGSN.isNull())
 						{
 							QDomElement PgsAttrN = PGSN.toElement();
 							if(PgsAttrN.tagName() == "PageNames")
@@ -2492,7 +2492,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.hyphPrefs.Automatic = static_cast<bool>(dc.attribute("Automatic", "1").toInt());
 			appPrefs.hyphPrefs.AutoCheck = static_cast<bool>(dc.attribute("AutomaticCheck", "1").toInt());
 			QDomNode hyelm = dc.firstChild();
-			while(!hyelm.isNull())
+			while (!hyelm.isNull())
 			{
 				QDomElement hyElem = hyelm.toElement();
 				if (hyElem.tagName()=="Exception")
@@ -2609,7 +2609,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.pdfPrefs.openAction = dc.attribute("OpenAction", "");
 			QDomNode PFO = DOC.firstChild();
 			appPrefs.pdfPrefs.LPISettings.clear();
-			while(!PFO.isNull())
+			while (!PFO.isNull())
 			{
 				QDomElement pdfF = PFO.toElement();
 				if(pdfF.tagName() == "LPI")
@@ -2627,7 +2627,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 		{
 			QDomNode DIA = DOC.firstChild();
 			appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
-			while(!DIA.isNull())
+			while (!DIA.isNull())
 			{
 				QDomElement itemAttr = DIA.toElement();
 				if(itemAttr.tagName() == "ItemAttribute")
@@ -2649,7 +2649,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 		{
 			QDomNode TOC = DOC.firstChild();
 			appPrefs.tocPrefs.defaultToCSetups.clear();
-			while(!TOC.isNull())
+			while (!TOC.isNull())
 			{
 				QDomElement tocElem = TOC.toElement();
 				if(tocElem.tagName() == "TableOfContents")

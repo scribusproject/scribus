@@ -412,7 +412,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 	};
 	a.setType(atypes[which]);
 
-	switch(which)
+	switch (which)
 	{
 		case PDFBUTTON:
 			a.setFlag(Annotation::Flag_PushButton);

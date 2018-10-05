@@ -174,10 +174,10 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 
 			//load in new set
 			QDomNode n = docElem.firstChild();
-			while( !n.isNull() )
+			while (!n.isNull())
 			{
 				QDomElement e = n.toElement(); // try to convert the node to an element.
-				if( !e.isNull() )
+				if (!e.isNull())
 				{
 					if (e.hasAttribute("name")  && e.hasAttribute( "shortcut" ))
 					{

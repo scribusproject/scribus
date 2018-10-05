@@ -176,7 +176,7 @@ void ScXmlStreamReader::readToElementEnd()
 		return;
 	int count = 1;
 	QStringRef tagName = name();
-	while(!atEnd() && !hasError())
+	while (!atEnd() && !hasError())
 	{
 		readNext();
 		if (isStartElement() && (name() == tagName))

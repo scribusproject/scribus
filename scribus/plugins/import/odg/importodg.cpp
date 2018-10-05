@@ -2821,12 +2821,12 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 	}
 
 	// read the integer part
-	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+	while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
 	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 
@@ -2844,7 +2844,7 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 		}
 
 		exponent = 0;
-		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		{
 			exponent *= 10;
 			exponent += *ptr - '0';

@@ -1050,7 +1050,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			// hm, I will try to be more explicit :) - pm
 			int itemIndex = m_doc->Items->count();
 			PageItem* underItem( m_canvas->itemUnderItem(currItem, itemIndex) );
-			while(underItem)
+			while (underItem)
 			{
 				if (underItem->asTextFrame())
 					underItem->asTextFrame()->invalidateLayout(false);

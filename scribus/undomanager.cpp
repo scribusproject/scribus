@@ -258,7 +258,7 @@ void UndoManager::disconnectGuis()
 void UndoManager::removeGui(UndoGui* gui)
 {
 	std::vector<UndoGui*>::iterator it = undoGuis_.begin();
-	while(it != undoGuis_.end())
+	while (it != undoGuis_.end())
 	{
 		if (*it == gui)
 			it = undoGuis_.erase(it);

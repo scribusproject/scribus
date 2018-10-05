@@ -86,10 +86,10 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 //	bool haveTutorials=false;
 	QList<QVariant> columnData;
 	int position=0;
-	while( !n.isNull() )
+	while (!n.isNull())
 	{
 		QDomElement e = n.toElement(); // try to convert the node to an element.
-		if( !e.isNull() )
+		if (!e.isNull())
 		{
 			if (e.hasAttribute( "text" ) && e.hasAttribute( "file" ))
 			{

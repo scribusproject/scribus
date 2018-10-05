@@ -1133,7 +1133,7 @@ void SCFonts::ReadCacheList(const QString& pf)
 	if (elem.tagName() != "CachedFonts")
 		return;
 	QDomNode DOC = elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc = DOC.toElement();
 		if (dc.tagName()=="Font")

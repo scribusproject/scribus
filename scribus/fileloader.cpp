@@ -396,7 +396,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg.firstChild();
-		while(!IT.isNull())
+		while (!IT.isNull())
 		{
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="Tabs")

@@ -464,7 +464,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*m_doc->guidesPrefs().grabRadius))
 		{
 			setCursor(IconManager::instance()->loadCursor("tab.png", 3));
-			switch(findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
+			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
 			{
 				case rc_leftFrameDist:
 					setCursor(QCursor(Qt::SplitHCursor));

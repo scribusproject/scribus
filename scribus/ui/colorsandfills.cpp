@@ -1777,7 +1777,7 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 	if (elem.tagName() != "SCRIBUSGRADIENT")
 		return;
 	QDomNode DOC = elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement dc = DOC.toElement();
 		if (dc.tagName()=="COLOR")
@@ -1839,7 +1839,7 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 			VGradient gra = VGradient(VGradient::linear);
 			gra.clearStops();
 			QDomNode grad = dc.firstChild();
-			while(!grad.isNull())
+			while (!grad.isNull())
 			{
 				QDomElement stop = grad.toElement();
 				QString name = stop.attribute("NAME");

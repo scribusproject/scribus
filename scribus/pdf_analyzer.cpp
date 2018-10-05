@@ -238,7 +238,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 			else if (t == ePdfContentsType_Keyword)
 			{
 				QString kw(kwText);
-				switch(kwNameMap.value(kw, KW_Undefined))
+				switch (kwNameMap.value(kw, KW_Undefined))
 				{
 				case KW_q:
 					gsStack.push(currGS);

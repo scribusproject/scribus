@@ -303,7 +303,7 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	embedded->invalid = true;
 	embedded->DrawObj_Pre(m_painter);
 
-	switch(embedded->itemType())
+	switch (embedded->itemType())
 	{
 	case PageItem::ImageFrame:
 	case PageItem::TextFrame:

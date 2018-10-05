@@ -4962,10 +4962,10 @@ void PageItem_TextFrame::deselectAll()
 	{
 		itemText.deselectAll();
 		PageItem *item = this;
-		while( item->prevInChain() )
-			item=item->prevInChain();
+		while (item->prevInChain())
+			item = item->prevInChain();
 
-		while ( item )
+		while (item)
 		{
 			item->HasSel = false;
 			item = item->nextInChain();
@@ -5037,7 +5037,7 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_textDistanceMargins.top() + lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_textDistanceMargins.top() + lineCorr));
 	if (m_textDistanceMargins.bottom() + lineCorr!=0.0)
 		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr));
-	while(curCol < Cols)
+	while (curCol < Cols)
 	{
 		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.left() + lineCorr;
 		if (colLeft != 0.0)

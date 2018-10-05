@@ -115,7 +115,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		std::this_thread::sleep_for(std::chrono::milliseconds(5));
 	}
 
-	while(!proc->atEnd() || proc->state()==QProcess::Running)
+	while (!proc->atEnd() || proc->state() == QProcess::Running)
 	{
 		proc->setReadChannel(QProcess::StandardOutput);
 		if ( proc->canReadLine() )

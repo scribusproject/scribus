@@ -50,7 +50,7 @@ void CanvasMode_ImageImport::setImageList(QStringList l)
 	m_imageList = l;
 	if (l.size()==1)
 	{
-		while(!(m_doc->m_Selection->itemAt(0)->isImageFrame()))
+		while (!(m_doc->m_Selection->itemAt(0)->isImageFrame()))
 			m_doc->m_Selection->removeFirst();
 		if (!m_doc->m_Selection->isEmpty())
 		{

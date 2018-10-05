@@ -91,7 +91,7 @@ QList<RemoveItem> SMReplaceDia::items()
 
 SMReplaceDia::~SMReplaceDia()
 {
-	while(!rowWidgets.isEmpty())
+	while (!rowWidgets.isEmpty())
 		delete rowWidgets.takeFirst();
 	delete optionsHeader;
 	delete deleteHeader;

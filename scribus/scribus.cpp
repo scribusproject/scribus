@@ -1865,7 +1865,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			}
 		}
 	}
-	switch(kk)
+	switch (kk)
 	{
 		case Qt::Key_Left:
 		case Qt::Key_Right:
@@ -1889,7 +1889,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	}
 	if (k->isAutoRepeat() || !m__arrowKeyDown)
 		return;
-	switch(k->key())
+	switch (k->key())
 	{
 		case Qt::Key_Left:
 		case Qt::Key_Right:
@@ -8186,7 +8186,7 @@ void ScribusMainWindow::PutScrap(int scID)
 	QDomNode DOC = elem.firstChild();
 	bool first = true;
 	DOC = elem.firstChild();
-	while(!DOC.isNull())
+	while (!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
 		if (pg.tagName() == "ITEM")

@@ -502,7 +502,7 @@ void AlignDistributePalette::enableGuideButtons()
 		precision=unitGetPrecisionFromIndex(currDoc->unitIndex());
 	}
 	bool setterH=true, setterV=true;
-	switch(guideDirection)
+	switch (guideDirection)
 	{
 		case -1:
 			guideInfoText = guideInfoTextNone;

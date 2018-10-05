@@ -531,7 +531,7 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		double pws = embedded->m_lineWidth;
 		drawItem_Pre(embedded, p);
-		switch(embedded->itemType())
+		switch (embedded->itemType())
 		{
 			case PageItem::ImageFrame:
 			case PageItem::LatexFrame:
@@ -1080,7 +1080,7 @@ public:
 		embedded->invalid = true;
 		m_scpage->drawItem_Pre(embedded, m_painter);
 
-		switch(embedded->itemType())
+		switch (embedded->itemType())
 		{
 		case PageItem::ImageFrame:
 		case PageItem::TextFrame:

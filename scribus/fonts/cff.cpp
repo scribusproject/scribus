@@ -950,7 +950,7 @@ namespace cff {
 	QByteArray CFF::dump(const CFF_Variant& var) const
 	{
 		QByteArray result;
-		switch(var.type)
+		switch (var.type)
 		{
 			case cff_varnt_Error:
 				result += "ERROR";

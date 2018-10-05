@@ -10,20 +10,24 @@
 
 
 template<class STYLE>
-class StyleSet : public StyleContext {
+class StyleSet : public StyleContext
+{
 public:
-	STYLE& operator[] (int index) { 
+	STYLE& operator[] (int index)
+	{ 
 		assert(index < styles.count()); 
 		return * styles[index]; 
 	}
 	
 	STYLE* getDefault(){ return m_default; }		
 	
-	const STYLE& get(const QString& name) const { 
+	const STYLE& get(const QString& name) const
+	{ 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
 	
-	const STYLE& operator[] (int index) const { 
+	const STYLE& operator[] (int index) const
+	{ 
 		assert(index < styles.count()); 
 		return * styles[index]; 
 	}
@@ -34,11 +38,13 @@ public:
 
 	inline const BaseStyle* resolve(const QString& name) const;
 	
-	int count() const {
+	int count() const
+	{
 		return styles.count();
 	}
 	
-	STYLE* append(STYLE* style) { 
+	STYLE* append(STYLE* style)
+	{ 
 		styles.append(style); 
 		style->setContext(this); 
 		return style; 
@@ -50,18 +56,21 @@ public:
 	
 	inline void rename(const QMap<QString,QString>& newNames);
 	
-	STYLE* create(const STYLE& proto) { 
+	STYLE* create(const STYLE& proto)
+	{ 
 		return append(new STYLE(proto)); 
 	}
 	
-	void makeDefault(STYLE* def) { 
+	void makeDefault(STYLE* def)
+	{ 
 		m_default = def; 
 		if (def) 
 			def->setContext(this);
 		invalidate();
 	}
 	
-	bool isDefault(const STYLE& style) const {
+	bool isDefault(const STYLE& style) const
+	{
 		return &style == m_default;
 	}
 	
@@ -77,8 +86,9 @@ public:
 	 *
 	 * If @a invalid is <code>true</code>, this function also invalidates the style set.
 	 */
-	void clear(bool invalid = true) {
-		while(styles.count()>0) 
+	void clear(bool invalid = true)
+	{
+		while (styles.count() > 0) 
 		{ 
 			delete styles.front(); 
 			styles.pop_front(); 
@@ -87,14 +97,16 @@ public:
 			invalidate();
 	}
 
-	void setContext(const StyleContext* context) {
+	void setContext(const StyleContext* context)
+	{
 		bool reallyNew = m_context != context;
 		m_context = context; 
 		if (reallyNew)
 			invalidate();
 	}
 	
-	const StyleContext* context() const { 
+	const StyleContext* context() const
+	{ 
 		return m_context; 
 	}
 	

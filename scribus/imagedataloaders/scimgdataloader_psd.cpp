@@ -718,7 +718,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 			ptr = tmpImg.scanLine(hh);
 			ptr2 = ptr+tmpImg.width() * tmpImg.channels();
 			ptr += component;
-			while( count < pixel_count )
+			while (count < pixel_count)
 			{
 				if (s.atEnd())
 					return false;
@@ -729,7 +729,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 					// Copy next len+1 bytes literally.
 					len++;
 					count += len;
-					while( len != 0 )
+					while (len != 0)
 					{
 						s >> cbyte;
 						if (ptr < ptr2)
@@ -779,7 +779,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 					s >> val;
 					if ((header.color_mode == CM_CMYK) && (component < 4))
 						val = 255 - val;
-					while( len != 0 )
+					while (len != 0)
 					{
 						if (ptr < ptr2)
 						{
@@ -862,7 +862,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	uint components[40];
 	for (uint channel = 0; channel < channel_num; channel++)
 	{
-		switch(layerInfo[layer].channelType[channel])
+		switch (layerInfo[layer].channelType[channel])
 		{
 		case 0:
 			components[channel] = 0;
@@ -1364,7 +1364,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 		{
 			ptr = r_image.bits() + components[channel];
 			count = 0;
-			while( count < pixel_count )
+			while (count < pixel_count)
 			{
 				if (s.atEnd())
 					return false;
@@ -1424,7 +1424,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 					s >> val;
 					if ((header.color_mode == CM_CMYK) && (components[channel] < 4))
 						val = 255 - val;
-					while( len != 0 )
+					while (len != 0)
 					{
 						if ((header.color_mode == CM_GRAYSCALE) && (components[channel] != 3))
 						{
