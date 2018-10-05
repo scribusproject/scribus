@@ -317,7 +317,7 @@ bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
 }
 
 
-bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
+bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
 {
 	char buf[50];
 	FT_ULong  charcode;
@@ -330,7 +330,7 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
-	charcode = FT_Get_First_Char(face, &gindex );
+	charcode = FT_Get_First_Char(face, &gindex);
 	while (gindex != 0)
 	{
 		bool notfound = true;
@@ -347,9 +347,9 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 		else
 			glEncoding.glyphName = QString(reinterpret_cast<char*>(buf));
 		glEncoding.toUnicode = QString().sprintf("%04lX", charcode);
-		GList.insert(gindex, glEncoding);
+		glyphList.insert(gindex, glEncoding);
 
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		charcode = FT_Get_Next_Char(face, charcode, &gindex);
 	}
 
 	if (!hasPSNames)
@@ -359,34 +359,34 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 	int maxSlot1 = face->num_glyphs;
 	for (int gindex = 1; gindex < maxSlot1; ++gindex)
 	{
-		if (GList.contains(gindex))
+		if (glyphList.contains(gindex))
 			continue;
 		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
 			continue;
-		QString glyphname(reinterpret_cast<char*>(buf));
+		QString glyphName(reinterpret_cast<char*>(buf));
 
 		charcode = 0;
-		ScFace::FaceEncoding::Iterator gli;
-		for (gli = GList.begin(); gli != GList.end(); ++gli)
+		for (auto gli = glyphList.cbegin(); gli != glyphList.cend(); ++gli)
 		{
-			if (glyphname == gli.value().glyphName)
+			const ScFace::GlyphEncoding& glEncoding = gli.value();
+			if (glyphName == glEncoding.glyphName)
 			{
-				charcode = gli.value().charcode;
+				charcode = glEncoding.charcode;
 				break;
 			}
 		}
 //		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
 		ScFace::GlyphEncoding glEncoding;
 		glEncoding.charcode  = static_cast<ScFace::ucs4_type>(charcode);
-		glEncoding.glyphName = glyphname;
+		glEncoding.glyphName = glyphName;
 		glEncoding.toUnicode = QString().sprintf("%04lX", charcode);
-		if ((charcode == 0) && glyphname.startsWith("uni"))
+		if ((charcode == 0) && glyphName.startsWith("uni"))
 		{
-			QString uniHexStr = uniGlyphNameToUnicode(glyphname);
+			QString uniHexStr = uniGlyphNameToUnicode(glyphName);
 			if (uniHexStr.length() > 0)
 				glEncoding.toUnicode = uniHexStr;
 		}
-		GList.insert(gindex, glEncoding);
+		glyphList.insert(gindex, glEncoding);
 	}
 
 	return true;
