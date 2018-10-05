@@ -786,7 +786,7 @@ static QByteArray blendMode(int code)
 //#ifndef WORDS_BIGENDIAN
 //	// on little endian systems we need to swap bytes:
 //	uchar sw;
-//	for(int d = 0; d < cres.size()-1; d += 2)
+//	for (int d = 0; d < cres.size()-1; d += 2)
 //	{
 //		sw = cres[d];
 //		cres[d] = cres[d+1];
@@ -2056,7 +2056,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 		PutDoc(">>");
 		writer.endObj(fontObject2);
 		pageData.FObjects[fontName + "S"+Pdf::toPdf(Fc)] = fontObject2;
-	} // for(Fc)
+	} // for (Fc)
 
 	return result;
 }
@@ -2246,7 +2246,7 @@ PdfId PDFLibCore::PDF_EmbedType1AsciiFontObject(const QByteArray& fon)
 	PutDoc("<<\n/Length "+Pdf::toPdf(fon2.length()+1)+"\n");
 	PutDoc("/Length1 "+Pdf::toPdf(len1+1)+"\n");
 	PutDoc("/Length2 "+Pdf::toPdf(hexData.length())+"\n");
-	if(static_cast<int>(fon.length()-len2) == -1)
+	if (static_cast<int>(fon.length()-len2) == -1)
 		PutDoc("/Length3 0\n");
 	else
 		PutDoc("/Length3 "+Pdf::toPdf(fon.length()-len2)+"\n");
@@ -10002,24 +10002,24 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PoDoFo::PdfMemoryOutputStream outMemStream ( 1 );
 //			PoDoFo::PdfFilteredEncodeStream outMemStream (outMemStreamRaw, ePdfFilter_FlateDecode, false);
 			PoDoFo::PdfArray carray(page->GetContents()->GetArray());
-			for(unsigned int ci = 0; ci < carray.size(); ++ci)
+			for (unsigned int ci = 0; ci < carray.size(); ++ci)
 			{
-				if(carray[ci].HasStream())
+				if (carray[ci].HasStream())
 				{
 					carray[ci].GetStream()->GetFilteredCopy ( &outMemStream );
 				}
-				else if(carray[ci].IsReference())
+				else if (carray[ci].IsReference())
 				{
 					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
 
 					while(nextObj != nullptr)
 					{
 
-						if(nextObj->IsReference())
+						if (nextObj->IsReference())
 						{
 							nextObj = doc->GetObjects().GetObject(nextObj->GetReference());
 						}
-						else if(nextObj->HasStream())
+						else if (nextObj->HasStream())
 						{
 							nextObj->GetStream()->GetFilteredCopy ( &outMemStream );
 							break;
