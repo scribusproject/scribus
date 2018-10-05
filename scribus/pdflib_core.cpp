@@ -1517,28 +1517,38 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		glyphWidths.append(qRound(np1.x()));
 
 		PdfId charProcObject = writer.newObject();
-		const ScFace::GlyphEncoding& glEncoding = gl[ig.key()];
-		charProcs.append(Pdf::toName(glEncoding.glyphName)+" "+Pdf::toPdf(charProcObject)+" 0 R\n");
-		encoding += Pdf::toName(glEncoding.glyphName)+" ";
-		glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
 		writer.startObj(charProcObject);
 		if (Options.Compress)
 			fon = CompressArray(fon);
-		PutDoc("<< /Length "+Pdf::toPdf(fon.length()+1));
+		PutDoc("<< /Length " + Pdf::toPdf(fon.length() + 1));
 		if (Options.Compress)
 			PutDoc("\n/Filter /FlateDecode");
-		PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream");
+		PutDoc("\n>>\nstream\n" + EncStream(fon, charProcObject) + "\nendstream");
 		writer.endObj(charProcObject);
 
-		QString tmp;
-		tmp.sprintf("%02X", glyphCount);
-		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(glEncoding.toUnicode) + ">\n";
+		// #15449 : in some cases we cannot retrieve glyph names for all glyphs we need
+		// using ScFace's glyphNames(), so generate custom glyph names using glyph index.
+		// With Type 3 fonts we have more flexibility than with other fonts.
+		QString glGlyphName, glToUnicode;
+		auto  glyphIt = gl.constFind(ig.key());
+		if ((glyphIt != gl.constEnd()) && (glyphIt->charcode > 0))
+			glToUnicode = QString::asprintf("%04X", glyphIt->charcode);
+		else
+			glToUnicode = QString("0000");
+		glGlyphName = "gly" + QString::asprintf("%04X", ig.key());
+
+		charProcs.append(Pdf::toName(glGlyphName) + " " + Pdf::toPdf(charProcObject) + " 0 R\n");
+		encoding += Pdf::toName(glGlyphName) + " ";
+		glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
+
+		QString tmp = QString::asprintf("%02X", glyphCount);
+		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(glToUnicode) + ">\n";
 		toUnicodeMapCounter++;
 		if (toUnicodeMapCounter == 100)
 		{
 			toUnicodeMaps.append(toUnicodeMap);
 			toUnicodeMapsCount.append(toUnicodeMapCounter);
-			toUnicodeMap = "";
+			toUnicodeMap.clear();
 			toUnicodeMapCounter = 0;
 		}
 
@@ -1915,8 +1925,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	result.encoding = Encode_224;
 	
 	int nglyphs = 0;
-	ScFace::FaceEncoding::ConstIterator gli;
-	for (gli = gl.cbegin(); gli != gl.cend(); ++gli)
+	for (auto gli = gl.cbegin(); gli != gl.cend(); ++gli)
 	{
 		if (gli.key() > static_cast<uint>(nglyphs))
 			nglyphs = gli.key();
@@ -1946,16 +1955,18 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 		}
 		PutDoc("]");
 		writer.endObj(fontWidths2);
-		PdfId fontEncoding2 = writer.newObject();
-		writer.startObj(fontEncoding2);
+
 		QStringList toUnicodeMaps;
 		QList<int> toUnicodeMapsCount;
 		QString toUnicodeMap = "";
 		int toUnicodeMapCounter = 0;
-		PutDoc("<< /Type /Encoding\n");
-		PutDoc("/Differences [ \n");
 		int crc = 0;
 		bool startOfSeq = true;
+
+		PdfId fontEncoding2 = writer.newObject();
+		writer.startObj(fontEncoding2);
+		PutDoc("<< /Type /Encoding\n");
+		PutDoc("/Differences [ \n");
 		for (int ww2 = 32; ww2 < 256; ++ww2)
 		{
 			uint glyph = 224 * Fc + ww2 - 32;
@@ -1979,7 +1990,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 				{
 					toUnicodeMaps.append(toUnicodeMap);
 					toUnicodeMapsCount.append(toUnicodeMapCounter);
-					toUnicodeMap = "";
+					toUnicodeMap.clear();
 					toUnicodeMapCounter = 0;
 				}
 				crc++;
@@ -2631,7 +2642,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 	ScLayer ll;
 	ll.isPrintable = false;
 	ll.ID = 0;
-	Content = "";
+
+	Content.clear();
 
 	double bLeft, bRight, bBottom, bTop;
 	getBleeds(pag, bLeft, bRight, bBottom, bTop);
@@ -2648,7 +2660,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				PutPage("/OC /" + OCGEntries[ll.Name].Name + " BDC\n");
 			for (int a = 0; a < PItems.count(); ++a)
 			{
-				Content = "";
+				Content.clear();
 				ite =PItems.at(a);
 				if (ite->LayerID != ll.ID)
 					continue;
@@ -3316,7 +3328,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 void PDFLibCore::PDF_Begin_Page(const ScPage* pag, const QImage& thumb)
 {
 	ActPageP = pag;
-	Content = "";
+	Content.clear();
 	pageData.AObjects.clear();
 	pageData.radioButtonList.clear();
 	if (Options.Thumbnails)
@@ -5377,8 +5389,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors)
 {
 	QByteArray tmp;
-	tmp = "";
-	tmp += "q\n";
+	tmp = "q\n";
 	QPointF lineStart, lineEnd;
 	QVector<double> DashValues;
 	for (const TableBorderLine& line : border.borderLines())
@@ -5417,7 +5428,7 @@ QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& sta
 QByteArray PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr)
 {
 	QByteArray tmp;
-	tmp = "";
+
 	ScPattern pat = doc.docPatterns[ite->strokePattern()];
 	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeScaleX / 100.0));
 	double adv = pat.width * ite->patternStrokeScaleX / 100.0 * ite->patternStrokeSpace;
