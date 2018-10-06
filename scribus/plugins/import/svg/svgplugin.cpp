@@ -699,7 +699,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 		}
 		else
 		{
-			if (gc->FillGradient.Stops() > 1)
+			if (gc->FillGradient.stops() > 1)
 			{
 				item->fill_gradient = gc->FillGradient;
 				item->setGradient(importedGradTrans[gc->GFillCol1]);
@@ -778,7 +778,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 		}
 		else
 		{
-			if (gc->StrokeGradient.Stops() > 1)
+			if (gc->StrokeGradient.stops() > 1)
 			{
 				item->stroke_gradient = gc->StrokeGradient;
 				item->setStrokeGradient(importedGradTrans[gc->GStrokeCol1]);

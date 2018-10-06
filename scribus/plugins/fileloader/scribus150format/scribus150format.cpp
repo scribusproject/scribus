@@ -4157,7 +4157,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->itemText.setDefaultStyle(newDefault);
 	}
 
-	if (newItem->fill_gradient.Stops() == 0)
+	if (newItem->fill_gradient.stops() == 0)
 	{
 		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
 		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];
@@ -4165,7 +4165,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
 
-	if (newItem->stroke_gradient.Stops() == 0)
+	if (newItem->stroke_gradient.stops() == 0)
 	{
 		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
 		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];
@@ -4173,7 +4173,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
 
-	if (newItem->mask_gradient.Stops() == 0)
+	if (newItem->mask_gradient.stops() == 0)
 	{
 		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
 		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];

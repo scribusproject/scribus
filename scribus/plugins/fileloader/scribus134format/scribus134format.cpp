@@ -2082,7 +2082,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->itemText.setDefaultStyle(newDefault);
 	}
 
-	if (newItem->fill_gradient.Stops() == 0)
+	if (newItem->fill_gradient.stops() == 0)
 	{
 		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
 		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];

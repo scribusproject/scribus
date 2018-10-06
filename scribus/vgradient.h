@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API VColorStop
 {
 public:
-	VColorStop( double r, double m, const QColor& c, double o, const QString& n, int s )
+	VColorStop(double r, double m, const QColor& c, double o, const QString& n, int s)
 	{
 		rampPoint = r;
 		midPoint = m; 
@@ -46,7 +46,7 @@ public:
 		shade = s;
 	}
 	
-	VColorStop( const VColorStop& colorStop )
+	VColorStop(const VColorStop& colorStop)
 	{
 		rampPoint = colorStop.rampPoint;
 		midPoint = colorStop.midPoint;
@@ -67,13 +67,15 @@ public:
 	double opacity;
 	int shade;
 	QString name;
-	friend inline bool operator== ( VColorStop& s1, VColorStop& s2 )
-	{ return s1.rampPoint == s2.rampPoint; }
-}
-; // VColorStop
+
+	friend inline bool operator== (const VColorStop& s1, const VColorStop& s2)
+	{
+		return s1.rampPoint == s2.rampPoint;
+	}
+};
 
 // comparison function for use with stable_sort
-bool compareStops( const VColorStop* item1, const VColorStop* item2 );
+bool compareStops(const VColorStop* item1, const VColorStop* item2);
 
 class SCRIBUS_API VGradient
 {
@@ -98,48 +100,48 @@ public:
 		pad     = 3
 	};
 
-	VGradient( VGradientType type = linear );
-	VGradient( const VGradient& gradient );
+	VGradient(VGradientType type = linear);
+	VGradient(const VGradient& gradient);
 	~VGradient();
 
 	VGradient& operator=(const VGradient& gradient);
 	bool operator==(const VGradient& gradient) const;
 
 	VGradientType type() const { return m_type; }
-	void setType( VGradientType type ) { m_type = type; }
+	void setType(VGradientType type) { m_type = type; }
 
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
-	void setRepeatMethod( VGradientRepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
+	void setRepeatMethod(VGradientRepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
 	const QList<VColorStop*>& colorStops() const;
-	void addStop( const VColorStop& colorStop );
-	void addStop( const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100 );
-	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100 );
-	void removeStop( VColorStop& colorStop );
-	void removeStop( uint n );
+	void addStop(const VColorStop& colorStop);
+	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100);
+	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100);
+	void removeStop(VColorStop& colorStop);
+	void removeStop(int n);
 	void clearStops();
-	int Stops()  const { return m_colorStops.count(); }
+	int  stops() const { return m_colorStops.count(); }
 
 	// This function let only one stop with offset value equal to 0 and 1.0
 	// by removing the firsts with 0.0 value and the lasts with 1.0 value;
 	void filterStops();
 
 	FPoint origin() const { return m_origin; }
-	void setOrigin( const FPoint &origin ) { m_origin = origin; }
+	void setOrigin(const FPoint &origin) { m_origin = origin; }
 
 	FPoint focalPoint() const { return m_focalPoint; }
-	void setFocalPoint( const FPoint &focalPoint ) { m_focalPoint = focalPoint; }
+	void setFocalPoint(const FPoint &focalPoint) { m_focalPoint = focalPoint; }
 
 	FPoint vector() const { return m_vector; }
-	void setVector( const FPoint &vector ) { m_vector = vector; }
+	void setVector(const FPoint &vector) { m_vector = vector; }
 
-	void transform( const QTransform& m );
+	void transform(const QTransform& m);
 
 protected:
 	QList<VColorStop*> m_colorStops;
 
 	int  compareItems(const VColorStop* item1, const VColorStop* item2 ) const;
-	void inSort( VColorStop* d );
+	void inSort(VColorStop* d);
 
 private:
 	VGradientType m_type;
@@ -149,7 +151,6 @@ private:
 	FPoint m_origin;
 	FPoint m_focalPoint;
 	FPoint m_vector;
-}
-; // VGradient
+};
 
 #endif /* __VGRADIENT_H__ */

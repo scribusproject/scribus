@@ -30,22 +30,22 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 
 // comparison function for use with stable_sort
-bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )
+bool compareStopsEx(const VColorStopEx* item1, const VColorStopEx* item2)
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
-	return ( r1 < r2 );
+	return (r1 < r2);
 }
 
-int VGradientEx::compareItems( const VColorStopEx* item1, const VColorStopEx* item2 ) const
+int VGradientEx::compareItems(const VColorStopEx* item1, const VColorStopEx* item2) const
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
 
-	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
-} // VGradientEx::VColorStopList::compareItems
+	return (r1 == r2 ? 0 : r1 < r2 ? -1 : 1);
+}
 
-void VGradientEx::inSort( VColorStopEx* d )
+void VGradientEx::inSort(VColorStopEx* d)
 {
 	int index = 0;
 	VColorStopEx *n = m_colorStops.value(index);
@@ -57,7 +57,7 @@ void VGradientEx::inSort( VColorStopEx* d )
 	m_colorStops.insert( qMin(index, m_colorStops.size()), d );
 }
 
-VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
+VGradientEx::VGradientEx(VGradientEx::Type type) : m_type(type)
 {
 	// set up dummy gradient
 	addStop( ScColor(255,0,0) , 0.0, 0.5, 1.0 );
@@ -69,7 +69,7 @@ VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
 	setRepeatMethod( VGradientEx::pad );
 }
 
-VGradientEx::VGradientEx( const VGradientEx& gradient )
+VGradientEx::VGradientEx(const VGradientEx& gradient)
 {
 	m_origin		= gradient.m_origin;
 	m_focalPoint	= gradient.m_focalPoint;
@@ -78,13 +78,14 @@ VGradientEx::VGradientEx( const VGradientEx& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	clearStops();
+
 	QList<VColorStopEx*> cs = gradient.colorStops();
 	qStableSort( cs.begin(), cs.end(), compareStopsEx);
 	for (int i = 0; i < cs.count(); ++i)
-		m_colorStops.append( new VColorStopEx( *cs[i] ) );
+		m_colorStops.append( new VColorStopEx(*cs[i]) );
 }
 
-VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
+VGradientEx::VGradientEx(const VGradient& gradient, ScribusDoc& doc)
 {
 	m_origin		= gradient.origin();
 	m_focalPoint	= gradient.focalPoint();
@@ -109,9 +110,9 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 	}
 }
 
-VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
+VGradientEx& VGradientEx::operator=(const VGradientEx& gradient)
 {
-	if ( this == &gradient )
+	if (this == &gradient)
 		return *this;
 
 	m_origin		= gradient.m_origin;
@@ -121,12 +122,13 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	clearStops();
+
 	QList<VColorStopEx*> cs = gradient.colorStops();
 	qStableSort( cs.begin(), cs.end(), compareStopsEx);
 	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 	return *this;
-} // VGradientEx::operator=
+}
 
 VGradientEx::~VGradientEx()
 {
@@ -136,23 +138,20 @@ VGradientEx::~VGradientEx()
 const QList<VColorStopEx*> VGradientEx::colorStops() const
 {
 	return m_colorStops;
-} // VGradientEx::colorStops()
+}
 
-void
-VGradientEx::clearStops()
+void VGradientEx::clearStops()
 {
 	while (!m_colorStops.isEmpty())
 		delete m_colorStops.takeFirst();
 }
 
-void
-VGradientEx::addStop( const VColorStopEx& colorStop )
+void VGradientEx::addStop(const VColorStopEx& colorStop)
 {
 	inSort( new VColorStopEx( colorStop ) );
 } // VGradientEx::addStop
 
-void
-VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade )
+void VGradientEx::addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade)
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = qMax( 0.0, rampPoint );
@@ -161,21 +160,22 @@ VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, d
 	midPoint = qMax( 0.0, midPoint );
 	midPoint = qMin( 1.0, midPoint );
 
-	inSort( new VColorStopEx( rampPoint, midPoint, color, opa, name, shade ) );
+	inSort( new VColorStopEx(rampPoint, midPoint, color, opa, name, shade) );
 }
 
-void VGradientEx::removeStop( VColorStopEx& colorstop )
+void VGradientEx::removeStop(VColorStopEx& colorstop)
 {
 	int n = m_colorStops.indexOf(&colorstop);
-	delete m_colorStops.takeAt(n);
+	if (n >= 0)
+		delete m_colorStops.takeAt(n);
 }
 
-void VGradientEx::removeStop( uint n )
+void VGradientEx::removeStop(int n)
 {
 	delete m_colorStops.takeAt(n);
 }
 
-void VGradientEx::transform( const QTransform &m )
+void VGradientEx::transform(const QTransform &m)
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();

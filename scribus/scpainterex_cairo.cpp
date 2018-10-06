@@ -661,7 +661,7 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 	VColorStopEx* stop = nullptr;
 	QColor color;
 
-	if ( gradient.Stops() < 2 )
+	if ( gradient.stops() < 2 )
 		return;
 
 	double x1 = gradient.origin().x();
@@ -674,7 +674,7 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for (uint index = 0 ; index < gradient.Stops(); index++)
+	for (int index = 0 ; index < gradient.stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -725,7 +725,7 @@ void ScPainterEx_Cairo::drawCircularGradient( VGradientEx& gradient, const QRect
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for (uint index = 0 ; index < gradient.Stops() ; index++)
+	for (int index = 0 ; index < gradient.stops() ; index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -1241,7 +1241,7 @@ void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for (uint index = 0 ; index < gradient.Stops(); index++)
+	for (int index = 0 ; index < gradient.stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -1293,7 +1293,7 @@ void ScPainterEx_Cairo::strokeCircularGradient(VGradientEx& gradient)
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for (uint index = 0 ; index < gradient.Stops(); index++)
+	for (int index = 0 ; index < gradient.stops(); index++)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))

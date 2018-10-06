@@ -1878,7 +1878,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					gradientVal = "";
 				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
 					fill_gradient = m_Doc->docGradients[gradientVal];
-				if ((fill_gradient.Stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
+				if ((fill_gradient.stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
 					if (fillColor() != CommonStrings::None)
 					{
@@ -2076,7 +2076,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							gradientStrokeVal = "";
 						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-						if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+						if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 						{
 							if (lineColor() != CommonStrings::None)
 							{
@@ -3287,7 +3287,7 @@ void PageItem::createConicalMesh()
 {
 	VGradient gradient;
 	gradient.clearStops();
-	if (fill_gradient.Stops() < 2)
+	if (fill_gradient.stops() < 2)
 	{
 		fill_gradient.clearStops();
 		const ScColor& col = m_Doc->PageColors["Black"];
@@ -3301,7 +3301,7 @@ void PageItem::createConicalMesh()
 	double lastStop = -1.0;
 	double actualStop = 0.0;
 	bool   isFirst = true;
-	for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < fill_gradient.stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
 		if ((actualStop == lastStop) && (!isFirst))
@@ -3345,7 +3345,7 @@ void PageItem::createConicalMesh()
 			while (actualStop > actDist);
 			gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
 		}
-		if ((cst == fill_gradient.Stops()-1) && (actualStop < 1.0))
+		if ((cst == fill_gradient.stops()-1) && (actualStop < 1.0))
 		{
 			double distToGo = 1.0 - actualStop;
 			if (distToGo <= 0.25)
@@ -3444,7 +3444,7 @@ void PageItem::createConicalMesh()
 	mgP3.color.setAlphaF(mgP3.transparency);
 	mgList2.append(mgP3);
 	startAngle -= stepAngle;
-	for (int rst = 2; rst < gradient.Stops(); ++rst)
+	for (int rst = 2; rst < gradient.stops(); ++rst)
 	{
 		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
 		if (stepAngle <= 0)
@@ -7725,7 +7725,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		GrColorP4 = *it;
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
-	for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < fill_gradient.stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -7760,7 +7760,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 			meshGradientPatches[col].BR.colorName = *it;
 	}
 	cstops = stroke_gradient.colorStops();
-	for (int cst = 0; cst < stroke_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < stroke_gradient.stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -7770,7 +7770,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		}
 	}
 	cstops = mask_gradient.colorStops();
-	for (int cst = 0; cst < mask_gradient.Stops(); ++cst)
+	for (int cst = 0; cst < mask_gradient.stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
@@ -8694,7 +8694,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		if ((!gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
 			lists.collectGradient(gradientVal);
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
-		for (int cst = 0; cst < fill_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < fill_gradient.stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -8734,7 +8734,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		if ((!gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 			lists.collectGradient(gradientStrokeVal);
 		QList<VColorStop*> cstops = stroke_gradient.colorStops();
-		for (int cst = 0; cst < stroke_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < stroke_gradient.stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -8742,7 +8742,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
-		for (int cst = 0; cst < mask_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < mask_gradient.stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -9669,7 +9669,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 					gradientStrokeVal = "";
 				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-				if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 				{
 					if (lineColor() != CommonStrings::None)
 					{

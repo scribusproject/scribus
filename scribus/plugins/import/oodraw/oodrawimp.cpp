@@ -1153,7 +1153,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 	if (oostyle.haveGradient)
 	{
 		item->GrType = 0;
-		if (oostyle.gradient.Stops() > 1)
+		if (oostyle.gradient.stops() > 1)
 		{
 			item->fill_gradient = oostyle.gradient;
 			if (oostyle.gradientType == 1)

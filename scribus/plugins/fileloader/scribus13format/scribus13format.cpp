@@ -929,7 +929,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					IT=IT.nextSibling();
 				}
 				delete last;
-				if (Neu->fill_gradient.Stops() == 0)
+				if (Neu->fill_gradient.stops() == 0)
 				{
 					const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 					const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
@@ -2334,7 +2334,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						IT=IT.nextSibling();
 					}
 					delete last;
-					if (Neu->fill_gradient.Stops() == 0)
+					if (Neu->fill_gradient.stops() == 0)
 					{
 						const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 						const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];

@@ -279,7 +279,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			gradientVal = "";
 		if (!(gradientVal.isEmpty()) && (m_doc->docGradients.contains(gradientVal)))
 			painter->m_fillGradient = VGradientEx(m_doc->docGradients[gradientVal], *m_doc);
-		if ((painter->m_fillGradient.Stops() < 2) && (item->GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
+		if ((painter->m_fillGradient.stops() < 2) && (item->GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 		{
 			if (item->fillColor() != CommonStrings::None)
 			{
@@ -447,7 +447,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 						gradientStrokeVal = "";
 					if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 						painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
-					if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+					if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 					{
 						if (item->lineColor() != CommonStrings::None)
 						{
@@ -855,7 +855,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 				gradientStrokeVal = "";
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
-			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
 				if (item->lineColor() != CommonStrings::None)
 				{
@@ -1192,7 +1192,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				gradientStrokeVal = "";
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
-			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
 				if (item->lineColor() != CommonStrings::None)
 				{
@@ -1359,7 +1359,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 				gradientStrokeVal = "";
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
-			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
 				if (item->lineColor() != CommonStrings::None)
 				{

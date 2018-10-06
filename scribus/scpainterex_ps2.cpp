@@ -999,7 +999,7 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	RGBColorF rgb;
 	FPoint p1, p2;
 
-	if (gradient.Stops() < 2) 
+	if (gradient.stops() < 2) 
 		return;
 
 	clipBoxWidth = rect.width();
@@ -1032,7 +1032,7 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	rgb.getValues(r1, g1, b1);
 	m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r1/255.0).arg(g1/255.0).arg(b1/255.0);
 
-	for (uint index = 1; index < gradient.Stops(); index++)
+	for (int index = 1; index < gradient.stops(); index++)
 	{
 		stop2 = *colorStops[index];
 		ramp2 = stop2.rampPoint;
@@ -1098,7 +1098,7 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK(VGradientEx& gradient, const QRect
 	CMYKColorF cmyk;
 	FPoint p1, p2;
 
-	if ( gradient.Stops() < 2 ) 
+	if ( gradient.stops() < 2 ) 
 		return;
 
 	clipBoxWidth = rect.width();
@@ -1132,7 +1132,7 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK(VGradientEx& gradient, const QRect
 	m_stream << QString("/DeviceCMYK setcolorspace\n");
 	m_stream << QString("%1 %2 %3 %4 setcolor fill\n").arg(c1).arg(m1).arg(j1).arg(n1);
 
-	for (uint index = 1; index < gradient.Stops(); index++)
+	for (int index = 1; index < gradient.stops(); index++)
 	{
 		stop2 = *colorStops[index];
 		ramp2 = stop2.rampPoint;
@@ -1204,8 +1204,8 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	double ramp1, ramp2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
-	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
+	VColorStopEx stop1( *colorStops[gradient.stops() - 1] );
+	VColorStopEx stop2( *colorStops[gradient.stops() - 1] );
 	RGBColorF rgb;
 
 	clipBoxWidth = rect.width();
@@ -1231,9 +1231,9 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	ScColorEngine::getShadeColorRGB(stop2.color, m_options.document, rgb, stop2.shade);
 	rgb.getValues(r2, g2, b2);
 	m_stream << QString("%1 %2 %3 setrgbcolor fill\n").arg(r2).arg(g2).arg(b2);
-	if ( gradient.Stops() < 2 ) return;
+	if ( gradient.stops() < 2 ) return;
 
-	for (int index = gradient.Stops() - 2; index >= 0; index--)
+	for (int index = gradient.stops() - 2; index >= 0; index--)
 	{
 		stop1 = *colorStops[index];
 		ramp1 = stop1.rampPoint;
@@ -1286,8 +1286,8 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	double ramp1, ramp2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
-	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
+	VColorStopEx stop1( *colorStops[gradient.stops() - 1] );
+	VColorStopEx stop2( *colorStops[gradient.stops() - 1] );
 	CMYKColorF cmyk;
 
 	clipBoxWidth = rect.width();
@@ -1314,9 +1314,9 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	cmyk.getValues(c2, m2, y2, k2);
 	m_stream << QString("/DeviceCMYK setcolorspace\n");
 	m_stream << QString("%0 %1 %2 %3 setcolor fill\n").arg(c2).arg(m2).arg(y2).arg(k2);
-	if (gradient.Stops() < 2) return;
+	if (gradient.stops() < 2) return;
 
-	for (int index = gradient.Stops() - 2; index >= 0; index--)
+	for (int index = gradient.stops() - 2; index >= 0; index--)
 	{
 		stop1 = *colorStops[index];
 		ramp1 = stop1.rampPoint;

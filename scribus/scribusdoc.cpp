@@ -1158,7 +1158,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (int cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -1400,7 +1400,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			
 		QMap<QString,QString>::ConstIterator itc;
 		QList<VColorStop*> cstops = itg.value().colorStops();
-		for (int cst = 0; cst < itg.value().Stops(); ++cst)
+		for (int cst = 0; cst < itg.value().stops(); ++cst)
 		{
 			itc = newNames.colors().find(cstops.at(cst)->name);
 			if (itc != newNames.colors().end())
@@ -5000,13 +5000,13 @@ void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
 				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->stroke_gradient.colorStops();
-			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->mask_gradient.colorStops();
-			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->GrType == 13)
 				ite->createConicalMesh();
@@ -5045,13 +5045,13 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 			ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 		}
 		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->fill_gradient.stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		cstops = ite->stroke_gradient.colorStops();
-		for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->stroke_gradient.stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		cstops = ite->mask_gradient.colorStops();
-		for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 		if (ite->GrType == 13)
 			ite->createConicalMesh();
@@ -5069,7 +5069,7 @@ void ScribusDoc::recalculateColors()
 	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
 	{
 		QList<VColorStop*> cstops = itGrad.value().colorStops();
-		for (int cst = 0; cst < itGrad.value().Stops(); ++cst)
+		for (int cst = 0; cst < itGrad.value().stops(); ++cst)
 		{
 			if (cstops.at(cst)->name != CommonStrings::None)
 			{
@@ -5120,13 +5120,13 @@ void ScribusDoc::recalculateColors()
 				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 			}
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->fill_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->stroke_gradient.colorStops();
-			for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->stroke_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops = ite->mask_gradient.colorStops();
-			for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->GrType == 13)
 				ite->createConicalMesh();
@@ -5170,13 +5170,13 @@ void ScribusDoc::recalculateColors()
 					ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
 				}
 				QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-				for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->fill_gradient.stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops = ite->stroke_gradient.colorStops();
-				for (int cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->stroke_gradient.stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops = ite->mask_gradient.colorStops();
-				for (int cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				if (ite->asImageFrame())
 					loadPict(ite->Pfile, ite, true, false);

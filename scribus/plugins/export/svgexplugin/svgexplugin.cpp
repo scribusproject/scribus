@@ -1591,7 +1591,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, const QDomElement& line, co
 				bool   isFirst = true;
 				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
-				for (int cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < Item->stroke_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
 					if ((actualStop != lastStop) || (isFirst))
@@ -1756,7 +1756,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, const QDomElement& line, co
 				bool   isFirst = true;
 				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
-				for (int cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < Item->stroke_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
 					if ((actualStop != lastStop) || (isFirst))
@@ -1918,7 +1918,7 @@ QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
 			grad.setAttribute("id", "Grad"+IToStr(GradCount));
 			grad.setAttribute("gradientUnits", "userSpaceOnUse");
 			QList<VColorStop*> cstops = Item->mask_gradient.colorStops();
-			for (int cst = 0; cst < Item->mask_gradient.Stops(); ++cst)
+			for (int cst = 0; cst < Item->mask_gradient.stops(); ++cst)
 			{
 				QDomElement itcl = docu.createElement("stop");
 				itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
@@ -2043,7 +2043,7 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 				bool   isFirst = true;
 				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
-				for (int cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
+				for (int cst = 0; cst < Item->fill_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
 					if ((actualStop != lastStop) || (isFirst))
@@ -2230,7 +2230,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		bool   isFirst = true;
 		double actualStop = 0.0, lastStop = 0.0;
 		QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
-		for (int cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+		for (int cst = 0; cst < Item->stroke_gradient.stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
 			if ((actualStop != lastStop) || (isFirst))

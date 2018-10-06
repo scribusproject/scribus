@@ -748,7 +748,7 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 					}
 				}
 			}
-			if (currentGradient.Stops() > 1)
+			if (currentGradient.stops() > 1)
 				isGradient = true;
 		}
 		else
@@ -2429,7 +2429,7 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 					}
 				}
 			}
-			if (currentGradient.Stops() > 1)
+			if (currentGradient.stops() > 1)
 				isGradient = true;
 		}
 		else
