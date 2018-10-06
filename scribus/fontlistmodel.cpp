@@ -75,7 +75,7 @@ QVariant FontListModel::headerData(int section,
 	// TODO for tooltips etc.
 	
 	bool isDisplayRole = (role == Qt::DisplayRole);
-	switch(role)
+	switch (role)
 	{
 		case Qt::DisplayRole:
 		case Qt::ToolTipRole:
