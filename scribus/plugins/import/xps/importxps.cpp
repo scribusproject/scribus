@@ -441,7 +441,7 @@ bool XpsPlug::parseDocSequence(const QString& designMap)
 	bool parsed = false;
 	QString DocumentReference = "";
 	QDomElement docElem = designMapDom.documentElement();
-	for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+	for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (dpg.tagName() == "DocumentReference")
@@ -572,119 +572,118 @@ void XpsPlug::parsePageReference(const QString& designMap)
 	QByteArray f;
 	QFileInfo fi(designMap);
 	QString path = fi.path();
-	if (uz->read(designMap, f))
+	if (!uz->read(designMap, f))
+		return;
+
+	QDomDocument designMapDom;
+	if (!designMapDom.setContent(f))
+		return;
+
+	QDomElement docElem = designMapDom.documentElement();
+	docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
+	docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight)).toDouble() * conversionFactor;
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
-		QDomDocument designMapDom;
-		if (designMapDom.setContent(f))
+		if (firstPage)
 		{
-			QDomElement docElem = designMapDom.documentElement();
-			docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
-			docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight)).toDouble() * conversionFactor;
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			topMargin = m_Doc->marginsVal().top();
+			leftMargin = m_Doc->marginsVal().left();
+			rightMargin = m_Doc->marginsVal().right();
+			bottomMargin = m_Doc->marginsVal().bottom();
+			double pgCols = m_Doc->PageSp;
+			double pgGap = m_Doc->PageSpa;
+			m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, false);
+			m_Doc->setPageSize("Custom");
+			m_Doc->currentPage()->m_pageSize = "Custom";
+			m_Doc->currentPage()->setInitialHeight(docHeight);
+			m_Doc->currentPage()->setInitialWidth(docWidth);
+			m_Doc->currentPage()->setHeight(docHeight);
+			m_Doc->currentPage()->setWidth(docWidth);
+			m_Doc->currentPage()->initialMargins.setTop(topMargin);
+			m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+			m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+			m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+			m_Doc->reformPages(true);
+		}
+		else
+		{
+			m_Doc->addPage(pagecount);
+			m_Doc->currentPage()->m_pageSize = "Custom";
+			m_Doc->currentPage()->setInitialHeight(docHeight);
+			m_Doc->currentPage()->setInitialWidth(docWidth);
+			m_Doc->currentPage()->setHeight(docHeight);
+			m_Doc->currentPage()->setWidth(docWidth);
+			m_Doc->currentPage()->initialMargins.setTop(topMargin);
+			m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+			m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+			m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+			m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+			m_Doc->view()->addPage(pagecount, true);
+			pagecount++;
+		}
+	}
+	firstPage = false;
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+	{
+		QDomElement dpg = drawPag.toElement();
+		if ((dpg.tagName() == "Path") || (dpg.tagName() == "Glyphs") || (dpg.tagName() == "Canvas"))
+		{
+			PageItem* item = parseObjectXML(dpg, path);
+			if (item != nullptr)
 			{
-				if (firstPage)
-				{
-					topMargin = m_Doc->marginsVal().top();
-					leftMargin = m_Doc->marginsVal().left();
-					rightMargin = m_Doc->marginsVal().right();
-					bottomMargin = m_Doc->marginsVal().bottom();
-					double pgCols = m_Doc->PageSp;
-					double pgGap = m_Doc->PageSpa;
-					m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, false);
-					m_Doc->setPageSize("Custom");
-					m_Doc->currentPage()->m_pageSize = "Custom";
-					m_Doc->currentPage()->setInitialHeight(docHeight);
-					m_Doc->currentPage()->setInitialWidth(docWidth);
-					m_Doc->currentPage()->setHeight(docHeight);
-					m_Doc->currentPage()->setWidth(docWidth);
-					m_Doc->currentPage()->initialMargins.setTop(topMargin);
-					m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-					m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-					m_Doc->currentPage()->initialMargins.setRight(rightMargin);
-					m_Doc->reformPages(true);
-				}
-				else
-				{
-					m_Doc->addPage(pagecount);
-					m_Doc->currentPage()->m_pageSize = "Custom";
-					m_Doc->currentPage()->setInitialHeight(docHeight);
-					m_Doc->currentPage()->setInitialWidth(docWidth);
-					m_Doc->currentPage()->setHeight(docHeight);
-					m_Doc->currentPage()->setWidth(docWidth);
-					m_Doc->currentPage()->initialMargins.setTop(topMargin);
-					m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-					m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-					m_Doc->currentPage()->initialMargins.setRight(rightMargin);
-					m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-					m_Doc->view()->addPage(pagecount, true);
-					pagecount++;
-				}
+				m_Doc->Items->append(item);
+				Elements.append(item);
 			}
-			firstPage = false;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-			for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+		}
+		else if (dpg.tagName() == "FixedPage.Resources")
+		{
+			for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
 			{
-				QDomElement dpg = drawPag.toElement();
-				if ((dpg.tagName() == "Path") || (dpg.tagName() == "Glyphs") || (dpg.tagName() == "Canvas"))
+				QDomElement spe = sp.toElement();
+				if (spe.tagName() != "ResourceDictionary")
+					continue;
+				if (spe.hasAttribute("Source"))
 				{
-					PageItem* item = parseObjectXML(dpg, path);
-					if (item != nullptr)
+					QString resFile = spe.attribute("Source", "");
+					if (resFile.startsWith("/"))
 					{
-						m_Doc->Items->append(item);
-						Elements.append(item);
+						resFile = resFile.mid(1);
+						parseResourceFile(resFile);
+					}
+					else
+					{
+						if (!resFile.startsWith(path))
+						{
+							resFile = path + "/" + resFile;
+							resFile = QDir::cleanPath(resFile);
+						}
+						parseResourceFile(resFile);
 					}
 				}
-				else if (dpg.tagName() == "FixedPage.Resources")
+				else if (spe.hasChildNodes())
 				{
-					for (QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling())
+					for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 					{
-						QDomElement spe = sp.toElement();
-						if (spe.tagName() == "ResourceDictionary")
+						if (dpgp.tagName() == "PathGeometry")
 						{
-							if (spe.hasAttribute("Source"))
+							Coords.resize(0);
+							Coords.svgInit();
+							QString pdata = "";
+							QString key = dpg.attribute("x:Key");
+							if (dpg.hasAttribute("Figures"))
+								pdata = dpg.attribute("Figures");
+							else if (dpg.hasChildNodes())
+								pdata = parsePathGeometryXML(dpg);
+							if (!pdata.isEmpty())
 							{
-								QString resFile = spe.attribute("Source", "");
-								if (resFile.startsWith("/"))
-								{
-									resFile = resFile.mid(1);
-									parseResourceFile(resFile);
-								}
-								else
-								{
-									if (!resFile.startsWith(path))
-									{
-										resFile = path + "/" + resFile;
-										resFile = QDir::cleanPath(resFile);
-									}
-									parseResourceFile(resFile);
-								}
-							}
-							else if (spe.hasChildNodes())
-							{
-								for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
-								{
-									if (dpgp.tagName() == "PathGeometry")
-									{
-										Coords.resize(0);
-										Coords.svgInit();
-										QString pdata = "";
-										QString key = dpg.attribute("x:Key");
-										if (dpg.hasAttribute("Figures"))
-											pdata = dpg.attribute("Figures");
-										else if (dpg.hasChildNodes())
-											pdata = parsePathGeometryXML(dpg);
-										if (!pdata.isEmpty())
-										{
-											bool currentPathClosed = Coords.parseSVG(pdata);
-											Coords.scale(conversionFactor, conversionFactor);
-											QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
-											if (dpg.attribute("FillRule") == "NonZero")
-												path.setFillRule(Qt::WindingFill);
-											pathResources.insert(key, path);
-										}
-									}
-								}
+								bool currentPathClosed = Coords.parseSVG(pdata);
+								Coords.scale(conversionFactor, conversionFactor);
+								QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
+								if (dpg.attribute("FillRule") == "NonZero")
+									path.setFillRule(Qt::WindingFill);
+								pathResources.insert(key, path);
 							}
 						}
 					}
@@ -1457,45 +1456,41 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 			double vh = (Viewport_y2 * conversionFactor) / (Viewbox_y2 - Viewbox_y1);
 			for (QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
 			{
-				if (grs.tagName() == "VisualBrush.Visual")
+				if (grs.tagName() != "VisualBrush.Visual")
+					continue;
+				for (QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement())
 				{
-					for (QDomElement eo = grs.firstChildElement(); !eo.isNull(); eo = eo.nextSiblingElement())
-					{
-						if ((eo.tagName() == "Path") || (eo.tagName() == "Glyphs") || (eo.tagName() == "Canvas"))
-						{
-							PageItem* item = parseObjectXML(eo, path);
-							if (item != nullptr)
-							{
-								m_Doc->sizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
-								ScPattern pat = ScPattern();
-								pat.setDoc(m_Doc);
-								m_Doc->DoDrawing = true;
-								QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
-								if (!tmpImg.isNull())
-								{
-									QImage retImg = QImage(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);
-									retImg.fill( qRgba(0, 0, 0, 0) );
-									QPainter p;
-									p.begin(&retImg);
-									p.drawImage(0, 0, tmpImg);
-									p.end();
-									pat.pattern = retImg;
-									pat.xoffset = 0;
-									pat.yoffset = 0;
-									m_Doc->DoDrawing = false;
-									pat.width = Viewport_x2 * conversionFactor;
-									pat.height = Viewport_y2 * conversionFactor;
-									item->gXpos = 0;
-									item->gYpos = 0;
-									item->setXYPos(item->gXpos, item->gYpos, true);
-									pat.items.append(item);
-									obState.patternName = QString("Pattern_from_XPS_%1").arg(m_Doc->docPatterns.count() + 1);
-									m_Doc->addPattern(obState.patternName, pat);
-									importedPatterns.append(obState.patternName);
-								}
-							}
-						}
-					}
+					if ((eo.tagName() != "Path") && (eo.tagName() != "Glyphs") && (eo.tagName() != "Canvas"))
+						continue;
+					PageItem* item = parseObjectXML(eo, path);
+					if (!item)
+						continue;
+					m_Doc->sizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
+					ScPattern pat = ScPattern();
+					pat.setDoc(m_Doc);
+					m_Doc->DoDrawing = true;
+					QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
+					if (tmpImg.isNull())
+						continue;
+					QImage retImg = QImage(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);
+					retImg.fill( qRgba(0, 0, 0, 0) );
+					QPainter p;
+					p.begin(&retImg);
+					p.drawImage(0, 0, tmpImg);
+					p.end();
+					pat.pattern = retImg;
+					pat.xoffset = 0;
+					pat.yoffset = 0;
+					m_Doc->DoDrawing = false;
+					pat.width = Viewport_x2 * conversionFactor;
+					pat.height = Viewport_y2 * conversionFactor;
+					item->gXpos = 0;
+					item->gYpos = 0;
+					item->setXYPos(item->gXpos, item->gYpos, true);
+					pat.items.append(item);
+					obState.patternName = QString("Pattern_from_XPS_%1").arg(m_Doc->docPatterns.count() + 1);
+					m_Doc->addPattern(obState.patternName, pat);
+					importedPatterns.append(obState.patternName);
 				}
 			}
 		}
@@ -1537,45 +1532,45 @@ QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 	QString svgString = "";
 	for (QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement())
 	{
-		if (dpg.tagName() == "PathFigure")
+		if (dpg.tagName() != "PathFigure")
+			continue;
+
+		if (dpg.hasAttribute("StartPoint"))
+			svgString += "M " + dpg.attribute("StartPoint") + " ";
+		for (QDomElement dp = dpg.firstChildElement(); !dp.isNull(); dp = dp.nextSiblingElement())
 		{
-			if (dpg.hasAttribute("StartPoint"))
-				svgString += "M " + dpg.attribute("StartPoint") + " ";
-			for (QDomElement dp = dpg.firstChildElement(); !dp.isNull(); dp = dp.nextSiblingElement())
+			if (dp.tagName() == "PolyLineSegment")
+				svgString += "L " + dp.attribute("Points") + " ";
+			else if (dp.tagName() == "PolyQuadraticBezierSegment")
+				svgString += "Q " + dp.attribute("Points") + " ";
+			else if (dp.tagName() == "PolyBezierSegment")
+				svgString += "C " + dp.attribute("Points") + " ";
+			else if (dp.tagName() == "ArcSegment")
 			{
-				if (dp.tagName() == "PolyLineSegment")
-					svgString += "L " + dp.attribute("Points") + " ";
-				else if (dp.tagName() == "PolyQuadraticBezierSegment")
-					svgString += "Q " + dp.attribute("Points") + " ";
-				else if (dp.tagName() == "PolyBezierSegment")
-					svgString += "C " + dp.attribute("Points") + " ";
-				else if (dp.tagName() == "ArcSegment")
+				svgString += "A " + dp.attribute("Size") + " "  + dp.attribute("RotationAngle") + " ";
+				if (dp.hasAttribute("IsLargeArc"))
 				{
-					svgString += "A " + dp.attribute("Size") + " "  + dp.attribute("RotationAngle") + " ";
-					if (dp.hasAttribute("IsLargeArc"))
-					{
-						if (dp.attribute("IsLargeArc").toLower() == "true")
-							svgString += "1 ";
-						else
-							svgString += "0 ";
-					}
+					if (dp.attribute("IsLargeArc").toLower() == "true")
+						svgString += "1 ";
 					else
 						svgString += "0 ";
-					if (dp.hasAttribute("SweepDirection"))
-					{
-						if (dp.attribute("SweepDirection").toLower() == "counterclockwise")
-							svgString += "0 ";
-						else
-							svgString += "1 ";
-					}
-					else
-						svgString += "0 ";
-					svgString += dp.attribute("Point") + " ";
 				}
+				else
+					svgString += "0 ";
+				if (dp.hasAttribute("SweepDirection"))
+				{
+					if (dp.attribute("SweepDirection").toLower() == "counterclockwise")
+						svgString += "0 ";
+					else
+						svgString += "1 ";
+				}
+				else
+					svgString += "0 ";
+				svgString += dp.attribute("Point") + " ";
 			}
-			if (dpg.hasAttribute("IsClosed") && (dpg.attribute("IsClosed").toLower() == "true"))
-				svgString += "Z ";
 		}
+		if (dpg.hasAttribute("IsClosed") && (dpg.attribute("IsClosed").toLower() == "true"))
+			svgString += "Z ";
 	}
 	return svgString;
 }
@@ -1583,95 +1578,95 @@ QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 void XpsPlug::parseResourceFile(const QString& resFile)
 {
 	QByteArray f;
-	if (uz->read(resFile, f))
+	if (!uz->read(resFile, f))
+		return;
+
+	QDomDocument designMapDom;
+	if (!designMapDom.setContent(f))
+		return;
+
+	QDomElement docElem = designMapDom.documentElement();
+	for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
-		QDomDocument designMapDom;
-		if (designMapDom.setContent(f))
+		QDomElement dpg = drawPag.toElement();
+		if (dpg.tagName() != "PathGeometry")
+			continue;
+		Coords.resize(0);
+		Coords.svgInit();
+		QString pdata = "";
+		QString key = dpg.attribute("x:Key");
+		if (dpg.hasAttribute("Figures"))
+			pdata = dpg.attribute("Figures");
+		else if (dpg.hasChildNodes())
+			pdata = parsePathGeometryXML(dpg);
+		if (!pdata.isEmpty())
 		{
-			QDomElement docElem = designMapDom.documentElement();
-			for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
-			{
-				QDomElement dpg = drawPag.toElement();
-				if (dpg.tagName() == "PathGeometry")
-				{
-					Coords.resize(0);
-					Coords.svgInit();
-					QString pdata = "";
-					QString key = dpg.attribute("x:Key");
-					if (dpg.hasAttribute("Figures"))
-						pdata = dpg.attribute("Figures");
-					else if (dpg.hasChildNodes())
-						pdata = parsePathGeometryXML(dpg);
-					if (!pdata.isEmpty())
-					{
-						bool currentPathClosed = Coords.parseSVG(pdata);
-						Coords.scale(conversionFactor, conversionFactor);
-						QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
-						if (dpg.attribute("FillRule") == "NonZero")
-							path.setFillRule(Qt::WindingFill);
-						pathResources.insert(key, path);
-					}
-				}
-			}
+			bool currentPathClosed = Coords.parseSVG(pdata);
+			Coords.scale(conversionFactor, conversionFactor);
+			QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
+			if (dpg.attribute("FillRule") == "NonZero")
+				path.setFillRule(Qt::WindingFill);
+			pathResources.insert(key, path);
 		}
 	}
 }
 
 void XpsPlug::resolveLinks()
 {
-	if (!linkSources.isEmpty())
+	if (linkSources.isEmpty())
+		return;
+
+	for (auto it = linkSources.begin(); it != linkSources.end(); ++it)
 	{
-		for (auto it = linkSources.begin(); it != linkSources.end(); ++it)
-		{
-			PageItem* linkS = it.key();
-			QString target = it.value();
-			if (linkTargets.contains(target))
-			{
-				PageItem* linkT = linkTargets[target];
-				if (linkT != nullptr)
-				{
-					int op = linkT->OwnPage;
-					if (op > -1)
-					{
-						QTransform tf = linkT->getTransform();
-						double xp = tf.dx() - m_Doc->Pages->at(op)->xOffset();
-						double yp = tf.dy() - m_Doc->Pages->at(op)->yOffset();
-						linkS->annotation().setZiel(linkT->OwnPage);
-						linkS->annotation().setActionType(2);
-						linkS->annotation().setAction(QString("%0 %1").arg(qRound(xp)).arg(qRound(m_Doc->Pages->at(op)->height() - yp)));
-					}
-				}
-			}
-		}
+		PageItem* linkS = it.key();
+		QString target = it.value();
+		if (!linkTargets.contains(target))
+			continue;
+
+		PageItem* linkT = linkTargets[target];
+		if (!linkT)
+			continue;
+
+		int op = linkT->OwnPage;
+		if (op < 0)
+			continue;
+
+		QTransform tf = linkT->getTransform();
+		double xp = tf.dx() - m_Doc->Pages->at(op)->xOffset();
+		double yp = tf.dy() - m_Doc->Pages->at(op)->yOffset();
+		linkS->annotation().setZiel(linkT->OwnPage);
+		linkS->annotation().setActionType(2);
+		linkS->annotation().setAction(QString("%0 %1").arg(qRound(xp)).arg(qRound(m_Doc->Pages->at(op)->height() - yp)));
 	}
 }
 
 PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 {
-	if (!obState.clipPath.isEmpty())
-	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
-		PageItem *itemg = m_Doc->Items->at(z);
-		itemg->PoLine.fromQPainterPath(obState.clipPath);
-		FPoint wh = getMaxClipF(&itemg->PoLine);
-		itemg->setWidthHeight(wh.x(),wh.y());
-		m_Doc->adjustItemSize(itemg, true);
-		itemg->ClipEdited = true;
-		itemg->FrameType = 3;
-		itemg->setFillEvenOdd(false);
-		itemg->OldB2 = itemg->width();
-		itemg->OldH2 = itemg->height();
-		itemg->updateClip();
-		itemg->OwnPage = m_Doc->OnPage(itemg);
-		itemg->ContourLine = itemg->PoLine.copy();
-		QList<PageItem*> GElements;
-		GElements.append(retObj);
-		m_Doc->groupObjectsToItem(itemg, GElements);
-		m_Doc->resizeGroupToContents(itemg);
-		m_Doc->GroupOnPage(itemg);
-		retObj = itemg;
-		m_Doc->Items->removeLast();
-	}
+	if (obState.clipPath.isEmpty())
+		return retObj;
+
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
+	PageItem *itemg = m_Doc->Items->at(z);
+	itemg->PoLine.fromQPainterPath(obState.clipPath);
+	FPoint wh = getMaxClipF(&itemg->PoLine);
+	itemg->setWidthHeight(wh.x(),wh.y());
+	m_Doc->adjustItemSize(itemg, true);
+	itemg->ClipEdited = true;
+	itemg->FrameType = 3;
+	itemg->setFillEvenOdd(false);
+	itemg->OldB2 = itemg->width();
+	itemg->OldH2 = itemg->height();
+	itemg->updateClip();
+	itemg->OwnPage = m_Doc->OnPage(itemg);
+	itemg->ContourLine = itemg->PoLine.copy();
+	QList<PageItem*> GElements;
+	GElements.append(retObj);
+	m_Doc->groupObjectsToItem(itemg, GElements);
+	m_Doc->resizeGroupToContents(itemg);
+	m_Doc->GroupOnPage(itemg);
+	retObj = itemg;
+	m_Doc->Items->removeLast();
+
 	return retObj;
 }
 
@@ -1679,57 +1674,59 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 {
 	int z = -1;
 	PageItem* retObj = nullptr;
-	if (!obState.currentPath.isEmpty())
+
+	if (obState.currentPath.isEmpty())
+		return nullptr;
+
+	if (obState.itemType == 0)
 	{
-		if (obState.itemType == 0)
+		if (dpg.hasAttribute("FixedPage.NavigateUri"))
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None);
+		else
 		{
-			if (dpg.hasAttribute("FixedPage.NavigateUri"))
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None);
+			if (!obState.currentPathClosed)
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			else
-			{
-				if (!obState.currentPathClosed)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
-				else
-					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
-			}
-			retObj = m_Doc->Items->at(z);
-			finishItem(retObj, obState);
-			retObj = m_Doc->Items->takeAt(z);
+				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 		}
-		else if (obState.itemType == 1)
-		{
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
-			retObj = m_Doc->Items->at(z);
-			finishItem(retObj, obState);
-			if (!obState.imagePath.isEmpty())
-			{
-				QByteArray f;
-				if (uz->read(obState.imagePath, f))
-				{
-					QFileInfo fi(obState.imagePath);
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
-					{
-						QString fileName = getLongPathName(tempFile->fileName());
-						if (!fileName.isEmpty())
-						{
-							tempFile->write(f);
-							tempFile->close();
-							retObj->isInlineImage = true;
-							retObj->isTempFile = true;
-							retObj->AspectRatio = false;
-							retObj->ScaleType   = false;
-							m_Doc->loadPict(fileName, retObj);
-							retObj->AdjustPictScale();
-						}
-					}
-					delete tempFile;
-				}
-			}
-			retObj = m_Doc->Items->takeAt(z);
-		}
+		retObj = m_Doc->Items->at(z);
+		finishItem(retObj, obState);
+		retObj = m_Doc->Items->takeAt(z);
 	}
+	else if (obState.itemType == 1)
+	{
+		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
+		retObj = m_Doc->Items->at(z);
+		finishItem(retObj, obState);
+		if (!obState.imagePath.isEmpty())
+		{
+			QByteArray f;
+			if (uz->read(obState.imagePath, f))
+			{
+				QFileInfo fi(obState.imagePath);
+				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
+				tempFile->setAutoRemove(false);
+				if (tempFile->open())
+				{
+					QString fileName = getLongPathName(tempFile->fileName());
+					if (!fileName.isEmpty())
+					{
+						tempFile->write(f);
+						tempFile->close();
+						retObj->isInlineImage = true;
+						retObj->isTempFile = true;
+						retObj->AspectRatio = false;
+						retObj->ScaleType   = false;
+						m_Doc->loadPict(fileName, retObj);
+						retObj->AdjustPictScale();
+					}
+				}
+				delete tempFile;
+			}
+		}
+		retObj = m_Doc->Items->takeAt(z);
+	}
+
 	return retObj;
 }
 
