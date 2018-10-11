@@ -1888,8 +1888,21 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	QString textFillColor   = gc->FillCol;
 	QString textStrokeColor = gc->StrokeCol;
 
+	// Text outline is generated using a big font size
+	// and scaled afterwards. This is done in order to
+	// overcome some QPainterPath issues when using
+	// small font sizes, especially bad glyph advances
+	QFont painterFont = textFont;
+	painterFont.setPointSizeF(100.0);
+	double fontScale = textFont.pointSizeF() / 100.0;
+
 	QPainterPath painterPath;
-	painterPath.addText(startX, startY, textFont, textString);
+	painterPath.addText(0.0, 0.0, painterFont, textString);
+
+	QTransform textTrans;
+	textTrans.translate(startX, startY);
+	textTrans.scale(fontScale, fontScale);
+	painterPath = textTrans.map(painterPath);
 
 	textPath.fromQPainterPath(painterPath);
 	if (!textPath.empty())
@@ -2110,8 +2123,14 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 			{
 				SvgStyle *gc   = m_gc.top();
 				QFont textFont = getFontFromStyle(*gc);
+
+				// This is to match the scaling done in
+				// parseTextNode()
+				double fontSize = textFont.pointSizeF();
+				textFont.setPointSizeF(100.0);
+
 				QFontMetrics fm(textFont);
-				width += fm.width(textString);
+				width += fm.width(textString) * (fontSize / 100.0);
 			}
 		}
 	}
