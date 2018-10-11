@@ -69,15 +69,15 @@ void UpgradeChecker::fetch()
 	QString filename("scribusversions.xml");
 	m_tempFile=ScPaths::tempFileDir()+filename;
 
-	m_fin=false;
+	m_fin = false;
 
-	m_file=new QFile(m_tempFile);
-	m_networkManager=new QNetworkAccessManager(this);
-	if (m_networkManager!=nullptr && m_file!=nullptr)
+	m_file = new QFile(m_tempFile);
+	m_networkManager = new QNetworkAccessManager(this);
+	if (m_networkManager != nullptr && m_file != nullptr)
 	{
 		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
-		if(m_file->open(QIODevice::ReadWrite))
+		if (m_file->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
 			QString filepath("/"+filename);
@@ -123,11 +123,10 @@ void UpgradeChecker::downloadFinished()
 	{
 		m_file->reset();
 		process();
-		m_fin=true;
+		m_fin = true;
 		show(m_networkReply->error()!=QNetworkReply::NoError);
 	}
 }
-
 
 void UpgradeChecker::downloadReadyRead()
 {
@@ -145,7 +144,7 @@ bool UpgradeChecker::process()
 	int ecol;
 	QDomDocument doc( "scribusversions" );
 	QString data(ts.readAll());
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
+	if (!doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
@@ -155,65 +154,59 @@ bool UpgradeChecker::process()
 	}
 	
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
+		if (e.isNull())
+			continue;
+		if (e.tagName() == "release")
 		{
-			if (e.tagName()=="release")
+			if (!e.hasAttribute("stability") || !e.hasAttribute("platform") || !e.hasAttribute("version"))
+				continue;
+			if (e.attribute("platform") != m_platform)
+				continue;
+
+			bool newVersion = false;
+			QString verA(e.attribute("version"));
+			QString verAStripped = verA.toLower();
+			bool verIsCVS = verAStripped.contains("cvs");
+			if (verIsCVS)
+				verAStripped.remove("cvs");
+			uint verMajor = verAStripped.section('.',0,0).toInt();
+			uint verMinor = verAStripped.section('.',1,1).toInt();
+			uint verRevsion1 = verAStripped.section('.',2,2).toInt();
+			uint verRevsion2 = verAStripped.section('.',3,3).toInt();
+			//If we found a release whe a user is running an old CVS version
+			if (verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 == m_revision2 && m_isCVS && !verIsCVS && !m_updates.contains(verA))
+				newVersion = true;
+			else if (!(verMajor == major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2))
 			{
-				if (e.hasAttribute("stability") && e.hasAttribute("platform") && e.hasAttribute("version"))
+				//If we found a version that is not the same as what we are running
+				if (((verMajor > major) ||
+					(verMajor == major && verMinor > minor) ||
+					(verMajor == major && verMinor == minor && verRevsion1 > m_revision1) ||
+					(verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 > m_revision2))
+					&& !m_updates.contains(verA))
 				{
-					if (e.attribute("platform")==m_platform)
-					{
-						bool newVersion = false;
-						QString verA(e.attribute("version"));
-						QString verAStripped=verA.toLower();
-						bool verIsCVS=verAStripped.contains("cvs");
-						if (verIsCVS)
-							verAStripped.remove("cvs");
-						uint verMajor=verAStripped.section('.',0,0).toInt();
-						uint verMinor=verAStripped.section('.',1,1).toInt();
-						uint verRevsion1=verAStripped.section('.',2,2).toInt();
-						uint verRevsion2=verAStripped.section('.',3,3).toInt();
-						//If we found a release whe a user is running an old CVS version
-						if (verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2 && m_isCVS && !verIsCVS && !m_updates.contains(verA))
-							newVersion = true;
-						else
-							//If we found a version that is not the same as what we are running
-							if (!(verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2))
-							{
-								if (
-										((verMajor>major) ||
-										 (verMajor==major && verMinor>minor) ||
-										 (verMajor==major && verMinor==minor && verRevsion1>m_revision1) ||
-										 (verMajor==major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2>m_revision2))
-										&& !m_updates.contains(verA)
-										)
-									newVersion = true;
-							}
-						if (newVersion)
-						{
-							QString ver(verA);
-							QString link(e.attribute("link", ""));
-							if (!link.isEmpty())
-							{
-								QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link, link);
-								ver = QString("%1 : %2").arg(verA, linkStr);
-							}
-							m_updates.append(ver);
-						}
-					}
+					newVersion = true;
 				}
 			}
-			else
-				if (e.tagName()=="message")
+			if (newVersion)
+			{
+				QString ver(verA);
+				QString link(e.attribute("link", ""));
+				if (!link.isEmpty())
 				{
-					m_message+=e.text();
+					QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link, link);
+					ver = QString("%1 : %2").arg(verA, linkStr);
 				}
+				m_updates.append(ver);
+			}
 		}
-		n = n.nextSibling();
+		else if (e.tagName() == "message")
+		{
+			m_message += e.text();
+		}
 	}
 	return true;
 }
