@@ -85,7 +85,7 @@ SVGImportPlugin::SVGImportPlugin() :
 void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
+	connect(importAction, SIGNAL(triggered()), SLOT(import()));
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 */
@@ -218,7 +218,7 @@ QImage SVGImportPlugin::readThumbnail(const QString& fileName)
 	return ret;
 }
 
-SVGPlug::SVGPlug( ScribusDoc* doc, int flags )
+SVGPlug::SVGPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel = new Selection(this, false);
 	m_Doc = doc;
@@ -234,7 +234,7 @@ SVGPlug::SVGPlug( ScribusDoc* doc, int flags )
 	groupLevel = 0;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-//	m_gc.setAutoDelete( true );
+//	m_gc.setAutoDelete(true);
 }
 
 QImage SVGPlug::readThumbnail(const QString& fName)
@@ -258,15 +258,15 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	m_gc.push( gc );
+	m_gc.push(gc);
 	viewTransformX = 0;
 	viewTransformY = 0;
 	viewScaleX = 1;
 	viewScaleY = 1;
-	if (!docElem.attribute( "viewBox" ).isEmpty())
+	if (!docElem.attribute("viewBox").isEmpty())
 	{
-		QString viewbox( docElem.attribute( "viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+		QString viewbox(docElem.attribute("viewBox"));
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -283,7 +283,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 			m_gc.top()->matrix = matrix;
 		}
 	}
-	QList<PageItem*> Elements = parseGroup( docElem );
+	QList<PageItem*> Elements = parseGroup(docElem);
 	tmpSel->clear();
 	QImage tmpImage = QImage();
 	if (Elements.count() > 0)
@@ -404,15 +404,15 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	m_gc.push( gc );
+	m_gc.push(gc);
 	viewTransformX = 0;
 	viewTransformY = 0;
 	viewScaleX = 1;
 	viewScaleY = 1;
-	if (!docElem.attribute( "viewBox" ).isEmpty())
+	if (!docElem.attribute("viewBox").isEmpty())
 	{
-		QString viewbox( docElem.attribute( "viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+		QString viewbox(docElem.attribute("viewBox"));
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -429,7 +429,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_gc.top()->matrix = matrix;
 		}
 	}
-	Elements += parseDoc( docElem );
+	Elements += parseDoc(docElem);
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setTitle(docTitle);
@@ -566,7 +566,7 @@ void SVGPlug::addGraphicContext()
 	SvgStyle *gc = new SvgStyle;
 	if (m_gc.top())
 	{
-		*gc = *( m_gc.top() );
+		*gc = *(m_gc.top());
 		if (m_gc.top()->forGroup)
 		{
 			gc->forGroup = false;
@@ -579,17 +579,17 @@ void SVGPlug::addGraphicContext()
 	m_gc.push(gc);
 }
 
-void SVGPlug::setupNode( const QDomElement &e )
+void SVGPlug::setupNode(const QDomElement &e)
 {
 	addGraphicContext();
-	setupTransform( e );
+	setupTransform(e);
 	parseStyle(m_gc.top(), e);
 }
 
-void SVGPlug::setupTransform( const QDomElement &e )
+void SVGPlug::setupTransform(const QDomElement &e)
 {
 	SvgStyle *gc = m_gc.top();
-	QTransform mat = parseTransform( e.attribute( "transform" ) );
+	QTransform mat = parseTransform(e.attribute("transform"));
 	if (!e.attribute("transform").isEmpty())
 		gc->matrix = mat * gc->matrix;
 }
@@ -600,8 +600,8 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	PageItem* endArrow = nullptr;
 	SvgStyle *gc = m_gc.top();
 	QTransform gcm = gc->matrix;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
 	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
 	switch (item->itemType())
@@ -674,8 +674,8 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 				item->setItemName(" "+nodeId);
 		}
 	}
-	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
-	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
+	item->setFillTransparency(1 - gc->FillOpacity * gc->Opacity);
+	item->setLineTransparency(1 - gc->StrokeOpacity * gc->Opacity);
 	item->PLineEnd = gc->PLineEnd;
 	item->PLineJoin = gc->PLineJoin;
 	if (item->fillColor() == CommonStrings::None)
@@ -693,8 +693,8 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 			QTransform mm = gc->matrixgf;
 			double rot = getRotationFromMatrix(mm, 0.0) * 180 / M_PI;
 			mm.rotate(rot);
-			double patDx = (item->xPos() - BaseX) - mm.dx();
-			double patDy = (item->yPos() - BaseY) - mm.dy();
+			double patDx = (item->xPos() - baseX) - mm.dx();
+			double patDy = (item->yPos() - baseY) - mm.dy();
 			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot, 0, 0);
 		}
 		else
@@ -740,12 +740,12 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					FPointArray gra;
 					gra.setPoints(3, gc->GradFillX1, gc->GradFillY1, gc->GradFillX2, gc->GradFillY2, gc->GradFillFX, gc->GradFillFY);
 					gra.map(mm);
-					item->GrStartX = gra.point(0).x() - item->xPos() + BaseX;
-					item->GrStartY = gra.point(0).y() - item->yPos() + BaseY;
-					item->GrEndX   = gra.point(1).x() - item->xPos() + BaseX;
-					item->GrEndY   = gra.point(1).y() - item->yPos() + BaseY;
-					item->GrFocalX = gra.point(2).x() - item->xPos() + BaseX;
-					item->GrFocalY = gra.point(2).y() - item->yPos() + BaseY;
+					item->GrStartX = gra.point(0).x() - item->xPos() + baseX;
+					item->GrStartY = gra.point(0).y() - item->yPos() + baseY;
+					item->GrEndX   = gra.point(1).x() - item->xPos() + baseX;
+					item->GrEndY   = gra.point(1).y() - item->yPos() + baseY;
+					item->GrFocalX = gra.point(2).x() - item->xPos() + baseX;
+					item->GrFocalY = gra.point(2).y() - item->yPos() + baseY;
 					double ScaleX = 1.0;
 					double ScaleY = 1.0;
 					getScaleFromMatrix(mm, ScaleX, ScaleY);
@@ -772,8 +772,8 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 			QTransform mm = gc->matrixgs;
 			double rot = getRotationFromMatrix(mm, 0.0) * 180 / M_PI;
 			mm.rotate(rot);
-			double patDx = (item->xPos() - BaseX) - mm.dx();
-			double patDy = (item->yPos() - BaseY) - mm.dy();
+			double patDx = (item->xPos() - baseX) - mm.dx();
+			double patDy = (item->yPos() - baseY) - mm.dy();
 			item->setStrokePatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot, 0, 0, 1);
 		}
 		else
@@ -819,12 +819,12 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					FPointArray gra;
 					gra.setPoints(3, gc->GradStrokeX1, gc->GradStrokeY1, gc->GradStrokeX2, gc->GradStrokeY2, gc->GradStrokeFX, gc->GradStrokeFY);
 					gra.map(mm);
-					item->GrStrokeStartX = gra.point(0).x() - item->xPos() + BaseX;
-					item->GrStrokeStartY = gra.point(0).y() - item->yPos() + BaseY;
-					item->GrStrokeEndX   = gra.point(1).x() - item->xPos() + BaseX;
-					item->GrStrokeEndY   = gra.point(1).y() - item->yPos() + BaseY;
-					item->GrStrokeFocalX = gra.point(2).x() - item->xPos() + BaseX;
-					item->GrStrokeFocalY = gra.point(2).y() - item->yPos() + BaseY;
+					item->GrStrokeStartX = gra.point(0).x() - item->xPos() + baseX;
+					item->GrStrokeStartY = gra.point(0).y() - item->yPos() + baseY;
+					item->GrStrokeEndX   = gra.point(1).x() - item->xPos() + baseX;
+					item->GrStrokeEndY   = gra.point(1).y() - item->yPos() + baseY;
+					item->GrStrokeFocalX = gra.point(2).x() - item->xPos() + baseX;
+					item->GrStrokeFocalY = gra.point(2).y() - item->yPos() + baseY;
 				}
 				item->GrTypeStroke = gc->StrokeGradientType;
 			}
@@ -930,13 +930,13 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	return item;
 }
 
-bool SVGPlug::isIgnorableNode( const QDomElement &e )
+bool SVGPlug::isIgnorableNode(const QDomElement &e)
 {
 	QString nodeName(e.tagName());
 	return isIgnorableNodeName(nodeName);
 }
 
-bool SVGPlug::isIgnorableNodeName( const QString &n )
+bool SVGPlug::isIgnorableNodeName(const QString &n)
 {
 	return n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata";
 }
@@ -947,52 +947,52 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 	double  x = pos ? pos->x() : 0.0;
 	double  y = pos ? pos->y() : 0.0;
 
-	if (e.hasAttribute( "x" ))
+	if (e.hasAttribute("x"))
 	{
-		QString xatt =  e.attribute( "x" , "0" );
-		if ( xatt.contains(',') || xatt.contains(' ') )
+		QString xatt =  e.attribute("x" , "0");
+		if (xatt.contains(',') || xatt.contains(' '))
 		{
 			xatt.replace(QChar(','), QChar(' '));
 			QStringList xl(xatt.split(QChar(' '), QString::SkipEmptyParts));
 			xatt = xl.first();
 		}
-		x = parseUnit( xatt ); 
+		x = parseUnit(xatt); 
 	}
 
-	if (e.hasAttribute( "y" ))
+	if (e.hasAttribute("y"))
 	{
-		QString yatt =  e.attribute( "y" , "0" );
-		if ( yatt.contains(',') || yatt.contains(' ') )
+		QString yatt =  e.attribute("y" , "0");
+		if (yatt.contains(',') || yatt.contains(' '))
 		{
 			yatt.replace(QChar(','), QChar(' '));
 			QStringList yl(yatt.split(QChar(' '), QString::SkipEmptyParts));
 			yatt = yl.first();
 		}
-		y = parseUnit( yatt );
+		y = parseUnit(yatt);
 	}
 
-	if (e.hasAttribute( "dx" ))
+	if (e.hasAttribute("dx"))
 	{
-		QString dxatt =  e.attribute( "dx" , "0" );
-		if ( dxatt.contains(',') || dxatt.contains(' ') )
+		QString dxatt =  e.attribute("dx" , "0");
+		if (dxatt.contains(',') || dxatt.contains(' '))
 		{
 			dxatt.replace(QChar(','), QChar(' '));
 			QStringList xl(dxatt.split(QChar(' '), QString::SkipEmptyParts));
 			dxatt = xl.first();
 		}
-		x += parseUnit( dxatt ); 
+		x += parseUnit(dxatt); 
 	}
 
-	if (e.hasAttribute( "dy" ))
+	if (e.hasAttribute("dy"))
 	{
-		QString dyatt =  e.attribute( "dy" , "0" );
-		if ( dyatt.contains(',') || dyatt.contains(' ') )
+		QString dyatt =  e.attribute("dy" , "0");
+		if (dyatt.contains(',') || dyatt.contains(' '))
 		{
 			dyatt.replace(QChar(','), QChar(' '));
 			QStringList xl(dyatt.split(QChar(' '), QString::SkipEmptyParts));
 			dyatt = xl.first();
 		}
-		y += parseUnit( dyatt ); 
+		y += parseUnit(dyatt); 
 	}
 
 	return FPoint(x, y);
@@ -1036,10 +1036,10 @@ QSizeF SVGPlug::parseWidthHeight(const QDomElement &e)
 QRectF SVGPlug::parseViewBox(const QDomElement &e)
 {
 	QRectF box(0, 0, 0, 0);
-	if ( !e.attribute( "viewBox" ).isEmpty() )
+	if (!e.attribute("viewBox").isEmpty())
 	{
-		QString viewbox( e.attribute( "viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+		QString viewbox(e.attribute("viewBox"));
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			double left   = ScCLocale::toDoubleC(points[0]);
@@ -1054,25 +1054,25 @@ QRectF SVGPlug::parseViewBox(const QDomElement &e)
 
 void SVGPlug::parseDefs(const QDomElement &e)
 {
-	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement b = n.toElement();
-		if ( b.isNull() )
+		if (b.isNull())
 			continue;
 		SvgStyle svgStyle;
-		parseStyle( &svgStyle, b );
-		if ( !svgStyle.Display) 
+		parseStyle(&svgStyle, b);
+		if (!svgStyle.Display) 
 			continue;
 		QString STag2 = parseTagName(b);
-		if ( STag2 == "g" )
+		if (STag2 == "g")
 		{
 			QString id = b.attribute("id", "");
 			if (!id.isEmpty())
 				m_nodeMap.insert(id, b);
 			parseDefs(b);
 		}
-		else if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
-			parseGradient( b );
+		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
+			parseGradient(b);
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
 		else if (STag2 == "pattern")
@@ -1101,13 +1101,13 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 		while (b2.nodeName() == "use")
 			b2 = getReferencedNode(b2);
 		if (b2.nodeName() == "path")
-			parseSVG( b2.attribute( "d" ), &clip );
+			parseSVG(b2.attribute("d"), &clip);
 		else if (b2.nodeName() == "rect")
 		{
-			double x = parseUnit( b2.attribute( "x", "0.0" ));
-			double y = parseUnit( b2.attribute( "y", "0.0" ));
-			double width  = parseUnit( b2.attribute( "width" ));
-			double height = parseUnit( b2.attribute( "height" ) );
+			double x = parseUnit(b2.attribute("x", "0.0"));
+			double y = parseUnit(b2.attribute("y", "0.0"));
+			double width  = parseUnit(b2.attribute("width"));
+			double height = parseUnit(b2.attribute("height"));
 			clip.addQuadPoint(x, y, x, y, width+x, y, width+x, y);
 			clip.addQuadPoint(width+x, y, width+x, y, width+x, height+y, width+x, height+y);
 			clip.addQuadPoint(width+x, height+y, width+x, height+y, x, height+y, x, height+y);
@@ -1128,7 +1128,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 	clipPath.resize(0);
 /*	if (e.hasAttribute("style"))
 	{
-		QString style = e.attribute( "style" ).simplified();
+		QString style = e.attribute("style").simplified();
 		QStringList substyles = style.split(';', QString::SkipEmptyParts);
 		for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 		{
@@ -1190,20 +1190,20 @@ QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 {
 	QList<PageItem*> aElements;
 	setupNode(e);
-	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement b = n.toElement();
 		if (b.isNull() || isIgnorableNode(b))
 			continue;
 		SvgStyle svgStyle;
-		parseStyle( &svgStyle, b);
+		parseStyle(&svgStyle, b);
 		if (!svgStyle.Display) 
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
 			aElements.append(el.at(ec));
 	}
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return aElements;
 }
 
@@ -1226,38 +1226,38 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		m_Doc->setLayerPrintable(currentLayer, true);
 		m_Doc->setLayerTransparency(currentLayer, trans);
 		firstLayer = false;
-		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+		for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 		{
 			QDomElement b = n.toElement();
 			if (b.isNull() || isIgnorableNode(b))
 				continue;
 			SvgStyle svgStyle;
-			parseStyle( &svgStyle, b);
+			parseStyle(&svgStyle, b);
 			if (!svgStyle.Display) 
 				continue;
 			QList<PageItem*> el = parseElement(b);
 			for (int ec = 0; ec < el.count(); ++ec)
 				GElements.append(el.at(ec));
 		}
-		delete( m_gc.pop() );
+		delete (m_gc.pop());
 	}
 	else
 	{
-		double BaseX = m_Doc->currentPage()->xOffset();
-		double BaseY = m_Doc->currentPage()->yOffset();
+		double baseX = m_Doc->currentPage()->xOffset();
+		double baseY = m_Doc->currentPage()->yOffset();
 		groupLevel++;
 		setupNode(e);
 		parseClipPathAttr(e, clipPath);
 		m_gc.top()->forGroup = true;
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		PageItem *neu = m_Doc->Items->at(z);
-		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+		for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 		{
 			QDomElement b = n.toElement();
 			if (b.isNull() || isIgnorableNode(b))
 				continue;
 			SvgStyle svgStyle;
-			parseStyle( &svgStyle, b);
+			parseStyle(&svgStyle, b);
 			if (!svgStyle.Display) 
 				continue;
 			QList<PageItem*> el = parseElement(b);
@@ -1316,7 +1316,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 					QTransform mm = gc->matrix;
 					neu->PoLine = clipPath.copy();
 					neu->PoLine.map(mm);
-					neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
+					neu->PoLine.translate(-gx + baseX, -gy + baseY);
 					clipPath.resize(0);
 					neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
 				}
@@ -1367,13 +1367,13 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseDoc(const QDomElement &e)
 {
 	QList<PageItem*> GElements;
-	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement b = n.toElement();
 		if (b.isNull() || isIgnorableNode(b))
 			continue;
 		SvgStyle svgStyle;
-		parseStyle( &svgStyle, b);
+		parseStyle(&svgStyle, b);
 		if (!svgStyle.Display) 
 			continue;
 		QList<PageItem*> el = parseElement(b);
@@ -1393,21 +1393,21 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		STag = STag.mid(4, - 1);
 	if (STag == "g" )
 	{
-		GElements = parseGroup( e );
+		GElements = parseGroup(e);
 		return GElements;
 	}
 	if (STag == "defs")
 		parseDefs(e);
 	else if (STag == "a")
 		GElements = parseA(e);
-	else if ( STag == "switch")
+	else if (STag == "switch")
 		GElements = parseSwitch(e);
-	else if ( STag == "symbol")
+	else if (STag == "symbol")
 		GElements = parseSymbol(e);
-	else if ( STag == "use")
+	else if (STag == "use")
 		GElements = parseUse(e);
-	else if ( STag == "linearGradient" || STag == "radialGradient")
-		parseGradient( e );
+	else if (STag == "linearGradient" || STag == "radialGradient")
+		parseGradient(e);
 	else if (STag == "rect")
 		GElements = parseRect(e);
 	else if (STag == "ellipse")
@@ -1525,14 +1525,14 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 {
 	QList<PageItem*> CElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	double r = parseUnit( e.attribute( "r" ) );
-	double x = parseUnit( e.attribute( "cx" ) ) - r;
-	double y = parseUnit( e.attribute( "cy" ) ) - r;
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
+	double r = parseUnit(e.attribute("r"));
+	double x = parseUnit(e.attribute("cx")) - r;
+	double y = parseUnit(e.attribute("cy")) - r;
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(x, y);
@@ -1541,22 +1541,22 @@ QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 	ite->setWidthHeight(wh.x(), wh.y());
 	finishNode(e, ite);
 	CElements.append(ite);
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return CElements;
 }
 
 QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 {
 	QList<PageItem*> EElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	double rx = parseUnit( e.attribute( "rx" ) );
-	double ry = parseUnit( e.attribute( "ry" ) );
-	double x = parseUnit( e.attribute( "cx" ) ) - rx;
-	double y = parseUnit( e.attribute( "cy" ) ) - ry;
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
+	double rx = parseUnit(e.attribute("rx"));
+	double ry = parseUnit(e.attribute("ry"));
+	double x = parseUnit(e.attribute("cx")) - rx;
+	double y = parseUnit(e.attribute("cy")) - ry;
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(x, y);
@@ -1565,7 +1565,7 @@ QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 	ite->setWidthHeight(wh.x(), wh.y());
 	finishNode(e, ite);
 	EElements.append(ite);
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return EElements;
 }
 
@@ -1574,15 +1574,15 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	FPointArray clipPath;
 	QList<PageItem*> IElements;
 	QString fname = e.attribute("xlink:href");
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x" ) );
-	double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y" ) );
-	double w = e.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "width" ) );
-	double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
+	double x = e.attribute("x").isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
+	double y = e.attribute("y").isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
+	double w = e.attribute("width").isEmpty() ? 1.0 : parseUnit(e.attribute("width"));
+	double h = e.attribute("height").isEmpty() ? 1.0 : parseUnit(e.attribute("height"));
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, BaseX, BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	if (!fname.isEmpty())
 	{
@@ -1614,26 +1614,26 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	if (!clipPath.empty())
 		ite->PoLine = clipPath.copy();
 	clipPath.resize(0);
-	ite->PoLine.map( QTransform(1.0, 0.0, 0.0, 1.0, x, y) );
+	ite->PoLine.map(QTransform(1.0, 0.0, 0.0, 1.0, x, y));
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	finishNode(e, ite);
 	IElements.append(ite);
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return IElements;
 }
 
 QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 {
 	QList<PageItem*> LElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	double x1 = e.attribute( "x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x1" ) );
-	double y1 = e.attribute( "y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y1" ) );
-	double x2 = e.attribute( "x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x2" ) );
-	double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
+	double x1 = e.attribute("x1").isEmpty() ? 0.0 : parseUnit(e.attribute("x1"));
+	double y1 = e.attribute("y1").isEmpty() ? 0.0 : parseUnit(e.attribute("y1"));
+	double x2 = e.attribute("x2").isEmpty() ? 0.0 : parseUnit(e.attribute("x2"));
+	double y2 = e.attribute("y2").isEmpty() ? 0.0 : parseUnit(e.attribute("y2"));
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
 	ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1642,7 +1642,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	ite->PoLine.setPoint(3, FPoint(x2, y2));
 	ite = finishNode(e, ite);
 	LElements.append(ite);
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return LElements;
 }
 
@@ -1681,12 +1681,12 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 {
 	FPointArray pArray;
 	QList<PageItem*> PElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
 	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
-	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->fillRule = (gc->fillRule != "nonzero");
 	ite->PoLine = pArray;
@@ -1703,7 +1703,7 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 		ite = finishNode(e, ite);
 		PElements.append(ite);
 	}
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return PElements;
 }
 
@@ -1711,20 +1711,20 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 {
 	int z;
 	QList<PageItem*> PElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	QString points = e.attribute( "points" );
+	QString points = e.attribute("points");
 	if (!points.isEmpty())
 	{
 		QString STag = parseTagName(e);
 		points = points.simplified().replace(',', " ");
-		QStringList pointList = points.split( ' ', QString::SkipEmptyParts );
+		QStringList pointList = points.split(' ', QString::SkipEmptyParts);
 		if ((STag == "polygon" ) && (pointList.count() > 4))
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->fillRule = (gc->fillRule != "nonzero"); 
 		ite->PoLine.resize(0);
@@ -1746,7 +1746,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 				ite->PoLine.svgLineTo(x, y);
 			}
 		}
-		if (( STag == "polygon" ) && (pointList.count() > 4))
+		if ((STag == "polygon") && (pointList.count() > 4))
 			ite->PoLine.svgClosePath();
 		else
 			ite->convertTo(PageItem::PolyLine);
@@ -1761,24 +1761,24 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 			PElements.append(ite);
 		}
 	}
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return PElements;
 }
 
 QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 {
 	QList<PageItem*> RElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	double x = parseUnit( e.attribute( "x" ) );
-	double y = parseUnit( e.attribute( "y" ) );
-	double width = parseUnit( e.attribute( "width" ));
-	double height = parseUnit( e.attribute( "height" ) );
-	double rx = e.attribute( "rx" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "rx" ) );
-	double ry = e.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "ry" ) );
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit(e.attribute("x"));
+	double y = parseUnit(e.attribute("y"));
+	double width = parseUnit(e.attribute("width"));
+	double height = parseUnit(e.attribute("height"));
+	double rx = e.attribute("rx").isEmpty() ? 0.0 : parseUnit(e.attribute("rx"));
+	double ry = e.attribute("ry").isEmpty() ? 0.0 : parseUnit(e.attribute("ry"));
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0) || (ry != 0))
 	{
@@ -1793,7 +1793,7 @@ QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 	ite->setWidthHeight(wh.x(), wh.y());
 	finishNode(e, ite);
 	RElements.append(ite);
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return RElements;
 }
 
@@ -1829,7 +1829,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 				GElements.append(el.at(ec));
 		}
 	}
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return GElements;
 }
 
@@ -1859,19 +1859,19 @@ QList<PageItem*> SVGPlug::parseTextSpan(const QDomElement& e, FPoint& currentPos
 				GElements.append(el.at(ec));
 		}
 	}
-	delete( m_gc.pop() );
+	delete (m_gc.pop());
 	return GElements;
 }
 
 QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, double chunkW)
 {
 	QList<PageItem*> GElements;
-	double BaseX  = m_Doc->currentPage()->xOffset();
-	double BaseY  = m_Doc->currentPage()->yOffset();
-	double StartX = currentPos.x(), StartY = currentPos.y();
+	double baseX  = m_Doc->currentPage()->xOffset();
+	double baseY  = m_Doc->currentPage()->yOffset();
+	double startX = currentPos.x(), startY = currentPos.y();
 	
 	QString textString = e.data().simplified();
-	if ( textString.isEmpty() )
+	if (textString.isEmpty())
 		return GElements;
 	
 	SvgStyle *gc   = m_gc.top();
@@ -1880,26 +1880,28 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	double width   = fm.width(textString);
 
 	if (gc->textAnchor == "middle")
-		StartX -= chunkW / 2.0;
+		startX -= chunkW / 2.0;
 	else if (gc->textAnchor == "end")
-		StartX -= chunkW;
+		startX -= chunkW;
 
 	FPointArray textPath;
 	QString textFillColor   = gc->FillCol;
 	QString textStrokeColor = gc->StrokeCol;
+
 	QPainterPath painterPath;
-	painterPath.addText( StartX, StartY, textFont, textString );
+	painterPath.addText(startX, startY, textFont, textString);
+
 	textPath.fromQPainterPath(painterPath);
 	if (!textPath.empty())
 	{
 //		double  lineWidth = 0.0;
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
 		finishNode(e, ite);
 		GElements.append(ite);
 	}
-	currentPos.setX( currentPos.x() + width );
+	currentPos.setX(currentPos.x() + width);
 	return GElements;
 }
 
@@ -1983,7 +1985,7 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 QFont SVGPlug::getFontFromStyle(SvgStyle& style)
 {
 	QFont font(QApplication::font());
-	font.setStyleStrategy( QFont::PreferOutline );
+	font.setStyleStrategy(QFont::PreferOutline);
 
 	if (!style.FontFamily.isEmpty())
 		font.setFamily(style.FontFamily);
@@ -2117,12 +2119,12 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 	return doBreak;
 }
 
-double SVGPlug::fromPercentage( const QString &s )
+double SVGPlug::fromPercentage(const QString &s)
 {
 	QString s1 = s;
-	if (s1.endsWith( ";" ))
+	if (s1.endsWith(";"))
 		s1.chop(1);
-	if (s1.endsWith( "%" ))
+	if (s1.endsWith("%"))
 	{
 		s1.chop(1);
 		return ScCLocale::toDoubleC(s1) / 100.0;
@@ -2149,35 +2151,35 @@ double SVGPlug::parseUnit(const QString &unit)
 {
 	bool noUnit = false;
 	QString unitval=unit;
-	if (unit.right( 2 ) == "pt")
-		unitval.replace( "pt", "");
-	else if (unit.right( 2 ) == "cm")
-		unitval.replace( "cm", "" );
-	else if (unit.right( 2 ) == "mm")
-		unitval.replace( "mm" , "");
-	else if (unit.right( 2 ) == "in")
-		unitval.replace( "in", "" );
-	else if (unit.right( 2 ) == "px")
-		unitval.replace( "px", "" );
+	if (unit.right(2) == "pt")
+		unitval.replace("pt", "");
+	else if (unit.right(2) == "cm")
+		unitval.replace("cm", "" );
+	else if (unit.right(2) == "mm")
+		unitval.replace("mm" , "");
+	else if (unit.right(2) == "in")
+		unitval.replace("in", "" );
+	else if (unit.right(2) == "px")
+		unitval.replace("px", "" );
 	if (unitval == unit)
 		noUnit = true;
 	double value = ScCLocale::toDoubleC(unitval);
-	if (unit.right( 2 ) == "pt")
+	if (unit.right(2) == "pt")
 		{}/* value = value; */ //no change
-	else if (unit.right( 2 ) == "cm")
-		value = ( value / 2.54 ) * 72;
-	else if (unit.right( 2 ) == "mm")
-		value = ( value / 25.4 ) * 72;
-	else if (unit.right( 2 ) == "in")
+	else if (unit.right(2) == "cm")
+		value = (value / 2.54) * 72;
+	else if (unit.right(2) == "mm")
+		value = (value / 25.4) * 72;
+	else if (unit.right(2) == "in")
 		value = value * 72;
-	else if (unit.right( 2 ) == "px")
+	else if (unit.right(2) == "px")
 		value = value * 0.8;
 	else if (noUnit)
 		{}/* value = value; */ //no change
 	return value;
 }
 
-QTransform SVGPlug::parseTransform( const QString &transform )
+QTransform SVGPlug::parseTransform(const QString &transform)
 {
 	QTransform ret;
 	// Workaround for QString::split() bug when string ends with space
@@ -2244,7 +2246,7 @@ QTransform SVGPlug::parseTransform( const QString &transform )
 	return ret;
 }
 
-const char * SVGPlug::getCoord( const char *ptr, double &number )
+const char * SVGPlug::getCoord(const char *ptr, double &number)
 {
 	int integer, exponent;
 	double decimal, frac;
@@ -2298,7 +2300,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 		}
 	}
 	number = integer + decimal;
-	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+	number *= sign * pow(static_cast<double>(10), static_cast<double>(expsign * exponent));
 	// skip the following space
 	if (*ptr == ' ')
 		ptr++;
@@ -2306,21 +2308,21 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	return ptr;
 }
 
-bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
+bool SVGPlug::parseSVG(const QString &s, FPointArray *ite)
 {
 	return ite->parseSVG(s);
 }
 
 
-QColor SVGPlug::parseColorN( const QString &rgbColor )
+QColor SVGPlug::parseColorN(const QString &rgbColor)
 {
 	int r, g, b;
-	keywordToRGB( rgbColor.toLower(), r, g, b );
-	return QColor( r, g, b );
+	keywordToRGB(rgbColor.toLower(), r, g, b);
+	return QColor(r, g, b);
 }
 
 
-QString SVGPlug::parseColor( const QString &s )
+QString SVGPlug::parseColor(const QString &s)
 {
 	QColor c;
 	QString ret = CommonStrings::None;
@@ -2338,36 +2340,36 @@ QString SVGPlug::parseColor( const QString &s )
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split(',', QString::SkipEmptyParts);
-		QString r = colors[0].right( ( colors[0].length() - 4 ) );
+		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
-		QString b = colors[2].left( ( colors[2].length() - 1 ) );
-		if (r.contains( "%" ))
+		QString b = colors[2].left(colors[2].length() - 1);
+		if (r.contains("%"))
 		{
 			r.chop(1);
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>((255.0 * ScCLocale::toDoubleC(r)) / 100.0) );
 		}
-		if (g.contains( "%" ))
+		if (g.contains("%"))
 		{
 			g.chop(1);
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>((255.0 * ScCLocale::toDoubleC(g)) / 100.0) );
 		}
-		if (b.contains( "%" ))
+		if (b.contains("%"))
 		{
 			b.chop(1);
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>((255.0 * ScCLocale::toDoubleC(b)) / 100.0) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
 	{
 		QString rgbColor = s.trimmed();
-		if (rgbColor.startsWith( "#" ))
+		if (rgbColor.startsWith("#"))
 		{
 			rgbColor = rgbColor.left(7);
-			c.setNamedColor( rgbColor );
+			c.setNamedColor(rgbColor);
 		}
 		else
-			c = parseColorN( rgbColor );
+			c = parseColorN(rgbColor);
 	}
 	ScColor tmp;
 	tmp.fromQColor(c);
@@ -2381,7 +2383,7 @@ QString SVGPlug::parseColor( const QString &s )
 	return ret;
 }
 
-QString SVGPlug::parseIccColor( const QString &s )
+QString SVGPlug::parseIccColor(const QString &s)
 {
 	QColor color;
 	QString ret;
@@ -2399,22 +2401,22 @@ QString SVGPlug::parseIccColor( const QString &s )
 		if (colors.count() == 5) // then we assume this is a cmyk color
 		{
 			QString cs = colors[1], ms = colors[2], ys = colors[3], ks = colors[4];
-			if (cs.contains( "%" ))
+			if (cs.contains("%"))
 			{
 				cs.chop(1);
 				cs = QString::number(ScCLocale::toDoubleC(cs) / 100);
 			}
-			if (ms.contains( "%" ))
+			if (ms.contains("%"))
 			{
 				ms.chop(1);
 				ms = QString::number(ScCLocale::toDoubleC(ms) / 100);
 			}
-			if (ys.contains( "%" ))
+			if (ys.contains("%"))
 			{
 				ys.chop(1);
 				ys = QString::number(ScCLocale::toDoubleC(ys) / 100);
 			}
-			if (ks.contains( "%" ))
+			if (ks.contains("%"))
 			{
 				ks.chop(1);
 				ks = QString::number(ScCLocale::toDoubleC(ks) / 100);
@@ -2441,7 +2443,7 @@ QString SVGPlug::parseIccColor( const QString &s )
 	return ret;
 }
 
-void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
+void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &params)
 {
 	if (command == "display")
 		obj->Display = params != "none";
@@ -2460,7 +2462,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		{
 			obj->FillCol = CommonStrings::None;
 		}
-		else if (params.startsWith( "url(" ) )
+		else if (params.startsWith( "url(" ))
 		{
 			unsigned int start = params.indexOf("#") + 1;
 			unsigned int end = params.lastIndexOf(")");
@@ -2664,25 +2666,25 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		else
 			obj->StrokeCol = parseColor(params);
 		/*		if (params == "none")
-					gc->stroke.setType( VStroke::none );
+					gc->stroke.setType(VStroke::none);
 				else if (params.startsWith( "url(" ))
 				{
 					unsigned int start = params.find("#") + 1;
 					unsigned int end = params.lastIndexOf(")");
-					QString key = params.mid( start, end - start );
+					QString key = params.mid(start, end - start);
 					gc->stroke.gradient() = m_gradients[ key ].gradient;
-					gc->stroke.gradient().transform( m_gradients[ key ].gradientTransform );
-					gc->stroke.gradient().transform( gc->matrix );
-					gc->stroke.setType( VStroke::grad );
+					gc->stroke.gradient().transform(m_gradients[ key ].gradientTransform);
+					gc->stroke.gradient().transform(gc->matrix);
+					gc->stroke.setType(VStroke::grad);
 				}
 				else
 				{
-					parseColor( strokecolor, params );
-					gc->stroke.setType( VStroke::solid );
+					parseColor(strokecolor, params);
+					gc->stroke.setType(VStroke::solid);
 				} */
 	}
 	else if (command == "stroke-width")
-		obj->LWidth = parseUnit( params );
+		obj->LWidth = parseUnit(params);
 	else if (command == "stroke-linejoin")
 	{
 		if (params == "miter")
@@ -2702,7 +2704,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->PLineEnd = Qt::SquareCap;
 	}
 	//	else if (command == "stroke-miterlimit" )
-	//		gc->stroke.setMiterLimit( params.todouble() );
+	//		gc->stroke.setMiterLimit(params.todouble());
 	else if (command == "stroke-dasharray")
 	{
 		QVector<double> array;
@@ -2713,7 +2715,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			if ((dashes.count() > 0) && (parseUnit(dashes[0]) != 0.0))
 			{
 				for (QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it)
-					array.append( parseUnit(*it) );
+					array.append(parseUnit(*it));
 			}
 		}
 		obj->dashArray = array;
@@ -2784,65 +2786,65 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 }
 
-void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
+void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 {
 	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
-	if (!e.attribute( "display" ).isEmpty())
-		parsePA(obj, "display", e.attribute( "display" ));
-	if (!e.attribute( "color" ).isEmpty())
+	if (!e.attribute("display").isEmpty())
+		parsePA(obj, "display", e.attribute("display"));
+	if (!e.attribute("color").isEmpty())
 	{
-		if (e.attribute( "color" ) == "inherit")
+		if (e.attribute("color") == "inherit")
 			gc->InherCol = true;
 		else
-			parsePA(obj, "color", e.attribute( "color" ));
+			parsePA(obj, "color", e.attribute("color"));
 	}
-	if (!e.attribute( "fill" ).isEmpty())
-		parsePA(obj, "fill", e.attribute( "fill" ));
-	if (!e.attribute( "stroke" ).isEmpty())
-		parsePA(obj, "stroke", e.attribute( "stroke" ));
-	if (!e.attribute( "stroke-width" ).isEmpty())
-		parsePA(obj, "stroke-width", e.attribute( "stroke-width" ));
-	if (!e.attribute( "stroke-linejoin" ).isEmpty())
-		parsePA(obj, "stroke-linejoin", e.attribute( "stroke-linejoin" ));
-	if (!e.attribute( "stroke-linecap" ).isEmpty())
-		parsePA(obj, "stroke-linecap", e.attribute( "stroke-linecap" ));
-	if (!e.attribute( "stroke-dasharray" ).isEmpty())
-		parsePA(obj, "stroke-dasharray", e.attribute( "stroke-dasharray" ));
-	if (!e.attribute( "stroke-dashoffset" ).isEmpty())
-		parsePA(obj, "stroke-dashoffset", e.attribute( "stroke-dashoffset" ));
-	if (!e.attribute( "stroke-opacity" ).isEmpty())
-		parsePA(obj, "stroke-opacity", e.attribute( "stroke-opacity" ));
-	/*	if (!e.attribute( "stroke-miterlimit" ).isEmpty())
-			parsePA(obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ));   */
-	if (!e.attribute( "fill-rule" ).isEmpty())
-		parsePA(obj, "fill-rule", e.attribute( "fill-rule" ));
-	if (!e.attribute( "fill-opacity" ).isEmpty())
-		parsePA(obj, "fill-opacity", e.attribute( "fill-opacity" ));
-	if (!e.attribute( "opacity" ).isEmpty())
-		parsePA(obj, "opacity", e.attribute( "opacity" ));
-	if (!e.attribute( "font-family" ).isEmpty())
-		parsePA(obj, "font-family", e.attribute( "font-family" ));
-	if (!e.attribute( "font-style" ).isEmpty())
-		parsePA(obj, "font-style", e.attribute( "font-style" ));
-	if (!e.attribute( "font-weight" ).isEmpty())
-		parsePA(obj, "font-weight", e.attribute( "font-weight" ));
-	if (!e.attribute( "font-stretch" ).isEmpty())
-		parsePA(obj, "font-stretch", e.attribute( "font-stretch" ));
-	if (!e.attribute( "font-size" ).isEmpty())
-		parsePA(obj, "font-size", e.attribute( "font-size" ));
-	if (!e.attribute( "text-anchor" ).isEmpty())
-		parsePA(obj, "text-anchor", e.attribute( "text-anchor" ));
-	if (!e.attribute( "text-decoration" ).isEmpty())
-		parsePA(obj, "text-decoration", e.attribute( "text-decoration" ));
-	if (!e.attribute( "filter" ).isEmpty())
-		parsePA(obj, "filter", e.attribute( "filter" ));
-	if (!e.attribute( "marker-end" ).isEmpty())
-		parsePA(obj, "marker-end", e.attribute( "marker-end" ));
-	if (!e.attribute( "marker-start" ).isEmpty())
-		parsePA(obj, "marker-start", e.attribute( "marker-start" ));
-	QString style = e.attribute( "style" ).simplified();
+	if (!e.attribute("fill").isEmpty())
+		parsePA(obj, "fill", e.attribute("fill"));
+	if (!e.attribute("stroke").isEmpty())
+		parsePA(obj, "stroke", e.attribute("stroke"));
+	if (!e.attribute("stroke-width").isEmpty())
+		parsePA(obj, "stroke-width", e.attribute("stroke-width"));
+	if (!e.attribute("stroke-linejoin").isEmpty())
+		parsePA(obj, "stroke-linejoin", e.attribute("stroke-linejoin"));
+	if (!e.attribute("stroke-linecap").isEmpty())
+		parsePA(obj, "stroke-linecap", e.attribute("stroke-linecap"));
+	if (!e.attribute("stroke-dasharray").isEmpty())
+		parsePA(obj, "stroke-dasharray", e.attribute("stroke-dasharray"));
+	if (!e.attribute("stroke-dashoffset").isEmpty())
+		parsePA(obj, "stroke-dashoffset", e.attribute("stroke-dashoffset"));
+	if (!e.attribute("stroke-opacity").isEmpty())
+		parsePA(obj, "stroke-opacity", e.attribute("stroke-opacity"));
+	/*	if (!e.attribute("stroke-miterlimit").isEmpty())
+			parsePA(obj, "stroke-miterlimit", e.attribute("stroke-miterlimit"));   */
+	if (!e.attribute("fill-rule").isEmpty())
+		parsePA(obj, "fill-rule", e.attribute("fill-rule"));
+	if (!e.attribute("fill-opacity").isEmpty())
+		parsePA(obj, "fill-opacity", e.attribute("fill-opacity"));
+	if (!e.attribute("opacity").isEmpty())
+		parsePA(obj, "opacity", e.attribute("opacity"));
+	if (!e.attribute("font-family").isEmpty())
+		parsePA(obj, "font-family", e.attribute("font-family"));
+	if (!e.attribute("font-style").isEmpty())
+		parsePA(obj, "font-style", e.attribute("font-style"));
+	if (!e.attribute("font-weight").isEmpty())
+		parsePA(obj, "font-weight", e.attribute("font-weight"));
+	if (!e.attribute("font-stretch").isEmpty())
+		parsePA(obj, "font-stretch", e.attribute("font-stretch"));
+	if (!e.attribute("font-size").isEmpty())
+		parsePA(obj, "font-size", e.attribute("font-size"));
+	if (!e.attribute("text-anchor").isEmpty())
+		parsePA(obj, "text-anchor", e.attribute("text-anchor"));
+	if (!e.attribute("text-decoration").isEmpty())
+		parsePA(obj, "text-decoration", e.attribute("text-decoration"));
+	if (!e.attribute("filter").isEmpty())
+		parsePA(obj, "filter", e.attribute("filter"));
+	if (!e.attribute("marker-end").isEmpty())
+		parsePA(obj, "marker-end", e.attribute("marker-end"));
+	if (!e.attribute("marker-start").isEmpty())
+		parsePA(obj, "marker-start", e.attribute("marker-start"));
+	QString style = e.attribute("style").simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 	{
@@ -2862,22 +2864,22 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	double offset = 0;
 	double opa;
 	SvgStyle svgStyle;
-	parseStyle( &svgStyle, e );
+	parseStyle(&svgStyle, e);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		opa = 1.0;
 		QDomElement stop = n.toElement();
 		if (parseTagName(stop) == "stop")
 		{
-			QString temp = stop.attribute( "offset" );
-			if (temp.contains( '%' ))
+			QString temp = stop.attribute("offset");
+			if (temp.contains('%'))
 			{
 				temp.chop(1);
 				offset = ScCLocale::toDoubleC(temp) / 100.0;
 			}
 			else
 				offset = ScCLocale::toDoubleC(temp);
-			if (stop.hasAttribute( "stop-opacity" ))
+			if (stop.hasAttribute("stop-opacity"))
 				opa = fromPercentage(stop.attribute("stop-opacity"));
 			if (stop.hasAttribute("stop-color"))
 			{
@@ -2888,7 +2890,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			}
 			else if (stop.hasAttribute("style"))
 			{
-				QString style = stop.attribute( "style" ).simplified();
+				QString style = stop.attribute("style").simplified();
 				QStringList substyles = style.split(';', QString::SkipEmptyParts);
 				for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 				{
@@ -2908,7 +2910,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 				Col = "Black";
 		}
 		const ScColor& gradC = m_Doc->PageColors[Col];
-		gradient->gradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), offset, 0.5, opa, Col, 100 );
+		gradient->gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), offset, 0.5, opa, Col, 100);
 		gradient->gradientValid = true;
 	}
 	if (gradient->gradientValid)
@@ -2963,7 +2965,7 @@ void SVGPlug::parseMarker(const QDomElement &b)
 		mark.wpat = parseUnit(b.attribute("markerWidth", "3"));
 		mark.hpat = parseUnit(b.attribute("markerHeight", "3"));
 		QList<PageItem*> GElements;
-		GElements = parseGroup( b );
+		GElements = parseGroup(b);
 		if (GElements.count() > 0)
 		{
 			ScPattern pat = ScPattern();
@@ -3023,7 +3025,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		double wpat = parseUnit(b.attribute("width", "0"));
 		double hpat = parseUnit(b.attribute("height", "0"));
 		QList<PageItem*> GElements;
-		GElements = parseGroup( b );
+		GElements = parseGroup(b);
 		if (GElements.count() > 0)
 		{
 			ScPattern pat = ScPattern();
@@ -3054,26 +3056,26 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		QString transf = b.attribute("patternTransform");
 		if (!transf.isEmpty())
 		{
-			gradhelper.matrix = parseTransform( b.attribute("patternTransform") );
+			gradhelper.matrix = parseTransform(b.attribute("patternTransform"));
 			gradhelper.matrixValid = true;
 		}
 		else
 			gradhelper.matrixValid = false;
 		gradhelper.gradientValid = true;
 		gradhelper.gradient.clearStops();
-		gradhelper.gradient.setRepeatMethod( VGradient::none );
+		gradhelper.gradient.setRepeatMethod(VGradient::none);
 		gradhelper.type = 8;
 		gradhelper.typeValid = true;
 		m_gradients.insert(origName, gradhelper);
 	}
 }
 
-void SVGPlug::parseGradient( const QDomElement &e )
+void SVGPlug::parseGradient(const QDomElement &e)
 {
 	GradientHelper gradhelper;
 	gradhelper.gradientValid = false;
 	gradhelper.gradient.clearStops();
-	gradhelper.gradient.setRepeatMethod( VGradient::none );
+	gradhelper.gradient.setRepeatMethod(VGradient::none);
 
 	QString href = e.attribute("xlink:href").mid(1);
 //	double x1=0, y1=0, x2=0, y2=0, fx=0, fy=0;
@@ -3172,9 +3174,9 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		gradhelper.type = 7;
 		gradhelper.typeValid = true;
 	}
-	if ( !e.attribute( "gradientUnits" ).isEmpty() )
+	if (!e.attribute("gradientUnits").isEmpty())
 	{
-		QString uni = e.attribute( "gradientUnits");
+		QString uni = e.attribute("gradientUnits");
 		gradhelper.cspace = (uni == "userSpaceOnUse");
 		gradhelper.cspaceValid = true;
 	}
@@ -3186,18 +3188,18 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	QString transf = e.attribute("gradientTransform");
 	if (!transf.isEmpty())
 	{
-		gradhelper.matrix = parseTransform( e.attribute("gradientTransform") );
+		gradhelper.matrix = parseTransform(e.attribute("gradientTransform"));
 		gradhelper.matrixValid = true;
 	}
 	else
 		gradhelper.matrixValid = false;
-	QString spreadMethod = e.attribute( "spreadMethod" );
+	QString spreadMethod = e.attribute("spreadMethod");
 	if (!spreadMethod.isEmpty())
 	{
 		if (spreadMethod == "reflect")
-			gradhelper.gradient.setRepeatMethod( VGradient::reflect );
+			gradhelper.gradient.setRepeatMethod(VGradient::reflect);
 		else if (spreadMethod == "repeat")
-			gradhelper.gradient.setRepeatMethod( VGradient::repeat );
+			gradhelper.gradient.setRepeatMethod(VGradient::repeat);
 	}
 	parseColorStops(&gradhelper, e);
 	m_gradients.insert(id, gradhelper);
