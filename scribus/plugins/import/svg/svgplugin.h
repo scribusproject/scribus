@@ -123,7 +123,7 @@ public:
 		Display(true),
 		FillCSpace(false),
 		StrokeCSpace(false),
-		CurCol("None"),
+		CurCol("Black"),
 		dashOffset(0),
 		FontFamily(""),
 		FontStyle("normal"),
