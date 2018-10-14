@@ -414,6 +414,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getTextLines"), scribus_gettextlines, METH_VARARGS, tr(scribus_gettextlines__doc__)},
 	{const_cast<char*>("getText"), scribus_getframetext, METH_VARARGS, tr(scribus_getframetext__doc__)},
 	{const_cast<char*>("getTextShade"), scribus_getlineshade, METH_VARARGS, tr(scribus_getlineshade__doc__)},
+	{const_cast<char*>("getTextVerticalAlignment"), scribus_gettextverticalalignment, METH_VARARGS, tr(scribus_gettextverticalalignment__doc__)},
 	{const_cast<char*>("getUnit"), (PyCFunction)scribus_getunit, METH_NOARGS, tr(scribus_getunit__doc__)},
 	{const_cast<char*>("getVGuides"), (PyCFunction)scribus_getVguides, METH_NOARGS, tr(scribus_getVguides__doc__)},
 	{const_cast<char*>("getXFontNames"), (PyCFunction)scribus_xfontnames, METH_NOARGS, tr(scribus_xfontnames__doc__)},
@@ -554,14 +555,15 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTableTopBorder"), scribus_settabletopborder, METH_VARARGS, tr(scribus_settabletopborder__doc__)},
 	{const_cast<char*>("setTableBottomBorder"), scribus_settablebottomborder, METH_VARARGS, tr(scribus_settablebottomborder__doc__)},
 	{const_cast<char*>("setTableFillColor"), scribus_settablefillcolor, METH_VARARGS, tr(scribus_settablefillcolor__doc__)},
-	{const_cast<char*>("setTextAlignment"), scribus_setalign, METH_VARARGS, tr(scribus_setalign__doc__)},
+	{const_cast<char*>("setText"), scribus_setboxtext, METH_VARARGS, tr(scribus_setboxtext__doc__)},
+	{const_cast<char*>("setTextAlignment"), scribus_setalignment, METH_VARARGS, tr(scribus_setalign__doc__)},
 	{const_cast<char*>("setTextDirection"), scribus_setdirection, METH_VARARGS, tr(scribus_setdirection__doc__)},
 	{const_cast<char*>("setTextColor"), scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
-	{const_cast<char*>("setText"), scribus_setboxtext, METH_VARARGS, tr(scribus_setboxtext__doc__)},
 	{const_cast<char*>("setTextScalingH"), scribus_settextscalingh, METH_VARARGS, tr(scribus_settextscalingh__doc__)},
 	{const_cast<char*>("setTextScalingV"), scribus_settextscalingv, METH_VARARGS, tr(scribus_settextscalingv__doc__)},
 	{const_cast<char*>("setTextShade"), scribus_settextshade, METH_VARARGS, tr(scribus_settextshade__doc__)},
 	{const_cast<char*>("setTextStroke"), scribus_settextstroke, METH_VARARGS, tr(scribus_settextstroke__doc__)},
+	{const_cast<char*>("setTextVerticalAlignment"), scribus_settextverticalalignment, METH_VARARGS, tr(scribus_settextverticalalignment__doc__)},
 	{const_cast<char*>("setUnit"), scribus_setunit, METH_VARARGS, tr(scribus_setunit__doc__)},
 	{const_cast<char*>("setVGuides"), scribus_setVguides, METH_VARARGS, tr(scribus_setVguides__doc__)},
 	{const_cast<char*>("sizeObject"), scribus_sizeobjabs, METH_VARARGS, tr(scribus_sizeobjabs__doc__)},
@@ -676,6 +678,9 @@ void initscribus(ScribusMainWindow *pl)
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_BLOCK"), Py_BuildValue(const_cast<char*>("i"), 3));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_FORCED"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_TOP"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_BOTTOM"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_LTR"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_RTL"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_NOG"), Py_BuildValue(const_cast<char*>("i"), 0));

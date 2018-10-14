@@ -42,6 +42,7 @@ class ItemAPI : public QObject
 	Q_PROPERTY(double cornerRadius READ cornerRadius WRITE setCornerRadius)
 	Q_PROPERTY(double columnGap READ columnGap WRITE setColumnGap)
 	Q_PROPERTY(int columns READ columns WRITE setColumns)
+	Q_PROPERTY(int verticalAlignment READ verticalAlignment WRITE setVerticalAlignment)
 
 public:
     ItemAPI(PageItem *it);
@@ -134,6 +135,9 @@ private:
 	
 	int columns();
 	void setColumns(int value);
+
+	int verticalAlignment();
+	void setVerticalAlignment(int value);
 };
 
 #endif /*API_ITEM_H_*/

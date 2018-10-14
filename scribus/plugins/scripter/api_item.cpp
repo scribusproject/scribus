@@ -282,6 +282,18 @@ void ItemAPI::setColumns(int value)
 	item->Cols = value;
 }
 
+int ItemAPI::verticalAlignment()
+{
+	return item->verticalAlignment();
+}
+
+void ItemAPI::setVerticalAlignment(int value)
+{
+	if (!checkHaveDocument())
+		RAISE("No document open");
+	item->setVerticalAlignment(value);
+}
+
 
 /**
  * Methods

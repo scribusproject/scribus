@@ -53,8 +53,12 @@ Tout le texte pr&eacute;sent dans le cadre, et non seulement le texte visible, e
 <p>Retourne la longueur du texte dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
-<dd><code><a href="#-getLineShade">getLineShade</a>(["nom"]) -&gt; nombre entier</code>
+<dd><code><a href="#-getTextShade">getTextShade</a>(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la valeur de la teinte de la couleur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code><a href="#-getTextVerticalAlignment">getTextVerticalAlignment</a>(["nom"]) -&gt; nombre entier</code>
+<p>Retourne l'alignement vertical utilisé pour le texte &agrave; l'int&eacute;rieur de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code><a href="#-insertText">insertText</a>("texte", pos, ["nom"])</code>
@@ -71,13 +75,13 @@ Ins&eacute;rer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadr
 
 <dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
 <dd><code><a href="#-setColumns">setColumns</a>(nr, ["nom"])</code>
-<p>&Eacute;tablit le nombre de colonnes du cadre de texte "nom" &agrave; la valeur enti&egrave;re "nr". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>D&eacute;finit le nombre de colonnes du cadre de texte "nom" &agrave; la valeur enti&egrave;re "nr". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
 <p>Peut g&eacute;n&eacute;rer ValueError si le nombre de colonnes n'est pas au
 moins &eacute;gal &agrave; un.</p></dd>
 
 <dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
 <dd><code><a href="#-setColumnGap">setColumnGap</a>(taille, ["nom"])</code>
-<p>&Eacute;tablit la goutti&egrave;re de colonne du cadre de texte "nom" &agrave; la valeur "taille". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>D&eacute;finit la goutti&egrave;re de colonne du cadre de texte "nom" &agrave; la valeur "taille". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
 <p>Peut g&eacute;n&eacute;rer ValueError si la goutti&egrave;re de colonne est hors
 limites (elle doit &ecirc;tre positive).</p></dd>
 
@@ -88,35 +92,40 @@ limites (elle doit &ecirc;tre positive).</p></dd>
 
 <dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
 <dd><code><a href="#-setFontSize">setFontSize</a>(taille, ["nom"])</code>
-<p>&Eacute;tablit la taille de police du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est trait&eacute;e comme une valeur en points. S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte  sera modifi&eacute;. La "taille" doit &ecirc;tre r&eacute;gl&eacute;e entre 1 et 512. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>D&eacute;finit la taille de police du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est trait&eacute;e comme une valeur en points. S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte  sera modifi&eacute;. La "taille" doit &ecirc;tre r&eacute;gl&eacute;e entre 1 et 512. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
 <p>Peut g&eacute;n&eacute;rer ValueError pour une taille de police qui est hors limites.</p></dd>
 
 <dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt>
 <dd><code><a href="#-setLineSpacing">setLineSpacing</a>(taille, ["nom"])</code>
-<p>&Eacute;tablit la valeur "taille" pour l'interlignage ("leading") du cadre de texte "nom". La "taille" est une valeur en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>D&eacute;finit l'interlignage ("leading") du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est une valeur en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
 <p>Peut g&eacute;n&eacute;rer ValueError si l'interlignage est hors limites.</p></dd>
 
 <dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
 <dd><code><a href="#-setText">setText</a>("texte", ["nom"])</code>
-<p>&Eacute;tablit la cha&icirc;ne "texte" pour contenu du cadre de texte "nom". Le texte doit &ecirc;tre encod&eacute; en UTF8 - utilisez par exemple unicode(texte, 'iso-8859-2'). 
+<p>D&eacute;finit le contenu du cadre de texte "nom" &agrave; la cha&icirc;ne "texte". Le texte doit &ecirc;tre encod&eacute; en UTF8 - utilisez par exemple unicode(texte, 'iso-8859-2'). 
 Voir les FAQ pour plus de d&eacute;tails. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
 <dd><code><a href="#-setTextAlignment">setTextAlignment</a>(alignement, ["nom"])</code>
-<p>&Eacute;tablit la valeur sp&eacute;cifi&eacute;e pour l'alignement du contenu du cadre de texte "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. La valeur "alignement" doit &ecirc;tre une des constantes ALIGN_ d&eacute;finies dans ce module - voir dir(scribus).</p>
+<p>D&eacute;finit l'alignement du contenu du cadre de texte "nom" &agrave; la valeur sp&eacute;cifi&eacute;e. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. La valeur "alignement" doit &ecirc;tre une des constantes ALIGN_ d&eacute;finies dans ce module - voir dir(scribus).</p>
 <p>Peut g&eacute;n&eacute;rer ValueError si la constante d'alignement n'est pas valide.</p></dd>
 
 <dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
 <dd><code><a href="#-setTextColor">setTextColor</a>("couleur", ["nom"])</code>
-<p>&Eacute;tablit la "couleur" du contenu du cadre de texte "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte  sera modifi&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>D&eacute;finit la "couleur" du contenu du cadre de texte "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte  sera modifi&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
 <dd><code><a href="#-setTextShade">setTextShade</a>(teinte, ["nom"])</code>
-<p>&Eacute;tablit la valeur "teinte" pour la couleur du texte de l'objet "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte sera modifi&eacute;. La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensit&eacute; maximale). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>D&eacute;finit la valeur "teinte" de la couleur du texte de l'objet "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte sera modifi&eacute;. La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensit&eacute; maximale). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
 <dd><code><a href="#-setTextStroke">setTextStroke</a>("couleur", ["nom"])</code>
-<p>&Eacute;tablit la "couleur" au contour des caract&egrave;res. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>D&eacute;finit la "couleur" du contour des caract&egrave;res. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-setTextVerticalAlignment"><strong>setTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code><a href="#-setTextVerticalAlignment">setTextVerticalAlignment</a>(alignement, ["nom"])</code>
+<p>D&eacute;finit l'alignement vertical du contenu du cadre de texte "nom" &agrave; la valeur sp&eacute;cifi&eacute;e. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. La valeur "alignement" doit &ecirc;tre une des constantes ALIGNV_ d&eacute;finies dans ce module - voir dir(scribus).</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si la constante d'alignement n'est pas valide.</p></dd>
 
 <dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
 <dd><code><a href="#-textOverflows">textOverflows</a>(["nom",

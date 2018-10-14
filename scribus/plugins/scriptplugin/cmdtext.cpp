@@ -132,6 +132,24 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->textLayout.lines()));
 }
 
+PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == nullptr)
+		return nullptr;
+	if (!i->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get vertical alignment of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return PyInt_FromLong(static_cast<long>(i->verticalAlignment()));
+}
+
 PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -148,6 +166,24 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	return PyInt_FromLong(static_cast<long>(i->Cols));
+}
+
+PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == nullptr)
+		return nullptr;
+	if (!i->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return PyFloat_FromDouble(PointToValue(static_cast<double>(i->ColGap)));
 }
 
 PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
@@ -213,24 +249,6 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
             PointToValue(i->textToFrameDistRight()),
             PointToValue(i->textToFrameDistTop()),
             PointToValue(i->textToFrameDistBottom()));
-}
-
-PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == nullptr)
-		return nullptr;
-	if (!i->isTextFrame())
-	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.","python error").toLocal8Bit().constData());
-		return nullptr;
-	}
-	return PyFloat_FromDouble(PointToValue(static_cast<double>(i->ColGap)));
 }
 
 PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
@@ -397,7 +415,7 @@ PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setalignment(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int alignment;
@@ -407,7 +425,7 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((alignment > 4) || (alignment < 0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Alignment out of range. Use one of the scribus.ALIGN* constants.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Alignment out of range. Use one of the scribus.ALIGN_* constants.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
@@ -705,6 +723,33 @@ PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	i->Cols = w;
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int alignment;
+	if (!PyArg_ParseTuple(args, "i|es", &alignment, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (alignment < 0 || alignment > 2)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set vertical alignment on a non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	item->setVerticalAlignment(alignment);
+	item->update();
 
 	Py_RETURN_NONE;
 }
@@ -1243,9 +1288,11 @@ void cmdtextdocwarnings()
 	  << scribus_getframetext__doc__   << scribus_gettext__doc__
 	  << scribus_getlinespace__doc__   << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__     << scribus_setboxtext__doc__
+	  << scribus_gettextverticalalignment__doc__
 	  << scribus_inserttext__doc__     << scribus_inserthtmltext__doc__<< scribus_setfont__doc__
 	  << scribus_setfontsize__doc__    << scribus_setlinespace__doc__
 	  << scribus_setcolumngap__doc__   << scribus_setcolumns__doc__
+	  << scribus_settextverticalalignment__doc__
 	  << scribus_setalign__doc__       << scribus_selecttext__doc__
 	  << scribus_deletetext__doc__     << scribus_settextfill__doc__
 	  << scribus_settextstroke__doc__  << scribus_settextshade__doc__
