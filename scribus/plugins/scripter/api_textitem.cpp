@@ -66,20 +66,18 @@ void TextAPI::setFont(QString name)
 {
 	if (PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(name))
 	{
-		int Apm = ScCore->primaryMainWindow()->doc->appMode;
-		ScCore->primaryMainWindow()->doc->m_Selection->clear();
-		ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
-		if (item->HasSel)
-			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-		ScCore->primaryMainWindow()->SetNewFont(name);
-		ScCore->primaryMainWindow()->doc->appMode = Apm;
-		ScCore->primaryMainWindow()->view->Deselect();
-	}
-	else
-	{
 		RAISE("Font not found");
+		return;
 	}
-
+	
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+	if (item->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetFont(name);
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
 }
 
 double TextAPI::fontSize()
