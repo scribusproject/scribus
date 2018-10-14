@@ -113,7 +113,7 @@ public:
 	SvgStyle() :
 		Display(true),
 		CSpace(false),
-		CurCol("None"),
+		CurCol("Black"),
 		dashOffset(0),
 		FontFamily(""),
 		FontStyle("normal"),
