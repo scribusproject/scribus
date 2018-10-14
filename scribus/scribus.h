@@ -457,9 +457,6 @@ public slots:
 	void slotDocCh(bool reb = true);
 	/** Setzt die Abstufung */
 	//void setItemShade(int id);
-	/** Setzt den Font */
-	/** Korrigiert das FontMenu */
-	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFontSize(int fontSize);
 	void setItemLanguage(const QString& language);

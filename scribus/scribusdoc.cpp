@@ -2441,7 +2441,6 @@ void ScribusDoc::resetPage(int fp, MarginStruct* newMargins)
 
 bool ScribusDoc::AddFont(const QString& name, int fsize)
 {
-	bool ret = false;
 	if (UsedFonts.contains(name))
 		return true;
 
@@ -2450,8 +2449,8 @@ bool ScribusDoc::AddFont(const QString& name, int fsize)
 
 	UsedFonts[name] = fsize;
 	(*AllFonts)[name].increaseUsage();
-	ret = true;
-	return ret;
+
+	return true;
 }
 
 
@@ -7826,8 +7825,6 @@ void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
 	changed();
 }
 
-
-
 void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
@@ -7835,11 +7832,35 @@ void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelecti
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
-void ScribusDoc::itemSelection_SetFont(const QString& fon, Selection* customSelection)
+void ScribusDoc::itemSelection_SetFont(const QString& font, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+
+	uint selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	QString newFont(font);
+	if (!UsedFonts.contains(newFont))
+	{
+		if (!AddFont(font))
+		{
+			PageItem *currItem = m_Selection->itemAt(0);
+			newFont = currItem->currentCharStyle().font().scName();
+		}
+	}
+
+	CharStyle newStyle;
+	newStyle.setFont((*AllFonts)[newFont]);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT");
+}
+
+void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setFont((*AllFonts)[fon]);
-	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT");
+	newStyle.setFontSize(size);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT_SIZE");
 }
 
 void ScribusDoc::itemSelection_SetFontFeatures(const QString& fontfeature, Selection* customSelection)
@@ -8870,39 +8891,6 @@ void ScribusDoc::itemSelection_SetLanguage(const QString & m, Selection* customS
 	CharStyle newStyle;
 	newStyle.setLanguage(m);
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "LANGUAGE");
-}
-
-void ScribusDoc::itemSetFont(const QString &newFont)
-{
-	QString nf2(newFont);
-	if (!UsedFonts.contains(newFont))
-	{
-		if (!AddFont(newFont))
-		{
-			if (m_Selection->count() != 0)
-			{
-				PageItem *currItem = m_Selection->itemAt(0);
-				nf2 = currItem->currentCharStyle().font().scName();
-			}
-		}
-	}
-	PageItem *i2 = m_Selection->itemAt(0);
-	if (appMode == modeEditTable)
-		i2 = m_Selection->itemAt(0)->asTable()->activeCell().textFrame();
-	if (i2 != nullptr)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		itemSelection_SetFont(nf2, &tempSelection);
-	}
-	m_View->DrawNew();
-}
-
-void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
-{
-	CharStyle newStyle;
-	newStyle.setFontSize(size);
-	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT_SIZE");
 }
 
 void ScribusDoc::itemSelection_ToggleBookMark(Selection *customSelection)

@@ -438,14 +438,16 @@ PyObject *scribus_setalignment(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+	
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode  = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->setNewAlignment(alignment);
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetAlignment(alignment, &tmpSelection);
+	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
 }
@@ -471,14 +473,16 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->setNewDirection(direction);
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetDirection(direction, &tmpSelection);
+	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
 }
@@ -505,14 +509,16 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font size on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetFontSize(qRound(size * 10.0));
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetFontSize(qRound(size * 10.0), &tmpSelection);
+	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
 }
@@ -535,14 +541,16 @@ PyObject *scribus_setfontfeatures(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font feature on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetFontFeatures(QString::fromUtf8(fontfeature));
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetFontFeatures(QString::fromUtf8(fontfeature), &tmpSelection);
+	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
 }
@@ -563,22 +571,22 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(Font)))
+	if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(Font)))
 	{
-		int Apm = ScCore->primaryMainWindow()->doc->appMode;
-		ScCore->primaryMainWindow()->doc->m_Selection->clear();
-		ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
-		if (item->HasSel)
-			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-		ScCore->primaryMainWindow()->SetNewFont(QString::fromUtf8(Font));
-		ScCore->primaryMainWindow()->doc->appMode = Apm;
-		ScCore->primaryMainWindow()->view->Deselect();
-	}
-	else
-	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Font not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Font not found.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
+	if (item->HasSel)
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetFont(QString::fromUtf8(Font), &tmpSelection);
+	doc->appMode = oldAppMode;
+
 	Py_RETURN_NONE;
 }
 
@@ -603,15 +611,16 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetLineSpacing(w);
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetLineSpacing(w, &tmpSelection);
+	doc->appMode = oldAppMode;
 		
 //	item->setLineSpacing(w);
 	Py_RETURN_NONE;
@@ -638,15 +647,16 @@ PyObject *scribus_setlinespacemode(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing mode on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetLineSpacingMode(w);
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetLineSpacingMode(w, &tmpSelection);
+	doc->appMode = oldAppMode;
 		
 	Py_RETURN_NONE;
 }
@@ -925,15 +935,16 @@ PyObject *scribus_settextscalingh(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetScaleH(qRound(sc * 10));
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetScaleH(qRound(sc * 10), &tmpSelection);
+	doc->appMode = oldAppMode;
 		
 	Py_RETURN_NONE;
 }
@@ -960,15 +971,16 @@ PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	
-	int Apm = ScCore->primaryMainWindow()->doc->appMode;
-	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(item);
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
 	if (item->HasSel)
-		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->itemSelection_SetScaleV(qRound(sc * 10));
-	ScCore->primaryMainWindow()->doc->appMode = Apm;
-	ScCore->primaryMainWindow()->view->Deselect();
+		doc->appMode = modeEdit;
+	doc->itemSelection_SetScaleV(qRound(sc * 10), &tmpSelection);
+	doc->appMode = oldAppMode;
 		
 	Py_RETURN_NONE;
 }

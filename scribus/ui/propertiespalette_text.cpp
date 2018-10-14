@@ -649,11 +649,13 @@ void PropertiesPalette_Text::handleDirection(int d)
 	}
 }
 
-void PropertiesPalette_Text::handleTextFont(const QString& c)
+void PropertiesPalette_Text::handleTextFont(const QString& font)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->SetNewFont(c);
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetFont(font, &tempSelection);
 }
 
 void PropertiesPalette_Text::doClearCStyle()

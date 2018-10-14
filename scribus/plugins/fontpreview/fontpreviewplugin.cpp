@@ -100,7 +100,7 @@ bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, const QString& tar
 	if (dlg->exec() == QDialog::Accepted)
 	{
 		if  (target.isEmpty())
-			doc->scMW()->SetNewFont(dlg->getCurrentFont());
+			doc->itemSelection_SetFont(dlg->getCurrentFont());
 		else
 			m_runResult = dlg->getCurrentFont();
 	}

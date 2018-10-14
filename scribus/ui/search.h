@@ -120,10 +120,6 @@ public slots:
 	virtual void writePrefs();
 	virtual void clear();
 
-signals:
-	void NewFont(const QString&);
-	void NewAbs(int);
-
 protected:
 	PageItem*   m_item;
 	ScribusDoc* m_doc;

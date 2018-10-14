@@ -1064,8 +1064,9 @@ public:
 	void itemSelection_SetLineSpacing(double w, Selection* customSelection = nullptr);
 	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection = nullptr);
 	void itemSelection_SetLanguage(const QString& w, Selection* customSelection = nullptr);
-	void itemSetFont(const QString& newFont);
-	void itemSelection_SetFont(const QString& fon, Selection* customSelection = nullptr);
+	void itemSelection_SetFont(const QString& font, Selection* customSelection = nullptr);
+	void itemSelection_SetFontSize(int size, Selection* customSelection = nullptr);
+	void itemSelection_SetFontFeatures(const QString& fontfeature, Selection* customSelection = nullptr);
 	void itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection = nullptr);
 	void itemSelection_SetParBackgroundShade(int sha, Selection* customSelection = nullptr);
 	void itemSelection_SetBackgroundColor(QString farbe, Selection* customSelection = nullptr);
@@ -1089,7 +1090,6 @@ public:
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetTracking(int us, Selection* customSelection = nullptr);
-	void itemSelection_SetFontSize(int size, Selection* customSelection = nullptr);
 	void MirrorPolyH(PageItem *currItem);
 	void MirrorPolyV(PageItem *currItem);
 	bool getItem(PageItem **currItem, int nr = -1);
@@ -1457,7 +1457,6 @@ public slots:
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion=false);
 	void itemSelection_SetItemFillTransparency(double t);
-	void itemSelection_SetFontFeatures(const QString& fontfeature, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenChar(uint hyphenChar, Selection* customSelection = nullptr);

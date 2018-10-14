@@ -6291,12 +6291,6 @@ void ScribusMainWindow::changePageProperties()
 	doc->updateEndnotesFrames();
 }
 
-void ScribusMainWindow::SetNewFont(const QString& nf)
-{
-	setMainWindowActive();
-	doc->itemSetFont(nf);
-}
-
 void ScribusMainWindow::setItemFontSize(int fontSize)
 {
 	int fs=fontSize;
@@ -8486,8 +8480,6 @@ void ScribusMainWindow::SearchText()
 	view->requestMode(modeEdit);
 	currItem->itemText.setCursorPosition(0);
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
-	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
-	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAlignmentValue(int)));
 	dia->exec();
 	dia->disconnect();
 	delete dia;
