@@ -25,7 +25,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 	Object obj1, obj2, obj3;
 	fileName = nullptr;
 	m_flags = 0;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+
 	if (actionObj->isDict())
 	{
 		obj1 = actionObj->dictLookup("F");
@@ -56,38 +56,6 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 				m_flags = obj1.getInt();
 		}
 	}
-#else
-	if (actionObj->isDict())
-	{
-		if (!actionObj->dictLookup("F", &obj1)->isNull())
-		{
-			if (obj1.isDict())
-			{
-				if (!obj1.dictLookup("FS", &obj3)->isNull())
-				{
-					if (obj3.isName())
-					{
-						char *name = obj3.getName();
-						if (!strcmp(name, "URL"))
-						{
-							if (!obj1.dictLookup("F", &obj2)->isNull())
-								fileName = obj2.getString()->copy();
-						}
-						obj2.free();
-					}
-				}
-				obj3.free();
-			}
-		}
-		obj1.free();
-		if (!actionObj->dictLookup("Flags", &obj1)->isNull())
-		{
-			if (obj1.isNum())
-				m_flags = obj1.getInt();
-		}
-		obj1.free();
-	}
-#endif
 }
 
 LinkSubmitForm::~LinkSubmitForm()
@@ -99,7 +67,7 @@ LinkImportData::LinkImportData(Object *actionObj)
 {
 	Object obj1, obj3;
 	fileName = nullptr;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+
 	if (actionObj->isDict())
 	{
 		obj1 = actionObj->dictLookup("F");
@@ -112,20 +80,6 @@ LinkImportData::LinkImportData(Object *actionObj)
 			}
 		}
 	}
-#else
-	if (actionObj->isDict())
-	{
-		if (!actionObj->dictLookup("F", &obj1)->isNull())
-		{
-			if (getFileSpecNameForPlatform(&obj1, &obj3))
-			{
-				fileName = obj3.getString()->copy();
-				obj3.free();
-			}
-		}
-		obj1.free();
-	}
-#endif
 }
 
 LinkImportData::~LinkImportData()
@@ -324,7 +278,6 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	Object obj;
 	Ref refa = ano->getRef();
 	Object additionalActions;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
 	obj = xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
@@ -344,35 +297,6 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 			}
 		}
 	}
-#else
-	Object *act = xref->fetch(refa.num, refa.gen, &obj);
-	if (act)
-	{
-		if (act->isDict())
-		{
-			Dict* adic = act->getDict();
-			adic->lookupNF("A", &additionalActions);
-			Object additionalActionsObject;
-			if (additionalActions.fetch(pdfDoc->getXRef(), &additionalActionsObject)->isDict())
-			{
-				Object actionObject;
-				additionalActionsObject.dictLookup("S", &actionObject);
-				if (actionObject.isName("ImportData"))
-				{
-					linkAction = new LinkImportData(&additionalActionsObject);
-				}
-				else if (actionObject.isName("SubmitForm"))
-				{
-					linkAction = new LinkSubmitForm(&additionalActionsObject);
-				}
-				actionObject.free();
-			}
-			additionalActionsObject.free();
-			additionalActions.free();
-		}
-	}
-	obj.free();
-#endif
 	return linkAction;
 }
 
@@ -384,7 +308,6 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 	Ref refa = ano->getRef();
 	Object additionalActions;
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
 	obj = xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
@@ -398,28 +321,6 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 				linkAction = LinkAction::parseAction(&actionObject, pdfDoc->getCatalog()->getBaseURI());
 		}
 	}
-#else
-	Object *act = xref->fetch(refa.num, refa.gen, &obj);
-	if (act)
-	{
-		if (act->isDict())
-		{
-			Dict* adic = act->getDict();
-			adic->lookupNF("AA", &additionalActions);
-			Object additionalActionsObject;
-			if (additionalActions.fetch(pdfDoc->getXRef(), &additionalActionsObject)->isDict())
-			{
-				Object actionObject;
-				if (additionalActionsObject.dictLookup(key, &actionObject)->isDict())
-					linkAction = LinkAction::parseAction(&actionObject, pdfDoc->getCatalog()->getBaseURI());
-				actionObject.free();
-			}
-			additionalActionsObject.free();
-			additionalActions.free();
-		}
-	}
-	obj.free();
-#endif
 	return linkAction;
 }
 
@@ -753,12 +654,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			if (apa || !achar)
 			{
 				AnoOutputDev *Adev = new AnoOutputDev(m_doc, m_importedColors);
-				Gfx *gfx;
-#ifdef POPPLER_VERSION
-				gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
-#else
-				gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), nullptr);
-#endif
+				Gfx *gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
 				ano->draw(gfx, false);
 				if (!bgFound)
 					CurrColorFill = Adev->CurrColorFill;
@@ -945,7 +841,6 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 	{
 		Object obj1;
 		Ref refa = annota->getRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
 		obj1 = xref->fetch(refa.num, refa.gen);
 		if (obj1.isDict())
 		{
@@ -971,43 +866,6 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				m_radioMap.insert(tmTxt, radList);
 			}
 		}
-#else
-		Object *act = xref->fetch(refa.num, refa.gen, &obj1);
-		if (act && act->isDict())
-		{
-			Dict* dict = act->getDict();
-			Object obj2;
-			//childs
-			if (dict->lookup("Kids", &obj2)->isArray())
-			{
-				// Load children
-				QList<int> radList;
-				for (int i = 0 ; i < obj2.arrayGetLength(); i++)
-				{
-					Object childRef, childObj;
-					if (!obj2.arrayGetNF(i, &childRef)->isRef())
-					{
-						childRef.free();
-						continue;
-					}
-					if (!obj2.arrayGet(i, &childObj)->isDict())
-					{
-						childObj.free();
-						childRef.free();
-						continue;
-					}
-					const Ref ref = childRef.getRef();
-					radList.append(ref.num);
-					childObj.free();
-					childRef.free();
-				}
-				QString tmTxt = UnicodeParsedString(annota->getName());
-				m_radioMap.insert(tmTxt, radList);
-			}
-			obj2.free();
-		}
-		obj1.free();
-#endif
 	}
 	return retVal;
 }
@@ -2348,17 +2206,13 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	box.y1 = bbox[1];
 	box.x2 = bbox[2];
 	box.y2 = bbox[3];
-	double *ctm;
-	ctm = state->getCTM();
+
+	double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QTransform mm = QTransform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
 
-#ifdef POPPLER_VERSION
 	gfx = new Gfx(pdfDoc, this, resDict, &box, nullptr);
-#else
-	gfx = new Gfx(xref, this, resDict, catalog, &box, nullptr);
-#endif
 	inPattern++;
 	gfx->display(str);
 	inPattern--;
@@ -3146,7 +3000,6 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 		}
 		else
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
 			dictObj = dictRef->fetch(xref);
 			if (!dictObj.isDict())
 				return;
@@ -3162,28 +3015,6 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 					mSte.ocgName = UnicodeParsedString(oc->getName());
 				}
 			}
-#else
-			dictRef->fetch(xref, &dictObj);
-			if (!dictObj.isDict())
-			{
-				dictObj.free();
-				return;
-			}
-			dict = dictObj.getDict();
-			dict->lookup("Type", &dictType);
-			if (dictType.isName("OCG"))
-			{
-				oc = contentConfig->findOcgByRef(dictRef->getRef());
-				if (oc)
-				{
-//					qDebug() << "Begin OCG Content with Name " << UnicodeParsedString(oc->getName());
-					m_doc->setActiveLayer(UnicodeParsedString(oc->getName()));
-					mSte.ocgName = UnicodeParsedString(oc->getName());
-				}
-			}
-			dictType.free();
-			dictObj.free();
-#endif
 		}
 	}
 	m_mcStack.push(mSte);
@@ -3204,19 +3035,9 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 			if (layersSetByOCG)
 				return;
 			QString lName = QString("Layer_%1").arg(layerNum + 1);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
 			Object obj = properties->lookup((char*) "Title");
 			if (obj.isString())
 				lName = QString(obj.getString()->getCString());
-#else
-			Object obj;
-			if (properties->lookup((char*)"Title", &obj))
-			{
-				if (obj.isString())
-					lName =  QString(obj.getString()->getCString());
-				obj.free();
-			}
-#endif
 			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 			{
 				if (it->Name == lName)
@@ -3229,7 +3050,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 			if (!firstLayer)
 				currentLayer = m_doc->addLayer(lName, true);
 			firstLayer = false;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+
 			obj = properties->lookup((char*) "Visible");
 			if (obj.isBool())
 				m_doc->setLayerVisible(currentLayer, obj.getBool());
@@ -3251,44 +3072,6 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 				int b = obj1.getNum() / 256;
 				m_doc->setLayerMarker(currentLayer, QColor(r, g, b));
 			}
-#else
-			if (properties->lookup((char*)"Visible", &obj))
-			{
-				if (obj.isBool())
-					m_doc->setLayerVisible(currentLayer, obj.getBool());
-				obj.free();
-			}
-			if (properties->lookup((char*)"Editable", &obj))
-			{
-				if (obj.isBool())
-					m_doc->setLayerLocked(currentLayer, !obj.getBool());
-				obj.free();
-			}
-			if (properties->lookup((char*)"Printed", &obj))
-			{
-				if (obj.isBool())
-					m_doc->setLayerPrintable(currentLayer, obj.getBool());
-				obj.free();
-			}
-			if (properties->lookup((char*)"Color", &obj))
-			{
-				if (obj.isArray())
-				{
-					Object obj1;
-					obj.arrayGet(0, &obj1);
-					int r = obj1.getNum() / 256;
-					obj1.free();
-					obj.arrayGet(1, &obj1);
-					int g = obj1.getNum() / 256;
-					obj1.free();
-					obj.arrayGet(2, &obj1);
-					int b = obj1.getNum() / 256;
-					obj1.free();
-					m_doc->setLayerMarker(currentLayer, QColor(r, g, b));
-				}
-				obj.free();
-			}
-#endif
 		}
 	}
 }
@@ -3327,8 +3110,6 @@ void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
 	beginMarkedContent(name, properties);
 }
 
-// POPPLER_VERSION appeared in 0.19.0 first
-#ifdef POPPLER_VERSION
 void SlaOutputDev::updateFont(GfxState *state)
 {
 	GfxFont *gfxFont;
@@ -3563,214 +3344,6 @@ err1:
 	if (fontsrc && !fontsrc->isFile)
 		fontsrc->unref();
 }
-#else
-void SlaOutputDev::updateFont(GfxState *state)
-{
-	GfxFont *gfxFont;
-	GfxFontType fontType;
-	SplashOutFontFileID *id;
-	SplashFontFile *fontFile;
-	SplashFontSrc *fontsrc = nullptr;
-	FoFiTrueType *ff;
-	Ref embRef;
-	Object refObj, strObj;
-	GooString *fileName;
-	char *tmpBuf;
-	int tmpBufLen;
-	Gushort *codeToGID;
-	DisplayFontParam *dfp;
-	double *textMat;
-	double m11, m12, m21, m22, fontSize;
-	SplashCoord mat[4];
-	int n;
-	int faceIndex = 0;
-	SplashCoord matrix[6];
-
-	m_font = nullptr;
-	fileName = nullptr;
-	tmpBuf = nullptr;
-
-	if (!(gfxFont = state->getFont()))
-		goto err1;
-	fontType = gfxFont->getType();
-	if (fontType == fontType3)
-		goto err1;
-
-  // check the font file cache
-	id = new SplashOutFontFileID(gfxFont->getID());
-	if ((fontFile = m_fontEngine->getFontFile(id)))
-	{
-		delete id;
-	}
-	else
-	{
-		// if there is an embedded font, write it to disk
-		if (gfxFont->getEmbeddedFontID(&embRef))
-		{
-			tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
-			if (!tmpBuf)
-				goto err2;
-			// if there is an external font file, use it
-		}
-		else if (!(fileName = gfxFont->getExtFontFile()))
-		{
-			// look for a display font mapping or a substitute font
-			dfp = nullptr;
-			if (gfxFont->getName())
-			{
-				dfp = globalParams->getDisplayFont(gfxFont);
-			}
-			if (!dfp)
-			{
-		//		error(-1, "Couldn't find a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-				goto err2;
-			}
-			switch (dfp->kind)
-			{
-				case displayFontT1:
-					fileName = dfp->t1.fileName;
-					fontType = gfxFont->isCIDFont() ? fontCIDType0 : fontType1;
-					break;
-				case displayFontTT:
-					fileName = dfp->tt.fileName;
-					fontType = gfxFont->isCIDFont() ? fontCIDType2 : fontTrueType;
-					faceIndex = dfp->tt.faceIndex;
-					break;
-			}
-		}
-		fontsrc = new SplashFontSrc;
-		if (fileName)
-			fontsrc->setFile(fileName, gFalse);
-		else
-			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
-		// load the font file
-		switch (fontType)
-		{
-			case fontType1:
-				if (!(fontFile = m_fontEngine->loadType1Font( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
-				{
-			//		error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-					goto err2;
-				}
-				break;
-			case fontType1C:
-				if (!(fontFile = m_fontEngine->loadType1CFont( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
-				{
-		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-					goto err2;
-				}
-				break;
-			case fontType1COT:
-				if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
-				{
-		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-					goto err2;
-				}
-				break;
-			case fontTrueType:
-			case fontTrueTypeOT:
-				if (fileName)
-					ff = FoFiTrueType::load(fileName->getCString());
-				else
-					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
-				if (ff)
-				{
-					codeToGID = ((Gfx8BitFont *)gfxFont)->getCodeToGIDMap(ff);
-					n = 256;
-					delete ff;
-				}
-				else
-				{
-					codeToGID = nullptr;
-					n = 0;
-				}
-				if (!(fontFile = m_fontEngine->loadTrueTypeFont( id, fontsrc, codeToGID, n)))
-				{
-	//				error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-					goto err2;
-				}
-			break;
-		case fontCIDType0:
-		case fontCIDType0C:
-			if (!(fontFile = m_fontEngine->loadCIDFont( id, fontsrc)))
-			{
-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-				goto err2;
-			}
-			break;
-		case fontCIDType0COT:
-			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont( id, fontsrc)))
-			{
-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-				goto err2;
-			}
-			break;
-		case fontCIDType2:
-		case fontCIDType2OT:
-			codeToGID = nullptr;
-			n = 0;
-			if (((GfxCIDFont *)gfxFont)->getCIDToGID())
-			{
-				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-				if (n)
-				{
-					codeToGID = (Gushort *)gmallocn(n, sizeof(Gushort));
-					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(Gushort));
-				}
-			}
-			else
-			{
-				if (fileName)
-					ff = FoFiTrueType::load(fileName->getCString());
-				else
-					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
-				if (!ff)
-					goto err2;
-				codeToGID = ((GfxCIDFont *)gfxFont)->getCodeToGIDMap(ff, &n);
-				delete ff;
-			}
-			if (!(fontFile = m_fontEngine->loadTrueTypeFont( id, fontsrc, codeToGID, n, faceIndex)))
-			{
-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-				goto err2;
-			}
-			break;
-		default:
-			// this shouldn't happen
-			goto err2;
-		}
-	}
-	// get the font matrix
-	textMat = state->getTextMat();
-	fontSize = state->getFontSize();
-	m11 = textMat[0] * fontSize * state->getHorizScaling();
-	m12 = textMat[1] * fontSize * state->getHorizScaling();
-	m21 = textMat[2] * fontSize;
-	m22 = textMat[3] * fontSize;
-	matrix[0] = 1;
-	matrix[1] = 0;
-	matrix[2] = 0;
-	matrix[3] = 1;
-	matrix[4] = 0;
-	matrix[5] = 0;
-	// create the scaled font
-	mat[0] = m11;
-	mat[1] = -m12;
-	mat[2] = m21;
-	mat[3] = -m22;
-	m_font = m_fontEngine->getFont(fontFile, mat, matrix);
-	if (fontsrc && !fontsrc->isFile)
-		fontsrc->unref();
-	return;
-
-err2:
-	delete id;
-err1:
-	if (fontsrc && !fontsrc->isFile)
-		fontsrc->unref();
-	return;
-}
-#endif
 
 void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode *u, int uLen)
 {
