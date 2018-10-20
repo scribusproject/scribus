@@ -477,6 +477,9 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 				     ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK))
 				{
 					gl.glyph = scFace.emulateGlyph(ch.unicode());
+
+					GlyphMetrics metrics = scFace.glyphBBox(gl.glyph, style.fontSize());
+					positions[i].x_advance = metrics.width;
 				}
 
 				if (gl.glyph < ScFace::CONTROL_GLYPHS)
