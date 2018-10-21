@@ -158,6 +158,40 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 	}
 }
 
+bool PageItem_LatexFrame::loadImage(const QString & filename, const bool reload, const int gsResolution, bool showMsg)
+{
+	//Save state and restore afterwards
+	double xres, yres;
+	if (imageIsAvailable)
+	{
+		xres = pixm.imgInfo.xres;
+		yres = pixm.imgInfo.yres;
+	}
+	else
+	{
+		xres = yres = realDpi();
+	}
+	double scaleX = m_imageXScale * xres;
+	double scaleY = m_imageYScale * yres;
+	double offX = m_imageXOffset / xres;
+	double offY = m_imageYOffset / yres;
+
+	bool imageLoaded = PageItem_ImageFrame::loadImage(imageFile, true, realDpi(), showMsg);
+	if (PrefsManager::instance()->latexForceDpi())
+	{
+		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
+	}
+	m_lastDpi = realDpi();
+
+	//Restore parameters, account for dpi changes
+	m_imageXScale = scaleX / pixm.imgInfo.xres;
+	m_imageYScale = scaleY / pixm.imgInfo.yres;
+	m_imageXOffset = offX  * pixm.imgInfo.xres;
+	m_imageYOffset = offY  * pixm.imgInfo.yres;
+
+	return imageLoaded;
+}
+
 void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	appStdout = latex->readAllStandardOutput();
@@ -200,33 +234,8 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	firstWarning = true;
 	m_imgValid = true;
 
-	//Save state and restore afterwards
-	double xres, yres;
-	if (imageIsAvailable)
-	{
-		xres = pixm.imgInfo.xres;
-		yres = pixm.imgInfo.yres;
-	}
-	else
-	{
-		xres = yres = realDpi();
-	}
-	double scaleX = m_imageXScale * xres;
-	double scaleY = m_imageYScale * yres;
-	double offX   = m_imageXOffset / xres;
-	double offY   = m_imageYOffset / yres;
-	PageItem_ImageFrame::loadImage(imageFile, true, realDpi());
-	if (PrefsManager::instance()->latexForceDpi()) 
-	{
-		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
-	}
-	m_lastDpi = realDpi();
-	
-	//Restore parameters, account for dpi changes
-	m_imageXScale = scaleX / pixm.imgInfo.xres;
-	m_imageYScale = scaleY / pixm.imgInfo.yres;
-	m_imageXOffset = offX  * pixm.imgInfo.xres;
-	m_imageYOffset = offY  * pixm.imgInfo.yres;
+	loadImage(imageFile, true, realDpi(), false);
+
 	//emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	update();
 }

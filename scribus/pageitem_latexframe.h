@@ -56,6 +56,12 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		virtual void applicableActions(QStringList& actionList);
 		virtual QString infoDescription() const;
 		void layout();
+
+		/**
+		* @brief Load an image into an image frame, moved from ScribusView
+		* @return True if load succeeded
+		*/
+		bool loadImage(const QString& filename, const bool reload, const int gsResolution = -1, bool showMsg = false) override;
 		
 		/** @brief Perform undo/redo action */
 		void restore(UndoState *state, bool isUndo);
@@ -91,6 +97,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		int error() const { return m_err; }
 
 		QMap<QString,QString> editorProperties;
+
 	protected:
 		virtual void DrawObj_Item(ScPainter *p, QRectF e);
 		double m_lastWidth, m_lastHeight, m_lastDpi;
@@ -113,14 +120,17 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		bool m_imgValid;
 		bool m_usePreamble;
 		bool m_killed;
+
 	signals:
 		void formulaAutoUpdate(QString oldText, QString newText);
 		void latexFinished();
 		void stateChanged(QProcess::ProcessState state);
 		void applicationChanged();
+
 	protected slots:
 		void updateImage(int exitCode, QProcess::ExitStatus exitStatus);
 		void latexError(QProcess::ProcessError error);
+
 	public slots:
 		void killProcess();
 		void setDpi(int dpi);
