@@ -58,9 +58,9 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void layout();
 
 		/**
-		* @brief Load an image into an image frame, moved from ScribusView
-		* @return True if load succeeded
-		*/
+		 * @brief Load an image into an image frame, moved from ScribusView
+		 * @return True if load succeeded
+		 */
 		bool loadImage(const QString& filename, const bool reload, const int gsResolution = -1, bool showMsg = false) override;
 		
 		/** @brief Perform undo/redo action */
