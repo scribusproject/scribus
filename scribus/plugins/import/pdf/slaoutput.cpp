@@ -133,7 +133,7 @@ void AnoOutputDev::drawString(GfxState *state, POPPLER_CONST GooString *s)
 	m_itemText = s->copy();
 }
 
-QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int *shade)
+QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade)
 {
 	QString fNam;
 	QString namPrefix = "FromPDF";
@@ -1471,7 +1471,7 @@ void SlaOutputDev::updateStrokeColor(GfxState *state)
 void SlaOutputDev::clip(GfxState *state)
 {
 //	qDebug() << "Clip";
-	double *ctm;
+	const double *ctm;
 	ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
@@ -1508,7 +1508,7 @@ void SlaOutputDev::clip(GfxState *state)
 void SlaOutputDev::eoClip(GfxState *state)
 {
 //	qDebug() << "EoClip";
-	double *ctm;
+	const double *ctm;
 	ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
@@ -1545,7 +1545,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 void SlaOutputDev::stroke(GfxState *state)
 {
 //	qDebug() << "Stroke";
-	double *ctm;
+	const double *ctm;
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -1637,7 +1637,7 @@ void SlaOutputDev::stroke(GfxState *state)
 void SlaOutputDev::fill(GfxState *state)
 {
 //	qDebug() << "Fill";
-	double *ctm;
+	const double *ctm;
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -1682,7 +1682,7 @@ void SlaOutputDev::fill(GfxState *state)
 void SlaOutputDev::eoFill(GfxState *state)
 {
 //	qDebug() << "EoFill";
-	double *ctm;
+	const double *ctm;
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -1731,14 +1731,14 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	double GrEndX;
 	double GrEndY;
 	int shade = 100;
-	Function *func = shading->getFunc(0);
+	POPPLER_CONST_070 Function *func = shading->getFunc(0);
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 	if (func->getType() == 3)
 	{
 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
-		double *bounds = stitchingFunc->getBounds();
+		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		// Add stops from all the stitched functions
 		for ( int i = 0 ; i < num_funcs ; i++ )
@@ -1772,8 +1772,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
 	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	FPointArray gr;
 	gr.addPoint(GrStartX, GrStartY);
@@ -1842,14 +1841,14 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	double GrEndX;
 	double GrEndY;
 	int shade = 100;
-	Function *func = shading->getFunc(0);
+	POPPLER_CONST_070 Function *func = shading->getFunc(0);
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 	if (func->getType() == 3)
 	{
 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
-		double *bounds = stitchingFunc->getBounds();
+		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		// Add stops from all the stitched functions
 		for ( int i = 0 ; i < num_funcs ; i++ )
@@ -1888,8 +1887,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	double GrFocalY = y1;
 	GrEndX = GrFocalX + r1;
 	GrEndY = GrFocalY;
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	FPointArray gr;
 	gr.addPoint(GrStartX, GrStartY);
@@ -1971,8 +1969,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
@@ -2052,8 +2049,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
@@ -2078,7 +2074,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
 		int shade = 100;
-		GfxPatch *patch = shading->getPatch(i);
+		const GfxPatch *patch = shading->getPatch(i);
 		GfxColor color;
 		meshGradientPatch patchM;
 		int u, v;
@@ -2207,7 +2203,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	box.x2 = bbox[2];
 	box.y2 = bbox[3];
 
-	double *ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QTransform mm = QTransform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
@@ -2375,8 +2371,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			t++;
 		}
 	}
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	QRectF crect = QRectF(0, 0, width, height);
@@ -2521,8 +2516,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	QRectF crect = QRectF(0, 0, width, height);
@@ -2671,8 +2665,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	QRectF crect = QRectF(0, 0, width, height);
@@ -2836,8 +2829,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		delete image;
 		return;
 	}
-	double *ctm;
-	ctm = state->getCTM();
+	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	QRectF crect = QRectF(0, 0, width, height);
@@ -3124,7 +3116,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 	char *tmpBuf;
 	int tmpBufLen = 0;
 	int *codeToGID;
-	double *textMat;
+	const double *textMat;
 	double m11, m12, m21, m22, fontSize;
 	SplashCoord mat[4];
 	int n = 0;
@@ -3384,8 +3376,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				if (f & splashPathLast)
 					qPath.closeSubpath();
 			}
-			double *ctm;
-			ctm = state->getCTM();
+			const double *ctm = state->getCTM();
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
@@ -3539,7 +3530,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 	}
 }
 
-QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int *shade)
+QString SlaOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade)
 {
 	QString fNam;
 	QString namPrefix = "FromPDF";

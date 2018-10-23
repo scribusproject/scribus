@@ -137,7 +137,7 @@ public:
 	GooString *m_fontName;
 	GooString *m_itemText;
 private:
-	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
+	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	ScribusDoc* m_doc;
 	QStringList *m_importedColors;
 };
@@ -263,7 +263,7 @@ public:
 
 private:
 	void getPenState(GfxState *state);
-	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
+	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);

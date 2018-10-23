@@ -21,4 +21,10 @@ for which a new license (GPL+exception) is in place.
 #define POPPLER_CONST
 #endif
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 70, 0)
+#define POPPLER_CONST_070 const
+#else
+#define POPPLER_CONST_070
+#endif
+
 #endif

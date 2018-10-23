@@ -449,7 +449,7 @@ bool PdfPlug::convert(const QString& fn)
 				GBool useMediaBox = gTrue;
 				GBool crop = gTrue;
 				GBool printing = gFalse;
-				PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
+				const PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 				QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
 				bool boxesAreDifferent = false;
 				if (getCBox(Crop_Box, 1) != mediaRect)
@@ -991,7 +991,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 
 QRectF PdfPlug::getCBox(int box, int pgNum)
 {
-	PDFRectangle *cBox = nullptr;
+	const PDFRectangle *cBox = nullptr;
 	if (box == Media_Box)
 		cBox = m_pdfDoc->getPage(pgNum)->getMediaBox();
 	else if (box == Bleed_Box)
