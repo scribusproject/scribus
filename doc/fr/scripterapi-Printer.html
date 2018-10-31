@@ -3,6 +3,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Python : classe Printer</title>
 </head>
+
+<style>
+@import "manual.css";
+</style>
+
 <body>
 <h2>Python : classe Printer</h2>
 <p>
@@ -10,80 +15,82 @@
 </p>    
 <hr />
 
-<p>M&eacute;thodes d&eacute;finies ici :</p>
-<dd>
+<p>M&eacute;thodes d&eacute;finies par la classe :</p>
+<dl>
 	<dt><a name="Printer-Print"><strong>Print</strong></a>(...)</dt>
-	<dd><code>Cette m&eacute;thode est obsol&egrave;te - utilisez <a href="#Printer-print">print</a>() &agrave; la place.</code></dd>
+	<dd><p>Cette m&eacute;thode est obsol&egrave;te - utilisez <a href="#Printer-print">print</a>() &agrave; la place.</p></dd>
 
 	<dt><a name="Printer-__init__"><strong>__init__</strong></a>(...)</dt>
-	<dd><code>x.<a href="#Printer-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</code></dd>
+	<dd><p>x.<a href="#Printer-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</p></dd>
 
 	<dt><a name="Printer-print"><strong>print</strong></a>(...)</dt>
-	<dd><code>Imprime les pages s&eacute;lectionn&eacute;es.</code></dd>
+	<dd><p>Imprime les pages s&eacute;lectionn&eacute;es.</p></dd>
+</dl>
 
-<hr>
-<p>Donn&eacute;es et autres attributs d&eacute;finis ici:</p>
-<dd>
+<hr/>
+
+<p>Donn&eacute;es et attributs d&eacute;finis par la classe :</p>
+<dl>
 	<dt><strong>__new__</strong> = &lt;m&eacute;thode int&eacute;gr&eacute;e __new__ de type objet&gt;</dt>
-	<dd><code>T.<a href="#Printer-__new__">__new__</a>(S, ...) -&gt; un nouvel objet de type S, un sous-type de T</code></dd>
+	<dd><p>T.<a href="#Printer-__new__">__new__</a>(S, ...) -&gt; un nouvel objet de type S, un sous-type de T</p></dd>
 
 	<dt><strong>allPrinters</strong> = &lt;attribut 'allPrinters' des objets 'Printer'&gt;</dt>
-	<dd><code>Liste des imprimantes install&eacute;es --  lecture seule</code></dd>
+	<dd><p>Liste des imprimantes install&eacute;es --  lecture seule</p></dd>
 
 	<dt><strong>cmd</strong> = &lt;attribut 'cmd' des objets 'Printer'&gt;</dt>
-	<dd><code>Commande d'impression alternative</code></dd>
+	<dd><p>Commande d'impression alternative</p></dd>
 
 	<dt><strong>color</strong> = &lt;membre 'color' des objets 'Printer'&gt;</dt>
-	<dd><code>Imprime en couleur.<br>
+	<dd><p>Imprime en couleur.<br>
 True - couleur  --  d&eacute;faut<br>
-False - niveaux de gris</code></dd>
+False - niveaux de gris</p></dd>
 
 	<dt><strong>copies</strong> = &lt;membre 'copies' des objets 'Printer'&gt;</dt>
-	<dd><code>Nombre de copies</code></dd>
+	<dd><p>Nombre de copies</p></dd>
 
 	<dt><strong>file</strong> = &lt;attribut 'file' des objets 'Printer'&gt;</dt>
-	<dd><code>Nom du fichier dans lequel imprimer</code></dd>
+	<dd><p>Nom du fichier dans lequel imprimer</p></dd>
 
 	<dt><strong>mph</strong> = &lt;membre 'mph' des objets 'Printer'&gt;</dt>
-	<dd><code>Miroir horizontal des pages<br>
+	<dd><p>Miroir horizontal des pages<br>
 True<br>
-False  --  D&eacute;faut</code></dd>
+False  --  D&eacute;faut</p></dd>
 
 	<dt><strong>mpv</strong> = &lt;membre 'mpv' des objets 'Printer'&gt;</dt>
-	<dd><code>Miroir vertical des pages<br>
+	<dd><p>Miroir vertical des pages<br>
  True<br>
-False  --  D&eacute;faut</code></dd>
+False  --  D&eacute;faut</p></dd>
 
 	<dt><strong>pages</strong> = &lt;attribut 'pages' des objets 'Printer'&gt;</dt>
-	<dd><code>Liste des pages &agrave; imprimer</code></dd>
+	<dd><p>Liste des pages &agrave; imprimer</p></dd>
 
 	<dt><strong>printer</strong> = &lt;attribut 'printer' des objets 'Printer'&gt;</dt>
-	<dd><code>Nom de l'imprimante &agrave; utiliser.<br>
-La valeur par d&eacute;faut est 'File' pour l'impression dans un fichier</code></dd>
+	<dd><p>Nom de l'imprimante &agrave; utiliser.<br>
+La valeur par d&eacute;faut est 'File' pour l'impression dans un fichier</p></dd>
 
 	<dt><strong>pslevel</strong> = &lt;membre 'pslevel' des objets 'Printer'&gt;</dt>
-	<dd><code>Niveau PostScript<br>
-Peut &ecirc;tre 1 ou 2 ou 3    -- Valeur par d&eacute;faut &agrave; 3.</code></dd>
+	<dd><p>Niveau PostScript<br>
+Peut &ecirc;tre 1 ou 2 ou 3    -- Valeur par d&eacute;faut &agrave; 3.</p></dd>
 
 	<dt><strong>separation</strong> = &lt;attribut 'separation' des objets 'Printer'&gt;</dt>
-	<dd><code>Imprimer la s&eacute;paration<br>
+	<dd><p>Imprimer la s&eacute;paration<br>
          'No'  -- D&eacute;faut<br>
          'All'<br>
          'Cyan'<br>
          'Magenta'<br>
          'Yellow'<br>
          'Black'<br>
-Attention aux erreurs de frappe, car aucune v&eacute;rification n'est effectu&eacute;e</code></dd>
+Attention aux erreurs de frappe, car aucune v&eacute;rification n'est effectu&eacute;e</p></dd>
 
 	<dt><strong>ucr</strong> = &lt;membre 'ucr' des objets 'Printer'&gt;</dt>
-	<dd><code>Retrait des sous-couleurs (UCR)<br>
+	<dd><p>Retrait des sous-couleurs (UCR)<br>
 True  --  D&eacute;faut<br>
-False</code></dd>
+False</p></dd>
 
 	<dt><strong>useICC</strong> = &lt;membre 'useICC' des objets 'Printer'&gt;</dt>
-	<dd><code>Utilise un profil ICC<br>
+	<dd><p>Utilise un profil ICC<br>
 True<br>
-False  --  D&eacute;faut</code></dd>
+False  --  D&eacute;faut</p></dd>
 
 </body>
 </html> 
