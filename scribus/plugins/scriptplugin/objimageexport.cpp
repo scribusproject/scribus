@@ -26,6 +26,7 @@ typedef struct
 	int dpi; // DPI of the bitmap
 	int scale; // how is bitmap scaled 100 = 100%
 	int quality; // quality/compression <1; 100>
+	int transparentBkgnd; // background transparency
 } ImageExport;
 
 static void ImageExport_dealloc(ImageExport* self)
@@ -50,6 +51,7 @@ static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObj
 		self->dpi = 72;
 		self->scale = 100;
 		self->quality = 100;
+		self->transparentBkgnd = 0;
 	}
 	return (PyObject *) self;
 }
@@ -63,6 +65,7 @@ static PyMemberDef ImageExport_members[] = {
 	{const_cast<char*>("dpi"), T_INT, offsetof(ImageExport, dpi), 0, imgexp_dpi__doc__},
 	{const_cast<char*>("scale"), T_INT, offsetof(ImageExport, scale), 0, imgexp_scale__doc__},
 	{const_cast<char*>("quality"), T_INT, offsetof(ImageExport, quality), 0, imgexp_quality__doc__},
+	{const_cast<char*>("transparentBkgnd"), T_INT, offsetof(ImageExport, transparentBkgnd), 0, imgexp_transparentBkgnd__doc__},
 	{nullptr, 0, 0, 0, nullptr} // sentinel
 };
 
@@ -150,7 +153,10 @@ static PyObject *ImageExport_save(ImageExport *self)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize = (doc->pageHeight() > doc->pageWidth()) ? doc->pageHeight() : doc->pageWidth();
-	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), Pixmap_DrawBackground);
+	PageToPixmapFlags flags = Pixmap_DrawBackground;
+	if (self->transparentBkgnd)
+		flags &= ~Pixmap_DrawBackground;
+	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), flags);
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
@@ -181,7 +187,10 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize = (doc->pageHeight() > doc->pageWidth()) ? doc->pageHeight() : doc->pageWidth();
-	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), Pixmap_DrawBackground);
+	PageToPixmapFlags flags = Pixmap_DrawBackground;
+	if (self->transparentBkgnd)
+		flags &= ~Pixmap_DrawBackground;
+	QImage im = view->PageToPixmap(doc->currentPage()->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0), flags);
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
