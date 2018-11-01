@@ -104,6 +104,7 @@ public:
 	virtual void drawText(QRectF area, const QString& text, bool filled = true, int align = 0);
 	virtual void drawShadeCircle(const QRectF &re, const QColor& color, bool sunken, int lineWidth);
 	virtual void drawShadePanel(const QRectF &r, const QColor& color, bool sunken, int lineWidth);
+	virtual void drawUnderlinedRect(const QRectF &r, const QColor& color, int lineWidth);
 	virtual void colorizeAlpha(const QColor& color);
 	virtual void colorize(const QColor& color);
 	virtual void blurAlpha(int radius);

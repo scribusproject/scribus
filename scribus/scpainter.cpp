@@ -1861,6 +1861,18 @@ void ScPainter::drawShadePanel(const QRectF &r, const QColor& color, bool sunken
 	fillPath();
 }
 
+void ScPainter::drawUnderlinedRect(const QRectF &r, const QColor& color, int lineWidth)
+{
+	setPen(color, lineWidth, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+	setStrokeMode(ScPainter::Solid);
+	drawLine(r.bottomLeft(), r.topLeft());
+	drawLine(r.topLeft(), r.topRight());
+	drawLine(r.bottomRight(), r.topRight());
+
+	setPen(color, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	drawLine(r.bottomLeft(), r.bottomRight());
+}
+
 void ScPainter::colorizeAlpha(const QColor& color)
 {
 	cairo_surface_t *data = cairo_get_group_target(m_cr);

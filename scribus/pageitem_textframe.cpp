@@ -3257,7 +3257,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					else
 						BStyle = 4;
 				}
-				if (BStyle == 3)
+				if (BStyle == 2)
+					p->drawUnderlinedRect(QRectF(0, 0, m_width, m_height), tmp, annotation().Bwid());
+				else if (BStyle == 3)
 					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
 				else if (BStyle == 4)
 					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
