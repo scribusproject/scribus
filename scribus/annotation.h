@@ -36,12 +36,12 @@ class SCRIBUS_API Annotation // : public SaxIO
 {
 	public:
 		//Do we need a null or an empty QString for these? Remove the qstring initialisations if null is ok.
-		Annotation() : AnType(0), AnActType(0), AnAction(""), An_E_act(""), An_X_act(""), An_D_act(""),
-						An_Fo_act(""), An_Bl_act(""), An_K_act(""), An_F_act(""), An_V_act(""), An_C_act(""),
-						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
-						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
-						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(0), AnUseIcons(false),
-						AnIPlace(1), AnScaleW(0), AnFormat(0), tmp_Chk(false), on_State(false), is_Open(false), AnIcon(0), AnIsOpen(false)
+		Annotation() : m_type(0), m_actType(0), m_action(""), m_E_act(""), m_X_act(""), m_D_act(""),
+						m_Fo_act(""), m_Bl_act(""), m_K_act(""), m_F_act(""), m_V_act(""), m_C_act(""),
+						m_toolTip(""), m_rollOver(""), m_down(""), m_borderColor(""), m_extern(""), m_borderStyle(0),
+						m_borderWidth(1), m_feed(1), m_ziel(0), m_flag(0), m_maxChar(-1), m_vis(0), m_chkStil(0),
+						m_font(4), m_isChk(false), m_aAact(false), m_html(0), m_useIcons(false),
+						m_iPlace(1), m_scaleW(0), m_format(0), tmp_Chk(false), on_State(false), is_Open(false), m_icon(0), m_isOpen(false)
 		{
 		}
 		enum AnnotationType
@@ -119,136 +119,136 @@ class SCRIBUS_API Annotation // : public SaxIO
 
 	bool isAcroFormField() const
 	{
-		if (AnType == Annotation::Button ||
-			AnType == Annotation::Textfield ||
-			AnType == Annotation::Checkbox ||
-			AnType == Annotation::Combobox ||
-			AnType == Annotation::Listbox ||
-			AnType == Annotation::RadioButton)
+		if (m_type == Annotation::Button ||
+			m_type == Annotation::Textfield ||
+			m_type == Annotation::Checkbox ||
+			m_type == Annotation::Combobox ||
+			m_type == Annotation::Listbox ||
+			m_type == Annotation::RadioButton)
 		{
 			return true;
 		}
 		return false;
 	}
 
-	void setType(int newType) { AnType=newType; }
-	void setAction(const QString& newAction) { AnAction=newAction; }
-	void setE_act(const QString& newE_act) { An_E_act=newE_act; }
-	void setX_act(const QString& newX_act) { An_X_act=newX_act; }
-	void setD_act(const QString& newD_act) { An_D_act=newD_act; }
-	void setFo_act(const QString& newFo_act) { An_Fo_act=newFo_act; }
-	void setBl_act(const QString& newBl_act) { An_Bl_act=newBl_act; }
-	void setK_act(const QString& newK_act) { An_K_act=newK_act; }
-	void setF_act(const QString& newF_act) { An_F_act=newF_act; }
-	void setV_act(const QString& newV_act) { An_V_act=newV_act; }
-	void setC_act(const QString& newC_act) { An_C_act=newC_act; }
-	void setExtern(const QString& newExtern) { An_Extern=newExtern; }
-	void setZiel(int newZiel) { AnZiel=newZiel; }
-	void setActionType(int newActType) { AnActType=newActType; }
-	void setToolTip(const QString& newToolTip) { AnToolTip=newToolTip; }
-	void setRollOver(const QString& newRollOver) { AnRollOver=newRollOver; }
-	void setDown(const QString& newDown) { AnDown=newDown; }
-	void setBorderColor(const QString& newBorderColor) { AnBColor=newBorderColor; }
-	void setBorderWidth(int newBwid) { AnBwid=newBwid; }
-	void setBorderStyle(int newBsty) { AnBsty=newBsty; }
-	void setFeed(int newFeed) { AnFeed=newFeed; }
-	void setFlag(int newFlag) { AnFlag=newFlag; }
-	void addToFlag(int dFlag) { AnFlag+=dFlag; }
-	void setMaxChar(int newMaxChar) { AnMaxChar=newMaxChar; }
-	void setVis(int newVis) { AnVis=newVis; }
-	void setFont(int newFont) { AnFont=newFont; }
-	void setChkStil(int newChkStil) { AnChkStil=newChkStil; }
-	void setFormat(int newFormat) { AnFormat=newFormat; }
-	void setIsChk(bool newIsChk) { AnIsChk=newIsChk; }
-	void setCheckState(bool newIsChk) { tmp_Chk=newIsChk; }
-	void setOpen(bool newIsOpen) { is_Open=newIsOpen; }
-	void setOnState(bool newIsChk) { on_State=newIsChk; }
-	void setAAact(bool newAAct) { AnAAact=newAAct; }
-	void setHTML(int newHTML) { AnHTML=newHTML; }
-	void setUseIcons(bool newUseIcons) { AnUseIcons=newUseIcons; }
-	void setIPlace(int newIPlace) { AnIPlace=newIPlace; }
-	void setScaleW(int newScaleW) { AnScaleW=newScaleW; }
-	void setAnOpen(bool newIsOpen) { AnIsOpen = newIsOpen; }
-	void setIcon(int newHTML) { AnIcon = newHTML; }
+	void setType(int newType) { m_type = newType; }
+	void setAction(const QString& newAction) { m_action = newAction; }
+	void setE_act(const QString& newE_act) { m_E_act = newE_act; }
+	void setX_act(const QString& newX_act) { m_X_act = newX_act; }
+	void setD_act(const QString& newD_act) { m_D_act = newD_act; }
+	void setFo_act(const QString& newFo_act) { m_Fo_act = newFo_act; }
+	void setBl_act(const QString& newBl_act) { m_Bl_act = newBl_act; }
+	void setK_act(const QString& newK_act) { m_K_act = newK_act; }
+	void setF_act(const QString& newF_act) { m_F_act = newF_act; }
+	void setV_act(const QString& newV_act) { m_V_act = newV_act; }
+	void setC_act(const QString& newC_act) { m_C_act = newC_act; }
+	void setExtern(const QString& newExtern) { m_extern = newExtern; }
+	void setZiel(int newZiel) { m_ziel = newZiel; }
+	void setActionType(int newActType) { m_actType = newActType; }
+	void setToolTip(const QString& newToolTip) { m_toolTip = newToolTip; }
+	void setRollOver(const QString& newRollOver) { m_rollOver = newRollOver; }
+	void setDown(const QString& newDown) { m_down = newDown; }
+	void setBorderColor(const QString& newBorderColor) { m_borderColor = newBorderColor; }
+	void setBorderWidth(int newBwid) { m_borderWidth = newBwid; }
+	void setBorderStyle(int newBsty) { m_borderStyle = newBsty; }
+	void setFeed(int newFeed) { m_feed = newFeed; }
+	void setFlag(int newFlag) { m_flag = newFlag; }
+	void addToFlag(int dFlag) { m_flag += dFlag; }
+	void setMaxChar(int newMaxChar) { m_maxChar=newMaxChar; }
+	void setVis(int newVis) { m_vis = newVis; }
+	void setFont(int newFont) { m_font = newFont; }
+	void setChkStil(int newChkStil) { m_chkStil = newChkStil; }
+	void setFormat(int newFormat) { m_format = newFormat; }
+	void setIsChk(bool newIsChk) { m_isChk = newIsChk; }
+	void setCheckState(bool newIsChk) { tmp_Chk = newIsChk; }
+	void setOpen(bool newIsOpen) { is_Open = newIsOpen; }
+	void setOnState(bool newIsChk) { on_State = newIsChk; }
+	void setAAact(bool newAAct) { m_aAact = newAAct; }
+	void setHTML(int newHTML) { m_html = newHTML; }
+	void setUseIcons(bool newUseIcons) { m_useIcons = newUseIcons; }
+	void setIPlace(int newIPlace) { m_iPlace = newIPlace; }
+	void setScaleW(int newScaleW) { m_scaleW = newScaleW; }
+	void setAnOpen(bool newIsOpen) { m_isOpen = newIsOpen; }
+	void setIcon(int newIcon) { m_icon = newIcon; }
 
-	int Type() const { return AnType; }
-	QString Action() const { return AnAction; }
-	QString E_act() const { return An_E_act; }
-	QString X_act() const { return An_X_act; }
-	QString D_act() const { return An_D_act; }
-	QString Fo_act() const { return An_Fo_act; }
-	QString Bl_act() const { return An_Bl_act; }
-	QString K_act() const { return An_K_act; }
-	QString F_act() const { return An_F_act; }
-	QString V_act() const { return An_V_act; }
-	QString C_act() const { return An_C_act; }
-	QString Extern() const { return An_Extern; }
-	int Ziel() const { return AnZiel; }
-	int ActionType() const { return AnActType; }
-	QString ToolTip() const { return AnToolTip; }
-	QString RollOver() const { return AnRollOver; }
-	QString Down() const { return AnDown; }
-	QString borderColor() const { return AnBColor; }
-	int borderWidth() const { return AnBwid; }
-	int borderStyle() const { return AnBsty; }
-	int Feed() const { return AnFeed; }
-	int Flag() const { return AnFlag; }
-	int MaxChar() const { return AnMaxChar; }
-	int Vis() const { return AnVis; }
-	int Font() const { return AnFont; }
-	int ChkStil() const { return AnChkStil; }
-	int Format() const { return AnFormat; }
-	bool IsChk() const { return AnIsChk; }
+	int Type() const { return m_type; }
+	QString Action() const { return m_action; }
+	QString E_act() const { return m_E_act; }
+	QString X_act() const { return m_X_act; }
+	QString D_act() const { return m_D_act; }
+	QString Fo_act() const { return m_Fo_act; }
+	QString Bl_act() const { return m_Bl_act; }
+	QString K_act() const { return m_K_act; }
+	QString F_act() const { return m_F_act; }
+	QString V_act() const { return m_V_act; }
+	QString C_act() const { return m_C_act; }
+	QString Extern() const { return m_extern; }
+	int Ziel() const { return m_ziel; }
+	int ActionType() const { return m_actType; }
+	QString ToolTip() const { return m_toolTip; }
+	QString RollOver() const { return m_rollOver; }
+	QString Down() const { return m_down; }
+	QString borderColor() const { return m_borderColor; }
+	int borderWidth() const { return m_borderWidth; }
+	int borderStyle() const { return m_borderStyle; }
+	int Feed() const { return m_feed; }
+	int Flag() const { return m_flag; }
+	int MaxChar() const { return m_maxChar; }
+	int Vis() const { return m_vis; }
+	int Font() const { return m_font; }
+	int ChkStil() const { return m_chkStil; }
+	int Format() const { return m_format; }
+	bool IsChk() const { return m_isChk; }
 	bool IsChecked() const { return tmp_Chk; }
 	bool IsOpen() const { return is_Open; }
 	bool IsOn() const { return on_State; }
-	bool AAact() const { return AnAAact; }
-	int HTML() const { return AnHTML; }
-	bool UseIcons() const { return AnUseIcons; }
-	int IPlace() const { return AnIPlace; }
-	int ScaleW() const { return AnScaleW; }
-	bool IsAnOpen() const { return AnIsOpen; }
-	int Icon() const { return AnIcon; }
+	bool AAact() const { return m_aAact; }
+	int HTML() const { return m_html; }
+	bool UseIcons() const { return m_useIcons; }
+	int IPlace() const { return m_iPlace; }
+	int ScaleW() const { return m_scaleW; }
+	bool IsAnOpen() const { return m_isOpen; }
+	int Icon() const { return m_icon; }
 	
 	protected:
-		int AnType;
-		int AnActType;
-		QString AnAction;
-		QString An_E_act;
-		QString An_X_act;
-		QString An_D_act;
-		QString An_Fo_act;
-		QString An_Bl_act;
-		QString An_K_act;
-		QString An_F_act;
-		QString An_V_act;
-		QString An_C_act;
-		QString AnToolTip;
-		QString AnRollOver;
-		QString AnDown;
-		QString AnBColor;
-		QString An_Extern;
-		int AnBsty;
-		int AnBwid;
-		int AnFeed;
-		int AnZiel;
-		int AnFlag;
-		int AnMaxChar;
-		int AnVis;
-		int AnChkStil;
-		int AnFont;
-		bool AnIsChk;
-		bool AnAAact;
-		int AnHTML;
-		bool AnUseIcons;
-		int AnIPlace;
-		int AnScaleW;
-		int AnFormat;
+		int m_type;
+		int m_actType;
+		QString m_action;
+		QString m_E_act;
+		QString m_X_act;
+		QString m_D_act;
+		QString m_Fo_act;
+		QString m_Bl_act;
+		QString m_K_act;
+		QString m_F_act;
+		QString m_V_act;
+		QString m_C_act;
+		QString m_toolTip;
+		QString m_rollOver;
+		QString m_down;
+		QString m_borderColor;
+		QString m_extern;
+		int m_borderStyle;
+		int m_borderWidth;
+		int m_feed;
+		int m_ziel;
+		int m_flag;
+		int m_maxChar;
+		int m_vis;
+		int m_chkStil;
+		int m_font;
+		bool m_isChk;
+		bool m_aAact;
+		int m_html;
+		bool m_useIcons;
+		int m_iPlace;
+		int m_scaleW;
+		int m_format;
 		bool tmp_Chk;
 		bool on_State;
 		bool is_Open;
-		int AnIcon;
-		bool AnIsOpen;
+		int m_icon;
+		bool m_isOpen;
 };
 
 #endif
