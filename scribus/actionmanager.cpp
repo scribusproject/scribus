@@ -1830,7 +1830,7 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrActio
 	(*actionMap)["unicodeZWNJ"]->setText( tr("Zero Width Non-Joiner"));
 	(*actionMap)["unicodeZWJ"]->setText( tr("Zero Width Joiner"));
 	(*actionMap)["unicodeSoftHyphen"]->setText( tr("Soft &Hyphen"));
-	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Dash"));
+	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Hyphen"));
 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
 	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
 	(*actionMap)["unicodePageCount"]->setText( tr("Number of Pages"));
