@@ -3213,59 +3213,59 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		{
 			QColor tmp;
 			SetQColor(&tmp, annotation().borderColor(), 100);
-			int BStyle = annotation().Bsty();
+			int borderStyle = annotation().Bsty();
 			if (annotation().IsOn())
 			{
 				if (annotation().Feed() == 2)
 					tmp = QColor(255 - tmp.red(), 255 - tmp.green(), 255 - tmp.blue(), tmp.alpha());
 				if (annotation().Feed() == 3)
-					BStyle = 4;
+					borderStyle = 4;
 			}
 			if (annotation().Type() == Annotation::RadioButton)
 			{
 				double bwh = annotation().Bwid() / 2.0;
 				if (annotation().IsOn())
 				{
-					if (BStyle == 4)
-						BStyle = 3;
+					if (borderStyle == 4)
+						borderStyle = 3;
 					else
-						BStyle = 4;
+						borderStyle = 4;
 				}
-				if ((BStyle == 0) || (BStyle == 1))
+				if ((borderStyle == 0) || (borderStyle == 1))
 				{
 					QPainterPath clp;
 					clp.addEllipse(QRectF(bwh, bwh, m_width - annotation().Bwid(), m_height - annotation().Bwid()));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
-					p->setPen(tmp, annotation().Bwid(), BStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().Bwid(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setFillMode(ScPainter::None);
 					p->setStrokeMode(ScPainter::Solid);
 					p->strokePath();
 				}
-				else if (BStyle == 3)
+				else if (borderStyle == 3)
 					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
-				else if (BStyle == 4)
+				else if (borderStyle == 4)
 					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
 			}
 			else
 			{
 				if ((annotation().Type() == Annotation::Checkbox) && annotation().IsOn())
 				{
-					if (BStyle == 4)
-						BStyle = 3;
+					if (borderStyle == 4)
+						borderStyle = 3;
 					else
-						BStyle = 4;
+						borderStyle = 4;
 				}
-				if (BStyle == 2)
+				if (borderStyle == 2)
 					p->drawUnderlinedRect(QRectF(0, 0, m_width, m_height), tmp, annotation().Bwid());
-				else if (BStyle == 3)
+				else if (borderStyle == 3)
 					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
-				else if (BStyle == 4)
+				else if (borderStyle == 4)
 					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
 				else
 				{
-					p->setPen(tmp, annotation().Bwid(), BStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().Bwid(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setStrokeMode(ScPainter::Solid);
 					p->drawRect(0, 0, m_width, m_height);
 				}
