@@ -5188,8 +5188,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setToolTip ( attrs.valueAsString("ANTOOLTIP",""));
 	currItem->annotation().setRollOver( attrs.valueAsString("ANROLL",""));
 	currItem->annotation().setDown( attrs.valueAsString("ANDOWN",""));
-	currItem->annotation().setBwid( attrs.valueAsInt("ANBWID", 1));
-	currItem->annotation().setBsty( attrs.valueAsInt("ANBSTY", 0));
+	currItem->annotation().setBorderWidth( attrs.valueAsInt("ANBWID", 1));
+	currItem->annotation().setBorderStyle( attrs.valueAsInt("ANBSTY", 0));
 	currItem->annotation().setFeed( attrs.valueAsInt("ANFEED", 1));
 	currItem->annotation().setFlag( attrs.valueAsInt("ANFLAG", 0));
 	currItem->annotation().setFont( attrs.valueAsInt("ANFONT", 4));

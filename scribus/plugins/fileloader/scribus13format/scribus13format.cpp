@@ -1791,8 +1791,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->annotation().setToolTip(obj->attribute("ANTOOLTIP",""));
 	currItem->annotation().setRollOver(obj->attribute("ANROLL",""));
 	currItem->annotation().setDown(obj->attribute("ANDOWN",""));
-	currItem->annotation().setBwid(obj->attribute("ANBWID", "1").toInt());
-	currItem->annotation().setBsty(obj->attribute("ANBSTY", "0").toInt());
+	currItem->annotation().setBorderWidth(obj->attribute("ANBWID", "1").toInt());
+	currItem->annotation().setBorderStyle(obj->attribute("ANBSTY", "0").toInt());
 	currItem->annotation().setFeed(obj->attribute("ANFEED", "1").toInt());
 	currItem->annotation().setFlag(obj->attribute("ANFLAG", "0").toInt());
 	currItem->annotation().setFont(obj->attribute("ANFONT", "4").toInt());

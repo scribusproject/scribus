@@ -2580,8 +2580,8 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("ANZIEL", item->annotation().Ziel());
 		docu.writeAttribute("ANACTYP", item->annotation().ActionType());
 		docu.writeAttribute("ANTOOLTIP", item->annotation().ToolTip());
-		docu.writeAttribute("ANBWID", item->annotation().Bwid());
-		docu.writeAttribute("ANBSTY", item->annotation().Bsty());
+		docu.writeAttribute("ANBWID", item->annotation().borderWidth());
+		docu.writeAttribute("ANBSTY", item->annotation().borderStyle());
 		docu.writeAttribute("ANFEED", item->annotation().Feed());
 		docu.writeAttribute("ANFLAG", item->annotation().Flag());
 		docu.writeAttribute("ANFONT", item->annotation().Font());

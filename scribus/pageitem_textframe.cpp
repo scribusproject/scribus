@@ -3209,11 +3209,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 		}
 		p->save();
-		if ((annotation().Bwid() > 0) && (annotation().borderColor() != CommonStrings::None) && (annotation().Type() != Annotation::Text))
+		if ((annotation().borderWidth() > 0) && (annotation().borderColor() != CommonStrings::None) && (annotation().Type() != Annotation::Text))
 		{
 			QColor tmp;
 			SetQColor(&tmp, annotation().borderColor(), 100);
-			int borderStyle = annotation().Bsty();
+			int borderStyle = annotation().borderStyle();
 			if (annotation().IsOn())
 			{
 				if (annotation().Feed() == 2)
@@ -3223,7 +3223,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 			if (annotation().Type() == Annotation::RadioButton)
 			{
-				double bwh = annotation().Bwid() / 2.0;
+				double bwh = annotation().borderWidth() / 2.0;
 				if (annotation().IsOn())
 				{
 					if (borderStyle == 4)
@@ -3234,19 +3234,19 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				if ((borderStyle == 0) || (borderStyle == 1))
 				{
 					QPainterPath clp;
-					clp.addEllipse(QRectF(bwh, bwh, m_width - annotation().Bwid(), m_height - annotation().Bwid()));
+					clp.addEllipse(QRectF(bwh, bwh, m_width - annotation().borderWidth(), m_height - annotation().borderWidth()));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
-					p->setPen(tmp, annotation().Bwid(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().borderWidth(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setFillMode(ScPainter::None);
 					p->setStrokeMode(ScPainter::Solid);
 					p->strokePath();
 				}
 				else if (borderStyle == 3)
-					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
+					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, false, annotation().borderWidth());
 				else if (borderStyle == 4)
-					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
+					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, true, annotation().borderWidth());
 			}
 			else
 			{
@@ -3258,14 +3258,14 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						borderStyle = 4;
 				}
 				if (borderStyle == 2)
-					p->drawUnderlinedRect(QRectF(0, 0, m_width, m_height), tmp, annotation().Bwid());
+					p->drawUnderlinedRect(QRectF(0, 0, m_width, m_height), tmp, annotation().borderWidth());
 				else if (borderStyle == 3)
-					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, false, annotation().borderWidth());
 				else if (borderStyle == 4)
-					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, true, annotation().borderWidth());
 				else
 				{
-					p->setPen(tmp, annotation().Bwid(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().borderWidth(), borderStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setStrokeMode(ScPainter::Solid);
 					p->drawRect(0, 0, m_width, m_height);
 				}
@@ -3273,7 +3273,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		if (annotation().Type() == Annotation::Button)
 		{
-			int wdt = annotation().Bwid();
+			int wdt = annotation().borderWidth();
 			QPainterPath clp;
 			clp.addRect(QRectF(wdt, wdt, m_width - (2 * wdt), m_height - (2 * wdt)));
 			FPointArray clpArr;
@@ -3307,7 +3307,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		if (annotation().Type() == Annotation::Textfield)
 		{
-			int wdt = annotation().Bwid();
+			int wdt = annotation().borderWidth();
 			m_textDistanceMargins.set(wdt, wdt, wdt, wdt);
 			invalid = true;
 			layout();
@@ -3452,7 +3452,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		else if (annotation().Type() == Annotation::Combobox)
 		{
-			int wdt = annotation().Bwid();
+			int wdt = annotation().borderWidth();
 			if (m_width > 2 * wdt + 15)
 			{
 				if (!bmUtf16.isEmpty())
@@ -3474,7 +3474,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->setStrokeMode(ScPainter::None);
 				p->setBrush(QColor(200, 200, 200));
 				QRectF bi;
-				if ((annotation().Bsty() == 3) || (annotation().Bsty() == 4))
+				if ((annotation().borderStyle() == 3) || (annotation().borderStyle() == 4))
 					bi = QRectF(m_width - wdt - 15, wdt, 15, m_height - (2 * wdt));
 				else
 					bi = QRectF(m_width - (wdt / 2.0) - 15, wdt / 2.0, 15, m_height - wdt);
@@ -3496,7 +3496,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		else if (annotation().Type() == Annotation::Listbox)
 		{
-			int wdt = annotation().Bwid();
+			int wdt = annotation().borderWidth();
 			if (m_width > 2 * wdt + 15)
 			{
 				if (!bmUtf16.isEmpty())
@@ -3754,7 +3754,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 
 void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 {
-	//#12405 if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().Bwid() > 0))
+	//#12405 if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().borderWidth() > 0))
 	//	return;
 	p->save();
 //	p->setAntialiasing(false);

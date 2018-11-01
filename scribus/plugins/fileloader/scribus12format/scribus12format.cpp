@@ -1554,8 +1554,8 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->m_annotation.setToolTip(obj->attribute("ANTOOLTIP",""));
 	OB->m_annotation.setRollOver(obj->attribute("ANROLL",""));
 	OB->m_annotation.setDown(obj->attribute("ANDOWN",""));
-	OB->m_annotation.setBwid(obj->attribute("ANBWID", "1").toInt());
-	OB->m_annotation.setBsty(obj->attribute("ANBSTY", "0").toInt());
+	OB->m_annotation.setBorderWidth(obj->attribute("ANBWID", "1").toInt());
+	OB->m_annotation.setBorderStyle(obj->attribute("ANBSTY", "0").toInt());
 	OB->m_annotation.setFeed(obj->attribute("ANFEED", "1").toInt());
 	OB->m_annotation.setFlag(obj->attribute("ANFLAG", "0").toInt());
 	OB->m_annotation.setFont(obj->attribute("ANFONT", "4").toInt());

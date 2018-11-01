@@ -8804,10 +8804,10 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 	PutDoc("/Ff "+Pdf::toPdf(flg)+"\n");
 	PutDoc("/FT /Btn\n");
 	PutDoc("/BS << /Type /Border /W ");
-	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().Bwid()) : "0");
+	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : "0");
 	PutDoc(" /S /");
 	const QByteArray xb[] = {"S", "D", "U", "B", "I"};
-	PutDoc(xb[ite->annotation().Bsty()]);
+	PutDoc(xb[ite->annotation().borderStyle()]);
 	PutDoc(" >>\n");
 	PutDoc("/MK << ");
 	PutDoc("/BG [ 1 1 1 ] ");
@@ -9038,10 +9038,10 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			PutDoc(mm[ite->annotation().Vis()]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
-			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().Bwid()) : "0");
+			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : "0");
 			PutDoc(" /S /");
 			const QByteArray x[] = {"S", "D", "U", "B", "I"};
-			PutDoc(x[ite->annotation().Bsty()]);
+			PutDoc(x[ite->annotation().borderStyle()]);
 			PutDoc(" >>\n");
 			QByteArray cnx;
 			if (ite->annotation().Type() == Annotation::Checkbox)
@@ -9417,7 +9417,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		cc += "/"+StdFonts["/ZapfDingbats"]+" "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
-		cc += Pdf::toPdf(ite->annotation().Bwid())+" "+Pdf::toPdf(ite->annotation().Bwid())+" Td\n("+ct+") Tj\nET\nQ";
+		cc += Pdf::toPdf(ite->annotation().borderWidth())+" "+Pdf::toPdf(ite->annotation().borderWidth())+" Td\n("+ct+") Tj\nET\nQ";
 		PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
 		cc.clear();
 		cc += "q\n1 g\n";
@@ -9473,23 +9473,23 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 	QByteArray ret;
 	if (ite->annotation().borderColor() == CommonStrings::None)
 		return ret;
-	if (ite->annotation().Bwid() == 0)
+	if (ite->annotation().borderWidth() == 0)
 		return ret;
 	QColor tmp;
 	ite->SetQColor(&tmp, ite->annotation().borderColor(), 100);
 	ret += "q\n";
 	if (ite->annotation().Type() == Annotation::RadioButton)
 	{
-		if ((ite->annotation().Bsty() == 0) || (ite->annotation().Bsty() == 1))
+		if ((ite->annotation().borderStyle() == 0) || (ite->annotation().borderStyle() == 1))
 		{
 			ret += putColor(ite->annotation().borderColor(), 100, false);
-			ret += Pdf::toPdf(ite->annotation().Bwid())+" w\n";
+			ret += Pdf::toPdf(ite->annotation().borderWidth())+" w\n";
 			ret += "0 J\n";
 			ret += "0 j\n";
-			if (ite->annotation().Bsty() == 1)
-				ret += "["+Pdf::toPdf(ite->annotation().Bwid()*4)+" "+Pdf::toPdf(ite->annotation().Bwid()*2)+"] 0 d\n";
-			double bwh = ite->annotation().Bwid() / 2.0;
-			double rad = qMin(ite->width() - ite->annotation().Bwid(), ite->height() - ite->annotation().Bwid());
+			if (ite->annotation().borderStyle() == 1)
+				ret += "["+Pdf::toPdf(ite->annotation().borderWidth()*4)+" "+Pdf::toPdf(ite->annotation().borderWidth()*2)+"] 0 d\n";
+			double bwh = ite->annotation().borderWidth() / 2.0;
+			double rad = qMin(ite->width() - ite->annotation().borderWidth(), ite->height() - ite->annotation().borderWidth());
 			QPainterPath clp;
 			clp.addEllipse(QRectF(bwh, bwh, rad, rad));
 			FPointArray clpArr;
@@ -9498,11 +9498,11 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			ret += SetClipPathArray(&clpArr, true);
 			ret += "h\nS\n";
 		}
-		else if ((ite->annotation().Bsty() == 3) || (ite->annotation().Bsty() == 4))
+		else if ((ite->annotation().borderStyle() == 3) || (ite->annotation().borderStyle() == 4))
 		{
 			QColor shade;
 			QColor light;
-			if (ite->annotation().Bsty() == 4)
+			if (ite->annotation().borderStyle() == 4)
 			{
 				shade.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
 				light.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
@@ -9515,12 +9515,12 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			ret += "0 J\n";
 			ret += "0 j\n";
 			ret += putColor(ite->annotation().borderColor(), 100, false);
-			double bwh = ite->annotation().Bwid() / 2.0;
+			double bwh = ite->annotation().borderWidth() / 2.0;
 			int h, s, v;
 			double cx = dx / 2.0;
 			double cy = dy / 2.0;
 			double rb = 0.5 * (dx < dy ? dx : dy);
-			double r = rb - 0.25 * ite->annotation().Bwid();
+			double r = rb - 0.25 * ite->annotation().borderWidth();
 			double bzc = 0.55228475;
 			ret += Pdf::toPdf(bwh)+" w\n";
 			ret += FToStr(cx + r)+" "+FToStr(cy)+" m\n";
@@ -9529,7 +9529,7 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			ret += FToStr(cx - r)+" "+FToStr(cy - bzc * r)+" "+FToStr(cx - bzc * r)+" "+FToStr(cy - r)+" "+FToStr(cx)+" "+FToStr(cy - r)+" c\n";
 			ret += FToStr(cx + bzc * r)+" "+FToStr(cy - r)+" "+FToStr(cx + r)+" "+FToStr(cy - bzc * r)+" "+FToStr(cx + r)+" "+FToStr(cy)+" c\n";
 			ret += "h\nS\n";
-			r = rb - 0.73 * ite->annotation().Bwid();
+			r = rb - 0.73 * ite->annotation().borderWidth();
 			double r2 = r / 1.414213562;
 			shade.getRgb(&h, &s, &v);
 			ret += FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" RG\n";
@@ -9547,28 +9547,28 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 	}
 	else
 	{
-		if ((ite->annotation().Bsty() == 0) || (ite->annotation().Bsty() == 1))
+		if ((ite->annotation().borderStyle() == 0) || (ite->annotation().borderStyle() == 1))
 		{
 			ret += putColor(ite->annotation().borderColor(), 100, false);
-			ret += Pdf::toPdf(ite->annotation().Bwid())+" w\n";
+			ret += Pdf::toPdf(ite->annotation().borderWidth())+" w\n";
 			ret += "0 J\n";
 			ret += "0 j\n";
-			if (ite->annotation().Bsty() == 1)
-				ret += "["+Pdf::toPdf(ite->annotation().Bwid()*4)+" "+Pdf::toPdf(ite->annotation().Bwid()*2)+"] 0 d\n";
-			double bwh = ite->annotation().Bwid() / 2.0;
+			if (ite->annotation().borderStyle() == 1)
+				ret += "["+Pdf::toPdf(ite->annotation().borderWidth()*4)+" "+Pdf::toPdf(ite->annotation().borderWidth()*2)+"] 0 d\n";
+			double bwh = ite->annotation().borderWidth() / 2.0;
 			QPainterPath clp;
-			clp.addRect(QRectF(bwh, bwh, ite->width() - ite->annotation().Bwid(), ite->height() - ite->annotation().Bwid()));
+			clp.addRect(QRectF(bwh, bwh, ite->width() - ite->annotation().borderWidth(), ite->height() - ite->annotation().borderWidth()));
 			FPointArray clpArr;
 			clpArr.fromQPainterPath(clp);
 			clpArr.translate(0, -ite->height());
 			ret += SetClipPathArray(&clpArr, true);
 			ret += "h\nS\n";
 		}
-		else if ((ite->annotation().Bsty() == 3) || (ite->annotation().Bsty() == 4))
+		else if ((ite->annotation().borderStyle() == 3) || (ite->annotation().borderStyle() == 4))
 		{
 			QColor shade;
 			QColor light;
-			if (ite->annotation().Bsty() == 4)
+			if (ite->annotation().borderStyle() == 4)
 			{
 				shade.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
 				light.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
@@ -9585,18 +9585,18 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			ret += "0 0 m\n";
 			ret += "0 "+FToStr(dy)+" l\n";
 			ret += FToStr(dx)+" "+FToStr(dy)+" l\n";
-			ret += FToStr(dx - ite->annotation().Bwid())+" "+FToStr(dy - ite->annotation().Bwid())+" l\n";
-			ret += FToStr(ite->annotation().Bwid())+" "+FToStr(dy - ite->annotation().Bwid())+" l\n";
-			ret += FToStr(ite->annotation().Bwid())+" "+FToStr(ite->annotation().Bwid())+" l\n";
+			ret += FToStr(dx - ite->annotation().borderWidth())+" "+FToStr(dy - ite->annotation().borderWidth())+" l\n";
+			ret += FToStr(ite->annotation().borderWidth())+" "+FToStr(dy - ite->annotation().borderWidth())+" l\n";
+			ret += FToStr(ite->annotation().borderWidth())+" "+FToStr(ite->annotation().borderWidth())+" l\n";
 			ret += "h\nf\n";
 			light.getRgb(&h, &s, &v);
 			ret += FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" rg\n";
 			ret += "0 0 m\n";
 			ret += FToStr(dx)+" 0 l\n";
 			ret += FToStr(dx)+" "+FToStr(dy)+" l\n";
-			ret += FToStr(dx - ite->annotation().Bwid())+" "+FToStr(dy - ite->annotation().Bwid())+" l\n";
-			ret += FToStr(dx - ite->annotation().Bwid())+" "+FToStr(ite->annotation().Bwid())+" l\n";
-			ret += FToStr(ite->annotation().Bwid())+" "+FToStr(ite->annotation().Bwid())+" l\n";
+			ret += FToStr(dx - ite->annotation().borderWidth())+" "+FToStr(dy - ite->annotation().borderWidth())+" l\n";
+			ret += FToStr(dx - ite->annotation().borderWidth())+" "+FToStr(ite->annotation().borderWidth())+" l\n";
+			ret += FToStr(ite->annotation().borderWidth())+" "+FToStr(ite->annotation().borderWidth())+" l\n";
 			ret += "h\nf\n";
 		}
 	}

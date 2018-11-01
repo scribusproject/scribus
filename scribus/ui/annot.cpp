@@ -114,9 +114,9 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	BorderW->clear();
 	for (uint propagate = 0; propagate < bordersArray; ++propagate)
 		BorderW->addItem(borders[propagate]);
-	BorderW->setCurrentIndex(annotation.Bwid());
+	BorderW->setCurrentIndex(annotation.borderWidth());
 
-	BorderS->setCurrentIndex(annotation.Bsty());
+	BorderS->setCurrentIndex(annotation.borderStyle());
 
 	OtherGroup->layout()->setAlignment(Qt::AlignTop);
 
@@ -1096,8 +1096,8 @@ void ScAnnot::SetValues()
 	annotation.setToolTip(Tip->text());
 	annotation.setRollOver(TextO->text());
 	annotation.setDown(DownT->text());
-	annotation.setBwid(BorderW->currentIndex());
-	annotation.setBsty(BorderS->currentIndex());
+	annotation.setBorderWidth(BorderW->currentIndex());
+	annotation.setBorderStyle(BorderS->currentIndex());
 	annotation.setFeed(ComboBox7_2->currentIndex());
 	annotation.setVis(Visib->currentIndex());
 	annotation.setFont(Schrift->currentIndex());

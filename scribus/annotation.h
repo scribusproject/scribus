@@ -149,8 +149,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	void setRollOver(const QString& newRollOver) { AnRollOver=newRollOver; }
 	void setDown(const QString& newDown) { AnDown=newDown; }
 	void setBorderColor(const QString& newBorderColor) { AnBColor=newBorderColor; }
-	void setBwid(int newBwid) { AnBwid=newBwid; }
-	void setBsty(int newBsty) { AnBsty=newBsty; }
+	void setBorderWidth(int newBwid) { AnBwid=newBwid; }
+	void setBorderStyle(int newBsty) { AnBsty=newBsty; }
 	void setFeed(int newFeed) { AnFeed=newFeed; }
 	void setFlag(int newFlag) { AnFlag=newFlag; }
 	void addToFlag(int dFlag) { AnFlag+=dFlag; }
@@ -189,8 +189,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	QString RollOver() const { return AnRollOver; }
 	QString Down() const { return AnDown; }
 	QString borderColor() const { return AnBColor; }
-	int Bwid() const { return AnBwid; }
-	int Bsty() const { return AnBsty; }
+	int borderWidth() const { return AnBwid; }
+	int borderStyle() const { return AnBsty; }
 	int Feed() const { return AnFeed; }
 	int Flag() const { return AnFlag; }
 	int MaxChar() const { return AnMaxChar; }

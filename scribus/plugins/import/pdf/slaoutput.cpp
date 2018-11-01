@@ -698,15 +698,15 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					bsty = 4;
 				else if (bsty == AnnotBorder::borderUnderlined)
 					bsty = 2;
-				ite->annotation().setBsty(bsty);
+				ite->annotation().setBorderStyle(bsty);
 				ite->annotation().setBorderColor(CurrColorStroke);
-				ite->annotation().setBwid(qRound(brd->getWidth()));
+				ite->annotation().setBorderWidth(qRound(brd->getWidth()));
 			}
 			else
 			{
-				ite->annotation().setBsty(0);
+				ite->annotation().setBorderStyle(0);
 				ite->annotation().setBorderColor(CommonStrings::None);
-				ite->annotation().setBwid(0);
+				ite->annotation().setBorderWidth(0);
 			}
 			QString tmTxt = "";
 			tmTxt = UnicodeParsedString(fm->getPartialName());
