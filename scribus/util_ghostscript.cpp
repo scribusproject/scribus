@@ -90,7 +90,7 @@ int callGS(const QStringList& args_in, const QString& device, const QString& fil
 		cmd = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
-	if( !cmd.isEmpty() )
+	if (!cmd.isEmpty())
 		args.append( cmd );
 
 	args += args_in;
