@@ -1173,16 +1173,23 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		if (docItemCount != 0)
 		{
 			m_doc->m_Selection->delaySignalsOn();
+			// loop over all items and select
+			bool altPressed = m->modifiers() & Qt::AltModifier;
+			bool shiftPressed = m->modifiers() & Qt::ShiftModifier;
+
 			for (int a = 0; a < docItemCount; ++a)
 			{
 				PageItem* docItem = m_doc->Items->at(a);
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
 				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
-				if ((localSele.contains(apr2)) && ((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
+				if (((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
-					bool redrawSelection=false;
-					m_view->SelectItemNr(a, redrawSelection);
+					bool redrawSelection = false;
+					bool select = altPressed ? localSele.intersects(apr2) :
+                                               localSele.contains(apr2);
+					if (select)
+						m_view->SelectItemNr(a, redrawSelection);
 				}
 			}
 			m_doc->m_Selection->delaySignalsOff();
