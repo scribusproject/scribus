@@ -1218,7 +1218,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
-	//	qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 		if (m_doc->m_Selection->count() > 1)
 		{
 			m_doc->m_Selection->setGroupRect();
@@ -1226,10 +1225,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			//Now unuseful as PropertiesPalette_XYZ::setCurrentItem() handles multiple selection
-			//m_ScMW->propertiesPalette->setXY(x,y);
-			//m_ScMW->propertiesPalette->setBH(w,h);
+			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}
 		/*else
 			currItem->emitAllToGUI();*/
