@@ -7,12 +7,12 @@ related tools will be provided.
 
 You will need:
 - Microsoft Vista, 7 or a more recent version
-- Microsoft Visual Studio 2012 or later (for 32/64bit build)
-- A recent Qt release built with corresponding Visual Studio version (minimum 5.5, recommended >= 5.6.0)
+- Microsoft Visual Studio 2013 or later (for 32/64bit build)
+- A recent Qt release built with corresponding Visual Studio version (minimum 5.6, recommended >= 5.9.0)
 - Scribus common libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
 - Scribus 15x libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
 
-It is possible to use Microsoft Visual Studio 2012, 2013 or 2015 Express editions.
+It is possible to use Microsoft Visual Studio 2013, 2015 or 2017 Express editions.
 
 GETTING DEPENDENCIES
 ====================
@@ -37,7 +37,6 @@ Start a command line and import your Visual Studio environment:
 - for building 64bit : \path\to\visual\studio\VC\vcvarsall.bat x86_amd64
 
 Now cd to C:\Developer\qt-everywhere-whatever and run configure:
-- Visual Studio 2012 : configure -platform win32-msvc2012 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
 - Visual Studio 2013 : configure -platform win32-msvc2013 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
 - Visual Studio 2015 : configure -platform win32-msvc2015 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp 
 
@@ -67,7 +66,7 @@ These archives are named using a scheme where:
 - msvcXXXX represents the Visual Studio version needed to compile provided Visual Studio solution
 - YYYYMMDD represents the date where the archive has been prepared/uploaded to Sourceforge.
 
-For building 15x dependencies, archives for Visual Studio 2012 and Visual Studio 2015 are provided. These archives allows to 
+For building 15x dependencies, archives for Visual Studio 2013 and Visual Studio 2015 are provided. These archives allows to 
 build libraries  for 32bit and 64bit platforms using the different available toolsets, including the Windows XP compatible ones. 
 The default configuration  allows to build binaries compatible with Windows Vista and up.
 
@@ -87,7 +86,7 @@ build-all-platform-libs.bat script. For example :
 BUILDING SCRIBUS
 ====================
 
-After having compiled all dependencies, open the Scribus-build-props.props file located in Scribus\win32\msvc2012 or
+After having compiled all dependencies, open the Scribus-build-props.props file located in Scribus\win32\msvc2013 or
 Scribus\win32\msvc2015 depending on the Visual Studio version you are using in a text editor.
 Update the dependency paths to match your system.
 
