@@ -9,62 +9,73 @@
 <dl>
 
 <dt><a name="-getObjectType"><strong>getObjectType</strong></a>(...)</dt>
-<dd><code><a href="#-getObjectType">getObjectType</a>(["nom"])
--&gt; cha&icirc;ne</code>
+<dd><code>getObjectType(["nom"]) -&gt; cha&icirc;ne</code>
 <p>Retourne le type de l'objet "nom" sous forme d'une cha&icirc;ne de caract&egrave;re. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getCornerRadius"><strong>getCornerRadius</strong></a>(...)</dt>
-<dd><code><a href="#-getCornerRadius">getCornerRadius</a>(["nom"])
--&gt; nombre entier</code>
+<dd><code>getCornerRadius</a>(["nom"]) -&gt; nombre entier</code>
 <p>Retourne le rayon du coin de l'objet "nom". Le rayon est exprim&eacute; en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
+<dt><a name="-getCustomLineStyle"><strong>getCustomLineStyle</strong></a>(...)</dt>
+<dd><code>getCustomLineStyle(["nom"]) -&gt; cha&icirc;ne</code>
+<p>Retourne le nom du style de ligne personnalis&eacute; appliqu&eacute; &agrave; l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-getFillBlendmode"><strong>getFillBlendmode</strong>(...)</a></dt>
+<dd><code>getFillBlendmode(["nom"]) -&gt; entier</code>
+<p>Retourne le mode de fusion appliqu&eacute; &agrave; la couleur de fond de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
 <dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
-<dd><code><a href="#-getFillColor">getFillColor</a>(["nom"]) -&gt;
-cha&icirc;ne</code>
+<dd><code>getFillColor(["nom"]) -&gt; cha&icirc;ne</code>
 <p>Retourne le nom de la couleur de fond de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getFillShade"><strong>getFillShade</strong></a>(...)</dt>
-<dd><code><a href="#-getFillShade">getFillShade</a>(["nom"]) -&gt;
-nombre entier</code>
+<dd><code>getFillShade(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la valeur de la teinte de la couleur de fond de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
-	
+
+<dt><a name="-getFillTransparency"><strong>getFillTransparency</strong>(...)</a></dt>
+<dd><code>getFillTransparency(["nom"]) -&gt; nombre r&eacute;el</code>
+<p>Retourne l'opacit&eacute; appliqu&eacute;e &agrave; la couleur de fond de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
+
 <dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
 <dd><code>getImageName(["nom"]) -&gt; cha&icirc;ne</code>
 <p>Retourne le nom de fichier de l'image du cadre d'image. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
  
 <dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
-<dd><code><a href="#-getImageScale">getImageScale</a>(["nom"]) -&gt; (x,y)</code>
+<dd><code>getImageScale(["nom"]) -&gt; (x,y)</code>
 <p>Retourne un vecteur (x, y) contenant les valeurs de redimensionnement du cadre d'image "nom".  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-getLineBlendmode"><strong>getLineBlendmode</strong>(...)</a></dt>
+<dd><code>getLineBlendmode(["nom"]) -&gt; entier</code>
+<p>Retourne le mode de fusion appliqu&eacute; &agrave; au filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
 
 <dt><a name="-getLineCap"><strong>getLineCap</strong></a>(...)</dt>
 <dd><code>getLineEnd(["nom"]) -&gt; nombre entier (voir les constantes)</code>
-<p>Retourne le style de bout de ligne de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
-Les types de bout de ligne sont: CAP_FLAT, CAP_ROUND,
-CAP_SQUARE</p></dd>
+<p>Retourne le style de fin de ligne de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
+Les types de fin de ligne sont: CAP_FLAT, CAP_ROUND, CAP_SQUARE</p></dd>
 
 <dt><a name="-getLineColor"><strong>getLineColor</strong></a>(...)</dt>
-<dd><code><a href="#-getLineColor">getLineColor</a>(["nom"]) -&gt;
-cha&icirc;ne</code>
+<dd><code>getLineColor</a>(["nom"]) -&gt; cha&icirc;ne</code>
 <p>Retourne le nom de la couleur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getLineJoin"><strong>getLineJoin</strong></a>(...)</dt>
-<dd><code><a href="#-getLineJoin">getLineJoin</a>(["nom"]) -&gt; nombre entier (voir les constantes)</code>
-<p>Retourne le style de jointure de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. T
+<dd><code>getLineJoin(["nom"]) -&gt; nombre entier (voir les constantes)</code>
+<p>Retourne le style de jointure de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.
 Les types de jointure sont: JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</p></dd>
 
 <dt><a name="-getLineShade"><strong>getLineShade</strong></a>(...)</dt>
-<dd><code><a href="#-getLineShade">getLineShade</a>(["nom"]) -&gt;
-nombre entier</code>
+<dd><code>getLineShade(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la valeur de la teinte de la couleur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getLineStyle"><strong>getLineStyle</strong></a>(...)</dt>
-<dd><code><a href="#-getLineStyle">getLineStyle</a>(["nom"]) -&gt;
-nombre entier (voir les constantes)</code>
+<dd><code>getLineStyle(["nom"]) -&gt; nombre entier (voir les constantes)</code>
 <p>Retourne le style de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Les constantes de style de filet sont: LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</p></dd>
 
+<dt><a name="-getLineTransparency"><strong>getLineTransparency</strong>(...)</a></dt>
+<dd><code>getLineTransparency(["nom"]) -&gt; nombre r&eacute;el</code>
+<p>Retourne l'opacit&eacute; appliqu&eacute;e &agrave; au filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
+
 <dt><a name="-getLineWidth"><strong>getLineWidth</strong></a>(...)</dt>
-<dd><code><a href="#-getLineWidth">getLineWidth</a>(["nom"]) -&gt;
-nombre entier</code>
+<dd><code>getLineWidth(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la largeur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getObjectAttributes"><strong>getObjectAttributes</strong></a>(...)</dt>
@@ -72,16 +83,16 @@ nombre entier</code>
 <p>Retourne une liste contenant les attributs de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
 
 <dt><a name="-getPosition"><strong>getPosition</strong></a>(...)</dt>
-<dd><code><a href="#-getPosition">getPosition</a>(["nom"]) -&gt; (x,y)</code>
+<dd><code>getPosition(["nom"]) -&gt; (x,y)</code>
 <p>Retourne un vecteur (x, y) indiquant la position de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
 La position est exprim&eacute;e dans les unit&eacute;s de mesure courantes du document - voir UNIT_&lt;type&gt; pour r&eacute;f&eacute;rence.</p></dd>
 
 <dt><a name="-getRotation"><strong>getRotation</strong></a>(...)</dt>
-<dd><code><a href="#-getRotation">getRotation</a>(["nom"]) -&gt; nombre entier</code>
+<dd><code>getRotation(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la rotation de l'objet "nom". La valeur est exprim&eacute;e en degr&eacute;s, et le sens des aiguilles d'une montre correspond au sens positif. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getSize"><strong>getSize</strong></a>(...)</dt>
-<dd><code><a href="#-getSize">getSize</a>(["nom"]) -&gt; (largeur, hauteur)</code>
+<dd><code>getSize(["nom"]) -&gt; (largeur, hauteur)</code>
 <p>Retourne un vecteur (largeur, hauteur) d&eacute;crivant la taille de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
 La taille est exprim&eacute;e dans les unit&eacute; de mesure courantes du
 document - voir UNIT_&lt;type&gt; pour r&eacute;f&eacute;rence.</p></dd>
