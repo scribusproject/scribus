@@ -24,7 +24,7 @@
 <p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
 
 <dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
-<dd><code><a href="#-setImageScale">setImageScale</a>(x, y [, "nom"])</code>
+<dd><code><a href="#-setImageScale">setImageScale</a>(x, y [, "nom"])</code>
 <p>D&eacute;finit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %. Les facteurs de redimensionnement sont &eacute;gaux aux valeurs indiqu&eacute;es dans la palette des propri&eacute;t&eacute;s.</p>
 <p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
 
@@ -93,6 +93,11 @@ y a des constantes pr&eacute;d&eacute;finies pour "style" - LINE_&lt;style&gt;.<
 <p>&Eacute;tablit la valeur "&eacute;paisseur" pour le filet de l'objet "nom". La valeur "&eacute;paisseur" doit &ecirc;tre entre 0.0 et 12.0 inclusivement,
 exprim&eacute;e en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p> 
 <p>Peut g&eacute;n&eacute;rer ValueError si l'&eacute;paisseur de filet est hors limites.</p></dd>
+
+<dt><a name="-setObjectAttributes"><strong>setObjectAttributes</strong></a>(...)</dt>
+<dd><code>setObjectAttributes(attributs, ["nom"])</code>
+<p>D&eacute;finit les attributes de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p>
+<p>L'argument "attributs" est une liste de dictionnaires. Chaque dictionnaire doit définir les cl&eacute;s suivantes: Name, Type, Value, Parameter, Relationship, RelationshipTo, AutoAddTo. Chacune de ces valeurs doit être du type cha&icirc;ne de caractère.</p></dd>
 
 <dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
 <dd><code><a href="#-traceText">traceText</a>(["nom"])</code>

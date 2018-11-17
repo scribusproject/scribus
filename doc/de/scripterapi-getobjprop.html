@@ -19,13 +19,17 @@
 <dd><code>getCornerRadius(["name"]) -&gt; integer</code>
 <p>Returns the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</p></dd>
 
-<dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
-<dd><code>getFillColor(["name"]) -&gt; string</code>
-<p>Returns the name of the fill color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+<dt><a name="-getCustomLineStyle"><strong>getCustomLineStyle</strong></a>(...)</dt>
+<dd><code>getCustomLineStyle(styleName, ["name"])</code>
+<p>Returns the styleName of custom line style for the object. If object's "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getFillBlendmode"><strong>getFillBlendmode</strong>(...)</a></dt>
 <dd><code>getFillBlendmode(["name"]) -&gt; integer</code>
 <p>Returns the fill blendmode of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
+<dd><code>getFillColor(["name"]) -&gt; string</code>
+<p>Returns the name of the fill color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getFillShade"><strong>getFillShade</strong></a>(...)</dt>
 <dd><code>getFillShade(["name"]) -&gt; integer</code>
@@ -36,7 +40,7 @@
 <p>Returns the fill transparency of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
 
 <dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
-<dd><code>getImageName(["name"]) -&gt; string</code>
+<dd><code>getImageFile(["name"]) -&gt; string</code>
 <p>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</p></dd>
  
 <dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
@@ -74,6 +78,10 @@
 <dt><a name="-getLineWidth"><strong>getLineWidth</strong></a>(...)</dt>
 <dd><code>getLineWidth(["name"]) -&gt; integer</code>
 <p>Returns the line width of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getObjectAttributes"><strong>getObjectAttributes</strong></a>(...)</dt>
+<dd><code>getObjectAttributes(["name"]) -&gt; list</code>
+<p>Returns a list containing all attributes of object "name". If "name" is not given the currently selected Item is used.</p></dd>
 	
 <dt><a name="-getPosition"><strong>getPosition</strong></a>(...)</dt>
 <dd><code>getPosition(["name"]) -&gt; (x,y)</code>
