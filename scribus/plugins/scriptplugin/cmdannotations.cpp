@@ -16,6 +16,163 @@ static void setactioncoords(Annotation &a, int x, int y);
 static bool testPageItem(PageItem *i);
 static void add_text_to_dict(PyObject *drv, PageItem *i);
 
+PyObject *scribus_setjsactionscript(PyObject * /*self*/, PyObject* args)
+{
+	/*
+		Java_ReleaseButton	= 0,
+		Java_PressButton	= 1,
+		Java_EnterWidget	= 2,
+		Java_LeaveWidget	= 3,
+		Java_FocusIn		= 4,
+		Java_FocusOut		= 5,
+		Java_SelectionChg	= 6,
+		Java_FieldFormat	= 7,
+		Java_FieldValidate	= 8,
+		Java_FieldCalculate	= 9
+	*/
+	int action;
+	char *script = const_cast<char*>("");
+	char *name = const_cast<char*>("");
+
+	if (!PyArg_ParseTuple(args, "is|es",&action,&script,"utf-8", &name))
+		return nullptr;
+
+	if (action < 0 || action > 9)
+	{
+		QString qnum = QString("%1").arg(action);
+		PyErr_SetString(PyExc_RuntimeError,
+			QObject::tr("Action must be an integer in range 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (!checkHaveDocument())
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == nullptr)
+		return nullptr;
+
+	if (item->isAnnotation() == false)
+	{
+		PyErr_SetString(PyExc_RuntimeError,
+			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	
+	Annotation &annotation = item->annotation();
+	annotation.setActionType(Annotation::Action_JavaScript);
+	QString javascript = QString::fromUtf8(script); 
+
+	switch (action)
+	{
+	case Annotation::Java_ReleaseButton:
+		annotation.setAction(javascript);
+		break;
+	case Annotation::Java_PressButton:
+		annotation.setD_act(javascript);
+		break;
+	case Annotation::Java_EnterWidget:
+		annotation.setE_act(javascript);
+		break;
+	case Annotation::Java_LeaveWidget:
+		annotation.setX_act(javascript);
+		break;
+	case Annotation::Java_FocusIn:
+		annotation.setFo_act(javascript);
+		break;
+	case Annotation::Java_FocusOut:
+		annotation.setBl_act(javascript);
+		break;
+	case Annotation::Java_SelectionChg:
+		annotation.setK_act(javascript);
+		break;
+	case Annotation::Java_FieldFormat:
+		annotation.setF_act(javascript);
+		break;
+	case Annotation::Java_FieldValidate:
+		annotation.setV_act(javascript);
+		break;
+	case Annotation::Java_FieldCalculate:
+		annotation.setC_act(javascript);
+		break;
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
+{
+	int action;
+	char *name = const_cast<char*>("");
+
+	if (!PyArg_ParseTuple(args, "i|es",&action,"utf-8", &name))
+		return nullptr;
+
+	if (action < 0 || action > 9)
+	{
+		QString qnum = QString("%1").arg(action);
+		PyErr_SetString(PyExc_RuntimeError,
+			QObject::tr("Action must be be 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (!checkHaveDocument())
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == nullptr)
+		return nullptr;
+
+	if (item->isAnnotation() == false)
+	{
+		PyErr_SetString(PyExc_RuntimeError,
+			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+    Annotation &annotation = item->annotation();
+	if (annotation.ActionType() != Annotation::Action_JavaScript)
+		Py_RETURN_NONE;
+
+	QString rv;
+	switch (action)
+	{
+	case Annotation::Java_ReleaseButton:
+		rv = annotation.Action();
+		break;
+	case Annotation::Java_PressButton:
+		rv = annotation.D_act();
+		break;
+	case Annotation::Java_EnterWidget:
+		rv = annotation.E_act();
+		break;
+	case Annotation::Java_LeaveWidget:
+		rv = annotation.X_act();
+		break;
+	case Annotation::Java_FocusIn:
+		rv = annotation.Fo_act();
+		break;
+	case Annotation::Java_FocusOut:
+		rv = annotation.Bl_act();
+		break;
+	case Annotation::Java_SelectionChg:
+		rv = annotation.K_act();
+		break;
+	case Annotation::Java_FieldFormat:
+		rv = annotation.F_act();
+		break;
+	case Annotation::Java_FieldValidate:
+		rv = annotation.V_act();
+		break;
+	case Annotation::Java_FieldCalculate:
+		rv = annotation.C_act();
+		break;
+	}
+
+	PyObject *rstr = PyString_FromString(rv.toUtf8());
+	return rstr;
+}
+
 PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *keywds)
 {
 	char *name = const_cast<char*>("");  
@@ -446,7 +603,9 @@ void cmdannotationsdocwarnings()
       << scribus_setfileannotation__doc__
       << scribus_seturiannotation__doc__
       << scribus_settextannotation__doc__
-      << scribus_createpdfannotation__doc__;
+      << scribus_createpdfannotation__doc__
+      << scribus_setjsactionscript__doc__
+      << scribus_getjsactionscript__doc__;
 }
 
 
@@ -484,8 +643,8 @@ static void prepareannotation(PageItem *i)
 {
 	if (i->isBookmark)
 	{
-	  i->isBookmark = false;
-	  ScCore->primaryMainWindow()->DelBookMark(i);
+		i->isBookmark = false;
+		ScCore->primaryMainWindow()->DelBookMark(i);
 	}
 	i->setIsAnnotation(true);
 }

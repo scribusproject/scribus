@@ -595,6 +595,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTextAnnotation"), scribus_settextannotation, METH_VARARGS,tr(scribus_settextannotation__doc__)},
 	{const_cast<char*>("createPdfAnnotation"), scribus_createpdfannotation, METH_VARARGS,tr(scribus_createpdfannotation__doc__)},
 	{const_cast<char*>("isAnnotated"),(PyCFunction)scribus_isannotated, METH_VARARGS|METH_KEYWORDS,tr(scribus_isannotated__doc__)},
+	{const_cast<char*>("setJSActionScript"), scribus_setjsactionscript, METH_VARARGS,tr(scribus_setjsactionscript__doc__)},
+	{const_cast<char*>("getJSActionScript"), scribus_getjsactionscript, METH_VARARGS,tr(scribus_getjsactionscript__doc__)},
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} /* sentinel */
 };
 

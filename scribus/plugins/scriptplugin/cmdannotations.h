@@ -157,4 +157,43 @@ May raise NameExistsError if you explicitly pass a name that's already used.\n\
 /*!creates a pdf annotation and a text frame.*/
 PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_getjsactionscript__doc__,
+	QT_TR_NOOP("getJSActionScript(which,[\"name\"])\n\
+\n\
+Gets the JavaScript action for a particular event\n\
+\"which\" is one of the following:\n\
+(0 Mouse Up, 1 Mouse Down, 2 Mouse Enter,\n\
+3 Mouse Exit, 4 Focus In, 5 Focus Out,\n\
+6 Selection Change, 7 Field Format,\n\
+8 Field Validate, 9 Field Calculate)\n\
+\"name\" uses the currently selected item if not given.\n\
+Page item must be an annotation or an error will be raised.\n\
+Returns:\n\
+Returns a string if object's action type is Javascript, \n\
+NONE otherwise.\n\
+"));
+/*!gets the JavaScript for an annotation action.*/
+PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setjsactionscript__doc__,
+ QT_TR_NOOP("setJSActionScript(which,script,[\"name\"])\n\
+\n\
+Sets the JavaScript action for a particular event.\n\
+Also sets the annotation's action to JavaScript.\n\
+\"which\" is one of the following:\n\
+(0 Mouse Up, 1 Mouse Down, 2 Mouse Enter,\n\
+3 Mouse Exit, 4 Focus In, 5 Focus Out,\n\
+6 Selection Change, 7 Field Format,\n\
+8 Field Validate, 9 Field Calculate)\n\
+\"script\" is the JavaScript set to the action.\n\
+\"name\" uses the currently selected item if not given.\n\
+Page item must be an annotation or an error will be raised.\n\
+Returns:\n\
+None\n\
+"));
+/*!sets the JavaScript on an annotation action.*/
+PyObject *scribus_setjsactionscript(PyObject * /*self*/, PyObject* args);
+
 #endif
