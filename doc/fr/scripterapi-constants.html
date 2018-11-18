@@ -20,7 +20,7 @@ variable est utile pour afficher la version &agrave; l'utilisateur, par exemple 
 	<p><code>scribus_version_info</code> est un vecteur semblable au vecteur <code>sys.version_info</code> fourni par Python. 
 C'est un vecteur de la forme (majorversion, minorversion, patchlevel,
 extraversion, build), par exemple 1.2.1cvs correspond &agrave;
-<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond &agrave; <code>(1,3,2,'',0)<code> . Ces vecteurs sont id&eacute;aux pour v&eacute;rifier les versions minimum, etc., parce que Python compare les vecteurs &eacute;l&eacute;ment par &eacute;l&eacute;ment, de gauche &agrave; droite. Par exemple :</p>
+<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond &agrave; <code>(1,3,2,'',0)</code> . Ces vecteurs sont id&eacute;aux pour v&eacute;rifier les versions minimum, etc., parce que Python compare les vecteurs &eacute;l&eacute;ment par &eacute;l&eacute;ment, de gauche &agrave; droite. Par exemple :</p>
 <pre>
 if scribus.scribus_version_info[:3] &lt; (1,2,2):
     messageBox("Scribus - script Python",
@@ -31,6 +31,7 @@ if scribus.scribus_version_info[:3] &lt; (1,2,2):
 </pre>
 
 <h4>Constantes d'&eacute;num&eacute;ration d'unit&eacute;s : </h4>
+<table><tr><td>
 <dl>
 	<dt>UNIT_POINTS</dt>
 	<dd>Unit&eacute; de mesure point = 0</dd>
@@ -41,12 +42,14 @@ if scribus.scribus_version_info[:3] &lt; (1,2,2):
 	<dt>UNIT_PICAS</dt>
 	<dd>Unit&eacute; de mesure pica = 3</dd>
 </dl>
+</td></tr></table>
 
 <h4>Constantes de conversion d'unit&eacute;s</h4>
 
 <p>Ces facteurs de conversion peuvent &ecirc;tre utilis&eacute;s pour convertir les unit&eacute;s en points et vice versa.
 Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/inch'; pour convertir les points en pouces vous &eacute;crirez 'valeur*inch', et pour convertir les pouces en mm vous &eacute;crirez 'valeur*mm/inch'.</p>
 
+<table><tr><td>
 <dl>
 	<dt>pt</dt>
 	<dd>points dans 1 pt</dd>
@@ -61,14 +64,17 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>...</dt>
 	<dd>D'autres constantes seront fournies si le coeur de Scribus les reconna&icirc;t.</dd>
 </dl>
+</td></tr></table>
 
 <h4>D&eacute;finitions d'orientation de page :</h4>
+<table><tr><td>
 <dl>
 	<dt>PORTRAIT</dt>
 	<dd>Orientation Portrait = 0</dd>
 	<dt>LANDSCAPE</dt>
 	<dd>Orientation Landscape = 1</dd>
 </dl>
+</td></tr></table>
 
 <h4>R&eacute;glages de format de page : </h4>
 <table><tr>
@@ -188,6 +194,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 </table>
 
 <h4>R&eacute;glages de la disposition du document :</h4>
+<table><tr><td>
 <dl>
 	<dt>FACINGPAGES</dt>
 	<dd>Disposition avec des pages en regard.</dd>
@@ -198,10 +205,12 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>FIRSTPAGERIGHT</dt>
 	<dd>La premi&egrave;re page du document est une premi&egrave;re de droite.</dd>
 </dl>
+</td></tr></table>
 
 <h4>R&eacute;glages de l'alignement :</h4>
+<table><tr><td>
 <dl>
-	<dt>ALIGN_LEFTK</dt>
+	<dt>ALIGN_LEFT</dt>
 	<dd>Le texte est align&eacute; &agrave; gauche.</dd>
 	<dt>ALIGN_CENTERED</dt>
 	<dd>Le texte est centr&eacute; dans le cadre de texte.</dd>
@@ -212,8 +221,10 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
   	<dt>ALIGN_BLOCK</dt>
 	<dd>Le texte a un alignement bloqu&eacute;.</dd>
 </dl>
+</td></tr></table>
 
 <h4>R&eacute;glages de l'alignement vertical :</h4>
+<table><tr><td>
 <dl>
 	<dt>ALIGNV_TOP</dt>
 	<dd>Le texte est align&eacute; verticalement en haut.</dd>
@@ -222,8 +233,10 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>ALIGNV_BOTTOM</dt>
 	<dd>Le texte est align&eacute; verticalement en bas.</dd>
 </dl>
+</td></tr></table>
 
 <h4>R&eacute;glages relatifs aux lignes :</h4>
+<table><tr><td>
 <dl>
     <dt>LINE_DASH</dt>
     <dt>LINE_DASHDOT</dt>
@@ -239,8 +252,10 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
     <dt>CAP_ROUND</dt>
     <dt>CAP_SQUARE</dt>
 </dl>
+</td></tr></table>
 
 <h4>R&eacute;glages relatifs au fond :</h4>
+<table><tr><td>
 <dl>
 	<dt>FILL_NOG</dt>
     <dd>Pas de d&eacute;grad&eacute;, couleur unie</dd>
@@ -250,8 +265,10 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>FILL_CROSSDIAGONALG</dt>
 	<dt>FILL_RADIALG</dt>
 </dl>
+</td></tr></table>
 
 <h4>Boutons de dialogue</h4>
+<table><tr><td>
 <dl>
     <dt>BUTTON_ABORT</dt>
     <dt>BUTTON_CANCEL</dt>
@@ -262,14 +279,17 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
     <dt>BUTTON_RETRY</dt>
     <dt>BUTTON_YES</dt>
 </dl>
+</td></tr></table>
 
 <h4>Ic&ocirc;nes de dialogue</h4>
+<table><tr><td>
 <dl>
     <dt>ICON_CRITICAL</dt>
     <dt>ICON_INFORMATION</dt>
     <dt>ICON_NONE</dt>
     <dt>ICON_WARNING</dt>
 </dl>
+</td></tr></table>
 
 </body>
 </html>
