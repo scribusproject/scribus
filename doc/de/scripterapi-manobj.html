@@ -8,13 +8,24 @@
 
 <dl>
 
+<dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
+<dd><code>combinePolygons()</code>
+<p>Combines two or more selected polygons.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
 <dd><code>copyObject(["name"]) -&gt; string</code>
 <p>copies the selected Object to the clipboard.</p></dd>
 
 <dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
 <dd><code>duplicateObject(["name"]) -&gt; string</code>
-<p>creates a Duplicate of the selected Object (or Selection Group).</p></dd>
+<p>Creates a Duplicate of the selected Object (or Selection Group).</p></dd>
+
+<dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
+<dd><code>getStyle(["name"])</code>
+<p>Return name of style applied to object named \"name\". If \"name\" is not given, the currently selected object is used.<p>
+<p>If current object has a text selection, the name of style applied to start of selection is returned. Otherwise the name of the item default style is returned.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
 
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
 <dd><code>groupObjects(list)</code>
@@ -76,7 +87,7 @@
 <dd><code>sizeObject(width, height [, "name"])</code>
 <p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
 
-<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+<dt><a name="-unGroupObject"><strong>unGroupObjects</strong></a>(...)</dt>
 <dd><code>unGroupObjects("name")</code>
 <p>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</p></dd>
 

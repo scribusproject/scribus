@@ -89,7 +89,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -132,7 +132,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -621,6 +621,34 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	currentView->Deselect();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection = tempSelection;
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_combinepolygons(PyObject * /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	Selection* curSelection = currentDoc->m_Selection;
+	if (curSelection->count() <= 1)
+		Py_RETURN_NONE;
+
+	bool canUniteItems = true;
+	for (int i = 0; i < curSelection->count(); ++i)
+	{
+		PageItem* it = currentDoc->m_Selection->itemAt(i);
+		if ((!it->asPolygon()) || (!it->asPolyLine()))
+			canUniteItems = false;
+	}
+
+	if (!canUniteItems)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Selection must contain only shapes or bezier curves.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	currentDoc->itemSelection_UniteItems(nullptr);
 
 	Py_RETURN_NONE;
 }

@@ -835,12 +835,12 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		}
 		(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 
-		bool hPoly = false;
+		bool hPoly = true;
 		for (int i=0; i < docSelectionCount; ++i)
 		{
 			PageItem* it=doc->m_Selection->itemAt(i);
-			if ((it->asPolygon()) || (it->asPolyLine()))
-				hPoly = true;
+			if ((!it->asPolygon()) || (!it->asPolyLine()))
+				hPoly = false;
 		}
 		(*a_scrActions)["itemCombinePolygons"]->setEnabled(hPoly);
 

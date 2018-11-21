@@ -8,6 +8,11 @@
 
 <dl>
 
+<dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
+<dd><code>combinePolygons()</code>
+<p>Combine deux polygones ou plus.</p>
+<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
+
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
 <dd><code><a href="#-copyObject">copyObject</a>(["nom"]) -&gt; cha&icirc;ne</code>
 <p>Effectue une copie de l'objet s&eacute;lectionn&eacute; vers le presse-papiers.</p></dd>
@@ -20,7 +25,7 @@
 <dd><code><a href="#-getStyle">getStyle</a>(["nom"])  -&gt; cha&icirc;ne</code>
 <p>Retourne le nom du style appliqu&eacute; &agrave; l'objet "nom". Si aucun nom d'objet n'est fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p> 
 <p>Si l'objet courant poss&egrave;de une s&eacute;lection de texte, le nom retourn&eacute; est celui du style appliqu&eacute; au d&eacute;but de la s&eacute;lection. Sinon le nom retourn&eacute; est celui du style appliqu&eacute; par d&eacute;faut.</p>
-<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError.</p></dd>
+<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
 <dd><code><a href="#-groupObjects">groupObjects</a>(liste)  -&gt; cha&icirc;ne</code>
@@ -34,20 +39,20 @@ utilis&eacute;s. Retourne le nom du groupe cr&eacute;&eacute; pour utilisation u
 
 <dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
 <dd><code><a href="#-lockObject">lockObject</a>(["nom"]) -&gt; bool&eacute;en</code>
-<p>Verrouille l'objet "nom" s'il est d&eacute;verrouill&eacute;, ou le d&eacute;verrouille s'il y a lieu. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. 
+<p>Verrouille l'objet "nom" s'il est d&eacute;verrouill&eacute;, ou le d&eacute;verrouille s'il y a lieu. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
 Retourne la valeur True si verrouill&eacute;.</p></dd>
 
 <dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
 <dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "nom"])</code>
 <p>D&eacute;place l'objet "nom" de dx et dy par rapport &agrave; sa position courante. Les
 distances sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir
-les constantes UNIT). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+les constantes UNIT). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
 
 <dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
 <dd><code><a href="#-moveObjectAbs">moveObjectAbs</a>(x, y [, "nom"])</code>
 <p>D&eacute;place l'objet "nom" &agrave; une nouvelle position. Les coordonn&eacute;es
 sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir les
-constantes UNIT).  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+constantes UNIT).  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
 
 <dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
 <dd><code><a href="#-rotateObject">rotateObject</a>(rot [, "nom"])</code>
@@ -71,13 +76,13 @@ pas valide.</p></dd>
 <dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
 <dd><code><a href="#-setScaleFrameToImage">setScaleFrameToImage</a>([nom])</code>
 <p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;</p>
-<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError.</p></dd>
+<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
 <dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code>
 <p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image s&eacute;lectionn&eacute;, ou sp&eacute;cifi&eacute; dans 'redimAuCadre'. 
 Si 'proportionnel' est sp&eacute;cifi&eacute;, &eacute;tablit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont bool&eacute;ens.</p>
-<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError.</p></dd>
+<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code><a href="#-setStyle">setStyle</a>("style" [, "nom"])</code>

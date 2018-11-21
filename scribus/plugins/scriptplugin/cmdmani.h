@@ -271,4 +271,11 @@ If \"name\" is not given the currently selected item is used.\n\
 /*! Flip the object 2010/5/18.*/
 PyObject *scribus_flipobject(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_combinepolygons__doc__,
+QT_TR_NOOP("combinePolygons()\n\
+\n\
+Combine two or more selected Polygons\n\
+"));
+PyObject *scribus_combinepolygons(PyObject * /* self */);
+
 #endif

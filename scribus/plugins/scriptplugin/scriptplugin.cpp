@@ -586,6 +586,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("duplicateObject"), scribus_duplicateobject, METH_VARARGS, tr(scribus_duplicateobject__doc__)},
 	{const_cast<char*>("copyObject"), scribus_copyobject, METH_VARARGS, tr(scribus_copyobject__doc__)},
 	{const_cast<char*>("pasteObject"), scribus_pasteobject, METH_VARARGS, tr(scribus_pasteobject__doc__)},
+	// by Tj (hacker@iam.tj>
+	{const_cast<char*>("combinePolygons"), (PyCFunction)scribus_combinepolygons, METH_NOARGS, tr(scribus_combinepolygons__doc__)},
 	// Internal methods - Not for public use
 	{const_cast<char*>("retval"), (PyCFunction)scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
