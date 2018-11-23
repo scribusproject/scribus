@@ -3,12 +3,12 @@ language: c++
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       sudo: required
       compiler:
         - gcc
     - os: linux
-      dist: trusty
+      dist: xenial
       sudo: required
       compiler:
         - clang
@@ -19,18 +19,20 @@ matrix:
       compiler: gcc
     - os: linux
       dist: precise
+    - os: linux
+      dist: trusty
 
 before_install:
 # Linux
 - if [ $TRAVIS_OS_NAME == linux ]; then
-      sudo apt-add-repository ppa:beineri/opt-qt58-trusty -y;
+      sudo apt-add-repository ppa:beineri/opt-qt595-xenial -y;
       sudo apt-add-repository ppa:as-bahanta/raqm -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
       sudo apt-get update -qq;
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-      python-all-dev zlib1g-dev qt58base qt58declarative
-      qt58tools libgraphicsmagick++1-dev
+      python-all-dev zlib1g-dev qt59base qt59declarative
+      qt59tools libgraphicsmagick++1-dev
       libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
       libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
       coreutils binutils python-tk;
@@ -56,7 +58,7 @@ before_install:
 
 script:
   - if [ $TRAVIS_OS_NAME == linux ]; then
-      source /opt/qt58/bin/qt58-env.sh;
+      source /opt/qt59/bin/qt59-env.sh;
       if [[ $CC == gcc ]]; then
         export NPROC=8;
       else
