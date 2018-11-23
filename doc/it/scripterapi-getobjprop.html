@@ -39,6 +39,20 @@
 <dd><code>getFillTransparency(["name"]) -&gt; float</code>
 <p>Returns the fill transparency of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
 
+<dt><a name="-getImageColorSpace"><strong>getImageColorSpace</strong></a>(...)</dt>
+<dd><code>getImageColorSpace(["name"]) -&gt; integer (see CSPACE_* constants)</code>
+<p>Returns the color space of the image loaded in image frame "name" as one of following integer constants:
+	<ul>
+		<li>CSPACE_RGB</li>
+		<li>CSPACE_CMYK</li>
+		<li>CSPACE_GRAY</li>
+		<li>CSPACE_DUOTONE</li>
+		<li>CSPACE_MONOCHROME.</li>
+	</ul>
+</p>
+<p>Returns CSPACE_UNDEFINED if there is no image loaded in the frame.</p>
+<p>If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
 <dd><code>getImageFile(["name"]) -&gt; string</code>
 <p>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</p></dd>
