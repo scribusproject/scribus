@@ -393,6 +393,39 @@ PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
 	return lst;
 }
 
+PyObject *scribus_getimagecolorspace(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (item->itemType() != PageItem::ImageFrame)
+	{
+		PyErr_SetString(WrongFrameTypeError,
+			QObject::tr("Page item must be an ImageFrame", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	const ScImage& pixm = item->pixm;
+	if (pixm.width() == 0 || pixm.height() == 0)
+		return PyInt_FromLong(static_cast<long>(-1));
+
+	const ImageInfoRecord& iir = pixm.imgInfo;
+	int cspace = iir.colorspace;
+	/*
+	RGB  = 0,
+	CMYK = 1,
+	Gray = 2,
+	Duotone = 3,
+	Monochrome = 4
+	*/
+	return PyInt_FromLong(static_cast<long>(cspace));
+}
+
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -411,5 +444,5 @@ void cmdgetpropdocwarnings()
 	  << scribus_getimgscale__doc__ << scribus_getimagefile__doc__ 
 	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
 	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__
-	  << scribus_getobjectattributes__doc__;
+	  << scribus_getobjectattributes__doc__ << scribus_getimagecolorspace__doc__;
 }

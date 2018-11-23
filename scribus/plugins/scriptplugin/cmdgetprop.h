@@ -166,14 +166,15 @@ selected item is used.\n\
 PyObject *scribus_getcornerrad(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getimgscale__doc__,
-QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
-\n\
-Returns a (x, y) tuple containing the scaling values of the image frame\n\
-\"name\".  If \"name\" is not given the currently selected item is used.\n\
+PyDoc_STRVAR(scribus_getimagecolorspace__doc__,
+QT_TR_NOOP("getImageColorSpace([\"name\"]) -> integer\n\
+Returns the color space for the image loaded in image frame \"name\" as \n\
+one of following integer constants: CSPACE_RGB (0), CSPACE_CMYK (1), \n\
+CSPACE_GRAY (2), CSPACE_DUOTONE (3) or CSPACE_MONOCHROME (4).\n\
+Returns CSPACE_UNDEFINED (-1) if no image is loaded in the frame.\n\
+If \"name\" is not given the currently selected item is used.\n\
 "));
-/*! Returns image scale of the object */
-PyObject *scribus_getimgscale(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getimagecolorspace(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getimagefile__doc__,
@@ -184,6 +185,16 @@ given the currently selected item is used.\n\
 "));
 /*! Returns image name of the object */
 PyObject *scribus_getimagefile(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getimgscale__doc__,
+	QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
+\n\
+Returns a (x, y) tuple containing the scaling values of the image frame\n\
+\"name\".  If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns image scale of the object */
+PyObject *scribus_getimgscale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getposi__doc__,
