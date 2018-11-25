@@ -4186,6 +4186,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	tmp += FToStr(ite->visualWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->visualHeight() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
 	maxSize = qMax(ite->visualWidth(), ite->visualHeight());
 	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
+	maxSize = ceil(maxSize);
 	bool saveControl = ite->doc()->guidesPrefs().showControls;
 	ite->doc()->guidesPrefs().showControls = false;
 	bool savedShadow = ite->hasSoftShadow();
@@ -4220,6 +4221,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	ite->doc()->guidesPrefs().showControls = saveControl;
 	ite->setHasSoftShadow(savedShadow);
 	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
+
 	PdfId maskObj = writer.newObject();
 	writer.startObj(maskObj);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
@@ -4238,67 +4240,68 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	PutDoc("    " + Pdf::toPdf(bytesWritten));
 	writer.endObj(lengthObj);
 
-	PdfId colObj = writer.newObject();
-	writer.startObj(colObj);
-	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-	PutDoc("/Width 1\n");
-	PutDoc("/Height 1\n");
-	PutDoc("/Interpolate false\n");
-	PutDoc("/BitsPerComponent 8\n");
-	PutDoc("/SMask "+Pdf::toPdf(maskObj)+" 0 R\n");
-
-	ScImage col(1,1);
+	const ScColor& shadowColor = doc.PageColors[ite->softShadowColor()];
 	QByteArray colstr = SetColor(ite->softShadowColor(), ite->softShadowShade());
+	int colCompCount = colstr.split(' ').count();
+
+	PdfId softMaskTransGroupObj = writer.newObject();
+	writer.startObj(softMaskTransGroupObj);
+	PutDoc("<<\n/Type /Group\n/S /Transparency\n");
+	PutDoc("/I false\n/K false\n");
 	if (Options.isGrayscale)
-	{
-		double gf;
-		int g;
-		QTextStream ts(&colstr, QIODevice::ReadOnly);
-		ts >> gf;
-		g = qRound(gf * 255);
-		col.imgInfo.colorspace = ColorSpaceGray;
-		col.qImagePtr()->setPixel(0,0,qRgba(g,g,g,255));
-		PutDoc("/ColorSpace /DeviceGray\n");
-		PutDoc("/Length 1\n");
-		PutDoc(">>\nstream\n");
-		WriteImageToStream(col, colObj, ColorSpaceGray, true);
-		PutDoc("\nendstream");
-	}
+		PutDoc("/CS /DeviceGray\n");
 	else if (Options.UseRGB)
+		PutDoc("/CS /DeviceRGB\n");
+	else if (doc.HasCMS && Options.UseProfiles && (shadowColor.getColorModel() != colorModelCMYK ))
+		PutDoc("/CS " + ICCProfiles[Options.SolidProf].ICCArray + "\n");
+	else
+		PutDoc("/CS /DeviceCMYK\n");
+	PutDoc(">>");
+	writer.endObj(softMaskTransGroupObj);
+
+	PdfId softMaskGroupGStateObj = writeGState("/AIS false\n/BM /Normal\n"
+	                                           "/ca 1.0\n/CA 1.0\n"
+	                                           "/op false\n/OP false\n/OPM 1\n"
+	                                           "/SA true\n/SMask /None\n");
+
+	PdfId softMaskGroupObj = writer.newObject();
+	writer.startObj(softMaskGroupObj);
+	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+	PutDoc("/BBox [0.0 0.0 1.0 1.0]\n");
+	PutDoc("/Matrix [1.0 0.0 0.0 1.0 0.0 0.0]\n");
+	PutDoc("/Group " + Pdf::toPdf(softMaskTransGroupObj) + " 0 R\n");
+	PutDoc("/Resources ");
+	Pdf::ResourceDictionary dict;
+	dict.XObject.insert(Pdf::toPdfDocEncoding("Img0"), maskObj);
+	dict.ExtGState.insert(Pdf::toPdfDocEncoding("GS0"), softMaskGroupGStateObj);
+	writer.write(dict);
+	QByteArray softMaskGroupData;
+	softMaskGroupData += "q\n";
+	softMaskGroupData += "/GS0 gs\n";
+	softMaskGroupData += "/Img0 Do\n";
+	softMaskGroupData += "Q";
+	if (Options.Compress)
 	{
-		double r,g,b;
-		QTextStream ts(&colstr, QIODevice::ReadOnly);
-		ts >> r;
-		ts >> g;
-		ts >> b;
-		col.imgInfo.colorspace = ColorSpaceRGB;
-		col.qImagePtr()->setPixel(0, 0, qRgba(qRound(r*255), qRound(g*255), qRound(b*255), 255));
-		PutDoc("/ColorSpace /DeviceRGB\n");
-		PutDoc("/Length 3\n");
-		PutDoc(">>\nstream\n");
-		WriteImageToStream(col, colObj, ColorSpaceRGB, false);
-		PutDoc("\nendstream");
+		softMaskGroupData = CompressArray(softMaskGroupData);
+		PutDoc("/Filter /FlateDecode\n");
 	}
-	else //CMYK
-	{
-		double c,m,y,k;
-		QTextStream ts(&colstr, QIODevice::ReadOnly);
-		ts >> c;
-		ts >> m;
-		ts >> y;
-		ts >> k;
-		col.imgInfo.colorspace = ColorSpaceCMYK;
-		col.qImagePtr()->setPixel(0, 0, qRgba(qRound(c*255), qRound(m*255), qRound(y*255), qRound(k*255)));
-		PutDoc("/ColorSpace /DeviceCMYK\n");
-		PutDoc("/Length 4\n");
-		PutDoc(">>\nstream\n");
-		WriteImageToStream(col, colObj, ColorSpaceCMYK, false);
-		PutDoc("\nendstream");
-	}
-	writer.endObj(colObj);
-	QByteArray colRes = ResNam+Pdf::toPdf(ResCount);
-	pageData.ImgObjects[colRes] = colObj;
-	ResCount++;
+	PutDoc("/Length " + Pdf::toPdf(softMaskGroupData.length()) + "\n");
+	PutDoc(">>stream\n" + EncStream(softMaskGroupData, softMaskGroupObj) + "\nendstream");
+	writer.endObj(softMaskGroupObj);
+
+	PdfId softMaskObj = writer.newObject();
+	writer.startObj(softMaskObj);
+	PutDoc("<<\n/Type /Mask\n");
+	PutDoc("/S /Luminosity\n");
+	if (colCompCount == 1) // Gray
+		PutDoc("/BC [ 0.0 ]\n");
+	else if (colCompCount == 3) // RGB
+		PutDoc("/BC [ 0.0 0.0 0.0 ]\n");
+	else // CMYK
+		PutDoc("/BC [ 1.0 1.0 1.0 1.0 ]\n");
+	PutDoc("/G " + Pdf::toPdf(softMaskGroupObj) + " 0 R\n");
+	PutDoc(">>");
+	writer.endObj(softMaskObj);
 
 	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
@@ -4306,17 +4309,44 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	{
 		Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->fillTransparency())+"\n"
 									   + "/AIS false\n/OPM 1\n"
-									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
+									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n"
+									   + "/SMask " + Pdf::toPdf(softMaskObj) + " 0 R\n");
 	}
 	else
 	{
 		Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->softShadowOpacity())+"\n"
 									   + "/AIS false\n/OPM 1\n"
-									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
+									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n"
+									   + "/SMask " + Pdf::toPdf(softMaskObj) + " 0 R\n");
 	}
 	tmp += Pdf::toName(ShName) + " gs\n";
 
-	tmp += Pdf::toName(colRes) + " Do Q\n";
+	if (Options.isGrayscale) // Gray
+	{
+		tmp += colstr;
+		tmp += " g\n";
+	}
+	else if (Options.UseRGB) // RGB
+	{
+		tmp += colstr;
+		tmp += " rg\n";
+	}
+	else if (doc.HasCMS && Options.UseProfiles && (shadowColor.getColorModel() != colorModelCMYK))
+	{
+		QByteArray tmp2[] = { "/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric" };
+		tmp += tmp2[Options.Intent] + " ri\n";
+		tmp += "/" + ICCProfiles[Options.SolidProf].ResName + " cs\n";
+		tmp += colstr;
+		tmp += " scn\n";
+	}
+	else //CMYK
+	{
+		tmp += colstr;
+		tmp += " k\n";
+	}
+	tmp += "0.0 0.0 1.0 1.0 re\n";
+	tmp += "f\n";
+	tmp += "Q\n";
 	return tmp;
 }
 
