@@ -814,7 +814,7 @@ public:
 
 	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gc.isControlGlyphs())
+		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
 
 		if (!m_fontMap.contains(font().replacementName()))
@@ -834,7 +834,14 @@ public:
 		QString gcMap = QString("(%1:%2)").arg(gc.getText().size()).arg(gc.glyphs().size());
 		QString indices;
 		double current_x = 0.0;
-		for (const GlyphLayout& gl : gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs()) 
+		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			indices += QString("%1,%2,%3,%4;").arg(gl.glyph)
 					.arg(((gl.xadvance + current_x) * m_xps->conversionFactor) / size * 100)
 					.arg((-gl.xoffset * m_xps->conversionFactor) / size * 100)
@@ -850,8 +857,16 @@ public:
 	{
 		if (gc.isControlGlyphs())
 			return;
+
 		double current_x = 0.0;
-		for (const GlyphLayout& gl : gc.glyphs()) {
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			FPointArray outline = font().glyphOutline(gl.glyph);
 			if (outline.size() >= 4)
 			{

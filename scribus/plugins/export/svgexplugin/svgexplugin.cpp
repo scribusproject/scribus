@@ -1156,11 +1156,17 @@ public:
 
 	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gc.isControlGlyphs())
+		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
 		double current_x = 0.0;
 		for (const GlyphLayout& gl : gc.glyphs())
 		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			QTransform transform = matrix();
 			transform.translate(x() + gl.xoffset + current_x, y() - (fontSize() * gc.scaleV()) + gl.yoffset);
 			transform.scale(gc.scaleH() * fontSize() / 10.0, gc.scaleV() * fontSize() / 10.0);
@@ -1171,17 +1177,25 @@ public:
 			QString stroke = "stroke:none;";
 			glyph.setAttribute("style", fill + stroke);
 			m_elem.appendChild(glyph);
+
 			current_x += gl.xadvance;
 		}
-
 	}
+
 	void drawGlyphOutline(const GlyphCluster& gc, bool hasFill)
 	{
-		if (gc.isControlGlyphs())
+		if (gc.isControlGlyphs() | gc.isEmpty())
 			return;
+
 		double current_x = 0.0;
 		for (const GlyphLayout& gl : gc.glyphs())
 		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			QTransform transform = matrix();
 			transform.translate(x() + gl.xoffset + current_x, y() - (fontSize() * gc.scaleV()) + gl.yoffset);
 			transform.scale(gc.scaleH() * fontSize() / 10.0, gc.scaleV() * fontSize() / 10.0);
@@ -1195,10 +1209,11 @@ public:
 			stroke += " stroke-width:" + m_svg->FToStr(strokeWidth() / (gc.scaleV() * fontSize() / 10.0)) + ";";
 			glyph.setAttribute("style", fill + stroke);
 			m_elem.appendChild(glyph);
+
 			current_x += gl.xadvance;
 		}
-
 	}
+
 	void drawLine(QPointF start, QPointF end)
 	{
 		QTransform transform = matrix();

@@ -4411,11 +4411,15 @@ public:
 			return;
 		for (const GlyphLayout& gl : gc.glyphs())
 		{
+			uint gid = gl.glyph;
+			if (gid >= ScFace::CONTROL_GLYPHS)
+				continue;
+
 			QString replacementName = font().replacementName();
 			if (!replacementName.isEmpty())
 			{
-				FPointArray outline = font().glyphOutline(gl.glyph);
-				m_really[replacementName].insert(gl.glyph, outline);
+				FPointArray outline = font().glyphOutline(gid);
+				m_really[replacementName].insert(gid, outline);
 			}
 		}
 	}

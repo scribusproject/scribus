@@ -150,6 +150,12 @@ public:
 		double current_x = 0.0;
 		for (const GlyphLayout& gl : gc.glyphs())
 		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
 			QByteArray StrokeColor;
 			QByteArray FillColor;
@@ -253,6 +259,12 @@ public:
 		double current_x = 0.0;
 		for (const GlyphLayout& gl : gc.glyphs())
 		{
+			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			{
+				current_x += gl.xadvance;
+				continue;
+			}
+
 			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
 			QByteArray StrokeColor;
 			QByteArray FillColor;
