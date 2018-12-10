@@ -66,8 +66,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	ResourceCollection lists;
 	QList<PageItem*> emG;
 	QList<PageItem*> emF;
-	emG.clear();
-	emF.clear();
+
 	for (int cor = 0; cor < selection->count(); ++cor)
 	{
 		PageItem *currItem = selection->itemAt(cor);
@@ -95,6 +94,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 			}
 		}
 	}
+
 	QList<QString>::Iterator it;
 	QList<QString> names = lists.styleNames();
 	QList<int> styleList = m_Doc->getSortedStyleList();
@@ -2016,8 +2016,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()) & 0x7FFFFFFF);
 			else
 				docu.writeAttribute("NEXTITEM", -1);
+
+			PageItem* prevTopParent = item->prevInChain();
+			while (prevTopParent && prevTopParent->Parent)
+				prevTopParent = prevTopParent->Parent;
 			
-			if (item->prevInChain() != nullptr && items->contains(item->prevInChain()))
+			if (item->prevInChain() != nullptr && items->contains(prevTopParent))
 				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()) & 0x7FFFFFFF);
 			else
 			{
