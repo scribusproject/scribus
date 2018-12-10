@@ -157,7 +157,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
 
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
-		void writeLinestyles(ScXmlStreamWriter& docu);
+		void writeLineStyles(ScXmlStreamWriter& docu);
 		void writeJavascripts(ScXmlStreamWriter& docu);
 		void writeBookmarks(ScXmlStreamWriter& docu);
 		void writeColors(ScXmlStreamWriter& docu, bool part = false);
