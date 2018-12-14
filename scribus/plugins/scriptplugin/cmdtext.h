@@ -48,6 +48,29 @@ selected item is used.\n\
 /*! Get fontfeatures */
 PyObject *scribus_getfontfeatures(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextcolor__doc__,
+	QT_TR_NOOP("getTextColor([\"name\"]) -> string\n\
+\n\
+Returns the name of the text color used for text frame \"name\".\n\
+If this text frame has some text selected the value assigned\n\
+to the first character of the selection is returned.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns color of the line */
+PyObject *scribus_gettextcolor(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextshade__doc__,
+	QT_TR_NOOP("getTextShade([\"name\"]) -> integer\n\
+\n\
+Returns the shade of text color used for text frame \"name\".\n\
+If this text frame has some text selected the value assigned\n\
+to the first character of the selection is returned.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns color of the line */
+PyObject *scribus_gettextshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextsize__doc__,

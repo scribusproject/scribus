@@ -98,6 +98,60 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(item->currentCharStyle().font().scName().toUtf8());
 }
 
+PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+    if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (item->HasSel)
+	{
+		for (int i = 0; i < item->itemText.length(); ++i)
+		{
+			if (item->itemText.selected(i))
+				return PyString_FromString(item->itemText.charStyle(i).fillColor().toUtf8());
+		}
+        return nullptr;
+	}
+    return PyString_FromString(item->currentCharStyle().fillColor().toUtf8());
+}
+
+PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (item->HasSel)
+	{
+		for (int i = 0; i < item->itemText.length(); ++i)
+		{
+			if (item->itemText.selected(i))
+				return PyInt_FromLong(item->itemText.charStyle(i).fillShade());
+		}
+		return nullptr;
+	}
+	return PyInt_FromLong(item->currentCharStyle().fillShade());
+}
+
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -200,7 +254,7 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-	 PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get fontfeatures of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get fontfeatures of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	if (item->HasSel)

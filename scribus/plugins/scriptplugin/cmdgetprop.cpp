@@ -105,18 +105,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 	it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == nullptr)
 		return nullptr;
-	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
-	{
-		for (int b = 0; b < it->itemText.length(); ++b)
-		{
-			if (it->itemText.selected(b))
-				return PyString_FromString(it->itemText.charStyle(b).fillColor().toUtf8());
-		}
-	}
-	else
-		return PyString_FromString(it->lineColor().toUtf8());
-	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error").toLocal8Bit().constData());
-	return nullptr;
+	return PyString_FromString(it->lineColor().toUtf8());
 }
 
 PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
@@ -163,17 +152,7 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 	it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == nullptr)
 		return nullptr;
-	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
-	{
-		for (int b = 0; b < it->itemText.length(); ++b)
-		{
-			if (it->itemText.selected(b))
-				return PyInt_FromLong(static_cast<long>(it->itemText.charStyle(b).fillShade()));
-		}
-	}
-	else
-		return PyInt_FromLong(static_cast<long>(it->lineShade()));
-	return PyInt_FromLong(0L);
+	return PyInt_FromLong(static_cast<long>(it->lineShade()));
 }
 
 PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
