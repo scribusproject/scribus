@@ -65,9 +65,9 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 	}
 	if (item->HasSel)
 	{
-		for (int b = 0; b < item->itemText.length(); b++)
-			if (item->itemText.selected(b))
-				return PyFloat_FromDouble(static_cast<double>(item->itemText.charStyle(b).fontSize() / 10.0));
+		for (int i = 0; i < item->itemText.length(); i++)
+			if (item->itemText.selected(i))
+				return PyFloat_FromDouble(static_cast<double>(item->itemText.charStyle(i).fontSize() / 10.0));
 		return nullptr;
 	}
 	return PyFloat_FromDouble(static_cast<double>(item->currentCharStyle().fontSize() / 10.0));
@@ -90,9 +90,9 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	}
 	if (item->HasSel)
 	{
-		for (int b = 0; b < item->itemText.length(); b++)
-			if (item->itemText.selected(b))
-				return PyString_FromString(item->itemText.charStyle(b).font().scName().toUtf8());
+		for (int i = 0; i < item->itemText.length(); i++)
+			if (item->itemText.selected(i))
+				return PyString_FromString(item->itemText.charStyle(i).font().scName().toUtf8());
 		return nullptr;
 	}
 	return PyString_FromString(item->currentCharStyle().font().scName().toUtf8());
@@ -259,9 +259,9 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 	}
 	if (item->HasSel)
 	{
-		for (int b = 0; b < item->itemText.length(); b++)
-			if (item->itemText.selected(b))
-				return PyString_FromString(item->itemText.charStyle(b).fontFeatures().toUtf8());
+		for (int i = 0; i < item->itemText.length(); i++)
+			if (item->itemText.selected(i))
+				return PyString_FromString(item->itemText.charStyle(i).fontFeatures().toUtf8());
 		return nullptr;
 	}
 	return PyString_FromString(item->currentCharStyle().fontFeatures().toUtf8());
