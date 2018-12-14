@@ -49,8 +49,9 @@
 <p>Returns the text of the text frame "name". If this text frame has some text selected, the selected text is returned. All text in the frame, not just currently visible text, is returned. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
-<dd><code>getLineColor(["name"]) -&gt; string</code>
-<p>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+<dd><code>getTextColor(["name"]) -&gt; string</code>
+<p>Returns the name of the text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
 <dt><a name="-getTextDistances"><strong>getTextDistances</strong></a>(...)</dt>
 <dd><code>getTextDistances(["name"]) -&gt; tuple</code>
@@ -68,7 +69,8 @@ is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code>getTextShade(["name"]) -&gt; integer</code>
-<p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+<p>Returns the shade of text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
 <dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
 <dd><code>getTextVerticalAlignment(["name"]) -&gt; integer</code>

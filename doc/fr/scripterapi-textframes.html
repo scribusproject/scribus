@@ -45,8 +45,9 @@ Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est
 Tout le texte pr&eacute;sent dans le cadre, et non seulement le texte visible, est retourn&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
-<dd><code><a href="#-getLineColor">getLineColor</a>(["nom"]) -&gt; cha&icirc;ne</code>
-<p>Retourne le nom de la couleur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<dd><code><a href="#-getLineColor">getTextColor</a>(["nom"]) -&gt; cha&icirc;ne</code>
+<p>Retourne le nom de la couleur de texte d&eacute;finie pour l'objet "nom". Si ce cadre contient du texte s&eacute;lectionn&eacute;, la valeur assign&eacute;e au premier caract&egrave;re de la s&eacute;lection est retourn&eacute;e. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer ValueError si la constante d'alignement n'est pas valide.</p></dd>
 
 <dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
 <dd><code><a href="#-getTextLength">getTextLength</a>(["nom"]) -&gt; nombre entier</code>
@@ -54,7 +55,8 @@ Tout le texte pr&eacute;sent dans le cadre, et non seulement le texte visible, e
 
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code><a href="#-getTextShade">getTextShade</a>(["nom"]) -&gt; nombre entier</code>
-<p>Retourne la valeur de la teinte de la couleur de filet de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>Retourne la valeur de la teinte de couleur d&eacute;finie pour le texte de l'objet "nom". Si ce cadre contient du texte s&eacute;lectionn&eacute;, la valeur assign&eacute;e au premier caract&egrave;re de la s&eacute;lection est retourn&eacute;e. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer ValueError si la constante d'alignement n'est pas valide.</p></dd>
 
 <dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
 <dd><code><a href="#-getTextVerticalAlignment">getTextVerticalAlignment</a>(["nom"]) -&gt; nombre entier</code>

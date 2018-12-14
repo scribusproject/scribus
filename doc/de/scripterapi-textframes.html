@@ -49,8 +49,9 @@
 <p>Returns the text of the text frame "name". If this text frame has some text selected, the selected text is returned. All text in the frame, not just currently visible text, is returned. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
-<dd><code>getLineColor(["name"]) -&gt; string</code>
-<p>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+<dd><code>getTextColor(["name"]) -&gt; string</code>
+<p>Returns the name of the text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
 <dt><a name="-getTextDistances"><strong>getTextDistances</strong></a>(...)</dt>
 <dd><code>getTextDistances(["name"]) -&gt; tuple</code>
@@ -67,8 +68,13 @@ is not given the currently selected item is used.</p></dd>
 <p>Returns the number of lines of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
-<dd><code>getLineShade(["name"]) -&gt; integer</code>
-<p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+<dd><code>getTextShade(["name"]) -&gt; integer</code>
+<p>Returns the shade of text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code>getTextVerticalAlignment(["name"]) -&gt; integer</code>
+<p>Gets the vertical alignment of text inside text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-hyphenateText"><strong>hyphenateText</strong></a>(...)</dt>
 <dd><code>hyphenateText(["name"]) -&gt; bool</code>
@@ -93,7 +99,14 @@ is not given the currently selected item is used.</p></dd>
 <dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
 <dd><code>selectText(start, count, ["name"])</code>
 <p>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared.  If "name" is not given the currently selected item is used.</p>
-<p>May throw IndexError if the selection is outside the bounds of the text.</p></dd>
+<p>May throw IndexError if the selection is outside the bounds of the text.</p>
+<p>There is no specific command to select all of the text in a frame. To accomplish this, you might create a function in your script which you would call with the name of the frame as follows:</p>
+<p><b>def SelectAllText(textframe):</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;texlen = scribus.getTextLength(textframe)</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;scribus.selectText(0,texlen,textframe)</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;return</b></p></dd>
+<dd><p>One of the reasons this is important is that, should you want to select a frame and then apply a Paragraph Style to the frame, you will find that a frame with multiple paragraphs will not have the style set for all of the text, only the last paragraph. Therefore, the solution is to select all the text of the frame, and then apply the style.</p></dd>
+
 
 <dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
 <dd><code>setColumns(nr, ["name"])</code>
@@ -165,6 +178,13 @@ selected item is used.</p>
 <dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
 <dd><code>setTextStroke("color", ["name"])</code>
 <p>Set "color" of the text stroke. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextVerticalAlignment"><strong>setTextVerticalAlignment</strong></a>(...)</dt>
+<dd>
+<code>setTextVerticalAlignment(align, ["name"])</code>
+<p>Sets the vertical alignment of text inside text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGNV_ constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid alignment constant.</p>
+</dd>
 
 <dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
 <dd><code>textOverflows(["name", nolinks]) -&gt; integer</code>
