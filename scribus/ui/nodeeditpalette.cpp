@@ -398,7 +398,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	}
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		disconnectSignals();
 	else
 		connectSignals();
@@ -406,7 +406,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 
 void NodePalette::SplitPoly()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	MoveN();
 	m_doc->nodeEdit.setSubMode(NodeEditContext::SPLIT_PATH);
@@ -415,7 +415,7 @@ void NodePalette::SplitPoly()
 
 void NodePalette::IsOpen()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	PolySplit->setChecked(false);
 	BezierClose->setEnabled(true);
@@ -425,7 +425,7 @@ void NodePalette::IsOpen()
 
 void NodePalette::PolyStatus(int typ, uint size)
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	bool setter;
 	switch (typ)
@@ -448,7 +448,7 @@ void NodePalette::PolyStatus(int typ, uint size)
 
 void NodePalette::CloseBezier()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	MoveN();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -463,139 +463,153 @@ void NodePalette::CloseBezier()
 
 void NodePalette::doRotCCW()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(0, RotVal->value());
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(0, RotVal->value());
 }
 
 void NodePalette::doRotCW()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(1, RotVal->value());
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(1, RotVal->value());
 }
 
 void NodePalette::doShrink()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(2, 1, scalePercentage->value());
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(2, 1, scalePercentage->value());
 }
 
 void NodePalette::doExpand()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(3, 1, scalePercentage->value());
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(3, 1, scalePercentage->value());
 }
 
 void NodePalette::doReduce()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(8, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(8, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::doEnlarge()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(9, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(9, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::ShearR()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(4);
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(4);
 }
 
 void NodePalette::ShearL()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(5);
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(5);
 }
 
 void NodePalette::ShearU()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(6);
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(6);
 }
 
 void NodePalette::ShearD()
 {
-	if (m_doc != nullptr)
-		m_view->TransformPoly(7);
+	if (m_doc == nullptr)
+		return;
+	m_view->TransformPoly(7);
 }
 
 void NodePalette::MirrorH()
 {
-	if (m_doc != nullptr)
-		m_doc->MirrorPolyH(m_doc->m_Selection->itemAt(0));
+	if (m_doc == nullptr)
+		return;
+	m_doc->MirrorPolyH(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::MirrorV()
 {
-	if (m_doc != nullptr)
-		m_doc->MirrorPolyV(m_doc->m_Selection->itemAt(0));
+	if (m_doc == nullptr)
+		return;
+	m_doc->MirrorPolyV(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetControl()
 {
-	if (m_doc != nullptr)
-		m_doc->nodeEdit.resetControl(m_doc->m_Selection->itemAt(0));
+	if (m_doc == nullptr)
+		return;
+	m_doc->nodeEdit.resetControl(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::Reset1Control()
 {
-	if (m_doc != nullptr)
-		m_doc->nodeEdit.reset1Control(m_doc->m_Selection->itemAt(0));
+	if (m_doc == nullptr)
+		return;
+	m_doc->nodeEdit.reset1Control(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetContour()
 {
-	if (m_doc != nullptr)
+	if (m_doc == nullptr)
+		return;
+
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	if (UndoManager::undoEnabled())
 	{
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		if (UndoManager::undoEnabled())
-		{
-			ScItemState<FPointArray> *is = new ScItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
-			is->set("RESET_CONTOUR");
-			is->setItem(m_doc->m_Selection->itemAt(0)->ContourLine);
-			UndoManager::instance()->action(currItem, is);
-		}
-		//FIXME make an internal item copy poline to contourline member
-		currItem->ContourLine = currItem->PoLine.copy();
-		currItem->ClipEdited = true;
-		m_doc->regionsChanged()->update(QRectF());
-		emit DocChanged();
+		ScItemState<FPointArray> *is = new ScItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
+		is->set("RESET_CONTOUR");
+		is->setItem(m_doc->m_Selection->itemAt(0)->ContourLine);
+		UndoManager::instance()->action(currItem, is);
 	}
+	//FIXME make an internal item copy poline to contourline member
+	currItem->ContourLine = currItem->PoLine.copy();
+	currItem->ClipEdited = true;
+	m_doc->regionsChanged()->update(QRectF());
+	emit DocChanged();
 }
 
 void NodePalette::ResetContourToImageClip()
 {
-	if (m_doc != nullptr)
-	{
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		currItem->ContourLine = currItem->imageClip.copy();
-		currItem->ClipEdited = true;
-		m_doc->regionsChanged()->update(QRectF());
-		emit DocChanged();
-	}
+	if (m_doc == nullptr)
+		return;
+
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	currItem->ContourLine = currItem->imageClip.copy();
+	currItem->ClipEdited = true;
+	m_doc->regionsChanged()->update(QRectF());
+	emit DocChanged();
 }
 
 void NodePalette::ResetShapeToImageClip()
 {
-	if (m_doc != nullptr)
-	{
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		currItem->PoLine = currItem->imageClip.copy();
-		currItem->ClipEdited = true;
-		currItem->FrameType = 3;
-		m_doc->adjustItemSize(currItem);
-		if (currItem->itemType() == PageItem::PathText)
-			currItem->updatePolyClip();
-		m_doc->regionsChanged()->update(QRectF());
-		emit DocChanged();
-	}
+	if (m_doc == nullptr)
+		return;
+
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	currItem->PoLine = currItem->imageClip.copy();
+	currItem->ClipEdited = true;
+	currItem->FrameType = 3;
+	m_doc->adjustItemSize(currItem);
+	if (currItem->itemType() == PageItem::PathText)
+		currItem->updatePolyClip();
+	m_doc->regionsChanged()->update(QRectF());
+	emit DocChanged();
 }
 
 void NodePalette::MovePoint()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 	{
@@ -639,7 +653,7 @@ void NodePalette::SetAsym()
 
 void NodePalette::SetXY(double x, double y)
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -694,60 +708,61 @@ void NodePalette::ToggleAbsMode()
 
 void NodePalette::ToggleConMode()
 {
+	if (m_doc == nullptr)
+		return;
+
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	if (m_doc != nullptr)
+
+	m_doc->nodeEdit.setIsContourLine(EditCont->isChecked());
+	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
+	m_doc->nodeEdit.setClre(-1);
+	m_doc->nodeEdit.setClre2(-1);
+	m_doc->nodeEdit.setSegP1(-1);
+	m_doc->nodeEdit.setSegP2(-1);
+	if (EditCont->isChecked())
 	{
-		m_doc->nodeEdit.setIsContourLine(EditCont->isChecked());
-		m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
-		m_doc->nodeEdit.setClre(-1);
-		m_doc->nodeEdit.setClre2(-1);
-		m_doc->nodeEdit.setSegP1(-1);
-		m_doc->nodeEdit.setSegP2(-1);
-		if (EditCont->isChecked())
+		BezierClose->setEnabled(false);
+		PolySplit->setEnabled(false);
+		ResetCont->setEnabled(true);
+		ResetContClip->setEnabled(true);
+		XSpin->setMinimum(-16777215);
+		YSpin->setMinimum(-16777215);
+	}
+	else
+	{
+		BezierClose->setEnabled(false);
+		PolySplit->setEnabled(true);
+		ResetCont->setEnabled(false);
+		ResetContClip->setEnabled(false);
+		if (AbsMode->isChecked())
 		{
-			BezierClose->setEnabled(false);
-			PolySplit->setEnabled(false);
-			ResetCont->setEnabled(true);
-			ResetContClip->setEnabled(true);
 			XSpin->setMinimum(-16777215);
 			YSpin->setMinimum(-16777215);
 		}
 		else
 		{
-			BezierClose->setEnabled(false);
-			PolySplit->setEnabled(true);
-			ResetCont->setEnabled(false);
-			ResetContClip->setEnabled(false);
-			if (AbsMode->isChecked())
-			{
-				XSpin->setMinimum(-16777215);
-				YSpin->setMinimum(-16777215);
-			}
-			else
-			{
-				XSpin->setMinimum(0);
-				YSpin->setMinimum(0);
-			}
+			XSpin->setMinimum(0);
+			YSpin->setMinimum(0);
 		}
-		m_view->DrawNew();
 	}
+	m_view->DrawNew();
+
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::TogglePreview()
 {
-	if (m_doc != nullptr)
-	{
-		m_doc->nodeEdit.setPreviewMode(PreviewMode->isChecked());
-		m_doc->regionsChanged()->update(QRectF());
-	}
+	if (m_doc == nullptr)
+		return;
+	m_doc->nodeEdit.setPreviewMode(PreviewMode->isChecked());
+	m_doc->regionsChanged()->update(QRectF());
 }
 
 void NodePalette::HaveNode(bool have, bool mov)
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	bool setter = have;
 	if (m_doc->nodeEdit.selNode().count() > 1)
@@ -818,7 +833,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 
 void NodePalette::MoveK()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 	m_doc->nodeEdit.setEdPoints(false);
@@ -843,7 +858,7 @@ void NodePalette::MoveK()
 
 void NodePalette::MoveN()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -868,7 +883,7 @@ void NodePalette::MoveN()
 
 void NodePalette::AddN()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::ADD_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -883,7 +898,7 @@ void NodePalette::AddN()
 
 void NodePalette::DelN()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	m_doc->nodeEdit.setSubMode(NodeEditContext::DEL_POINT);
 	m_doc->nodeEdit.setEdPoints(true);
@@ -969,28 +984,28 @@ void NodePalette::CancelEdit()
 
 void NodePalette::ResetToEditDefaults()
 {
-	if (m_doc != nullptr)
+	if (m_doc == nullptr)
+		return;
+
+	m_doc->nodeEdit.setClre(-1);
+	m_doc->nodeEdit.setClre2(-1);
+	m_doc->nodeEdit.setSegP1(-1);
+	m_doc->nodeEdit.setSegP2(-1);
+	m_doc->nodeEdit.selNode().clear();
+	m_doc->nodeEdit.setPreviewMode(false);
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	if (EditCont->isChecked())
+		currItem->ContourLine = itemContourPath.copy();
+	else
 	{
-		m_doc->nodeEdit.setClre(-1);
-		m_doc->nodeEdit.setClre2(-1);
-		m_doc->nodeEdit.setSegP1(-1);
-		m_doc->nodeEdit.setSegP2(-1);
-		m_doc->nodeEdit.selNode().clear();
-		m_doc->nodeEdit.setPreviewMode(false);
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		if (EditCont->isChecked())
-			currItem->ContourLine = itemContourPath.copy();
-		else
-		{
-			currItem->setXYPos(xPos, yPos, true);
-			currItem->PoLine = itemPath.copy();
-			m_doc->adjustItemSize(currItem);
-		}
-		if (currItem->itemType() == PageItem::PathText)
-			currItem->updatePolyClip();
-		currItem->update();
-		m_doc->regionsChanged()->update(QRectF());
+		currItem->setXYPos(xPos, yPos, true);
+		currItem->PoLine = itemPath.copy();
+		m_doc->adjustItemSize(currItem);
 	}
+	if (currItem->itemType() == PageItem::PathText)
+		currItem->updatePolyClip();
+	currItem->update();
+	m_doc->regionsChanged()->update(QRectF());
 }
 
 void NodePalette::changeEvent(QEvent *e)
@@ -1070,7 +1085,7 @@ void NodePalette::languageChange()
 
 void NodePalette::unitChange()
 {
-	if (m_doc==nullptr)
+	if (m_doc == nullptr)
 		return;
 	unitRatio = m_doc->unitRatio();
 
