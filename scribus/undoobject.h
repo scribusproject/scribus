@@ -78,7 +78,7 @@ public:
 	 * @brief Returns the name of the UndoObject.
 	 * @return the name of the UndoObject
 	 */
-	virtual QString getUName();
+	virtual QString getUName() const;
 
 	/**
 	 * @brief Set the name of the UndoObject
@@ -90,7 +90,7 @@ public:
 	 * @brief Returns the pixmap connected to this object.
 	 * @return pixmap connected to this object
 	 */
-	virtual QPixmap* getUPixmap();
+	virtual QPixmap* getUPixmap() const;
 
 	/**
 	 * @brief Set the pixmap for this object.
@@ -107,7 +107,12 @@ public:
 	/**
 	 * @brief Returns a guarded pointer
 	 */
-	const ScGuardedPtr<UndoObject>& undoObjectPtr();
+	const ScGuardedPtr<UndoObject>& undoObjectPtr() const;
+
+	/**
+	 * @brief Check if current object is owned by some undo state
+	 */
+	int undoStateCount() const;
 
 	/**
 	 * @brief Method used when an undo/redo is requested.
@@ -119,6 +124,7 @@ public:
 	 * @param isUndo If true undo is wanted else if false redo.
 	 */
 	virtual void restore(UndoState* state, bool isUndo) = 0;
+
 private:
 	/** @brief id number to be used with the next UndoObject */
 	static ulong m_nextId;

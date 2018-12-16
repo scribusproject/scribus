@@ -41,7 +41,7 @@ public:
 	bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
 	bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
 
-	bool isNull(void);
+	bool isNull(void) const;
 
 	T* operator->() const { return (T*)(data ? data->pointer : 0); }
 	T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
@@ -107,7 +107,7 @@ ScGuardedPtr<T>& ScGuardedPtr<T>::operator=(const ScGuardedPtr& other)
 };
 
 template<typename T>
-bool ScGuardedPtr<T>::isNull(void)
+bool ScGuardedPtr<T>::isNull(void) const
 {
 	if (data)
 		return (data->pointer == 0);

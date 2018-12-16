@@ -66,7 +66,7 @@ ulong UndoObject::getUId() const
 	return m_id;
 }
 
-QString UndoObject::getUName()
+QString UndoObject::getUName() const
 {
 	return m_uname;	
 }
@@ -76,7 +76,7 @@ void UndoObject::setUName(const QString& newUName)
 	m_uname = newUName;
 }
 
-QPixmap* UndoObject::getUPixmap()
+QPixmap* UndoObject::getUPixmap() const
 {
 	return m_upixmap;
 }
@@ -86,7 +86,14 @@ void UndoObject::setUPixmap(QPixmap *newUPixmap)
 	m_upixmap = newUPixmap;
 }
 
-const ScGuardedPtr<UndoObject>& UndoObject::undoObjectPtr()
+const ScGuardedPtr<UndoObject>& UndoObject::undoObjectPtr() const
 {
 	return m_objectPtr;
+}
+
+int UndoObject::undoStateCount() const
+{
+	if (m_objectPtr.refCount() > 1)
+		return m_objectPtr.refCount() - 1;
+	return 0;
 }
