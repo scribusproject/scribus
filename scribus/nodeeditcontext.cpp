@@ -73,7 +73,14 @@ FPointArray NodeEditContext::beginTransaction(PageItem* currItem)
 		//					m_isContourLine = false;
 		uAction = Um::EditShape;
 	}
+
+	if (nodeTransaction)
+		return (oldClip ? FPointArray(*oldClip) : Clip);
+
+	if (oldClip)
+		delete oldClip;
 	oldClip = new FPointArray(Clip);
+
 	m_oldItemX = currItem->xPos();
 	m_oldItemY = currItem->yPos();
 	if (UndoManager::undoEnabled())
@@ -88,15 +95,15 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
+	ScItemState<QPair<FPointArray, FPointArray> >* state = nullptr;
 	
 	if (nodeTransaction) // is there the old clip stored for the undo action
 	{
 		FPointArray newClip(Doc->nodeEdit.m_isContourLine ? currItem->ContourLine : currItem->PoLine);
-		if (*oldClip != newClip && UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled() && oldClip && (*oldClip != newClip))
 		{
 			QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
-			ScItemState<QPair<FPointArray, FPointArray> > *state =
-				new ScItemState<QPair<FPointArray, FPointArray> >(name);
+			state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
 			state->set("EDIT_SHAPE_OR_CONTOUR");
 			state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
 			state->setItem(qMakePair(*oldClip, newClip));
@@ -129,7 +136,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 	if (nodeTransaction) // is there the old clip stored for the undo action
 	{
 		FPointArray newClip(Doc->nodeEdit.m_isContourLine ? currItem->ContourLine : currItem->PoLine);
-		if (*oldClip != newClip && UndoManager::undoEnabled())
+		if (UndoManager::undoEnabled() && oldClip && (*oldClip != newClip))
 		{
 			QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
 			state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
@@ -143,6 +150,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 			delete oldClip;
 			oldClip = nullptr;
 			nodeTransaction.cancel();
+			nodeTransaction.reset();
 		}
 	}
 	return state;

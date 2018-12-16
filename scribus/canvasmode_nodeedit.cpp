@@ -465,9 +465,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 		m_doc->regionsChanged()->update(QRectF());
 		if (state)
-		{
 			m_doc->nodeEdit.finishTransaction2(currItem, state);
-		}
 		return;
 	}
 
