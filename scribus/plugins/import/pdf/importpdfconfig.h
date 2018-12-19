@@ -28,9 +28,13 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 71, 0)
-#define GBool bool
-#define gTrue true
+#define GBool  bool
+#define gTrue  true
 #define gFalse false
+#endif
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 72, 0)
+#define getCString  c_str
 #endif
 
 #endif
