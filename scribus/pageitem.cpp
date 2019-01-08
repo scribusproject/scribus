@@ -355,7 +355,7 @@ PageItem::PageItem(const PageItem & other)
 	m_imageXOffset(other.m_imageXOffset),
 	m_imageYOffset(other.m_imageYOffset),
 	m_imageRotation(other.m_imageRotation),
-	firstLineOffsetP(other.firstLineOffsetP),
+	m_firstLineOffset(other.m_firstLineOffset),
 	m_groupClips(other.m_groupClips),
 	hatchBackgroundQ(other.hatchBackgroundQ),
 	hatchForegroundQ(other.hatchForegroundQ)
@@ -832,7 +832,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	meshGradientArray.append(mgList);
 	meshGradientPatches.append(patch);
 
-	firstLineOffsetP = FLOPRealGlyphHeight;
+	m_firstLineOffset = FLOPRealGlyphHeight;
 	Cols = m_Doc->itemToolPrefs().textColumns;
 	ColGap = m_Doc->itemToolPrefs().textColumnGap;
 	LeftLink = nullptr;
@@ -6631,9 +6631,9 @@ void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreFirstLineOffset: dynamic cast failed");
 	if (isUndo)
-		firstLineOffsetP = is->getItem().first;
+		m_firstLineOffset = is->getItem().first;
 	else
-		firstLineOffsetP = is->getItem().second;
+		m_firstLineOffset = is->getItem().second;
 	update();
 }
 
@@ -10508,22 +10508,22 @@ QString PageItem::infoDescription() const
 
 FirstLineOffsetPolicy PageItem::firstLineOffset() const
 {
-	return firstLineOffsetP;
+	return m_firstLineOffset;
 }
 
 void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 {
-	if (firstLineOffsetP != flop)
+	if (m_firstLineOffset == flop)
+		return;
+
+	if (UndoManager::undoEnabled())
 	{
-		if (UndoManager::undoEnabled())
-		{
-			ScItemState<QPair<FirstLineOffsetPolicy,FirstLineOffsetPolicy> > *is = new ScItemState<QPair <FirstLineOffsetPolicy,FirstLineOffsetPolicy> >(Um::FirstLineOffset);
-			is->set("FIRSTLINEOFFSET");
-			is->setItem(qMakePair(firstLineOffsetP, flop));
-			undoManager->action(this, is);
-		}
-		firstLineOffsetP = flop;
+		ScItemState<QPair<FirstLineOffsetPolicy,FirstLineOffsetPolicy> > *is = new ScItemState<QPair <FirstLineOffsetPolicy,FirstLineOffsetPolicy> >(Um::FirstLineOffset);
+		is->set("FIRSTLINEOFFSET");
+		is->setItem(qMakePair(m_firstLineOffset, flop));
+		undoManager->action(this, is);
 	}
+	m_firstLineOffset = flop;
 }
 
 void PageItem::setInlineData(const QString& data)

@@ -1852,7 +1852,7 @@ protected: // Start protected variables
 	double m_imageXOffset; ///< Image X Offset to frame
 	double m_imageYOffset; ///< Image Y Offset to frame
 	double m_imageRotation; ///< Image rotation in frame
-	FirstLineOffsetPolicy firstLineOffsetP;
+	FirstLineOffsetPolicy m_firstLineOffset;
 	bool m_groupClips;
 	QColor hatchBackgroundQ;
 	QColor hatchForegroundQ;

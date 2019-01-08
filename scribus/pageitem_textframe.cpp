@@ -1677,7 +1677,7 @@ void PageItem_TextFrame::layout()
 					realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
 				if (realCharAscent == 0.0)
 					realCharAscent = font.ascent(style.charStyle().fontSize() / 10.0);
-				if (current.startOfCol && (firstLineOffsetP == FLOPFontAscent))
+				if (current.startOfCol && (m_firstLineOffset == FLOPFontAscent))
 					realCharAscent = font.ascent(hlcsize10);
 				chsd = ((DropCapDrop + realCharAscent) / realCharHeight) * style.charStyle().fontSize();
 				chs  = ((DropCapDrop + realCharAscent) / realCharAscent) * style.charStyle().fontSize();
@@ -1764,7 +1764,7 @@ void PageItem_TextFrame::layout()
 					if (realCharAscent == 0)
 						realCharAscent = font.ascent(style.charStyle().fontSize() / 10.0);
 					asce = realCharAscent;
-					if (current.startOfCol && (firstLineOffsetP == FLOPFontAscent))
+					if (current.startOfCol && (m_firstLineOffset == FLOPFontAscent))
 						asce = font.ascent(hlcsize10);
 					glyphCluster.setScaleH(glyphCluster.scaleH() / glyphCluster.scaleV());
 					glyphCluster.setScaleV(realAsce / realCharHeight);
