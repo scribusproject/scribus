@@ -43,9 +43,9 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
-	offs(0.0),
-	oldMark(0),
-	Mpressed(false),
+	m_offset(0.0),
+	m_oldMark(0),
+	m_mousePressed(false),
 	m_doc(doc),
 	m_view(pa),
 	drawMark(false),
@@ -64,7 +64,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
-	Mpressed = true;
+	m_mousePressed = true;
 	if (m_doc->guidesPrefs().guidesShown)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
@@ -75,17 +75,17 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (Mpressed)
+	if (m_mousePressed)
 	{
 		rulerGesture->mouseReleaseEvent(m);
 		qApp->restoreOverrideCursor();
-		Mpressed = false;
+		m_mousePressed = false;
 	}
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if (Mpressed)
+	if (m_mousePressed)
 		rulerGesture->mouseMoveEvent(m);
 }
 
@@ -108,14 +108,14 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.setPen(Qt::black);
 	p.setFont(font());
 	double cc = height() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
+	double firstMark = ceil(m_offset / iter) * iter - m_offset;
 	while (firstMark < cc)
 	{
 		p.drawLine(13, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		firstMark += iter;
 	}
-	firstMark = ceil(offs / iter2) * iter2 - offs;
-	int markC = static_cast<int>(ceil(offs / iter2));
+	firstMark = ceil(m_offset / iter2) * iter2 - m_offset;
+	int markC = static_cast<int>(ceil(m_offset / iter2));
 	while (firstMark < cc)
 	{
 		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
@@ -188,7 +188,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		p.setFont(font());
 		double sc = m_view->getScale();
 		double cc = height() / sc;
-		double firstMark = ceil(offs / iter) * iter - offs;
+		double firstMark = ceil(m_offset / iter) * iter - m_offset;
 		while (firstMark < cc)
 		{
 			p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
@@ -227,9 +227,9 @@ void Vruler::Draw(int where)
 	int currentCoor = where - m_view->contentsY();
 	whereToDraw = where;
 	drawMark = true;
-	repaint(0, oldMark-3, 17, 6);
+	repaint(0, m_oldMark-3, 17, 6);
 //	drawMark = false;
-	oldMark = currentCoor;
+	m_oldMark = currentCoor;
 }
 
 void Vruler::unitChange()
