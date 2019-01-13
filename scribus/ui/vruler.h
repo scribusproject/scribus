@@ -60,6 +60,11 @@ private: // Private attributes
 	ScribusDoc *m_doc;
 	ScribusView *m_view;
 
+	double m_iter, m_iter2;
+	double m_cor;
+	bool   m_drawMark;
+	int    m_whereToDraw;
+
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
@@ -69,10 +74,6 @@ public slots: // Public slots
 	void shiftRel(double dist) { m_offset += dist; }
 
 private:
-	double iter, iter2;
-	double cor;
-	bool drawMark;
-	int whereToDraw;
 	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
 };
