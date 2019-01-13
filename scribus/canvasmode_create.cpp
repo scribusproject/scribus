@@ -841,6 +841,7 @@ PageItem* CreateMode::doCreateNewObject()
 		SetupDrawNoResize(z);
 		newObject = m_doc->Items->at(z);
 		newObject->ContourLine = newObject->PoLine.copy();
+		m_doc->setRedrawBounding(newObject);
 	}
 	return newObject;
 }
