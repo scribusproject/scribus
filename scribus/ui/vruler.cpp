@@ -222,7 +222,7 @@ double Vruler::ruleSpacing()
 	return m_iter;
 }
 
-void Vruler::Draw(int where)
+void Vruler::draw(int where)
 {
 	// erase old marker
 	int currentCoor = where - m_view->contentsY();

@@ -46,6 +46,8 @@ public:
 	~Vruler() {}
 	
 	double ruleSpacing();
+	void   shift(double pos) { m_offset = pos; }
+	void   shiftRel(double dist) { m_offset += dist; }
 
 private: // Private attributes
 	virtual void paintEvent(QPaintEvent *e);
@@ -68,10 +70,8 @@ private: // Private attributes
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
-	void Draw(int where);
+	void draw(int where);
 	void unitChange();
-	void shift(double pos) { m_offset = pos; }
-	void shiftRel(double dist) { m_offset += dist; }
 
 private:
 	PrefsManager *prefsManager;

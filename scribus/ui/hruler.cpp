@@ -471,7 +471,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 			}
-			Draw(m->x());
+			draw(m->x());
 			double marker = localToTextPos(m->x());
 			emit MarkerMoved(textBase(), marker);
 			return;
@@ -859,7 +859,7 @@ double Hruler::ruleSpacing()
 	return m_iter;
 }
 
-void Hruler::Draw(int where)
+void Hruler::draw(int where)
 {
 	// erase old marker
 	int currentCoor = where - m_view->contentsX();

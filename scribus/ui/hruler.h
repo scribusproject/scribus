@@ -118,7 +118,7 @@ private:
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
-	void Draw(int where);
+	void draw(int where);
 	void unitChange();
 
 signals:
