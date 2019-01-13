@@ -54,6 +54,8 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 	}
 	if (role == Qt::EditRole)
 		return pts2value(m_values.at(index.row()) - m_rule, m_docUnitIndex);
+	if (role == Qt::UserRole)
+		return m_values.at(index.row());
 
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
 		return QVariant(QColor(Qt::red));
@@ -91,7 +93,7 @@ void GuidesModel::removeValues(const Guides & guides)
 {
 	beginResetModel();
 	for (double d : guides)
-		m_values.removeAll(value2pts(d, m_docUnitIndex));
+		m_values.removeAll(d);
 	endResetModel();
 }
 

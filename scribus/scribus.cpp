@@ -5864,6 +5864,7 @@ void ScribusMainWindow::toggleRulerMode()
 			currItem->emitAllToGUI();
 	}
 	//TODO emit from selection, handle group widths
+	guidePalette->setupPage();
 	view->DrawNew();
 }
 
