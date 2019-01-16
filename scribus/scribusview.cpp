@@ -2354,12 +2354,6 @@ void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 			zoomPointX = qRound(selRect.x() + selRect.width() / 2.0);
 			zoomPointY = qRound(selRect.y() + selRect.height() / 2.0);
 		}
-		else if (Doc->currentPage() != nullptr)
-		{
-			ScPage* currentPage = Doc->currentPage();
-			zoomPointX = qRound(currentPage->xOffset() + currentPage->width() / 2.0);
-			zoomPointY = qRound(currentPage->yOffset() + currentPage->height() / 2.0);
-		}
 	}
 	zoom(zoomPointX, zoomPointY, newScale, preservePoint);
 }
@@ -2394,12 +2388,6 @@ void ScribusView::slotZoomOut(int mx, int my, bool preservePoint)
 			QRectF selRect = Doc->m_Selection->getVisualGroupRect();
 			zoomPointX = qRound(selRect.x() + selRect.width() / 2.0);
 			zoomPointY = qRound(selRect.y() + selRect.height() / 2.0);
-		}
-		else if (Doc->currentPage() != nullptr)
-		{
-			ScPage* currentPage = Doc->currentPage();
-			zoomPointX = qRound(currentPage->xOffset() + currentPage->width() / 2.0);
-			zoomPointY = qRound(currentPage->yOffset() + currentPage->height() / 2.0);
 		}
 	}
 	zoom(zoomPointX, zoomPointY, newScale, preservePoint);
