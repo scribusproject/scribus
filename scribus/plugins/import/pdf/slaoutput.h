@@ -28,7 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "vgradient.h"
 
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 73, 0)
 #include <poppler/goo/gtypes.h>
+#endif
 #include <poppler/Object.h>
 #include <poppler/OutputDev.h>
 #include <poppler/Gfx.h>
