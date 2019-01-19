@@ -1112,6 +1112,11 @@ if(APPLEBUNDLE)
 	)
 endif()
 
+# Appimage
+if (BUILD_APPIMAGE_BUNDLE)
+	set(DBUILD_APPIMAGE_BUNDLE TRUE)
+endif()
+
 ##############################################################################################################
 ########## Install/CPack Setup                                                                      ##########
 
