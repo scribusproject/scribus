@@ -70,7 +70,7 @@ ScPaths::ScPaths() :
 
 // Build an appimage and redirect the paths to
 // ones inside the bundle, relative to the executable.
-#ifdef BUILD_APPIMAGE_BUNDLE
+#ifdef Q_OS_LINUX
 	// Set the application name expliticly.
 	QCoreApplication::setApplicationName("scribus");
 	QString pathPtr = QCoreApplication::applicationDirPath() + QString("/..");

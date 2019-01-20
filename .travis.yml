@@ -77,7 +77,7 @@ script:
       else
         export NPROC=1;
       fi;
-      cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US  -DBUILD_APPIMAGE_BUNDLE=1;
+      cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
       make -j"$NPROC";
       make DESTDIR=appdir -j"$NPROC" install ; find appdir/;
       cp /usr/lib/python2.7/lib-dynload/_tkinter.so appdir/usr/;
