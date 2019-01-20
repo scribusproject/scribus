@@ -43,13 +43,13 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
-	offs(0.0),
-	oldMark(0),
-	Mpressed(false),
+	m_offset(0.0),
+	m_oldMark(0),
+	m_mousePressed(false),
 	m_doc(doc),
 	m_view(pa),
-	drawMark(false),
-	whereToDraw(0)
+	m_drawMark(false),
+	m_whereToDraw(0)
 {
 	prefsManager=PrefsManager::instance();
 	setBackgroundRole(QPalette::Window);
@@ -64,7 +64,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
-	Mpressed = true;
+	m_mousePressed = true;
 	if (m_doc->guidesPrefs().guidesShown)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
@@ -75,17 +75,17 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (Mpressed)
+	if (m_mousePressed)
 	{
 		rulerGesture->mouseReleaseEvent(m);
 		qApp->restoreOverrideCursor();
-		Mpressed = false;
+		m_mousePressed = false;
 	}
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if (Mpressed)
+	if (m_mousePressed)
 		rulerGesture->mouseMoveEvent(m);
 }
 
@@ -108,14 +108,14 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.setPen(Qt::black);
 	p.setFont(font());
 	double cc = height() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
+	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
 	{
 		p.drawLine(13, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-		firstMark += iter;
+		firstMark += m_iter;
 	}
-	firstMark = ceil(offs / iter2) * iter2 - offs;
-	int markC = static_cast<int>(ceil(offs / iter2));
+	firstMark = ceil(m_offset / m_iter2) * m_iter2 - m_offset;
+	int markC = static_cast<int>(ceil(m_offset / m_iter2));
 	while (firstMark < cc)
 	{
 		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
@@ -123,10 +123,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 		switch (m_doc->unitIndex())
 		{
 			case SC_MM:
-				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
+				tx = QString::number(markC * m_iter2 / (m_iter2 / 100) / m_cor);
 				break;
 			case SC_IN:
-				xl = (markC * iter2 / iter2) / cor;
+				xl = (markC * m_iter2 / m_iter2) / m_cor;
 				tx = QString::number(static_cast<int>(xl));
 				frac = fabs(xl - static_cast<int>(xl));
 				if ((static_cast<int>(xl) == 0) && (frac > 0.1))
@@ -141,21 +141,21 @@ void Vruler::paintEvent(QPaintEvent *e)
 				break;
 			case SC_P:
 			case SC_C:
-				tx = QString::number(markC * iter2 / (iter2 /5) / cor);
+				tx = QString::number(markC * m_iter2 / (m_iter2 /5) / m_cor);
 				break;
 			case SC_CM:
-				tx = QString::number(markC * iter2 / iter2 / cor);
+				tx = QString::number(markC * m_iter2 / m_iter2 / m_cor);
 				break;
 			default:
-				tx = QString::number(markC * iter2);
+				tx = QString::number(markC * m_iter2);
 				break;
 		}
 		drawNumber(tx, textY, &p);
-		firstMark += iter2;
+		firstMark += m_iter2;
 		markC++;
 	}
 	p.restore();
-	if (drawMark)
+	if (m_drawMark)
 	{
 		QPolygon cr;
 #ifdef OPTION_SMOOTH_MARKERS
@@ -188,18 +188,18 @@ void Vruler::paintEvent(QPaintEvent *e)
 		p.setFont(font());
 		double sc = m_view->getScale();
 		double cc = height() / sc;
-		double firstMark = ceil(offs / iter) * iter - offs;
+		double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 		while (firstMark < cc)
 		{
 			p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-			firstMark += iter;
+			firstMark += m_iter;
 		}
 #else
 		// draw slim marker
 		p.translate(0, -m_view->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
-		cr.setPoints(5,  5, whereToDraw, 16, whereToDraw, 5, whereToDraw, 0, whereToDraw+2, 0, whereToDraw-2);
+		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw+2, 0, m_whereToDraw-2);
 		p.drawPolygon(cr);
 #endif
 	}
@@ -217,159 +217,159 @@ void Vruler::drawNumber(const QString& num, int starty, QPainter *p)
 	}
 }
 
-double Vruler::ruleSpacing() {
-	return iter;
+double Vruler::ruleSpacing()
+{
+	return m_iter;
 }
 
-void Vruler::Draw(int where)
+void Vruler::draw(int where)
 {
 	// erase old marker
 	int currentCoor = where - m_view->contentsY();
-	whereToDraw = where;
-	drawMark = true;
-	repaint(0, oldMark-3, 17, 6);
-//	drawMark = false;
-	oldMark = currentCoor;
+	m_whereToDraw = where;
+	m_drawMark = true;
+	repaint(0, m_oldMark-3, 17, 6);
+//	m_drawMark = false;
+	m_oldMark = currentCoor;
 }
 
 void Vruler::unitChange()
 {
 	double sc = m_view->scale();
-	cor=1;
+	m_cor=1;
 	int docUnitIndex = m_doc->unitIndex();
 	switch (docUnitIndex)
 	{
 		case SC_PT:
 			if (sc > 1 && sc <= 4)
-				cor = 2;
+				m_cor = 2;
 			if (sc > 4)
-				cor = 10;
+				m_cor = 10;
 			if (sc < 0.3)
 			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
+	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
 			}
 			else if (sc < 0.2)
 			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
+				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
+	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
 			}
 			else
 			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
+	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 	  		}
 			break;
 		case SC_MM:
 			if (sc > 1)
-				cor = 10;
-			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+				m_cor = 10;
+			m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
+  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 			break;
 		case SC_IN:
-			iter = unitRulerGetIter1FromIndex(docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
+			m_iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
-				cor = 2;
-				iter /= cor;
-				iter2 /= cor;
+				m_cor = 2;
+				m_iter /= m_cor;
+				m_iter2 /= m_cor;
 			}
 			if (sc > 4)
 			{
-				cor = 4;
-				iter /= cor;
-				iter2 /= cor;
+				m_cor = 4;
+				m_iter /= m_cor;
+				m_iter2 /= m_cor;
 			}
 			if (sc < 0.25)
 			{
-				cor = 0.5;
-				iter = 72.0*16.0;
-				iter2 = 72.0*2.0;
+				m_cor = 0.5;
+				m_iter = 72.0*16.0;
+				m_iter2 = 72.0*2.0;
 			}
 			break;
 		case SC_P:
-			iter = unitRulerGetIter1FromIndex(docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
+			m_iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc >= 1 && sc <= 4)
 			{
-				cor = 1;
-				iter = 12.0;
-				iter2 = 60.0;
+				m_cor = 1;
+				m_iter = 12.0;
+				m_iter2 = 60.0;
 			}
 			if (sc > 4)
 			{
-				cor = 2;
-				iter = 6.0;
-				iter2 = 12.0;
+				m_cor = 2;
+				m_iter = 6.0;
+				m_iter2 = 12.0;
 			}
 			if (sc < 0.3)
 			{
-				cor = 0.25;
-				iter = 12.0*4;
-				iter2 = 60.0*4;
+				m_cor = 0.25;
+				m_iter = 12.0*4;
+				m_iter2 = 60.0*4;
 			}
-			else
-				if (sc < 1)
+			else if (sc < 1)
 			{
-				cor = 1;
-				iter = 12.0;
-				iter2 = 60.0;
+				m_cor = 1;
+				m_iter = 12.0;
+				m_iter2 = 60.0;
 			}
 			break;
 		case SC_CM:
 			if (sc > 1 && sc <= 4)
-				cor = 1;
+				m_cor = 1;
 			if (sc > 4)
-				cor = 10;
+				m_cor = 10;
 			if (sc < 0.6)
 			{
-				cor=0.1;
-				iter = 720.0/25.4;
-				iter2 = 7200.0/25.4;
+				m_cor = 0.1;
+				m_iter = 720.0/25.4;
+				m_iter2 = 7200.0/25.4;
 			}
 			else
 			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
+	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 	  		}
 			break;
 		case SC_C:
-			iter = unitRulerGetIter1FromIndex(docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
+			m_iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc >= 1 && sc <= 4)
 			{
-				cor = 1;
-				iter = 72.0/25.4*4.512;
-				iter2 = 72.0/25.4*4.512*5.0;
+				m_cor = 1;
+				m_iter = 72.0/25.4*4.512;
+				m_iter2 = 72.0/25.4*4.512*5.0;
 			}
 			if (sc > 4)
 			{
-				cor = 2;
-				iter = 72.0/25.4*4.512/2.0;
-				iter2 = 72.0/25.4*4.512;
+				m_cor = 2;
+				m_iter = 72.0/25.4*4.512/2.0;
+				m_iter2 = 72.0/25.4*4.512;
 			}
 			if (sc < 0.3)
 			{
-				cor = 0.1;
-				iter = 72.0/25.4*4.512*10;
-				iter2 = 72.0/25.4*4.512*5.0*10;
+				m_cor = 0.1;
+				m_iter = 72.0/25.4*4.512*10;
+				m_iter2 = 72.0/25.4*4.512*5.0*10;
 			}
 			else
 				if (sc < 1)
 			{
-				cor = 1;
-				iter = 72.0/25.4*4.512;
-				iter2 = 72.0/25.4*4.512*5.0;
+				m_cor = 1;
+				m_iter = 72.0/25.4*4.512;
+				m_iter2 = 72.0/25.4*4.512*5.0;
 			}
 			break;
 		default:
 			if (sc > 1 && sc <= 4)
-				cor = 2;
+				m_cor = 2;
 			if (sc > 4)
-				cor = 10;
-			iter = unitRulerGetIter1FromIndex(0) / cor;
-	 		iter2 = unitRulerGetIter2FromIndex(0) / cor;
+				m_cor = 10;
+			m_iter = unitRulerGetIter1FromIndex(0) / m_cor;
+	 		m_iter2 = unitRulerGetIter2FromIndex(0) / m_cor;
 			break;
 	}
 }

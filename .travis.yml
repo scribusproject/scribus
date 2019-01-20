@@ -26,11 +26,20 @@ matrix:
 
 before_install:
 # Linux
-- if [ $TRAVIS_OS_NAME == linux ]; then
+-   if [ $TRAVIS_OS_NAME == linux ]; then
       sudo apt-add-repository ppa:beineri/opt-qt595-xenial -y;
       sudo apt-add-repository ppa:as-bahanta/raqm -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
       sudo apt-get update -qq;
+    fi
+# OSX
+-   if [ $TRAVIS_OS_NAME == osx ]; then
+      brew update; 
+    fi
+
+install:
+# Linux
+-   if [ $TRAVIS_OS_NAME == linux ]; then
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
       python-all-dev zlib1g-dev qt59base qt59declarative
@@ -38,15 +47,17 @@ before_install:
       libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
       libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
       coreutils binutils python-tk;
-      wget http://poppler.freedesktop.org/poppler-0.73.0.tar.xz;
-      unxz poppler-0.73.0.tar.xz;
-      tar xfv poppler-0.73.0.tar;
-      cd poppler-0.73.0;
-      mkdir build; cd build; cmake ..; make; make install;
+#     Build a more recent poppler than Ubuntu Xenial's poppler 0.41.0
+      mkdir deps && pushd deps;
+      sudo apt-get install --force-yes libopenjpeg-dev;
+      wget https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz && tar -xf poppler-data-0.4.9.tar.gz;
+      pushd poppler-data-0.4.9 && cmake -DCMAKE_BUILD_TYPE=Release && sudo make install && popd;
+      wget https://poppler.freedesktop.org/poppler-0.58.0.tar.xz && tar -xf poppler-0.58.0.tar.xz;
+      pushd poppler-0.58.0 && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_XPDF_HEADERS=1 && sudo make install && popd;
+      popd;
     fi
 # OSX
-# - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew update; 
+-   if [ $TRAVIS_OS_NAME == osx ]; then 
       brew outdated cmake --verbose || brew upgrade cmake; 
       brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib;
       brew install icu4c && brew link --force icu4c;
@@ -62,7 +73,7 @@ before_install:
     fi
   # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
   # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
-
+  
 script:
   - if [ $TRAVIS_OS_NAME == linux ]; then
       source /opt/qt59/bin/qt59-env.sh;
@@ -88,6 +99,7 @@ script:
       ./squashfs-root/usr/bin/linuxdeployqt -bundle-non-qt-libs appdir/usr/lib/_tkinter.so;
       ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage;
       curl --upload-file "${TRAVIS_BUILD_DIR}/Scribus-${VERSION}-x86_64.AppImage" https://transfer.sh/"Scribus-${VERSION}-x86_64.AppImage";
+
     fi
 
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then

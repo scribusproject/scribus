@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPoint>
 #include <QRect>
 #include <QRectF>
+#include <QSize>
 #include <QTime>
 #include <QTimer>
 #include <QWheelEvent>
@@ -195,7 +196,6 @@ public:
 	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
 	void setCanvasOrigin(double x, double y);
 	void setCanvasCenter(double x, double y);
-	void scrollCanvasBy(double deltaX, double deltaY);
 	FPoint canvasOrigin() const;
 	QRectF visibleCanvas() const;
 	void setRedrawMarkerShown(bool shown);
@@ -208,16 +208,23 @@ private:
 	void resizeContents(int w, int h);
 	QPoint contentsToViewport(QPoint p);
 	QPoint viewportToContents(QPoint p);
+
 public: // for now
 	int contentsX();
 	int contentsY();
 	int contentsWidth();
 	int contentsHeight();
+	int visibleWidth() { return viewport()->size().width(); };
+	int visibleHeight() { return viewport()->size().height(); };
+
+	void setCanvasPos(double x, double y);
+	void setCanvasCenterPos(double x, double y);
 	void setContentsPos(int x, int y);
-	int visibleWidth() { return viewport()->size().width(); } ;
-	int visibleHeight() { return viewport()->size().height(); } ;
-	void stopAllDrags();
+
 	void scrollBy(int x, int y);
+	void scrollCanvasBy(double deltaX, double deltaY);
+	void scrollContentsBy(int dx, int dy);
+
 	void zoom(double scale = 0.0);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
@@ -232,8 +239,8 @@ public slots: // Public slots
   /** Zooms in or out */
 	void slotZoom100();
   /** Zooms in */
-	void slotZoomIn(int mx=0,int my=0);
-	void slotZoomOut(int mx=0,int my=0);
+	void slotZoomIn(int mx = 0, int my = 0, bool preservePoint = false);
+	void slotZoomOut(int mx = 0, int my = 0, bool preservePoint = false);
   /** Redraws everything */
 	void DrawNew();
 	void GotoPa(int Seite);
@@ -241,8 +248,6 @@ public slots: // Public slots
 	void GotoPage(int Seite);
 	void ChgUnit(int art);
 
-	void SetCPo(double x, double y);
-	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	void ToPicFrame();
@@ -266,15 +271,14 @@ private: // Private attributes
 	QPoint m_pressLocation;
 	QTime m_moveTimer;
 	QTimer *m_dragTimer;
-	bool m_dragTimerFired;
-	bool Ready;
-	int  oldX;
-	int  oldY;
-	int  m_groupTransactions;
-	int m_oldCanvasHeight;
-	int m_oldCanvasWidth;
+	bool  m_dragTimerFired;
+	bool  m_ready;
+	int   m_oldZoomX;
+	int   m_oldZoomY;
+	QSize m_oldCanvasSize;
+	int   m_groupTransactions;
 	UndoTransaction m_groupTransaction;
-	bool _isGlobalMode;
+	bool  _isGlobalMode;
 	bool linkAfterDraw;
 	bool ImageAfterDraw;
 
@@ -310,6 +314,7 @@ public:
 	inline void stopDragTimer();
 	inline void resetDragTimer();
 	inline bool dragTimerElapsed();
+	void stopAllDrags();
 
 	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
 
@@ -326,7 +331,6 @@ protected: // Protected methods
 	virtual void contentsDropEvent(QDropEvent *e);
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
-	void scrollContentsBy(int dx, int dy);
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;

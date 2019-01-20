@@ -214,7 +214,7 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	{
 		int mx = qRound(mousePointDoc.x());
 		int my = qRound(mousePointDoc.y());
-		m_view->Magnify ? m_view->slotZoomIn(mx, my) : m_view->slotZoomOut(mx, my);
+		m_view->Magnify ? m_view->slotZoomIn(mx, my, true) : m_view->slotZoomOut(mx, my, true);
 		if (sc == m_canvas->scale())
 		{
 			m_view->HaveSelRect = false;

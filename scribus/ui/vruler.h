@@ -46,6 +46,8 @@ public:
 	~Vruler() {}
 	
 	double ruleSpacing();
+	void   shift(double pos) { m_offset = pos; }
+	void   shiftRel(double dist) { m_offset += dist; }
 
 private: // Private attributes
 	virtual void paintEvent(QPaintEvent *e);
@@ -54,25 +56,24 @@ private: // Private attributes
 	virtual void mouseMoveEvent(QMouseEvent *m);
 
 	void drawNumber(const QString& num, int starty, QPainter *p);
-	double offs;
-	int oldMark;
-	bool Mpressed;
+	double m_offset;
+	int   m_oldMark;
+	bool  m_mousePressed;
 	ScribusDoc *m_doc;
 	ScribusView *m_view;
+
+	double m_iter, m_iter2;
+	double m_cor;
+	bool   m_drawMark;
+	int    m_whereToDraw;
 
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
-	void Draw(int where);
+	void draw(int where);
 	void unitChange();
-	void shift(double pos) { offs = pos; }
-	void shiftRel(double dist) { offs += dist; }
 
 private:
-	double iter, iter2;
-	double cor;
-	bool drawMark;
-	int whereToDraw;
 	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
 };

@@ -14101,7 +14101,10 @@ bool ScribusDoc::moveItem(double newX, double newY, PageItem* currItem)
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
 	setRedrawBounding(currItem);
-	currItem->OwnPage = OnPage(currItem);
+	if (currItem->isGroup())
+		GroupOnPage(currItem);
+	else
+		currItem->OwnPage = OnPage(currItem);
 	return retw;
 }
 

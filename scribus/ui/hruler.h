@@ -49,36 +49,38 @@ class SCRIBUS_API Hruler : public QWidget
 public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {}
-private:
-	bool textEditMode;
-	double ColGap;
-	double lineCorr;
-	int Cols;
-	double RExtra;
-	double Extra;
-	double Indent;
-	double First;
-	double RMargin;
-	bool Revers;
-	QList<ParagraphStyle::TabRecord> TabValues;
-	PageItem * currItem;
 
-	double ItemPos;
-	double ItemEndPos;
-	double offs;
-	double itemScale;
+private:
+	bool   m_textEditMode;
+	double m_colGap;
+	double m_lineCorr;
+	int    m_cols;
+	double m_distLeft;
+	double m_distRight;
+	double m_firstIndent;
+	double m_leftMargin;
+	double m_rightMargin;
+	bool   m_reverse;
+	QList<ParagraphStyle::TabRecord> m_tabValues;
+	PageItem * m_currItem;
+
+	double m_itemPos;
+	double m_itemEndPos;
+	double m_offset;
+	double m_itemScale;
+
 public:
 	double ruleSpacing();
-	void setItem(PageItem * item);
-	void textMode(bool state) { textEditMode = state; }
+	void   setItem(PageItem * item);
+	void   textMode(bool state) { m_textEditMode = state; }
 	double textBase() const; // left text edge in canvas coord
 	double textWidth() const;
 	double textPosToCanvas(double x) const;
-	int textPosToLocal(double x) const;
+	int    textPosToLocal(double x) const;
 	double localToTextPos(int x) const;
-	void shift(double pos); // using canvas coord
-	void shiftRel(double dist); // using canvas coord
-	double offset() const { return offs; }
+	void   shift(double pos); // using canvas coord
+	void   shiftRel(double dist); // using canvas coord
+	double offset() const { return m_offset; }
 	
 private:
 	int findRulerHandle(QPoint mp, double grabRadius);
@@ -94,16 +96,21 @@ private:
 	void drawTextMarks(double pos, double endPos, QPainter& p);
 	void drawMarker(QPainter& p);
 	void drawNumber(const QString& num, int startx, int starty, QPainter & p);
-	void UpdateTabList();
+	void updateTabList();
 
-	int Markp;
-	int oldMark;
-	bool Mpressed;
-	int ActCol;
-	int ActTab;
-	double Scaling;
-	int RulerCode;
-	int MouseX;
+	int  m_oldMark;
+	int  m_currCol;
+	int  m_currTab;
+	double m_scaling;
+	int m_rulerCode;
+
+	bool m_mousePressed;
+	int  m_mouseX;
+	
+	double m_iter, m_iter2;
+	double m_cor;
+	int  m_whereToDraw;
+	bool m_drawMark;
 
 	ScribusDoc *m_doc;
 	ScribusView *m_view;
@@ -111,7 +118,7 @@ private:
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
-	void Draw(int where);
+	void draw(int where);
 	void unitChange();
 
 signals:
@@ -119,10 +126,6 @@ signals:
 	void MarkerMoved(double base, double xp);
 
 private:
-	double iter, iter2;
-	double cor;
-	int whereToDraw;
-	bool drawMark;
 	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
 };

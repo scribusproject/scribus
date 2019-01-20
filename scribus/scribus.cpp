@@ -5864,6 +5864,7 @@ void ScribusMainWindow::toggleRulerMode()
 			currItem->emitAllToGUI();
 	}
 	//TODO emit from selection, handle group widths
+	guidePalette->setupPage();
 	view->DrawNew();
 }
 
@@ -6570,7 +6571,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 	}
 
 	QPointF point = itemTrans.map(QPointF(xOffset, yOffset));
-	view->SetCCPo(point.x(), point.y());
+	view->setCanvasCenterPos(point.x(), point.y());
 }
 
 void ScribusMainWindow::selectItemFromOutlines(PageItem *ite, bool single, int cPos)
@@ -7696,8 +7697,8 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 	}
 
 	m_storedPageNum = doc->currentPageNumber();
-	m_storedViewXCoor = view->contentsX();
-	m_storedViewYCoor = view->contentsY();
+	m_storedViewXCoor = view->horizontalScrollBar()->value();
+	m_storedViewYCoor = view->verticalScrollBar()->value();
 	m_storedViewScale = view->scale();
 	doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 	doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
@@ -7713,9 +7714,9 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 
 void ScribusMainWindow::editMasterPagesEnd()
 {
-	view->setScale(m_storedViewScale);
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
+	view->setScale(m_storedViewScale);
 	view->hideMasterPage();
 	if (m_WasAutoSave)
 	{
@@ -7741,9 +7742,10 @@ void ScribusMainWindow::editMasterPagesEnd()
 	doc->setCurrentPage(doc->DocPages.at(m_storedPageNum));
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
+
 	doc->setLoading(true);
 	view->reformPages(false);
-	view->setContentsPos(static_cast<int>(m_storedViewXCoor * m_storedViewScale), static_cast<int>(m_storedViewYCoor * m_storedViewScale));
+	view->setContentsPos(m_storedViewXCoor, m_storedViewYCoor);
 	doc->setLoading(false);
 	view->DrawNew();
 }
@@ -8247,7 +8249,7 @@ void ScribusMainWindow::setCurrentPage(int p)
 	if (scriptIsRunning())
 		return;
 	slotSetCurrentPage(p0);
-	doc->view()->SetCPo(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
+	doc->view()->setCanvasPos(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
 	HaveNewSel();
 	doc->view()->setFocus();
 }

@@ -282,7 +282,7 @@ void GuideManager::delHorButton_clicked()
 	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
-		v.append(horizontalModel->data(ix, Qt::EditRole).toDouble());
+		v.append(horizontalModel->data(ix, Qt::UserRole).toDouble());
 
 	horizontalModel->removeValues(v);
 
@@ -300,7 +300,7 @@ void GuideManager::delVerButton_clicked()
 	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
-		v.append(verticalModel->data(ix, Qt::EditRole).toDouble());
+		v.append(verticalModel->data(ix, Qt::UserRole).toDouble());
 
 	verticalModel->removeValues(v);
 
