@@ -5,15 +5,11 @@ matrix:
     - os: linux
       dist: xenial
       sudo: required
-      compiler:
-        - gcc
-      services:
-        - docker
+      compiler: gcc
     - os: linux
       dist: xenial
       sudo: required
-      compiler:
-        - clang
+      compiler: clang
     - os: osx
       compiler: clang
   exclude:
@@ -39,6 +35,7 @@ before_install:
 
 install:
 # Linux
+#     Build a more recent poppler than Ubuntu Xenial's poppler 0.41.0
 -   if [ $TRAVIS_OS_NAME == linux ]; then
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
@@ -47,7 +44,6 @@ install:
       libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
       libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
       coreutils binutils python-tk;
-#     Build a more recent poppler than Ubuntu Xenial's poppler 0.41.0
       mkdir deps && pushd deps;
       sudo apt-get install --force-yes libopenjpeg-dev;
       wget https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz && tar -xf poppler-data-0.4.9.tar.gz;
@@ -99,7 +95,6 @@ script:
       ./squashfs-root/usr/bin/linuxdeployqt -bundle-non-qt-libs appdir/usr/lib/_tkinter.so;
       ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage;
       curl --upload-file "${TRAVIS_BUILD_DIR}/Scribus-${VERSION}-x86_64.AppImage" https://transfer.sh/"Scribus-${VERSION}-x86_64.AppImage";
-
     fi
 
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
