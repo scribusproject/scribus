@@ -19,6 +19,16 @@
 			SkipUnchangedFiles="true"
 		/>
 		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)ISOcoated_v2_300_bas.icc"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)ISOcoated_v2_300_bas.txt"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
 			SourceFiles="$(MSBuildThisFileDirectory)Readme"  
 			DestinationFolder="$(OutDir)\share\profiles"
 			SkipUnchangedFiles="true"

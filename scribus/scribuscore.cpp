@@ -413,8 +413,9 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 
 void ScribusCore::InitDefaultColorTransforms()
 {
-	QString defaultRGBString  = "sRGB IEC61966-2.1";
-	QString defaultCMYKString = "Fogra27L CMYK Coated Press";
+	QString defaultRGBString   = "sRGB IEC61966-2.1";
+	QString defaultCMYKString1 = "ISO Coated v2 300% (basICColor)";
+	QString defaultCMYKString2 = "Fogra27L CMYK Coated Press";
 
 	// Ouvre le profile RGB par d�fault
 	if (InputProfiles.contains(defaultRGBString))
@@ -423,10 +424,10 @@ void ScribusCore::InitDefaultColorTransforms()
 		defaultRGBProfile = defaultEngine.createProfile_sRGB();
 
 	// Ouvre le profile CMYK par d�faut
-	if (InputProfilesCMYK.contains(defaultCMYKString))
-	{
-		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString]);
-	}
+	if (InputProfilesCMYK.contains(defaultCMYKString1))
+		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString1]);
+	else if (InputProfilesCMYK.contains(defaultCMYKString2))
+		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString2]);
 
 	// Keep all chance to have monitor profile set
 	monitorProfile = defaultRGBProfile;
@@ -506,7 +507,9 @@ void ScribusCore::initCMS()
 		}
 		if ((m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile)))
 		{
-			ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
+			ip = InputProfilesCMYK.find("ISO Coated v2 300% (basICColor)");
+			if (ip == InputProfilesCMYK.end())
+				ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
 			if (ip == InputProfilesCMYK.end())
 				ip = InputProfilesCMYK.begin();
 			m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
@@ -520,7 +523,9 @@ void ScribusCore::initCMS()
 		}
 		if ((m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile)))
 		{
-			ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
+			ip = InputProfilesCMYK.find("ISO Coated v2 300% (basICColor)");
+			if (ip == InputProfilesCMYK.end())
+				ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
 			if (ip == InputProfilesCMYK.end())
 				ip = InputProfilesCMYK.begin();
 			m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
@@ -534,7 +539,9 @@ void ScribusCore::initCMS()
 		}
 		if ((m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile)))
 		{
-			ip = PrinterProfiles.find("Fogra27L CMYK Coated Press");
+			ip = PrinterProfiles.find("ISO Coated v2 300% (basICColor)");
+			if (ip == PrinterProfiles.end())
+				ip = PrinterProfiles.find("Fogra27L CMYK Coated Press");
 			if (ip == PrinterProfiles.end())
 				ip = PrinterProfiles.begin();
 			m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = ip.key();
