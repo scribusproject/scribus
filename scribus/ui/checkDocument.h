@@ -71,6 +71,15 @@ public:
 	//! \brief Current state of P.V.
 	CheckMode checkMode;
 
+	/*! \brief Best checker profile best suited for current check mode
+	           (PDF, EPS, PS, ...)
+	*/
+	QString bestCheckerProfileForCheckMode(const QString& defaultProfile);
+
+	/*! \brief Best checker profile best suited for specific check mode
+	*/
+	QString bestCheckerProfileForCheckMode(CheckMode mode, const QString& defaultProfile);
+
 public slots:
 	/*! \brief Called when is selected a new item in error list.
 	\param ite and item */

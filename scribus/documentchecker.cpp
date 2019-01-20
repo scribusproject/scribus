@@ -77,8 +77,20 @@ bool isPartFilledImageFrame(PageItem * currItem)
 
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
+	const auto& checkerProfiles = currDoc->checkerProfiles();
+	if (!checkerProfiles.contains(currDoc->curCheckProfile()))
+		return false;
+	return checkDocument(currDoc, currDoc->curCheckProfile());
+}
+
+bool DocumentChecker::checkDocument(ScribusDoc *currDoc, const QString& checkerProfile)
+{
+	const auto& checkerProfiles = currDoc->checkerProfiles();
+	if (!checkerProfiles.contains(checkerProfile))
+		return false;
+
 	struct CheckerPrefs checkerSettings;
-	checkerSettings=currDoc->checkerProfiles()[currDoc->curCheckProfile()];
+	checkerSettings = checkerProfiles[checkerProfile];
 	currDoc->pageErrors.clear();
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
