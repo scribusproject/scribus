@@ -7,6 +7,8 @@ matrix:
       sudo: required
       compiler:
         - gcc
+      services:
+        - docker
     - os: linux
       dist: xenial
       sudo: required
@@ -36,14 +38,11 @@ before_install:
       libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
       libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
       coreutils binutils python-tk;
-      wget http://poppler.freedesktop.org/poppler-0.73.0.tar.xz
-      unxz poppler-0.73.0.tar.xz
-      tar xfv poppler-0.73.0.tar
-      cd poppler-0.73.0
-      ./configure && make && make install
-      cp ../../poppler-qt5.pc /tmp
-      export PKG_CONFIG_PATH=/tmp
-      cd ..
+      wget http://poppler.freedesktop.org/poppler-0.73.0.tar.xz;
+      unxz poppler-0.73.0.tar.xz;
+      tar xfv poppler-0.73.0.tar;
+      cd poppler-0.73.0;
+      mkdir build; cd build; cmake ..; make; make install;
     fi
 # OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
