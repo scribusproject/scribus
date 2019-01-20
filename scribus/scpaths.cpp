@@ -453,17 +453,10 @@ QStringList ScPaths::systemProfilesDirs()
 	winSysDir = winSysDir.replace('\\','/');
 	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
 	{
-<<<<<<< HEAD
 		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 
 			iccProfDirs.append(winSysDir + "/Spool/Drivers/Color/");
 	}
 	else if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) // Windows 9x/Me 
-=======
-		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5
-			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
-	}
-	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me
->>>>>>> Add explicit appname on linux.
 	{
 		if (osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
 			iccProfDirs.append(winSysDir + "/Color/");
