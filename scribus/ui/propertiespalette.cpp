@@ -258,7 +258,7 @@ void PropertiesPalette::unsetDoc()
 	m_doc=nullptr;
 	m_item = nullptr;
 
-	imagePal->unsetItem();
+	xyzPal->unsetItem();
 	xyzPal->unsetDoc();
 	shadowPal->unsetItem();
 	shadowPal->unsetDoc();
