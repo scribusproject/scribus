@@ -8383,8 +8383,7 @@ void ScribusMainWindow::docCheckToggle(bool visible)
 
 bool ScribusMainWindow::scanDocument()
 {
-	DocumentChecker dc;
-	return dc.checkDocument(doc);
+	return DocumentChecker::checkDocument(doc);
 }
 
 void ScribusMainWindow::slotStoryEditor(bool fromTable)
