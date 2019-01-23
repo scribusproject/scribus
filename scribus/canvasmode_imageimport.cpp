@@ -236,7 +236,9 @@ void CanvasMode_ImageImport::setImage(PageItem *currItem)
 	currItem->IRender = m_doc->cmsSettings().DefaultIntentImages;
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	m_doc->loadPict(fileName, currItem, false, true);
-	m_ScMW->propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+	// Call to showScaleAndOffset() is now very likely unnecessary
+	// due to mecanisms used to update properties in PP in 1.5.x+
+	//m_ScMW->propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 	m_ScMW->repaint();
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	m_view->DrawNew();
