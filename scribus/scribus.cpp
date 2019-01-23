@@ -3891,80 +3891,80 @@ bool ScribusMainWindow::postLoadDoc()
 // do with file->open for a LONG time. It's used for get text / get picture.
 void ScribusMainWindow::slotGetContent()
 {
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isEmpty())
+		return;
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->itemType() == PageItem::ImageFrame)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->itemType() == PageItem::ImageFrame)
+		QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
+
+		QString docDir = ".";
+		QString prefsDocDir=m_prefsManager->documentDir();
+		if (!prefsDocDir.isEmpty())
+			docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
+		else
+			docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", ".");
+
+		QStringList fileNames;
+		fileNames.clear();
+		CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
+		if (dia->exec() == QDialog::Accepted)
+			fileNames = dia->fileDialog->selectedFiles();
+		delete dia;
+		//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
+		if (!fileNames.isEmpty())
 		{
-			QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
-
-			QString docDir = ".";
-			QString prefsDocDir=m_prefsManager->documentDir();
-			if (!prefsDocDir.isEmpty())
-				docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
-			else
-				docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", ".");
-
-			QStringList fileNames;
-			fileNames.clear();
-			CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
-			if (dia->exec() == QDialog::Accepted)
-				fileNames = dia->fileDialog->selectedFiles();
-			delete dia;
-			//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
-			if (!fileNames.isEmpty())
-			{
-				m_prefsManager->prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
-				view->requestMode(modeImportImage);
-				CanvasMode_ImageImport* cii=dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
-				if (cii)
-					cii->setImageList(fileNames);
-			}
+			m_prefsManager->prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
+			view->requestMode(modeImportImage);
+			CanvasMode_ImageImport* cii=dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
+			if (cii)
+				cii->setImageList(fileNames);
 		}
-		else if (currItem->asTextFrame())
+	}
+	else if (currItem->asTextFrame())
+	{
+		gtGetText* gt = new gtGetText(doc);
+		ImportSetup impsetup=gt->run();
+		if (impsetup.runDialog)
 		{
-			gtGetText* gt = new gtGetText(doc);
-			ImportSetup impsetup=gt->run();
-			if (impsetup.runDialog)
+			if (currItem->itemText.length() != 0)
 			{
-				if (currItem->itemText.length() != 0)
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
+							QMessageBox::Yes | QMessageBox::No,
+							QMessageBox::No,	// GUI default
+							QMessageBox::Yes);	// batch default
+				if (t == QMessageBox::No)
 				{
-					int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
-								QMessageBox::Yes | QMessageBox::No,
-								QMessageBox::No,	// GUI default
-								QMessageBox::Yes);	// batch default
-					if (t == QMessageBox::No)
-					{
-						delete gt;
-						return;
-					}
+					delete gt;
+					return;
 				}
-				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames);
 			}
-			delete gt;
-			if (doc->docHyphenator->AutoCheck)
-				doc->docHyphenator->slotHyphenate(currItem);
-			for (int a = 0; a < doc->Items->count(); ++a)
-			{
-				if (doc->Items->at(a)->isBookmark)
-					bookmarkPalette->BView->changeText(doc->Items->at(a));
-			}
-			if (!impsetup.textOnly)
-				doc->flag_NumUpdateRequest = true;
-			view->DrawNew();
-			slotDocCh();
-			m_styleManager->setDoc(doc);
-			marksManager->setDoc(doc);
-			nsEditor->setDoc(doc);
-			inlinePalette->unsetDoc();
-			inlinePalette->setDoc(doc);
-			if (outlinePalette->isVisible())
-				outlinePalette->BuildTree();
-			propertiesPalette->updateColorList();
-			textPalette->updateColorList();
-			emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
-			symbolPalette->updateSymbolList();
+			gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames);
 		}
+		delete gt;
+		if (doc->docHyphenator->AutoCheck)
+			doc->docHyphenator->slotHyphenate(currItem);
+		for (int a = 0; a < doc->Items->count(); ++a)
+		{
+			if (doc->Items->at(a)->isBookmark)
+				bookmarkPalette->BView->changeText(doc->Items->at(a));
+		}
+		if (!impsetup.textOnly)
+			doc->flag_NumUpdateRequest = true;
+		view->DrawNew();
+		slotDocCh();
+		m_styleManager->setDoc(doc);
+		marksManager->setDoc(doc);
+		nsEditor->setDoc(doc);
+		inlinePalette->unsetDoc();
+		inlinePalette->setDoc(doc);
+		if (outlinePalette->isVisible())
+			outlinePalette->BuildTree();
+		propertiesPalette->updateColorList();
+		textPalette->updateColorList();
+		emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
+		symbolPalette->updateSymbolList();
 	}
 }
 
