@@ -98,6 +98,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void initItemMenuActions();
 		void initInsertMenuActions();
 		void initPageMenuActions();
+		void initTableMenuActions();
 		void initViewMenuActions();
 		void initToolsMenuActions();
 		void initExtrasMenuActions();

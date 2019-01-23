@@ -106,6 +106,7 @@ void ActionManager::createActions()
 	initItemMenuActions();
 	initInsertMenuActions();
 	initPageMenuActions();
+	initTableMenuActions();
 	initViewMenuActions();
 	initToolsMenuActions();
 	initExtrasMenuActions();
@@ -453,31 +454,7 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemUpdateImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="tableInsertRows";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/insert-table-rows.png"), im->loadPixmap("22/insert-table-rows.png"), "", defaultKey(name), mainWindow));
-	name="tableInsertColumns";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/insert-table-columns.png"), im->loadPixmap("22/insert-table-columns.png"), "", defaultKey(name), mainWindow));
-	name="tableDeleteRows";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/delete-table-rows.png"), im->loadPixmap("22/delete-table-rows.png"), "", defaultKey(name), mainWindow));
-	name="tableDeleteColumns";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/delete-table-columns.png"), im->loadPixmap("22/delete-table-columns.png"), "", defaultKey(name), mainWindow));
-	name="tableMergeCells";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/merge-table-cells.png"), im->loadPixmap("22/merge-table-cells.png"), "", defaultKey(name), mainWindow));
-	name="tableSplitCells";
-	scrActions->insert(name, new ScrAction(im->loadPixmap("16/split-table-cells.png"), im->loadPixmap("22/split-table-cells.png"), "", defaultKey(name), mainWindow));
-	name="tableSetRowHeights";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="tableSetColumnWidths";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="tableDistributeRowsEvenly";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="tableDistributeColumnsEvenly";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="tableAdjustFrameToTable";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemAdjustFrameHeightToText";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name = "tableAdjustTableToFrame";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemAdjustFrameToImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -646,6 +623,36 @@ void ActionManager::initPageMenuActions()
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(duplicateToMasterPage()) );
 	connect( (*scrActions)["pageManageProperties"], SIGNAL(triggered()), mainWindow, SLOT(changePageProperties()) );
+}
+
+void ActionManager::initTableMenuActions()
+{
+	QString name;
+
+	name = "tableInsertRows";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/insert-table-rows.png"), im->loadPixmap("22/insert-table-rows.png"), "", defaultKey(name), mainWindow));
+	name = "tableInsertColumns";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/insert-table-columns.png"), im->loadPixmap("22/insert-table-columns.png"), "", defaultKey(name), mainWindow));
+	name = "tableDeleteRows";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/delete-table-rows.png"), im->loadPixmap("22/delete-table-rows.png"), "", defaultKey(name), mainWindow));
+	name = "tableDeleteColumns";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/delete-table-columns.png"), im->loadPixmap("22/delete-table-columns.png"), "", defaultKey(name), mainWindow));
+	name = "tableMergeCells";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/merge-table-cells.png"), im->loadPixmap("22/merge-table-cells.png"), "", defaultKey(name), mainWindow));
+	name = "tableSplitCells";
+	scrActions->insert(name, new ScrAction(im->loadPixmap("16/split-table-cells.png"), im->loadPixmap("22/split-table-cells.png"), "", defaultKey(name), mainWindow));
+	name = "tableSetRowHeights";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableSetColumnWidths";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableDistributeRowsEvenly";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableDistributeColumnsEvenly";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableAdjustFrameToTable";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableAdjustTableToFrame";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 }
 
 void ActionManager::initViewMenuActions()

@@ -354,12 +354,22 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	//CB maybe we should just call mw->createMenuBar() here instead...
 	mw->scrMenuMgr->clearMenu("File");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("File", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Edit");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Edit", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Insert");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Insert", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Item");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Item", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Page");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Page", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("ItemTable");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("ItemTable", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Extras");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Extras", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("View");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("View", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Help");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Help", mw->scrActions);
 	return true;
 }
 
