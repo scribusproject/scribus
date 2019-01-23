@@ -4007,50 +4007,65 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 
 void ScribusMainWindow::slotGetClipboardImage()
 {
-	if (HaveDoc && (!doc->m_Selection->isEmpty()) && (QApplication::clipboard()->mimeData()->hasImage()))
+	if (!HaveDoc || doc->m_Selection->isEmpty())
+		return;
+	if (!QApplication::clipboard()->mimeData()->hasImage())
+		return;
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->itemType() != PageItem::ImageFrame)
+		return;
+
+	int t = QMessageBox::Yes;
+	if (currItem->imageIsAvailable)
+		t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to replace your existing image?"),
+					QMessageBox::Yes | QMessageBox::No,
+					QMessageBox::No,	// GUI default
+					QMessageBox::Yes);	// batch default
+	if (t != QMessageBox::Yes)
+		return;
+
+	QImage img = QApplication::clipboard()->image();
+	if (img.isNull())
+		return;
+
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
+	tempFile->setAutoRemove(false);
+	if (!tempFile->open())
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->itemType() == PageItem::ImageFrame)
-		{
-			int t = QMessageBox::Yes;
-			if (currItem->imageIsAvailable)
-				t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to replace your existing image?"),
-							QMessageBox::Yes | QMessageBox::No,
-							QMessageBox::No,	// GUI default
-							QMessageBox::Yes);	// batch default
-			if (t == QMessageBox::Yes)
-			{
-				QImage img = QApplication::clipboard()->image();
-				if (!img.isNull())
-				{
-					currItem->EmProfile = "";
-					currItem->pixm.imgInfo.isRequest = false;
-					currItem->UseEmbedded = true;
-					currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
-					currItem->IRender = doc->cmsSettings().DefaultIntentImages;
-					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
-					tempFile->setAutoRemove(false);
-					tempFile->open();
-					QString fileName = getLongPathName(tempFile->fileName());
-					tempFile->close();
-					delete tempFile;
-					currItem->isInlineImage = true;
-					currItem->isTempFile = true;
-					currItem->Pfile = fileName;
-					img.save(fileName, "PNG");
-					doc->loadPict(fileName, currItem, false, true);
-					propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
-					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					view->DrawNew();
-					emit UpdateRequest(reqColorsUpdate | reqCmsOptionsUpdate);
-					currItem->emitAllToGUI();
-					qApp->restoreOverrideCursor();
-				}
-			}
-		}
+		delete tempFile;
+		return;
 	}
+	QString fileName = getLongPathName(tempFile->fileName());
+	tempFile->close();
+	delete tempFile;
+
+	if (!img.save(fileName, "PNG"))
+	{
+		QFile::remove(fileName);
+		return;
+	}
+
+	currItem->EmProfile = "";
+	currItem->pixm.imgInfo.isRequest = false;
+	currItem->UseEmbedded = true;
+	currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
+	currItem->IRender = doc->cmsSettings().DefaultIntentImages;
+	qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	
+	currItem->isInlineImage = true;
+	currItem->isTempFile = true;
+	currItem->Pfile = fileName;
+	doc->loadPict(fileName, currItem, false, true);
+	// Call to showScaleAndOffset() is now very likely unnecessary
+	// due to mecanisms used to update properties in PP in 1.5.x+
+	//propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	view->DrawNew();
+	emit UpdateRequest(reqColorsUpdate | reqCmsOptionsUpdate);
+	currItem->emitAllToGUI();
+	qApp->restoreOverrideCursor();
 }
 
 void ScribusMainWindow::toogleInlineState()
