@@ -2976,7 +2976,7 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, co
 				ite->updateClip();
 			}
 			m_Doc->loadPict(fileName, ite);
-			ite->AdjustPictScale();
+			ite->adjustPictScale();
 		}
 	}
 	delete tempFile;

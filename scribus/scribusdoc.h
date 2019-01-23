@@ -1125,7 +1125,7 @@ public:
 						item->loadImage(item->Pfile, true, -1, false);
 					item->setImageFlippedH(fho);
 					item->setImageFlippedV(fvo);
-					item->AdjustPictScale();
+					item->adjustPictScale();
 				}
 			}
 			allItems.clear();

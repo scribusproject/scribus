@@ -1568,7 +1568,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								retObj->AspectRatio = false;
 								retObj->ScaleType   = false;
 								m_Doc->loadPict(fileName, retObj);
-								retObj->AdjustPictScale();
+								retObj->adjustPictScale();
 							}
 						}
 						delete tempFile;
@@ -1658,7 +1658,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 										retObj->AspectRatio = false;
 										retObj->ScaleType   = false;
 										m_Doc->loadPict(fileName, retObj);
-										retObj->AdjustPictScale();
+										retObj->adjustPictScale();
 									}
 								}
 								delete tempFile;

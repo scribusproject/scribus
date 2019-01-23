@@ -3605,14 +3605,14 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 		{
 			int rot = QString(m_style["librevenge:rotate"]->getStr().cstr()).toInt();
 			ite->setImageRotation(rot);
-			ite->AdjustPictScale();
+			ite->adjustPictScale();
 		}
 #else
 		if (m_style["libwpg:rotate"])
 		{
 			int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
 			ite->setImageRotation(rot);
-			ite->AdjustPictScale();
+			ite->adjustPictScale();
 		}
 #endif
 	}

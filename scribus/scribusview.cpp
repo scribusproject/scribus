@@ -832,7 +832,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				item->OldB2 = item->width();
 				item->OldH2 = item->height();
 				item->updateClip();
-				item->AdjustPictScale();
+				item->adjustPictScale();
 				item->update();
 				dropOffsetX += Doc->opToolPrefs().dispX;
 				dropOffsetY += Doc->opToolPrefs().dispY;
@@ -1011,7 +1011,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		item->OldB2 = item->width();
 		item->OldH2 = item->height();
 		item->updateClip();
-		item->AdjustPictScale();
+		item->adjustPictScale();
 		item->update();
 		emit DocChanged();
 		update();

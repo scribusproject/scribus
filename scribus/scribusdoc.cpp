@@ -10192,7 +10192,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->setImageXOffset(imgX);
 			currItem->setImageYOffset(imgY);
-			currItem->AdjustPictScale();
+			currItem->adjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -10226,7 +10226,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->setImageXOffset(imgX);
 			currItem->setImageYOffset(imgY);
-			currItem->AdjustPictScale();
+			currItem->adjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -10261,7 +10261,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->setImageXOffset(imgX);
 			currItem->setImageYOffset(imgY);
-			currItem->AdjustPictScale();
+			currItem->adjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -10300,7 +10300,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				currItem->setImageFlippedV(fvo);
 				currItem->setImageXOffset(imgX);
 				currItem->setImageYOffset(imgY);
-				currItem->AdjustPictScale();
+				currItem->adjustPictScale();
 				ca++;
 				m_ScMW->mainWindowProgressBar->setValue(ca);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -14229,7 +14229,7 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	}
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
 	{
-		currItem->AdjustPictScale();
+		currItem->adjustPictScale();
 	}
 	if (currItem->asLine())
 	{
@@ -15248,7 +15248,7 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	item->rotateBy(-gRot);
 	item->setLineWidth(item->lineWidth() * qMax(grScXi, grScYi));
 	if (!item->ScaleType)
-		item->AdjustPictScale();
+		item->adjustPictScale();
 	else
 	{
 		item->setImageXScale(item->imageXScale() * grScXi);

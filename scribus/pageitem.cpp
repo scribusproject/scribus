@@ -4256,7 +4256,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	}
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
-	AdjustPictScale();
+	adjustPictScale();
 	update();
 }
 
@@ -9423,7 +9423,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	else
 		IProfile = pixm.imgInfo.profileName;
 
-	AdjustPictScale();
+	adjustPictScale();
 
 	// #12408 : we set the old* variables to avoid creation of unwanted undo states
 	// when user perform actions such as double clicking image. We might want to
@@ -9726,7 +9726,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 	}
 }
 
-void PageItem::AdjustPictScale()
+void PageItem::adjustPictScale()
 {
 	if (itemType() != PageItem::ImageFrame)
 		return;

@@ -1889,7 +1889,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 							retObj->AspectRatio = false;
 							retObj->ScaleType   = false;
 							m_Doc->loadPict(fileName, retObj);
-							retObj->AdjustPictScale();
+							retObj->adjustPictScale();
 						}
 					}
 					delete tempFile;

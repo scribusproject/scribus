@@ -225,7 +225,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 			doResize(m->modifiers() & Qt::AltModifier);
 			m_doc->setRedrawBounding(currItem);
 			if (currItem->asImageFrame())
-				currItem->AdjustPictScale();
+				currItem->adjustPictScale();
 		}
 		//add action itemResizeToMargin for right click on item`s handlers
 		else if (m->button() == Qt::RightButton)

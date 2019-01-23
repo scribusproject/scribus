@@ -578,7 +578,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	if (proportional != -1)
 		item->AspectRatio = proportional > 0;
 
-	item->AdjustPictScale();
+	item->adjustPictScale();
 	item->update();
 
 	Py_RETURN_NONE;

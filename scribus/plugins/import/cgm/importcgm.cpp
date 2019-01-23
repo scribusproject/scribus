@@ -1579,7 +1579,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ite->setImageFlippedH(flipX);
 		ite->setImageFlippedV(flipY);
 		ite->setImageScalingMode(false, false);
-		ite->AdjustPictScale();
+		ite->adjustPictScale();
 		colorPrecision = t_colorPrecision;
 		colorIndexPrecision = t_colorIndexPrecision;
 	}

@@ -1143,7 +1143,7 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 			// FIXME
 			if (false /*!FreeScale->isChecked()*/)
 			{
-				m_item->AdjustPictScale();
+				m_item->adjustPictScale();
 				m_item->update();
 			}
 		}

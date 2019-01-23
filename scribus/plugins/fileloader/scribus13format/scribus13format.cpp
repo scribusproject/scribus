@@ -1946,7 +1946,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setHeight(1.0);
 	}
 	if (currItem->asImageFrame())
-		currItem->AdjustPictScale();
+		currItem->adjustPictScale();
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();

@@ -1718,7 +1718,7 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 						retObj->AspectRatio = false;
 						retObj->ScaleType   = false;
 						m_Doc->loadPict(fileName, retObj);
-						retObj->AdjustPictScale();
+						retObj->adjustPictScale();
 					}
 				}
 				delete tempFile;

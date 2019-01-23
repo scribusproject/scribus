@@ -2614,7 +2614,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 							item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
 							item->setImageRotation(-roti);
-							item->AdjustPictScale();
+							item->adjustPictScale();
 						}
 					}
 					delete tempFile;
@@ -2650,7 +2650,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
 					item->setImageRotation(-roti);
 					if (imageFit != "None")
-						item->AdjustPictScale();
+						item->adjustPictScale();
 				}
 			}
 			GElements.append(m_Doc->Items->takeAt(z));

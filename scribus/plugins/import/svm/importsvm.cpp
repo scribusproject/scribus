@@ -2057,7 +2057,7 @@ void SvmPlug::handleImage(QDataStream &ds, qint64 posi, quint32 totalSize)
 			ite->AspectRatio = false;
 			ite->ScaleType   = false;
 			m_Doc->loadPict(fileName, ite);
-			ite->AdjustPictScale();
+			ite->adjustPictScale();
 		}
 	}
 	delete tempFile;
@@ -2113,7 +2113,7 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 			ite->AspectRatio = false;
 			ite->ScaleType   = false;
 			m_Doc->loadPict(fileName, ite);
-			ite->AdjustPictScale();
+			ite->adjustPictScale();
 		}
 	}
 	delete tempFile;

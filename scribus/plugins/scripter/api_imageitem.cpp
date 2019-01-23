@@ -206,8 +206,8 @@ void ImageAPI::scaleToFrame(bool scaleToFrame, bool proportional)
 
 	//FIXME emit or something so we dont need this
 	ScCore->primaryMainWindow()->propertiesPalette->imagePal->showScaleAndOffset(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
-	item->AdjustPictScale();
-	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
+	item->adjustPictScale();
+	//ScCore->primaryMainWindow()->view->adjustPictScale(item);
 
 	item->update();
 }

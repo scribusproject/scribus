@@ -358,7 +358,7 @@ public: // Start public functions
 	 * @brief Adjust the picture scale, moved from the view, no view code here
 	 * FIXME: Move to PageItem_TextFrame
 	 */
-	void AdjustPictScale();
+	void adjustPictScale();
 
 
 
