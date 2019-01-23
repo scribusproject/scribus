@@ -577,14 +577,10 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	// set it. 1 is proportional, 0 is free aspect.
 	if (proportional != -1)
 		item->AspectRatio = proportional > 0;
-	// Force the braindead app to notice the changes
 
-	//FIXME emit or something so we dont need this
-	ScCore->primaryMainWindow()->propertiesPalette->imagePal->showScaleAndOffset(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
 	item->AdjustPictScale();
-	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
-
 	item->update();
+
 	Py_RETURN_NONE;
 }
 PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
