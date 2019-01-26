@@ -1,0 +1,28 @@
+# Dependencies are managed in the Dockerfile in the scribus-ci-docker
+# Git repository. Change them there, wait a bit, and then we'll use
+# the new ones here in these builds.
+image: registry.gitlab.com/scribus/scribus-ci-docker/master
+
+variables:
+  GIT_DEPTH: "10"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+appimage:linux:
+  stage: build
+  except:
+    - schedules
+  cache:
+    key: "cache-appimage"
+    paths:
+      - ccache/
+  before_script:
+    # CCache Config
+    - mkdir -p ccache
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
+  script:
+    - bash -ex AppImage-package/bundle.sh
+  artifacts:
+    expire_in: 14 days
+    paths:
+      - ./Scribus*.AppImage*
