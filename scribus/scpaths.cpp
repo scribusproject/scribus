@@ -333,6 +333,15 @@ QStringList ScPaths::getSystemFontDirs(void)
 	fontDirs.append("/Network/Library/Fonts/");
 	fontDirs.append("/System/Library/Fonts/");
 #elif defined(_WIN32)
+	QDir d;
+	QString localFontDir = getSpecialDir(CSIDL_LOCAL_APPDATA)+"Microsoft/Windows/Fonts"; // Added by Windows 10 1809
+	QString roamingFontDir = getSpecialDir(CSIDL_APPDATA)+"Microsoft/Windows/Fonts"; // Added by Windows 10 1809
+	d.setPath(localFontDir);
+	if (d.exists())
+		fontDirs.append(localFontDir);
+	d.setPath(roamingFontDir);
+	if (d.exists())
+		fontDirs.append(roamingFontDir);
 	fontDirs.append( getSpecialDir(CSIDL_FONTS) );
 #endif
 	return fontDirs;
