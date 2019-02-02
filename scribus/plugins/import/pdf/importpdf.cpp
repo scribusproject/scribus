@@ -484,8 +484,12 @@ bool PdfPlug::convert(const QString& fn)
 					cropped = optImp->croppingEnabled();
 					if (!cropped)
 						crop = cropped;
+					// When displaying  pages slices, we should always set useMediaBox to true
+					// in order to use MediaBox (x, y) as coordinate system
 					if (contentRect != Media_Box)
 						useMediaBox = gFalse;
+					if (cropped)
+						useMediaBox = gTrue;
 				/*	if (cb > Media_Box)
 					{
 						cropped = true;
