@@ -983,7 +983,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 		QPainter pp;
 		pp.begin(&image);
 		pp.setBrush(Qt::NoBrush);
-		pp.setPen(QPen(Qt::red, 1.0));
+		pp.setPen(QPen(Qt::red, 3.0));
 		pp.translate(0, bh);
 		pp.scale(scale, -scale);
 		pp.drawRect(cRect);
