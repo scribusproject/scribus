@@ -361,6 +361,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		if ((m_view->cursor().shape() == Qt::SplitHCursor) || (m_view->cursor().shape() == Qt::SplitVCursor))
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 	}
+
 	//<<#10116 Show overflow counter HUD
 	if (!movingOrResizing && mouseIsOnPage)
 	{
@@ -450,6 +451,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
+
 	//>>#10116
 	if (m_doc->drawAsPreview)
 		return;
@@ -499,6 +501,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (m_doc->DragP)
 			return;
+
 		//Operations run here:
 		//Item resize, esp after creating a new one
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
@@ -725,6 +728,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
+
+		// move page item
 		if ((!m_canvas->m_viewMode.m_MouseButtonPressed) && (m_doc->appMode != modeDrawBezierLine))
 		{
 			if (m_doc->m_Selection->isMultipleSelection())
@@ -880,59 +885,31 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 #if 1				
-		if (m_doc->m_Selection->isMultipleSelection() && (!m_doc->drawAsPreview))
+		// normal edit mode
+		m_canvas->PaintSizeRect(QRect());
+		double gx, gy, gh, gw;
+		bool shiftSel = true;
+		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+		m_dragConstrainInitPtX = qRound(gx);
+		m_dragConstrainInitPtY = qRound(gy);
+		m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+		if (m_frameResizeHandle == Canvas::OUTSIDE ||
+			(m_frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
 		{
-			m_canvas->PaintSizeRect(QRect());
-			double gx, gy, gh, gw;
-			bool shiftSel = true;
-			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-			m_dragConstrainInitPtX = qRound(gx);
-			m_dragConstrainInitPtY = qRound(gy);
-			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
-			if (m_frameResizeHandle == Canvas::OUTSIDE ||
-				(m_frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
-			{
-				m_frameResizeHandle = 0;
-				m_doc->m_Selection->delaySignalsOn();
-				m_view->updatesOn(false);
-				shiftSel = SeleItem(m);
-				m_view->updatesOn(true);
-				m_doc->m_Selection->delaySignalsOff();
-			}
-			if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
-			{
-				m_shiftSelItems = true;
-				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
-			}
-			else
-				m_shiftSelItems = false;
-			m_canvas->setRenderModeFillBuffer();
+			m_frameResizeHandle = 0;
+			m_doc->m_Selection->delaySignalsOn();
+			m_view->updatesOn(false);
+			shiftSel = SeleItem(m);
+			m_view->updatesOn(true);
+			m_doc->m_Selection->delaySignalsOff();
 		}
-		else // not multiple selection
+		if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 		{
-			m_dragConstrainInitPtX = qRound(currItem->xPos());
-			m_dragConstrainInitPtY = qRound(currItem->yPos());
-			
-			// don't call SeleItem() without need here:
-			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-			//#6797
-			if (m_frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
-			{
-				m_doc->m_Selection->delaySignalsOn();
-				m_view->updatesOn(false);
-				SeleItem(m); //Where we send the mouse press event to select an item
-				if (GetItem(&currItem) && (!m_doc->drawAsPreview))
-					m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-				else
-					m_frameResizeHandle = 0;
-				m_view->updatesOn(true);
-				m_doc->m_Selection->delaySignalsOff();
-			}
-			if (!(currItem && !currItem->locked() && m_frameResizeHandle > 0) && (!m_doc->drawAsPreview))
-			{
-				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
-			}
+			m_shiftSelItems = true;
+			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 		}
+		else
+			m_shiftSelItems = false;
 		m_canvas->setRenderModeFillBuffer();
 #endif
 	}
@@ -989,7 +966,6 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 }
 
 
-
 void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 {
 //	qDebug("CanvasMode_Normal::mouseReleaseEvent");
@@ -1004,6 +980,9 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_view->setRedrawMarkerShown(false);
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
+
+	// right click
+	// opens context menu
 	if (m->button() == Qt::RightButton && (!m_doc->DragP) )
 	{
 		if ((!GetItem(&currItem)) && (!m_doc->drawAsPreview))
@@ -1017,6 +996,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			return;
 		}
 	}
+
+	// link text frames
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem=nullptr;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
@@ -1031,6 +1012,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 	}
+
+	// drag move?
 	//>>#10116
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
@@ -1142,9 +1125,12 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->changed();
 		}
 	}
+
+
 	//CB Drag selection performed here
 	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((m_shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
 	{
+		// get newly selection rectangle
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
 		QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
@@ -1173,7 +1159,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		if (docItemCount != 0)
 		{
 			m_doc->m_Selection->delaySignalsOn();
-			// loop over all items and select
+
+			// modifier keys
 			bool altPressed = m->modifiers() & Qt::AltModifier;
 			bool shiftPressed = m->modifiers() & Qt::ShiftModifier;
 
@@ -1185,11 +1172,21 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
 				if (((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
+					// get current item rect/bounding box
+					QRect apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
+
+					bool is_selected = docItem->isSelected();
 					bool redrawSelection = false;
+
+					// alt selection
 					bool select = altPressed ? localSele.intersects(apr2) :
-                                               localSele.contains(apr2);
-					if (select)
-						m_view->SelectItemNr(a, redrawSelection);
+					                           localSele.contains(apr2);
+
+					// make selection
+					if (!is_selected && select)
+						m_doc->m_Selection->addItem(docItem);
+					else if (is_selected && shiftPressed && select) // shift selection - invert selection
+						m_doc->m_Selection->removeItem(docItem);
 				}
 			}
 			m_doc->m_Selection->delaySignalsOff();
@@ -1232,6 +1229,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 		m_view->Deselect(true);
+
 	xSnap = ySnap = 0;
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
@@ -1248,6 +1246,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->count() > 0)
 	{
@@ -1256,6 +1255,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 		}
 	}
+
 	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
 	m_view->m_ScMW->zoomSpinBox->clearFocus();
 	m_view->m_ScMW->pageSelector->clearFocus();
