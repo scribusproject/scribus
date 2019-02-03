@@ -468,8 +468,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	QTransform rotation;
 	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
 	QPointF oldXY = m_bounds.topLeft();
+
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
+
+	// center resize pivot
+	bool centerPivot = ((m->modifiers() & Qt::ShiftModifier) != Qt::NoModifier);
+
 /*
 	if (m_mousePressPoint == m->globalPos())
 	{
@@ -626,6 +631,41 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 				break;
 		}
 //		qDebug() << "constrained:" << m_bounds << double(m_bounds.width()) / m_bounds.height();
+	}
+
+	// shif key modifier
+	// move around around the pivot
+	if (centerPivot)
+		m_bounds.moveCenter(m_origBounds.center());
+	else 
+	{
+		// reset to original position if user releases shift button during resize
+		switch (m_handle)
+		{
+			case Canvas::NORTHWEST:
+				m_bounds.moveBottomRight(m_origBounds.bottomRight());
+				break;
+			case Canvas::WEST:
+				m_bounds.moveRight(m_origBounds.right());
+				break;
+			case Canvas::SOUTHWEST:
+				m_bounds.moveTopRight(m_origBounds.topRight());
+				break;
+			case Canvas::SOUTH:
+				m_bounds.moveTop(m_origBounds.top());
+				break;
+			case Canvas::NORTHEAST:
+				m_bounds.moveBottomLeft(m_origBounds.bottomLeft());
+				break;
+			case Canvas::EAST:
+				m_bounds.moveLeft(m_origBounds.left());
+				break;
+			case Canvas::SOUTHEAST:
+				m_bounds.moveTopLeft(m_origBounds.topLeft());
+				break;
+			default:
+				break;
+		}
 	}
 
 	// re-rotate: if top left has changed, then it needs rotation
