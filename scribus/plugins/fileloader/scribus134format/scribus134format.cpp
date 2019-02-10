@@ -2909,8 +2909,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
 	if (attrs.valueAsInt("TRANSPARENT", 0) == 1)
 		currItem->setFillColor(CommonStrings::None);
-	currItem->Cols   = attrs.valueAsInt("COLUMNS", 1);
-	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
+	currItem->m_columns   = attrs.valueAsInt("COLUMNS", 1);
+	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
 	tmp = "";
@@ -3376,7 +3376,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					newItem->setMasterPageName(QString());
 				else if (Mpage && !renamedPageName.isEmpty())
 					newItem->setMasterPageName(renamedPageName);
-				newItem->setLayer(layerTrans.value(newItem->LayerID, newItem->LayerID));
+				newItem->setLayer(layerTrans.value(newItem->m_layerID, newItem->m_layerID));
 
 				if (newItem->isTableItem)
 				{

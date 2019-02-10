@@ -39,18 +39,18 @@ public:
 	PageItem_PathText(const PageItem & p) : PageItem(p) {}
 	~PageItem_PathText() {};
 	
-	virtual PageItem_PathText * asPathText() { return this; }
-	virtual bool isPathText() const { return true; }
+	PageItem_PathText * asPathText() override { return this; }
+	bool isPathText() const override { return true; }
 
-	virtual void layout();
-	virtual bool createInfoGroup(QFrame *, QGridLayout *);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	void layout() override;
+	bool createInfoGroup(QFrame *, QGridLayout *) override;
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 
-	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

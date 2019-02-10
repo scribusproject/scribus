@@ -926,7 +926,7 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 		}
 		else
 			replFont = prefsManager->appPrefs.fontPrefs.GFontSub[fontname];
-		ScFace repl = (*this)[replFont].mkReplacementFor(fontname, doc ? doc->DocName : QString(""));
+		ScFace repl = (*this)[replFont].mkReplacementFor(fontname, doc ? doc->documentFileName() : QString(""));
 		insert(fontname, repl);
 	}
 	else if ( doc && !doc->UsedFonts.contains(fontname) )
@@ -967,7 +967,7 @@ void SCFonts::setSubstitutions(const QMap<QString,QString>& substitutes, Scribus
 		ScFace& font(const_cast<ScFace&>(findFont(it.key(), doc)));
 		if (font.isReplacement())
 		{
-			font.chReplacementTo(const_cast<ScFace&>(findFont(it.value(), doc)), doc->DocName);
+			font.chReplacementTo(const_cast<ScFace&>(findFont(it.value(), doc)), doc->documentFileName());
 		}
 	}
 }

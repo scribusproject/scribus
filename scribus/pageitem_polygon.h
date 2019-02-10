@@ -40,13 +40,13 @@ public:
 	PageItem_Polygon(const PageItem & p) : PageItem(p) {}
 	~PageItem_Polygon() {};
 
-	virtual PageItem_Polygon * asPolygon() { return this; }
-	virtual bool isPolygon() const { return true; }
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	PageItem_Polygon * asPolygon() override { return this; }
+	bool isPolygon() const override { return true; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

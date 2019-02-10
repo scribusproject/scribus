@@ -40,21 +40,21 @@ public:
 	PageItem_Spiral(const PageItem & p) : PageItem(p) {}
 	~PageItem_Spiral() {};
 
-	virtual PageItem_Spiral * asSpiral() { return this; }
-	virtual bool isSpiral() const { return true; }
-	virtual ItemType realItemType() const { return PageItem::Spiral; }
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	PageItem_Spiral * asSpiral() override { return this; }
+	bool isSpiral() const override { return true; }
+	ItemType realItemType() const override { return PageItem::Spiral; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	void recalcPath();
 	double spiralStartAngle;    //! angle where the spiral starts
 	double spiralEndAngle;    //! angle the spiral spans
 	double spiralFactor;	//! factor the spiral gets smaller
 
-	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
-	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
+	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

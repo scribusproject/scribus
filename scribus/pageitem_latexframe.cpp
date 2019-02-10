@@ -44,8 +44,8 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
 	setUPixmap(Um::ILatexFrame);
-	AnName = tr("Render") + QString::number(m_Doc->TotalItems);
-	setUName(AnName);
+	m_itemName = tr("Render") + QString::number(m_Doc->TotalItems);
+	setUName(m_itemName);
 	
 	m_imgValid = false;
 	m_usePreamble = true;

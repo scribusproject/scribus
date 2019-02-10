@@ -70,7 +70,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 		{
 			if (currentDoc != nullptr)
 			{
-				if (currentDoc->DocName == it.current().localForDocument() || it.current().localForDocument().isEmpty())
+				if (currentDoc->documentFileName() == it.current().localForDocument() || it.current().localForDocument().isEmpty())
 					rlist.insert(it.currentKey().toLower(), it.currentKey());
 			}
 			else
@@ -225,7 +225,7 @@ void FontComboH::setCurrentFont(const QString& f)
 			{
 				if (!fIt->usable() || fIt->isReplacement())
 					continue;
-				if ((currDoc->DocName == fIt->localForDocument()) || (fIt->localForDocument().isEmpty()))
+				if ((currDoc->documentFileName() == fIt->localForDocument()) || (fIt->localForDocument().isEmpty()))
 					ilist.append(*it3);
 			}
 		}
@@ -265,7 +265,7 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 				{
 					const ScFace& fon(prefsManager->appPrefs.fontPrefs.AvailFonts[*it2 + " " + *it3]);
 					ScFace::FontType type = fon.type();
-					if (!fon.usable() || fon.isReplacement() || !(currentDoc->DocName == fon.localForDocument() || fon.localForDocument().isEmpty()))
+					if (!fon.usable() || fon.isReplacement() || !(currentDoc->documentFileName() == fon.localForDocument() || fon.localForDocument().isEmpty()))
 						continue;
 					if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 						continue;

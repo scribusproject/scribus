@@ -316,7 +316,7 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 	for (int j = 0; j < Items.count(); ++j)
 	{
 		Item = Items.at(j);
-		if (Item->LayerID != layer.ID)
+		if (Item->m_layerID != layer.ID)
 			continue;
 		if (!Item->printEnabled())
 			continue;

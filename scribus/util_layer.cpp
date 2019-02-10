@@ -82,8 +82,8 @@ void handleOldLayerBehavior(ScribusDoc* doc)
 	for (int i = 0; i < mpCount; ++i)
 	{
 		item = doc->MasterItems.at(i);
-		idIt = layerMap.find(item->LayerID);
+		idIt = layerMap.find(item->m_layerID);
 		if (idIt != layerMap.end())
-			item->LayerID = idIt.value();
+			item->m_layerID = idIt.value();
 	}
 }

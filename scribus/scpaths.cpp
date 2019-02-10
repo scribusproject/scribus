@@ -223,22 +223,22 @@ const QString&  ScPaths::sampleScriptDir() const
 	return m_sampleScriptDir;
 }
 
-const QString&  ScPaths::scriptDir() const
+const QString& ScPaths::scriptDir() const
 {
 	return m_scriptDir;
 }
 
-const QString&  ScPaths::templateDir() const
+const QString& ScPaths::templateDir() const
 {
 	return m_templateDir;
 }
 
-const QString&  ScPaths::shareDir() const
+const QString& ScPaths::shareDir() const
 {
 	return m_shareDir;
 }
 
-const QString&  ScPaths::qmlDir() const
+const QString& ScPaths::qmlDir() const
 {
 	return m_qmlDir;
 }

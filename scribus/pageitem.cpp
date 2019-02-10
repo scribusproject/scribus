@@ -135,8 +135,8 @@ PageItem::PageItem(const PageItem & other)
 	selectedMeshPointY(other.selectedMeshPointY),
 	selectedMeshControlPoint(other.selectedMeshControlPoint),
 	snapToPatchGrid(other.snapToPatchGrid),
-	Cols(other.Cols),
-	ColGap(other.ColGap),
+	m_columns(other.m_columns),
+	m_columnGap(other.m_columnGap),
 	m_startArrowIndex(other.m_startArrowIndex),
 	m_endArrowIndex(other.m_endArrowIndex),
 	m_startArrowScale(other.m_startArrowScale),
@@ -191,7 +191,7 @@ PageItem::PageItem(const PageItem & other)
 	OldB2(other.OldB2),
 	OldH2(other.OldH2),
 	Sizing(other.Sizing),
-	LayerID(other.LayerID),
+	m_layerID(other.m_layerID),
 	ScaleType(other.ScaleType),
 	AspectRatio(other.AspectRatio),
 	DashValues(other.DashValues),
@@ -303,12 +303,12 @@ PageItem::PageItem(const PageItem & other)
 	BackBox(nullptr),  // otherwise other.BackBox->NextBox would be inconsistent
 	NextBox(nullptr),  // otherwise other.NextBox->BackBox would be inconsistent
 	firstChar(0),   // since this box is unlinked now
-	MaxChars(0),   // since the layout is invalid now
+	m_maxChars(0),   // since the layout is invalid now
 	m_sampleItem(false),
 	m_textDistanceMargins(other.m_textDistanceMargins),
 	verticalAlign(other.verticalAlign),
 	m_ItemType(other.m_ItemType),
-	AnName(other.AnName),
+	m_itemName(other.m_itemName),
 	gradientVal(other.gradientVal),
 	patternVal(other.patternVal),
 	patternScaleX(other.patternScaleX),
@@ -364,13 +364,13 @@ PageItem::PageItem(const PageItem & other)
 	m_imageVisible = m_Doc->guidesPrefs().showPic;
 	m_Doc->TotalItems++;
 	
-	QString oldName(AnName);
+	QString oldName(m_itemName);
 	int nameNum = m_Doc->TotalItems;
-	AnName += tmp.setNum(m_Doc->TotalItems);
-	while (m_Doc->itemNameExists(AnName))
+	m_itemName += tmp.setNum(m_Doc->TotalItems);
+	while (m_Doc->itemNameExists(m_itemName))
 	{
 		++nameNum;
-		AnName = oldName + tmp.setNum(nameNum);
+		m_itemName = oldName + tmp.setNum(nameNum);
 	}
 	
 	uniqueNr = m_Doc->TotalItems;
@@ -517,7 +517,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_textDistanceMargins=m_Doc->itemToolPrefs().textDistances;
 	verticalAlign = 0;
 	firstChar = 0;
-	MaxChars = 0;
+	m_maxChars = 0;
 	m_sampleItem = false;
 	Pfile = "";
 	pixm = ScImage();
@@ -571,71 +571,71 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		// because c++'s typeinfos are still saying it's 
 		// a plain pageitem
 		// This is fixed in the PageItem_LatexFrame constructor
-		AnName = tr("Image");
+		m_itemName = tr("Image");
 		setUPixmap(Um::IImageFrame);
 		break;
 	case TextFrame:
-		AnName = tr("Text");
+		m_itemName = tr("Text");
 		setUPixmap(Um::ITextFrame);
 		break;
 	case Line:
-		AnName = tr("Line");
+		m_itemName = tr("Line");
 		setUPixmap(Um::ILine);
 		break;
 	case Polygon:
-		AnName = tr("Polygon");
+		m_itemName = tr("Polygon");
 		setUPixmap(Um::IPolygon);
 		break;
 	case PolyLine:
-		AnName = tr("Polyline");
+		m_itemName = tr("Polyline");
 		setUPixmap(Um::IPolyline);
 		break;
 	case PathText:
-		AnName = tr("PathText");
+		m_itemName = tr("PathText");
 		setUPixmap(Um::IPathText);
 		break;
 	case Symbol:
-		AnName = tr("Symbol");
+		m_itemName = tr("Symbol");
 		setUPixmap(Um::IPolygon);
 		break;
 	case Group:
-		AnName = tr("Group");
+		m_itemName = tr("Group");
 		setUPixmap(Um::IPolygon);
 		break;
 	case RegularPolygon:
-		AnName = tr("RegularPolygon");
+		m_itemName = tr("RegularPolygon");
 		setUPixmap(Um::IPolygon);
 		break;
 	case Arc:
-		AnName = tr("Arc");
+		m_itemName = tr("Arc");
 		setUPixmap(Um::IPolygon);
 		break;
 	case Spiral:
-		AnName = tr("Spiral");
+		m_itemName = tr("Spiral");
 		setUPixmap(Um::IPolygon);
 		break;
 	case Table:
-		AnName = tr("Table");
+		m_itemName = tr("Table");
 		//setUPixmap(Um::IPolygon); // TODO: Fix this.
 		break;
 	default:
-		AnName = "Item";
+		m_itemName = "Item";
 		break;
 	}
 	m_Doc->TotalItems++;
 	
-	QString oldName(AnName);
+	QString oldName(m_itemName);
 	int nameNum = m_Doc->TotalItems;
-	AnName += tmp.setNum(m_Doc->TotalItems);
-	while (m_Doc->itemNameExists(AnName))
+	m_itemName += tmp.setNum(m_Doc->TotalItems);
+	while (m_Doc->itemNameExists(m_itemName))
 	{
 		++nameNum;
-		AnName = oldName + tmp.setNum(nameNum);
+		m_itemName = oldName + tmp.setNum(nameNum);
 	}
 	
 	uniqueNr = m_Doc->TotalItems;
 	AutoName = true;
-	setUName(AnName);
+	setUName(m_itemName);
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
 	isAutoText = false;
@@ -649,7 +649,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	groupItemList.clear();
 	groupWidth = 1.0;
 	groupHeight = 1.0;
-	LayerID = m_Doc->activeLayer();
+	m_layerID = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
 	NamedLStyle = "";
@@ -833,8 +833,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	meshGradientPatches.append(patch);
 
 	m_firstLineOffset = FLOPRealGlyphHeight;
-	Cols = m_Doc->itemToolPrefs().textColumns;
-	ColGap = m_Doc->itemToolPrefs().textColumnGap;
+	m_columns = m_Doc->itemToolPrefs().textColumns;
+	m_columnGap = m_Doc->itemToolPrefs().textColumnGap;
 	LeftLink = nullptr;
 	RightLink = nullptr;
 	TopLink = nullptr;
@@ -967,16 +967,12 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 int PageItem::level() const
 {
 	PageItem* thisItem = const_cast<PageItem*>(this);
-	if (!isGroupChild())
-	{
-		if (m_Doc)
-		{
-			QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
-			return (items->indexOf(thisItem) + 1);
-		}
+	if (isGroupChild())
+		return (Parent->asGroupFrame()->groupItemList.indexOf(thisItem) + 1);
+	if (!m_Doc)
 		return 0;
-	}
-	return (Parent->asGroupFrame()->groupItemList.indexOf(thisItem) + 1);
+	QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
+	return (items->indexOf(thisItem) + 1);
 }
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
@@ -1215,31 +1211,30 @@ bool PageItem::frameOverflows() const
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == nullptr && itemText.length() > static_cast<int>(MaxChars);*/
 	return ( NextBox == nullptr )
-	       && ( static_cast<int> ( firstChar ) < itemText.length() )
+		   && ( static_cast<int> ( firstChar ) < itemText.length() )
 		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
-	       /*&& ( firstChar < MaxChars )*/
-		   && ( firstChar <= MaxChars )
-	       && ( itemText.length() > static_cast<int> ( MaxChars ) );
+		   /*&& ( firstChar < MaxChars )*/
+		   && ( firstChar <= m_maxChars )
+		   && ( itemText.length() > static_cast<int> ( m_maxChars ) );
 }
 
 int PageItem::frameOverflowCount() const
 {
 	if (frameOverflows())
-		return itemText.length()-MaxChars;
+		return itemText.length()-m_maxChars;
 	return 0;
 }
 
 int PageItem::frameOverflowBlankCount() const
 {
 	if (frameOverflows())
-		return itemText.plainText().right(itemText.length() - MaxChars).count(QRegularExpression("\\s+"));
-
+		return itemText.plainText().right(itemText.length() - m_maxChars).count(QRegularExpression("\\s+"));
 	return 0;
 }
 
 int PageItem::maxCharsInFrame()
 {
-	return MaxChars;
+	return m_maxChars;
 }
 
 /// returns true if text is ending before that frame
@@ -1292,7 +1287,7 @@ int PageItem::firstInFrame() const
 }
 int PageItem::lastInFrame() const
 {
-	return qMin(signed(MaxChars), itemText.length()) - 1;
+	return qMin(signed(m_maxChars), itemText.length()) - 1;
 }
 
 bool PageItem::canBeLinkedTo(const PageItem* nxt) const
@@ -1419,7 +1414,8 @@ void PageItem::unlink(bool createUndo)
 		// link following frames to new text
 		NextBox->firstChar = 0;
 		NextBox->BackBox = nullptr;
-		while (NextBox) {
+		while (NextBox)
+		{
 			NextBox->itemText = follow;
 			NextBox->invalid = true;
 			NextBox->firstChar = 0;
@@ -1441,13 +1437,9 @@ void PageItem::dropLinks()
 {
 	// update auto pointers
 	if (isAutoText && NextBox == nullptr)
-	{
 		m_Doc->LastAuto = BackBox;
-	}
 	if (isAutoText && BackBox == nullptr)
-	{
 		m_Doc->FirstAuto = NextBox;
-	}
 	isAutoText = false;
 
 	// leave text in remaining chain
@@ -1462,7 +1454,7 @@ void PageItem::dropLinks()
 	if (before)
 	{
 		before->NextBox = after;
-		afterChar = qMin((int) before->MaxChars, before->itemText.length());
+		afterChar = qMin((int) before->m_maxChars, before->itemText.length());
 	}
 	if (after) 
 	{
@@ -1491,8 +1483,8 @@ void PageItem::dropLinks()
 //but copy or cut its content from itemText
 void PageItem::unlinkWithText()
 {
-	PageItem * Next = NextBox;
-	PageItem * Prev = BackBox;
+	PageItem* Next = NextBox;
+	PageItem* Prev = BackBox;
 	int length = itemText.length();
 
 	if (this->invalid)
@@ -1542,7 +1534,7 @@ void PageItem::unlinkWithText()
 /// tests if a character is displayed by this frame
 bool PageItem::frameDisplays(int textpos) const
 {
-	return 0 <= textpos && textpos < signed(MaxChars) &&  textpos < itemText.length();
+	return 0 <= textpos && textpos < signed(m_maxChars) && textpos < itemText.length();
 }
 
 
@@ -1550,7 +1542,7 @@ bool PageItem::frameDisplays(int textpos) const
 const ParagraphStyle& PageItem::currentStyle() const
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.lengthOfSelection() > 0)
+	if (itemText.selectionLength() > 0)
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1566,7 +1558,7 @@ const ParagraphStyle& PageItem::currentStyle() const
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.lengthOfSelection() > 0)
+	if (itemText.selectionLength() > 0)
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1582,7 +1574,7 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 const CharStyle& PageItem::currentCharStyle() const
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.lengthOfSelection() > 0)
+	if (itemText.selectionLength() > 0)
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1601,7 +1593,7 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 	parStyle = curStyle;
 
 	int position = itemText.cursorPosition();
-	if (itemText.lengthOfSelection() > 0)
+	if (itemText.selectionLength() > 0)
 		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
 
 	// Note: cursor position can be past last characters, don't use frameDisplays() here
@@ -1693,37 +1685,46 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
-double PageItem::gridOffset() const { return m_Doc->guidesPrefs().offsetBaselineGrid; }
-double PageItem::gridDistance() const { return m_Doc->guidesPrefs().valueBaselineGrid; }
+double PageItem::gridOffset() const
+{
+	return m_Doc->guidesPrefs().offsetBaselineGrid;
+}
+double PageItem::gridDistance() const
+{
+	return m_Doc->guidesPrefs().valueBaselineGrid;
+}
 
 void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME
-void PageItem::setColumns(int n) 
+
+void PageItem::setColumns(int newColumnCount)
 {
-	if (Cols==n)
+	if (m_columns==newColumnCount)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Columns, "", Um::IBorder);
 		ss->set("COLUMNS");
-		ss->set("OLD_COLUMNS", Cols);
-		ss->set("NEW_COLUMNS",n);
+		ss->set("OLD_COLUMNS", m_columns);
+		ss->set("NEW_COLUMNS", newColumnCount);
 		undoManager->action(this, ss);
 	}
-	Cols = qMax(1, n);
+	m_columns = qMax(1, newColumnCount);
 }
-void PageItem::setColumnGap(double gap)
+
+void PageItem::setColumnGap(double newColumnGap)
 {
-	if (ColGap==gap)
+	if (m_columnGap==newColumnGap)
 		return;
-	if (UndoManager::undoEnabled()){
+	if (UndoManager::undoEnabled())
+	{
 		SimpleState *ss = new SimpleState(Um::Columns, "", Um::IBorder);
 		ss->set("COLUMNSGAP");
-		ss->set("OLD_COLUMNS", ColGap);
-		ss->set("NEW_COLUMNS",gap);
+		ss->set("OLD_COLUMNS", m_columnGap);
+		ss->set("NEW_COLUMNS", newColumnGap);
 		undoManager->action(this, ss);
 	}
-	ColGap = gap;
+	m_columnGap = newColumnGap;
 }
 
 int PageItem::verticalAlignment()
@@ -1783,7 +1784,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	no_fill = false;
 	no_stroke = false;
 	DrawObj_Pre(p);
-	if (m_Doc->layerOutline(LayerID))
+	if (m_Doc->layerOutline(m_layerID))
 	{
 		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine || itemType()==Group || itemType()==Symbol))
 			DrawObj_Item(p, cullingArea);
@@ -1806,15 +1807,14 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
 
-	if (m_Doc->layerOutline(LayerID))
+	if (m_Doc->layerOutline(m_layerID))
 	{
-		p->setPen(m_Doc->layerMarker(LayerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(m_Doc->layerMarker(m_layerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
 		return;
 	}
-
 
 	if ((hasSoftShadow()) && (m_Doc->appMode != modeEdit))
 		DrawSoftShadow(p);
@@ -1996,14 +1996,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
 	double lwCorr = m_lineWidth;
-	double sc = p->zoomFactor();
-	if ((m_lineWidth * sc) < 1)
+	if ((m_lineWidth * p->zoomFactor()) < 1)
 		lwCorr = 0;
-	if (m_Doc->layerOutline(LayerID))
+	if (m_Doc->layerOutline(m_layerID))
 	{
 		if (itemType()!=Line)
 		{
-			p->setPen(m_Doc->layerMarker(LayerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(m_Doc->layerMarker(m_layerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
 			p->setBrushOpacity(1.0);
 			p->setPenOpacity(1.0);
@@ -2219,13 +2218,13 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		}
 		if ((m_Doc->guidesPrefs().layerMarkersShown) &&
 			(m_Doc->layerCount() > 1) &&
-			(!m_Doc->layerOutline(LayerID)) &&
+			(!m_Doc->layerOutline(m_layerID)) &&
 			(!isGroupChild()) &&
 			(!m_Doc->drawAsPreview))
 		{
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
-			p->setBrush(m_Doc->layerMarker(LayerID));
+			p->setBrush(m_Doc->layerMarker(m_layerID));
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
@@ -2583,12 +2582,10 @@ void PageItem::DrawPolyL(QPainter *p, const QPolygon& pts)
 
 void PageItem::setItemName(const QString& newName)
 {
-	if (AnName == newName)
-		return; // nothing to do -> return
-	if (newName.isEmpty())
+	if (m_itemName == newName || newName.isEmpty())
 		return;
-	QString oldName = AnName;
-	AnName = generateUniqueCopyName(newName);
+	QString oldName = m_itemName;
+	m_itemName = generateUniqueCopyName(newName);
 	AutoName=false;
 	if (UndoManager::undoEnabled())
 	{
@@ -2597,17 +2594,16 @@ void PageItem::setItemName(const QString& newName)
 		ss->set("NEW_NAME", newName);
 		undoManager->action(this, ss);
 	}
-	setUName(AnName); // set the name for the UndoObject too
+	setUName(m_itemName); // set the name for the UndoObject too
 }
 
 void PageItem::setGradient(const QString &newGradient)
 {
-	if (gradientVal != newGradient)
-	{
-		gradientVal = newGradient;
-		if (m_Doc->docGradients.contains(gradientVal))
-			fill_gradient = m_Doc->docGradients[gradientVal];
-	}
+	if (gradientVal == newGradient)
+		return;
+	gradientVal = newGradient;
+	if (m_Doc->docGradients.contains(gradientVal))
+		fill_gradient = m_Doc->docGradients[gradientVal];
 }
 
 void PageItem::setMaskGradient(const VGradient& grad)
@@ -3300,7 +3296,7 @@ void PageItem::createConicalMesh()
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	double lastStop = -1.0;
 	double actualStop = 0.0;
-	bool   isFirst = true;
+	bool isFirst = true;
 	for (int cst = 0; cst < fill_gradient.stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
@@ -4260,7 +4256,8 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	update();
 }
 
-void PageItem::setOverprint(bool val) {
+void PageItem::setOverprint(bool val)
+{
 	if (doOverprint==val)
 			return;
 
@@ -4589,11 +4586,10 @@ void PageItem::convertTo(ItemType newType)
 	switch (m_ItemType)
 	{
 		case ImageFrame:
-			if (asLatexFrame()) {
+			if (asLatexFrame())
 				fromType = Um::LatexFrame;
-			} else {
+			else
 				fromType = Um::ImageFrame;
-			}
 			break;
 		case TextFrame:
 			fromType = Um::TextFrame;
@@ -4654,19 +4650,19 @@ void PageItem::convertTo(ItemType newType)
 
 void PageItem::setLayer(int newLayerID)
 {
-	if (LayerID == newLayerID)
+	if (m_layerID == newLayerID)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SendToLayer,
-										  QString(Um::FromTo).arg(LayerID).arg(newLayerID),
+										  QString(Um::FromTo).arg(m_layerID).arg(newLayerID),
 										  Um::ILayerAction);
 		ss->set("SEND_TO_LAYER");
-		ss->set("OLD_LAYER", LayerID);
+		ss->set("OLD_LAYER", m_layerID);
 		ss->set("NEW_LAYER", newLayerID);
 		undoManager->action(this, ss);
 	}
-	LayerID = newLayerID;
+	m_layerID = newLayerID;
 }
 
 void PageItem::checkChanges(bool force)
@@ -5338,12 +5334,12 @@ void PageItem::restoreMarkString(SimpleState *state, bool isUndo)
 	if (!is)
 		return;
 	Mark* mark = itemText.mark(is->getItem().first);
-    if (!itemText.hasMark(is->getItem().first))
+	if (!itemText.hasMark(is->getItem().first))
 		return;
 	if (isUndo)
-        mark->setString(is->getItem().second);
+		mark->setString(is->getItem().second);
 	else
-        mark->setString(QString());
+		mark->setString(QString());
 }
 
 bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
@@ -6574,9 +6570,9 @@ void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		ColGap = ss->getDouble("OLD_COLUMNS");
+		m_columnGap = ss->getDouble("OLD_COLUMNS");
 	else
-		ColGap = ss->getDouble("NEW_COLUMNS");
+		m_columnGap = ss->getDouble("NEW_COLUMNS");
 	update();
 }
 
@@ -6619,9 +6615,9 @@ void PageItem::restoreBottomTextFrameDist(SimpleState *ss, bool isUndo)
 void PageItem::restoreColumns(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		Cols = ss->getInt("OLD_COLUMNS");
+		m_columns = ss->getInt("OLD_COLUMNS");
 	else
-		Cols = ss->getInt("NEW_COLUMNS");
+		m_columns = ss->getInt("NEW_COLUMNS");
 	update();
 }
 
@@ -7061,7 +7057,8 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 	ScribusView* view = m_Doc->view();
 	view->Deselect(false);
 	view->SelectItem(item, false);
-	switch (type) {
+	switch (type)
+	{
 		case ImageFrame: view->ToPicFrame(); break;
 		case TextFrame: view->ToTextFrame(); break;
 		case Polygon: view->ToPolyFrame(); break;
@@ -7541,8 +7538,7 @@ void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 {
-	ScItemState<QPair<FPointArray,FPointArray> > *istate =
-			dynamic_cast<ScItemState<QPair<FPointArray,FPointArray> >*>(state);
+	auto *istate = dynamic_cast<ScItemState<QPair<FPointArray,FPointArray> >*>(state);
 	if (istate)
 	{
 		FPointArray oldClip = istate->getItem().first;
@@ -7579,8 +7575,7 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 
 void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 {
-	ScItemState<QPair<ScImageEffectList, ScImageEffectList> > *istate =
-	dynamic_cast<ScItemState<QPair<ScImageEffectList,ScImageEffectList> >*>(state);
+	auto *istate = dynamic_cast<ScItemState<QPair<ScImageEffectList,ScImageEffectList> >*>(state);
 	if (istate)
 	{
 		if (isUndo)
@@ -7611,9 +7606,7 @@ QList<ObjectAttribute> PageItem::getObjectAttributes(const QString& attributeNam
 	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
 		if (objAttrIt->name == attributeName)
-		{
 			attributes.append(*objAttrIt);
-		}
 	}
 	return attributes;
 }
@@ -9650,7 +9643,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 	}
 	arrow.map(arrowTrans);
 	p->setupPolygon(&arrow);
-	if (m_Doc->layerOutline(LayerID))
+	if (m_Doc->layerOutline(m_layerID))
 		p->strokePath();
 	else
 	{

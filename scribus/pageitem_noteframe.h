@@ -17,12 +17,12 @@ private:
 	~PageItem_NoteFrame() { }
 
 public:
-	virtual PageItem_NoteFrame * asNoteFrame() { return this; }
-	virtual bool isNoteFrame() const { return true; }
-	virtual bool isAutoNoteFrame() const { return m_nstyle->isAutoRemoveEmptyNotesFrames(); }
+	PageItem_NoteFrame * asNoteFrame() override { return this; }
+	bool isNoteFrame() const override { return true; }
+	bool isAutoNoteFrame() const override { return m_nstyle->isAutoRemoveEmptyNotesFrames(); }
 
 	//overloaded text frame layouting
-	void layout();
+	void layout() override;
 
 	//indicate if noteframe should be deleted
 	bool deleteIt;

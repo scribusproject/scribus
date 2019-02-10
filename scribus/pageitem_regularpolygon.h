@@ -40,11 +40,11 @@ public:
 	PageItem_RegularPolygon(const PageItem & p) : PageItem(p) {}
 	~PageItem_RegularPolygon() {};
 
-	virtual PageItem_RegularPolygon * asRegularPolygon() { return this; }
-	virtual bool isRegularPolygon() const { return true; }
-	virtual ItemType realItemType() const { return PageItem::RegularPolygon; }
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	PageItem_RegularPolygon * asRegularPolygon() override { return this; }
+	bool isRegularPolygon() const override { return true; }
+	ItemType realItemType() const override { return PageItem::RegularPolygon; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 
 	void recalcPath();
 	/* Regular Polygon Tool */
@@ -57,7 +57,7 @@ public:
 	double polyOuterCurvature;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

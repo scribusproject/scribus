@@ -40,11 +40,11 @@ public:
 	PageItem_Arc(const PageItem & p) : PageItem(p) {}
 	~PageItem_Arc() {};
 
-	virtual PageItem_Arc * asArc() { return this; }
-	virtual bool isArc() const { return true; }
-	virtual ItemType realItemType() const { return PageItem::Arc; }
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	PageItem_Arc * asArc() override { return this; }
+	bool isArc() const override { return true; }
+	ItemType realItemType() const override { return PageItem::Arc; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	void recalcPath();
 	double arcHeight; //! height of the circumfering ellipse
 	double arcWidth;  //! width of the circumfering ellipse
@@ -52,7 +52,7 @@ public:
 	double arcSweepAngle;    //! angle the arc spans
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

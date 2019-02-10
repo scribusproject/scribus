@@ -76,15 +76,15 @@ class SCRIBUS_API PageItem_OSGFrame : public PageItem_ImageFrame
 		PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 		~PageItem_OSGFrame();
 		
-		virtual PageItem_OSGFrame * asOSGFrame() { return this; }
-		virtual bool isOSGFrame() const { return true; }
+		PageItem_OSGFrame * asOSGFrame() override { return this; }
+		bool isOSGFrame() const override { return true; }
 
-		virtual ItemType realItemType() const { return PageItem::OSGFrame; }
-		virtual void clearContents();
+		ItemType realItemType() const override { return PageItem::OSGFrame; }
+		void clearContents() override;
 		void setImage(QImage &image);
 		void setExternalModelFile(QString val);
 		void loadModel();
-		virtual void applicableActions(QStringList& actionList);
+		void applicableActions(QStringList& actionList) override;
 		virtual QString infoDescription();
 		double getDistance(osg::Vec3d pos1, osg::Vec3d pos2);
 		QString getPDFMatrix(QString viewName);

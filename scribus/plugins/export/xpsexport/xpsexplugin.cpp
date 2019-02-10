@@ -154,7 +154,7 @@ bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 		QString fna;
 		if (doc->hasName)
 		{
-			QFileInfo fi(doc->DocName);
+			QFileInfo fi(doc->documentFileName());
 			QString completeBaseName = fi.completeBaseName();
 			if (completeBaseName.endsWith(".xps", Qt::CaseInsensitive))
 				completeBaseName.chop(4);
@@ -168,7 +168,7 @@ bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 				fna = wdir + "/";
 			else
 				fna = wdir;
-			fna += doc->DocName + ".xps";
+			fna += doc->documentFileName() + ".xps";
 		}
 		openDia->setSelection(fna);
 		openDia->setExtension("xps");
@@ -379,7 +379,7 @@ void XPSExPlug::writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScP
 	for (int j = 0; j < Items.count(); ++j)
 	{
 		Item = Items.at(j);
-		if (Item->LayerID != layer.ID)
+		if (Item->m_layerID != layer.ID)
 			continue;
 		if (!Item->printEnabled())
 			continue;

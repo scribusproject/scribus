@@ -57,7 +57,7 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 	: PageItem(pa, PageItem::PathText, x, y, w, h, w2, fill, outline)
 {
 	firstChar = 0;
-	MaxChars = itemText.length();
+	m_maxChars = itemText.length();
 }
 
 
@@ -77,12 +77,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
-	MaxChars = 0;
+	m_maxChars = 0;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	CurX = m_textDistanceMargins.left();
 
-	if (!m_Doc->layerOutline(LayerID))
+	if (!m_Doc->layerOutline(m_layerID))
 	{
 		if (PoShow)
 		{
@@ -238,7 +238,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			currPathIndex++;
 			if (currPathIndex == pathList.count())
 			{
-				MaxChars = run.firstChar();
+				m_maxChars = run.firstChar();
 				break;
 			}
 			currPath = pathList[currPathIndex];
@@ -296,7 +296,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		box->setMatrix(trafo);
 		linebox->addBox(box);
 
-		MaxChars = run.lastChar() + 1;
+		m_maxChars = run.lastChar() + 1;
 		CurX -= dx;
 		CurX += run.width() + cStyle.fontSize() * cStyle.tracking() / 10000.0 + extraOffset;
 		if (run.hasFlag(ScLayout_ExpandingSpace))

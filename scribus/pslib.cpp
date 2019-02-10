@@ -1655,7 +1655,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						PageItem *it = Doc->MasterItems.at(api);
 						if (progressDialog)
 							ScQApp->processEvents();
-						if ((it->LayerID != ll.ID) || (!it->printEnabled()))
+						if ((it->m_layerID != ll.ID) || (!it->printEnabled()))
 							continue;
 						double bLeft, bRight, bBottom, bTop;
 						GetBleeds(Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
@@ -2594,7 +2594,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* page, uint PNr, bool sep, bool 
 				item = PItems.at(b);
 				if (progressDialog)
 					ScQApp->processEvents();
-				if (item->LayerID != ll.ID)
+				if (item->m_layerID != ll.ID)
 					continue;
 				if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
 					continue;
@@ -2644,7 +2644,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 			PageItem *ite = page->FromMaster.at(am);
 			if (progressDialog)
 				ScQApp->processEvents();
-			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
+			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
 			if (!(ite->asTextFrame()) && !(ite->asImageFrame()) && !(ite->asPathText()) && !(ite->asTable()))
 			{
@@ -3020,7 +3020,7 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 		PageItem *item = items.at(i);
 		if (progressDialog)
 			ScQApp->processEvents();
-		if (item->LayerID != layer.ID)
+		if (item->m_layerID != layer.ID)
 			continue;
 		if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
 			continue;

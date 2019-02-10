@@ -201,7 +201,7 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 		if (itemMap[ite].isNull())
 			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		m_Doc->setActiveLayer(itemMap[ite]->LayerID);
+		m_Doc->setActiveLayer(itemMap[ite]->m_layerID);
 		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		if (itemMap[ite]->isTextFrame())
 			emit selectElement(itemMap[ite], true, posMap[ite]);
@@ -237,7 +237,7 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
-		m_Doc->setActiveLayer(masterPageItemMap[ite]->LayerID);
+		m_Doc->setActiveLayer(masterPageItemMap[ite]->m_layerID);
 		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		if (masterPageItemMap[ite]->isTextFrame())
 			emit selectElement(masterPageItemMap[ite], true, posMap[ite]);
@@ -393,7 +393,7 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			break;
 	};
 	// additional informations
-	const ScLayer* layer = m_Doc->Layers.layerByID(pageItem->LayerID);
+	const ScLayer* layer = m_Doc->Layers.layerByID(pageItem->m_layerID);
 	if (layer)
 	{
 		item->setText(COLUMN_LAYER, layer->Name);
@@ -524,7 +524,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					|| (masterItemErrorsIt.key()->OnMasterPage == doc->MasterPages.at(mPage)->pageName()))
 					&&
 					((showNonPrintingLayerErrors) ||
-					(!showNonPrintingLayerErrors && doc->layerPrintable(masterItemErrorsIt.key()->LayerID)))
+					(!showNonPrintingLayerErrors && doc->layerPrintable(masterItemErrorsIt.key()->m_layerID)))
 					)
 				{
 					if (!showPagesWithoutErrors && page==nullptr)
@@ -625,7 +625,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			{
 				if (docItemErrorsIt.key()->OwnPage == aPage &&
 					((showNonPrintingLayerErrors) ||
-					(!showNonPrintingLayerErrors && doc->layerPrintable(docItemErrorsIt.key()->LayerID)))
+					(!showNonPrintingLayerErrors && doc->layerPrintable(docItemErrorsIt.key()->m_layerID)))
 					)
 				{
 					if (!showPagesWithoutErrors && page==nullptr)

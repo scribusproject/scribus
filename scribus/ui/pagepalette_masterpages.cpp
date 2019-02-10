@@ -294,7 +294,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			for (uint ite = 0; ite < oldItems; ++ite)
 			{
 				PageItem *itemToCopy = m_doc->Items->at(ite);
-				if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->LayerID))
+				if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->m_layerID))
 					m_doc->m_Selection->addItem(itemToCopy, true);
 			}
 			if (m_doc->m_Selection->count() != 0)

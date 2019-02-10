@@ -1170,7 +1170,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
 				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
-				if (((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
+				if (((docItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->m_layerID))) && (!m_doc->layerLocked(docItem->m_layerID)))
 				{
 					// get current item rect/bounding box
 					QRect apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
@@ -1850,7 +1850,7 @@ void CanvasMode_Normal::importToPage()
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 		{
 			PageItem *currItem = m_doc->m_Selection->itemAt(a);
-			currItem->LayerID = m_doc->activeLayer();
+			currItem->m_layerID = m_doc->activeLayer();
 		}
 		if (m_doc->m_Selection->count() > 0)
 		{

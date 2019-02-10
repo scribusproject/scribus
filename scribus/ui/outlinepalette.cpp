@@ -141,7 +141,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 					OutlineTreeItem* childItem = dynamic_cast<OutlineTreeItem*>(itemPg->child(j));
 					if (!childItem)
 						qFatal("OutlineWidget::dropEvent !childItem");
-					if (item->PageItemObject->LayerID == childItem->LayerID)
+					if (item->PageItemObject->m_layerID == childItem->LayerID)
 					{
 						itemPl = childItem;
 						break;
@@ -181,7 +181,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 					item->PageItemObject->setXYPos(xx, yy);
 					item->DocObject->addToGroup(group, item->PageItemObject);
 					group->groupItemList.insert(d, item->PageItemObject);
-					item->PageItemObject->setLayer(group->LayerID);
+					item->PageItemObject->setLayer(group->m_layerID);
 				}
 				else
 				{
@@ -243,7 +243,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 					item->PageItemObject->setXYPos(xx, yy);
 					item->DocObject->addToGroup(group, item->PageItemObject);
 					group->groupItemList.append(item->PageItemObject);
-					item->PageItemObject->setLayer(group->LayerID);
+					item->PageItemObject->setLayer(group->m_layerID);
 				}
 			}
 			item->PageItemObject->setRedrawBounding();
@@ -1022,7 +1022,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
 			pgItem = item->PageItemObject;
-			currDoc->setActiveLayer(pgItem->LayerID);
+			currDoc->setActiveLayer(pgItem->m_layerID);
 			m_MainWindow->changeLayer(currDoc->activeLayer());
 			if (item->PageItemObject->isGroup())
 				emit selectElementByItem(pgItem, false);
@@ -1045,7 +1045,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 				return;
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
-			currDoc->setActiveLayer(pgItem->LayerID);
+			currDoc->setActiveLayer(pgItem->m_layerID);
 			m_MainWindow->changeLayer(currDoc->activeLayer());
 			if (pgItem->isGroup())
 				emit selectElementByItem(pgItem, false);
@@ -1109,7 +1109,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 	clearPalette();
 	OutlineTreeItem * item = new OutlineTreeItem( reportDisplay, nullptr );
 	rootObject = item;
-	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
+	item->setText( 0, currDoc->documentFileName().section( '/', -1 ) );
 	item->type = -2;
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	OutlineTreeItem * pagep = nullptr;
@@ -1231,7 +1231,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					for (int it = 0; it < pgItems.count(); ++it)
 					{
 						pgItem = pgItems.at(it);
-						if (pgItem->LayerID != layer.ID)
+						if (pgItem->m_layerID != layer.ID)
 							continue;
 						if (!pgItem->isGroup())
 						{
@@ -1327,7 +1327,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					for (int it = 0; it < pgItems.count(); ++it)
 					{
 						pgItem = pgItems.at(it);
-						if (pgItem->LayerID != layer.ID)
+						if (pgItem->m_layerID != layer.ID)
 							continue;
 						if (!pgItem->isGroup())
 						{

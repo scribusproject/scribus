@@ -292,10 +292,9 @@ void ActionManager::initEditMenuActions()
 
 void ActionManager::initStyleMenuActions()
 {
-	QString name;
 	//Text Size actions
 	(*scrActionGroups).insert("fontSize", new QActionGroup(mainWindow));
-	name="fontSizeOther";
+	QString name("fontSizeOther");
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), (*scrActionGroups).value("fontSize"), -1));
 	connect( (*scrActions)["fontSizeOther"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFontSize(int)));
 

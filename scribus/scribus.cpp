@@ -2087,9 +2087,9 @@ bool ScribusMainWindow::recoverFile(const QStringList& foundFiles)
 			for (int i = 0; i < dia->recoverFiles.count(); ++i)
 			{
 				loadDoc(dia->recoverFiles[i]);
-				doc->setName(dia->recoverNames[i]);
+				doc->setDocumentFileName(dia->recoverNames[i]);
 				doc->hasName = true;
-				updateActiveWindowCaption(doc->DocName);
+				updateActiveWindowCaption(doc->documentFileName());
 				outlinePalette->setDoc(doc);
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
@@ -2140,7 +2140,7 @@ void ScribusMainWindow::startUpDialog()
 			// Don's disturb user with "save?" dialog just after new doc
 			// doc changing should be rewritten maybe... maybe later...
 			doc->setModified(false);
-			updateActiveWindowCaption(doc->DocName);
+			updateActiveWindowCaption(doc->documentFileName());
 		}
 		else if (dia->tabSelected() == NewDoc::NewFromTemplateTab)
 		{
@@ -2149,7 +2149,7 @@ void ScribusMainWindow::startUpDialog()
 			{
 				doc->hasName = false;
 				UndoManager::instance()->renameStack(dia->nftGui->currentDocumentTemplate->name);
-				doc->DocName = dia->nftGui->currentDocumentTemplate->name;
+				doc->setDocumentFileName(dia->nftGui->currentDocumentTemplate->name);
 				updateActiveWindowCaption(QObject::tr("Document Template: ") + dia->nftGui->currentDocumentTemplate->name);
 				QDir::setCurrent(PrefsManager::instance()->documentDir());
 				removeRecent(fileName);
@@ -2225,7 +2225,7 @@ bool ScribusMainWindow::slotFileNew()
 			// Don's disturb user with "save?" dialog just after new doc
 			// doc changing should be rewritten maybe... maybe later...
 			doc->setModified(false);
-			updateActiveWindowCaption(doc->DocName);
+			updateActiveWindowCaption(doc->documentFileName());
 		}
 	}
 	delete dia;
@@ -2377,7 +2377,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(doc, SIGNAL(updateAutoSaveClock()), view->clockLabel, SLOT(resetTime()));
 		view->clockLabel->resetTime();
 		scrActions["viewToggleCMS"]->setChecked(tempDoc->HasCMS);
-		m_undoManager->switchStack(tempDoc->DocName);
+		m_undoManager->switchStack(tempDoc->documentFileName());
 		m_styleManager->setDoc(tempDoc);
 		marksManager->setDoc(tempDoc);
 		nsEditor->setDoc(tempDoc);
@@ -2398,7 +2398,7 @@ void ScribusMainWindow::newFileFromTemplate()
 		{
 			doc->hasName = false;
 			UndoManager::instance()->renameStack(currentTemplate->name);
-			doc->DocName = currentTemplate->name;
+			doc->setDocumentFileName(currentTemplate->name);
 			updateActiveWindowCaption(QObject::tr("Document Template: ") + currentTemplate->name);
 			QDir::setCurrent(PrefsManager::instance()->documentDir());
 			removeRecent(QDir::cleanPath(currentTemplate->file));
@@ -2536,7 +2536,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		pageSelector->setEnabled(false);
 	}
 	doc = ActWin->doc();
-	m_undoManager->switchStack(doc->DocName);
+	m_undoManager->switchStack(doc->documentFileName());
 	if ((doc != nullptr) && doc->hasGUI())
 	{
 		connect(m_undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
@@ -2661,7 +2661,7 @@ void ScribusMainWindow::windowsMenuActivated(int id)
 
 void ScribusMainWindow::SwitchWin()
 {
-	updateActiveWindowCaption(doc->DocName);
+	updateActiveWindowCaption(doc->documentFileName());
 	propertiesPalette->setDoc(doc);
 	textPalette->setDoc(doc);
 	marksManager->setDoc(doc);
@@ -2703,7 +2703,7 @@ void ScribusMainWindow::HaveNewDoc()
 	appModeHelper->mainWindowHasNewDoc(doc, (ScMimeData::clipboardHasScribusData()) || (scrapbookPalette->tempHasContents()));
 
 	//Update palettes
-	updateActiveWindowCaption(doc->DocName);
+	updateActiveWindowCaption(doc->documentFileName());
 	propertiesPalette->setDoc(doc);
 	textPalette->setDoc(doc);
 	nsEditor->setDoc(doc);
@@ -2882,7 +2882,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 {
 	if (!doc->isModified())
 		doc->setModified(true);
-	updateActiveWindowCaption(doc->DocName + "*");
+	updateActiveWindowCaption(doc->documentFileName() + "*");
 	if (!doc->masterPageMode())
 	{
 		if (!doc->symbolEditMode() && !doc->inlineEditMode())
@@ -3080,7 +3080,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 	{
 		int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor);
 		PageItem *b = doc->Items->at(z);
-		b->LayerID = doc->activeLayer();
+		b->m_layerID = doc->activeLayer();
 		doc->loadPict(data, b);
 		b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 		b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
@@ -3253,7 +3253,7 @@ void ScribusMainWindow::updateItemLayerList()
 		(*it)->setChecked(false);
 	}
 	if (!doc->m_Selection->isEmpty() && doc->m_Selection->itemAt(0))
-		scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
+		scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->m_layerID)]->setChecked(true);
 	for (auto it = scrLayersActions.begin(); it != itend; ++it)
 		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 }
@@ -3470,8 +3470,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 	// PV - 5780: Scribus doesn't track what documents are already opened
 	// The goal of this part of code is to disallow user to open one
 	// doc multiple times.
-	QString FName = fi.absoluteFilePath();
-	QString platfName(QDir::toNativeSeparators(FName));
+	QString filename = fi.absoluteFilePath();
+	QString platfName(QDir::toNativeSeparators(filename));
 	int windowCount = windows.count();
 	for (int i = 0; i < windowCount; ++i)
 	{
@@ -3493,14 +3493,14 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 	UndoBlocker undoBlocker;
 	if (!fileName.isEmpty())
 	{
-		FileLoader *fileLoader = new FileLoader(FName);
+		FileLoader *fileLoader = new FileLoader(filename);
 		int testResult = fileLoader->testFile();
 		if (testResult == -1)
 		{
 			delete fileLoader;
 			qApp->restoreOverrideCursor();
 			QString title = tr("Fatal Error") ;
-			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>";
+			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(filename)+"</qt>";
 			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>";
 			ScMessageBox msgBox(QMessageBox::Critical, title, msg, QMessageBox::Ok | QMessageBox::Help, this);
 			msgBox.setInformativeText(infoMsg);
@@ -3521,16 +3521,16 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		if (docProfileDir.exists())
 			ScCore->getCMSProfilesDir(fi.absolutePath()+"/profiles", false, false);
 
-		m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", FName);
+		m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", filename);
 		QDir docFontDir(fi.absolutePath() + "/fonts");
 		if (docFontDir.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", FName);
+			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", filename);
 		QDir docFontDir2(fi.absolutePath() + "/Fonts");
 		if (docFontDir2.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", FName);
+			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", filename);
 		QDir docFontDir3(fi.absolutePath() + "/Document fonts");
 		if (docFontDir3.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", FName);
+			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", filename);
 		m_prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
 		if (view != nullptr)
 		{
@@ -3740,13 +3740,13 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		}
 		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
 		{
-			doc->setName(FName+ tr("(converted)"));
-			QFileInfo fi(doc->DocName);
-			doc->setName(fi.fileName());
+			doc->setDocumentFileName(filename+ tr("(converted)"));
+			QFileInfo fi(doc->documentFileName());
+			doc->setDocumentFileName(fi.fileName());
 			doc->isConverted = true;
 		}
 		else
-			doc->setName(FName);
+			doc->setDocumentFileName(filename);
 		doc->setMasterPageMode(false);
 		doc->createHyphenator();
 		HaveNewDoc();
@@ -3811,7 +3811,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		doc->RePos = false;
 		doc->setModified(false);
 		inlinePalette->setDoc(doc);
-		updateRecent(FName);
+		updateRecent(filename);
 		m_mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
 		doc->setLoading(true);
@@ -3862,7 +3862,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		pagePalette->setView(nullptr);
 	}
 
-	m_undoManager->switchStack(doc->DocName);
+	m_undoManager->switchStack(doc->documentFileName());
 	pagePalette->Rebuild();
 	qApp->restoreOverrideCursor();
 	doc->setModified(false);
@@ -4087,7 +4087,7 @@ void ScribusMainWindow::toogleInlineState()
 		QString wdir = ".";
 		if (doc->hasName)
 		{
-			QFileInfo fi(doc->DocName);
+			QFileInfo fi(doc->documentFileName());
 			wdir = QDir::fromNativeSeparators( fi.path() );
 		}
 		else
@@ -4166,7 +4166,7 @@ void ScribusMainWindow::slotFileRevert()
 
 		mdiArea->setActiveSubWindow(tw->getSubWin());
 		ActWin = tw;
-		QString fn(doc->DocName);
+		QString fn(doc->documentFileName());
 		doc->setModified(false);
 		if (doc==storyEditor->currentDocument())
 			storyEditor->close();
@@ -4186,7 +4186,7 @@ bool ScribusMainWindow::slotFileSave()
 		if (doc->is12doc && !warningVersion(this))
 			return false;
 
-		QString fn(doc->DocName), savedFileName;
+		QString fn(doc->documentFileName()), savedFileName;
 		ret = DoFileSave(fn, &savedFileName);
 		if (!ret && !savedFileName.isEmpty())
 			ScMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ));
@@ -4212,7 +4212,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	QString wdir = ".";
 	if (doc->hasName)
 	{
-		QFileInfo fi(doc->DocName);
+		QFileInfo fi(doc->documentFileName());
 		QString completeBaseName = fi.completeBaseName();
 		if (completeBaseName.endsWith(".sla", Qt::CaseInsensitive))
 			completeBaseName.chop(4);
@@ -4233,7 +4233,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			filename = wdir + "/";
 		else
 			filename = wdir;
-		filename += doc->DocName + ".sla";
+		filename += doc->documentFileName() + ".sla";
 	}
 	bool saveCompressed=m_prefsManager->appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
@@ -4304,7 +4304,7 @@ bool ScribusMainWindow::DoFileClose()
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
-	m_undoManager->removeStack(doc->DocName);
+	m_undoManager->removeStack(doc->documentFileName());
 	closeActiveWindowMasterPageEditor();
 	slotSelect();
 	doc->autoSaveTimer->stop();
@@ -4438,9 +4438,9 @@ void ScribusMainWindow::slotReallyPrint()
 	if (doc->Print_Options.firstUse)
 	{
 		doc->Print_Options.printer.clear();
-		if (!doc->DocName.startsWith( tr("Document")))
+		if (!doc->documentFileName().startsWith( tr("Document")))
 		{
-			QFileInfo fi(doc->DocName);
+			QFileInfo fi(doc->documentFileName());
 			QString completeBaseName = fi.completeBaseName();
 			if (completeBaseName.endsWith(".sla", Qt::CaseInsensitive))
 				if (completeBaseName.length() > 4) completeBaseName.chop(4);
@@ -4451,7 +4451,7 @@ void ScribusMainWindow::slotReallyPrint()
 		else
 		{
 			QDir di = QDir();
-			doc->Print_Options.filename = di.currentPath()+"/"+doc->DocName+".ps";
+			doc->Print_Options.filename = di.currentPath()+"/"+doc->documentFileName()+".ps";
 		}
 	}
 	doc->Print_Options.copies = 1;
@@ -5041,7 +5041,7 @@ void ScribusMainWindow::SelectAllOnLayer()
 	for (int i = 0; i < docItemsCount; ++i)
 	{
 		currItem = doc->Items->at(i);
-		if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
+		if ((currItem->m_layerID == doc->activeLayer()) && (!doc->layerLocked(currItem->m_layerID)))
 		{
 			if ((range == 0) && (currItem->OwnPage != docCurrentPage))
 				continue;
@@ -5125,7 +5125,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		for (int i = 0; i < docItemsCount; ++i)
 		{
 			currItem = doc->Items->at(i);
-			if (((currItem->LayerID == doc->activeLayer()) || (doc->layerSelectable(currItem->LayerID))) && (!doc->layerLocked(currItem->LayerID)))
+			if (((currItem->m_layerID == doc->activeLayer()) || (doc->layerSelectable(currItem->m_layerID))) && (!doc->layerLocked(currItem->m_layerID)))
 			{
 				if (docWideSelect)
 					doc->m_Selection->addItem(currItem);
@@ -6159,7 +6159,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	int oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(nullptr);
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(doc->DocName, Um::IDocument,
+		activeTransaction = m_undoManager->beginTransaction(doc->documentFileName(), Um::IDocument,
 														  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
 														  Um::IDelete);
 	PageItem* ite;
@@ -6645,9 +6645,9 @@ void ScribusMainWindow::slotPrefsOrg()
 		if (oldPrefs.uiPrefs.style != newUIStyle)
 		{
 			if (newUIStyle.isEmpty())
-				qApp->setStyle(m_prefsManager->guiSystemStyle());
+				ScQApp->setStyle(m_prefsManager->guiSystemStyle());
 			else
-				qApp->setStyle(QStyleFactory::create(newUIStyle));
+				ScQApp->setStyle(QStyleFactory::create(newUIStyle));
 		}
 		int newUIFontSize = m_prefsManager->guiFontSize();
 		if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
@@ -7080,9 +7080,9 @@ void ScribusMainWindow::reallySaveAsEps()
 		scrActions["toolsPreflightVerifier"]->setChecked(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
 	}
-	if (!doc->DocName.startsWith( tr("Document")))
+	if (!doc->documentFileName().startsWith( tr("Document")))
 	{
-		QFileInfo fi(doc->DocName);
+		QFileInfo fi(doc->documentFileName());
 		if (!doc->m_Selection->isEmpty())
 			filename = fi.path() + "/" + fi.completeBaseName() + "_selection.eps";
 		else
@@ -7092,7 +7092,7 @@ void ScribusMainWindow::reallySaveAsEps()
 	{
 		QDir di = QDir();
 		if (!doc->m_Selection->isEmpty())
-			filename = di.currentPath() + "/" + doc->DocName + "_selection.eps";
+			filename = di.currentPath() + "/" + doc->documentFileName() + "_selection.eps";
 		else
 			filename = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
@@ -7201,7 +7201,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		doc->pdfOptions().SubsetList = tmpEm;
 	}
 	MarginStruct optBleeds(doc->pdfOptions().bleeds);
-	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->pdfOptions(), ScCore->PDFXProfiles, m_prefsManager->appPrefs.fontPrefs.AvailFonts, ScCore->PrinterProfiles);
+	PDFExportDialog dia(this, doc->documentFileName(), ReallyUsed, view, doc->pdfOptions(), ScCore->PDFXProfiles, m_prefsManager->appPrefs.fontPrefs.AvailFonts, ScCore->PrinterProfiles);
 	if (!dia.exec())
 		return;
 
@@ -7609,7 +7609,7 @@ void ScribusMainWindow::editSymbolEnd()
 	layerPalette->setEnabled(true);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);
-	updateActiveWindowCaption(doc->DocName);
+	updateActiveWindowCaption(doc->documentFileName());
 }
 
 void ScribusMainWindow::editInlineStart(int id)
@@ -7622,10 +7622,6 @@ void ScribusMainWindow::editInlineStart(int id)
 		doc->autoSaveTimer->stop();
 		doc->setAutoSave(false);
 	}
-	if (doc->m_Selection->count() == 1)
-		doc->currentEditedTextframe = doc->m_Selection->itemAt(0);
-	else
-		doc->currentEditedTextframe = nullptr;
 	view->Deselect(true);
 	m_storedPageNum = doc->currentPageNumber();
 	m_storedViewXCoor = view->contentsX();
@@ -7666,9 +7662,6 @@ void ScribusMainWindow::editInlineEnd()
 	doc->setCurrentPage(doc->DocPages.at(m_storedPageNum));
 	view->setContentsPos(static_cast<int>(m_storedViewXCoor * m_storedViewScale), static_cast<int>(m_storedViewYCoor * m_storedViewScale));
 	doc->invalidateAll();
-//	if (doc->currentEditedTextframe != nullptr)
-//		doc->currentEditedTextframe->invalidateLayout();
-	doc->currentEditedTextframe = nullptr;
 	view->DrawNew();
 	pagePalette->Rebuild();
 	propertiesPalette->unsetItem();
@@ -7679,7 +7672,7 @@ void ScribusMainWindow::editInlineEnd()
 	layerPalette->setEnabled(true);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);
-	updateActiveWindowCaption(doc->DocName);
+	updateActiveWindowCaption(doc->documentFileName());
 }
 
 void ScribusMainWindow::editMasterPagesStart(const QString& temp)
@@ -8362,7 +8355,7 @@ void ScribusMainWindow::ImageEffects()
 
 QString ScribusMainWindow::fileCollect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
-	if ((doc->hasName) && doc->DocName.endsWith(".gz"))
+	if ((doc->hasName) && doc->documentFileName().endsWith(".gz"))
 		compress=true;
 	CollectForOutput_UI c(this, doc, QString::null, withFonts, withProfiles, compress);
 	QString newFileName;
@@ -8452,7 +8445,7 @@ void ScribusMainWindow::emergencySave()
 		QString fileName;
 		if (doc->hasName)
 		{
-			QFileInfo fi(doc->DocName);
+			QFileInfo fi(doc->documentFileName());
 			base = fi.baseName();
 			path = fi.absolutePath();
 		}

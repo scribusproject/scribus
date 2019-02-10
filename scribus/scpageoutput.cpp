@@ -121,7 +121,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
-		if (currItem->LayerID != layer.ID)
+		if (currItem->m_layerID != layer.ID)
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 			continue;
@@ -170,7 +170,7 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
 		currItem = m_doc->Items->at(it);
-		if (currItem->LayerID != layer.ID)
+		if (currItem->m_layerID != layer.ID)
 			continue;
 		if (!currItem->printEnabled())
 			continue;

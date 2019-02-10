@@ -201,7 +201,7 @@ PyObject *scribus_getdocname(PyObject* /* self */)
 	{
 		return PyString_FromString("");
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->DocName.toUtf8());
+	return PyString_FromString(ScCore->primaryMainWindow()->doc->documentFileName().toUtf8());
 }
 
 PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)

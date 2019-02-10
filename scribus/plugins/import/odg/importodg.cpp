@@ -739,7 +739,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 			if (ite != nullptr)
 			{
 				GElements.append(ite);
-				gLayer = ite->LayerID;
+				gLayer = ite->m_layerID;
 			}
 		}
 		if (GElements.count() > 0)

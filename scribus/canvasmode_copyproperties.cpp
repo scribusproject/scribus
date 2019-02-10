@@ -153,8 +153,8 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	if (GetItem(&currItem))
 	{
 		double sx, sy, ex, ey, r, skx, sky, fx, fy, ss, sk, sp;
-		currItem->ColGap = m_doc->ElemToLink->ColGap;
-		currItem->Cols = m_doc->ElemToLink->Cols;
+		currItem->m_columnGap = m_doc->ElemToLink->m_columnGap;
+		currItem->m_columns = m_doc->ElemToLink->m_columns;
 		currItem->setTextToFrameDist(m_doc->ElemToLink->textToFrameDistLeft(), m_doc->ElemToLink->textToFrameDistRight(), m_doc->ElemToLink->textToFrameDistTop(), m_doc->ElemToLink->textToFrameDistBottom());
 		// Stroke Properties
 		currItem->setLineStyle(m_doc->ElemToLink->lineStyle());

@@ -120,7 +120,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 		templates.mkdir("templates");
 	}
 	QString currentPath(QDir::currentPath());
-	QString currentFile(doc->DocName);
+	QString currentFile(doc->documentFileName());
 	bool hasName = doc->hasName;
 	bool isModified = doc->isModified();
 	QString userTemplatesDir = ScPaths::instance().userTemplateDir(true);
@@ -143,12 +143,12 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
-	QString docPath = doc->DocName;
+	QString docPath = doc->documentFileName();
 	QString docDir = docPath.left(docPath.lastIndexOf('/'));
 	QString docName = docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1);
 	docName = docName.left(docName.lastIndexOf(".s"));
 
-	if (currentFile ==  doc->DocName)
+	if (currentFile == doc->documentFileName())
 		return;
 	SATDialog* satdia = new SATDialog(doc->scMW(),docName,
 									  static_cast<int>(doc->pageWidth() + 0.5),
@@ -161,7 +161,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 		delete s;
 	}
 	// Restore the state that was before ScMW->Collect()
-	doc->DocName = currentFile;
+	doc->setDocumentFileName(currentFile);
 	doc->hasName = hasName;
 	doc->setModified(isModified);
 	QString newCaption=currentFile;

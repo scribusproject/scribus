@@ -1874,8 +1874,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->setLineBlendmode(0);
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		currItem->setFillColor(CommonStrings::None);
-	currItem->Cols   = obj->attribute("COLUMNS", "1").toInt();
-	currItem->ColGap = ScCLocale::toDoubleC(obj->attribute("COLGAP"), 0.0);
+	currItem->m_columns   = obj->attribute("COLUMNS", "1").toInt();
+	currItem->m_columnGap = ScCLocale::toDoubleC(obj->attribute("COLGAP"), 0.0);
 	if (obj->attribute("LAYER", "0").toInt() != -1)
 		currItem->setLayer(obj->attribute("LAYER", "0").toInt());
 	tmp = "";
@@ -2290,7 +2290,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Neu->setMasterPageName(QString());
 					else if (Mpage && !renamedPageName.isEmpty())
 						Neu->setMasterPageName(renamedPageName);
-					Neu->setLayer(layerTrans.value(Neu->LayerID, Neu->LayerID));
+					Neu->setLayer(layerTrans.value(Neu->m_layerID, Neu->m_layerID));
 					/*m_Doc->GroupCounter = docGc;*/
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();

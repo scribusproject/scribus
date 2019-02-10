@@ -205,7 +205,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 
 		if (!invertible) return QRegion();
 
-		int LayerLev = m_Doc->layerLevelFromID(LayerID);
+		int LayerLev = m_Doc->layerLevelFromID(m_layerID);
 		int docItemsCount = m_Doc->Items->count();
 		ScPage* Mp=nullptr;
 		ScPage* Dp=nullptr;
@@ -229,8 +229,8 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 				// #10642 : masterpage items interact only with items placed on same masterpage
 				if (docItem->OnMasterPage != OnMasterPage)
 					continue;
-				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-				if (((a > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+				LayerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
+				if (((a > thisid) && (docItem->m_layerID == m_layerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->m_layerID)))
 				{
 					if (docItem->textFlowAroundObject())
 					{
@@ -278,8 +278,8 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 				for (int a = 0; a < docItemsCount; ++a)
 				{
 					docItem = m_Doc->Items->at(a);
-					LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-					if (((a > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+					LayerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
+					if (((a > thisid) && (docItem->m_layerID == m_layerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->m_layerID)))
 					{
 						if (docItem->textFlowAroundObject())
 						{
@@ -1247,7 +1247,7 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	int startingPos = prev->incompletePositions[prev->incompleteLines - pull];
 	for (int i = 0; i < pull; ++i)
 		prev->textLayout.removeLastLine();
-	firstChar = prev->MaxChars = startingPos;
+	firstChar = prev->m_maxChars = startingPos;
 	// keep the remaining incomplete lines flagged as such
 	// this ensures that if pulling one line won't be enough, the subsequent call to layout() will pull more
 	prev->incompleteLines -= pull;
@@ -1297,7 +1297,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
 				textLayout.removeLastLine();
-			MaxChars = incompletePositions[incompleteLines-pull];
+			m_maxChars = incompletePositions[incompleteLines-pull];
 			incompleteLines = 0;
 			incompletePositions.clear();
 		}
@@ -1399,7 +1399,7 @@ void PageItem_TextFrame::layout()
 		{
 			next->invalid = false;
 			next->firstChar = itLen;
-			next->MaxChars = itLen;
+			next->m_maxChars = itLen;
 			next->textLayout.clear();
 			next = dynamic_cast<PageItem_TextFrame*>(next->nextInChain());
 		}
@@ -1428,7 +1428,7 @@ void PageItem_TextFrame::layout()
 		m_availableRegion = calcAvailableRegion();
 		if (m_availableRegion.isEmpty())
 		{
-			MaxChars = firstInFrame();
+			m_maxChars = firstInFrame();
 			goto NoRoom;
 		}
 
@@ -1455,7 +1455,7 @@ void PageItem_TextFrame::layout()
 		QList<GlyphCluster> glyphClusters; // = textShaper.shape();
 		// std::sort(glyphClusters.begin(), glyphClusters.end(), logicalGlyphRunComp);
 
-		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, context,columnWidth(), ColGap);
+		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, context,columnWidth(), m_columnGap);
 		current.nextColumn(textLayout);
 
 		lastLineY = m_textDistanceMargins.top();
@@ -1495,7 +1495,7 @@ void PageItem_TextFrame::layout()
 
 		outs = false;
 		OFs = 0;
-		MaxChars = 0;
+		m_maxChars = 0;
 		double realEnd = 0;
 		current.restartIndex = current.restartRowIndex = 0;
 		current.afterOverflow = false;
@@ -2039,12 +2039,12 @@ void PageItem_TextFrame::layout()
 					if (current.isEndOfCol(realDesc))
 					{
 						current.column++;
-						if (current.column < Cols)
+						if (current.column < m_columns)
 						{
 							newColumn = true;
 							break;
 						}
-						MaxChars = a;
+						m_maxChars = a;
 						goto NoRoom;
 					}
 				}
@@ -2261,13 +2261,13 @@ void PageItem_TextFrame::layout()
 			bool inOverflow = false;
 			if (current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
 				hyphWidth = font.hyphenWidth(charStyle, hlcsize10) * (charStyle.scaleH() / 1000.0);
-			if ((current.isEndOfLine(style.rightMargin() + hyphWidth)) || current.isEndOfCol(realDesc) || SpecialChars::isBreak(itemText.text(a), Cols > 1) || (current.xPos - current.maxShrink + hyphWidth) >= current.mustLineEnd)
+			if ((current.isEndOfLine(style.rightMargin() + hyphWidth)) || current.isEndOfCol(realDesc) || SpecialChars::isBreak(itemText.text(a), m_columns > 1) || (current.xPos - current.maxShrink + hyphWidth) >= current.mustLineEnd)
 			{
 				//end of row reached - right column, end of column, break char or line must end
-				if (current.isEmpty && !current.afterOverflow && !SpecialChars::isBreak(itemText.text(a), Cols > 1))
+				if (current.isEmpty && !current.afterOverflow && !SpecialChars::isBreak(itemText.text(a), m_columns > 1))
 				{
 					//no glyphs in line, so start new row
-					if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
+					if (SpecialChars::isBreak(itemText.text(a), m_columns > 1))
 						current.restartRowIndex = i + 1;
 					i = current.restartRow(true);
 					inOverflow = false;
@@ -2278,7 +2278,7 @@ void PageItem_TextFrame::layout()
 				if (current.breakIndex < 0)
 				{
 					//force break
-					if (!SpecialChars::isBreak(itemText.text(a), Cols > 1))
+					if (!SpecialChars::isBreak(itemText.text(a), m_columns > 1))
 					{
 						//force line end at previouse glyph
 						i--;
@@ -2475,7 +2475,7 @@ void PageItem_TextFrame::layout()
 
 			if ((itemText.text(a) == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
 				goNoRoom = true;
-			if ((itemText.text(a) == SpecialChars::COLBREAK) && (Cols > 1))
+			if ((itemText.text(a) == SpecialChars::COLBREAK) && (m_columns > 1))
 				goNextColumn = true;
 
 			if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
@@ -2542,7 +2542,7 @@ void PageItem_TextFrame::layout()
 				tabs.active = false;
 				tabs.status = TabNONE;
 				tabs.xPos   = 0.0;
-				if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
+				if (SpecialChars::isBreak(itemText.text(a), m_columns > 1))
 				{
 					// find end of line
 //					qDebug() << "breakline isBreak @" << i;
@@ -2720,10 +2720,10 @@ void PageItem_TextFrame::layout()
 					current.updateHeightMetrics();
 					if (current.isEndOfCol(current.lineData.descent))
 					{
-						if (current.isEmpty || current.column+1 == Cols)
+						if (current.isEmpty || current.column+1 == m_columns)
 						{
 							goNoRoom = true;
-							MaxChars = a + 1;
+							m_maxChars = a + 1;
 							break;
 						}
 						goNextColumn = true;
@@ -2825,14 +2825,14 @@ void PageItem_TextFrame::layout()
 				if (goNoRoom)
 				{
 					goNoRoom = false;
-					MaxChars = a+1;
+					m_maxChars = a+1;
 					goto NoRoom;
 				}
 				if (goNextColumn)
 				{
 					goNextColumn = false;
 					current.column++;
-					if (current.column < Cols)
+					if (current.column < m_columns)
 					{
 						if (firstLineOffset() == FLOPRealGlyphHeight)
 							asce = 0;
@@ -2845,9 +2845,9 @@ void PageItem_TextFrame::layout()
 					}
 					else
 					{
-						MaxChars = a; // Always a+1???
+						m_maxChars = a; // Always a+1???
 						if (itemText.text(a) == SpecialChars::COLBREAK)
-							++MaxChars;
+							++m_maxChars;
 						goto NoRoom;
 					}
 				}
@@ -2976,7 +2976,7 @@ void PageItem_TextFrame::layout()
 			}
 		}
 	}
-	MaxChars = itemText.length();
+	m_maxChars = itemText.length();
 	if (verticalAlign > 0)
 	{
 		double hAdjust = height() - textLayout.box()->naturalHeight() - m_textDistanceMargins.bottom();
@@ -3016,7 +3016,7 @@ void PageItem_TextFrame::layout()
 		while (nextFrame)
 		{
 			nextFrame->invalid   = true;
-			nextFrame->firstChar = MaxChars;
+			nextFrame->firstChar = m_maxChars;
 			nextFrame = dynamic_cast<PageItem_TextFrame*>(nextFrame->NextBox);
 		}
 	}
@@ -3066,16 +3066,16 @@ NoRoom:
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
 	if (next != nullptr)
 	{
-		if (itemText.cursorPosition() > signed(MaxChars))
+		if (itemText.cursorPosition() > signed(m_maxChars))
 		{
 			int nCP = itemText.cursorPosition();
 			if (m_Doc->appMode == modeEdit)
-				next->itemText.setCursorPosition( qMax(nCP, signed(MaxChars)) );
+				next->itemText.setCursorPosition( qMax(nCP, signed(m_maxChars)) );
 		}
 		while (next)
 		{
 			next->invalid   = true;
-			next->firstChar = MaxChars;
+			next->firstChar = m_maxChars;
 			next = dynamic_cast<PageItem_TextFrame*>(next->NextBox);
 		}
 	}
@@ -3114,7 +3114,7 @@ void PageItem_TextFrame::slotInvalidateLayout(int firstItem, int endItem)
 	{
 		if (firstInvalid->invalid)
 			break;
-		if (firstInvalid->firstChar <= firstItem && firstItem <= firstInvalid->MaxChars)
+		if (firstInvalid->firstChar <= firstItem && firstItem <= firstInvalid->m_maxChars)
 			break;
 		firstInvalid = dynamic_cast<PageItem_TextFrame*>(firstInvalid->NextBox);
 	}
@@ -3165,7 +3165,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		pf2.translate(m_xPos, m_yPos);
 	pf2.rotate(m_rotation);
 
-	if (!m_Doc->layerOutline(LayerID))
+	if (!m_Doc->layerOutline(m_layerID))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
@@ -3639,9 +3639,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
-	if (m_Doc->layerOutline(LayerID))
+	if (m_Doc->layerOutline(m_layerID))
 	{
-		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(m_Doc->layerMarker(m_layerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -3795,12 +3795,12 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			drawColumnBorders(p);
 		if ((m_Doc->guidesPrefs().layerMarkersShown) &&
 			(m_Doc->layerCount() > 1) &&
-			(!m_Doc->layerOutline(LayerID)) &&
+			(!m_Doc->layerOutline(m_layerID)) &&
 			(!m_Doc->drawAsPreview))
 		{
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
-			p->setBrush(m_Doc->layerMarker(LayerID));
+			p->setBrush(m_Doc->layerMarker(m_layerID));
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
@@ -3859,7 +3859,7 @@ void PageItem_TextFrame::truncateContents()
 	{
 		ParagraphStyle defaultStyle = this->itemText.defaultStyle();
 		int pos = itemText.cursorPosition();
-		if (itemText.lengthOfSelection() == 0)
+		if (itemText.selectionLength() == 0)
 		{
 			itemText.select(maxCharsInFrame(), itemText.length() - maxCharsInFrame(), true);
 			deleteSelectedTextFromFrame();
@@ -3994,7 +3994,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				UndoTransaction trans;
 				if (UndoManager::undoEnabled())
 					trans = undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete);
-				if (itemText.lengthOfSelection() > 0)
+				if (itemText.selectionLength() > 0)
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
 					conv = 32;
@@ -4302,7 +4302,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Delete:
 		if (itemText.cursorPosition() == itemText.length())
 		{
-			if (itemText.lengthOfSelection() > 0)
+			if (itemText.selectionLength() > 0)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
@@ -4326,7 +4326,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			keyRepeat = false;
 			return;
 		}
-		if (itemText.lengthOfSelection() == 0)
+		if (itemText.selectionLength() == 0)
 		{
 			int pos1 = itemText.cursorPosition();
 			itemText.moveCursorForward();
@@ -4360,7 +4360,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Backspace:
 		if (itemText.cursorPosition() == 0)
 		{
-			if (itemText.lengthOfSelection() > 0)
+			if (itemText.selectionLength() > 0)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
@@ -4379,7 +4379,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if (itemText.length() == 0)
 			break;
-		if (itemText.lengthOfSelection() == 0)
+		if (itemText.selectionLength() == 0)
 		{
 			itemText.setCursorPosition(-1, true);
 			itemText.select(itemText.cursorPosition(), 1, true);
@@ -4427,7 +4427,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break; //avoid inserting chars before first note mark
 		bool doUpdate = false;
 		UndoTransaction activeTransaction;
-		if (itemText.lengthOfSelection() > 0) //(kk < 0x1000)
+		if (itemText.selectionLength() > 0) //(kk < 0x1000)
 		{
 			bool x11Hack=false;
 			bool controlCharHack=false;
@@ -4592,7 +4592,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 {
 	if (itemText.length() <= 0)
 		return;
-	if (itemText.lengthOfSelection() == 0)
+	if (itemText.selectionLength() == 0)
 	{
 		itemText.select(itemText.cursorPosition(), 1);
 		HasSel = true;
@@ -4939,7 +4939,7 @@ void PageItem_TextFrame::ExpandSel(int oldPos)
 	{
 		itemText.extendSelection(oldPos, itemText.cursorPosition());
 	}
-	HasSel = (itemText.lengthOfSelection() > 0);
+	HasSel = (itemText.selectionLength() > 0);
 	if (HasSel)
 	{
 		//CB Replace with direct call for now //emit HasTextSel();
@@ -4960,7 +4960,7 @@ void PageItem_TextFrame::ExpandSel(int oldPos)
 
 void PageItem_TextFrame::deselectAll()
 {
-	if ( itemText.lengthOfSelection() > 0 )
+	if ( itemText.selectionLength() > 0 )
 	{
 		itemText.deselectAll();
 		PageItem *item = this;
@@ -4986,7 +4986,7 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
-	return (m_width - (ColGap * (Cols - 1)) - m_textDistanceMargins.left() - m_textDistanceMargins.right() - 2 * lineCorr) / Cols;
+	return (m_width - (m_columnGap * (m_columns - 1)) - m_textDistanceMargins.left() - m_textDistanceMargins.right() - 2 * lineCorr) / m_columns;
 //	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.left() - m_textDistanceMargins.right() - lineCorr) / Cols;
 }
 
@@ -5039,9 +5039,9 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_textDistanceMargins.top() + lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_textDistanceMargins.top() + lineCorr));
 	if (m_textDistanceMargins.bottom() + lineCorr!=0.0)
 		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr));
-	while (curCol < Cols)
+	while (curCol < m_columns)
 	{
-		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.left() + lineCorr;
+		colLeft=(colWidth + m_columnGap) * curCol + m_textDistanceMargins.left() + lineCorr;
 		if (colLeft != 0.0)
 			p->drawSharpLine(FPoint(colLeft, m_textDistanceMargins.top() + lineCorr), FPoint(colLeft, m_height - m_textDistanceMargins.bottom() - lineCorr));
 		if (colLeft + colWidth != m_width)
@@ -5616,11 +5616,11 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 	int stop = 0;
 	if (onlySelection)
 	{
-		if (itemText.lengthOfSelection() > 0)
+		if (itemText.selectionLength() > 0)
 		{
 			//only selection
 			start = itemText.startOfSelection();
-			stop = start + itemText.lengthOfSelection();
+			stop = start + itemText.selectionLength();
 		}
 		else //in edit mode only one char in cursor position
 		{
@@ -5668,10 +5668,10 @@ TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection
 	int stop = itemText.length();
 	if (onlySelection)
 	{
-		if (itemText.lengthOfSelection() > 0)
+		if (itemText.selectionLength() > 0)
 		{
 			start = itemText.startOfSelection();
-			stop = start + itemText.lengthOfSelection();
+			stop = start + itemText.selectionLength();
 		}
 		else
 			return nullptr;

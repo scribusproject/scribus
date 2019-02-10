@@ -130,9 +130,7 @@ BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 
 void BookMView::addPageItem(PageItem* ite)
 {
-	QChar ch;
 	QString bm, bm2;
-
 	getTextAndTitle(ite, bm, bm2);
 	addItem(bm, bm2, ite);
 	Last = NrItems;
@@ -142,9 +140,6 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 {
 	QChar ch;
 	QString str;
-
-	text.clear();
-	title.clear();
 
 	for (int i = 0; i < item->itemText.length(); ++i)
 	{

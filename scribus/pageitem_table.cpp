@@ -216,7 +216,7 @@ void PageItem_Table::layout()
 
 void PageItem_Table::setLayer(int newLayerID)
 {
-	LayerID = newLayerID;
+	m_layerID = newLayerID;
 
 	int rowCount = rows();
 	int columnCount = columns();
@@ -229,7 +229,7 @@ void PageItem_Table::setLayer(int newLayerID)
 			if (cell.row() == row && cell.column() == col)
 			{
 				PageItem* textFrame = cell.textFrame();
-				textFrame->LayerID = newLayerID;
+				textFrame->m_layerID = newLayerID;
 			}
 		}
 	}

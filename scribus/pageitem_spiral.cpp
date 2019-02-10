@@ -61,7 +61,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	if (m_Doc->RePos || PoLine.size() < 4)
 		return;
 
-	if (!m_Doc->layerOutline(LayerID))
+	if (!m_Doc->layerOutline(m_layerID))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{

@@ -20,9 +20,9 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	m_masterFrame = nullptr;
 	itemText.clear();
 
-	AnName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
+	m_itemName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
 	AutoName = false; //endnotes frame will saved with name
-	setUName(AnName);
+	setUName(m_itemName);
 	
 	//set default style for note frame
 	ParagraphStyle newStyle;
@@ -75,9 +75,9 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	m_nstyle = nStyle;
 	m_masterFrame = inFrame;
 
-	AnName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
+	m_itemName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
 	AutoName = false;
-	setUName(AnName);
+	setUName(m_itemName);
 
 	//set default style for note frame
 	ParagraphStyle newStyle;
@@ -139,8 +139,8 @@ void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
 		m_masterFrame = master;
 	itemText.clear();
 
-	AnName = generateUniqueCopyName(m_nstyle->isEndNotes() ? "Endnote frame " + m_nstyle->name() : "Footnote frame " + m_nstyle->name(), false);
-	setUName(AnName);
+	m_itemName = generateUniqueCopyName(m_nstyle->isEndNotes() ? "Endnote frame " + m_nstyle->name() : "Footnote frame " + m_nstyle->name(), false);
+	setUName(m_itemName);
 	
 	//set default style for note frame
 	ParagraphStyle newStyle;
@@ -318,7 +318,7 @@ void PageItem_NoteFrame::updateNotesText()
 		return;
 
 	int oldSelStart = itemText.startOfSelection();
-	int oldSelLen = itemText.lengthOfSelection();
+	int oldSelLen = itemText.selectionLength();
 	int pos = 0;
 	int startPos = 0;
 	TextNote *note = nullptr;

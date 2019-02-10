@@ -162,11 +162,11 @@ bool CollectForOutput::collectDocument()
 
 	if ((m_Doc->hasName) && (!m_Doc->isConverted))
 	{
-		QFileInfo fis(m_Doc->DocName);
+		QFileInfo fis(m_Doc->documentFileName());
 		newName += fis.fileName();
 	}
 	else
-		newName += m_Doc->DocName+".sla";
+		newName += m_Doc->documentFileName() + ".sla";
 
 	m_Doc->hasName = true;
 	if (m_compressDoc)

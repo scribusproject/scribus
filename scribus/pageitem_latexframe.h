@@ -48,14 +48,14 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 		~PageItem_LatexFrame();
 		
-		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
-		virtual bool isLatexFrame() const { return true; }
+		PageItem_LatexFrame * asLatexFrame() override { return this; }
+		bool isLatexFrame() const override { return true; }
 
-		virtual void clearContents();
-		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
-		virtual void applicableActions(QStringList& actionList);
-		virtual QString infoDescription() const;
-		void layout();
+		void clearContents() override;
+		ItemType realItemType() const override { return PageItem::LatexFrame; }
+		void applicableActions(QStringList& actionList) override;
+		QString infoDescription() const override;
+		void layout() override;
 
 		/**
 		 * @brief Load an image into an image frame, moved from ScribusView
@@ -64,7 +64,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		bool loadImage(const QString& filename, const bool reload, const int gsResolution = -1, bool showMsg = false) override;
 		
 		/** @brief Perform undo/redo action */
-		void restore(UndoState *state, bool isUndo);
+		void restore(UndoState *state, bool isUndo) override;
 		
 		
 		/** @brief UI-Callback that runs the editor. */
@@ -99,7 +99,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		QMap<QString,QString> editorProperties;
 
 	protected:
-		virtual void DrawObj_Item(ScPainter *p, QRectF e);
+		virtual void DrawObj_Item(ScPainter *p, QRectF e) override;
 		double m_lastWidth, m_lastHeight, m_lastDpi;
 		
 		QString formulaText;

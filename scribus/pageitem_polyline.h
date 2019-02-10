@@ -39,17 +39,17 @@ public:
 	PageItem_PolyLine(const PageItem & p) : PageItem(p) {}
 	~PageItem_PolyLine() {};
 	
-	virtual PageItem_PolyLine * asPolyLine() { return this; }
-	virtual bool isPolyLine() const { return true; }
+	PageItem_PolyLine * asPolyLine() override { return this; }
+	bool isPolyLine() const override { return true; }
 	
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 
-	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
-	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
+	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

@@ -92,13 +92,13 @@ public:
 	void adjustTable();
 
 	/// Return current text properties (current char + paragraph properties)
-	virtual void currentTextProps(ParagraphStyle& parStyle) const;
+	virtual void currentTextProps(ParagraphStyle& parStyle) const override;
 
 	/// Return the list of cell items
-	virtual QList<PageItem*> getChildren() const;
+	virtual QList<PageItem*> getChildren() const override;
 
 	/// Return the list of cell items
-	virtual QList<PageItem*> getAllChildren() const { return getChildren(); }
+	virtual QList<PageItem*> getAllChildren() const override { return getChildren(); }
 
 	/// Returns the number of rows in the table.
 	int rows() const { return m_rows; }
@@ -486,19 +486,19 @@ public:
 	bool isOverflowing() const { return effectiveWidth() > width() || effectiveHeight() > height(); }
 
 	/// Returns this item as a PageItem_Table.
-	virtual PageItem_Table* asTable() { return this; }
+	PageItem_Table* asTable() override { return this; }
 
 	/// Returns <code>true</code>.
-	virtual bool isTable() const { return true; }
+	bool isTable() const override { return true; }
 
 	/// Returns PageItem::Table.
-	virtual ItemType realItemType() const { return PageItem::Table; }
+	ItemType realItemType() const override { return PageItem::Table; }
 
 	/// Adds the applicable actions for this table to @a actionList.
-	virtual void applicableActions(QStringList& actionList);
+	void applicableActions(QStringList& actionList) override;
 
 	/// Returns a textual description of this item.
-	virtual QString infoDescription() const { return QString(); }
+	QString infoDescription() const override { return QString(); }
 
 	/// Returns the Cell Areas from this table
 	const QList<CellArea>& cellAreas() const { return m_cellAreas; }
@@ -507,22 +507,22 @@ public:
 	const QList<QList<TableCell> >& cellRows() const { return m_cellRows; }
 
 	/// Set the layer for the item
-	virtual void setLayer(int layerId);
+	void setLayer(int layerId) override;
 
 	/// Set the masterpage the object is on
-	virtual void setMasterPage(int page, const QString& mpName);
+	void setMasterPage(int page, const QString& mpName) override;
 
 	/// Set the masterpage the object is on
-	virtual void setMasterPageName(const QString& mpName);
+	void setMasterPageName(const QString& mpName) override;
 
 	/// Set the page "owning" the object
-	virtual void setOwnerPage(int page);
+	void setOwnerPage(int page) override;
 
 	/// Collect named resource of table and its cells
-	virtual void getNamedResources(ResourceCollection& lists) const;
+	void getNamedResources(ResourceCollection& lists) const override;
 
 	/// creates valid layout information
-	virtual void layout();
+	void layout() override;
 
 signals:
 	/// This signal is emitted whenever the table changes.
@@ -536,7 +536,7 @@ private slots:
 
 protected:
 	/// Paints this item.
-	virtual void DrawObj_Item(ScPainter *p, QRectF clipRect);
+	void DrawObj_Item(ScPainter *p, QRectF clipRect) override;
 
 private:
 	/// Enum describing types of changes on a table. For internal use.

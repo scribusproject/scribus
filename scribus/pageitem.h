@@ -735,8 +735,8 @@ public: // Start public functions
 	double textToFrameDistRight() const { return m_textDistanceMargins.right(); }
 	double textToFrameDistTop() const { return m_textDistanceMargins.top(); }
 	double textToFrameDistBottom() const { return m_textDistanceMargins.bottom(); }
-	int columns() const { return Cols; }
-	double columnGap() const { return ColGap; }
+	int columns() const { return m_columns; }
+	double columnGap() const { return m_columnGap; }
 	double gridOffset() const;
 	double gridDistance() const;
 	int verticalAlignment();
@@ -766,7 +766,7 @@ public: // Start public functions
 	 * of its Qt name.
 	 * See also PageItem::setItemName()
 	 */
-	QString itemName() const { return AnName; }
+	QString itemName() const { return m_itemName; }
 	/**
 	 * @brief Set name of the item
 	 * @param newName name for the item
@@ -1278,8 +1278,8 @@ public:	// Start public variables
 	int selectedMeshPointY;
 	int selectedMeshControlPoint;
 	bool snapToPatchGrid;
-	int Cols;
-	double ColGap;
+	int m_columns;
+	double m_columnGap;
 	double gridOffset_;
 	double gridValue_;
 	int m_startArrowIndex;
@@ -1342,7 +1342,7 @@ public:	// Start public variables
 	double OldB2;
 	double OldH2;
 	bool Sizing;
-	int  LayerID;
+	int  m_layerID;
 	bool ScaleType;
 	bool AspectRatio;
 	QVector<double> DashValues;
@@ -1685,7 +1685,7 @@ protected: // Start protected variables
 	PageItem *BackBox;
 	PageItem *NextBox;
 	uint firstChar;
-	uint MaxChars;
+	uint m_maxChars;
 	bool m_sampleItem; ///< Used to not draw the frame for sample items
 	MarginStruct m_textDistanceMargins; ///< Left, Top, Bottom, Right distances of text from the frame
 	int verticalAlign;
@@ -1702,7 +1702,7 @@ protected: // Start protected variables
 	 * @todo This is Annotation Name.. not item name, needs splitting up.
 	 * @sa PageItem::itemName(), PageItem::setItemName()
 	 */
-	QString AnName;
+	QString m_itemName;
 
 	/**
 	 * @brief Fill gradient name

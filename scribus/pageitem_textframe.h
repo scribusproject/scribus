@@ -53,18 +53,18 @@ public:
 
 	void init();
 
-	virtual PageItem_TextFrame * asTextFrame() { return this; }
-	virtual bool isTextFrame() const { return true; }
+	PageItem_TextFrame * asTextFrame() override { return this; }
+	bool isTextFrame() const override { return true; }
 	
-	virtual void clearContents();
-	virtual void truncateContents();
+	void clearContents() override;
+	void truncateContents() override;
 	
 	/**
 	* \brief Handle keyboard interaction with the text frame while in edit mode
 	* @param k key event
 	* @param keyRepeat a reference to the keyRepeat property
 	*/
-	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
+	void handleModeEditKey(QKeyEvent *k, bool& keyRepeat) override;
 	void deleteSelectedTextFromFrame();
 	void ExpandSel(int oldPos);
 	void deselectAll();
@@ -72,7 +72,7 @@ public:
 	//for speed up updates when changed was only one frame from chain
 	virtual void invalidateLayout(bool wholeChain);
 	using PageItem::invalidateLayout;
-	virtual void layout();
+	void layout() override;
 	//return true if all previouse frames from chain are valid (including that one)
 	bool isValidChainFromBegin();
 	void setTextAnnotationOpen(bool open);
@@ -86,9 +86,9 @@ public:
 protected:
 	QRegion calcAvailableRegion();
 	QRegion m_availableRegion;
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
-	virtual void DrawObj_Post(ScPainter *p);
-	virtual void DrawObj_Decoration(ScPainter *p);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
+	void DrawObj_Post(ScPainter *p) override;
+	void DrawObj_Decoration(ScPainter *p) override;
 	//void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
@@ -98,9 +98,9 @@ protected:
 	QString unicodeInputString;
 
 	void drawNoteIcon(ScPainter *p);
-	virtual bool createInfoGroup(QFrame *, QGridLayout *);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	bool createInfoGroup(QFrame *, QGridLayout *) override;
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	// Move incomplete lines from the previous frame if needed.
 	bool moveLinesFromPreviousFrame ();
 	void adjustParagraphEndings ();

@@ -489,8 +489,8 @@ void gtAction::getFrameFont(gtFont *font)
 
 void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 {
-	fstyle->setColumns(m_textFrame->Cols);
-	fstyle->setColumnsGap(m_textFrame->ColGap);
+	fstyle->setColumns(m_textFrame->m_columns);
+	fstyle->setColumnsGap(m_textFrame->m_columnGap);
 	fstyle->setBgColor(m_textFrame->fillColor());
 	fstyle->setBgShade(qRound(m_textFrame->fillShade()));
 

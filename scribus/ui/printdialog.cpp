@@ -320,9 +320,9 @@ void PrintDialog::SelPrinter(const QString& prn)
 #endif
 	if (toFile && LineEdit1->text().isEmpty())
 	{
-		QFileInfo fi(m_doc->DocName);
+		QFileInfo fi(m_doc->documentFileName());
 		if (fi.isRelative()) // if (m_doc->DocName.startsWith( tr("Document")))
-			LineEdit1->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->DocName + ".ps") );
+			LineEdit1->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->documentFileName() + ".ps") );
 		else
 		{
 			QString completeBaseName = fi.completeBaseName();

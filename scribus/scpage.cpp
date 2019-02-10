@@ -495,8 +495,8 @@ void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMa
 		return;
 	m_pageSize = sourcePage->m_pageSize;
 	m_orientation = sourcePage->m_orientation;
-	m_width=sourcePage->m_width;
-	m_height=sourcePage->m_height;
+	m_width = sourcePage->m_width;
+	m_height = sourcePage->m_height;
 	m_initialWidth = sourcePage->m_initialWidth;
 	m_initialHeight = sourcePage->m_initialHeight;
 

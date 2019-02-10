@@ -1509,7 +1509,7 @@ void AIPlug::processData(const QString& data)
 			//	yp += m_Doc->currentPage()->yOffset();
 				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem *b = m_Doc->Items->at(z);
-				b->LayerID = m_Doc->activeLayer();
+				b->m_layerID = m_Doc->activeLayer();
 				ScPattern pat = m_Doc->docPatterns[currentSymbolName];
 				b->setWidth(pat.width * symTrans.m11());
 				b->setHeight(pat.height * symTrans.m22());

@@ -218,12 +218,12 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
 		{
 			item = currentDoc->m_Selection->itemAt(i);
-			item->LayerID = scLayer->ID;
+			item->m_layerID = scLayer->ID;
 		}
 	}
 	else
 	{
-		item->LayerID = scLayer->ID;
+		item->m_layerID = scLayer->ID;
 	}
 
 	Py_RETURN_NONE;

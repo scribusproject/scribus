@@ -40,27 +40,27 @@ public:
 	PageItem_Group(const PageItem & p) : PageItem(p) {}
 	~PageItem_Group();
 
-	virtual PageItem_Group * asGroupFrame() { return this; }
-	virtual bool isGroup() const { return true; }
-	virtual ItemType realItemType() const { return PageItem::Group; }
+	PageItem_Group * asGroupFrame() override { return this; }
+	bool isGroup() const override { return true; }
+	ItemType realItemType() const override { return PageItem::Group; }
 	void adjustXYPosition();
-	virtual void setLayer(int layerId);
-	virtual void setMasterPage(int page, const QString& mpName);
-	virtual void setMasterPageName(const QString& mpName);
-	virtual void getNamedResources(ResourceCollection& lists) const;
-	virtual void replaceNamedResources(ResourceCollection& newNames);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	void setLayer(int layerId) override;
+	void setMasterPage(int page, const QString& mpName) override;
+	void setMasterPageName(const QString& mpName) override;
+	void getNamedResources(ResourceCollection& lists) const override;
+	void replaceNamedResources(ResourceCollection& newNames) override;
+	void applicableActions(QStringList& actionList) override;
+	 QString infoDescription() const override;
 
 	/// Retrieve child items of this item
-	virtual QList<PageItem*> getChildren() const { return groupItemList; }
+	QList<PageItem*> getChildren() const override { return groupItemList; }
 	/// Retrieve all children of item, including children of children
-	virtual QList<PageItem*> getAllChildren() const;
+	QList<PageItem*> getAllChildren() const override;
 
-	virtual void layout();
+	void layout() override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

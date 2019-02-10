@@ -760,7 +760,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	Doc->m_Selection->delaySignalsOn();
 	for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
 	{
-		if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
+		if (Doc->Items->at(i)->m_layerID==Doc->activeLayer())
 		{
 			if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
 			{
@@ -805,7 +805,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					continue;
 				int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x() + dropOffsetX, dropPosDoc.y() + dropOffsetY, 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
 				PageItem *item = Doc->Items->at(z);
-				item->LayerID = Doc->activeLayer();
+				item->m_layerID = Doc->activeLayer();
 				Doc->loadPict(url.toLocalFile(), item);
 				double iw = static_cast<double>(item->OrigW * 72.0 / item->pixm.imgInfo.xres);
 				double ih = static_cast<double>(item->OrigH * 72.0 / item->pixm.imgInfo.yres);
@@ -860,7 +860,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		Doc->m_Selection->delaySignalsOn();
 		for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
 		{
-			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
+			if (Doc->Items->at(i)->m_layerID==Doc->activeLayer())
 			{
 				if ((m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE) && (Doc->Items->at(i)->itemType() == PageItem::Symbol))
 				{
@@ -877,7 +877,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			int z = Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *item = Doc->Items->at(z);
-			item->LayerID = Doc->activeLayer();
+			item->m_layerID = Doc->activeLayer();
 			ScPattern pat = Doc->docPatterns[patternVal];
 			item->setWidth(pat.width);
 			item->setHeight(pat.height);
@@ -982,7 +982,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	{
 		int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
 		PageItem *item = Doc->Items->at(z);
-		item->LayerID = Doc->activeLayer();
+		item->m_layerID = Doc->activeLayer();
 		Doc->loadPict(url.toLocalFile(), item);
 
 		double iw = static_cast<double>(item->OrigW * 72.0 / item->pixm.imgInfo.xres);
@@ -1297,7 +1297,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			for (int a = 0; a < Doc->m_Selection->count(); ++a)
 			{
 				PageItem *currItem = Doc->m_Selection->itemAt(a);
-				currItem->LayerID = Doc->activeLayer();
+				currItem->m_layerID = Doc->activeLayer();
 				currItem->gXpos = currItem->xPos() - gx;
 				currItem->gYpos = currItem->yPos() - gy;
 				currItem->gWidth = gw;
@@ -1311,7 +1311,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			Doc->m_Selection->connectItemToGUI();
 			currItem = Doc->m_Selection->itemAt(0);
-			currItem->LayerID = Doc->activeLayer();
+			currItem->m_layerID = Doc->activeLayer();
 			if (Doc->SnapGrid)
 			{
 				double nx = currItem->xPos();
@@ -1714,7 +1714,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (textFrame->itemText.length() > 0)
 		{
 			int pos = qMax(0, qMin(textFrame->itemText.cursorPosition(), textFrame->itemText.length()));
-			if (textFrame->itemText.lengthOfSelection() > 0)
+			if (textFrame->itemText.selectionLength() > 0)
 			{
 				int firstSelected = textFrame->itemText.startOfSelection();
 				int lastSelected  = qMax(textFrame->itemText.endOfSelection() - 1, 0);
@@ -1903,7 +1903,7 @@ void ScribusView::PasteToPage()
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
 		newObjects.addItem(currItem);
-		currItem->LayerID = Doc->activeLayer();
+		currItem->m_layerID = Doc->activeLayer();
 	}
 	if (newObjects.count() > 1)
 	{

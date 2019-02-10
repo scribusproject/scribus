@@ -335,7 +335,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // defaut save into file
 	QString tf = pdfOptions.fileName;
 	if (tf.isEmpty()) {
-		QFileInfo fi = QFileInfo(currentDoc->DocName);
+		QFileInfo fi = QFileInfo(currentDoc->documentFileName());
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = nullptr;

@@ -543,7 +543,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	{
 		if (m_doc != nullptr && exporting)
 		{
-			QFileInfo fi(m_doc->DocName);
+			QFileInfo fi(m_doc->documentFileName());
 			pdfx3InfoStringLineEdit->setText(fi.fileName());
 		}
 		else

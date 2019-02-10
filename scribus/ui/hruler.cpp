@@ -888,8 +888,8 @@ void Hruler::setItem(PageItem * item)
 		m_lineCorr = item->lineWidth() / 2.0;
 	else
 		m_lineCorr = 0;
-	m_colGap = item->ColGap;
-	m_cols = item->Cols;
+	m_colGap = item->m_columnGap;
+	m_cols = item->m_columns;
 	m_distLeft  = item->textToFrameDistLeft();
 	m_distRight = item->textToFrameDistRight();
 

@@ -40,18 +40,18 @@ public:
 	PageItem_ImageFrame(const PageItem & p) : PageItem(p) {}
 	~PageItem_ImageFrame();
 
-	virtual PageItem_ImageFrame * asImageFrame() { return this; }
-	virtual bool isImageFrame() const { return true; }
+	PageItem_ImageFrame * asImageFrame() override { return this; }
+	bool isImageFrame() const override { return true; }
 
-	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
-	virtual void clearContents();
+	void handleModeEditKey(QKeyEvent *k, bool& keyRepeat) override;
+	void clearContents() override;
 	
-	virtual bool createInfoGroup(QFrame *, QGridLayout *);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	bool createInfoGroup(QFrame *, QGridLayout *) override;
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 

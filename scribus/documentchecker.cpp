@@ -190,7 +190,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			currItem = allItems.at(ii);
 			if (!currItem->printEnabled())
 				continue;
-			if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
+			if (!(currDoc->layerPrintable(currItem->m_layerID)) && (checkerSettings.ignoreOffLayers))
 				continue;
 			itemError.clear();
 			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
@@ -438,7 +438,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			currItem = allItems.at(ii);
 			if (!currItem->printEnabled())
 				continue;
-			if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
+			if (!(currDoc->layerPrintable(currItem->m_layerID)) && (checkerSettings.ignoreOffLayers))
 				continue;
 			itemError.clear();
 			if ((currItem->hasSoftShadow() || (currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))

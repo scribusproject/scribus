@@ -48,7 +48,7 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
 
 void ScribusWin::setMainWindow(ScribusMainWindow *mw)
 {
-	m_ScMW=mw;
+	m_ScMW = mw;
 }
 
 void ScribusWin::setView(ScribusView* newView)
@@ -66,18 +66,18 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	m_ScMW->newActWin(getSubWin());
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit = ScMessageBox::information(m_ScMW, CommonStrings::trWarning, tr("Document:")+" "+
-											QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
-											tr("has been changed since the last save."),
-											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
-											QMessageBox::Cancel,	// GUI default
-											QMessageBox::Discard);	// batch default
-		if (exit == QMessageBox::Cancel)
+		int i = ScMessageBox::information(m_ScMW, CommonStrings::trWarning, tr("Document:")+" "+
+										  QDir::toNativeSeparators(m_Doc->documentFileName())+"\n"+
+										  tr("has been changed since the last save."),
+										  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+										  QMessageBox::Cancel,	// GUI default
+										  QMessageBox::Discard);	// batch default
+		if (i == QMessageBox::Cancel)
 		{
 			ce->ignore();
 			return;
 		}
-		if (exit == QMessageBox::Save)
+		if (i == QMessageBox::Save)
 		{
 			if (!m_ScMW->slotFileSave())
 			{

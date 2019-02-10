@@ -382,7 +382,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 					currItem->itemText.setCursorPosition(newPos);
 				}
 			}
-			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+			currItem->HasSel = (currItem->itemText.selectionLength() > 0);
 		}
 	}
 	else
@@ -642,7 +642,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				//<<CB Add in shift select to text frames
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					if (currItem->itemText.lengthOfSelection() > 0)
+					if (currItem->itemText.selectionLength() > 0)
 					{
 						if (currItem->itemText.cursorPosition() < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
 						{
@@ -888,7 +888,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				QRect apr2(docItem->getRedrawBounding(1.0));
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && ((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
+				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && ((docItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->m_layerID))) && (!m_doc->layerLocked(docItem->m_layerID)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);
@@ -950,7 +950,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem) && currItem->asTextFrame())
 	{
-		if (currItem->itemText.lengthOfSelection() > 0)
+		if (currItem->itemText.selectionLength() > 0)
 			m_ScMW->EnableTxEdit();
 		else
 			m_ScMW->DisableTxEdit();

@@ -240,7 +240,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	SubMode(-1),
 	ShapeValues(nullptr),
 	ValCount(0),
-	DocName( tr("Document")+"-"),
+	m_documentFileName( tr("Document")+"-"),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
 	CurrentSel(-1),
 	LastAuto(nullptr), FirstAuto(nullptr),
@@ -285,15 +285,13 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	previewVisual = 0;
 	dontResize = false;
 	//create default numeration
-	NumStruct * numS = new NumStruct;
+	auto* numS = new NumStruct;
 	numS->m_name = "default";
 	Numeration newNum;
 	numS->m_nums.insert(0, newNum);
 	numS->m_counters.insert(0, 0);
 	numS->m_lastlevel = -1;
 	numerations.insert("default", numS);
-
-	currentEditedTextframe = nullptr;
 }
 
 
@@ -337,7 +335,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	SubMode(-1),
 	ShapeValues(nullptr),
 	ValCount(0),
-	DocName(docName),
+	m_documentFileName(docName),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
 	CurrentSel(-1),
 	LastAuto(nullptr), FirstAuto(nullptr),
@@ -385,7 +383,6 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	editOnPreview = false;
 	previewVisual = 0;
 	dontResize = false;
-	currentEditedTextframe = nullptr;
 }
 
 
@@ -581,7 +578,7 @@ ScribusDoc::~ScribusDoc()
 	m_guardedObject.nullify();
 	CloseCMSProfiles();
 	ScCore->fileWatcher->stop();
-	ScCore->fileWatcher->removeFile(DocName);
+	ScCore->fileWatcher->removeFile(m_documentFileName);
 	QList<PageItem*> allItems;
 	for (int i = 0; i < DocItems.count(); ++i)
 	{
@@ -805,7 +802,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	m_docPrefsData.docSetupPrefs.pageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
 	m_docPrefsData.docSetupPrefs.pagePositioning = fp;
-	setName(documentName);
+	setDocumentFileName(documentName);
 	HasCMS = false;
 	if (!pdfOptions().UseLPI)
 	{
@@ -2397,12 +2394,6 @@ void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 	m_Selection->delaySignalsOff();
 }
 
-void ScribusDoc::setName(const QString& name)
-{
-	DocName = name;
-}
-
-
 void ScribusDoc::setModified(const bool isModified)
 {
 	if (m_modified != isModified)
@@ -2412,12 +2403,10 @@ void ScribusDoc::setModified(const bool isModified)
 	}
 }
 
-
 bool ScribusDoc::isModified() const
 {
 	return m_modified;
 }
-
 
 /** sets page properties */
 void ScribusDoc::setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp)
@@ -2873,8 +2862,8 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 						m_docPrefsData.docSetupPrefs.pageHeight-addToPage->Margins.bottom()-addToPage->Margins.top(),
 						1, CommonStrings::None, m_docPrefsData.itemToolPrefs.shapeLineColor);
 		Items->at(z)->isAutoText = true;
-		Items->at(z)->Cols = qRound(PageSp);
-		Items->at(z)->ColGap = PageSpa;
+		Items->at(z)->m_columns = qRound(PageSp);
+		Items->at(z)->m_columnGap = PageSpa;
 		if (LastAuto != nullptr)
 			LastAuto->link(Items->at(z));
 		else
@@ -2906,7 +2895,7 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 			ss->set("ACTIVE", m_ActiveLayer);
 			ss->set("NAME", ll->Name);
 			ss->set("LAYER_NR", ll->ID);
-			m_undoManager->action(this, ss, DocName, Um::ILayer);
+			m_undoManager->action(this, ss, m_documentFileName, Um::ILayer);
 		}
 
 	changed();
@@ -2922,7 +2911,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	for (int ite = 0; ite < Items->count(); ++ite)
 	{
 		PageItem *itemToCopy = Items->at(ite);
-		if (itemToCopy->LayerID == layerIDToCopy)
+		if (itemToCopy->m_layerID == layerIDToCopy)
 		{
 			sourceSelection.addItem(itemToCopy);
 		}
@@ -2967,7 +2956,7 @@ bool ScribusDoc::deleteLayer(const int layerID, const bool deleteItems)
 		ss->set("NAME", name);
 		ss->set("LAYER_NR", layerID);
 		ss->set("DELETE", deleteItems);
-		m_undoManager->action(this, ss, DocName, Um::ILayer);
+		m_undoManager->action(this, ss, m_documentFileName, Um::ILayer);
 		activeTransaction.commit();
 	}
 
@@ -3397,7 +3386,7 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
 		ss->set("DOWN_LAYER");
 		ss->set("ACTIVE", layerIDFromLevel(layerLevel));
-		m_undoManager->action(this, ss, DocName, Um::ILayer);
+		m_undoManager->action(this, ss, m_documentFileName, Um::ILayer);
 	}
 
 	ScLayers::iterator it;
@@ -3444,7 +3433,7 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
 		ss->set("UP_LAYER");
 		ss->set("ACTIVE", layerIDFromLevel(layerLevel));
-		m_undoManager->action(this, ss, DocName, Um::ILayer);
+		m_undoManager->action(this, ss, m_documentFileName, Um::ILayer);
 	}
 
 	ScLayers::iterator it;
@@ -3506,7 +3495,7 @@ bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 					ss->set("ACTIVE", m_ActiveLayer);
 					ss->set("NEW_NAME", newName);
 					ss->set("OLD_NAME", Layers[i].Name);
-					m_undoManager->action(this, ss, DocName, Um::ILayer);
+					m_undoManager->action(this, ss, m_documentFileName, Um::ILayer);
 				}
 				Layers[i].Name = newName;
 				found=true;
@@ -3534,7 +3523,7 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->LayerID == layerID)
+			if (currItem->m_layerID == layerID)
 				return true;
 		}
 		allItems.clear();
@@ -3550,7 +3539,7 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->LayerID == layerID)
+			if (currItem->m_layerID == layerID)
 				return true;
 		}
 		allItems.clear();
@@ -4901,7 +4890,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 	bool ret = fl.saveFile(fileName, this, savedFile);
 	if (ret)
 	{
-		setName(fileName);
+		setDocumentFileName(fileName);
 		setModified(false);
 		hasName = true;
 		isConverted = false;
@@ -5258,7 +5247,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 					for (int ite = 0; ite < end2; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
-						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->LayerID))
+						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->m_layerID))
 							tempSelection.addItem(itemToCopy, true);
 					}
 					if (tempSelection.count() != 0)
@@ -5288,7 +5277,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 			for (int ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
-				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->ID == itemToCopy->LayerID))
+				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->ID == itemToCopy->m_layerID))
 					tempSelection.addItem(itemToCopy, true);
 			}
 			if (tempSelection.count() != 0)
@@ -5753,14 +5742,14 @@ void ScribusDoc::rebuildItemLists()
 		for (int it = 0; it < DocItems.count(); ++it)
 		{
 			currItem = DocItems.at(it);
-			if (currItem->LayerID != layerID)
+			if (currItem->m_layerID != layerID)
 				continue;
 			newDocItems.append(currItem);
 		}
 		for (int it = 0; it < MasterItems.count(); ++it)
 		{
 			currItem = MasterItems.at(it);
-			if (currItem->LayerID != layerID)
+			if (currItem->m_layerID != layerID)
 				continue;
 			newMasterItems.append(currItem);
 		}
@@ -7136,7 +7125,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				for (int ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
-					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->ID == itemToCopy->LayerID))
+					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->ID == itemToCopy->m_layerID))
 						tempSelection.addItem(itemToCopy, true);
 				}
 				if (tempSelection.count() != 0)
@@ -9316,7 +9305,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.lengthOfSelection() > 0)
+				if (currItem->itemText.selectionLength() > 0)
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -9447,7 +9436,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.lengthOfSelection() > 0)
+				if (currItem->itemText.selectionLength() > 0)
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -9527,7 +9516,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.lengthOfSelection() > 0)
+				if (currItem->itemText.selectionLength() > 0)
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -10506,7 +10495,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	}
 	for (int b = 0; b < MasterItems.count(); ++b)
 	{
-		if (MasterItems.at(b)->LayerID == l)
+		if (MasterItems.at(b)->m_layerID == l)
 		{
 			if (dl)
 			{
@@ -10523,7 +10512,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	for (int b = 0; b < DocItems.count(); ++b)
 	{
 		PageItem* currItem = DocItems.at(b);
-		if (currItem->LayerID == l)
+		if (currItem->m_layerID == l)
 		{
 			if (dl)
 			{
@@ -13292,7 +13281,7 @@ void ScribusDoc::invalidateLayer(int layerID)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			ite = allItems.at(ii);
-			if (ite->LayerID == layerID)
+			if (ite->m_layerID == layerID)
 					ite->invalidateLayout();
 		}
 		allItems.clear();
@@ -13309,7 +13298,7 @@ void ScribusDoc::invalidateLayer(int layerID)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				ite = allItems.at(ii);
-				if (ite->LayerID == layerID)
+				if (ite->m_layerID == layerID)
 					ite->invalidateLayout();
 			}
 			allItems.clear();
@@ -14817,7 +14806,7 @@ PageItem* ScribusDoc::groupObjectsSelection(Selection* customSelection)
 	groupItem->AutoName = false;
 	groupItem->groupWidth = gw;
 	groupItem->groupHeight = gh;
-	groupItem->LayerID = objectsLayer;
+	groupItem->m_layerID = objectsLayer;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
@@ -15005,7 +14994,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	groupItem->AutoName = false;
 	groupItem->groupWidth = gw;
 	groupItem->groupHeight = gh;
-	groupItem->LayerID = objectsLayer;
+	groupItem->m_layerID = objectsLayer;
 	m_undoManager->setUndoEnabled(true);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
@@ -16153,9 +16142,19 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 	}
 }
 
+QString ScribusDoc::documentFileName() const
+{
+	return m_documentFileName;
+}
+
+void ScribusDoc::setDocumentFileName(const QString& documentFileName)
+{
+	m_documentFileName = documentFileName;
+}
+
 void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelection)
 {
-	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+    Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
@@ -16425,7 +16424,7 @@ void ScribusDoc::slotAutoSave()
 	QString fileName;
 	if (hasName)
 	{
-		QFileInfo fi(DocName);
+		QFileInfo fi(m_documentFileName);
 		base = fi.baseName();
 		path = fi.absolutePath();
 	}

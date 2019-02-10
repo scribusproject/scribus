@@ -443,7 +443,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		{
 			currItem = m_doc->currentPage()->FromMaster.at(currNr);
 			QTransform itemPos;
-			if (((currItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->LayerID))) && (!m_doc->layerLocked(currItem->LayerID)))
+			if (((currItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->m_layerID))) && (!m_doc->layerLocked(currItem->m_layerID)))
 			{
 				if (!currItem->ChangedMasterItem)
 				{
@@ -491,7 +491,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
-		if (((currItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->LayerID))) && (!m_doc->layerLocked(currItem->LayerID)))
+		if (((currItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->m_layerID))) && (!m_doc->layerLocked(currItem->m_layerID)))
 		{
 			QTransform itemPos = currItem->getTransform();
 			QPainterPath currPath(itemPos.map(QPointF(0,0)));
@@ -581,7 +581,7 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 
 	int itemid = m_doc->Items->indexOf(item);
 	QRectF baseRect(item->getBoundingRect());
-	int itemLevel = m_doc->layerLevelFromID(item->LayerID);
+	int itemLevel = m_doc->layerLevelFromID(item->m_layerID);
 	if (itemLevel < 0)
 		return nullptr;
 
@@ -589,7 +589,7 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 	{
 		PageItem* item1 = m_doc->Items->at(index);
 		int item1id = m_doc->Items->indexOf(item1);
-		int level = m_doc->layerLevelFromID(item1->LayerID);
+		int level = m_doc->layerLevelFromID(item1->m_layerID);
 		if ((item != item1) && (level >= 0) && (level <= itemLevel))
 		{
 			if ((level == itemLevel) && (item1id > itemid))
@@ -1379,7 +1379,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 	for (int a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
-		if (currItem->LayerID != layer.ID)
+		if (currItem->m_layerID != layer.ID)
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 			continue;
@@ -1463,7 +1463,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			if ( !currItem->isTextFrame()
 				|| currItem->isNoteFrame()
 				|| !currItem->invalid
-				|| (currItem->LayerID != layer.ID)
+				|| (currItem->m_layerID != layer.ID)
 				|| (m_viewMode.previewMode && !currItem->printEnabled())
 				|| (m_viewMode.viewAsPreview && (!currItem->printEnabled()))
 				|| (m_doc->masterPageMode() && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
@@ -1480,7 +1480,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			continue;
 		if (!notesFramesPass && currItem->isNoteFrame())
 			continue;
-		if (currItem->LayerID != layer.ID)
+		if (currItem->m_layerID != layer.ID)
 			continue;
 		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
 			continue;
@@ -2576,8 +2576,8 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	double controlHash(0.0);
 	controlHash = item->xPos() 
 			+ item->yPos()				* 1.0
-			+ item->ColGap 				* 2.0
-			+ item->Cols 				* 3.0
+			+ item->m_columnGap 				* 2.0
+			+ item->m_columns 				* 3.0
 			+ item->textToFrameDistLeft()		* 4.0 
 			+ item->textToFrameDistRight()		* 5.0
 			+ item->currentStyle().firstIndent()	* 6.0

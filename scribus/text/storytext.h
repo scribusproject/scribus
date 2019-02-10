@@ -244,7 +244,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
  	bool selected(int pos) const;
 	int startOfSelection() const;
 	int endOfSelection() const;
-	int lengthOfSelection() const;
+	int selectionLength() const;
 
 	// break iterators
 	static BreakIterator* getGraphemeIterator();

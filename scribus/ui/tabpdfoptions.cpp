@@ -638,7 +638,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		InfoString->setText(Opts.Info);
 	else
 	{
-		QFileInfo fi(m_Doc->DocName);
+		QFileInfo fi(m_Doc->documentFileName());
 		InfoString->setText(fi.fileName());
 	}
 
@@ -1371,9 +1371,9 @@ void TabPDFOptions::EmbedAll()
 	SubsetList->clear();
 	ToSubset->setEnabled(false);
 	FromSubset->setEnabled(false);
-	for (int a = 0; a < m_docFonts.count(); ++a)
+	for (int i = 0; i < m_docFonts.count(); ++i)
 	{
-		QString fontName = m_docFonts.at(a);
+		QString fontName = m_docFonts.at(i);
 		const ScFace fontFace = AllFonts[fontName];
 		if (!fontFace.subset() && !fontFace.isOTF())
 		{

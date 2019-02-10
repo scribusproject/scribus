@@ -517,8 +517,8 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->setStartArrowScale(Buffer->startArrowScale);
 	currItem->setEndArrowScale(Buffer->endArrowScale);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
-	currItem->Cols = Buffer->Cols;
-	currItem->ColGap = Buffer->ColGap;
+	currItem->m_columns = Buffer->Cols;
+	currItem->m_columnGap = Buffer->ColGap;
 	currItem->setFirstLineOffset(Buffer->firstLineOffsetP);
 	if (Buffer->LayerID != -1)
 		currItem->setLayer(Buffer->LayerID);

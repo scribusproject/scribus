@@ -127,16 +127,16 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 
 	//#14427: columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
 	columns->setMinimum(1);
-	columns->setValue(textItem->Cols);
+	columns->setValue(textItem->m_columns);
 	columnGap->setMinimum(0);
 	if (columnGapLabel->currentIndex() == 0)
 	{
-		columnGap->setMaximum(qMax((textItem->width() / textItem->Cols - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
-		columnGap->setValue(textItem->ColGap * m_unitRatio);
+		columnGap->setMaximum(qMax((textItem->width() / textItem->m_columns - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
+		columnGap->setValue(textItem->m_columnGap * m_unitRatio);
 	}
 	else
 	{
-		columnGap->setMaximum(qMax((textItem->width() / textItem->Cols) * m_unitRatio, 0.0));
+		columnGap->setMaximum(qMax((textItem->width() / textItem->m_columns) * m_unitRatio, 0.0));
 		columnGap->setValue(textItem->columnWidth() * m_unitRatio);
 	}
 	leftDistance->setValue(textItem->textToFrameDistLeft()*m_unitRatio);
@@ -199,7 +199,7 @@ void PropertyWidget_Distance::configureWidgets()
 
 		if (textItem)
 		{
-			int numCols = textItem->Cols;
+			int numCols = textItem->m_columns;
 			
 			columnGap->setEnabled(numCols != 1);
 			columnGapLabel->setEnabled(numCols != 1);
@@ -252,12 +252,12 @@ void PropertyWidget_Distance::showColumns(int r, double g)
 //#14427: columns->setMaximum(qMax(qRound(textItem->width() / qMax(textItem->ColGap, 10.0)), 1));
 			if (columnGapLabel->currentIndex() == 0)
 			{
-				columnGap->setMaximum(qMax((textItem->width() / textItem->Cols - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
-				columnGap->setValue(textItem->ColGap * m_unitRatio);
+				columnGap->setMaximum(qMax((textItem->width() / textItem->m_columns - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
+				columnGap->setValue(textItem->m_columnGap * m_unitRatio);
 			}
 			else
 			{
-				columnGap->setMaximum(qMax((textItem->width() / textItem->Cols) * m_unitRatio, 0.0));
+				columnGap->setMaximum(qMax((textItem->width() / textItem->m_columns) * m_unitRatio, 0.0));
 				columnGap->setValue(textItem->columnWidth() * m_unitRatio);
 			}
 		}
@@ -291,7 +291,7 @@ void PropertyWidget_Distance::handleColumns()
 	if (textItem)
 	{
 		textItem->setColumns(static_cast<int>(columns->value()));
-		showColumns(textItem->Cols, textItem->ColGap);
+		showColumns(textItem->m_columns, textItem->m_columnGap);
 		//this is already done in showColumns()
 		/*if (static_cast<int>(columns->value()) == 1)
 		{
@@ -329,7 +329,7 @@ void PropertyWidget_Distance::handleColumnGap()
 		if ((textItem->lineColor() != CommonStrings::None) || (!textItem->strokePattern().isEmpty()))
 			lineCorr = textItem->lineWidth();
 		double newWidth = columnGap->value() / m_unitRatio;
-		double newGap = qMax(((textItem->width() - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight() - lineCorr) - (newWidth * textItem->Cols)) / (textItem->Cols - 1), 0.0);
+		double newGap = qMax(((textItem->width() - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight() - lineCorr) - (newWidth * textItem->m_columns)) / (textItem->m_columns - 1), 0.0);
 		textItem->setColumnGap(newGap);
 	}
 	textItem->update();
@@ -346,7 +346,7 @@ void PropertyWidget_Distance::handleGapSwitch()
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
 	if (textItem != nullptr)
-		showColumns(textItem->Cols, textItem->ColGap);
+		showColumns(textItem->m_columns, textItem->m_columnGap);
 
 	int index = columnGapLabel->currentIndex();
 	columnGap->setToolTip((index == 0) ? tr( "Distance between columns" ) : tr( "Column width" ));
@@ -415,7 +415,7 @@ void PropertyWidget_Distance::handleTextDistances()
 	double top    = topDistance->value() / m_unitRatio;
 	double bottom = bottomDistance->value() / m_unitRatio;
 	textItem->setTextToFrameDist(left, right, top, bottom);
-	showColumns(textItem->Cols, textItem->ColGap);
+	showColumns(textItem->m_columns, textItem->m_columnGap);
 
 	textItem->update();
 	if (m_doc->appMode == modeEditTable)

@@ -646,12 +646,7 @@ public:
 	 * @author Riku Leino
 	 */
 	void restore(UndoState* state, bool isUndo);
-	/**
-	 * @brief Sets the name of the document
-	 * @param name Name for the document
-	 * @author Riku Leino
-	 */
-	void setName(const QString& name);
+
 	/*!
 	 * @brief Returns a stringlist of the item attributes within the document
 	 */
@@ -1227,6 +1222,7 @@ protected:
 	Serializer *m_serializer, *m_tserializer;
 	QString m_currentEditedSymbol;
 	int m_currentEditedIFrame;
+	QString m_documentFileName;
 
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -1263,7 +1259,6 @@ public: // Public attributes
 	QList<PageItem*> DocItems;
 	QHash<int, PageItem*> FrameItems;
 	QList<PageItem*> EditFrameItems;
-	PageItem *currentEditedTextframe;
 	Selection* const m_Selection;
 	/** \brief Number of Columns */
 	double PageSp;
@@ -1279,7 +1274,6 @@ public: // Public attributes
 	int SubMode;
 	double *ShapeValues;
 	int ValCount;
-	QString DocName;
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
 	QList<AlignObjs> AObjects;
@@ -1830,6 +1824,8 @@ public:
 	void SubmitForm();
 	void ImportData();
 	void ResetFormFields();
+	QString documentFileName() const;
+	void setDocumentFileName(const QString& m_documentFileName);
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);

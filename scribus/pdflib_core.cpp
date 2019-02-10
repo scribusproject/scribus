@@ -1201,7 +1201,7 @@ void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
 	PutDoc("/Producer " + EncString(QByteArray("Scribus PDF Library ") + VERSION, writer.InfoObj) + "\n");
 	QString docTitle = doc.documentInfo().title();
 	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
-		PutDoc("/Title " + EncStringUTF16(doc.DocName, writer.InfoObj) + "\n");
+		PutDoc("/Title " + EncStringUTF16(doc.documentFileName(), writer.InfoObj) + "\n");
 	else
 		PutDoc("/Title " + EncStringUTF16(doc.documentInfo().title(), writer.InfoObj) + "\n");
 	PutDoc("/Author " + EncStringUTF16(doc.documentInfo().author(), writer.InfoObj) + "\n");
@@ -2674,7 +2674,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 			{
 				Content.clear();
 				ite =PItems.at(a);
-				if (ite->LayerID != ll.ID)
+				if (ite->m_layerID != ll.ID)
 					continue;
 				double x  = pag->xOffset() - bLeft;
 				double y  = pag->yOffset() - bTop;
@@ -3544,7 +3544,7 @@ void PDFLibCore::PDF_End_Page()
 			QString docTitle = doc.documentInfo().title();
 			if (docTitle.isEmpty())
 			{
-				QFileInfo fi(doc.DocName);
+				QFileInfo fi(doc.documentFileName());
 				docTitle = fi.fileName();
 			}
 //			docTitle += "  "+ tr("Page:")+" "+tmp.setNum(PgNr+1);
@@ -3879,7 +3879,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			ite = pag->FromMaster.at(am);
 			if (usingGUI)
 				qApp->processEvents();
-			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
+			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
@@ -3976,7 +3976,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 		for (int a = 0; a < PItems.count() && !abortExport; ++a)
 		{
 			ite = PItems.at(a);
-			if (ite->LayerID != layer.ID)
+			if (ite->m_layerID != layer.ID)
 				continue;
 			if (usingGUI)
 			{
@@ -11477,7 +11477,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	alt1.appendChild(li1);
 	QString docTitle = doc.documentInfo().title();
 	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
-		docTitle = doc.DocName;
+		docTitle = doc.documentFileName();
 	li1.appendChild(xmpDoc.createTextNode(docTitle));
 	QDomElement creator = xmpDoc.createElement("dc:creator");
 	descDC.appendChild(creator);

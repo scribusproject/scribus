@@ -1991,7 +1991,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
-		docu.writeAttribute("LAYER", item->LayerID);
+		docu.writeAttribute("LAYER", item->m_layerID);
 		if (item->isBookmark)
 			docu.writeAttribute("BOOKMARK", 1);
 

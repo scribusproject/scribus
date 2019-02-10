@@ -1738,7 +1738,7 @@ int StoryText::endOfSelection() const
 	return m_selFirst <= m_selLast? m_selLast + 1 : -1;
 }
 
-int StoryText::lengthOfSelection() const
+int StoryText::selectionLength() const
 {
 	//FIX ME - sometimes I saw values equal or greater than length of text
 	int last = m_selLast;

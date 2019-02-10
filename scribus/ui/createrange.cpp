@@ -66,13 +66,13 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 	//First tab selected
 	if (m_RangeType==0)
 	{
-		uint c=basicRangeListBox->count();
+		int c=basicRangeListBox->count();
 		if (c==0)
 		{
 			basicAddToRange();
 			c=basicRangeListBox->count();
 		}
-		for (uint i=0;i<c;++i)
+		for (int i=0;i<c;++i)
 		{
 			if (i!=0 && i<c)
 				crData.pageRange+=",";

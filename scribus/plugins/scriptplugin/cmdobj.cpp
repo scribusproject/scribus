@@ -599,7 +599,7 @@ PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	int selectionLength = item->itemText.lengthOfSelection();	
+	int selectionLength = item->itemText.selectionLength();	
 	if (selectionLength > 0)
 	{
 		int selectionStart = item->itemText.startOfSelection();
@@ -670,7 +670,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		// Store text selection as clearing object selection
 		// will also clear text selection
 		int selectionStart = -1;
-		int selectionLength = item->itemText.lengthOfSelection();
+		int selectionLength = item->itemText.selectionLength();
 		if (selectionLength > 0)
 			selectionStart = item->itemText.startOfSelection();
 		// quick hack to always apply on the right frame - pv
@@ -753,7 +753,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		// Store text selection as clearing object selection
 		// will also clear text selection
 		int selectionStart = -1;
-		int selectionLength = item->itemText.lengthOfSelection();
+		int selectionLength = item->itemText.selectionLength();
 		if (selectionLength > 0)
 			selectionStart = item->itemText.startOfSelection();
 		// quick hack to always apply on the right frame - pv

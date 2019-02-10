@@ -321,7 +321,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
 			if (!success)
 				break;
-			itemInfo.item->LayerID = LayerToPaste;
+			itemInfo.item->m_layerID = LayerToPaste;
 			if (isNewFormat)
 			{
 				if (itemInfo.nextItem != -1)
@@ -4073,7 +4073,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 					PageItem* currItem = GroupItems.at(as);
 					newItem->groupItemList.append(currItem);
 					currItem->Parent = newItem;
-					currItem->LayerID = newItem->LayerID;
+					currItem->m_layerID = newItem->m_layerID;
 					currItem->OwnPage = newItem->OwnPage;
 					currItem->OnMasterPage = newItem->OnMasterPage;
 				}
@@ -5320,8 +5320,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
 	if (attrs.valueAsInt("TRANSPARENT", 0) == 1)
 		currItem->setFillColor(CommonStrings::None);
-	currItem->Cols   = attrs.valueAsInt("COLUMNS", 1);
-	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
+	currItem->m_columns   = attrs.valueAsInt("COLUMNS", 1);
+	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 	{
 		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
@@ -5329,7 +5329,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		bool found = false;
 		for (uint i = 0; i < layerCount; ++i)
 		{
-			if (doc->Layers[i].ID == currItem->LayerID)
+			if (doc->Layers[i].ID == currItem->m_layerID)
 			{
 				found = true;
 				break;
@@ -5817,8 +5817,8 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 			item->cellAt(row, col).setBottomPadding(tAtt.valueAsDouble("BottomPadding", 0.0));
 
 		PageItem* newItem = item->cellAt(row, col).textFrame();
-		newItem->Cols   = tAtt.valueAsInt("TextColumns", 1);
-		newItem->ColGap = tAtt.valueAsDouble("TextColGap", 0.0);
+		newItem->m_columns   = tAtt.valueAsInt("TextColumns", 1);
+		newItem->m_columnGap = tAtt.valueAsDouble("TextColGap", 0.0);
 		newItem->setTextToFrameDist(tAtt.valueAsDouble("TextDistLeft", 0.0),
 							tAtt.valueAsDouble("TextDistRight", 0.0),
 							tAtt.valueAsDouble("TextDistTop", 0.0),
@@ -6275,7 +6275,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					newItem->setMasterPageName(QString());
 				else if (Mpage && !renamedPageName.isEmpty())
 					newItem->setMasterPageName(renamedPageName);
-				newItem->setLayer(layerTrans.value(newItem->LayerID, newItem->LayerID));
+				newItem->setLayer(layerTrans.value(newItem->m_layerID, newItem->m_layerID));
 				if (isNewFormat)
 				{
 					if (itemInfo.nextItem != -1)

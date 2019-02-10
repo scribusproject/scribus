@@ -514,7 +514,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& exten
 	if (prefix!=QString::null)
 		defaultName=prefix;
 	else
-		defaultName=currDoc->DocName;
+		defaultName=currDoc->documentFileName();
 	if (defaultName.isNull())
 		defaultName = "export";
 	else
@@ -1053,7 +1053,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, gItem->xPos(), gItem->yPos(), gItem->width(), gItem->height(), 0.0, CommonStrings::None, CommonStrings::None);
 	PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
 
-	currItem->LayerID = gItem->LayerID;
+	currItem->m_layerID = gItem->m_layerID;
 	currItem->OwnPage = gItem->OwnPage;
 	currItem->OnMasterPage = gItem->OnMasterPage;
 
@@ -1115,7 +1115,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		tr = tr->BottomLink;
 	}
 	m_Doc->dontResize = true;
-	currItem->setLayer(gItem->LayerID);
+	currItem->setLayer(gItem->m_layerID);
 	currItem->setMasterPage(gItem->OwnPage, gItem->OnMasterPage);
 	currItem->adjustFrameToTable();
 	if (target != nullptr)

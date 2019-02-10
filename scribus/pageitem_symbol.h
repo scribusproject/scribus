@@ -40,14 +40,14 @@ public:
 	PageItem_Symbol(const PageItem & p) : PageItem(p) {}
 	~PageItem_Symbol() {};
 
-	virtual PageItem_Symbol * asSymbolFrame() { return this; }
-	virtual bool isSymbol() const { return true; }
-	virtual ItemType realItemType() const { return PageItem::Symbol; }
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription() const;
+	PageItem_Symbol * asSymbolFrame() override { return this; }
+	bool isSymbol() const override { return true; }
+	ItemType realItemType() const override { return PageItem::Symbol; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e);
+	 void DrawObj_Item(ScPainter *p, QRectF e) override;
 
 };
 
