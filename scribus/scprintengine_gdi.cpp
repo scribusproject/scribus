@@ -96,7 +96,8 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 	toFile = printerUseFilePort(options.printer);
 	if (toFile)
 	{
-		diaSelection = doc.DocName.right(doc.DocName.length() - doc.DocName.lastIndexOf("/") - 1);
+		QString docName = doc.documentFileName();
+		diaSelection = docName.right(docName.length() - docName.lastIndexOf("/") - 1);
 		diaSelection = diaSelection.left(diaSelection.indexOf("."));
 		diaSelection += ".prn";
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -219,7 +220,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS;
 
 	// Setup document infos structure
-	wcsncpy (docName, (const WCHAR*) doc->DocName.utf16(), 511);
+	wcsncpy (docName, (const WCHAR*) doc->documentFileName().utf16(), 511);
 	ZeroMemory(&docInfo, sizeof(docInfo));
 	docInfo.cbSize = sizeof(docInfo);
 	docInfo.lpszDocName = docName;
