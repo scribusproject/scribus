@@ -45,8 +45,8 @@ PageItem_OSGFrame::PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double 
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
 	setUPixmap(Um::ILatexFrame);
-	AnName = tr("OSG") + QString::number(m_Doc->TotalItems);
-	setUName(AnName);
+	m_itemName = tr("OSG") + QString::number(m_Doc->TotalItems);
+	setUName(m_itemName);
 	struct viewDefinition defaultView;
 	defaultView.trackerCenter = osg::Vec3d();
 	defaultView.cameraPosition = osg::Vec3d();

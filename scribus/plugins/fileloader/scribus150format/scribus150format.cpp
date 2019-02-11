@@ -5158,14 +5158,14 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
 	currItem->setIsAnnotation( attrs.valueAsInt("ANNOTATION", 0));
 	currItem->annotation().setType( attrs.valueAsInt("ANTYPE", 0));
-	QString AnName = attrs.valueAsString("ANNAME","");
-	if (!AnName.isEmpty())
+	QString itemName = attrs.valueAsString("ANNAME","");
+	if (!itemName.isEmpty())
 	{
-		if (currItem->itemName() == AnName)
+		if (currItem->itemName() == itemName)
 			currItem->AutoName = true;
 		else
 		{
-			currItem->setItemName(AnName);
+			currItem->setItemName(itemName);
 			currItem->AutoName = false;
 		}
 	}

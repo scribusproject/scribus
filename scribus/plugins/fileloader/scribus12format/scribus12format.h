@@ -192,7 +192,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 			bool isBookmark;
 			bool m_isAnnotation;
 			Annotation m_annotation;
-			QString AnName;
+			QString itemName;
 			double Extra;
 			double TExtra;
 			double BExtra;

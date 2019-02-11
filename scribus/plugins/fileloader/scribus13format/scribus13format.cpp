@@ -1761,13 +1761,13 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->setPrintEnabled(obj->attribute("PRINTABLE").toInt());
 	currItem->setIsAnnotation(obj->attribute("ANNOTATION", "0").toInt());
 	currItem->annotation().setType(obj->attribute("ANTYPE", "0").toInt());
-	QString AnName = obj->attribute("ANNAME","");
-	if (!AnName.isEmpty())
+	QString itemName = obj->attribute("ANNAME","");
+	if (!itemName.isEmpty())
 	{
-		if (currItem->itemName() == AnName)
+		if (currItem->itemName() == itemName)
 			currItem->AutoName = true;
 		else
-			currItem->setItemName(AnName);
+			currItem->setItemName(itemName);
 	}
 
 	currItem->annotation().setAction(obj->attribute("ANACTION",""));

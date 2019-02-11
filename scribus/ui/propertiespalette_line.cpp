@@ -72,16 +72,16 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 
 	languageChange();
 
-	connect(lineWidth     , SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
-	connect(lineType    , SIGNAL(activated(int))      , this, SLOT(handleLineStyle()));
-	connect(lineJoinStyle, SIGNAL(activated(int))      , this, SLOT(handleLineJoin()));
-	connect(lineEndStyle , SIGNAL(activated(int))      , this, SLOT(handleLineEnd()));
-	connect(lineMode  , SIGNAL(activated(int))      , this, SLOT(handleLineMode()));
-	connect(dashEditor, SIGNAL(dashChanged())       , this, SLOT(handleDashChange()));
-	connect(startArrow, SIGNAL(activated(int))      , this, SLOT(handleStartArrow(int )));
-	connect(endArrow  , SIGNAL(activated(int))      , this, SLOT(handleEndArrow(int )));
+	connect(lineWidth, SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
+	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineStyle()));
+	connect(lineJoinStyle, SIGNAL(activated(int)), this, SLOT(handleLineJoin()));
+	connect(lineEndStyle, SIGNAL(activated(int)), this, SLOT(handleLineEnd()));
+	connect(lineMode, SIGNAL(activated(int)), this, SLOT(handleLineMode()));
+	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(handleDashChange()));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(handleStartArrow(int )));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(handleEndArrow(int )));
 	connect(startArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleStartArrowScale(double )));
-	connect(endArrowScale  , SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double )));
+	connect(endArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double )));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
 }
 
@@ -118,7 +118,7 @@ void PropertiesPalette_Line::setMainWindow(ScribusMainWindow *mw)
 {
 	m_ScMW = mw;
 
-	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
+	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 }
 
 void PropertiesPalette_Line::setDoc(ScribusDoc *d)
@@ -129,7 +129,7 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 	if (m_doc)
 	{
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
-		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+		disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
 	}
 
 	m_doc  = d;
@@ -148,7 +148,7 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 	endArrow->rebuildList(&m_doc->arrowStyles());
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
-	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+	connect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
 }
 
 void PropertiesPalette_Line::unsetDoc()
@@ -156,7 +156,7 @@ void PropertiesPalette_Line::unsetDoc()
 	if (m_doc)
 	{
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
-		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+		disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
 	}
 
 	m_haveDoc  = false;
