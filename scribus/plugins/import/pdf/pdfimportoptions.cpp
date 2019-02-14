@@ -70,6 +70,7 @@ void PdfImportOptions::setUpOptions(const QString& fileName, int actPage, int nu
 	ui->spinBox->setValue(actPage);
 	ui->cropGroup->setVisible(cropPossible);
 	ui->cropGroup->setChecked(cropPossible);
+	ui->cropBox->setCurrentIndex(3); // Use CropBox by default
 	if (interact)
 	{
 		ui->allPages->setChecked(false);
