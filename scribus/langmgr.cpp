@@ -576,7 +576,8 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("suq",      "",         "Suri",                    QObject::tr("Suri")));
 	m_langTable.append(LangDef("sva",      "",         "Svan",                    QObject::tr("Svan")));
 	m_langTable.append(LangDef("sw",       "",         "Swahili",                 QObject::tr("Swahili")));
-	m_langTable.append(LangDef("sv",       "",         "Swedish",                 QObject::tr("Swedish")));
+	m_langTable.append(LangDef("sv",       "sv_SE",    "Swedish",                 QObject::tr("Swedish")));
+	m_langTable.append(LangDef("sv_FI",    "",         "Swedish (Finland)",       QObject::tr("Swedish (Finland)")));
 	m_langTable.append(LangDef("ss",       "",         "Swati",                   QObject::tr("Swati")));
 	m_langTable.append(LangDef("syl",      "",         "Sylheti",                 QObject::tr("Sylheti")));
 	m_langTable.append(LangDef("syr",      "",         "Syriac",                  QObject::tr("Syriac")));
