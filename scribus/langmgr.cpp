@@ -1035,30 +1035,30 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 		dictList.replaceInStrings(".dic","");
 
 		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
-
-		foreach(const QString& dictName, dictList)
+		for (const QString& dictName : qAsConst(dictList))
 		{
-			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
-				dictList.removeAll(dictName);
-			else
+			if (!QFile::exists(dictionaryPaths.at(i) + dictName + ".aff"))
 			{
-				if (!dictionaryMap.contains(dictName))
-				{
-					if (dictName.length()<=5)
-					{
-						//QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-						//qDebug()<<"findSpellingDictionarySets"<<dictName<<shortAbbrev;
-						dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
-						//dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
-					}
-					//qDebug()<<"Spell Finder:"<<dictName<<dictionaryPaths.at(i)+dictName;
-					if (dictName.length()>5)
-					{
-						QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-						//qDebug()<<shortAbbrev;
-						dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
-					}
-				}
+				dictList.removeAll(dictName);
+				continue;
+			}
+				
+			if (dictionaryMap.contains(dictName))
+				continue;
+
+			if (dictName.length()<=5)
+			{
+				//QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+				//qDebug()<<"findSpellingDictionarySets"<<dictName<<shortAbbrev;
+				dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+				//dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
+			}
+			//qDebug()<<"Spell Finder:"<<dictName<<dictionaryPaths.at(i)+dictName;
+			if (dictName.length()>5)
+			{
+				QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+				//qDebug()<<shortAbbrev;
+				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
 			}
 		}
 //		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
@@ -1108,28 +1108,28 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 		QDir dictLocation(dictionaryPaths.at(i));
 		QStringList dictFilters("hyph*.dic");
 		if (dictionaryPaths.at(i)==ScPaths::userDictDir(ScPaths::Hyph, false))
-				dictFilters.append("*.dic");
+			dictFilters.append("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic","");
-		foreach(const QString& dn, dictList)
+
+		for (const QString& dn : qAsConst(dictList))
 		{
 //			qDebug()<<dn;
 			QString dictName;
 			if (dn.startsWith("hyph_"))
-				dictName=dn.section('_',1);
+				dictName = dn.section('_',1);
 			else
-				dictName=dn;
-			if (!dictionaryMap.contains(dictName))
+				dictName = dn;
+			if (dictionaryMap.contains(dictName))
+				continue;
+			if (dictName.length()<=2)
 			{
-				if (dictName.length()<=2)
-				{
-					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn+".dic");
-				}
-				if (dictName.length()>2)
-				{
-					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-					dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn+".dic");
-				}
+				dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn+".dic");
+			}
+			if (dictName.length()>2)
+			{
+				QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn+".dic");
 			}
 		}
 	}
