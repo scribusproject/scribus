@@ -101,11 +101,12 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void downloadLicenseFinished();
 		void downloadLicenseFileFinished(const QString &);
 		void downloadLicenseFileFailed(const QString &);
+		void installedSelectionChanged();
 		void updateProgressBar();
 		void updateProgressData(qint64 bytesReceived, qint64 bytesTotal);
 		void startDownload();
+		void showInFileBrowser();
 		void showLicense();
-
 };
 
 #endif // RESOURCEMANAGER_H
