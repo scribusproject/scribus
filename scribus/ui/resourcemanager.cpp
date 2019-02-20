@@ -117,6 +117,7 @@ void ResourceManager::readAvailableFonts()
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -135,38 +136,35 @@ void ResourceManager::readAvailableFonts()
 		return;
 	}
 	m_availableList.clear();
+
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
-		{
-			if (e.tagName()=="font")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					struct DownloadItem d;
-					d.desc=e.attribute("description");
-					d.download=false;
-					d.files=e.attribute("files");
-					d.extractfiles=e.attribute("extractfiles");
-					d.url=e.attribute("URL");
-					d.version=e.attribute("version");
-					d.lang=e.attribute("language");
-					d.license=e.attribute("license");
-					d.filetype=e.attribute("filetype");
-					d.movetofile=e.attribute("movetofilename");
-					d.type=e.attribute("type").toUpper();
-					QUrl url(d.url);
-					if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-						m_availableList.append(d);
-//					else
-//						qDebug()<<"rm : availFonts : invalid URL"<<d.url;
-				}
-			}
-		}
-		n = n.nextSibling();
+		if (e.isNull())
+			continue;
+		if (e.tagName() != "font")
+			continue;
+		if (!e.hasAttribute("type") || !e.hasAttribute("filetype"))
+			continue;
+
+		struct DownloadItem d;
+		d.desc=e.attribute("description");
+		d.download=false;
+		d.files=e.attribute("files");
+		d.extractfiles=e.attribute("extractfiles");
+		d.url=e.attribute("URL");
+		d.version=e.attribute("version");
+		d.lang=e.attribute("language");
+		d.license=e.attribute("license");
+		d.filetype=e.attribute("filetype");
+		d.movetofile=e.attribute("movetofilename");
+		d.type=e.attribute("type").toUpper();
+		QUrl url(d.url);
+		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+			m_availableList.append(d);
+//		else
+//			qDebug()<<"rm : availFonts : invalid URL"<<d.url;
 	}
 }
 
@@ -177,6 +175,7 @@ void ResourceManager::readAvailableHelp()
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -194,38 +193,34 @@ void ResourceManager::readAvailableHelp()
 		return;
 	}
 	m_availableList.clear();
+
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
-		{
-			if (e.tagName()=="help")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					if (e.attribute("type")=="scribusofficial")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles="";
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							m_availableList.append(d);
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
+		if (e.isNull())
+			continue;
+		if (e.tagName() != "help")
+			continue;
+		if (!e.hasAttribute("type") || !e.hasAttribute("filetype"))
+			continue;
+		if (e.attribute("type") != "scribusofficial")
+			continue;
+
+		struct DownloadItem d;
+		d.desc=e.attribute("description");
+		d.download=false;
+		d.files=e.attribute("files");
+		d.extractfiles="";
+		d.url=e.attribute("URL");
+		d.version=e.attribute("version");
+		d.lang=e.attribute("language");
+		d.license=e.attribute("license");
+		d.filetype=e.attribute("filetype");
+		d.type=e.attribute("type");
+		QUrl url(d.url);
+		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+			m_availableList.append(d);
 	}
 }
 
@@ -236,6 +231,7 @@ void ResourceManager::readAvailablePalettes()
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -253,39 +249,33 @@ void ResourceManager::readAvailablePalettes()
 		return;
 	}
 	m_availableList.clear();
+
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
-		{
-			if (e.tagName()=="palette")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					//if (e.attribute("type")=="scribusofficial")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles="";
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						d.source=e.attribute("source");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							m_availableList.append(d);
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
+		if (e.isNull())
+			continue;
+		if (e.tagName() != "palette")
+			continue;
+		if (!e.hasAttribute("type") || !e.hasAttribute("filetype"))
+			continue;
+
+		struct DownloadItem d;
+		d.desc=e.attribute("description");
+		d.download=false;
+		d.files=e.attribute("files");
+		d.extractfiles="";
+		d.url=e.attribute("URL");
+		d.version=e.attribute("version");
+		d.lang=e.attribute("language");
+		d.license=e.attribute("license");
+		d.filetype=e.attribute("filetype");
+		d.type=e.attribute("type");
+		d.source=e.attribute("source");
+		QUrl url(d.url);
+		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+			m_availableList.append(d);
 	}
 }
 
@@ -576,6 +566,7 @@ void ResourceManager::updateAvailableHyph()
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -593,40 +584,36 @@ void ResourceManager::updateAvailableHyph()
 		return;
 	}
 	m_availableList.clear();
+
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
-		{
-			if (e.tagName()=="dictionary")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					if (e.attribute("type")=="hyph")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles=e.attribute("extractfiles");
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							m_availableList.append(d);
-						//else
-						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
+		if (e.isNull())
+			continue;
+		if (e.tagName() != "dictionary")
+			continue;
+		if (!e.hasAttribute("type") || !e.hasAttribute("filetype"))
+			continue;
+		if (e.attribute("type") != "hyph")
+			continue;
+
+		struct DownloadItem d;
+		d.desc=e.attribute("description");
+		d.download=false;
+		d.files=e.attribute("files");
+		d.extractfiles=e.attribute("extractfiles");
+		d.url=e.attribute("URL");
+		d.version=e.attribute("version");
+		d.lang=e.attribute("language");
+		d.license=e.attribute("license");
+		d.filetype=e.attribute("filetype");
+		d.type=e.attribute("type");
+		QUrl url(d.url);
+		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+			m_availableList.append(d);
+		//else
+		//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 	}
 	availableTableWidget->clear();
 	if (m_availableList.isEmpty())
@@ -679,6 +666,7 @@ void ResourceManager::updateAvailableSpell()
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -696,40 +684,36 @@ void ResourceManager::updateAvailableSpell()
 		return;
 	}
 	m_availableList.clear();
+
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
-		{
-			if (e.tagName()=="dictionary")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					if (e.attribute("type")=="spell")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles=e.attribute("extractfiles");
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							m_availableList.append(d);
-						//else
-						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
+		if (e.isNull())
+			continue;
+		if (e.tagName() != "dictionary")
+			continue;
+		if (!e.hasAttribute("type") || !e.hasAttribute("filetype"))
+			continue;
+		if (e.attribute("type") != "spell")
+			continue;
+
+		struct DownloadItem d;
+		d.desc=e.attribute("description");
+		d.download=false;
+		d.files=e.attribute("files");
+		d.extractfiles=e.attribute("extractfiles");
+		d.url=e.attribute("URL");
+		d.version=e.attribute("version");
+		d.lang=e.attribute("language");
+		d.license=e.attribute("license");
+		d.filetype=e.attribute("filetype");
+		d.type=e.attribute("type");
+		QUrl url(d.url);
+		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+			m_availableList.append(d);
+		//else
+		//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 	}
 	availableTableWidget->clear();
 	if (m_availableList.isEmpty())
