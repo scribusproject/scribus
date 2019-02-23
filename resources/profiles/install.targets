@@ -43,5 +43,15 @@
 			DestinationFolder="$(OutDir)\share\profiles"
 			SkipUnchangedFiles="true"
 		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)sRGB_icc22.icm"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)sRGB_icc22.txt"  
+			DestinationFolder="$(OutDir)\share\profiles"
+			SkipUnchangedFiles="true"
+		/>
 	</Target>
 </Project>
