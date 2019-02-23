@@ -427,19 +427,26 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 
 void ScribusCore::InitDefaultColorTransforms(void)
 {
+	QString defaultRGBString1  = "sRGB display profile (ICC v2.2)";
+	QString defaultRGBString2  = "sRGB IEC61966-2.1";
+	QString defaultCMYKString1 = "Fogra27L CMYK Coated Press";
+	QString defaultCMYKString2 = "ISO Coated v2 300% (basICColor)";
+
 	TermDefaultColorTransforms();
 
 	// Ouvre le profile RGB par d�fault
-	if (InputProfiles.contains("sRGB IEC61966-2.1"))
-		defaultRGBProfile = ScColorMgmtEngine::openProfileFromFile(InputProfiles["sRGB IEC61966-2.1"]);
+	if (InputProfiles.contains(defaultRGBString1))
+		defaultRGBProfile = ScColorMgmtEngine::openProfileFromFile(InputProfiles[defaultRGBString1]);
+	else if (InputProfiles.contains(defaultRGBString2))
+		defaultRGBProfile = ScColorMgmtEngine::openProfileFromFile(InputProfiles[defaultRGBString2]);
 	else
 		defaultRGBProfile = ScColorMgmtEngine::createProfile_sRGB();
 
 	// Ouvre le profile CMYK par d�faut
-	if (InputProfilesCMYK.contains("Fogra27L CMYK Coated Press"))
-	{
-		defaultCMYKProfile = ScColorMgmtEngine::openProfileFromFile(InputProfilesCMYK["Fogra27L CMYK Coated Press"]);
-	}
+	if (InputProfilesCMYK.contains(defaultCMYKString1))
+		defaultCMYKProfile = ScColorMgmtEngine::openProfileFromFile(InputProfilesCMYK[defaultCMYKString1]);
+	else if (InputProfilesCMYK.contains(defaultCMYKString2))
+		defaultCMYKProfile = ScColorMgmtEngine::openProfileFromFile(InputProfilesCMYK[defaultCMYKString2]);
 
 	if (!defaultRGBProfile || !defaultCMYKProfile)
 	{
@@ -481,53 +488,82 @@ void ScribusCore::TermDefaultColorTransforms(void)
 
 void ScribusCore::initCMS()
 {
-	if (m_HaveCMS)
+	if (!m_HaveCMS)
+		return;
+
+	ProfilesL::Iterator ip;
+	QString defaultRGBString1  = "sRGB display profile (ICC v2.2)";
+	QString defaultRGBString2  = "sRGB IEC61966-2.1";
+	QString defaultCMYKString1 = "Fogra27L CMYK Coated Press";
+	QString defaultCMYKString2 = "ISO Coated v2 300% (basICColor)";
+
+	QString defaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
+	if ((defaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(defaultImageRGBProfile)))
 	{
-		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
-		{
-			ip = InputProfiles.find("sRGB IEC61966-2.1");
-			if (ip == InputProfiles.end())
-				ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
-		{
-			ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
-			if (ip == InputProfilesCMYK.end())
-				ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile)))
-		{
-			ip = InputProfiles.find("sRGB IEC61966-2.1");
-			if (ip == InputProfiles.end())
-				ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile)))
-		{
-			ip = InputProfilesCMYK.find("Fogra27L CMYK Coated Press");
-			if (ip == InputProfilesCMYK.end())
-				ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
-		{
-			ip = MonitorProfiles.find("sRGB IEC61966-2.1");
-			if (ip == MonitorProfiles.end())
-				ip = MonitorProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
-		{
-			ip = PrinterProfiles.find("Fogra27L CMYK Coated Press");
-			if (ip == PrinterProfiles.end())
-				ip = PrinterProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
-		}
-		InitDefaultColorTransforms();
+		ip = InputProfiles.find(defaultRGBString1);
+		if (ip == InputProfiles.end())
+			ip = InputProfiles.find(defaultRGBString2);
+		if (ip == InputProfiles.end())
+			ip = InputProfiles.begin();
+		prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
 	}
+
+	QString defaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
+	if ((defaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(defaultImageCMYKProfile)))
+	{
+		ip = InputProfilesCMYK.find(defaultCMYKString1);
+		if (ip == InputProfilesCMYK.end())
+			ip = InputProfilesCMYK.find(defaultCMYKString2);
+		if (ip == InputProfilesCMYK.end())
+			ip = InputProfilesCMYK.begin();
+		prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
+	}
+
+	QString defaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+	if ((defaultSolidColorRGBProfile.isEmpty()) || (!InputProfiles.contains(defaultSolidColorRGBProfile)))
+	{
+		ip = InputProfiles.find(defaultRGBString1);
+		if (ip == InputProfiles.end())
+			ip = InputProfiles.find(defaultRGBString2);
+		if (ip == InputProfiles.end())
+			ip = InputProfiles.begin();
+		prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile = ip.key();
+	}
+
+	QString defaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+	if ((defaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(defaultSolidColorCMYKProfile)))
+	{
+		ip = InputProfilesCMYK.find(defaultCMYKString1);
+		if (ip == InputProfilesCMYK.end())
+			ip = InputProfilesCMYK.find(defaultCMYKString2);
+		if (ip == InputProfilesCMYK.end())
+			ip = InputProfilesCMYK.begin();
+		prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
+	}
+
+	QString defaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
+	if ((defaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(defaultMonitorProfile)))
+	{
+		ip = MonitorProfiles.find(defaultRGBString1);
+		if (ip == MonitorProfiles.end())
+			ip = MonitorProfiles.find(defaultRGBString2);
+		if (ip == MonitorProfiles.end())
+			ip = MonitorProfiles.begin();
+		prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
+	}
+
+	QString defaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
+	if ((defaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(defaultPrinterProfile)))
+	{
+		ip = PrinterProfiles.find(defaultCMYKString1);
+		if (ip == PrinterProfiles.end())
+			ip = PrinterProfiles.find(defaultCMYKString2);
+		if (ip == PrinterProfiles.end())
+			ip = PrinterProfiles.begin();
+		prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
+	}
+
+	InitDefaultColorTransforms();
 }
 
 ScribusMainWindow * ScribusCore::primaryMainWindow( )
