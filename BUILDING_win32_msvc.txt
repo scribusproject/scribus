@@ -118,12 +118,12 @@ xcopy %SCRIBUS_SRC_PATH%\scribus\doc                  %SCRIBUS_INSTALL_PATH%\sha
  copy %SCRIBUS_SRC_PATH%\COPYING                      %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\LINKS                        %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\TRANSLATION                  %SCRIBUS_INSTALL_PATH%\share\doc
-xcopy %SCRIBUS_SRC_PATH%\scribus\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\dicts              %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig       %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\icons              %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\keysets            %SCRIBUS_INSTALL_PATH%\share\keysets /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum         %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\profiles           %SCRIBUS_INSTALL_PATH%\share\profiles /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\swatches           %SCRIBUS_INSTALL_PATH%\share\swatches /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\templates          %SCRIBUS_INSTALL_PATH%\share\templates /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png    %SCRIBUS_INSTALL_PATH%\share\icons\ /y
