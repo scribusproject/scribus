@@ -561,7 +561,7 @@ void ScribusCore::initCMS()
 		m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
 	}
 
-	QString defaultMonitorProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.isEmpty();
+	QString defaultMonitorProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 	if ((defaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(defaultMonitorProfile)))
 	{
 		ip = MonitorProfiles.find(defaultRGBString1);
@@ -572,7 +572,7 @@ void ScribusCore::initCMS()
 		m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = ip.key();
 	}
 
-	QString defaultPrinterProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile.isEmpty();
+	QString defaultPrinterProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 	if ((defaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(defaultPrinterProfile)))
 	{
 		ip = PrinterProfiles.find(defaultCMYKString1);
