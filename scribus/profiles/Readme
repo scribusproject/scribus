@@ -2,14 +2,13 @@ This folder is used to store ICC-compatible color profiles
 for use with Scribus and LittleCMS. By default, Scribus will search in
 ~/.color/icc and /usr/share/color and subdirectories for profiles. 
 
-The two profiles included are generic RGB and CMYK profiles installed to ensure
+The profiles included are generic RGB and CMYK profiles installed to ensure
 color management functions immediately on install. These are not meant to be used
 for exacting color precision.
 
 You can get some sample profiles at: www.littlecms.com and
 there are more links in the documentation under the DTP Links Page, as well as
 the downloads section on www.scribus.net.
-
 
 
 Another source for Profiles is a modern Windows installation,
