@@ -210,6 +210,17 @@ PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
 	return i != nullptr ? PyInt_FromLong(static_cast<long>(i->cornerRadius())) : nullptr;
 }
 
+PyObject *scribus_getimgoffset(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != nullptr ? Py_BuildValue("(ff)", i->imageXOffset() * i->imageXScale(), i->imageYOffset() * i->imageYScale()) : nullptr;
+}
+
 PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");

@@ -187,6 +187,16 @@ given the currently selected item is used.\n\
 PyObject *scribus_getimagefile(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getimgoffset__doc__,
+	QT_TR_NOOP("getImageOffset([\"name\"]) -> (x,y)\n\
+\n\
+Returns a (x, y) tuple containing the offset values in point unit of the image\n\
+frame \"name\".  If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns image scale of the object */
+PyObject *scribus_getimgoffset(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getimgscale__doc__,
 	QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
 \n\
