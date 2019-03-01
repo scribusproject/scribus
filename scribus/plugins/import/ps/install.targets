@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_plugins_import_ps;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_plugins_import_ps">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)import.prolog"  
+			DestinationFiles="$(OutDir)\libs\import.prolog"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

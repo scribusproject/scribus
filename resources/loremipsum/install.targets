@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_loremipsum Include="$(MSBuildThisFileDirectory)*.xml" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_loremipsum;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_loremipsum">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_loremipsum)"  
+			DestinationFiles="@(FilesToInstall_resources_loremipsum-&gt;'$(OutDir)\share\loremipsum\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+</Project>

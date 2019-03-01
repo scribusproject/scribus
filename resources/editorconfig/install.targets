@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_editorconfig Include="$(MSBuildThisFileDirectory)*.png" />
+		<FilesToInstall_resources_editorconfig Include="$(MSBuildThisFileDirectory)*.svg" />
+		<FilesToInstall_resources_editorconfig Include="$(MSBuildThisFileDirectory)*.tar" />
+		<FilesToInstall_resources_editorconfig Include="$(MSBuildThisFileDirectory)*.xml" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_editorconfig;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_editorconfig">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_editorconfig)"  
+			DestinationFiles="@(FilesToInstall_resources_editorconfig-&gt;'$(OutDir)\share\editorconfig\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+	</Target>
+</Project>

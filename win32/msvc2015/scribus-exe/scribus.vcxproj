@@ -1322,4 +1322,11 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />
   </ImportGroup>
+  <Import Project="..\..\..\scribus.install.targets" />
+  <Target Name="AfterBuildMessage" AfterTargets="Build" BeforeTargets="AfterBuild">
+    <Message Importance="High" Text="Copying assets to output directory..." />
+  </Target>
+  <Target Name="AfterBuild" AfterTargets="Build" DependsOnTargets="$(AfterBuildDependsOn)">
+    <Message Importance="High" Text="Assets have been to output directory..." />
+  </Target>
 </Project>

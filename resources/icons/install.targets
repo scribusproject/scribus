@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_resources_icons Include="$(MSBuildThisFileDirectory)\**\*.jpg" />
+		<FilesToInstall_resources_icons Include="$(MSBuildThisFileDirectory)\**\*.png" />
+		<FilesToInstall_resources_icons Include="$(MSBuildThisFileDirectory)\**\*.xpm" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_icons;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_icons">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_resources_icons)"  
+			DestinationFiles="@(FilesToInstall_resources_icons-&gt;'$(OutDir)\share\icons\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

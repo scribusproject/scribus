@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_plugins_shortwords;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_plugins_shortwords">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)scribus-short-words.rc"  
+			DestinationFiles="$(OutDir)\share\plugins\scribus-short-words.rc"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>
