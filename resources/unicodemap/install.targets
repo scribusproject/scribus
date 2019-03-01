@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_scribus_unicodemap;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_scribus_unicodemap">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)unicodenameslist.txt"  
+			DestinationFiles="$(OutDir)\share\unicodenameslist.txt"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>
