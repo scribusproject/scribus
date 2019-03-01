@@ -3,6 +3,7 @@
 	<ItemGroup>
 		<FilesToInstall_resources_dicts Include="$(MSBuildThisFileDirectory)*.dic" />
 		<FilesToInstall_resources_dicts Include="$(MSBuildThisFileDirectory)*.txt" />
+		<FilesToInstall_resources_dicts Remove="$(MSBuildThisFileDirectory)CMakeLists.txt" />
 	</ItemGroup>
 	
 	<PropertyGroup>
