@@ -329,11 +329,11 @@ void BarcodeGenerator::updateOptions()
 {
 	QString enc=map[ui.bcCombo->currentText()].command;
 
-	ui.formatLabel->setText(resvlbl[enc]!="" ? resvlbl[enc]+":" : "Version:");
+	ui.formatLabel->setText(resvlbl.contains(enc) ? resvlbl[enc]+":" : "Version:");
 	ui.formatCombo->blockSignals(true);
 	ui.formatCombo->clear();
 	ui.formatCombo->addItem("Auto");
-	if (resvers[enc]!="")
+	if (resvers.contains(enc))
 	{
 		ui.formatCombo->insertSeparator(999);
 		ui.formatCombo->addItems(resvers[enc].split(","));
@@ -350,7 +350,7 @@ void BarcodeGenerator::updateOptions()
 	ui.eccCombo->blockSignals(true);
 	ui.eccCombo->clear();
 	ui.eccCombo->addItem("Auto");
-	if (resecls[enc]!="")
+	if (resecls.contains(enc))
 	{
 		ui.eccCombo->insertSeparator(999);
 		ui.eccCombo->addItems(resecls[enc].split(","));
@@ -511,7 +511,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 	}
 
 	QString enc=map[ui.bcCombo->currentText()].command;
-	QString vlbl=resvlbl[enc]!="" ? resvlbl[enc].toLower() : "version";
+	QString vlbl=resvlbl.contains(enc) ? resvlbl[enc].toLower() : "version";
 
 	if (ui.formatCombo->currentIndex() != 0)
 	{
@@ -572,7 +572,7 @@ void BarcodeGenerator::updateUIFromOptionsText()
 	ui.parsefncCheck->blockSignals(false);
 
 	QString enc=map[ui.bcCombo->currentText()].command;
-	QString vlbl=resvlbl[enc]!="" ? resvlbl[enc].toLower() : "version";
+	QString vlbl=resvlbl.contains(enc) ? resvlbl[enc].toLower() : "version";
 
 	QRegExp rxf("\\b"+QRegExp::escape(vlbl)+"=(\\S*)\\b");
 	ui.formatCombo->blockSignals(true);
