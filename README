@@ -1,11 +1,11 @@
-SCRIBUS 1.4.7
+SCRIBUS 1.4.8
 ----------------------------------------------
 
-1.4.7 is the new stable Scribus version, released December 2017. This version or Scribus 1.4.8 will be the last based on Qt4.
+1.4.8 is the new stable Scribus version, released March 2019. Scribus 1.4.8 will be the last based on Qt4.
 
-Currently, the 1.5.x versions of Scribus are considered to be in the development stage. Both 1.4.7 and 1.5.x can be installed in parallel, but be aware that files saved with 1.5.0 or any later version cannot be opened by 1.4.7! In contrast, 1.4.7 will open files from any earlier version.
+Currently, the 1.5.x versions of Scribus are considered to be in the development stage. Both 1.4.8 and 1.5.x can be installed in parallel, but be aware that files saved with 1.5.0 or any later version cannot be opened by 1.4.8! In contrast, 1.4.8 will open files from any earlier version.
 
-If you think you have found a bug in 1.4.7, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please try to make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
+If you think you have found a bug in 1.4.8, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please try to make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
 
 Compiling from Source
 =====================
@@ -81,4 +81,4 @@ Activating Color Management *requires* installation of CMYK and RGB ICC profiles
 Happy publishing with Scribus
 
 The Scribus Team
-December 2017
+December 2019
