@@ -122,7 +122,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("an",       "an_ES",    "Aragonese",               QObject::tr("Aragonese")));
 	m_langTable.append(LangDef("hy",       "",         "Armenian",                QObject::tr("Armenian")));
 	m_langTable.append(LangDef("rup",      "",         "Aromanian",               QObject::tr("Aromanian")));
-	m_langTable.append(LangDef("as",       "",         "Assamese",                QObject::tr("Assamese")));
+	m_langTable.append(LangDef("as",       "as_IN",    "Assamese",                QObject::tr("Assamese")));
 	m_langTable.append(LangDef("ast",      "",         "Asturian",                QObject::tr("Asturian")));
 	m_langTable.append(LangDef("ath",      "",         "Athapaskan",              QObject::tr("Athapaskan")));
 	m_langTable.append(LangDef("av",       "",         "Avaric",                  QObject::tr("Avaric")));
@@ -154,7 +154,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("bdy",      "",         "Bandjalang",              QObject::tr("Bandjalang")));
 	m_langTable.append(LangDef("bem",      "",         "Bemba",                   QObject::tr("Bemba")));
 	m_langTable.append(LangDef("be",       "be_BY",    "Belarusian",              QObject::tr("Belarusian")));
-	m_langTable.append(LangDef("bn",       "",         "Bengali",                 QObject::tr("Bengali")));
+	m_langTable.append(LangDef("bn",       "bn_IN",    "Bengali",                 QObject::tr("Bengali")));
 	m_langTable.append(LangDef("bn_BD",    "",         "Bengali (Bangladesh)",    QObject::tr("Bengali (Bangladesh)")));
 	m_langTable.append(LangDef("ber",      "",         "Berber",                  QObject::tr("Berber")));
 	m_langTable.append(LangDef("btb",      "",         "Beti (Cameroon)",         QObject::tr("Beti (Cameroon)")));
@@ -287,7 +287,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("hz",       "",         "Herero",                  QObject::tr("Herero")));
 	m_langTable.append(LangDef("mrj",      "",         "High Mari",               QObject::tr("High Mari")));
 	m_langTable.append(LangDef("hil",      "",         "Hiligaynon",              QObject::tr("Hiligaynon")));
-	m_langTable.append(LangDef("hi_IN",    "",         "Hindi",                   QObject::tr("Hindi")));
+	m_langTable.append(LangDef("hi",       "hi_IN",    "Hindi",                   QObject::tr("Hindi")));
 	m_langTable.append(LangDef("hno",      "",         "Hindko (Northern)",       QObject::tr("Hindko (Northern)")));
 	m_langTable.append(LangDef("hnd",      "",         "Hindko (Southern)",       QObject::tr("Hindko (Southern)")));
 	m_langTable.append(LangDef("ho",       "",         "Hiri Motu",               QObject::tr("Hiri Motu")));
@@ -321,7 +321,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("kln",      "",         "Kalenjin",                QObject::tr("Kalenjin")));
 	m_langTable.append(LangDef("kam",      "",         "Kamba (Kenya)",           QObject::tr("Kamba (Kenya)")));
 	m_langTable.append(LangDef("bjj",      "",         "Kanauji",                 QObject::tr("Kanauji")));
-	m_langTable.append(LangDef("kn_IN",    "kn",       "Kannada",                 QObject::tr("Kannada")));
+	m_langTable.append(LangDef("kn",       "kn_IN",    "Kannada",                 QObject::tr("Kannada")));
 	m_langTable.append(LangDef("kr",       "",         "Kanuri",                  QObject::tr("Kanuri")));
 	m_langTable.append(LangDef("pam",      "",         "Kapampangan",             QObject::tr("Kapampangan")));
 	m_langTable.append(LangDef("kdr",      "",         "Karaim",                  QObject::tr("Karaim")));
@@ -428,7 +428,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("mlq",      "",         "Maninkakan (Western)",    QObject::tr("Maninkakan (Western)")));
 	m_langTable.append(LangDef("mns",      "",         "Mansi",                   QObject::tr("Mansi")));
 	m_langTable.append(LangDef("gv",       "",         "Manx",                    QObject::tr("Manx")));
-	m_langTable.append(LangDef("mr",       "",         "Marathi",                 QObject::tr("Marathi")));
+	m_langTable.append(LangDef("mr",       "mr_IN",    "Marathi",                 QObject::tr("Marathi")));
 	m_langTable.append(LangDef("mh",       "",         "Marshallese",             QObject::tr("Marshallese")));
 	m_langTable.append(LangDef("mwr",      "",         "Marwari",                 QObject::tr("Marwari")));
 	m_langTable.append(LangDef("mve",      "",         "Marwari (Pakistan)",      QObject::tr("Marwari (Pakistan)")));
@@ -482,14 +482,14 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("oj",       "",         "Ojibwa",                  QObject::tr("Ojibwa")));
 	m_langTable.append(LangDef("ojs",      "",         "Oji-Cree",                QObject::tr("Oji-Cree")));
 	m_langTable.append(LangDef("om",       "",         "Oromo",                   QObject::tr("Oromo")));
-	m_langTable.append(LangDef("or",       "",         "Oriya",                   QObject::tr("Oriya")));
+	m_langTable.append(LangDef("or",       "or_IN",    "Oriya",                   QObject::tr("Oriya")));
 	m_langTable.append(LangDef("os",       "",         "Ossetian",                QObject::tr("Ossetian")));
 	m_langTable.append(LangDef("blk",      "",         "Pa'O",                    QObject::tr("Pa'O")));
 	m_langTable.append(LangDef("pce",      "",         "Palaung (Ruching)",       QObject::tr("Palaung (Ruching)")));
 	m_langTable.append(LangDef("pll",      "",         "Palaung (Shwe)",          QObject::tr("Palaung (Shwe)")));
 	m_langTable.append(LangDef("pi",       "",         "Pali",                    QObject::tr("Pali")));
 	m_langTable.append(LangDef("plp",      "",         "Palpa",                   QObject::tr("Palpa")));
-	m_langTable.append(LangDef("pa",       "",         "Panjabi",                 QObject::tr("Panjabi")));
+	m_langTable.append(LangDef("pa",       "pa_IN",    "Panjabi",                 QObject::tr("Panjabi")));
 	m_langTable.append(LangDef("pnb",      "",         "Panjabi Western",         QObject::tr("Panjabi Western")));
 	m_langTable.append(LangDef("pag",      "",         "Pangasinan",              QObject::tr("Pangasinan")));
 	m_langTable.append(LangDef("ps",       "",         "Pashto",                  QObject::tr("Pashto")));
@@ -588,7 +588,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("tdd",      "",         "Tai Nüa",                 QObject::trUtf8("Tai N\303\274a")));
 	m_langTable.append(LangDef("tg",       "",         "Tajik",                   QObject::tr("Tajik")));
 	m_langTable.append(LangDef("tmh",      "",         "Tamashek",                QObject::tr("Tamashek")));
-	m_langTable.append(LangDef("ta",       "",         "Tamil",                   QObject::tr("Tamil")));
+	m_langTable.append(LangDef("ta",       "ta_IN",    "Tamil",                   QObject::tr("Tamil")));
 	m_langTable.append(LangDef("tt",       "",         "Tatar",                   QObject::tr("Tatar")));
 	m_langTable.append(LangDef("te",       "te_IN",    "Telugu",                  QObject::tr("Telugu")));
 	m_langTable.append(LangDef("tem",      "",         "Temne",                   QObject::tr("Temne")));
