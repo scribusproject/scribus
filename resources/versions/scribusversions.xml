@@ -1,13 +1,13 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-  <release platform="X11" stability="stable" version="1.4.7" />
-  <release platform="OS2" stability="stable" version="1.4.7" />
-  <release platform="MacOSX" stability="stable" version="1.4.7" />
-  <release platform="Win32" stability="stable" version="1.4.7" />
-  <release platform="X11" stability="stablesvn" version="1.4.7.svn" />
-  <release platform="OS2" stability="stablesvn" version="1.4.7.svn" />
-  <release platform="MacOSX" stability="stablesvn" version="1.4.7.svn" />
-  <release platform="Win32" stability="stablesvn" version="1.4.7.svn" />
+  <release platform="X11" stability="stable" version="1.4.8" />
+  <release platform="OS2" stability="stable" version="1.4.8" />
+  <release platform="MacOSX" stability="stable" version="1.4.8" />
+  <release platform="Win32" stability="stable" version="1.4.8" />
+  <release platform="X11" stability="stablesvn" version="1.4.9.svn" />
+  <release platform="OS2" stability="stablesvn" version="1.4.9.svn" />
+  <release platform="MacOSX" stability="stablesvn" version="1.4.9.svn" />
+  <release platform="Win32" stability="stablesvn" version="1.4.9.svn" />
   <release platform="X11" stability="unstable" version="1.5.4" />
   <release platform="Win32" stability="unstable" version="1.5.4" />
   <release platform="MacOSX" stability="unstable" version="1.5.4" />
@@ -16,5 +16,5 @@
   <release platform="Win32" stability="unstablesvn" version="1.5.5.svn" />
   <release platform="MacOSX" stability="unstablesvn" version="1.5.5.svn" />
   <release platform="OS2" stability="unstablesvn" version="1.5.5.svn" />
-  <message lang="en" > - Scribus 1.4.7 is the latest stable release, released 28 April 2018.<![CDATA[<br>]]> - Scribus 1.5.4 is the current development version, released 28 April 2018. </message>
+  <message lang="en" > - Scribus 1.4.8 is the latest stable release, released 3rd March 2019.<![CDATA[<br>]]> - Scribus 1.5.4 is the current development version, released 28 April 2018. </message>
 </scribus>
