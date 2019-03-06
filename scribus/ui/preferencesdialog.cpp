@@ -264,7 +264,9 @@ void PreferencesDialog::applyButtonClicked()
 void PreferencesDialog::accept()
 {
 	saveGuiToPrefs();
-	emit accepted();
+	// #15583: emitting manually accepted should not be needed
+	// QDialog::accept() will emit it by itself
+	// emit accepted();
 	return QDialog::accept();
 }
 
