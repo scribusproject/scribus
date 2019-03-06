@@ -4259,7 +4259,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 void PageItem::setOverprint(bool val)
 {
 	if (doOverprint==val)
-			return;
+		return;
 
 	if (UndoManager::undoEnabled())
 	{
