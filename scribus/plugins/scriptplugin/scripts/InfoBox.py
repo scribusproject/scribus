@@ -23,7 +23,7 @@
 
 (C) 2005 by Thomas R. Koll, <tomk32@gmx.de>, http://verlag.tomk32.de
 
-(c) 2008, 2010, 2012, 2018 modifications, additional features, and no need for PIL
+(c) 2008, 2010, 2012, 2018, 2019 modifications, additional features, and no need for PIL
 
 by Gregory Pittman
 
@@ -150,12 +150,14 @@ def main(argv):
     else:
         if (frametype == 'imageL'):
             imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
-            new_image = scribus.createImage(new_left, float(new_top), new_width, 100,framename)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
             scribus.textFlowMode(new_image, 1)
             scribus.loadImage(imageload, new_image)
-            scribus.setScaleFrameToImage(new_image)
+            scribus.setScaleImageToFrame(1,0,new_image)
             currwidth, currheight = scribus.getSize(new_image)
-            scribus.sizeObject(new_width, currheight/currwidth*new_width, new_image)
+            Xscale, Yscale = scribus.getImageScale(new_image)
+            if (Xscale != Yscale):
+                scribus.sizeObject(currwidth, currheight*Xscale/Yscale, new_image)
             scribus.setScaleImageToFrame(1,1,new_image)
         else:
             new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
