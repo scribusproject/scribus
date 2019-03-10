@@ -103,6 +103,8 @@ GuideManager::GuideManager(QWidget* parent) :
 
 	connect(horizontalModel, SIGNAL(valueChanged()), this, SLOT(horizontalModel_valueChanged()));
 	connect(verticalModel, SIGNAL(valueChanged()), this, SLOT(verticalModel_valueChanged()));
+
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidget_currentChanged(int)));
 }
 
 GuideManager::~GuideManager()
@@ -133,6 +135,12 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	if (!m_Doc)
 		currentPage = nullptr;
 	tabWidget->setEnabled(doc != nullptr);
+}
+
+void GuideManager::setVisible(bool visible)
+{
+	ScrPaletteBase::setVisible(visible);
+	drawGuides();
 }
 
 void GuideManager::setupPage(bool storeValues)
@@ -426,7 +434,7 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 	m_Doc->changed();
 }
 
-void GuideManager::tabWidget_currentChanged(QWidget *)
+void GuideManager::tabWidget_currentChanged(int)
 {
 	drawGuides();
 	if (tabWidget->currentIndex() == 1)
@@ -436,7 +444,7 @@ void GuideManager::tabWidget_currentChanged(QWidget *)
 	}
 }
 
-Guides GuideManager::selectedHorizontals()
+Guides GuideManager::selectedHorizontals() const
 {
 	const QModelIndexList selectedIndexes = horizontalView->selectionModel()->selectedIndexes();
 	Guides ret;
@@ -448,7 +456,7 @@ Guides GuideManager::selectedHorizontals()
 	return ret;
 }
 
-Guides GuideManager::selectedVerticals()
+Guides GuideManager::selectedVerticals() const
 {
 	const QModelIndexList selectedIndexes = verticalView->selectionModel()->selectedIndexes();
 	Guides ret;

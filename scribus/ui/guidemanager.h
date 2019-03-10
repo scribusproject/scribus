@@ -40,6 +40,9 @@ public:
 	/*! \brief Set the doc fo the guidemanager to work on. */
 	void setDoc(ScribusDoc* doc);
 
+	/*! \brief Reimplement ScrPaletteBase::setVisible() */
+	virtual void setVisible(bool visible);
+
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */
 	void setupPage(bool storeValues = true);
@@ -53,18 +56,18 @@ public:
 	/*! \brief Get selected standard guides from GUI list.
 	Used in highlight painting.
 	\retval Guides a list with double values */
-	Guides selectedHorizontals();
+	Guides selectedHorizontals() const;
 	/*! \brief Get selected standard guides from GUI list.
 	Used in highlight painting.
 	\retval Guides a list with double values */
-	Guides selectedVerticals();
+	Guides selectedVerticals() const;
 
 	/*! \brief check the current page number to prevent drawing
 	marks on the others pages. See GuideManagerCore::drawPage.
 	\retval int page no */
 	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
 
-	int currentIndex() { return tabWidget->currentIndex(); }
+	int currentIndex() const { return tabWidget->currentIndex(); }
 
 	void setGuideLock(bool guidesLocked);
 	
@@ -155,7 +158,7 @@ private slots:
 	void verticalPageAutoButton_toggled(bool);
 	void verticalMarginsAutoButton_toggled(bool);
 	void verticalSelectionAutoButton_toggled(bool);
-	void tabWidget_currentChanged( QWidget * );
+	void tabWidget_currentChanged(int);
 	void deletePageButton_clicked();
 	void deleteAllGuides_clicked();
 };

@@ -473,9 +473,10 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 {
 	Guides::iterator it;
+	const GuideManager* guideManager = ScCore->primaryMainWindow()->guidePalette;
 	QColor color(doc->guidesPrefs().guideColor);
 
-	if (!m_page || ScCore->primaryMainWindow()->guidePalette->pageNr() < 0)
+	if (!m_page || guideManager->pageNr() < 0)
 		return;
 
 	// real painting margins including bleeds
@@ -494,24 +495,26 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 // 		if ((*it) >= 0 && (*it) <= m_page->height())
 // 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 		p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
+
 	// highlight selected standards
-	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 0
-		   && m_page->pageNr() == ScCore->primaryMainWindow()->guidePalette->pageNr())
+	if (guideManager->currentIndex() == 0
+		   && m_page->pageNr() == guideManager->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
-		Guides highlight = ScCore->primaryMainWindow()->guidePalette->selectedVerticals();
+		Guides highlight = guideManager->selectedVerticals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
 // 			if ((*it) >= 0 && (*it) <= m_page->width())
 // 				p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 			p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
-		highlight = ScCore->primaryMainWindow()->guidePalette->selectedHorizontals();
+		highlight = guideManager->selectedHorizontals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
 // 			if ((*it) >= 0 && (*it) <= m_page->height())
 // 				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 			p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
 	}
+
 	// all auto
-	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 1)
+	if (guideManager->currentIndex() == 1 && guideManager->isVisible())
 		color = Qt::red;
 	else
 		color = doc->guidesPrefs().guideColor;
