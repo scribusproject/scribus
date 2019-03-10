@@ -1498,9 +1498,6 @@
     <ClCompile Include="..\..\..\scribus\pluginmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\pluginmanagerprefsgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\polygonwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1595,9 +1592,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\prefsmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\prefspanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp">
@@ -2398,10 +2392,10 @@
     <ClCompile Include="..\..\..\scribus\fonts\fontfeatures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\fontembeddingcombo.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\fontembeddingmodel.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingcombo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\colormgmt\sccieobservers.cpp">
@@ -2458,6 +2452,12 @@
     <ClCompile Include="..\..\..\scribus\palettes\cxfcolor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_cxf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\colormgmt\sce308tables.cpp">
       <Filter>colorMgmt</Filter>
     </ClCompile>
@@ -2474,12 +2474,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\palettes\cxfobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_cxf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2618,9 +2612,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\picstatus.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\pluginmanagerprefsgui.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\polygonwidgetbase.ui">
@@ -3024,9 +3015,6 @@
     <lrelease Include="..\..\..\resources\translations\scribus.pt_PT.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
-    <lrelease Include="..\..\..\resources\translations\scribus.si.ts">
-      <Filter>Translation Files</Filter>
-    </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.ta.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
@@ -3049,6 +3037,9 @@
       <Filter>Translation Files</Filter>
     </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.pms.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.si.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
   </ItemGroup>
@@ -3545,9 +3536,6 @@
     <moc Include="..\..\..\scribus\pluginmanager.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\pluginmanagerprefsgui.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\polygonwidget.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3639,9 +3627,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\prefsmanager.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\prefspanel.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\preview.h">

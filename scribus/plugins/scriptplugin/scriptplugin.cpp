@@ -50,7 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "scriptercore.h"
-#include "scripterprefsgui.h"
 #include "scriptplugin.h"
 #include "svgimport.h"
 #include "ui/customfdialog.h"
@@ -199,17 +198,6 @@ bool ScriptPlugin::cleanupPlugin()
 	Py_Finalize();
 	return true;
 }
-
-bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, QString& caption, QPixmap& icon)
-{
-	panel = new ScripterPrefsGui(parent);
-	Q_CHECK_PTR(panel);
-	connect(panel, SIGNAL(prefsChanged()), scripterCore, SLOT(updateSyntaxHighlighter()));
-	caption = tr("Scripter");
-	icon = IconManager::instance()->loadPixmap("python.png");
-	return true;
-}
-
 
 bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QString& caption, QPixmap& icon)
 {

@@ -1498,9 +1498,6 @@
     <ClCompile Include="..\..\..\scribus\pluginmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\pluginmanagerprefsgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\polygonwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1595,9 +1592,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\prefsmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\prefspanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp">
@@ -2620,9 +2614,6 @@
     <uic Include="..\..\..\scribus\ui\picstatus.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\pluginmanagerprefsgui.ui">
-      <Filter>Form Files</Filter>
-    </uic>
     <uic Include="..\..\..\scribus\ui\polygonwidgetbase.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -3545,9 +3536,6 @@
     <moc Include="..\..\..\scribus\pluginmanager.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\pluginmanagerprefsgui.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\polygonwidget.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3639,9 +3627,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\prefsmanager.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\prefspanel.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\preview.h">

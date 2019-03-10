@@ -30,9 +30,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\swprefsgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,9 +67,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\short-words\swdialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\plugins\short-words\swprefsgui.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h">

@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScribusMainWindow;
 class DeferredTask;
-class PrefsPanel;
 class Prefs_Pane;
 
 /**
@@ -157,7 +156,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * the widget will be added to or a child of it, otherwise the panel
 		 * won't be deleted correctly when the dialog is.
 		 *
-		 * See prefspanel.h for info on implementing the panel.
+		 * See prefs_pane.h for info on implementing the panel.
 		 *
 		 * This method must return false (the default) if the plugin does
 		 * not provide a prefs panel. If true is returned, caption, panel,
@@ -171,8 +170,6 @@ class SCRIBUS_API ScPlugin : public QObject
 		 *
 		 * By default, returns 0 to indicate no prefs UI.
 		*/
-		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										 QString& caption, QPixmap& icon);
 		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
 								 QString& caption, QPixmap& icon);
 

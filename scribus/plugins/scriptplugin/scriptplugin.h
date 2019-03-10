@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class QPixmap;
 class QWidget;
-class PrefsPanel;
 
 class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 {
@@ -33,8 +32,6 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										 QString& caption, QPixmap& icon);
 		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
 										 QString& caption, QPixmap& icon);
 		virtual void addToMainWindowMenu(ScribusMainWindow *);

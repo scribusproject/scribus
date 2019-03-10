@@ -518,7 +518,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/picsearch.h \
            scribus/ui/picsearchoptions.h \
            scribus/ui/picstatus.h \
-           scribus/ui/pluginmanagerprefsgui.h \
            scribus/ui/polygonwidget.h \
            scribus/ui/polyprops.h \
            scribus/ui/preferencesdialog.h \
@@ -549,7 +548,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/prefs_tableofcontents.h \
            scribus/ui/prefs_typography.h \
            scribus/ui/prefs_userinterface.h \
-           scribus/ui/prefspanel.h \
            scribus/ui/preview.h \
            scribus/ui/printdialog.h \
            scribus/ui/propertiespalette.h \
@@ -738,7 +736,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/scriptplugin/prefs_scripter.h \
            scribus/plugins/scriptplugin/runscriptdialog.h \
            scribus/plugins/scriptplugin/scriptercore.h \
-           scribus/plugins/scriptplugin/scripterprefsgui.h \
            scribus/plugins/scriptplugin/scriptplugin.h \
            scribus/plugins/scriptplugin/svgimport.h \
            scribus/plugins/shapes/shapepalette.h \
@@ -748,7 +745,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/short-words/prefs_shortwords.h \
            scribus/plugins/short-words/shortwords.h \
            scribus/plugins/short-words/swdialog.h \
-           scribus/plugins/short-words/swprefsgui.h \
            scribus/plugins/short-words/swsyntaxhighlighter.h \
            scribus/plugins/short-words/version.h \
            scribus/third_party/fparser/fparser.hh \
@@ -1069,7 +1065,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/picsearch.ui \
          scribus/ui/picsearchoptions.ui \
          scribus/ui/picstatus.ui \
-         scribus/ui/pluginmanagerprefsgui.ui \
          scribus/ui/polygonwidgetbase.ui \
          scribus/ui/positionsetter.ui \
          scribus/ui/preferencesdialogbase.ui \
@@ -1166,7 +1161,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/scriptplugin/pconsole.ui \
          scribus/plugins/scriptplugin/prefs_scripterbase.ui \
          scribus/plugins/scriptplugin/runscriptdialog.ui \
-         scribus/plugins/scriptplugin/scripterprefsgui.ui \
          scribus/plugins/short-words/prefs_shortwordsbase.ui \
          scribus/plugins/short-words/swdialog.ui \
          scribus/plugins/export/pixmapexport/exportform.ui \
@@ -1640,7 +1634,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/picsearch.cpp \
            scribus/ui/picsearchoptions.cpp \
            scribus/ui/picstatus.cpp \
-           scribus/ui/pluginmanagerprefsgui.cpp \
            scribus/ui/polygonwidget.cpp \
            scribus/ui/polyprops.cpp \
            scribus/ui/preferencesdialog.cpp \
@@ -1670,7 +1663,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/prefs_tableofcontents.cpp \
            scribus/ui/prefs_typography.cpp \
            scribus/ui/prefs_userinterface.cpp \
-           scribus/ui/prefspanel.cpp \
            scribus/ui/preview.cpp \
            scribus/ui/printdialog.cpp \
            scribus/ui/propertiespalette.cpp \
@@ -1856,7 +1848,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/scriptplugin/prefs_scripter.cpp \
            scribus/plugins/scriptplugin/runscriptdialog.cpp \
            scribus/plugins/scriptplugin/scriptercore.cpp \
-           scribus/plugins/scriptplugin/scripterprefsgui.cpp \
            scribus/plugins/scriptplugin/scriptplugin.cpp \
            scribus/plugins/scriptplugin/svgimport.cpp \
            scribus/plugins/shapes/shapepalette.cpp \
@@ -1866,7 +1857,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/short-words/prefs_shortwords.cpp \
            scribus/plugins/short-words/shortwords.cpp \
            scribus/plugins/short-words/swdialog.cpp \
-           scribus/plugins/short-words/swprefsgui.cpp \
            scribus/plugins/short-words/swsyntaxhighlighter.cpp \
            scribus/third_party/fparser/example.cc \
            scribus/third_party/fparser/fparser.cc \

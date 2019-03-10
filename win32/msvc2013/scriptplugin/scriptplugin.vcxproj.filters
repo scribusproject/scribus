@@ -87,9 +87,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -181,9 +178,6 @@
     <uic Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.ui">
-      <Filter>Form Files</Filter>
-    </uic>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\scriptplugin\pconsole.h">
@@ -196,9 +190,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h">

@@ -238,7 +238,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp" />
   </ItemGroup>
@@ -269,7 +268,6 @@
     <moc Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h" />
-    <moc Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\svgimport.h" />
   </ItemGroup>
@@ -277,7 +275,6 @@
     <uic Include="..\..\..\scribus\plugins\scriptplugin\pconsole.ui" />
     <uic Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripterbase.ui" />
     <uic Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.ui" />
-    <uic Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -35,7 +35,6 @@ or documentation
 #include "scribusview.h"
 #include "shortwords.h"
 #include "swdialog.h"
-#include "swprefsgui.h"
 #include "version.h"
 
 
@@ -155,15 +154,6 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, const QString& target)
 		doc->view()->GotoPage(originalPage);
 	} // action
 	delete dlg;
-	return true;
-}
-
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, QString& caption, QPixmap& icon)
-{
-	panel = new SWPrefsGui(parent);
-	Q_CHECK_PTR(panel);
-	caption = tr("Short Words");
-	icon = IconManager::instance()->loadPixmap("shortwords.png");
 	return true;
 }
 

@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusapp.h"
 #include "selection.h"
-#include "ui/prefspanel.h"
 #include "ui/prefs_pane.h"
 
 //=====================================================//
@@ -25,14 +24,6 @@ ScPlugin::ScPlugin()
 
 ScPlugin::~ScPlugin()
 {
-}
-
-bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
-									PrefsPanel*& /* panel */,
-									QString& /* caption */,
-									QPixmap& /* icon */)
-{
-	return false;
 }
 
 bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,

@@ -542,7 +542,6 @@
     <moc Include="..\..\..\scribus\ui\picsearchoptions.h" />
     <moc Include="..\..\..\scribus\ui\picstatus.h" />
     <moc Include="..\..\..\scribus\pluginmanager.h" />
-    <moc Include="..\..\..\scribus\ui\pluginmanagerprefsgui.h" />
     <moc Include="..\..\..\scribus\ui\polygonwidget.h" />
     <moc Include="..\..\..\scribus\ui\polyprops.h" />
     <moc Include="..\..\..\scribus\ui\preferencesdialog.h" />
@@ -576,7 +575,6 @@
     <ClInclude Include="..\..\..\scribus\prefscontext.h" />
     <ClInclude Include="..\..\..\scribus\prefsfile.h" />
     <moc Include="..\..\..\scribus\prefsmanager.h" />
-    <moc Include="..\..\..\scribus\ui\prefspanel.h" />
     <ClInclude Include="..\..\..\scribus\prefsreader.h" />
     <ClInclude Include="..\..\..\scribus\prefsstructs.h" />
     <ClInclude Include="..\..\..\scribus\prefstable.h" />
@@ -1212,7 +1210,6 @@
     <ClCompile Include="..\..\..\scribus\ui\picsearchoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picstatus.cpp" />
     <ClCompile Include="..\..\..\scribus\pluginmanager.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\pluginmanagerprefsgui.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\polygonwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\polyprops.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\preferencesdialog.cpp" />
@@ -1245,7 +1242,6 @@
     <ClCompile Include="..\..\..\scribus\prefscontext.cpp" />
     <ClCompile Include="..\..\..\scribus\prefsfile.cpp" />
     <ClCompile Include="..\..\..\scribus\prefsmanager.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\prefspanel.cpp" />
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp" />
     <ClCompile Include="..\..\..\scribus\prefstable.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\preview.cpp" />
@@ -1573,7 +1569,6 @@
     <uic Include="..\..\..\scribus\ui\picsearch.ui" />
     <uic Include="..\..\..\scribus\ui\picsearchoptions.ui" />
     <uic Include="..\..\..\scribus\ui\picstatus.ui" />
-    <uic Include="..\..\..\scribus\ui\pluginmanagerprefsgui.ui" />
     <uic Include="..\..\..\scribus\ui\polygonwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\positionsetter.ui" />
     <uic Include="..\..\..\scribus\ui\preferencesdialogbase.ui" />
@@ -1720,9 +1715,9 @@
   </ImportGroup>
   <Import Project="..\..\..\scribus.install.targets" />
   <Target Name="AfterBuildMessage" AfterTargets="Build" BeforeTargets="AfterBuild">
-    <Message Importance="High" Text="Now copying assets to output directory..." />
+    <Message Importance="High" Text="Copying assets to output directory..." />
   </Target>
   <Target Name="AfterBuild" AfterTargets="Build" DependsOnTargets="$(AfterBuildDependsOn)">
-    <Message Importance="High" Text="Assets have been copied to output directory..." />
+    <Message Importance="High" Text="Assets have been to output directory..." />
   </Target>
 </Project>

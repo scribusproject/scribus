@@ -13,7 +13,6 @@ add_subdirectory(scripts)
 set(SCRIPTER_PLUGIN_UI_SRC
 	pconsole.ui
 	runscriptdialog.ui
-	scripterprefsgui.ui
 	prefs_scripterbase.ui
 )
 
@@ -21,7 +20,6 @@ set(SCRIPTER_PLUGIN_MOC_CLASSES
 	pconsole.h
 	scriptplugin.h
 	scriptercore.h
-	scripterprefsgui.h
 	runscriptdialog.h
 	prefs_scripter.h
 )
@@ -51,7 +49,6 @@ set(SCRIPTER_PLUGIN_SOURCES
 	prefs_scripter.cpp
 	runscriptdialog.cpp
 	scriptercore.cpp
-	scripterprefsgui.cpp
 	scriptplugin.cpp
 	svgimport.cpp
 )

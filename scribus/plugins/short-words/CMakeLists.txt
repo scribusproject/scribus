@@ -13,7 +13,6 @@ set(SHORTWORDS_PLUGIN_MOC_CLASSES
 	parse.h
 	prefs_shortwords.h
 	shortwords.h
-	swprefsgui.h
 	swdialog.h
 	swsyntaxhighlighter.h
 )
@@ -23,7 +22,6 @@ set(SHORTWORDS_PLUGIN_SOURCES
 	parse.cpp
 	prefs_shortwords.cpp
 	shortwords.cpp
-	swprefsgui.cpp
 	swsyntaxhighlighter.cpp
 	swdialog.cpp
 )
