@@ -570,7 +570,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
 			(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setEnabled(false);
 			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
-			(*a_scrActions)["toolsEditContents"]->setEnabled(currItem->ScaleType);
+			(*a_scrActions)["toolsEditContents"]->setEnabled(true);
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
