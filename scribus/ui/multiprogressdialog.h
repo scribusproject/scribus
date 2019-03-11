@@ -52,7 +52,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * one standard progress bar, typically for the overall progress and others may be added easily.
 		 * @param titleText Title of the dialog
 		 * @param cancelButtonText Text of the cancel button.. Cancel, Close, @sa CommontStrings::
-		 * @param parent Parent widget for the dialog, commonly ScMW
+		 * @param parent Parent widget for the dialog, commonly ScribusMainWindow
 		 * @param f Qt GUI flags
 		 */
 		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0);

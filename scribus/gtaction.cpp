@@ -54,23 +54,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_text.h"
 #include "ui/missing.h"
 
-
-
-// gtAction::gtAction(bool append)
-// {
-// 	prefsManager=PrefsManager::instance();
-// 	textFrame = ScMW->doc->m_Selection->itemAt(0);
-// 	it = textFrame;
-// 	lastParagraphStyle = -1;
-// 	inPara = false;
-// 	isFirstWrite = true;
-// 	lastCharWasLineChange = false;
-// 	currentFrameStyle = "";
-// 	doAppend = append;
-// 	updateParagraphStyles = false;
-// 	overridePStyleFont = true;
-// }
-
 gtAction::gtAction(bool append, PageItem* pageitem)
 {
 	m_prefsManager=PrefsManager::instance();

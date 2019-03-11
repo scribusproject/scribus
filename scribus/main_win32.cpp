@@ -74,7 +74,6 @@ extern const char ARG_CONSOLE[];
 extern const char ARG_CONSOLE_SHORT[];
 
 ScribusCore SCRIBUS_API *ScCore;
-ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
@@ -301,9 +300,13 @@ void defaultCrashHandler(DWORD exceptionCode)
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			ScMessageBox::critical(ScMW, expHdr, expMsg);
-			ScMW->emergencySave();
-			ScMW->close();
+			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+			if (mainWin)
+			{
+				ScMessageBox::critical(mainWin, expHdr, expMsg);
+				mainWin->emergencySave();
+				mainWin->close();
+			}
 		}
 		ScImageCacheManager::instance().removeMasterLock();
 	}
@@ -337,11 +340,22 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			QString expHdr = QObject::tr("Scribus Crash");
-			QString expMsg = msg;
-			ScMessageBox::critical(ScMW, expHdr, expMsg);
-			ScMW->emergencySave();
-			ScMW->close();
+			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+			if (mainWin)
+			{
+				QString expHdr = QObject::tr("Scribus Crash");
+				QString expMsg = msg;
+				ScMessageBox::critical(mainWin, expHdr, expMsg);
+				mainWin->emergencySave();
+				mainWin->close();
+			}
+		}
+		else
+		{
+			cerr << "Fatal: " << localMsg.constData();
+			if (context.file && context.function)
+				cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+			cerr << endl;
 		}
 		ExitProcess(255);
 	}

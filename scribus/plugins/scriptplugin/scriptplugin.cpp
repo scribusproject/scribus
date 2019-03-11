@@ -599,7 +599,7 @@ void initscribus_failed(const char* fileName, int lineNo)
 		PyErr_Print();
 }
 
-void initscribus(ScribusMainWindow *pl)
+void initscribus(ScribusMainWindow *mainWin)
 {
 	if (!scripterCore)
 	{
@@ -838,7 +838,6 @@ void initscribus(ScribusMainWindow *pl)
 	else
 		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
-// 	ScMW = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
 	// the generated Python functions from inside the `scribus' module's context.
@@ -932,10 +931,10 @@ is not exhaustive due to exceptions from called functions.\n\
 	Py_DECREF(wrappedQApp);
 	wrappedQApp = nullptr;
 
-	wrappedMainWindow = wrapQObject(pl);
+	wrappedMainWindow = wrapQObject(mainWin);
 	if (!wrappedMainWindow)
 	{
-		qDebug("Failed to wrap up ScMW");
+		qDebug("Failed to wrap up ScribusMainWindow");
 		PyErr_Print();
 	}
 	// Push it into the module dict, stealing a ref in the process

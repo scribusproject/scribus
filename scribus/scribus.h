@@ -420,7 +420,7 @@ public slots:
 	\author Craig Bradney
 	\date Sun 30 Jan 2005
 	\brief Zoom the view.
-	Take the ScMW zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+	Take the main window zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 	\param zoomFactor Value stored in the ScrAction.
 	 */
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit

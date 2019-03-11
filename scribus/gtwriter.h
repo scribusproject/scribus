@@ -38,9 +38,9 @@ class PageItem;
 class SCRIBUS_API gtWriter 
 {
 public:
-// 	gtWriter(bool append);
 	gtWriter(bool append, PageItem *pageitem);
 	~gtWriter();
+
 	gtFrameStyle* getDefaultStyle();
 	void setFrameStyle(gtFrameStyle *fStyle);
 	void setParagraphStyle(gtParagraphStyle *pStyle);

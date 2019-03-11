@@ -55,6 +55,34 @@ typedef QMap<QString, QString> FontFamilyMap;
 
 class SCRIBUS_API gtAction
 {
+public:
+	gtAction(bool append, PageItem *pageitem);
+	~gtAction();
+
+	void setTextFrame(PageItem* frame);
+	void setProgressInfo();
+	void setProgressInfoDone();
+	void setInfo(const QString& infoText);
+	double getLineSpacing(int fontSize);
+	void clearFrame();
+	void getFrameFont(gtFont *font);
+	void getFrameStyle(gtFrameStyle *fstyle);
+	void write(const QString& text, gtStyle *style, bool isNote);
+	void writeUnstyled(const QString& text, bool isNote);
+	void applyFrameStyle(gtFrameStyle* fstyle);
+	void createParagraphStyle(gtParagraphStyle* pstyle);
+	void setCharStyleAttributes(gtFont *font, CharStyle& style);
+	void setParaStyleAttributes(gtParagraphStyle *gtstyle, ParagraphStyle& style);
+	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
+	void removeParagraphStyle(const QString& name);
+	void removeParagraphStyle(int index);
+	double getFrameWidth();
+	QString getFrameName();
+	bool getUpdateParagraphStyles();
+	void setUpdateParagraphStyles(bool newUPS);
+	bool getOverridePStyleFont();
+	void setOverridePStyleFont(bool newOPSF);
+
 private:
 	UndoManager* m_undoManager;
 	ScribusMainWindow* m_ScMW;
@@ -86,33 +114,6 @@ private:
 	PrefsManager *m_prefsManager;
 	StoryText* m_noteStory;
 	TextNote* m_note;
-public:
-//	gtAction(bool append);
-	gtAction(bool append, PageItem *pageitem);
-	~gtAction();
-	void setTextFrame(PageItem* frame);
-	void setProgressInfo();
-	void setProgressInfoDone();
-	void setInfo(const QString& infoText);
-	double getLineSpacing(int fontSize);
-	void clearFrame();
-	void getFrameFont(gtFont *font);
-	void getFrameStyle(gtFrameStyle *fstyle);
-	void write(const QString& text, gtStyle *style, bool isNote);
-	void writeUnstyled(const QString& text, bool isNote);
-	void applyFrameStyle(gtFrameStyle* fstyle);
-	void createParagraphStyle(gtParagraphStyle* pstyle);
-	void setCharStyleAttributes(gtFont *font, CharStyle& style);
-	void setParaStyleAttributes(gtParagraphStyle *gtstyle, ParagraphStyle& style);
-	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
-	void removeParagraphStyle(const QString& name);
-	void removeParagraphStyle(int index);
-	double getFrameWidth();
-	QString getFrameName();
-	bool getUpdateParagraphStyles();
-	void setUpdateParagraphStyles(bool newUPS);
-	bool getOverridePStyleFont();
-	void setOverridePStyleFont(bool newOPSF);
 };
 
 #endif

@@ -9604,7 +9604,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 void PageItem::drawLockedMarker(ScPainter *p)
 {
 	//TODO: CB clean
-	double scp1 = p->zoomFactor() ;// / ScMW->view->scale();
+	double scp1 = p->zoomFactor() ;
 	double ofwh = 6 * scp1;
 	double ofx = m_width - ofwh/2;
 	double ofy = m_height - ofwh*1.5;
