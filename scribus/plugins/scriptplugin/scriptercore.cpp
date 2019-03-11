@@ -43,33 +43,33 @@ for which a new license (GPL+exception) is in place.
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
-	menuMgr = nullptr;
+	m_menuMgr = nullptr;
 
-	pcon = new PythonConsole(parent);
-	scrScripterActions.clear();
-	scrRecentScriptActions.clear();
+	m_pyConsole = new PythonConsole(parent);
+	m_scripterActions.clear();
+	m_recentScriptActions.clear();
 	returnString = "init";
 
-	scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
-	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
-	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
+	m_scripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
+	m_scripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
+	m_scripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
 
-	scrScripterActions["scripterExecuteScript"]->setMenuRole(QAction::NoRole);
-	scrScripterActions["scripterShowConsole"]->setMenuRole(QAction::NoRole);
-	scrScripterActions["scripterAboutScript"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterExecuteScript"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterShowConsole"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterAboutScript"]->setMenuRole(QAction::NoRole);
 
-	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
-	scrScripterActions["scripterShowConsole"]->setChecked(false);
+	m_scripterActions["scripterShowConsole"]->setToggleAction(true);
+	m_scripterActions["scripterShowConsole"]->setChecked(false);
 
-	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
-	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
-	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(triggered()) , this, SLOT(aboutScript()) );
+	QObject::connect( m_scripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
+	QObject::connect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::connect( m_scripterActions["scripterAboutScript"], SIGNAL(triggered()) , this, SLOT(aboutScript()) );
 
-	SavedRecentScripts.clear();
-	ReadPlugPrefs();
+	m_savedRecentScripts.clear();
+	readPlugPrefs();
 
-	QObject::connect(pcon, SIGNAL(runCommand()), this, SLOT(slotExecute()));
-	QObject::connect(pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
+	QObject::connect(m_pyConsole, SIGNAL(runCommand()), this, SLOT(slotExecute()));
+	QObject::connect(m_pyConsole, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
 
 	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(runStartupScript()) );
 	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(slotRunPythonScript()) );
@@ -77,48 +77,48 @@ ScripterCore::ScripterCore(QWidget* parent)
 
 ScripterCore::~ScripterCore()
 {
-	SavePlugPrefs();
-	delete pcon;
+	savePlugPrefs();
+	delete m_pyConsole;
 }
 
 void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 {
-	menuMgr = mw->scrMenuMgr;
-	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
-	menuMgr->addMenuItemString("ScribusScripts", "Scripter");
-	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
-	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter", false, true);
-	menuMgr->addMenuItemString("RecentScripts", "Scripter");
-	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
-	menuMgr->addMenuItemString("SEPARATOR", "Scripter");
-	menuMgr->addMenuItemString("scripterShowConsole", "Scripter");
-	menuMgr->addMenuItemString("scripterAboutScript", "Scripter");
+	m_menuMgr = mw->scrMenuMgr;
+	m_menuMgr->createMenu("Scripter", QObject::tr("&Script"));
+	m_menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
+	m_menuMgr->addMenuItemString("ScribusScripts", "Scripter");
+	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
+	m_menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter", false, true);
+	m_menuMgr->addMenuItemString("RecentScripts", "Scripter");
+	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
+	m_menuMgr->addMenuItemString("SEPARATOR", "Scripter");
+	m_menuMgr->addMenuItemString("scripterShowConsole", "Scripter");
+	m_menuMgr->addMenuItemString("scripterAboutScript", "Scripter");
 
 	buildScribusScriptsMenu();
 
-	menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
-	menuMgr->addMenuItemStringstoMenuBar("Scripter", scrScripterActions);
-	RecentScripts = SavedRecentScripts;
+	m_menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
+	m_menuMgr->addMenuItemStringstoMenuBar("Scripter", m_scripterActions);
+	m_recentScripts = m_savedRecentScripts;
 	rebuildRecentScriptsMenu();
 }
 
 void ScripterCore::enableMainWindowMenu()
 {
-	if (!menuMgr)
+	if (!m_menuMgr)
 		return;
-	menuMgr->setMenuEnabled("ScribusScripts", true);
-	menuMgr->setMenuEnabled("RecentScripts", true);
-	scrScripterActions["scripterExecuteScript"]->setEnabled(true);
+	m_menuMgr->setMenuEnabled("ScribusScripts", true);
+	m_menuMgr->setMenuEnabled("RecentScripts", true);
+	m_scripterActions["scripterExecuteScript"]->setEnabled(true);
 }
 
 void ScripterCore::disableMainWindowMenu()
 {
-	if (!menuMgr)
+	if (!m_menuMgr)
 		return;
-	menuMgr->setMenuEnabled("ScribusScripts", false);
-	menuMgr->setMenuEnabled("RecentScripts", false);
-	scrScripterActions["scripterExecuteScript"]->setEnabled(false);
+	m_menuMgr->setMenuEnabled("ScribusScripts", false);
+	m_menuMgr->setMenuEnabled("RecentScripts", false);
+	m_scripterActions["scripterExecuteScript"]->setEnabled(false);
 }
 
 void ScripterCore::buildScribusScriptsMenu()
@@ -133,52 +133,52 @@ void ScripterCore::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName();
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
-			connect( scrScripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
-			menuMgr->addMenuItemString(strippedName, "ScribusScripts");
+			m_scripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
+			connect( m_scripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
+			m_menuMgr->addMenuItemString(strippedName, "ScribusScripts");
 		}
 	}
 }
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	menuMgr->clearMenuStrings("RecentScripts");
-	scrRecentScriptActions.clear();
-	uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, RecentScripts.count());
+	m_menuMgr->clearMenuStrings("RecentScripts");
+	m_recentScriptActions.clear();
+	uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, m_recentScripts.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		QString strippedName=RecentScripts[m];
+		QString strippedName=m_recentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this, RecentScripts[m]));
-		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-		menuMgr->addMenuItemString(strippedName, "RecentScripts");
+		m_recentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, m_recentScripts[m], QKeySequence(), this, m_recentScripts[m]));
+		connect( m_recentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
+		m_menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
-	menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", scrRecentScriptActions);
+	m_menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", m_recentScriptActions);
 }
 
-void ScripterCore::FinishScriptRun()
+void ScripterCore::finishScriptRun()
 {
-	ScribusMainWindow* ScMW=ScCore->primaryMainWindow();
-	if (ScMW->HaveDoc)
-	{
-		ScMW->propertiesPalette->setDoc(ScMW->doc);
-		ScMW->textPalette->setDoc(ScMW->doc);
-		ScMW->marksManager->setDoc(ScMW->doc);
-		ScMW->nsEditor->setDoc(ScMW->doc);
-		ScMW->layerPalette->setDoc(ScMW->doc);
-		ScMW->outlinePalette->setDoc(ScMW->doc);
-		ScMW->outlinePalette->BuildTree();
-		ScMW->pagePalette->setView(ScMW->view);
-		ScMW->pagePalette->Rebuild();
-		ScMW->doc->RePos = false;
-		if (ScMW->doc->m_Selection->count() != 0)
-			ScMW->doc->m_Selection->itemAt(0)->emitAllToGUI();
-		ScMW->HaveNewSel();
-		ScMW->view->DrawNew();
-		//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
-		//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
-		ScMW->HaveNewDoc();
-	}
+	ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+	if (!mainWin->HaveDoc)
+		return;
+
+	mainWin->propertiesPalette->setDoc(mainWin->doc);
+	mainWin->textPalette->setDoc(mainWin->doc);
+	mainWin->marksManager->setDoc(mainWin->doc);
+	mainWin->nsEditor->setDoc(mainWin->doc);
+	mainWin->layerPalette->setDoc(mainWin->doc);
+	mainWin->outlinePalette->setDoc(mainWin->doc);
+	mainWin->outlinePalette->BuildTree();
+	mainWin->pagePalette->setView(mainWin->view);
+	mainWin->pagePalette->Rebuild();
+	mainWin->doc->RePos = false;
+	if (mainWin->doc->m_Selection->count() != 0)
+		mainWin->doc->m_Selection->itemAt(0)->emitAllToGUI();
+	mainWin->HaveNewSel();
+	mainWin->view->DrawNew();
+	//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
+	//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
+	mainWin->HaveNewDoc();
 }
 
 void ScripterCore::runScriptDialog()
@@ -190,16 +190,16 @@ void ScripterCore::runScriptDialog()
 		fileName = dia.selectedFile();
 		slotRunScriptFile(fileName, dia.extensionRequested());
 
-		if (RecentScripts.indexOf(fileName) == -1)
-			RecentScripts.prepend(fileName);
+		if (m_recentScripts.indexOf(fileName) == -1)
+			m_recentScripts.prepend(fileName);
 		else
 		{
-			RecentScripts.removeAll(fileName);
-			RecentScripts.prepend(fileName);
+			m_recentScripts.removeAll(fileName);
+			m_recentScripts.prepend(fileName);
 		}
 		rebuildRecentScriptsMenu();
 	}
-	FinishScriptRun();
+	finishScriptRun();
 }
 
 void ScripterCore::StdScript(const QString& basefilename)
@@ -212,7 +212,7 @@ void ScripterCore::StdScript(const QString& basefilename)
 	if (!fd.exists())
 		return;
 	slotRunScriptFile(fn);
-	FinishScriptRun();
+	finishScriptRun();
 }
 
 void ScripterCore::RecentScript(const QString& fn)
@@ -220,12 +220,12 @@ void ScripterCore::RecentScript(const QString& fn)
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
-		RecentScripts.removeAll(fn);
+		m_recentScripts.removeAll(fn);
 		rebuildRecentScriptsMenu();
 		return;
 	}
 	slotRunScriptFile(fn);
-	FinishScriptRun();
+	finishScriptRun();
 }
 
 void ScripterCore::slotRunScriptFile(const QString& fileName, bool inMainInterpreter)
@@ -382,7 +382,7 @@ void ScripterCore::slotRunPythonScript()
 	if (!ScQApp->pythonScript.isNull())
 	{
 		slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
-		FinishScriptRun();
+		finishScriptRun();
 	}
 }
 
@@ -464,24 +464,24 @@ void ScripterCore::slotRunScript(const QString& Script)
 
 void ScripterCore::slotInteractiveScript(bool visible)
 {
-	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::disconnect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 
-	scrScripterActions["scripterShowConsole"]->setChecked(visible);
-	pcon->setFonts();
-	pcon->setVisible(visible);
+	m_scripterActions["scripterShowConsole"]->setChecked(visible);
+	m_pyConsole->setFonts();
+	m_pyConsole->setVisible(visible);
 
-	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::connect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 }
 
 void ScripterCore::slotExecute()
 {
-	slotRunScript(pcon->command());
-	pcon->outputEdit->append(returnString);
-	pcon->commandEdit->ensureCursorVisible();
-	FinishScriptRun();
+	slotRunScript(m_pyConsole->command());
+	m_pyConsole->outputEdit->append(returnString);
+	m_pyConsole->commandEdit->ensureCursorVisible();
+	finishScriptRun();
 }
 
-void ScripterCore::ReadPlugPrefs()
+void ScripterCore::readPlugPrefs()
 {
 	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
@@ -499,7 +499,7 @@ void ScripterCore::ReadPlugPrefs()
 	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
 	{
 		QString rs(prefRecentScripts->get(i,0));
-		SavedRecentScripts.append(rs);
+		m_savedRecentScripts.append(rs);
 	}
 	// then get more general preferences
 	m_enableExtPython = prefs->getBool("extensionscripts",false);
@@ -508,7 +508,7 @@ void ScripterCore::ReadPlugPrefs()
 	// and have the console window set up its position
 }
 
-void ScripterCore::SavePlugPrefs()
+void ScripterCore::savePlugPrefs()
 {
 	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
@@ -522,9 +522,9 @@ void ScripterCore::SavePlugPrefs()
 		qDebug("scriptplugin: Unable to get recent scripts");
 		return;
 	}
-	for (int i = 0; i < RecentScripts.count(); i++)
+	for (int i = 0; i < m_recentScripts.count(); i++)
 	{
-		prefRecentScripts->set(i, 0, RecentScripts[i]);
+		prefRecentScripts->set(i, 0, m_recentScripts[i]);
 	}
 	// then save more general preferences
 	prefs->set("extensionscripts", m_enableExtPython);
@@ -585,13 +585,13 @@ void ScripterCore::runStartupScript()
 
 void ScripterCore::languageChange()
 {
-	scrScripterActions["scripterExecuteScript"]->setText(QObject::tr("&Execute Script..."));
-	scrScripterActions["scripterShowConsole"]->setText(QObject::tr("Show &Console"));
-	scrScripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
+	m_scripterActions["scripterExecuteScript"]->setText(QObject::tr("&Execute Script..."));
+	m_scripterActions["scripterShowConsole"]->setText(QObject::tr("Show &Console"));
+	m_scripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
 
-	menuMgr->setText("Scripter", QObject::tr("&Script"));
-	menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
-	menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
+	m_menuMgr->setText("Scripter", QObject::tr("&Script"));
+	m_menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
+	m_menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
 }
 
 bool ScripterCore::setupMainInterpreter()
@@ -632,7 +632,7 @@ void ScripterCore::setExtensionsEnabled(bool enable)
 
 void ScripterCore::updateSyntaxHighlighter()
 {
-	pcon->updateSyntaxHighlighter();
+	m_pyConsole->updateSyntaxHighlighter();
 }
 
 const QString & ScripterCore::startupScript() const

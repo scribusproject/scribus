@@ -65,9 +65,9 @@ public slots:
 
 protected:
 	// Private helper functions
-	void FinishScriptRun();
-	void ReadPlugPrefs();
-	void SavePlugPrefs();
+	void finishScriptRun();
+	void readPlugPrefs();
+	void savePlugPrefs();
 	void rebuildRecentScriptsMenu();
 	void buildScribusScriptsMenu();
 	//void buildRecentScriptsMenu();
@@ -75,12 +75,12 @@ protected:
 
 	//Internal members
 	//! \brief Reference to the "IDE" widget
-	PythonConsole *pcon;
-	QStringList SavedRecentScripts;
-	QStringList RecentScripts;
-	MenuManager *menuMgr;
-	QMap<QString, QPointer<ScrAction> > scrScripterActions;
-	QMap<QString, QPointer<ScrAction> > scrRecentScriptActions;
+	PythonConsole *m_pyConsole;
+	MenuManager *m_menuMgr;
+	QStringList  m_savedRecentScripts;
+	QStringList  m_recentScripts;
+	QMap<QString, QPointer<ScrAction> > m_scripterActions;
+	QMap<QString, QPointer<ScrAction> > m_recentScriptActions;
 
 	// Preferences
 	/** \brief pref: Enable access to main interpreter and 'extension scripts' */
