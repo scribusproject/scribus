@@ -289,6 +289,8 @@ void Prefs_Fonts::updateRejectedFontList()
 		fontsRejectedTableWidget->setItem(i, 1, new QTableWidgetItem(value));
 		fontsRejectedTableWidget->setItem(i, 2, new QTableWidgetItem(key));
 	}
+
+	fontsRejectedTableWidget->sortItems(0, Qt::AscendingOrder);
 }
 
 void Prefs_Fonts::DelEntry()
