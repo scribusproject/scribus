@@ -921,7 +921,6 @@ set(SCRIBUS_SOURCES
 	ui/picsearch.cpp
 	ui/picsearchoptions.cpp
 	ui/picstatus.cpp
-	ui/pluginmanagerprefsgui.cpp
 	ui/polygonwidget.cpp
 	ui/polyprops.cpp
 	ui/preferencesdialog.cpp
@@ -951,7 +950,6 @@ set(SCRIBUS_SOURCES
 	ui/prefs_pdfexport.cpp
 	ui/prefs_tableofcontents.cpp
 	ui/prefs_documentitemattributes.cpp
-	ui/prefspanel.cpp
 	ui/preview.cpp
 	ui/printdialog.cpp
 	ui/propertiespalette.cpp
