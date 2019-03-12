@@ -290,9 +290,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->setTBvals(currItem);
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
-				scmw->charPalette->setEnabled(true, currItem);
-				if (currItem!=nullptr && currItem->asTextFrame())
+				if (currItem != nullptr && currItem->asTextFrame())
 				{
+					scmw->charPalette->setEnabled(true, currItem);
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
 					currItem->asTextFrame()->toggleEditModeActions();
 				}
