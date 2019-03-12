@@ -660,6 +660,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 		if (face != nullptr)
 			FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
+		addRejectedFont(filename, QObject::tr("Font is broken: \"%1\"").arg(getFtError(error)));
 		if (showFontInformation)
 			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"").arg(filename, getFtError(error)));
 		return true;
@@ -667,6 +668,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	getFontFormat(face, format, type);
 	if (format == ScFace::UNKNOWN_FORMAT) 
 	{
+		addRejectedFont(filename, QObject::tr("Failed to load font: font type unknown"));
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
 		FT_Done_Face(face);
@@ -677,6 +679,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	// and do not provide a valid value for units_per_EM
 	if (face->units_per_EM == 0)
 	{
+		addRejectedFont(filename, QObject::tr("Failed to load font: font is not scalable"));
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font is not scalable").arg(filename));
 		FT_Done_Face(face);
@@ -696,12 +699,14 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 			error = FT_Load_Glyph(face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP);
 			if (error)
 			{
-				if (showFontInformation)
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
+				auto errorMessage = QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
 							   .arg(filename)
 							   .arg(gindex)
 							   .arg(charcode, 4, 16, QChar('0'))
-							   .arg(getFtError(error)));
+							   .arg(getFtError(error));
+				addRejectedFont(filename, errorMessage);
+				if (showFontInformation)
+					sDebug(errorMessage);
 				FT_Done_Face(face);
 				checkedFonts.insert(filename, foCache);
 				return true;
@@ -737,12 +742,14 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 				error = FT_Load_Glyph(face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP);
 				if (error)
 				{
-					if (showFontInformation)
-						sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
+					auto errorMessage = QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
 								   .arg(filename)
 								   .arg(gindex)
 								   .arg(charcode, 4, 16, QChar('0'))
-								   .arg(getFtError(error)));
+								   .arg(getFtError(error));
+					addRejectedFont(filename, errorMessage);
+					if (showFontInformation)
+						sDebug(errorMessage);
 					FT_Done_Face(face);
 					checkedFonts.insert(filename, foCache);
 					return true;
@@ -1021,7 +1028,11 @@ void SCFonts::AddFontconfigFonts()
 		}
 		else
 			if (showFontInformation)
-				sDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
+			{
+				auto errorMessage = QObject::tr("Failed to load a font - freetype2 couldn't find the font file");
+				addRejectedFont(QString((char*)file), errorMessage);
+				sDebug(errorMessage);
+			}
 	}
 	FT_Done_FreeType(library);
 	FcFontSetDestroy(fs);
@@ -1220,4 +1231,9 @@ void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
 #endif
 	updateFontMap();
 	WriteCacheList(pf);
+}
+
+void SCFonts::addRejectedFont(QString fontPath, QString message)
+{
+	rejectedFonts.insert(fontPath, message);
 }

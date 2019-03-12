@@ -186,6 +186,35 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="rejectedFontsTab">
+      <attribute name="title">
+       <string>Rejected Fonts</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="fontsRejectedTableWidget">
+         <property name="columnCount">
+          <number>3</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Font name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Error message</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Font file</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

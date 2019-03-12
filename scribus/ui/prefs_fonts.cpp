@@ -47,7 +47,7 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	CurrentPath = "";
 	m_askBeforeSubstitute = true;
 
-	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
+	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" )+ tr( "Rejected Fonts" ))+180, 200);
 
 	fontListTableView->setModel(new FontListModel(fontListTableView, m_doc, true));
 
@@ -189,10 +189,9 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 // 	UsedFonts.sort();
 	FlagsRepl.clear();
 	fontSubstitutionsTableWidget->clearContents();
-	m_GFontSub=prefsData->fontPrefs.GFontSub;
+	m_GFontSub = prefsData->fontPrefs.GFontSub;
 	int a = 0;
-	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+	for (auto itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
 		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
@@ -206,7 +205,15 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 		a++;
 	}
 	deleteSubstitutionButton->setEnabled(false);
+
+	fontsRejectedTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+	auto headerView = fontsRejectedTableWidget->horizontalHeader();
+	headerView->resizeSection(0, 150);
+	headerView->resizeSection(1, 250);
+	headerView->setStretchLastSection(true);
+	
 	updateFontList();
+	updateRejectedFontList();
 }
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -261,6 +268,26 @@ void Prefs_Fonts::updateFontList()
 			setCurrentComboItem(FlagsRepl.at(b), tmp);
 		else
 			FlagsRepl.at(b)->setCurrentIndex(0);
+	}
+}
+
+void Prefs_Fonts::updateRejectedFontList()
+{
+	const auto& rejectedFonts = m_availFonts.rejectedFonts;
+
+	fontsRejectedTableWidget->clearContents();
+	
+	int i = 0;
+	for (auto it = rejectedFonts.cbegin(); it != rejectedFonts.cend(); ++it)
+	{
+		const auto& key = it.key();
+		const auto& value = it.value();
+		const auto  baseName = QFileInfo(key).baseName();
+
+		fontsRejectedTableWidget->insertRow(i);
+		fontsRejectedTableWidget->setItem(i, 0, new QTableWidgetItem(baseName));
+		fontsRejectedTableWidget->setItem(i, 1, new QTableWidgetItem(value));
+		fontsRejectedTableWidget->setItem(i, 2, new QTableWidgetItem(key));
 	}
 }
 
@@ -334,7 +361,9 @@ void Prefs_Fonts::AddPath()
 	m_availFonts.AddScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
 	m_availFonts.WriteCacheList();
+
 	updateFontList();
+	updateRejectedFontList();
 }
 
 void Prefs_Fonts::ChangePath()
@@ -366,6 +395,7 @@ void Prefs_Fonts::ChangePath()
 	m_availFonts.AddScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
 	updateFontList();
+	updateRejectedFontList();
 	changeButton->setEnabled(false);
 	removeButton->setEnabled(false);
 }

@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QList>
 #include <QMap>
+#include <QVector>
+#include <QPair>
 #include <QString>
 #include <QStringList>
 
@@ -38,6 +40,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 	public:
 		SCFonts();
 		~SCFonts();
+
 		void updateFontMap();
 		void GetFonts(const QString& pf, bool showFontInfo=false);
 		ScFace LoadScalableFont(const QString &filename);
@@ -54,6 +57,8 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		void WriteCacheList();
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
+		QMap<QString, QString>     rejectedFonts;
+
 	private:
 		void ReadCacheList(const QString& pf);
 		void WriteCacheList(const QString& pf);
@@ -77,6 +82,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 			QDateTime lastMod;
 		};
 		QMap<QString, testCache> checkedFonts;
+		void addRejectedFont(QString fontPath, QString message);
 	protected:
 		bool showFontInformation;
 };
