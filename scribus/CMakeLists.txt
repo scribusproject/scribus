@@ -131,7 +131,6 @@ set(SCRIBUS_UI_SRC
 	ui/picsearch.ui
 	ui/picsearchoptions.ui
 	ui/picstatus.ui
-	ui/pluginmanagerprefsgui.ui
 	ui/polygonwidgetbase.ui
 	ui/preferencesdialogbase.ui
 	ui/prefs_colormanagementbase.ui
@@ -422,7 +421,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/picsearch.h
 	ui/picsearchoptions.h
 	ui/picstatus.h
-	ui/pluginmanagerprefsgui.h
 	ui/polygonwidget.h
 	ui/polyprops.h
 	ui/preferencesdialog.h
@@ -453,7 +451,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/prefs_pdfexport.h
 	ui/prefs_tableofcontents.h
 	ui/prefs_documentitemattributes.h
-	ui/prefspanel.h
 	ui/preview.h
 	ui/printdialog.h
 	ui/propertiespalette.h
