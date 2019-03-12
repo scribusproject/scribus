@@ -127,6 +127,16 @@ QString SimpleState::get(const QString& key, const QString& def)
 	return def;
 }
 
+bool SimpleState::getBool(const QString& key, bool def)
+{
+	bool ok = false;
+	QVariant retVar = variant(key, QVariant(def));
+	int ret = retVar.toInt(&ok);
+	if (!ok)
+		ret = def;
+	return ret;
+}
+
 int SimpleState::getInt(const QString& key, int def)
 {
 	bool ok = false;
@@ -157,15 +167,15 @@ double SimpleState::getDouble(const QString& key, double def)
 	return ret;
 }
 
-bool SimpleState::getBool(const QString& key, bool def)
+void* SimpleState::getVoidPtr(const QString& key, void* def)
 {
-	bool ok = false;
-	QVariant retVar = variant(key, QVariant(def));
-	int ret = retVar.toInt(&ok);
-	if (!ok)
-		ret = def;
+	void* ret = nullptr;
+	QVariant retVar = variant(key, QVariant::fromValue(def));
+	if (!retVar.canConvert<void*>())
+		ret = retVar.value<void*>();
 	return ret;
 }
+
 
 void SimpleState::set(const QString& key)
 {
@@ -173,6 +183,11 @@ void SimpleState::set(const QString& key)
 }
 
 void SimpleState::set(const QString& key, const QString& value)
+{
+	m_values[key] = QVariant(value);
+}
+
+void SimpleState::set(const QString& key, bool value)
 {
 	m_values[key] = QVariant(value);
 }
@@ -192,11 +207,10 @@ void SimpleState::set(const QString& key, double value)
 	m_values[key] = QVariant(value);
 }
 
-void SimpleState::set(const QString& key, bool value)
+void SimpleState::set(const QString& key, void* ptr)
 {
-	m_values[key] = QVariant(value);
+	m_values[key] = QVariant::fromValue<void*>(ptr);
 }
-
 
 SimpleState::~SimpleState()
 {

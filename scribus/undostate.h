@@ -244,6 +244,22 @@ public:
 	bool getBool(const QString& key, bool def = false);
 
 	/**
+	* @brief Returns the pointer value attached to the key.
+	*
+	* Values are stored as <code>QString</code>s in the map and when queried
+	* with this method value attached to the key is converted to a void* pointer. If
+	* the conversion fails value of the parameter <code>def</code> will be returned.
+	* If key is not found from the map it will be added there with the
+	* value given as a parameter def. In such case <code>def</code> will also be returned.
+	* @param key Key that is searched from the map
+	* @param def Default value to be used if key is not found from the map
+	* @return <code>Double</code> value attached to the key in the map. If the key is not found
+	* from the map it will be added with the value described in the parameter
+	* <code>def</code> which is then returned.
+	*/
+	void* getVoidPtr(const QString& key, void* def = nullptr);
+
+	/**
 	 * @brief Set a key with no value, to be used only for configuring action type
 	 * @param key Key that can be later used to query the value.
 	 * @param value Value attached to the key.
@@ -284,6 +300,13 @@ public:
 	 * @param value Value attached to the key.
 	 */
 	void set(const QString& key, bool value);
+
+	/**
+	* @brief Set a value for the key.
+	* @param key Key that can be later used to query the value.
+	* @param value Value attached to the key.
+	*/
+	void set(const QString& key, void* ptr);
 
 private:
 	/** @brief QMap to store key-value pairs */

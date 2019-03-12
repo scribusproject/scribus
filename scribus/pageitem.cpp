@@ -4638,7 +4638,7 @@ void PageItem::convertTo(ItemType newType)
 		SimpleState *ss = new SimpleState(Um::ConvertTo + " " + toType,
 										  QString(Um::FromTo).arg(fromType).arg(toType));
 		ss->set("CONVERT", "convert");
-		ss->set("PAGEITEM", reinterpret_cast<int>(this));
+		ss->set("PAGEITEM", reinterpret_cast<void*>(this));
 		ss->set("OLD_TYPE", m_ItemType);
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
@@ -7049,8 +7049,7 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 // For now we'll just make it independent of 'this' -- AV
 void PageItem::restoreType(SimpleState *state, bool isUndo)
 {
-	// well, probably not the best way to handle pointers...
-	PageItem * item = reinterpret_cast<PageItem *>(state->getInt("PAGEITEM"));
+	PageItem * item = reinterpret_cast<PageItem *>(state->getVoidPtr("PAGEITEM"));
 	int type = state->getInt("OLD_TYPE");
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
