@@ -9739,18 +9739,17 @@ void PageItem::adjustPictScale()
 		br = m.mapRect(br);
 		xs = m_width / br.width();
 		ys = m_height / br.height();
+		double xs2 = AspectRatio ? qMin(xs, ys) : xs;
+		double ys2 = AspectRatio ? qMin(xs, ys) : ys;
 		QLineF wL = QLineF(0, 0, OrigW, 0);
-		wL.setAngle(-m_imageRotation);
 		QLineF hL = QLineF(0, 0, 0, OrigH);
-		hL.setAngle(-m_imageRotation-90);
 		QTransform mm;
-		mm.scale(xs, ys);
+		mm.scale(xs2, ys2);
+		mm.rotate(-m_imageRotation);
 		hL = mm.map(hL);
 		wL = mm.map(wL);
 		xs = wL.length() / static_cast<double>(OrigW);
 		ys = hL.length() / static_cast<double>(OrigH);
-		m_imageXOffset = -br.x();
-		m_imageYOffset = -br.y();
 	}
 	if (AspectRatio)
 	{
@@ -9761,6 +9760,21 @@ void PageItem::adjustPictScale()
 	{
 		m_imageXScale = xs;
 		m_imageYScale = ys;
+	}
+	if (imageRot != 0.0)
+	{
+		QRectF br = QRectF(0, 0, OrigW * xs, OrigH * ys);
+		QTransform m;
+		m.scale(1.0 / xs, 1.0 / ys);
+		m.rotate(m_imageRotation);
+		br = m.mapRect(br);
+		m_imageXOffset = -br.x();
+		m_imageYOffset = -br.y();
+	}
+	else
+	{
+		m_imageXOffset = 0.0;
+		m_imageYOffset = 0.0;
 	}
 	// Disable broken code. Code must be independent from doc in that function
 	/*switch (m_Doc->RotMode)

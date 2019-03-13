@@ -587,7 +587,10 @@ void PropertiesPalette_Image::handleLocalRotation()
 	{
 		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value());
 		if (frameScale->isChecked())
+		{
 			m_item->adjustPictScale();
+			m_item->update();
+		}
 	}
 }
 

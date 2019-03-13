@@ -4197,7 +4197,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	{
 		if (!newItem->Pfile.isEmpty())
 		{
+			double imageXOffset = newItem->imageXOffset();
+			double imageYOffset = newItem->imageYOffset();
 			doc->loadPict(newItem->Pfile, newItem, false);
+			newItem->setImageXYOffset(imageXOffset, imageYOffset);
 			if (newItem->pixm.imgInfo.PDSpathData.contains(clipPath))
 			{
 				newItem->imageClip = newItem->pixm.imgInfo.PDSpathData[clipPath].copy();
@@ -4211,6 +4214,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			{
 				newItem->pixm.imgInfo.isRequest = true;
 				doc->loadPict(newItem->Pfile, newItem, true);
+				newItem->setImageXYOffset(imageXOffset, imageYOffset);
 			}
 		}
 	}
@@ -4806,8 +4810,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double w   = attrs.valueAsDouble("WIDTH");
 	double h   = attrs.valueAsDouble("HEIGHT");
 	double pw  = attrs.valueAsDouble("PWIDTH");
-	double scx = attrs.valueAsDouble("LOCALSCX");
-	double scy = attrs.valueAsDouble("LOCALSCY");
+	double imageXOffset = attrs.valueAsDouble("LOCALX");
+	double imageYOffset = attrs.valueAsDouble("LOCALY");
+	double imageXScale  = attrs.valueAsDouble("LOCALSCX");
+	double imageYScale  = attrs.valueAsDouble("LOCALSCY");
 	QString Pcolor = attrs.valueAsString("PCOLOR");
 	if (Pcolor.isEmpty())
 		Pcolor = CommonStrings::None;
@@ -4837,8 +4843,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(false);
 		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
 		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
-		currItem->setImageXYScale(scx, scy);
-		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
+		currItem->setImageXYScale(imageXScale, imageYScale);
+		currItem->setImageXYOffset(imageXOffset, imageYOffset);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 //		if (!currItem->asLatexFrame())
 #ifdef HAVE_OSG
@@ -4896,7 +4902,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
 		if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("COMPRESSIONQUALITY")))
 			currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
-		currItem->setImageXYScale(scx, scy);
+		currItem->setImageXYScale(imageXScale, imageYScale);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 		clPath = attrs.valueAsString("ImageClip", "");
 		if (!clPath.isEmpty())
@@ -5213,8 +5219,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
 		{
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
+			currItem->setImageXYScale(imageXScale, imageYScale);
+			currItem->setImageXYOffset(imageXOffset, imageYOffset);
 			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 			currItem->Pfile  = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
 			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
@@ -5224,7 +5230,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->loadPict(currItem->Pfile, currItem);
-			currItem->setImageXYScale(scx, scy);
+			currItem->setImageXYScale(imageXScale, imageYScale);
 			currItem->setImageVisible( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
