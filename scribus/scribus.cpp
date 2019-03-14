@@ -1539,7 +1539,8 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 			SimpleState *ss = dynamic_cast<SimpleState*>(m_undoManager->getLastUndo());
 			if (ss && ss->get("ETEA") == "insert_frametext")
 				ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
-			else {
+			else
+			{
 				ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 				ss->set("INSERT_FRAMETEXT");
 				ss->set("ETEA", QString("insert_frametext"));
@@ -1558,7 +1559,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 		if (activeTransaction)
 			activeTransaction.commit();
 	}
-	else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
+	else if (unicodevalue == SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
 	{
 		// this code is currently dead since unicodeSoftHyphen
 		// doesn't have unicodevalue == -1 any more
