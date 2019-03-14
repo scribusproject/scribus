@@ -14285,7 +14285,14 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	if ((redraw) && (!m_loading))
 	{
 		QRectF newR(currItem->getBoundingRect());
-		regionsChanged()->update(newR.united(oldR));
+		QRectF updateRect = newR.united(oldR);
+		if (currItem->isTextFrame() && currItem->nextInChain())
+		{
+			// If current frame is a text frame, force update of linked frames currently displayed on screen
+			if (currItem->itemText.length() > 0)
+				updateRect = QRectF();
+		}	
+		regionsChanged()->update(updateRect);
 	}
 	if (!fromMP)
 	{
