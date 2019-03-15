@@ -115,13 +115,13 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 
 	languageChange();
 
-	/*connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
+	connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
 	connect(yposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
 	connect(widthSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewW()));
 	connect(heightSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewH()));
 	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()));
 	connect(flipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
-	connect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));*/
+	connect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	connect(levelUp, SIGNAL(clicked()), this, SLOT(handleRaise()));
 	connect(levelDown, SIGNAL(clicked()), this, SLOT(handleLower()));
 	connect(levelTop, SIGNAL(clicked()), this, SLOT(handleFront()));
@@ -129,9 +129,9 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(basePointWidget, SIGNAL(buttonClicked(int)), this, SLOT(handleBasePoint(int)));
 
 	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
-	/*connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
+	connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(noPrint  , SIGNAL(clicked()), this, SLOT(handlePrint()));
-	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));*/
+	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(doGroup  , SIGNAL(clicked()), this, SLOT(handleGrouping()) );
 	connect(doUnGroup, SIGNAL(clicked()), this, SLOT(handleUngrouping()) );
 
@@ -661,9 +661,9 @@ void PropertiesPalette_XYZ::showRotation(double r)
 	double rr = r;
 	if (r > 0)
 		rr = 360 - rr;
-	//bool sigBlocked = rotationSpin->blockSignals(true);
-	rotationSpin->showValue(fabs(rr));
-	//rotationSpin->blockSignals(sigBlocked);
+	bool sigBlocked = rotationSpin->blockSignals(true);
+	rotationSpin->setValue(fabs(rr));
+	rotationSpin->blockSignals(sigBlocked);
 }
 
 void PropertiesPalette_XYZ::handleNewX()
