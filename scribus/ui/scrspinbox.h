@@ -44,6 +44,9 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 
 		uint   unitIndex() const { return m_unitIndex; }
 		double unitRatio() const;
+
+		// Reimplement QDoubleSpinBox::stepBy() for angle wrapping
+		void stepBy(int steps) override;
 		
 	public slots:
 		void setValues(double min, double max, int deci, double val);

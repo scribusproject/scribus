@@ -72,11 +72,12 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setChecked(false);
-	rotationSpin->setWrapping( true );
-	installSniffer(rotationSpin);
 
 	rotationSpin->setNewUnit(6);
+	rotationSpin->setWrapping( true );
+	installSniffer(rotationSpin);
 	rotationLabel->setBuddy(rotationSpin);
+
 	IconManager* im=IconManager::instance();
 	levelUp->setIcon(im->loadIcon("16/go-up.png"));
 	levelDown->setIcon(im->loadIcon("16/go-down.png"));
@@ -114,13 +115,13 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 
 	languageChange();
 
-	connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
+	/*connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
 	connect(yposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
 	connect(widthSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewW()));
 	connect(heightSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewH()));
 	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()));
 	connect(flipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
-	connect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+	connect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));*/
 	connect(levelUp, SIGNAL(clicked()), this, SLOT(handleRaise()));
 	connect(levelDown, SIGNAL(clicked()), this, SLOT(handleLower()));
 	connect(levelTop, SIGNAL(clicked()), this, SLOT(handleFront()));
@@ -128,9 +129,9 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(basePointWidget, SIGNAL(buttonClicked(int)), this, SLOT(handleBasePoint(int)));
 
 	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
-	connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
+	/*connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(noPrint  , SIGNAL(clicked()), this, SLOT(handlePrint()));
-	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));
+	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));*/
 	connect(doGroup  , SIGNAL(clicked()), this, SLOT(handleGrouping()) );
 	connect(doUnGroup, SIGNAL(clicked()), this, SLOT(handleUngrouping()) );
 
@@ -332,16 +333,16 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	rotationSpin->setValue(fabs(rr));
 
 //CB TODO reconnect PP signals from here
-	connect(xposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
-	connect(yposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
-	connect(widthSpin   , SIGNAL(valueChanged(double)), this, SLOT(handleNewW()));
-	connect(heightSpin  , SIGNAL(valueChanged(double)), this, SLOT(handleNewH()));
-	connect(doLock  , SIGNAL(clicked()), this, SLOT(handleLock()));
-	connect(noPrint , SIGNAL(clicked()), this, SLOT(handlePrint()));
-	connect(noResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
-	connect(flipH   , SIGNAL(clicked()), this, SLOT(handleFlipH()));
-	connect(flipV   , SIGNAL(clicked()), this, SLOT(handleFlipV()));
-	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()));
+	connect(xposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewX()), Qt::UniqueConnection);
+	connect(yposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewY()), Qt::UniqueConnection);
+	connect(widthSpin   , SIGNAL(valueChanged(double)), this, SLOT(handleNewW()), Qt::UniqueConnection);
+	connect(heightSpin  , SIGNAL(valueChanged(double)), this, SLOT(handleNewH()), Qt::UniqueConnection);
+	connect(doLock  , SIGNAL(clicked()), this, SLOT(handleLock()), Qt::UniqueConnection);
+	connect(noPrint , SIGNAL(clicked()), this, SLOT(handlePrint()), Qt::UniqueConnection);
+	connect(noResize, SIGNAL(clicked()), this, SLOT(handleLockSize()), Qt::UniqueConnection);
+	connect(flipH   , SIGNAL(clicked()), this, SLOT(handleFlipH()), Qt::UniqueConnection);
+	connect(flipV   , SIGNAL(clicked()), this, SLOT(handleFlipV()), Qt::UniqueConnection);
+	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()), Qt::UniqueConnection);
 
 	bool setter = false;
 	xposSpin->setEnabled(!setter);
@@ -660,9 +661,9 @@ void PropertiesPalette_XYZ::showRotation(double r)
 	double rr = r;
 	if (r > 0)
 		rr = 360 - rr;
-	bool sigBlocked = rotationSpin->blockSignals(true);
-	rotationSpin->setValue(fabs(rr));
-	rotationSpin->blockSignals(sigBlocked);
+	//bool sigBlocked = rotationSpin->blockSignals(true);
+	rotationSpin->showValue(fabs(rr));
+	//rotationSpin->blockSignals(sigBlocked);
 }
 
 void PropertiesPalette_XYZ::handleNewX()

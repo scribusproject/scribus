@@ -73,6 +73,21 @@ void ScrSpinBox::showValue(double val)
 	this->blockSignals(sigBlocked);
 }
 
+void ScrSpinBox::stepBy(int steps)
+{
+	if (m_unitIndex == SC_DEGREES)
+	{
+		double angle = this->value();
+		angle += steps * singleStep();
+		while (angle < 0.0)
+			angle += 360.0;
+		while (angle > 360)
+			angle -= 360.0;
+		setValue(angle);
+		return;
+	}
+	QDoubleSpinBox::stepBy(steps);
+}
 
 void ScrSpinBox::setParameters( int s )
 {
