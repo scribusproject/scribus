@@ -221,38 +221,11 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 		menu->clear();
 }
 
-bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
-{
-	bool retVal=false;
-	/*if (menuList.contains(menuName) && menuList[menuName]!=nullptr && action!=nullptr)
-	{
-		 //qt4 cb replace with qwidgetaction or similar
-//		QWidget *w=action->getWidgetAddedTo();
-//		if (w)
-//		{
-//			QString menuItemListClassName=w->className();
-//			if (menuItemListClassName=="QToolButton")
-//			{
-//				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
-//				if (toolButton!=nullptr)
-//				{
-//					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
-//					retVal=true;
-//				}
-//			}
-//		}
-
-	}
-*/
-	return retVal;
-}
-
 void MenuManager::addMenuItemString(const QString& s, const QString &parent)
 {
 	if (menuStrings.contains(parent))
 		menuStrings[parent].append(s);
 }
-
 
 void MenuManager::addMenuItemStringAfter(const QString& s, const QString& after, const QString &parent)
 {
