@@ -216,16 +216,10 @@ void MenuManager::addMenuItemStringsToRememberedMenu(const QString &menuName, co
 
 void MenuManager::clearMenuStrings(const QString &menuName)
 {
-	if (rememberedMenus.contains(menuName))
-	{
-		if (rememberedMenus.value(menuName)!=nullptr)
-		{
-			rememberedMenus.value(menuName)->clear();
-		}
-	}
+	QMenu* menu = rememberedMenus.value(menuName, nullptr);
+	if (menu != nullptr)
+		menu->clear();
 }
-
-
 
 bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
 {
