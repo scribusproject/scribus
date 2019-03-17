@@ -143,32 +143,33 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 	if (!menuStrings.contains(menuName) || !menuBarMenus.contains(menuName))
 		return;
 
-	for (int i=0; i<menuStrings[menuName].count();++i)
+	const auto menuStringList = menuStrings[menuName];
+	for (const QString& menuString : menuStringList)
 	{
 		//Add Separators
-		if (menuStrings[menuName].at(i) == "SEPARATOR")
+		if (menuString == "SEPARATOR")
 		{
 			menuBarMenus[menuName]->addSeparator();
 			continue;
 		}
 			
 		//Add Menu Items
-		if (menuActions.contains(menuStrings[menuName].at(i)))
+		if (menuActions.contains(menuString))
 		{
-			menuBarMenus[menuName]->addAction(menuActions[menuStrings[menuName].at(i)]);
+			menuBarMenus[menuName]->addAction(menuActions[menuString]);
 			continue;
 		}
 
 		//Add Sub Menus
-		if (menuStrings.contains(menuStrings[menuName].at(i)))
+		if (menuStrings.contains(menuString))
 		{
-			QMenu *subMenu=menuBarMenus[menuName]->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
-			menuBarMenus.insert(menuStrings[menuName].at(i), subMenu);
-			if (rememberedMenus.contains(menuStrings[menuName].at(i)))
-			{
-				rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
-			}
-			addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
+			QMenu *subMenu = menuBarMenus[menuName]->addMenu(menuStringTexts[menuString]);
+			if (!subMenu)
+				continue;
+			menuBarMenus.insert(menuString, subMenu);
+			if (rememberedMenus.contains(menuString))
+				rememberedMenus.insert(menuString, subMenu);
+			addMenuItemStringstoMenu(menuString, subMenu, menuActions);
 		}
 	}
 }
@@ -176,38 +177,36 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 
 void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
-	if (menuStrings.contains(menuName))
+	if (!menuStrings.contains(menuName))
+		return;
+
+	const auto menuStringList = menuStrings[menuName];
+	for (const QString& menuString : menuStringList)
 	{
-		for (int i=0; i<menuStrings[menuName].count();++i)
+		//Add Separators
+		if (menuString == "SEPARATOR")
 		{
-			//Add Separators
-			if (menuStrings[menuName].at(i)=="SEPARATOR")
-				menuToAddTo->addSeparator();
-			else
-			{
-				//Add Menu Items
-				if (menuActions.contains(menuStrings[menuName].at(i)))
-				{
-					menuToAddTo->addAction(menuActions[menuStrings[menuName].at(i)]);
-				}
-				else
-				//Add Sub Menus
-				{
-					if (menuStrings.contains(menuStrings[menuName].at(i)))
-					{
-						QMenu *subMenu=menuToAddTo->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
-						if (subMenu)
-						{
-							menuBarMenus.insert(menuStrings[menuName].at(i), subMenu);
-							if (rememberedMenus.contains(menuStrings[menuName].at(i)))
-							{
-								rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
-							}
-							addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
-						}
-					}
-				}
-			}
+			menuToAddTo->addSeparator();
+			continue;
+		}
+
+		//Add Menu Items
+		if (menuActions.contains(menuString))
+		{
+			menuToAddTo->addAction(menuActions[menuString]);
+			continue;
+		}
+
+		//Add Sub Menus
+		if (menuStrings.contains(menuString))
+		{
+			QMenu *subMenu = menuToAddTo->addMenu(menuStringTexts[menuString]);
+			if (!subMenu)
+				continue;
+			menuBarMenus.insert(menuString, subMenu);
+			if (rememberedMenus.contains(menuString))
+				rememberedMenus.insert(menuString, subMenu);
+			addMenuItemStringstoMenu(menuString, subMenu, menuActions);
 		}
 	}
 }
