@@ -93,18 +93,14 @@ void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 
 bool MenuManager::addMenuStringToMenuBar(const QString &menuName, bool rememberMenu)
 {
-	bool retVal=false;
-	if (menuStrings.contains(menuName))
-	{
-		QMenu *m=scribusMenuBar->addMenu(menuStringTexts[menuName]);
-		menuBarMenus.insert(menuName, m);
-		if (rememberMenu)
-		{
-			rememberedMenus.insert(menuName, m);
-		}
-		retVal=true;
-	}
-	return retVal;
+	if (!menuStrings.contains(menuName))
+		return false;
+
+	QMenu *m = scribusMenuBar->addMenu(menuStringTexts[menuName]);
+	menuBarMenus.insert(menuName, m);
+	if (rememberMenu)
+		rememberedMenus.insert(menuName, m);
+	return true;
 }
 
 bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QString &beforeMenuName)
@@ -138,7 +134,7 @@ void MenuManager::clear()
 }
 
 
-void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
+void MenuManager::addMenuItemStringsToMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (!menuStrings.contains(menuName) || !menuBarMenus.contains(menuName))
 		return;
@@ -169,13 +165,13 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 			menuBarMenus.insert(menuString, subMenu);
 			if (rememberedMenus.contains(menuString))
 				rememberedMenus.insert(menuString, subMenu);
-			addMenuItemStringstoMenu(menuString, subMenu, menuActions);
+			addMenuItemStringsToMenu(menuString, subMenu, menuActions);
 		}
 	}
 }
 
 
-void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions)
+void MenuManager::addMenuItemStringsToMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (!menuStrings.contains(menuName))
 		return;
@@ -206,16 +202,16 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 			menuBarMenus.insert(menuString, subMenu);
 			if (rememberedMenus.contains(menuString))
 				rememberedMenus.insert(menuString, subMenu);
-			addMenuItemStringstoMenu(menuString, subMenu, menuActions);
+			addMenuItemStringsToMenu(menuString, subMenu, menuActions);
 		}
 	}
 }
 
-void MenuManager::addMenuItemStringstoRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
+void MenuManager::addMenuItemStringsToRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (rememberedMenus.contains(menuName))
 		if (rememberedMenus.value(menuName)!=nullptr)
-			addMenuItemStringstoMenu(menuName, rememberedMenus.value(menuName), menuActions);
+			addMenuItemStringsToMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
 void MenuManager::clearMenuStrings(const QString &menuName)

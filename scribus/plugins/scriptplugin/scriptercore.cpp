@@ -98,7 +98,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 	buildScribusScriptsMenu();
 
 	m_menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
-	m_menuMgr->addMenuItemStringstoMenuBar("Scripter", m_scripterActions);
+	m_menuMgr->addMenuItemStringsToMenuBar("Scripter", m_scripterActions);
 	m_recentScripts = m_savedRecentScripts;
 	rebuildRecentScriptsMenu();
 }
@@ -153,7 +153,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 		connect( m_recentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
 		m_menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
-	m_menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", m_recentScriptActions);
+	m_menuMgr->addMenuItemStringsToRememberedMenu("RecentScripts", m_recentScriptActions);
 }
 
 void ScripterCore::finishScriptRun()

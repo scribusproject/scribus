@@ -69,9 +69,9 @@ class SCRIBUS_API MenuManager : public QObject
 		bool menuExists(const QString &menuName);
 		void addMenuItemString(const QString& s, const QString &parent);
 		void addMenuItemStringAfter(const QString &s, const QString &after, const QString &parent);
-		void addMenuItemStringstoMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions);
-		void addMenuItemStringstoRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
-		void addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringsToMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringsToRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringsToMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
 		void clearMenuStrings(const QString &menuName);
 		void dumpMenuStrings();
 		QMenu *undoMenu() {return m_undoMenu;}

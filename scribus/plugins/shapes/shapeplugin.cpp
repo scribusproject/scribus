@@ -76,7 +76,7 @@ void ShapePlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 		connect(m_actions["shapeShowPalette"], SIGNAL(toggled(bool)), sc_palette, SLOT(setPaletteShown(bool)));
 		connect(sc_palette, SIGNAL(paletteShown(bool)), m_actions["shapeShowPalette"], SLOT(setChecked(bool)));
 		mw->scrMenuMgr->addMenuItemStringAfter("shapeShowPalette", "toolsInline", "Windows");
-		mw->scrMenuMgr->addMenuItemStringstoMenuBar("Windows", m_actions);
+		mw->scrMenuMgr->addMenuItemStringsToMenuBar("Windows", m_actions);
 	}
 }
 

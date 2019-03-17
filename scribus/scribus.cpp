@@ -1170,26 +1170,26 @@ void ScribusMainWindow::initMenuBar()
 void ScribusMainWindow::createMenuBar()
 {
 	scrMenuMgr->addMenuStringToMenuBar("File");
-	scrMenuMgr->addMenuItemStringstoMenuBar("File", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("File", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Edit");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Edit", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Edit", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Item");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Item", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Item", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Insert");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Insert", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Insert", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Page");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Page", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Page", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("ItemTable");
-	scrMenuMgr->addMenuItemStringstoMenuBar("ItemTable", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("ItemTable", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Extras");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Extras", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Extras", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("View");
-	scrMenuMgr->addMenuItemStringstoMenuBar("View", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("View", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Windows", true);
 	addDefaultWindowMenuItems();
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuStringToMenuBar("Help");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Help", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Help", scrActions);
 	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 
@@ -1225,7 +1225,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("toolsToolbarPDF", "Windows");
 	scrMenuMgr->addMenuItemString("toolsToolbarView", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
-	scrMenuMgr->addMenuItemStringstoMenuBar("Windows", scrActions);
+	scrMenuMgr->addMenuItemStringsToMenuBar("Windows", scrActions);
 }
 
 
@@ -2455,7 +2455,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 			scrMenuMgr->addMenuItemString(docInWindow, "Windows");
 		}
 		if (windowCount>1)
-			scrMenuMgr->addMenuItemStringstoRememberedMenu("Windows", scrWindowsActions);
+			scrMenuMgr->addMenuItemStringsToRememberedMenu("Windows", scrWindowsActions);
 	}
 }
 
@@ -2991,7 +2991,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
-	scrMenuMgr->addMenuItemStringstoRememberedMenu("FileOpenRecent", scrRecentFileActions);
+	scrMenuMgr->addMenuItemStringsToRememberedMenu("FileOpenRecent", scrRecentFileActions);
 	fileToolBar->rebuildRecentFileMenu();
 }
 
@@ -3016,7 +3016,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
 			it--;
 		}
-		scrMenuMgr->addMenuItemStringstoRememberedMenu("EditPasteRecent", scrRecentPasteActions);
+		scrMenuMgr->addMenuItemStringsToRememberedMenu("EditPasteRecent", scrRecentPasteActions);
 	}
 }
 
@@ -3035,7 +3035,7 @@ void ScribusMainWindow::rebuildScrapbookMenu()
 		connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
 		scrMenuMgr->addMenuItemString(scrapNames[i], "ItemSendToScrapbook");
 	}
-	scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemSendToScrapbook", scrScrapActions);
+	scrMenuMgr->addMenuItemStringsToRememberedMenu("ItemSendToScrapbook", scrScrapActions);
 }
 
 void ScribusMainWindow::pasteFromScrapbook(const QString& fn)
@@ -3244,7 +3244,7 @@ void ScribusMainWindow::rebuildLayersList()
 		scrMenuMgr->addMenuItemString(it.key(), "ItemLayer");
 		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
-	scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemLayer", scrLayersActions);
+	scrMenuMgr->addMenuItemStringsToRememberedMenu("ItemLayer", scrLayersActions);
 }
 
 void ScribusMainWindow::updateItemLayerList()

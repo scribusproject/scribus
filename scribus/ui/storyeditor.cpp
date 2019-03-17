@@ -1834,13 +1834,13 @@ void StoryEditor::buildMenus()
 //	seMenuMgr->addMenuItemString("settingsSmartTextSelection", "Settings");
 
 	seMenuMgr->addMenuStringToMenuBar("File");
-	seMenuMgr->addMenuItemStringstoMenuBar("File", seActions);
+	seMenuMgr->addMenuItemStringsToMenuBar("File", seActions);
 	seMenuMgr->addMenuStringToMenuBar("Edit");
-	seMenuMgr->addMenuItemStringstoMenuBar("Edit", seActions);
+	seMenuMgr->addMenuItemStringsToMenuBar("Edit", seActions);
 	seMenuMgr->addMenuStringToMenuBar("Insert");
-	seMenuMgr->addMenuItemStringstoMenuBar("Insert", seActions);
+	seMenuMgr->addMenuItemStringsToMenuBar("Insert", seActions);
 	seMenuMgr->addMenuStringToMenuBar("Settings");
-	seMenuMgr->addMenuItemStringstoMenuBar("Settings", seActions);
+	seMenuMgr->addMenuItemStringsToMenuBar("Settings", seActions);
 	
 	PluginManager::instance().setupPluginActions(this);
 	PluginManager::instance().languageChange();
