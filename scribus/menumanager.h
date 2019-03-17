@@ -53,12 +53,9 @@ class SCRIBUS_API MenuManager : public QObject
 		bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString& parent = QString::null, bool checkable = false, bool rememberMenu = false);
 		void removeMenuItem(const QString& s, ScrAction *menuAction, const QString &parent);
 		bool removeMenuItem(ScrAction *menuAction, const QString &parent);
-		void generateKeyManList(QStringList *actionNames);
 		void runMenuAtPos(const QString &, const QPoint);
 		void setMenuEnabled(const QString &menuName, const bool enabled);
 		void setText(const QString &menuName, const QString &menuText);
-
-
 
 		QMenu *getLocalPopupMenu(const QString &menuName);
 		bool addMenuStringToMenuBar(const QString &menuName, bool rememberMenu=false);
@@ -74,8 +71,9 @@ class SCRIBUS_API MenuManager : public QObject
 		void addMenuItemStringsToMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
 		void clearMenuStrings(const QString &menuName);
 		void dumpMenuStrings();
-		QMenu *undoMenu() {return m_undoMenu;}
-		QMenu *redoMenu() {return m_redoMenu;}
+
+		QMenu *undoMenu() { return m_undoMenu; }
+		QMenu *redoMenu() { return m_redoMenu; }
 
 	public slots:
 		void languageChange();

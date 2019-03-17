@@ -297,40 +297,6 @@ void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 	*/
 }
 
-// Used to generate a list of entries from the menu system into the keyboard shortcut manager
-void MenuManager::generateKeyManList(QStringList *actionNames)
-{
-	if (actionNames)
-	{
-		if (scribusMenuBar)
-		{
-			/*
-			QMap<QString, ScrPopupMenu *>::Iterator menuListIt;
-			for (uint menuBarCount=0; menuBarCount<scribusMenuBar->count(); ++menuBarCount)
-			{
-				int menuBarMenuID=scribusMenuBar->idAt(menuBarCount);
-				bool menuBarItemFound=false;
-				for ( menuListIt = menuList.begin(); menuListIt!=menuList.end(); ++menuListIt)
-				{
-					if(menuListIt.value()->getMenuBarID()==menuBarMenuID)
-					{
-						menuBarItemFound=true;
-						break;
-					}
-				}
-				if (menuBarItemFound)
-				{
-					if (menuListIt.value())
-					{
-						ScrPopupMenu *currentMenu=menuListIt.value();
-						currentMenu->generateEntryList(actionNames);
-					}
-				}
-			}*/
-		}
-	}
-}
-
 bool MenuManager::empty()
 {
 	return menuStrings.empty();
