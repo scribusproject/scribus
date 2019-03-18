@@ -29,7 +29,7 @@ public:
 	QString getUsedFont();
 
 signals:
-	/*! \brief A signall emitted when press the "Insert" button.
+	/*! \brief A signal emitted when press the "Insert" button.
 	Glyphs are handled in CharSelect parent.
 	*/
 	void insertSpecialChars(const QVector<uint> & chars);

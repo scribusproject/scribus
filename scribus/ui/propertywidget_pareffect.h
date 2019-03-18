@@ -1,6 +1,8 @@
 #ifndef PROPERTYWIDGET_PAREFFECT_H
 #define PROPERTYWIDGET_PAREFFECT_H
 
+#include <QVector>
+
 #include "ui_propertywidget_pareffectbase.h"
 #include "numeration.h"
 #include "propertywidgetbase.h"
@@ -67,7 +69,7 @@ public slots:
 
 private slots:
 	void on_bulletCharTableButton_toggled(bool checked);
-	void insertSpecialChars(const QString &chars);
+	void insertSpecialChars(const QVector<uint> &charCodes);
 
 private:
 	void openEnhanced();

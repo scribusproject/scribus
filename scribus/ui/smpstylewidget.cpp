@@ -1134,8 +1134,9 @@ void SMPStyleWidget::slotBullets(bool isOn)
 	connectPESignals();
 }
 
-void SMPStyleWidget::insertSpecialChars(const QString &chars)
+void SMPStyleWidget::insertSpecialChars(const QVector<uint> &charCodes)
 {
+	QString chars = QString::fromUcs4(charCodes.data(), charCodes.length());
 	bulletStrEdit->lineEdit()->setText(chars);
 }
 
@@ -1194,7 +1195,7 @@ void SMPStyleWidget::openEnhanced()
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
 	m_enhanced->setModal(true);
-	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
+	connect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(insertSpecialChars(const QVector<uint> &)));
 	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_Doc);
 	m_enhanced->setEnabled(true);
@@ -1215,7 +1216,7 @@ void SMPStyleWidget::closeEnhanced(bool show)
 {
 	if (!m_enhanced || show)
 		return;
-	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
+	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(insertSpecialChars(const QVector<uint> &)));
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
