@@ -277,12 +277,12 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	LinkAction *linkAction = nullptr;
 	Object obj;
 	Ref refa = ano->getRef();
-	Object additionalActions;
+
 	obj = xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
-		additionalActions = adic->lookupNF("A");
+		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("A");
 		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -306,13 +306,12 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 	LinkAction *linkAction = nullptr;
 	Object obj;
 	Ref refa = ano->getRef();
-	Object additionalActions;
 
 	obj = xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
-		additionalActions = adic->lookupNF("AA");
+		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("AA");
 		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -853,7 +852,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				QList<int> radList;
 				for (int i = 0; i < obj2.arrayGetLength(); i++)
 				{
-					Object childRef = obj2.arrayGetNF(i);
+					POPPLER_CONST_075 Object POPPLER_REF childRef = obj2.arrayGetNF(i);
 					if (!childRef.isRef())
 						continue;
 					Object childObj = obj2.arrayGet(i);

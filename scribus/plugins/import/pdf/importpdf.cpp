@@ -511,7 +511,6 @@ bool PdfPlug::convert(const QString& fn)
 						hasOcg = ocg->hasOCGs();
 						if (hasOcg)
 						{
-
 							QStringList ocgNames;
 							Array *order = ocg->getOrderArray();
 							if (order)
@@ -521,7 +520,7 @@ bool PdfPlug::convert(const QString& fn)
 									Object orderItem = order->get(i);
 									if (orderItem.isDict())
 									{
-										Object ref = order->getNF(i);
+										POPPLER_CONST_075 Object POPPLER_REF ref = order->getNF(i);
 										if (ref.isRef())
 										{
 											OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());

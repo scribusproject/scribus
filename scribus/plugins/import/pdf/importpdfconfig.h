@@ -44,4 +44,12 @@ for which a new license (GPL+exception) is in place.
 #define Gulong  unsigned long
 #endif
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 75, 0)
+#define POPPLER_CONST_075 const
+#define POPPLER_REF &
+#else
+#define POPPLER_CONST_075
+#define POPPLER_REF
+#endif
+
 #endif
