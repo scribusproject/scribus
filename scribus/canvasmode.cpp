@@ -1338,15 +1338,16 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
-							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
+							const auto& nodeSelection = m_doc->nodeEdit.selNode();
+							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
 								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
+								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									int clRe = nodeSelection.at(itm);
 									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
@@ -1428,15 +1429,16 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
-							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
+							const auto& nodeSelection = m_doc->nodeEdit.selNode();
+							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
 								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
+								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									int clRe = nodeSelection.at(itm);
 									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
@@ -1518,15 +1520,16 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
-							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
+							const auto& nodeSelection = m_doc->nodeEdit.selNode();
+							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
 								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
+								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									int clRe = nodeSelection.at(itm);
 									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
@@ -1608,15 +1611,16 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
-							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
+							const auto& nodeSelection = m_doc->nodeEdit.selNode();
+							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
 								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
+								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									int clRe = nodeSelection.at(itm);
 									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else

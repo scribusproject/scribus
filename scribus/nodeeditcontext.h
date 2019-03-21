@@ -40,6 +40,7 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 {
 	public:
 		NodeEditContext();
+
 		bool isContourLine() { return m_isContourLine; }
 		void setIsContourLine(bool b) { m_isContourLine = b; }
 		int clre() { return m_ClRe; }
@@ -54,9 +55,13 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		void setEdPoints(bool b) { m_EdPoints = b; }
 		bool moveSym() { return m_MoveSym; }
 		void setMoveSym(bool b) { m_MoveSym = b; }
+
 		QList<int>& selNode() { return m_SelNode; }
-		bool hasNodeSelected();
+		bool hasNodeSelected() const;
 		void deselect();
+		void selectNode(int i);
+		int  selectionCount() const;
+
 		void reset();
 		void setPreviewMode(bool mode);
 		bool previewMode() { return m_preview; }

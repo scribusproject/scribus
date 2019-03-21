@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
+#include "scribusview.h" 
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -684,7 +684,7 @@ void NodePalette::ToggleAbsMode()
 		Clip = m_doc->m_Selection->itemAt(0)->ContourLine;
 	else
 		Clip = m_doc->m_Selection->itemAt(0)->PoLine;
-	if (m_doc->nodeEdit.selNode().count() != 0)
+	if (m_doc->nodeEdit.selectionCount() != 0)
 		np = Clip.point(m_doc->nodeEdit.selNode().at(0));
 	if (AbsMode->isChecked())
 	{
@@ -765,7 +765,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	if (m_doc == nullptr)
 		return;
 	bool setter = have;
-	if (m_doc->nodeEdit.selNode().count() > 1)
+	if (m_doc->nodeEdit.selectionCount() > 1)
 	{
 		XSpin->setEnabled(false);
 		YSpin->setEnabled(false);

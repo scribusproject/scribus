@@ -151,10 +151,10 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 		p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		cli.point(m_doc->nodeEdit.clre(), &x, &y);
 		p->drawPoint(QPointF(x, y));
-		QList<int>::Iterator itm;
-		for (itm = m_doc->nodeEdit.selNode().begin(); itm != m_doc->nodeEdit.selNode().end(); ++itm)
+		const auto& selectedNodes = m_doc->nodeEdit.selNode();
+		for (int i = 0; i < selectedNodes.count(); ++i)
 		{
-			cli.point((*itm), &x, &y);
+			cli.point(i, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 	}
@@ -203,21 +203,20 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 				}
 			}
 		}
-		for (int a = 0; a < Clip.size(); ++a)
+		for (int i = 0; i < Clip.size(); ++i)
 		{
-			if (Clip.isMarker(a))
+			if (Clip.isMarker(i))
 				continue;
-			const FPoint& np = Clip.point(a);
+			const FPoint& np = Clip.point(i);
 			FPoint npf2 = np.transformPoint(pm2, false);
-			if ((Sele.contains(npf2.x(), npf2.y())) && ((a == 0) || (((a-2) % 4) == 0)))
+			if ((Sele.contains(npf2.x(), npf2.y())) && ((i == 0) || (((i - 2) % 4) == 0)))
 			{
-				if (a == 0)
+				if (i == 0)
 					firstPoint = true;
-				if ((firstPoint) && (a == Clip.size() - 2) && (!currItem->asPolyLine()))
+				if ((firstPoint) && (i == Clip.size() - 2) && (!currItem->asPolyLine()))
 					continue;
-				m_doc->nodeEdit.setClre(a);
-				m_doc->nodeEdit.selNode().append(a);
-				m_doc->nodeEdit.update(Clip.pointQF(a));
+				m_doc->nodeEdit.selectNode(i);
+				m_doc->nodeEdit.update(Clip.pointQF(i));
 			}
 		}
 		currItem->update();
@@ -419,7 +418,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 
 		ScItemState<QPair<FPointArray, FPointArray> > *state = nullptr;
 		state = m_doc->nodeEdit.finishTransaction1(currItem);
-		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selNode().count() == 1))
+		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selectionCount() == 1))
 		{
 			//FIXME:av
 			FPoint newP = m_canvas->globalToCanvas(m->globalPos());
@@ -541,7 +540,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			{
 				if (m->modifiers() != Qt::ShiftModifier)
 					m_doc->nodeEdit.selNode().clear();
-				m_doc->nodeEdit.selNode().append(i);
+				m_doc->nodeEdit.selectNode(i);
 			}
 			m_doc->nodeEdit.update(Clip.pointQF(i));
 			pfound = true;
@@ -946,7 +945,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		currItem->update();
 		m_view->DrawNew();
 	}
-	if ((m_doc->nodeEdit.selNode().count() != 0) || ((m_doc->nodeEdit.segP1() != -1) && (m_doc->nodeEdit.segP2() != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.edPoints())))
+	if ((m_doc->nodeEdit.selectionCount() != 0) || ((m_doc->nodeEdit.segP1() != -1) && (m_doc->nodeEdit.segP2() != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.edPoints())))
 	{
 		m_Mxp = m->x();
 		m_Myp = m->y();
@@ -1100,10 +1099,10 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	}
 	else
 	{
-		if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
+		if ((m_doc->nodeEdit.selectionCount() != 0) && (m_doc->nodeEdit.edPoints()))
 		{
 			int storedClRe = m_doc->nodeEdit.clre();
-			if (m_doc->nodeEdit.selNode().count() == 1)
+			if (m_doc->nodeEdit.selectionCount() == 1)
 			{
 				npf = m_canvas->globalToCanvas(m->globalPos());
 				double nx = npf.x();
@@ -1192,9 +1191,10 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 					if (currItem->imageFlippedV())
 						np.setY(np.y() * -1);
 				}
-				for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
+				const auto& nodeSelection = m_doc->nodeEdit.selNode();
+				for (int itm = 0; itm < nodeSelection.count(); ++itm)
 				{
-					m_doc->nodeEdit.setClre(m_doc->nodeEdit.selNode().at(itm));
+					m_doc->nodeEdit.setClre(nodeSelection.at(itm));
 					if (m_doc->nodeEdit.isContourLine())
 						npf = currItem->ContourLine.point(m_doc->nodeEdit.clre()) + np;
 					else
