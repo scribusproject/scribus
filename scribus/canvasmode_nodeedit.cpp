@@ -529,21 +529,21 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			pm2.scale(1, -1);
 		}
 	}
-	for (int a=0; a < signed(Clip.size()); ++a)
+	for (int i = 0; i < Clip.size(); ++i)
 	{
-		if (((m_doc->nodeEdit.edPoints()) && (a % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (a % 2 == 0)))
+		if (((m_doc->nodeEdit.edPoints()) && (i % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (i % 2 == 0)))
 			continue;
-		QPointF npf = pm2.map(Clip.pointQF(a));
+		QPointF npf = pm2.map(Clip.pointQF(i));
 		if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
 		{
-			m_doc->nodeEdit.setClre(a);
-			if ((m_doc->nodeEdit.edPoints()) && (m_doc->nodeEdit.selNode().contains(a) == 0))
+			m_doc->nodeEdit.setClre(i);
+			if ((m_doc->nodeEdit.edPoints()) && (m_doc->nodeEdit.selNode().contains(i) == 0))
 			{
 				if (m->modifiers() != Qt::ShiftModifier)
 					m_doc->nodeEdit.selNode().clear();
-				m_doc->nodeEdit.selNode().append(a);
+				m_doc->nodeEdit.selNode().append(i);
 			}
-			m_doc->nodeEdit.update(Clip.pointQF(a));
+			m_doc->nodeEdit.update(Clip.pointQF(i));
 			pfound = true;
 			edited = true;
 			break;
@@ -778,63 +778,56 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	{
 		if (!m_doc->nodeEdit.edPoints())
 			return;
-		if (!(currItem->isLine() || currItem->isPathText() || currItem->isPolyLine()))
+
+		int minClipSize = 4;
+		if (!currItem->isLine() && !currItem->isPathText() && !currItem->isPolyLine())
+			minClipSize = 12;
+
+		if (Clip.size() <= minClipSize)
 		{
-			if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
-			{
-				m_doc->nodeEdit.deselect();
-				return;
-			}
-		}
-		else
-		{
-			if (Clip.size() <= 4)
-			{
-				m_doc->nodeEdit.deselect();
-				return;
-			}
+			m_doc->nodeEdit.deselect();
+			return;
 		}
 
 		int numPoints = (StartInd != 0) ? (StartInd-4) : 0;
 		numPoints += (Clip.size() - EndInd);
-		if ((currItem->Segments.count() > 0) && ((EndInd - StartInd) <= 12) && (numPoints > 0))
+		if ((currItem->Segments.count() > 0) && ((EndInd - StartInd) < minClipSize) && (numPoints > 0))
 		{
 			if (StartInd != 0)
 				cli.putPoints(0, StartInd-4, Clip);
 			cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 		}
-		else
+		else if (m_doc->nodeEdit.clre() == static_cast<int>(StartInd))
 		{
-			if (m_doc->nodeEdit.clre() == static_cast<int>(StartInd))
+			if (!currItem->isLine() && !currItem->isPathText() && !currItem->isPolyLine())
 			{
-				if (!(currItem->isLine() || currItem->isPathText() || currItem->isPolyLine()))
-				{
-					const FPoint& kp(Clip.point(EndInd-3));
-					cli.putPoints(0, StartInd, Clip);
-					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
-					cli.setPoint(StartInd, cli.point(cli.size()-2));
-					cli.setPoint(StartInd + 1, kp);
-					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-				}
-				else
-				{
-					cli.putPoints(0, StartInd, Clip);
-					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
-					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-				}
-			}
-			else if (m_doc->nodeEdit.clre() == static_cast<int>(EndInd - 2))
-			{
-				Clip.remove(m_doc->nodeEdit.clre() - 2, 4);
-				cli = Clip.copy();
+				const FPoint& kp(Clip.point(EndInd - 3));
+				cli.putPoints(0, StartInd, Clip);
+				cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
+				cli.setPoint(StartInd, cli.point(cli.size() - 2));
+				cli.setPoint(StartInd + 1, kp);
+				cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 			}
 			else
 			{
-				if (m_doc->nodeEdit.clre() != 0)
-					cli.putPoints(0, m_doc->nodeEdit.clre(), Clip);
-				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.clre() + 4), Clip, m_doc->nodeEdit.clre()+4);
+				cli.putPoints(0, StartInd, Clip);
+				cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
+				cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 			}
 		}
+		else if (m_doc->nodeEdit.clre() == static_cast<int>(EndInd - 2))
+		{
+			Clip.remove(m_doc->nodeEdit.clre() - 2, 4);
+			cli = Clip.copy();
+		}
+		else
+		{
+			if (m_doc->nodeEdit.clre() != 0)
+				cli.putPoints(0, m_doc->nodeEdit.clre(), Clip);
+			cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.clre() + 4), Clip, m_doc->nodeEdit.clre() + 4);
+		}
+		while (cli.isMarker(0))
+			cli.remove(0, 4);
 		if (m_doc->nodeEdit.isContourLine())
 			currItem->ContourLine = cli.copy();
 		else

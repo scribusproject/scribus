@@ -72,18 +72,21 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				}
 				if (PoLine.isMarker(n))
 				{
-					cli.addPoint(PoLine.point(n-2));
-					cli.addPoint(PoLine.point(n-2));
-					cli.addPoint(Start);
-					cli.addPoint(Start);
-					cli.setMarker();
+					if (n >= 2)
+					{
+						cli.addPoint(PoLine.point(n - 2));
+						cli.addPoint(PoLine.point(n - 2));
+						cli.addPoint(Start);
+						cli.addPoint(Start);
+						cli.setMarker();
+					}
 					firstp = true;
 					continue;
 				}
 				cli.addPoint(PoLine.point(n));
-				cli.addPoint(PoLine.point(n+1));
-				cli.addPoint(PoLine.point(n+2));
-				cli.addPoint(PoLine.point(n+3));
+				cli.addPoint(PoLine.point(n + 1));
+				cli.addPoint(PoLine.point(n + 2));
+				cli.addPoint(PoLine.point(n + 3));
 			}
 			if (cli.size() > 2)
 			{

@@ -1140,11 +1140,14 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 			}
 			if (item->PoLine.isMarker(n))
 			{
-				cli.addPoint(item->PoLine.point(n-2));
-				cli.addPoint(item->PoLine.point(n-2));
-				cli.addPoint(Start);
-				cli.addPoint(Start);
-				cli.setMarker();
+				if (n >= 2)
+				{
+					cli.addPoint(item->PoLine.point(n - 2));
+					cli.addPoint(item->PoLine.point(n - 2));
+					cli.addPoint(Start);
+					cli.addPoint(Start);
+					cli.setMarker();
+				}
 				firstp = true;
 				continue;
 			}
