@@ -256,7 +256,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		{
 			state->set("PATH_OP_NEW_OLDB2", currItem->OldB2);
 			state->set("PATH_OP_NEW_OLDH2", currItem->OldH2);
-			state->setItem(QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> >(QPair<FPointArray, FPointArray>(oldPOLine, oldContourLine), QPair<FPointArray, FPointArray>(points, currItem->ContourLine)));
+			state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(points, currItem->ContourLine)));
 			undoManager->action(currItem, state);
 		}
 		//>>#9046
@@ -305,7 +305,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			{
 				state->set("PATH_OP_NEW_OLDB2", Item1->OldB2);
 				state->set("PATH_OP_NEW_OLDH2", Item1->OldH2);
-				state->setItem(QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> >(QPair<FPointArray, FPointArray>(oldPOLine, oldContourLine), QPair<FPointArray, FPointArray>(Item1->PoLine, Item1->ContourLine)));
+				state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(Item1->PoLine, Item1->ContourLine)));
 				undoManager->action(Item1, state);
 			}
 			//>>#9046
@@ -348,7 +348,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			{
 				state->set("PATH_OP_NEW_OLDB2", Item2->OldB2);
 				state->set("PATH_OP_NEW_OLDH2", Item2->OldH2);
-				state->setItem(QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> >(QPair<FPointArray, FPointArray>(oldPOLine, oldContourLine), QPair<FPointArray, FPointArray>(Item2->PoLine, Item2->ContourLine)));
+				state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(Item2->PoLine, Item2->ContourLine)));
 				undoManager->action(Item2, state);
 			}
 			//>>#9046
