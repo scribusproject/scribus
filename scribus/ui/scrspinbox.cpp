@@ -22,6 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "third_party/fparser/fparser.hh"
 
+static const QString FinishTag("\xA0");
+
 ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(nullptr)
 {
 	init(unitIndex);
@@ -36,8 +38,8 @@ ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIn
 
 void ScrSpinBox::init(int unitIndex)
 {
-	m_unitIndex=unitIndex;
-	m_tabAdvance=true;
+	m_unitIndex = unitIndex;
+	m_tabAdvance = true;
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setSingleStep(1.0);
@@ -105,7 +107,7 @@ void ScrSpinBox::setNewUnit(int unitIndex)
 	double oldMin = minimum() / oldUnitRatio;
 	setSuffix(unitGetSuffixFromIndex(unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(unitIndex));
-	double newUnitRatio=unitGetRatioFromIndex(unitIndex);
+	double newUnitRatio = unitGetRatioFromIndex(unitIndex);
 	setMinimum(oldMin * newUnitRatio);
 	setMaximum(oldMax * newUnitRatio);
 	setSingleStep(1.0);
@@ -141,10 +143,6 @@ void ScrSpinBox::setConstants(const QMap<QString, double>* constants)
 {
 	m_constants = constants;
 }
-
-
-
-static const QString FinishTag("\xA0");
 
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
@@ -233,18 +231,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		ts.replace(CommonStrings::trStrCM, CommonStrings::strCM);
 	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strC)!=0)
 		ts.replace(CommonStrings::trStrC, CommonStrings::strC);
-/* not needed with fparser 3.3.2 and AddUnit
-	//Replace in our typed text all of the units strings with *unitstring
-	QRegExp rx("\\b(\\d+)\\s*("+CommonStrings::strPT+"|"+CommonStrings::strMM+"|"+CommonStrings::strC+"|"+CommonStrings::strCM+"|"+CommonStrings::strIN+")\\b");
-	pos = 0;
-	while (pos >= 0) {
-		pos = rx.indexIn(ts, pos);
-		if (pos >= 0) {
-			QString replacement = rx.cap(1) + "*" + rx.cap(2);
-			ts.replace(pos, rx.cap(0).length(), replacement);
-		}
-	}
-*/
+
 	//Add in the fparser constants using our unit strings, and the conversion factors.
 	FunctionParser fp;
 // 	setFPConstants(fp);
@@ -278,20 +265,20 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	return erg;
 }
 
-QString ScrSpinBox::textFromValue ( double value ) const
+QString ScrSpinBox::textFromValue(double value) const
 {
 	if (m_unitIndex==SC_PICAS)
 	{
 // 		QString r=QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
-		int a=(static_cast<int>(value))/12;
-		double b=fabs(fmod(value, 12));
+		int a = (static_cast<int>(value))/12;
+		double b = fabs(fmod(value, 12));
 		QString prefix((a==0 && value < 0.0) ? "-" : "");
 		return QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(m_unitIndex)).arg(b);
 	}
 	return QDoubleSpinBox::textFromValue ( value );
 }
 
-QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
+QValidator::State ScrSpinBox::validate(QString & input, int & pos) const
 {
 //		qDebug() << "spinbox validate intermediate:" << input;
 	if (input.endsWith(FinishTag))
@@ -299,7 +286,7 @@ QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
 	return QValidator::Intermediate;
 }
 
-void ScrSpinBox::fixup ( QString & input ) const
+void ScrSpinBox::fixup(QString & input) const
 {
 	if (!input.endsWith(FinishTag))
 		input += FinishTag;
@@ -311,98 +298,45 @@ void ScrSpinBox::textChanged()
 // 	qDebug() << "v:" << value() << "t:" << text() << "ct:" << cleanText();
 }
 
-bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
+bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 {
 	bool retval = false;
 /* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
  	if (event->type() == QEvent::InputMethod)
  		return QDoubleSpinBox::eventFilter(watched, event);
-	/*
-	if ( event->type() == QEvent::KeyPress )
-	{
-		QKeyEvent* k = (QKeyEvent*)event;
-		bool shiftB=k->modifiers() & Qt::ShiftModifier;
-		bool controlB=k->modifiers() & Qt::ControlModifier;
-		if (k->key() == Qt::Key_Shift && !controlB)
-		{
-			setSingleStep(0.1);
-			retval = QWidget::event(event);
-		}
-		else if (k->key() == Qt::Key_Control && !shiftB)
-		{
-			setSingleStep(10.0);
-			retval = QWidget::event(event);
-		}
-		else if ((k->key() == Qt::Key_Control && shiftB) || (k->key() == Qt::Key_Shift && controlB))
-		{
-			qDebug("boo1");
-			setSingleStep(0.01);
-			retval = QWidget::event(event);
-		}
-		else if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter) || (k->key() == Qt::Key_Tab))
-		{
- 			if (!m_tabAdvance)
-			{
-//				qDebug() << "eventFilter: interpretText";
-				QDoubleSpinBox::interpretText();
-				return true;
-			}
-		}
-	}
-	else if (event->type() == QEvent::KeyRelease )
-	{
-		QKeyEvent* k = (QKeyEvent*)event;
-		bool shiftB=k->modifiers() & Qt::ShiftModifier;
-		bool controlB=k->modifiers() & Qt::ControlModifier;
-		if ((k->key() == Qt::Key_Shift && !controlB) || (k->key() == Qt::Key_Control && !shiftB))
-		{
-			setSingleStep(1.0);
-			retval = QWidget::event(event);
-		}
-		else if (k->key() == Qt::Key_Shift && controlB)
-		{
-			setSingleStep(10.0);
-			retval = QWidget::event(event);
-		}
-		else if (k->key() == Qt::Key_Control && shiftB)
-		{
-			setSingleStep(0.1);
-			retval = QWidget::event(event);
-		}
-	}
-	*/
-	if ( event->type() == QEvent::Wheel )
+
+	if (event->type() == QEvent::Wheel)
 	{
 		//If read only don't spin
 		if (isReadOnly())
 			return false;
 		QWheelEvent* k = (QWheelEvent*)event;
-		bool shiftB=k->modifiers() & Qt::ShiftModifier;
-		bool altB=k->modifiers() & Qt::AltModifier;
+		bool shiftB = k->modifiers() & Qt::ShiftModifier;
+		bool altB = k->modifiers() & Qt::AltModifier;
 		if (shiftB && !altB)
 		{
 			setSingleStep(0.1);
-			retval=QAbstractSpinBox::event(event);
+			retval = QAbstractSpinBox::event(event);
 		} 
 		else if (!shiftB && altB)
 		{
 			setSingleStep(10.0);
-			retval=QAbstractSpinBox::event(event);
+			retval = QAbstractSpinBox::event(event);
 		}
 		else if (shiftB && altB)
 		{
 			setSingleStep(0.01);
-			retval=QAbstractSpinBox::event(event);
+			retval = QAbstractSpinBox::event(event);
 		}
-		else if (!shiftB && !altB)
+		else
 		{
 			setSingleStep(1.0);
-			retval=QAbstractSpinBox::event(event);
+			retval = QAbstractSpinBox::event(event);
 		}
+		return retval;
 	}
-	else
-		return QDoubleSpinBox::eventFilter(watched, event);
-	return retval;
+
+	return QDoubleSpinBox::eventFilter(watched, event);
 }
 
 void ScrSpinBox::setTabAdvance(bool enable)
