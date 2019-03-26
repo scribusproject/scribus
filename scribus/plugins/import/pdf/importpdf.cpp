@@ -1041,6 +1041,9 @@ QString PdfPlug::UnicodeParsedString(POPPLER_CONST GooString *s1)
 			u = s1->getChar(i) & 0xff;
 			++i;
 		}
+		// #15616: imagemagick may write unicode strings incorrectly in PDF
+		if (u == 0)
+			continue;
 		result += QChar( u );
 	}
 	return result;
