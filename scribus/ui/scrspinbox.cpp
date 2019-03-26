@@ -39,7 +39,6 @@ ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIn
 void ScrSpinBox::init(int unitIndex)
 {
 	m_unitIndex = unitIndex;
-	m_tabAdvance = true;
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setSingleStep(1.0);
@@ -123,7 +122,7 @@ void ScrSpinBox::setValues(double min, double max, int deci, double val)
 	setValue(val);
 }
 
-void ScrSpinBox::getValues(double *min, double *max, int *deci, double *val)
+void ScrSpinBox::getValues(double *min, double *max, int *deci, double *val) const
 {
 	*deci = decimals();
 	*min = minimum();
@@ -131,10 +130,10 @@ void ScrSpinBox::getValues(double *min, double *max, int *deci, double *val)
 	*val = value();
 }
 
-double ScrSpinBox::getValue(int unitIndex)
+double ScrSpinBox::getValue(int unitIndex) const
 {
 	double val=value() / unitGetRatioFromIndex(m_unitIndex);
-	if (unitIndex==0)
+	if (unitIndex == 0)
 		return val;
 	return val * unitGetRatioFromIndex(unitIndex);
 }
@@ -155,9 +154,9 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
 	QRegExp rxP;
 	if (m_unitIndex==SC_PICAS)
-		rxP.setPattern("\\b(\\d+)"+CommonStrings::strP+"?(\\d+\\.?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\.?\\d*)?\\b");
 	else
-		rxP.setPattern("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\.?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
@@ -202,10 +201,10 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		pos = ts.lastIndexOf(cSepDecimal, pos);
 		if (pos >= 0) 
 		{
-			if (pos < static_cast<int>(ts.length()))
+			if (pos < ts.length())
 			{
-				if (!ts[pos+1].isDigit())
-					ts.insert(pos+1, "0 ");
+				if (!ts[pos + 1].isDigit())
+					ts.insert(pos + 1, "0 ");
 			}
 			pos--;
 		}
@@ -267,10 +266,10 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 
 QString ScrSpinBox::textFromValue(double value) const
 {
-	if (m_unitIndex==SC_PICAS)
+	if (m_unitIndex == SC_PICAS)
 	{
 // 		QString r=QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
-		int a = (static_cast<int>(value))/12;
+		int a = (static_cast<int>(value)) / 12;
 		double b = fabs(fmod(value, 12));
 		QString prefix((a==0 && value < 0.0) ? "-" : "");
 		return QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(m_unitIndex)).arg(b);
@@ -291,7 +290,6 @@ void ScrSpinBox::fixup(QString & input) const
 	if (!input.endsWith(FinishTag))
 		input += FinishTag;
 }
-
 
 void ScrSpinBox::textChanged()
 {
@@ -337,9 +335,4 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 	}
 
 	return QDoubleSpinBox::eventFilter(watched, event);
-}
-
-void ScrSpinBox::setTabAdvance(bool enable)
-{
-	m_tabAdvance = enable;
 }

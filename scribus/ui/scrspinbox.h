@@ -39,8 +39,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void init(int unitIndex);
 		void setConstants(const QMap<QString, double>* constants);
 		void setNewUnit(int unitIndex);
-		double getValue(int unitIndex=0);
-		void setTabAdvance(bool enable);
+		double getValue(int unitIndex=0) const;
 
 		uint   unitIndex() const { return m_unitIndex; }
 		double unitRatio() const;
@@ -49,16 +48,16 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void stepBy(int steps) override;
 		
 	public slots:
-		void setValues(double min, double max, int deci, double val);
-		void getValues(double *min, double *max, int *deci, double *val);
+		void getValues(double *min, double *max, int *deci, double *val) const;
 		void setValue(int val);
 		void setValue(double val);
+		void setValues(double min, double max, int deci, double val);
 	
 	protected:
-		void setParameters( int s );
 		uint m_unitIndex;
-		bool m_tabAdvance;
 		const QMap<QString, double>* m_constants;
+
+		void setParameters(int s);
 		bool eventFilter ( QObject * watched, QEvent * event );
 		
 	protected slots:

@@ -1249,7 +1249,6 @@ void ScribusMainWindow::initStatusBar()
 	zoomLayout->setSpacing(1);
 
 	zoomSpinBox = new ScrSpinBox( 1, 32000, zoomWidget, 6 );
-	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );
 	zoomSpinBox->setSingleStep(10);
