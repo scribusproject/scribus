@@ -175,9 +175,10 @@ public:
 //	virtual GBool needClipToCropBox() { return gTrue; }
 	void startPage(int pageNum, GfxState *, XRef *) override;
 	void endPage() override;
+
 	// graphics state
-	virtual void saveState(GfxState *state) override;
-	virtual void restoreState(GfxState *state) override;
+	void saveState(GfxState *state) override;
+	void restoreState(GfxState *state) override;
 
 	//----- path painting
 	void stroke(GfxState *state) override;
