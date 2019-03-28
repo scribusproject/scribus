@@ -64,12 +64,14 @@ public:
 	LinkSubmitForm(Object *actionObj);
 	// Destructor.
 	virtual ~LinkSubmitForm();
+
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() POPPLER_CONST { return fileName != nullptr; }
+	GBool isOk() POPPLER_CONST override { return fileName != nullptr; }
 	// Accessors.
-	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
+	LinkActionKind getKind() POPPLER_CONST override { return actionUnknown; }
 	GooString *getFileName() { return fileName; }
 	int getFlags() { return m_flags; }
+
 private:
 	GooString *fileName;		// file name
 	int m_flags;
@@ -86,11 +88,13 @@ public:
 	LinkImportData(Object *actionObj);
 	// Destructor.
 	virtual ~LinkImportData();
+
 	// Was the LinkImportData created successfully?
-	virtual GBool isOk() POPPLER_CONST { return fileName != nullptr; }
+	GBool isOk() POPPLER_CONST override { return fileName != nullptr; }
 	// Accessors.
-	virtual LinkActionKind getKind() POPPLER_CONST { return actionUnknown; }
+	LinkActionKind getKind() POPPLER_CONST override { return actionUnknown; }
 	GooString *getFileName() { return fileName; }
+
 private:
 	GooString *fileName;		// file name
 };
@@ -140,6 +144,7 @@ public:
 	double m_fontSize;
 	GooString *m_fontName;
 	GooString *m_itemText;
+
 private:
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	ScribusDoc* m_doc;
