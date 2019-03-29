@@ -1750,6 +1750,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->itemText.setDefaultStyle(pstyle);
 
 	currItem->setRotation(ScCLocale::toDoubleC(obj->attribute("ROT")));
+	currItem->oldRot = currItem->rotation();
 	currItem->setTextToFrameDist(ScCLocale::toDoubleC(obj->attribute("EXTRA")),
 								ScCLocale::toDoubleC(obj->attribute("REXTRA"), 1.0),
 								ScCLocale::toDoubleC(obj->attribute("TEXTRA"), 1.0),

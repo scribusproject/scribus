@@ -667,6 +667,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
+					cItem->oldRot = cItem->rotation();
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
@@ -698,6 +699,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
 			m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 		}
@@ -728,6 +730,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
 			m_Doc->MasterItems.removeOne(cItem);
 		}
@@ -2244,6 +2247,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
+					cItem->oldRot = cItem->rotation();
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
@@ -2790,6 +2794,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 
 	currItem->setRotation( attrs.valueAsDouble("ROT") );
+	currItem->oldRot = currItem->rotation();
 	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA"),
 								attrs.valueAsDouble("REXTRA", 1.0),
 								attrs.valueAsDouble("TEXTRA", 1.0),

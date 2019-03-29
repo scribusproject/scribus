@@ -457,6 +457,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->setLineShade(Buffer->Shade2);
 	currItem->fillRule = Buffer->FillRule;
 	currItem->setRotation(Buffer->Rot);
+	currItem->oldRot = currItem->rotation();
 	currItem->setTextToFrameDist(Buffer->Extra, Buffer->RExtra, Buffer->TExtra, Buffer->BExtra);
 	currItem->PLineArt = Qt::PenStyle(Buffer->PLineArt);
 	currItem->PLineEnd = Qt::PenCapStyle(Buffer->PLineEnd);
