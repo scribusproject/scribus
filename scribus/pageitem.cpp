@@ -7348,21 +7348,21 @@ void PageItem::restorePathOperation(UndoState *state, bool isUndo)
 
 	if (isUndo)
 	{
-		this->ClipEdited=is->getBool("PATH_OP_OLD_CLIPEDITED");
-		this->FrameType=is->getInt("PATH_OP_OLD_FRAMETYPE");
-		this->OldB2=is->getDouble("PATH_OP_OLD_OLDB2");
-		this->OldH2=is->getDouble("PATH_OP_OLD_OLDH2");
-		QPair<FPointArray, FPointArray> oldLines=is->getItem().first;
+		this->ClipEdited = is->getBool("PATH_OP_OLD_CLIPEDITED");
+		this->FrameType = is->getInt("PATH_OP_OLD_FRAMETYPE");
+		this->OldB2 = is->getDouble("PATH_OP_OLD_OLDB2");
+		this->OldH2 = is->getDouble("PATH_OP_OLD_OLDH2");
+		QPair<FPointArray, FPointArray> oldLines = is->getItem().first;
 		this->PoLine = oldLines.first;
 		this->ContourLine = oldLines.second;
 	}
 	else
 	{
-		this->ClipEdited=is->getBool("PATH_OP_NEW_CLIPEDITED");
-		this->FrameType=is->getInt("PATH_OP_NEW_FRAMETYPE");
-		this->OldB2=is->getDouble("PATH_OP_NEW_OLDB2");
-		this->OldH2=is->getDouble("PATH_OP_NEW_OLDH2");
-		QPair<FPointArray, FPointArray> newLines=is->getItem().second;
+		this->ClipEdited = is->getBool("PATH_OP_NEW_CLIPEDITED");
+		this->FrameType = is->getInt("PATH_OP_NEW_FRAMETYPE");
+		this->OldB2 = is->getDouble("PATH_OP_NEW_OLDB2");
+		this->OldH2 = is->getDouble("PATH_OP_NEW_OLDH2");
+		QPair<FPointArray, FPointArray> newLines = is->getItem().second;
 		this->PoLine = newLines.first;
 		this->ContourLine = newLines.second;
 	}
@@ -7416,7 +7416,7 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 		Segments.clear();
 		FrameType = is->getInt("FRAMETYPE");
 		ClipEdited = is->getBool("CLIPEDITED");
-		bool oldRotMode = doc()->rotationMode();
+		int oldRotMode = doc()->rotationMode();
 		doc()->setRotationMode(0);
 		doc()->adjustItemSize(this);
 		doc()->setRotationMode(oldRotMode);
