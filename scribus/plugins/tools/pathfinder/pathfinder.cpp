@@ -164,10 +164,11 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		}
 		if (UndoManager::undoEnabled())
 		{
+			int targetIndex = (newItem->OwnPage >= 0) ? newItem->OwnPage : 0;
 			ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 			is->set("CREATE_ITEM");
 			is->setItem(newItem);
-			UndoObject *target = currDoc->Pages->at(Item1->OwnPage);
+			UndoObject *target = currDoc->Pages->at(targetIndex);
 			undoManager->action(target, is);
 		}
 	}
@@ -188,10 +189,11 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		}
 		if (UndoManager::undoEnabled())
 		{
+			int targetIndex = (newItem->OwnPage >= 0) ? newItem->OwnPage : 0;
 			ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 			is->set("CREATE_ITEM");
 			is->setItem(newItem);
-			UndoObject *target = currDoc->Pages->at(Item1->OwnPage);
+			UndoObject *target = currDoc->Pages->at(targetIndex);
 			undoManager->action(target, is);
 		}
 	}
@@ -221,12 +223,13 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 				currItem->setRotation(0.0);
 			}
 		}
+
 		path = dia->result;
 		points.fromQPainterPath(path);
 			
 		//<<#9046
-		FPointArray oldPOLine=currItem->PoLine;
-		FPointArray oldContourLine=currItem->ContourLine;
+		FPointArray oldPOLine = currItem->PoLine;
+		FPointArray oldContourLine = currItem->ContourLine;
 		ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 		if (UndoManager::undoEnabled())
 		{
@@ -241,11 +244,15 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			state->set("PATH_OP_NEW_FRAMETYPE", 3);
 		}
 		//>>#9046
-			
+		
+		int oldRotMode = currDoc->rotationMode();
+		currItem->setRotation(0.0);
 		currItem->PoLine = points;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
+		currDoc->setRotationMode(0);
 		currDoc->adjustItemSize(currItem);
+		currDoc->setRotationMode(oldRotMode);
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		currItem->updateClip();
@@ -256,7 +263,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		{
 			state->set("PATH_OP_NEW_OLDB2", currItem->OldB2);
 			state->set("PATH_OP_NEW_OLDH2", currItem->OldH2);
-			state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(points, currItem->ContourLine)));
+			state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(currItem->PoLine, currItem->ContourLine)));
 			undoManager->action(currItem, state);
 		}
 		//>>#9046
@@ -276,8 +283,8 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		{
 			points.fromQPainterPath(path);
 			//<<#9046
-			FPointArray oldPOLine=Item1->PoLine;
-			FPointArray oldContourLine=Item1->ContourLine;
+			FPointArray oldPOLine = Item1->PoLine;
+			FPointArray oldContourLine = Item1->ContourLine;
 			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 			if (UndoManager::undoEnabled())
 			{
@@ -292,14 +299,20 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 				state->set("PATH_OP_NEW_FRAMETYPE", 3);
 			}
 			//>>#9046
+
+			int oldRotMode = currDoc->rotationMode();
+			Item1->setRotation(0.0);
 			Item1->PoLine = points;
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
+			currDoc->setRotationMode(0);
 			currDoc->adjustItemSize(Item1);
+			currDoc->setRotationMode(oldRotMode);
 			Item1->OldB2 = Item1->width();
 			Item1->OldH2 = Item1->height();
 			Item1->updateClip();
 			Item1->ContourLine = Item1->PoLine.copy();
+
 			//<<#9046
 			if (UndoManager::undoEnabled())
 			{
@@ -317,8 +330,8 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		{
 			points.fromQPainterPath(path);
 			//<<#9046
-			FPointArray oldPOLine=Item2->PoLine;
-			FPointArray oldContourLine=Item2->ContourLine;
+			FPointArray oldPOLine = Item2->PoLine;
+			FPointArray oldContourLine = Item2->ContourLine;
 			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
 			if (UndoManager::undoEnabled())
 			{
@@ -333,16 +346,21 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 				state->set("PATH_OP_NEW_FRAMETYPE", 3);
 			}
 			//>>#9046
+
+			int oldRotMode = currDoc->rotationMode();
 			Item2->setXYPos(i1x, i1y);
 			Item2->setRotation(0.0);
 			Item2->PoLine = points;
 			Item2->ClipEdited = true;
 			Item2->FrameType = 3;
+			currDoc->setRotationMode(0);
 			currDoc->adjustItemSize(Item2);
+			currDoc->setRotationMode(oldRotMode);
 			Item2->OldB2 = Item2->width();
 			Item2->OldH2 = Item2->height();
 			Item2->updateClip();
 			Item2->ContourLine = Item2->PoLine.copy();
+
 			//<<#9046
 			if (UndoManager::undoEnabled())
 			{
@@ -371,15 +389,31 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			}
 			currDoc->Items->append(newItem);
 			newItem->setSelected(false);
+
 			points.fromQPainterPath(path);
+
+			int oldRotMode = currDoc->rotationMode();
 			newItem->PoLine = points;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
+			currDoc->setRotationMode(0);
 			currDoc->adjustItemSize(newItem);
+			currDoc->setRotationMode(oldRotMode);
 			newItem->OldB2 = newItem->width();
 			newItem->OldH2 = newItem->height();
 			newItem->updateClip();
 			newItem->ContourLine = newItem->PoLine.copy();
+
+			if (UndoManager::undoEnabled())
+			{
+				int targetIndex = (newItem->OwnPage >= 0) ? newItem->OwnPage : 0;
+				ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
+				is->set("CREATE_ITEM");
+				is->setItem(newItem);
+				UndoObject *target = currDoc->Pages->at(targetIndex);
+				undoManager->action(target, is);
+			}
+
 			if (dia->targetColor == 2)
 			{
 				QString fill = dia->getOtherFillColor();
