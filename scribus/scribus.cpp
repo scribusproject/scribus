@@ -4688,21 +4688,28 @@ void ScribusMainWindow::slotEditCopy()
 	{
 		if ((currItem->isSingleSel) && (currItem->isGroup()))
 			return;
-		//do not copy notes frames
-		if (doc->m_Selection->count() ==1 && currItem->isNoteFrame())
+
+		// Do not copy notes frames
+		if ((doc->m_Selection->count() == 1) && currItem->isNoteFrame())
 			return;
-		//deselect notesframes
-		Selection tempSelection(*(doc->m_Selection));
+		
+		// Sort items in Z-order
+		QList<PageItem*> selectedItems = doc->m_Selection->items();
+		qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+
+		Selection tempSelection(this, false);
+		for (int i = 0; i < selectedItems.count(); ++i)
+			tempSelection.addItem(selectedItems.at(i));
+
+		// Deselect notesframes
 		for (int i = 0; i < doc->m_Selection->count(); ++i)
 		{
 			if (doc->m_Selection->itemAt(i)->isNoteFrame())
 				tempSelection.removeItem(doc->m_Selection->itemAt(i));
 		}
-		if (tempSelection.count() < doc->m_Selection->count())
-			*(doc->m_Selection) = tempSelection;
 
 		ScriXmlDoc ss;
-		QString BufferS = ss.writeElem(doc, doc->m_Selection);
+		QString BufferS = ss.writeElem(doc, &tempSelection);
 		if (!internalCopy)
 		{
 			if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
