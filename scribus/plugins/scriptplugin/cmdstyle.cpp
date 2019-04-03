@@ -214,50 +214,66 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	}
 
 	multiLine ml;
-	for (int i = 0; i < PyList_Size(obj); i++) {
+	const ColorList& docColors = ScCore->primaryMainWindow()->doc->PageColors;
+
+	for (int i = 0; i < PyList_Size(obj); i++)
+	{
 		PyObject *line = PyList_GetItem(obj, i);
-		if (!PyDict_Check(line)) {
+		if (!PyDict_Check(line))
+		{
 			PyErr_SetString(PyExc_TypeError, "elements of list must be Dictionary.");
 			return nullptr;
 		}
 		struct SingleLine sl;
 		PyObject *val;
+
 		val = PyDict_GetItemString(line, "Color");
-		if (val) {
+		if (val)
 			sl.Color = PyString_AsString(val);
-		} else 
-			sl.Color = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColor;;
+		else 
+			sl.Color = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColor;
+
 		val = PyDict_GetItemString(line, "Dash");
-		if (val) {
+		if (val)
 			sl.Dash = PyInt_AsLong(val);
-		} else 
+		else 
 			sl.Dash = Qt::SolidLine;
+
 		val = PyDict_GetItemString(line, "LineEnd");
-		if (val) {
+		if (val)
 			sl.LineEnd = PyInt_AsLong(val);
-		} else 
+		else 
 			sl.LineEnd = Qt::FlatCap;
+
 		val = PyDict_GetItemString(line, "LineJoin");
-		if (val) {
+		if (val)
 			sl.LineJoin = PyInt_AsLong(val);
-		} else 
+		else 
 			sl.LineJoin = Qt::MiterJoin;
+
 		val = PyDict_GetItemString(line, "Shade");
-		if (val) {
+		if (val)
 			sl.Shade = PyInt_AsLong(val);
-		} else 
+		else 
 			sl.Shade = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColorShade;
+
 		val = PyDict_GetItemString(line, "Width");
-		if (val) {
+		if (val)
 			sl.Width = PyFloat_AsDouble(val);
-		} else 
+		else 
 			sl.Width = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineWidth;
 
 		val = PyDict_GetItemString(line, "Shortcut");
-		if (val) {
+		if (val)
 			ml.shortcut = PyString_AsString(val);
-		} else 
+		else 
 			ml.shortcut = "";
+
+		if (!docColors.contains(sl.Color))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified color is not available in document.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
 		ml.push_back(sl);
 	}
 	if (!ml.empty())
