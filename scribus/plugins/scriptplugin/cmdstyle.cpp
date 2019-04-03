@@ -98,7 +98,6 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		const_cast<char*>("name"),
 		const_cast<char*>("font"),
 		const_cast<char*>("fontsize"),
-		const_cast<char*>("fontfeatures"),
 		const_cast<char*>("features"),
 		const_cast<char*>("fillcolor"),
 		const_cast<char*>("fillshade"),
