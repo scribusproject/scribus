@@ -116,7 +116,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		const_cast<char*>("tracking"),
 		const_cast<char*>("language"),
 		nullptr};
-	char *Name = const_cast<char*>(""), *Font = const_cast<char*>("Times"), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
+	char *Name = const_cast<char*>(""), *Font = const_cast<char*>(""), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
 	double FontSize = 200, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
 																									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
@@ -132,11 +132,28 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return nullptr;
 	}
 
+	QString RealFont = QString(Font);
+	if (RealFont.isEmpty())
+	{
+		const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
+		int index = charStyles.find(CommonStrings::DefaultCharacterStyle);
+		if (index < 0)
+			index = charStyles.find(CommonStrings::trDefaultCharacterStyle);
+		if (index >= 0)
+			RealFont = charStyles[index].font().scName();
+	}
+
+	if (!ScCore->primaryMainWindow()->doc->AllFonts->contains(RealFont))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available in font list.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
 	QStringList FeaturesList = QString(Features).split(QString(","));
 
 	CharStyle TmpCharStyle;
 	TmpCharStyle.setName(Name);
-	TmpCharStyle.setFont((*ScCore->primaryMainWindow()->doc->AllFonts)[QString(Font)]);
+	TmpCharStyle.setFont((*ScCore->primaryMainWindow()->doc->AllFonts)[RealFont]);
 	TmpCharStyle.setFontSize(FontSize * 10);
 	TmpCharStyle.setFontFeatures(FontFeatures);
 	TmpCharStyle.setFeatures(FeaturesList);
