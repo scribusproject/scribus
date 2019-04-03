@@ -145,7 +145,21 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 
 	if (!ScCore->primaryMainWindow()->doc->AllFonts->contains(RealFont))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available in font list.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	const ColorList& docColors = ScCore->primaryMainWindow()->doc->PageColors;
+	QString qFillColor = QString(FillColor);
+	QString qStrokeColor = QString(StrokeColor);
+	if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if ((qStrokeColor != CommonStrings::None) && (!docColors.contains(qStrokeColor)))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
@@ -157,9 +171,9 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	TmpCharStyle.setFontSize(FontSize * 10);
 	TmpCharStyle.setFontFeatures(FontFeatures);
 	TmpCharStyle.setFeatures(FeaturesList);
-	TmpCharStyle.setFillColor(QString(FillColor));
+	TmpCharStyle.setFillColor(qFillColor);
 	TmpCharStyle.setFillShade(FillShade * 100);
-	TmpCharStyle.setStrokeColor(QString(StrokeColor));
+	TmpCharStyle.setStrokeColor(qStrokeColor);
 	TmpCharStyle.setStrokeShade(StrokeShade * 100);
 	TmpCharStyle.setBaselineOffset(BaselineOffset);
 	TmpCharStyle.setShadowXOffset(ShadowXOffset);
