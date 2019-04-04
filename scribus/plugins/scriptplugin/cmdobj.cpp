@@ -793,10 +793,12 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	PyObject *styleList;
 	if (!checkHaveDocument())
 		return nullptr;
+	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
+
 	styleList = PyList_New(0);
-	for (int i=0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
+	for (int i = 0; i < paragraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name().toUtf8())))
+		if (PyList_Append(styleList, PyString_FromString(paragraphStyles[i].name().toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;
@@ -810,10 +812,12 @@ PyObject *scribus_getcharstylenames(PyObject* /* self */)
 	PyObject *charStyleList;
 	if (!checkHaveDocument())
 		return nullptr;
+	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
+
 	charStyleList = PyList_New(0);
-	for (int i=0; i < ScCore->primaryMainWindow()->doc->charStyles().count(); ++i)
+	for (int i = 0; i < charStyles.count(); ++i)
 	{
-		if (PyList_Append(charStyleList, PyString_FromString(ScCore->primaryMainWindow()->doc->charStyles()[i].name().toUtf8())))
+		if (PyList_Append(charStyleList, PyString_FromString(charStyles[i].name().toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;
