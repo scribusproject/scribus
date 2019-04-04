@@ -13,19 +13,20 @@ template<class STYLE>
 class StyleSet : public StyleContext
 {
 public:
-	STYLE& operator[] (int index)
-	{ 
-		assert(index < styles.count()); 
-		return * styles[index]; 
-	}
-	
-	STYLE* getDefault(){ return m_default; }		
+	STYLE* getDefault() { return m_default; }
+	const STYLE* getDefault() const { return m_default; }		
 	
 	const STYLE& get(const QString& name) const
 	{ 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
 	
+	STYLE& operator[] (int index)
+	{
+		assert(index < styles.count());
+		return *styles[index];
+	}
+
 	const STYLE& operator[] (int index) const
 	{ 
 		assert(index < styles.count()); 
