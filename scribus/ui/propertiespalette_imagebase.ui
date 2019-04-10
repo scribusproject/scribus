@@ -97,6 +97,12 @@
      </item>
      <item row="1" column="1">
       <widget class="ScrSpinBox" name="imagePageNumber">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="specialValueText">
         <string>Auto</string>
        </property>
@@ -110,6 +116,31 @@
       <string>Scaling</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="2" rowspan="2">
+       <widget class="LinkButton" name="keepImageWHRatioButton">
+        <property name="maximumSize">
+         <size>
+          <width>15</width>
+          <height>32767</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Keep the X and Y scaling the same</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="xscaleLabel">
         <property name="text">
@@ -137,44 +168,6 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="ScrSpinBox" name="imageYScaleSpinBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Resize the image vertically</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" rowspan="2">
-       <widget class="LinkButton" name="keepImageWHRatioButton">
-        <property name="maximumSize">
-         <size>
-          <width>15</width>
-          <height>32767</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Keep the X and Y scaling the same</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="0">
        <widget class="QLabel" name="imgDPIXLabel">
         <property name="text">
@@ -184,6 +177,12 @@
       </item>
       <item row="4" column="1">
        <widget class="ScrSpinBox" name="imgDpiX">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Effective horizontal DPI of the image after scaling</string>
         </property>
@@ -198,6 +197,12 @@
       </item>
       <item row="5" column="1">
        <widget class="ScrSpinBox" name="imgDpiY">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Effective vertical DPI of the image after scaling</string>
         </property>
@@ -225,7 +230,30 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
+      <item row="3" column="1">
+       <widget class="ScrSpinBox" name="imageYScaleSpinBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Resize the image vertically</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="3">
+       <widget class="QRadioButton" name="frameScale">
+        <property name="toolTip">
+         <string>Make the image fit within the size of the frame</string>
+        </property>
+        <property name="text">
+         <string>&amp;To Frame Size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
        <widget class="QRadioButton" name="freeScale">
         <property name="toolTip">
          <string>Allow the image to be a different size to the frame</string>
@@ -242,16 +270,6 @@
         </property>
         <property name="text">
          <string>Proportional</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QRadioButton" name="frameScale">
-        <property name="toolTip">
-         <string>Make the image fit within the size of the frame</string>
-        </property>
-        <property name="text">
-         <string>&amp;To Frame Size</string>
         </property>
        </widget>
       </item>
@@ -274,7 +292,7 @@
       <item row="0" column="1">
        <widget class="QComboBox" name="inputProfiles">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -293,6 +311,12 @@
       </item>
       <item row="1" column="1">
        <widget class="QComboBox" name="renderIntent">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Rendering intent for the image</string>
         </property>
@@ -317,7 +341,7 @@
       <item row="0" column="1">
        <widget class="QComboBox" name="compressionMethod">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -337,7 +361,7 @@
       <item row="1" column="1">
        <widget class="QComboBox" name="compressionQuality">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
