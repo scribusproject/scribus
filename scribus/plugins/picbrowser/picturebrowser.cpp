@@ -1574,7 +1574,7 @@ void PictureBrowser::updateBrowser(bool filter, bool sort, bool reload)
 
 	if (pModel)
 		pModel->setModelItemsList(pImages->previewImagesList);
-	statusLabel->setText(QString("%1 image(s) displayed, %2 image(s) filtered").arg(imagesDisplayed).arg(imagesFiltered));
+	statusLabel->setText(tr("%1 image(s) displayed, %2 image(s) filtered").arg(imagesDisplayed).arg(imagesFiltered));
 }
 
 
@@ -1885,7 +1885,7 @@ void PictureBrowser::expandDialog(bool expand)
 		tabWidget->show();
 
 		resize(872, 550);
-		moreButton->setText("Hide");
+		moreButton->setText(tr("Hide"));
 		moreButton->setIcon(*iconArrowUp);
 	}
 	else
@@ -1893,7 +1893,7 @@ void PictureBrowser::expandDialog(bool expand)
 		tabWidget->hide();
 
 		resize(872, 385);
-		moreButton->setText("More");
+		moreButton->setText(tr("More"));
 		moreButton->setIcon(*iconArrowDown);
 	}
 }
