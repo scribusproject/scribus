@@ -1277,7 +1277,6 @@ public: // Public attributes
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
 	QList<AlignObjs> AObjects;
-	int CurrentSel;
 	ParagraphStyle currentStyle;
 	NodeEditContext nodeEdit;
 	/** \brief Letztes Element fuer AutoTextrahmen */

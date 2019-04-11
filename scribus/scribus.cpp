@@ -2842,7 +2842,6 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		break;
 	}
-	doc->CurrentSel = SelectedType;
 	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->rotationMode());
 
 	if (docSelectionCount != 0)
