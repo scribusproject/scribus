@@ -904,7 +904,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1839"/>
         <source>Non Breaking Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem törhető elválasztójel</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1840"/>
@@ -15925,12 +15925,12 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="204"/>
         <source>Show Image in the File Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Kép megjelenítése a fájlkezelőben</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="207"/>
         <source>Show directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mappa megjelenítése…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="249"/>
@@ -16449,7 +16449,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1789"/>
         <source>Same as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Megegyezik a képpel</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1794"/>
@@ -18559,22 +18559,22 @@ Kívánja ezt alkalmazni?</translation>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
         <source>Rejected Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Elutasított betűkészletek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="201"/>
         <source>Font name</source>
-        <translation type="unfinished"></translation>
+        <translation>Betűkészlet neve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="206"/>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Hibaüzenet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="211"/>
         <source>Font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Betűkészlet állománya</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="45"/>
@@ -26877,7 +26877,7 @@ Külső hivatkozások
     <message>
         <location filename="../../scribus/langmgr.cpp" line="580"/>
         <source>Swedish (Finland)</source>
-        <translation type="unfinished"></translation>
+        <translation>svéd (Finnország)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="581"/>
@@ -28374,7 +28374,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="140"/>
         <source>Cannot get text color of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nem szövegkeret szövegszíne nem határozható meg.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
@@ -28386,7 +28386,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="203"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nem szövegkeret függőleges igazítása nem határozható meg.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="221"/>
@@ -28512,7 +28512,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="428"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Az oldalelem ImageFrame típus kell legyen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
@@ -28716,7 +28716,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="484"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Igazítás nem esik a tartományba. Használj egy scribus.ALIGN_* állandót.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="492"/>
@@ -28812,13 +28812,13 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="806"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Függőleges igazítás nem esik a tartományba. Használj egy scribus.ALIGNV_* állandót.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="814"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Függőleges szövegigazítást nem lehet beállítani nem szövegkereten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="850"/>
@@ -29181,7 +29181,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="598"/>
         <source>Cannot get style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nem szövegkeret stílusa nem határozható meg.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="664"/>
@@ -29491,7 +29491,7 @@ lista hiányos a meghívott funkciók miatt.
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="644"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A kijelölés csak alakzatokat és Bézier-görbéket tartalmazhat.</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="159"/>
@@ -29595,7 +29595,7 @@ lista hiányos a meghívott funkciók miatt.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="663"/>
         <source>Font is broken: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>A betűkészlet törött: „%1”</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="665"/>
@@ -29605,12 +29605,12 @@ lista hiányos a meghívott funkciók miatt.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="671"/>
         <source>Failed to load font: font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>A betűkészlet betöltése sikertelen: betű típusa ismeretlen</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="682"/>
         <source>Failed to load font: font is not scalable</source>
-        <translation type="unfinished"></translation>
+        <translation>A betűkészlet betöltése sikertelen: betűtípus nem méretezhető</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="684"/>
@@ -30252,25 +30252,25 @@ lista hiányos a meghívott funkciók miatt.
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="148"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A megadott betűkészlet nem elérhető.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="157"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A megadott kitöltőszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="162"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A megadott körvonalszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="274"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A megadott szín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1268"/>
@@ -31277,19 +31277,19 @@ A kép valószínűleg így nem lesz helyes</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="44"/>
         <source>Action must be an integer in range 0-9 </source>
-        <translation type="unfinished"></translation>
+        <translation>A műveletnek egész számnak kell lennie 0-9 között</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="58"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="129"/>
         <source>Page item must be an annotation</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Az oldalelem megjegyzés kell legyen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="115"/>
         <source>Action must be be 0-9 </source>
-        <translation type="unfinished"></translation>
+        <translation>A műveletnek 0-9 között kell lennie.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="346"/>
@@ -32539,7 +32539,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="618"/>
         <source>Tabs and Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabulátorok és behúzás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="776"/>
@@ -34930,7 +34930,10 @@ Forgatás: %4</translation>
 Number of columns: %2
 Horizontal gap: %3
 Vertical gap: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorok száma: %1
+Oszlopok száma: %2
+Vízszintes térköz: %3
+Függőleges térköz: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14812"/>

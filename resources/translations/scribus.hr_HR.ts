@@ -904,12 +904,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1839"/>
         <source>Non Breaking Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Nerastavljajuća spojnica</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1840"/>
         <source>Non Breaking &amp;Space</source>
-        <translation>Nerastavljajuči &amp;razmak</translation>
+        <translation>Nerastavljajući &amp;razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1841"/>
@@ -15943,12 +15943,12 @@ Odaberi neki drugi.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="204"/>
         <source>Show Image in the File Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži sliku u upravljaču datoteka</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="207"/>
         <source>Show directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži direktorij …</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="249"/>
@@ -16467,7 +16467,7 @@ Odaberi neki drugi.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1789"/>
         <source>Same as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto kao slika</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1794"/>
@@ -18578,22 +18578,22 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
         <source>Rejected Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Neprihvaćeni fontovi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="201"/>
         <source>Font name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime fonta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="206"/>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Poruka greške</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="211"/>
         <source>Font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Font datoteka</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="45"/>
@@ -28395,7 +28395,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="140"/>
         <source>Cannot get text color of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće dobiti boju teksta od ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
@@ -28407,7 +28407,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="203"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće dobiti uspravno poravnanje od ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="221"/>
@@ -28438,13 +28438,13 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="354"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće saznati tekst od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti tekst od ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="387"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće slagati tekst od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće postaviti tekst u ne-tekstualnom okviru.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="416"/>
@@ -28533,7 +28533,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="428"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Element stranice mora biti slikovni okvir</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
@@ -28737,7 +28737,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="484"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Poravnanje je izvan granica. Koristi jednu od scribus.ALIGN* konstanata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="492"/>
@@ -28749,7 +28749,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="519"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
-        <translation>smjer je izvan granica. Koristi jednu od scribus.DIRECTION* konstanata.</translation>
+        <translation>Smjer je izvan granica. Koristi jednu od scribus.DIRECTION* konstanata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="527"/>
@@ -28833,13 +28833,13 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="806"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uspravno poravnanje je izvan granica. Koristi jednu od scribus.ALIGN* konstanata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="814"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće postaviti uspravno poravnanje u ne-tekstualnom okviru.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="850"/>
@@ -29202,7 +29202,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="598"/>
         <source>Cannot get style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće dobiti stil od ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="664"/>
@@ -29497,7 +29497,7 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="644"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Odabir mora sadržavati samo oblike ili Bezierove krivulje.</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="159"/>
@@ -29601,7 +29601,7 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
     <message>
         <location filename="../../scribus/scfonts.cpp" line="663"/>
         <source>Font is broken: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Font je pokvaren: „%1”</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="665"/>
@@ -29611,12 +29611,12 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
     <message>
         <location filename="../../scribus/scfonts.cpp" line="671"/>
         <source>Failed to load font: font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuspjelo učitavanje fonta: nepoznata vrsta fonta</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="682"/>
         <source>Failed to load font: font is not scalable</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuspjelo učitavanje fonta: font nije skalabilan</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="684"/>
@@ -30258,25 +30258,25 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="148"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Određeni font nije dostupan.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="157"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Određena boja ispune nije dostupna u dokumentu.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="162"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Određena boja obrisa nije dostupna u dokumentu.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="274"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Određena boja nije dostupna u dokumentu.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1268"/>
@@ -31284,19 +31284,19 @@ Može biti, da tvoja slika zbog toga neće odgovarati originalu</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="44"/>
         <source>Action must be an integer in range 0-9 </source>
-        <translation type="unfinished"></translation>
+        <translation>Radnja mora biti cijeli broj u rasponu od 0&#xa0;–&#xa0;9</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="58"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="129"/>
         <source>Page item must be an annotation</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Element stranice mora biti pribilješka</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="115"/>
         <source>Action must be be 0-9 </source>
-        <translation type="unfinished"></translation>
+        <translation>Radnja mora biti 0&#xa0;–&#xa0;9</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="346"/>
@@ -32546,7 +32546,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="618"/>
         <source>Tabs and Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabulatori i uvlake</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="776"/>
@@ -34937,7 +34937,10 @@ Rotacija: %4</translation>
 Number of columns: %2
 Horizontal gap: %3
 Vertical gap: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Broj redova: %1
+Broj stupaca: %2
+Vodoravni razmak: %3
+Uspravni razmak: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14812"/>
@@ -36437,7 +36440,7 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="101"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation>Specijalni dodatak za dodavanje ne-prekidajućih razmaka ispred ili iza tzv. kratkih riječi. Dostupno je za sljedeće jezike:</translation>
+        <translation>Specijalni dodatak za dodavanje nerastavljajućih razmaka ispred ili iza tzv. kratkih riječi. Dostupno je za sljedeće jezike:</translation>
     </message>
 </context>
 <context>

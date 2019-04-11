@@ -904,7 +904,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1839"/>
         <source>Non Breaking Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Nerompebla spaceto</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1840"/>
@@ -15941,12 +15941,12 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="204"/>
         <source>Show Image in the File Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Montru la bildon en Dosieradministrilo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="207"/>
         <source>Show directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Montru dosierujon...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="249"/>
@@ -16465,7 +16465,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1789"/>
         <source>Same as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Sama kiel bildo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1794"/>
@@ -18576,22 +18576,22 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
         <source>Rejected Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiparoj rifuzitaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="201"/>
         <source>Font name</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiparnomo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="206"/>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Erarmesaĝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="211"/>
         <source>Font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipardosiero</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="45"/>
@@ -28396,7 +28396,7 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="140"/>
         <source>Cannot get text color of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas akiri tekstkoloron en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
@@ -28408,7 +28408,7 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="203"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas akiri vertikalan ĝisrandigon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="221"/>
@@ -28534,7 +28534,7 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="428"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>La paĝelemento devas esti bildkadro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
@@ -28738,7 +28738,7 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="484"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alliniigo eksterintervala.Uzu unu el la konstantoj de scribus.ALIGN_*.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="492"/>
@@ -28834,13 +28834,13 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="806"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vertikala alliniigo eksterintervala. Uzu unu el la konstantoj de scribus.ALIGN_*.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="814"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas agordi vertikalan ĝisrandigon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="850"/>
@@ -29203,7 +29203,7 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="598"/>
         <source>Cannot get style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas akiri stilon el neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="664"/>
@@ -29619,7 +29619,7 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
     <message>
         <location filename="../../scribus/scfonts.cpp" line="663"/>
         <source>Font is broken: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiparoestas damaĝita: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="665"/>
@@ -29629,12 +29629,12 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
     <message>
         <location filename="../../scribus/scfonts.cpp" line="671"/>
         <source>Failed to load font: font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis ŝargi tiparon: tipartipo nekonata</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="682"/>
         <source>Failed to load font: font is not scalable</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis ŝargi tiparon: tiparo neskalebla</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="684"/>
@@ -30276,25 +30276,25 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="148"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Specifita tiparo nedisponebla.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="157"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Specifita koloro nedisponebla en la documento.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="162"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Specifita konturkoloro nedisponebla en la documento.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="274"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Specifita koloro nedisponebla en la documento.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1268"/>
@@ -31309,7 +31309,7 @@ Do, la bildo povas esti ne ĝusta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="129"/>
         <source>Page item must be an annotation</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>La paĝelemento devas esti noto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="115"/>
@@ -32564,7 +32564,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="618"/>
         <source>Tabs and Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Taboj kaj ŝovoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="776"/>
@@ -34955,7 +34955,10 @@ Rotacio: %4</translation>
 Number of columns: %2
 Horizontal gap: %3
 Vertical gap: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombro de linioj: %1
+Nombro de kolumnoj: %2
+Horizontala distanco: %3
+Vertikala distanco: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14812"/>
