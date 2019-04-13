@@ -115,6 +115,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		const_cast<char*>("scalev"),
 		const_cast<char*>("tracking"),
 		const_cast<char*>("language"),
+		const_cast<char*>("fontfeatures"),
 		nullptr};
 
 	if (!checkHaveDocument())

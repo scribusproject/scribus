@@ -1,99 +1,211 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Cr&eacute;er et d&eacute;truire les objets</title>
+	<title>Créer et détruire les objets</title>
 </head>
 <body>
-<h2>Cr&eacute;er et d&eacute;truire les objets</h2>
+<h2>Créer et détruire les objets</h2>
 
 <dl>
 
 <dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
-<dd><tt>createBezierLine(liste, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e une nouvelle courbe de B&eacute;zier et retourne son nom. Les
-points de la courbe de bezier sont conserv&eacute;s dans la "liste", dans
+<dd><tt>createBezierLine(liste, ["nom"]) -&gt; chaîne</tt>
+<p>Crée une nouvelle courbe de Bézier et retourne son nom. Les
+points de la courbe de bezier sont conservés dans la "liste", dans
 l'ordre suivant: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn.
-kyn] Dans la liste de points, x et y sont les coordonn&eacute;es x et y du
-point et kx et ky repr&eacute;sentent le point de contr&ocirc;le de la courbe. Les coordonn&eacute;es sont fournies dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La
-valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en
-aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. Si "nom" n'est pas
-fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;. Peut
-g&eacute;n&eacute;rer ValueError si le nombre de points pr&eacute;cis&eacute; est insuffisant
-ou si le nombre de valeurs pass&eacute;es ne forme pas un groupe de points
+kyn] Dans la liste de points, x et y sont les coordonnées x et y du
+point et kx et ky représentent le point de contrôle de la courbe. Les coordonnées sont fournies dans les unités de mesure du document (voir les constantes UNIT). La
+valeur de "nom" doit être un identifiant unique parce que vous en
+aurez besoin pour accéder plus tard à cet objet. Si "nom" n'est pas
+fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé. Peut
+générer ValueError si le nombre de points précisé est insuffisant
+ou si le nombre de valeurs passées ne forme pas un groupe de points
 entier, sans reste.</p></dd>
 
+<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
+<dd><code>createCharStyle(...)</code>
+<p>Crée un style de caractère. Cette function accepte les paramètres nommés suivants:
+<ul>
+<li>"name" [requis] -> nom du style de caractère à créer (premier paramètre)</li>
+<li>"font" [optionnel] -> nom de la police de caractère à utiliser (second paramètre)</li>
+<li>fontsize [optionnel] -> taille de la police de caractère (3ème paramètre - nombre réel)</li>
+<li>"features" [optionnel] -> détails typographiques définis sous la forme d'une liste d'éléments séparés par des virgules (sans espaces!), pris parmis les éléments suivants (4ème paramètre - chaîne de caractère):
+<ul>
+	<li>inherit</li>
+	<li>bold</li>
+	<li>italic</li>
+	<li>underline</li>
+	<li>underlinewords</li>
+	<li>strike</li>
+	<li>superscript</li>
+	<li>subscript</li>
+	<li>outline</li>
+	<li>shadowed</li>
+	<li>allcaps</li>
+	<li>smallcaps</li>
+</ul>
+</li>
+<li>"fillcolor" [optionnel], fillshade [optionnel] -> définie la couleur et la teinte de fond (5ème paramètre: chaîne, 6ème paramètre: nombre réel 1.0 = 100%)</li>
+<li>"strokecolor" [optionnel], strokeshade [optionnel] -> définie la couleur et la teinte de filet (7ème paramètre: chaîne, 8ème paramètre: nombre réel 1.0 = 100%)</li>
+<li>baselineoffset [optionnel] -> décalage par rapport à la ligne de base(9ème paramètre)</li>
+<li>shadowxoffset [optionnel], shadowyoffset [optionnel] -> décalages de l'ombre portée si celle-ci est utilisée(10ème et 11ème paramètres)</li>
+<li>outlinewidth [optionnel] -> largeur du filet si celui-ci est utilisé (12ème paramètre)</li>
+<li>underlineoffset [optionnel], underlinewidth [optionnel] -> options de soulignement si utilisé (13ème et 14ème paramètres)</li>
+<li>strikethruoffset [optionnel], strikethruwidth [optionnel] -> options de barré si utilisé (15ème et 16ème paramètres)</li>
+<li>scaleh [optionnel], scalev [optionnel] -> échelle horizontale et verticale des caractères (17ème et 18ème paramètres - nombres réels, 1.0 = 100%)</li>
+<li>tracking [optionnel] -> valeur d'approche du texte(19ème paramètre - nombre réel, e.g. -50 = -5.0%)</li>
+<li>"language" [optionnel] -> code de language (20ème paramètre - chaîne de caractère: en = English)</li>
+<li>"fontfeatures" [optionnel] -> chaîne de caractère contenant une liste de fonctionnalités OpenType séparées par des virgules (21ème paramètre):
+<ul>
+    <li>Ligatures:
+        <ul>
+            <li>-liga: désactive les ligatures commmunes</li>
+            <li>-clig: désactive les ligatures contextuelles</li>
+            <li>+dlig: active les ligatures discrétionnaires</li>
+            <li>+hlig: active les ligatures historiques</li>
+        </ul>
+    </li>
+    <li>Script Position:
+        <ul>
+            <li>+subs: active les indices</li>
+            <li>+sups: active les exposants</li>
+            <li>+ordn: active les ordinaux</li>
+        </ul>
+    </li>
+    <li>Capitals:
+        <ul>
+            <li>+smcp: active les petites capitales</li>
+            <li>+c2sc: active les capitales en petites capitales</li>
+            <li>+pcap: active les petite caps</li>
+            <li>+c2pc: active les capitales en les petite caps</li>
+            <li>+unic: active l'écriture unicamérale</li>
+            <li>+titl: active le titrage</li>
+        </ul>
+    </li>
+    <li>Numerals:
+        <ul>
+            <li>+lnum: active les chiffres alignés</li>
+            <li>+tnum: active les chiffres en style ancien</li>
+        </ul>
+    </li>
+    <li>Numeral Width:
+        <ul>
+            <li>+pnum: active la largeur de chiffre proportionnelle</li>
+            <li>+tnum: active la largeur de chiffre tabulaire</li>
+        </ul>
+    </li>
+    <li>Numeral Fractions:
+        <ul>
+            <li>+frac: active les fractions diagonales</li>
+            <li>+afrc: active les fractions empilées</li>
+        </ul>
+    </li>
+    <li>Numeral zero:
+        <ul>
+            <li>+zero: active le zéro barré</li>
+        </ul>
+    </li>
+    <li>Style sets:
+        <ul>
+            <li>+ss01: active le 1er jeu de style</li>
+            <li>...</li>
+            <li>+ss20: active le 20ème jeu de style</li>
+        </ul>
+    </li>
+</ul>
+</li>
+</ul>
+</p>
+<p>On a practical level, this is a challenging command to fully understand if you wish to assign a number of settings, since keeping track of where you are, and which kind of entry is needed (string vs number) is not easy. For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
+</dd>
+
+<dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>
+<dd><code>createCustomLineStyle(nomStyle, style)</code>
+<p>Crée le style de filet personnalisé 'nomStyle'.</p>
+<p>Cette fonction accepte une liste de dictonnaires en tant que paramètre du style. Chaque dictionnaire représente un sous-filet du style et accepte les clés suivantes:
+<ul>
+<li>Color [optionnel] -> nom de la couleur à utiliser (chaîne)</li>
+<li>Dash [optionnel] -> type de ligne à utiliser (entier)</li>
+<li>LineEnd [optionnel] -> type de fin de filet à utiliser  (entier)</li>
+<li>LineJoin [optionnel] -> type de jointure de filet à utiliser  (entier)</li>
+<li>Shade [optionnel] -> teinte de couleur (entier)</li>
+<li>Width [optionnel] -> largeur de filet (nombre réel entier)</li>
+</ul>
+</p>
+</dd>
+
 <dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
-<dd><tt>createEllipse(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e une nouvelle ellipse dans la page courante et retourne son nom. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La
-valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en
-aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</p></dd></dt>
+<dd><tt>createEllipse(x, y, largeur, hauteur, ["nom"]) -&gt; chaîne</tt>
+<p>Crée une nouvelle ellipse dans la page courante et retourne son nom. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). La
+valeur de "nom" doit être un identifiant unique parce que vous en
+aurez besoin pour accéder plus tard à l'objet désigné. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.</p></dd></dt>
 
 <dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
-<dd><tt>createImage(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau cadre d'image dans la page courante et retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document. 
-La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</p></dd>
+<dd><tt>createImage(x, y, largeur, hauteur, ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau cadre d'image dans la page courante et retourne son nom. Les coordonnées sont affichées dans les unités de mesure du document. 
+La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à cet objet. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.</p></dd>
 
 <dt><a name="-createLine"><strong>createLine</strong></a>(...)</dt>
-<dd><tt>createLine(x1, y1, x2, y2, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e une nouvelle ligne &agrave; partir du point(x1, y1) et du point(x2, y2) et retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. 
-Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</p></dd>
+<dd><tt>createLine(x1, y1, x2, y2, ["nom"]) -&gt; chaîne</tt>
+<p>Crée une nouvelle ligne à partir du point(x1, y1) et du point(x2, y2) et retourne son nom. Les coordonnées sont affichées dans les unités de mesure du document (voir les constantes UNIT). La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à cet objet. 
+Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.</p></dd>
 
 <dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
-<dd><tt>createPathText(x, y, "boiteTexte", "courbeBezier", ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau pathText en combinant les deux objets "bo&icirc;te de texte" et "courbe de B&eacute;zier", puis retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.
-Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si l'un des objets de base (ou les deux) n'existent pas.</p></dd>
+<dd><tt>createPathText(x, y, "boiteTexte", "courbeBezier", ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau pathText en combinant les deux objets "boîte de texte" et "courbe de Bézier", puis retourne son nom. Les coordonnées sont affichées dans les unités de mesure du document (voir les constantes UNIT). La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à cet objet. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.
+Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si l'un des objets de base (ou les deux) n'existent pas.</p></dd>
 
 <dt><a name="-createPolyLine"><strong>createPolyLine</strong></a>(...)</dt>
-<dd><tt>createPolyLine(liste, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau polyline et retourne son nom. Les points de l'&eacute;l&eacute;ment polyline sont conserv&eacute;s dans la "liste", dans l'ordre suivant : [x1, y1, x2, y2...xn. yn]. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.
-Peut g&eacute;n&eacute;rer ValueError si le nombre de points pr&eacute;cis&eacute; est insuffisant ou si le nombre de valeurs pass&eacute;es ne forme pas un groupe de points entier, sans reste.</p></dd>
+<dd><tt>createPolyLine(liste, ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau polyline et retourne son nom. Les points de l'élément polyline sont conservés dans la "liste", dans l'ordre suivant : [x1, y1, x2, y2...xn. yn]. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à cet objet. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.
+Peut générer ValueError si le nombre de points précisé est insuffisant ou si le nombre de valeurs passées ne forme pas un groupe de points entier, sans reste.</p></dd>
 
 <dt><a name="-createPolygon"><strong>createPolygon</strong></a>(...)</dt>
-<dd><tt>createPolygon(liste, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau polygone et retourne son nom. Les points du polygone sont conserv&eacute;s dans la "liste", dans l'ordre suivant: [x1, y1, x2, y2...xn. yn]. 
-Au moins trois points sont requis. Il n'est pas n&eacute;cessaire de r&eacute;p&eacute;ter le premier point pour fermer le polygone. Le polygone se ferme automatiquement avec la connexion du premier et du dernier point. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; cet objet. 
-Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.
-Peut g&eacute;n&eacute;rer ValueError si le nombre de points pr&eacute;cis&eacute; est insuffisant ou si le nombre de valeurs pass&eacute;es ne forme pas un groupe de points entier, sans reste.</p></dd>
+<dd><tt>createPolygon(liste, ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau polygone et retourne son nom. Les points du polygone sont conservés dans la "liste", dans l'ordre suivant: [x1, y1, x2, y2...xn. yn]. 
+Au moins trois points sont requis. Il n'est pas nécessaire de répéter le premier point pour fermer le polygone. Le polygone se ferme automatiquement avec la connexion du premier et du dernier point. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à cet objet. 
+Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.
+Peut générer ValueError si le nombre de points précisé est insuffisant ou si le nombre de valeurs passées ne forme pas un groupe de points entier, sans reste.</p></dd>
 
 <dt><a name="-createRect"><strong>createRect</strong></a>(...)</dt>
-<dd><tt>createRect(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau rectangle dans la page courante et retourne son nom. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). Le "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour des r&eacute;f&eacute;rences futures &agrave; l'objet d&eacute;sign&eacute;. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</p></dd>
+<dd><tt>createRect(x, y, largeur, hauteur, ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau rectangle dans la page courante et retourne son nom. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). Le "nom" doit être un identifiant unique parce que vous en aurez besoin pour des références futures à l'objet désigné. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.</p></dd>
 
 <dt><a name="-createText"><strong>createText</strong></a>(...)</dt>
-<dd><tt>createText(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne</tt>
-<p>Cr&eacute;e un nouveau cadre de texte dans la page courante et retourne son nom. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "nom" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si "nom" n'est pas fourni, Scribus en cr&eacute;era un pour vous.</p>
-<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</p></dd>
+<dd><tt>createText(x, y, largeur, hauteur, ["nom"]) -&gt; chaîne</tt>
+<p>Crée un nouveau cadre de texte dans la page courante et retourne son nom. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). La valeur de "nom" doit être un identifiant unique parce que vous en aurez besoin pour accéder plus tard à l'objet désigné. Si "nom" n'est pas fourni, Scribus en créera un pour vous.</p>
+<p>Peut générer <a href="scripterapi.html#NameExistsError">NameExistsError</a> si vous passez explicitement un nom déjà utilisé.</p></dd>
 
 <dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
 <dd><tt>deleteObject(["nom"])</tt>
-<p>Supprime l'&eacute;l&eacute;ment portant le nom "nom". Si "nom" n'est pas
-fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est supprim&eacute;.</p></dd>
+<p>Supprime l'élément portant le nom "nom". Si "nom" n'est pas
+fourni, l'élément sélectionné est supprimé.</p></dd>
 
 <dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
 <dd><tt>getAllStyles() -&gt; liste</tt>
-<p>Obsol&egrave;te. Veuillez utiliser getParagraphStyles() en lieu et place.</p></dd>
+<p>Obsolète. Veuillez utiliser getParagraphStyles() en lieu et place.</p></dd>
 
 <dt><a name="-getCharStyles"><strong>getCharStyles</strong></a>(...)</dt>
 <dd><tt>getCharStyles() -&gt; liste</tt>
-<p>Retourne une liste des noms de l'ensemble des styles de caract&egrave;re du document courant.</p></dd>
+<p>Retourne une liste des noms de l'ensemble des styles de caractère du document courant.</p></dd>
 
 <dt><a name="-getParagraphStyles"><strong>getParagraphStyles</strong></a>(...)</dt>
 <dd><tt>getParagraphStyles() -&gt; liste</tt>
 <p>Retourne une liste des noms de l'ensemble des styles de paragraphe du document courant.</p></dd>
 	
 <dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
-<dd><tt>objectExists(["nom"]) -&gt; bool&eacute;en</tt>
-<p>Teste si un objet avec le nom sp&eacute;cifi&eacute; existe r&eacute;ellement dans le document. Le param&egrave;tre optionnel est le nom de l'objet. Lorsqu'aucun
-nom d'objet n'est donn&eacute;, retourne la valeur True si un &eacute;l&eacute;ment est
-s&eacute;lectionn&eacute;.</p></dd>
+<dd><tt>objectExists(["nom"]) -&gt; booléen</tt>
+<p>Teste si un objet avec le nom spécifié existe réellement dans le document. Le paramètre optionnel est le nom de l'objet. Lorsqu'aucun
+nom d'objet n'est donné, retourne la valeur True si un élément est
+sélectionné.</p></dd>
 
 </dl>
 </body>
