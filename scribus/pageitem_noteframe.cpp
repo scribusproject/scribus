@@ -1,5 +1,7 @@
-#include "pageitem_noteframe.h"
 
+#include <cmath>
+
+#include "pageitem_noteframe.h"
 
 #include "appmodes.h"
 #include "pageitem.h"
@@ -10,8 +12,7 @@
 #include "util.h"
 #include "util_text.h"
 
-
-#include <cmath>
+#include "text/boxes.h"
 
 PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
@@ -105,7 +106,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	oldWidth = m_width;
 	oldRot = m_rotation;
 	oldXpos = m_xPos;
-	m_yPos = oldYpos =m_masterFrame->yPos() + m_masterFrame->height();
+	m_yPos = oldYpos = m_masterFrame->yPos() + m_masterFrame->height();
 
 	textFlowModeVal = TextFlowUsesFrameShape;
 	setColumns(1);
@@ -206,8 +207,10 @@ void PageItem_NoteFrame::layout()
 	{
 		if (frameOverflows())
 		{
-			//increase height while text don`t fit in frame
-			double maxH = m_Doc->currentPage()->height() - m_xPos;
+			// Increase height while text don`t fit in frame
+			double maxH = m_Doc->currentPage()->height() - m_yPos;
+			if (maxH <= 0)
+				maxH = m_Doc->currentPage()->height();
 			while (frameOverflows())
 			{
 				oldHeight = m_height += 8;
@@ -218,8 +221,8 @@ void PageItem_NoteFrame::layout()
 					break;
 			}
 		}
-		double hackValue = 0.5;
-		oldHeight = m_height = ceil(maxY) + m_textDistanceMargins.bottom() + hackValue;
+		textLayout.box()->moveTo(textLayout.box()->x(), 0);
+		oldHeight = m_height = textLayout.box()->naturalHeight() + m_textDistanceMargins.bottom();
 		updateConstants();
 		updateClip();
 		invalid = true;
