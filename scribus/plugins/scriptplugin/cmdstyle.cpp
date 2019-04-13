@@ -164,7 +164,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return nullptr;
 	}
 
-	QStringList featuresList = QString(features).split(QString(","));
+	QStringList featuresList = QString(features).split(',', QString::SkipEmptyParts);
 
 	CharStyle tmpCharStyle;
 	tmpCharStyle.setName(name);
