@@ -213,8 +213,12 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		return nullptr;
 	}
 
+	if (!checkHaveDocument())
+		return nullptr;
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+
 	multiLine ml;
-	const ColorList& docColors = ScCore->primaryMainWindow()->doc->PageColors;
+	const ColorList& docColors = currentDoc->PageColors;
 
 	for (int i = 0; i < PyList_Size(obj); i++)
 	{
@@ -231,7 +235,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		if (val)
 			sl.Color = PyString_AsString(val);
 		else 
-			sl.Color = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColor;
+			sl.Color = currentDoc->itemToolPrefs().lineColor;
 
 		val = PyDict_GetItemString(line, "Dash");
 		if (val)
@@ -255,13 +259,13 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		if (val)
 			sl.Shade = PyInt_AsLong(val);
 		else 
-			sl.Shade = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineColorShade;
+			sl.Shade = currentDoc->itemToolPrefs().lineColorShade;
 
 		val = PyDict_GetItemString(line, "Width");
 		if (val)
 			sl.Width = PyFloat_AsDouble(val);
 		else 
-			sl.Width = ScCore->primaryMainWindow()->doc->itemToolPrefs().lineWidth;
+			sl.Width = currentDoc->itemToolPrefs().lineWidth;
 
 		val = PyDict_GetItemString(line, "Shortcut");
 		if (val)
@@ -277,7 +281,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		ml.push_back(sl);
 	}
 	if (!ml.empty())
-		ScCore->primaryMainWindow()->doc->MLineStyles[Name] = ml;
+		currentDoc->MLineStyles[Name] = ml;
 	Py_RETURN_NONE;
 }
 
