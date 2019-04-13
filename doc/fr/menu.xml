@@ -107,6 +107,7 @@
 	<submenuitem text="Définition des propriétés de l'objet" file="scripterapi-setobjprop.html"/>
 	<submenuitem text="Définition des propriétés de l'objet" file="scripterapi-getobjprop.html"/>
 	<submenuitem text="Manipulation des objets" file="scripterapi-manobj.html"/>
+	<submenuitem text="Création et manipulation des styles" file="scripterapi-styles.html"/>
 	<submenuitem text="Manipulation des cadres de texte" file="scripterapi-textframes.html"/>
 	<submenuitem text="Commandes de traitement des couleurs" file="scripterapi-color.html"/>
 	<submenuitem text="Commandes de traitement des polices" file="scripterapi-font.html"/>

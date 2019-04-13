@@ -23,118 +23,6 @@ générer ValueError si le nombre de points précisé est insuffisant
 ou si le nombre de valeurs passées ne forme pas un groupe de points
 entier, sans reste.</p></dd>
 
-<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
-<dd><code>createCharStyle(...)</code>
-<p>Crée un style de caractère. Cette function accepte les paramètres nommés suivants:
-<ul>
-<li>"name" [requis] -> nom du style de caractère à créer (premier paramètre)</li>
-<li>"font" [optionnel] -> nom de la police de caractère à utiliser (second paramètre)</li>
-<li>fontsize [optionnel] -> taille de la police de caractère (3ème paramètre - nombre réel)</li>
-<li>"features" [optionnel] -> détails typographiques définis sous la forme d'une liste d'éléments séparés par des virgules (sans espaces!), pris parmis les éléments suivants (4ème paramètre - chaîne de caractère):
-<ul>
-	<li>inherit</li>
-	<li>bold</li>
-	<li>italic</li>
-	<li>underline</li>
-	<li>underlinewords</li>
-	<li>strike</li>
-	<li>superscript</li>
-	<li>subscript</li>
-	<li>outline</li>
-	<li>shadowed</li>
-	<li>allcaps</li>
-	<li>smallcaps</li>
-</ul>
-</li>
-<li>"fillcolor" [optionnel], fillshade [optionnel] -> définie la couleur et la teinte de fond (5ème paramètre: chaîne, 6ème paramètre: nombre réel 1.0 = 100%)</li>
-<li>"strokecolor" [optionnel], strokeshade [optionnel] -> définie la couleur et la teinte de filet (7ème paramètre: chaîne, 8ème paramètre: nombre réel 1.0 = 100%)</li>
-<li>baselineoffset [optionnel] -> décalage par rapport à la ligne de base(9ème paramètre)</li>
-<li>shadowxoffset [optionnel], shadowyoffset [optionnel] -> décalages de l'ombre portée si celle-ci est utilisée(10ème et 11ème paramètres)</li>
-<li>outlinewidth [optionnel] -> largeur du filet si celui-ci est utilisé (12ème paramètre)</li>
-<li>underlineoffset [optionnel], underlinewidth [optionnel] -> options de soulignement si utilisé (13ème et 14ème paramètres)</li>
-<li>strikethruoffset [optionnel], strikethruwidth [optionnel] -> options de barré si utilisé (15ème et 16ème paramètres)</li>
-<li>scaleh [optionnel], scalev [optionnel] -> échelle horizontale et verticale des caractères (17ème et 18ème paramètres - nombres réels, 1.0 = 100%)</li>
-<li>tracking [optionnel] -> valeur d'approche du texte(19ème paramètre - nombre réel, e.g. -50 = -5.0%)</li>
-<li>"language" [optionnel] -> code de language (20ème paramètre - chaîne de caractère: en = English)</li>
-<li>"fontfeatures" [optionnel] -> chaîne de caractère contenant une liste de fonctionnalités OpenType séparées par des virgules (21ème paramètre):
-<ul>
-    <li>Ligatures:
-        <ul>
-            <li>-liga: désactive les ligatures commmunes</li>
-            <li>-clig: désactive les ligatures contextuelles</li>
-            <li>+dlig: active les ligatures discrétionnaires</li>
-            <li>+hlig: active les ligatures historiques</li>
-        </ul>
-    </li>
-    <li>Script Position:
-        <ul>
-            <li>+subs: active les indices</li>
-            <li>+sups: active les exposants</li>
-            <li>+ordn: active les ordinaux</li>
-        </ul>
-    </li>
-    <li>Capitals:
-        <ul>
-            <li>+smcp: active les petites capitales</li>
-            <li>+c2sc: active les capitales en petites capitales</li>
-            <li>+pcap: active les petite caps</li>
-            <li>+c2pc: active les capitales en les petite caps</li>
-            <li>+unic: active l'écriture unicamérale</li>
-            <li>+titl: active le titrage</li>
-        </ul>
-    </li>
-    <li>Numerals:
-        <ul>
-            <li>+lnum: active les chiffres alignés</li>
-            <li>+tnum: active les chiffres en style ancien</li>
-        </ul>
-    </li>
-    <li>Numeral Width:
-        <ul>
-            <li>+pnum: active la largeur de chiffre proportionnelle</li>
-            <li>+tnum: active la largeur de chiffre tabulaire</li>
-        </ul>
-    </li>
-    <li>Numeral Fractions:
-        <ul>
-            <li>+frac: active les fractions diagonales</li>
-            <li>+afrc: active les fractions empilées</li>
-        </ul>
-    </li>
-    <li>Numeral zero:
-        <ul>
-            <li>+zero: active le zéro barré</li>
-        </ul>
-    </li>
-    <li>Jeux de styles:
-        <ul>
-            <li>+ss01: active le 1er jeu de style</li>
-            <li>...</li>
-            <li>+ss20: active le 20ème jeu de style</li>
-        </ul>
-    </li>
-</ul>
-</li>
-</ul>
-</p>
-<p>On a practical level, this is a challenging command to fully understand if you wish to assign a number of settings, since keeping track of where you are, and which kind of entry is needed (string vs number) is not easy. For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
-</dd>
-
-<dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>
-<dd><code>createCustomLineStyle(nomStyle, style)</code>
-<p>Crée le style de filet personnalisé 'nomStyle'.</p>
-<p>Cette fonction accepte une liste de dictonnaires en tant que paramètre du style. Chaque dictionnaire représente un sous-filet du style et accepte les clés suivantes:
-<ul>
-<li>Color [optionnel] -> nom de la couleur à utiliser (chaîne)</li>
-<li>Dash [optionnel] -> type de ligne à utiliser (entier)</li>
-<li>LineEnd [optionnel] -> type de fin de filet à utiliser  (entier)</li>
-<li>LineJoin [optionnel] -> type de jointure de filet à utiliser  (entier)</li>
-<li>Shade [optionnel] -> teinte de couleur (entier)</li>
-<li>Width [optionnel] -> largeur de filet (nombre réel entier)</li>
-</ul>
-</p>
-</dd>
-
 <dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
 <dd><tt>createEllipse(x, y, largeur, hauteur, ["nom"]) -&gt; chaîne</tt>
 <p>Crée une nouvelle ellipse dans la page courante et retourne son nom. Les coordonnées sont données dans les unités de mesure du document (voir les constantes UNIT). La
@@ -189,18 +77,6 @@ Peut générer ValueError si le nombre de points précisé est insuffisant ou si
 <p>Supprime l'élément portant le nom "nom". Si "nom" n'est pas
 fourni, l'élément sélectionné est supprimé.</p></dd>
 
-<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
-<dd><tt>getAllStyles() -&gt; liste</tt>
-<p>Obsolète. Veuillez utiliser getParagraphStyles() en lieu et place.</p></dd>
-
-<dt><a name="-getCharStyles"><strong>getCharStyles</strong></a>(...)</dt>
-<dd><tt>getCharStyles() -&gt; liste</tt>
-<p>Retourne une liste des noms de l'ensemble des styles de caractère du document courant.</p></dd>
-
-<dt><a name="-getParagraphStyles"><strong>getParagraphStyles</strong></a>(...)</dt>
-<dd><tt>getParagraphStyles() -&gt; liste</tt>
-<p>Retourne une liste des noms de l'ensemble des styles de paragraphe du document courant.</p></dd>
-	
 <dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
 <dd><tt>objectExists(["nom"]) -&gt; booléen</tt>
 <p>Teste si un objet avec le nom spécifié existe réellement dans le document. Le paramètre optionnel est le nom de l'objet. Lorsqu'aucun
