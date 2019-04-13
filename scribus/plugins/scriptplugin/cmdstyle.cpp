@@ -116,16 +116,23 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		const_cast<char*>("tracking"),
 		const_cast<char*>("language"),
 		nullptr};
-	char *Name = const_cast<char*>(""), *Font = const_cast<char*>(""), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
-	double FontSize = 200, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
-																									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
-																									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset,
-																									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
-																									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
-		return nullptr;
+
 	if (!checkHaveDocument())
 		return nullptr;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
+	const CharStyle* defaultStyle = charStyles.getDefault();
+
+	char *Name = const_cast<char*>(""), *Font = const_cast<char*>(""), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
+	double FontSize = defaultStyle->fontSize() / 10.0, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
+									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
+									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset,
+									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
+									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
+		return nullptr;
+	
 	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
@@ -134,22 +141,15 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 
 	QString RealFont = QString(Font);
 	if (RealFont.isEmpty())
-	{
-		const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
-		int index = charStyles.find(CommonStrings::DefaultCharacterStyle);
-		if (index < 0)
-			index = charStyles.find(CommonStrings::trDefaultCharacterStyle);
-		if (index >= 0)
-			RealFont = charStyles[index].font().scName();
-	}
+		RealFont = defaultStyle->font().scName();
 
-	if (!ScCore->primaryMainWindow()->doc->AllFonts->contains(RealFont))
+	if (!currentDoc->AllFonts->contains(RealFont))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	const ColorList& docColors = ScCore->primaryMainWindow()->doc->PageColors;
+	const ColorList& docColors = currentDoc->PageColors;
 	QString qFillColor = QString(FillColor);
 	QString qStrokeColor = QString(StrokeColor);
 	if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
@@ -167,7 +167,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 
 	CharStyle TmpCharStyle;
 	TmpCharStyle.setName(Name);
-	TmpCharStyle.setFont((*ScCore->primaryMainWindow()->doc->AllFonts)[RealFont]);
+	TmpCharStyle.setFont((*currentDoc->AllFonts)[RealFont]);
 	TmpCharStyle.setFontSize(FontSize * 10);
 	TmpCharStyle.setFontFeatures(FontFeatures);
 	TmpCharStyle.setFeatures(FeaturesList);
