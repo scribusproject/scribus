@@ -124,34 +124,34 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
 	const CharStyle* defaultStyle = charStyles.getDefault();
 
-	char *Name = const_cast<char*>(""), *Font = const_cast<char*>(""), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
-	double FontSize = defaultStyle->fontSize() / 10.0, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
+	char *name = const_cast<char*>(""), *font = const_cast<char*>(""), *features = const_cast<char*>("inherit"), *fillColor = const_cast<char*>("Black"), *fontFeatures = const_cast<char*>(""), *strokeColor = const_cast<char*>("Black"), *language = const_cast<char*>("");
+	double fontSize = defaultStyle->fontSize() / 10.0, fillShade = 1, strokeShade = 1, scaleH = 1, scaleV = 1, baselineOffset = 0, shadowXOffset = 0, shadowYOffset = 0, outlineWidth = 0, underlineOffset = 0, underlineWidth = 0, strikethruOffset = 0, strikethruWidth = 0, tracking = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
-									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
-									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset,
-									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
-									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
+									"utf-8", &name, "utf-8", &font, &fontSize, "utf-8", &features,
+									"utf-8", &fillColor, &fillShade, "utf-8", &strokeColor, &strokeShade, &baselineOffset, &shadowXOffset,
+									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
+									&scaleH, &scaleV, &tracking, "utf-8", &language))
 		return nullptr;
 	
-	if (strlen(Name) == 0)
+	if (strlen(name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	QString RealFont = QString(Font);
-	if (RealFont.isEmpty())
-		RealFont = defaultStyle->font().scName();
+	QString realFont = QString(font);
+	if (realFont.isEmpty())
+		realFont = defaultStyle->font().scName();
 
-	if (!currentDoc->AllFonts->contains(RealFont))
+	if (!currentDoc->AllFonts->contains(realFont))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	const ColorList& docColors = currentDoc->PageColors;
-	QString qFillColor = QString(FillColor);
-	QString qStrokeColor = QString(StrokeColor);
+	QString qFillColor = QString(fillColor);
+	QString qStrokeColor = QString(strokeColor);
 	if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toLocal8Bit().constData());
@@ -163,34 +163,34 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return nullptr;
 	}
 
-	QStringList FeaturesList = QString(Features).split(QString(","));
+	QStringList FeaturesList = QString(features).split(QString(","));
 
-	CharStyle TmpCharStyle;
-	TmpCharStyle.setName(Name);
-	TmpCharStyle.setFont((*currentDoc->AllFonts)[RealFont]);
-	TmpCharStyle.setFontSize(FontSize * 10);
-	TmpCharStyle.setFontFeatures(FontFeatures);
-	TmpCharStyle.setFeatures(FeaturesList);
-	TmpCharStyle.setFillColor(qFillColor);
-	TmpCharStyle.setFillShade(FillShade * 100);
-	TmpCharStyle.setStrokeColor(qStrokeColor);
-	TmpCharStyle.setStrokeShade(StrokeShade * 100);
-	TmpCharStyle.setBaselineOffset(BaselineOffset);
-	TmpCharStyle.setShadowXOffset(ShadowXOffset);
-	TmpCharStyle.setShadowYOffset(ShadowYOffset);
-	TmpCharStyle.setOutlineWidth(OutlineWidth);
-	TmpCharStyle.setUnderlineOffset(UnderlineOffset);
-	TmpCharStyle.setUnderlineWidth(UnderlineWidth);
-	TmpCharStyle.setStrikethruOffset(StrikethruOffset);
-	TmpCharStyle.setStrikethruWidth(StrikethruWidth);
-	TmpCharStyle.setScaleH(ScaleH * 1000);
-	TmpCharStyle.setScaleV(ScaleV * 1000);
-	TmpCharStyle.setTracking(Tracking);
-	TmpCharStyle.setLanguage(QString(Language));
+	CharStyle tmpCharStyle;
+	tmpCharStyle.setName(name);
+	tmpCharStyle.setFont((*currentDoc->AllFonts)[realFont]);
+	tmpCharStyle.setFontSize(fontSize * 10);
+	tmpCharStyle.setFontFeatures(fontFeatures);
+	tmpCharStyle.setFeatures(FeaturesList);
+	tmpCharStyle.setFillColor(qFillColor);
+	tmpCharStyle.setFillShade(fillShade * 100);
+	tmpCharStyle.setStrokeColor(qStrokeColor);
+	tmpCharStyle.setStrokeShade(strokeShade * 100);
+	tmpCharStyle.setBaselineOffset(baselineOffset);
+	tmpCharStyle.setShadowXOffset(shadowXOffset);
+	tmpCharStyle.setShadowYOffset(shadowYOffset);
+	tmpCharStyle.setOutlineWidth(outlineWidth);
+	tmpCharStyle.setUnderlineOffset(underlineOffset);
+	tmpCharStyle.setUnderlineWidth(underlineWidth);
+	tmpCharStyle.setStrikethruOffset(strikethruOffset);
+	tmpCharStyle.setStrikethruWidth(strikethruWidth);
+	tmpCharStyle.setScaleH(scaleH * 1000);
+	tmpCharStyle.setScaleV(scaleV * 1000);
+	tmpCharStyle.setTracking(tracking);
+	tmpCharStyle.setLanguage(QString(language));
 
-	StyleSet<CharStyle> TmpStyleSet;
-	TmpStyleSet.create(TmpCharStyle);
-	ScCore->primaryMainWindow()->doc->redefineCharStyles(TmpStyleSet, false);
+	StyleSet<CharStyle> tmpStyleSet;
+	tmpStyleSet.create(tmpCharStyle);
+	currentDoc->redefineCharStyles(tmpStyleSet, false);
 	// PV - refresh the Style Manager window.
 	// I thought that this can work but it doesn't:
 	// ScCore->primaryMainWindow()->styleMgr()->reloadStyleView();
