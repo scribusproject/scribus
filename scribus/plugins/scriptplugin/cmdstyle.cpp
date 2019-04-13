@@ -38,49 +38,49 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("dropcapoffset"),
 			const_cast<char*>("charstyle"),
 			nullptr};
-	char *Name = const_cast<char*>(""), *CharStyle = const_cast<char*>("");
-	int LineSpacingMode = 0, Alignment = 0, DropCapLines = 2, HasDropCap = 0;
-	double LineSpacing = 15.0, LeftMargin = 0.0, RightMargin = 0.0;
-	double GapBefore = 0.0, GapAfter = 0.0, FirstIndent = 0.0, PEOffset = 0;
+	char *name = const_cast<char*>(""), *charStyle = const_cast<char*>("");
+	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
+	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
+	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiides",
-		 keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
-		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
-		&HasDropCap, &DropCapLines, &PEOffset, "utf-8", &CharStyle))
+		 keywordargs, "utf-8", &name, &lineSpacingMode, &lineSpacing, &alignment,
+		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
+		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (strlen(Name) == 0)
+	if (strlen(name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	ParagraphStyle TmpParagraphStyle;
-	TmpParagraphStyle.setName(Name);
-	TmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode)LineSpacingMode);
-	TmpParagraphStyle.setLineSpacing(LineSpacing);
-	TmpParagraphStyle.setAlignment((ParagraphStyle::AlignmentType)Alignment);
-	TmpParagraphStyle.setLeftMargin(LeftMargin);
-	TmpParagraphStyle.setFirstIndent(FirstIndent);
-	TmpParagraphStyle.setRightMargin(RightMargin);
-	TmpParagraphStyle.setGapBefore(GapBefore);
-	TmpParagraphStyle.setGapAfter(GapAfter);
-	if (HasDropCap == 0)
-		TmpParagraphStyle.setHasDropCap(false);
-	else if (HasDropCap == 1)
-		TmpParagraphStyle.setHasDropCap(true);
+	ParagraphStyle tmpParagraphStyle;
+	tmpParagraphStyle.setName(name);
+	tmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode)lineSpacingMode);
+	tmpParagraphStyle.setLineSpacing(lineSpacing);
+	tmpParagraphStyle.setAlignment((ParagraphStyle::AlignmentType)alignment);
+	tmpParagraphStyle.setLeftMargin(leftMargin);
+	tmpParagraphStyle.setFirstIndent(firstIndent);
+	tmpParagraphStyle.setRightMargin(rightMargin);
+	tmpParagraphStyle.setGapBefore(gapBefore);
+	tmpParagraphStyle.setGapAfter(gapAfter);
+	if (hasDropCap == 0)
+		tmpParagraphStyle.setHasDropCap(false);
+	else if (hasDropCap == 1)
+		tmpParagraphStyle.setHasDropCap(true);
 	else
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap has to be 0 or 1.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	TmpParagraphStyle.setDropCapLines(DropCapLines);
-	TmpParagraphStyle.setParEffectOffset(PEOffset);
-	TmpParagraphStyle.charStyle().setParent(CharStyle);
+	tmpParagraphStyle.setDropCapLines(dropCapLines);
+	tmpParagraphStyle.setParEffectOffset(peOffset);
+	tmpParagraphStyle.charStyle().setParent(charStyle);
 
-	StyleSet<ParagraphStyle> TmpStyleSet;
-	TmpStyleSet.create(TmpParagraphStyle);
-	ScCore->primaryMainWindow()->doc->redefineStyles(TmpStyleSet, false);
+	StyleSet<ParagraphStyle> tmpStyleSet;
+	tmpStyleSet.create(tmpParagraphStyle);
+	ScCore->primaryMainWindow()->doc->redefineStyles(tmpStyleSet, false);
 	// PV - refresh the Style Manager window.
 	// I thought that this can work but it doesn't:
 	// ScCore->primaryMainWindow()->styleMgr()->reloadStyleView();
@@ -163,14 +163,14 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return nullptr;
 	}
 
-	QStringList FeaturesList = QString(features).split(QString(","));
+	QStringList featuresList = QString(features).split(QString(","));
 
 	CharStyle tmpCharStyle;
 	tmpCharStyle.setName(name);
 	tmpCharStyle.setFont((*currentDoc->AllFonts)[realFont]);
 	tmpCharStyle.setFontSize(fontSize * 10);
 	tmpCharStyle.setFontFeatures(fontFeatures);
-	tmpCharStyle.setFeatures(FeaturesList);
+	tmpCharStyle.setFeatures(featuresList);
 	tmpCharStyle.setFillColor(qFillColor);
 	tmpCharStyle.setFillShade(fillShade * 100);
 	tmpCharStyle.setStrokeColor(qStrokeColor);
