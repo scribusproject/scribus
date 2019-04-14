@@ -11,96 +11,96 @@
 <dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
 <dd><code>combinePolygons()</code>
 <p>Combine deux polygones ou plus.</p>
-<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
+<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
-<dd><code>copyObject(["nom"]) -&gt; cha&icirc;ne</code>
-<p>Effectue une copie de l'objet s&eacute;lectionn&eacute; vers le presse-papiers.</p></dd>
+<dd><code>copyObject(["nom"]) -&gt; chaîne</code>
+<p>Effectue une copie de l'objet sélectionné vers le presse-papiers.</p></dd>
 
 <dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
-<dd><code>duplicateObject(["nom"]) -&gt; cha&icirc;ne</code>
-<p>Cr&eacute;e une copie du ou des objects s&eacute;lectionn&eacute;s dans le document courant.</p></dd>
+<dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
+<p>Crée une copie du ou des objects sélectionnés dans le document courant.</p></dd>
 
 <dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
-<dd><code>getStyle(["nom"])  -&gt; cha&icirc;ne</code>
-<p>Retourne le nom du style appliqu&eacute; &agrave; l'objet "nom". Si aucun nom d'objet n'est fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p> 
-<p>Si l'objet courant poss&egrave;de une s&eacute;lection de texte, le nom retourn&eacute; est celui du style appliqu&eacute; au d&eacute;but de la s&eacute;lection. Sinon le nom retourn&eacute; est celui du style appliqu&eacute; par d&eacute;faut.</p>
-<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
+<dd><code>getStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant poss&egrave;de une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
+<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
-<dd><code>groupObjects(liste)  -&gt; cha&icirc;ne</code>
-<p>Groupe les objets &eacute;num&eacute;r&eacute;s dans "liste". La "liste" doit contenir les noms des objets &agrave; grouper. 
-Si la "liste" n'est pas fournie, les &eacute;l&eacute;ments s&eacute;lectionn&eacute;s sont
-utilis&eacute;s. Retourne le nom du groupe cr&eacute;&eacute; pour utilisation ult&eacute;rieure.</p></dd>
+<dd><code>groupObjects(liste)  -&gt; chaîne</code>
+<p>Groupe les objets énumérés dans "liste". La "liste" doit contenir les noms des objets à grouper. 
+Si la "liste" n'est pas fournie, les éléments sélectionnés sont
+utilisés. Retourne le nom du groupe créé pour utilisation ultérieure.</p></dd>
 
 <dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
-<dd><code>isLocked(["nom"]) -&gt; bool&eacute;en</code>
-<p>Retourne la valeur True si l'objet "nom" est verrouill&eacute;.  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<dd><code>isLocked(["nom"]) -&gt; booléen</code>
+<p>Retourne la valeur True si l'objet "nom" est verrouillé.  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
-<dd><code>lockObject(["nom"]) -&gt; bool&eacute;en</code>
-<p>Verrouille l'objet "nom" s'il est d&eacute;verrouill&eacute;, ou le d&eacute;verrouille s'il y a lieu. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. 
-Retourne la valeur True si verrouill&eacute;.</p></dd>
+<dd><code>lockObject(["nom"]) -&gt; booléen</code>
+<p>Verrouille l'objet "nom" s'il est déverrouillé, ou le déverrouille s'il y a lieu. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. 
+Retourne la valeur True si verrouillé.</p></dd>
 
 <dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
 <dd><code>moveObject(dx, dy [, "nom"])</code>
-<p>D&eacute;place l'objet "nom" de dx et dy par rapport &agrave; sa position courante. Les
-distances sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir
-les constantes UNIT). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+<p>Déplace l'objet "nom" de dx et dy par rapport à sa position courante. Les
+distances sont exprimées dans les unités de mesure du document (voir
+les constantes UNIT). Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
 
 <dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
 <dd><code>moveObjectAbs(x, y [, "nom"])</code>
-<p>D&eacute;place l'objet "nom" &agrave; une nouvelle position. Les coordonn&eacute;es
-sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir les
-constantes UNIT).  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+<p>Déplace l'objet "nom" à une nouvelle position. Les coordonnées
+sont exprimées dans les unités de mesure du document (voir les
+constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
 
 <dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
 <dd><code>rotateObject(rot [, "nom"])</code>
-<p>Fait pivoter l'objet "nom" de la valeur "rot" en degr&eacute;s relatifs. La rotation est activ&eacute;e par le sommet s&eacute;lectionn&eacute; comme point de rotation - par d&eacute;faut, le sommet en haut &agrave; gauche est le point de rotation z&eacute;ro. Les valeurs positives signifient une rotation dans le sens des aiguilles d'une montre, lorsque le point de rotation par d&eacute;faut est utilis&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>Fait pivoter l'objet "nom" de la valeur "rot" en degrés relatifs. La rotation est activée par le sommet sélectionné comme point de rotation - par défaut, le sommet en haut à gauche est le point de rotation zéro. Les valeurs positives signifient une rotation dans le sens des aiguilles d'une montre, lorsque le point de rotation par défaut est utilisé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
 <dd><code>rotateObjectAbs(rot [, "nom"])</code>
-<p>&Eacute;tablit la rotation de l'objet "nom" &agrave; "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>&Eacute;tablit la rotation de l'objet "nom" à "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
 <dd><code>scaleGroup(facteur
 [,"nom"])</code>
-<p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs sup&eacute;rieures &agrave; 1 agrandissent le groupe, les valeurs inf&eacute;rieures &agrave; 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe &agrave; 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe &agrave; 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre sup&eacute;rieure &agrave; 0. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.</p>
-<p>Peut g&eacute;n&eacute;rer ValueError si le facteur de redimensionnement n'est
+<p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs supérieures à 1 agrandissent le groupe, les valeurs inférieures à 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe à 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe à 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre supérieure à 0. Si le "nom" n'est pas fourni, l'élément sélectionné courant est utilisé.</p>
+<p>Peut générer ValueError si le facteur de redimensionnement n'est
 pas valide.</p></dd>
 
 <dt><a name="-setCharacterStyle"><strong>setCharacterStyle</strong></a>(...)</dt>
 <dd><code>setCharacterStyle("style" [, "nom"])</code>
-<p>Applique le "style" de caract&egrave;re d&eacute;sign&eacute; &agrave; l'objet "nom". Si un nom d'objet est fourni, le style est appliqu&eacute; &agrave; la s&eacute;lection de texte courante de l'objet donn&eacute;. Si aucun objet n'est fourni, le style est appliqu&eacute; &agrave; l'objet s&eacute;lectionn&eacute;.</p></dd>
+<p>Applique le "style" de caract&egrave;re désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
 
 <dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
 <dd><code>setScaleFrameToImage([nom])</code>
-<p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;</p>
-<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
+<p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé</p>
+<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
 <dd><code>setScaleImageToFrame(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code>
-<p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image s&eacute;lectionn&eacute;, ou sp&eacute;cifi&eacute; dans 'redimAuCadre'. 
-Si 'proportionnel' est sp&eacute;cifi&eacute;, &eacute;tablit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont bool&eacute;ens.</p>
-<p>Peut g&eacute;n&eacute;rer l'exception WrongFrameTypeError.</p></dd>
+<p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image sélectionné, ou spécifié dans 'redimAuCadre'. 
+Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont booléens.</p>
+<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
 
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code>setStyle("style" [, "nom"])</code>
-<p>Applique le "style" d&eacute;sign&eacute; &agrave; l'objet "nom". Si un nom d'objet est fourni, le style est appliqu&eacute; &agrave; la s&eacute;lection de texte courante de l'objet donn&eacute;. Si aucun objet n'est fourni, le style est appliqu&eacute; &agrave; l'objet s&eacute;lectionn&eacute;.</p></dd>
+<p>Applique le "style" désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
 
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code>sizeObject(largeur, hauteur [, "nom"])</code>
-<p>Redimensionne l'objet "nom" &agrave; la largeur et &agrave; la hauteur donn&eacute;es. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+<p>Redimensionne l'objet "nom" à la largeur et à la hauteur données. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
 <dd><code>unGroupObjects("nom")</code>
-<p> D&eacute;truit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
+<p>Détruit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
 <dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
 <dd><code>textFlowsAroundFrame("nom" [, etat])</code>
-<p>Active ou d&eacute;sactive l'"habillage" (le texte d&eacute;file autour de l'objet) pour l'objet "nom". 
-Appel&eacute; avec les param&egrave;tres cha&icirc;ne "nom" et le bool&eacute;en optionnel "&eacute;tat". Si
-"&eacute;tat" n'est pas pass&eacute;, cette fonctionnalit&eacute; change de valeur (activ&eacute;e si inactive ou d&eacute;sactiv&eacute;e si active).</p></dd>
+<p>Active ou désactive l'"habillage" (le texte défile autour de l'objet) pour l'objet "nom". 
+Appelé avec les param&egrave;tres chaîne "nom" et le booléen optionnel "état". Si
+"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
 
 </dl>
 </body>

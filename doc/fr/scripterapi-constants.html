@@ -1,53 +1,53 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Constantes pr&eacute;d&eacute;finies</title>
+	<title>Constantes prédéfinies</title>
 </head>
 <body>
-<h2>Constantes pr&eacute;d&eacute;finies</h2>
+<h2>Constantes prédéfinies</h2>
 
-<p>Des constantes sont d&eacute;finies pour aider &agrave; utiliser les commandes: </p>
+<p>Des constantes sont définies pour aider à utiliser les commandes: </p>
 
 <h4>Version Scribus :</h4>
 	<p>L'interface de script fournit deux variables contenant la version
-courante de Scribus dans le module <code>Scribus</code>. Les scripts peuvent utiliser ces variables pour v&eacute;rifier qu'ils tournent sous la bonne version de Scribus et pour informer l'utilisateur d'&eacute;ventuelles incompatibilit&eacute;s. Ces
+courante de Scribus dans le module <code>Scribus</code>. Les scripts peuvent utiliser ces variables pour vérifier qu'ils tournent sous la bonne version de Scribus et pour informer l'utilisateur d'éventuelles incompatibilités. Ces
 deux variables, <code>scribus_version</code> et
-<code>scribus_version_info</code>, ont &eacute;t&eacute; ajout&eacute;es dans les versions
+<code>scribus_version_info</code>, ont été ajoutées dans les versions
 1.2.1 et 1.3.0cvs et sont absentes des versions
-pr&eacute;c&eacute;dentes. Si n&eacute;cessaire, vous pouvez v&eacute;rifier leur pr&eacute;sence avec <code>hasattr(scribus, 'scribus_version')</code>.</p>
-	<p><code>scribus_version</code> est une cha&icirc;ne qui contient la version courante de Scribus. Sa valeur ressemble habituellement &agrave; <code>'1.2.1cvs'</code> ou <code>'1.3.0'</code>, par exemple, mais il n'est pas garanti que le format sera toujours le m&ecirc;me. Cette
-variable est utile pour afficher la version &agrave; l'utilisateur, par exemple pour signaler une incompatibilit&eacute;. N'analysez pas et ne comparez pas cette variable, car <code>scribus_version_info</code> est fait pour cela.</p>
+précédentes. Si nécessaire, vous pouvez vérifier leur présence avec <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> est une cha&icirc;ne qui contient la version courante de Scribus. Sa valeur ressemble habituellement à <code>'1.2.1cvs'</code> ou <code>'1.3.0'</code>, par exemple, mais il n'est pas garanti que le format sera toujours le même. Cette
+variable est utile pour afficher la version à l'utilisateur, par exemple pour signaler une incompatibilité. N'analysez pas et ne comparez pas cette variable, car <code>scribus_version_info</code> est fait pour cela.</p>
 	<p><code>scribus_version_info</code> est un vecteur semblable au vecteur <code>sys.version_info</code> fourni par Python. 
 C'est un vecteur de la forme (majorversion, minorversion, patchlevel,
-extraversion, build), par exemple 1.2.1cvs correspond &agrave;
-<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond &agrave; <code>(1,3,2,'',0)</code> . Ces vecteurs sont id&eacute;aux pour v&eacute;rifier les versions minimum, etc., parce que Python compare les vecteurs &eacute;l&eacute;ment par &eacute;l&eacute;ment, de gauche &agrave; droite. Par exemple :</p>
+extraversion, build), par exemple 1.2.1cvs correspond à
+<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond à <code>(1,3,2,'',0)</code> . Ces vecteurs sont idéaux pour vérifier les versions minimum, etc., parce que Python compare les vecteurs élément par élément, de gauche à droite. Par exemple :</p>
 <pre>
 if scribus.scribus_version_info[:3] &lt; (1,2,2):
     messageBox("Scribus - script Python",
-        "Ce script requiert 1.2.2 ou plus r&eacute;cent."+\
+        "Ce script requiert 1.2.2 ou plus récent."+\
         "Vous roulez %s." % scribus.scribus_version,
         ICON_CRITICAL)
     sys.exit()
 </pre>
 
-<h4>Constantes d'&eacute;num&eacute;ration d'unit&eacute;s : </h4>
+<h4>Constantes d'énumération d'unités : </h4>
 <table><tr><td>
 <dl>
 	<dt>UNIT_POINTS</dt>
-	<dd>Unit&eacute; de mesure point = 0</dd>
+	<dd>Unité de mesure point = 0</dd>
 	<dt>UNIT_MILLIMETERS</dt>
-	<dd>Unit&eacute; de mesure millim&egrave;tre = 1</dd>
+	<dd>Unité de mesure millimètre = 1</dd>
 	<dt>UNIT_INCHES</dt>
-	<dd>Unit&eacute; de mesure pouce = 2</dd>
+	<dd>Unité de mesure pouce = 2</dd>
 	<dt>UNIT_PICAS</dt>
-	<dd>Unit&eacute; de mesure pica = 3</dd>
+	<dd>Unité de mesure pica = 3</dd>
 </dl>
 </td></tr></table>
 
-<h4>Constantes de conversion d'unit&eacute;s</h4>
+<h4>Constantes de conversion d'unités</h4>
 
-<p>Ces facteurs de conversion peuvent &ecirc;tre utilis&eacute;s pour convertir les unit&eacute;s en points et vice versa.
-Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/inch'; pour convertir les points en pouces vous &eacute;crirez 'valeur*inch', et pour convertir les pouces en mm vous &eacute;crirez 'valeur*mm/inch'.</p>
+<p>Ces facteurs de conversion peuvent être utilisés pour convertir les unités en points et vice versa.
+Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; pour convertir les points en pouces vous écrirez 'valeur*inch', et pour convertir les pouces en mm vous écrirez 'valeur*mm/inch'.</p>
 
 <table><tr><td>
 <dl>
@@ -58,15 +58,15 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>p</dt>
 	<dd>pica dans 1 pt</dd>
 	<dt>cm<dt>
-	<dd>centim&egrave;tres dans 1 pt</dd>
+	<dd>centimètres dans 1 pt</dd>
 	<dt>mm</dt>
-	<dd>millim&egrave;tres dans 1 pt</dd>
+	<dd>millimètres dans 1 pt</dd>
 	<dt>...</dt>
 	<dd>D'autres constantes seront fournies si le coeur de Scribus les reconna&icirc;t.</dd>
 </dl>
 </td></tr></table>
 
-<h4>D&eacute;finitions d'orientation de page :</h4>
+<h4>Définitions d'orientation de page :</h4>
 <table><tr><td>
 <dl>
 	<dt>PORTRAIT</dt>
@@ -76,7 +76,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 </dl>
 </td></tr></table>
 
-<h4>R&eacute;glages de format de page : </h4>
+<h4>Réglages de format de page : </h4>
 <table><tr>
 <td>
 <dl>
@@ -103,25 +103,25 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 <td>
 <dl>
 	<dt>PAPER_A0_MM</dt>
-	<dd>Format papier A0 = 841 x 1189 Millim&egrave;tres</dd>
+	<dd>Format papier A0 = 841 x 1189 Millimètres</dd>
 	<dt>PAPER_A1_MM</dt>
-	<dd>Format papier A1 = 594 x 841 Millim&egrave;tres</dd>
+	<dd>Format papier A1 = 594 x 841 Millimètres</dd>
 	<dt>PAPER_A2_MM</dt>
-	<dd>Format papier A2 = 420 x 594 Millim&egrave;tres</dd>
+	<dd>Format papier A2 = 420 x 594 Millimètres</dd>
 	<dt>PAPER_A3_MM</dt>
-	<dd>Format papier A3 = 297 x 420 Millim&egrave;tres</dd>
+	<dd>Format papier A3 = 297 x 420 Millimètres</dd>
 	<dt>PAPER_A4_MM</dt>
-	<dd>Format papier A4 = 210 x 297 Millim&egrave;tres</dd>
+	<dd>Format papier A4 = 210 x 297 Millimètres</dd>
 	<dt>PAPER_A5_MM</dt>
-	<dd>Format papier A5 = 148 x 210 Millim&egrave;tres</dd>
+	<dd>Format papier A5 = 148 x 210 Millimètres</dd>
 	<dt>PAPER_A6_MM</dt>
-	<dd>Format papier A6 = 105 x 148 Millim&egrave;tres</dd>
+	<dd>Format papier A6 = 105 x 148 Millimètres</dd>
 	<dt>PAPER_A7_MM</dt>
-	<dd>Format papier A7 = 74 x 105 Millim&egrave;tres</dd>
+	<dd>Format papier A7 = 74 x 105 Millimètres</dd>
 	<dt>PAPER_A8_MM</dt>
-	<dd>Format papier A8 = 52 x 74 Millim&egrave;tres</dd>
+	<dd>Format papier A8 = 52 x 74 Millimètres</dd>
 	<dt>PAPER_A9_MM</dt>
-	<dd>Format papier A9 = 37 x 52 Millim&egrave;tres</dd></dl></td></tr>
+	<dd>Format papier A9 = 37 x 52 Millimètres</dd></dl></td></tr>
 <tr><td>
 <dl>
 	<dt>PAPER_B0</dt>
@@ -149,27 +149,27 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 <td>
 <dl>
 	<dt>PAPER_B0_MM</dt>
-	<dd>Format papier B0 = 1000 x 1414 Millim&egrave;tres</dd>
+	<dd>Format papier B0 = 1000 x 1414 Millimètres</dd>
 	<dt>PAPER_B1_MM</dt>
-	<dd>Format papier B1 = 707 x 1000 Millim&egrave;tres</dd>
+	<dd>Format papier B1 = 707 x 1000 Millimètres</dd>
 	<dt>PAPER_B2_MM</dt>
-	<dd>Format papier B2 = 500 x 707 Millim&egrave;tres</dd>
+	<dd>Format papier B2 = 500 x 707 Millimètres</dd>
 	<dt>PAPER_B3_MM</dt>
-	<dd>Format papier B3 = 353 x 500 Millim&egrave;tres</dd>
+	<dd>Format papier B3 = 353 x 500 Millimètres</dd>
 	<dt>PAPER_B4_MM</dt>
-	<dd>Format papier B4 = 250 x 353 Millim&egrave;tres</dd>
+	<dd>Format papier B4 = 250 x 353 Millimètres</dd>
 	<dt>PAPER_B5_MM</dt>
-	<dd>Format papier B5 = 176 x 250 Millim&egrave;tres</dd>
+	<dd>Format papier B5 = 176 x 250 Millimètres</dd>
 	<dt>PAPER_B6_MM</dt>
-	<dd>Format papier B6 = 125 x 176 Millim&egrave;tres</dd>
+	<dd>Format papier B6 = 125 x 176 Millimètres</dd>
 	<dt>PAPER_B7_MM</dt>
-	<dd>Format papier B7 = 88 x 125 Millim&egrave;tres</dd>
+	<dd>Format papier B7 = 88 x 125 Millimètres</dd>
 	<dt>PAPER_B8_MM</dt>
-	<dd>Format papier B8 = 62 x 88 Millim&egrave;tres</dd>
+	<dd>Format papier B8 = 62 x 88 Millimètres</dd>
 	<dt>PAPER_B9_MM</dt>
-	<dd>Format papier B9 = 44 x 62 Millim&egrave;tres</dd>
+	<dd>Format papier B9 = 44 x 62 Millimètres</dd>
 	<dt>PAPER_B10_MM</dt>
-	<dd>Format papier B10 = 31 x 44 Millim&egrave;tres</dd></dl></td></tr>
+	<dd>Format papier B10 = 31 x 44 Millimètres</dd></dl></td></tr>
 <tr><td>
 <dl>
 	<dt>PAPER_C5E</dt>
@@ -193,7 +193,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 </dl></td></tr>
 </table>
 
-<h4>R&eacute;glages de la disposition du document :</h4>
+<h4>Réglages de la disposition du document :</h4>
 <table><tr><td>
 <dl>
 	<dt>FACINGPAGES</dt>
@@ -201,41 +201,41 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 	<dt>NOFACINGPAGES</dt>
 	<dd>Disposition normale du document.</dd>
 	<dt>FIRSTPAGELEFT</dt>
-	<dd>La premi&egrave;re page du document est une page de droite.</dd>
+	<dd>La première page du document est une page de droite.</dd>
 	<dt>FIRSTPAGERIGHT</dt>
-	<dd>La premi&egrave;re page du document est une premi&egrave;re de droite.</dd>
+	<dd>La première page du document est une première de droite.</dd>
 </dl>
 </td></tr></table>
 
-<h4>R&eacute;glages de l'alignement :</h4>
+<h4>Réglages de l'alignement :</h4>
 <table><tr><td>
 <dl>
 	<dt>ALIGN_LEFT</dt>
-	<dd>Le texte est align&eacute; &agrave; gauche.</dd>
+	<dd>Le texte est aligné à gauche.</dd>
 	<dt>ALIGN_CENTERED</dt>
-	<dd>Le texte est centr&eacute; dans le cadre de texte.</dd>
+	<dd>Le texte est centré dans le cadre de texte.</dd>
 	<dt>ALIGN_RIGHT</dt>
-	<dd>Le texte est align&eacute; sur le c&ocirc;t&eacute; droit du cadre de texte.</dd>
+	<dd>Le texte est aligné sur le c&ocirc;té droit du cadre de texte.</dd>
 	<dt>ALIGN_FORCED</dt>
-	<dd>Le texte a un alignement forc&eacute;.</dd>
+	<dd>Le texte a un alignement forcé.</dd>
   	<dt>ALIGN_BLOCK</dt>
-	<dd>Le texte a un alignement bloqu&eacute;.</dd>
+	<dd>Le texte a un alignement bloqué.</dd>
 </dl>
 </td></tr></table>
 
-<h4>R&eacute;glages de l'alignement vertical :</h4>
+<h4>Réglages de l'alignement vertical :</h4>
 <table><tr><td>
 <dl>
 	<dt>ALIGNV_TOP</dt>
-	<dd>Le texte est align&eacute; verticalement en haut.</dd>
+	<dd>Le texte est aligné verticalement en haut.</dd>
 	<dt>ALIGNV_CENTERED</dt>
-	<dd>Le texte est align&eacute; verticalement au centre.</dd>
+	<dd>Le texte est aligné verticalement au centre.</dd>
 	<dt>ALIGNV_BOTTOM</dt>
-	<dd>Le texte est align&eacute; verticalement en bas.</dd>
+	<dd>Le texte est aligné verticalement en bas.</dd>
 </dl>
 </td></tr></table>
 
-<h4>R&eacute;glages relatifs aux lignes :</h4>
+<h4>Réglages relatifs aux lignes :</h4>
 <table><tr><td>
 <dl>
     <dt>LINE_DASH</dt>
@@ -254,7 +254,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 </dl>
 </td></tr></table>
 
-<h4>D&eacute;finitions d'espaces de couleur: </h4>
+<h4>Définitions d'espaces de couleur: </h4>
 <table><tr><td>
 <dl>
 	<dt>CSPACE_UNDEFINED</dt>
@@ -266,11 +266,11 @@ Ainsi, pour convertir les pouces en points, il suffit d'&eacute;crire 'valeur/in
 </dl>
 </td></tr></table>
 
-<h4>R&eacute;glages relatifs au fond :</h4>
+<h4>Réglages relatifs au fond :</h4>
 <table><tr><td>
 <dl>
 	<dt>FILL_NOG</dt>
-    <dd>Pas de d&eacute;grad&eacute;, couleur unie</dd>
+    <dd>Pas de dégradé, couleur unie</dd>
 	<dt>FILL_HORIZONTALG</dt>
 	<dt>FILL_VERTICALG</dt>
 	<dt>FILL_DIAGONALG</dt>

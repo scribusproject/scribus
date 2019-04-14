@@ -1,20 +1,20 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Utiliser les bo&icirc;tes de dialogues &agrave; partir de Scribus</title>
+	<title>Utiliser les boîtes de dialogues à partir de Scribus</title>
 </head>
 <body>
-<h2>Utiliser les bo&icirc;tes de dialogues &agrave; partir de Scribus</h2> 
+<h2>Utiliser les boîtes de dialogues à partir de Scribus</h2> 
 
 <dl>
 
 <dt><a name="-fileDialog"><strong>fileDialog</strong></a>(...)</dt>
 <dd><code>fileDialog("titre", ["filtre", "nomDefaut",possedeApercu, estEnregistre])<br> -&gt;
-cha&icirc;ne avec nom de fichier</code>
-<p>Affiche une bo&icirc;te de dialogue Ouvrir un fichier portant le titre "titre". Les fichiers sont filtr&eacute;s par la cha&icirc;ne "filtre". Vous pouvez aussi donner un nom de fichier ou un chemin par d&eacute;faut, mais laissez cette cha&icirc;ne vide lorsque vous ne voulez pas l'utiliser. 
-Une valeur True pour 'possedeApercu' d&eacute;clenche l'affichage d'une vue r&eacute;duire dans la bo&icirc;te FileSelect. Quand le param&egrave;tre estEnregistre est mis &agrave; True, le dialogue se comporte comme un dialogue "Enregistrer sous", sinon il se comporte comme un dialogue "Ouvrir". Quand le param&egrave;tre 'isdir' a une valeur True, la bo&icirc;te de dialogue s'ouvre et retourne uniquement les r&eacute;pertoires. La valeur par d&eacute;faut de tous les param&egrave;tres optionnels est False.<p> 
-<p>Le filtre, si sp&eacute;cifi&eacute;, prend la forme 'commentaire (*.type *.type2 ...)'. Par exemple 'Images (*.png *.xpm *.jpg)'.</p> 
-<p>Reportez-vous &agrave; la documentation de QFileDialog dans Qt pour plus de d&eacute;tails sur les filtres.</p>
+chaîne avec nom de fichier</code>
+<p>Affiche une boîte de dialogue Ouvrir un fichier portant le titre "titre". Les fichiers sont filtrés par la chaîne "filtre". Vous pouvez aussi donner un nom de fichier ou un chemin par défaut, mais laissez cette chaîne vide lorsque vous ne voulez pas l'utiliser. 
+Une valeur True pour 'possedeApercu' déclenche l'affichage d'une vue réduire dans la boîte FileSelect. Quand le paramètre estEnregistre est mis à True, le dialogue se comporte comme un dialogue "Enregistrer sous", sinon il se comporte comme un dialogue "Ouvrir". Quand le paramètre 'isdir' a une valeur True, la boîte de dialogue s'ouvre et retourne uniquement les répertoires. La valeur par défaut de tous les paramètres optionnels est False.<p> 
+<p>Le filtre, si spécifié, prend la forme 'commentaire (*.type *.type2 ...)'. Par exemple 'Images (*.png *.xpm *.jpg)'.</p> 
+<p>Reportez-vous à la documentation de QFileDialog dans Qt pour plus de détails sur les filtres.</p>
 <p>Exemple : <a href="#-fileDialog">fileDialog</a>('Ouvrir', 'CSV files (*.csv)')<br>
 Exemple : <a href="#-fileDialog">fileDialog</a>('Enregistrer le
 rapport',
@@ -25,62 +25,62 @@ nomDefaut='report.txt', estEnregistre=True)</p></dd>
 <p>Quitte l'application Scribus.</p></dd>
 	
 <dt><a name="-getGuiLanguage"><strong>getGuiLanguage</strong></a>(...)</dt>
-<dd><code>getGuiLanguage() -&gt; cha&icirc;ne</code>
-<p>Retourne une cha&icirc;ne contenant la valeur de -lang.</p></dd>
+<dd><code>getGuiLanguage() -&gt; chaîne</code>
+<p>Retourne une chaîne contenant la valeur de -lang.</p></dd>
 	
 <dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt>
-<dd><code>messagebarText("cha&icirc;ne")</code>
-<p>&Eacute;crit "cha&icirc;ne" dans la barre de message de Scribus (ligne d'&eacute;tat). Le texte doit &ecirc;tre encod&eacute; en UTF8 ou en une cha&icirc;ne 'unicode' (recommand&eacute;).</p></dd>
+<dd><code>messagebarText("chaîne")</code>
+<p>&Eacute;crit "chaîne" dans la barre de message de Scribus (ligne d'état). Le texte doit être encodé en UTF8 ou en une chaîne 'unicode' (recommandé).</p></dd>
 	
 <dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
 <dd><code>messageBox("titre", "message",
 icone=ICON_NONE, bouton1=BUTTON_OK|BUTTONOPT_DEFAULT,
 bouton2=BUTTON_NONE, bouton3=BUTTON_NONE) -&gt; nombre entier</code>
-<p>Affiche une bo&icirc;te de message contenant le "titre", le message
-"message", une ic&ocirc;ne "icone" et jusqu'&agrave; 3 boutons. Par d&eacute;faut, aucune ic&ocirc;ne n'est utilis&eacute;e et un seul bouton, OK, est affich&eacute;. Seuls les arguments titre et message sont requis, mais on recommande de d&eacute;finir une ic&ocirc;ne et un ou plusieurs boutons appropri&eacute;s. Le message texte peut contenir des marqueurs de type HTML simples.</p>
-<p>Retourne le num&eacute;ro du bouton que l'utilisateur a enfonc&eacute;. Les num&eacute;ros de boutons commencent &agrave; 1.</p>
-<p>Pour les param&egrave;tres d'ic&ocirc;ne et de bouton, certaines constantes pr&eacute;d&eacute;finies sont disponibles et portent les m&ecirc;mes noms que dans la documentation Qt. 
-Ce sont les constantes BUTTON_* et ICON_* d&eacute;finies dans ce module. Il y a &eacute;galement deux constantes suppl&eacute;mentaires qui peuvent &ecirc;tre combin&eacute;es par un OU aux constantes de bouton :</p>
+<p>Affiche une boîte de message contenant le "titre", le message
+"message", une icône "icone" et jusqu'à 3 boutons. Par défaut, aucune icône n'est utilisée et un seul bouton, OK, est affiché. Seuls les arguments titre et message sont requis, mais on recommande de définir une icône et un ou plusieurs boutons appropriés. Le message texte peut contenir des marqueurs de type HTML simples.</p>
+<p>Retourne le numéro du bouton que l'utilisateur a enfoncé. Les numéros de boutons commencent à 1.</p>
+<p>Pour les paramètres d'icône et de bouton, certaines constantes prédéfinies sont disponibles et portent les mêmes noms que dans la documentation Qt. 
+Ce sont les constantes BUTTON_* et ICON_* définies dans ce module. Il y a également deux constantes supplémentaires qui peuvent être combinées par un OU aux constantes de bouton :</p>
 <ul>
-	<li>BUTTONOPT_DEFAULT - Appuyer sur Entr&eacute;e enfonce ce bouton.</li>
+	<li>BUTTONOPT_DEFAULT - Appuyer sur Entrée enfonce ce bouton.</li>
 	<li>BUTTONOPT_ESCAPE - Appuyer sur Esc enfonce ce bouton.</li>
 </ul>
 <p>Exemples d'utilisation :</p>
 <pre>
-result = <a href="#-messageBox">messageBox</a>('Le script a &eacute;chou&eacute;', 'Ce script fonctionne seulement lorsqu'un cadre de texte est s&eacute;lectionn&eacute;.'
+result = <a href="#-messageBox">messageBox</a>('Le script a échoué', 'Ce script fonctionne seulement lorsqu'un cadre de texte est sélectionné.'
 ICON_ERROR)result = <a href="#-messageBox">messageBox</a>('Singes!',
-'Quelque chose s'est pass&eacute;! &lt;i&gt;&Eacute;tait-ce un singe? &lt;/i&gt;',
+'Quelque chose s'est passé! &lt;i&gt;était-ce un singe? &lt;/i&gt;',
                     ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
                     BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
 </pre>
-<p>Les constantes de boutons et d'ic&ocirc;nes suivantes sont d&eacute;finies : BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</p></dd>
+<p>Les constantes de boutons et d'icônes suivantes sont définies : BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</p></dd>
 	
 <dt><a name="-newDocDialog"><strong>newDocDialog</strong></a>(...)</dt>
-<dd><code>newDocDialog() -&gt; bool&eacute;en</code>
-<p>Affiche la bo&icirc;te dialogue "Nouveau document". Cr&eacute;e un nouveau document si l'utilisateur accepte les param&egrave;tres. Ne cr&eacute;e pas de document si l'utilisateur appuie sur Annuler. Retourne
-la valeur True si un document a &eacute;t&eacute; cr&eacute;&eacute;.</p></dd>
+<dd><code>newDocDialog() -&gt; booléen</code>
+<p>Affiche la boîte dialogue "Nouveau document". Crée un nouveau document si l'utilisateur accepte les paramètres. Ne crée pas de document si l'utilisateur appuie sur Annuler. Retourne
+la valeur True si un document a été créé.</p></dd>
 	
 <dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
-<dd><code>messagebarText("cha&icirc;ne")</code>
-<p>&Eacute;crit "cha&icirc;ne" dans la barre de message de Scribus (ligne d'&eacute;tat). Le texte doit &ecirc;tre encod&eacute; en UTF8 ou en une cha&icirc;ne 'unicode' (recommand&eacute;).</p></dd>
+<dd><code>messagebarText("chaîne")</code>
+<p>&Eacute;crit "chaîne" dans la barre de message de Scribus (ligne d'état). Le texte doit être encodé en UTF8 ou en une chaîne 'unicode' (recommandé).</p></dd>
 	
 <dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>
 <dd><code>progressReset()</code>
-<p>&Eacute;limine les r&eacute;glages pr&eacute;c&eacute;dents de la barre de progression de Scribus. La fonction est appel&eacute;e avant l'utilisation de la nouvelle barre de progression. Voir progressSet.</p></dd>
+<p>&Eacute;limine les réglages précédents de la barre de progression de Scribus. La fonction est appelée avant l'utilisation de la nouvelle barre de progression. Voir progressSet.</p></dd>
 
 <dt><a name="-progressSet"><strong>progressSet</strong></a>(...)</dt>
 <dd><code>progressSet(nr)</code>
-<p>&Eacute;tablit la position de la barre de progression &agrave; "nr", c'est-&agrave;-dire une valeur relative &agrave; la valeur pr&eacute;c&eacute;dente de progressTotal. La barre de progression utilise le concept d'&eacute;tapes; il suffit d'indiquer le nombre total d'&eacute;tapes et le nombre d'&eacute;tapes d&eacute;j&agrave; effectu&eacute;es, puis la fonction affichera le pourcentage d'avancement. Vous pouvez sp&eacute;cifier le nombre total d'&eacute;tapes avec <a href="#-progressTotal">progressTotal</a>(). Le nombre courant d'&eacute;tapes est indiqu&eacute; avec <a href="#-progressSet">progressSet</a>(). La barre de progression peut &ecirc;tre remise &agrave; z&eacute;ro avec <a href="#-progressReset">progressReset</a>(). [compte tenu de l'information provenant de la documentation QT de Trolltech]</p></dd>
+<p>&Eacute;tablit la position de la barre de progression à "nr", c'est-à-dire une valeur relative à la valeur précédente de progressTotal. La barre de progression utilise le concept d'étapes; il suffit d'indiquer le nombre total d'étapes et le nombre d'étapes déjà effectuées, puis la fonction affichera le pourcentage d'avancement. Vous pouvez spécifier le nombre total d'étapes avec <a href="#-progressTotal">progressTotal</a>(). Le nombre courant d'étapes est indiqué avec <a href="#-progressSet">progressSet</a>(). La barre de progression peut être remise à zéro avec <a href="#-progressReset">progressReset</a>(). [compte tenu de l'information provenant de la documentation QT de Trolltech]</p></dd>
 
 <dt><a name="-progressTotal"><strong>progressTotal</strong></a>(...)</dt>
 <dd><code>progressTotal(max)</code>
-<p>&Eacute;tablit le nombre maximal d'&eacute;tapes de la barre de progression au nombre sp&eacute;cifi&eacute;. Voir progressSet.</p></dd>
+<p>&Eacute;tablit le nombre maximal d'étapes de la barre de progression au nombre spécifié. Voir progressSet.</p></dd>
 
 <dt><a name="-valueDialog"><strong>valueDialog</strong></a>(...)</dt>
-<dd><code>valueDialog(titre, message [,valeurDefaut]) -&gt; cha&icirc;ne</code>
-<p>Affiche la bo&icirc;te de dialogue "Demande d'une cha&icirc;ne" et retourne la valeur recherch&eacute;e sous forme d'une cha&icirc;ne de param&egrave;tres: titre de la fen&ecirc;tre, texte dans la fen&ecirc;tre et valeur par "d&eacute;faut" optionnelle.</p>
+<dd><code>valueDialog(titre, message [,valeurDefaut]) -&gt; chaîne</code>
+<p>Affiche la boîte de dialogue "Demande d'une chaîne" et retourne la valeur recherchée sous forme d'une chaîne de paramètres: titre de la fenêtre, texte dans la fenêtre et valeur par "défaut" optionnelle.</p>
 <p>Exemple: <a href="#-valueDialog">valueDialog</a>('titre', 'texte
-dans la fen&ecirc;tre', 'optionnel')</p></dd>
+dans la fenêtre', 'optionnel')</p></dd>
 
 </dl>
 
