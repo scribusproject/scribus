@@ -88,7 +88,7 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 	}
 }
 
-void CanvasMode_CopyProperties::deactivate(bool forGesture)
+void CanvasMode_CopyProperties::deactivate(bool  /*forGesture*/)
 {
 //	qDebug() << "CanvasMode_CopyProperties::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
@@ -358,7 +358,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-void CanvasMode_CopyProperties::createContextMenu(PageItem* currItem, double mx, double my)
+void CanvasMode_CopyProperties::createContextMenu(PageItem* /*currItem*/, double mx, double my)
 {
 	ContextMenu* cmen=nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));

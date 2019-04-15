@@ -38,9 +38,9 @@ class ScDLManager: public QObject
 
 	signals:
 		void finished();
-		void fileReceived(const QString& t);
-		void fileFailed(const QString& t);
-		void fileDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+		void fileReceived(QString);
+		void fileFailed(QString);
+		void fileDownloadProgress(qint64 bytesReceived,qint64 bytesTotal);
 
 	private:
 		ScDLThread *m_thread;

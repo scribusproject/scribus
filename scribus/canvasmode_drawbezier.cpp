@@ -120,7 +120,7 @@ void BezierMode::leaveEvent(QEvent *e)
 }
 
 
-void BezierMode::activate(bool flag)
+void BezierMode::activate(bool /*flag*/)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
 	Mxp = Myp = -1;
@@ -131,7 +131,7 @@ void BezierMode::activate(bool flag)
 	setModeCursor();
 }
 
-void BezierMode::deactivate(bool flag)
+void BezierMode::deactivate(bool /*flag*/)
 {
 //	qDebug() << "BezierMode::deactivate" << flag;
 //	m_view->stopDragTimer();
