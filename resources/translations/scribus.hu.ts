@@ -14407,21 +14407,21 @@ A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="78"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
         <source>Endnote frame </source>
         <translation>Végjegyzet-keret</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="78"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
         <source>Footnote frame </source>
         <translation>Lábjegyzet-keret</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="84"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="147"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="148"/>
         <source>No Style</source>
         <translation>Nincs stílus</translation>
     </message>
@@ -16109,6 +16109,7 @@ Adjon meg egy másikat.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="523"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1896"/>
         <source>More</source>
         <translation>Részletek</translation>
     </message>
@@ -16572,6 +16573,11 @@ Adjon meg egy másikat.</translation>
         <translation>Nem lett címke megadva</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1577"/>
+        <source>%1 image(s) displayed, %2 image(s) filtered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1758"/>
         <source>Image still loading</source>
         <translation>Kép betöltése folyamatban</translation>
@@ -16620,6 +16626,11 @@ Adjon meg egy másikat.</translation>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1819"/>
         <source>No image selected</source>
         <translation>Nincs kijelölt kép</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1888"/>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="482"/>
@@ -24086,32 +24097,32 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="126"/>
         <source>Small capitals from capitals (c2sc)</source>
-        <translation>Nagybetűből kiskapitális (c2sc)</translation>
+        <translation>Kiskapitálisok nagybetűk helyett (c2sc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="129"/>
         <source>Small Capitals from Capitals</source>
-        <translation>Nagybetűből kiskapitális</translation>
+        <translation>Kiskapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="139"/>
         <source>Petite capitals (pcap)</source>
-        <translation>Pici nagybetűk (pcap)</translation>
+        <translation>Apró kapitálisok (pcap)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="142"/>
         <source>Petite Capitals</source>
-        <translation>Pici nagybetűk</translation>
+        <translation>Apró kapitálisok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="152"/>
         <source>Petite capitals from capitals (c2pc)</source>
-        <translation>Nagybetűből pici nagybetűk (c2pc)</translation>
+        <translation>Apró kapitálisok nagybetűk helyett (c2pc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="155"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>Nagybetűből pici nagybetűk</translation>
+        <translation>Apró kapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="165"/>
@@ -29649,7 +29660,7 @@ lista hiányos a meghívott funkciók miatt.
         <translation>Betűkészletek keresése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4164"/>
+        <location filename="../../scribus/scribus.cpp" line="4163"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>A dokumentum változásai nem lettek elmentve és vissza akarja vonni. Folytatni szeretné?</translation>
     </message>
@@ -30243,31 +30254,31 @@ lista hiányos a meghívott funkciók miatt.
         <translation>hasdropcap értéke 0 vagy 1 kell legyen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="131"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="139"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Üres karakterstílus-név nem lehetséges.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="148"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="149"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation>A megadott betűkészlet nem elérhető.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="157"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="158"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott kitöltőszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="163"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott körvonalszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="274"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="279"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott szín nem elérhető a dokumentumban.</translation>
@@ -30990,12 +31001,12 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>PUB-importáló</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3337"/>
+        <location filename="../../scribus/scribus.cpp" line="3336"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18078"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18076"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -32259,17 +32270,17 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="486"/>
         <source>Small Capitals from Capitals</source>
-        <translation>Nagybetűkből kiskapitális</translation>
+        <translation>Kiskapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="488"/>
         <source>Petite Capitals</source>
-        <translation>Pici nagybetűk</translation>
+        <translation>Apró kapitálisok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="490"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>Nagybetűkből pici nagybetűk</translation>
+        <translation>Apró kapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="492"/>
@@ -34857,64 +34868,64 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="243"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="298"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16429"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="297"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16427"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="555"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="553"/>
         <source>Background</source>
         <translation>Háttér</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11369"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11367"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Használatban lévő elem nem törölhető</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11369"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11367"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben szerkesztés alatt áll. Törlés megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11972"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11970"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11968"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11966"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11969"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11967"/>
         <source>&amp;Skip locked objects</source>
         <translation>Zárolt objektumok &amp;kihagyása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1054"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1052"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Hiba történt az ICC-profil megnyitásakor, a színkezelés nem lesz aktiválva.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1063"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16018"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1061"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16016"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9027"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9025"/>
         <source>remove direct paragraph formatting</source>
         <translation>Közvetlen bekezdésformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9496"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9494"/>
         <source>remove direct char formatting</source>
         <translation>Közvetlen karakterformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13572"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13570"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34925,7 +34936,7 @@ Függőleges eltolás: %3
 Forgatás: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13605"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34936,36 +34947,36 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14812"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14867"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15000"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14810"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14865"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14998"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1639"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1637"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importált </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16445"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16443"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17703"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17741"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17739"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18072"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18070"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11276"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11274"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Valóban törölhető az összes kijelölt keret tartalma?</translation>
     </message>
@@ -34983,7 +34994,7 @@ Függőleges térköz: %4</translation>
         <translation>Vágólap betöltése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3506"/>
+        <location filename="../../scribus/scribus.cpp" line="3505"/>
         <source>Fatal Error</source>
         <translation>Végzetes hiba</translation>
     </message>
@@ -34994,7 +35005,7 @@ Függőleges térköz: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="808"/>
-        <location filename="../../scribus/scribus.cpp" line="3342"/>
+        <location filename="../../scribus/scribus.cpp" line="3341"/>
         <source>&amp;Import</source>
         <translation>&amp;Importálás</translation>
     </message>
@@ -35026,205 +35037,205 @@ Függőleges térköz: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2185"/>
         <location filename="../../scribus/scribus.cpp" line="2225"/>
-        <location filename="../../scribus/scribus.cpp" line="3819"/>
-        <location filename="../../scribus/scribus.cpp" line="4268"/>
-        <location filename="../../scribus/scribus.cpp" line="4343"/>
-        <location filename="../../scribus/scribus.cpp" line="4500"/>
-        <location filename="../../scribus/scribus.cpp" line="8690"/>
+        <location filename="../../scribus/scribus.cpp" line="3818"/>
+        <location filename="../../scribus/scribus.cpp" line="4267"/>
+        <location filename="../../scribus/scribus.cpp" line="4342"/>
+        <location filename="../../scribus/scribus.cpp" line="4499"/>
+        <location filename="../../scribus/scribus.cpp" line="8689"/>
         <source>Ready</source>
         <translation>Kész</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3165"/>
-        <location filename="../../scribus/scribus.cpp" line="3283"/>
-        <location filename="../../scribus/scribus.cpp" line="3915"/>
+        <location filename="../../scribus/scribus.cpp" line="3164"/>
+        <location filename="../../scribus/scribus.cpp" line="3282"/>
+        <location filename="../../scribus/scribus.cpp" line="3914"/>
         <source>Open</source>
         <translation>Megnyitás</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3304"/>
+        <location filename="../../scribus/scribus.cpp" line="3303"/>
         <source>Importing Pages...</source>
         <translation>Oldalak importálása...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3335"/>
+        <location filename="../../scribus/scribus.cpp" line="3334"/>
         <source>Import Page(s)</source>
         <translation>Oldal(ak) importálása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3381"/>
+        <location filename="../../scribus/scribus.cpp" line="3380"/>
         <source>Import done</source>
         <translation>Importálás megtörtént</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3385"/>
+        <location filename="../../scribus/scribus.cpp" line="3384"/>
         <source>Found nothing to import</source>
         <translation>Nincs mit importálni</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3459"/>
+        <location filename="../../scribus/scribus.cpp" line="3458"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Ez a fájl nem létezik: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3507"/>
+        <location filename="../../scribus/scribus.cpp" line="3506"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>%1 fájl nem elfogadható formátumú</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3551"/>
+        <location filename="../../scribus/scribus.cpp" line="3550"/>
         <source>Loading...</source>
         <translation>Betöltés...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3717"/>
+        <location filename="../../scribus/scribus.cpp" line="3716"/>
         <source> was replaced by: </source>
         <translation> cserélve: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3747"/>
+        <location filename="../../scribus/scribus.cpp" line="3746"/>
         <source>(converted)</source>
         <translation>(konvertált)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4106"/>
+        <location filename="../../scribus/scribus.cpp" line="4105"/>
         <source>Filename and Path for Image</source>
         <translation>Képfájl neve és útvonala</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4106"/>
+        <location filename="../../scribus/scribus.cpp" line="4105"/>
         <source>All Files (*)</source>
         <translation>Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4198"/>
-        <location filename="../../scribus/scribus.cpp" line="4263"/>
-        <location filename="../../scribus/scribus.cpp" line="7126"/>
-        <location filename="../../scribus/scribus.cpp" line="7288"/>
-        <location filename="../../scribus/scribus.cpp" line="7302"/>
+        <location filename="../../scribus/scribus.cpp" line="4197"/>
+        <location filename="../../scribus/scribus.cpp" line="4262"/>
+        <location filename="../../scribus/scribus.cpp" line="7125"/>
+        <location filename="../../scribus/scribus.cpp" line="7287"/>
+        <location filename="../../scribus/scribus.cpp" line="7301"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Fájl nem írható:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4248"/>
-        <location filename="../../scribus/scribus.cpp" line="5293"/>
-        <location filename="../../scribus/scribus.cpp" line="7117"/>
+        <location filename="../../scribus/scribus.cpp" line="4247"/>
+        <location filename="../../scribus/scribus.cpp" line="5292"/>
+        <location filename="../../scribus/scribus.cpp" line="7116"/>
         <source>Save As</source>
         <translation>Mentés másként</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4277"/>
+        <location filename="../../scribus/scribus.cpp" line="4276"/>
         <source>Saving...</source>
         <translation>Mentés...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4406"/>
-        <location filename="../../scribus/scribus.cpp" line="6978"/>
+        <location filename="../../scribus/scribus.cpp" line="4405"/>
+        <location filename="../../scribus/scribus.cpp" line="6977"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>A Scribus hibákat talált. Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4441"/>
+        <location filename="../../scribus/scribus.cpp" line="4440"/>
         <source>Printing...</source>
         <translation>Nyomtatás...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1102"/>
         <location filename="../../scribus/scribus.cpp" line="2254"/>
-        <location filename="../../scribus/scribus.cpp" line="4445"/>
-        <location filename="../../scribus/scribus.cpp" line="7094"/>
-        <location filename="../../scribus/scribus.cpp" line="8454"/>
+        <location filename="../../scribus/scribus.cpp" line="4444"/>
+        <location filename="../../scribus/scribus.cpp" line="7093"/>
+        <location filename="../../scribus/scribus.cpp" line="8453"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4488"/>
+        <location filename="../../scribus/scribus.cpp" line="4487"/>
         <source>Printing failed!</source>
         <translation>Sikertelen nyomtatás!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4579"/>
+        <location filename="../../scribus/scribus.cpp" line="4578"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>A használatban lévő elem nem vágható ki</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4579"/>
+        <location filename="../../scribus/scribus.cpp" line="4578"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A kivágás megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5225"/>
+        <location filename="../../scribus/scribus.cpp" line="5224"/>
         <source>About Qt</source>
         <translation>A Qt névjegye</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5238"/>
+        <location filename="../../scribus/scribus.cpp" line="5237"/>
         <source>Scribus Manual</source>
         <translation>Scribus kézikönyv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6329"/>
+        <location filename="../../scribus/scribus.cpp" line="6328"/>
         <source>&amp;Size:</source>
         <translation>Mér&amp;et:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1429"/>
-        <location filename="../../scribus/scribus.cpp" line="6329"/>
+        <location filename="../../scribus/scribus.cpp" line="6328"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6724"/>
+        <location filename="../../scribus/scribus.cpp" line="6723"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Hiba történt a képernyő színprofiljának megnyitásakor.
 Az előző képernyő színprofilja marad alkalmazásban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7061"/>
+        <location filename="../../scribus/scribus.cpp" line="7060"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>A Scribus hibákat talált. 
 Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7159"/>
+        <location filename="../../scribus/scribus.cpp" line="7158"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>A Scribus hibákat talált. 
 Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7284"/>
+        <location filename="../../scribus/scribus.cpp" line="7283"/>
         <source>-Page%1</source>
         <translation>-oldal %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7858"/>
+        <location filename="../../scribus/scribus.cpp" line="7857"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7854"/>
+        <location filename="../../scribus/scribus.cpp" line="7853"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Minden zárolása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7316"/>
+        <location filename="../../scribus/scribus.cpp" line="7315"/>
         <source>Locate your PDF viewer</source>
         <translation>A PDF-megjelenítő helyének meghatározása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7855"/>
+        <location filename="../../scribus/scribus.cpp" line="7854"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4025"/>
-        <location filename="../../scribus/scribus.cpp" line="8889"/>
+        <location filename="../../scribus/scribus.cpp" line="4024"/>
+        <location filename="../../scribus/scribus.cpp" line="8888"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Valóban lecserélhető a létező kép?</translation>
     </message>
@@ -35254,22 +35265,22 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Előző beillesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4246"/>
+        <location filename="../../scribus/scribus.cpp" line="4245"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumentumok (*.sla *.sla.gz);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3937"/>
+        <location filename="../../scribus/scribus.cpp" line="3936"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Valóban törölhető a teljes szöveg?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3714"/>
+        <location filename="../../scribus/scribus.cpp" line="3713"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>A dokumentumban használt néhány színprofil nincs telepítve:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7117"/>
+        <location filename="../../scribus/scribus.cpp" line="7116"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Minden fájl (*)</translation>
     </message>
@@ -35279,62 +35290,62 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Felhasználói gyorsbillentyűk alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6760"/>
+        <location filename="../../scribus/scribus.cpp" line="6759"/>
         <source>Updating Images</source>
         <translation>Képek frissítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4196"/>
-        <location filename="../../scribus/scribus.cpp" line="4261"/>
+        <location filename="../../scribus/scribus.cpp" line="4195"/>
+        <location filename="../../scribus/scribus.cpp" line="4260"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>A dokumentum egy ideiglenes fájlba lett mentve, ezért nem helyezhető át:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4552"/>
+        <location filename="../../scribus/scribus.cpp" line="4551"/>
         <source>Print engine initialization failed</source>
         <translation>A nyomtatómotor előkészítése sikertelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3139"/>
+        <location filename="../../scribus/scribus.cpp" line="3138"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9167"/>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9166"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>&amp;Name:</source>
         <translation>&amp;Név:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9167"/>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9166"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>New Entry</source>
         <translation>Új bejegyzés</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6935"/>
+        <location filename="../../scribus/scribus.cpp" line="6934"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>A Ghostscript hiányzik: A PostScript nyomtatási kép nem érhető el</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3490"/>
+        <location filename="../../scribus/scribus.cpp" line="3489"/>
         <source>Document is already opened</source>
         <translation>A dokumentum már meg van nyitva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3491"/>
+        <location filename="../../scribus/scribus.cpp" line="3490"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation>Ez a dokumentum szerkesztés alatt áll. Az ablaka fog megnyílni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3508"/>
+        <location filename="../../scribus/scribus.cpp" line="3507"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>A fájl sérült, vagy lehet, hogy egy későbbi Scribus-verzióval lett készítve.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7587"/>
+        <location filename="../../scribus/scribus.cpp" line="7586"/>
         <source>Editing Symbol: %1</source>
         <translation>Szimbólum szerkesztése: %1</translation>
     </message>
@@ -35364,31 +35375,31 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Jelölők</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9593"/>
+        <location filename="../../scribus/scribus.cpp" line="9592"/>
         <source>Insert new </source>
         <translation>Beszúrás </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9610"/>
-        <location filename="../../scribus/scribus.cpp" line="9844"/>
+        <location filename="../../scribus/scribus.cpp" line="9609"/>
+        <location filename="../../scribus/scribus.cpp" line="9843"/>
         <source>Anchor mark</source>
         <translation>Hivatkozásjelölő</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9618"/>
-        <location filename="../../scribus/scribus.cpp" line="9857"/>
+        <location filename="../../scribus/scribus.cpp" line="9617"/>
+        <location filename="../../scribus/scribus.cpp" line="9856"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Jelölő ezzel a szöveges változóval: &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9626"/>
-        <location filename="../../scribus/scribus.cpp" line="9895"/>
+        <location filename="../../scribus/scribus.cpp" line="9625"/>
+        <location filename="../../scribus/scribus.cpp" line="9894"/>
         <source>Mark to %1 item</source>
         <translation>Jelölő ehhez az elemhez: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9636"/>
-        <location filename="../../scribus/scribus.cpp" line="9916"/>
+        <location filename="../../scribus/scribus.cpp" line="9635"/>
+        <location filename="../../scribus/scribus.cpp" line="9915"/>
         <source>Mark to %1 mark</source>
         <translation>Jelölő ehhez a jelölőhöz: %1</translation>
     </message>
@@ -35484,73 +35495,73 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1298"/>
-        <location filename="../../scribus/scribus.cpp" line="8686"/>
+        <location filename="../../scribus/scribus.cpp" line="8685"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1300"/>
-        <location filename="../../scribus/scribus.cpp" line="8687"/>
+        <location filename="../../scribus/scribus.cpp" line="8686"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5293"/>
+        <location filename="../../scribus/scribus.cpp" line="5292"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Szövegfájlok (*.txt);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6342"/>
+        <location filename="../../scribus/scribus.cpp" line="6341"/>
         <source>&amp;Language:</source>
         <translation>&amp;Nyelv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6342"/>
+        <location filename="../../scribus/scribus.cpp" line="6341"/>
         <source>Language</source>
         <translation>Nyelv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7650"/>
+        <location filename="../../scribus/scribus.cpp" line="7649"/>
         <source>Editing Inline Item</source>
         <translation>Beágyazott elemek szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8556"/>
+        <location filename="../../scribus/scribus.cpp" line="8555"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>A program nem létezik vagy nem lehet megnyitni: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8680"/>
+        <location filename="../../scribus/scribus.cpp" line="8679"/>
         <source>Current zoom level</source>
         <translation>Aktuális nagyítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8681"/>
+        <location filename="../../scribus/scribus.cpp" line="8680"/>
         <source>Zoom to 100%</source>
         <translation>Nagyítás 100%-ra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8682"/>
+        <location filename="../../scribus/scribus.cpp" line="8681"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Kicsinyítés az Eszközök beállításban megadott lépésközzel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8683"/>
+        <location filename="../../scribus/scribus.cpp" line="8682"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Nagyítás az Eszközök beállításban megadott lépésközzel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8684"/>
+        <location filename="../../scribus/scribus.cpp" line="8683"/>
         <source>Select the current layer</source>
         <translation>Aktuális réteg kiválasztása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8685"/>
+        <location filename="../../scribus/scribus.cpp" line="8684"/>
         <source>Select the current unit</source>
         <translation>Aktuális mértékegység kiválasztása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9826"/>
+        <location filename="../../scribus/scribus.cpp" line="9825"/>
         <source>Edit %1</source>
         <translation>%1 szerkesztése</translation>
     </message>
@@ -35565,7 +35576,7 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Kijelölt %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3341"/>
+        <location filename="../../scribus/scribus.cpp" line="3340"/>
         <source>C&amp;reate</source>
         <translation>&amp;Létrehozás</translation>
     </message>
@@ -41760,7 +41771,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="158"/>
         <source>Petite Capitals</source>
-        <translation>Pici nagybetűk</translation>
+        <translation>Apró kapitálisok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="163"/>
@@ -41805,12 +41816,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="173"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>Nagybetűkből pici nagybetűk</translation>
+        <translation>Apró kapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="178"/>
         <source>Small Capitals from Capitals</source>
-        <translation>Nagybetűből kiskapitális</translation>
+        <translation>Kiskapitálisok nagybetűk helyett</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="206"/>

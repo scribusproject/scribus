@@ -1806,7 +1806,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Export the document to PDF</source>
-        <translation>Ekspor document sebagai PDF</translation>
+        <translation>Ekspor dokumen sebagai PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1779"/>
@@ -4129,7 +4129,10 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -4334,7 +4337,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="314"/>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="320"/>
@@ -6171,7 +6174,7 @@ Lihat bagian dokumentai Edit Warna untuk keterangan lebih lanjut</translation>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="14"/>
         <source>Create Range</source>
-        <translation>Buat Cakupan</translation>
+        <translation>Buat Jarak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="22"/>
@@ -6878,7 +6881,7 @@ Lihat bagian dokumentai Edit Warna untuk keterangan lebih lanjut</translation>
     <message>
         <location filename="../../scribus/ui/xyz_dw.ui" line="68"/>
         <source>Position [X,Y]:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisi [X,Y]:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz_dw.ui" line="87"/>
@@ -7547,7 +7550,7 @@ Nama dari berkas ekspor akan tertera &apos;namadokumen-nomorhalaman.tipeberkas&a
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="222"/>
         <source>&amp;Range</source>
-        <translation>&amp;Cakupan</translation>
+        <translation>&amp;Jarak</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="116"/>
@@ -7887,7 +7890,10 @@ a range of pages or a single page number</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -9229,7 +9235,10 @@ Daftar Pengabaian</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -13192,7 +13201,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="273"/>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Warna Garis:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="308"/>
@@ -14395,21 +14404,21 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="78"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
         <source>Endnote frame </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="78"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
         <source>Footnote frame </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="84"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="147"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="148"/>
         <source>No Style</source>
         <translation>Tanpa Gaya</translation>
     </message>
@@ -14828,7 +14837,10 @@ Please disable experimental PDF and PS embedding and try again.</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -15403,7 +15415,7 @@ Adalah kombinasi dari &quot;Interseksi&quot; dan &quot;Eksklusi&quot;</translati
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="97"/>
         <source>Choose Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih Halaman</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="140"/>
@@ -16083,6 +16095,7 @@ Please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="523"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1896"/>
         <source>More</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16546,6 +16559,11 @@ Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1577"/>
+        <source>%1 image(s) displayed, %2 image(s) filtered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1758"/>
         <source>Image still loading</source>
         <translation type="unfinished"></translation>
@@ -16593,6 +16611,11 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1819"/>
         <source>No image selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1888"/>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16880,7 +16903,10 @@ Please choose another one.</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -18979,7 +19005,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1156"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1314"/>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Warna Garis:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="321"/>
@@ -19550,7 +19576,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="81"/>
         <source>Choose Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih Halaman</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="186"/>
@@ -21902,7 +21928,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="169"/>
         <source>Range</source>
-        <translation>R</translation>
+        <translation>Rentang</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="190"/>
@@ -21922,7 +21948,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="237"/>
         <source>Print &amp;Range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jarak Cetak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="295"/>
@@ -22260,7 +22286,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="355"/>
         <source>Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Transparasi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="260"/>
@@ -23991,7 +24017,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligatures (liga)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatur Umum (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="29"/>
@@ -24156,7 +24182,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="297"/>
         <source>Tabular</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="317"/>
@@ -24520,7 +24546,7 @@ Nilai 0 berarti hyphenations tak terbatas.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="127"/>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Level:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="157"/>
@@ -24710,7 +24736,10 @@ Nilai 0 berarti hyphenations tak terbatas.</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -29606,7 +29635,7 @@ tidak lengkap karena pengecualian dari fungsi yang dipanggil.</translation>
         <translation>Mencari Font</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4164"/>
+        <location filename="../../scribus/scribus.cpp" line="4163"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30199,31 +30228,31 @@ tidak lengkap karena pengecualian dari fungsi yang dipanggil.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="131"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="139"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="148"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="149"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="157"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="158"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="163"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="274"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="279"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -30944,12 +30973,12 @@ BMP</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3337"/>
+        <location filename="../../scribus/scribus.cpp" line="3336"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18078"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18076"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31447,7 +31476,10 @@ Please choose another.</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -32277,7 +32309,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
         <source>Tabular</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="543"/>
@@ -32760,7 +32792,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="903"/>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Level:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="940"/>
@@ -34802,64 +34834,64 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="205"/>
         <location filename="../../scribus/scribusdoc.cpp" line="243"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="298"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16429"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="297"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16427"/>
         <source>Document</source>
         <translation>Dokumen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="555"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="553"/>
         <source>Background</source>
         <translation>Latar Belakang</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11369"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11367"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Tidak Dapat Menghapus Item yang Sedang Digunakan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11369"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11367"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11972"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11970"/>
         <source>Some objects are locked.</source>
         <translation>Beberapa objek terkunci.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11968"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11966"/>
         <source>&amp;Unlock All</source>
         <translation>B&amp;uka Kunci Semua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11969"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11967"/>
         <source>&amp;Skip locked objects</source>
         <translation>Lompati objek-objek terkunci</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1054"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1052"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Sebuah error terjadi ketika membuka profil ICC, manajemen warna sedang tidak aktif. </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1063"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16018"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1061"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16016"/>
         <source>Adjusting Colors</source>
         <translation>Mengatur Warna</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9027"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9025"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9496"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9494"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13572"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13570"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34867,7 +34899,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13607"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13605"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34875,36 +34907,36 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14812"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14867"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15000"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14810"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14865"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14998"/>
         <source>Group%1</source>
         <translation>Grup%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1639"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1637"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16445"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16443"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17703"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17741"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17739"/>
         <source>No Style</source>
         <translation>Tanpa Gaya</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18072"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18070"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11276"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11274"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34922,7 +34954,7 @@ Vertical gap: %4</source>
         <translation>Membaca Scrapbook</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3506"/>
+        <location filename="../../scribus/scribus.cpp" line="3505"/>
         <source>Fatal Error</source>
         <translation>Kesalahan Fatal</translation>
     </message>
@@ -34933,7 +34965,7 @@ Vertical gap: %4</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="808"/>
-        <location filename="../../scribus/scribus.cpp" line="3342"/>
+        <location filename="../../scribus/scribus.cpp" line="3341"/>
         <source>&amp;Import</source>
         <translation>&amp;Impor</translation>
     </message>
@@ -34965,204 +34997,204 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2185"/>
         <location filename="../../scribus/scribus.cpp" line="2225"/>
-        <location filename="../../scribus/scribus.cpp" line="3819"/>
-        <location filename="../../scribus/scribus.cpp" line="4268"/>
-        <location filename="../../scribus/scribus.cpp" line="4343"/>
-        <location filename="../../scribus/scribus.cpp" line="4500"/>
-        <location filename="../../scribus/scribus.cpp" line="8690"/>
+        <location filename="../../scribus/scribus.cpp" line="3818"/>
+        <location filename="../../scribus/scribus.cpp" line="4267"/>
+        <location filename="../../scribus/scribus.cpp" line="4342"/>
+        <location filename="../../scribus/scribus.cpp" line="4499"/>
+        <location filename="../../scribus/scribus.cpp" line="8689"/>
         <source>Ready</source>
         <translation>Siap</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3165"/>
-        <location filename="../../scribus/scribus.cpp" line="3283"/>
-        <location filename="../../scribus/scribus.cpp" line="3915"/>
+        <location filename="../../scribus/scribus.cpp" line="3164"/>
+        <location filename="../../scribus/scribus.cpp" line="3282"/>
+        <location filename="../../scribus/scribus.cpp" line="3914"/>
         <source>Open</source>
         <translation>Buka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3304"/>
+        <location filename="../../scribus/scribus.cpp" line="3303"/>
         <source>Importing Pages...</source>
         <translation>Mengimpor Halaman...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3335"/>
+        <location filename="../../scribus/scribus.cpp" line="3334"/>
         <source>Import Page(s)</source>
         <translation>Impor Halaman</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3381"/>
+        <location filename="../../scribus/scribus.cpp" line="3380"/>
         <source>Import done</source>
         <translation>Impor selesai</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3385"/>
+        <location filename="../../scribus/scribus.cpp" line="3384"/>
         <source>Found nothing to import</source>
         <translation>Tidak ada yang bisa diimpor</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3459"/>
+        <location filename="../../scribus/scribus.cpp" line="3458"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3507"/>
+        <location filename="../../scribus/scribus.cpp" line="3506"/>
         <source>File %1 is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3551"/>
+        <location filename="../../scribus/scribus.cpp" line="3550"/>
         <source>Loading...</source>
         <translation>Memuat...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3717"/>
+        <location filename="../../scribus/scribus.cpp" line="3716"/>
         <source> was replaced by: </source>
         <translation>telah digantikan oleh:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3747"/>
+        <location filename="../../scribus/scribus.cpp" line="3746"/>
         <source>(converted)</source>
         <translation>(terkonversi)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4106"/>
+        <location filename="../../scribus/scribus.cpp" line="4105"/>
         <source>Filename and Path for Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4106"/>
+        <location filename="../../scribus/scribus.cpp" line="4105"/>
         <source>All Files (*)</source>
         <translation>Semua File (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4198"/>
-        <location filename="../../scribus/scribus.cpp" line="4263"/>
-        <location filename="../../scribus/scribus.cpp" line="7126"/>
-        <location filename="../../scribus/scribus.cpp" line="7288"/>
-        <location filename="../../scribus/scribus.cpp" line="7302"/>
+        <location filename="../../scribus/scribus.cpp" line="4197"/>
+        <location filename="../../scribus/scribus.cpp" line="4262"/>
+        <location filename="../../scribus/scribus.cpp" line="7125"/>
+        <location filename="../../scribus/scribus.cpp" line="7287"/>
+        <location filename="../../scribus/scribus.cpp" line="7301"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Tidak dapat menulis berkas: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4248"/>
-        <location filename="../../scribus/scribus.cpp" line="5293"/>
-        <location filename="../../scribus/scribus.cpp" line="7117"/>
+        <location filename="../../scribus/scribus.cpp" line="4247"/>
+        <location filename="../../scribus/scribus.cpp" line="5292"/>
+        <location filename="../../scribus/scribus.cpp" line="7116"/>
         <source>Save As</source>
         <translation>Save As</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4277"/>
+        <location filename="../../scribus/scribus.cpp" line="4276"/>
         <source>Saving...</source>
         <translation>Menyimpan...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4406"/>
-        <location filename="../../scribus/scribus.cpp" line="6978"/>
+        <location filename="../../scribus/scribus.cpp" line="4405"/>
+        <location filename="../../scribus/scribus.cpp" line="6977"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus sudah mendeteksi beberapa galat. Pertimbangkan penggunaan Pemeriksa  Kesiapan untuk mengkoreksi kesalahan tersebut.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4441"/>
+        <location filename="../../scribus/scribus.cpp" line="4440"/>
         <source>Printing...</source>
         <translation>Mencetak...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1102"/>
         <location filename="../../scribus/scribus.cpp" line="2254"/>
-        <location filename="../../scribus/scribus.cpp" line="4445"/>
-        <location filename="../../scribus/scribus.cpp" line="7094"/>
-        <location filename="../../scribus/scribus.cpp" line="8454"/>
+        <location filename="../../scribus/scribus.cpp" line="4444"/>
+        <location filename="../../scribus/scribus.cpp" line="7093"/>
+        <location filename="../../scribus/scribus.cpp" line="8453"/>
         <source>Document</source>
         <translation>Dokumen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4488"/>
+        <location filename="../../scribus/scribus.cpp" line="4487"/>
         <source>Printing failed!</source>
         <translation>Pencetakan gagal!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4579"/>
+        <location filename="../../scribus/scribus.cpp" line="4578"/>
         <source>Cannot Cut In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4579"/>
+        <location filename="../../scribus/scribus.cpp" line="4578"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5225"/>
+        <location filename="../../scribus/scribus.cpp" line="5224"/>
         <source>About Qt</source>
         <translation>Tentang Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5238"/>
+        <location filename="../../scribus/scribus.cpp" line="5237"/>
         <source>Scribus Manual</source>
         <translation>Manual Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6329"/>
+        <location filename="../../scribus/scribus.cpp" line="6328"/>
         <source>&amp;Size:</source>
         <translation>&amp;Ukuran</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1429"/>
-        <location filename="../../scribus/scribus.cpp" line="6329"/>
+        <location filename="../../scribus/scribus.cpp" line="6328"/>
         <source>Size</source>
         <translation>Ukuran</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6724"/>
+        <location filename="../../scribus/scribus.cpp" line="6723"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7061"/>
+        <location filename="../../scribus/scribus.cpp" line="7060"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus mendeteksi beberapa galat.
 Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7159"/>
+        <location filename="../../scribus/scribus.cpp" line="7158"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Beberapa Galat terdeteksi.
 Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7284"/>
+        <location filename="../../scribus/scribus.cpp" line="7283"/>
         <source>-Page%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7858"/>
+        <location filename="../../scribus/scribus.cpp" line="7857"/>
         <source>Some objects are locked.</source>
         <translation>Beberapa objek terkunci.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7854"/>
+        <location filename="../../scribus/scribus.cpp" line="7853"/>
         <source>&amp;Lock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7316"/>
+        <location filename="../../scribus/scribus.cpp" line="7315"/>
         <source>Locate your PDF viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7855"/>
+        <location filename="../../scribus/scribus.cpp" line="7854"/>
         <source>&amp;Unlock All</source>
         <translation>B&amp;uka Kunci Semua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4025"/>
-        <location filename="../../scribus/scribus.cpp" line="8889"/>
+        <location filename="../../scribus/scribus.cpp" line="4024"/>
+        <location filename="../../scribus/scribus.cpp" line="8888"/>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35192,22 +35224,22 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
         <translation>Tempel Terkiri</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4246"/>
+        <location filename="../../scribus/scribus.cpp" line="4245"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3937"/>
+        <location filename="../../scribus/scribus.cpp" line="3936"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Anda yakin ingin membersihkan semua teks?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3714"/>
+        <location filename="../../scribus/scribus.cpp" line="3713"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Beberapa profil warna yang digunakan oleh dokumen ini tidak terinstal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7117"/>
+        <location filename="../../scribus/scribus.cpp" line="7116"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Semua Berkas (*)</translation>
     </message>
@@ -35217,61 +35249,61 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
         <translation>Menerapkan Pintasan Pengguna</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6760"/>
+        <location filename="../../scribus/scribus.cpp" line="6759"/>
         <source>Updating Images</source>
         <translation>Memutakhirkan Gambar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4196"/>
-        <location filename="../../scribus/scribus.cpp" line="4261"/>
+        <location filename="../../scribus/scribus.cpp" line="4195"/>
+        <location filename="../../scribus/scribus.cpp" line="4260"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4552"/>
+        <location filename="../../scribus/scribus.cpp" line="4551"/>
         <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3139"/>
+        <location filename="../../scribus/scribus.cpp" line="3138"/>
         <source>All Supported Formats</source>
         <translation>Semua Format yang Didukung</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9167"/>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9166"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nama:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9167"/>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9166"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>New Entry</source>
         <translation>Entri Baru</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6935"/>
+        <location filename="../../scribus/scribus.cpp" line="6934"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostsript tidak ada : Pratinjau Cetak Postscript tidak ada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3490"/>
+        <location filename="../../scribus/scribus.cpp" line="3489"/>
         <source>Document is already opened</source>
         <translation>Dokumen sudah dibuka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3491"/>
+        <location filename="../../scribus/scribus.cpp" line="3490"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3508"/>
+        <location filename="../../scribus/scribus.cpp" line="3507"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7587"/>
+        <location filename="../../scribus/scribus.cpp" line="7586"/>
         <source>Editing Symbol: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35301,31 +35333,31 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9593"/>
+        <location filename="../../scribus/scribus.cpp" line="9592"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9610"/>
-        <location filename="../../scribus/scribus.cpp" line="9844"/>
+        <location filename="../../scribus/scribus.cpp" line="9609"/>
+        <location filename="../../scribus/scribus.cpp" line="9843"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9618"/>
-        <location filename="../../scribus/scribus.cpp" line="9857"/>
+        <location filename="../../scribus/scribus.cpp" line="9617"/>
+        <location filename="../../scribus/scribus.cpp" line="9856"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9626"/>
-        <location filename="../../scribus/scribus.cpp" line="9895"/>
+        <location filename="../../scribus/scribus.cpp" line="9625"/>
+        <location filename="../../scribus/scribus.cpp" line="9894"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9636"/>
-        <location filename="../../scribus/scribus.cpp" line="9916"/>
+        <location filename="../../scribus/scribus.cpp" line="9635"/>
+        <location filename="../../scribus/scribus.cpp" line="9915"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35421,73 +35453,73 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1298"/>
-        <location filename="../../scribus/scribus.cpp" line="8686"/>
+        <location filename="../../scribus/scribus.cpp" line="8685"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1300"/>
-        <location filename="../../scribus/scribus.cpp" line="8687"/>
+        <location filename="../../scribus/scribus.cpp" line="8686"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5293"/>
+        <location filename="../../scribus/scribus.cpp" line="5292"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6342"/>
+        <location filename="../../scribus/scribus.cpp" line="6341"/>
         <source>&amp;Language:</source>
         <translation>&amp;Bahasa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6342"/>
+        <location filename="../../scribus/scribus.cpp" line="6341"/>
         <source>Language</source>
         <translation>Bahasa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7650"/>
+        <location filename="../../scribus/scribus.cpp" line="7649"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8556"/>
+        <location filename="../../scribus/scribus.cpp" line="8555"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8680"/>
+        <location filename="../../scribus/scribus.cpp" line="8679"/>
         <source>Current zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom level saat ini</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8681"/>
+        <location filename="../../scribus/scribus.cpp" line="8680"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8682"/>
+        <location filename="../../scribus/scribus.cpp" line="8681"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8683"/>
+        <location filename="../../scribus/scribus.cpp" line="8682"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8684"/>
+        <location filename="../../scribus/scribus.cpp" line="8683"/>
         <source>Select the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8685"/>
+        <location filename="../../scribus/scribus.cpp" line="8684"/>
         <source>Select the current unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9826"/>
+        <location filename="../../scribus/scribus.cpp" line="9825"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35502,7 +35534,7 @@ Pertimbangkan penggunaan Pemeriksa Kesiapan untuk mengkoreksi kesalahan tersebut
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3341"/>
+        <location filename="../../scribus/scribus.cpp" line="3340"/>
         <source>C&amp;reate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38569,7 +38601,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/test_xyz.ui" line="20"/>
         <location filename="../../scribus/ui/test_xyzbase.ui" line="20"/>
         <source>X, Y, Z</source>
-        <translation type="unfinished"></translation>
+        <translation>X, Y, Z</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/test_xyz.ui" line="53"/>
@@ -38587,7 +38619,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/test_xyz.ui" line="129"/>
         <location filename="../../scribus/ui/test_xyzbase.ui" line="139"/>
         <source>W:</source>
-        <translation type="unfinished"></translation>
+        <translation>L:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/test_xyz.ui" line="152"/>
@@ -38617,7 +38649,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/test_xyz.ui" line="267"/>
         <location filename="../../scribus/ui/test_xyzbase.ui" line="277"/>
         <source>Lock:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/test_xyz.ui" line="335"/>
@@ -38629,7 +38661,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/test_xyz.ui" line="361"/>
         <location filename="../../scribus/ui/test_xyzbase.ui" line="371"/>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Level:</translation>
     </message>
 </context>
 <context>
@@ -38798,22 +38830,22 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1194"/>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>ZIP berhasil diselesaikan.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1195"/>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal untuk menjalankan atau memuat pustaka zlib.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1196"/>
         <source>zlib library error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan pustaka zlib.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1197"/>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak bisa membuat atau membuka berkas</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1198"/>
@@ -38833,22 +38865,22 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1201"/>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arsip belum dibuat.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1202"/>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berkas atau direktori tidak ada.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1203"/>
         <source>File read error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan pembacaan berkas.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1204"/>
         <source>File write error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalah penulisan berkas.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1205"/>
@@ -38998,12 +39030,12 @@ W2: %3, H2: %4</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="597"/>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleksi/Grup</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="598"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Buat</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="603"/>
@@ -39085,7 +39117,7 @@ L: %3, T: %4</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="623"/>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisahkan</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="624"/>
@@ -39147,7 +39179,7 @@ ke %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="635"/>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentukan tebal garis</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="636"/>
@@ -39223,7 +39255,7 @@ ke %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="660"/>
         <source>Set kerning</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentukan kerning</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="661"/>
@@ -39243,7 +39275,7 @@ ke %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="664"/>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Ratakan text</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="665"/>
@@ -39464,12 +39496,12 @@ ke %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="621"/>
         <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktifkan Pencetakan Item</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="622"/>
         <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Nonaktifkan Pencetakan Item</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="756"/>
@@ -40355,7 +40387,7 @@ Apakah Anda ingin memulai peramban bawaan sistem sebagai gantinya?</translation>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="99"/>
         <source>Select image preview quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih kualitas gambar pratinjau</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="101"/>
@@ -40404,7 +40436,10 @@ Apakah Anda ingin memulai peramban bawaan sistem sebagai gantinya?</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40453,17 +40488,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="101"/>
         <source>Save as XPS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Simpan sebagai XPS...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="117"/>
         <source>Exports XPS Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekspor Berkas XPS</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="118"/>
         <source>Exports the current document into an XPS file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekspor dokumen ini menjadi berkas XPS</translation>
     </message>
 </context>
 <context>
@@ -40474,7 +40509,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/xyz4.ui" line="20"/>
         <location filename="../../scribus/ui/xyz5.ui" line="20"/>
         <source>X, Y, Z</source>
-        <translation type="unfinished"></translation>
+        <translation>X, Y, Z</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz2.ui" line="41"/>
@@ -40489,14 +40524,14 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/xyz3.ui" line="365"/>
         <location filename="../../scribus/ui/xyz4.ui" line="103"/>
         <source>Position [X,Y]:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisi [X,Y]:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz2.ui" line="173"/>
         <location filename="../../scribus/ui/xyz3.ui" line="310"/>
         <location filename="../../scribus/ui/xyz4.ui" line="156"/>
         <source>Size [W,H]:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukuran [L,T]:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz2.ui" line="241"/>
@@ -40512,12 +40547,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/xyz4.ui" line="412"/>
         <location filename="../../scribus/ui/xyz5.ui" line="361"/>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Level:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz2.ui" line="386"/>
         <source>99</source>
-        <translation type="unfinished">99</translation>
+        <translation>99</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz3.ui" line="145"/>
@@ -40531,7 +40566,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/xyz4.ui" line="285"/>
         <location filename="../../scribus/ui/xyz5.ui" line="267"/>
         <source>Lock:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz5.ui" line="106"/>
@@ -40541,7 +40576,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/xyz5.ui" line="129"/>
         <source>W:</source>
-        <translation type="unfinished"></translation>
+        <translation>L:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/xyz5.ui" line="152"/>
@@ -40605,7 +40640,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="14"/>
         <source>XPS Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Impor XPS</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="31"/>
@@ -40630,7 +40665,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="101"/>
         <source>Choose Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih Halaman</translation>
     </message>
 </context>
 <context>
@@ -40656,12 +40691,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="44"/>
         <source>Quark XPress Tags Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilihan Label Importir Quark XPress</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="53"/>
         <source>Use document name as a prefix for Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Gunakan nama dokumen sebagai awalan untuk gaya.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
@@ -40681,7 +40716,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
         <source>Prepend the document name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuliskan nama dokumen ke nama gaya di Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
@@ -40694,42 +40729,42 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1605"/>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>ZIP berhasil diselesaikan.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1606"/>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal untuk menjalankan atau memuat pustaka zlib.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1607"/>
         <source>zlib library error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan pustaka zlib.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1608"/>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak bisa membuat atau membuka berkas</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1609"/>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arsip belum dibuat.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1610"/>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berkas atau direktori tidak ada.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1611"/>
         <source>File read error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan pembacaan berkas.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1612"/>
         <source>File write error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan penulisan berkas.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1613"/>
@@ -40760,7 +40795,10 @@ Document Liberation Project http://www.documentliberation.org</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Parsing gagal!
+
+Silahkan kirimkan berkas anda (jika memungkinkan) ke
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40818,7 +40856,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="164"/>
         <source>4 Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>4 Warna</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="169"/>
@@ -40828,7 +40866,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="174"/>
         <source>Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesh</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="268"/>
@@ -40843,7 +40881,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="282"/>
         <source>Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Transparasi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="490"/>
@@ -40914,7 +40952,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="617"/>
         <source>Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jarak:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="627"/>
@@ -40939,12 +40977,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="655"/>
         <source>Triple</source>
-        <translation type="unfinished"></translation>
+        <translation>Rangkap tiga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="663"/>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Warna Garis:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="227"/>
@@ -40972,7 +41010,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="673"/>
         <source>Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>Latar Belakang:</translation>
     </message>
 </context>
 <context>
@@ -40980,7 +41018,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradientaddedit.ui" line="20"/>
         <source>Edit Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit Gradasi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientaddedit.ui" line="34"/>
@@ -41062,12 +41100,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="66"/>
         <source>Choose the importer to use for %1 file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih pengimpor yang akan digunakan untuk berkas %1:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="68"/>
         <source>Choose the importer to use:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih pengimpor yang akan digunakan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="90"/>
@@ -41105,7 +41143,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="93"/>
         <source>Original Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukuran Asli</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="118"/>
@@ -41115,12 +41153,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="58"/>
         <source>Current zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom level saat ini</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="90"/>
         <source>Set zoom to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Set zoom ke 100%</translation>
     </message>
 </context>
 <context>
@@ -41524,7 +41562,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="176"/>
         <source>Line Color</source>
-        <translation>Warna Garus</translation>
+        <translation>Warna Garis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="193"/>
@@ -41644,7 +41682,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizable</source>
-        <translation type="unfinished"></translation>
+        <translation>Dapat diubah</translation>
     </message>
 </context>
 <context>
@@ -41707,17 +41745,17 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common Ligatures (liga)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatur Umum (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Umum</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
@@ -41812,12 +41850,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="339"/>
         <source>Tabular</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="347"/>
         <source>Fraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pecahan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="355"/>
