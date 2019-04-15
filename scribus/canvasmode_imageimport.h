@@ -35,20 +35,20 @@ class CanvasMode_ImageImport : public CanvasMode
 
 public:
 	explicit CanvasMode_ImageImport(ScribusView* view);
-	virtual ~CanvasMode_ImageImport() {}
+	 ~CanvasMode_ImageImport() override {}
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void keyPressEvent(QKeyEvent *e);
-	virtual bool handleKeyEvents() { return true; }
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	bool handleKeyEvents() override { return true; }
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 
 	void setImageList(QStringList l);
 	void setImage(PageItem* item);

@@ -144,7 +144,7 @@ public:
 	/** main canvas modes don't have a delegate */
 	virtual CanvasMode* delegate() { return nullptr; }
 	ScribusView* view() const { return m_view; }
-	virtual ~CanvasMode();
+	~CanvasMode() override;
 	
 
 protected:

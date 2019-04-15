@@ -36,18 +36,18 @@ class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
 public:
 	explicit CanvasMode_Rotate(ScribusView* view);
-	virtual ~CanvasMode_Rotate() {}
+	~CanvasMode_Rotate() override {}
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
+	void drawControls(QPainter* p) override;
+	void activate(bool) override;
+	void deactivate(bool) override;
 
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 
 private:
 	inline bool GetItem(PageItem** pi);

@@ -34,21 +34,21 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 public:
 	explicit CanvasMode_NodeEdit (ScribusView* view);
 	
-	virtual void activate(bool fromgesture);
-	virtual void deactivate(bool forGesture);
+	void activate(bool fromgesture) override;
+	void deactivate(bool forGesture) override;
 	
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
 
-	virtual void keyPressEvent(QKeyEvent *e);
-	virtual void keyReleaseEvent(QKeyEvent *e);
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
 
-	virtual bool handleKeyEvents() { return true; }
+	bool handleKeyEvents() override { return true; }
 
 	
 	/**

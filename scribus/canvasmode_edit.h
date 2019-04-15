@@ -38,23 +38,23 @@ class CanvasMode_Edit :  public CanvasMode
 	
 public:
 	explicit CanvasMode_Edit(ScribusView* view);
-	virtual ~CanvasMode_Edit() {}
+	~CanvasMode_Edit() {}
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
+	void activate(bool) override;
+	void deactivate(bool) override;
 
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
 	
-	virtual bool handleKeyEvents() { return true; }	
-	virtual void keyPressEvent(QKeyEvent *e);
+	bool handleKeyEvents() override { return true; }
+	void keyPressEvent(QKeyEvent *e) override;
 
-	virtual void drawControls(QPainter* p);
+	void drawControls(QPainter* p) override;
 
 // protected:
 // 	void setResizeCursor(int how, double rot = 0.0);

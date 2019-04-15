@@ -37,17 +37,17 @@ class CanvasMode_EditTable :  public CanvasMode
 
 public:
 	explicit CanvasMode_EditTable(ScribusView* view);
-	virtual ~CanvasMode_EditTable();
+	~CanvasMode_EditTable() override;
 
-	virtual void activate(bool fromGesture);
-	virtual void deactivate(bool forGesture);
-	virtual bool handleKeyEvents() { return true; }
-	virtual void keyPressEvent(QKeyEvent* event);
-	virtual void mouseMoveEvent(QMouseEvent* event);
-	virtual void mousePressEvent(QMouseEvent* event);
-	virtual void mouseReleaseEvent(QMouseEvent* event);
-	virtual void mouseDoubleClickEvent(QMouseEvent* event);
-	virtual void drawControls(QPainter* p);
+	void activate(bool fromGesture) override;
+	void deactivate(bool forGesture) override;
+	bool handleKeyEvents() override { return true; }
+	void keyPressEvent(QKeyEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseDoubleClickEvent(QMouseEvent* event) override;
+	void drawControls(QPainter* p) override;
 
 protected:
 	/**

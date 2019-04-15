@@ -40,23 +40,23 @@ class CanvasMode_Normal :  public CanvasMode
 	
 public:
 	explicit CanvasMode_Normal(ScribusView* view);
-	virtual ~CanvasMode_Normal() {}
+	~CanvasMode_Normal() override {}
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 
-	virtual void keyPressEvent(QKeyEvent *e);
-	virtual void keyReleaseEvent(QKeyEvent *e);
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
 
-	virtual bool handleKeyEvents() { return true; }
+	bool handleKeyEvents() override { return true; }
 
 private:
 	inline bool GetItem(PageItem** pi);
