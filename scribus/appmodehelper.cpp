@@ -453,23 +453,24 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
 	}
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
-	(*a_scrActions)["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->imageIsAvailable || currItem->asLatexFrame()));
-	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable);
-	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable);
-	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable && currItem->pixm.imgInfo.valid);
-	(*a_scrActions)["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable);
-	(*a_scrActions)["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->isRaster);
-	(*a_scrActions)["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable);
-	(*a_scrActions)["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->imageIsAvailable && currItem->isRaster);
-	(*a_scrActions)["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
+	bool isImageFrame = SelectedType==PageItem::ImageFrame;
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->asLatexFrame()));
+	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
+	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
+	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->pixm.imgInfo.valid);
+	(*a_scrActions)["itemToggleInlineImage"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
+	(*a_scrActions)["itemImageIsVisible"]->setEnabled(isImageFrame);
+	(*a_scrActions)["itemPreviewFull"]->setEnabled(isImageFrame);
+	(*a_scrActions)["itemPreviewNormal"]->setEnabled(isImageFrame);
+	(*a_scrActions)["itemPreviewLow"]->setEnabled(isImageFrame);
+	(*a_scrActions)["styleImageEffects"]->setEnabled(isImageFrame && currItem->isRaster);
+	(*a_scrActions)["editCopyContents"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
+	(*a_scrActions)["editPasteContents"]->setEnabled(isImageFrame);
+	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(isImageFrame);
+	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->isRaster);
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
 	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
-	if (SelectedType!=PageItem::ImageFrame)
+	if (!isImageFrame)
 	{
 		(*a_scrActions)["itemImageIsVisible"]->setChecked(false);
 		(*a_scrActions)["itemPreviewFull"]->setChecked(false);
