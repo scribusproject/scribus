@@ -123,9 +123,9 @@ public:
 	const ScGuardedPtr<ScribusDoc>& guardedPtr() const;
 	
 	UpdateManager* updateManager() { return &m_updateManager; }
-	MassObservable<PageItem*> * itemsChanged() { return &m_itemsChanged; }
-	MassObservable<ScPage*>     * pagesChanged() { return &m_pagesChanged; }
-	MassObservable<QRectF>    * regionsChanged() { return &m_regionsChanged; }
+	MassObservable<PageItem*>* itemsChanged() { return &m_itemsChanged; }
+	MassObservable<ScPage*>* pagesChanged() { return &m_pagesChanged; }
+	MassObservable<QRectF>* regionsChanged() { return &m_regionsChanged; }
 	
 	void invalidateAll();
 	void invalidateLayer(int layerID);
@@ -915,6 +915,7 @@ public:
 	 * Do we need to return if the move to master page mode was successful?
 	 */
 	void setMasterPageMode(bool);
+	void assignPageModeLists();
 
 	/*** Is the document in master page mode? */
 	bool masterPageMode() const { return m_masterPageMode; }
@@ -1259,6 +1260,7 @@ public: // Public attributes
 	QList<PageItem*> DocItems;
 	QHash<int, PageItem*> FrameItems;
 	QList<PageItem*> EditFrameItems;
+
 	Selection* const m_Selection;
 	/** \brief Number of Columns */
 	double PageSp;
