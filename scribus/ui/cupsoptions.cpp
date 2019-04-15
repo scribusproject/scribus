@@ -86,7 +86,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 		ppdMarkDefaults(ppd);
 		cupsMarkOptions(ppd, dest->num_options, dest->options);
 		QStringList opts;
-		QString Marked = "";
+		QString Marked;
 		KeyToText.clear();
 		KeyToDefault.clear();
 		for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, ++group)
