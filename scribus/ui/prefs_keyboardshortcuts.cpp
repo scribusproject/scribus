@@ -245,43 +245,42 @@ void Prefs_KeyboardShortcuts::resetKeySet()
 QStringList Prefs_KeyboardShortcuts::scanForSets()
 {
 	keySetList.clear();
-	QString location=ScPaths::instance().shareDir();
-	QString keySetLocation=QDir::toNativeSeparators(location+"keysets/");
+	QString location = ScPaths::instance().shareDir();
+	QString keySetLocation = QDir::toNativeSeparators(location+"keysets/");
 	QDir keySetsDir(keySetLocation, "*.xml", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((keySetsDir.exists()) && (keySetsDir.count() != 0))
+	if ((!keySetsDir.exists()) || (keySetsDir.count() <= 0))
+		return QStringList();
+
+	QStringList appNames;
+	for (uint fileCounter = 0; fileCounter < keySetsDir.count(); ++fileCounter)
 	{
-		QStringList appNames;
-		for (uint fileCounter = 0; fileCounter < keySetsDir.count(); ++fileCounter)
+		QString filename = QDir::toNativeSeparators(location+"keysets/"+keySetsDir[fileCounter]);
+
+		QDomDocument doc( "keymapentries" );
+		QFile file( filename );
+		if (!file.open( QIODevice::ReadOnly))
+			continue;
+		QString errorMsg;
+		int eline;
+		int ecol;
+
+		if (!doc.setContent( &file, &errorMsg, &eline, &ecol ))
 		{
-			QString filename=QDir::toNativeSeparators(location+"keysets/"+keySetsDir[fileCounter]);
-
-			QDomDocument doc( "keymapentries" );
-			QFile file( filename );
-			if ( !file.open( QIODevice::ReadOnly ) )
-				continue;
-			QString errorMsg;
-			int eline;
-			int ecol;
-
-			if ( !doc.setContent( &file, &errorMsg, &eline, &ecol ))
-			{
-				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
-				file.close();
-				continue;
-			}
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 			file.close();
-
-			QDomElement docElem = doc.documentElement();
-			if (docElem.tagName()=="shortcutset" && docElem.hasAttribute("name"))
-			{
-				QDomAttr nameAttr = docElem.attributeNode( "name" );
-				appNames.append(nameAttr.value());
-				keySetList.insert(nameAttr.value(), filename);
-			}
+			continue;
 		}
-		return QStringList(appNames);
+		file.close();
+
+		QDomElement docElem = doc.documentElement();
+		if (docElem.tagName() == "shortcutset" && docElem.hasAttribute("name"))
+		{
+			QDomAttr nameAttr = docElem.attributeNode( "name" );
+			appNames.append(nameAttr.value());
+			keySetList.insert(nameAttr.value(), filename);
+		}
 	}
-	return QStringList();
+	return QStringList(appNames);
 }
 
 QString Prefs_KeyboardShortcuts::getKeyText(const QKeySequence& KeyC)
