@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "util.h"
+#include "util_text.h"
 
 extern ScribusQApp *ScQApp;
 
@@ -36,6 +37,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 		else
 			languageList << LanguageManager::instance()->getLangFromAbbrev("en_GB");
 	}
+	qSort(languageList.begin(), languageList.end(), localeAwareLessThan);
 	languageComboBox->addItems(languageList);
 
 	// qt styles
