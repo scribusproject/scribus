@@ -27344,7 +27344,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="235"/>
         <source>English (Old 450-1100)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anglais (Ancien 450-1100)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="237"/>
@@ -27354,7 +27354,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="239"/>
         <source>Estonian (Standard)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Estonien (Standard)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="240"/>
@@ -27374,17 +27374,17 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="243"/>
         <source>Faroese</source>
-        <translation type="unfinished"></translation>
+        <translation>Féroïen</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="244"/>
         <source>Fijian</source>
-        <translation type="unfinished"></translation>
+        <translation>Fidjien</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="245"/>
         <source>Filipino</source>
-        <translation type="unfinished"></translation>
+        <translation>Philippin</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="247"/>
@@ -27399,7 +27399,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="249"/>
         <source>Franco-Provençal</source>
-        <translation type="unfinished"></translation>
+        <translation>Franco-Provençal</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="250"/>
@@ -27414,7 +27414,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="252"/>
         <source>Friulian</source>
-        <translation type="unfinished"></translation>
+        <translation>Frioulan</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="253"/>
@@ -27459,7 +27459,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="261"/>
         <source>Georgian</source>
-        <translation type="unfinished"></translation>
+        <translation>Géorgien</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="266"/>
@@ -27894,12 +27894,12 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="363"/>
         <source>Kui (India)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kui (Inde)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="364"/>
         <source>Kui (Indonesia)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kui (Indonésie)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="365"/>
@@ -28089,32 +28089,32 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="228"/>
         <source>English (Australia)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Australie)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="229"/>
         <source>English (Canada)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Canada)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="232"/>
         <source>English (UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Royaume-Uni)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="230"/>
         <source>English (New Zealand)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Nouvelle Zélande)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="231"/>
         <source>English (South Africa)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Afrique du Sud)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="571"/>
         <source>Spanish (Argentina)</source>
-        <translation type="unfinished"></translation>
+        <translation>Espagnol (Argentine)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="475"/>
@@ -28165,27 +28165,27 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation>Anii</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="158"/>
         <source>Bengali (Bangladesh)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bengali (Bangladesh)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
         <source>Bosnian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bosniaque</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="263"/>
         <source>German (Austria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Allemand (Autriche)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="233"/>
         <source>English (US)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (États-Unis)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="572"/>
@@ -28196,7 +28196,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
         <location filename="../../scribus/langmgr.cpp" line="497"/>
         <location filename="../../scribus/langmgr.cpp" line="499"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Persan</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="540"/>
@@ -28206,17 +28206,17 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="274"/>
         <source>Gujarati</source>
-        <translation type="unfinished"></translation>
+        <translation>Gujarati</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="290"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="318"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabyle</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="324"/>
@@ -28226,17 +28226,17 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="450"/>
         <source>Mongolian</source>
-        <translation type="unfinished"></translation>
+        <translation>Mongolien</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="465"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Népalais</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="503"/>
         <source>Piedmontese</source>
-        <translation type="unfinished"></translation>
+        <translation>Piémontais</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="560"/>
@@ -28251,7 +28251,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="563"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somali</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="545"/>
@@ -28281,7 +28281,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="619"/>
         <source>Urdu</source>
-        <translation type="unfinished"></translation>
+        <translation>Ourdou</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="613"/>
