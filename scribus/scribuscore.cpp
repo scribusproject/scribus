@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "iconmanager.h"
+#include "langmgr.h"
 #include "localemgr.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
@@ -162,6 +163,8 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage)
 {
 	CommonStrings::languageChange();
+	LanguageManager::instance()->languageChange();
+
 	m_iconManager = IconManager::instance();
 	if (!m_iconManager->setup())
 		return EXIT_FAILURE;
@@ -172,8 +175,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_prefsManager = PrefsManager::instance();
 	m_prefsManager->setup();
 	//CB #4428 Get fonts before prefs are set to default
-	bool haveFonts=false;
-	haveFonts=ScCore->initFonts(showFontInfo);
+	bool haveFonts = false;
+	haveFonts = ScCore->initFonts(showFontInfo);
 	if (!haveFonts)
 		return EXIT_FAILURE;
 	m_prefsManager->initDefaults();
