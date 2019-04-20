@@ -30675,12 +30675,12 @@ Liens externes
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="736"/>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>On ne peut obtenir les distances au texte que d’un cadre de texte.</translation>
+        <translation>On ne peut définir les distances au texte que sur un cadre de texte.</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="157"/>
         <source>Bengali</source>
-        <translation>bengali</translation>
+        <translation>Bengali</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="535"/>
