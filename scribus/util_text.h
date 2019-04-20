@@ -22,6 +22,8 @@ int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parSty
 int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const QString &name);
 #endif
 
+bool SCRIBUS_API localeAwareLessThan(const QString& s1, const QString& s2);
+
 // returns StoryText from saxed string
 StoryText SCRIBUS_API desaxeString(ScribusDoc* doc, const QString& saxedString);
 

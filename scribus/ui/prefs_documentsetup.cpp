@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
+#include "util_text.h"
 
 Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
@@ -45,7 +46,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
-	languageList.sort();
+	qSort(languageList.begin(), languageList.end(), localeAwareLessThan);
 	languageComboBox->addItems( languageList );
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
