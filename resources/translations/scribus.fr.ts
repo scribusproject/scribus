@@ -27153,7 +27153,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="180"/>
         <source>Cajun French</source>
-        <translation type="unfinished"></translation>
+        <translation>Français Cajun</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="181"/>
@@ -27253,43 +27253,43 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="203"/>
         <source>Comorian</source>
-        <translation type="unfinished"></translation>
+        <translation>Comorien</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="204"/>
         <source>Coptic</source>
-        <translation type="unfinished"></translation>
+        <translation>Copte</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="205"/>
         <source>Cornish</source>
-        <translation type="unfinished"></translation>
+        <translation>Cornouaillais</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="206"/>
         <source>Cree</source>
-        <translation type="unfinished"></translation>
+        <translation>Cri</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="207"/>
         <source>Cree (Moose)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cri (Moose)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="208"/>
         <location filename="../../scribus/langmgr.cpp" line="209"/>
         <source>Cree (East Southern)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cri (Sud-Est)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="210"/>
         <source>Woods Cree</source>
-        <translation type="unfinished"></translation>
+        <translation>Cri (des bois)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="211"/>
         <source>Creek</source>
-        <translation type="unfinished"></translation>
+        <translation>Creek</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="212"/>
@@ -27409,7 +27409,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="251"/>
         <source>Frisian</source>
-        <translation type="unfinished"></translation>
+        <translation>Frison</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="252"/>
@@ -27509,7 +27509,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="277"/>
         <source>Haitian Creole</source>
-        <translation type="unfinished"></translation>
+        <translation>Créole haïtien</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="279"/>
@@ -27684,32 +27684,32 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="317"/>
         <source>Kabardian</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabarde</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="319"/>
         <source>Kalaallisut</source>
-        <translation type="unfinished"></translation>
+        <translation>Groenlandais</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="320"/>
         <source>Kalmyk</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalmouk</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="321"/>
         <source>Kalenjin</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalenjin</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="322"/>
         <source>Kamba (Kenya)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamba (Kenya)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="323"/>
         <source>Kanauji</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannauji</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="325"/>
