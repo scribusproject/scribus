@@ -323,54 +323,51 @@ void PropertyWidget_TextColor::showTextEffects(int s)
 
 void PropertyWidget_TextColor::handleOutlineWidth()
 {
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
 	int x = qRound(textEffects->OutlineVal->LWidth->value() * 10.0);
-	if ((m_doc) && (m_item))
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
 	{
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != nullptr)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_SetOutlineWidth(x, &tempSelection);
-		}
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetOutlineWidth(x, &tempSelection);
 	}
 }
 
 void PropertyWidget_TextColor::handleShadowOffs()
 {
-	if ((m_doc) && (m_item))
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	int x = qRound(textEffects->ShadowVal->Xoffset->value() * 10.0);
+	int y = qRound(textEffects->ShadowVal->Yoffset->value() * 10.0);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
 	{
-		int x = qRound(textEffects->ShadowVal->Xoffset->value() * 10.0);
-		int y = qRound(textEffects->ShadowVal->Yoffset->value() * 10.0);
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != nullptr)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_SetShadowOffsets(x, y, &tempSelection);
-		}
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetShadowOffsets(x, y, &tempSelection);
 	}
 }
 
 void PropertyWidget_TextColor::handleStrikeThru()
 {
-	if ((m_doc) && (m_item))
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	int x = qRound(textEffects->StrikeVal->LPos->value() * 10.0);
+	int y = qRound(textEffects->StrikeVal->LWidth->value() * 10.0);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
 	{
-		int x = qRound(textEffects->StrikeVal->LPos->value() * 10.0);
-		int y = qRound(textEffects->StrikeVal->LWidth->value() * 10.0);
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != nullptr)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_SetStrikethru(x, y, &tempSelection);
-		}
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetStrikethru(x, y, &tempSelection);
 	}
 }
 
