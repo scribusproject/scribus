@@ -18105,77 +18105,77 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>मोचनानि</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="109"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
         <source>Portrait</source>
         <translation>व्यक्तिचित्रम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="111"/>
         <source>Landscape</source>
         <translation>भूदृश्यः</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>लेख्पत्रपृष्ठानाम् विस्तारः, अयञ्च सम्पाद्यः, यदि त्वया स्वेच्छापृष्ठपरिमाणं वृतम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>लेख्पत्रपृष्ठानाम् औन्नत्यम्, इदञ्च सम्पाद्यम्, यदि त्वया स्वेच्छापृष्ठपरिमाणं वृतम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Default orientation of document pages</source>
         <translation>लेख्यपत्रपृष्ठानां मूलभूताभिमुखीकरणम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
         <source>Default unit of measurement for document editing</source>
         <translation>लेख्यपत्रसम्पादनाय मूलभूतः मापनाङ्कः</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="132"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="408"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="409"/>
         <source>Choose a Directory</source>
         <translation>कोशं वृणु</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
         <source>Time period between saving automatically</source>
         <translation>स्वचालितसञ्चयान्तरे कालः</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation>कार्येतिहासस्य दैर्घ्यं पदेषु स्थापय। 0 प्रति स्थापितञ्चेत्, अनन्तकार्याणि सञ्चितानि भविष्यन्ति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>लेख्यपत्रे सर्वाणि उपस्थितानि प्रधानपृष्ठानि प्रति पृष्ठपरिमाणपरिणामान् प्रयोजय</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation>लेख्यपत्रे सर्वाणि उपस्थितानि प्रधानपृष्ठानि प्रति पृष्ठपरिमाणपरिणामान् प्रयोजय</translation>
     </message>
@@ -19369,7 +19369,7 @@ Do you want to use this?</source>
         <translation>सरलमार्गसमूहस्य नाम निवेशय :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="504"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="503"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21640,27 +21640,27 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>मूलभूतान् विण्डो भूषणालोकान् च वृणु। यदि KDE प्लगिन्स् अन्वेषयितुं Qt विन्यस्तं, तर्हि स्क्रैबस् प्रति उपलब्धाः KDE अथवा Qt वीथिकाः अभ्यागताः भवन्ति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>फैल् मेनु मध्ये दर्शयितुं नूतनतया सम्पादितानां लेख्यपत्राणां सङ्ख्या</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
         <source>Default font size for the menus and windows</source>
         <translation>मेनुस् तथा विण्डोस् कृते मूलभूतफोण्ट्परिमाणम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Default font size for the tool windows</source>
         <translation>साधनविण्डोस् कृते मूलभूतफोण्ट्परिमाणम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21679,27 +21679,27 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Choose the default icon set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="71"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="73"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25449,7 +25449,7 @@ Check path and filename.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="228"/>
+        <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
         <translation>आरभते...</translation>
     </message>
@@ -34688,52 +34688,52 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="200"/>
+        <location filename="../../scribus/scribuscore.cpp" line="203"/>
         <source>Initializing Plugins</source>
         <translation>प्लगिन्स् आरभते</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="186"/>
+        <location filename="../../scribus/scribuscore.cpp" line="189"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>कीबोर्ड् सरलमार्गान् आरभते</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="188"/>
+        <location filename="../../scribus/scribuscore.cpp" line="191"/>
         <source>Reading Preferences</source>
         <translation>ऐच्छिकाः पठति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="208"/>
+        <location filename="../../scribus/scribuscore.cpp" line="211"/>
         <source>Initializing Image Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="287"/>
+        <location filename="../../scribus/scribuscore.cpp" line="290"/>
         <source>Searching for Fonts</source>
         <translation>फोण्ट्स् कृते अन्वेषयति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="292"/>
+        <location filename="../../scribus/scribuscore.cpp" line="295"/>
         <source>There are no fonts found on your system.</source>
         <translation>तव सिस्टम् मध्ये फोण्ट्स् न सन्ति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="293"/>
+        <location filename="../../scribus/scribuscore.cpp" line="296"/>
         <source>Exiting now.</source>
         <translation>अधुना निर्गच्छति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="294"/>
+        <location filename="../../scribus/scribuscore.cpp" line="297"/>
         <source>Fatal Error</source>
         <translation>अन्तकरदोषः</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="297"/>
+        <location filename="../../scribus/scribuscore.cpp" line="300"/>
         <source>Font System Initialized</source>
         <translation>फोण्ट् सिस्टम् आरब्धम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="203"/>
+        <location filename="../../scribus/scribuscore.cpp" line="206"/>
         <source>Reading Color Profiles</source>
         <translation>वर्णप्रोफैल्स् पठति</translation>
     </message>

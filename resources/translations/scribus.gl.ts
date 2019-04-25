@@ -18181,77 +18181,77 @@ Quéreos migrar para a nova versión de Scribus?</translation>
         <translation>Sangrados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="109"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
         <source>Portrait</source>
         <translation>Retrato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="111"/>
         <source>Landscape</source>
         <translation>Apaisado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Largura das páxinas dos documentos, modificábel se escolleu un tamaño de páxina personalizado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Altura das páxinas dos documentos, modificábel se escolleu un tamaño de páxina personalizado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
         <translation>Tamaño da páxina por omisión, tanto un tamaño normalizado como un personalizado. Pódense visualizar máis páxinas activándoas en Preferencias.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
         <translation>Activar ou desactivar máis tamaños de páxina pasando ás preferencias de tamaño das páxinas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Default orientation of document pages</source>
         <translation>Orientación por omisión das páxinas dos documentos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Unidade de medida predeterminada para a edición do documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
         <translation>Se se activa, o Scribus garda unha copia de seguranza do ficheiro cada fracción de tempo determinada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="132"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation>Conservar este número de ficheiros durante a sesión de edición. Os ficheiros de seguranza elimínanse ao pechar o documento.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="408"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="409"/>
         <source>Choose a Directory</source>
         <translation>Escolla un directorio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
         <source>Time period between saving automatically</source>
         <translation>Período de tempo após o que se produce o gardado automático</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation>Indique o tamaño do historial de accións en pasos. Se o deixa en 0 almacenaranse infinitas accións.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Aplicar as mudanzas do tamaño da páxina a todas as páxinas existentes do documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation>Aplicar as mudanzas do tamaño da páxina a todas as páxinas mestras existentes no documento</translation>
     </message>
@@ -19447,7 +19447,7 @@ Desexa empregala?</translation>
         <translation>Introduza o nome do conxunto de atallos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="504"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="503"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>A secuencia de teclas %1 xa está a ser empregada por «%2»</translation>
     </message>
@@ -21721,27 +21721,27 @@ un intervalo de páxinas ou un único número de páxina</translation>
         <translation>Mostrar o diálogo de inicio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquera tema dispoñíbel para KDE ou Qt se Qt está configurado para procurar os engadidos do KDE.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Número de documentos editados recentemente que aparecen no menú Ficheiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
         <source>Default font size for the menus and windows</source>
         <translation>Tamaño por omisión do tipo de letra dos menús e as xanelas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Default font size for the tool windows</source>
         <translation>Tamaño por omisión do tipo de letra das xanelas de ferramentas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation>O tempo antes do comezo do redimensionamento ou do movemento permite que haxa un pequeno retardo entre o teu click e a realización da operación, para así evitar movementos involuntarios. Isto pode ser útil en relación coas opcións de sensibilidade do rato, ou temas de accesibilidade relacionados cos ratos ergonómicos, o tablero táctil ou co movemento de bonecas e mans.</translation>
     </message>
@@ -21760,27 +21760,27 @@ un intervalo de páxinas ou un único número de páxina</translation>
         <translation>Conxunto de iconas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Choose the default icon set</source>
         <translation>Escolla o conxunto de iconas predeterminado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
         <translation>Seleccione o idioma co que desexa que se execute o Scribus por omisión. Deixe isto en branco para que se escolla consultando as variábeis do entorno. Pódese anular esta escolla pasándolle unha opción á liña de ordes no momento de iniciar o Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation>As xanelas das paletas empregan iconas máis pequenas (que aforran espazo). Require que se reinicie o aplicativo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
         <translation>Número de liñas que se despraza o punteiro a cada movemento da roda do rato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="71"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="73"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
         <translation>O comportamento por omisión ao facer dobre clic nunha palabra é seleccionar a palabra e o primeiro espazo que a siga. A selección intelixente selecciona só a palabra, sen o espazo que a segue.</translation>
     </message>
@@ -25547,7 +25547,7 @@ Comprobe a ruta e o nome do ficheiro.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="228"/>
+        <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
         <translation>A inicializar...</translation>
     </message>
@@ -34826,52 +34826,52 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="200"/>
+        <location filename="../../scribus/scribuscore.cpp" line="203"/>
         <source>Initializing Plugins</source>
         <translation>A inicializar os engadidos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="186"/>
+        <location filename="../../scribus/scribuscore.cpp" line="189"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>A inicializar os atallos de teclado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="188"/>
+        <location filename="../../scribus/scribuscore.cpp" line="191"/>
         <source>Reading Preferences</source>
         <translation>A ler as preferencias</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="208"/>
+        <location filename="../../scribus/scribuscore.cpp" line="211"/>
         <source>Initializing Image Cache</source>
         <translation>A inicializar a caché de imaxes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="287"/>
+        <location filename="../../scribus/scribuscore.cpp" line="290"/>
         <source>Searching for Fonts</source>
         <translation>A buscar os tipos de letra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="292"/>
+        <location filename="../../scribus/scribuscore.cpp" line="295"/>
         <source>There are no fonts found on your system.</source>
         <translation>Non se atoparon tipos de letra neste sistema.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="293"/>
+        <location filename="../../scribus/scribuscore.cpp" line="296"/>
         <source>Exiting now.</source>
         <translation>A saír agora.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="294"/>
+        <location filename="../../scribus/scribuscore.cpp" line="297"/>
         <source>Fatal Error</source>
         <translation>Erro fatal</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="297"/>
+        <location filename="../../scribus/scribuscore.cpp" line="300"/>
         <source>Font System Initialized</source>
         <translation>O sistema de tipos de letra está inicializado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="203"/>
+        <location filename="../../scribus/scribuscore.cpp" line="206"/>
         <source>Reading Color Profiles</source>
         <translation>A ler os perfís de cores</translation>
     </message>

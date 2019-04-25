@@ -18187,77 +18187,77 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <translation>Dic&apos;hlannadoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="109"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
         <source>Portrait</source>
         <translation>Poltred</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="111"/>
         <source>Landscape</source>
         <translation>Gweledva</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Led pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Sav pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
         <translation>Ment ar bajennad dre ziouer, pe ur vent skoueriek pe ur vent personelaet. Hewel ez ay muioc&apos;h a ventoù pajennoù dre o weredekaat er Gwellvezioù.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
         <translation>Gweredekaat pe ziweredekaat muioc&apos;h a ventoù pajennoù en ur vont betek gwellvezioù mentoù ar pajennoù.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Default orientation of document pages</source>
         <translation>Reteradur dre ziouer pajennoù an teul</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Unanenn vuzuliañ dre ziouer evit embann an teulioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
         <translation>Mar gweredekaet, e vo enrollet ingal un eilad diogel eus ho restr  bewech ma &apos;z eo tremenet ar mare</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="132"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation>Mirout meur a restr e-pad ar mare embann. Dilamet e vo ar restroù gwarediñ pa vo serret ho teul.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="408"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="409"/>
         <source>Choose a Directory</source>
         <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
         <source>Time period between saving automatically</source>
         <translation>Mare etre pep gwaredadur emgefreek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation>Kefluniañ a ra hirrder roll istor ar gwezhioù. Mar bez 0 anezhi e vo kadavet ur c&apos;hementad divevenn a wezhioù.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Arloañ ar c&apos;hemmoù eus mentoù ar pajennoù d&apos;an holl bajennoù en teul</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation>Arloañ kemmoù mentoù ar pajennoù d&apos;an holl bajennadoù mestrezed a zo anezho en teul</translation>
     </message>
@@ -19458,7 +19458,7 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <translation>Enankañ anv ar spletad berradennoù klavier :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="504"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="503"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>Arveret eo ar spletad stokelloù 1% endeo gant &quot;%2&quot;</translation>
     </message>
@@ -21730,27 +21730,27 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
         <translation>Diskouez boestad emziviz al loc&apos;hañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Dibabit neuz hollek Scribus. Neuzioù KDE pe Qt bet staliet a arver Scribus, mard eo bet kefluniet Qt evit klask ar molladoù KDE.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Niver a deulioù embannet nevez zo da skrammañ el lañser Restr</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
         <source>Default font size for the menus and windows</source>
         <translation>Ment an nodrezh dre ziouer evit al lañserioù hag ar prenestroù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Default font size for the tool windows</source>
         <translation>Ment an nodrezhdre ziouer evit prenestroù an ostilhoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="67"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation>Amzer kent ma krogo an adventañ pe an dilec&apos;hiañ ; aotreet eo un dale bihan etre ar c&apos;hlikañ ha derou an ober a-benn mirout ouzh dilec&apos;hiadurioù ne fellfe ket deoc&apos;h. Talvoudus pa vez kempennet kizidigezh arventennoù al logodenn pe gudennoù haezadusted e-keñver logodennoù c&apos;hwelaozouriezhel, pavezioù stekiñ pe aesder da fiñval an daouarn.</translation>
     </message>
@@ -21769,27 +21769,27 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
         <translation>Spletad arlunioù :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Choose the default icon set</source>
         <translation>Dibab ar spletad arlunioù dre ziouer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
         <translation>Diuzañ a ra ar yezh arveret gant Scribus dre ziouer. Laoskit goullo a-benn dibab ar yezh erspizet gant an argemmoù amva. Gallout a reer daskemmañ ar yezh gant dibarzhioù an arc&apos;had pa vez loc&apos;het Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation>Arveret e vo widjetoù bihanoc&apos;h (da espern an egor) gant prenestroù al livaoueg. Ret e vo adloc&apos;hañ an arload.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
         <translation>Niver a linennoù o tibunañ gant pep ask rod al logodenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="71"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="73"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
         <translation>An emzalc&apos;h dre ziouer pa vez daougliket war ur ger a dalv da ziuzañ ar ger gant an esaouenn gentañ. An diuzañ speredek a dalvo da ziuzañ ar ger hepken hep an esouenn war-lerc&apos;h.</translation>
     </message>
@@ -25551,7 +25551,7 @@ Gwiriit an treug ha anv ar restr.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="228"/>
+        <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
         <translation>O teraouekaat...</translation>
     </message>
@@ -34830,52 +34830,52 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="200"/>
+        <location filename="../../scribus/scribuscore.cpp" line="203"/>
         <source>Initializing Plugins</source>
         <translation>Deraouekadur an enlugelladoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="186"/>
+        <location filename="../../scribus/scribuscore.cpp" line="189"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Deraouekadur ar berradennoù klavier</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="188"/>
+        <location filename="../../scribus/scribuscore.cpp" line="191"/>
         <source>Reading Preferences</source>
         <translation>Lennadur ar gwellvezioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="208"/>
+        <location filename="../../scribus/scribuscore.cpp" line="211"/>
         <source>Initializing Image Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="287"/>
+        <location filename="../../scribus/scribuscore.cpp" line="290"/>
         <source>Searching for Fonts</source>
         <translation>O klask nodrezhoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="292"/>
+        <location filename="../../scribus/scribuscore.cpp" line="295"/>
         <source>There are no fonts found on your system.</source>
         <translation>N&apos;eus nodrezh ebet staliet mat war ho reizhiad.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="293"/>
+        <location filename="../../scribus/scribuscore.cpp" line="296"/>
         <source>Exiting now.</source>
         <translation>Kuitaat bremañ.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="294"/>
+        <location filename="../../scribus/scribuscore.cpp" line="297"/>
         <source>Fatal Error</source>
         <translation>Fazi lazhus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="297"/>
+        <location filename="../../scribus/scribuscore.cpp" line="300"/>
         <source>Font System Initialized</source>
         <translation>Ardeiñ an nodrezhoù gweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="203"/>
+        <location filename="../../scribus/scribuscore.cpp" line="206"/>
         <source>Reading Color Profiles</source>
         <translation>Lennadur an aeladoù liv</translation>
     </message>
