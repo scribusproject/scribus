@@ -102,7 +102,17 @@
 </li>
 </ul>
 </p>
-<p>On a practical level, this is a challenging command to fully understand if you wish to assign a number of settings, since keeping track of where you are, and which kind of entry is needed (string vs number) is not easy. For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
+<p>Tout atttribut de style non explicitement définie verra sa valeur héritée du style de caractère par défaut.</p>
+<p>Du fait du nombre important d'arguments de cette fonction, il est fortement conseillé d'utiliser la syntaxe par mots clés lors de son appel. Par example si vous souhaitez modifier uniquement la taille de police, n'appelez pas la fonction de la façon suivante:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("Nouveau Style", "Arial Regular", 12)</code></li>
+</ul></p>
+<p>mais utilisez plutôt cette syntaxe à la place:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("Nouveau Style", fontsize=12)</code></li>
+</ul>
+</p>
+<p>Pour plus de détails à ce sujet et notamment sur la façon de définir l'approche, veuillez consulter la page wiki <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
 </dd>
 
 <dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>

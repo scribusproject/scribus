@@ -105,7 +105,17 @@
 </li>
 </ul>
 </p>
-<p>On a practical level, this is a challenging command to fully understand if you wish to assign a number of settings, since keeping track of where you are, and which kind of entry is needed (string vs number) is not easy. For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
+<p>Any style attribute not explicitly defined will have its value inherited from default character style.</p>
+<p>Due to the important number of arguments of this function, it is strongly advised to use Python keyword syntax when calling this function. For example if a style needs to alter only font size, do not use this syntax:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("New Style", "Arial Regular", 12)</code></li>
+</ul></p>
+<p>but use this syntax instead:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("New Style", fontsize=12)</code></li>
+</ul>
+</p>
+<p>For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
 </dd>
 
 <dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>

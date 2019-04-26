@@ -8,10 +8,11 @@ for which a new license (GPL+exception) is in place.
 #include "cmdstyle.h"
 #include "cmdutil.h"
 
-#include "qbuffer.h"
-#include "qpixmap.h"
-//Added by qt3to4:
+#include <limits>
+
+#include <QBuffer>
 #include <QList>
+#include <QPixmap>
 
 #include "scribuscore.h"
 #include "styles/paragraphstyle.h"
@@ -121,12 +122,22 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	if (!checkHaveDocument())
 		return nullptr;
 
+	const double dbl_min = -std::numeric_limits<double>::max();
+
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
 	const CharStyle* defaultStyle = charStyles.getDefault();
 
-	char *name = const_cast<char*>(""), *font = const_cast<char*>(""), *features = const_cast<char*>("inherit"), *fillColor = const_cast<char*>("Black"), *fontFeatures = const_cast<char*>(""), *strokeColor = const_cast<char*>("Black"), *language = const_cast<char*>("");
-	double fontSize = defaultStyle->fontSize() / 10.0, fillShade = 1, strokeShade = 1, scaleH = 1, scaleV = 1, baselineOffset = 0, shadowXOffset = 0, shadowYOffset = 0, outlineWidth = 0, underlineOffset = 0, underlineWidth = 0, strikethruOffset = 0, strikethruWidth = 0, tracking = 0;
+	char *name = const_cast<char*>(""), *font = const_cast<char*>(""), *features = const_cast<char*>("inherit"), *fillColor = const_cast<char*>(""), *fontFeatures = const_cast<char*>(""), *strokeColor = const_cast<char*>("Black"), *language = const_cast<char*>("");
+	double fontSize = -1;
+	double fillShade = -1, strokeShade = -1;
+	double scaleH = -1, scaleV = -1;
+	double baselineOffset = dbl_min;
+	double shadowXOffset  = dbl_min, shadowYOffset = dbl_min;
+	double outlineWidth = dbl_min, underlineOffset = dbl_min, underlineWidth = dbl_min;
+	double strikethruOffset = dbl_min, strikethruWidth = dbl_min;
+	double tracking = dbl_min;
+	
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
 									"utf-8", &name, "utf-8", &font, &fontSize, "utf-8", &features,
 									"utf-8", &fillColor, &fillShade, "utf-8", &strokeColor, &strokeShade, &baselineOffset, &shadowXOffset,
@@ -141,53 +152,84 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	}
 
 	QString realFont = QString(font);
-	if (realFont.isEmpty())
-		realFont = defaultStyle->font().scName();
-
-	if (!currentDoc->AllFonts->contains(realFont))
+	if (!realFont.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
-		return nullptr;
+		if (!currentDoc->AllFonts->contains(realFont))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
 	}
 
 	const ColorList& docColors = currentDoc->PageColors;
 	QString qFillColor = QString(fillColor);
 	QString qStrokeColor = QString(strokeColor);
-	if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
+	if (!qFillColor.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toLocal8Bit().constData());
-		return nullptr;
+		if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
 	}
-	if ((qStrokeColor != CommonStrings::None) && (!docColors.contains(qStrokeColor)))
+	if (!qStrokeColor.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toLocal8Bit().constData());
-		return nullptr;
+		if ((qStrokeColor != CommonStrings::None) && (!docColors.contains(qStrokeColor)))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
 	}
 
+	if (fillShade >= 0)
+		fillShade = qMax(0.0, qMin(fillShade, 1.0));
+	if (strokeShade >= 0)
+		strokeShade = qMax(0.0, qMin(strokeShade, 1.0));
 	QStringList featuresList = QString(features).split(',', QString::SkipEmptyParts);
+	QString qLanguage = QString(language);
 
 	CharStyle tmpCharStyle;
 	tmpCharStyle.setName(name);
-	tmpCharStyle.setFont((*currentDoc->AllFonts)[realFont]);
-	tmpCharStyle.setFontSize(fontSize * 10);
-	tmpCharStyle.setFontFeatures(fontFeatures);
-	tmpCharStyle.setFeatures(featuresList);
-	tmpCharStyle.setFillColor(qFillColor);
-	tmpCharStyle.setFillShade(fillShade * 100);
-	tmpCharStyle.setStrokeColor(qStrokeColor);
-	tmpCharStyle.setStrokeShade(strokeShade * 100);
-	tmpCharStyle.setBaselineOffset(baselineOffset);
-	tmpCharStyle.setShadowXOffset(shadowXOffset);
-	tmpCharStyle.setShadowYOffset(shadowYOffset);
-	tmpCharStyle.setOutlineWidth(outlineWidth);
-	tmpCharStyle.setUnderlineOffset(underlineOffset);
-	tmpCharStyle.setUnderlineWidth(underlineWidth);
-	tmpCharStyle.setStrikethruOffset(strikethruOffset);
-	tmpCharStyle.setStrikethruWidth(strikethruWidth);
-	tmpCharStyle.setScaleH(scaleH * 1000);
-	tmpCharStyle.setScaleV(scaleV * 1000);
-	tmpCharStyle.setTracking(tracking);
-	tmpCharStyle.setLanguage(QString(language));
+	if (!realFont.isEmpty())
+		tmpCharStyle.setFont((*currentDoc->AllFonts)[realFont]);
+	if (fontSize > 0)
+		tmpCharStyle.setFontSize(fontSize * 10);
+	if (fontFeatures != defaultStyle->fontFeatures())
+		tmpCharStyle.setFontFeatures(fontFeatures);
+	if (featuresList != defaultStyle->features())
+		tmpCharStyle.setFeatures(featuresList);
+	if (!qFillColor.isEmpty())
+		tmpCharStyle.setFillColor(qFillColor);
+	if (fillShade >= 0)
+		tmpCharStyle.setFillShade(fillShade * 100);
+	if (!qStrokeColor.isEmpty())
+		tmpCharStyle.setStrokeColor(qStrokeColor);
+	if (strokeShade >= 0)
+		tmpCharStyle.setStrokeShade(strokeShade * 100);
+	if (baselineOffset >= 0)
+		tmpCharStyle.setBaselineOffset(baselineOffset);
+	if (shadowXOffset != dbl_min)
+		tmpCharStyle.setShadowXOffset(shadowXOffset);
+	if (shadowYOffset != dbl_min)
+		tmpCharStyle.setShadowYOffset(shadowYOffset);
+	if (outlineWidth >= 0)
+		tmpCharStyle.setOutlineWidth(outlineWidth);
+	if (underlineOffset >= 0)
+		tmpCharStyle.setUnderlineOffset(underlineOffset);
+	if (underlineWidth >= 0)
+		tmpCharStyle.setUnderlineWidth(underlineWidth);
+	if (strikethruOffset >= 0)
+		tmpCharStyle.setStrikethruOffset(strikethruOffset);
+	if (strikethruWidth >= 0)
+		tmpCharStyle.setStrikethruWidth(strikethruWidth);
+	if (scaleH > 0)
+		tmpCharStyle.setScaleH(scaleH * 1000);
+	if (scaleV > 0)
+		tmpCharStyle.setScaleV(scaleV * 1000);
+	if (tracking != dbl_min)
+		tmpCharStyle.setTracking(tracking);
+	if (!qLanguage.isEmpty())
+		tmpCharStyle.setLanguage(qLanguage);
 
 	StyleSet<CharStyle> tmpStyleSet;
 	tmpStyleSet.create(tmpCharStyle);
