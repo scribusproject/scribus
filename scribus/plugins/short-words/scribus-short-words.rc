@@ -6,7 +6,7 @@
 # 2004/07/11 English bu Owen (edit pv)
 # 2004/07/28 French by fredd
 # 2004/08/25 Slovak by Zdenko Podobny
-# 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
+# 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
 # 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
 # 2005/05/17 Claudio Beccari <claudio.beccari@polito.it> notices about
 #            ISO regulations in the case of the physics
@@ -14,6 +14,7 @@
 # 2005/08/28 german by Christoph Schäfer <christoph-schaefer@gmx.de>
 # 2006/05/15 Estonian by Marek Laane
 # 2007/05/02 Italian by Alessandro Rimoldi <http://ideale.ch/contact/>
+# 2019/04/21 Croatian by Milo Ivir <mail@milotype.de>
 #
 #
 # Use UTF8 as coding of this file!
@@ -31,6 +32,25 @@ en= Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
 # claudio's fix en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
 en= kg, g, mg, oz, lb, cwt, km, m, cm, mm,
 #  English stuff - THE END
+
+
+#  Croatian short words START here
+## single letters
+hr=A ,I ,K ,O ,S ,U ,Da li,Je li,
+## Titles and degrees
+hr=Dr. ,dr. ,Mr. ,mr. ,Prof. ,prof. ,dipl. ing.,
+## measures
+hr= mg, g, kg, t,
+hr= mm, cm, dm, m, km, mm², cm², dm², m², km²,
+hr= ha, l, hl, cl, dl, ml, m³,
+hr= s, min, h, god., g.,
+hr= km/h, m/s, m/s²,
+hr= KWh, kW, V,
+hr= Hz, MHz, kHz, mA, A, cd, mol, K, lm, lx,
+hr= %, ‰, ‱, °, ℃,
+## Misc
+hr= …,i dr.,i sl., itd.,§ ,čl. ,EUR, €, HRK, kuna,$ ,ul. ,Br. ,br. ,Str. ,str. ,g. ,r. ,† ,‡ ,d. d.,d. o. o.,j. t. d.,t. d.,n. r.,
+#  Croatian short words - THE END
 
 
 #  Czech short words START here
