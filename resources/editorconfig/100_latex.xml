@@ -61,6 +61,18 @@
 				devient
 				\[J = \int r^2 \mathrm{d}m\]
 			</fr>
+			<hr>
+				\section*{Priručnik}
+				Ako vidiš ovaj tekst, znači da postavljeni \LaTeX-okviri funkcioniraju!\\
+				Postavljanje formule je vrlo jednostavno:\\
+				Desni klik mišem $\Rightarrow$ Uredi izvor\\
+				Zamijeni ovaj tekst tvojim tekstom. Na primjer:
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				se pretvara u
+				\[J = \int r^2 \mathrm{d}m\]
+			</hr>
 			<pl>
 				\section*{Wprowadzenie}
 				Gdy widzisz ten tekst w ramce renderowanej, to znaczy, ze \LaTeX jest 
@@ -154,6 +166,7 @@
 				<cs>Fonty/Hlavičky</cs>
 				<de>Schriften/Header</de>
 				<fr>Polices/En-tête</fr>
+				<hr>Fontovi/Zaglavlja</hr>
 				<pl>Fonty/Nagłówki</pl>
 				<ru>Шрифты и заголовки</ru>
 				<hu>Betűkészlet/Fejléc</hu>
@@ -165,6 +178,7 @@
 			<cs>Fonty fungují, jen když jsou nainstalovány ve vašem počítači!</cs>
 			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
 			<fr>Les polices fonctionnent uniquement lorsqu'elles sont installées sur votre ordinateur !</fr>
+			<hr>Upotreba fontova je samo moguća, ako su instalirani na tvom računalu!</hr>
 			<pl>Fonty muszą być zainstalowane na twoim komputerze!</pl>
 			<ru>Шрифты работают только если они установлены в системе!</ru>
 			<hu>A betűkészlet csak akkor működik, ha telepítve van!</hu>
@@ -177,6 +191,7 @@
 				<cs>Font:</cs>
 				<de>Schrift:</de>
 				<fr>Police :</fr>
+				<hr>Font:</hr>
 				<pl>Font:</pl>
 				<ru>Шрифт:</ru>
 				<hu>Betűkészlet:</hu>
@@ -193,6 +208,7 @@
 			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
 			<cs>Pozn.: Před text psaným Helveticou napište na začátek  \sf, pro Courier \tt!</cs>
 			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
+			<hr>Napomena: Za fontove Helvetica i \tt Courier moraš nadodati \sf na početak tvog teksta!</hr>
 			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
 			<ru>Примечание: необходимо включить команду \sf в начало текста для Helvetica и \tt для Courier!</ru>
 			<hu>Megjegyzés: A Helvetica a \sf, a Courier pedig a \tt paranccsal aktiválható.</hu>
@@ -205,6 +221,7 @@
 					<cs>Velikost písma:</cs>
 					<de>Schriftgröße:</de>
 					<fr>Taille police :</fr>
+					<hr>Veličina fonta:</hr>
 					<pl>Stopień pisma:</pl>
 					<ru>Кегль шрифт:</ru>
 					<hu>Betűméret:</hu>
@@ -225,6 +242,7 @@
 				<cs>Barva písma</cs>
 				<de>Textfarbe</de>
 				<fr>Couleur police</fr>
+				<hr>Boja fonta</hr>
 				<pl>Kolor fontu</pl>
 				<hu>Betűszín</hu>
 				<es>Color de tipo</es>
@@ -235,6 +253,7 @@
 				<cs>Barva pozadí</cs>
 				<de>Hintergrundfarbe</de>
 				<fr>Couleur de fond</fr>
+				<hr>Boja pozadine</hr>
 				<pl>Kolor tła</pl>
 				<hu>Háttérszín</hu>
 				<es>Color de fondo</es>
@@ -246,6 +265,7 @@
 			<cs>Dodatečné hlavičky:</cs>
 			<de>Zusätzliche Header:</de>
 			<fr>En-tête additionnel :</fr>
+			<hr>Dodatna zaglavlja:</hr>
 			<pl>Dodatkowe nagłówki:</pl>
 			<en>Дополнительные заголовки:</en>
 			<hu>További fejléc:</hu>
@@ -258,6 +278,7 @@
 				<en>Relation symbols</en>
 				<cs>Symboly relací</cs>
 				<fr>Symboles et opérateurs</fr>
+				<hr>Simboli relacije</hr>
 				<de>Verhältnissymbole</de>
 				<pl>Symbole relacji</pl>
 				<ru>Символы соотношения</ru>
@@ -501,6 +522,7 @@
 				<cs>Šipky</cs>
 				<de>Pfeile</de>
 				<fr>Flèches</fr>
+				<hr>Strelice</hr>
 				<pl>Strzałki</pl>
 				<ru>Стрелки</ru>
 				<hu>Nyilak</hu>
@@ -583,6 +605,7 @@
 				<cs>Různé symboly</cs>
 				<de>Verschiedenes</de>
 				<fr>Symboles divers</fr>
+				<hr>Razni simboli</hr>
 				<pl>Różne symbole</pl>
 				<ru>Различные символы</ru>
 				<hu>Egyéb szimbólumok</hu>
@@ -655,6 +678,7 @@
 				<cs>Rozdělovací znaky</cs>
 				<de>Trenner</de>
 				<fr>Délimiteurs</fr>
+				<hr>Razdjeljivači</hr>
 				<pl>Znaki rozdzielające</pl>
 				<ru>Разделители</ru>
 				<hu>Határolójelek</hu>
@@ -700,6 +724,7 @@
 				<cs>Řecká abeceda</cs>
 				<de>Griechisches Alphabet</de>
 				<fr>Alphabet Grec</fr>
+				<hr>Grčki alfabet</hr>
 				<pl>Alfabet grecki</pl>
 				<ru>Греческий алфавит</ru>
 				<hu>Görög betűk</hu>
@@ -753,6 +778,7 @@
 			<cs>Matematická abeceda</cs>
 			<de>Mathe-Alphabete</de>
 			<fr>Alphabet Math</fr>
+			<hr>Matematička abeceda</hr>
 			<pl>Alfabet matematyczny</pl>
 			<ru>Математические алфавиты</ru>
 			<hu>Matematikai betűk</hu>
@@ -938,6 +964,7 @@
 				<cs>Normální text</cs>
 				<de>Normaler Text</de>
 				<fr>Texte normal</fr>
+				<hr>Normalni tekst</hr>
 				<pl>Zwykły tekst</pl>
 				<ru>Обычный текст</ru>
 				<hu>Normál szöveg</hu>
@@ -952,6 +979,7 @@
 			<cs>Matematické akcenty</cs>
 			<de>Mathe-Akzente</de>
 			<fr>Accents Math</fr>
+			<hr>Matematički naglasci</hr>
 			<pl>Akcenty matematyczne</pl>
 			<ru>Математические акценты</ru>
 			<hu>Matematikai ékezetek</hu>

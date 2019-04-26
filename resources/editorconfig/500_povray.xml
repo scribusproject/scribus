@@ -48,6 +48,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			  <en>Render Options</en>
 			  <cs>Nastavení renderování</cs>
 			  <de>Render Optionen</de>
+			  <hr>Opcije iscrtavača</hr>
 			  <ru>Параметры визуализации</ru>
 			  <hu>Renderelési beállítások</hu>
 			  <es>Opciones de interpretación</es>
@@ -60,6 +61,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				  <en>Quality:</en>
 				  <cs>Kvalita:</cs>
 				  <de>Qualität:</de>
+				  <hr>Kvaliteta:</hr>
 				  <ru>Качество:</ru>
 				  <hu>Minőség:</hu>
 				  <es>Calidad</es>
@@ -68,42 +70,49 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 		</title>
 		<option value="1"><i18n>
 			<en>Just show quick colors</en>
+			<hr>Prikaži samo brze boje</hr>
 			<hu>Csak gyors színek megjelenítése</hu>
 			<es>Sólo colores rápidos</es>
 			<it>Mostra solo colori veloci</it>
 		</i18n></option>
 		<option value="3"><i18n>
 			<en>Show specified diffuse and ambient light</en>
+			<hr>Prikaži određeno difuzno i ambijentalno svjetlo</hr>
 			<hu>A megadott diffúz és szórt fény megjelenítése</hu>
 			<es>Mostrar luz ambiente y difusa indicadas</es>
 			<it>Mostra luce diffusa e ambiente indicata</it>
 		</i18n></option>
 		<option value="4"><i18n>
 			<en>Render shadows, but no extended lights</en>
+			<hr>Iscrtaj sjene, ali ne proširena svjetla</hr>
 			<hu>Árnyékok renderelése a kiterjesztett fények elhagyásával</hu>
 			<es>Crear sombras, pero no luces extendidas</es>
 			<it>Renderizza ombre, ma non luci estese</it>
 		</i18n></option>
 		<option value="5"><i18n>
 			<en>Render shadows, including extended lights</en>
+			<hr>Iscrtaj sjene, uključujući i proširena svjetla</hr>
 			<hu>Árnyékok renderelése a kiterjesztett fényekkel</hu>
 			<es>Crear sombras, incluyendo luces extendidas</es>
 			<it>Renderizza ombre, incluse luci estese</it>
 		</i18n></option>
 		<option value="7"><i18n>
 			<en>Compute texture patterns and photons</en>
+			<hr>Izračunaj mustre teksture i fotone</hr>
 			<hu>Textúra minták és fotonok kiszámítása</hu>
 			<es>Calcular patrones y fotones de textura</es>
 			<it>Calcola fotoni e modelli della texture</it>
 		</i18n></option>
 		<option value="8"><i18n>
 			<en>Compute reflections and refractions</en>
+			<hr>Izračunaj refleksije i lomove</hr>
 			<hu>Tükröződések és fénytörések kiszámítása </hu>
 			<es>Calcular reflexiones y refracciones</es>
 			<it>Calcola riflessi e rifrazioni</it>
 		</i18n></option>
 		<option value="11"><i18n>
 			<en>Compute media and radiosity</en>
+			<hr>Izračunaj medije i izračenje</hr>
 			<hu>Média és radiozitás kiszámítása</hu>
 			<es>Calcular medio y difusión radial</es>
 			<it>Calcola media e illuminazione globale</it>
@@ -115,6 +124,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				<en>Antialiasing:</en>
 				<cs>Vyhlazování:</cs>
 				<de>Antialiasing:</de>
+				<hr>Zaglađivanje:</hr>
 				<ru>Сглаживание:</ru>
 				<hu>Élsimítás:</hu>
 				<es>Antialias:</es>
@@ -123,12 +133,14 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 		</title>
 		<option value="+A"><i18n>
 			<en>On</en>
+			<hr>Uključeno</hr>
 			<hu>Bekapcsolva</hu>
 			<es>Activado</es>
 			<it>Abilitato</it>
 		</i18n></option>
 		<option value="-A"><i18n>
 			<en>Off</en>
+			<hr>Isključeno</hr>
 			<hu>Kikapcsolva</hu>
 			<es>Desactivado</es>
 			<it>Disabilitato</it>
@@ -139,6 +151,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<en>Antialiasing Threshold:</en>
 			<cs>Prahová hodnota vyhlazování:</cs>
 			<de>Antialiasing Schwellwert:</de>
+			<hr>Prag zaglađivanja:</hr>
 			<ru>Порог сглаживания:</ru>
 			<hu>Élsimítási küszöb:</hu>
 			<es>Umbral de antialias</es>
@@ -150,6 +163,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<en>Antialiasing Depth:</en>
 			<cs>Hloubka vyhlazování:</cs>
 			<de>Antialiasing Rekursion:</de>
+			<hr>Količina zaglađivanja:</hr>
 			<ru>Глубина сглаживания:</ru>
 			<hu>Élsimítás mélysége:</hu>
 			<es>Profundidad de antialias</es>

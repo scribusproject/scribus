@@ -29,6 +29,7 @@
 			<cs>Rozsahy</cs>
 			<de>Bereiche</de>
 			<fr>Rangées</fr>
+			<hr>Rasponi</hr>
 			<pl>Zakresy</pl>
 			<ru>Диапазоны</ru>
 			<hu>Tartomány</hu>
@@ -40,6 +41,7 @@
 			<cs>Vložte hvězdičku (*) pro automatický rozsah stupnice!</cs>
 			<de>Stern (*) für automatische Skalierung eingeben!</de>
 			<fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
+			<hr>Za automatsko skaliranje unesi asterisk (*)!</hr>
 			<pl>Wpisz asterisk (*) dla automatycznego skalowania!</pl>
 			<ru>Enter asterisk (*) for autoscale!</ru>
 			<hu>Automatikus méretezés csillaggal (*)</hu>
@@ -49,6 +51,7 @@
 		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Min:</en>
 			<cs>X Min:</cs>
+			<hr>X min.:</hr>
 			<pl>Min X:</pl>
 			<ru>Минимум по X:</ru>
 			<es>X mín.</es>
@@ -57,6 +60,7 @@
 		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Max:</en>
 			<cs>X Max:</cs>
+			<hr>X maks.:</hr>
 			<pl>Maks. X:</pl>
 			<ru>Максимум по X:</ru>
 			<es>X máx.</es>
@@ -65,6 +69,7 @@
 		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Min:</en>
 			<cs>Y Min:</cs>
+			<hr>Y min.:</hr>
 			<pl>Min Y:</pl>
 			<ru>Минимум по Y:</ru>
 			<es>Y mín.</es>
@@ -73,6 +78,7 @@
 		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Max:</en>
 			<cs>Y Max:</cs>
+			<hr>Y maks.:</hr>
 			<pl>Maks. Y:</pl>
 			<es>Y máx.</es>
 			<ru>Максимум по Y:</ru>
@@ -85,6 +91,7 @@
 			<cs>Popisky</cs>
 			<de>Beschriftungen</de>
 			<fr>Étiquettes</fr>
+			<hr>Oznake</hr>
 			<pl>Etykiety</pl>
 			<ru>Метки</ru>
 			<hu>Címkék</hu>
@@ -96,6 +103,7 @@
 			<cs>Název:</cs>
 			<de>Titel:</de>
 			<fr>Titre :</fr>
+			<hr>Naslov:</hr>
 			<pl>Tytuł:</pl>
 			<ru>Название:</ru>
 			<hu>Cím</hu>
@@ -106,6 +114,7 @@
 			<en>X-Label:</en>
 			<cs>Název osy X:</cs>
 			<de>X-Beschriftung:</de>
+			<hr>X oznaka:</hr>
 			<ru>Метка оси X:</ru>
 			<hu>X címke</hu>
 			<es>Etiqueta X</es>
@@ -115,6 +124,7 @@
 			<en>Y-Label:</en>
 			<cs>Název osy Y:</cs>
 			<de>Y-Beschriftung:</de>
+			<hr>Y oznaka:</hr>
 			<ru>Метка оси Y:</ru>
 			<hu>Y címke</hu>
 			<es>Etiqueta Y</es>
@@ -126,6 +136,7 @@
 				<cs>Mřížka:</cs>
 				<de>Gitter:</de>
 				<fr>Grille :</fr>
+				<hr>Mreža:</hr>
 				<pl>Siatka:</pl>
 				<ru>Сетка:</ru>
 				<hu>Rács</hu>
@@ -137,6 +148,7 @@
 				<cs>Žádná mřížka</cs>
 				<de>Kein Gitter</de>
 				<fr>Pas de Grille</fr>
+				<hr>Bez mreže</hr>
 				<pl>Bez siatki</pl>
 				<ru>Без сетки</ru>
 				<hu>Rács nélkül</hu>
@@ -148,6 +160,7 @@
 				<cs>Pouze hlavní mřížky</cs>
 				<de>Nur Hauptstriche</de>
 				<fr>Seulement les coches majeures</fr>
+				<hr>Samo glavne linije</hr>
 				<pl>Tylko główne linie</pl>
 				<ru>Только основные линии</ru>
 				<hu>Csak fővonalak</hu>
@@ -159,6 +172,7 @@
 				<cs>Hlavní i vedlejší mřížky</cs>
 				<de>Alle Stiche</de>
 				<fr>Coches majeures et mineures</fr>
+				<hr>Glavne i sporedne linije</hr>
 				<pl>Wszystkie linie</pl>
 				<ru>Основные и вторичные линии</ru>
 				<hu>Fő- és alvonalak is</hu>
@@ -172,6 +186,7 @@
 				<cs>Vrstva mřížky:</cs>
 				<de>Gitterebene:</de>
 				<fr>Niveau de la grille :</fr>
+				<hr>Sloj mreže:</hr>
 				<pl>Warstwa siatki:</pl>
 				<ru>Слой сетки:</ru>
 				<hu>Rács réteg</hu>
@@ -183,6 +198,7 @@
 				<cs>Na pozadí</cs>
 				<de>Hinten</de>
 				<fr>Arrière</fr>
+				<hr>Stražnji</hr>
 				<pl>Na spodzie</pl>
 				<ru>Позади</ru>
 				<hu>Alul</hu>
@@ -194,6 +210,7 @@
 				<cs>V popředí</cs>
 				<de>Vorne</de>
 				<fr>A l'avant</fr>
+				<hr>Prednji</hr>
 				<pl>Na wierzchu</pl>
 				<ru>Впереди</ru>
 				<hu>Felül</hu>
@@ -207,6 +224,7 @@
 				<cs>Nulová osa:</cs>
 				<de>Null-Achse:</de>
 				<fr>Axe Zero :</fr>
+				<hr>Ishodište:</hr>
 				<pl>Oś zerowa:</pl>
 				<ru>Начало координат:</ru>
 				<hu>Nulla tengely</hu>
@@ -218,6 +236,7 @@
 				<cs>Žádná</cs>
 				<de>Keine</de>
 				<fr>Aucun</fr>
+				<hr>Bez</hr>
 				<pl>Brak</pl>
 				<ru>Нет</ru>
 				<hu>Nincs</hu>
@@ -229,6 +248,7 @@
 				<cs>Osa X</cs>
 				<de>X-Achse</de>
 				<fr>Axe des X</fr>
+				<hr>Os X</hr>
 				<pl>Oś X</pl>
 				<ru>Для оси X</ru>
 				<hu>X tengely</hu>
@@ -240,6 +260,7 @@
 				<cs>Osa Y</cs>
 				<de>Y-Achse</de>
 				<fr>Axe des Y</fr>
+				<hr>Os Y</hr>
 				<pl>Oś Y</pl>
 				<ru>Для оси Y</ru>
 				<hu>Y tengely</hu>
@@ -251,6 +272,7 @@
 				<cs>Obě</cs>
 				<de>Beide</de>
 				<fr>Les deux</fr>
+				<hr>Obje</hr>
 				<pl>Obie</pl>
 				<ru>Для обеих осей</ru>
 				<hu>Mindkettő</hu>
