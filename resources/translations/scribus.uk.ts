@@ -12967,8 +12967,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="298"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="84"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="77"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="266"/>
         <source>Apply</source>
         <translation>Застосувати</translation>
     </message>
@@ -12979,91 +12979,91 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="324"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="271"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="424"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="427"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="264"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="417"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="420"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="35"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="104"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="97"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="36"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="105"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="98"/>
         <source>Section</source>
         <translation>Розділ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="37"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="106"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="30"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="99"/>
         <source>Story</source>
         <translation>Стаття</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="38"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="107"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="31"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="100"/>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="39"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="108"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="226"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="239"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="32"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="101"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="219"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="232"/>
         <source>Frame</source>
         <translation>Рамка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="76"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="69"/>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="77"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="70"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
         <translation>Діалог зараз у режимі додавання нового стилю приміток. Натиснувши Скасувати ви перемкнете його в звичайний режим редагування стилів приміток.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="78"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="413"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="71"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="406"/>
         <source>Add Style</source>
         <translation>Додати стиль</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="165"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="172"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="179"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="200"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="255"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="193"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="248"/>
         <source>default</source>
         <translation>типовий</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="217"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="219"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="210"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="212"/>
         <source>No Style</source>
         <translation>Без стилю</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="385"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="378"/>
         <source>Warning! Deleting Notes Style</source>
         <translation>Попередження! Видаляється стиль примітки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="386"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="379"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
         <translation>Ви збираєтесь видалити стиль примітки %1. Всі примітки і позначки, що використовують.цей стиль, також будуть видалені.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="418"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="411"/>
         <source>Cancel Adding</source>
         <translation>Скасувати додання</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="419"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="412"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>Редактор стилів приміток зараз у режимі додавання нового стилю. Натиснувши Скасувати ви перемкнете його в звичайний режим редагування стилів приміток.</translation>
     </message>
@@ -17923,12 +17923,12 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="184"/>
+        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="174"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Число сторінок виходить за межі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="184"/>
+        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="174"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation>Введене Вами значення виходить за діапазон номерів сторінок активного документа (%1-%2).</translation>
     </message>
@@ -24545,22 +24545,22 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_ParEffect</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="226"/>
+        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="219"/>
         <source>Drop Caps</source>
         <translation>Буквиця</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
+        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="220"/>
         <source>Bulleted List</source>
         <translation>Маркований список</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="228"/>
+        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="221"/>
         <source>Numbered List</source>
         <translation>Нумерований список</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="225"/>
+        <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="218"/>
         <source>No Paragraph Effects</source>
         <translation>Без ефектів абзацу</translation>
     </message>
@@ -29560,7 +29560,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3261"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2171"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6133"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6137"/>
         <source>Copy #%1 of </source>
         <translation>Копія %1 з </translation>
     </message>
@@ -30273,43 +30273,43 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Файл конфігурації %1 не знайдено або файл не читається</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="54"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="55"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
         <translation>Назва стилю абзацу не може бути порожньою.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="74"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="75"/>
         <source>hasdropcap has to be 0 or 1.</source>
         <comment>python error</comment>
         <translation>hasdropcap має бути 0 або 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="139"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="150"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Назва стилю символу не може бути порожньою.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="159"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="158"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="171"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="163"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="179"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="279"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="321"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -32226,33 +32226,33 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2109"/>
         <source>Character Styles</source>
         <translation>Стилі символів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2111"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2114"/>
         <source>Character Style</source>
         <translation>Стиль символу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2244"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2247"/>
         <source>New Style</source>
         <translation>Новий стиль</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2266"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2269"/>
         <source>Clone of %1</source>
         <translation>Клон %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2290"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2293"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="3068"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="3071"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation>Встановлення цього стилю предком створить зациклення.</translation>
     </message>
@@ -32469,28 +32469,37 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
+    <name>SMNumFormatCombo</name>
+    <message>
+        <location filename="../../scribus/ui/smnumformatcombo.cpp" line="39"/>
+        <location filename="../../scribus/ui/smnumformatcombo.cpp" line="83"/>
+        <source>Use Parent Value</source>
+        <translation type="unfinished">Використати значення предка</translation>
+    </message>
+</context>
+<context>
     <name>SMPStyleWidget</name>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="50"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="115"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="240"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="575"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="114"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="233"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="567"/>
         <source>Fixed Linespacing</source>
         <translation>Фіксований міжрядковий інтервал</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="51"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="116"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="241"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="576"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="115"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="234"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="568"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматичний міжрядковий інтервал</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="52"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="117"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="242"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="577"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="116"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="235"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="569"/>
         <source>Align to Baseline Grid</source>
         <translation>Вирівняти за базовою сіткою</translation>
     </message>
@@ -32615,24 +32624,24 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Рядки буквиці</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="108"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="107"/>
         <source>First Line Indent</source>
         <translation>Відступ першого рядка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="109"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="108"/>
         <source>Left Indent</source>
         <translation>Відступ зліва</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="110"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="109"/>
         <source>Right Indent</source>
         <translation>Відступ справа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="32"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="470"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="982"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="462"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="974"/>
         <source>Based On:</source>
         <translation>Базується на:</translation>
     </message>
@@ -32662,7 +32671,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Оптичні поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="466"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Типовому стилю неможливо призначити предка</translation>
     </message>
@@ -32715,8 +32724,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="290"/>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="327"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="124"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
         <source> lines</source>
         <translation>рядків</translation>
     </message>
@@ -32751,9 +32760,9 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Позначте, щоб абзац переносився на наступну колонку або сторінку, якщо наступний абзац не помістився на одній сторінці з ним</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="465"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="468"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1203"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="457"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="460"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1195"/>
         <source>No Style</source>
         <translation>Без стилю</translation>
     </message>
@@ -32798,27 +32807,27 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Скинути абзацний ефект перед відступанням абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="213"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="206"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="214"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="207"/>
         <source>Section</source>
         <translation>Розділ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="215"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="208"/>
         <source>Story</source>
         <translation>Стаття</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="216"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="209"/>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="217"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="210"/>
         <source>Frame</source>
         <translation>Рамка</translation>
     </message>
@@ -32848,7 +32857,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Мін. ширина пропуску:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="546"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="538"/>
         <source>Shade</source>
         <translation>Затінити</translation>
     </message>
@@ -32912,7 +32921,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="1984"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="1987"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation>Встановлення цього стилю предком створить зациклення.</translation>
     </message>
@@ -34827,7 +34836,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Документ Scribus 1.5.0+</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6761"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6765"/>
         <source>Copy #%1 of </source>
         <translation>Копія %1 з </translation>
     </message>
