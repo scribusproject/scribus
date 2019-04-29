@@ -80,8 +80,6 @@ private:
 	void enableParEffect(bool);
 	void fillBulletStrEditCombo();
 
-	void fillNumFormatCombo();
-
 	void fillPECombo();
 
 signals:

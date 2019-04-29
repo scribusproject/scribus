@@ -604,6 +604,7 @@
     <moc Include="..\..\..\scribus\ui\pdfversioncombo.h" />
     <moc Include="..\..\..\scribus\ui\pdfversionmodel.h" />
     <moc Include="..\..\..\scribus\ui\cxfimportdialog.h" />
+    <moc Include="..\..\..\scribus\ui\numformatcombo.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -624,6 +625,7 @@
     <moc Include="..\..\..\scribus\ui\smlineedit.h" />
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
     <moc Include="..\..\..\scribus\ui\textpalette.h" />
+    <moc Include="..\..\..\scribus\ui\smnumformatcombo.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
@@ -1168,6 +1170,7 @@
     <ClCompile Include="..\..\..\scribus\ui\notesstyleseditor.cpp" />
     <ClCompile Include="..\..\..\scribus\numeration.cpp" />
     <ClCompile Include="..\..\..\scribus\observable.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\numformatcombo.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\oneclick.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\outlinepalette.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitem.cpp" />
@@ -1374,6 +1377,7 @@
     <ClCompile Include="..\..\..\scribus\ui\smdirectionselect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smfontfeatures.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smlineedit.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\smnumformatcombo.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\textpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp" />

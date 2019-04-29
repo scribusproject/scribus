@@ -404,6 +404,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/nftwidget.h
 	ui/nodeeditpalette.h
 	ui/notesstyleseditor.h
+	ui/numformatcombo.h
 	ui/oneclick.h
 	ui/outlinepalette.h
 	ui/pageitemattributes.h
@@ -515,6 +516,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/smfontcomboh.h
 	ui/smlinestyle.h
 	ui/smlinestylewidget.h
+	ui/smnumformatcombo.h
 	ui/smpstylewidget.h
 	ui/smradiobutton.h
 	ui/smreplacedia.h
@@ -901,6 +903,7 @@ set(SCRIBUS_SOURCES
 	ui/nftwidget.cpp
 	ui/nodeeditpalette.cpp
 	ui/notesstyleseditor.cpp
+	ui/numformatcombo.cpp
 	ui/oneclick.cpp
 	ui/outlinepalette.cpp
 	ui/pageitemattributes.cpp
@@ -1012,6 +1015,7 @@ set(SCRIBUS_SOURCES
 	ui/smfontcomboh.cpp
 	ui/smlinestyle.cpp
 	ui/smlinestylewidget.cpp
+	ui/smnumformatcombo.cpp
 	ui/smpstylewidget.cpp
 	ui/smradiobutton.cpp
 	ui/smreplacedia.cpp

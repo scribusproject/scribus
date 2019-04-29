@@ -47,7 +47,6 @@ private:
 
 	void fillColorCombo(ColorList &colors);
 	void fillBulletStrEditCombo();
-	void fillNumFormatCombo();
 	void fillNumerationsCombo();
 	void fillNumRestartCombo();
 	void checkParEffectState();

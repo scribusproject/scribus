@@ -34,7 +34,6 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 	if (m_doc)
 		peCharStyleCombo->updateFormatList();
 	fillBulletStrEditCombo();
-	fillNumFormatCombo();
 	enableParEffect(false);
 	bulletCharTableButton->setIcon(IconManager::instance()->loadIcon("22/insert-table.png"));
 	numStart->setMinimum(1);
@@ -211,12 +210,6 @@ void PropertyWidget_ParEffect::fillBulletStrEditCombo()
 		bulletStrEdit->setEditText(QChar(0x2022));
 }
 
-void PropertyWidget_ParEffect::fillNumFormatCombo()
-{
-	numFormatCombo->clear();
-	numFormatCombo->addItems(getFormatList());
-}
-
 void PropertyWidget_ParEffect::fillPECombo()
 {
 	QSignalBlocker sb(peCombo);
@@ -289,8 +282,7 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	numSuffix->setText(newPStyle.numSuffix());
 	numStart->setValue(newPStyle.numStart());
 
-	nFormat = newPStyle.numFormat();
-	numFormatCombo->setCurrentIndex(nFormat);
+	numFormatCombo->setCurrentFormat((NumFormat) newPStyle.numFormat());
 	peOffset->setValue(newPStyle.parEffectOffset() * m_unitRatio);
 	peIndent->setChecked(newPStyle.parEffectIndent());
 	showCharStyle(newPStyle.peCharStyleName());
@@ -408,7 +400,7 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 		newStyle.setHasBullet(false);
 		newStyle.setHasNum(true);
 		newStyle.setNumName(numComboBox->currentText());
-		newStyle.setNumFormat(numFormatCombo->currentIndex());
+		newStyle.setNumFormat(numFormatCombo->currentFormat());
 		newStyle.setNumLevel(numLevelSpin->value() -1);
 		newStyle.setNumStart(numStart->value());
 		newStyle.setNumPrefix(numPrefix->text());
@@ -472,7 +464,7 @@ void PropertyWidget_ParEffect::handleNumName(const QString& numName)
 		numLevelSpin->setValue(level +1);
 		newStyle.setNumLevel(level);
 		Numeration num = numS->m_nums[level];
-		numFormatCombo->setCurrentIndex((int) num.numFormat);
+		numFormatCombo->setCurrentFormat(num.numFormat);
 		numStart->setValue(num.start);
 		numPrefix->setText(num.prefix);
 		numSuffix->setText(num.suffix);
@@ -480,17 +472,19 @@ void PropertyWidget_ParEffect::handleNumName(const QString& numName)
 	newStyle.setNumPrefix(numPrefix->text());
 	newStyle.setNumSuffix(numSuffix->text());
 	newStyle.setNumName(numName);
-	newStyle.setNumFormat((NumFormat) numFormatCombo->currentIndex());
+	newStyle.setNumFormat(numFormatCombo->currentFormat());
 	handleChanges(m_item, newStyle);
 	connectSignals();
 }
 
-void PropertyWidget_ParEffect::handleNumFormat(int style)
+void PropertyWidget_ParEffect::handleNumFormat(int /*style*/)
 {
 	if (!m_doc || !m_item)
 		return;
+	NumFormat format = numFormatCombo->currentFormat();
+
 	ParagraphStyle newStyle;
-	newStyle.setNumFormat(style);
+	newStyle.setNumFormat(format);
 	handleChanges(m_item, newStyle);
 }
 
@@ -506,7 +500,7 @@ void PropertyWidget_ParEffect::handleNumLevel(int level)
 		{
 			numS->m_counters.append(0);
 			Numeration num;
-			num.numFormat = (NumFormat) numFormatCombo->currentIndex();
+			num.numFormat = numFormatCombo->currentFormat();
 			num.prefix = numPrefix->text();
 			num.suffix = numSuffix->text();
 			num.start = numStart->value();

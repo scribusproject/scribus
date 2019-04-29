@@ -67,7 +67,6 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 
 	fillBulletStrEditCombo();
 	bulletCharTableButton->setIcon(IconManager::instance()->loadPixmap("22/insert-table.png"));
-	fillNumFormatCombo();
 	numStartSpin->setMinimum(1);
 	numStartSpin->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
@@ -189,12 +188,6 @@ void SMPStyleWidget::fillBulletStrEditCombo()
 		bulletStrEdit->setEditText(QChar(0x2022));
 }
 
-void SMPStyleWidget::fillNumFormatCombo()
-{
-	numFormatCombo->clear();
-	numFormatCombo->addItems(getFormatList());
-}
-
 void SMPStyleWidget::fillNumerationsCombo()
 {
 	QStringList numNames;
@@ -257,7 +250,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	maxConsecutiveCountSpinBox->clear();
 	
 	//fillBulletStrEditCombo();
-	//fillNumFormatCombo();
 	//fillNumerationsCombo();
 	//fillNumRestartCombo();
 
@@ -367,8 +359,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 			numComboBox->setParentItem(numComboBox->findText(parent->numName()));
 		else
 			numComboBox->setParentItem(0);
-		numFormatCombo->setCurrentItem(pstyle->numFormat());
-		numFormatCombo->setParentItem(parent->numFormat());
+		numFormatCombo->setCurrentFormat((NumFormat) pstyle->numFormat());
+		numFormatCombo->setParentFormat((NumFormat) parent->numFormat());
 		numLevelSpin->setValue(pstyle->numLevel() +1, pstyle->isInhNumLevel());
 		NumStruct * numS = m_Doc->numerations.value(pstyle->numName());
 		if (numS)
@@ -425,7 +417,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 			numName = "default";
 		numComboBox->setCurrentItem(numComboBox->findText(numName));
 		numNewLineEdit->clear();
-		numFormatCombo->setCurrentIndex(pstyle->numFormat());
+		numFormatCombo->setCurrentFormat((NumFormat) pstyle->numFormat());
 		numLevelSpin->setValue(pstyle->numLevel()+1);
 		NumStruct * numS = m_Doc->numerations.value(pstyle->numName());
 		if (numS)

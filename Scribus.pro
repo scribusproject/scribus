@@ -494,6 +494,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/nftwidget.h \
            scribus/ui/nodeeditpalette.h \
            scribus/ui/notesstyleseditor.h \
+           scribus/ui/numformatcombo.h \
            scribus/ui/oneclick.h \
            scribus/ui/openpalette.h \
            scribus/ui/openpaletteview.h \
@@ -616,6 +617,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/smlineedit.h \
            scribus/ui/smlinestyle.h \
            scribus/ui/smlinestylewidget.h \
+           scribus/ui/smnumformatcombo.h \
            scribus/ui/smpstylewidget.h \
            scribus/ui/smradiobutton.h \
            scribus/ui/smreplacedia.h \
@@ -1175,6 +1177,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/scripter/python/sceditor/mainwindow.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
          scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
+
 SOURCES += scribus/actionmanager.cpp \
            scribus/appmodehelper.cpp \
            scribus/canvas.cpp \
@@ -1610,6 +1613,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/nftwidget.cpp \
            scribus/ui/nodeeditpalette.cpp \
            scribus/ui/notesstyleseditor.cpp \
+           scribus/ui/numformatcombo.cpp \
            scribus/ui/oneclick.cpp \
            scribus/ui/openpalette.cpp \
            scribus/ui/openpaletteview.cpp \
@@ -1731,6 +1735,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/smlineedit.cpp \
            scribus/ui/smlinestyle.cpp \
            scribus/ui/smlinestylewidget.cpp \
+           scribus/ui/smnumformatcombo.cpp \
            scribus/ui/smpstylewidget.cpp \
            scribus/ui/smradiobutton.cpp \
            scribus/ui/smreplacedia.cpp \

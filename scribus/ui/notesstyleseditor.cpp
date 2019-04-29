@@ -25,13 +25,6 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	setDoc(nullptr);
 	NSlistBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
-	NumberingBox->addItem("1 2 3");
-	NumberingBox->addItem("i ii iii");
-	NumberingBox->addItem("I II III");
-	NumberingBox->addItem("a b c");
-	NumberingBox->addItem("A B C");
-	NumberingBox->addItem("*");
-
 	RangeBox->addItem(tr("Document"));
 	RangeBox->addItem(tr("Section"));
 	RangeBox->addItem(tr("Story"));
@@ -207,7 +200,7 @@ void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 	else
 		EndRadio->setEnabled(true);
 	EndRadio->setChecked(NS->isEndNotes());
-	NumberingBox->setCurrentIndex((int) NS->getType());
+	NumberingBox->setCurrentFormat(NS->getType());
 	RangeBox->setCurrentIndex((int) NS->range());
 	StartSpinBox->setValue(NS->start());
 	PrefixEdit->setText(NS->prefix());
@@ -500,10 +493,12 @@ void NotesStylesEditor::on_EndRadio_toggled(bool checked)
 	setBlockSignals(wasSignalsBlocked);
 }
 
-void NotesStylesEditor::on_NumberingBox_currentIndexChanged(int index)
+void NotesStylesEditor::on_NumberingBox_currentIndexChanged(int /*index*/)
 {
 	NotesStyle ns = changesMap.value(NSlistBox->currentText());
-	ns.setType((NumFormat) index);
+
+	NumFormat formatType = NumberingBox->currentFormat();
+	ns.setType(formatType);
 
 	changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);

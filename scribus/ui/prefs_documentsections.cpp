@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
+#include "ui/numformatcombo.h"
 #include "ui/scmessagebox.h"
 
 Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
@@ -76,13 +77,10 @@ void Prefs_DocumentSections::updateTable()
 		QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(it->toindex + 1));
 		sectionsTable->setItem(row, i++, item4);
 		//Style
-		QComboBox *item5 = new QComboBox();
+		NumFormatCombo *item5 = new NumFormatCombo(nullptr, true);
 		item5->addItems(m_styles);
 		sectionsTable->setCellWidget(row, i++, item5);
-		if (it->type==Type_None)
-			item5->setCurrentIndex(m_styles.count() - 1);
-		else
-			item5->setCurrentIndex(it->type);
+		item5->setCurrentFormat(it->type);
 		//Start Page Number
 		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(it->sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
@@ -146,16 +144,9 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			break;
 		case 5:
 			{
-				QComboBox* qcti = dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
+				NumFormatCombo* qcti = dynamic_cast<NumFormatCombo*>(sectionsTable->cellWidget(row,col));
 				if (qcti != nullptr)
-				{
-					int index = qcti->currentIndex();
-					if (index < m_styles.count() - 1)
-						m_localSections[row].type = (NumFormat) index;
-					else
-						if (index == m_styles.count() - 1)
-							m_localSections[row].type = Type_None;
-				}
+					m_localSections[row].type = qcti->currentFormat();
 			}
 			break;
 		case 6:

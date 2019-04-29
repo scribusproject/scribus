@@ -1173,14 +1173,17 @@ void SMParagraphStyle::slotSelectionDirty()
 	}
 }
 
-void SMParagraphStyle::slotNumFormat(int numFormat)
+void SMParagraphStyle::slotNumFormat(int)
 {
-	if (m_pwidget->numFormatCombo->useParentValue())
+	if (m_pwidget->numFormatCombo->useParentFormat())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumFormat();
 	else
+	{
+		NumFormat numFormat = m_pwidget->numFormatCombo->currentFormat();
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setNumFormat(numFormat);
+	}
 
 	if (!m_selectionIsDirty)
 	{

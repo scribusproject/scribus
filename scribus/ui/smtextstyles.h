@@ -85,7 +85,7 @@ private slots:
 	void slotNumName(const QString &str);
 	void slotNumNew();
 	void slotSelectionDirty();
-	void slotNumFormat(int numFormat);
+	void slotNumFormat(int);
 	void slotNumLevel(int level);
 	void slotNumPrefix(const QString &str);
 	void slotNumSuffix(const QString &str);

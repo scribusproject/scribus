@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QMap>
 
-typedef enum 
+enum NumFormat
 {
 	Type_1_2_3,
 	Type_1_2_3_ar,
@@ -17,17 +17,19 @@ typedef enum
 	Type_Abjad_ar,
 	Type_asterix,
 	Type_CJK,
+	Type_Hebrew,
 	Type_None=99
-} NumFormat;
+};
 
-typedef enum {
+enum NumerationRange
+{
 	NSRdocument,
 	NSRsection,
 	NSRstory,
 	NSRpage,
 	NSRframe
 //	NSRblock //used for contignous numeration eg. paragraphs - paragraph without numbering reset counter
-} NumerationRange;
+};
 
 class Numeration
 {
@@ -47,15 +49,31 @@ public:
 	int start;
 };
 
+struct NumFormatPair
+{
+	NumFormat format;
+	QString   str;
+};
+
 //struct used by ScribusDoc for storing numerations used in document
-typedef struct {
+struct NumStruct
+{
 	QString m_name;
 	QList<Numeration> m_nums;
 	QList<int> m_counters;
 	int m_lastlevel;
-} NumStruct;
+};
 
 //util functions for use without Numeration class
+
+//convert passed num to a string useable when saving file
+QString fromNumToString(NumFormat format);
+//convert passed num to a string useable in a combobox
+QString fromNumToUserString(NumFormat format);
+//convert string to its NumFormat representation
+NumFormat fromStringToNum(const QString& str);
+//convert user string to its NumFormat representation
+NumFormat fromUserStringToNum(const QString& str);
 //convert passed num to string using numeration style
 QString getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int charsLen=0);
 //convert passed num to string with custom chars

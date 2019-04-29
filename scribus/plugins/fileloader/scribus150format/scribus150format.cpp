@@ -3408,6 +3408,8 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 				NS.setType(Type_Alphabet_ar);
 			else if (type == "Type_Abjad_ar")
 				NS.setType(Type_Abjad_ar);
+			else if (type == "Type_Hebrew")
+				NS.setType(Type_Hebrew);
 			else if (type == "Type_asterix")
 				NS.setType(Type_asterix);
 			else if (type == "Type_CJK")
@@ -3576,6 +3578,8 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 				newSection.type=Type_Alphabet_ar;
 			if (type == "Type_Abjad_ar")
 				newSection.type=Type_Abjad_ar;
+			if (type == "Type_Hebrew")
+				newSection.type=Type_Hebrew;
 			if (type == "Type_CJK")
 				newSection.type=Type_CJK;
 			if (type == "Type_None")

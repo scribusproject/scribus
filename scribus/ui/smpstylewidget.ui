@@ -945,7 +945,7 @@
              </widget>
             </item>
             <item>
-             <widget class="SMScComboBox" name="numFormatCombo">
+             <widget class="SMNumFormatCombo" name="numFormatCombo">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1388,6 +1388,11 @@
    <extends>QWidget</extends>
    <header location="global">ui/smdirectionselect.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SMNumFormatCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/smnumformatcombo.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

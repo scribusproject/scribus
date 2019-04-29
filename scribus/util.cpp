@@ -553,6 +553,9 @@ const QString getStringFromSequence(NumFormat type, uint position, const QString
 		case Type_Abjad_ar:
 			retVal = numberToLetterSequence(abjad, position);
 			break;
+		case Type_Hebrew:
+			retVal = numberToHebrew(position);
+			break;
 		case Type_I_II_III:
 			retVal = numberToRoman(position);
 			break;
@@ -1173,6 +1176,45 @@ void getUniqueName(QString &name, const QStringList& list, const QString& separa
 	name = newName;
 }
 
+const QString numberToHebrew(uint i)
+{
+	const QString hebrew("אבגדהוזחטיכלמנסעפצקרשת");
+	QString result;
+
+	if (i > 999)
+	{
+		result.append(numberToHebrew(i / 1000));
+		result.append(QChar(0x05F3));
+		i %= 1000;
+	}
+
+	int hundreds = i / 100;
+	int tens = (i - hundreds * 100) / 10;
+	int ones = i % 10;
+
+	while (hundreds > 4)
+	{
+		result.append(hebrew.at(21));
+		hundreds -= 4;
+	}
+
+	if (hundreds)
+		result.append(hebrew.at(hundreds + 17));
+
+	if (tens == 1 && ones == 5)
+		result.append("טו");
+	else if (tens == 1 && ones == 6)
+		result.append("טז");
+	else
+	{
+		if (tens)
+			result.append(hebrew.at(tens + 8));
+		if (ones)
+			result.append(hebrew.at(ones - 1));
+	}
+
+	return result;
+}
 
 const QString numberToCJK(uint i)
 {

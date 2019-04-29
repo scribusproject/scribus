@@ -1273,6 +1273,9 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 			case Type_Abjad_ar:
 				docu.writeAttribute("Type", "Type_Abjad_ar");
 				break;
+			case Type_Hebrew:
+				docu.writeAttribute("Type", "Type_Hebrew");
+				break;
 			case Type_asterix:
 				docu.writeAttribute("Type", "Type_asterix");
 				break;
@@ -1364,6 +1367,9 @@ void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 				break;
 			case Type_Abjad_ar:
 				docu.writeAttribute("Type", "Type_Abjad_ar");
+				break;
+			case Type_Hebrew:
+				docu.writeAttribute("Type", "Type_Hebrew");
 				break;
 			case Type_asterix:
 				docu.writeAttribute("Type", "Type_asterix");

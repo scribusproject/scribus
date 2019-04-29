@@ -210,7 +210,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="numFormatCombo">
+         <widget class="NumFormatCombo" name="numFormatCombo">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -349,6 +349,11 @@
    <class>CharStyleComboBox</class>
    <extends>QComboBox</extends>
    <header>ui/spalette.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NumFormatCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/numformatcombo.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -128,6 +128,7 @@ QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QS
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
 const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
+const QString SCRIBUS_API numberToHebrew(uint i);
 const QString SCRIBUS_API numberToRoman(uint i);
 const QString SCRIBUS_API numberToCJK(uint i);
 QChar SCRIBUS_API cjkDigit(uint i);
