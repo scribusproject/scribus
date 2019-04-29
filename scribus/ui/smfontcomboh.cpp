@@ -9,10 +9,10 @@ for which a new license (GPL+exception) is in place.
 
 SMFontComboH::SMFontComboH(QWidget *parent)
 : FontComboH(parent, true),
-  hasParent_(false),
-  useParentValue_(false),
-  pFont_(QString::null),
-  usePFont_( tr("Use Parent Font"))
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_parentFont(QString::null),
+  m_useParentFont( tr("Use Parent Font"))
 {
 	
 }
@@ -22,8 +22,8 @@ void SMFontComboH::setCurrentFont(const QString &s)
 	disconnect(fontFamily, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	disconnect(fontStyle, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	setFont(false);
-	hasParent_ = false;
-	pFont_ = s;
+	m_hasParent = false;
+	m_parentFont = s;
 	FontComboH::setCurrentFont(s);
 }
 
@@ -31,8 +31,8 @@ void SMFontComboH::setCurrentFont(const QString &s, bool isParentValue)
 {
 	disconnect(fontFamily, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	disconnect(fontStyle, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
-	hasParent_ = true;
-	pFont_ = s;
+	m_hasParent = true;
+	m_parentFont = s;
 	FontComboH::setCurrentFont(s);
 	setFont(!isParentValue);
 	connect(fontFamily, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
@@ -41,33 +41,33 @@ void SMFontComboH::setCurrentFont(const QString &s, bool isParentValue)
 
 void SMFontComboH::setParentFont(const QString &s)
 {
-	hasParent_ = true;
-	pFont_ = s;
+	m_hasParent = true;
+	m_parentFont = s;
 }
 
 bool SMFontComboH::useParentFont()
 {
 	bool ret = false;
 
-	if (useParentValue_ && hasParent_)
+	if (m_useParentValue && m_hasParent)
 	{
-		ret = fontFamily->currentText() == usePFont_ ||
-			  fontStyle->currentText() == usePFont_;
+		ret = fontFamily->currentText() == m_useParentFont ||
+			  fontStyle->currentText() == m_useParentFont;
 
 		if (ret)
 		{
 			bool familySigBlocked = fontFamily->blockSignals(true);
 			bool styleSigBlocked = fontStyle->blockSignals(true);
-			if (fontFamily->itemText(fontFamily->count() - 1) == usePFont_)
+			if (fontFamily->itemText(fontFamily->count() - 1) == m_useParentFont)
 				fontFamily->removeItem(fontFamily->count() - 1);
-			if (fontStyle->itemText(fontStyle->count() - 1) == usePFont_)
+			if (fontStyle->itemText(fontStyle->count() - 1) == m_useParentFont)
 				fontStyle->removeItem(fontStyle->count() - 1);
 			fontFamily->blockSignals(familySigBlocked);
 			fontStyle->blockSignals(styleSigBlocked);
 
 			setFont(false);
-			setCurrentFont(pFont_, true);
-			useParentValue_ = false;
+			setCurrentFont(m_parentFont, true);
+			m_useParentValue = false;
 		}
 	}
 
@@ -84,22 +84,22 @@ void SMFontComboH::setFont(bool wantBold)
 
 void SMFontComboH::currentChanged()
 {
-	if (hasParent_ && !useParentValue_)
+	if (m_hasParent && !m_useParentValue)
 	{
 		setFont(true);
-		fontFamily->addItem(usePFont_);
-		fontStyle->addItem(usePFont_);
-		useParentValue_ = true;
+		fontFamily->addItem(m_useParentFont);
+		fontStyle->addItem(m_useParentFont);
+		m_useParentValue = true;
 	}
-	else if (hasParent_)
+	else if (m_hasParent)
 		checkStyle();
 }
 
 void SMFontComboH::checkStyle()
 {
-	if (hasParent_ && useParentValue_)
+	if (m_hasParent && m_useParentValue)
 	{
-		if (fontStyle->itemText(fontStyle->count() - 1) != usePFont_)
-			fontStyle->addItem(usePFont_);
+		if (fontStyle->itemText(fontStyle->count() - 1) != m_useParentFont)
+			fontStyle->addItem(m_useParentFont);
 	}
 }

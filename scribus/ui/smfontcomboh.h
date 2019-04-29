@@ -26,10 +26,11 @@ public:
 	bool useParentFont();
 
 private:
-	bool   hasParent_;
-	bool   useParentValue_;
-	QString pFont_;
-	QString usePFont_;
+	bool    m_hasParent;
+	bool    m_useParentValue;
+	QString m_parentFont;
+	QString m_useParentFont;
+
 	void setFont(bool wantBold);
 
 private slots:
