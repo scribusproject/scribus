@@ -429,8 +429,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			{
 				if (dst->isPageRef())
 				{
-					Ref dstr = dst->getPageRef();
-					pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+					pagNum = pdfDoc->findPage(dst->getPageRef());
 				}
 				else
 					pagNum = dst->getPageNum();
@@ -451,8 +450,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 					{
 						if (dstn->isPageRef())
 						{
-							Ref dstr = dstn->getPageRef();
-							pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+							pagNum = pdfDoc->findPage(dstn->getPageRef());
 						}
 						else
 							pagNum = dstn->getPageNum();
@@ -931,8 +929,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				{
 					if (dst->isPageRef())
 					{
-						Ref dstr = dst->getPageRef();
-						pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+						pagNum = pdfDoc->findPage(dst->getPageRef());
 					}
 					else
 						pagNum = dst->getPageNum();
@@ -955,8 +952,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 						{
 							if (dstn->isPageRef())
 							{
-								Ref dstr = dstn->getPageRef();
-								pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+								pagNum = pdfDoc->findPage(dstn->getPageRef());
 							}
 							else
 								pagNum = dstn->getPageNum();
