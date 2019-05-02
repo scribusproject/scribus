@@ -430,7 +430,11 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 				if (dst->isPageRef())
 				{
 					Ref dstr = dst->getPageRef();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
+					pagNum = pdfDoc->findPage(dstr);
+#else
 					pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+#endif
 				}
 				else
 					pagNum = dst->getPageNum();
@@ -452,7 +456,11 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 						if (dstn->isPageRef())
 						{
 							Ref dstr = dstn->getPageRef();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
+							pagNum = pdfDoc->findPage(dstr);
+#else
 							pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+#endif
 						}
 						else
 							pagNum = dstn->getPageNum();
@@ -932,7 +940,11 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					if (dst->isPageRef())
 					{
 						Ref dstr = dst->getPageRef();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
+						pagNum = pdfDoc->findPage(dstr);
+#else
 						pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+#endif
 					}
 					else
 						pagNum = dst->getPageNum();
@@ -956,7 +968,11 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 							if (dstn->isPageRef())
 							{
 								Ref dstr = dstn->getPageRef();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
+								pagNum = pdfDoc->findPage(dstr);
+#else
 								pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+#endif
 							}
 							else
 								pagNum = dstn->getPageNum();
