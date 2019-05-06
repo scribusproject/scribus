@@ -2480,6 +2480,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		else if (params == "none")
 		{
 			obj->FillCol = CommonStrings::None;
+			obj->FillGradientType = 0;
 		}
 		else if (params.startsWith( "url(" ))
 		{
@@ -2569,7 +2570,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			obj->FillCol = CommonStrings::None;
 		}
 		else
+		{
 			obj->FillCol = parseColor(params);
+			obj->FillGradientType = 0;
+		}
 	}
 	else if (command == "fill-rule")
 	{
@@ -2594,6 +2598,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		else if (params == "none")
 		{
 			obj->StrokeCol = CommonStrings::None;
+			obj->StrokeGradientType = 0;
 		}
 		else if (params.startsWith( "url(" ) )
 		{
@@ -2683,24 +2688,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			obj->StrokeCol = CommonStrings::None;
 		}
 		else
+		{
 			obj->StrokeCol = parseColor(params);
-		/*		if (params == "none")
-					gc->stroke.setType(VStroke::none);
-				else if (params.startsWith( "url(" ))
-				{
-					unsigned int start = params.find("#") + 1;
-					unsigned int end = params.lastIndexOf(")");
-					QString key = params.mid(start, end - start);
-					gc->stroke.gradient() = m_gradients[ key ].gradient;
-					gc->stroke.gradient().transform(m_gradients[ key ].gradientTransform);
-					gc->stroke.gradient().transform(gc->matrix);
-					gc->stroke.setType(VStroke::grad);
-				}
-				else
-				{
-					parseColor(strokecolor, params);
-					gc->stroke.setType(VStroke::solid);
-				} */
+			obj->StrokeGradientType = 0;
+		}
 	}
 	else if (command == "stroke-width")
 		obj->LWidth = parseUnit(params);
