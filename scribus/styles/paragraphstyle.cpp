@@ -236,6 +236,8 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
 
+	lists.collectColor(backgroundColor());
+
 	QString parEffectStyle = peCharStyleName();
 	if (parEffectStyle.length() > 0)
 	{
@@ -249,13 +251,17 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 
 void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
 {
-	QMap<QString,QString>::ConstIterator it;
+	QMap<QString, QString>::ConstIterator it;
 	
 	if (hasParent() && (it = (newNames.styles().find(parent()))) != newNames.styles().end())
 	{
 		setParent(it.value());
 		repairImplicitCharStyleInheritance();
 	}
+
+	if (!inh_BackgroundColor && (it = newNames.colors().find(backgroundColor())) != newNames.colors().end())
+		setBackgroundColor(it.value());
+
 	if ((it = (newNames.charStyles().find(peCharStyleName()))) != newNames.charStyles().end())
 		setPeCharStyleName(it.value());
 	m_cstyle.replaceNamedResources(newNames);

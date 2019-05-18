@@ -405,7 +405,7 @@ void CharStyle::getNamedResources(ResourceCollection& lists) const
 
 void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 {
-	QMap<QString,QString>::ConstIterator it;
+	QMap<QString, QString>::ConstIterator it;
 
 	if (!inh_FillColor && (it = newNames.colors().find(fillColor())) != newNames.colors().end())
 		setFillColor(it.value());
