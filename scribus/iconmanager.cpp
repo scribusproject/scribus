@@ -130,6 +130,10 @@ void IconManager::readIconConfigFiles()
 				{
 					isd.activeversion = e.text();
 				}
+				else if (e.tagName() == "variant")
+				{
+					isd.variant = e.text();
+				}
 				else if (e.tagName() == "nametext")
 				{
 					if (e.hasAttribute("lang"))
@@ -166,6 +170,9 @@ void IconManager::readIconConfigFiles()
 			//If iconset version <= app version, and iconset version >= current active iconset version
 			if ((av_fullver <= ver_fullver) && (av_fullver >= curr_fullver))
 			{
+				// Do not use variant of an iconset such as "dark" ones by default
+				if ((av_fullver == curr_fullver) && !isd.variant.isEmpty())
+					continue;
 				m_backupSetBasename = m_activeSetBasename;
 				m_backupSetVersion = m_backupSetVersion;
 				m_activeSetBasename = isd.baseName;

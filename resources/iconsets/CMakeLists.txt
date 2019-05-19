@@ -70,3 +70,35 @@ install(FILES ${SCRIBUS_XML_1_5_1} DESTINATION ${ICONDIR})
 
 
 ##################
+
+
+#Install our 1.5.1 dark icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_UNSORTED 1_5_1_dark/*.jpg 1_5_1_dark/*.png 1_5_1_dark/*.xpm )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_UNSORTED} DESTINATION ${ICONDIR}/1_5_1_dark/)
+
+#Install our 16x16 icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_10 1_5_1_dark/10/*.jpg 1_5_1_dark/10/*.png 1_5_1_dark/10/*.xpm )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_10} DESTINATION ${ICONDIR}/1_5_1_dark/10)
+
+#Install our 16x16 icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_16 1_5_1_dark/16/*.jpg 1_5_1_dark/16/*.png 1_5_1_dark/16/*.xpm )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_16} DESTINATION ${ICONDIR}/1_5_1_dark/16)
+
+#Install our 22x22 icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_22 1_5_1_dark/22/*.jpg 1_5_1_dark/22/*.png 1_5_1_dark/22/*.xpm )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_22} DESTINATION ${ICONDIR}/1_5_1_dark/22)
+
+#Install our 32x32 icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_32 1_5_1_dark/32/*.jpg 1_5_1_dark/32/*.png 1_5_1_dark/32/*.xpm )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_32} DESTINATION ${ICONDIR}/1_5_1_dark/32)
+
+#Install our stylesheet icons
+file( GLOB SCRIBUS_ICONS_1_5_1_DARK_STYLE 1_5_1_dark/stylesheet/*.png )
+install(FILES ${SCRIBUS_ICONS_1_5_1_DARK_STYLE} DESTINATION ${ICONDIR}/1_5_1_dark/stylesheet)
+
+#Install our XML
+file( GLOB SCRIBUS_XML_1_5_1_DARK 1_5_1_dark/*.xml )
+install(FILES ${SCRIBUS_XML_1_5_1_DARK} DESTINATION ${ICONDIR})
+
+
+##################

@@ -514,6 +514,7 @@ struct ScIconSetData
 	QString license;
 	QString author;
 	QString activeversion;
+	QString variant;
 	QMap<QString, QString> nameTranslations;
 };
 
