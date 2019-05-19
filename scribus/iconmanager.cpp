@@ -72,7 +72,7 @@ void IconManager::readIconConfigFiles()
 	QStringList locations;
 	locations<<baseIconDir;
 	QStringList configNames;
-	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
+	for (QStringList::Iterator it = locations.begin(); it != locations.end(); ++it)
 	{
 		QFileInfo iconDir(*it);
 		if (!iconDir.exists())
@@ -97,7 +97,7 @@ void IconManager::readIconConfigFiles()
 			QDomDocument xmlData( QString(file.baseName()));
 			QString data(ts.readAll());
 			dataFile.close();
-			if ( !xmlData.setContent( data, &errorMsg, &eline, &ecol ))
+			if (!xmlData.setContent( data, &errorMsg, &eline, &ecol))
 			{
 				qDebug()<<data<<errorMsg<<eline<<ecol;
 				if (data.contains("404 not found", Qt::CaseInsensitive))
@@ -107,81 +107,74 @@ void IconManager::readIconConfigFiles()
 				continue;
 			}
 			QDomElement docElem = xmlData.documentElement();
-			QDomNode n = docElem.firstChild();
 			ScIconSetData isd;
-			while (!n.isNull())
+			for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 			{
 				QDomElement e = n.toElement();
-				if (!e.isNull())
+				if (e.isNull())
+					continue;
+				//qDebug()<<e.tagName()<<e.text();
+				if (e.tagName() == "path")
 				{
-					//qDebug()<<e.tagName()<<e.text();
-					if (e.tagName()=="path")
+					isd.path = e.text();
+				}
+				else if (e.tagName() == "author")
+				{
+					isd.author = e.text();
+				}
+				else if (e.tagName() == "license")
+				{
+					isd.license = e.text();
+				}
+				else if (e.tagName() == "activeversion")
+				{
+					isd.activeversion = e.text();
+				}
+				else if (e.tagName() == "nametext")
+				{
+					if (e.hasAttribute("lang"))
 					{
-						isd.path=e.text();
-					}
-					else
-					if (e.tagName()=="author")
-					{
-						isd.author=e.text();
-					}
-					else
-					if (e.tagName()=="license")
-					{
-						isd.license=e.text();
-					}
-					else
-					if (e.tagName()=="activeversion")
-					{
-						isd.activeversion=e.text();
-					}
-					else
-					if (e.tagName()=="nametext")
-					{
-						if (e.hasAttribute("lang"))
-						{
-							isd.nameTranslations.insert(e.attribute("lang"),e.text());
-							if (e.attribute("lang")=="en_US")
-								isd.baseName=e.text();
-						}
+						isd.nameTranslations.insert(e.attribute("lang"),e.text());
+						if (e.attribute("lang") == "en_US")
+							isd.baseName = e.text();
 					}
 				}
-				n = n.nextSibling();
 			}
-			//just in case there's no en_US basename
-			if (!isd.baseName.isEmpty())
-			{
 
-				m_iconSets.insert(isd.baseName, isd);
-				if(!isd.activeversion.isEmpty())
-				{
-					int av_major, av_minor, av_patch, curr_major, curr_minor, curr_patch, ver_major, ver_minor, ver_patch;
-					av_major=isd.activeversion.section(".",0,0).toInt();
-					av_minor=isd.activeversion.section(".",1,1).toInt();
-					av_patch=isd.activeversion.section(".",2,2).toInt();
-					curr_major=m_activeSetVersion.section(".",0,0).toInt();
-					curr_minor=m_activeSetVersion.section(".",1,1).toInt();
-					curr_patch=m_activeSetVersion.section(".",2,2).toInt();
-					ver_major=QString(VERSION).section(".",0,0).toInt();
-					ver_minor=QString(VERSION).section(".",1,1).toInt();
-					ver_patch=QString(VERSION).section(".",2,2).toInt();
-					//If iconset version <= app version, and iconset version >= current active iconset version
-					if (av_major<=ver_major &&
-						av_minor<=ver_minor &&
-						av_patch<=ver_patch &&
-						(
-						av_major>=curr_major ||
-						(av_major==curr_major && av_minor>=curr_minor) ||
-						(av_major==curr_major && av_minor==curr_minor && av_patch>=curr_patch)
-						)
-						)
-					{
-						m_backupSetBasename=m_activeSetBasename;
-						m_backupSetVersion=m_backupSetVersion;
-						m_activeSetBasename=isd.baseName;
-						m_activeSetVersion=isd.activeversion;
-						//qDebug()<<"backupSetBasename"<<m_backupSetBasename<<"activeSetBasename"<<m_activeSetBasename;
-					}
-				}
+			//just in case there's no en_US basename
+			if (isd.baseName.isEmpty())
+				continue;
+
+			m_iconSets.insert(isd.baseName, isd);
+			if (isd.activeversion.isEmpty())
+				continue;
+
+			int av_major, av_minor, av_patch, curr_major, curr_minor, curr_patch, ver_major, ver_minor, ver_patch;
+			av_major = isd.activeversion.section(".", 0, 0).toInt();
+			av_minor = isd.activeversion.section(".", 1, 1).toInt();
+			av_patch = isd.activeversion.section(".", 2, 2).toInt();
+			curr_major = m_activeSetVersion.section(".", 0, 0).toInt();
+			curr_minor = m_activeSetVersion.section(".", 1, 1).toInt();
+			curr_patch = m_activeSetVersion.section(".", 2, 2).toInt();
+			ver_major = QString(VERSION).section(".", 0, 0).toInt();
+			ver_minor = QString(VERSION).section(".", 1, 1).toInt();
+			ver_patch = QString(VERSION).section(".", 2, 2).toInt();
+			//If iconset version <= app version, and iconset version >= current active iconset version
+			if (av_major <= ver_major &&
+				av_minor <= ver_minor &&
+				av_patch <= ver_patch &&
+				(
+				av_major >= curr_major ||
+				(av_major == curr_major && av_minor >= curr_minor) ||
+				(av_major == curr_major && av_minor == curr_minor && av_patch>= curr_patch)
+				)
+				)
+			{
+				m_backupSetBasename = m_activeSetBasename;
+				m_backupSetVersion = m_backupSetVersion;
+				m_activeSetBasename = isd.baseName;
+				m_activeSetVersion = isd.activeversion;
+				//qDebug()<<"backupSetBasename"<<m_backupSetBasename<<"activeSetBasename"<<m_activeSetBasename;
 			}
 		}
 	}
@@ -224,19 +217,19 @@ QPixmap IconManager::loadPixmap(const QString& nam, bool forceUseColor, bool rtl
 void IconManager::iconToGrayscale(QPixmap* pm)
 {
 	QImage qi(pm->toImage());
-	int h=qi.height();
-	int w=qi.width();
+	int h = qi.height();
+	int w = qi.width();
 	QRgb c_rgb;
-	for (int i=0;i<w;++i)
+	for (int i = 0;i < w; ++i)
 	{
-		for (int j=0;j<h;++j)
+		for (int j = 0; j < h; ++j)
 		{
-			c_rgb=qi.pixel(i,j);
+			c_rgb = qi.pixel(i,j);
 			int k = qMin(qRound(0.3 * qRed(c_rgb) + 0.59 * qGreen(c_rgb) + 0.11 * qBlue(c_rgb)), 255);
 			qi.setPixel(i, j, qRgba(k, k, k, qAlpha(c_rgb)));
 		}
 	}
-	*pm=QPixmap::fromImage(qi);
+	*pm = QPixmap::fromImage(qi);
 }
 
 bool IconManager::setActiveFromPrefs(const QString& prefsSet)
@@ -244,8 +237,8 @@ bool IconManager::setActiveFromPrefs(const QString& prefsSet)
 	//qDebug()<<"setting active from prefs to"<<prefsSet;
 	if (m_iconSets.contains(prefsSet))
 	{
-		m_activeSetBasename=m_iconSets[prefsSet].baseName;
-		m_activeSetVersion=m_iconSets[prefsSet].activeversion;
+		m_activeSetBasename = m_iconSets[prefsSet].baseName;
+		m_activeSetVersion = m_iconSets[prefsSet].activeversion;
 		return true;
 	}
 	return false;
