@@ -44,8 +44,8 @@ class SCRIBUS_API MenuManager : public QObject
 {
 	Q_OBJECT
 	public:
-		MenuManager(QMenuBar* mb, QObject *parent = 0);
-		~MenuManager();
+		MenuManager(QMenuBar* mb, QObject *parent = nullptr);
+		~MenuManager() override;
 
 		enum MenuType {Normal, DLL};
 
