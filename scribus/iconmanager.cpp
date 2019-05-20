@@ -223,11 +223,11 @@ void IconManager::iconToGrayscale(QPixmap* pm)
 	int h = qi.height();
 	int w = qi.width();
 	QRgb c_rgb;
-	for (int i = 0;i < w; ++i)
+	for (int i = 0; i < w; ++i)
 	{
 		for (int j = 0; j < h; ++j)
 		{
-			c_rgb = qi.pixel(i,j);
+			c_rgb = qi.pixel(i, j);
 			int k = qMin(qRound(0.3 * qRed(c_rgb) + 0.59 * qGreen(c_rgb) + 0.11 * qBlue(c_rgb)), 255);
 			qi.setPixel(i, j, qRgba(k, k, k, qAlpha(c_rgb)));
 		}
@@ -238,13 +238,11 @@ void IconManager::iconToGrayscale(QPixmap* pm)
 bool IconManager::setActiveFromPrefs(const QString& prefsSet)
 {
 	//qDebug()<<"setting active from prefs to"<<prefsSet;
-	if (m_iconSets.contains(prefsSet))
-	{
-		m_activeSetBasename = m_iconSets[prefsSet].baseName;
-		m_activeSetVersion = m_iconSets[prefsSet].activeversion;
-		return true;
-	}
-	return false;
+	if (!m_iconSets.contains(prefsSet))
+		return false;
+	m_activeSetBasename = m_iconSets[prefsSet].baseName;
+	m_activeSetVersion = m_iconSets[prefsSet].activeversion;
+	return true;
 }
 
 QString IconManager::baseNameForTranslation(const QString& transName) const
