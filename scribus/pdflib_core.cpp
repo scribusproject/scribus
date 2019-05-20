@@ -113,6 +113,7 @@ static inline QByteArray FToStr(double c)
 
 class PdfPainter: public TextLayoutPainter
 {
+	QByteArray m_backBuffer;
 	QByteArray m_glyphBuffer;
 	QByteArray m_pathBuffer;
 //	PageItem* m_item;
@@ -131,6 +132,7 @@ class PdfPainter: public TextLayoutPainter
 
 public:
 	PdfPainter(PageItem *ite, PDFLibCore *pdf, uint num, const ScPage* pag) :
+		m_backBuffer(),
 		m_glyphBuffer(),
 		m_pathBuffer(),
 //		m_item(ite),
@@ -474,7 +476,7 @@ public:
 
 	QByteArray getBuffer()
 	{
-		return "BT\n" + m_glyphBuffer + "ET\n" + m_pathBuffer;
+		return m_backBuffer + "BT\n" + m_glyphBuffer + "ET\n" + m_pathBuffer;
 	}
 
 	void drawRect(QRectF rect)
@@ -483,17 +485,17 @@ public:
 //		transform.translate(x(), y());
 		double rectX = x() + rect.x();
 		double rectY = -y() - rect.y();
-		m_glyphBuffer += "q\n";
-		m_glyphBuffer += transformToStr(transform) + " cm\n";
-		m_glyphBuffer += "n\n";
-		m_glyphBuffer += m_pdf->putColor(fillColor().color, fillColor().shade, true);
-		m_glyphBuffer += m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
-		m_glyphBuffer += FToStr(rectX) + " " + FToStr(rectY) + " m\n";
-		m_glyphBuffer += FToStr(rectX + rect.width()) + " " + FToStr(rectY) + " l\n";
-		m_glyphBuffer += FToStr(rectX + rect.width()) + " " + FToStr(rectY - rect.height()) + " l\n";
-		m_glyphBuffer += FToStr(rectX) + " " + FToStr(rectY - rect.height()) + " l\n";
-		m_glyphBuffer += "h\nf\n";
-		m_glyphBuffer += "Q\n";
+		m_backBuffer += "q\n";
+		m_backBuffer += transformToStr(transform) + " cm\n";
+		m_backBuffer += "n\n";
+		m_backBuffer += m_pdf->putColor(fillColor().color, fillColor().shade, true);
+		m_backBuffer += m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
+		m_backBuffer += FToStr(rectX) + " " + FToStr(rectY) + " m\n";
+		m_backBuffer += FToStr(rectX + rect.width()) + " " + FToStr(rectY) + " l\n";
+		m_backBuffer += FToStr(rectX + rect.width()) + " " + FToStr(rectY - rect.height()) + " l\n";
+		m_backBuffer += FToStr(rectX) + " " + FToStr(rectY - rect.height()) + " l\n";
+		m_backBuffer += "h\nf\n";
+		m_backBuffer += "Q\n";
 	}
 
 	void drawObject(PageItem* embedded)
