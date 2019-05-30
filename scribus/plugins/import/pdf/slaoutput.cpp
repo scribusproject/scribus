@@ -244,7 +244,12 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_currentMask = "";
 	m_importedColors = importedColors;
 	CurrColorStroke = "Black";
+	CurrFillShade = 100;
 	CurrColorFill = "Black";
+	CurrStrokeShade = 100;
+	PLineEnd = Qt::FlatCap;
+	PLineJoin = Qt::MiterJoin;
+	DashOffset = 0.0;
 	Coords = "";
 	pathIsClosed = false;
 	tmpSel = new Selection(m_doc, false);
