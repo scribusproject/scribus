@@ -258,6 +258,8 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
 	xref = nullptr;
+	pdfDoc = nullptr;
+	catalog = nullptr;
 	m_fontEngine = nullptr;
 	m_font = nullptr;
 	m_formWidgets = nullptr;
