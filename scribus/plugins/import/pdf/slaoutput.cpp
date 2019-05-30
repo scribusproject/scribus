@@ -1375,101 +1375,103 @@ void SlaOutputDev::paintTransparencyGroup(GfxState *state, POPPLER_CONST_070 dou
 
 void SlaOutputDev::endTransparencyGroup(GfxState *state)
 {
+	if (m_groupStack.count() <= 0)
+		return;
+
+	tmpSel->clear();
+
+	groupEntry gElements = m_groupStack.pop();
+	if (gElements.Items.count() <= 0)
+		return;
+
+	if (gElements.forSoftMask)
+	{
+		for (int dre = 0; dre < gElements.Items.count(); ++dre)
+		{
+			tmpSel->addItem(gElements.Items.at(dre), true);
+			m_Elements->removeAll(gElements.Items.at(dre));
+		}
+		PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+		ite->setFillTransparency(1.0 - state->getFillOpacity());
+		ite->setFillBlendmode(getBlendMode(state));
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_doc);
+		m_doc->DoDrawing = true;
+		pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
+		pat.xoffset = 0;
+		pat.yoffset = 0;
+		m_doc->DoDrawing = false;
+		pat.width = ite->width();
+		pat.height = ite->height();
+		ite->gXpos = 0;
+		ite->gYpos = 0;
+		ite->setXYPos(ite->gXpos, ite->gYpos, true);
+		pat.items.append(ite);
+		m_doc->Items->removeAll(ite);
+		QString id = QString("Pattern_from_PDF_%1S").arg(m_doc->docPatterns.count() + 1);
+		m_doc->addPattern(id, pat);
+		m_currentMask = id;
+		tmpSel->clear();
+		return;
+	}
+	PageItem *ite;
+	for (int dre = 0; dre < gElements.Items.count(); ++dre)
+	{
+		tmpSel->addItem(gElements.Items.at(dre), true);
+		m_Elements->removeAll(gElements.Items.at(dre));
+	}
+	if ((gElements.Items.count() != 1) || (gElements.isolated))
+		ite = m_doc->groupObjectsSelection(tmpSel);
+	else
+		ite = gElements.Items.first();
+	if (ite->isGroup())
+	{
+		ite->ClipEdited = true;
+		ite->FrameType = 3;
+		if (checkClip())
+		{
+			FPointArray out = m_currentClipPath.copy();
+			out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+			out.translate(-ite->xPos(), -ite->yPos());
+			ite->PoLine = out.copy();
+			ite->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_doc->adjustItemSize(ite, true);
+			m_doc->resizeGroupToContents(ite);
+			ite->OldB2 = ite->width();
+			ite->OldH2 = ite->height();
+		}
+	}
+	ite->setFillTransparency(1.0 - state->getFillOpacity());
+	ite->setFillBlendmode(getBlendMode(state));
+	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
-		groupEntry gElements = m_groupStack.pop();
-		tmpSel->clear();
-		if (gElements.Items.count() > 0)
-		{
-			if (gElements.forSoftMask)
-			{
-				for (int dre = 0; dre < gElements.Items.count(); ++dre)
-				{
-					tmpSel->addItem(gElements.Items.at(dre), true);
-					m_Elements->removeAll(gElements.Items.at(dre));
-				}
-				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
-				ite->setFillTransparency(1.0 - state->getFillOpacity());
-				ite->setFillBlendmode(getBlendMode(state));
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_doc);
-				m_doc->DoDrawing = true;
-				pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
-				pat.xoffset = 0;
-				pat.yoffset = 0;
-				m_doc->DoDrawing = false;
-				pat.width = ite->width();
-				pat.height = ite->height();
-				ite->gXpos = 0;
-				ite->gYpos = 0;
-				ite->setXYPos(ite->gXpos, ite->gYpos, true);
-				pat.items.append(ite);
-				m_doc->Items->removeAll(ite);
-				QString id = QString("Pattern_from_PDF_%1S").arg(m_doc->docPatterns.count() + 1);
-				m_doc->addPattern(id, pat);
-				m_currentMask = id;
-				tmpSel->clear();
-				return;
-			}
-			PageItem *ite;
-			for (int dre = 0; dre < gElements.Items.count(); ++dre)
-			{
-				tmpSel->addItem(gElements.Items.at(dre), true);
-				m_Elements->removeAll(gElements.Items.at(dre));
-			}
-			if ((gElements.Items.count() != 1) || (gElements.isolated))
-				ite = m_doc->groupObjectsSelection(tmpSel);
-			else
-				ite = gElements.Items.first();
-			if (ite->isGroup())
-			{
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				if (checkClip())
-				{
-					FPointArray out = m_currentClipPath.copy();
-					out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-					out.translate(-ite->xPos(), -ite->yPos());
-					ite->PoLine = out.copy();
-					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					m_doc->adjustItemSize(ite, true);
-					m_doc->resizeGroupToContents(ite);
-					ite->OldB2 = ite->width();
-					ite->OldH2 = ite->height();
-				}
-			}
-			ite->setFillTransparency(1.0 - state->getFillOpacity());
-			ite->setFillBlendmode(getBlendMode(state));
-			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
-			{
-				applyMask(ite);
-				m_groupStack.top().Items.append(ite);
-			}
-		}
-		tmpSel->clear();
+		applyMask(ite);
+		m_groupStack.top().Items.append(ite);
 	}
+
+	tmpSel->clear();
 }
 
 void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * /*bbox*/, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
 {
-	if (m_groupStack.count() != 0)
-	{
-		double lum = 0;
-		double lum2 = 0;
-		if (transferFunc)
-			transferFunc->transform(&lum, &lum2);
-		else
-			lum2 = lum;
-		if (lum == lum2)
-			m_groupStack.top().inverted = false;
-		else
-			m_groupStack.top().inverted = true;
-		m_groupStack.top().maskName = m_currentMask;
-		m_groupStack.top().alpha = alpha;
-		if (m_groupStack.top().Items.count() != 0)
-			applyMask(m_groupStack.top().Items.last());
-	}
+	if (m_groupStack.count() <= 0)
+		return;
+
+	double lum = 0;
+	double lum2 = 0;
+	if (transferFunc)
+		transferFunc->transform(&lum, &lum2);
+	else
+		lum2 = lum;
+	if (lum == lum2)
+		m_groupStack.top().inverted = false;
+	else
+		m_groupStack.top().inverted = true;
+	m_groupStack.top().maskName = m_currentMask;
+	m_groupStack.top().alpha = alpha;
+	if (m_groupStack.top().Items.count() != 0)
+		applyMask(m_groupStack.top().Items.last());
 }
 
 void SlaOutputDev::clearSoftMask(GfxState * /*state*/)
@@ -1497,34 +1499,34 @@ void SlaOutputDev::clip(GfxState *state)
 	ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
+	if (output.isEmpty())
+		return;
+
 	FPointArray out;
-	if (!output.isEmpty())
+	out.parseSVG(output);
+	out.svgClosePath();
+	out.map(m_ctm);
+	if (checkClip())
 	{
-		out.parseSVG(output);
-		out.svgClosePath();
-		out.map(m_ctm);
-		if (checkClip())
+		QPainterPath pathN = out.toQPainterPath(true);
+		QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
+		QPainterPath resultPath = pathA.intersected(pathN);
+		if (!resultPath.isEmpty())
 		{
-			QPainterPath pathN = out.toQPainterPath(true);
-			QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
-			QPainterPath resultPath = pathA.intersected(pathN);
-			if (!resultPath.isEmpty())
-			{
-				FPointArray polyline;
-				polyline.resize(0);
-				polyline.fromQPainterPath(resultPath, true);
-				polyline.svgClosePath();
-				m_currentClipPath = polyline.copy();
-			}
-			else
-			{
-				m_currentClipPath.resize(0);
-				m_currentClipPath.svgInit();
-			}
+			FPointArray polyline;
+			polyline.resize(0);
+			polyline.fromQPainterPath(resultPath, true);
+			polyline.svgClosePath();
+			m_currentClipPath = polyline.copy();
 		}
 		else
-			m_currentClipPath = out.copy();
+		{
+			m_currentClipPath.resize(0);
+			m_currentClipPath.svgInit();
+		}
 	}
+	else
+		m_currentClipPath = out.copy();
 }
 
 void SlaOutputDev::eoClip(GfxState *state)
