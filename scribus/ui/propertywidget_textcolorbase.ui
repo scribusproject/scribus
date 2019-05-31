@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>147</width>
-    <height>131</height>
+    <height>135</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,7 +59,7 @@
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</string>
+        <string>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</string>
        </property>
       </widget>
      </item>
@@ -120,8 +120,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="tabletTracking">
+        <bool>true</bool>
+       </property>
        <property name="toolTip">
-        <string>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</string>
+        <string>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</string>
        </property>
       </widget>
      </item>
