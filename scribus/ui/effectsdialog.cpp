@@ -496,11 +496,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	auto* spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 	toEffects = new QPushButton( this );
-	toEffects->setText( tr( ">>" ) );
+	toEffects->setText( tr( "Add" ) );
 	toEffects->setEnabled(false);
 	layout1->addWidget( toEffects );
 	fromEffects = new QPushButton( this );
-	fromEffects->setText( tr( "<<" ) );
+	fromEffects->setText( tr( "Remove" ) );
 	fromEffects->setEnabled(false);
 	layout1->addWidget( fromEffects );
 	auto* spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
