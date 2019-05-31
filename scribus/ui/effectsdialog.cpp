@@ -283,7 +283,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveD2Button->setMenu(CurveD2Pop);
 	CurveD2Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage8Layout->addWidget( CurveD2Button, 3, 2 );
-	QSpacerItem *spacerD1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	auto *spacerD1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	WStackPage8Layout->addItem( spacerD1, 4, 0 );
 	optionStack->addWidget( WStackPage_8 );
 
@@ -493,7 +493,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout1 = new QVBoxLayout;
 	layout1->setMargin(0);
 	layout1->setSpacing(5);
-	QSpacerItem* spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	auto* spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 	toEffects = new QPushButton( this );
 	toEffects->setText( tr( ">>" ) );
@@ -503,7 +503,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	fromEffects->setText( tr( "<<" ) );
 	fromEffects->setEnabled(false);
 	layout1->addWidget( fromEffects );
-	QSpacerItem* spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	auto* spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer2 );
 	layout10->addLayout( layout1, 0, 1 );
 
@@ -511,7 +511,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout8->setMargin(0);
 	layout8->setSpacing(5);
 	textLabel2 = new QLabel( this );
-	textLabel2->setText( tr( "Effects in use" ) );
+	textLabel2->setText( tr( "Applied Effects" ) );
 	layout8->addWidget( textLabel2 );
 	usedEffects = new QListWidget( this );
 	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
