@@ -7883,7 +7883,7 @@ void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selec
 {
 	ParagraphStyle newStyle;
 	newStyle.setParent(name.isEmpty()? BaseStyle::INHERIT_PARENT : name);
-	itemSelection_ApplyParagraphStyle(newStyle, customSelection, true);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection, false);
 }
 
 
