@@ -72,12 +72,13 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 {
 	Q_OBJECT
 	
- public:
+public:
 	StoryText(ScribusDoc *doc);
- 	StoryText();
- 	StoryText(const StoryText & other);
- 	StoryText& operator= (const StoryText & other);
- 	virtual ~StoryText();
+	StoryText();
+	StoryText(const StoryText & other);
+	StoryText& operator= (const StoryText & other);
+	virtual ~StoryText();
+	
 	void setDoc(ScribusDoc *docin);
 	
 	static const Xml_string saxxDefaultElem;
@@ -99,7 +100,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	void moveCursorWordLeft();
 	void moveCursorWordRight();
 
- 	void clear();
+	void clear();
 	StoryText copy() const;
 
 	// Find text in story
@@ -161,10 +162,10 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	QString sentence(int pos, int &posn);
 
 	bool hasObject(int pos) const;
- 	PageItem* getItem(int pos) const; // deprecated
+	PageItem* getItem(int pos) const; // deprecated
 	bool hasMark(int pos, Mark* mrk = nullptr) const;
 	Mark *mark(int pos) const;
-    void replaceMark(int pos, Mark* mrk);
+	void replaceMark(int pos, Mark* mrk);
 	void applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const;
 
 	bool isHighSurrogate(int pos) const;
@@ -177,15 +178,15 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	// Get paragraph style at current cursor position
 	const ParagraphStyle& paragraphStyle() const;
 	// Get paragraph style at specific position
- 	const ParagraphStyle& paragraphStyle(int pos) const;
- 	const ParagraphStyle& defaultStyle() const;
- 	void setDefaultStyle(const ParagraphStyle& style);
- 	void setCharStyle(int pos, uint len, const CharStyle& style);
- 	void setStyle(int pos, const ParagraphStyle& style);
- 	void applyCharStyle(int pos, uint len, const CharStyle& style);
- 	void applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting = false);
- 	void eraseCharStyle(int pos, uint len, const CharStyle& style);
- 	void eraseStyle(int pos, const ParagraphStyle& style);
+	const ParagraphStyle& paragraphStyle(int pos) const;
+	const ParagraphStyle& defaultStyle() const;
+	void setDefaultStyle(const ParagraphStyle& style);
+	void setCharStyle(int pos, uint len, const CharStyle& style);
+	void setStyle(int pos, const ParagraphStyle& style);
+	void applyCharStyle(int pos, uint len, const CharStyle& style);
+	void applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting = false);
+	void eraseCharStyle(int pos, uint len, const CharStyle& style);
+	void eraseStyle(int pos, const ParagraphStyle& style);
 	void replaceStyles(const QMap<QString,QString>& newNameForOld);
 	void replaceCharStyles(QMap<QString,QString> newNameForOld);
 
@@ -199,17 +200,17 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);
 	
- 	uint nrOfParagraphs() const;
+	uint nrOfParagraphs() const;
 	int startOfParagraph() const;
- 	int startOfParagraph(uint index) const;
+	int startOfParagraph(uint index) const;
 	int endOfParagraph() const;
- 	int endOfParagraph(uint index) const;
+	int endOfParagraph(uint index) const;
 	uint nrOfParagraph() const;
 	uint nrOfParagraph(int pos) const;
 
- 	uint nrOfRuns() const;
- 	int startOfRun(uint index) const;
- 	int endOfRun(uint index) const;
+	uint nrOfRuns() const;
+	int startOfRun(uint index) const;
+	int endOfRun(uint index) const;
 
 // positioning
 	int nextChar(int pos);
@@ -235,13 +236,13 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 
 // selection
 
- 	void selectAll();
- 	void deselectAll();
- 	void removeSelection();
- 	void extendSelection(int oldPos, int newPos);
+	void selectAll();
+	void deselectAll();
+	void removeSelection();
+	void extendSelection(int oldPos, int newPos);
 	int selectWord(int pos);
 	void select(int pos, int len, bool on = true);
- 	bool selected(int pos) const;
+	bool selected(int pos) const;
 	int startOfSelection() const;
 	int endOfSelection() const;
 	int selectionLength() const;
@@ -264,26 +265,26 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 //  when physical view doesn't match logical view any more:
 
 	/// call this if the shape of an embedded object changes (redos layout)
- 	void invalidateObject(const PageItem* embedded);
- 	/// call this if the shape of the paragraph changes (redos layout)
- 	void invalidateLayout();
+	void invalidateObject(const PageItem* embedded);
+	/// call this if the shape of the paragraph changes (redos layout)
+	void invalidateLayout();
 
 public slots:
 	/// call this if some logical style changes (redos shaping and layout)
- 	void invalidateAll();
+	void invalidateAll();
 
 signals:
 	void changed(int firstItem, int endItem);
 
 private:
- 	ScText * item(uint index);
- 	const ScText * item(uint index) const;
+	ScText * item(uint index);
+	const ScText * item(uint index) const;
 	void fixSurrogateSelection();
 	
 private:
 	ScribusDoc * m_doc; 
 	int m_selFirst, m_selLast;
-    CharStyle orphanedCharStyle;
+	CharStyle orphanedCharStyle;
 	ShapedTextCache* m_shapedTextCache;
 	static BreakIterator* m_graphemeIterator;
 	static BreakIterator* m_wordIterator;
@@ -293,20 +294,20 @@ private:
 	QString textWithSoftHyphens (int pos, uint len) const;
 	void    insertCharsWithSoftHyphens(int pos, const QString& txt, bool applyNeighbourStyle = false);
 	
- 	/// mark these runs as invalid, ie. need itemize and shaping
- 	void invalidate(int firstRun, int lastRun);
- 	void removeParSep(int pos);
- 	void insertParSep(int pos);
+	/// mark these runs as invalid, ie. need itemize and shaping
+	void invalidate(int firstRun, int lastRun);
+	void removeParSep(int pos);
+	void insertParSep(int pos);
 
 	// 	int splitRun(int pos);
- 	
- 	/** bring physical view in sync with logical one. 
- 	 *  This gets called automatically from all physical view methods
+	
+	/** bring physical view in sync with logical one. 
+	 *  This gets called automatically from all physical view methods
  	 */
 // 	void validate();
- 	/// private data structure
- 	ScText_Shared * d;
- 	/// gives the physical view which was last given to the layouter
+	/// private data structure
+	ScText_Shared * d;
+	/// gives the physical view which was last given to the layouter
 // 	uint layouterVersion;
  	/// is true after layout() has been exercised
 // 	bool layouterValid;

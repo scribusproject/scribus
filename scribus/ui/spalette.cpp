@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
-    addItem( CommonStrings::trDefaultParagraphStyle );
+	addItem( CommonStrings::trDefaultParagraphStyle );
 	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
@@ -96,7 +96,7 @@ void ParaStyleComboBox::selFormat(int e)
 CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
-    addItem( CommonStrings::trDefaultCharacterStyle );
+	addItem( CommonStrings::trDefaultCharacterStyle );
 	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
@@ -127,7 +127,7 @@ void CharStyleComboBox::updateFormatList()
 		for (int x = 0; x < currentDoc->charStyles().count(); ++x)
 		{
 			if ( !currentDoc->charStyles()[x].name().isEmpty() &&
-                !currentDoc->charStyles()[x].isDefaultStyle())
+			    !currentDoc->charStyles()[x].isDefaultStyle())
 				st.append(currentDoc->charStyles()[x].name());
 		}
 		st.sort();
@@ -161,7 +161,7 @@ void CharStyleComboBox::selFormat(int e)
 CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
-    addItem( CommonStrings::trDefaultCellStyle );
+	addItem( CommonStrings::trDefaultCellStyle );
 	currentDoc = nullptr;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
@@ -192,7 +192,7 @@ void CellStyleComboBox::updateFormatList()
 		for (int x = 0; x < currentDoc->cellStyles().count(); ++x)
 		{
 			if ( !currentDoc->cellStyles()[x].name().isEmpty() &&
-                !currentDoc->cellStyles()[x].isDefaultStyle())
+			    !currentDoc->cellStyles()[x].isDefaultStyle())
 				st.append(currentDoc->cellStyles()[x].name());
 		}
 		st.sort();
@@ -258,7 +258,7 @@ void TableStyleComboBox::updateFormatList()
 		for (int x = 0; x < currentDoc->tableStyles().count(); ++x)
 		{
 			if ( !currentDoc->tableStyles()[x].name().isEmpty() &&
-                !currentDoc->tableStyles()[x].isDefaultStyle())
+			    !currentDoc->tableStyles()[x].isDefaultStyle())
 				st.append(currentDoc->tableStyles()[x].name());
 		}
 		st.sort();

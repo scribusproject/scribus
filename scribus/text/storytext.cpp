@@ -58,7 +58,7 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	m_shapedTextCache = new ShapedTextCache();
 	
 	d->len = 0;
-    orphanedCharStyle = defaultStyle().charStyle();
+	orphanedCharStyle = defaultStyle().charStyle();
 	invalidateAll();
 }
 
@@ -556,13 +556,13 @@ void StoryText::removeChars(int pos, uint len)
 	if (pos + static_cast<int>(len) > length())
 		len = length() - pos;
 
-    if (pos == 0 && len > 0 && len == length())
-    {
-        int lastChar = length() - 1;
-        while (lastChar > 0 && text(lastChar) == SpecialChars::PARSEP)
-            --lastChar;
-        orphanedCharStyle = charStyle(lastChar);
-    }
+	if (pos == 0 && len > 0 && len == length())
+	{
+		int lastChar = length() - 1;
+		while (lastChar > 0 && text(lastChar) == SpecialChars::PARSEP)
+			--lastChar;
+		orphanedCharStyle = charStyle(lastChar);
+	}
 	for (int i = pos + static_cast<int>(len) - 1; i >= pos; --i)
 	{
 		ScText *it = d->at(i);
@@ -1019,7 +1019,7 @@ bool StoryText::hasMark(int pos, Mark* mrk) const
 
 	StoryText* that = const_cast<StoryText *>(this);
 	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-        return that->d->at(pos)->hasMark(mrk);
+		return that->d->at(pos)->hasMark(mrk);
 	return false;
 }
 
@@ -1992,7 +1992,7 @@ void StoryText::invalidateLayout()
 void StoryText::invalidateAll()
 {
 	d->pstyleContext.invalidate();
-    invalidate(0, length());
+	invalidate(0, length());
 }
 
 void StoryText::invalidate(int firstItem, int endItem)
