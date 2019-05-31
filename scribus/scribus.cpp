@@ -1028,10 +1028,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("unicodeSpaceMid", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceHair", "InsertSpace");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "InsertSpace");
-	scrMenuMgr->addMenuItemString("unicodeNewLine", "InsertSpace");
-	scrMenuMgr->addMenuItemString("unicodeFrameBreak", "InsertSpace");
-	scrMenuMgr->addMenuItemString("unicodeColumnBreak", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeZerowidthSpace", "InsertSpace");
+	scrMenuMgr->addMenuItemString("unicodeNewLine", "InsertSpace");
+	scrMenuMgr->addMenuItemString("unicodeColumnBreak", "InsertSpace");
+	scrMenuMgr->addMenuItemString("unicodeFrameBreak", "InsertSpace");
 
 	scrMenuMgr->createMenu("InsertLigature", tr("Liga&ture"), "Insert");
 	scrMenuMgr->addMenuItemString("InsertLigature", "Insert");
