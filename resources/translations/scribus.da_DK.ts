@@ -4142,16 +4142,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
-    <name>CellStyleComboBox</name>
-    <message>
-        <location filename="../../scribus/ui/spalette.cpp" line="163"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="176"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="190"/>
-        <source>No Style</source>
-        <translation>Intet format</translation>
-    </message>
-</context>
-<context>
     <name>CgmPlug</name>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="185"/>
@@ -4447,16 +4437,6 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
         <location filename="../../scribus/ui/charselectenhanced.ui" line="106"/>
         <source>Type in a four digit Unicode value directly here</source>
         <translation>Indtast en firecifret Unicodeværdi direkte her</translation>
-    </message>
-</context>
-<context>
-    <name>CharStyleComboBox</name>
-    <message>
-        <location filename="../../scribus/ui/spalette.cpp" line="99"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="112"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="126"/>
-        <source>No Style</source>
-        <translation>Ingen tegnformat</translation>
     </message>
 </context>
 <context>
@@ -7295,18 +7275,18 @@ fejlede!</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="499"/>
-        <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <source>Add</source>
+        <translation type="unfinished">Tilføj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="503"/>
-        <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <source>Remove</source>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="514"/>
-        <source>Effects in use</source>
-        <translation>Effekter i brug</translation>
+        <source>Applied Effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="633"/>
@@ -13723,69 +13703,69 @@ Kontroller det venligst og prøv igen.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="560"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="562"/>
         <source>Saving PDF</source>
         <translation>Gemmer PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="564"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="566"/>
         <source>Exporting Master Page:</source>
         <translation>Eksporterer masterside:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="564"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="566"/>
         <source>Exporting Page:</source>
         <translation>Eksporterer Side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="564"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="566"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Eksporterer elementer på nuværende side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="617"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="619"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt Build mangler både &quot;UTF-16&quot; og &quot;ISO-10646-UCS-2&quot; kodeks for tekst, så pdf eksport er ikke muligt</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3551"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3553"/>
         <source>Page:</source>
         <translation>Side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3561"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3563"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10354"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10356"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Kunne ikke indlejre PDF-filen : %1.
 Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11551"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11553"/>
         <source>Failed to load an image : %1</source>
         <translation>Kunne ikke indlæse et billede: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11556"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11558"/>
         <source>Failed to write an image : %1</source>
         <translation>Kunne ikke gemme et billede: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11561"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11563"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Kunne ikke indlæse en billedmaske: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11566"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11568"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Utilstrækkelig hukommelse for behandling af et billede</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11546"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11548"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Der opstod en skrivefejl, kontroller venligst tilgængelig diskplads</translation>
     </message>
@@ -14853,16 +14833,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="810"/>
         <source>Generating Items</source>
         <translation>Genererer elementer</translation>
-    </message>
-</context>
-<context>
-    <name>ParaStyleComboBox</name>
-    <message>
-        <location filename="../../scribus/ui/spalette.cpp" line="35"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="48"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="62"/>
-        <source>No Style</source>
-        <translation>Ingen typografi</translation>
     </message>
 </context>
 <context>
@@ -24716,32 +24686,32 @@ Værdien 0 betyder ubegrænset antal.</translation>
 <context>
     <name>PropertyWidget_TextColorBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished">Farve for valgte tekst. Hvis kontur tekstudsmykning er aktiveret, vil denne farve være udfyldningsfarven. Hvis skyggeeffekt for tekst er aktiveret, så vil dette være den øverste farve.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
         <source>Saturation of color of text fill</source>
         <translation type="unfinished">Farvestyrke for tekstens udfyldning</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="unfinished">Farve for tekstens streg og/eller skyggeeffekt, afhængig af det valgte. hvis begge er valgt, deler de den samme farve.</translation>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="127"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="144"/>
         <source>Saturation of color of text stroke</source>
         <translation type="unfinished">Farvestyrke for tekstens stregfarve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="177"/>
         <source>Background color of selected text</source>
         <translation type="unfinished">Baggrundsfarve for valgte tekst.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="194"/>
         <source>Saturation of color of text background</source>
         <translation type="unfinished">Farvestyrke for tekstens baggrund</translation>
     </message>
@@ -38506,16 +38476,6 @@ når PDF dokument åbnes:</translation>
         <location filename="../../scribus/ui/tablerowheightsdialog.ui" line="25"/>
         <source>Row Height:</source>
         <translation>Rækkehøjde:</translation>
-    </message>
-</context>
-<context>
-    <name>TableStyleComboBox</name>
-    <message>
-        <location filename="../../scribus/ui/spalette.cpp" line="228"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="241"/>
-        <location filename="../../scribus/ui/spalette.cpp" line="255"/>
-        <source>No Style</source>
-        <translation>Intet format</translation>
     </message>
 </context>
 <context>
