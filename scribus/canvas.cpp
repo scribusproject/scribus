@@ -1549,36 +1549,32 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
  */
 void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-	double x = m_doc->scratch()->left() * m_viewMode.scale;
-	double y = m_doc->scratch()->top() * m_viewMode.scale;
-	double w = m_doc->currentPage()->width() * m_viewMode.scale;
-	double h = m_doc->currentPage()->height() * m_viewMode.scale;
+	const ScPage* currentPage = m_doc->currentPage();
+	double x = currentPage->xOffset() * m_viewMode.scale;
+	double y = currentPage->yOffset() * m_viewMode.scale;
+	double w = currentPage->width() * m_viewMode.scale;
+	double h = currentPage->height() * m_viewMode.scale;
 	QRectF drawRect = QRectF(x, y, w+5, h+5);
-	drawRect.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-	if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
-	{
-		painter->setFillMode(ScPainter::Solid);
-		painter->setBrush(QColor(128,128,128));
-		MarginStruct pageBleeds;
-		m_doc->getBleeds(m_doc->currentPage(), pageBleeds);
-		painter->setAntialiasing(false);
-		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
-		{
-			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
-				painter->drawRect(m_doc->scratch()->left() - pageBleeds.left()+5, m_doc->scratch()->top() - pageBleeds.top()+5, m_doc->currentPage()->width() + pageBleeds.left() + pageBleeds.right(), m_doc->currentPage()->height() + pageBleeds.bottom() + pageBleeds.top());
-			painter->setBrush(m_doc->paperColor());
-			painter->drawRect(m_doc->scratch()->left() - pageBleeds.left(), m_doc->scratch()->top() - pageBleeds.top(), m_doc->currentPage()->width() + pageBleeds.left() + pageBleeds.right(), m_doc->currentPage()->height() + pageBleeds.bottom() + pageBleeds.top());
-		}
-		else
-		{
-			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
-				painter->drawRect(m_doc->scratch()->left()+5, m_doc->scratch()->top()+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
-			painter->setBrush(m_doc->paperColor());
-			painter->drawRect(m_doc->scratch()->left(), m_doc->scratch()->top(), m_doc->currentPage()->width(), m_doc->currentPage()->height());
-		}
-		painter->setAntialiasing(true);
-	}
+	drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+	if (!drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
+		return;
+
+	painter->setFillMode(ScPainter::Solid);
+	painter->setBrush(QColor(128,128,128));
+	MarginStruct pageBleeds;
+	if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
+		m_doc->getBleeds(currentPage, pageBleeds);
+	double px = currentPage->xOffset() - pageBleeds.left();
+	double py = currentPage->yOffset() - pageBleeds.top();
+	double pw = currentPage->width() + pageBleeds.left() + pageBleeds.right();
+	double ph = currentPage->height() + pageBleeds.bottom() + pageBleeds.top();
+	painter->setAntialiasing(false);
+	painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
+		painter->drawRect(px + 5, py + 5, pw, ph);
+	painter->setBrush(m_doc->paperColor());
+	painter->drawRect(px, py, pw, ph);
+	painter->setAntialiasing(true);
 }
 
 
@@ -1645,7 +1641,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double w = actPg->width();
 		double h = actPg->height();
 		bool drawBleed = false;
-		if (((m_doc->bleeds()->bottom() != 0.0) || (m_doc->bleeds()->top() != 0.0) || (m_doc->bleeds()->left() != 0.0) || (m_doc->bleeds()->right() != 0.0)) && (m_doc->guidesPrefs().showBleed))
+		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 		{
 			drawBleed = true;
 			m_doc->getBleeds(a, pageBleeds);
