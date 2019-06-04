@@ -50,6 +50,8 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 	if (role == Qt::ToolTipRole)
 	{
 		const ScColor& color = pColorValue->m_color;
+		if (pColorValue->m_name == CommonStrings::None)
+			return QVariant();
 		if (color.getColorModel() == colorModelRGB)
 		{
 			int r, g, b;
