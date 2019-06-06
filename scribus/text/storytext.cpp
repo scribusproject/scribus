@@ -58,7 +58,6 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	m_shapedTextCache = new ShapedTextCache();
 	
 	d->len = 0;
-	orphanedCharStyle = defaultStyle().charStyle();
 	invalidateAll();
 }
 
@@ -561,7 +560,7 @@ void StoryText::removeChars(int pos, uint len)
 		int lastChar = length() - 1;
 		while (lastChar > 0 && text(lastChar) == SpecialChars::PARSEP)
 			--lastChar;
-		orphanedCharStyle = charStyle(lastChar);
+		d->orphanedCharStyle = charStyle(lastChar);
 	}
 	for (int i = pos + static_cast<int>(len) - 1; i >= pos; --i)
 	{
@@ -1160,7 +1159,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 	if (length() == 0)
 	{
 //		qDebug() << "storytext::charstyle: default";
-		return orphanedCharStyle;
+		return d->orphanedCharStyle;
 	}
 	if (pos == length())
 	{

@@ -17,19 +17,19 @@
 class SCRIBUS_API ScText_Shared : public QList<ScText*>
 {
 public:
+	ScText_Shared(const StyleContext* pstyles);	
+	ScText_Shared(const ScText_Shared& other);
+	~ScText_Shared();
+
+	ScText_Shared& operator= (const ScText_Shared& other);
+
 	ParagraphStyle defaultStyle;
 	StyleContextProxy pstyleContext;
 	uint refs;
 	uint len;
 	uint cursorPosition;
 	ParagraphStyle trailingStyle;
-	ScText_Shared(const StyleContext* pstyles);	
-
-	ScText_Shared(const ScText_Shared& other);
-
-	ScText_Shared& operator= (const ScText_Shared& other);
-
-	~ScText_Shared();
+	CharStyle orphanedCharStyle;
 
 	void clear();
 	

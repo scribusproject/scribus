@@ -23,6 +23,7 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
 	pstyleContext.setDefaultStyle( & defaultStyle );
 	defaultStyle.setContext( pstyles );
 	trailingStyle.setContext( &pstyleContext );
+	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
 //		defaultStyle.charStyle().setContext( cstyles );
 //		qDebug() << QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles));
 }
@@ -36,6 +37,8 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 {
 	pstyleContext.setDefaultStyle( &defaultStyle );
 	trailingStyle.setContext( &pstyleContext );
+	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
+
 	QListIterator<ScText*> it( other );
 	ScText* elem;
 	while ( it.hasNext() ) {
@@ -71,6 +74,7 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 		pstyleContext.setDefaultStyle( &defaultStyle );
 		defaultStyle.setContext( other.defaultStyle.context() );
 		trailingStyle.setContext( &pstyleContext );
+		orphanedCharStyle.setContext( other.defaultStyle.charStyle().context() );
 		clear();
 		QListIterator<ScText*> it( other );
 		ScText* elem;

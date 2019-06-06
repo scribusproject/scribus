@@ -284,7 +284,6 @@ private:
 private:
 	ScribusDoc * m_doc; 
 	int m_selFirst, m_selLast;
-	CharStyle orphanedCharStyle;
 	ShapedTextCache* m_shapedTextCache;
 	static BreakIterator* m_graphemeIterator;
 	static BreakIterator* m_wordIterator;
