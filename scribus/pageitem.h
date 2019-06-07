@@ -231,7 +231,7 @@ public:	// Start enumerator definitions
 public: // Start public functions
 
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
-	virtual ~PageItem();
+	~PageItem() override;
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
 	virtual PageItem_Arc * asArc()							{ return nullptr; } ///< Return self if Arc item, otherwise null
@@ -279,14 +279,14 @@ public: // Start public functions
 
 	//<< ********* Functions related to drawing the item *********
 
-	void DrawObj(ScPainter *p, QRectF e);
+	void DrawObj(ScPainter *p, QRectF cullingArea);
 	void DrawObj_Pre(ScPainter *p);
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRectF e) = 0;
 	QImage DrawObj_toImage(double maxSize, int options = 0);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
-	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
+	void DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded);
 	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
 	void DrawSoftShadow(ScPainter *p);
 	/**
@@ -333,7 +333,7 @@ public: // Start public functions
 		  @param y Y position
 	   * @return bool true if x, i in the item
 	   */
-	bool pointWithinItem(const int x, const int y) const;
+	bool pointWithinItem(int x, int y) const;
 	/**
 	   * @brief Check if the mouse is within the items boundaries
 	   * This method performs necessary page to device transformations

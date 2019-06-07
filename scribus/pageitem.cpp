@@ -1777,7 +1777,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 		return;*/
 	if (cullingArea.isNull())
 	{
-		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
+		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()),
 							 QPointF(m_Doc->maxCanvasCoordinate.x(), m_Doc->maxCanvasCoordinate.y())).toAlignedRect();
 	}
 
@@ -9252,7 +9252,7 @@ double PageItem::visualLineWidth() const
 	return extraSpace;
 }
 
-bool PageItem::pointWithinItem(const int x, const int y) const
+bool PageItem::pointWithinItem(int x, const int y) const
 {
 	const_cast<PageItem*>(this)-> setRedrawBounding();
 	// FIXME: We should be rounding or truncating here, not letting the compiler do it.
