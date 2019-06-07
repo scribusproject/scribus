@@ -202,6 +202,7 @@ void Prefs_DocumentSections::addEntry()
 		blank.sectionstartindex = 1;
 		blank.reversed = false;
 		blank.active = true;
+		blank.pageNumberWidth = 0;
 		m_localSections.insert(count, blank);
 	}
 	else
@@ -227,6 +228,7 @@ void Prefs_DocumentSections::addEntry()
 				blank.sectionstartindex = 1;
 				blank.reversed = false;
 				blank.active = true;
+				blank.pageNumberWidth = 0;
 				m_localSections.insert(i, blank);
 			}
 			++i;
