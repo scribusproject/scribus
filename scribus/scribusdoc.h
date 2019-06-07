@@ -858,11 +858,16 @@ public:
 	 * @param dia optional progress widget
 	 */
 	void RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = nullptr);
+
 	/**
-	 *
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
 	void canvasMinMax(FPoint&, FPoint&);
+
+	/**
+	 * @brief Find the optimal area for canvas
+	 */
+	QRectF canvasOptimalRect();
 	
 	int  OnPage(double x2, double  y2);
 	int  OnPage(PageItem *currItem);

@@ -3617,20 +3617,73 @@ void ScribusView::zoom(double scale)
 void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
 {
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
+	double oldScale = m_canvas->scale();
 	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);
+
+	FPoint minPos = Doc->minCanvasCoordinate;
+	FPoint maxPos = Doc->maxCanvasCoordinate;
+	if (newScale > oldScale)
+	{
+		// Try to set scrollBars values in a reasonable way after important zoom out 
+		QRectF optimalRect = Doc->canvasOptimalRect();
+		double minX = qMax(minPos.x(), optimalRect.left());
+		double minY = qMax(minPos.y(), optimalRect.top());
+		double maxX = qMin(maxPos.x(), optimalRect.right());
+		double maxY = qMin(maxPos.y(), optimalRect.bottom());
+		minPos.setXY(minX, minY);
+		maxPos.setXY(maxX, maxY);
+	}
+
+	// FIXME : find a way to avoid adjustCanvas/resizeContents, cause unnecessary paintEvents despite updates disabled
+	if (minPos != Doc->minCanvasCoordinate || maxPos != Doc->maxCanvasCoordinate)
+		Doc->adjustCanvas(minPos, maxPos, true);
+	else
+	{
+		int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
+		int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
+		resizeContents(nw, nh);
+	}
+
 	QPoint localPoint = m_canvas->canvasToLocal( QPointF(canvasX, canvasY) );
-	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
-	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
-	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
+
 	QPoint canvasPoint;
 	if (preservePoint)
 		canvasPoint = viewport()->mapFromGlobal(globalPoint);
 	else
 		canvasPoint = QPoint(viewport()->width() / 2, viewport()->height() / 2);
-	setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.y());
+
+	int contentPosX = localPoint.x() - canvasPoint.x();
+	int contentPosY = localPoint.y() - canvasPoint.y();
+
+	QSize maxViewport = maximumViewportSize();
+	minPos = m_canvas->localToCanvas(QPoint(horizontalScrollBar()->minimum(), verticalScrollBar()->minimum()));
+	maxPos = m_canvas->localToCanvas(QPoint(horizontalScrollBar()->maximum() + maxViewport.width(), verticalScrollBar()->maximum() + maxViewport.height()));
+
+	int hMin = qMin(contentPosX, horizontalScrollBar()->minimum());
+	int hMax = qMax(contentPosX, horizontalScrollBar()->maximum());
+	int vMin = qMin(contentPosY, verticalScrollBar()->minimum());
+	int vMax = qMax(contentPosY, verticalScrollBar()->maximum());
+	if ((hMin < horizontalScrollBar()->minimum()) || (hMax > horizontalScrollBar()->maximum()) ||
+		(vMin < verticalScrollBar()->minimum())   || (vMax > verticalScrollBar()->maximum()))
+	{
+		QSize maxViewport = maximumViewportSize();
+		minPos = m_canvas->localToCanvas(QPoint(hMin, vMin));
+		maxPos = m_canvas->localToCanvas(QPoint(hMax + maxViewport.width(), vMax + maxViewport.height()));
+	}
+
+	Doc->adjustCanvas(minPos, maxPos);
+	localPoint = m_canvas->canvasToLocal(QPointF(canvasX, canvasY));
+	if (preservePoint)
+		canvasPoint = viewport()->mapFromGlobal(globalPoint);
+	else
+		canvasPoint = QPoint(viewport()->width() / 2, viewport()->height() / 2);
+	contentPosX = localPoint.x() - canvasPoint.x();
+	contentPosY = localPoint.y() - canvasPoint.y();
+	setContentsPos(contentPosX, contentPosY);
+	
 	updatesOn(true);
 	undoManager->setUndoEnabled(true);
 }

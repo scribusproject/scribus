@@ -5822,9 +5822,9 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	int docItemsCount=Items->count();
 	if (docItemsCount != 0)
 	{
-		for (int ic = 0; ic < docItemsCount; ++ic)
+		for (int i = 0; i < docItemsCount; ++i)
 		{
-			currItem = Items->at(ic);
+			currItem = Items->at(i);
 			if (currItem->rotation() != 0.0)
 			{
 				FPointArray pb;
@@ -5855,23 +5855,58 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	}
 	else
 	{
-		ScPage* Seite;
-		int docPageCount=Pages->count();
+		ScPage* page;
 		MarginStruct pageBleeds;
-		for (int a = 0; a < docPageCount; ++a)
+		int docPageCount = Pages->count();
+		for (int i = 0; i < docPageCount; ++i)
 		{
-			Seite = Pages->at(a);
-			getBleeds(Seite, pageBleeds);
-			minx = qMin(minx, Seite->xOffset() - pageBleeds.left());
-			miny = qMin(miny, Seite->yOffset() - pageBleeds.top());
-			maxx = qMax(maxx, Seite->xOffset() + Seite->width() + pageBleeds.left() + pageBleeds.right());
-			maxy = qMax(maxy, Seite->yOffset() + Seite->height() + pageBleeds.top() + pageBleeds.bottom());
+			page = Pages->at(i);
+			getBleeds(page, pageBleeds);
+			minx = qMin(minx, page->xOffset() - pageBleeds.left());
+			miny = qMin(miny, page->yOffset() - pageBleeds.top());
+			maxx = qMax(maxx, page->xOffset() + page->width() + pageBleeds.left() + pageBleeds.right());
+			maxy = qMax(maxy, page->yOffset() + page->height() + pageBleeds.top() + pageBleeds.bottom());
 		}
 	}
 	minPoint.setX(minx);
 	minPoint.setY(miny);
 	maxPoint.setX(maxx);
 	maxPoint.setY(maxy);
+}
+
+QRectF ScribusDoc::canvasOptimalRect()
+{
+	double x, y, width, height;
+	QRectF canvasRect;
+	QRectF pageRect;
+	MarginStruct pageBleeds;
+	PageItem *currItem;
+	ScPage* page;
+
+	int pageCount = Pages->count();
+	for (int i = 0; i < pageCount; ++i)
+	{
+		page = Pages->at(i);
+		getBleeds(page, pageBleeds);
+		x = page->xOffset() - pageBleeds.left();
+		y = page->yOffset() - pageBleeds.top();
+		width  = page->width() + pageBleeds.left() + pageBleeds.right();
+		height = page->height() + pageBleeds.top() + pageBleeds.bottom();
+		canvasRect = canvasRect.united(QRectF(x, y, width, height));
+	}
+
+	int itemsCount = Items->count();
+	for (int i = 0; i < itemsCount; ++i)
+	{
+		currItem = Items->at(i);
+		QRectF itemRect = currItem->getBoundingRect();
+		canvasRect = canvasRect.united(itemRect);
+	}
+
+	const MarginStruct& scratch = m_docPrefsData.displayPrefs.scratch;
+	canvasRect.adjust(-scratch.left(), -scratch.top(), scratch.right(), scratch.bottom());
+
+	return canvasRect;
 }
 
 
@@ -6252,11 +6287,12 @@ void ScribusDoc::reformPages(bool moveObjects)
 		return;
 	if (!isLoading())
 	{
-		updateMarks(true);
 		FPoint minPoint, maxPoint;
+		const MarginStruct& scratch = m_docPrefsData.displayPrefs.scratch;
+		updateMarks(true);
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(qMax(maxXPos, maxPoint.x()+m_docPrefsData.displayPrefs.scratch.right()), qMax(maxYPos, maxPoint.y()+m_docPrefsData.displayPrefs.scratch.bottom()));
-		adjustCanvas(FPoint(qMin(0.0, minPoint.x()-m_docPrefsData.displayPrefs.scratch.left()),qMin(0.0, minPoint.y()-m_docPrefsData.displayPrefs.scratch.top())), maxSize, true);
+		FPoint maxSize(qMax(maxXPos, maxPoint.x() + scratch.right()), qMax(maxYPos, maxPoint.y() + scratch.bottom()));
+		adjustCanvas(FPoint(qMin(0.0, minPoint.x() - scratch.left()), qMin(0.0, minPoint.y() - scratch.top())), maxSize, true);
 		changed();
 	}
 	else
