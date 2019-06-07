@@ -43,11 +43,11 @@ class SCRIBUS_API Navigator : public QLabel
 
 public: 
 	Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, const QString& fn = "");
-	~Navigator() {};
-	void mouseMoveEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void paintEvent(QPaintEvent *e);
+	~Navigator() override {};
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void paintEvent(QPaintEvent *e) override;
 	void drawMark(int x, int y);
 	bool SetSeite(int Seite, int Size, const QString& fn = "");
 	int Xp;
