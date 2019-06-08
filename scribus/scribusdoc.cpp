@@ -7043,13 +7043,13 @@ int ScribusDoc::getSectionPageNumberWidthForPageIndex(const uint pageIndex) cons
 
 void ScribusDoc::updateSectionPageNumbersToPages()
 {
-	int docPageCount=DocPages.count();
-	for (int i=0; i < docPageCount; ++i)
+	int docPageCount = DocPages.count();
+	for (int i = 0; i < docPageCount; ++i)
 		DocPages.at(i)->setPageSectionNumber(getSectionPageNumberForPageIndex(i));
 }
 
 
-void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location, const uint count)
+void ScribusDoc::addPageToSection(uint otherPageIndex, uint location, uint count)
 {
 	uint fromIndex, toIndex;
 	uint searchedIndex = (otherPageIndex > 0) ? (otherPageIndex - 1) : 0;
@@ -7070,7 +7070,7 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 }
 
 
-void ScribusDoc::removePageFromSection(const uint pageIndex)
+void ScribusDoc::removePageFromSection(uint pageIndex)
 {
 	//Get the section of the new page index.
 	uint fromIndex, toIndex;
@@ -7107,6 +7107,63 @@ void ScribusDoc::setFirstSectionFromFirstPageNumber()
 	updateSectionPageNumbersToPages();
 }
 
+void ScribusDoc::addPageToAnnotLinks(int otherPageIndex, int location, int count)
+{
+	int searchedIndex = (otherPageIndex > 0) ? (otherPageIndex - 1) : 0;
+	if ((location == 0) && (searchedIndex > 0))
+		--searchedIndex;
+
+	QList<PageItem*> itemList = DocItems;
+	while (itemList.count() > 0)
+	{
+		PageItem *currItem = itemList.takeLast();
+		if (currItem->isGroup())
+		{
+			itemList += currItem->groupItemList;
+			continue;
+		}
+		if (!currItem->isAnnotation())
+			continue;
+		
+		Annotation& annotation = currItem->annotation();
+		if (annotation.ActionType() != Annotation::Action_GoTo)
+			continue;
+
+		int targetPage = annotation.Ziel();
+		if (targetPage >= searchedIndex)
+		{
+			targetPage += count;
+			annotation.setZiel(targetPage);
+		}
+	}
+}
+
+void ScribusDoc::removePageFromAnnotLinks(int pageIndex)
+{
+	QList<PageItem*> itemList = DocItems;
+	while (itemList.count() > 0)
+	{
+		PageItem *currItem = itemList.takeLast();
+		if (currItem->isGroup())
+		{
+			itemList += currItem->groupItemList;
+			continue;
+		}
+		if (!currItem->isAnnotation())
+			continue;
+		
+		Annotation& annotation = currItem->annotation();
+		if (annotation.ActionType() != Annotation::Action_GoTo)
+			continue;
+
+		int targetPage = annotation.Ziel();
+		if (targetPage >= pageIndex)
+		{
+			--targetPage;
+			annotation.setZiel(targetPage);
+		}
+	}
+}
 
 void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToInsert, int copyCount)
 {

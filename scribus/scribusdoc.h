@@ -977,12 +977,11 @@ public:
 	 */
 	void updateSectionPageNumbersToPages();
 	/**
-	 * 
 	 * @param otherPageIndex 
 	 * @param location 
 	 * @param count 
 	 */
-	void addPageToSection(const uint otherPageIndex, const uint location, const uint count=1);
+	void addPageToSection(uint otherPageIndex, uint location, uint count=1);
 	/**
 	 * 
 	 * @param pageIndex 
@@ -997,6 +996,16 @@ public:
 	 * @brief Returns name of section where page is located
 	 */
 	QString getSectionNameForPageIndex(const uint pageIndex) const;
+
+	/**
+	 * Update annotation links when a page is added
+	 */
+	void addPageToAnnotLinks(int otherPageIndex, int location, int count=1);
+
+	/**
+	 * Update annotation links when a page is removed
+	 */
+	void removePageFromAnnotLinks(int pageIndex);
 
 	//! @brief Some internal align tools
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;

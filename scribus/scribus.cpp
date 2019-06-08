@@ -5321,9 +5321,15 @@ void ScribusMainWindow::slotNewPageP(int wo, const QString& templ)
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
 	if (where == 2)
+	{
+		doc->addPageToAnnotLinks(wo, where, 1);
 		doc->addPageToSection(wo, where, 1);
+	}
 	else
-		doc->addPageToSection(wo+1, where, 1);
+	{
+		doc->addPageToAnnotLinks(wo + 1, where, 1);
+		doc->addPageToSection(wo + 1, where, 1);
+	}
 
 	doc->updateEndnotesFrames();
 	doc->changed();
@@ -5447,13 +5453,14 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
 	//Apply_MasterPage(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns],
 //						 doc->currentPage()->pageNr(), false); // this Apply_MasterPage avoids DreawNew and PagePalette->ReBuild, which is much faster for 100 pp :-)
-		wot ++;
+		++wot;
 	}
 	doc->setCurrentPage(currentPage);
 	view->updatesOn(true);
 	qApp->restoreOverrideCursor();
 	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
 	doc->changed();
+	doc->addPageToAnnotLinks(wot, where, numPages);
 	doc->addPageToSection(wo, where, numPages);
 	doc->reformPages();
 	doc->updateEndnotesFrames();
@@ -6227,7 +6234,10 @@ void ScribusMainWindow::deletePage(int from, int to)
 		else
 			doc->deletePage(a);
 		if (!isMasterPage) // Master pages are not added to sections when created
+		{
+			doc->removePageFromAnnotLinks(a);
 			doc->removePageFromSection(a);
+		}
 	}
 	pageSelector->setMaximum(doc->Pages->count());
 	pageSelector->blockSignals(b);
