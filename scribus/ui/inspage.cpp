@@ -91,7 +91,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	else
 	{
 		int row = 0;
-		for (int mp = 0; mp < m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count(); ++mp)
+		const PageSet& currentPageSet = m_doc->pageSets()[m_doc->pagePositioning()];
+		for (int mp = 0; mp < currentPageSet.pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(masterPageGroup);
 //			for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
@@ -116,7 +117,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			}
 			else if (mp == 1)
 			{
-				if (m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count() > 2)
+				if (currentPageSet.pageNames.count() > 2)
 				{
 					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
 					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
@@ -155,7 +156,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			}
 			else if (mp == 2)
 			{
-				if (m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count() > 3)
+				if (currentPageSet.pageNames.count() > 3)
 				{
 					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
 					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
@@ -210,7 +211,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 				if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 					setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 			}
-			QString transLabel = m_doc->pageSets()[m_doc->pagePositioning()].pageNames[mp];
+			QString transLabel = currentPageSet.pageNames[mp];
 			QLabel* pageLabel = new QLabel(CommonStrings::translatePageSetLocString(transLabel), masterPageGroup);
 			pageLabel->setBuddy(pageData);
 			masterPageLayout->addWidget(pageLabel, row, 0 );
