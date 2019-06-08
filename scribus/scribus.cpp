@@ -5428,17 +5428,18 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 			base.append( CommonStrings::trMasterPageNormalRight);
 		}
 	}
-	int cc;
+
 	int wot = wo;
 	if (where == 0)
 		--wot;
 	else if (where == 2)
 		wot = doc->Pages->count();
+
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	view->updatesOn(false);
 	const PageSet& pageSet = doc->pageSets()[doc->pagePositioning()];
 	ScPage* currentPage = doc->currentPage();
-	for (cc = 0; cc < numPages; ++cc)
+	for (int i = 0; i < numPages; ++i)
 	{
 		slotNewPage(wot, base[(wot + pageSet.FirstPage) % pageSet.Columns], mov); //Avoid the master page application with QString::null
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
