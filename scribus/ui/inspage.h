@@ -31,21 +31,8 @@ class SCRIBUS_API InsPage : public QDialog
 public:
 	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages );
 	~InsPage() {};
-	QGroupBox* dsGroupBox7;
-	QGroupBox* masterPageGroup;
-	ScrSpinBox* widthSpinBox;
-	ScrSpinBox* heightSpinBox;
-	QLabel*	widthQLabel;
-	QLabel*	heightQLabel;
-	QLabel* TextLabel1;
-	QLabel* TextLabel2;
-	QComboBox* sizeQComboBox;
-	QComboBox* orientationQComboBox;
-	QCheckBox* moveObjects;
-	QCheckBox* overrideMPSizingCheckBox;
-	double unitRatio;
+
 	QString prefsPageSizeName;
-	QList<QComboBox*> masterPageCombos;
 
 	const QStringList getMasterPages();
 	const QString getMasterPageN(uint n);
@@ -53,7 +40,15 @@ public:
 	int getWherePage() const;
 	int getCount() const;
 
+	double pageWidth() const;
+	double pageHeight() const;
+	int    orientation() const;
+	bool   overrideMasterPageSizing() const;
+	bool   moveObjects() const;
+
 private:
+	ScribusDoc* m_doc;
+
 	QLabel* insCountLabel;
 	QLabel* masterPageLabel;
 	QLabel* pagesLabel;
@@ -67,6 +62,22 @@ private:
 	QGridLayout* masterPageLayout;
 	QHBoxLayout* okCancelLayout;
 	QGridLayout* dsGroupBox7Layout;
+
+	QGroupBox*  dsGroupBox7;
+	QGroupBox*  masterPageGroup;
+	ScrSpinBox* widthSpinBox;
+	ScrSpinBox* heightSpinBox;
+	QLabel*	    widthQLabel;
+	QLabel*	    heightQLabel;
+	QLabel*     TextLabel1;
+	QLabel*     TextLabel2;
+	QComboBox*  sizeQComboBox;
+	QComboBox*  orientationQComboBox;
+	QCheckBox*  moveObjectsCheckBox;
+	QCheckBox*  overrideMPSizingCheckBox;
+	
+	double m_unitRatio;
+	QList<QComboBox*> masterPageCombos;
 
 private slots:
 	void insWherePageDataDisable (int index);

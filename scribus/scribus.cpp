@@ -5348,11 +5348,11 @@ void ScribusMainWindow::slotNewPageM()
 	if (dia->exec())
 	{
 		QStringList base(dia->getMasterPages());
-		double height=dia->heightSpinBox->value() / doc->unitRatio();
-		double width=dia->widthSpinBox->value() / doc->unitRatio();
-		int orientation=dia->orientationQComboBox->currentIndex();
+		double height = dia->pageWidth();
+		double width = dia->pageHeight();
+		int orientation = dia->orientation();
 		addNewPages(dia->getWherePage(), dia->getWhere(), dia->getCount(), height, width, orientation, 
-			dia->prefsPageSizeName, dia->moveObjects->isChecked(), &base, dia->overrideMPSizingCheckBox->checkState()==Qt::Checked);
+			dia->prefsPageSizeName, dia->moveObjects(), &base, dia->overrideMasterPageSizing());
 	}
 	delete dia;
 }
@@ -5430,10 +5430,10 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	}
 	int cc;
 	int wot = wo;
-	if (where==0)
+	if (where == 0)
 		--wot;
-	else if (where==2)
-		wot=doc->Pages->count();
+	else if (where == 2)
+		wot = doc->Pages->count();
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	view->updatesOn(false);
 	const PageSet& pageSet = doc->pageSets()[doc->pagePositioning()];

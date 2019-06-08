@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
 	: QDialog( parent, nullptr )
 {
+	m_doc = currentDoc;
+
 	masterPageCombos.clear();
 	setModal(true);
 	setWindowTitle( tr( "Insert Page" ) );
@@ -71,14 +73,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageLayout->setAlignment( Qt::AlignTop );
 	masterPageLayout->setSpacing( 5 );
 	masterPageLayout->setMargin( 5 );
-	if (currentDoc->pagePositioning() == 0)
+	if (m_doc->pagePositioning() == 0)
 	{
 		QComboBox* pageData = new QComboBox(masterPageGroup);
-		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+		for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 		{
 			pageData->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key(), it.key());
 		}
-		if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
+		if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormal))
 			setCurrentComboItem(pageData, CommonStrings::trMasterPageNormal);
 		masterPageLabel = new QLabel(tr("&Master Page:"), masterPageGroup);
 		masterPageLabel->setBuddy(pageData);
@@ -89,15 +91,15 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	else
 	{
 		int row = 0;
-		for (int mp = 0; mp < currentDoc->pageSets()[currentDoc->pagePositioning()].pageNames.count(); ++mp)
+		for (int mp = 0; mp < m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(masterPageGroup);
-//			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+//			for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 //				pageData->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 			if (mp == 0)
 			{
-				bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft);
-				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+				bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft);
+				for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -105,19 +107,19 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else
 					{
-						if (currentDoc->MasterPages.at(it.value())->LeftPg == 1)
+						if (m_doc->MasterPages.at(it.value())->LeftPg == 1)
 							pageData->addItem(it.key(), it.key());
 					}
 				}
-				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
+				if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
 					setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalLeft);
 			}
 			else if (mp == 1)
 			{
-				if (currentDoc->pageSets()[currentDoc->pagePositioning()].pageNames.count() > 2)
+				if (m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count() > 2)
 				{
-					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
-					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
+					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -125,17 +127,17 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
-							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
+							if ((m_doc->MasterPages.at(it.value())->LeftPg != 0) && (m_doc->MasterPages.at(it.value())->LeftPg != 1))
 								pageData->addItem(it.key(), it.key());
 						}
 					}
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+					if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
 						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
-					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
-					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -143,20 +145,20 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
-							if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
+							if (m_doc->MasterPages.at(it.value())->LeftPg == 0)
 								pageData->addItem(it.key(), it.key());
 						}
 					}
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+					if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 2)
 			{
-				if (currentDoc->pageSets()[currentDoc->pagePositioning()].pageNames.count() > 3)
+				if (m_doc->pageSets()[m_doc->pagePositioning()].pageNames.count() > 3)
 				{
-					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
-					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
+					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -164,17 +166,17 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
-							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
+							if ((m_doc->MasterPages.at(it.value())->LeftPg != 0) && (m_doc->MasterPages.at(it.value())->LeftPg != 1))
 								pageData->addItem(it.key(), it.key());
 						}
 					}
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+					if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
 						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
-					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
-					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+					for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -182,18 +184,18 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
-							if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
+							if (m_doc->MasterPages.at(it.value())->LeftPg == 0)
 								pageData->addItem(it.key(), it.key());
 						}
 					}
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+					if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 3)
 			{
-				bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
-				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+				bool conNam = m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+				for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
@@ -201,14 +203,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else
 					{
-						if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
+						if (m_doc->MasterPages.at(it.value())->LeftPg == 0)
 							pageData->addItem(it.key(), it.key());
 					}
 				}
-				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+				if (m_doc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 					setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 			}
-			QString transLabel = currentDoc->pageSets()[currentDoc->pagePositioning()].pageNames[mp];
+			QString transLabel = m_doc->pageSets()[m_doc->pagePositioning()].pageNames[mp];
 			QLabel* pageLabel = new QLabel(CommonStrings::translatePageSetLocString(transLabel), masterPageGroup);
 			pageLabel->setBuddy(pageData);
 			masterPageLayout->addWidget(pageLabel, row, 0 );
@@ -228,7 +230,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
 
-	PageSize *ps=new PageSize(currentDoc->pageSize());
+	PageSize *ps=new PageSize(m_doc->pageSize());
 	prefsPageSizeName=ps->name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
 	QStringList insertList(ps->activeSizeTRList());
@@ -250,25 +252,25 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	orientationQComboBox = new QComboBox(dsGroupBox7);
 	orientationQComboBox->addItem( tr( "Portrait" ) );
 	orientationQComboBox->addItem( tr( "Landscape" ) );
-	orientationQComboBox->setCurrentIndex(currentDoc->pageOrientation() );
+	orientationQComboBox->setCurrentIndex(m_doc->pageOrientation() );
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 1, 1, 3 );
-	widthSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, currentDoc->unitIndex() );
+	widthSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, m_doc->unitIndex() );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7);
-	widthSpinBox->setValue(currentDoc->pageWidth() * currentDoc->unitRatio());
+	widthSpinBox->setValue(m_doc->pageWidth() * m_doc->unitRatio());
 	widthQLabel->setBuddy(widthSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthSpinBox, 2, 1 );
-	heightSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, currentDoc->unitIndex() );
-	heightSpinBox->setValue(currentDoc->pageHeight() * currentDoc->unitRatio());
+	heightSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, m_doc->unitIndex() );
+	heightSpinBox->setValue(m_doc->pageHeight() * m_doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7);
 	heightQLabel->setBuddy(heightSpinBox);
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
 	dsGroupBox7Layout->addWidget( heightSpinBox, 2, 3 );
-	moveObjects = new QCheckBox( dsGroupBox7);
-	moveObjects->setText( tr( "Move Objects with their Page" ) );
-	moveObjects->setChecked( true );
-	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
+	moveObjectsCheckBox = new QCheckBox( dsGroupBox7);
+	moveObjectsCheckBox->setText( tr( "Move Objects with their Page" ) );
+	moveObjectsCheckBox->setChecked( true );
+	dsGroupBox7Layout->addWidget( moveObjectsCheckBox, 3, 0, 1, 4 );
 	dialogLayout->addWidget( dsGroupBox7 );
 	dsGroupBox7->setEnabled(false);
 	bool b=(sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
@@ -290,7 +292,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	okCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
-	unitRatio = currentDoc->unitRatio();
+	m_unitRatio = m_doc->unitRatio();
 
 	// signals and slots connections
 	connect( insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
@@ -315,8 +317,8 @@ void InsPage::setSize(const QString & gr)
 	}
 	else
 	{
-		widthSpinBox->setValue(ps2->width() * unitRatio);
-		heightSpinBox->setValue(ps2->height() * unitRatio);
+		widthSpinBox->setValue(ps2->width() * m_unitRatio);
+		heightSpinBox->setValue(ps2->height() * m_unitRatio);
 	}
 	delete ps2;
 }
@@ -368,12 +370,39 @@ int InsPage::getWhere() const
 
 int InsPage::getWherePage() const
 {
+	if (insWhereData->currentIndex() == 2)
+		return m_doc->Pages->count();
 	return insWherePageData->value();
 }
 
 int InsPage::getCount() const
 {
 	return insCountData->value();
+}
+
+double InsPage::pageWidth() const
+{
+	return widthSpinBox->value() / m_unitRatio;
+}
+
+double InsPage::pageHeight() const
+{
+	return heightSpinBox->value() / m_unitRatio;
+}
+
+int InsPage::orientation() const
+{
+	return orientationQComboBox->currentIndex();
+}
+
+bool InsPage::overrideMasterPageSizing() const
+{
+	return (overrideMPSizingCheckBox->checkState() == Qt::Checked);
+}
+
+bool InsPage::moveObjects() const
+{
+	return moveObjectsCheckBox->isChecked();
 }
 
 void InsPage::insWherePageDataDisable(int index)
