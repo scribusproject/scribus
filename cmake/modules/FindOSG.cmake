@@ -10,87 +10,87 @@
 # Created by Robert Osfield. 
 
 find_path(OSG_INCLUDE_DIR osg/Node
-    ${OSG_DIR}/include
-    $ENV{OSG_DIR}/include
-    $ENV{OSG_DIR}
-    $ENV{OSGDIR}/include
-    $ENV{OSGDIR}
-    $ENV{OSG_ROOT}/include
-    NO_DEFAULT_PATH
-)
+	${OSG_DIR}/include
+	$ENV{OSG_DIR}/include
+	$ENV{OSG_DIR}
+	$ENV{OSGDIR}/include
+	$ENV{OSGDIR}
+	$ENV{OSG_ROOT}/include
+	NO_DEFAULT_PATH
+	)
 
 find_path(OSG_INCLUDE_DIR osg/Node)
 
 macro(FIND_OSG_LIBRARY MYLIBRARY MYLIBRARYNAME)
 
-    find_library("${MYLIBRARY}_DEBUG"
-        NAMES "${MYLIBRARYNAME}${CMAKE_DEBUG_POSTFIX}"
-        PATHS
-        ${OSG_DIR}/lib/Debug
-        ${OSG_DIR}/lib
-        $ENV{OSG_DIR}/lib/debug
-        $ENV{OSG_DIR}/lib
-        $ENV{OSG_DIR}
-        $ENV{OSGDIR}/lib
-        $ENV{OSGDIR}
-        $ENV{OSG_ROOT}/lib
-        NO_DEFAULT_PATH
-    )
+	find_library("${MYLIBRARY}_DEBUG"
+		NAMES "${MYLIBRARYNAME}${CMAKE_DEBUG_POSTFIX}"
+		PATHS
+		${OSG_DIR}/lib/Debug
+		${OSG_DIR}/lib
+		$ENV{OSG_DIR}/lib/debug
+		$ENV{OSG_DIR}/lib
+		$ENV{OSG_DIR}
+		$ENV{OSGDIR}/lib
+		$ENV{OSGDIR}
+		$ENV{OSG_ROOT}/lib
+		NO_DEFAULT_PATH
+		)
 
-    find_library("${MYLIBRARY}_DEBUG"
-        NAMES "${MYLIBRARYNAME}${CMAKE_DEBUG_POSTFIX}"
-        PATHS
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local/lib
-        /usr/local/lib64
-        /usr/lib
-        /usr/lib64
-        /sw/lib
-        /opt/local/lib
-        /opt/csw/lib
-        /opt/lib
-        [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/lib
-        /usr/freeware/lib64
-    )
-    
-    find_library(${MYLIBRARY}
-        NAMES ${MYLIBRARYNAME}
-        PATHS
-        ${OSG_DIR}/lib/Release
-        ${OSG_DIR}/lib
-        $ENV{OSG_DIR}/lib/Release
-        $ENV{OSG_DIR}/lib
-        $ENV{OSG_DIR}
-        $ENV{OSGDIR}/lib
-        $ENV{OSGDIR}
-        $ENV{OSG_ROOT}/lib
-        NO_DEFAULT_PATH
-    )
+	find_library("${MYLIBRARY}_DEBUG"
+		NAMES "${MYLIBRARYNAME}${CMAKE_DEBUG_POSTFIX}"
+		PATHS
+		~/Library/Frameworks
+		/Library/Frameworks
+		/usr/local/lib
+		/usr/local/lib64
+		/usr/lib
+		/usr/lib64
+		/sw/lib
+		/opt/local/lib
+		/opt/csw/lib
+		/opt/lib
+		[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/lib
+		/usr/freeware/lib64
+		)
 
-    find_library(${MYLIBRARY}
-        NAMES ${MYLIBRARYNAME}
-        PATHS
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local/lib
-        /usr/local/lib64
-        /usr/lib
-        /usr/lib64
-        /sw/lib
-        /opt/local/lib
-        /opt/csw/lib
-        /opt/lib
-        [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/lib
-        /usr/freeware/lib64
-    )
-    
-    if( NOT ${MYLIBRARY}_DEBUG)
-        if(MYLIBRARY)
-            set(${MYLIBRARY}_DEBUG ${MYLIBRARY})
-         endif(MYLIBRARY)
-    endif( NOT ${MYLIBRARY}_DEBUG)
-           
+	find_library(${MYLIBRARY}
+		NAMES ${MYLIBRARYNAME}
+		PATHS
+		${OSG_DIR}/lib/Release
+		${OSG_DIR}/lib
+		$ENV{OSG_DIR}/lib/Release
+		$ENV{OSG_DIR}/lib
+		$ENV{OSG_DIR}
+		$ENV{OSGDIR}/lib
+		$ENV{OSGDIR}
+		$ENV{OSG_ROOT}/lib
+		NO_DEFAULT_PATH
+		)
+
+	find_library(${MYLIBRARY}
+		NAMES ${MYLIBRARYNAME}
+		PATHS
+		~/Library/Frameworks
+		/Library/Frameworks
+		/usr/local/lib
+		/usr/local/lib64
+		/usr/lib
+		/usr/lib64
+		/sw/lib
+		/opt/local/lib
+		/opt/csw/lib
+		/opt/lib
+		[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/lib
+		/usr/freeware/lib64
+		)
+
+	if( NOT ${MYLIBRARY}_DEBUG)
+		if(MYLIBRARY)
+			set(${MYLIBRARY}_DEBUG ${MYLIBRARY})
+		endif(MYLIBRARY)
+	endif( NOT ${MYLIBRARY}_DEBUG)
+
 endmacro(FIND_OSG_LIBRARY LIBRARY LIBRARYNAME)
 
 FIND_OSG_LIBRARY(OSG_LIBRARY osg)

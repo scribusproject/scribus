@@ -17,27 +17,27 @@ PKGCONFIG(libxml-2.0 _LibXml2IncDir _LibXml2LinkDir _LibXml2LinkFlags _LibXml2Cf
 set(LIBXML2_DEFINITIONS ${_LibXml2Cflags})
 
 find_path(LIBXML2_INCLUDE_DIR libxml/xpath.h
-  PATHS ${_LibXml2IncDir} PATH_SUFFIXES libxml2
-)
+	PATHS ${_LibXml2IncDir} PATH_SUFFIXES libxml2
+	)
 
 find_library(LIBXML2_LIBRARIES NAMES xml2 libxml2
-  PATHS ${_LibXml2LinkDir}
-)
+	PATHS ${_LibXml2LinkDir}
+	)
 
 if (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
-   set(LIBXML2_FOUND TRUE)
+	set(LIBXML2_FOUND TRUE)
 endif (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
 
-set(LibXml2_FIND_QUIETLY 1)
+set(LibXml2_FIND_QUIETLY ON)
 
 if (LIBXML2_FOUND)
-  if (NOT LibXml2_FIND_QUIETLY)
-    message(STATUS "Found LibXml2: ${LIBXML2_LIBRARIES}")
-  endif (NOT LibXml2_FIND_QUIETLY)
+	if (NOT LibXml2_FIND_QUIETLY)
+		message(STATUS "Found LibXml2: ${LIBXML2_LIBRARIES}")
+	endif (NOT LibXml2_FIND_QUIETLY)
 else (LIBXML2_FOUND)
-  if (LibXml2_FIND_REQUIRED)
-    message(SEND_ERROR "Could NOT find LibXml2")
-  endif (LibXml2_FIND_REQUIRED)
+	if (LibXml2_FIND_REQUIRED)
+		message(SEND_ERROR "Could NOT find LibXml2")
+	endif (LibXml2_FIND_REQUIRED)
 endif (LIBXML2_FOUND)
 
 mark_as_advanced(LIBXML2_INCLUDE_DIR LIBXML2_LIBRARIES)
