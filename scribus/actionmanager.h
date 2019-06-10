@@ -54,7 +54,7 @@ class SCRIBUS_API ActionManager : public QObject
 	friend class StoryEditor;
 	public:
 		ActionManager ( QObject * parent );
-		~ActionManager();
+		~ActionManager() override;
 		
 		virtual void changeEvent(QEvent *e);
 		

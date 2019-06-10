@@ -351,3 +351,10 @@ TransactionState::~TransactionState()
 		}
 	}
 }
+
+void* ScItemsState::getItem(const QString& itemname) const
+{
+	if (pointerMap.contains(itemname))
+		return pointerMap.value(itemname, nullptr);
+	return nullptr;
+}

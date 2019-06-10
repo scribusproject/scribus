@@ -43,7 +43,7 @@ class CanvasMode_EditArc :  public CanvasMode
 
 public:
 	explicit CanvasMode_EditArc(ScribusView* view);
-	~CanvasMode_EditArc() override {}
+	~CanvasMode_EditArc() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
@@ -55,7 +55,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void drawControls(QPainter* p) override;
-	void drawControlsArc(QPainter* pp, PageItem* currItem);
+	void drawControlsArc(QPainter* psx, PageItem* currItem);
 
 private:
 

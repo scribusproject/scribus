@@ -30,7 +30,7 @@ class CanvasMode_EyeDropper :  public CanvasMode
 
 public:
 	explicit CanvasMode_EyeDropper(ScribusView* view);
-	~CanvasMode_EyeDropper() override {}
+	~CanvasMode_EyeDropper() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

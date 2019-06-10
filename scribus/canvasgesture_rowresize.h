@@ -32,16 +32,16 @@ class SCRIBUS_API RowResize : public TableGesture
 
 public:
 	explicit RowResize(CanvasMode* parent) : TableGesture(parent), m_row(0) {}
-	virtual ~RowResize() {}
+	~RowResize() override = default;
 
-	virtual void activate(bool fromGesture) {};
-	virtual void deactivate(bool forGesture) {}
-	virtual void keyPressEvent(QKeyEvent* event);
-	virtual void keyReleaseEvent(QKeyEvent* event);
-	virtual void mouseReleaseEvent(QMouseEvent* event);
-	virtual void mouseMoveEvent(QMouseEvent* event);
-	virtual bool handleKeyEvents() { return true; }
-	virtual void drawControls(QPainter* p);
+	void activate(bool fromGesture) override {};
+	void deactivate(bool forGesture) override {}
+	void keyPressEvent(QKeyEvent* event) override;
+	void keyReleaseEvent(QKeyEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	bool handleKeyEvents() override { return true; }
+	void drawControls(QPainter* p) override;
 
 	/// Sets up this row resize gesture to resize @a row in @a table.
 	void setup(PageItem_Table* table, int row);

@@ -36,14 +36,14 @@ void RectSelect::enterEvent(QEvent * e){}
 void RectSelect::leaveEvent(QEvent * e){}
 
 
-void RectSelect::prepare(QPoint start)
+void RectSelect::prepare(QPoint globalStartPos)
 {
 	if (!m_selectionRubberBand)
 		m_selectionRubberBand = new SelectionRubberBand(QRubberBand::Rectangle, m_view);
-	setStart(start);
+	setStart(globalStartPos);
 //FIXME Move to new code like SelectionRubberBand
 	m_selectionRubberBand->setWindowOpacity(0.5);
-	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(start), m_view->mapFromGlobal(start)));
+	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(globalStartPos), m_view->mapFromGlobal(globalStartPos)));
 }
 
 void RectSelect::clear()

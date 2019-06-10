@@ -24,13 +24,13 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 	public:
 		ScrSpinBox(QWidget *parent, int unitIndex=0);
 		ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex=0);
-		~ScrSpinBox();
+		~ScrSpinBox() override;
 		
 		//overridden members
-		double valueFromText ( const QString & text ) const;
-		QString textFromValue ( double value ) const;
-		QValidator::State validate ( QString & input, int & pos ) const;
-		void fixup ( QString & input ) const;
+		double valueFromText ( const QString & text ) const override;
+		QString textFromValue ( double value ) const override;
+		QValidator::State validate ( QString & input, int & pos ) const override;
+		void fixup ( QString & input ) const override;
 
 		// call QDoubleSpinBox::setValue() without emitting valueChanged() signal
 		void showValue(double val);
@@ -41,7 +41,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0) const;
 
-		uint   unitIndex() const { return m_unitIndex; }
+		uint unitIndex() const { return m_unitIndex; }
 		double unitRatio() const;
 
 		// Reimplement QDoubleSpinBox::stepBy() for angle wrapping
@@ -58,7 +58,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		const QMap<QString, double>* m_constants;
 
 		void setParameters(int s);
-		bool eventFilter ( QObject * watched, QEvent * event );
+		bool eventFilter ( QObject * watched, QEvent * event ) override;
 		
 	protected slots:
 		void textChanged();

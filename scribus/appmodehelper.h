@@ -37,7 +37,7 @@ class AppModeHelper : public QObject
 	public:
 		explicit AppModeHelper(QObject *parent = nullptr);
 		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *);
-		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
+		void resetApplicationMode(int newMode);
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
 		void enableActionsForSelection(ScribusMainWindow* scmw, ScribusDoc *doc);
 		void setModeActionsPerMode(int newMode);

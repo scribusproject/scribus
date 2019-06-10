@@ -54,10 +54,10 @@ public:
 	/**
 		Draws the controls for this mode
 	 */
-	virtual void drawControls(QPainter* p);
+	void drawControls(QPainter* p) override;
 	
 	
-	virtual ~CanvasMode_NodeEdit() {};
+	~CanvasMode_NodeEdit() override = default;
 	
 	
 private:

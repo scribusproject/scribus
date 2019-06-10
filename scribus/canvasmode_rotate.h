@@ -36,7 +36,7 @@ class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
 public:
 	explicit CanvasMode_Rotate(ScribusView* view);
-	~CanvasMode_Rotate() override {}
+	~CanvasMode_Rotate() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

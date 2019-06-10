@@ -27,15 +27,15 @@ class SCRIBUS_API PanGesture : public CanvasGesture
 {
 public:
 	explicit PanGesture (CanvasMode* parent);
-	virtual ~PanGesture() {}
+	~PanGesture() override = default;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter*);
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter*) override;
 	
 private:
 	QCursor m_cursor;

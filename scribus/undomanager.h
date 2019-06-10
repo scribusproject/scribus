@@ -144,10 +144,10 @@ public:
 	 * @sa commit()
 	 */
 	UndoTransaction beginTransaction(const QString &targetName = "",
-									 QPixmap *targetPixmap = 0,
+									 QPixmap *targetPixmap = nullptr,
 									 const QString &actionName = "",
 									 const QString &description = "",
-									 QPixmap *actionPixmap = 0);
+									 QPixmap *actionPixmap = nullptr);
 
 	UndoTransaction beginTransaction(const TransactionSettings& settings);
 	
@@ -668,7 +668,7 @@ public slots:
 	 * @param state UndoSate describing the state (action).
 	 * @param targetPixmap Is used to override the default target icon in this action.
 	 */
-	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = 0);
+	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = nullptr);
 
 	/**
 	 * @brief Adds a new action to the undo stack.
@@ -683,7 +683,7 @@ public slots:
 	 * @param targetName Is used to override the default target name in this action.
 	 * @param targetPixmap Is used to override the default target icon in this action.
 	 */
-	void action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap = 0);
+	void action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap = nullptr);
 
 	/**
 	 * @brief Informs UndoManager to perform undo

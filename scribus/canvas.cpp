@@ -46,28 +46,6 @@ static QPoint contentsToViewport(QPoint p)
 	return p;
 }
 
-
-void CanvasViewMode::init()
-{	
-	scale = 1;
-	
-	previewMode = false;
-	viewAsPreview = false;
-	previewVisual = -1;
-	
-	m_MouseButtonPressed = false;
-	operItemMoving = false;
-	operItemResizing = false;
-	operItemSelecting = false;
-	redrawPolygon.resize(0);
-	linkedFramesToShow.clear();
-	
-	drawSelectedItemsWithControls = false;
-	drawFramelinksWithContents = false;
-	
-	forceRedraw = false;
-}
-
 QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
 {
 	ds << vm.scale
@@ -110,9 +88,8 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	setAutoFillBackground(true);
 	setAttribute(Qt::WA_OpaquePaintEvent, true);
 	setAttribute(Qt::WA_NoSystemBackground, true);
-	m_buffer = /*QImage()*/QPixmap();
+	m_buffer = QPixmap();
 	m_bufferRect = QRect();
-	m_viewMode.init();
 	m_renderMode = RENDER_NORMAL;
 }
 
@@ -184,32 +161,32 @@ FPoint Canvas::localToCanvas(QPointF p) const
 
 QPoint Canvas::canvasToLocal(const FPoint& p) const
 {
-	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return 	{qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale)};
 }
 
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
-	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return {qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale)};
 }
 
 
 QRect Canvas::canvasToLocal(const QRectF& p) const
 {
-	return 	QRect(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				  qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
-				  qRound(p.width() * m_viewMode.scale), 
-				  qRound(p.height() * m_viewMode.scale));
+	return 	{qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
+			qRound(p.width() * m_viewMode.scale),
+			qRound(p.height() * m_viewMode.scale)};
 }
 
 QRectF Canvas::canvasToLocalF(const QRectF& p) const
 {
-	return 	QRectF((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
-				  (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
-				  p.width() * m_viewMode.scale,
-				  p.height() * m_viewMode.scale);
+	return 	{(p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
+			(p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
+			p.width() * m_viewMode.scale,
+			p.height() * m_viewMode.scale};
 }
 
 
@@ -227,8 +204,8 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 
 QRect Canvas::canvasToGlobal(const QRectF& p) const
 {
-	return QRect(mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
-				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
+	return {mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
+			QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale))};
 }
 
 
@@ -249,7 +226,7 @@ FPoint Canvas::globalToCanvas(QPointF p) const
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
+	return {org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale};
 }
 
 
@@ -271,8 +248,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) cons
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesPrefs().grabRadius;
-	return qAbs(localPoint1.x() - localPoint2.x()) < radius
-		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
 
 
@@ -281,26 +257,33 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesPrefs().grabRadius;
-	return qAbs(localPoint1.x() - localPoint2.x()) < radius
-		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
 
 bool Canvas::hitsCanvasPoint(const FPoint& globalPoint, const QPointF& canvasPoint) const
 {
 	double radius = m_doc->guidesPrefs().grabRadius;
-	return qAbs(globalPoint.x() - canvasPoint.x()) < radius
-		&& qAbs(globalPoint.y() - canvasPoint.y()) < radius;
+	return qAbs(globalPoint.x() - canvasPoint.x()) < radius && qAbs(globalPoint.y() - canvasPoint.y()) < radius;
 }
 
 QRect Canvas::exposedRect() const
 {
-	int ex ( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x() );
-	int ey ( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y() );
-	int ew ( (m_view->visibleWidth() * 1.2) / m_viewMode.scale );
-	int eh ( (m_view->visibleHeight() * 1.2) / m_viewMode.scale );
+	int ex( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x());
+	int ey( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y());
+	int ew( (m_view->visibleWidth() * 1.2) / m_viewMode.scale);
+	int eh( (m_view->visibleHeight() * 1.2) / m_viewMode.scale);
 	
-	return QRect( ex, ey, ew, eh );
+	return {ex, ey, ew, eh};
 }
+
+
+/// Little helper to calculate |p|^2
+
+static double length2(const QPointF& p)
+{
+	return p.x()*p.x() + p.y()*p.y();
+}
+
 
 
 /*!
@@ -315,8 +298,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 	// be huge, into account.
 	// ### might be interesting to investigate if it would be painless to just change 
 	// PageItem::getTransform.
-	double extraS = 0.0;
-	extraS = (item->visualHeight() - item->height()) / - 2.0;
+	double extraS = (item->visualHeight() - item->height()) / - 2.0;
 //	if (item->lineColor() != CommonStrings::None)
 //		extraS = (item->lineWidth() / -2.0);
 	if (item->isTextFrame() && (m_doc->appMode == modeEdit) && !item->asTextFrame()->availableRegion().contains(item->getTransform().inverted().map(canvasPoint.toPoint())))
@@ -328,15 +310,6 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 //		<< QRectF(0, 0, item->width(), item->height());
 	return result;
 }
-
-
-/// Little helper to calculate |p|^2
-
-static double length2(const QPointF& p)
-{
-	return p.x()*p.x() + p.y()*p.y();
-}
-
 
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& frame) const
 {

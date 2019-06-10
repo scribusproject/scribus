@@ -933,7 +933,7 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 		}
 		else
 			replFont = prefsManager->appPrefs.fontPrefs.GFontSub[fontname];
-		ScFace repl = (*this)[replFont].mkReplacementFor(fontname, doc ? doc->documentFileName() : QString(""));
+		ScFace repl = (*this)[replFont].mkReplacementFor(fontname, doc ? doc->documentFileName() : QString());
 		insert(fontname, repl);
 	}
 	else if ( doc && !doc->UsedFonts.contains(fontname) )

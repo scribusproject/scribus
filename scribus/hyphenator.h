@@ -42,7 +42,7 @@ public:
 	\date
 	\author Franz Schmid
 	*/
-	~Hyphenator();
+	~Hyphenator() override;
 	
 private:
 

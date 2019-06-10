@@ -84,7 +84,7 @@ QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 	return nullptr;
 }
 
-void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
+void MenuManager::setMenuEnabled(const QString &menuName, bool enabled)
 {
 	// OSX UI rules don't allow this so let's not do it elsewhere.
 	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
@@ -119,7 +119,7 @@ bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QS
 	}
 	if (beforeAct)
 	{
-		QMenu *m=new QMenu(menuName);
+		auto *m=new QMenu(menuName);
 		scribusMenuBar->insertMenu(beforeAct, m);
 		menuBarMenus.insert(menuName, m);
 		retVal=true;
@@ -258,7 +258,7 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 	return retVal;
 }
 
-void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
+void MenuManager::runMenuAtPos(const QString &menuName, const QPoint& position)
 {
 	/*
 	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)

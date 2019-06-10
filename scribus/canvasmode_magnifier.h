@@ -38,7 +38,7 @@ class CanvasMode_Magnifier :  public CanvasMode
 {
 public:
 	explicit CanvasMode_Magnifier(ScribusView* view);
-	~CanvasMode_Magnifier() override {}
+	~CanvasMode_Magnifier() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

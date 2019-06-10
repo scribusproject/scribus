@@ -43,7 +43,7 @@ class CanvasMode_EditPolygon :  public CanvasMode
 	Q_OBJECT
 public:
 	explicit CanvasMode_EditPolygon(ScribusView* view);
-	~CanvasMode_EditPolygon() override {}
+	~CanvasMode_EditPolygon() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
@@ -55,7 +55,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void drawControls(QPainter* p) override;
-	void drawControlsPolygon(QPainter* pp, PageItem* currItem);
+	void drawControlsPolygon(QPainter* psx, PageItem* currItem);
 
 private:
 

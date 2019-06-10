@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTransform>
 
 //Create transformed point
-FPoint::FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
+FPoint::FPoint(double x, double y, double dx, double dy, double rot, double sx, double sy, bool invert)
 	: xp(x), yp(y)
 {
 	transform(dx,dy,rot,sx,sy,invert);

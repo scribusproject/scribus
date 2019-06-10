@@ -50,28 +50,28 @@ class SCRIBUS_API CanvasGesture : public CanvasMode
 
 protected:
 	explicit CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};
-	explicit CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(NULL) {};
+	explicit CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(nullptr) {};
 	
 public:
-	virtual ~CanvasGesture() {}
-	virtual void enterEvent(QEvent * e) { m_delegate->enterEvent(e); }
-	virtual void leaveEvent(QEvent * e) { m_delegate->leaveEvent(e); }
+	~CanvasGesture() override = default;
+	void enterEvent(QEvent * e) override { m_delegate->enterEvent(e); }
+	void leaveEvent(QEvent * e) override { m_delegate->leaveEvent(e); }
 
-	virtual void dragEnterEvent(QDragEnterEvent *e) { m_delegate->dragEnterEvent(e); }
-	virtual void dragMoveEvent(QDragMoveEvent *e) { m_delegate->dragMoveEvent(e); }
-	virtual void dragLeaveEvent(QDragLeaveEvent *e) { m_delegate->dragLeaveEvent(e); }
-	virtual void dropEvent(QDropEvent *e) { m_delegate->dropEvent(e); }
+	void dragEnterEvent(QDragEnterEvent *e) override { m_delegate->dragEnterEvent(e); }
+	void dragMoveEvent(QDragMoveEvent *e) override { m_delegate->dragMoveEvent(e); }
+	void dragLeaveEvent(QDragLeaveEvent *e) override { m_delegate->dragLeaveEvent(e); }
+	void dropEvent(QDropEvent *e) override { m_delegate->dropEvent(e); }
 	
-	virtual void mouseDoubleClickEvent(QMouseEvent *m) { m_delegate->mouseDoubleClickEvent(m); }
-	virtual void mouseReleaseEvent(QMouseEvent *m) { m_delegate->mouseReleaseEvent(m); }
-	virtual void mouseMoveEvent(QMouseEvent *m) { m_delegate->mouseMoveEvent(m); }
-	virtual void mousePressEvent(QMouseEvent *m) { m_delegate->mousePressEvent(m); }
+	void mouseDoubleClickEvent(QMouseEvent *m) override { m_delegate->mouseDoubleClickEvent(m); }
+	void mouseReleaseEvent(QMouseEvent *m) override { m_delegate->mouseReleaseEvent(m); }
+	void mouseMoveEvent(QMouseEvent *m) override { m_delegate->mouseMoveEvent(m); }
+	void mousePressEvent(QMouseEvent *m) override { m_delegate->mousePressEvent(m); }
 
-	virtual void keyPressEvent(QKeyEvent *e) { m_delegate->keyPressEvent(e); }
-	virtual void keyReleaseEvent(QKeyEvent *e) { m_delegate->keyReleaseEvent(e); }
-	virtual void inputMethodEvent(QInputMethodEvent *e) { m_delegate->inputMethodEvent(e); }
+	void keyPressEvent(QKeyEvent *e) override { m_delegate->keyPressEvent(e); }
+	void keyReleaseEvent(QKeyEvent *e) override { m_delegate->keyReleaseEvent(e); }
+	void inputMethodEvent(QInputMethodEvent *e) override { m_delegate->inputMethodEvent(e); }
 	
-	CanvasMode* delegate() { return m_delegate; }
+	CanvasMode* delegate() override { return m_delegate; }
 	void setDelegate(CanvasMode* delegate) { if (delegate) m_delegate = delegate; }
 	
 protected:

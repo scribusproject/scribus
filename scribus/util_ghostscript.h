@@ -42,9 +42,9 @@ int     SCRIBUS_API callGS(const QStringList& args_in, const QString& device="",
 int     SCRIBUS_API callGS(const QString& args_in, const QString& device="");
 int     SCRIBUS_API convertPS2PS(const QString& in, const QString& out, const QStringList& opts, int level);
 int     SCRIBUS_API convertPS2PDF(const QString& in, const QString& out, const QStringList& opts);
-bool    SCRIBUS_API testGSAvailability( void );
-bool    SCRIBUS_API testGSAvailability( const QString& gsPath );
-bool    SCRIBUS_API testGSDeviceAvailability( const QString& device );
+bool    SCRIBUS_API testGSAvailability();
+bool    SCRIBUS_API testGSAvailability(const QString& gsPath);
+bool    SCRIBUS_API testGSDeviceAvailability(const QString& device);
 /*! \brief Return gs version. If gs couldn't be found or there was a problem parsing output, return false
  (in which case minor and major have undefined values).
  \retval QString version or false on error */
@@ -52,6 +52,6 @@ QString SCRIBUS_API getGSVersion();
 bool    SCRIBUS_API getNumericGSVersion(int &version);
 bool    SCRIBUS_API getNumericGSVersion(int & major, int & minor);
 bool    SCRIBUS_API getNumericGSVersion(const QString& ver, int&major, int& minor);
-QString SCRIBUS_API getGSDefaultExeName(void);
+QString SCRIBUS_API getGSDefaultExeName();
 QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alternateView = false);
 #endif

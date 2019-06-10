@@ -49,8 +49,8 @@ class PageItem_Line;
 class SCRIBUS_API LineMove : public CanvasGesture
 {
 public:
-	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_useOriginAsEndpoint(false), m_bounds(0,0,0,0), m_line(NULL) {}
-	virtual ~LineMove() {}
+	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_useOriginAsEndpoint(false), m_bounds(0,0,0,0), m_line(nullptr) {}
+	~LineMove() override = default;
 	
 	/**
 		Prepare a LineMove without attached PageItem
@@ -64,19 +64,19 @@ public:
 	
 	void clear();
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 	/**
 		prepares the LineMove for the the current selection. Sets 'haveLineItem'
 		to false if the current selection is not a single lineitem.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter*);
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter*) override;
 	
-	void setStartPoint(QPointF canvasStart);
-	void setEndPoint(QPointF canvasEnd);
+	void setStartPoint(QPointF p);
+	void setEndPoint(QPointF p);
 
 	QPointF startPoint() const { return m_bounds.topLeft(); }
 	QPointF endPoint() const { return m_bounds.bottomRight(); }

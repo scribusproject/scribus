@@ -30,7 +30,7 @@ class CanvasMode_CopyProperties :  public CanvasMode
 {
 public:
 	explicit CanvasMode_CopyProperties(ScribusView* view);
-	~CanvasMode_CopyProperties() override {}
+	~CanvasMode_CopyProperties() override = default;
 
 	void enterEvent(QEvent *) override ;
 	void leaveEvent(QEvent *) override ;

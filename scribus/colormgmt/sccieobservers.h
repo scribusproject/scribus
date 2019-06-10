@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 class ScCIEObserver
 {
 public:
-	virtual ~ScCIEObserver() {}
+	~ScCIEObserver() = default;
 
 	// Wavelengths represented in the data set
 	QVector<int> wavelengths() const;
@@ -36,14 +36,14 @@ protected:
 
 class ScCIE1931Observer : public ScCIEObserver
 {
-public:
-	ScCIE1931Observer();
+	public:
+		ScCIE1931Observer();
 };
 
 class ScCIE1964Observer : public ScCIEObserver
 {
-public:
-	ScCIE1964Observer();
+	public:
+		ScCIE1964Observer();
 };
 
 #endif // SCCIEOBSERVERS_H

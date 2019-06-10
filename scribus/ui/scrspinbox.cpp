@@ -308,9 +308,9 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 		//If read only don't spin
 		if (isReadOnly())
 			return false;
-		QWheelEvent* k = (QWheelEvent*)event;
-		bool shiftB = k->modifiers() & Qt::ShiftModifier;
-		bool altB = k->modifiers() & Qt::AltModifier;
+		auto* wheelEvent = dynamic_cast<QWheelEvent*>(event);
+		bool shiftB = wheelEvent->modifiers() & Qt::ShiftModifier;
+		bool altB = wheelEvent->modifiers() & Qt::AltModifier;
 		if (shiftB && !altB)
 		{
 			setSingleStep(0.1);

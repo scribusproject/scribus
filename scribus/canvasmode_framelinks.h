@@ -41,7 +41,7 @@ class CanvasMode_FrameLinks :  public CanvasMode
 
 public:
 	explicit CanvasMode_FrameLinks(ScribusView* view);
-	~CanvasMode_FrameLinks() override {}
+	~CanvasMode_FrameLinks() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

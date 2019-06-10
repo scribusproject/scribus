@@ -33,7 +33,7 @@ class FreehandMode : public CanvasMode
 {
 public:
 	explicit FreehandMode(ScribusView* view);
-	~FreehandMode() {}
+	~FreehandMode() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

@@ -5,9 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-    begin                : Jan 2005
-    copyright            : (C) 2005 by Craig Bradney
-    email                : cbradney@zip.com.au
+	begin                : Jan 2005
+	copyright            : (C) 2005 by Craig Bradney
+	email                : cbradney@zip.com.au
  ***************************************************************************/
 
 /***************************************************************************
@@ -84,7 +84,7 @@ const QString ScrPopupMenu::getParentMenuName()
 // {
 // 	menuBarID=id;
 // }
-// 
+//
 // int ScrPopupMenu::getMenuBarID()
 // {
 // 	return menuBarID;
@@ -104,8 +104,8 @@ bool ScrPopupMenu::hasSubMenu(ScrPopupMenu* subMenu)
 // {
 // 	parentMenuID=id;
 // }
-// 
-// 
+//
+//
 // const int ScrPopupMenu::getParentMenuID()
 // {
 // 	return parentMenuID;
@@ -184,7 +184,7 @@ bool ScrPopupMenu::insertMenuItem(QWidget *widget)
 		localPopupMenu->insertItem(widget);
 		return true;
 	}
-	else 
+	else
 		return false;
 }
 */
@@ -194,13 +194,13 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//Allow duplicate menu items ???
 	//if (menuItemList.findRef(newMenuAction)!=-1)
 	//	return false;
-	
+
 #ifdef Q_OS_MAC
 	if (newMenuAction && afterMenuAction)
 		if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
 			newMenuAction->setIcon(IconManager::instance()->loadIcon("noicon.png"));
 #endif
-		
+
 	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));
 	menuItemList.insert(++pos, QPointer<QObject>(newMenuAction));
 	/*
@@ -231,7 +231,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 	bool found=false;
 	QPtrListIterator<QObject> menuItemListIt(menuItemList);
 	QObject *object;
-	while ( (object = menuItemListIt.current()) != 0  ) 
+	while ( (object = menuItemListIt.current()) != 0  )
 	{
 		QString menuItemListClassName=object->className();
 		int index=-1;
@@ -249,12 +249,12 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 			else
 			{
 				//Grab the action from the list, break and call the other after insert function
-				
+
 				int newIndex=++index;
 				bool insSuccess=menuItemList.insert(newIndex, newMenuAction);
 				if (!insSuccess)
 					return false;
-				
+
 			}
 		}
 	}
@@ -262,7 +262,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 		return false;
 	if (retVal==false)
 		return false;
-	
+
 	return repopulateLocalMenu();
 }
 */
@@ -290,7 +290,7 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			if (act!=nullptr)
 				localPopupMenu->addAction(act);
 		}
-		else 
+		else
 		{
 			if (menuItemListClassName=="ScrPopupMenu")
 			{
@@ -325,25 +325,25 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 			menuItemList.removeAll(*menuItemListItToDelete);
 			continue;
 		}
-		
+
 		QString menuItemListClassName=listObj->metaObject()->className();
 		if (menuItemListClassName=="ScrAction")
 		{
-			ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
+			auto *sca=dynamic_cast<ScrAction *>(listObj);
 			if (sca!=nullptr)
 				actNames->append(sca->objectName());
 		}
 		else
 			if (menuItemListClassName=="ScrPopupMenu")
 			{
-				ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(listObj);
+				auto *scp=dynamic_cast<ScrPopupMenu *>(listObj);
 				if (scp!=nullptr)
 					scp->generateEntryList(actNames);
 			}
 		++menuItemListIt;
 	}
 	return true;
-	
+
 }
 
 bool ScrPopupMenu::clear()

@@ -41,18 +41,18 @@ struct SVGState;
 
 class SCRIBUS_API FPointArray : public QVector<FPoint>
 {
-public: 
-	FPointArray() : m_svgState(NULL) {};
-	FPointArray(int size) : QVector<FPoint>(size), m_svgState(NULL) {};
-	FPointArray(const FPointArray &a) : QVector<FPoint>(a), m_svgState(NULL) {};
+public:
+	FPointArray() : m_svgState(nullptr) {};
+	FPointArray(int size) : QVector<FPoint>(size), m_svgState(nullptr) {};
+	FPointArray(const FPointArray &a) : QVector<FPoint>(a), m_svgState(nullptr) {};
 	int  size() const { return QVector<FPoint>::count(); }
 	bool resize(int newCount);
 	void reverse();
 	void setPoint(int i, double x, double y) { FPoint& p = QVector<FPoint>::operator[](i); p.xp = x; p.yp = y; };
 	void setPoint(int i, FPoint p) { setPoint(i, p.xp, p.yp); }
-	bool setPoints( int nPoints, double firstx, double firsty, ... );
-	bool putPoints( int index, int nPoints, double firstx, double firsty,  ... );
-	bool putPoints( int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
+	bool setPoints(int nPoints, double firstx, double firsty, ... );
+	bool putPoints(int index, int nPoints, double firstx, double firsty,  ... );
+	bool putPoints(int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
 	void point(int i, double *x, double *y) const;
 	const FPoint& point(int i)  const{ return QVector<FPoint>::at(i); }
 	QPoint pointQ(int i) const;

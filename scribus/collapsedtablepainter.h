@@ -28,7 +28,7 @@ public:
 	explicit CollapsedTablePainter(PageItem_Table* table) : TablePainter(table) {}
 
 	/// Paints the table using @a p and returns the table offset.
-	virtual void paintTable(ScPainter* p);
+	void paintTable(ScPainter* p) override;
 
 private:
 	/// Paints the fill of the table.

@@ -36,7 +36,7 @@ class CreateMode : public CanvasMode
 
 public:
 	explicit CreateMode(ScribusView* view);
-	~CreateMode() override  {}
+	~CreateMode() override  = default;
 
 	void enterEvent(QEvent *) override ;
 	void leaveEvent(QEvent *) override ;

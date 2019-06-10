@@ -43,7 +43,7 @@ class CanvasMode_EditSpiral :  public CanvasMode
 	Q_OBJECT
 public:
 	explicit CanvasMode_EditSpiral(ScribusView* view);
-	~CanvasMode_EditSpiral() override {}
+	~CanvasMode_EditSpiral() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
@@ -55,7 +55,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void drawControls(QPainter* p) override;
-	void drawControlsSpiral(QPainter* pp, PageItem* currItem);
+	void drawControlsSpiral(QPainter* psx, PageItem* currItem);
 
 private:
 

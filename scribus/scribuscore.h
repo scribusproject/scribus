@@ -55,7 +55,7 @@ Q_OBJECT
 
 public:
 	ScribusCore();
-	~ScribusCore();
+	~ScribusCore() override;
 	
 	ScSplashScreen* splash() {return m_SplashScreen;}
 	/*
@@ -65,7 +65,7 @@ public:
 	int runScript() {return 0;}
 	*/	
 	int init(bool useGUI, const QList<QString>& filesToUse);
-	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage);
+	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
 	bool initialized() const {return m_ScribusInitialized;}
 	const QString& getGuiLanguage() const;
 

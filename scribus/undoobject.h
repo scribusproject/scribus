@@ -69,7 +69,7 @@ public:
 	 * @brief Creates a new UndoObject instance with the name <code>objectName</code>
 	 * @param objectName Name of the UndoObject
 	 */
-	UndoObject(const QString &objectName, QPixmap *objectIcon = 0);
+	UndoObject(const QString &objectName, QPixmap *objectIcon = nullptr);
 
 	/** @brief Destroys the object. */
 	virtual ~UndoObject();

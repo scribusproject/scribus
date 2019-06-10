@@ -54,7 +54,7 @@ public:
 				QPixmap *targetPixmap,
 				const QString &name = "",
 				const QString &description = "",
-				QPixmap *actionPixmap = 0);
+				QPixmap *actionPixmap = nullptr);
 };
 
 /**
@@ -64,11 +64,8 @@ public:
 class TransactionData : public Transaction::TransactionStateBase
 {
 public:
-	TransactionData() {
-		stackLevel = 0;
-		UM = 0;
-		transactionObject = 0;
-		transactionState = 0;
+	TransactionData()
+	{
 	}
 
 	~TransactionData() {
@@ -78,10 +75,10 @@ public:
 			delete transactionState;*/
 	}
 
-	int stackLevel;
-	UndoManager* UM;
-	UndoObject* transactionObject;  // will be DummyUndoObject
-	TransactionState* transactionState;
+	int stackLevel {0};
+	UndoManager* UM {nullptr};
+	UndoObject* transactionObject {nullptr};  // will be DummyUndoObject
+	TransactionState* transactionState {nullptr};
 };
 
 #endif

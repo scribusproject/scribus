@@ -49,7 +49,7 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
 	RulerGesture (ScribusView* view, Mode mode);
-	virtual ~RulerGesture() {}
+	~RulerGesture() override = default;
 
 	/**
 		Prepares the gesture for 'mode' without using an existing guide. If 'mode' is HORIZONTAL
@@ -58,16 +58,16 @@ public:
 	void prepare(Mode mode);
 	void clear();
 	
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void drawControls(QPainter* p) override;
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 	/**
 	  This method should be called when the mousebutton is pressed.
 	  If there's a moveable guide near this position, it prepares the gesture for moving this guide.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
+	void mousePressEvent(QMouseEvent *m) override;
 	
 	Mode getMode() { return m_mode; }
 	/**

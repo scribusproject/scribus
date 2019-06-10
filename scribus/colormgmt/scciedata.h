@@ -38,12 +38,12 @@ public:
 	const ScCIEObserver& cieObserver(eObserver observer) const;
 	
 	/**
-	 * @brief Retrieve data for CIE 1931 2° observer.
+	 * @brief Retrieve data for CIE 1931 2Â° observer.
 	 */
 	const ScCIE1931Observer& cie1931Observer() const { return m_cie1931Observer; }
 	
 	/**
-	 * @brief Retrieve data for CIE 1964 10° observer.
+	 * @brief Retrieve data for CIE 1964 10Â° observer.
 	 */
 	const ScCIE1964Observer& cie1964Observer() const { return m_cie1964Observer; }
 
@@ -59,15 +59,15 @@ public:
 	
 protected:
 	/** @brief Constructor. Use ScCIEData::instance() instead. */
-	ScCIEData() {}
+	ScCIEData() = default;
 	
 	/** @brief Pointer to existing instance of ScCIEData, if any. */
 	static ScCIEData* m_instance;
 	
-	/** @brief CIE 1931 2° observer. */
+	/** @brief CIE 1931 2Â° observer. */
 	ScCIE1931Observer m_cie1931Observer;
 	
-	/** @brief CIE 1964 10° observer. */
+	/** @brief CIE 1964 10Â° observer. */
 	ScCIE1964Observer m_cie1964Observer;
 
 	/** @brief CIE D50 illuminant. */

@@ -29,32 +29,24 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include "scribusapi.h"
 
-//FIXME: Someone please fix these variable names.. 
+//FIXME: Someone please fix these variable names..
 //They are simply moved here, not all fixed.
 //TODO make the usage in various places a little simpler
 class SCRIBUS_API Annotation // : public SaxIO
 {
 	public:
-		//Do we need a null or an empty QString for these? Remove the qstring initialisations if null is ok.
-		Annotation() : m_type(0), m_actType(0), m_action(""), m_E_act(""), m_X_act(""), m_D_act(""),
-						m_Fo_act(""), m_Bl_act(""), m_K_act(""), m_F_act(""), m_V_act(""), m_C_act(""),
-						m_toolTip(""), m_rollOver(""), m_down(""), m_borderColor(""), m_extern(""), m_borderStyle(0),
-						m_borderWidth(1), m_feed(1), m_ziel(0), m_flag(0), m_maxChar(-1), m_vis(0), m_chkStil(0),
-						m_font(4), m_isChk(false), m_aAact(false), m_html(0), m_useIcons(false),
-						m_iPlace(1), m_scaleW(0), m_format(0), tmp_Chk(false), on_State(false), is_Open(false), m_icon(0), m_isOpen(false)
-		{
-		}
+		Annotation() = default;
 		enum AnnotationType
 		{
-			Button			= 2,
-			Textfield		= 3,
-			Checkbox		= 4,
-			Combobox		= 5,
-			Listbox			= 6,
-			Text			= 10,
-			Link			= 11,
-			Annot3D		  	= 12,
-			RadioButton		= 13
+			Button		= 2,
+			Textfield	= 3,
+			Checkbox	= 4,
+			Combobox	= 5,
+			Listbox		= 6,
+			Text		= 10,
+			Link		= 11,
+			Annot3D		= 12,
+			RadioButton	= 13
 		};
 		enum AnnotationAction
 		{
@@ -119,16 +111,12 @@ class SCRIBUS_API Annotation // : public SaxIO
 
 	bool isAcroFormField() const
 	{
-		if (m_type == Annotation::Button ||
+		return m_type == Annotation::Button ||
 			m_type == Annotation::Textfield ||
 			m_type == Annotation::Checkbox ||
 			m_type == Annotation::Combobox ||
 			m_type == Annotation::Listbox ||
-			m_type == Annotation::RadioButton)
-		{
-			return true;
-		}
-		return false;
+			m_type == Annotation::RadioButton;
 	}
 
 	void setType(int newType) { m_type = newType; }
@@ -209,46 +197,46 @@ class SCRIBUS_API Annotation // : public SaxIO
 	int ScaleW() const { return m_scaleW; }
 	bool IsAnOpen() const { return m_isOpen; }
 	int Icon() const { return m_icon; }
-	
+
 	protected:
-		int m_type;
-		int m_actType;
-		QString m_action;
-		QString m_E_act;
-		QString m_X_act;
-		QString m_D_act;
-		QString m_Fo_act;
 		QString m_Bl_act;
-		QString m_K_act;
-		QString m_F_act;
-		QString m_V_act;
 		QString m_C_act;
-		QString m_toolTip;
-		QString m_rollOver;
-		QString m_down;
+		QString m_D_act;
+		QString m_E_act;
+		QString m_F_act;
+		QString m_Fo_act;
+		QString m_K_act;
+		QString m_V_act;
+		QString m_X_act;
+		QString m_action;
 		QString m_borderColor;
+		QString m_down;
 		QString m_extern;
-		int m_borderStyle;
-		int m_borderWidth;
-		int m_feed;
-		int m_ziel;
-		int m_flag;
-		int m_maxChar;
-		int m_vis;
-		int m_chkStil;
-		int m_font;
-		bool m_isChk;
-		bool m_aAact;
-		int m_html;
-		bool m_useIcons;
-		int m_iPlace;
-		int m_scaleW;
-		int m_format;
-		bool tmp_Chk;
-		bool on_State;
-		bool is_Open;
-		int m_icon;
-		bool m_isOpen;
+		QString m_rollOver;
+		QString m_toolTip;
+		bool is_Open {false};
+		bool m_aAact {false};
+		bool m_isChk {false};
+		bool m_isOpen {false};
+		bool m_useIcons {false};
+		bool on_State {false};
+		bool tmp_Chk {false};
+		int m_actType {0};
+		int m_borderStyle {0};
+		int m_borderWidth {1};
+		int m_chkStil {0};
+		int m_feed {1};
+		int m_flag {0};
+		int m_font {4};
+		int m_format {0};
+		int m_html {0};
+		int m_iPlace {1};
+		int m_icon {0};
+		int m_maxChar {-1};
+		int m_scaleW {0};
+		int m_type {0};
+		int m_vis {0};
+		int m_ziel {0};
 };
 
 #endif

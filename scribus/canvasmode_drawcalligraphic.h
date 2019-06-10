@@ -33,7 +33,7 @@ class CalligraphicMode : public CanvasMode
 {
 public:
 	explicit CalligraphicMode(ScribusView* view);
-	~CalligraphicMode() override {}
+	~CalligraphicMode() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

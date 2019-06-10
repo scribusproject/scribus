@@ -35,7 +35,7 @@ class CanvasMode_Panning :  public CanvasMode
 {
 public:
 	explicit CanvasMode_Panning(ScribusView* view);
-	~CanvasMode_Panning() override {}
+	~CanvasMode_Panning() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

@@ -23,7 +23,7 @@ class SCRIBUS_API CellArea
 {
 public:
 	/// Constructs a new invalid area.
-	CellArea();
+	CellArea() = default;
 
 	/// Constructs an area starting at @a row, @a column with the given @a width and @a height.
 	CellArea(int row, int column, int width, int height);
@@ -122,10 +122,10 @@ public:
 	CellArea adjustedForColumnRemoval(int index, int numColumns);
 
 private:
-	int m_row;
-	int m_column;
-	int m_width;
-	int m_height;
+	int m_row {-1};
+	int m_column {-1};
+	int m_width {-1};
+	int m_height {-1};
 };
 Q_DECLARE_TYPEINFO(CellArea, Q_MOVABLE_TYPE);
 

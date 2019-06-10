@@ -35,7 +35,7 @@ class CanvasMode_ImageImport : public CanvasMode
 
 public:
 	explicit CanvasMode_ImageImport(ScribusView* view);
-	 ~CanvasMode_ImageImport() override {}
+	 ~CanvasMode_ImageImport() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

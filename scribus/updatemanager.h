@@ -65,14 +65,14 @@ public:
 
 class SCRIBUS_API UpdateManager
 {
-	int m_updatesDisabled;
+	int m_updatesDisabled {0};
 	QSet<QPair<UpdateManaged*, UpdateMemento*> > m_pending;
 	
 public:
-	UpdateManager() : m_updatesDisabled(0), m_pending() {}
+	UpdateManager() {}
 	virtual ~UpdateManager();
 	
-	void setUpdatesEnabled(bool val=true);
+	void setUpdatesEnabled(bool val = true);
 	void setUpdatesDisabled() { setUpdatesEnabled(false); };
 	bool updatesEnabled() { return m_updatesDisabled == 0; };
 	/**

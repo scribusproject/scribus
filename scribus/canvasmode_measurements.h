@@ -36,7 +36,7 @@ class MeasurementsMode : public CanvasMode
 	
 public:
 	explicit MeasurementsMode(ScribusView* view);
-	~MeasurementsMode() override {}
+	~MeasurementsMode() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

@@ -31,17 +31,16 @@ class SCRIBUS_API TableResize : public TableGesture
 	Q_OBJECT
 
 public:
-	explicit TableResize(CanvasMode* parent) : TableGesture(parent),
-		m_minHeight(0.0), m_minWidth(0.0) {}
-	virtual ~TableResize() {}
+	explicit TableResize(CanvasMode* parent) : TableGesture(parent), m_minHeight(0.0), m_minWidth(0.0) {}
+	~TableResize() override = default;
 
-	virtual void activate(bool fromGesture) {};
-	virtual void deactivate(bool forGesture) {}
-	virtual void keyPressEvent(QKeyEvent* event);
-	virtual void mouseReleaseEvent(QMouseEvent* event);
-	virtual void mouseMoveEvent(QMouseEvent* event);
-	virtual bool handleKeyEvents() { return true; }
-	virtual void drawControls(QPainter* p);
+	void activate(bool fromGesture) override {};
+	void deactivate(bool forGesture) override {}
+	void keyPressEvent(QKeyEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	bool handleKeyEvents() override { return true; }
+	void drawControls(QPainter* p) override;
 
 	/// Sets up this table resize gesture to resize @a table.
 	void setup(PageItem_Table* table);

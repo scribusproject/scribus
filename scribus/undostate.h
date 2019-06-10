@@ -66,7 +66,7 @@ public:
 	 * @param description Description of the state (action)
 	 * @param pixmap Pointer to an icon describing the action visually.
 	 */
-	UndoState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0);
+	UndoState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr);
 
 	virtual ~UndoState();
 
@@ -152,7 +152,7 @@ public:
 	 * @param description Description of the state (action)
 	 * @param pixmap Pointer to an icon describing the state (action) visually.
 	 */
-	SimpleState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0);
+	SimpleState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr);
 
 	virtual ~SimpleState();
 
@@ -321,7 +321,7 @@ template<class C>
 class ScItemState : public SimpleState
 {
 public:
-	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
+	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemState() {}
 
@@ -337,12 +337,12 @@ private:
 class ScItemsState : public SimpleState
 {
 public:
-	ScItemsState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
+	ScItemsState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemsState() {}
 
 	void insertItem(QString itemname, void * item) { pointerMap.insert(itemname, item); }
-	void* getItem(QString itemname) const { if (pointerMap.contains(itemname)) return pointerMap.value(itemname, NULL); else return NULL;}
+	void* getItem(const QString& itemname) const;
 	QList< QPair<void*, int> > insertItemPos;
 
 private:

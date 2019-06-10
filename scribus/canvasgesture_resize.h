@@ -48,7 +48,7 @@ class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
 	explicit ResizeGesture (CanvasMode* parent);
-	virtual ~ResizeGesture() {}
+	~ResizeGesture() override = default;
 	
 	/**
 		Prepares the gesture for resizing the selection
@@ -56,17 +56,17 @@ public:
 	void prepare(Canvas::FrameHandle framehandle = Canvas::SOUTHEAST);
 	void clear();
 	
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void drawControls(QPainter* p) override;
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 	/**
 	  This method only sets the m_handle field.
 	  If the correct value is set by prepare() (default = SOUTHEAST), 
 	  it's not necessary to call this method.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
+	void mousePressEvent(QMouseEvent *m) override;
 	
 	Canvas::FrameHandle frameHandle() const { return m_handle; }
 	

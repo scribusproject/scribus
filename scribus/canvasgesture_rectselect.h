@@ -48,26 +48,26 @@ class SelectionRubberBand;
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
 public:
-	explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(0) {};
-	virtual ~RectSelect() {}
+	explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(nullptr) {};
+	~RectSelect() override = default;
 	
 	void prepare(QPoint globalStartPos);
 	void clear();
 	
-	virtual void enterEvent(QEvent * e);
-	virtual void leaveEvent(QEvent * e);
-
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void enterEvent(QEvent * e) override;
+	void leaveEvent(QEvent * e) override;
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 	/**
 		Prepares rectangle select for the position from 'm'
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter*);
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter*) override;
 
 	QRectF result() const ;
+
 private:
 	void setStart(QPoint globalPos);
 	void setEnd(QPoint globalPos);

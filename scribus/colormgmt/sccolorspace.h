@@ -56,10 +56,10 @@ public:
 	                                         eRenderIntent proofingIntent, long transformFlags);
 
 	// Convert color data to a specific color space
+	bool convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags,
+				 void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans = nullptr);
 	bool convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
-	             void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans = 0);
-	bool convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
-	             void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans = 0);
+				 void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans = nullptr);
 
 	const ScColorSpaceData* data() const { return m_data.data(); }
 

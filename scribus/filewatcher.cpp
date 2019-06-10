@@ -40,7 +40,7 @@ FileWatcher::~FileWatcher()
 	delete m_watchTimer;
 }
 
-void FileWatcher::setTimeOut(const int newTimeOut, const bool restartTimer)
+void FileWatcher::setTimeOut(int newTimeOut, bool restartTimer)
 {
 	m_timeOut=newTimeOut;
 	if (restartTimer)

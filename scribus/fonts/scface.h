@@ -198,7 +198,7 @@ public:
 		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
 		virtual bool embedFont(QByteArray &/*str*/)       const { return false; }
 		virtual void rawData(QByteArray & /*bb*/)      const {}
-		virtual FT_Face ftFace() const { return 0; }
+		virtual FT_Face ftFace() const { return nullptr; }
 		virtual void* hbFont();
 
 		virtual bool isItalic() const { return false; }
@@ -265,7 +265,7 @@ public:
 	bool isReplacement()   const { return !m_replacedName.isEmpty(); }
 
 	/// makes a repalcement font for font "name" using this fonts data
-	ScFace mkReplacementFor(QString name, QString doc) { 
+	ScFace mkReplacementFor(const QString& name, const QString& doc) {
 		ScFace result(m_m);
 		result.m_replacedName = name;
 		result.m_replacedInDoc = doc;

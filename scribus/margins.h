@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 class MarginStruct
 {
 	public:
-		MarginStruct() : m_top(0), m_left(0), m_bottom(0), m_right(0) {}
+		MarginStruct() {}
 		MarginStruct(double top, double left, double bottom, double right) :
 			m_top(top), m_left(left), m_bottom(bottom), m_right(right) {}
 //unneeded? default compiler generated should suffice
@@ -48,10 +48,10 @@ class MarginStruct
 
 
 	protected:
-		double m_top;
-		double m_left;
-		double m_bottom;
-		double m_right;
+		double m_top {0.0};
+		double m_left {0.0};
+		double m_bottom {0.0};
+		double m_right {0.0};
 };
 
 #if QT_VERSION >= 0x050300

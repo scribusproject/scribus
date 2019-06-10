@@ -40,7 +40,7 @@ class CanvasMode_Normal :  public CanvasMode
 	
 public:
 	explicit CanvasMode_Normal(ScribusView* view);
-	~CanvasMode_Normal() override {}
+	~CanvasMode_Normal() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 class ScCIEIlluminant
 {
 public:
-	virtual ~ScCIEIlluminant() {}
+	~ScCIEIlluminant() = default;
 	
 	// Relative illuminant power for specified wavelength
 	double power(int waveLen) const { return m_pow.value(waveLen, 0.0); }
@@ -29,14 +29,14 @@ protected:
 
 class ScD50Illuminant : public ScCIEIlluminant
 {
-public:
-	ScD50Illuminant();
+	public:
+		ScD50Illuminant();
 };
 
 class ScD65Illuminant : public ScCIEIlluminant
 {
-public:
-	ScD65Illuminant();
+	public:
+		ScD65Illuminant();
 };
 
 #endif // SCCIEILLUMINANTS_H

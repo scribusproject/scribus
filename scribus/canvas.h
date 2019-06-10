@@ -48,29 +48,23 @@ class ScribusView;
 
 struct CanvasViewMode
 {
-	void init();
-	
-	double scale;
-
-	bool previewMode;
-	bool viewAsPreview;
-	int previewVisual;
-
-	bool m_MouseButtonPressed;
-	bool operItemMoving;
-	bool operItemResizing;
-	bool operItemSelecting;
-	bool operTextSelecting;
-	QPolygon redrawPolygon;
 	QList<PageItemPointer> linkedFramesToShow;
-	
+	QPolygon redrawPolygon;
+	bool m_MouseButtonPressed {false};
+	bool operItemMoving {false};
+	bool operItemResizing {false};
+	bool operItemSelecting {false};
+	bool operTextSelecting {false};
+	bool previewMode {false};
+	bool viewAsPreview {false};
 	/** if true, selected objects will not be drawn by drawContents() */
-	bool drawSelectedItemsWithControls;
+	bool drawSelectedItemsWithControls {false};
 	/** if true, drawContents() will draw framelinks even if View->Show Framelinks is false */
-	bool drawFramelinksWithContents;
-	
+	bool drawFramelinksWithContents {false};
 	// used for buffering:
-	bool forceRedraw;
+	bool forceRedraw {false};
+	double scale {1};
+	int previewVisual {-1};
 };
 
 QDataStream &operator<<(QDataStream & ds, const CanvasViewMode & vm);
@@ -170,8 +164,8 @@ public:
 	bool cursorOverTextFrameControl(QPoint globalPos, PageItem* frame);
 	bool cursorOverFrameControl(QPoint globalPos, const QRectF& targetRect, PageItem* frame);
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */
-	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
-	FrameHandle frameHitTest(QPointF point, const QRectF& frame) const;
+	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* item) const;
+	FrameHandle frameHitTest(QPointF canvasPoint, const QRectF& frame) const;
 	/**
 		Returns the item under the cursor or nullptr if none found.
 	 Does *not* change the selection.
@@ -201,7 +195,7 @@ public:
 	void DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip);
 	//notesFramesPass determine if notes frames are drawed or not
 	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass);
-	virtual void paintEvent ( QPaintEvent * p );
+	void paintEvent ( QPaintEvent * p ) override;
 	void displayXYHUD(QPoint m);
 	void displayCorrectedXYHUD(QPoint m, double x, double y);
 	void displayCorrectedSingleHUD(QPoint m, double val, bool isX);
@@ -232,8 +226,8 @@ private:
 	void DrawPageIndicatorSub(ScPainter *p, ScPage *page);
 	void DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master = false);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
-	void PaintSizeRect(QRect neu);
-	void PaintSizeRect(QPolygon neu);
+	void PaintSizeRect(QRect newRect);
+	void PaintSizeRect(QPolygon newRect);
 	void Transform(PageItem *currItem, QPainter *p);
 	void Transform(PageItem *currItem, QTransform& m);
 	void TransformM(PageItem *currItem, QPainter *p);

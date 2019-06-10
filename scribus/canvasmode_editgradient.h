@@ -36,7 +36,7 @@ class CanvasMode_EditGradient :  public CanvasMode
 {	
 public:
 	explicit CanvasMode_EditGradient(ScribusView* view);
-	~CanvasMode_EditGradient() override {}
+	~CanvasMode_EditGradient() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

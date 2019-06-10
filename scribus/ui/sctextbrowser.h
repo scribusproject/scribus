@@ -21,7 +21,7 @@ class SCRIBUS_API ScTextBrowser : public QTextBrowser
 	QUrl homeUrl;
 
 	public:
-		ScTextBrowser( QWidget * parent = 0 );
+		ScTextBrowser( QWidget * parent = nullptr );
 
 		void clear();
 		void find(const QString& txt, const int& options = 0);

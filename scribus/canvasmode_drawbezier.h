@@ -33,7 +33,7 @@ class BezierMode : public CanvasMode
 {
 public:
 	explicit BezierMode(ScribusView* view);
-	~BezierMode() override {}
+	~BezierMode() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;

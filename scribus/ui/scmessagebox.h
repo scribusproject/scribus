@@ -44,9 +44,9 @@ class SCRIBUS_API ScMessageBox : public QMessageBox
 
 public:
 	// Property-based API
-	ScMessageBox(QWidget *parent = 0);
+	ScMessageBox(QWidget *parent = nullptr);
 	ScMessageBox(QMessageBox::Icon icon, const QString &title, const QString &text,
-		QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent = 0,
+		QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent = nullptr,
 		Qt::WindowFlags flags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 	int exec();
 	QAbstractButton *clickedButton() const;

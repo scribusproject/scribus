@@ -100,7 +100,7 @@ public:
 	bool inASpecialEditMode() const;
 	QList<PageItem*> getAllItems(QList<PageItem*> &items);
 	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
-	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
+	void setup(int, int, int, int, int, const QString&, const QString&);
 	void setLoading(const bool);
 	bool isLoading() const;
 	void setModified(const bool);
@@ -163,7 +163,7 @@ public:
 	void setAutoSaveCount(int i) { m_docPrefsData.docSetupPrefs.AutoSaveCount=i; }
 	void setAutoSaveKeep(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveKeep=i; }
 	void setAutoSaveInDocDir(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveLocation=i; }
-	void setAutoSaveDir(QString i) { m_docPrefsData.docSetupPrefs.AutoSaveDir = i; }
+	void setAutoSaveDir(const QString& autoDaveDir) { m_docPrefsData.docSetupPrefs.AutoSaveDir = autoDaveDir; }
 	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
@@ -217,11 +217,11 @@ public:
 
 	// Add, delete and move pages
 	
-	ScPage* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
-	void deletePage(const int);
+	ScPage* addPage(int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
+	void deletePage(int);
 	//! @brief Add a master page with this function, do not use addPage
-	ScPage* addMasterPage(const int, const QString&);
-	void deleteMasterPage(const int);
+	ScPage* addMasterPage(int, const QString&);
+	void deleteMasterPage(int);
 	//! @brief Rebuild master name list
 	void rebuildMasterNames();
 	//! @brief Replace a master page by default one

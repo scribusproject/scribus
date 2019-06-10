@@ -68,10 +68,9 @@ void AppModeHelper::setup(ActionManager* am,
 	a_scrScrapActions=scSA;
 	a_scrLayersActions=scLA;
 	a_scrRecentPasteActions=scRPA;
-
 }
 
-void AppModeHelper::resetApplicationMode(ScribusMainWindow* scmw, int newMode)
+void AppModeHelper::resetApplicationMode(int newMode)
 {
 	a_actMgr->disconnectModeActions();
 	setModeActionsPerMode(newMode);
@@ -86,14 +85,13 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	//If no doc and we end here, just reset the tool actions
 	if (doc==nullptr)
 	{
-		resetApplicationMode(scmw, newMode);
+		resetApplicationMode(newMode);
 		return;
 	}
 
 	//disconnect the tools actions so we don't fire them off
 	a_actMgr->disconnectModeActions();
 	setModeActionsPerMode(newMode);
-
 
 	int oldMode = doc->appMode;
 	PageItem *currItem=nullptr;
@@ -1004,8 +1002,9 @@ void AppModeHelper::setModeActionsPerMode(int newMode)
 
 void AppModeHelper::setActionGroupEnabled(QMap<QString, QPointer<ScrAction> >*ag, bool enabled)
 {
-	if (ag!=nullptr)
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = ag->begin(); it!=ag->end(); ++it )
+	if (ag==nullptr)
+		return;
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = ag->begin(); it!=ag->end(); ++it )
 			(*it)->setEnabled(enabled);
 }
 

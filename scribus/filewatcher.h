@@ -23,7 +23,7 @@ class SCRIBUS_API FileWatcher : public QObject
 
 public:
 	FileWatcher(QObject* parent);
-	~FileWatcher();
+	~FileWatcher() override;
 	bool isActive();
 	// Get if file check loop is running
 	void isFileCheckRunning();
@@ -54,12 +54,12 @@ private:
 	{
 		QFileInfo info;
 		QDateTime timeInfo;
-		int pendingCount;
-		bool pending;
-		int refCount;
-		bool isDir;
-		bool fast;
-		ScribusDoc* doc; //CB Added as part of #9845 but unused for now, we could avoid scanning docs in updatePict() if we used this
+		int pendingCount {};
+		bool pending {};
+		int refCount {};
+		bool isDir {};
+		bool fast {};
+		ScribusDoc* doc{}; //CB Added as part of #9845 but unused for now, we could avoid scanning docs in updatePict() if we used this
 
 	};
 

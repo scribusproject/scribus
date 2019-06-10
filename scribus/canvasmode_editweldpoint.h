@@ -43,7 +43,7 @@ class CanvasMode_EditWeldPoint :  public CanvasMode
 	Q_OBJECT
 public:
 	explicit CanvasMode_EditWeldPoint(ScribusView* view);
-	~CanvasMode_EditWeldPoint() override {}
+	~CanvasMode_EditWeldPoint() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
@@ -57,7 +57,7 @@ public:
 	void keyPressEvent(QKeyEvent *e) override;
 	bool handleKeyEvents() override { return true; }
 	void drawControls(QPainter* p) override;
-	void drawControlsWeldPoint(QPainter* pp, PageItem* currItem);
+	void drawControlsWeldPoint(QPainter* psx, PageItem* currItem);
 
 private:
 	void snapToEdgePoints(double &x, double &y);

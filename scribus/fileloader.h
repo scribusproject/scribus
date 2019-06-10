@@ -32,10 +32,10 @@ class SCRIBUS_API FileLoader : public QObject
 	Q_OBJECT
 public:
 	FileLoader(const QString & fileName);
-	~FileLoader() {}
+	~FileLoader() override = default;
 
-	int  fileType() const { return m_fileType; }
-	int  testFile();
+	int fileType() const { return m_fileType; }
+	int testFile();
 
 	bool loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const QString& renamedPageName=QString::null);
 	bool loadFile(ScribusDoc* currDoc);
@@ -63,7 +63,7 @@ private:
 	PrefsManager* m_prefsManager;
 
 	QString m_fileName;
-	int     m_fileType;
+	int m_fileType;
 };
 
 #endif

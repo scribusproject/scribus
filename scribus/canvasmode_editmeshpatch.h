@@ -58,7 +58,7 @@ public:
 	bool handleKeyEvents() override { return true; }
 	void drawControls(QPainter* p) override;
 	void drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected);
-	void drawControlsMeshPatch(QPainter* pp, PageItem* currItem);
+	void drawControlsMeshPatch(QPainter* psx, PageItem* currItem);
 
 private:
 	void snapToOtherPatch(double &x, double &y);

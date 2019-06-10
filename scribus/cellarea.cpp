@@ -11,11 +11,6 @@
 
 #include "cellarea.h"
 
-CellArea::CellArea() :
-	m_row(-1), m_column(-1), m_width(-1), m_height(-1)
-{
-}
-
 CellArea::CellArea(int row, int column, int width, int height) :
 	m_row(row), m_column(column), m_width(width), m_height(height)
 {

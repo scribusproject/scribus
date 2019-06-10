@@ -56,7 +56,7 @@ public:
 	void keyPressEvent(QKeyEvent *e) override;
 	bool handleKeyEvents() override { return true; }
 	void drawControls(QPainter* p) override;
-	void drawControlsMeshGradient(QPainter* pp, PageItem* currItem);
+	void drawControlsMeshGradient(QPainter* psx, PageItem* currItem);
 
 private:
 

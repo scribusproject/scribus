@@ -16,7 +16,6 @@ CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, cons
 		: QAbstractTableModel(parent),
 		m_doc(doc),
 		m_cols(cols),
-		m_viewWidth(200),
 		m_fontInUse(font)
 {
 	m_selectionModel = new QItemSelectionModel(this);

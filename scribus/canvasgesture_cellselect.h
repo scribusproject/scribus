@@ -34,16 +34,16 @@ class SCRIBUS_API CellSelect : public TableGesture
 
 public:
 	explicit CellSelect(CanvasMode* parent) : TableGesture(parent) {}
-	virtual ~CellSelect() {}
+	~CellSelect() override = default;
 
-	virtual void activate(bool fromGesture);
-	virtual void deactivate(bool forGesture);
-	virtual void keyPressEvent(QKeyEvent* event);
-	virtual void mousePressEvent(QMouseEvent* event);
-	virtual void mouseReleaseEvent(QMouseEvent* event);
-	virtual void mouseMoveEvent(QMouseEvent* event);
-	virtual bool handleKeyEvents() { return true; }
-	virtual void drawControls(QPainter* p);
+	void activate(bool fromGesture) override;
+	void deactivate(bool forGesture) override;
+	void keyPressEvent(QKeyEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	bool handleKeyEvents() override { return true; }
+	void drawControls(QPainter* p) override;
 
 	/// Sets up this gesture to select cells in @a table, starting with @a cell.
 	void setup(PageItem_Table* table, const TableCell& cell);

@@ -28,15 +28,14 @@ namespace desaxe {
 class Action_body
 {
 protected:
-	Action_body() :                     dig(NULL)  {}
-	virtual ~Action_body()                         {}
-	virtual void begin(const Xml_string&, Xml_attr) {} 
-                                               
-	virtual void end(const Xml_string&)             {}
-	virtual void chars(const Xml_string&)           {}
-	virtual void reset()                            {}
+	Action_body() {}
+	virtual ~Action_body() {}
+	virtual void begin(const Xml_string&, Xml_attr) {}                       
+	virtual void end(const Xml_string&) {}
+	virtual void chars(const Xml_string&) {}
+	virtual void reset() {}
 
-	Digester* dig;
+	Digester* dig {nullptr};
 private:
 	int refs;
 	friend class Action;

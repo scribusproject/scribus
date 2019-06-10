@@ -11,20 +11,21 @@ for which a new license (GPL+exception) is in place.
 	exif.h
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
 
-#include "qstring.h"
-#include "qfile.h"
-#include "qimage.h"
+#include <QString>
+#include <QFile>
+#include <QImage>
 
-typedef enum {
-    READ_EXIF = 1,
-    READ_IMAGE = 2,
-    READ_ALL = 3
-}ReadMode_t;
+typedef enum
+{
+	READ_EXIF = 1,
+	READ_IMAGE = 2,
+	READ_ALL = 3
+} ReadMode_t;
 
 //--------------------------------------------------------------------------
 // This structure is used to store jpeg file sections in memory.
@@ -42,7 +43,7 @@ typedef unsigned char uchar;
 class TagTable
 {
 	public:
-		TagTable ( unsigned short t, const char* d ) : Tag ( t ), Desc ( d ) {}
+		TagTable(unsigned short t, const char* d) : Tag (t), Desc (d) {}
 		unsigned short Tag;
 		const char*const Desc;
 };
@@ -52,28 +53,29 @@ class TagTable
 
 class ExifData
 {
-//		Section_t Sections[MAX_SECTIONS];
+//	Section_t Sections[MAX_SECTIONS];
 		QString CameraMake;
 		QString CameraModel;
 		QString DateTime;
-		int   Orientation;
+		int Orientation;
 		int orientationCount;
-		int   Height, Width;
-		int   ExifImageLength, ExifImageWidth;
-		int   IsColor;
-		int   Process;
-		int   FlashUsed;
+		int Height, Width;
+		int ExifImageLength;
+		int ExifImageWidth;
+		int IsColor;
+		int Process;
+		int FlashUsed;
 		float FocalLength;
 		float ExposureTime;
 		float ApertureFNumber;
 		float Distance;
-		int    Whitebalance;
-		int    MeteringMode;
+		int Whitebalance;
+		int MeteringMode;
 		float CCDWidth;
 		float ExposureBias;
-		int   ExposureProgram;
-		int   ISOequivalent;
-		int   CompressionLevel;
+		int ExposureProgram;
+		int ISOequivalent;
+		int CompressionLevel;
 		QString UserComment;
 		QString Comment;
 		int recurseLevel;

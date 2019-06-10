@@ -6043,7 +6043,7 @@ void ScribusMainWindow::slotSelect()
 	if (doc)
 		view->requestMode(modeNormal);
 	else
-		appModeHelper->resetApplicationMode(this, modeNormal);
+		appModeHelper->resetApplicationMode(modeNormal);
 }
 
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)

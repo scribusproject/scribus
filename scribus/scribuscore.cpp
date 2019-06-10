@@ -109,13 +109,13 @@ const QString& ScribusCore::getGuiLanguage() const
 
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
 {
-	ScribusMainWindow* scribus = new ScribusMainWindow();
+	auto* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
 		return(EXIT_FAILURE);
 	m_ScMWList.append(scribus);
 	m_currScMW=0;
-	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo,newGuiLanguage);
+	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
 	if (retVal == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	
@@ -160,7 +160,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	return EXIT_SUCCESS;
 }
 
-int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage)
+int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
 {
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();

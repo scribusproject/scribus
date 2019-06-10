@@ -32,11 +32,11 @@ class SCRIBUS_API TableGesture : public CanvasGesture
 	Q_OBJECT
 
 public:
-	virtual ~TableGesture() {}
+	~TableGesture() override = default;
 
 protected:
-	explicit TableGesture(CanvasMode* parent) : CanvasGesture(parent->view()), m_table(0) {};
-	explicit TableGesture(ScribusView* view) : CanvasGesture(view), m_table(0) {};
+	explicit TableGesture(CanvasMode* parent) : CanvasGesture(parent->view()), m_table(nullptr) {};
+	explicit TableGesture(ScribusView* view) : CanvasGesture(view), m_table(nullptr) {};
 
 	/// Returns the currently edited table.
 	PageItem_Table* table() const { return m_table; }
@@ -49,7 +49,7 @@ protected:
 	 * on the table grid of the currently edited table. If @a snap is <code>true</code>,
 	 * @a point is first snapped to the page grid and guides, in that order.
 	 */
-	QPointF globalToTableGrid(const QPoint point, bool snap = true);
+	QPointF globalToTableGrid(const QPoint& point, bool snap = true);
 
 	/**
 	 * Paints the outline of the currently edited table.
@@ -60,7 +60,7 @@ protected:
 	 * or the result of this function is undefined.
 	 */
 	void paintTableOutline(const QList<double>& rowHeights, const QList<double>& rowPositions,
-		const QList<double>& columnWidths, const QList<double>& columnPositions, QPainter* p);
+						   const QList<double>& columnWidths, const QList<double>& columnPositions, QPainter* p);
 
 	/**
 	 * Paints the selection of the currently edited table.
