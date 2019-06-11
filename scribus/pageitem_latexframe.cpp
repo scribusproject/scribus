@@ -158,7 +158,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 	}
 }
 
-bool PageItem_LatexFrame::loadImage(const QString & filename, const bool reload, const int gsResolution, bool showMsg)
+bool PageItem_LatexFrame::loadImage(const QString & filename, bool reload, int gsResolution, bool showMsg)
 {
 	//Save state and restore afterwards
 	double xres, yres;
