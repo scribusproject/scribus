@@ -1190,9 +1190,9 @@ if(GESTURE_FRAME_PREVIEW)
 endif()
 
 if(APPLEBUNDLE)
-	set(EXE_NAME "Scribus${TAG_VERSION}" CACHE TYPE STRING)
+	set(EXE_NAME "Scribus${TAG_VERSION}" CACHE STRING "Scribus version")
 else()
-	set(EXE_NAME "scribus${TAG_VERSION}" CACHE TYPE STRING)
+	set(EXE_NAME "scribus${TAG_VERSION}" CACHE STRING "Scribus version")
 endif()
 
 if(COMMAND cmake_policy)
