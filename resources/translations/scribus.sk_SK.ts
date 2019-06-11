@@ -30295,7 +30295,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_ps.cpp" line="529"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_ps.cpp" line="528"/>
         <source>The Font(s):
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
@@ -35690,17 +35690,17 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Zrušiť</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10506"/>
+        <location filename="../../scribus/pageitem.cpp" line="10505"/>
         <source>Print: </source>
         <translation> Tlačiť: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10508"/>
+        <location filename="../../scribus/pageitem.cpp" line="10507"/>
         <source>Enabled</source>
         <translation>Povolené</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10510"/>
+        <location filename="../../scribus/pageitem.cpp" line="10509"/>
         <source>Disabled</source>
         <translation>Zakázané</translation>
     </message>
