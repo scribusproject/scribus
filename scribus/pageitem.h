@@ -292,7 +292,7 @@ public: // Start public functions
 	/**
 	 * @brief Set or get the redraw bounding box of the item, moved from the View
 	 */
-	QRect getRedrawBounding(const double viewScale) const;
+	QRect getRedrawBounding(double viewScale) const;
 	void setRedrawBounding();
 	void setPolyClip(int up, int down = 0);
 	void updatePolyClip();
@@ -342,7 +342,7 @@ public: // Start public functions
 		  @param scale scale of the vport
 	   * @return bool true if the x, y is in the bounds
 	   */
-	bool mouseWithinItem(const int x, const int y, double scale) const;
+	bool mouseWithinItem(int x, int y, double scale) const;
 
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 
@@ -471,7 +471,7 @@ public: // Start public functions
 	void setSampleItem(bool b) {m_sampleItem=b;}
 	const QVector<double>& dashes() const { return DashValues; }
 	QVector<double>& dashes() { return DashValues; }
-	void setDashes(QVector<double> val) { DashValues = val; }
+	void setDashes(const QVector<double>& val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
 
@@ -497,11 +497,11 @@ public: // Start public functions
 	double visualWidth() const;
 	double visualHeight() const;
 	double visualLineWidth() const;
-	void setWidth(const double);
-	void setHeight(const double);
+	void setWidth(double);
+	void setHeight(double);
 	void setWidthHeight(double, double, bool drawingOnly);
 	void setWidthHeight(double, double);
-	void resizeBy(const double, double);
+	void resizeBy(double, double);
 	//Rotation
 	double rotation() const { return m_rotation; }
 	void setRotation(double, bool drawingOnly);

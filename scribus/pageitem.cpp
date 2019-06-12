@@ -999,7 +999,7 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	checkChanges();
 }
 
-void PageItem::setWidth(const double newWidth)
+void PageItem::setWidth(double newWidth)
 {
 	m_width = newWidth;
 	updateConstants();
@@ -1008,7 +1008,7 @@ void PageItem::setWidth(const double newWidth)
 	checkChanges();
 }
 
-void PageItem::setHeight(const double newHeight)
+void PageItem::setHeight(double newHeight)
 {
 	m_height = newHeight;
 	updateConstants();
@@ -1017,7 +1017,7 @@ void PageItem::setHeight(const double newHeight)
 	checkChanges();
 }
 
-void PageItem::setWidthHeight(const double newWidth, const double newHeight, bool drawingOnly)
+void PageItem::setWidthHeight(double newWidth, double newHeight, bool drawingOnly)
 {
 	m_width = newWidth;
 	m_height = newHeight;
@@ -9262,14 +9262,13 @@ bool PageItem::pointWithinItem(int x, const int y) const
 	return itemRect.contains(x, y);
 }
 
-bool PageItem::mouseWithinItem(const int x, const int y, double scale) const
+bool PageItem::mouseWithinItem(int x, int y, double scale) const
 {
 	QTransform p;
-	QRectF transRect;
 	p.translate(m_xPos*scale, m_yPos*scale);
 	p.scale(scale, scale);
 	p.rotate(rotation());
-	transRect = p.mapRect(QRectF(0.0, 0.0, width(), height()));
+	QRectF transRect(p.mapRect(QRectF(0.0, 0.0, width(), height())));
 	return transRect.contains(x, y);
 }
 
@@ -9890,7 +9889,7 @@ PageItem* PageItem::lastInChain()
 	return last;
 }
 
-QRect PageItem::getRedrawBounding(const double viewScale) const
+QRect PageItem::getRedrawBounding(double viewScale) const
 {
 	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
 	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
