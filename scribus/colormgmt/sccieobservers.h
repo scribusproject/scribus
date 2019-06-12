@@ -36,14 +36,14 @@ protected:
 
 class ScCIE1931Observer : public ScCIEObserver
 {
-public:
-	ScCIE1931Observer();
+	public:
+		ScCIE1931Observer();
 };
 
 class ScCIE1964Observer : public ScCIEObserver
 {
-public:
-	ScCIE1964Observer();
+	public:
+		ScCIE1964Observer();
 };
 
 #endif // SCCIEOBSERVERS_H

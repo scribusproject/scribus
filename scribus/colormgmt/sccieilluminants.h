@@ -29,14 +29,14 @@ protected:
 
 class ScD50Illuminant : public ScCIEIlluminant
 {
-public:
-	ScD50Illuminant();
+	public:
+		ScD50Illuminant();
 };
 
 class ScD65Illuminant : public ScCIEIlluminant
 {
-public:
-	ScD65Illuminant();
+	public:
+		ScD65Illuminant();
 };
 
 #endif // SCCIEILLUMINANTS_H
