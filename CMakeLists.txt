@@ -224,7 +224,7 @@ message(STATUS "Building for target ${MACHINE}")
 
 #On Apple, we ignore the versioning tag so all items are "scribus" not "scribus-version"
 if (NOT BUILD_OSX_BUNDLE)
-	set(BUILD_OSX_BUNDLE ${APPLE} CACHE BOOL)
+	set(BUILD_OSX_BUNDLE ${APPLE} CACHE BOOL "Building MacOS X Bundle")
 endif()
 
 #Simplify future conditionals for Apple
@@ -263,7 +263,7 @@ endif()
 ########## Install/Directory Setup                                                                  ##########
 
 if (APPLEBUNDLE)
-set (APPLE_APP_DIR "${CMAKE_INSTALL_PREFIX}")
+	set (APPLE_APP_DIR "${CMAKE_INSTALL_PREFIX}")
 	if ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
 		# all ok
 	else()
@@ -384,17 +384,17 @@ endif()
 # Example: I want to use special ~/.scribus135svn config directory for my trunk
 #          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
 if (APPLICATION_DATA_DIR)
-    message(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
+	message(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
 	add_definitions(-DAPPLICATION_DATA_DIR="${APPLICATION_DATA_DIR}")
 else()
-    message(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
+	message(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
 endif()
 
 if (APPLICATION_CONFIG_DIR)
-    message(STATUS "Using ApplicationConfigDir ${APPLICATION_CONFIG_DIR} instead of the platform default.")
+	message(STATUS "Using ApplicationConfigDir ${APPLICATION_CONFIG_DIR} instead of the platform default.")
 	add_definitions(-DAPPLICATION_CONFIG_DIR="${APPLICATION_CONFIG_DIR}")
 else()
-    message(STATUS "Using standard ApplicationConfigDir. You can change it with -DAPPLICATION_CONFIG_DIR")
+	message(STATUS "Using standard ApplicationConfigDir. You can change it with -DAPPLICATION_CONFIG_DIR")
 endif()
 
 #LIB LOCATION - lib or lib64 normally
@@ -403,8 +403,9 @@ if(WANT_LIB64)
 	if(NOT ARCH_X86_64)
 		message(STATUS "WARNING: BUILDING 64 Bit build on non 64 bit architecture")
 	endif()
-	 set(LIB_SUFFIX "64" CACHE STRING)
+	set(LIB_SUFFIX "64" CACHE STRING)
 endif()
+
 set(LIB_DIR_NAME "lib${LIB_SUFFIX}")
 if (APPLEBUNDLE)
 	set(LIBDIR "lib/")
