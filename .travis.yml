@@ -25,7 +25,7 @@ matrix:
 before_install:
 # Linux
 -   if [ $TRAVIS_OS_NAME == linux ]; then
-      sudo apt-add-repository ppa:beineri/opt-qt595-xenial -y;
+      sudo apt-add-repository ppa:beineri/opt-qt597-xenial -y;
       sudo apt-add-repository ppa:as-bahanta/raqm -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
       sudo apt-get update -qq;
