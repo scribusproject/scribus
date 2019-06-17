@@ -56,7 +56,10 @@ export TK_LIBRARY="${HERE}"/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
 # Make it look more native on Gtk+ based systems
 ############################################################################################
 
-export QT_QPA_PLATFORMTHEME=gtk2
+case "${XDG_CURRENT_DESKTOP}" in
+    *GNOME*|*gnome*)
+        export QT_QPA_PLATFORMTHEME=gtk2
+esac
 
 ############################################################################################
 # Run experimental bundle that bundles everything if a private ld-linux-x86-64.so.2 is there

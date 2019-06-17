@@ -2,23 +2,12 @@
 
 cat /proc/1/cgroup # Check if we run in Docker; https://github.com/AppImage/AppImageKit/issues/912
 
+# for docker images:
+# if qt is not in the standard path, load its environment variables
 . /opt/qt*/bin/qt*-env.sh || true
 
 ########################################################################
 # Build Plaform Theme for Gtk+
-########################################################################
-
-find /opt/qt*/| grep platform 
-#apt-get update
-#apt-get -y install libgtk-3-dev libnotify-dev qt5113d
-#git clone https://github.com/CrimsonAS/gtkplatform
-#cd gtkplatform
-#qmake
-#make -j$(nproc)
-#sudo make install 
-#cd -
-
-########################################################################
 # https://askubuntu.com/a/910143
 # https://askubuntu.com/a/748186
 # Deploy with linuxdeployqt using
@@ -37,12 +26,29 @@ cd -
 # Build Scribus and install to appdir/
 ########################################################################
 
-cmake . -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US
+cmake . -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWANT_RELOCATABLE=1 \
+    -DWANT_HUNSPELL=1 \
+    -DWITH_PODOFO=1 \
+    -DWANT_GRAPHICSMAGICK=1 \
+    -DWANT_DEBUG=0 \
+    -DWANT_SVNVERSION=0 \
+    -DWANT_GUI_LANG=en_US;de;fr;it
 make -j$(nproc)
-make DESTDIR=appdir -j$(nproc) install ; find appdir/
-cp AppImage-package/AppRun appdir/ ; chmod +x appdir/AppRun
+
+make DESTDIR=appdir -j$(nproc) install
+#find appdir/
+
+# TODO: make sure that the appdir directory exits
+cp AppImage-package/AppRun appdir/
+chmod +x appdir/AppRun
+
 cp ./appdir/usr/share/icons/hicolor/256x256/apps/scribus.png ./appdir/
-sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop # Needed?
+
+# TODO: is this needed?
+sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop
 
 ########################################################################
 # Bundle everyhting
@@ -72,13 +78,17 @@ rm *deb
 cd -
 
 ########################################################################
-# Patch away absolute paths
-# FIXME: It would be nice if they were relative
+# Work around side effect of bundling everything
 ########################################################################
 
-sed -i -e 's|/usr/share/scribus|././/share/scribus|g' appdir/usr/bin/scribus
-sed -i -e 's|/usr/lib/scribus|././/lib/scribus|g' appdir/usr/bin/scribus
-sed -i -e 's|/usr/share/doc/scribus/|././/share/doc/scribus/|g' appdir/usr/bin/scribus
+# https://github.com/scribusproject/scribus/issues/111#issuecomment-457823282
+# applicationDirPath() is not usr/bin but lib/x86_64-linux-gnu/
+# when AppRun invokes the binary with
+# exec "${HERE}/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
+# hence we add a symlink here to mitigate this
+cd appdir/lib/
+ln -s ../usr/* .
+cd -
 
 ########################################################################
 # Also bundle Tcl/Tk, Tkinter (for Calendar script)
@@ -90,7 +100,8 @@ cp -r /usr/lib/tcltk appdir/usr/lib/
 cp -r /usr/share/tcltk appdir/usr/share/
 
 ########################################################################
-# Create extra qt.conf in a strange location; FIXME: why is this needed?
+# Create extra qt.conf in a strange location;
+# FIXME: why is this needed?
 ########################################################################
 
 mkdir -p appdir/lib/x86_64-linux-gnu/
