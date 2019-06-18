@@ -269,9 +269,9 @@ endif()
 #Store our version string if required
 if (WANT_VERSIONING AND NOT CACHED_VERSIONING)
 	if (NOT CUSTOM_VERSIONTAG)
-		set(TAG_VERSION "-${VERSION}" CACHE STRING)
+		set(TAG_VERSION "-${VERSION}" CACHE STRING "Version string")
 	else()
-		set(TAG_VERSION ${CUSTOM_VERSIONTAG} CACHE STRING)
+		set(TAG_VERSION ${CUSTOM_VERSIONTAG} CACHE STRING "Version string")
 	endif()
 endif()
 
