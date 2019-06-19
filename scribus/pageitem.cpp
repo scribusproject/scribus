@@ -248,7 +248,7 @@ PageItem::PageItem(const PageItem & other)
 	m_annotation(other.m_annotation),
 	m_imageVisible(other.m_imageVisible),
 	m_lineWidth(other.m_lineWidth),
-	Oldm_lineWidth(other.Oldm_lineWidth),
+	m_oldLineWidth(other.m_oldLineWidth),
 	patternStrokeVal(other.patternStrokeVal),
 	patternStrokeScaleX(other.patternStrokeScaleX),
 	patternStrokeScaleY(other.patternStrokeScaleY),
@@ -505,7 +505,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternStrokeMirrorY = false;
 	patternStrokePath = false;
 	m_lineWidth = w2;
-	Oldm_lineWidth = w2;
+	m_oldLineWidth = w2;
 	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs().shapeLineStyle);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
@@ -4073,7 +4073,7 @@ void PageItem::setLineWidth(double newWidth)
 		ss->set("NEW_LINEWIDTH", newWidth);
 		undoManager->action(this, ss);
 	}
-	Oldm_lineWidth=m_lineWidth;
+	m_oldLineWidth=m_lineWidth;
 	m_lineWidth = newWidth;
 }
 
@@ -4537,42 +4537,29 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 
 void PageItem::checkTextFlowInteractions(bool allItems)
 {	
-	if (!m_Doc->isLoading())
+	if (m_Doc->isLoading())
+		return;
+
+	QRectF baseRect(getBoundingRect());
+	checkTextFlowInteractions(baseRect, allItems);
+}
+
+void PageItem::checkTextFlowInteractions(const QRectF& baseRect, bool allItems)
+{
+	if (m_Doc->isLoading())
+		return;
+
+	QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
+
+	int ids = allItems ? items->count() : items->indexOf(this);
+	for (int idx = ids - 1; idx >= 0 ; --idx)
 	{
-		QRectF baseRect(getBoundingRect());
-		QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
-		if (!allItems)
-		{
-			int ids = items->indexOf(this) - 1;
-			for (int idx = ids; idx >= 0 ; --idx)
-			{
-				if (items->at(idx)->asTextFrame()) // do not bother with no text frames
-				{
-					QRectF uRect(items->at(idx)->getBoundingRect());
-					if (baseRect.intersects(uRect))
-					{
-						items->at(idx)->update();
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int idx = items->count() - 1; idx >= 0 ; --idx)
-			{
-				if (items->at(idx) != this) // avoids itself
-				{
-					if (items->at(idx)->asTextFrame()) // do not bother with no text frames
-					{
-						QRectF uRect(items->at(idx)->getBoundingRect());
-						if (baseRect.intersects(uRect))
-						{
-							items->at(idx)->update();
-						}
-					}
-				}
-			}
-		}
+		PageItem* item = items->at(idx);
+		if (!item->isTextFrame() || (item == this)) // do not bother with no text frames
+			continue;
+		QRectF uRect(item->getBoundingRect());
+		if (baseRect.intersects(uRect))
+			item->update();
 	}
 }
 
@@ -4670,23 +4657,35 @@ void PageItem::checkChanges(bool force)
 	if (m_Doc->view() == nullptr)
 		return;
 	bool spreadChanges(false);
+
+	QRectF textFlowCheckRect;
+	if (force || ((textFlowMode() != TextFlowDisabled) && shouldCheck()))
+	{
+		if ((oldXpos  != m_xPos  || oldYpos != m_yPos) ||
+			(oldWidth != m_width || oldHeight != m_height) ||
+			(oldRot != m_rotation))
+		{
+			textFlowCheckRect = getOldBoundingRect();
+		}
+	}
+
 	// has the item been resized
 	if (force || ((oldWidth != m_width || oldHeight != m_height) && shouldCheck()))
 	{
 		resizeUndoAction();
-		spreadChanges = (textFlowMode() != TextFlowDisabled );
+		spreadChanges = (textFlowMode() != TextFlowDisabled);
 	}
 	// has the item been rotated
 	if (force || ((oldRot != m_rotation) && (shouldCheck())))
 	{
 		rotateUndoAction();
-		spreadChanges = (textFlowMode() != TextFlowDisabled );
+		spreadChanges = (textFlowMode() != TextFlowDisabled);
 	}
 	// has the item been moved
 	if (force || ((oldXpos != m_xPos || oldYpos != m_yPos) && shouldCheck()))
 	{
 		moveUndoAction();
-		spreadChanges = (textFlowMode() != TextFlowDisabled );
+		spreadChanges = (textFlowMode() != TextFlowDisabled);
 	}
 	// has the item's image been moved
 	if (force || ((oldLocalX != m_imageXOffset || oldLocalY != m_imageYOffset) && shouldCheck()))
@@ -4697,7 +4696,8 @@ void PageItem::checkChanges(bool force)
 	
 	if (spreadChanges)
 	{
-		checkTextFlowInteractions();
+		textFlowCheckRect = textFlowCheckRect.united(getBoundingRect());
+		checkTextFlowInteractions(textFlowCheckRect);
 	}
 }
 
@@ -8945,6 +8945,13 @@ QRectF PageItem::getCurrentBoundingRect(double moreSpace) const
 	return ret;
 }
 
+QRectF PageItem::getOldBoundingRect() const
+{
+	double x,y,x2,y2;
+	getOldBoundingRect(&x, &y, &x2, &y2);
+	return QRectF(x, y, x2 - x, y2 - y);
+}
+
 QRectF PageItem::getVisualBoundingRect() const
 {
 	double x,y,x2,y2;
@@ -8984,6 +8991,41 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		*y1 = m_yPos;
 		*x2 = m_xPos + qMax(1.0, qMax(m_width, m_lineWidth));
 		*y2 = m_yPos + qMax(1.0, qMax(m_height, m_lineWidth));
+	}
+}
+
+void PageItem::getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const
+{
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	if (oldRot != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(oldXpos, oldYpos));
+		pb.addPoint(FPoint(oldWidth,    0.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		pb.addPoint(FPoint(oldWidth, oldHeight, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		pb.addPoint(FPoint(  0.0, oldHeight, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = oldXpos;
+		*y1 = oldYpos;
+		*x2 = oldXpos + qMax(1.0, qMax(oldWidth, m_lineWidth));
+		*y2 = oldYpos + qMax(1.0, qMax(oldHeight, m_lineWidth));
 	}
 }
 
@@ -9250,6 +9292,174 @@ double PageItem::visualLineWidth() const
 		}
 	}
 	return extraSpace;
+}
+
+QRectF PageItem::getStartArrowBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_startArrowIndex != 0 && !PoLine.empty())
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
+		arrowTrans.translate(m_xPos, m_yPos);
+		arrowTrans.rotate(m_rotation);
+		const FPoint& Start = PoLine.point(0);
+		for (int xx = 1; xx < PoLine.size(); xx += 2)
+		{
+			const FPoint& Vector = PoLine.point(xx);
+			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+			{
+				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.rotate(atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI));
+				arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+				if (NamedLStyle.isEmpty())
+				{
+					if (m_lineWidth != 0.0)
+						arrowTrans.scale(m_lineWidth, m_lineWidth);
+				}
+				else
+				{
+					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const SingleLine& sl = ml.last();
+					if (sl.Width != 0.0)
+						arrowTrans.scale(sl.Width, sl.Width);
+				}
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
+}
+
+QRectF PageItem::getStartArrowOldBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_startArrowIndex != 0 && !PoLine.empty())
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
+		arrowTrans.translate(oldXpos, oldYpos);
+		arrowTrans.rotate(oldRot);
+		FPoint Start = PoLine.point(0);
+		for (int xx = 1; xx < PoLine.size(); xx += 2)
+		{
+			FPoint Vector = PoLine.point(xx);
+			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+			{
+				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.rotate(atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI));
+				arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+				if (NamedLStyle.isEmpty())
+				{
+					if (m_oldLineWidth != 0.0)
+						arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
+				}
+				else
+				{
+					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const SingleLine& sl = ml.last();
+					if (sl.Width != 0.0)
+						arrowTrans.scale(sl.Width, sl.Width);
+				}
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
+}
+
+QRectF PageItem::getEndArrowBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_endArrowIndex != 0 && PoLine.size() >= 2)
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
+		arrowTrans.translate(m_xPos, m_yPos);
+		arrowTrans.rotate(m_rotation);
+		FPoint End = PoLine.point(PoLine.size() - 2);
+		for (uint xx = PoLine.size() - 1; xx > 0; xx -= 2)
+		{
+			FPoint Vector = PoLine.point(xx);
+			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			{
+				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.rotate(atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI));
+				arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+				if (NamedLStyle.isEmpty())
+				{
+					if (m_lineWidth != 0.0)
+						arrowTrans.scale(m_lineWidth, m_lineWidth);
+				}
+				else
+				{
+					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const SingleLine& sl = ml.last();
+					if (sl.Width != 0.0)
+						arrowTrans.scale(sl.Width, sl.Width);
+				}
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
+}
+
+QRectF PageItem::getEndArrowOldBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_endArrowIndex != 0 && PoLine.size() >= 2)
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
+		arrowTrans.translate(oldXpos, oldYpos);
+		arrowTrans.rotate(oldRot);
+		FPoint End = PoLine.point(PoLine.size() - 2);
+		for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
+		{
+			FPoint Vector = PoLine.point(xx);
+			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			{
+				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.rotate(atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI));
+				arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+				if (NamedLStyle.isEmpty())
+				{
+					if (m_oldLineWidth != 0.0)
+						arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
+				}
+				else
+				{
+					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const SingleLine& sl = ml.last();
+					if (sl.Width != 0.0)
+						arrowTrans.scale(sl.Width, sl.Width);
+				}
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
 }
 
 bool PageItem::pointWithinItem(int x, const int y) const
@@ -9891,10 +10101,10 @@ PageItem* PageItem::lastInChain()
 
 QRect PageItem::getRedrawBounding(double viewScale) const
 {
-	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
-	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
-	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
-	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
+	int x = qRound(floor(BoundingX - m_oldLineWidth / 2.0 - 5) * viewScale);
+	int y = qRound(floor(BoundingY - m_oldLineWidth / 2.0 - 5) * viewScale);
+	int w = qRound(ceil(BoundingW + m_oldLineWidth + 10) * viewScale);
+	int h = qRound(ceil(BoundingH + m_oldLineWidth + 10) * viewScale);
 	QRect ret = QRect(0, 0, w - x, h - y);
 	QTransform t = getTransform();
 	ret = t.mapRect(ret);

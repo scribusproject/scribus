@@ -353,74 +353,35 @@ QString PageItem_Spiral::infoDescription() const
 void PageItem_Spiral::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
 	PageItem::getBoundingRect(x1, y1, x2, y2);
+
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		FPoint Start = PoLine.point(0);
-		for (int xx = 1; xx < PoLine.size(); xx += 2)
-		{
-			FPoint Vector = PoLine.point(xx);
-			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-			{
-				arrowTrans.translate(Start.x(), Start.y());
-				arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
-				arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-				if (NamedLStyle.isEmpty())
-				{
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-				}
-				else
-				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					if (ml[ml.size()-1].Width != 0.0)
-						arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-				}
-				arrow.map(arrowTrans);
-				break;
-			}
-		}
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		QRectF arrowRect = getStartArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	if (m_endArrowIndex != 0 && PoLine.size() >= 2)
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		FPoint End = PoLine.point(PoLine.size()-2);
-		for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
-		{
-			FPoint Vector = PoLine.point(xx);
-			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-			{
-				arrowTrans.translate(End.x(), End.y());
-				arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
-				arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-				if (NamedLStyle.isEmpty())
-				{
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-				}
-				else
-				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					if (ml[ml.size()-1].Width != 0.0)
-						arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-				}
-				arrow.map(arrowTrans);
-				break;
-			}
-		}
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		QRectF arrowRect = getEndArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	totalRect.getCoords(x1, y1, x2, y2);
+}
+
+void PageItem_Spiral::getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const
+{
+	PageItem::getOldBoundingRect(x1, y1, x2, y2);
+
+	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	if (m_startArrowIndex != 0 && !PoLine.empty())
+	{
+		QRectF arrowRect = getStartArrowOldBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	if (m_endArrowIndex != 0 && PoLine.size() >= 2)
+	{
+		QRectF arrowRect = getEndArrowOldBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	totalRect.getCoords(x1, y1, x2, y2);
 }
@@ -428,74 +389,17 @@ void PageItem_Spiral::getBoundingRect(double *x1, double *y1, double *x2, double
 void PageItem_Spiral::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
 {
 	PageItem::getVisualBoundingRect(x1, y1, x2, y2);
+
 	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		FPoint Start = PoLine.point(0);
-		for (int xx = 1; xx < PoLine.size(); xx += 2)
-		{
-			FPoint Vector = PoLine.point(xx);
-			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-			{
-				arrowTrans.translate(Start.x(), Start.y());
-				arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
-				arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-				if (NamedLStyle.isEmpty())
-				{
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-				}
-				else
-				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					if (ml[ml.size()-1].Width != 0.0)
-						arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-				}
-				arrow.map(arrowTrans);
-				break;
-			}
-		}
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		QRectF arrowRect = getStartArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	if (m_endArrowIndex != 0 && PoLine.size() >= 2)
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		FPoint End = PoLine.point(PoLine.size()-2);
-		for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
-		{
-			FPoint Vector = PoLine.point(xx);
-			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-			{
-				arrowTrans.translate(End.x(), End.y());
-				arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
-				arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-				if (NamedLStyle.isEmpty())
-				{
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-				}
-				else
-				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					if (ml[ml.size()-1].Width != 0.0)
-						arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-				}
-				arrow.map(arrowTrans);
-				break;
-			}
-		}
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		QRectF arrowRect = getEndArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	totalRect.getCoords(x1, y1, x2, y2);
 }

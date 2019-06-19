@@ -302,10 +302,18 @@ public: // Start public functions
 	
 	QRectF getBoundingRect() const;
 	QRectF getCurrentBoundingRect(double moreSpace = 0.0) const;
+	QRectF getOldBoundingRect() const;
 	QRectF getVisualBoundingRect() const;
 
 	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	virtual void getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+
+	virtual QRectF getStartArrowBoundingRect() const;
+	virtual QRectF getStartArrowOldBoundingRect() const;
+
+	virtual QRectF getEndArrowBoundingRect() const;
+	virtual QRectF getEndArrowOldBoundingRect() const;
 
 
 	//>> ********* Functions related to drawing the item *********
@@ -1097,6 +1105,13 @@ public: // Start public functions
 	 */
 	void checkTextFlowInteractions(bool allItems = false);
 
+	/**
+	 * @brief To be called carefully because it eventually triggers a relayout of long text frames strings, but necessarily when you change the document.
+	 * @param baseRect The area over which text flow interactions should be checked
+	 * @param allItems While you generally want to check for items below, it can happen that you want to update full range of text frames (e.g. when shuffle items order). Default to false.
+	 */
+	void checkTextFlowInteractions(const QRectF& baseRect, bool allItems = false);
+
 	/** @brief Get the frame type
 	 *
 	 * @attention The whole concept of frame types is due for some radical
@@ -1412,7 +1427,7 @@ public:	// Start public variables
 		bool m_imageVisible; ///< Darstellungsart Bild/Titel
 
 		double m_lineWidth; //< Line width
-		double Oldm_lineWidth;
+		double m_oldLineWidth;
 
 		/**
 		 * @brief Stroke pattern name

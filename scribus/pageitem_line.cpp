@@ -184,10 +184,10 @@ void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *
 	{
 		FPointArray pb;
 		pb.resize(0);
-		pb.addPoint(FPoint(0,       -m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
-		pb.addPoint(FPoint(m_width, -m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
-		pb.addPoint(FPoint(m_width, +m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
-		pb.addPoint(FPoint(0,       +m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(0,       - m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width, - m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width, + m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(0,       + m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
@@ -211,52 +211,61 @@ void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		arrowTrans.translate(0, 0);
-		arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
-		{
-			if (m_lineWidth != 0.0)
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
-		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			if (ml[ml.size()-1].Width != 0.0)
-				arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-		}
-		arrowTrans.scale(-1,1);
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		QRectF arrowRect = getStartArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	if (m_endArrowIndex != 0)
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		arrowTrans.translate(m_width, 0);
-		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
+		QRectF arrowRect = getEndArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	totalRect.getCoords(x1, y1, x2, y2);
+}
+
+void PageItem_Line::getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const
+{
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	if (oldRot != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(0,        - m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		pb.addPoint(FPoint(oldWidth, - m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		pb.addPoint(FPoint(oldWidth, + m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		pb.addPoint(FPoint(0,        + m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
 		{
-			if (m_lineWidth != 0.0)
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
 		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			if (ml[ml.size()-1].Width != 0.0)
-				arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
-		}
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = oldXpos;
+		*y1 = oldYpos - qMax(1.0, m_oldLineWidth) / 2.0;
+		*x2 = oldXpos + oldWidth;
+		*y2 = oldYpos + qMax(1.0, m_oldLineWidth) / 2.0;
+	}
+
+	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	if (m_startArrowIndex != 0)
+	{
+		QRectF arrowRect = getStartArrowOldBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	if (m_endArrowIndex != 0)
+	{
+		QRectF arrowRect = getEndArrowOldBoundingRect();
+		totalRect = totalRect.united(arrowRect);
 	}
 	totalRect.getCoords(x1, y1, x2, y2);
 }
@@ -329,8 +338,24 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
+		QRectF arrowRect = getStartArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	if (m_endArrowIndex != 0)
+	{
+		QRectF arrowRect = getEndArrowBoundingRect();
+		totalRect = totalRect.united(arrowRect);
+	}
+	totalRect.getCoords(x1, y1, x2, y2);
+}
+
+QRectF PageItem_Line::getStartArrowBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_startArrowIndex != 0)
+	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
 		arrowTrans.translate(m_xPos, m_yPos);
 		arrowTrans.rotate(m_rotation);
 		arrowTrans.translate(0, 0);
@@ -342,20 +367,61 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			if (ml[ml.size()-1].Width != 0.0)
-				arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const SingleLine& sl = ml.last();
+			if (sl.Width != 0.0)
+				arrowTrans.scale(sl.Width, sl.Width);
 		}
-		arrowTrans.scale(-1,1);
+		arrowTrans.scale(-1, 1);
 		arrow.map(arrowTrans);
 		FPoint minAr = getMinClipF(&arrow);
 		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
 	}
+
+	return arrowRect;
+}
+
+QRectF PageItem_Line::getStartArrowOldBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_startArrowIndex != 0)
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
+		arrowTrans.translate(oldXpos, oldYpos);
+		arrowTrans.rotate(oldRot);
+		arrowTrans.translate(0, 0);
+		arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+		if (NamedLStyle.isEmpty())
+		{
+			if (m_oldLineWidth != 0.0)
+				arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
+		}
+		else
+		{
+			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const SingleLine& sl = ml.last();
+			if (sl.Width != 0.0)
+				arrowTrans.scale(sl.Width, sl.Width);
+		}
+		arrowTrans.scale(-1, 1);
+		arrow.map(arrowTrans);
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
+}
+
+QRectF PageItem_Line::getEndArrowBoundingRect() const
+{
+	QRectF arrowRect;
 	if (m_endArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
 		arrowTrans.translate(m_xPos, m_yPos);
 		arrowTrans.rotate(m_rotation);
 		arrowTrans.translate(m_width, 0);
@@ -367,14 +433,48 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			if (ml[ml.size()-1].Width != 0.0)
-				arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const SingleLine& sl = ml.last();
+			if (sl.Width != 0.0)
+				arrowTrans.scale(sl.Width, sl.Width);
 		}
 		arrow.map(arrowTrans);
 		FPoint minAr = getMinClipF(&arrow);
 		FPoint maxAr = getMaxClipF(&arrow);
-		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
 	}
-	totalRect.getCoords(x1, y1, x2, y2);
+
+	return arrowRect;
+}
+
+QRectF PageItem_Line::getEndArrowOldBoundingRect() const
+{
+	QRectF arrowRect;
+	if (m_endArrowIndex != 0)
+	{
+		QTransform arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
+		arrowTrans.translate(oldXpos, oldYpos);
+		arrowTrans.rotate(oldRot);
+		arrowTrans.translate(oldWidth, 0);
+		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+		if (NamedLStyle.isEmpty())
+		{
+			if (m_oldLineWidth != 0.0)
+				arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
+		}
+		else
+		{
+			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const SingleLine& sl = ml.last();
+			if (sl.Width != 0.0)
+				arrowTrans.scale(sl.Width, sl.Width);
+		}
+		arrow.map(arrowTrans);
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+	}
+
+	return arrowRect;
 }

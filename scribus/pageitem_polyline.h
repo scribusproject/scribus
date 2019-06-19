@@ -46,6 +46,7 @@ public:
 	QString infoDescription() const override;
 
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
+	void getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
 protected:

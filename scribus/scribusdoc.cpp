@@ -7809,7 +7809,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 		PageItem *currItem = m_Selection->itemAt(i);
 		QRectF oldRect = currItem->getVisualBoundingRect();
 		//cb moved to setlinewidth
-		//currItem->Oldm_lineWidth = currItem->lineWidth();
+		//currItem->m_oldLineWidth = currItem->lineWidth();
 		currItem->setLineWidth(w);
 		if (currItem->asPolyLine() || currItem->asSpiral())
 			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
@@ -14525,7 +14525,6 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup, bool move
 
 void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 {
-	double Scale = 1; //FIXME:av should all be in doc coordinates
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
@@ -14538,7 +14537,7 @@ void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 	double gx, gy, gw, gh;
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	QRectF OldRect = QRectF(gx, gy, gw, gh);
+	QRectF oldRect = QRectF(gx, gy, gw, gh);
 	QList<PageItem*> weldL;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
@@ -14558,9 +14557,8 @@ void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 		currItem = itemSelection->itemAt(0);
 		GroupOnPage(currItem);
 	}
-	QPoint in2(qRound(gx*Scale), qRound(gy*Scale));
-	OldRect = OldRect.united(QRectF(in2.x()/*+contentsX()*/, in2.y()/*+contentsY()*/, qRound(gw*Scale), qRound(gh*Scale))); //FIXME:av
-	regionsChanged()->update(OldRect.adjusted(-10, -10, 20, 20));
+	oldRect = oldRect.united(QRectF(gx, gy, gw, gh));
+	regionsChanged()->update(oldRect.adjusted(-10, -10, 20, 20));
 }
 
 void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
