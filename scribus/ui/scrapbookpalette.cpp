@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QProgressDialog>
+#include <QSet>
 #include <QSignalMapper>
 #include <QSpacerItem>
 #include <QToolBox>
@@ -494,6 +495,8 @@ void BibView::ReadContents(const QString& name)
 	int fileCount = 0;
 	int readCount = 0;
 	QDir thumbs(name);
+	QSet<QString> vectorFound;
+	QSet<QString> rasterFound;
 	if (thumbs.exists())
 	{
 		if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
@@ -510,6 +513,8 @@ void BibView::ReadContents(const QString& name)
 		QString ext = "*." + vectorFiles[v];
 		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		fileCount += d4.count();
+		if (d4.count() > 0)
+			vectorFound.insert(vectorFiles[v]);
 	}
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
 	QStringList rasterFiles = formatD.split("|");
@@ -518,6 +523,8 @@ void BibView::ReadContents(const QString& name)
 		QString ext = "*." + rasterFiles[v];
 		QDir d5(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		fileCount += d5.count();
+		if (d5.count() > 0)
+			rasterFound.insert(rasterFiles[v]);
 	}
 	QProgressDialog *pgDia = nullptr;
 	QStringList previewFiles;
@@ -556,13 +563,13 @@ void BibView::ReadContents(const QString& name)
 			if (!loadRawText(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			QFileInfo fi3(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			if (fi2.exists())
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
+			if (pngExists)
 				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 			else
 			{
-				if (fi3.exists())
+				pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				if (pngExists)
 					pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/"+fi.baseName()+".png")));
 				else
 				{
@@ -584,6 +591,8 @@ void BibView::ReadContents(const QString& name)
 	}
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
+		if (!vectorFound.contains(vectorFiles[v]))
+			continue;
 		QString ext = "*." + vectorFiles[v];
 		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		if ((!d4.exists()) || (d4.count() <= 0))
@@ -597,8 +606,8 @@ void BibView::ReadContents(const QString& name)
 			}
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-			if (fi2.exists())
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			if (pngExists)
 				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
 			else
 			{
@@ -623,6 +632,8 @@ void BibView::ReadContents(const QString& name)
 	}
 	for (int v = 0; v < rasterFiles.count(); v++)
 	{
+		if (!rasterFound.contains(rasterFiles[v]))
+			continue;
 		QString ext = "*." + rasterFiles[v];
 		QDir d5(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		if ((!d5.exists()) || (d5.count() <= 0))
@@ -638,8 +649,8 @@ void BibView::ReadContents(const QString& name)
 				continue;
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-			if (fi2.exists())
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			if (pngExists)
 				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
 			else
 			{
