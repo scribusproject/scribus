@@ -33,12 +33,14 @@ class SCRIBUS_API BibView : public QListWidget
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-	void AddObj(const QString& name, const QString& daten, const QPixmap& Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
+
+	void addObject(const QString& name, const QString& daten, const QPixmap& Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
 	void checkForImg(const QDomElement& elem, bool &hasImage);
 	void checkAndChange(const QString& text, const QString& nam, const QString& dir);
 	void checkAndChangeGroups(const QDomElement& elem, const QString& dir, const QFileInfo& fid);
-	void ReadOldContents(const QString&, const QString& newName);
-	void ReadContents(const QString& name);
+	void readOldContents(const QString&, const QString& newName);
+	void readContents(const QString& name);
+
 	struct Elem
 	{
 		bool isDir;
@@ -54,7 +56,6 @@ public:
 	bool canWrite;
 
 signals:
-	void ToggleAllPalettes();
 	void objDropped(QString text);
 	void fileDropped(QString path, int testResult);
 	void paletteClosed();
@@ -74,12 +75,12 @@ public:
 	Biblio( QWidget* parent);
 	~Biblio() {};
 	
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 	
-	void ObjFromCopyAction(const QString& text, const QString& name);
+	void objFromCopyAction(const QString& text, const QString& name);
 	void adjustReferences(const QString& nam);
 	void adjustReferencesGroups(const QDomElement& elem, const QFileInfo& fid);
-	void CleanUpTemp();
+	void cleanUpTemp();
 	void setScrapbookFileName(const QString&);
 	const QString getScrapbookFileName();
 	const int objectCount();
@@ -92,28 +93,29 @@ public:
 	QStringList getOpenScrapbooks();
 	QStringList getOpenScrapbooksNames();
 	QString getObjectName(QString &text);
+
 	BibView* tempBView;
 	BibView* activeBView;
 	QListWidgetItem *actItem;
 	
 public slots:
 	void languageChange();
-	void ObjFromFile(const QString& path, int testResult);
-	void ObjFromMenu(QString text);
-	void ObjFromMainMenu(QString text, int scrapID);
+	void objFromFile(const QString& path, int testResult);
+	void objFromMenu(QString text);
+	void objFromMainMenu(QString text, int scrapID);
 	void closeOnDel(const QString& libName);
 	void reloadLib(const QString& fileName);
 
 private slots:
 	void handleDoubleClick(QListWidgetItem *ite);
 	void handlePasteToPage();
-	void HandleMouse(QPoint p);
+	void handleMouse(QPoint p);
 	bool copyObj(int id);
 	void moveObj(int id);
 	void deleteObj();
 	void deleteAllObj();
 	void renameObj();
-	void NewLib();
+	void newLib();
 	void updateView();
 	void goOneDirUp();
 	void closeLib();
@@ -126,10 +128,11 @@ signals:
 	void scrapbookListChanged();
 
 protected:
+	int m_tempCount;
+	PrefsContext* m_prefs;
+
 	QToolBox* Frame3;
 	QVBoxLayout* BiblioLayout;
-	int tempCount;
-	QString OldName;
 	QHBoxLayout* buttonLayout;
 	QWidget* containerWidget;
 	QToolButton* newButton;
@@ -142,7 +145,6 @@ protected:
 	QAction* conf_HideImages;
 	QAction* conf_HideVectors;
 	QAction* conf_OpenMode;
-	PrefsContext* prefs;
 };
 
 #endif // BIBLIO_H

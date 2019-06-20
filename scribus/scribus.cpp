@@ -2008,7 +2008,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
 	if (!m_prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook)
-		scrapbookPalette->CleanUpTemp();
+		scrapbookPalette->cleanUpTemp();
 	m_prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
 	m_prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
@@ -4630,7 +4630,7 @@ void ScribusMainWindow::slotEditCut()
 		QString BufferS = ss.writeElem(doc, doc->m_Selection);
 		if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 		{
-			scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+			scrapbookPalette->objFromCopyAction(BufferS, currItem->itemName());
 			rebuildRecentPasteMenu();
 		}
 		ScElemMimeData* mimeData = new ScElemMimeData();
@@ -4714,7 +4714,7 @@ void ScribusMainWindow::slotEditCopy()
 		{
 			if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
-				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+				scrapbookPalette->objFromCopyAction(BufferS, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
 			ScElemMimeData* mimeData = new ScElemMimeData();
@@ -8224,7 +8224,7 @@ void ScribusMainWindow::PutScrap(int scID)
 		DOC = DOC.nextSibling();
 	}
 	objectString = docu.toString();
-	scrapbookPalette->ObjFromMainMenu(objectString, scID);
+	scrapbookPalette->objFromMainMenu(objectString, scID);
  }
 
 void ScribusMainWindow::changeLayer(int )

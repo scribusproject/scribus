@@ -85,7 +85,6 @@ public slots:
 	void setLayerPrintable(int layerID);
 
 signals:
-	void ToggleAllPalettes();
 	void selectElementByItem(PageItem *, bool);
 	void editElementByItem(PageItem *);
 	void selectPage(int);
