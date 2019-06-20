@@ -563,14 +563,14 @@ void BibView::ReadContents(const QString& name)
 			if (!loadRawText(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d[dc])));
-			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.baseName() + ".png")));
 			if (pngExists)
-				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
+				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.baseName() + ".png")));
 			else
 			{
-				pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/" + fi.baseName() + ".png")));
 				if (pngExists)
-					pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/"+fi.baseName()+".png")));
+					pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/" + fi.baseName() + ".png")));
 				else
 				{
 					QString f;
@@ -581,11 +581,11 @@ void BibView::ReadContents(const QString& name)
 					ScPreview *pre = new ScPreview();
 					pm = QPixmap::fromImage(pre->createPreview(f));
 					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-						pm.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")), "PNG");
+						pm.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.baseName() + ".png")), "PNG");
 					delete pre;
 				}
 			}
-			previewFiles.append(fi.baseName()+".png");
+			previewFiles.append(fi.baseName() + ".png");
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d[dc])), pm);
 		}
 	}
@@ -606,9 +606,9 @@ void BibView::ReadContents(const QString& name)
 			}
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")));
 			if (pngExists)
-				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")));
 			else
 			{
 				FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
@@ -622,7 +622,7 @@ void BibView::ReadContents(const QString& name)
 						QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
 						im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 						if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-							im.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
+							im.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")), "PNG");
 						pm = QPixmap::fromImage(im);
 					}
 				}
@@ -649,9 +649,9 @@ void BibView::ReadContents(const QString& name)
 				continue;
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])));
-			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			bool pngExists = QFile::exists(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")));
 			if (pngExists)
-				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")));
 			else
 			{
 				bool mode = false;
@@ -662,7 +662,7 @@ void BibView::ReadContents(const QString& name)
 				{
 					QImage img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-						img.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
+						img.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path() + "/.ScribusThumbs/" + fi.fileName() + ".png")), "PNG");
 					pm = QPixmap::fromImage(img);
 				}
 			}
