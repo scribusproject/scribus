@@ -1528,7 +1528,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 				iteG->ClipEdited = true;
 				iteG->OldB2 = ite->width();
 				iteG->OldH2 = ite->height();
-				iteG->Clip = FlattenPath(iteG->PoLine, iteG->Segments);
+				iteG->Clip = flattenPath(iteG->PoLine, iteG->Segments);
 				iteG->updateGradientVectors();
 				ite = iteG;
 				tmpSel->clear();

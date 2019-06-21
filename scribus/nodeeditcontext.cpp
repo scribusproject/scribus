@@ -352,7 +352,7 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 			currItem->ContourLine = Clip.copy();
 		else
 			currItem->PoLine = Clip.copy();
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	}
 	if (!m_isContourLine)
 		currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());

@@ -96,7 +96,7 @@ void CanvasMode_EditPolygon::drawControlsPolygon(QPainter* psx, PageItem* currIt
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
-	QPainterPath path = RegularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
+	QPainterPath path = regularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
 	psx->drawPath(path);
 	psx->setPen(p1bd);
 	psx->drawLine(m_startPoint, m_endPoint);
@@ -280,7 +280,7 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	item->recalcPath();
 	updateFromItem();
 	QTransform itemMatrix = currItem->getTransform();
-	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
+	QPainterPath path = itemMatrix.map(regularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
 	QRectF updateRect = oldRect.united(path.boundingRect());
 	m_doc->regionsChanged()->update(updateRect.adjusted(-5, -5, 10, 10));
 }
@@ -368,7 +368,7 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 			QLineF stLinCo2 = QLineF(sPoint, sPoint2);
 			m_polyOuterCurvature = stLinCo.length() / stLinCo2.length();
 		}
-		QPainterPath path = RegularPolygonPath(currItem->width(), currItem->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
+		QPainterPath path = regularPolygonPath(currItem->width(), currItem->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
 		FPointArray ar;
 		ar.fromQPainterPath(path);
 		m_endPoint = ar.pointQF(2);
@@ -459,7 +459,7 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	if (m_polygonPoint != noPointDefined && UndoManager::undoEnabled())
 		m_transaction = undoManager->beginTransaction(Um::Polygon, Um::IPolygon, Um::EditPolygon, "", Um::IPolygon);
 	m_view->setCursor(QCursor(Qt::CrossCursor));
-	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
+	QPainterPath path = itemMatrix.map(regularPolygonPath(currItem->width(), currItem->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
 	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }
 
@@ -515,6 +515,6 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 			m_transaction.reset();
 		}
 	}
-	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
+	QPainterPath path = itemMatrix.map(regularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature));
 	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }

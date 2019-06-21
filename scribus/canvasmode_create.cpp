@@ -127,13 +127,13 @@ void CreateMode::drawControls(QPainter* p)
 		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
-			QPainterPath path = RegularPolygonPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature, m_doc->itemToolPrefs().polyInnerRot, m_doc->itemToolPrefs().polyOuterCurvature);
+			QPainterPath path = regularPolygonPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature, m_doc->itemToolPrefs().polyInnerRot, m_doc->itemToolPrefs().polyOuterCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
 		else if (createObjectMode == modeDrawSpiral)
 		{
-			QPainterPath path = SpiralPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().spiralStartAngle, m_doc->itemToolPrefs().spiralEndAngle, m_doc->itemToolPrefs().spiralFactor);
+			QPainterPath path = spiralPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().spiralStartAngle, m_doc->itemToolPrefs().spiralEndAngle, m_doc->itemToolPrefs().spiralFactor);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}

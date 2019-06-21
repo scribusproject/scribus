@@ -1447,7 +1447,7 @@ void AIPlug::processData(const QString& data)
 					if (ite->imageIsAvailable)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					ite->setImageFlippedV(true);
-					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 					ite->setRedrawBounding();
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 						ite->setLocked(itemLocked);
@@ -2565,7 +2565,7 @@ void AIPlug::processData(const QString& data)
 					ite->setRotation(rotation * 180 / M_PI);
 					ite->SetRectFrame();
 					m_Doc->setRedrawBounding(ite);
-					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
 					ite->setFillShade(CurrFillShade);
 					ite->setLineShade(CurrStrokeShade);
@@ -3036,7 +3036,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	ite->setRotation(rotation * 180 / M_PI);
 	ite->SetRectFrame();
 	m_Doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(CurrStrokeShade);

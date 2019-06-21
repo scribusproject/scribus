@@ -628,7 +628,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 				neu->setXYPos(gx, gy, true);
 				neu->setWidthHeight(gw, gh, true);
 				neu->SetRectFrame();
-				neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+				neu->Clip = flattenPath(neu->PoLine, neu->Segments);
 				neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 				neu->AutoName = false;
 				neu->gXpos = neu->xPos() - gx;

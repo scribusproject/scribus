@@ -65,7 +65,7 @@ uint getDouble(const QByteArray& in, bool raw)
 	return ret;
 }
 
-QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot, double factor3)
+QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot, double factor3)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -161,7 +161,7 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 	return pts;
 }
 
-QPainterPath SpiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor)
+QPainterPath spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor)
 {
 	if (spiralStartAngle >= spiralEndAngle)
 		return QPainterPath();
@@ -393,7 +393,7 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	return partIn ? (ry > prect->bottom()) : false;
 }
 
-QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
+QPolygon flattenPath(const FPointArray& ina, QList<uint> &Segs)
 {
 	QPolygon cli, outa;
 	Segs.clear();

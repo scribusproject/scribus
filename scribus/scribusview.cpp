@@ -3189,7 +3189,7 @@ void ScribusView::TextToPath()
 				newItem->FrameType = 3;
 				newItem->OldB2 = newItem->width();
 				newItem->OldH2 = newItem->height();
-				newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
+				newItem->Clip = flattenPath(newItem->PoLine, newItem->Segments);
 				newItem->ContourLine = newItem->PoLine.copy();
 				newGroupedItems.prepend(newItem);
 			}

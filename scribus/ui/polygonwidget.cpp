@@ -215,7 +215,7 @@ void PolygonWidget::updatePreview()
 	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath pp = RegularPolygonPath(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
+	QPainterPath pp = regularPolygonPath(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
 	{

@@ -6481,7 +6481,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				newItem->PoLine.addPoint(newItem->PoLine.point(0));
 				newItem->PoLine.addPoint(newItem->PoLine.point(0));
 			}
-			newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
+			newItem->Clip = flattenPath(newItem->PoLine, newItem->Segments);
 			newItem->ContourLine = newItem->PoLine.copy();
 			break;
 		case PageItem::PolyLine:
@@ -9710,7 +9710,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	else
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
 	currItem->update();
 	if (UndoManager::undoEnabled())
@@ -9753,7 +9753,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	else
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
 	currItem->update();
 	if (UndoManager::undoEnabled())
@@ -14516,7 +14516,7 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup, bool move
 	else if (currItem->asPathText())
 		currItem->updatePolyClip();
 	else
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	currItem->updateGradientVectors();
 	currItem->Sizing = siz;
 	// Added by r17735: why? this break resizing of multiple item selections
@@ -15366,7 +15366,7 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	if (item->asPathText())
 		item->updatePolyClip();
 	else
-		item->Clip = FlattenPath(item->PoLine, item->Segments);
+		item->Clip = flattenPath(item->PoLine, item->Segments);
 	setRedrawBounding(item);
 }
 

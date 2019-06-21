@@ -1690,7 +1690,7 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 	if (flags & 1)
 		path.addEllipse(QPointF(0,0), w, h);
 	else
-		path = RegularPolygonPath(w * 2, h * 2, numSides, flags & 2, r1, -90 + (360.0 / double(numSides)) / 2.0, 0);
+		path = regularPolygonPath(w * 2, h * 2, numSides, flags & 2, r1, -90 + (360.0 / double(numSides)) / 2.0, 0);
 	Coords.fromQPainterPath(path);
 	if (!(flags & 1))
 		Coords.translate(-w, -h);
@@ -2982,7 +2982,7 @@ void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 	if (ellipse)
 		path.addEllipse(QPointF(majorAxis, minorAxis), majorAxis, minorAxis);
 	else
-		path = RegularPolygonPath(majorAxis, minorAxis, 4, false, 0, 45, 0);
+		path = regularPolygonPath(majorAxis, minorAxis, 4, false, 0, 45, 0);
 	Coords.fromQPainterPath(path);
 	Coords.translate(-majorAxis / 2.0, -minorAxis / 2.0);
 	Coords.translate(centerX, -centerY);

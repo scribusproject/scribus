@@ -374,7 +374,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(false);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->ContourLine = ite->PoLine.copy();
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Elements->append(ite);
@@ -529,7 +529,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setFillEvenOdd(false);
-		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 		ite->ContourLine = ite->PoLine.copy();
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Elements->append(ite);
@@ -689,7 +689,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			ite->setFillEvenOdd(false);
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+			ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 			ite->ContourLine = ite->PoLine.copy();
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Elements->append(ite);
@@ -2439,7 +2439,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->setFillShade(100);
 	ite->setLineShade(100);
@@ -2577,7 +2577,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->setFillShade(100);
 	ite->setLineShade(100);
@@ -2726,7 +2726,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->setFillShade(100);
 	ite->setLineShade(100);
@@ -2874,7 +2874,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->setFillShade(100);
 	ite->setLineShade(100);

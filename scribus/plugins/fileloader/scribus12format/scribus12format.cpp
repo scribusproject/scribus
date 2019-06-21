@@ -536,7 +536,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			currItem->convertClip();
 		else
 			//
-			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+			currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	}
 	else
 	{

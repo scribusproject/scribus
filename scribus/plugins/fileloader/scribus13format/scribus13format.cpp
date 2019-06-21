@@ -1935,7 +1935,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
 	if (!currItem->asLine())
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
 		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));

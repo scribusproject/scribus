@@ -336,7 +336,7 @@ void PageItem_Spiral::recalcPath()
 			PoLine.translate(width(), 0);
 		}
 	}
-	Clip = FlattenPath(PoLine, Segments);
+	Clip = flattenPath(PoLine, Segments);
 }
 
 void PageItem_Spiral::applicableActions(QStringList & actionList)

@@ -655,7 +655,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 //			if (item->asPolyLine())
 //				item->setPolyClip(qRound(qMax(item->lineWidth() / 2.0, 1)));
 //			else
-//				item->Clip = FlattenPath(item->PoLine, item->Segments);
+//				item->Clip = flattenPath(item->PoLine, item->Segments);
 			FPoint wx = getMinClipF(&item->PoLine);
 			inGroupXOrigin = qMin(inGroupXOrigin, wx.x());
 			inGroupYOrigin = qMin(inGroupYOrigin, wx.y());
@@ -1318,7 +1318,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 					neu->PoLine.map(mm);
 					neu->PoLine.translate(-gx + baseX, -gy + baseY);
 					clipPath.resize(0);
-					neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+					neu->Clip = flattenPath(neu->PoLine, neu->Segments);
 				}
 				else
 					neu->SetRectFrame();
@@ -1615,7 +1615,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 		ite->PoLine = clipPath.copy();
 	clipPath.resize(0);
 	ite->PoLine.map(QTransform(1.0, 0.0, 0.0, 1.0, x, y));
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 	finishNode(e, ite);
 	IElements.append(ite);
 	delete (m_gc.pop());

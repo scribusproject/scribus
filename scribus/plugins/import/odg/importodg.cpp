@@ -3505,7 +3505,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	item->FrameType = 3;
 	FPoint wh = getMaxClipF(&item->PoLine);
 	item->setWidthHeight(wh.x(), wh.y());
-	item->Clip = FlattenPath(item->PoLine, item->Segments);
+	item->Clip = flattenPath(item->PoLine, item->Segments);
 	m_Doc->adjustItemSize(item, true);
 	item->OldB2 = item->width();
 	item->OldH2 = item->height();

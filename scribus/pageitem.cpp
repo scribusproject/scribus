@@ -7484,7 +7484,7 @@ void PageItem::restoreShapeType(SimpleState *state, bool isUndo)
 		this->PoLine = is->getItem().second;
 		ClipEdited = (FrameType == 0 || FrameType == 1);
 	}
-	Clip = FlattenPath(PoLine,Segments);
+	Clip = flattenPath(PoLine,Segments);
 }
 
 void PageItem::restoreLayer(SimpleState *state, bool isUndo)
@@ -8786,7 +8786,7 @@ void PageItem::SetFrameShape(int count, const double *vals)
 		PoLine.addPoint(x1, y1);
 		PoLine.addPoint(x2, y2);
 	}
-	Clip = FlattenPath(PoLine, Segments);
+	Clip = flattenPath(PoLine, Segments);
 	ClipEdited = true;
 }
 
@@ -8846,7 +8846,7 @@ void PageItem::SetFrameRound()
 		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
 		PoLine.addQuadPoint(0, rr, rrxBezierFactor, rr, rr, 0, rr, rr*bezierFactor);
 	}
-	Clip = FlattenPath(PoLine, Segments);
+	Clip = flattenPath(PoLine, Segments);
 	ClipEdited = false;
 	FrameType = 2;
 }
@@ -10412,7 +10412,7 @@ void PageItem::convertClip()
 		}
 		np = FPoint(Clip.point(0));
 		PoLine.putPoints(PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
-		Clip = FlattenPath(PoLine, Segments);
+		Clip = flattenPath(PoLine, Segments);
 	}
 	else
 	{
@@ -10530,7 +10530,7 @@ void PageItem::updateClip(bool updateWelded)
 					if (asPathText())
 						updatePolyClip();
 					else
-						Clip = FlattenPath(PoLine, Segments);
+						Clip = flattenPath(PoLine, Segments);
 				}
 				if (updateWelded)
 				{
@@ -10666,7 +10666,7 @@ void PageItem::updateClip(bool updateWelded)
 			if (asPathText())
 				updatePolyClip();
 			else
-				Clip = FlattenPath(PoLine, Segments);
+				Clip = flattenPath(PoLine, Segments);
 			OldB2 = width();
 			OldH2 = height();
 			if (updateWelded)

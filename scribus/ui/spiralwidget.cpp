@@ -73,7 +73,7 @@ void SpiralWidget::updatePreview()
 	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath path = SpiralPath(pm.width() - 6, pm.height() - 6, startAngle->value(), endAngle->value(), (static_cast<int>(arcFactor->value()) + 100) / 100.0);
+	QPainterPath path = spiralPath(pm.width() - 6, pm.height() - 6, startAngle->value(), endAngle->value(), (static_cast<int>(arcFactor->value()) + 100) / 100.0);
 	path.translate(3, 3);
 	p.strokePath(path, p.pen());
 	p.end();

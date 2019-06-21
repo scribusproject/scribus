@@ -120,13 +120,13 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	else if ((docItem->textFlowUsesImageClipping()) && (!docItem->imageClip.empty()))
 	{
 		QList<uint> Segs;
-		QPolygon Clip2 = FlattenPath(docItem->imageClip, Segs);
+		QPolygon Clip2 = flattenPath(docItem->imageClip, Segs);
 		res = QRegion(pp.map(Clip2)).intersected(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (!docItem->ContourLine.empty()))
 	{
 		QList<uint> Segs;
-		QPolygon Clip2 = FlattenPath(docItem->ContourLine, Segs);
+		QPolygon Clip2 = flattenPath(docItem->ContourLine, Segs);
 		res = QRegion(pp.map(Clip2));
 	}
 	else

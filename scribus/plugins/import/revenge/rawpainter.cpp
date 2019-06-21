@@ -623,7 +623,7 @@ void RawPainter::endLayer()
 				ite->ClipEdited = true;
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 				ite->updateGradientVectors();
 			}
 			Elements->append(ite);
@@ -2348,7 +2348,7 @@ void RawPainter::endLayer()
 				ite->ClipEdited = true;
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 				ite->updateGradientVectors();
 			}
 			Elements->append(ite);
