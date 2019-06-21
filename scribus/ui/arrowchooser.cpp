@@ -30,8 +30,8 @@ void ArrowChooser::setStartDirection(bool direction)
 void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 {
 	clear();
-	FPointArray Path;
-	Path.resize(0);
+	FPointArray path;
+	path.resize(0);
 	addItem(CommonStrings::tr_None);
 	for (int a = 0; a < arrowStyles->count(); ++a)
 	{
@@ -43,11 +43,11 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		painter->setPen(qRgb(0, 0, 0), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
-		Path.resize(0);
-		Path = arrowStyles->at(a).points.copy();
-		FPoint min = getMinClipF(&Path);
-		Path.translate(-min.x(), -min.y());
-		FPoint max = Path.widthHeight();
+		path.resize(0);
+		path = arrowStyles->at(a).points.copy();
+		FPoint min = getMinClipF(&path);
+		path.translate(-min.x(), -min.y());
+		FPoint max = path.widthHeight();
 		QTransform mm;
 		QTransform mm2;
 		if (arrowDirection)
@@ -56,8 +56,8 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 			mm2.translate(-max.x(), 0);
 		}
 		mm.scale(16.0 / qMax(max.x(), max.y()), 16.0 / qMax(max.x(), max.y()));
-		Path.map(mm2 * mm);
-		painter->setupPolygon(&Path);
+		path.map(mm2 * mm);
+		painter->setupPolygon(&path);
 		painter->drawPolygon();
 		painter->drawPolyLine();
 		painter->end();
