@@ -9462,6 +9462,99 @@ QRectF PageItem::getEndArrowOldBoundingRect() const
 	return arrowRect;
 }
 
+QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
+{
+	QRegion res;
+
+	QTransform pp;
+	if (this->isGroupChild())
+		pp.translate(gXpos, gYpos);
+	else
+		pp.translate(m_xPos - xOffset, m_yPos - yOffset);
+	pp.rotate(m_rotation);
+
+	if (textFlowUsesBoundingBox())
+	{
+		QRectF bb = getVisualBoundingRect();
+		if (isGroupChild())
+		{
+			bb.translate(-m_xPos, -m_yPos);
+			bb.translate(gXpos, gYpos);
+		}
+		res = QRegion(bb.toRect());
+	}
+	else if ((textFlowUsesImageClipping()) && (!imageClip.empty()))
+	{
+		QList<uint> Segs;
+		QPolygon Clip2 = flattenPath(imageClip, Segs);
+		res = QRegion(pp.map(Clip2)).intersected(QRegion(pp.map(Clip)));
+	}
+	else if ((textFlowUsesContourLine()) && (!ContourLine.empty()))
+	{
+		QList<uint> Segs;
+		QPolygon Clip2 = flattenPath(ContourLine, Segs);
+		res = QRegion(pp.map(Clip2));
+	}
+	else
+	{
+		if (isSymbol() || isGroup())
+		{
+			if (imageFlippedH())
+			{
+				pp.translate(m_width, 0);
+				pp.scale(-1, 1);
+			}
+			if (imageFlippedV())
+			{
+				pp.translate(0, m_height);
+				pp.scale(1, -1);
+			}
+		}
+		if ((((lineColorVal != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0)) && (m_lineWidth > 1)) || (!NamedLStyle.isEmpty()))
+		{
+//			QVector<double> m_array;
+			QPainterPath ppa;
+			QPainterPath result;
+			if (itemType() == PageItem::PolyLine)
+				ppa = PoLine.toQPainterPath(false);
+			else
+				ppa = PoLine.toQPainterPath(true);
+			if (NamedLStyle.isEmpty())
+			{
+				QPainterPathStroker stroke;
+				stroke.setCapStyle(PLineEnd);
+				stroke.setJoinStyle(PLineJoin);
+				stroke.setDashPattern(Qt::SolidLine);
+				stroke.setWidth(m_lineWidth);
+				result = stroke.createStroke(ppa);
+			}
+			else
+			{
+				multiLine ml = doc()->MLineStyles[NamedLStyle];
+				int ind = ml.size()-1;
+				if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
+				{
+					QPainterPathStroker stroke;
+					stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[ind].LineEnd));
+					stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[ind].LineJoin));
+					stroke.setDashPattern(Qt::SolidLine);
+					stroke.setWidth(ml[ind].Width);
+					result = stroke.createStroke(ppa);
+				}
+			}
+			res = QRegion(pp.map(Clip));
+			QList<QPolygonF> pl = result.toSubpathPolygons();
+			for (int b = 0; b < pl.count(); b++)
+			{
+				res = res.united(QRegion(pp.map(pl[b].toPolygon())));
+			}
+		}
+		else
+			res = QRegion(pp.map(Clip));
+	}
+	return  res;
+}
+
 bool PageItem::pointWithinItem(int x, const int y) const
 {
 	const_cast<PageItem*>(this)-> setRedrawBounding();

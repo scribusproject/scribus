@@ -98,97 +98,6 @@ void PageItem_TextFrame::init()
 	connect(&itemText,SIGNAL(changed(int,int)), this, SLOT(slotInvalidateLayout(int,int)));
 }
 
-static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
-{
-	QRegion res;
-	QTransform pp;
-	if (docItem->isGroupChild())
-		pp.translate(docItem->gXpos, docItem->gYpos);
-	else
-		pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
-	pp.rotate(docItem->rotation());
-	if (docItem->textFlowUsesBoundingBox())
-	{
-		QRectF bb = docItem->getVisualBoundingRect();
-		if (docItem->isGroupChild())
-		{
-			bb.translate(-docItem->xPos(), -docItem->yPos());
-			bb.translate(docItem->gXpos, docItem->gYpos);
-		}
-		res = QRegion(bb.toRect());
-	}
-	else if ((docItem->textFlowUsesImageClipping()) && (!docItem->imageClip.empty()))
-	{
-		QList<uint> Segs;
-		QPolygon Clip2 = flattenPath(docItem->imageClip, Segs);
-		res = QRegion(pp.map(Clip2)).intersected(QRegion(pp.map(docItem->Clip)));
-	}
-	else if ((docItem->textFlowUsesContourLine()) && (!docItem->ContourLine.empty()))
-	{
-		QList<uint> Segs;
-		QPolygon Clip2 = flattenPath(docItem->ContourLine, Segs);
-		res = QRegion(pp.map(Clip2));
-	}
-	else
-	{
-		if (docItem->isSymbol() || docItem->isGroup())
-		{
-			if (docItem->imageFlippedH())
-			{
-				pp.translate(docItem->width(), 0);
-				pp.scale(-1, 1);
-			}
-			if (docItem->imageFlippedV())
-			{
-				pp.translate(0, docItem->height());
-				pp.scale(1, -1);
-			}
-		}
-		if ((((docItem->lineColor() != CommonStrings::None) || (!docItem->patternStrokeVal.isEmpty()) || (docItem->GrTypeStroke > 0)) && (docItem->lineWidth() > 1)) || (!docItem->NamedLStyle.isEmpty()))
-		{
-//			QVector<double> m_array;
-			QPainterPath ppa;
-			QPainterPath result;
-			if (docItem->itemType() == PageItem::PolyLine)
-				ppa = docItem->PoLine.toQPainterPath(false);
-			else
-				ppa = docItem->PoLine.toQPainterPath(true);
-			if (docItem->NamedLStyle.isEmpty())
-			{
-				QPainterPathStroker stroke;
-				stroke.setCapStyle(docItem->lineEnd());
-				stroke.setJoinStyle(docItem->lineJoin());
-				stroke.setDashPattern(Qt::SolidLine);
-				stroke.setWidth(docItem->lineWidth());
-				result = stroke.createStroke(ppa);
-			}
-			else
-			{
-				multiLine ml = docItem->doc()->MLineStyles[docItem->NamedLStyle];
-				int ind = ml.size()-1;
-				if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
-				{
-					QPainterPathStroker stroke;
-					stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[ind].LineEnd));
-					stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[ind].LineJoin));
-					stroke.setDashPattern(Qt::SolidLine);
-					stroke.setWidth(ml[ind].Width);
-					result = stroke.createStroke(ppa);
-				}
-			}
-			res = QRegion(pp.map(docItem->Clip));
-			QList<QPolygonF> pl = result.toSubpathPolygons();
-			for (int b = 0; b < pl.count(); b++)
-			{
-				res = res.united(QRegion(pp.map(pl[b].toPolygon())));
-			}
-		}
-		else
-			res = QRegion(pp.map(docItem->Clip));
-	}
-	return  res;
-}
-
 QRegion PageItem_TextFrame::calcAvailableRegion()
 {
 	QRegion result(this->Clip);
@@ -207,9 +116,9 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 
 		int LayerLev = m_Doc->layerLevelFromID(m_layerID);
 		int docItemsCount = m_Doc->Items->count();
-		ScPage* Mp=nullptr;
-		ScPage* Dp=nullptr;
-		PageItem* docItem=nullptr;
+		ScPage* Mp = nullptr;
+		ScPage* Dp = nullptr;
+		PageItem* docItem = nullptr;
 		int LayerLevItem;
 		QList<PageItem*> thisList;
 		if (!OnMasterPage.isEmpty())
@@ -234,7 +143,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 				{
 					if (docItem->textFlowAroundObject())
 					{
-						QRegion itemRgn = itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset());
+						QRegion itemRgn = docItem->textInteractionRegion(Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset());
 						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
 					}
 				}
@@ -267,7 +176,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 					docItem = Parent->asGroupFrame()->groupItemList.at(a);
 					if (docItem->textFlowAroundObject())
 					{
-						QRegion itemRgn = itemShape(docItem, 0, 0);
+						QRegion itemRgn = docItem->textInteractionRegion(0, 0);
 						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
 					}
 				}
@@ -283,7 +192,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 					{
 						if (docItem->textFlowAroundObject())
 						{
-							QRegion itemRgn = itemShape(docItem, 0, 0);
+							QRegion itemRgn = docItem->textInteractionRegion(0, 0);
 							result = result.subtracted( canvasToLocalMat.map(itemRgn) );
 						}
 					}

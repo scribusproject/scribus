@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 
 class QFrame;
 class QGridLayout;
+class QRegion;
 class ResourceCollection;
 class ScPainter;
 class ScribusDoc;
@@ -315,6 +316,7 @@ public: // Start public functions
 	virtual QRectF getEndArrowBoundingRect() const;
 	virtual QRectF getEndArrowOldBoundingRect() const;
 
+	virtual QRegion textInteractionRegion(double xOffset, double yOffset) const;
 
 	//>> ********* Functions related to drawing the item *********
 
