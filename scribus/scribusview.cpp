@@ -1463,7 +1463,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
 		FPoint tp(getMaxClipF(&currItem->ContourLine));
-		FPoint tpS = currItem->ContourLine.WidthHeight();
+		FPoint tpS = currItem->ContourLine.widthHeight();
 		currItem->ContourLine.translate(-qRound((tp.x() + tp2.x()) / 2.0), -qRound((tp.y() + tp2.y()) / 2.0));
 		switch (mode)
 		{

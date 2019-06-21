@@ -201,14 +201,14 @@ void FPointArray::scale( double sx, double sy )
 	}
 }
 
-QRectF FPointArray::boundingRect()
+QRectF FPointArray::boundingRect() const
 {
 	FPoint min = getMinClipF(this);
 	FPoint max = getMaxClipF(this);
 	return QRectF(QPointF(min.x(), min.y()), QPointF(max.x(), max.y()));
 }
 
-FPoint FPointArray::WidthHeight() const
+FPoint FPointArray::widthHeight() const
 {
 	if ( QVector<FPoint>::count() == 0 )
 		return FPoint( 0.0, 0.0 );		// null rectangle
@@ -537,7 +537,7 @@ QString FPointArray::svgPath(bool closed) const
 	return tmp;
 }
 
-QPainterPath FPointArray::toQPainterPath(bool closed)
+QPainterPath FPointArray::toQPainterPath(bool closed) const
 {
 	QPainterPath m_path = QPainterPath();
 	bool nPath = true;

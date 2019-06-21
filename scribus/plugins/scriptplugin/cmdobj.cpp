@@ -206,8 +206,8 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->view->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(),
-						 it->PoLine.WidthHeight().y(), i, false, false, false);
+	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.widthHeight().x(),
+						 it->PoLine.widthHeight().y(), i, false, false, false);
 	ScCore->primaryMainWindow()->view->AdjustItemSize(it);*/
 	if (strlen(Name) > 0)
 	{
@@ -284,7 +284,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->moveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
+	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
 	if (strlen(Name) > 0)
 	{
@@ -366,7 +366,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->moveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
+	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
 	if (strlen(Name) > 0)
 	{
@@ -457,7 +457,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->moveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
+	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
 	if (strlen(Name) > 0)
 	{

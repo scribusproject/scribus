@@ -256,7 +256,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			Path = info->PDSpathData[it.key()].copy();
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
-			FPoint max = Path.WidthHeight();
+			FPoint max = Path.widthHeight();
 			QTransform mm;
 			mm.scale(34.0 / qMax(max.x(), max.y()), 34.0 / qMax(max.x(), max.y()));
 			Path.map(mm);

@@ -45,6 +45,8 @@ public:
 	FPointArray() : m_svgState(nullptr) {};
 	FPointArray(int size) : QVector<FPoint>(size), m_svgState(nullptr) {};
 	FPointArray(const FPointArray &a) : QVector<FPoint>(a), m_svgState(nullptr) {};
+	~FPointArray();
+
 	int  size() const { return QVector<FPoint>::count(); }
 	bool resize(int newCount);
 	void reverse();
@@ -54,13 +56,13 @@ public:
 	bool putPoints(int index, int nPoints, double firstx, double firsty,  ... );
 	bool putPoints(int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
 	void point(int i, double *x, double *y) const;
-	const FPoint& point(int i)  const{ return QVector<FPoint>::at(i); }
+	const FPoint& point(int i)  const { return QVector<FPoint>::at(i); }
 	QPoint pointQ(int i) const;
 	QPointF pointQF(int i) const;
 	void translate( double dx, double dy );
 	void scale( double sx, double sy );
-	QRectF boundingRect();
-	FPoint WidthHeight() const;
+	QRectF boundingRect() const;
+	FPoint widthHeight() const;
 	void map(const QTransform& m);
 	FPointArray &operator=( const FPointArray &a );
 	FPointArray copy() const;
@@ -77,19 +79,18 @@ public:
 	double lenPathDist(int seg, double t1, double t2) const;
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const;
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const;
-	~FPointArray();
 	void svgInit();
 	void svgMoveTo(double x, double y);
 	void svgLineTo(double x, double y);
-	//void svgCurveTo(double x1, double y1, double x2, double y2);
 	void svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3);
 	void svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1);
 	void svgClosePath();
 	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
 	bool parseSVG(const QString& svgPath);
 	QString svgPath(bool closed = false) const;
-	QPainterPath toQPainterPath(bool closed);
+	QPainterPath toQPainterPath(bool closed) const;
 	void fromQPainterPath(QPainterPath &path, bool close = false);
+
 private:
 	SVGState * m_svgState;
 };

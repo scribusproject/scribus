@@ -30,8 +30,8 @@ If premultiplication does not allow to store result in a long value, perform a s
 */
 bool SCRIBUS_API compareDouble(double a, double b);
 uint SCRIBUS_API getDouble(const QByteArray& in, bool raw);
-FPoint   SCRIBUS_API getMaxClipF(FPointArray* Clip);
-FPoint   SCRIBUS_API getMinClipF(FPointArray* Clip);
+FPoint   SCRIBUS_API getMaxClipF(const FPointArray* clip);
+FPoint   SCRIBUS_API getMinClipF(const FPointArray* clip);
 FPoint   SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
 bool     SCRIBUS_API regionContainsRect(const QRegion& shape, QRect rect);
 QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);

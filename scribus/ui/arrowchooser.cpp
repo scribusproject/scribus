@@ -47,7 +47,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		Path = arrowStyles->at(a).points.copy();
 		FPoint min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
-		FPoint max = Path.WidthHeight();
+		FPoint max = Path.widthHeight();
 		QTransform mm;
 		QTransform mm2;
 		if (arrowDirection)

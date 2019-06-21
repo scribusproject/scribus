@@ -1412,7 +1412,7 @@ void AIPlug::processData(const QString& data)
 			dataString = "";
 			if (fObjectMode)
 			{
-				FPoint wh = currentSpecialPath.WidthHeight();
+				FPoint wh = currentSpecialPath.widthHeight();
 				if ((currentSpecialPath.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 				{
 					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
@@ -1590,7 +1590,7 @@ void AIPlug::processData(const QString& data)
 /* Start Object creation commands */
 		else if ((command == "b") || (command == "B") || (command == "f") || (command == "F") || (command == "s") || (command == "S"))
 		{
-			FPoint wh = Coords.WidthHeight();
+			FPoint wh = Coords.widthHeight();
 			if ((Coords.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 			{
 				if ((!WasU) || ((WasU) && (FirstU)))
