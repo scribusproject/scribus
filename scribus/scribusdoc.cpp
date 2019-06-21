@@ -41,7 +41,6 @@ for which a new license (GPL+exception) is in place.
 //#include <qtconcurrentmap.h>
 
 #include "actionmanager.h"
-#include "appmodes.h"
 #include "text/boxes.h"
 #include "canvas.h"
 #include "colorblind.h"
@@ -159,7 +158,7 @@ public:
 		}
 	}
 	
-	void changed(ScPage* pg, bool /*doLayout*/)
+	void changed(ScPage* pg, bool /*doLayout*/) override
 	{
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
@@ -172,7 +171,7 @@ public:
 		m_docChangeNeeded = true;
 	}
 	
-	void changed(PageItem* it, bool doLayout)
+	void changed(PageItem* it, bool doLayout) override
 	{
 		it->invalidateLayout();
 		if (doLayout)
@@ -203,71 +202,22 @@ public:
 
 
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(nullptr),
-	m_hasGUI(false),
-	m_docFilePermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner),
 	m_appPrefsData(PrefsManager::instance()->appPrefs),
 	m_docPrefsData(PrefsManager::instance()->appPrefs),
 	m_undoManager(UndoManager::instance()),
-	m_loading(false),
-	m_modified(false),
-	m_ActiveLayer(0),
-	m_rotMode(0),
 	m_automaticTextFrames(false),
-	m_masterPageMode(false),
-	m_symbolEditMode(false),
-	m_inlineEditMode(false),
-	m_ScMW(nullptr),
-	m_View(nullptr),
 	m_guardedObject(this),
-	m_serializer(nullptr),
-	m_tserializer(nullptr),
-	is12doc(false),
-	NrItems(0),
-	First(1), Last(0),
-	viewCount(0), viewID(0),
-	SnapGrid(false),
-	SnapGuides(true),
-	SnapElement(false), GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
-	rulerXoffset(0.0), rulerYoffset(0.0),
-	Pages(nullptr),
-	Items(nullptr),
 	m_Selection(new Selection(this, true)),
 	PageSp(1), PageSpa(0),
 	FirstPnum(1),
 	PageColors(this, true),
-	appMode(modeNormal),
-	SubMode(-1),
-	ShapeValues(nullptr),
-	ValCount(0),
 	m_documentFileName( tr("Document")+"-"),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
-	LastAuto(nullptr), FirstAuto(nullptr),
-	DraggedElem(nullptr),
-	ElemToLink(nullptr),
-	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
-	TotalItems(0),
-	RePos(false),
-	OldBM(false),
-	hasName(false),
-	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
-	WinHan(nullptr),
-	DoDrawing(true),
-	CurTimer(nullptr),
-	docHyphenator(nullptr),
 	m_itemCreationTransaction(nullptr),
-	m_alignTransaction(nullptr),
-	m_currentPage(nullptr),
-	m_docUpdater(nullptr),
-	m_flag_notesChanged(false),
-	flag_restartMarksRenumbering(false),
-	flag_updateMarksLabels(false),
-	flag_updateEndNotes(false),
-	flag_layoutNotesFrames(true),
-	flag_Renumber(false),
-	flag_NumUpdateRequest(false)
+	m_alignTransaction(nullptr)
 {
 	m_docUnitRatio=unitGetRatioFromIndex(m_docPrefsData.docSetupPrefs.docUnitIndex);
 	m_docPrefsData.docSetupPrefs.pageHeight=0;
@@ -278,11 +228,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	m_docPrefsData.pdfPrefs.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
 	m_docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
-	drawAsPreview = false;
-	viewAsPreview = false;
-	editOnPreview = false;
-	previewVisual = 0;
-	dontResize = false;
 	//create default numeration
 	auto* numS = new NumStruct;
 	numS->m_name = "default";
@@ -295,73 +240,23 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
-	m_hasGUI(false),
-	m_docFilePermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner),
 	m_appPrefsData(PrefsManager::instance()->appPrefs),
 	m_docPrefsData(PrefsManager::instance()->appPrefs),
 	m_undoManager(UndoManager::instance()),
-	m_loading(false),
-	m_modified(false),
-	m_ActiveLayer(0),
 	m_docUnitRatio(unitGetRatioFromIndex(m_appPrefsData.docSetupPrefs.docUnitIndex)),
-	m_rotMode(0),
 	m_automaticTextFrames(pagesSetup.autoTextFrames),
-	m_masterPageMode(false),
-	m_symbolEditMode(false),
-	m_inlineEditMode(false),
-	m_ScMW(nullptr),
-	m_View(nullptr),
 	m_guardedObject(this),
-	m_serializer(nullptr),
-	m_tserializer(nullptr),
-	is12doc(false),
-	NrItems(0),
-	First(1), Last(0),
-	viewCount(0), viewID(0),
-	SnapGrid(false),
-	SnapGuides(true),
-	SnapElement(false),
-	GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
-	rulerXoffset(0.0), rulerYoffset(0.0),
-	Pages(nullptr),
-	Items(nullptr),
 	m_Selection(new Selection(this, true)),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	FirstPnum(pagesSetup.firstPageNumber),
 	PageColors(this, true),
-	appMode(modeNormal),
-	SubMode(-1),
-	ShapeValues(nullptr),
-	ValCount(0),
 	m_documentFileName(docName),
 	AllFonts(&m_appPrefsData.fontPrefs.AvailFonts),
-	LastAuto(nullptr), FirstAuto(nullptr),
-	DraggedElem(nullptr),
-	ElemToLink(nullptr),
-	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
-	TotalItems(0),
-	RePos(false),
-	OldBM(false),
-	hasName(false),
-	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
-	WinHan(nullptr),
-	DoDrawing(true),
-	CurTimer(nullptr),
-	docHyphenator(nullptr),
 	m_itemCreationTransaction(nullptr),
-	m_alignTransaction(nullptr),
-	m_currentPage(nullptr),
-	m_docUpdater(nullptr),
-	m_flag_notesChanged(false),
-	flag_restartMarksRenumbering(false),
-	flag_updateMarksLabels(false),
-	flag_updateEndNotes(false),
-	flag_layoutNotesFrames(true),
-	flag_Renumber(false),
-	flag_NumUpdateRequest(false)
+	m_alignTransaction(nullptr)
 {
 	m_docPrefsData.docSetupPrefs.docUnitIndex=unitindex;
 	m_docPrefsData.docSetupPrefs.pageHeight=pagesize.height();
@@ -376,11 +271,6 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
 	m_docPrefsData.docSetupPrefs.pagePositioning=pagesSetup.pageArrangement;
 	Print_Options.firstUse = true;
-	drawAsPreview = false;
-	viewAsPreview = false;
-	editOnPreview = false;
-	previewVisual = 0;
-	dontResize = false;
 }
 
 
@@ -389,7 +279,6 @@ void ScribusDoc::init()
 	Q_CHECK_PTR(m_Selection);
 	Q_CHECK_PTR(autoSaveTimer);
 
-	HasCMS = false;
 	m_docPrefsData.colorPrefs.DCMSset.CMSinUse = false;
 
 	colorEngine = ScCore->defaultEngine;
@@ -3472,7 +3361,7 @@ QString ScribusDoc::layerName(const int layerID) const
 		if (layer.ID == layerID)
 			return layer.Name;
 	}
-	return QString::null;
+	return QString();
 }
 
 

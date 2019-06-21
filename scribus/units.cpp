@@ -369,10 +369,7 @@ QString value2String(double unitValue, int unitIndex, bool round2Precision, bool
 		int i = (static_cast<int>(unitValue))/12;
 		double d = fabs(fmod(unitValue, 12));
 		QString prefix((i == 0 && unitValue < 0.0) ? "-" : "");
-//		if (round2Precision)
-//			s=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(unitIndex)).arg(QString::number(b, 'f', unitGetPrecisionFromIndex(unitIndex)));
-//		else
-			s=QString("%1%2%3%4").arg(prefix).arg(i).arg(unitGetStrFromIndex(unitIndex)).arg(d);
+		s=QString("%1%2%3%4").arg(prefix).arg(i).arg(unitGetStrFromIndex(unitIndex)).arg(d);
 	}
 	else
 	{

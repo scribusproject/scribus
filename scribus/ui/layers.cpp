@@ -309,7 +309,7 @@ void LayerPalette::addLayer()
 {
 	if (!m_Doc)
 		return;
-	m_Doc->addLayer(QString::null, true);
+	m_Doc->addLayer(QString(), true);
 	rebuildList();
 	markActiveLayer();
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
@@ -325,15 +325,13 @@ void LayerPalette::dupLayer()
 	
 	int current = m_Doc->activeLayer();
 	
-	m_Doc->addLayer(QString::null, true);
+	m_Doc->addLayer(QString(), true);
 	rebuildList();
 	markActiveLayer();
 	m_Doc->copyLayer(current, m_Doc->activeLayer());
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	if (copyTransaction)
-	{
 		copyTransaction.commit();
-	}
 }
 
 void LayerPalette::removeLayer()

@@ -2543,7 +2543,7 @@ void ActionManager::languageChangeActions()
 	(*scrActions)["helpOnlineTutorial1"]->setActionQString("http://wiki.scribus.net/index.php/tutorial"+language);
 }
 
-QKeySequence ActionManager::defaultKey(const QString & actionName)
+QKeySequence ActionManager::defaultKey(const QString& actionName)
 {
 	if (defKeys.contains(actionName))
 		return defKeys.value(actionName);
@@ -2558,6 +2558,6 @@ QString ActionManager::defaultMenuNameEntryTranslated(const QString& index)
 		if (defMenuNames.at(i).first == index)
 			return defMenuNames.at(i).second.at(2);
 	}
-	return QString::null;
+	return QString();
 }
 

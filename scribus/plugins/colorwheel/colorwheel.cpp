@@ -17,14 +17,14 @@ int colorwheel_getPluginAPIVersion()
 
 ScPlugin* colorwheel_getPlugin()
 {
-	ColorWheelPlugin* plug = new ColorWheelPlugin();
+	auto* plug = new ColorWheelPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
 void colorwheel_freePlugin(ScPlugin* plugin)
 {
-	ColorWheelPlugin* plug = dynamic_cast<ColorWheelPlugin*>(plugin);
+	auto* plug = dynamic_cast<ColorWheelPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -36,7 +36,7 @@ ColorWheelPlugin::ColorWheelPlugin()
 	languageChange();
 }
 
-ColorWheelPlugin::~ColorWheelPlugin() {};
+ColorWheelPlugin::~ColorWheelPlugin() = default;
 
 void ColorWheelPlugin::languageChange()
 {
@@ -87,7 +87,7 @@ bool ColorWheelPlugin::run(ScribusDoc* doc, const QString& target)
 		currDoc=ScCore->primaryMainWindow()->doc;
 	if (currDoc==nullptr)
 		return false;
-	CWDialog *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true);
+	auto *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true);
 	if (dlg)
 	{
 		dlg->exec();

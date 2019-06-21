@@ -511,7 +511,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& exten
 {
 	uint number = pageNo + currDoc->FirstPnum;
 	QString defaultName;
-	if (prefix!=QString::null)
+	if (!prefix.isNull())
 		defaultName=prefix;
 	else
 		defaultName=currDoc->documentFileName();
@@ -580,7 +580,7 @@ const QString getStringFromSequence(NumFormat type, uint position, const QString
 
 const QString numberToLetterSequence(const QString& letters, uint num)
 {
-	QString retVal("");
+	QString retVal;
 	unsigned digits = 1;
 	unsigned offset = 0;
 	uint column = num - 1;

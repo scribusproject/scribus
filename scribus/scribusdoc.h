@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTimer>
 #include <QFile>
 
+#include "appmodes.h"
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
 #include "colormgmt/sccolormgmtengine.h"
@@ -217,7 +218,7 @@ public:
 
 	// Add, delete and move pages
 	
-	ScPage* addPage(int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
+	ScPage* addPage(int pageNumber, const QString& masterPageName=QString(), const bool addAutoFrame=false);
 	void deletePage(int);
 	//! @brief Add a master page with this function, do not use addPage
 	ScPage* addMasterPage(int, const QString&);
@@ -274,7 +275,7 @@ public:
 	 * @param activate the layer active
 	 * @return Number of the layer created
 	 */
-	int addLayer(const QString& layerName=QString::null, const bool activate=false);
+	int addLayer(const QString& layerName, const bool activate=false);
 	/**
 	 * @brief Copies a layer from the current document
 	 * @param layerIDToCopy source layer
@@ -946,24 +947,24 @@ public:
 	 * @brief Add a section to the document sections list
 	 * Set number to -1 to add in the default section if the map is empty
 	 */
-	void addSection(const int number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
+	void addSection(const int number=0, const QString& name=QString(), const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
 	bool deleteSection(const uint);
 	/**
 	 * @brief Gets the page number to be printed based on the section it is in.
-	 * Returns QString::null on failure to find the pageIndex
+	 * Returns QString() on failure to find the pageIndex
 	 */
 	const QString getSectionPageNumberForPageIndex(const uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
-	 * Returns QString::null on failure to find the pageIndex
+	 * Returns QString() on failure to find the pageIndex
 	 */
 	const QChar getSectionPageNumberFillCharForPageIndex(const uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
-	 * Returns QString::null on failure to find the pageIndex
+	 * Returns QString() on failure to find the pageIndex
 	 */
 	int getSectionPageNumberWidthForPageIndex(const uint) const;
 	/**
@@ -1058,13 +1059,10 @@ public:
 	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection = nullptr);
 	void itemSelection_EraseParagraphStyle(Selection* customSelection = nullptr);
 	void itemSelection_EraseCharStyle(Selection* customSelection = nullptr);
-
 	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection = nullptr);
-
 	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa);
-
 	void itemSelection_SetLineWidth(double w);
 	void itemSelection_SetLineArt(Qt::PenStyle w);
 	void itemSelection_SetLineJoin(Qt::PenJoinStyle w);
@@ -1213,53 +1211,54 @@ public:
 protected:
 	void addSymbols();
 	void applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
-	bool m_hasGUI;
-	QFileDevice::Permissions m_docFilePermissions;
+	bool m_hasGUI {false};
+	QFileDevice::Permissions m_docFilePermissions {QFileDevice::ReadOwner|QFileDevice::WriteOwner};
 	ApplicationPrefs& m_appPrefsData;
 	ApplicationPrefs m_docPrefsData;
 	UndoManager * const m_undoManager;
-	bool m_loading;
-	bool m_modified;
-	int m_ActiveLayer;
+	bool m_loading {false};
+	bool m_modified {false};
+	int m_ActiveLayer {0};
 	double m_docUnitRatio;
-	int m_rotMode;
+	int m_rotMode {0};
 	bool m_automaticTextFrames; // Flag for automatic Textframes
-	bool m_masterPageMode;
-	bool m_symbolEditMode;
-	bool m_inlineEditMode;
-	int  m_storedLayerID;
-	bool m_storedLayerLock;
-	bool m_storedLayerVis;
+	bool m_masterPageMode {false};
+	bool m_symbolEditMode {false};
+	bool m_inlineEditMode {false};
+	int  m_storedLayerID {0};
+	bool m_storedLayerLock {false};
+	bool m_storedLayerVis {false};
 	QMap<QString, double> m_constants;
-	ScribusMainWindow* m_ScMW;
-	ScribusView* m_View;
+	ScribusMainWindow* m_ScMW {nullptr};
+	ScribusView* m_View {nullptr};
 	ScGuardedObject<ScribusDoc> m_guardedObject;
-	Serializer *m_serializer, *m_tserializer;
+	Serializer *m_serializer {nullptr};
+	Serializer *m_tserializer {nullptr};
 	QString m_currentEditedSymbol;
-	int m_currentEditedIFrame;
+	int m_currentEditedIFrame {0};
 	QString m_documentFileName;
 
 public: // Public attributes
-	bool is12doc; //public for now, it will be removed later
-	int NrItems;
-	int First;
-	int Last;
-	int viewCount;
-	int viewID;
-	bool SnapGrid;
-	bool SnapGuides;
-	bool SnapElement;
-	bool GuideLock;
-	bool dontResize;
+	bool is12doc {false}; //public for now, it will be removed later
+	int NrItems {0};
+	int First {1};
+	int Last {0};
+	int viewCount {0};
+	int viewID {0};
+	bool SnapGrid {false};
+	bool SnapGuides {false};
+	bool SnapElement {false};
+	bool GuideLock {false};
+	bool dontResize {false};
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
 	FPoint stored_minCanvasCoordinate;
 	FPoint stored_maxCanvasCoordinate;
-	double rulerXoffset;
-	double rulerYoffset;
+	double rulerXoffset {0.0};
+	double rulerYoffset {0.0};
 	/** \brief List of Pages */
-	QList<ScPage*>* Pages;
+	QList<ScPage*>* Pages {nullptr};
 	/** \brief List of Master Pages */
 	QList<ScPage*> MasterPages;
 	/** \brief List of Document Pages */
@@ -1269,7 +1268,7 @@ public: // Public attributes
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */
-	QList<PageItem*>* Items;
+	QList<PageItem*>* Items {nullptr};
 	QList<PageItem*> MasterItems;
 	QList<PageItem*> DocItems;
 	QHash<int, PageItem*> FrameItems;
@@ -1277,32 +1276,32 @@ public: // Public attributes
 
 	Selection* const m_Selection;
 	/** \brief Number of Columns */
-	double PageSp;
+	double PageSp {1.0};
 	/** \brief Distance of Columns */
-	double PageSpa;
+	double PageSpa {0.0};
 	///** \brief current Pagelayout */
 	//int currentPageLayout;
-	/** \brief Erste Seitennummer im Dokument */
-	int FirstPnum;
+	/** \brief First page number in document */
+	int FirstPnum {1};
 	/** \brief Im Dokument benutzte Farben */
 	ColorList PageColors;
-	int appMode;
-	int SubMode;
-	double *ShapeValues;
-	int ValCount;
+	int appMode {modeNormal};
+	int SubMode {-1};
+	double *ShapeValues {nullptr};
+	int ValCount {0};
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
 	QList<AlignObjs> AObjects;
 	ParagraphStyle currentStyle;
 	NodeEditContext nodeEdit;
 	/** \brief Letztes Element fuer AutoTextrahmen */
-	PageItem *LastAuto;
+	PageItem *LastAuto {nullptr};
 	/** \brief Erstes Element fuer AutoTextrahmen */
-	PageItem *FirstAuto;
-	bool DragP;
-	bool leaveDrag;
-	PageItem *DraggedElem;
-	PageItem *ElemToLink;
+	PageItem *FirstAuto {nullptr};
+	bool DragP {false};
+	bool leaveDrag {false};
+	PageItem *DraggedElem {nullptr};
+	PageItem *ElemToLink {nullptr};
 	QList<PageItem*> DragElements;
 private:
 	StyleSet<ParagraphStyle> m_docParagraphStyles;
@@ -1312,7 +1311,7 @@ private:
 public:
 	ScLayers Layers;
 	//bool marginColored;
-	int GroupCounter;
+	int GroupCounter {1};
 
 	ScColorMgmtEngine colorEngine;
 	ScColorProfile DocInputImageRGBProf;
@@ -1337,16 +1336,16 @@ public:
 	ScColorTransform stdLabToScreenTrans;
 	ScColorTransform stdProofLab;
 	ScColorTransform stdProofLabGC;
-	bool BlackPoint;
-	bool SoftProofing;
-	bool Gamut;
+	bool BlackPoint {true};
+	bool SoftProofing {false};
+	bool Gamut {false};
 	eRenderIntent IntentColors;
 	eRenderIntent IntentImages;
-	bool HasCMS;
+	bool HasCMS {false};
 	QMap<QString,QString> JavaScripts;
-	int TotalItems;
+	int TotalItems {0};
 	PrintOptions Print_Options;
-	bool RePos;
+	bool RePos {false};
 	struct BookMa {
 		QString Title;
 		QString Text;
@@ -1362,20 +1361,20 @@ public:
 		bool operator<(const BookMa& other) const { return ItemNr < other.ItemNr; }
 	};
 	QList<BookMa> BookMarks;
-	bool OldBM;
-	bool hasName;
-	bool isConverted;
+	bool OldBM {false};
+	bool hasName {false};
+	bool isConverted {false};
 	QTimer * const autoSaveTimer;
 	QList<QString> autoSaveFiles;
 	QHash<QString,multiLine> MLineStyles;
 	QHash<QString, ScPattern> docPatterns;
 	QHash<QString, VGradient> docGradients;
-	QWidget* WinHan;
-	bool DoDrawing;
-	bool drawAsPreview;
-	bool viewAsPreview;
-	bool editOnPreview;
-	int previewVisual;
+	QWidget* WinHan {nullptr};
+	bool DoDrawing {true};
+	bool drawAsPreview {false};
+	bool viewAsPreview {false};
+	bool editOnPreview {false};
+	int previewVisual {0};
 	struct OpenNodesList
 	{
 		int type;
@@ -1383,7 +1382,7 @@ public:
 		PageItem *item;
 	};
 	QList<OpenNodesList> OpenNodes;
-	QTimer *CurTimer;
+	QTimer *CurTimer {nullptr};
 	QMap<int, errorCodes> pageErrors;
 	QMap<int, errorCodes> docLayerErrors;
 	QMap<PageItem*, errorCodes> docItemErrors;
@@ -1395,19 +1394,19 @@ public:
 	FPointArray symNewCol;
 	FPointArray symNewFrame;
 	
-	Hyphenator * docHyphenator;
+	Hyphenator* docHyphenator {nullptr};
 	void itemResizeToMargin(PageItem* item, int direction); //direction reflect enum numbers from Canvas::FrameHandle
 
 private:
 	UndoTransaction m_itemCreationTransaction;
 	UndoTransaction m_alignTransaction;
 
-	ScPage* m_currentPage;
+	ScPage* m_currentPage {nullptr};
 	UpdateManager m_updateManager;
 	MassObservable<PageItem*> m_itemsChanged;
 	MassObservable<ScPage*> m_pagesChanged;
 	MassObservable<QRectF> m_regionsChanged;
-	DocUpdater* m_docUpdater;
+	DocUpdater* m_docUpdater {nullptr};
 	
 signals:
 	//Lets make our doc talk to our GUI rather than confusing all our normal stuff
@@ -1698,7 +1697,7 @@ private:
 	QList<Mark*> m_docMarksList;
 	QList<TextNote*> m_docNotesList;
 	//flags used for indicating needs of updates
-	bool m_flag_notesChanged;
+	bool m_flag_notesChanged {false};
 
 public:
 	const QList<Mark*> marksList() { return m_docMarksList; }
@@ -1713,10 +1712,10 @@ public:
 	//flags used for indicating needs of updates
 	bool notesChanged() { return m_flag_notesChanged; }
 	void setNotesChanged(bool on) { m_flag_notesChanged = on; }
-	bool flag_restartMarksRenumbering;
-	bool flag_updateMarksLabels;
-	bool flag_updateEndNotes;
-	bool flag_layoutNotesFrames;
+	bool flag_restartMarksRenumbering {false};
+	bool flag_updateMarksLabels {false};
+	bool flag_updateEndNotes {false};
+	bool flag_layoutNotesFrames {true};
 
 	//returns list of marks labels for given mark type
 	QStringList marksLabelsList(MarkType type);
@@ -1827,8 +1826,8 @@ public:
 	void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
 	QString getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style);
 	void setNumerationCounter(const QString& numName, int level, int number);
-	bool flag_Renumber;
-	bool flag_NumUpdateRequest;
+	bool flag_Renumber {false};
+	bool flag_NumUpdateRequest {false};
 	// for local numeration of paragraphs
 	bool updateLocalNums(StoryText& itemText); //return true if any num strings were updated and item need s invalidation
 	void updateNumbers(bool updateNumerations = false);

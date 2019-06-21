@@ -280,7 +280,7 @@ public slots:
 	void slotStoryEditor(bool fromTable);
 	void slotCharSelect();
 	void ImageEffects();
-	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
+	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString());
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
@@ -320,7 +320,7 @@ public slots:
 	bool slotFileNew();
 	void newFileFromTemplate();
 	bool slotPageImport();
-	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
+	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString());
 	void GotoLa(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
@@ -392,7 +392,7 @@ public slots:
     void slotHelpAboutQt();
 	void slotHelpCheckUpdates();
 	void slotRaiseOnlineHelp();
-	void slotOnlineHelp(const QString & jumpToSection=QString::null, const QString & jumpToFile=QString::null);
+	void slotOnlineHelp(const QString & jumpToSection=QString(), const QString & jumpToFile=QString());
 	void slotOnlineHelpClosed();
 	void slotResourceManager();
 	void ToggleTips();
@@ -401,7 +401,7 @@ public slots:
 	void slotNewPageP(int wo, const QString& templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
-	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
+	void slotNewPage(int w, const QString& masterPageName=QString(), bool mov = true);
 	void duplicateToMasterPage();
 	/** \brief Loescht die aktuelle Seite */
 	void deletePage();

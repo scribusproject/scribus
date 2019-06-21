@@ -124,7 +124,7 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
    \retval QString standardized filename
    \author Petr Vanek
  */
-QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix=QString::null);
+QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix=QString());
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
 const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
