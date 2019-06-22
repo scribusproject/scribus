@@ -892,8 +892,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	hatchForegroundQ = qcol;
 	selectedMeshControlPoint=0;
 	snapToPatchGrid=false;
-	gridOffset_=0.0;
-	gridValue_=0.0;
 	FrameOnly=false;
 	inlineCharID=0;
 	GrStrokeExtend=VGradient::none;

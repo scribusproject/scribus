@@ -1297,8 +1297,6 @@ public:	// Start public variables
 	bool snapToPatchGrid;
 	int m_columns;
 	double m_columnGap;
-	double gridOffset_;
-	double gridValue_;
 	Qt::PenStyle PLineArt; ///< Linestyle
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
