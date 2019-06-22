@@ -52,8 +52,7 @@ void StyleView::drawRow(QPainter *painter, const QStyleOptionViewItem & option, 
 
 StyleViewItem::StyleViewItem(QTreeWidget *parent, const QString &text)
 	: QTreeWidgetItem(parent),
-	m_isRoot(true), m_isDirty(false),
-	m_parentName(QString::null), m_rootName(QString::null)
+	m_isRoot(true), m_isDirty(false)
 {
 	setFlags(flags() & ~Qt::ItemIsSelectable);
 	setText(0, text);

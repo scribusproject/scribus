@@ -711,7 +711,7 @@ void PrintDialog::createPageNumberRange( )
 			return;
 		}
 	}
-	pageNr->setText(QString::null);
+	pageNr->setText(QString());
 }
 
 void PrintDialog::refreshPrintEngineBox()

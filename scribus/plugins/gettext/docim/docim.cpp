@@ -39,7 +39,7 @@ bool hasAntiword()
 		found = true;
 		test->terminate();
 		std::this_thread::sleep_for(std::chrono::milliseconds(5));
-		test->kill();	
+		test->kill();
 	}
 	delete test;
 	searched = true;
@@ -50,7 +50,7 @@ QString FileFormatName()
 {
 	if (hasAntiword())
 		return QObject::tr("Word Documents");
-	return QString::null;
+	return QString();
 }
 
 QStringList FileExtensions()

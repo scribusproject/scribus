@@ -131,52 +131,52 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	QPixmap pm(100, 30);
 	pm.fill(prefsData->displayPrefs.paperColor);
 	colorPaper = prefsData->displayPrefs.paperColor;
-	pageFillColorButton->setText( QString::null );
+	pageFillColorButton->setText( QString() );
 	pageFillColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.scratchColor);
 	colorScratch = prefsData->displayPrefs.scratchColor;
-	scratchSpaceColorButton->setText( QString::null );
+	scratchSpaceColorButton->setText( QString() );
 	scratchSpaceColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameColor);
 	colorFrame = prefsData->displayPrefs.frameColor;
-	frameSelectedColorButton->setText( QString::null );
+	frameSelectedColorButton->setText( QString() );
 	frameSelectedColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameNormColor);
 	colorFrameNorm = prefsData->displayPrefs.frameNormColor;
-	frameColorButton->setText( QString::null );
+	frameColorButton->setText( QString() );
 	frameColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameGroupColor);
 	colorFrameGroup = prefsData->displayPrefs.frameGroupColor;
-	frameGroupedColorButton->setText( QString::null );
+	frameGroupedColorButton->setText( QString() );
 	frameGroupedColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameLinkColor);
 	colorFrameLinked = prefsData->displayPrefs.frameLinkColor;
-	frameLinkedColorButton->setText( QString::null );
+	frameLinkedColorButton->setText( QString() );
 	frameLinkedColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameLockColor);
 	colorFrameLocked = prefsData->displayPrefs.frameLockColor;
-	frameLockedColorButton->setText( QString::null );
+	frameLockedColorButton->setText( QString() );
 	frameLockedColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameAnnotationColor);
 	colorFrameAnnotation = prefsData->displayPrefs.frameAnnotationColor;
-	frameAnnotationColorButton->setText( QString::null );
+	frameAnnotationColorButton->setText( QString() );
 	frameAnnotationColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.pageBorderColor);
 	colorPageBorder = prefsData->displayPrefs.pageBorderColor;
-	selectedPageBorderButton->setText( QString::null );
+	selectedPageBorderButton->setText( QString() );
 	selectedPageBorderButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.controlCharColor);
 	colorControlChars = prefsData->displayPrefs.controlCharColor;
-	textControlCharsButton->setText( QString::null );
+	textControlCharsButton->setText( QString() );
 	textControlCharsButton->setIcon(pm);
 
 	displayScale=prefsData->displayPrefs.displayScale;

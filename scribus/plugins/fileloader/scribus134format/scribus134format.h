@@ -43,14 +43,14 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt) { return false; };
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString::null);
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);

@@ -155,28 +155,28 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	QPixmap pm(100, 30);
 	pm.fill(prefsData->guidesPrefs.guideColor);
 	colorGuides = prefsData->guidesPrefs.guideColor;
-	guideColorPushButton->setText( QString::null );
+	guideColorPushButton->setText( QString() );
 	guideColorPushButton->setIcon(pm);
 
 
 	pm.fill(prefsData->guidesPrefs.marginColor);
 	colorMargin = prefsData->guidesPrefs.marginColor;
-	marginColorPushButton->setText( QString::null );
+	marginColorPushButton->setText( QString() );
 	marginColorPushButton->setIcon(pm);
 
 	pm.fill(prefsData->guidesPrefs.majorGridColor);
 	colorMajorGrid = prefsData->guidesPrefs.majorGridColor;
-	majorGridColorPushButton->setText( QString::null );
+	majorGridColorPushButton->setText( QString() );
 	majorGridColorPushButton->setIcon(pm);
 
 	pm.fill(prefsData->guidesPrefs.minorGridColor);
 	colorMinorGrid = prefsData->guidesPrefs.minorGridColor;
-	minorGridColorPushButton->setText( QString::null );
+	minorGridColorPushButton->setText( QString() );
 	minorGridColorPushButton->setIcon(pm);
 
 	pm.fill(prefsData->guidesPrefs.baselineGridColor);
 	colorBaselineGrid = prefsData->guidesPrefs.baselineGridColor;
-	baselineGridColorPushButton->setText( QString::null );
+	baselineGridColorPushButton->setText( QString() );
 	baselineGridColorPushButton->setIcon(pm);
 	gridTypeCombo->setEnabled(visibilityGridCheckBox->isChecked());
 }

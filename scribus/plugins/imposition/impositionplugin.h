@@ -34,8 +34,8 @@ class PLUGIN_API ImpositionPlugin : public ScActionPlugin
     ImpositionPlugin();
     virtual ~ImpositionPlugin();
     
-    virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString::null);
-    virtual bool run(ScribusDoc* doc, QString target = QString::null);
+	virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString());
+	virtual bool run(ScribusDoc* doc, QString target = QString());
     virtual void languageChange();
     virtual const QString fullTrName() const;
     virtual const AboutData* getAboutData() const;

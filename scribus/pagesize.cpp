@@ -54,8 +54,8 @@ void PageSize::init(const QString& sizeName)
 {
 	m_width=m_height=0.0;
 	m_pageUnitIndex=-1;
-	m_pageSizeName=QString::null;
-	m_trPageSizeName=QString::null;
+	m_pageSizeName.clear();
+	m_trPageSizeName.clear();
 
 	bool valuesSet=false;
 	generateSizeList();

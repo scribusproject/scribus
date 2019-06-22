@@ -22,7 +22,7 @@ class QTabWidget;
 typedef QPair<QString, QString> RemoveItem;
 
 /** StyleName.first is the name of the style and StyleName.second is the
- *  name of the parent style or QString::null if there's no parent for this style */
+ *  name of the parent style or QString() if there's no parent for this style */
 typedef QPair<QString, QString> StyleName;
 
 /**
@@ -71,7 +71,7 @@ public:
 	 * should function return currently cached and possibly changed styles
 	 * @return Name of the styles and their parent as a QValueList.
 	 * StyleName::first is the style name and StyleName::second it's parent's name.
-	 * If the StyleItem has no parent StyleName::second should be set to QString::null.
+	 * If the StyleItem has no parent StyleName::second should be set to QString().
 	 */
 	virtual QList<StyleName> styles(bool reloadFromDoc = true) = 0;
 
@@ -100,12 +100,12 @@ public:
 
 	/**
 	 * @brief Return the name of the style in this category applied to the
-	 * @brief selected object(s) in the current document or QString::null
+	 * @brief selected object(s) in the current document or QString()
 	 * @brief if there is no selection in the document.
 	 *
 	 * If there are multiple objects selected only return a style name if the same style
 	 * is applied on all selected objects. If they doesn't share the same style then
-	 * return QString::null.
+	 * return QString().
 	 */
 	virtual QString fromSelection() const = 0;
 
@@ -164,7 +164,7 @@ public:
 	 * @param removeList list of styles to be deleted. RemoveItem::first is
 	 * the style to be deleted and RemoveItem::second is the style to replace
 	 * the deleted style with. If no replacement was requested RemoveItem::second
-	 * has been set to QString::null.
+	 * has been set to QString().
 	 */
 	virtual void deleteStyles(const QList<RemoveItem> &removeList) = 0;
 

@@ -79,9 +79,9 @@ void ScInputDialog::languageChange()
 	setWindowTitle( tr( "Input Dialog" ) );
 	entryLabel->setText( tr( "InputDialog" ) );
 	buttonOk->setText( tr( "&OK" ) );
-	buttonOk->setShortcut( QKeySequence( QString::null ) );
+	buttonOk->setShortcut( QKeySequence( QString() ) );
 	buttonCancel->setText( tr( "&Cancel" ) );
-	buttonCancel->setShortcut( QKeySequence( QString::null ) );
+	buttonCancel->setShortcut( QKeySequence( QString() ) );
 }
 
 double ScInputDialog::getDouble( const QString &caption, const QString &label, double num,

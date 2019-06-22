@@ -126,7 +126,7 @@ void SCFonts::AddPath(QString p)
 void SCFonts::AddScalableFonts(const QString &path, const QString& DocName)
 {
 	//Make sure this is not empty or we will scan the whole drive on *nix
-	//QString::null+/ is / of course.
+	//QString()+/ is / of course.
 	if (path.isEmpty())
 		return;
 	FT_Library library = nullptr;
@@ -624,7 +624,7 @@ static QString getFtError(int code)
 
 	if (ftErrors.contains(code))
 		return ftErrors.value(code);
-	return QString::null;
+	return QString();
 }
 
 // Load a single font into the library from the passed filename. Returns true on error.

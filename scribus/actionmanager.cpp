@@ -38,15 +38,7 @@ QVector< QPair<QString, QStringList> > ActionManager::defNonMenuNames;
 QVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
 ActionManager::ActionManager ( QObject * parent ) :
-	QObject ( parent),
-	mainWindow(nullptr),
-	undoManager(nullptr),
-	im(nullptr),
-	scrActions(nullptr),
-	scrActionGroups(nullptr),
-	modeActionNames(nullptr),
-	nonEditActionNames(nullptr),
-	unicodeCharActionNames(nullptr)
+	QObject ( parent)
 {
 }
 
@@ -2536,7 +2528,7 @@ void ActionManager::languageChangeActions()
 {
 	//Here we mangle the URL based on the current GUI language, returning English if we don't get one of these hard coded options.
 	//CB TODO make more flexible one day.
-	QString language="EN";
+	QString language("EN");
 	QString langpref(ScCore->getGuiLanguage().left(2));
 	if (langpref=="de" || langpref=="fr" || langpref=="po" || langpref=="pt" || langpref=="ru")
 		language=langpref.toUpper();

@@ -39,11 +39,11 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *s
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
-	opCombine->setText( QString::null );
-	opSubtraction->setText( QString::null );
-	opIntersection->setText( QString::null );
-	opExclusion->setText( QString::null );
-	opParts->setText( QString::null );
+	opCombine->setText( QString() );
+	opSubtraction->setText( QString() );
+	opIntersection->setText( QString() );
+	opExclusion->setText( QString() );
+	opParts->setText( QString() );
 	opExclusion->setIcon(QIcon(IconManager::instance()->loadIcon("pathexclusion.png")));
 	opIntersection->setIcon(QIcon(IconManager::instance()->loadIcon("pathintersection.png")));
 	opParts->setIcon(QIcon(IconManager::instance()->loadIcon("pathparts.png")));

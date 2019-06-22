@@ -31,14 +31,14 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual QImage readThumbnail(const QString& fileName);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - File->Import slot
 	public slots:
-		virtual bool import(QString target = QString::null, int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool import(QString target = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

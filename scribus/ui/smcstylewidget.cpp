@@ -311,7 +311,7 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 
 	QString defaultLang(defLang.isEmpty() ? "en_GB" : defLang);
 	QString clang(cstyle->language().isEmpty() ? defaultLang : cstyle->language());
-	QString plang(QString::null);
+	QString plang;
 	if (hasParent)
 		plang = parent->language().isEmpty() ? defaultLang : parent->language();
 

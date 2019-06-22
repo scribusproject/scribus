@@ -228,7 +228,7 @@ bool testGSDeviceAvailability( const QString& device )
 	return (proc.exitCode()==0);
 }
 
-// Return the GhostScript version string, or QString::null if it couldn't be retrived.
+// Return the GhostScript version string, or QString() if it couldn't be retrived.
 QString getGSVersion()
 {
 	QStringList args;

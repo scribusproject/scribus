@@ -5442,8 +5442,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	ScPage* currentPage = doc->currentPage();
 	for (int i = 0; i < numPages; ++i)
 	{
-		slotNewPage(wot, base[(wot + pageSet.FirstPage) % pageSet.Columns], mov); //Avoid the master page application with QString::null
-//		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
+		slotNewPage(wot, base[(wot + pageSet.FirstPage) % pageSet.Columns], mov); //Avoid the master page application with QString()
+//		slotNewPage(wot, QString(), mov); //Avoid the master page application with QString()
 		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
 		if (overrideMasterPageSizing)
 		{	
@@ -7324,7 +7324,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
 		if (pdfViewer.isEmpty())
 		{
-			pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString::null, QString::null);
+			pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString(), QString());
 			if (!QFileInfo::exists(pdfViewer))
 				pdfViewer="";
 			PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
@@ -8379,7 +8379,7 @@ QString ScribusMainWindow::fileCollect(bool compress, bool withFonts, const bool
 {
 	if ((doc->hasName) && doc->documentFileName().endsWith(".gz"))
 		compress=true;
-	CollectForOutput_UI c(this, doc, QString::null, withFonts, withProfiles, compress);
+	CollectForOutput_UI c(this, doc, QString(), withFonts, withProfiles, compress);
 	QString newFileName;
 	QString errorMsg=c.collect(newFileName);
 	qDebug()<<errorMsg;

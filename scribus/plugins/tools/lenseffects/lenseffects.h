@@ -42,7 +42,7 @@ class PLUGIN_API LensEffectsPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		LensEffectsPlugin();
 		virtual ~LensEffectsPlugin();
-		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString());
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

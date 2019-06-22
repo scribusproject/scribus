@@ -1364,10 +1364,10 @@ public:	// Start public variables
 
 	/* Additions for Table Support */
 	/* now deprecated with the new PageItem_Table */
-	PageItem* LeftLink;
-	PageItem* RightLink;
-	PageItem* TopLink;
-	PageItem* BottomLink;
+	PageItem* m_leftLink;
+	PageItem* m_rightLink;
+	PageItem* m_topLink;
+	PageItem* m_bottomLink;
 	int LeftLinkID;
 	int RightLinkID;
 	int TopLinkID;

@@ -261,7 +261,7 @@ void InsertAFrame::slotCreatePageNumberRange( )
 			return;
 		}
 	}
-	placementPagesLineEdit->setText(QString::null);
+	placementPagesLineEdit->setText(QString());
 }
 
 void InsertAFrame::slotLinkToExistingFrame(int state)

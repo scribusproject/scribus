@@ -162,7 +162,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		docBytes = compressor.readAll();
 		compressor.close();
 		if (docBytes.isEmpty())
-			return QString::null;
+			return QString();
 	}
 	else
 	{
@@ -176,13 +176,13 @@ QString Scribus12Format::readSLA(const QString & fileName)
 			docText = QString::fromUtf8(docBytes);
 		else if (docBytes.left(9) == "<SCRIBUS>") // Older non utf8 doc
 			docText = QString::fromLocal8Bit(docBytes);
-		else 
-			return QString::null;
+		else
+			return QString();
 	}
 	else
 	{
 		qDebug("scribus12format: SCRIBUSUTF8NEW");
-		return QString::null;
+		return QString();
 	}
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
 		docText.truncate(docText.length()-1);
@@ -1114,21 +1114,21 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+							ta->m_topLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
 						else
-							ta->TopLink = nullptr;
+							ta->m_topLink = nullptr;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+							ta->m_leftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
 						else
-							ta->LeftLink = nullptr;
+							ta->m_leftLink = nullptr;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+							ta->m_rightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
 						else
-							ta->RightLink = nullptr;
+							ta->m_rightLink = nullptr;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+							ta->m_bottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 						else
-							ta->BottomLink = nullptr;
+							ta->m_bottomLink = nullptr;
 					}
 				}
 			}
@@ -2113,21 +2113,21 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+							ta->m_topLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
 						else
-							ta->TopLink = nullptr;
+							ta->m_topLink = nullptr;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+							ta->m_leftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
 						else
-							ta->LeftLink = nullptr;
+							ta->m_leftLink = nullptr;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+							ta->m_rightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
 						else
-							ta->RightLink = nullptr;
+							ta->m_rightLink = nullptr;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+							ta->m_bottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 						else
-							ta->BottomLink = nullptr;
+							ta->m_bottomLink = nullptr;
 					}
 				}
 				// reestablish textframe links

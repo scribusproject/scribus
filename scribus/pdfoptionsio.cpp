@@ -43,7 +43,7 @@ bool PDFOptionsIO::writeTo(const QString& outFileName, bool includePasswords)
 	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 
@@ -62,7 +62,7 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 
@@ -76,7 +76,7 @@ QString PDFOptionsIO::buildXMLString()
 	if (vr != PDFOptions::Verify_NoError)
 	{
 		m_error = QObject::tr("Verification of settings failed: %1").arg(vrfyError);
-		return QString::null;
+		return QString();
 	}
 	// Build the document. Initial implementation uses QDom.
 	m_doc = QDomDocument();
@@ -320,7 +320,7 @@ bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 	if (!readSettings())
 		// m_error should already be set
 		return false;
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 

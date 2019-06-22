@@ -223,7 +223,7 @@ void ShortcutWidget::setNoKey()
 	if (noKey->isChecked())
 	{
 		keyDisplay->setText("");
-		emit newKey(QString::null);
+		emit newKey(QString());
 	}
 }
 

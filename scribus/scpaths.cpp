@@ -192,7 +192,7 @@ QString ScPaths::bundleDir() const
 	CFRelease(macPath);
 	return q_pathPtr;
 #endif
-	return QString::null;
+	return QString();
 }
 
 QString ScPaths::defaultImageEditorApp()

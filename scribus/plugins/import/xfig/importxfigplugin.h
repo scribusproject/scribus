@@ -31,7 +31,7 @@ class PLUGIN_API ImportXfigPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual QImage readThumbnail(const QString& fileName);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
@@ -41,10 +41,10 @@ class PLUGIN_API ImportXfigPlugin : public LoadSavePlugin
 		\author Franz Schmid
 		\date
 		\brief Run the EPS import
-		\param fileName input filename, or QString::null to prompt.
+		\param fileName input filename, or QString() to prompt.
 		\retval bool always true
 		 */
-		virtual bool import(QString fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool import(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

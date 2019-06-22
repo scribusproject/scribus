@@ -97,7 +97,7 @@ LoremParser::LoremParser(const QString& fname)
 QString LoremParser::createLorem(uint parCount, bool random)
 {
 	if (parCount < 1)
-		return QString::null;
+		return QString();
 	// first paragraph is always the same
 	QString lorem = "";
 	if (!loremIpsum.isEmpty())
@@ -198,7 +198,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	languageChange();
 
 	// reading lorems
-	QDir d(getLoremLocation(QString::null), "*.xml");
+	QDir d(getLoremLocation(QString()), "*.xml");
 
 	QFileInfoList list = d.entryInfoList();
 	QListIterator<QFileInfo> it(list);

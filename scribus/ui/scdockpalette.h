@@ -37,44 +37,44 @@ class PrefsContext;
 
 class SCRIBUS_API ScDockPalette : public QDockWidget
 {
-	Q_OBJECT
+Q_OBJECT
 
-	public:
-		ScDockPalette( QWidget * parent = nullptr, const QString& prefsContext = QString::null, Qt::WindowFlags f = 0 );
-		~ScDockPalette() {}
-		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
-		//virtual void keyPressEvent(QKeyEvent *keyEvent);
-		virtual void hide();
-		void startup();
-		
-	public slots:
-		virtual void setPaletteShown(bool);
-		virtual void setFontSize();
-		
-	signals:
-		/** @brief Let the action for this palette know when something changes and it hasn't caused it */
-		void paletteShown(bool);
-		
-	protected:
-		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
-		virtual void setPrefsContext(const QString& context);
-		void storePosition();
-		void storePosition(int newX, int newY);
-		void storeSize();
-		void storeVisibility(bool);
-		void storeDockState();
+public:
+	ScDockPalette( QWidget * parent = nullptr, const QString& prefsContext = QString(), Qt::WindowFlags f = 0 );
+	~ScDockPalette() {}
+	/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
+	//virtual void keyPressEvent(QKeyEvent *keyEvent);
+	virtual void hide();
+	void startup();
 
-		/** @brief Restore the geometry of the window when showing it. */
-		virtual void showEvent(QShowEvent *showEvent);
-		/** @brief Captures the close event and changes it to hide */
-		virtual void closeEvent(QCloseEvent *closeEvent);
-		/** @brief Stores the geometry of the window when hiding. */
-		virtual void hideEvent(QHideEvent* hideEvent);
-		
-		PrefsContext* palettePrefs;
-		QString prefsContextName;
-		bool visibleOnStartup;
-		QWidget* originalParent;
-		QWidget* tempParent;
+public slots:
+	virtual void setPaletteShown(bool);
+	virtual void setFontSize();
+
+signals:
+	/** @brief Let the action for this palette know when something changes and it hasn't caused it */
+	void paletteShown(bool);
+
+protected:
+	/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
+	virtual void setPrefsContext(const QString& context);
+	void storePosition();
+	void storePosition(int newX, int newY);
+	void storeSize();
+	void storeVisibility(bool);
+	void storeDockState();
+
+	/** @brief Restore the geometry of the window when showing it. */
+	virtual void showEvent(QShowEvent *showEvent);
+	/** @brief Captures the close event and changes it to hide */
+	virtual void closeEvent(QCloseEvent *closeEvent);
+	/** @brief Stores the geometry of the window when hiding. */
+	virtual void hideEvent(QHideEvent* hideEvent);
+
+	PrefsContext* m_palettePrefs;
+	QString m_prefsContextName;
+	bool m_visibleOnStartup;
+	QWidget* m_originalParent;
+	QWidget* m_tempParent;
 };
 #endif

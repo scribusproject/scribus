@@ -63,24 +63,24 @@ void MarksManager::addListItem(MarkType typeMrk, const QString& typeStr, const Q
 
 void MarksManager::storeColaption()
 {
-	expandedItems.clear();
+	m_expandedItems.clear();
 	for (int i=0; i < listView->topLevelItemCount(); ++i)
 	{
 		QTreeWidgetItem *item = listView->topLevelItem(i);
 		if (item->isExpanded())
-			expandedItems.append(item->text(0));
+			m_expandedItems.append(item->text(0));
 	}
 }
 
 void MarksManager::restoreColaption()
 {
 	listView->collapseAll();
-	if (!expandedItems.isEmpty())
+	if (!m_expandedItems.isEmpty())
 	{
 		for (int i=0; i < listView->topLevelItemCount(); ++i)
 		{
 			QTreeWidgetItem *item = listView->topLevelItem(i);
-			if (expandedItems.contains(item->text(0)))
+			if (m_expandedItems.contains(item->text(0)))
 				listView->topLevelItem(i)->setExpanded(true);
 		}
 	}

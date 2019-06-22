@@ -204,7 +204,7 @@ QString FormatsManager::nameOfFormat(int type)
 		if (type & it.key())
 			return it.value();
 	}
-	return QString::null;
+	return QString();
 }
 
 QStringList FormatsManager::mimetypeOfFormat(int type)

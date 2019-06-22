@@ -22,7 +22,7 @@ class PLUGIN_API NewFromTemplatePlugin : public ScActionPlugin
 		NewFromTemplatePlugin();
 		virtual ~NewFromTemplatePlugin();
 		//! \brief main method
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString());
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

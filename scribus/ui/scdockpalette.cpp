@@ -44,9 +44,8 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 #else
 	: QDockWidget ( parent, f | Qt::Tool  | Qt::CustomizeWindowHint ),
 #endif
-	palettePrefs(nullptr),
-	prefsContextName(QString::null),
-	visibleOnStartup(false)
+	m_palettePrefs(nullptr),
+	m_visibleOnStartup(false)
 {
 	if (PrefsManager::instance()->appPrefs.uiPrefs.useSmallWidgets)
 	{
@@ -63,8 +62,8 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 			  		");
 	}
-	originalParent=parent;
-	tempParent=nullptr;
+	m_originalParent=parent;
+	m_tempParent=nullptr;
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	setPrefsContext(prefsContext);
@@ -74,24 +73,24 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 
 void ScDockPalette::setPrefsContext(const QString& context)
 {
-	if (prefsContextName.isEmpty())
+	if (m_prefsContextName.isEmpty())
 	{
-		prefsContextName=context;
-		if (!prefsContextName.isEmpty())
+		m_prefsContextName=context;
+		if (!m_prefsContextName.isEmpty())
 		{
-			palettePrefs = PrefsManager::instance()->prefsFile->getContext(prefsContextName);
-			if (palettePrefs)
-				visibleOnStartup = palettePrefs->getBool("visible");
+			m_palettePrefs = PrefsManager::instance()->prefsFile->getContext(m_prefsContextName);
+			if (m_palettePrefs)
+				m_visibleOnStartup = m_palettePrefs->getBool("visible");
 		}
 		else
-			palettePrefs = nullptr;
+			m_palettePrefs = nullptr;
 	}
 }
 
 void ScDockPalette::startup()
 {
 	setFontSize();
-	if (visibleOnStartup)
+	if (m_visibleOnStartup)
 	{
 #if QT_VERSION < 0x050600
 		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
@@ -111,7 +110,7 @@ void ScDockPalette::startup()
 	}
 	else
 		hide();
-	emit paletteShown(visibleOnStartup);
+	emit paletteShown(m_visibleOnStartup);
 }
 
 void ScDockPalette::setPaletteShown(bool visible)
@@ -155,25 +154,25 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 	// According to Qt doc, non-spontaneous show events are sent to widgets
 	// immediately before they are shown. We want to restore geometry for those
 	// events as spontaneous events are delivered after dialog has been shown
-	if (palettePrefs && !showEvent->spontaneous() && isFloating())
+	if (m_palettePrefs && !showEvent->spontaneous() && isFloating())
 	{
 		QDesktopWidget *d = QApplication::desktop();
 		QSize gStrut = QApplication::globalStrut();
-		if (palettePrefs->contains("left"))
+		if (m_palettePrefs->contains("left"))
 		{
 			QRect scr = QApplication::desktop()->availableGeometry(this);
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(3*gStrut.width(), palettePrefs->getInt("width")),
+			int vwidth  = qMin(qMax(3*gStrut.width(), m_palettePrefs->getInt("width")),
 			                   d->width());
-			int vheight = qMin(qMax(3*gStrut.height(), palettePrefs->getInt("height")),
+			int vheight = qMin(qMax(3*gStrut.height(), m_palettePrefs->getInt("height")),
 			                   d->height());
 			// palettes should not use too much screen space
 			if (vwidth > d->width()/3 && vheight > d->height()/3)
 				vwidth = d->width()/3;
 			// and should be partly visible
-			int vleft   = qMin(qMax(scr.left() - vwidth + gStrut.width(), palettePrefs->getInt("left")),
+			int vleft   = qMin(qMax(scr.left() - vwidth + gStrut.width(), m_palettePrefs->getInt("left")),
 			                   scr.right() - gStrut.width());
-			int vtop = qMin(palettePrefs->getInt("top"), d->height() - gStrut.height());
+			int vtop = qMin(m_palettePrefs->getInt("top"), d->height() - gStrut.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
@@ -219,48 +218,48 @@ void ScDockPalette::hide()
 
 void ScDockPalette::storePosition()
 {
-	if (palettePrefs)
+	if (m_palettePrefs)
 	{
 		QPoint geo = pos();
-		palettePrefs->set("left", geo.x());
-		palettePrefs->set("top", geo.y());
+		m_palettePrefs->set("left", geo.x());
+		m_palettePrefs->set("top", geo.y());
 	}
 }
 
 void ScDockPalette::storePosition(int newX, int newY)
 {
-	if (palettePrefs)
+	if (m_palettePrefs)
 	{
-		palettePrefs->set("left", newX);
-		palettePrefs->set("top", newY);
+		m_palettePrefs->set("left", newX);
+		m_palettePrefs->set("top", newY);
 	}
 }
 
 void ScDockPalette::storeSize()
 {
-	if (palettePrefs)
+	if (m_palettePrefs)
 	{
-		palettePrefs->set("width", width());
-		palettePrefs->set("height", height());
+		m_palettePrefs->set("width", width());
+		m_palettePrefs->set("height", height());
 	}
 }
 
 void ScDockPalette::storeVisibility(bool vis)
 {
-	if (palettePrefs)
-		palettePrefs->set("visible", vis);
+	if (m_palettePrefs)
+		m_palettePrefs->set("visible", vis);
 }
 
 void ScDockPalette::storeDockState()
 {
-	if (palettePrefs)
+	if (m_palettePrefs)
 	{
-		palettePrefs->set("floating", isFloating());
+		m_palettePrefs->set("floating", isFloating());
 		Qt::DockWidgetArea area = Qt::NoDockWidgetArea;
 		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
 		if (mainWindow)
 			area = mainWindow->dockWidgetArea(this);
-		palettePrefs->set("area", (int) area);
+		m_palettePrefs->set("area", (int) area);
 	}
 }
 

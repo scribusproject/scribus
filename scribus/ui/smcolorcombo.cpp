@@ -22,8 +22,7 @@ SMColorCombo::SMColorCombo(bool rw, QWidget* parent)
 : ColorCombo(rw, parent),
   m_hasParent(false),
   m_useParentValue(false),
-  m_pItem(0),
-  m_pText(QString::null)
+  m_pItem(0)
 {
 	
 }
@@ -34,7 +33,7 @@ void SMColorCombo::setCurrentItem(int i)
 	setFont(false);
 	m_hasParent = false;
 	m_pItem = 0;
-	m_pText = QString::null;
+	m_pText.clear();
 	ColorCombo::setCurrentIndex(i);
 }
 
@@ -43,7 +42,7 @@ void SMColorCombo::setCurrentItem(int i, bool isParentValue)
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	m_hasParent = true;
 	m_pItem = i;
-	m_pText = QString::null;
+	m_pText.clear();
 	ColorCombo::setCurrentIndex(i);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
@@ -75,7 +74,7 @@ void SMColorCombo::setParentItem(int i)
 {
 	m_hasParent = true;
 	m_pItem = i;
-	m_pText = QString::null;
+	m_pText.clear();
 }
 
 void SMColorCombo::setParentText(const QString &s)

@@ -83,8 +83,8 @@ class SCRIBUS_API ActionManager : public QObject
 		void connectNewSelectionActions(ScribusView *,ScribusDoc *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
-		void enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString::null);
-		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+		void enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString());
+		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString());
 		void setPDFActions(ScribusView *);
 		
 	public slots:
@@ -113,14 +113,14 @@ class SCRIBUS_API ActionManager : public QObject
 		static QKeySequence defaultKey(const QString &actionName);
 	
 		QPixmap noIcon;
-		ScribusMainWindow *mainWindow;
-		UndoManager *undoManager;
-		IconManager* im;
-		QMap<QString, QPointer<ScrAction> > *scrActions;
-		QMultiHash<QString, QActionGroup*> *scrActionGroups;
-		QStringList *modeActionNames;
-		QStringList *nonEditActionNames;
-		QStringList *unicodeCharActionNames;
+		ScribusMainWindow *mainWindow {nullptr};
+		UndoManager *undoManager {nullptr};
+		IconManager* im {nullptr};
+		QMap<QString, QPointer<ScrAction> > *scrActions {nullptr};
+		QMultiHash<QString, QActionGroup*> *scrActionGroups {nullptr};
+		QStringList *modeActionNames {nullptr};
+		QStringList *nonEditActionNames {nullptr};
+		QStringList *unicodeCharActionNames {nullptr};
 		static QMap<QString, QKeySequence> defKeys;
 		static QVector< QPair<QString, QStringList> > defMenuNames;
 		static QVector< QPair<QString, QStringList> > defMenus;

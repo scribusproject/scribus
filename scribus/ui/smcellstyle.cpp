@@ -85,7 +85,7 @@ QList<StyleName> SMCellStyle::styles(bool reloadFromDoc)
 		if (m_cachedStyles[i].hasName())
 		{
 			QString styleName(m_cachedStyles[i].displayName());
-			QString parentName(QString::null);
+			QString parentName;
 
 			if (m_cachedStyles[i].hasParent())
 			{
@@ -134,7 +134,7 @@ void SMCellStyle::selected(const QStringList &styleNames)
 QString SMCellStyle::fromSelection() const
 {
 	// TODO: Implement this once we have cell items.
-	return QString::null;
+	return QString();
 }
 
 void SMCellStyle::toSelection(const QString &styleName) const
@@ -164,14 +164,14 @@ QString SMCellStyle::newStyle(const QString &fromStyle)
 
 	Q_ASSERT(m_cachedStyles.resolve(fromStyleName));
 	if (!m_cachedStyles.resolve(fromStyleName))
-		return QString::null;
+		return QString();
 
 	// Copy the style with name constructed from the original name.
 	QString styleName(getUniqueName(tr("Clone of %1").arg(fromStyle)));
 	CellStyle cellStyle(m_cachedStyles.get(fromStyleName));
 	cellStyle.setDefaultStyle(false);
 	cellStyle.setName(styleName);
-	cellStyle.setShortcut(QString::null);
+	cellStyle.setShortcut(QString());
 	m_cachedStyles.create(cellStyle);
 
 	return styleName;
@@ -243,7 +243,7 @@ void SMCellStyle::setDefaultStyle(bool isDefaultStyle)
 
 QString SMCellStyle::shortcut(const QString &styleName) const
 {
-	QString result(QString::null);
+	QString result;
 	int index = m_cachedStyles.find(styleName);
 	if (index > -1)
 		result = m_cachedStyles[index].shortcut();

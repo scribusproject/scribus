@@ -131,7 +131,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	delete progressDialog;
 	progressDialog = nullptr;
 
-	return QString::null;
+	return QString();
 }
 
 void CollectForOutput_UI::collectedFonts(int c)

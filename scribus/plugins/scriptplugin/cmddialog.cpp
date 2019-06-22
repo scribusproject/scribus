@@ -132,7 +132,7 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	bool ok;
 	QString s = QInputDialog::getText(ScCore->primaryMainWindow(), "New Paragraph Style",
 			"Enter name of the new paragraph style:", QLineEdit::Normal,
-			QString::null, &ok);
+			QString(), &ok);
 
 	if (ok && !s.isEmpty())
 	{

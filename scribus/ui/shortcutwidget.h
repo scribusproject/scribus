@@ -45,7 +45,7 @@ signals:
 	/**
 	 * @brief emitted when a shrotcut is changed.
 	 *
-	 * Parameter will be QString::null when No key is used
+	 * Parameter will be QString() when No key is used
 	 */
 	void newKey(const QString&);
 

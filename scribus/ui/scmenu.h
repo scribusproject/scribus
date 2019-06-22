@@ -36,7 +36,7 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 {
 	Q_OBJECT
 	public:
-		ScrPopupMenu ( QWidget * parent = nullptr, const QString& pMenuName = QString::null, const QString& pMenuText = QString::null, const QString& parentName = QString::null, bool checkable = false);
+		ScrPopupMenu ( QWidget * parent = nullptr, const QString& pMenuName = QString(), const QString& pMenuText = QString(), const QString& parentName = QString(), bool checkable = false);
 		~ScrPopupMenu ();
 		
 		const QString getMenuName();

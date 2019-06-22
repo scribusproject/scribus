@@ -158,7 +158,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			break;
 		}
 	}
-	QString colorName=QString::null;
+	QString colorName;
 	if (found)
 		colorName=it.key();
 	else
@@ -168,7 +168,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		QString questionString="<qt>" + tr("The selected color does not exist in the document's color set. Please enter a name for this new color.") + "</qt>";
 		do
 		{
-			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok);
+			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, QString(), &ok);
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
@@ -185,7 +185,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			m_ScMW->updateColorLists();
 		}
 		else
-			colorName=QString::null;
+			colorName.clear();
 	}
 	uint docSelectionCount=m_doc->m_Selection->count();
 	if (!colorName.isNull() && docSelectionCount > 0)

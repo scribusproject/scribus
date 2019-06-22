@@ -1453,5 +1453,5 @@ void TabPDFOptions::createPageNumberRange( )
 		return;
 	}
 
-	PageNr->setText(QString::null);
+	PageNr->setText(QString());
 }

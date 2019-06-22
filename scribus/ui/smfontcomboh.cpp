@@ -11,7 +11,6 @@ SMFontComboH::SMFontComboH(QWidget *parent)
 : FontComboH(parent, true),
   m_hasParent(false),
   m_useParentValue(false),
-  m_parentFont(QString::null),
   m_useParentFont( tr("Use Parent Font"))
 {
 	

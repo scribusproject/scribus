@@ -23,7 +23,7 @@ class SCRIBUS_API NewTm : public QDialog
 	Q_OBJECT
 
 public:
-	NewTm(QWidget* parent, const QString& text, const QString& titel, ScribusDoc *doc, const QString& answerText=QString::null );
+	NewTm(QWidget* parent, const QString& text, const QString& titel, ScribusDoc *doc, const QString& answerText=QString() );
 	~NewTm() {};
 
 	QPushButton* PushButton1;

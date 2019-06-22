@@ -1017,7 +1017,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		it->isTableItem = false;
 		if (it->nextInChain() || it->prevInChain())
 			hasTextLinks = true;
-		if (it->LeftLink || it->RightLink || it->BottomLink || it->TopLink)
+		if (it->m_leftLink || it->m_rightLink || it->m_bottomLink || it->m_topLink)
 			hasTableLinks = true;
 	}
 
@@ -1028,20 +1028,20 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	for (int i = 0; i < gpL.count(); i++)
 	{
 		PageItem* it = gpL[i];
-		if ((it->TopLink == nullptr) && (it->LeftLink == nullptr))	// we got the topleft item
+		if ((it->m_topLink == nullptr) && (it->m_leftLink == nullptr))	// we got the topleft item
 		{
 			topLeft = it;
 			PageItem *tl = it;
-			while (tl->RightLink != nullptr)
+			while (tl->m_rightLink != nullptr)
 			{
 				colWidths.append(tl->width());
-				tl = tl->RightLink;
+				tl = tl->m_rightLink;
 			}
 			colWidths.append(tl->width());
-			while (tl->BottomLink != nullptr)
+			while (tl->m_bottomLink != nullptr)
 			{
 				rowHeights.append(tl->height());
-				tl = tl->BottomLink;
+				tl = tl->m_bottomLink;
 			}
 			rowHeights.append(tl->height());
 			break;
@@ -1109,13 +1109,13 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 			if (colCount == colWidths.count()-1)
 				break;
 			colCount++;
-			tl = tl->RightLink;
+			tl = tl->m_rightLink;
 		}
 		if (rowCount == rowHeights.count()-1)
 			break;
 		colCount = 0;
 		rowCount++;
-		tr = tr->BottomLink;
+		tr = tr->m_bottomLink;
 	}
 	m_Doc->dontResize = true;
 	currItem->setLayer(gItem->m_layerID);

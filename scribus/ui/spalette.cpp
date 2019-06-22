@@ -88,7 +88,7 @@ void ParaStyleComboBox::updateFormatList()
 void ParaStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
-		emit newStyle(QString::null);
+		emit newStyle(QString());
 	else
 		emit newStyle(currentText());
 }
@@ -153,7 +153,7 @@ void CharStyleComboBox::updateFormatList()
 void CharStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
-		emit newStyle(QString::null);
+		emit newStyle(QString());
 	else
 		emit newStyle(currentText());
 }
@@ -216,7 +216,7 @@ void CellStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{
-		emit newStyle(QString::null);
+		emit newStyle(QString());
 	}
 	else
 	{
@@ -282,7 +282,7 @@ void TableStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{
-		emit newStyle(QString::null);
+		emit newStyle(QString());
 	}
 	else
 	{

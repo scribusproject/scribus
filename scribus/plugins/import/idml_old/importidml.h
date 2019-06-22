@@ -28,15 +28,15 @@ class PLUGIN_API ImportIdml : public LoadSavePlugin
 		ImportIdml();
 		virtual ~ImportIdml();
 		//! \brief main method to run the plug
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString());
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-//		virtual bool import(QString fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
+//		virtual bool import(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 		void registerFormats();
 };
 

@@ -504,7 +504,7 @@ void ScripterCore::readPlugPrefs()
 	// then get more general preferences
 	m_enableExtPython = prefs->getBool("extensionscripts",false);
 	m_importAllNames = prefs->getBool("importall",true);
-	m_startupScript = prefs->get("startupscript", QString::null);
+	m_startupScript = prefs->get("startupscript", QString());
 	// and have the console window set up its position
 }
 
@@ -535,7 +535,7 @@ void ScripterCore::savePlugPrefs()
 void ScripterCore::aboutScript()
 {
 	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py *.PY);;All Files (*)"), "", fdNone);
-	if (fname == QString::null)
+	if (fname.isNull())
 		return;
 	QString html("<html><body>");
 	QFileInfo fi = QFileInfo(fname);

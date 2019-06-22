@@ -204,7 +204,7 @@ bool Prefs_KeyboardShortcuts::exportKeySet(const QString& filename)
 	if (overwrite(this, exportFileName))
 	{
 		bool ok;
-		QString setName = QInputDialog::getText(this, tr("Export Keyboard Shortcuts to File"), tr("Enter the name of the shortcut set:"), QLineEdit::Normal, QString::null, &ok);
+		QString setName = QInputDialog::getText(this, tr("Export Keyboard Shortcuts to File"), tr("Enter the name of the shortcut set:"), QLineEdit::Normal, QString(), &ok);
 		if (!( ok && !setName.isEmpty()) )
 			return false;
 

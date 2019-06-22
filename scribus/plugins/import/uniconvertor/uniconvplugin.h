@@ -30,7 +30,7 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
@@ -40,7 +40,7 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		*/
-		virtual bool import(const QString& fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool import(const QString& fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

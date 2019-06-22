@@ -497,10 +497,10 @@ void CurveWidget::changeEvent(QEvent *e)
 
 void CurveWidget::languageChange()
 {
-	invertButton->setText( QString::null );
-	resetButton->setText( QString::null );
-	loadButton->setText( QString::null );
-	saveButton->setText( QString::null );
+	invertButton->setText( QString() );
+	resetButton->setText( QString() );
+	loadButton->setText( QString() );
+	saveButton->setText( QString() );
 	invertButton->setToolTip("");
 	resetButton->setToolTip("");
 	linearButton->setToolTip("");

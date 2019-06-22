@@ -23,8 +23,8 @@ class PLUGIN_API HunspellPlugin : public ScActionPlugin
 		HunspellPlugin();
 		virtual ~HunspellPlugin();
 		//! \brief main method to run the plug
-		virtual bool run(ScribusDoc* doc, const QString& target = QString::null);
-		virtual bool run(QWidget* p, ScribusDoc* doc, const QString& target = QString::null);
+		virtual bool run(ScribusDoc* doc, const QString& target = QString());
+		virtual bool run(QWidget* p, ScribusDoc* doc, const QString& target = QString());
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

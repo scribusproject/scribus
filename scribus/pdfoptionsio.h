@@ -87,7 +87,7 @@ public:
 
 protected:
 	// Build and return an XML representation of the settings.
-	// QString::null is returned on failure, in which case
+	// QString() is returned on failure, in which case
 	// the error string is set.
 	QString buildXMLString();
 

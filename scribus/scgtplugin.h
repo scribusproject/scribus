@@ -33,9 +33,9 @@ public:
 	~ScGTPlugin() {};
 
 	/**
-	  @brief Returns the file format's name that this plugin can import or QString::null
+	  @brief Returns the file format's name that this plugin can import or QString()
 	  @brief if this plugin doesn't handle files.
-	  @return file format's name or QString::null if this plugin doesn't handle files
+	  @return file format's name or QString() if this plugin doesn't handle files
 	 */
 	virtual QString fileFormatName() const = 0;
 
@@ -57,7 +57,7 @@ public:
 	  @param filename name of the file that is wanted to be imported
 	  @param encoding encoding as selected by a user in the import file dialog
 	 */
-	virtual void run(const QString &filename, const QString &encoding = QString::null) {};
+	virtual void run(const QString &filename, const QString &encoding = QString()) {};
 
 	/**
 	  @brief Run the plugin and do the magic with the <code>text</code> and

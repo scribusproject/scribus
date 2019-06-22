@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 StyleStack::StyleStack()
 {
-    clear();
+	clear();
 	fillNodeNameList(m_nodeNames, StyleStack::OODraw1x);
 }
 
@@ -47,98 +47,98 @@ void StyleStack::setMode( const StyleStack::Mode mode )
 
 void StyleStack::clear()
 {
-    m_stack.clear();
+	m_stack.clear();
 }
 
 void StyleStack::save()
 {
-    m_marks.push( m_stack.count() );
+	m_marks.push( m_stack.count() );
 }
 
 void StyleStack::restore()
 {
-    Q_ASSERT( !m_marks.isEmpty() );
-    int toIndex = m_marks.pop();
-    Q_ASSERT( toIndex > -1 );
-    Q_ASSERT( toIndex <= (int)m_stack.count() ); // If equal, nothing to remove. If greater, bug.
-    for ( int index = (int)m_stack.count() - 1; index >= toIndex; --index )
-        m_stack.pop_back();
+	Q_ASSERT( !m_marks.isEmpty() );
+	int toIndex = m_marks.pop();
+	Q_ASSERT( toIndex > -1 );
+	Q_ASSERT( toIndex <= (int)m_stack.count() ); // If equal, nothing to remove. If greater, bug.
+	for ( int index = (int)m_stack.count() - 1; index >= toIndex; --index )
+		m_stack.pop_back();
 }
 
 void StyleStack::pop()
 {
-    m_stack.pop_back();
+	m_stack.pop_back();
 }
 
 void StyleStack::push( const QDomElement& style )
 {
-    m_stack.append( style );
+	m_stack.append( style );
 }
 
 bool StyleStack::hasAttribute( const QString& name ) const
 {
-    // TODO: has to be fixed for complex styles like list-styles
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
+	// TODO: has to be fixed for complex styles like list-styles
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
 		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
-        if ( properties.hasAttribute( name ) )
-            return true;
-    }
+		if ( properties.hasAttribute( name ) )
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 QString StyleStack::attribute( const QString& name ) const
 {
-    // TODO: has to be fixed for complex styles like list-styles
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
-        if ( properties.hasAttribute( name ) )
-            return properties.attribute( name );
-    }
+	// TODO: has to be fixed for complex styles like list-styles
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
+		if ( properties.hasAttribute( name ) )
+			return properties.attribute( name );
+	}
 
-    return QString::null;
+	return QString();
 }
 
 bool StyleStack::hasAttribute( const QString& name, const QString& detail ) const
 {
-    QString fullName( name );
-    fullName += '-';
-    fullName += detail;
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
+	QString fullName( name );
+	fullName += '-';
+	fullName += detail;
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
 		QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
-        if ( properties.hasAttribute( name ) || properties.hasAttribute( fullName ) )
-            return true;
-    }
+		if ( properties.hasAttribute( name ) || properties.hasAttribute( fullName ) )
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 QString StyleStack::attribute( const QString& name, const QString& detail ) const
 {
-    QString fullName( name );
-    fullName += '-';
-    fullName += detail;
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
-        if ( properties.hasAttribute( fullName ) )
-            return properties.attribute( fullName );
-        if ( properties.hasAttribute( name ) )
-            return properties.attribute( name );
-    }
+	QString fullName( name );
+	fullName += '-';
+	fullName += detail;
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
+		if ( properties.hasAttribute( fullName ) )
+			return properties.attribute( fullName );
+		if ( properties.hasAttribute( name ) )
+			return properties.attribute( name );
+	}
 
-    return QString::null;
+	return QString();
 }
 
 // Font size is a bit special. "115%" applies to "the fontsize of the parent style".
@@ -146,69 +146,69 @@ QString StyleStack::attribute( const QString& name, const QString& detail ) cons
 // Although, if we also add support for fo:font-size-rel here then it's not general anymore.
 double StyleStack::fontSize() const
 {
-    QString name = "fo:font-size";
-    double percent = 1;
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
-        if ( properties.hasAttribute( name ) ) {
-            QString value = properties.attribute( name );
-            if ( value.endsWith( "%" ) )
+	QString name = "fo:font-size";
+	double percent = 1;
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
+		if ( properties.hasAttribute( name ) ) {
+			QString value = properties.attribute( name );
+			if ( value.endsWith( "%" ) )
 				percent *= ScCLocale::toDoubleC(value) / 100.0;
-            else
-                return percent * OODPlug::parseUnit( value ); // e.g. 12pt
-        }
-    }
-    return 0;
+			else
+				return percent * OODPlug::parseUnit( value ); // e.g. 12pt
+		}
+	}
+	return 0;
 }
 
 bool StyleStack::hasChildNode(const QString & name) const
 {
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
-        if ( !properties.namedItem( name ).isNull() )
-            return true;
-    }
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
+		if ( !properties.namedItem( name ).isNull() )
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 QDomNode StyleStack::childNode(const QString & name) const
 {
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
-        if ( !properties.namedItem( name ).isNull() )
-            return properties.namedItem( name );
-    }
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
+		if ( !properties.namedItem( name ).isNull() )
+			return properties.namedItem( name );
+	}
 
-    return QDomNode();          // a null node
+	return QDomNode();          // a null node
 }
 
 static bool isUserStyle( const QDomElement& e )
 {
-    QDomElement parent = e.parentNode().toElement();
-    return parent.tagName() == "office:styles";
+	QDomElement parent = e.parentNode().toElement();
+	return parent.tagName() == "office:styles";
 }
 
 QString StyleStack::userStyleName() const
 {
-    QList<QDomElement>::ConstIterator it = m_stack.end();
-    while ( it != m_stack.begin() )
-    {
-        --it;
-        if ( isUserStyle( *it ) )
-            return (*it).attribute("style:name");
-    }
-    // Can this ever happen?
-    return "Standard";
+	QList<QDomElement>::ConstIterator it = m_stack.end();
+	while ( it != m_stack.begin() )
+	{
+		--it;
+		if ( isUserStyle( *it ) )
+			return (*it).attribute("style:name");
+	}
+	// Can this ever happen?
+	return "Standard";
 }
 
 void StyleStack::fillNodeNameList( QStringList& names, const StyleStack::Mode mode )

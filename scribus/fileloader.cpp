@@ -68,7 +68,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	m_fileName(fileName),
 	m_fileType(-1)
 {
-	QString realPath = QFileInfo(fileName).canonicalFilePath();
+	QString realPath(QFileInfo(fileName).canonicalFilePath());
 	if (!realPath.isEmpty())
 		m_fileName = realPath;
 	m_newReplacement = false;
@@ -84,10 +84,10 @@ const QString FileLoader::getLoadFilterString()
 	int ind = -1;
 	for (int i = 0; i < fmts.count()-1; i++)
 	{
-		QString fmt = fmts[i];
+		QString fmt(fmts[i]);
 		int s = fmt.indexOf("(");
 		int e = fmt.lastIndexOf(")");
-		QString f = fmt.mid(s+1, e-s-1);
+		QString f(fmt.mid(s+1, e-s-1));
 #ifndef HAVE_POPPLER
 		if (f.contains("pdf"))	// for removing PDF from the list
 		{
@@ -117,7 +117,7 @@ int FileLoader::testFile()
 	int ret = -1;
 	if (!fi.exists())
 		ret = -1;
-	QString lwrFileName = m_fileName.toLower();
+	QString lwrFileName(m_fileName.toLower());
 
 	bool found = false;
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
@@ -144,7 +144,7 @@ int FileLoader::testFile()
 	if (!found)
 	{
 	// now try for the last suffix
-		QString ext = fi.suffix().toLower();
+		QString ext(fi.suffix().toLower());
 		it = fileFormats.constBegin();
 		itEnd = fileFormats.constEnd();
 		for ( ; (it != itEnd) && (!found); ++it)
@@ -152,9 +152,9 @@ int FileLoader::testFile()
 			if (!it->plug)
 				continue;
 			bool found = false;
-			for (int a = 0; a < it->fileExtensions.count(); a++)
+			for (int i = 0; i < it->fileExtensions.count(); i++)
 			{
-				QString exts = it->fileExtensions[a].toLower();
+				QString exts(it->fileExtensions[i].toLower());
 				if (ext == exts)
 				{
 					if (it->plug->fileSupported(nullptr, m_fileName))

@@ -808,7 +808,7 @@ void Prefs_PDFExport::createPageNumberRange()
 			return;
 		}
 	}
-	exportPageListLineEdit->setText(QString::null);
+	exportPageListLineEdit->setText(QString());
 }
 
 void Prefs_PDFExport::setMaximumResolution()

@@ -109,7 +109,7 @@ QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 		if (m_tmpStyles[i].hasName())
 		{
 			QString styleName(m_tmpStyles[i].displayName());
-			QString parentName(QString::null);
+			QString parentName;
 
 			if (m_tmpStyles[i].hasParent())
 			{
@@ -179,7 +179,7 @@ QList<CharStyle> SMParagraphStyle::getCharStyles()
 
 QString SMParagraphStyle::fromSelection() const
 {
-	QString lsName(QString::null);
+	QString lsName;
 	if (!m_doc)
 		return lsName; // no doc available
 
@@ -196,7 +196,7 @@ QString SMParagraphStyle::fromSelection() const
 		}
 		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
-			lsName = QString::null;
+			lsName.clear();
 			break;
 		}
 	}
@@ -225,7 +225,7 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 QString SMParagraphStyle::newStyle()
 {
 	if (!m_doc)
-		return QString::null;
+		return QString();
 
 	QString s(getUniqueName( tr("New Style")));
 	ParagraphStyle p;
@@ -246,14 +246,14 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 
 	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
 	if (!m_tmpStyles.resolve(copiedStyleName))
-		return QString::null;
+		return QString();
 
 	//Copy the style with the original name
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
 	ParagraphStyle p(m_tmpStyles.get(copiedStyleName));
 	p.setDefaultStyle(false);
 	p.setName(s);
-	p.setShortcut(QString::null); // do not clone the sc
+	p.setShortcut(QString()); // do not clone the sc
 	m_tmpStyles.create(p);
 
 	return s;
@@ -351,7 +351,7 @@ void SMParagraphStyle::setDefaultStyle(bool ids)
 
 QString SMParagraphStyle::shortcut(const QString &stylename) const
 {
-	QString s(QString::null);
+	QString s;
 
 	int index = m_tmpStyles.find(stylename);
 	if (index > -1)
@@ -1997,14 +1997,14 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 {
-	Q_ASSERT(parent != QString::null);
+	Q_ASSERT(!parent.isNull());
 
 	QStringList sel;
 
 	for (int i = 0; i < m_selection.count(); ++i)
 	{
 		m_selection[i]->charStyle().erase();
-		if (parent != QString::null)
+		if (!parent.isNull())
 			m_selection[i]->charStyle().setParent(parent);
 
 		sel << m_selection[i]->name();
@@ -2148,7 +2148,7 @@ QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 		if (m_tmpStyles[i].hasName())
 		{
 			QString styleName(m_tmpStyles[i].displayName());
-			QString parentName(QString::null);
+			QString parentName;
 
 			if (m_tmpStyles[i].hasParent())
 			{
@@ -2197,7 +2197,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 QString SMCharacterStyle::fromSelection() const
 {
-	QString lsName(QString::null);
+	QString lsName;
 	if (!m_doc)
 		return lsName; // no doc available
 
@@ -2214,7 +2214,7 @@ QString SMCharacterStyle::fromSelection() const
 		}
 		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
-			lsName = QString::null;
+			lsName.clear();
 			break;
 		}
 	}
@@ -2264,13 +2264,13 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 
 	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
 	if (!m_tmpStyles.resolve(copiedStyleName))
-		return QString::null;
+		return QString();
 	//Copy the style with the original name
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
 	CharStyle c(m_tmpStyles.get(copiedStyleName));
 	c.setDefaultStyle(false);
 	c.setName(s);
-	c.setShortcut(QString::null);
+	c.setShortcut(QString());
 	m_tmpStyles.create(c);
 
 	return s;
@@ -2368,7 +2368,7 @@ void SMCharacterStyle::setDefaultStyle(bool ids)
 
 QString SMCharacterStyle::shortcut(const QString &stylename) const
 {
-	QString s(QString::null);
+	QString s;
 	int index = m_tmpStyles.find(stylename);
 	if (index > -1)
 		s = m_tmpStyles[index].shortcut();

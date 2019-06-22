@@ -80,7 +80,7 @@ QList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 	QHash<QString,multiLine>::Iterator it;
 
 	for (it = m_tmpLines.begin(); it != m_tmpLines.end(); ++it)
-		tmp << StyleName(it.key(), QString::null);
+		tmp << StyleName(it.key(), QString());
 
 	return tmp;
 }
@@ -139,7 +139,7 @@ void SMLineStyle::setMultiSelection(const QStringList& styles)
 
 QString SMLineStyle::fromSelection() const
 {
-	QString lsName(QString::null);
+	QString lsName;
 	if (!m_doc)
 		return lsName;
 
@@ -153,7 +153,7 @@ QString SMLineStyle::fromSelection() const
 		}
 		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
-			lsName = QString::null;
+			lsName.clear();
 			break;
 		}
 	}
@@ -179,7 +179,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 QString SMLineStyle::newStyle()
 {
 	if (!m_doc)
-		return QString::null;
+		return QString();
 	struct SingleLine sl;
 	sl.Color = m_doc->itemToolPrefs().lineColor;
 	sl.Shade = m_doc->itemToolPrefs().lineColorShade;

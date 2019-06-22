@@ -21,11 +21,11 @@ public:
 	void updateListView();
 
 private:
-	ScribusDoc         *m_Doc;
-	PrefsContext       *m_prefs;
+	ScribusDoc* m_Doc;
+	PrefsContext* m_prefs;
 	Mark* getMarkFromListView();
 	void addListItem(MarkType typeMrk, const QString& typeStr, const QList<Mark *> &marks, int &index);
-	QStringList expandedItems;
+	QStringList m_expandedItems;
 	void storeColaption();
 	void restoreColaption();
 

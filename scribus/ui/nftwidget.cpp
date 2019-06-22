@@ -105,7 +105,7 @@ void nftwidget::setThumbnails()
 	}
 	
 	QString curtype(categoryList->currentItem()->text());
-	if (curtype != QString::null)
+	if (!curtype.isNull())
 	{
 		tnailGrid->clear();
 		for (uint i = 0; i < iconItems.size(); ++i)

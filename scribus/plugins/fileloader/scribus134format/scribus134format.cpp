@@ -502,21 +502,21 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = TableIDF[ta->TopLinkID];
+				ta->m_topLink = TableIDF[ta->TopLinkID];
 			else
-				ta->TopLink = nullptr;
+				ta->m_topLink = nullptr;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = TableIDF[ta->LeftLinkID];
+				ta->m_leftLink = TableIDF[ta->LeftLinkID];
 			else
-				ta->LeftLink = nullptr;
+				ta->m_leftLink = nullptr;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = TableIDF[ta->RightLinkID];
+				ta->m_rightLink = TableIDF[ta->RightLinkID];
 			else
-				ta->RightLink = nullptr;
+				ta->m_rightLink = nullptr;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = TableIDF[ta->BottomLinkID];
+				ta->m_bottomLink = TableIDF[ta->BottomLinkID];
 			else
-				ta->BottomLink = nullptr;
+				ta->m_bottomLink = nullptr;
 		}
 	}
 	if (TableItemsM.count() != 0)
@@ -525,21 +525,21 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItemsM.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = TableIDM[ta->TopLinkID];
+				ta->m_topLink = TableIDM[ta->TopLinkID];
 			else
-				ta->TopLink = nullptr;
+				ta->m_topLink = nullptr;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = TableIDM[ta->LeftLinkID];
+				ta->m_leftLink = TableIDM[ta->LeftLinkID];
 			else
-				ta->LeftLink = nullptr;
+				ta->m_leftLink = nullptr;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = TableIDM[ta->RightLinkID];
+				ta->m_rightLink = TableIDM[ta->RightLinkID];
 			else
-				ta->RightLink = nullptr;
+				ta->m_rightLink = nullptr;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = TableIDM[ta->BottomLinkID];
+				ta->m_bottomLink = TableIDM[ta->BottomLinkID];
 			else
-				ta->BottomLink = nullptr;
+				ta->m_bottomLink = nullptr;
 		}
 	}
 	if (TableItems.count() != 0)
@@ -548,21 +548,21 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = TableID[ta->TopLinkID];
+				ta->m_topLink = TableID[ta->TopLinkID];
 			else
-				ta->TopLink = nullptr;
+				ta->m_topLink = nullptr;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = TableID[ta->LeftLinkID];
+				ta->m_leftLink = TableID[ta->LeftLinkID];
 			else
-				ta->LeftLink = nullptr;
+				ta->m_leftLink = nullptr;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = TableID[ta->RightLinkID];
+				ta->m_rightLink = TableID[ta->RightLinkID];
 			else
-				ta->RightLink = nullptr;
+				ta->m_rightLink = nullptr;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = TableID[ta->BottomLinkID];
+				ta->m_bottomLink = TableID[ta->BottomLinkID];
 			else
-				ta->BottomLink = nullptr;
+				ta->m_bottomLink = nullptr;
 		}
 	}
 	//CB Add this in to set this in the file in memory. Its saved, why not load it.
@@ -2208,21 +2208,21 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		{
 			PageItem* ta = TableItems2.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = TableID2[ta->TopLinkID];
+				ta->m_topLink = TableID2[ta->TopLinkID];
 			else
-				ta->TopLink = nullptr;
+				ta->m_topLink = nullptr;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = TableID2[ta->LeftLinkID];
+				ta->m_leftLink = TableID2[ta->LeftLinkID];
 			else
-				ta->LeftLink = nullptr;
+				ta->m_leftLink = nullptr;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = TableID2[ta->RightLinkID];
+				ta->m_rightLink = TableID2[ta->RightLinkID];
 			else
-				ta->RightLink = nullptr;
+				ta->m_rightLink = nullptr;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = TableID2[ta->BottomLinkID];
+				ta->m_bottomLink = TableID2[ta->BottomLinkID];
 			else
-				ta->BottomLink = nullptr;
+				ta->m_bottomLink = nullptr;
 		}
 	}
 	if (groupStackP.count() > 0)
@@ -3416,21 +3416,21 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = TableID[ta->TopLinkID];
+				ta->m_topLink = TableID[ta->TopLinkID];
 			else
-				ta->TopLink = nullptr;
+				ta->m_topLink = nullptr;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = TableID[ta->LeftLinkID];
+				ta->m_leftLink = TableID[ta->LeftLinkID];
 			else
-				ta->LeftLink = nullptr;
+				ta->m_leftLink = nullptr;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = TableID[ta->RightLinkID];
+				ta->m_rightLink = TableID[ta->RightLinkID];
 			else
-				ta->RightLink = nullptr;
+				ta->m_rightLink = nullptr;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = TableID[ta->BottomLinkID];
+				ta->m_bottomLink = TableID[ta->BottomLinkID];
 			else
-				ta->BottomLink = nullptr;
+				ta->m_bottomLink = nullptr;
 		}
 	}
 

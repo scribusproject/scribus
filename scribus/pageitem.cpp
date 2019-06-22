@@ -209,10 +209,10 @@ PageItem::PageItem(const PageItem & other)
 	m_softShadowBlendMode(other.m_softShadowBlendMode),
 	m_softShadowErasedByObject(other.m_softShadowErasedByObject),
 	m_softShadowHasObjectTransparency(other.m_softShadowHasObjectTransparency),
-	LeftLink(other.LeftLink),
-	RightLink(other.RightLink),
-	TopLink(other.TopLink),
-	BottomLink(other.BottomLink),
+	m_leftLink(other.m_leftLink),
+	m_rightLink(other.m_rightLink),
+	m_topLink(other.m_topLink),
+	m_bottomLink(other.m_bottomLink),
 	LeftLinkID(other.LeftLinkID),
 	RightLinkID(other.RightLinkID),
 	TopLinkID(other.TopLinkID),
@@ -835,10 +835,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_firstLineOffset = FLOPRealGlyphHeight;
 	m_columns = m_Doc->itemToolPrefs().textColumns;
 	m_columnGap = m_Doc->itemToolPrefs().textColumnGap;
-	LeftLink = nullptr;
-	RightLink = nullptr;
-	TopLink = nullptr;
-	BottomLink = nullptr;
+	m_leftLink = nullptr;
+	m_rightLink = nullptr;
+	m_topLink = nullptr;
+	m_bottomLink = nullptr;
 	LeftLinkID = 0;
 	RightLinkID = 0;
 	TopLinkID = 0;
@@ -1238,8 +1238,8 @@ int PageItem::maxCharsInFrame()
 /// returns true if text is ending before that frame
 bool PageItem::frameUnderflows() const
 {
-	if (BackBox == nullptr)
-		return false;
+    if (BackBox == nullptr)
+        return false;
 	//FIX ME - I have found that condition if frame is empty
 	//and has been linked with previous frame
 	//if you will find any better solution - fix that function
@@ -7628,7 +7628,7 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 	if (countFound==1)
 		returnAttribute = (*foundIt);
 	else
-		returnAttribute.name = QString::null;
+		returnAttribute.name.clear();
 	return returnAttribute;
 }
 

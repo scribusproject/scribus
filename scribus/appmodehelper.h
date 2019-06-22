@@ -55,7 +55,7 @@ class AppModeHelper : public QObject
 		void mainWindowCloseLastDoc();
 		void setPreviewMode(bool b);
 		//! \brief enable or disable the unicode actions and their menus
-		void enableTextActions(bool enabled, const QString& fontName=QString::null);
+		void enableTextActions(bool enabled, const QString& fontName=QString());
 		void setStartupActionsEnabled(bool enabled);
 
 

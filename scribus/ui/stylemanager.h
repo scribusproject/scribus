@@ -98,7 +98,7 @@ private:
 	QPair<QString, QStringList> namesFromSelection();
 	void loadType(const QString &name);
 	void addNewType(StyleItem *item, bool loadFromDoc = true);
-	void createNewStyle(const QString &typeName, const QString &fromParent = QString::null);
+	void createNewStyle(const QString &typeName, const QString &fromParent = QString());
 	void reloadStyleView(bool loadFromDoc = true); // are the styles loaded from doc or from tmp cache
 	bool shortcutExists(const QString &keys);
 	void updateActionName(const QString &oldName, const QString &newName);

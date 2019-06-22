@@ -37,48 +37,48 @@ class PrefsContext;
 
 class SCRIBUS_API ScrPaletteBase : public QDialog
 {
-	Q_OBJECT
+Q_OBJECT
 
-	public:
-		ScrPaletteBase( QWidget * parent = nullptr, const QString& prefsContext = QString::null, bool modal = false, Qt::WindowFlags f = nullptr);
-		~ScrPaletteBase() {}
-		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
-		//virtual void keyPressEvent(QKeyEvent *keyEvent);
-		virtual void hide();
-		void startup();
-		
-	public slots:
-		virtual void setPaletteShown(bool);
-		virtual void setFontSize();
-		virtual int exec() { return QDialog::exec();}
-		int exec(QWidget* newParent);
-		
-	signals:
-		/** @brief Let the action for this palette know when something changes and it hasn't caused it */
-		void paletteShown(bool);
-		
-	protected:
-		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
-		virtual void setPrefsContext(const QString& context);
-		void storePosition();
-		void storePosition(int newX, int newY);
-		void storeSize();
-		void storeVisibility(bool);
+public:
+	ScrPaletteBase( QWidget * parent = nullptr, const QString& prefsContext = QString(), bool modal = false, Qt::WindowFlags f = nullptr);
+	~ScrPaletteBase() {}
+	/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
+	//virtual void keyPressEvent(QKeyEvent *keyEvent);
+	virtual void hide();
+	void startup();
 
-		/** @brief Restore the geometry of the window when showing it. */
-		virtual void showEvent(QShowEvent *showEvent);
-		/** @brief Captures the close event and changes it to hide */
-		virtual void closeEvent(QCloseEvent *closeEvent);
-		/** @brief Stores the geometry of the window when hiding. */
-		virtual void hideEvent(QHideEvent*);
-		
-		PrefsContext* palettePrefs;
-		QString prefsContextName;
-		bool visibleOnStartup;
-		QWidget* originalParent;
-		QWidget* tempParent;
-		
+public slots:
+	virtual void setPaletteShown(bool);
+	virtual void setFontSize();
+	virtual int exec() { return QDialog::exec();}
+	int exec(QWidget* newParent);
+
+signals:
+	/** @brief Let the action for this palette know when something changes and it hasn't caused it */
+	void paletteShown(bool);
+
+protected:
+	/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
+	virtual void setPrefsContext(const QString& context);
+	void storePosition();
+	void storePosition(int newX, int newY);
+	void storeSize();
+	void storeVisibility(bool);
+
+	/** @brief Restore the geometry of the window when showing it. */
+	virtual void showEvent(QShowEvent *showEvent);
+	/** @brief Captures the close event and changes it to hide */
+	virtual void closeEvent(QCloseEvent *closeEvent);
+	/** @brief Stores the geometry of the window when hiding. */
+	virtual void hideEvent(QHideEvent*);
+
+	PrefsContext* m_palettePrefs;
+	QString m_prefsContextName;
+	bool m_visibleOnStartup;
+	QWidget* m_originalParent;
+	QWidget* m_tempParent;
+
 	protected slots:
-		virtual void reject();
+	virtual void reject();
 };
 #endif

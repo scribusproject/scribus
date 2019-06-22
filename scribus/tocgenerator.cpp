@@ -131,7 +131,7 @@ void TOCGenerator::generateDefault()
 		pstyle->setName(tocSetupIt->textStyle);
 		writer.setParagraphStyle(pstyle);
 		
-		QString oldTocPage = QString::null;
+		QString oldTocPage;
 		for (QMap<QString, QString>::Iterator tocIt=tocMap.begin(); tocIt != tocMap.end();++tocIt)
 		{
 			QString tocPage(tocIt.key().section( ',', 2, 2 ).trimmed());

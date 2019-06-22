@@ -99,7 +99,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// It need not verify a file, just confirm that it looks like a supported
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const = 0;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const = 0;
 
 		// Return a list of all formats supported by all currently loaded and
 		// active plugins. This list is sorted in a very specific order:
@@ -108,7 +108,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString::null);
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
@@ -208,7 +208,7 @@ class SCRIBUS_API FileFormat
 
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString::null) const;
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;
 		bool readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty) const;

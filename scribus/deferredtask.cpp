@@ -30,7 +30,7 @@ DeferredTask::~DeferredTask()
 void DeferredTask::init()
 {
 	m_status = Status_NotStarted,
-	m_lastError = QString::null;
+	m_lastError.clear();
 	// Build the timer we'll use to access the event loop
 	m_timer = new QTimer(this);
 	Q_CHECK_PTR(m_timer);

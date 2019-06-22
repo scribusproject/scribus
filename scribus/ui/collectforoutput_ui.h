@@ -15,18 +15,19 @@ class CollectForOutput_UI : public CollectForOutput
 {
 	Q_OBJECT
 	public:
-		CollectForOutput_UI(QWidget *parent, ScribusDoc* doc, const QString& outputDirectory=QString::null, bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
-		virtual QString collect(QString &newFileName);
+	CollectForOutput_UI(QWidget *parent, ScribusDoc* doc, const QString& outputDirectory=QString(), bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
+	virtual QString collect(QString &newFileName);
+
 	signals:
 
 	protected slots:
-		void collectedFonts(int);
-		void collectedItems(int);
-		void collectedPatterns(int);
-		void collectedProfiles(int);
+	void collectedFonts(int);
+	void collectedItems(int);
+	void collectedPatterns(int);
+	void collectedProfiles(int);
 
 	protected:
-		MultiProgressDialog* progressDialog;
+	MultiProgressDialog* progressDialog;
 };
 
 #endif // COLLECTFOROUTPUT_UI_H
