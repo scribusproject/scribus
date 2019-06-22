@@ -4666,6 +4666,11 @@ void PageItem::checkChanges(bool force)
 			(oldRot != m_rotation))
 		{
 			textFlowCheckRect = getOldBoundingRect();
+			QRectF rect1 = textInteractionRegion(0.0, 0.0).boundingRect().adjusted(-1, -1, 1, 1);
+			QRectF rect2 = rect1.translated(oldXpos - m_xPos, oldYpos - m_yPos);
+			rect2.setWidth(qMax(1.0, rect1.width() + oldWidth - m_width));
+			rect2.setHeight(qMax(1.0, rect1.height() + oldHeight - m_height));
+			textFlowCheckRect = textFlowCheckRect.united(rect1.united(rect2));
 		}
 	}
 
@@ -4696,7 +4701,6 @@ void PageItem::checkChanges(bool force)
 	
 	if (spreadChanges)
 	{
-		textFlowCheckRect = textFlowCheckRect.united(getBoundingRect());
 		checkTextFlowInteractions(textFlowCheckRect);
 	}
 }
@@ -9465,6 +9469,8 @@ QRectF PageItem::getEndArrowOldBoundingRect() const
 QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
 {
 	QRegion res;
+	if (textFlowModeVal == TextFlowDisabled)
+		return res;
 
 	QTransform pp;
 	if (this->isGroupChild())
