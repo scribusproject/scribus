@@ -44,7 +44,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	itemText.setDefaultStyle(newStyle);
 	itemText.blockSignals(false);
 
-	textFlowModeVal = TextFlowUsesFrameShape;
+	m_textFlowMode = TextFlowUsesFrameShape;
 	setColumns(1);
 
 	if (m_nstyle->isAutoNotesHeight())
@@ -67,7 +67,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, doub
 {
 	m_nstyle = nullptr;
 	m_masterFrame = nullptr;
-	textFlowModeVal = TextFlowUsesFrameShape;
+	m_textFlowMode = TextFlowUsesFrameShape;
 	deleteIt = false;
 }
 
@@ -108,7 +108,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	oldXpos = m_xPos;
 	m_yPos = oldYpos = m_masterFrame->yPos() + m_masterFrame->height();
 
-	textFlowModeVal = TextFlowUsesFrameShape;
+	m_textFlowMode = TextFlowUsesFrameShape;
 	setColumns(1);
 
 	if (m_nstyle->isAutoWeldNotesFrames() && (m_masterFrame != nullptr))

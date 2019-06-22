@@ -320,21 +320,21 @@ PageItem::PageItem(const PageItem & other)
 	patternSkewY(other.patternSkewY),
 	patternMirrorX(other.patternMirrorX),
 	patternMirrorY(other.patternMirrorY),
-	fillColorVal(other.fillColorVal),
-	lineColorVal(other.lineColorVal),
-	lineShadeVal(other.lineShadeVal),
-	fillShadeVal(other.fillShadeVal),
-	fillTransparencyVal(other.fillTransparencyVal),
-	lineTransparencyVal(other.lineTransparencyVal),
-	fillBlendmodeVal(other.fillBlendmodeVal),
-	lineBlendmodeVal(other.lineBlendmodeVal),
+	m_fillColor(other.m_fillColor),
+	m_lineColor(other.m_lineColor),
+	m_lineShade(other.m_lineShade),
+	m_fillShade(other.m_fillShade),
+	m_fillTransparency(other.m_fillTransparency),
+	m_lineTransparency(other.m_lineTransparency),
+	m_fillBlendMode(other.m_fillBlendMode),
+	m_lineBlendMode(other.m_lineBlendMode),
 	m_ImageIsFlippedH(other.m_ImageIsFlippedH),
 	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
 	m_SizeLocked(other.m_SizeLocked),
 	m_SizeHLocked(other.m_SizeHLocked),
 	m_SizeVLocked(other.m_SizeVLocked),
-	textFlowModeVal(other.textFlowModeVal),
+	m_textFlowMode(other.m_textFlowMode),
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
 	tagged(other.tagged),
@@ -411,19 +411,19 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	itemText(pa),
 	textLayout(&itemText, this),
 	undoManager(UndoManager::instance()),
-	lineShadeVal(100),
-	fillShadeVal(100),
-	fillTransparencyVal(0.0),
-	lineTransparencyVal(0.0),
-	fillBlendmodeVal(0),
-	lineBlendmodeVal(0),
+	m_lineShade(100),
+	m_fillShade(100),
+	m_fillTransparency(0.0),
+	m_lineTransparency(0.0),
+	m_fillBlendMode(0),
+	m_lineBlendMode(0),
 	m_ImageIsFlippedH(false),
 	m_ImageIsFlippedV(false),
 	m_Locked(false),
 	m_SizeLocked(false),
 	m_SizeHLocked(false),
 	m_SizeVLocked(false),
-	textFlowModeVal(TextFlowDisabled)
+	m_textFlowMode(TextFlowDisabled)
 {
 	Parent = nullptr;
 	m_Doc = pa;
@@ -441,8 +441,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BoundingH = h;
 	m_ItemType = newType;
 	oldRot = m_rotation = 0;
-	fillColorVal = fill;
-	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
+	m_fillColor = fill;
+	m_lineColor = m_ItemType == PageItem::TextFrame ? fill : outline;
 	gWidth = gHeight = 0;
 	GrType = 0;
 	GrStartX = 0;
@@ -659,12 +659,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	doOverprint = false;
 	stroke_gradient = VGradient(VGradient::linear);
 	stroke_gradient.clearStops();
-	if (lineColorVal != CommonStrings::None)
+	if (m_lineColor != CommonStrings::None)
 	{
-		const ScColor& col = m_Doc->PageColors[lineColorVal];
+		const ScColor& col = m_Doc->PageColors[m_lineColor];
 		QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-		stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, lineColorVal, 100);
-		stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, lineColorVal, 100);
+		stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_lineColor, 100);
+		stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_lineColor, 100);
 	}
 	else
 	{
@@ -677,12 +677,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		}
 		else
 		{
-			if (fillColorVal != CommonStrings::None)
+			if (m_fillColor != CommonStrings::None)
 			{
-				const ScColor& col = m_Doc->PageColors[fillColorVal];
+				const ScColor& col = m_Doc->PageColors[m_fillColor];
 				QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-				stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, fillColorVal, 100);
-				stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, fillColorVal, 100);
+				stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_fillColor, 100);
+				stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_fillColor, 100);
 			}
 			else
 			{
@@ -705,16 +705,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
-	if (fillColorVal != CommonStrings::None)
+	if (m_fillColor != CommonStrings::None)
 	{
-		const ScColor& col = m_Doc->PageColors[fillColorVal];
+		const ScColor& col = m_Doc->PageColors[m_fillColor];
 		QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-		fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, fillColorVal, 100);
-		fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, fillColorVal, 100);
-		GrColorP1 = fillColorVal;
-		GrColorP2 = fillColorVal;
-		GrColorP3 = fillColorVal;
-		GrColorP4 = fillColorVal;
+		fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_fillColor, 100);
+		fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_fillColor, 100);
+		GrColorP1 = m_fillColor;
+		GrColorP2 = m_fillColor;
+		GrColorP3 = m_fillColor;
+		GrColorP4 = m_fillColor;
 	}
 	else
 	{
@@ -731,16 +731,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		}
 		else
 		{
-			if (lineColorVal != CommonStrings::None)
+			if (m_lineColor != CommonStrings::None)
 			{
-				const ScColor& col = m_Doc->PageColors[lineColorVal];
+				const ScColor& col = m_Doc->PageColors[m_lineColor];
 				QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-				fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, lineColorVal, 100);
-				fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, lineColorVal, 100);
-				GrColorP1 = lineColorVal;
-				GrColorP2 = lineColorVal;
-				GrColorP3 = lineColorVal;
-				GrColorP4 = lineColorVal;
+				fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_lineColor, 100);
+				fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_lineColor, 100);
+				GrColorP1 = m_lineColor;
+				GrColorP2 = m_lineColor;
+				GrColorP3 = m_lineColor;
+				GrColorP4 = m_lineColor;
 			}
 			else
 			{
@@ -2407,8 +2407,8 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		double lineTrans_Old = lineTransparency();
 		bool   hasSoftShadow_Old = hasSoftShadow();
 		double rotation_Old = m_rotation;
-		fillTransparencyVal = 0.0;
-		lineTransparencyVal = 0.0;
+		m_fillTransparency = 0.0;
+		m_lineTransparency = 0.0;
 		m_rotation = 0;
 		m_hasSoftShadow = false;
 		p->save();
@@ -2428,8 +2428,8 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 			p->endLayer();
 			p->restore();
 		}
-		fillTransparencyVal = fillTrans_Old;
-		lineTransparencyVal = lineTrans_Old;
+		m_fillTransparency = fillTrans_Old;
+		m_lineTransparency = lineTrans_Old;
 		m_hasSoftShadow = hasSoftShadow_Old;
 		m_rotation = rotation_Old;
 	}
@@ -3112,11 +3112,11 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 
 void PageItem::createGradientMesh(int rows, int cols)
 {
-	QString MColor(fillColorVal);
+	QString MColor(m_fillColor);
 	QColor MQColor;
-	if (fillColorVal != CommonStrings::None)
+	if (m_fillColor != CommonStrings::None)
 	{
-		if (!m_Doc->PageColors.contains(fillColorVal))
+		if (!m_Doc->PageColors.contains(m_fillColor))
 		{
 			switch (itemType())
 			{
@@ -3700,7 +3700,7 @@ void PageItem::setFillColor(const QString &newColor)
 			}
 		}
 	}
-	if (fillColorVal == tmp)
+	if (m_fillColor == tmp)
 	{
 		setFillQColor();
 		return;
@@ -3708,20 +3708,20 @@ void PageItem::setFillColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFill,
-										  QString(Um::ColorFromTo).arg(fillColorVal, tmp),
+										  QString(Um::ColorFromTo).arg(m_fillColor, tmp),
                                           Um::IFill);
 		ss->set("FILL");
-		ss->set("OLD_FILL", fillColorVal);
+		ss->set("OLD_FILL", m_fillColor);
 		ss->set("NEW_FILL", tmp);
 		undoManager->action(this, ss);
 	}
-	fillColorVal = tmp;
+	m_fillColor = tmp;
 	setFillQColor();
 }
 
 void PageItem::setFillShade(double newShade)
 {
-	if (fillShadeVal == newShade)
+	if (m_fillShade == newShade)
 	{
 		setFillQColor();
 		return;
@@ -3729,46 +3729,46 @@ void PageItem::setFillShade(double newShade)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetShade,
-										  QString(Um::FromTo).arg(fillShadeVal).arg(newShade),
+										  QString(Um::FromTo).arg(m_fillShade).arg(newShade),
 										  Um::IShade);
 		ss->set("SHADE");
-		ss->set("OLD_SHADE", fillShadeVal);
+		ss->set("OLD_SHADE", m_fillShade);
 		ss->set("NEW_SHADE", newShade);
 		undoManager->action(this, ss);
 	}
-	fillShadeVal = newShade;
+	m_fillShade = newShade;
 	setFillQColor();
 }
 
 void PageItem::setFillTransparency(double newTransparency)
 {
-	if (fillTransparencyVal == newTransparency)
+	if (m_fillTransparency == newTransparency)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Transparency,
-										  QString(Um::FromTo).arg(fillTransparencyVal).arg(newTransparency),
+										  QString(Um::FromTo).arg(m_fillTransparency).arg(newTransparency),
 										  Um::ITransparency);
 		ss->set("TRANSPARENCY");
-		ss->set("OLD_TP", fillTransparencyVal);
+		ss->set("OLD_TP", m_fillTransparency);
 		ss->set("NEW_TP", newTransparency);
 		undoManager->action(this, ss);
 	}
-	fillTransparencyVal = newTransparency;
+	m_fillTransparency = newTransparency;
 }
 
 void PageItem::setFillBlendmode(int newBlendmode)
 {
-	if (fillBlendmodeVal == newBlendmode)
+	if (m_fillBlendMode == newBlendmode)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::BlendMode, nullptr, Um::IGroup);
 		ss->set("FILLBLENDMODE", newBlendmode);
-		ss->set("FILLBLENDMODE_OLD", fillBlendmodeVal);
+		ss->set("FILLBLENDMODE_OLD", m_fillBlendMode);
 		undoManager->action(this, ss);
 	}
-	fillBlendmodeVal = newBlendmode;
+	m_fillBlendMode = newBlendmode;
 }
 
 void PageItem::setLineColor(const QString &newColor)
@@ -3802,7 +3802,7 @@ void PageItem::setLineColor(const QString &newColor)
 			}
 		}
 	}
-	if (lineColorVal == tmp)
+	if (m_lineColor == tmp)
 	{
 		setLineQColor();
 		return;
@@ -3810,20 +3810,20 @@ void PageItem::setLineColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineColor,
-										  QString(Um::ColorFromTo).arg(lineColorVal, tmp),
+										  QString(Um::ColorFromTo).arg(m_lineColor, tmp),
 										  Um::IFill);
 		ss->set("LINE_COLOR");
-		ss->set("OLD_COLOR", lineColorVal);
+		ss->set("OLD_COLOR", m_lineColor);
 		ss->set("NEW_COLOR", tmp);
 		undoManager->action(this, ss);
 	}
-	lineColorVal = tmp;
+	m_lineColor = tmp;
 	setLineQColor();
 }
 
 void PageItem::setLineShade(double newShade)
 {
-	if (lineShadeVal == newShade)
+	if (m_lineShade == newShade)
 	{
 		setLineQColor();
 		return;
@@ -3831,14 +3831,14 @@ void PageItem::setLineShade(double newShade)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineShade,
-										  QString(Um::FromTo).arg(lineShadeVal).arg(newShade),
+										  QString(Um::FromTo).arg(m_lineShade).arg(newShade),
 										  Um::IShade);
 		ss->set("LINE_SHADE");
-		ss->set("OLD_SHADE", lineShadeVal);
+		ss->set("OLD_SHADE", m_lineShade);
 		ss->set("NEW_SHADE", newShade);
 		undoManager->action(this, ss);
 	}
-	lineShadeVal = newShade;
+	m_lineShade = newShade;
 	setLineQColor();
 }
 
@@ -3896,18 +3896,18 @@ void PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &of
 
 void PageItem::setLineQColor()
 {
-	if (lineColorVal != CommonStrings::None)
+	if (m_lineColor != CommonStrings::None)
 	{
-		if (!m_Doc->PageColors.contains(lineColorVal))
+		if (!m_Doc->PageColors.contains(m_lineColor))
 		{
 			switch (itemType())
 			{
 				case TextFrame:
 				case PathText:
-					lineColorVal = m_Doc->itemToolPrefs().textLineColor;
+					m_lineColor = m_Doc->itemToolPrefs().textLineColor;
 					break;
 				case Line:
-					lineColorVal = m_Doc->itemToolPrefs().lineColor;
+					m_lineColor = m_Doc->itemToolPrefs().lineColor;
 					break;
 				case PolyLine:
 				case Polygon:
@@ -3917,16 +3917,16 @@ void PageItem::setLineQColor()
 				case RegularPolygon:
 				case Arc:
 				case Spiral:
-					lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
+					m_lineColor = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
 					break;
 			}
 		}
-		if (!m_Doc->PageColors.contains(lineColorVal))
-			lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
-		const ScColor& col = m_Doc->PageColors[lineColorVal];
-		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
+		if (!m_Doc->PageColors.contains(m_lineColor))
+			m_lineColor = m_Doc->itemToolPrefs().shapeLineColor;
+		const ScColor& col = m_Doc->PageColors[m_lineColor];
+		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_lineShade);
 	}
 	if (m_Doc->viewAsPreview)
 	{
@@ -3937,20 +3937,20 @@ void PageItem::setLineQColor()
 
 void PageItem::setFillQColor()
 {
-	if (fillColorVal != CommonStrings::None)
+	if (m_fillColor != CommonStrings::None)
 	{
-		if (!m_Doc->PageColors.contains(fillColorVal))
+		if (!m_Doc->PageColors.contains(m_fillColor))
 		{
 			switch (itemType())
 			{
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					fillColorVal = m_Doc->itemToolPrefs().imageFillColor;
+					m_fillColor = m_Doc->itemToolPrefs().imageFillColor;
 					break;
 				case TextFrame:
 				case PathText:
-					fillColorVal = m_Doc->itemToolPrefs().textFillColor;
+					m_fillColor = m_Doc->itemToolPrefs().textFillColor;
 					break;
 				case Line:
 				case PolyLine:
@@ -3958,14 +3958,14 @@ void PageItem::setFillQColor()
 				case RegularPolygon:
 				case Arc:
 				case Spiral:
-					fillColorVal = m_Doc->itemToolPrefs().shapeFillColor;
+					m_fillColor = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
 					break;
 			}
 		}
-		const ScColor& col = m_Doc->PageColors[fillColorVal];
-		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, fillShadeVal);
+		const ScColor& col = m_Doc->PageColors[m_fillColor];
+		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_fillShade);
 	}
 	if (m_Doc->viewAsPreview)
 	{
@@ -4016,33 +4016,33 @@ void PageItem::setHatchParameters(int mode, double distance, double angle, bool 
 
 void PageItem::setLineTransparency(double newTransparency)
 {
-	if (lineTransparencyVal == newTransparency)
+	if (m_lineTransparency == newTransparency)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineTransparency,
-										  QString(Um::FromTo).arg(lineTransparencyVal).arg(newTransparency),
+										  QString(Um::FromTo).arg(m_lineTransparency).arg(newTransparency),
 										  Um::ITransparency);
 		ss->set("LINE_TRANSPARENCY");
-		ss->set("OLD_TP", lineTransparencyVal);
+		ss->set("OLD_TP", m_lineTransparency);
 		ss->set("NEW_TP", newTransparency);
 		undoManager->action(this, ss);
 	}
-	lineTransparencyVal = newTransparency;
+	m_lineTransparency = newTransparency;
 }
 
 void PageItem::setLineBlendmode(int newBlendmode)
 {
-	if (lineBlendmodeVal == newBlendmode)
+	if (m_lineBlendMode == newBlendmode)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::BlendMode, nullptr, Um::IGroup);
 		ss->set("LINEBLENDMODE", newBlendmode);
-		ss->set("LINEBLENDMODE_OLD", lineBlendmodeVal);
+		ss->set("LINEBLENDMODE_OLD", m_lineBlendMode);
 		undoManager->action(this, ss);
 	}
-	lineBlendmodeVal = newBlendmode;
+	m_lineBlendMode = newBlendmode;
 }
 
 void PageItem::setLineStyle(Qt::PenStyle newStyle)
@@ -4510,7 +4510,7 @@ void PageItem::togglePrintEnabled()
 
 void PageItem::setTextFlowMode(TextFlowMode mode)
 {
-	if (textFlowModeVal == mode)
+	if (m_textFlowMode == mode)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -4526,11 +4526,11 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 		else
 			stateMessage = Um::NoTextFlow;
 		SimpleState *ss = new SimpleState(stateMessage, "", Um::IFont);
-		ss->set("TEXTFLOW_OLDMODE", (int) textFlowModeVal);
+		ss->set("TEXTFLOW_OLDMODE", (int) m_textFlowMode);
 		ss->set("TEXTFLOW_NEWMODE", (int) mode);
 		undoManager->action(this, ss);
 	}
-	textFlowModeVal = mode;
+	m_textFlowMode = mode;
 	
 	checkTextFlowInteractions();
 }
@@ -5000,9 +5000,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			else if (ss->contains("FILLBLENDMODE"))
 			{
 				if (isUndo)
-					fillBlendmodeVal=ss->getInt("FILLBLENDMODE_OLD");
+					m_fillBlendMode=ss->getInt("FILLBLENDMODE_OLD");
 				else
-					fillBlendmodeVal=ss->getInt("FILLBLENDMODE");
+					m_fillBlendMode=ss->getInt("FILLBLENDMODE");
 			}
 			else if (ss->contains("ACTIONPDFANNOTATION"))
 			{
@@ -5021,9 +5021,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			else if (ss->contains("LINEBLENDMODE"))
 			{
 				if (isUndo)
-					lineBlendmodeVal=ss->getInt("LINEBLENDMODE_OLD");
+					m_lineBlendMode=ss->getInt("LINEBLENDMODE_OLD");
 				else
-					lineBlendmodeVal=ss->getInt("LINEBLENDMODE");
+					m_lineBlendMode=ss->getInt("LINEBLENDMODE");
 			}
 			else if (ss->contains("LOCK"))
 			{
@@ -7075,9 +7075,9 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	TextFlowMode oldMode = (TextFlowMode) state->getInt("TEXTFLOW_OLDMODE");
 	TextFlowMode newMode = (TextFlowMode) state->getInt("TEXTFLOW_NEWMODE");
 	if (isUndo)
-		textFlowModeVal = oldMode;
+		m_textFlowMode = oldMode;
 	else
-		textFlowModeVal = newMode;
+		m_textFlowMode = newMode;
 	
 	QList<PageItem*> pList;
 	int id = m_Doc->Items->indexOf(this) - 1;
@@ -9469,7 +9469,7 @@ QRectF PageItem::getEndArrowOldBoundingRect() const
 QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
 {
 	QRegion res;
-	if (textFlowModeVal == TextFlowDisabled)
+	if (m_textFlowMode == TextFlowDisabled)
 		return res;
 
 	QTransform pp;
@@ -9516,7 +9516,7 @@ QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
 				pp.scale(1, -1);
 			}
 		}
-		if ((((lineColorVal != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0)) && (m_lineWidth > 1)) || (!NamedLStyle.isEmpty()))
+		if ((((m_lineColor != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0)) && (m_lineWidth > 1)) || (!NamedLStyle.isEmpty()))
 		{
 //			QVector<double> m_array;
 			QPainterPath ppa;
@@ -10387,7 +10387,7 @@ void PageItem::emitAllToGUI()
 
 //CB unused in 135
 //	double dur=m_Doc->unitRatio();
-//	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
+//	emit blendmode(m_fillBlendMode, m_lineBlendMode);
 /*CB using the emit myself* instead of all of these
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 */

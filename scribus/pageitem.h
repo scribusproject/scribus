@@ -845,7 +845,7 @@ public: // Start public functions
 	void patternFlip(bool &flipX, bool &flipY);
 
 	/** @brief Get the (name of the) fill color of the object */
-	QString fillColor() const { return fillColorVal; }
+	QString fillColor() const { return m_fillColor; }
 	/**
 	 * @brief Set the fill color of the object.
 	 * @param newColor fill color for the object
@@ -853,7 +853,7 @@ public: // Start public functions
 	void setFillColor(const QString &newColor);
 
 	/** @brief Get the shade of the fill color */
-	double fillShade() const { return fillShadeVal; }
+	double fillShade() const { return m_fillShade; }
 	/**
 	 * @brief Set the fill color shade.
 	 * @param newShade shade for the fill color
@@ -861,7 +861,7 @@ public: // Start public functions
 	void setFillShade(double newShade);
 
 	/** @brief Get the transparency of the fill color */
-	double fillTransparency() const { return fillTransparencyVal; }
+	double fillTransparency() const { return m_fillTransparency; }
 	/**
 	 * @brief Set the transparency of the fill color.
 	 * @param newTransparency transparency of the fill color
@@ -869,7 +869,7 @@ public: // Start public functions
 	void setFillTransparency(double newTransparency);
 
 	/** @brief Get the blendmode of the fill color */
-	int fillBlendmode() const { return fillBlendmodeVal; }
+	int fillBlendmode() const { return m_fillBlendMode; }
 	/**
 	 * @brief Set the blendmode of the fill color.
 	 * @param newBlendmode blendmode of the fill color
@@ -877,7 +877,7 @@ public: // Start public functions
 	void setFillBlendmode(int newBlendmode);
 
 	/** @brief Get the blendmode of the stroke color */
-	int lineBlendmode() const { return lineBlendmodeVal; }
+	int lineBlendmode() const { return m_lineBlendMode; }
 	/**
 	 * @brief Set the blendmode of the stroke color.
 	 * @param newBlendmode blendmode of the stroke color
@@ -885,7 +885,7 @@ public: // Start public functions
 	void setLineBlendmode(int newBlendmode);
 
 	/** @brief Get the line color of the object */
-	QString lineColor() const { return lineColorVal; }
+	QString lineColor() const { return m_lineColor; }
 	/**
 	 * @brief Set the line color of the object.
 	 * @param newColor line color for the object
@@ -893,7 +893,7 @@ public: // Start public functions
 	void setLineColor(const QString &newColor);
 
 	/** @brief Get the line color shade */
-	double lineShade() const { return lineShadeVal; }
+	double lineShade() const { return m_lineShade; }
 	/**
 	 * @brief Set the line color shade.
 	 * @param newShade shade for the line color
@@ -901,7 +901,7 @@ public: // Start public functions
 	void setLineShade(double newShade);
 
 	/** @brief Get the line transparency */
-	double lineTransparency() const { return lineTransparencyVal; }
+	double lineTransparency() const { return m_lineTransparency; }
 	/**
 	 * @brief Set the transparency of the line color.
 	 * @param newTransparency transparency of the line color
@@ -1062,7 +1062,7 @@ public: // Start public functions
 	 * @brief Does text flow around this object and how
 	 * @sa setTextFlowMode()
 	 */
-	TextFlowMode textFlowMode() const { return textFlowModeVal; }
+	TextFlowMode textFlowMode() const { return m_textFlowMode; }
 
 	/**
 	 * @brief Changes the way text flows around this item
@@ -1075,31 +1075,31 @@ public: // Start public functions
 	 * @brief If text should flow around object frame
 	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowAroundObject() const { return (textFlowModeVal != TextFlowDisabled); }
+	bool textFlowAroundObject() const { return (m_textFlowMode != TextFlowDisabled); }
 
 	/**
 	 * @brief If text should flow around object frame
 	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesFrameShape() const { return (textFlowModeVal == TextFlowUsesFrameShape); }
+	bool textFlowUsesFrameShape() const { return (m_textFlowMode == TextFlowUsesFrameShape); }
 
 	/**
 	 * @brief If text should flow around bounding box
 	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesBoundingBox() const { return (textFlowModeVal == TextFlowUsesBoundingBox); }
+	bool textFlowUsesBoundingBox() const { return (m_textFlowMode == TextFlowUsesBoundingBox); }
 
 	/**
 	 * @brief If text should flow around contour line
 	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesContourLine() const { return (textFlowModeVal == TextFlowUsesContourLine); }
+	bool textFlowUsesContourLine() const { return (m_textFlowMode == TextFlowUsesContourLine); }
 
 	/**
 	 * @brief If text should flow around image clipping path
 	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesImageClipping() const { return (textFlowModeVal == TextFlowUsesImageClipping); }
+	bool textFlowUsesImageClipping() const { return (m_textFlowMode == TextFlowUsesImageClipping); }
 
 	/**
 	 * @brief To be called carefully because it eventually triggers a relayout of long text frames strings, but necessarily when you change the document.
@@ -1299,10 +1299,6 @@ public:	// Start public variables
 	double m_columnGap;
 	double gridOffset_;
 	double gridValue_;
-	int m_startArrowIndex;
-	int m_endArrowIndex;
-	int m_startArrowScale;
-	int m_endArrowScale;
 	Qt::PenStyle PLineArt; ///< Linestyle
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
@@ -1367,156 +1363,146 @@ public:	// Start public variables
 	VGradient fill_gradient;
 	bool fillRule;
 	bool doOverprint;
-	bool m_hasSoftShadow;
-	QString m_softShadowColor;
-	int m_softShadowShade;
-	double m_softShadowBlurRadius;
-	double m_softShadowXOffset;
-	double m_softShadowYOffset;
-	double m_softShadowOpacity;
-	int m_softShadowBlendMode;
-	bool m_softShadowErasedByObject;
-	bool m_softShadowHasObjectTransparency;
+
 	/* Additions for Table Support */
 	/* now deprecated with the new PageItem_Table */
-		PageItem* LeftLink;
-		PageItem* RightLink;
-		PageItem* TopLink;
-		PageItem* BottomLink;
-		int LeftLinkID;
-		int RightLinkID;
-		int TopLinkID;
-		int BottomLinkID;
-		bool LeftLine;
-		bool RightLine;
-		bool TopLine;
-		bool BottomLine;
-		bool isTableItem;
+	PageItem* LeftLink;
+	PageItem* RightLink;
+	PageItem* TopLink;
+	PageItem* BottomLink;
+	int LeftLinkID;
+	int RightLinkID;
+	int TopLinkID;
+	int BottomLinkID;
+	bool LeftLine;
+	bool RightLine;
+	bool TopLine;
+	bool BottomLine;
+	bool isTableItem;
+
 	/* end deprecated vars */
-		bool isSingleSel;
-		QList<PageItem*> groupItemList;
-		double groupWidth;
-		double groupHeight;
-		double BoundingX;
-		double BoundingY;
-		double BoundingW;
-		double BoundingH;
-		bool ChangedMasterItem;
-		QString OnMasterPage;
-		bool isEmbedded;
-		int inlineCharID;
-		QString inlineExt;
-		/** Radius of rounded corners */
-		double m_roundedCorderRadius;
+	bool isSingleSel;
+	QList<PageItem*> groupItemList;
+	double groupWidth;
+	double groupHeight;
+	double BoundingX;
+	double BoundingY;
+	double BoundingW;
+	double BoundingH;
+	bool ChangedMasterItem;
+	QString OnMasterPage;
+	bool isEmbedded;
+	int inlineCharID;
+	QString inlineExt;
+	/** Radius of rounded corners */
+	double m_roundedCorderRadius;
 
-		//Undo Data
-		double oldXpos; ///< Stores the old X-position for undo action. Is used to detect move actions.
-		double oldYpos; ///< Stores the old Y-position for undo action. Is used to detect move actions.
-		double oldWidth; ///< Stores the old width for undo action. Is used to detect resize actions.
-		double oldHeight; ///< Stores the old height for undo action. Is used to detect resize actions.
-		double oldRot; ///< Stores the old rotation value for undo action. Is used to detect rotation actions.
-		double oldLocalScX; ///< Stores the old LocalScX value for undo action. Is used to detect image scale actions.
-		double oldLocalScY; ///< Stores the old LocalScY value for undo action. Is used to detect image scale actions.
-		double oldLocalX; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
-		double oldLocalY; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
-
-
-		ScribusDoc *m_Doc; ///< Document this item belongs to
-
-		bool m_isAnnotation; ///< Flag to tell if this item is a PDF annotation item
-		Annotation m_annotation; ///< PDF annotation data
-
-		bool m_imageVisible; ///< Darstellungsart Bild/Titel
-
-		double m_lineWidth; //< Line width
-		double m_oldLineWidth;
-
-		/**
-		 * @brief Stroke pattern name
-		 * @sa PageItem::strokePattern(), PageItem::setStrokePattern()
-		 */
-		QString patternStrokeVal;
-		/**
-		 * @brief Stroke pattern transformation matrix
-		 */
-		double patternStrokeScaleX;
-		double patternStrokeScaleY;
-		double patternStrokeOffsetX;
-		double patternStrokeOffsetY;
-		double patternStrokeRotation;
-		double patternStrokeSkewX;
-		double patternStrokeSkewY;
-		double patternStrokeSpace;
-		bool patternStrokeMirrorX;
-		bool patternStrokeMirrorY;
-		bool patternStrokePath;
+	//Undo Data
+	double oldXpos; ///< Stores the old X-position for undo action. Is used to detect move actions.
+	double oldYpos; ///< Stores the old Y-position for undo action. Is used to detect move actions.
+	double oldWidth; ///< Stores the old width for undo action. Is used to detect resize actions.
+	double oldHeight; ///< Stores the old height for undo action. Is used to detect resize actions.
+	double oldRot; ///< Stores the old rotation value for undo action. Is used to detect rotation actions.
+	double oldLocalScX; ///< Stores the old LocalScX value for undo action. Is used to detect image scale actions.
+	double oldLocalScY; ///< Stores the old LocalScY value for undo action. Is used to detect image scale actions.
+	double oldLocalX; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
+	double oldLocalY; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
 
 
-		/**
-		 * @brief Stroke gradient name
-		 * @sa PageItem::strokeGradient(), PageItem::setStrokeGradient()
-		 */
-		QString gradientStrokeVal;
-		VGradient stroke_gradient;
+	ScribusDoc *m_Doc; ///< Document this item belongs to
 
-		/**
-		* @brief Stroke gradient variables
+	bool m_isAnnotation; ///< Flag to tell if this item is a PDF annotation item
+	Annotation m_annotation; ///< PDF annotation data
+
+	double m_lineWidth; //< Line width
+	double m_oldLineWidth;
+
+	/**
+		* @brief Stroke pattern name
+		* @sa PageItem::strokePattern(), PageItem::setStrokePattern()
 		*/
-		int GrTypeStroke;
-		double GrStrokeStartX;
-		double GrStrokeStartY;
-		double GrStrokeEndX;
-		double GrStrokeEndY;
-		double GrStrokeFocalX;
-		double GrStrokeFocalY;
-		double GrStrokeScale;
-		double GrStrokeSkew;
-		VGradient::VGradientRepeatMethod GrStrokeExtend;
-
-		/**
-		* @brief Mask gradient variables
+	QString patternStrokeVal;
+	/**
+		* @brief Stroke pattern transformation matrix
 		*/
-		int GrMask;
-		double GrMaskStartX;
-		double GrMaskStartY;
-		double GrMaskEndX;
-		double GrMaskEndY;
-		double GrMaskFocalX;
-		double GrMaskFocalY;
-		double GrMaskScale;
-		double GrMaskSkew;
-		double patternMaskScaleX;
-		double patternMaskScaleY;
-		double patternMaskOffsetX;
-		double patternMaskOffsetY;
-		double patternMaskRotation;
-		double patternMaskSkewX;
-		double patternMaskSkewY;
-		bool patternMaskMirrorX;
-		bool patternMaskMirrorY;
-		QString patternMaskVal;
-		QString gradientMaskVal;
-		VGradient mask_gradient;
+	double patternStrokeScaleX;
+	double patternStrokeScaleY;
+	double patternStrokeOffsetX;
+	double patternStrokeOffsetY;
+	double patternStrokeRotation;
+	double patternStrokeSkewX;
+	double patternStrokeSkewY;
+	double patternStrokeSpace;
+	bool patternStrokeMirrorX;
+	bool patternStrokeMirrorY;
+	bool patternStrokePath;
 
-		/** Inline Image */
-		bool isInlineImage;
-		bool isTempFile;
-		//items welding (item follows while item moves which they are connected with)
-		struct WeldingInfo
-		{
-			PageItem *weldItem;
-			FPoint weldPoint;
-			int weldID;
-		};
-		QList<WeldingInfo> weldList;
-		double hatchAngle;
-		double hatchDistance;
-		int hatchType;				// 0 = single 1 = double 2 = triple
-		bool hatchUseBackground;
-		QString hatchBackground;
-		QString hatchForeground;
 
-		// End public variables
+	/**
+		* @brief Stroke gradient name
+		* @sa PageItem::strokeGradient(), PageItem::setStrokeGradient()
+		*/
+	QString gradientStrokeVal;
+	VGradient stroke_gradient;
+
+	/**
+	* @brief Stroke gradient variables
+	*/
+	int GrTypeStroke;
+	double GrStrokeStartX;
+	double GrStrokeStartY;
+	double GrStrokeEndX;
+	double GrStrokeEndY;
+	double GrStrokeFocalX;
+	double GrStrokeFocalY;
+	double GrStrokeScale;
+	double GrStrokeSkew;
+	VGradient::VGradientRepeatMethod GrStrokeExtend;
+
+	/**
+	* @brief Mask gradient variables
+	*/
+	int GrMask;
+	double GrMaskStartX;
+	double GrMaskStartY;
+	double GrMaskEndX;
+	double GrMaskEndY;
+	double GrMaskFocalX;
+	double GrMaskFocalY;
+	double GrMaskScale;
+	double GrMaskSkew;
+	double patternMaskScaleX;
+	double patternMaskScaleY;
+	double patternMaskOffsetX;
+	double patternMaskOffsetY;
+	double patternMaskRotation;
+	double patternMaskSkewX;
+	double patternMaskSkewY;
+	bool patternMaskMirrorX;
+	bool patternMaskMirrorY;
+	QString patternMaskVal;
+	QString gradientMaskVal;
+	VGradient mask_gradient;
+
+	/** Inline Image */
+	bool isInlineImage;
+	bool isTempFile;
+	//items welding (item follows while item moves which they are connected with)
+	struct WeldingInfo
+	{
+		PageItem *weldItem;
+		FPoint weldPoint;
+		int weldID;
+	};
+	QList<WeldingInfo> weldList;
+	double hatchAngle;
+	double hatchDistance;
+	int hatchType;				// 0 = single 1 = double 2 = triple
+	bool hatchUseBackground;
+	QString hatchBackground;
+	QString hatchForeground;
+
+	// End public variables
 
 protected: // Start protected functions
 	PageItem(const PageItem & other);
@@ -1749,49 +1735,49 @@ protected: // Start protected variables
 	 * @brief Fill color name
 	 * @sa PageItem::fillColor(), PageItem::setFillColor()
 	 */
-	QString fillColorVal;
+	QString m_fillColor;
 
 	/**
 	 * @brief Line color name
 	 * @sa PageItem::lineColor(), PageItem::setLineColor()
 	 */
-	QString lineColorVal;
+	QString m_lineColor;
 
 	/**
 	 * @brief Line shade
 	 * @sa PageItem::lineShade, PageItem::setLineShade()
 	 */
-	double lineShadeVal;
+	double m_lineShade;
 
 	/**
 	 * @brief Fill shade
 	 * @sa PageItem::fillShade, PageItem::setFillShade()
 	 */
-	double fillShadeVal;
+	double m_fillShade;
 
 	/**
 	 * @brief Fill transparency
 	 * @sa PageItem::fillTransparency(), PageItem::setFillTransparency()
 	 */
-	double fillTransparencyVal;
+	double m_fillTransparency;
 
 	/**
 	 * @brief Line stroke transparency.
 	 * @sa PageItem::lineTransparency(), PageItem::setLineTransparency()
 	 */
-	double lineTransparencyVal;
+	double m_lineTransparency;
 
 	/**
 	 * @brief Fill transparency blendmode
 	 * @sa PageItem::fillBlendmode(), PageItem::setFillBlendmode()
 	 */
-	int fillBlendmodeVal;
+	int m_fillBlendMode;
 
 	/**
 	 * @brief Line stroke transparency blendmode.
 	 * @sa PageItem::lineBlendmode(), PageItem::setLineBlendmode()
 	 */
-	int lineBlendmodeVal;
+	int m_lineBlendMode;
 
 	/**
 	 * @brief Is the image in this image item flipped horizontally?
@@ -1828,7 +1814,7 @@ protected: // Start protected variables
 	 * @brief Should text flow around the item
 	 * @sa PageItem::textFlowMode(), PateItem::setTextFlowMode()
 	 */
-	TextFlowMode textFlowModeVal;
+	TextFlowMode m_textFlowMode;
 
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
@@ -1863,18 +1849,35 @@ protected: // Start protected variables
 	double m_width; ///< Width of the item
 	double m_height; ///<  Height of the item
 	double m_rotation; ///< Rotation of the item
-	bool m_isSelected; ///< Is the item selected?
+	bool   m_isSelected; ///< Is the item selected?
+	bool   m_imageVisible; ///< Darstellungsart Bild/Titel
 	double m_imageXScale; ///< Scaling X Factor for images
 	double m_imageYScale; ///< Scaling Y Factor for images
 	double m_imageXOffset; ///< Image X Offset to frame
 	double m_imageYOffset; ///< Image Y Offset to frame
 	double m_imageRotation; ///< Image rotation in frame
 	FirstLineOffsetPolicy m_firstLineOffset;
-	bool m_groupClips;
+	bool   m_groupClips;
 	QColor hatchBackgroundQ;
 	QColor hatchForegroundQ;
 
-			// End protected variables
+	int m_startArrowIndex;
+	int m_endArrowIndex;
+	int m_startArrowScale;
+	int m_endArrowScale;
+
+	bool   m_hasSoftShadow;
+	QString m_softShadowColor;
+	int    m_softShadowShade;
+	double m_softShadowBlurRadius;
+	double m_softShadowXOffset;
+	double m_softShadowYOffset;
+	double m_softShadowOpacity;
+	int    m_softShadowBlendMode;
+	bool   m_softShadowErasedByObject;
+	bool   m_softShadowHasObjectTransparency;
+
+	// End protected variables
 
 private:	// Start private functions
 	/**
