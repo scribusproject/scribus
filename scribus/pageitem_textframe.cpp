@@ -3081,7 +3081,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && ((annotation().Type() == 2) || (annotation().Type() == 5) || (annotation().Type() == 6)))
 			{
 				if ((annotation().Feed() == 1) && annotation().IsOn())
-					p->setBrush(QColor(255 - fillQColor.red(), 255 - fillQColor.green(), 255 - fillQColor.blue(), fillQColor.alpha()));
+					p->setBrush(QColor(255 - m_fillQColor.red(), 255 - m_fillQColor.green(), 255 - m_fillQColor.blue(), m_fillQColor.alpha()));
 			}
 			p->setupPolygon(&PoLine);
 			p->fillPath();
@@ -3572,7 +3572,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			{
 				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
-					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					p->setPen(m_strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 					if (DashValues.count() != 0)
 						p->setDash(DashValues, DashOffset);
 				}
@@ -3601,7 +3601,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					{
 						if (lineColor() != CommonStrings::None)
 						{
-							p->setBrush(strokeQColor);
+							p->setBrush(m_strokeQColor);
 							p->setStrokeMode(ScPainter::Solid);
 						}
 						else
@@ -3624,7 +3624,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				else if (lineColor() != CommonStrings::None)
 				{
 					p->setStrokeMode(ScPainter::Solid);
-					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					p->setPen(m_strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 					if (DashValues.count() != 0)
 						p->setDash(DashValues, DashOffset);
 					p->strokePath();

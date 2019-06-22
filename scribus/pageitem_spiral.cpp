@@ -128,7 +128,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				{
 					if (lineColor() != CommonStrings::None)
 					{
-						p->setBrush(strokeQColor);
+						p->setBrush(m_strokeQColor);
 						p->setStrokeMode(ScPainter::Solid);
 					}
 					else

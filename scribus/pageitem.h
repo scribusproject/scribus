@@ -442,7 +442,7 @@ public: // Start public functions
 	void setUseEmbeddedImageProfile(bool val) { UseEmbedded = val; }
 	QString embeddedImageProfile() const { return EmProfile; }
 	void setEmbeddedImageProfile(const QString& val) { EmProfile = val; }
-	bool drawFrame() { return ((m_ItemType == TextFrame && !m_sampleItem) || (m_ItemType == ImageFrame) || (m_ItemType == PathText)); }
+	bool drawFrame() { return ((m_itemType == TextFrame && !m_sampleItem) || (m_itemType == ImageFrame) || (m_itemType == PathText)); }
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(const QString& filename, const QString& baseDir = QString());
 	void setImagePagenumber(int num) { pixm.imgInfo.actualPageNumber = num; }
@@ -625,13 +625,13 @@ public: // Start public functions
 	void setGradientShade3(int val);
 	int gradientShade4() const { return GrCol4Shade; }
 	void setGradientShade4(int val);
-	QColor gradientColor1() const { return GrColorP1QColor; }
+	QColor gradientColor1() const { return m_grQColorP1; }
 	void setGradientColor1(const QColor& val);
-	QColor gradientColor2() const { return GrColorP2QColor; }
+	QColor gradientColor2() const { return m_grQColorP2; }
 	void setGradientColor2(const QColor& val);
-	QColor gradientColor3() const { return GrColorP3QColor; }
+	QColor gradientColor3() const { return m_grQColorP3; }
 	void setGradientColor3(const QColor& val);
-	QColor gradientColor4() const { return GrColorP4QColor; }
+	QColor gradientColor4() const { return m_grQColorP4; }
 	void setGradientColor4(const QColor& val);
 	void setGradientExtend(VGradient::VGradientRepeatMethod val);
 	void setStrokeGradientExtend(VGradient::VGradientRepeatMethod val);
@@ -808,7 +808,7 @@ public: // Start public functions
 	/** 
 	 * @brief Get the name of the gradient of the object
 	 */
-	QString gradient() const { return gradientVal; }
+	QString gradient() const { return m_gradientName; }
 
 	/**
 	 * @brief Set the fill gradient of the object.
@@ -826,7 +826,7 @@ public: // Start public functions
 	void setStrokeGradient(const QString &newGradient);
 
 	/** @brief Get the name of the pattern of the object */
-	QString pattern() const { return patternVal; }
+	QString pattern() const { return m_patternName; }
 
 	/** @brief Get the pattern transformation matrix of the object */
 	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
@@ -1121,7 +1121,7 @@ public: // Start public functions
 	 *            It's here as an interim step to eliminate direct member access
 	 *            on PageItems.
 	 */
-	ItemType itemType() const { return m_ItemType; }
+	ItemType itemType() const { return m_itemType; }
 	/** @brief Get the subclass item type
 	 *
 	 * This function should be used everywhere, where a itemType is required, but
@@ -1129,7 +1129,7 @@ public: // Start public functions
 	 * It returns the same type as itemType() for the standard classes, but
 	 * subclasses override it.
 	 */
-	virtual ItemType realItemType() const { return m_ItemType; }
+	virtual ItemType realItemType() const { return m_itemType; }
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
@@ -1406,11 +1406,7 @@ public:	// Start public variables
 	double oldLocalX; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
 	double oldLocalY; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
 
-
 	ScribusDoc *m_Doc; ///< Document this item belongs to
-
-	bool m_isAnnotation; ///< Flag to tell if this item is a PDF annotation item
-	Annotation m_annotation; ///< PDF annotation data
 
 	double m_lineWidth; //< Line width
 	double m_oldLineWidth;
@@ -1696,7 +1692,7 @@ protected: // Start protected variables
 	 * This will probably go away when pageitem is split into
 	 * subclasses.
 	 */
-	ItemType m_ItemType;
+	ItemType m_itemType;
 
 	/**
 	 * @brief Item name. Unicode. User visible (outline, property palette, etc).
@@ -1706,16 +1702,26 @@ protected: // Start protected variables
 	QString m_itemName;
 
 	/**
+	 * Flag to tell if this item is a PDF annotation item
+	 */
+	bool m_isAnnotation; 
+
+	/**
+	 * PDF annotation data
+	 */
+	Annotation m_annotation;
+
+	/**
 	 * @brief Fill gradient name
 	 * @sa PageItem::gradient(), PageItem::setGradient()
 	 */
-	QString gradientVal;
+	QString m_gradientName;
 
 	/**
 	 * @brief Fill pattern name
 	 * @sa PageItem::pattern(), PageItem::setPattern()
 	 */
-	QString patternVal;
+	QString m_patternName;
 	/**
 	 * @brief Fill pattern transformation matrix
 	 */
@@ -1726,8 +1732,8 @@ protected: // Start protected variables
 	double patternRotation;
 	double patternSkewX;
 	double patternSkewY;
-	bool patternMirrorX;
-	bool patternMirrorY;
+	bool   patternMirrorX;
+	bool   patternMirrorY;
 
 	/**
 	 * @brief Fill color name
@@ -1835,12 +1841,12 @@ protected: // Start protected variables
 	bool no_fill;
 	bool no_stroke;
 
-	QColor fillQColor;
-	QColor strokeQColor;
-	QColor GrColorP1QColor;
-	QColor GrColorP2QColor;
-	QColor GrColorP3QColor;
-	QColor GrColorP4QColor;
+	QColor m_fillQColor;
+	QColor m_strokeQColor;
+	QColor m_grQColorP1;
+	QColor m_grQColorP2;
+	QColor m_grQColorP3;
+	QColor m_grQColorP4;
 
 	double m_xPos; ///< X position on the page
 	double m_yPos; ///< Y position on the page

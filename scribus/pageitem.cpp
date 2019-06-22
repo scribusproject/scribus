@@ -307,10 +307,10 @@ PageItem::PageItem(const PageItem & other)
 	m_sampleItem(false),
 	m_textDistanceMargins(other.m_textDistanceMargins),
 	verticalAlign(other.verticalAlign),
-	m_ItemType(other.m_ItemType),
+	m_itemType(other.m_itemType),
 	m_itemName(other.m_itemName),
-	gradientVal(other.gradientVal),
-	patternVal(other.patternVal),
+	m_gradientName(other.m_gradientName),
+	m_patternName(other.m_patternName),
 	patternScaleX(other.patternScaleX),
 	patternScaleY(other.patternScaleY),
 	patternOffsetX(other.patternOffsetX),
@@ -338,12 +338,12 @@ PageItem::PageItem(const PageItem & other)
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
 	tagged(other.tagged),
-	fillQColor(other.fillQColor),
-	strokeQColor(other.strokeQColor),
-	GrColorP1QColor(other.GrColorP1QColor),
-	GrColorP2QColor(other.GrColorP2QColor),
-	GrColorP3QColor(other.GrColorP3QColor),
-	GrColorP4QColor(other.GrColorP4QColor),
+	m_fillQColor(other.m_fillQColor),
+	m_strokeQColor(other.m_strokeQColor),
+	m_grQColorP1(other.m_grQColorP1),
+	m_grQColorP2(other.m_grQColorP2),
+	m_grQColorP3(other.m_grQColorP3),
+	m_grQColorP4(other.m_grQColorP4),
 	m_xPos(other.m_xPos),
 	m_yPos(other.m_yPos),
 	m_width(other.m_width),
@@ -439,10 +439,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BoundingY = y;
 	BoundingW = w;
 	BoundingH = h;
-	m_ItemType = newType;
+	m_itemType = newType;
 	oldRot = m_rotation = 0;
 	m_fillColor = fill;
-	m_lineColor = m_ItemType == PageItem::TextFrame ? fill : outline;
+	m_lineColor = m_itemType == PageItem::TextFrame ? fill : outline;
 	gWidth = gHeight = 0;
 	GrType = 0;
 	GrStartX = 0;
@@ -471,7 +471,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	meshGradientArray.clear();
 	selectedMeshPointX = -1;
 	selectedMeshPointY = -1;
-	gradientVal = "";
+	m_gradientName = "";
 	GrTypeStroke = 0;
 	GrStrokeStartX = 0;
 	GrStrokeStartY = 0;
@@ -482,7 +482,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStrokeScale = 1;
 	GrStrokeSkew = 0;
 	gradientStrokeVal = "";
-	patternVal = "";
+	m_patternName = "";
 	patternScaleX = 100;
 	patternScaleY = 100;
 	patternOffsetX = 0;
@@ -534,7 +534,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BBoxX = 0;
 	BBoxH = 0;
 	m_roundedCorderRadius = 0;
-	switch (m_ItemType)
+	switch (m_itemType)
 	{
 		case Polygon:
 			Clip.setPoints(4, static_cast<int>(w/2), 0, static_cast<int>(w), static_cast<int>(h/2),
@@ -562,7 +562,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_isAnnotation = false;
 	weldList.clear();
 	
-	switch (m_ItemType)
+	switch (m_itemType)
 	{
 	case ImageFrame:
 	case OSGFrame:
@@ -863,8 +863,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	pageItemAttributes.clear();
 	for (ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
-		if (((*objAttrIt).autoaddto=="textframes" && m_ItemType==TextFrame) ||
-			((*objAttrIt).autoaddto=="imageframes" && m_ItemType==ImageFrame)
+		if (((*objAttrIt).autoaddto=="textframes" && m_itemType==TextFrame) ||
+			((*objAttrIt).autoaddto=="imageframes" && m_itemType==ImageFrame)
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
@@ -1824,14 +1824,14 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	{
 		if (GrType == 8)
 		{
-			ScPattern *pattern = m_Doc->checkedPattern(patternVal);
+			ScPattern *pattern = m_Doc->checkedPattern(m_patternName);
 			if (!pattern)
 			{
 				p->fill_gradient = VGradient(VGradient::linear);
 				p->fill_gradient.setRepeatMethod(GrExtend);
 				if (fillColor() != CommonStrings::None)
 				{
-					p->setBrush(fillQColor);
+					p->setBrush(m_fillQColor);
 					p->setFillMode(ScPainter::Solid);
 				}
 				else
@@ -1839,10 +1839,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					no_fill = true;
 					p->setFillMode(ScPainter::None);
 				}
-				if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
+				if ((!m_patternName.isEmpty()) && (!m_Doc->docPatterns.contains(m_patternName)))
 				{
 					GrType = 0;
-					patternVal = "";
+					m_patternName = "";
 				}
 			}
 			else
@@ -1861,26 +1861,26 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 				FPoint pG3 = FPoint(width(), height());
 				FPoint pG4 = FPoint(0, height());
 				p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
-				p->set4ColorColors(GrColorP1QColor, GrColorP2QColor, GrColorP3QColor, GrColorP4QColor);
+				p->set4ColorColors(m_grQColorP1, m_grQColorP2, m_grQColorP3, m_grQColorP4);
 			}
 			else if (GrType == 14)
 			{
 				if (fillColor() != CommonStrings::None)
-					p->setBrush(fillQColor);
+					p->setBrush(m_fillQColor);
 				p->setFillMode(ScPainter::Hatch);
 				p->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackgroundQ, hatchForegroundQ, width(), height());
 			}
 			else
 			{
-				if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
-					gradientVal = "";
-				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-					fill_gradient = m_Doc->docGradients[gradientVal];
+				if ((!m_gradientName.isEmpty()) && (!m_Doc->docGradients.contains(m_gradientName)))
+					m_gradientName = "";
+				if (!(m_gradientName.isEmpty()) && (m_Doc->docGradients.contains(m_gradientName)))
+					fill_gradient = m_Doc->docGradients[m_gradientName];
 				if ((fill_gradient.stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
 					if (fillColor() != CommonStrings::None)
 					{
-						p->setBrush(fillQColor);
+						p->setBrush(m_fillQColor);
 						p->setFillMode(ScPainter::Solid);
 					}
 					else
@@ -1930,7 +1930,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		p->fill_gradient = VGradient(VGradient::linear);
 		if (fillColor() != CommonStrings::None)
 		{
-			p->setBrush(fillQColor);
+			p->setBrush(m_fillQColor);
 			p->setFillMode(ScPainter::Solid);
 		}
 		else
@@ -1941,7 +1941,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	}
 	if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 	{
-		p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
+		p->setPen(m_strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 		if (DashValues.count() != 0)
 			p->setDash(DashValues, DashOffset);
 	}
@@ -2042,7 +2042,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setPenOpacity(1.0 - lineTransparency());
 				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
-					p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
+					p->setPen(m_strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 					if (DashValues.count() != 0)
 						p->setDash(DashValues, DashOffset);
 				}
@@ -2077,7 +2077,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						{
 							if (lineColor() != CommonStrings::None)
 							{
-								p->setBrush(strokeQColor);
+								p->setBrush(m_strokeQColor);
 								p->setStrokeMode(ScPainter::Solid);
 							}
 							else
@@ -2101,7 +2101,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					else if (lineColor() != CommonStrings::None)
 					{
 						p->setStrokeMode(ScPainter::Solid);
-						p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
+						p->setPen(m_strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 						if (DashValues.count() != 0)
 							p->setDash(DashValues, DashOffset);
 						p->strokePath();
@@ -2597,11 +2597,11 @@ void PageItem::setItemName(const QString& newName)
 
 void PageItem::setGradient(const QString &newGradient)
 {
-	if (gradientVal == newGradient)
+	if (m_gradientName == newGradient)
 		return;
-	gradientVal = newGradient;
-	if (m_Doc->docGradients.contains(gradientVal))
-		fill_gradient = m_Doc->docGradients[gradientVal];
+	m_gradientName = newGradient;
+	if (m_Doc->docGradients.contains(m_gradientName))
+		fill_gradient = m_Doc->docGradients[m_gradientName];
 }
 
 void PageItem::setMaskGradient(const VGradient& grad)
@@ -2648,8 +2648,8 @@ void PageItem::setStrokeGradient(const VGradient& grad)
 
 void PageItem::setPattern(const QString &newPattern)
 {
-	if (patternVal != newPattern)
-		patternVal = newPattern;
+	if (m_patternName != newPattern)
+		m_patternName = newPattern;
 }
 
 void PageItem::set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4)
@@ -2739,7 +2739,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		setGradientColor1(defect.convertDefect(GrColorP1QColor, m_Doc->previewVisual));
+		setGradientColor1(defect.convertDefect(m_grQColorP1, m_Doc->previewVisual));
 	}
 	setGradientCol2(col2);
 	if (GrColorP2 != CommonStrings::None)
@@ -2779,7 +2779,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		setGradientColor2(defect.convertDefect(GrColorP2QColor, m_Doc->previewVisual));
+		setGradientColor2(defect.convertDefect(m_grQColorP2, m_Doc->previewVisual));
 	}
 	setGradientCol3(col3);
 	if (GrColorP3 != CommonStrings::None)
@@ -2819,7 +2819,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		setGradientColor3(defect.convertDefect(GrColorP3QColor, m_Doc->previewVisual));
+		setGradientColor3(defect.convertDefect(m_grQColorP3, m_Doc->previewVisual));
 	}
 	setGradientCol4(col4);
 	if (GrColorP4 != CommonStrings::None)
@@ -2859,7 +2859,7 @@ void PageItem::set4ColorColors(const QString& col1, const QString& col2, const Q
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		setGradientColor4(defect.convertDefect(GrColorP4QColor, m_Doc->previewVisual));
+		setGradientColor4(defect.convertDefect(m_grQColorP4, m_Doc->previewVisual));
 	}
 	if (trans)
 		trans.commit();
@@ -3924,12 +3924,12 @@ void PageItem::setLineQColor()
 		if (!m_Doc->PageColors.contains(m_lineColor))
 			m_lineColor = m_Doc->itemToolPrefs().shapeLineColor;
 		const ScColor& col = m_Doc->PageColors[m_lineColor];
-		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_lineShade);
+		m_strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_lineShade);
 	}
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		strokeQColor = defect.convertDefect(strokeQColor, m_Doc->previewVisual);
+		m_strokeQColor = defect.convertDefect(m_strokeQColor, m_Doc->previewVisual);
 	}
 }
 
@@ -3963,12 +3963,12 @@ void PageItem::setFillQColor()
 			}
 		}
 		const ScColor& col = m_Doc->PageColors[m_fillColor];
-		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_fillShade);
+		m_fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, m_fillShade);
 	}
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		fillQColor = defect.convertDefect(fillQColor, m_Doc->previewVisual);
+		m_fillQColor = defect.convertDefect(m_fillQColor, m_Doc->previewVisual);
 	}
 }
 
@@ -4563,12 +4563,12 @@ void PageItem::checkTextFlowInteractions(const QRectF& baseRect, bool allItems)
 
 void PageItem::convertTo(ItemType newType)
 {
-	if (m_ItemType == newType)
+	if (m_itemType == newType)
 		return; // nothing to do -> return
 	assert(newType != 1);	//DEBUG CR 2005-02-06
 	assert(newType != 3);	//DEBUG CR 2005-02-06
 	QString fromType = "", toType = "";
-	switch (m_ItemType)
+	switch (m_itemType)
 	{
 		case ImageFrame:
 			if (asLatexFrame())
@@ -4624,13 +4624,13 @@ void PageItem::convertTo(ItemType newType)
 										  QString(Um::FromTo).arg(fromType).arg(toType));
 		ss->set("CONVERT", "convert");
 		ss->set("PAGEITEM", reinterpret_cast<void*>(this));
-		ss->set("OLD_TYPE", m_ItemType);
+		ss->set("OLD_TYPE", m_itemType);
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
 	}
 	*/
-	m_ItemType = newType;
-	emit frameType(m_ItemType);
+	m_itemType = newType;
+	emit frameType(m_itemType);
 }
 
 void PageItem::setLayer(int newLayerID)
@@ -5987,9 +5987,9 @@ void PageItem::restoreGradientColor1(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientColor1: dynamic cast failed");
 	if (isUndo)
-		GrColorP1QColor = is->getItem().first;
+		m_grQColorP1 = is->getItem().first;
 	else
-		GrColorP1QColor = is->getItem().second;
+		m_grQColorP1 = is->getItem().second;
 	update();
 }
 
@@ -6064,9 +6064,9 @@ void PageItem::restoreGradientColor2(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientColor2: dynamic cast failed");
 	if (isUndo)
-		GrColorP2QColor = is->getItem().first;
+		m_grQColorP2 = is->getItem().first;
 	else
-		GrColorP2QColor = is->getItem().second;
+		m_grQColorP2 = is->getItem().second;
 	update();
 }
 
@@ -6076,9 +6076,9 @@ void PageItem::restoreGradientColor3(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientColor3: dynamic cast failed");
 	if (isUndo)
-		GrColorP3QColor = is->getItem().first;
+		m_grQColorP3 = is->getItem().first;
 	else
-		GrColorP3QColor = is->getItem().second;
+		m_grQColorP3 = is->getItem().second;
 	update();
 }
 
@@ -6088,9 +6088,9 @@ void PageItem::restoreGradientColor4(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientColor4: dynamic cast failed");
 	if (isUndo)
-		GrColorP4QColor = is->getItem().first;
+		m_grQColorP4 = is->getItem().first;
 	else
-		GrColorP4QColor = is->getItem().second;
+		m_grQColorP4 = is->getItem().second;
 	update();
 }
 
@@ -8157,58 +8157,58 @@ void PageItem::setGradientTransp4(double val)
 
 void PageItem::setGradientColor1(const QColor& val)
 {
-	if (GrColorP1QColor ==val)
+	if (m_grQColorP1 ==val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR1");
-		ss->setItem(qMakePair(GrColorP1QColor,val));
+		ss->setItem(qMakePair(m_grQColorP1,val));
 		undoManager->action(this,ss);
 	}
-	GrColorP1QColor = val;
+	m_grQColorP1 = val;
 }
 
 void PageItem::setGradientColor2(const QColor& val)
 {
-	if (GrColorP2QColor ==val)
+	if (m_grQColorP2 ==val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR2");
-		ss->setItem(qMakePair(GrColorP2QColor,val));
+		ss->setItem(qMakePair(m_grQColorP2,val));
 		undoManager->action(this,ss);
 	}
-	GrColorP2QColor = val;
+	m_grQColorP2 = val;
 }
 
 void PageItem::setGradientColor3(const QColor& val)
 {
-	if (GrColorP3QColor ==val)
+	if (m_grQColorP3 ==val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR3");
-		ss->setItem(qMakePair(GrColorP3QColor,val));
+		ss->setItem(qMakePair(m_grQColorP3,val));
 		undoManager->action(this,ss);
 	}
-	GrColorP3QColor = val;
+	m_grQColorP3 = val;
 }
 
 void PageItem::setGradientColor4(const QColor& val)
 {
-	if (GrColorP4QColor ==val)
+	if (m_grQColorP4 ==val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR4");
-		ss->setItem(qMakePair(GrColorP4QColor,val));
+		ss->setItem(qMakePair(m_grQColorP4,val));
 		undoManager->action(this,ss);
 	}
-	GrColorP4QColor = val;
+	m_grQColorP4 = val;
 }
 
 void PageItem::setGradientExtend(VGradient::VGradientRepeatMethod val)
@@ -8685,8 +8685,8 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		lists.collectColor(fillColor());
 	else if ((GrType < 8) || (GrType == 10))
 	{
-		if ((!gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-			lists.collectGradient(gradientVal);
+		if ((!m_gradientName.isEmpty()) && (m_Doc->docGradients.contains(m_gradientName)))
+			lists.collectGradient(m_gradientName);
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (int cst = 0; cst < fill_gradient.stops(); ++cst)
 		{
@@ -9971,7 +9971,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 				{
 					if (lineColor() != CommonStrings::None)
 					{
-						p->setBrush(strokeQColor);
+						p->setBrush(m_strokeQColor);
 						p->setBrushOpacity(1.0 - lineTransparency());
 						p->setLineWidth(0);
 						p->setFillMode(ScPainter::Solid);
@@ -9992,7 +9992,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			}
 			else if (lineColor() != CommonStrings::None)
 			{
-				p->setBrush(strokeQColor);
+				p->setBrush(m_strokeQColor);
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
@@ -10381,7 +10381,7 @@ void PageItem::emitAllToGUI()
 	updateConstants();
 
 	emit myself(this);
-	emit frameType(m_ItemType);
+	emit frameType(m_itemType);
 
 //CB unused in 135
 //	double dur=m_Doc->unitRatio();
@@ -10469,7 +10469,7 @@ void PageItem::updateConstants()
 //CB Old ScribusView MoveItemI
 void PageItem::moveImageInFrame(double newX, double newY)
 {
-	if (m_ItemType!=PageItem::ImageFrame)
+	if (m_itemType!=PageItem::ImageFrame)
 		return;
 	if (locked())// || (!ScaleType))
 		return;

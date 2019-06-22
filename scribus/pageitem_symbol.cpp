@@ -56,9 +56,9 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 {
 	if (m_Doc->RePos)
 		return;
-	if (!m_Doc->docPatterns.contains(patternVal))
-		patternVal = "";
-	if (patternVal.isEmpty())
+	if (!m_Doc->docPatterns.contains(m_patternName))
+		m_patternName = "";
+	if (m_patternName.isEmpty())
 	{
 		if (m_Doc->guidesPrefs().framesShown)
 		{
@@ -131,7 +131,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->setFillRule(fillRule);
 	p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
 	p->setMaskMode(0);
-	ScPattern pat = m_Doc->docPatterns[patternVal];
+	ScPattern pat = m_Doc->docPatterns[m_patternName];
 	p->scale(m_width / pat.width, m_height / pat.height);
 //		p->translate(pat.items.at(0)->gXpos, pat.items.at(0)->gYpos);
 	for (int em = 0; em < pat.items.count(); ++em)

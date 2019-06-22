@@ -113,7 +113,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					{
 						if (lineColor() != CommonStrings::None)
 						{
-							p->setBrush(strokeQColor);
+							p->setBrush(m_strokeQColor);
 							p->setStrokeMode(ScPainter::Solid);
 						}
 						else
