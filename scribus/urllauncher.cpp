@@ -18,28 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "util.h"
 
-UrlLauncher* UrlLauncher::_instance = nullptr;
-
-UrlLauncher::UrlLauncher()
+UrlLauncher& UrlLauncher::instance()
 {
-}
-
-UrlLauncher::~UrlLauncher()
-{
-}
-
-UrlLauncher* UrlLauncher::instance()
-{
-	if (_instance == nullptr)
-		_instance = new UrlLauncher();
-
+	static UrlLauncher _instance;
 	return _instance;
-}
-
-void UrlLauncher::deleteInstance()
-{
-	delete _instance;
-	_instance = nullptr;
 }
 
 void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
@@ -61,7 +43,7 @@ void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 			{
 				extBrowser = QFileDialog::getOpenFileName(p, tr("Locate your web browser"), QString(), QString());
 				if (!QFileInfo::exists(extBrowser))
-					extBrowser="";
+					extBrowser.clear();
 				PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
 			}
 		}

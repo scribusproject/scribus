@@ -302,7 +302,6 @@ ScribusMainWindow::ScribusMainWindow()
 	m_prefsManager=nullptr;
 	m_formatsManager=nullptr;
 	resourceManager=nullptr;
-	UrlLauncher::instance();
 	m_mainWindowStatusLabel=nullptr;
 	m_ScriptRunning = 0;
 #ifdef Q_OS_MAC
@@ -2015,7 +2014,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		m_prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
 	FormatsManager::deleteInstance();
-	UrlLauncher::deleteInstance();
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	ce->accept();
 }

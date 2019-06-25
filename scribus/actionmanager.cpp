@@ -1017,12 +1017,12 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	connect( (*scrActions)["helpCheckUpdates"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpCheckUpdates()) );
-	UrlLauncher* ul=UrlLauncher::instance();
-	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
-	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
-	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
-	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
-	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(QString)) );
+	UrlLauncher& ul=UrlLauncher::instance();
+	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
+	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
