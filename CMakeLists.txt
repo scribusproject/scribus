@@ -979,20 +979,20 @@ if (WITH_BOOST)
 endif()
 #>>Boost for 2Geom Tools
 
-#<<GraphicksMagick for image import
+#<< GraphicsMagick for image import
 if (WANT_GRAPHICSMAGICK)
 	set(GMAGICK_DIR ${CMAKE_MODULE_PATH})
 	pkg_check_modules(GMAGICK GraphicsMagick)
 	# find_package(GMAGICK)
 	if(GMAGICK_FOUND)
-		message("GraphicksMagick Found OK")
+		message(" GraphicsMagick Found OK")
 	else()
-		message("GraphicksMagick NOT found! Building without additional image format support!")
+		message(" GraphicsMagick NOT found! Building without additional image format support!")
 	endif()
 else()
-	message("Building without GraphicksMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
+	message("Building without  GraphicsMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
 endif()
-#>>GraphicksMagick for image import
+#>> GraphicsMagick for image import
 
 #<<Poppler for PDF import
 find_package(POPPLER REQUIRED)
