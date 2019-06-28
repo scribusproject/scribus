@@ -453,7 +453,7 @@ if(WANT_LIB64)
 	if(NOT ARCH_X86_64)
 		message(STATUS "WARNING: BUILDING 64 Bit build on non 64 bit architecture")
 	endif()
-	set(LIB_SUFFIX "64" CACHE STRING)
+	set(LIB_SUFFIX "64" CACHE STRING "Library directory suffix")
 endif()
 
 set(LIB_DIR_NAME "lib${LIB_SUFFIX}")
