@@ -129,12 +129,12 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 
 	if ( !iconsInitialized )
 	{
-		alertIcon = IconManager::instance()->loadPixmap("alert.png", true);
-		cmykIcon = IconManager::instance()->loadPixmap("cmyk.png", true);
-		rgbIcon = IconManager::instance()->loadPixmap("rgb.png", true);
-		labIcon = IconManager::instance()->loadPixmap("lab.png", true);
-		spotIcon = IconManager::instance()->loadPixmap("spot.png", true);
-		regIcon = IconManager::instance()->loadPixmap("register.png", true);
+		alertIcon = IconManager::instance().loadPixmap("alert.png", true);
+		cmykIcon = IconManager::instance().loadPixmap("cmyk.png", true);
+		rgbIcon = IconManager::instance().loadPixmap("rgb.png", true);
+		labIcon = IconManager::instance().loadPixmap("lab.png", true);
+		spotIcon = IconManager::instance().loadPixmap("spot.png", true);
+		regIcon = IconManager::instance().loadPixmap("register.png", true);
 		iconsInitialized = true;
 	}
 

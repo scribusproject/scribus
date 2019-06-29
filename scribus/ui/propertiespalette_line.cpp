@@ -685,18 +685,18 @@ void PropertiesPalette_Line::languageChange()
 	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
 	int oldLJoinStyle = lineJoinStyle->currentIndex();
 	lineJoinStyle->clear();
-	IconManager* im=IconManager::instance();
-	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
-	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
-	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-round.png"), tr("Round Join"));
+	IconManager& im=IconManager::instance();
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-round.png"), tr("Round Join"));
 	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
 
 	QSignalBlocker lineEndStyleBlocker(lineEndStyle);
 	int oldLEndStyle = lineEndStyle->currentIndex();
 	lineEndStyle->clear();
-	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
-	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
-	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
 	lineEndStyle->setCurrentIndex(oldLEndStyle);
 	lineEndLabel->setText( tr("&Endings:"));
 

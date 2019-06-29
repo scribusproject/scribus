@@ -348,7 +348,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 void Hruler::enterEvent(QEvent *e)
 {
 	if (m_textEditMode)
-		qApp->changeOverrideCursor(IconManager::instance()->loadCursor("tab.png", 3));
+		qApp->changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));
 }
 
 void Hruler::leaveEvent(QEvent *m)
@@ -449,7 +449,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*m_doc->guidesPrefs().grabRadius))
 		{
-			setCursor(IconManager::instance()->loadCursor("tab.png", 3));
+			setCursor(IconManager::instance().loadCursor("tab.png", 3));
 			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
 			{
 				case rc_leftFrameDist:
@@ -478,7 +478,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((m_mousePressed) && (m_rulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
 		{
-			setCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
+			setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 			return;
 		}
 		setCursor(QCursor(Qt::ArrowCursor));

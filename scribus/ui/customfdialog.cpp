@@ -70,15 +70,15 @@ ImIconProvider::ImIconProvider()
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		fmts.append(tmp[a]);
-	IconManager* im=IconManager::instance();
-	imagepm = im->loadIcon("16/image-x-generic.png");
-	pspm = im->loadIcon("postscript.png");
-	txtpm = im->loadIcon("txt.png");
-	docpm = im->loadIcon("doc.png");
-	pdfpm = im->loadIcon("pdf.png");
-	oosxdpm = im->loadIcon("ooo_draw.png");
-	oosxwpm = im->loadIcon("ooo_writer.png");
-	vectorpm = im->loadIcon("vectorgfx.png");
+	IconManager& im=IconManager::instance();
+	imagepm = im.loadIcon("16/image-x-generic.png");
+	pspm = im.loadIcon("postscript.png");
+	txtpm = im.loadIcon("txt.png");
+	docpm = im.loadIcon("doc.png");
+	pdfpm = im.loadIcon("pdf.png");
+	oosxdpm = im.loadIcon("ooo_draw.png");
+	oosxwpm = im.loadIcon("ooo_writer.png");
+	vectorpm = im.loadIcon("vectorgfx.png");
 }
 
 QIcon ImIconProvider::icon(const QFileInfo &fi) const
@@ -175,7 +175,7 @@ void FDialogPreview::genPreview(const QString& name)
 		QString tmp2 = "";
 		QImage im2 = im.scaled(w - 5, h - 44, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		// Qt4 FIXME imho should be better
 		pm = *pixmap();
 		p.begin(&pm);
@@ -214,7 +214,7 @@ void FDialogPreview::genPreview(const QString& name)
 		desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		pm = *pixmap();
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h-21, b);
@@ -239,7 +239,7 @@ void FDialogPreview::genPreview(const QString& name)
 		QImage im = pre->createPreview(f);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		pm = *pixmap();
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h-21, b);
@@ -287,7 +287,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 {
 	setModal(true);
 	setWindowTitle(caption);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(5);
 	vboxLayout->setMargin(10);

@@ -54,7 +54,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
 	setupListWidget();
-	IconManager* im = IconManager::instance();
+	IconManager& im = IconManager::instance();
 	while (prefsStackWidget->currentWidget()!=nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
@@ -104,47 +104,47 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	// Add Stack Widgets if required
 	if (!doc)
 	{
-		addItem( tr("User Interface"), im->loadPixmap("scribus16.png"), prefs_UserInterface);
-		addItem( tr("Paths"), im->loadPixmap("16/folder.png"), prefs_Paths);
-		addItem( tr("Keyboard Shortcuts"), im->loadPixmap("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
+		addItem( tr("User Interface"), im.loadPixmap("scribus16.png"), prefs_UserInterface);
+		addItem( tr("Paths"), im.loadPixmap("16/folder.png"), prefs_Paths);
+		addItem( tr("Keyboard Shortcuts"), im.loadPixmap("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
 	}
-	addItem( tr("Document Setup"), im->loadPixmap("scribusdoc16.png"), prefs_DocumentSetup);
+	addItem( tr("Document Setup"), im.loadPixmap("scribusdoc16.png"), prefs_DocumentSetup);
 	if (!doc)
-		addItem( tr("Page Sizes"), im->loadPixmap("16/page-simple.png"), prefs_PageSizes);
-	addItem( tr("Guides"), im->loadPixmap("16/edit-guides.png"), prefs_Guides);
+		addItem( tr("Page Sizes"), im.loadPixmap("16/page-simple.png"), prefs_PageSizes);
+	addItem( tr("Guides"), im.loadPixmap("16/edit-guides.png"), prefs_Guides);
 	if (doc)
-		addItem( tr("Document Information"), im->loadPixmap("documentinfo.png"), prefs_DocumentInformation);
+		addItem( tr("Document Information"), im.loadPixmap("documentinfo.png"), prefs_DocumentInformation);
 	if (doc)
-		addItem( tr("Sections"), im->loadPixmap("tabtocindex_16.png"), prefs_DocumentSections);
+		addItem( tr("Sections"), im.loadPixmap("tabtocindex_16.png"), prefs_DocumentSections);
 
-	addItem( tr("Item Tools"), im->loadPixmap("tools_16.png"), prefs_ItemTools);
-	addItem( tr("Fonts"), im->loadPixmap("16/preferences-desktop-font.png"), prefs_Fonts);
-	addItem( tr("Typography"), im->loadPixmap("16/draw-text.png"), prefs_Typography);
-	addItem( tr("Hyphenator"), im->loadPixmap("signature_16.png"), prefs_Hyphenator);
+	addItem( tr("Item Tools"), im.loadPixmap("tools_16.png"), prefs_ItemTools);
+	addItem( tr("Fonts"), im.loadPixmap("16/preferences-desktop-font.png"), prefs_Fonts);
+	addItem( tr("Typography"), im.loadPixmap("16/draw-text.png"), prefs_Typography);
+	addItem( tr("Hyphenator"), im.loadPixmap("signature_16.png"), prefs_Hyphenator);
 	//if (!doc)
-	//	addItem( tr("Spelling"), im->loadPixmap("signature_16.png"), prefs_Spelling);
+	//	addItem( tr("Spelling"), im.loadPixmap("signature_16.png"), prefs_Spelling);
 
 
 
-	addItem( tr("Color Management"), im->loadPixmap("blend_16.png"), prefs_ColorManagement);
+	addItem( tr("Color Management"), im.loadPixmap("blend_16.png"), prefs_ColorManagement);
 	if (!doc)
-		addItem( tr("Image Cache"), im->loadPixmap("16/image-x-generic.png"), prefs_ImageCache);
-	addItem( tr("Display"), im->loadPixmap("16/video-display.png"), prefs_Display);
-	addItem( tr("Operator Tools"), im->loadPixmap("tools_16.png"), prefs_OperatorTools);
+		addItem( tr("Image Cache"), im.loadPixmap("16/image-x-generic.png"), prefs_ImageCache);
+	addItem( tr("Display"), im.loadPixmap("16/video-display.png"), prefs_Display);
+	addItem( tr("Operator Tools"), im.loadPixmap("tools_16.png"), prefs_OperatorTools);
 	if (!doc)
-		addItem( tr("External Tools"), im->loadPixmap("gear_16.png"), prefs_ExternalTools);
+		addItem( tr("External Tools"), im.loadPixmap("gear_16.png"), prefs_ExternalTools);
 	if (!doc)
-		addItem( tr("Scrapbook"), im->loadPixmap("scrap_16.png"), prefs_Scrapbook);
-	addItem( tr("Preflight Verifier"), im->loadPixmap("16/preflight-verifier.png"), prefs_PreflightVerifier);
-	addItem( tr("Printer"), im->loadPixmap("16/printer.png"), prefs_Printer);
-	addItem( tr("PDF Export"), im->loadPixmap("acroread16.png"), prefs_PDFExport);
+		addItem( tr("Scrapbook"), im.loadPixmap("scrap_16.png"), prefs_Scrapbook);
+	addItem( tr("Preflight Verifier"), im.loadPixmap("16/preflight-verifier.png"), prefs_PreflightVerifier);
+	addItem( tr("Printer"), im.loadPixmap("16/printer.png"), prefs_Printer);
+	addItem( tr("PDF Export"), im.loadPixmap("acroread16.png"), prefs_PDFExport);
 	if (!doc)
-		addItem( tr("Miscellaneous"), im->loadPixmap("misc_16.png"), prefs_Miscellaneous);
-	addItem( tr("Document Item Attributes"), im->loadPixmap("docattributes_16.png"), prefs_DocumentItemAttributes);
-	addItem( tr("Tables of Contents"), im->loadPixmap("tabtocindex_16.png"), prefs_TableOfContents);
+		addItem( tr("Miscellaneous"), im.loadPixmap("misc_16.png"), prefs_Miscellaneous);
+	addItem( tr("Document Item Attributes"), im.loadPixmap("docattributes_16.png"), prefs_DocumentItemAttributes);
+	addItem( tr("Tables of Contents"), im.loadPixmap("tabtocindex_16.png"), prefs_TableOfContents);
 
 	if (!doc)
-		addItem( tr("Plugins"), im->loadPixmap("plugins_16.png"), prefs_Plugins);
+		addItem( tr("Plugins"), im.loadPixmap("plugins_16.png"), prefs_Plugins);
 
 	arrangeIcons();
 

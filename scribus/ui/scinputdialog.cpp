@@ -23,7 +23,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal) : Q
 	if ( !name )
 		setObjectName( "ScInputDialog" );
 	setModal(modal);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setSizeGripEnabled( true );
 	ScInputDialogLayout = new QVBoxLayout( this );
 	ScInputDialogLayout->setMargin(10);

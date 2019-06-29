@@ -32,7 +32,7 @@ selectDialog::selectDialog(QWidget* parent, ColorList &availableColors, int unit
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	backgroundCombo->setPixmapType(ColorCombo::fancyPixmaps);
 	backgroundCombo->setColors(availableColors, true);
 	lineCombo->setPixmapType(ColorCombo::fancyPixmaps);

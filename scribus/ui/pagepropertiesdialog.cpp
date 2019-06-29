@@ -30,7 +30,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 {
 	setModal(true);
 	setWindowTitle( tr( "Manage Page Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	unitRatio = doc->unitRatio();
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setMargin(10);

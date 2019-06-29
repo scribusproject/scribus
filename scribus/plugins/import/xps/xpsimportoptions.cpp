@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 XpsImportOptions::XpsImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::XpsImportOptions)
 {
 	ui->setupUi(this);
-	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
+	ui->pageSelectButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	m_maxPage = 0;
 }
 

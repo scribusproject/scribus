@@ -31,22 +31,10 @@ IconManager::IconManager(QObject *parent)
 {
 }
 
-IconManager::~IconManager()
+IconManager& IconManager::instance()
 {
-}
-
-IconManager* IconManager::instance()
-{
-	if (m_instance == nullptr)
-		m_instance = new IconManager();
-
-	return m_instance;
-}
-
-void IconManager::deleteInstance()
-{
-	delete m_instance;
-	m_instance = nullptr;
+	static IconManager _instance;
+	return _instance;
 }
 
 bool IconManager::setup()

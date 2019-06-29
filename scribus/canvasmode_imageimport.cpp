@@ -68,7 +68,7 @@ void CanvasMode_ImageImport::newToolTip(const QString& name)
 {
 	QPainter p;
 	QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
-	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 	p.begin(&pm);
 	p.fillRect(QRectF(0, 0, 80, 80), b);
 	QImage thumb;
@@ -170,12 +170,12 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 	{
 		PageItem_ImageFrame *currItem;
 		if ((currItem = item->asImageFrame()) != nullptr)
-			m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
+			m_view->setCursor(IconManager::instance().loadCursor("drawimageframe.png"));
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 	}
 	else
-		m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
+		m_view->setCursor(IconManager::instance().loadCursor("drawimageframe.png"));
 	if (commonMouseMove(m))
 		return;
 }

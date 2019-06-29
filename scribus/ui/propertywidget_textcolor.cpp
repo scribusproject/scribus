@@ -27,21 +27,21 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 
 	fillLayout->setAlignment( Qt::AlignLeft );
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
-	fillIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	fillIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	fillIcon->setScaledContents( false );
-	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	strokeLayout->setAlignment( Qt::AlignLeft );
 	strokeColor->setPixmapType(ColorCombo::fancyPixmaps);
-	strokeIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-stroke.png"));
+	strokeIcon->setPixmap(IconManager::instance().loadPixmap("16/color-stroke.png"));
 	strokeIcon->setScaledContents( false );
-	strokeShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	strokeShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	backLayout->setAlignment( Qt::AlignLeft );
 	backColor->setPixmapType(ColorCombo::fancyPixmaps);
-	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	backIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	backIcon->setScaledContents( false );
-	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	backShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	effectsLayout->setAlignment( Qt::AlignLeft );
 

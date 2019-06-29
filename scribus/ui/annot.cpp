@@ -61,7 +61,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr( "Field Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	item = it;
 	Width = b;
 	Height = h;

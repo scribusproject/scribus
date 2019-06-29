@@ -132,7 +132,7 @@ protected:
 	int m_currScMW;
 	
 	ScSplashScreen *m_SplashScreen;
-	IconManager *m_iconManager;
+	IconManager& m_iconManager;
 	UndoManager *m_undoManager;
 	PrefsManager *m_prefsManager;
 	bool m_ScribusInitialized;

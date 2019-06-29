@@ -60,7 +60,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	trash->setMinimumSize(QSize(32,32));
 	trash->setMaximumSize(QSize(32,32));
 
-	pix = IconManager::instance()->loadPixmap("32/page-simple.png");
+	pix = IconManager::instance().loadPixmap("32/page-simple.png");
 
 	currView = nullptr;
 	Rebuild();

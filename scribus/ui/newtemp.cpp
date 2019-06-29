@@ -26,7 +26,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 {
 	setModal(true);
 	setWindowTitle(titel);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	QueryLayout = new QVBoxLayout( this );
 	QueryLayout->setSpacing( 5 );
 	QueryLayout->setMargin( 5 );

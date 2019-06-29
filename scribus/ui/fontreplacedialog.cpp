@@ -28,7 +28,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 {
 	setModal(true);
 	setWindowTitle( tr( "Font Substitution" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	ReplaceList = RList;
 	FontReplaceDialogLayout = new QVBoxLayout( this );
 	FontReplaceDialogLayout->setMargin(10);

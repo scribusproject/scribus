@@ -21,7 +21,7 @@ TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabReco
 {
 	setModal(true);
 	setWindowTitle( tr( "Manage Tabulators" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	docUnitRatio = unitGetRatioFromIndex(dEin);
 	tmpTab = inTab;
 	TabManagerLayout = new QVBoxLayout( this );

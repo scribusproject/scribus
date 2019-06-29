@@ -24,9 +24,8 @@ SMLineStyleWidget::SMLineStyleWidget()
 
 	colorCombo->setPixmapType(ColorCombo::fancyPixmaps);
 
-	IconManager* im  = IconManager::instance();
-	addButton->setIcon(im->loadIcon("penciladd.png"));
-	removeButton->setIcon(im->loadIcon("pencilsub.png"));
+	addButton->setIcon(IconManager::instance().loadIcon("penciladd.png"));
+	removeButton->setIcon(IconManager::instance().loadIcon("pencilsub.png"));
 
 	lineWidth->setMinimum(0.0);
 	lineWidth->setMaximum(300.0);
@@ -80,22 +79,22 @@ void SMLineStyleWidget::unitChange(int unitIndex)
 
 void SMLineStyleWidget::fillEndCombo()
 {
-	IconManager* im  = IconManager::instance();
+	IconManager& im  = IconManager::instance();
 
 	endCombo->clear();
-	endCombo->addItem(im->loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	endCombo->addItem(im->loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	endCombo->addItem(im->loadIcon("RoundCap.png"), tr( "Round Cap" ) );
+	endCombo->addItem(im.loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+	endCombo->addItem(im.loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+	endCombo->addItem(im.loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 }
 
 void SMLineStyleWidget::fillJoinCombo()
 {
-	IconManager* im  = IconManager::instance();
+	IconManager& im  = IconManager::instance();
 
 	joinCombo->clear();
-	joinCombo->addItem(im->loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	joinCombo->addItem(im->loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	joinCombo->addItem(im->loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+	joinCombo->addItem(im.loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+	joinCombo->addItem(im.loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+	joinCombo->addItem(im.loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 }
 
 void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)

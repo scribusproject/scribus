@@ -2208,7 +2208,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				{
 					p->save();
 					p->translate(ofx, ofy);
-					QImage ico = IconManager::instance()->loadPixmap("22/dialog-warning.png").toImage();
+					QImage ico = IconManager::instance().loadPixmap("22/dialog-warning.png").toImage();
 					p->drawImage(&ico);
 					p->restore();
 				}

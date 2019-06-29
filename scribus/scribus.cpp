@@ -307,7 +307,7 @@ ScribusMainWindow::ScribusMainWindow()
 #ifdef Q_OS_MAC
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
-	//noIcon = IconManager::instance()->loadPixmap("noicon.png");
+	//noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
 	m_doc = nullptr;
 	m_tocGenerator = nullptr;
@@ -345,7 +345,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setObjectName("MainWindow");
 	scrActionGroups.clear();
 	scrActions.clear();
@@ -503,11 +503,11 @@ void ScribusMainWindow::setStyleSheet()
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
-		QString downArrow(IconManager::instance()->pathForIcon("16/go-down.png"));
+		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
 		QByteArray da;
 		da.append(downArrow);
 		stylesheet.replace("___downArrow___", da);
-		QString toolbararrow(IconManager::instance()->pathForIcon("stylesheet/down_arrow.png"));
+		QString toolbararrow(IconManager::instance().pathForIcon("stylesheet/down_arrow.png"));
 		QByteArray tba;
 		tba.append(toolbararrow);
 		stylesheet.replace("___tb_menu_arrow___", tba);
@@ -1279,9 +1279,9 @@ void ScribusMainWindow::initStatusBar()
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 
-	zoomDefaultToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-original.png"));
-	zoomOutToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-out.png"));
-	zoomInToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-in.png"));
+	zoomDefaultToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-original.png"));
+	zoomOutToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-out.png"));
+	zoomInToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-in.png"));
 
 
 	zoomLayout->addWidget( zoomSpinBox );
@@ -1659,7 +1659,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	{
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
-			view->setCursor(IconManager::instance()->loadCursor("lupezm.png"));
+			view->setCursor(IconManager::instance().loadCursor("lupezm.png"));
 			return;
 		}
 	}
@@ -1889,7 +1889,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 			view->requestMode(modeNormal);
 
 		if (doc->appMode == modeMagnifier)
-			view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
+			view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	}
 	if (k->isAutoRepeat() || !m__arrowKeyDown)
 		return;
@@ -3182,7 +3182,7 @@ void ScribusMainWindow::importVectorFile()
 		md->setUrls(urls);
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);
-		const QPixmap& dragCursor = IconManager::instance()->loadPixmap("dragpix.png");
+		const QPixmap& dragCursor = IconManager::instance().loadPixmap("dragpix.png");
 		dr->setPixmap(dragCursor);
 		dr->exec();
 	}

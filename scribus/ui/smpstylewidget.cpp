@@ -37,11 +37,11 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	setupUi(this);
 	//Not used yet
 // 	optMarginCheckLeftProtruding->setVisible(false);
-	lineSpacingLabel->setPixmap(IconManager::instance()->loadPixmap("linespacing2.png"));
-	spaceAboveLabel->setPixmap(IconManager::instance()->loadPixmap("above.png") );
-	spaceBelowLabel->setPixmap(IconManager::instance()->loadPixmap("below.png") );
-	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
-	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	lineSpacingLabel->setPixmap(IconManager::instance().loadPixmap("linespacing2.png"));
+	spaceAboveLabel->setPixmap(IconManager::instance().loadPixmap("above.png") );
+	spaceBelowLabel->setPixmap(IconManager::instance().loadPixmap("below.png") );
+	backIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 	
 	backColor_->setPixmapType(ColorCombo::fancyPixmaps);
 	backColor_->clear();
@@ -66,7 +66,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	parEffectOffset->setSuffix(unitGetSuffixFromIndex(0));
 
 	fillBulletStrEditCombo();
-	bulletCharTableButton->setIcon(IconManager::instance()->loadPixmap("22/insert-table.png"));
+	bulletCharTableButton->setIcon(IconManager::instance().loadPixmap("22/insert-table.png"));
 	numStartSpin->setMinimum(1);
 	numStartSpin->setMaximum(9999);
 	numLevelSpin->setMinimum(1);

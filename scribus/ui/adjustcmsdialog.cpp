@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 AdjustCmsDialog::AdjustCmsDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent )
 {
 	setWindowTitle( tr("CMS Settings") );
-	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	setModal(true);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);

@@ -263,7 +263,7 @@ void InlinePalette::updateItemList()
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.setBrush(b);
 		p.drawRect(0, 0, 50, 50);
 		p.drawPixmap(25 - pm.width() / 2, 25 - pm.height() / 2, pm);

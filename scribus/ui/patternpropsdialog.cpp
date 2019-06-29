@@ -120,11 +120,11 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	groupFlipLayout->addItem( spacer );
 	FlipH = new QToolButton( this );
-	FlipH->setIcon(IconManager::instance()->loadIcon("16/flip-object-horizontal.png"));
+	FlipH->setIcon(IconManager::instance().loadIcon("16/flip-object-horizontal.png"));
 	FlipH->setCheckable( true );
 	groupFlipLayout->addWidget( FlipH );
 	FlipV = new QToolButton( this );
-	FlipV->setIcon(IconManager::instance()->loadIcon("16/flip-object-vertical.png"));
+	FlipV->setIcon(IconManager::instance().loadIcon("16/flip-object-vertical.png"));
 	FlipV->setCheckable( true );
 	groupFlipLayout->addWidget( FlipV );
 	frame3Layout->addLayout( groupFlipLayout );

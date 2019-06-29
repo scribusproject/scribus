@@ -1132,7 +1132,7 @@ void SEditor::scrollContentsBy(int dx, int dy)
 SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
 {
 	FillIcon = new QLabel(this);
-	FillIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	FillIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	FillIcon->setScaledContents( false );
 	fillIconAction=addWidget(FillIcon);
 	fillIconAction->setVisible(true);
@@ -1199,7 +1199,7 @@ void SToolBColorF::newShadeHandler()
 SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this );
-	StrokeIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-stroke.png"));
+	StrokeIcon->setPixmap(IconManager::instance().loadPixmap("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
 	strokeIconAction=addWidget(StrokeIcon);
 	strokeIconAction->setVisible(true);
@@ -1268,7 +1268,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	seStyleAction->setVisible(true);
 	trackingLabel = new QLabel( this );
 	trackingLabel->setText("");
-	trackingLabel->setPixmap(IconManager::instance()->loadPixmap("textkern.png"));
+	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
 	trackingLabelAction=addWidget(trackingLabel);
 	trackingLabelAction->setVisible(true);
 	Extra = new ScrSpinBox( this, SC_PERCENT );
@@ -1449,7 +1449,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
 	lblScaleTxtH = new QLabel("", this);
-	lblScaleTxtH->setPixmap(IconManager::instance()->loadPixmap("textscaleh.png"));
+	lblScaleTxtH->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
 	scaleTxtHAction=addWidget(lblScaleTxtH);
 	scaleTxtHAction->setVisible(true);
 	charScaleH = new ScrSpinBox( 10, 400,  this, SC_PERCENT );
@@ -1458,7 +1458,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	chScaleHAction=addWidget(charScaleH);
 	chScaleHAction->setVisible(true);
 	lblScaleTxtV = new QLabel("", this);
-	lblScaleTxtV->setPixmap(IconManager::instance()->loadPixmap("textscalev.png"));
+	lblScaleTxtV->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
 	scaleTxtVAction=addWidget(lblScaleTxtV);
 	scaleTxtVAction->setVisible(true);
 	charScaleV = new ScrSpinBox( 10, 400, this, SC_PERCENT );
@@ -1562,7 +1562,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // 
 	m_spellActive=false;
 	prefsManager=PrefsManager::instance();
 #ifdef Q_OS_MAC
-	noIcon = IconManager::instance()->loadPixmap("noicon.png");
+	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
 	buildGUI();
 	/*
@@ -1666,15 +1666,15 @@ void StoryEditor::loadPrefs()
 
 void StoryEditor::initActions()
 {
-	IconManager* im = IconManager::instance();
+	IconManager& im = IconManager::instance();
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(im->loadPixmap("16/document-new.png"), im->loadPixmap("22/document-new.png"), "", Qt::CTRL+Qt::Key_N, this));
-	seActions.insert("fileRevert", new ScrAction(im->loadPixmap("reload16.png"), im->loadPixmap("reload.png"), "", QKeySequence(), this));
-	seActions.insert("fileSaveToFile", new ScrAction(im->loadPixmap("16/document-save.png"), im->loadPixmap("22/document-save.png"), "", QKeySequence(), this));
-	seActions.insert("fileLoadFromFile", new ScrAction(im->loadPixmap("16/document-open.png"),  im->loadPixmap("22/document-open.png"), "", QKeySequence(), this));
+	seActions.insert("fileNew", new ScrAction(im.loadPixmap("16/document-new.png"), im.loadPixmap("22/document-new.png"), "", Qt::CTRL+Qt::Key_N, this));
+	seActions.insert("fileRevert", new ScrAction(im.loadPixmap("reload16.png"), im.loadPixmap("reload.png"), "", QKeySequence(), this));
+	seActions.insert("fileSaveToFile", new ScrAction(im.loadPixmap("16/document-save.png"), im.loadPixmap("22/document-save.png"), "", QKeySequence(), this));
+	seActions.insert("fileLoadFromFile", new ScrAction(im.loadPixmap("16/document-open.png"),  im.loadPixmap("22/document-open.png"), "", QKeySequence(), this));
 	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this));
-	seActions.insert("fileUpdateAndExit", new ScrAction(im->loadPixmap("ok.png"), im->loadPixmap("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this));
-	seActions.insert("fileExit", new ScrAction(im->loadPixmap("exit.png"), im->loadPixmap("exit22.png"), "", QKeySequence(),  this));
+	seActions.insert("fileUpdateAndExit", new ScrAction(im.loadPixmap("ok.png"), im.loadPixmap("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this));
+	seActions.insert("fileExit", new ScrAction(im.loadPixmap("exit.png"), im.loadPixmap("exit22.png"), "", QKeySequence(),  this));
 
 	connect( seActions["fileNew"], SIGNAL(triggered()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(triggered()), this, SLOT(slotFileRevert()) );
@@ -1685,15 +1685,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(triggered()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editCut", new ScrAction(im->loadPixmap("16/edit-cut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this));
-	seActions.insert("editCopy", new ScrAction(im->loadPixmap("16/edit-copy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this));
-	seActions.insert("editPaste", new ScrAction(im->loadPixmap("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
-	seActions.insert("editClear", new ScrAction(im->loadPixmap("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
-	seActions.insert("editSelectAll", new ScrAction(im->loadPixmap("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
-	seActions.insert("editSearchReplace", new ScrAction(im->loadPixmap("16/edit-find-replace.png"), QPixmap(), "", Qt::CTRL+Qt::Key_F, this));
+	seActions.insert("editCut", new ScrAction(im.loadPixmap("16/edit-cut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this));
+	seActions.insert("editCopy", new ScrAction(im.loadPixmap("16/edit-copy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this));
+	seActions.insert("editPaste", new ScrAction(im.loadPixmap("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
+	seActions.insert("editClear", new ScrAction(im.loadPixmap("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
+	seActions.insert("editSelectAll", new ScrAction(im.loadPixmap("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
+	seActions.insert("editSearchReplace", new ScrAction(im.loadPixmap("16/edit-find-replace.png"), QPixmap(), "", Qt::CTRL+Qt::Key_F, this));
 	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
-	seActions.insert("editUpdateFrame", new ScrAction(im->loadPixmap("compfile16.png"),im->loadPixmap("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
+	seActions.insert("editUpdateFrame", new ScrAction(im.loadPixmap("compfile16.png"),im.loadPixmap("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
 
 	connect( seActions["editCut"], SIGNAL(triggered()), this, SLOT(Do_cut()) );
 	connect( seActions["editCopy"], SIGNAL(triggered()), this, SLOT(Do_copy()) );
@@ -1856,7 +1856,7 @@ void StoryEditor::buildGUI()
 	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesn't work in SE yet.
 	buildMenus();
 
-	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	StoryEd2Layout = new QHBoxLayout;
 	StoryEd2Layout->setSpacing( 5 );
 	StoryEd2Layout->setMargin( 5 );

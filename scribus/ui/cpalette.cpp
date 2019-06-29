@@ -721,7 +721,7 @@ void Cpalette::updateGradientList()
 		VGradient gr = gradientList->value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		pb.begin(&pixm);
 		pb.fillRect(0, 0, 48, 12, b);
 		pb.end();

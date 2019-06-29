@@ -31,13 +31,13 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 
-	exceptionAddButton->setIcon(IconManager::instance()->loadIcon("16/list-add.png"));
+	exceptionAddButton->setIcon(IconManager::instance().loadIcon("16/list-add.png"));
 	exceptionEditButton->setEnabled(false);
-	exceptionRemoveButton->setIcon(IconManager::instance()->loadIcon("16/list-remove.png"));
+	exceptionRemoveButton->setIcon(IconManager::instance().loadIcon("16/list-remove.png"));
 	exceptionRemoveButton->setEnabled(false);
-	ignoreAddButton->setIcon(IconManager::instance()->loadIcon("16/list-add.png"));
+	ignoreAddButton->setIcon(IconManager::instance().loadIcon("16/list-add.png"));
 	ignoreEditButton->setEnabled(false);
-	ignoreRemoveButton->setIcon(IconManager::instance()->loadIcon("16/list-remove.png"));
+	ignoreRemoveButton->setIcon(IconManager::instance().loadIcon("16/list-remove.png"));
 	ignoreRemoveButton->setEnabled(false);
 	connect(ignoreAddButton, SIGNAL(clicked()), this, SLOT(addToIgnoreList()));
 	connect(ignoreEditButton, SIGNAL(clicked()), this, SLOT(editIgnoreListEntry()));

@@ -41,7 +41,7 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
 	m_View(nullptr),
 	m_winIndex(0)
 {
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon2.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	m_Doc = doc;
 }

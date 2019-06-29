@@ -28,11 +28,11 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	enhancedDialogButton->setIcon(IconManager::instance()->loadIcon("16/insert-table.png"));
-	unicodeButton->setIcon(IconManager::instance()->loadIcon("find.png"));
-	uniLoadButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
-	uniSaveButton->setIcon(IconManager::instance()->loadIcon("16/document-save.png"));
-	uniClearButton->setIcon(IconManager::instance()->loadIcon("16/document-new.png"));
+	enhancedDialogButton->setIcon(IconManager::instance().loadIcon("16/insert-table.png"));
+	unicodeButton->setIcon(IconManager::instance().loadIcon("find.png"));
+	uniLoadButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
+	uniSaveButton->setIcon(IconManager::instance().loadIcon("16/document-save.png"));
+	uniClearButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
 
 	m_userTableModel = new CharTableModel(this, 6, m_doc, PrefsManager::instance()->appPrefs.itemToolPrefs.textFont);
 	loadUserContent(ScPaths::applicationDataDir() + "charpalette.ucp");

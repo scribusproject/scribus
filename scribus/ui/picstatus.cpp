@@ -68,7 +68,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	imageViewArea->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_Doc = docu;
 	currItem = nullptr;
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	fillTable();
 	workTab->setCurrentIndex(0);
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -89,7 +89,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 {
 	QPainter p;
 	QPixmap pm(128, 128);
-	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 	p.begin(&pm);
 	p.fillRect(0, 0, 128, 128, imageViewArea->palette().window());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));

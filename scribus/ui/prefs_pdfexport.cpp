@@ -26,9 +26,9 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	exportingPDF(false)
 {
 	setupUi(this);
-	exportRangeMorePushButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
-	pageMirrorHorizontalToolButton->setIcon(IconManager::instance()->loadIcon("16/flip-object-horizontal.png"));
-	pageMirrorVerticalToolButton->setIcon(IconManager::instance()->loadIcon("16/flip-object-vertical.png"));
+	exportRangeMorePushButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	pageMirrorHorizontalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-horizontal.png"));
+	pageMirrorVerticalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-vertical.png"));
 	unitChange(0);
 	languageChange();
 
@@ -156,13 +156,13 @@ QListWidgetItem* Prefs_PDFExport::addFontItem(const QString& fontName, QListWidg
 
 	const ScFace face = AllFonts.value(fontName);
 	if (face.isReplacement())
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_subst16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_subst16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TYPE1)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_type1_16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_type1_16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TTF)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_truetype16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_truetype16.png"), fontName, fontList );
 	else if (face.type() == ScFace::OTF)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_otf16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_otf16.png"), fontName, fontList );
 
 	return item;
 }

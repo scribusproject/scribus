@@ -13,78 +13,77 @@ for which a new license (GPL+exception) is in place.
 
 DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
 {
-        selected = 0;
+	selected = 0;
 
-        IconManager* im=IconManager::instance();
-        buttonGroup = new QButtonGroup(this);
+	buttonGroup = new QButtonGroup(this);
 
-        GroupSelectLayout = new QHBoxLayout( this );
-        GroupSelectLayout->setSpacing( 0 );
-        GroupSelectLayout->setMargin( 5 );
-        GroupSelectLayout->setAlignment(Qt::AlignRight);
+	GroupSelectLayout = new QHBoxLayout( this );
+	GroupSelectLayout->setSpacing( 0 );
+	GroupSelectLayout->setMargin( 5 );
+	GroupSelectLayout->setAlignment(Qt::AlignRight);
 
-        LTR = new QToolButton( this );
-        LTR->setMaximumSize( QSize( 22, 22 ) );
-        LTR->setIcon(im->loadIcon("16/text-direction-ltr.png"));
-        LTR->setCheckable( true );
-        LTR->setChecked( true );
-        GroupSelectLayout->addWidget( LTR );
-        buttonGroup->addButton(LTR, 0);
+	LTR = new QToolButton( this );
+	LTR->setMaximumSize( QSize( 22, 22 ) );
+	LTR->setIcon(IconManager::instance().loadIcon("16/text-direction-ltr.png"));
+	LTR->setCheckable( true );
+	LTR->setChecked( true );
+	GroupSelectLayout->addWidget( LTR );
+	buttonGroup->addButton(LTR, 0);
 
-        RTL = new QToolButton( this );
-        RTL->setMaximumSize( QSize( 22, 22 ) );
-        RTL->setIcon(im->loadIcon("16/text-direction-rtl.png"));
-        RTL->setCheckable( true );
-        GroupSelectLayout->addWidget( RTL );
-        buttonGroup->addButton(RTL, 1);
+	RTL = new QToolButton( this );
+	RTL->setMaximumSize( QSize( 22, 22 ) );
+	RTL->setIcon(IconManager::instance().loadIcon("16/text-direction-rtl.png"));
+	RTL->setCheckable( true );
+	GroupSelectLayout->addWidget( RTL );
+	buttonGroup->addButton(RTL, 1);
 
-        resize(minimumSizeHint());
-        connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
+	resize(minimumSizeHint());
+	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
 }
 
 void DirectionSelect::setStyle(int s)
 {
-        if ((s >= 0) && (s < 2))
-                buttonGroup->button(s)->setChecked(true);
+	if ((s >= 0) && (s < 2))
+		buttonGroup->button(s)->setChecked(true);
 }
 
 int DirectionSelect::getStyle()
 {
-        int ret = 0;
-        if (LTR->isChecked())
-                ret = 0;
-        if (RTL->isChecked())
+	int ret = 0;
+	if (LTR->isChecked())
+		ret = 0;
+	if (RTL->isChecked())
 		ret = 1;
-        return ret;
+	return ret;
 }
 
 void DirectionSelect::setTypeStyle(int a)
 {
-        selected = a;
-        emit State(a);
+	selected = a;
+	emit State(a);
 }
 
 int DirectionSelect::selectedId()
 {
-        return selected;
+	return selected;
 }
 
 void DirectionSelect::changeEvent(QEvent *e)
 {
-        if (e->type() == QEvent::LanguageChange)
-        {
-                languageChange();
-        }
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void DirectionSelect::languageChange()
 {
-        LTR->setToolTip("");
-        RTL->setToolTip("");
+	LTR->setToolTip("");
+	RTL->setToolTip("");
 
 
-        LTR->setToolTip( tr("Left to right paragraph"));
-        RTL->setToolTip( tr("Right to left paragraph"));
+	LTR->setToolTip( tr("Left to right paragraph"));
+	RTL->setToolTip( tr("Right to left paragraph"));
 
 }
 

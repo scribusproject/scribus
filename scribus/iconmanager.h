@@ -37,19 +37,14 @@ class SCRIBUS_API IconManager : public QObject
 	Q_OBJECT
 
 	public:
-		IconManager(QObject *parent = 0);
-		~IconManager();
-
+		IconManager(IconManager const&) = delete;
+		void operator=(IconManager const&) = delete;
 		/**
 		* @brief Returns a pointer to the IconManager instance
 		* @return A pointer to the IconManager instance
 		*/
-		static IconManager* instance();
-		/**
-		* @brief Deletes the IconManager Instance
-		* Must be called when IconManager is no longer needed.
-		*/
-		static void deleteInstance();
+		static IconManager& instance();
+
 		bool setup();
 		QCursor loadCursor(const QString& nam, int hotX = -1, int hotY = -1, bool forceUseColor=false);
 		QIcon loadIcon(const QString& nam, bool forceUseColor=false);
@@ -66,6 +61,8 @@ class SCRIBUS_API IconManager : public QObject
 		void languageChange();
 
 	private:
+		IconManager(QObject *parent = nullptr);
+		~IconManager() = default;
 		/**
 		* @brief The only instance of IconManager available.
 		*

@@ -102,7 +102,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, co
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
 	m_orientation = prefsManager->appPrefs.docSetupPrefs.pageOrientation;
 	setWindowTitle( tr( "New Document" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	TabbedNewDocLayout = new QVBoxLayout( this );
 	TabbedNewDocLayout->setMargin(10);
 	TabbedNewDocLayout->setSpacing(5);
@@ -193,22 +193,22 @@ void NewDoc::createNewDocPage()
 		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
 		if (pg == 0)
 		{
-			ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-simple.png"), psname, layoutsView );
+			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 1)
 		{
-			ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-doublesided.png"), psname, layoutsView );
+			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-doublesided.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 2 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 2)
 		{
-			ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-3fold.png"), psname, layoutsView );
+			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-3fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 3 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 3)
 		{
-			ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-4fold.png"), psname, layoutsView );
+			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-4fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 	}

@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase( parent, "PolyVectorDialog", false, nullptr )
 {
 	setWindowTitle( tr( "Polygon Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);
@@ -37,7 +37,7 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS,
 {
 	setModal(true);
 	setWindowTitle( tr( "Polygon Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);

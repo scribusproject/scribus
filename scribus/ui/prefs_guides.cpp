@@ -20,9 +20,9 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
-	buttonUp->setIcon(IconManager::instance()->loadIcon("16/go-up.png"));
+	buttonUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
 	buttonUp->setEnabled(false);
-	buttonDown->setIcon(IconManager::instance()->loadIcon("16/go-down.png"));
+	buttonDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
 	buttonDown->setEnabled(false);
 
 	QString pxSuffix = QString(" %1").arg(CommonStrings::trStrPX);

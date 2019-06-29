@@ -48,7 +48,8 @@ for which a new license (GPL+exception) is in place.
 
 //extern ScribusQApp* ScQApp;
 
-ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
+ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine()),
+							 m_iconManager(IconManager::instance())
 {
 	m_ScribusInitialized = false;
 	m_currScMW = 0;
@@ -57,7 +58,6 @@ ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultE
 	fileWatcher = nullptr;
 
 	m_SplashScreen = nullptr;
-	m_iconManager = nullptr;
 	m_undoManager = nullptr;
 	m_prefsManager = nullptr;
 
@@ -165,8 +165,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();
 
-	m_iconManager = IconManager::instance();
-	if (!m_iconManager->setup())
+	if (!m_iconManager.setup())
 		return EXIT_FAILURE;
 
 	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale
@@ -191,10 +190,10 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	setSplashStatus( tr("Reading Preferences") );
 	m_prefsManager->ReadPrefs();
 	m_prefsManager->appPrefs.uiPrefs.showSplashOnStartup=showSplash;
-	if (!m_iconManager->setActiveFromPrefs(m_prefsManager->appPrefs.uiPrefs.iconSet))
+	if (!m_iconManager.setActiveFromPrefs(m_prefsManager->appPrefs.uiPrefs.iconSet))
 	{
 		//reset prefs name to chosen name based on version, when prefs is empty or not found
-		m_prefsManager->appPrefs.uiPrefs.iconSet=m_iconManager->activeSetBasename();
+		m_prefsManager->appPrefs.uiPrefs.iconSet=m_iconManager.activeSetBasename();
 	}
 
 	m_HaveGS = testGSAvailability();
@@ -223,7 +222,7 @@ void ScribusCore::initSplash(bool showSplash)
 	m_SplashScreen = nullptr;
 	if (!showSplash)
 		return;
-	QPixmap pix = IconManager::instance()->loadPixmap("scribus_splash.png", true);
+	QPixmap pix = IconManager::instance().loadPixmap("scribus_splash.png", true);
 	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != nullptr)
 		m_SplashScreen->show();

@@ -23,7 +23,7 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(pare
 	setupUi(this);
 	languageChange();
 
-	buttonRestoreDPI->setIcon(IconManager::instance()->loadIcon("screen.png"));
+	buttonRestoreDPI->setIcon(IconManager::instance().loadIcon("screen.png"));
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 

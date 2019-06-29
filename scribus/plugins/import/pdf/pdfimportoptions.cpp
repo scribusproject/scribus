@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::PdfImportOptions)
 {
 	ui->setupUi(this);
-	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
+	ui->pageSelectButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	m_plugin = nullptr;
 	m_maxPage = 0;
 	m_resized = false;

@@ -65,10 +65,10 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 
 	// General tab
 	rangeGroupLayout->setAlignment( Qt::AlignTop );
-	pageNrButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
-	MirrorH->setIcon(IconManager::instance()->loadIcon("16/flip-object-horizontal.png"));
+	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	MirrorH->setIcon(IconManager::instance().loadIcon("16/flip-object-horizontal.png"));
 	MirrorH->setCheckable( true );
-	MirrorV->setIcon(IconManager::instance()->loadIcon("16/flip-object-vertical.png"));
+	MirrorV->setIcon(IconManager::instance().loadIcon("16/flip-object-vertical.png"));
 	MirrorV->setCheckable( true );
 
 	fileOptionsLayout->setAlignment( Qt::AlignTop );
@@ -92,8 +92,8 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	EmbedList->setSelectionMode(QListWidget::ExtendedSelection);
 	SubsetList->setMaximumHeight(300);
 	SubsetList->setSelectionMode(QListWidget::ExtendedSelection);
-	ToSubset->setIcon(IconManager::instance()->loadIcon("22/go-next.png"));
-	FromSubset->setIcon(IconManager::instance()->loadIcon("22/go-previous.png"));
+	ToSubset->setIcon(IconManager::instance().loadIcon("22/go-next.png"));
+	FromSubset->setIcon(IconManager::instance().loadIcon("22/go-previous.png"));
 
 	// Presentation tab
 	effectsLayout->setAlignment( Qt::AlignTop );
@@ -1422,13 +1422,13 @@ QListWidgetItem* TabPDFOptions::addFontItem(const QString& fontName, QListWidget
 
 	const ScFace& face = AllFonts.value(fontName);
 	if (face.isReplacement())
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_subst16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_subst16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TYPE1)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_type1_16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_type1_16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TTF)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_truetype16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_truetype16.png"), fontName, fontList );
 	else if (face.type() == ScFace::OTF)
-		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_otf16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font_otf16.png"), fontName, fontList );
 
 	return item;
 }

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 Query::Query( QWidget* parent,  const char* name, bool modal, const QString& text, const QString& titel ) : QDialog( parent )
 {
 	setWindowTitle( titel );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);

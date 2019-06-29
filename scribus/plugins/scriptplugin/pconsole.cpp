@@ -27,7 +27,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	: QMainWindow( parent )
 {
 	setupUi(this);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -35,11 +35,11 @@ PythonConsole::PythonConsole( QWidget* parent)
 	statusBar()->addPermanentWidget(changedLabel);
 	statusBar()->addPermanentWidget(cursorLabel);
 
-	action_Open->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
-	action_Save->setIcon(IconManager::instance()->loadIcon("16/document-save.png"));
-	actionSave_As->setIcon(IconManager::instance()->loadIcon("16/document-save-as.png"));
-	action_Exit->setIcon(IconManager::instance()->loadIcon("exit.png"));
-	action_Run->setIcon(IconManager::instance()->loadIcon("ok.png"));
+	action_Open->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
+	action_Save->setIcon(IconManager::instance().loadIcon("16/document-save.png"));
+	actionSave_As->setIcon(IconManager::instance().loadIcon("16/document-save-as.png"));
+	action_Exit->setIcon(IconManager::instance().loadIcon("exit.png"));
+	action_Run->setIcon(IconManager::instance().loadIcon("ok.png"));
 
 	action_Open->setShortcut(tr("Ctrl+O"));
 	action_Save->setShortcut(tr("Ctrl+S"));

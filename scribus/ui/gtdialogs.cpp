@@ -53,7 +53,7 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 		ext.prepend(".");
 
 	setWindowTitle( tr("Choose the importer to use"));
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 

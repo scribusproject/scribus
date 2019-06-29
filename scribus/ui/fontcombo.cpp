@@ -47,10 +47,10 @@ extern ScribusQApp* ScQApp;
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 {
 	prefsManager = PrefsManager::instance();
-	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
-	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
+	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
+	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
+	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
+	substFont = IconManager::instance().loadPixmap("font_subst16.png");
 	setEditable(true);
 	setValidator(new FontComboValidator(this));
 	setInsertPolicy(QComboBox::NoInsert);
@@ -110,10 +110,10 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 {
 	currDoc = nullptr;
 	prefsManager = PrefsManager::instance();
-	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
-	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
+	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
+	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
+	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
+	substFont = IconManager::instance().loadPixmap("font_subst16.png");
 	fontComboLayout = new QGridLayout(this);
 	fontComboLayout->setMargin(0);
 	fontComboLayout->setSpacing(0);

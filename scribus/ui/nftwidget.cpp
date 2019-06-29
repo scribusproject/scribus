@@ -34,9 +34,9 @@ void nftwidget::setupSettings(const QString& lang)
 	tnailGrid->addAction(removeAction);
 	tnailGrid->addAction(openAction);
 	setupAbout();
-	toolBox->setItemIcon(0, IconManager::instance()->loadIcon("16/information.png"));
-	toolBox->setItemIcon(1, IconManager::instance()->loadIcon("16/image-x-generic.png"));
-	toolBox->setItemIcon(2, IconManager::instance()->loadIcon("16/help-browser.png"));
+	toolBox->setItemIcon(0, IconManager::instance().loadIcon("16/information.png"));
+	toolBox->setItemIcon(1, IconManager::instance().loadIcon("16/image-x-generic.png"));
+	toolBox->setItemIcon(2, IconManager::instance().loadIcon("16/help-browser.png"));
 	tnailGrid->setIconSize(QSize(60, 60));
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setThumbnails()));

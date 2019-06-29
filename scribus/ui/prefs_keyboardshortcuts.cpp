@@ -66,7 +66,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	keyDisplay->setText("");
 	selectedLVI = nullptr;
 
-	clearSearchButton->setIcon(IconManager::instance()->loadIcon("clear_right.png"));
+	clearSearchButton->setIcon(IconManager::instance().loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(dispKey(QTreeWidgetItem*, QTreeWidgetItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));

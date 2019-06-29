@@ -27,7 +27,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite) : QDialog( parent )
 	Item = ite;
 	setModal(true);
 	setWindowTitle( tr( "Icon Placement" ) );
-	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	ButtonIconLayout = new QVBoxLayout( this );
 	ButtonIconLayout->setMargin(10);
 	ButtonIconLayout->setSpacing(5);

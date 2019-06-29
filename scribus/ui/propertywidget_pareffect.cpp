@@ -35,7 +35,7 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 		peCharStyleCombo->updateFormatList();
 	fillBulletStrEditCombo();
 	enableParEffect(false);
-	bulletCharTableButton->setIcon(IconManager::instance()->loadIcon("22/insert-table.png"));
+	bulletCharTableButton->setIcon(IconManager::instance().loadIcon("22/insert-table.png"));
 	numStart->setMinimum(1);
 	numStart->setMaximum(9999);
 	numLevelSpin->setMinimum(1);

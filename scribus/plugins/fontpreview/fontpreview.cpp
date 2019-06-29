@@ -23,7 +23,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	m_Doc=doc;
 
 	sampleItem = new SampleItem();

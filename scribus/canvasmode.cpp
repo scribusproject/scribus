@@ -771,57 +771,57 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 
 QCursor CanvasMode::modeCursor()
 {
-	IconManager* im=IconManager::instance();
+	IconManager& im=IconManager::instance();
 	QCursor cursor;
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			cursor = im->loadCursor("drawframe.png");
+			cursor = im.loadCursor("drawframe.png");
 			break;
 		case modeDrawImage:
-			cursor = im->loadCursor("drawimageframe.png");
+			cursor = im.loadCursor("drawimageframe.png");
 			break;
 		case modeDrawLatex:
-			cursor = im->loadCursor("drawlatexframe.png");
+			cursor = im.loadCursor("drawlatexframe.png");
 			break;
 		case modeDrawText:
-			cursor = im->loadCursor("drawtextframe.png");
+			cursor = im.loadCursor("drawtextframe.png");
 			break;
 		case modeDrawTable2:
-			cursor = im->loadCursor("drawtable.png");
+			cursor = im.loadCursor("drawtable.png");
 			break;
 		case modeDrawRegularPolygon:
-			cursor = im->loadCursor("drawpolyline.png");
+			cursor = im.loadCursor("drawpolyline.png");
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
 			cursor = QCursor(Qt::CrossCursor);
 			break;
 		case modeDrawFreehandLine:
-			cursor = im->loadCursor("DrawFreeLine.png", 0, 31);
+			cursor = im.loadCursor("DrawFreeLine.png", 0, 31);
 			break;
 		case modeDrawCalligraphicLine:
-			cursor = im->loadCursor("drawcalligraphy.png", 4, 4);
+			cursor = im.loadCursor("drawcalligraphy.png", 4, 4);
 			break;
 		case modeImportObject:
-			cursor = im->loadCursor("dragpix.png");
+			cursor = im.loadCursor("dragpix.png");
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				cursor = im->loadCursor("lupez.png");
+				cursor = im.loadCursor("lupez.png");
 			else
-				cursor = im->loadCursor("lupezm.png");
+				cursor = im.loadCursor("lupezm.png");
 			break;
 		case modePanning:
-			cursor = im->loadCursor("handc.png");
+			cursor = im.loadCursor("handc.png");
 			break;
 		case modeEyeDropper:
-			cursor = im->loadCursor("colorpickercursor.png", 0, 31);
+			cursor = im.loadCursor("colorpickercursor.png", 0, 31);
 			break;
 		case modeLinkFrames:
-			cursor = im->loadCursor("LinkTextFrame.png", 0, 31);
+			cursor = im.loadCursor("LinkTextFrame.png", 0, 31);
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -851,57 +851,57 @@ QCursor CanvasMode::modeCursor()
 
 void CanvasMode::setModeCursor()
 {
-	IconManager* im=IconManager::instance();
+	IconManager& im=IconManager::instance();
 	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			m_view->setCursor(im->loadCursor("drawframe.png"));
+			m_view->setCursor(im.loadCursor("drawframe.png"));
 			break;
 		case modeDrawImage:
-			m_view->setCursor(im->loadCursor("drawimageframe.png"));
+			m_view->setCursor(im.loadCursor("drawimageframe.png"));
 			break;
 		case modeDrawLatex:
-			m_view->setCursor(im->loadCursor("drawlatexframe.png"));
+			m_view->setCursor(im.loadCursor("drawlatexframe.png"));
 			break;
 		case modeDrawText:
-			m_view->setCursor(im->loadCursor("drawtextframe.png"));
+			m_view->setCursor(im.loadCursor("drawtextframe.png"));
 			break;
 		case modeDrawTable2:
-			m_view->setCursor(im->loadCursor("drawtable.png"));
+			m_view->setCursor(im.loadCursor("drawtable.png"));
 			break;
 		case modeDrawRegularPolygon:
-			m_view->setCursor(im->loadCursor("drawpolyline.png"));
+			m_view->setCursor(im.loadCursor("drawpolyline.png"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
 			m_view->setCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
-			m_view->setCursor(im->loadCursor("DrawFreeLine.png", 0, 31));
+			m_view->setCursor(im.loadCursor("DrawFreeLine.png", 0, 31));
 			break;
 		case modeDrawCalligraphicLine:
-			m_view->setCursor(im->loadCursor("drawcalligraphy.png", 4, 4));
+			m_view->setCursor(im.loadCursor("drawcalligraphy.png", 4, 4));
 			break;
 		case modeImportObject:
-			m_view->setCursor(im->loadCursor("dragpix.png"));
+			m_view->setCursor(im.loadCursor("dragpix.png"));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				m_view->setCursor(im->loadCursor("lupez.png"));
+				m_view->setCursor(im.loadCursor("lupez.png"));
 			else
-				m_view->setCursor(im->loadCursor("lupezm.png"));
+				m_view->setCursor(im.loadCursor("lupezm.png"));
 			break;
 		case modePanning:
-			m_view->setCursor(im->loadCursor("handc.png"));
+			m_view->setCursor(im.loadCursor("handc.png"));
 			break;
 		case modeEyeDropper:
-			m_view->setCursor(im->loadCursor("colorpickercursor.png", 0, 31));
+			m_view->setCursor(im.loadCursor("colorpickercursor.png", 0, 31));
 			break;
 		case modeLinkFrames:
-			m_view->setCursor(im->loadCursor("LinkTextFrame.png", 0, 31));
+			m_view->setCursor(im.loadCursor("LinkTextFrame.png", 0, 31));
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -1716,7 +1716,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
 	if (m_doc->appMode == modeMagnifier)
-		m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
+		m_view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch(e->key())

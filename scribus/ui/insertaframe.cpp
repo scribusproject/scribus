@@ -45,7 +45,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 {
 	setupUi(this);
 	
-	placementPagesRangeButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
+	placementPagesRangeButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	
 	//set tab order
 	QWidget::setTabOrder(radioButtonCustomPosition, xPosScrSpinBox);

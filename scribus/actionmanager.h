@@ -115,7 +115,7 @@ class SCRIBUS_API ActionManager : public QObject
 		QPixmap noIcon;
 		ScribusMainWindow *mainWindow {nullptr};
 		UndoManager *undoManager {nullptr};
-		IconManager* im {nullptr};
+		IconManager& im;
 		QMap<QString, QPointer<ScrAction> > *scrActions {nullptr};
 		QMultiHash<QString, QActionGroup*> *scrActionGroups {nullptr};
 		QStringList *modeActionNames {nullptr};

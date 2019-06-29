@@ -44,10 +44,10 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 
 	setupUi(this);
 
-	importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
-	newButton->setIcon(IconManager::instance()->loadIcon("16/document-new.png"));
-	duplicateButton->setIcon(IconManager::instance()->loadIcon("16/edit-copy.png"));
-	deleteButton->setIcon(IconManager::instance()->loadIcon("16/edit-delete.png"));
+	importButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
+	newButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
+	duplicateButton->setIcon(IconManager::instance().loadIcon("16/edit-copy.png"));
+	deleteButton->setIcon(IconManager::instance().loadIcon("16/edit-delete.png"));
 
 	masterPageListBox->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	styleChange();

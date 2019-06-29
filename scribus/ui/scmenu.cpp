@@ -164,7 +164,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 			}
 		}
 		if (newMenuAction->icon().isNull() && ! menuListHasNoIcons)
-			newMenuAction->setIcon(IconManager::instance()->loadIcon("noicon.png"));
+			newMenuAction->setIcon(IconManager::instance().loadIcon("noicon.png"));
 #endif
 
 		menuItemList.append(newMenuAction);
@@ -198,7 +198,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 #ifdef Q_OS_MAC
 	if (newMenuAction && afterMenuAction)
 		if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
-			newMenuAction->setIcon(IconManager::instance()->loadIcon("noicon.png"));
+			newMenuAction->setIcon(IconManager::instance().loadIcon("noicon.png"));
 #endif
 
 	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));

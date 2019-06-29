@@ -34,12 +34,12 @@ PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(pare
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	addBorderLineButton->setIcon(IconManager::instance()->loadIcon("penciladd.png"));
-	removeBorderLineButton->setIcon(IconManager::instance()->loadIcon("pencilsub.png"));
+	addBorderLineButton->setIcon(IconManager::instance().loadIcon("penciladd.png"));
+	removeBorderLineButton->setIcon(IconManager::instance().loadIcon("pencilsub.png"));
 	labelTable->setBuddy(tableStyleCombo);
-	buttonClearTableStyle->setIcon(IconManager::instance()->loadIcon("16/edit-clear.png"));
+	buttonClearTableStyle->setIcon(IconManager::instance().loadIcon("16/edit-clear.png"));
 	labelCells->setBuddy(cellStyleCombo);
-	buttonClearCellStyle->setIcon(IconManager::instance()->loadIcon("16/edit-clear.png"));
+	buttonClearCellStyle->setIcon(IconManager::instance().loadIcon("16/edit-clear.png"));
 	connect(tableStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setTableStyle(const QString&)));
 	connect(cellStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setCellStyle(const QString&)));
 }

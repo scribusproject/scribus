@@ -223,7 +223,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	clockLabel = new ClockWidget(this, Doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
-	endEditButton = new QPushButton(IconManager::instance()->loadIcon("22/exit.png"), tr("End Edit"), this);
+	endEditButton = new QPushButton(IconManager::instance().loadIcon("22/exit.png"), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
 	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotEndSpecialEdit()));

@@ -30,14 +30,14 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	layout()->setAlignment( Qt::AlignLeft );
 
 	textBase->setValue( 0 );
-	textBaseLabel->setPixmap(IconManager::instance()->loadPixmap("textbase.png"));
-	trackingLabel->setPixmap(IconManager::instance()->loadPixmap("textkern.png"));
+	textBaseLabel->setPixmap(IconManager::instance().loadPixmap("textbase.png"));
+	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
 
 	scaleH->setValues(10, 400, 2, 100 );
-	scaleHLabel->setPixmap(IconManager::instance()->loadPixmap("textscaleh.png"));
+	scaleHLabel->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
 
 	scaleV->setValues(10, 400, 2, 100 );
-	scaleVLabel->setPixmap(IconManager::instance()->loadPixmap("textscalev.png"));
+	scaleVLabel->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
 
 	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
 	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);

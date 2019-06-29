@@ -102,7 +102,7 @@ void PicSearch::createPreview()
 		else
 			im2 = im.qImage(); // no need to copy
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h-44, b);
 		p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));

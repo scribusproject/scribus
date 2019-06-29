@@ -13,7 +13,7 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 
 {
 	setWindowTitle( tr( "Insert Table" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(true);
 	InsertTableLayout = new QVBoxLayout( this );
 	InsertTableLayout->setMargin(10);

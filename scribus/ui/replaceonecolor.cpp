@@ -32,7 +32,7 @@ replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColo
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png" ));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png" ));
 	originalColor->setPixmapType(ColorCombo::fancyPixmaps);
 	originalColor->setColors(usedColors, true);
 	replacementColor->setPixmapType(ColorCombo::fancyPixmaps);

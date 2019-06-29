@@ -150,38 +150,38 @@ void AlignDistributePalette::languageChange()
 void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
-	IconManager* im = IconManager::instance();
-	alignLeftOutToolButton->setIcon(im->loadIcon("22/align-horizontal-left-out.png"));
-	alignLeftInToolButton->setIcon(im->loadIcon("22/align-horizontal-left.png"));
-	alignCenterHorToolButton->setIcon(im->loadIcon("22/align-horizontal-center.png"));
-	alignRightInToolButton->setIcon(im->loadIcon("22/align-horizontal-right.png"));
-	alignRightOutToolButton->setIcon(im->loadIcon("22/align-horizontal-right-out.png"));
+	IconManager& im = IconManager::instance();
+	alignLeftOutToolButton->setIcon(im.loadIcon("22/align-horizontal-left-out.png"));
+	alignLeftInToolButton->setIcon(im.loadIcon("22/align-horizontal-left.png"));
+	alignCenterHorToolButton->setIcon(im.loadIcon("22/align-horizontal-center.png"));
+	alignRightInToolButton->setIcon(im.loadIcon("22/align-horizontal-right.png"));
+	alignRightOutToolButton->setIcon(im.loadIcon("22/align-horizontal-right-out.png"));
 
-	alignTopOutToolButton->setIcon(im->loadIcon("22/align-vertical-top-out.png"));
-	alignTopInToolButton->setIcon(im->loadIcon("22/align-vertical-top.png"));
-	alignCenterVerToolButton->setIcon(im->loadIcon("22/align-vertical-center.png"));
-	alignBottomInToolButton->setIcon(im->loadIcon("22/align-vertical-bottom.png"));
-	alignBottomOutToolButton->setIcon(im->loadIcon("22/align-vertical-bottom-out.png"));
+	alignTopOutToolButton->setIcon(im.loadIcon("22/align-vertical-top-out.png"));
+	alignTopInToolButton->setIcon(im.loadIcon("22/align-vertical-top.png"));
+	alignCenterVerToolButton->setIcon(im.loadIcon("22/align-vertical-center.png"));
+	alignBottomInToolButton->setIcon(im.loadIcon("22/align-vertical-bottom.png"));
+	alignBottomOutToolButton->setIcon(im.loadIcon("22/align-vertical-bottom-out.png"));
 
-	distributeLeftToolButton->setIcon(im->loadIcon("22/distribute-horizontal-left.png"));
-	distributeCenterHToolButton->setIcon(im->loadIcon("22/distribute-horizontal-center.png"));
-	distributeRightToolButton->setIcon(im->loadIcon("22/distribute-horizontal-right.png"));
-	distributeDistHToolButton->setIcon(im->loadIcon("22/distribute-horizontal-equal.png"));
+	distributeLeftToolButton->setIcon(im.loadIcon("22/distribute-horizontal-left.png"));
+	distributeCenterHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-center.png"));
+	distributeRightToolButton->setIcon(im.loadIcon("22/distribute-horizontal-right.png"));
+	distributeDistHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-equal.png"));
 
-	distributeBottomToolButton->setIcon(im->loadIcon("22/distribute-vertical-bottom.png"));
-	distributeCenterVToolButton->setIcon(im->loadIcon("22/distribute-vertical-center.png"));
-	distributeTopToolButton->setIcon(im->loadIcon("22/distribute-vertical-top.png"));
-	distributeDistVToolButton->setIcon(im->loadIcon("22/distribute-vertical-equal.png"));
+	distributeBottomToolButton->setIcon(im.loadIcon("22/distribute-vertical-bottom.png"));
+	distributeCenterVToolButton->setIcon(im.loadIcon("22/distribute-vertical-center.png"));
+	distributeTopToolButton->setIcon(im.loadIcon("22/distribute-vertical-top.png"));
+	distributeDistVToolButton->setIcon(im.loadIcon("22/distribute-vertical-equal.png"));
 
-	distributeAcrossPageToolButton->setIcon(im->loadIcon("22/distribute-horizontal-page.png"));
-	distributeDownPageToolButton->setIcon(im->loadIcon("22/distribute-vertical-page.png"));
-	distributeAcrossMarginsToolButton->setIcon(im->loadIcon("22/distribute-horizontal-margin.png"));
-	distributeDownMarginsToolButton->setIcon(im->loadIcon("22/distribute-vertical-margin.png"));
-	distributeDistValueHToolButton->setIcon(im->loadIcon("22/distribute-horizontal-x.png"));
-	distributeDistValueVToolButton->setIcon(im->loadIcon("22/distribute-vertical-y.png"));
+	distributeAcrossPageToolButton->setIcon(im.loadIcon("22/distribute-horizontal-page.png"));
+	distributeDownPageToolButton->setIcon(im.loadIcon("22/distribute-vertical-page.png"));
+	distributeAcrossMarginsToolButton->setIcon(im.loadIcon("22/distribute-horizontal-margin.png"));
+	distributeDownMarginsToolButton->setIcon(im.loadIcon("22/distribute-vertical-margin.png"));
+	distributeDistValueHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-x.png"));
+	distributeDistValueVToolButton->setIcon(im.loadIcon("22/distribute-vertical-y.png"));
 
-	swapLeftToolButton->setIcon(im->loadIcon("22/swap-left.png"));
-	swapRightToolButton->setIcon(im->loadIcon("22/swap-right.png"));
+	swapLeftToolButton->setIcon(im.loadIcon("22/swap-left.png"));
+	swapRightToolButton->setIcon(im.loadIcon("22/swap-right.png"));
 
 	QSize s(24,24);
 	alignLeftOutToolButton->setMinimumSize(s);

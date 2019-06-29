@@ -16,10 +16,10 @@ SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) :
 {
 	setupUi(this);
 
-	fillColorIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor->addItem(CommonStrings::tr_NoneColor);
-	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png") );
+	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png") );
 }
 
 SMTableStyleWidget::~SMTableStyleWidget()

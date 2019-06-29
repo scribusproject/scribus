@@ -38,9 +38,9 @@ void LinkButton::setNewIcon()
 {
 	QIcon a=QIcon();
 	bool rtlLoad = QLocale(ScCore->getGuiLanguage()).textDirection() == Qt::RightToLeft;
-	QPixmap closedPixmap(IconManager::instance()->loadPixmap("chain-closed.png", false, rtlLoad));
+	QPixmap closedPixmap(IconManager::instance().loadPixmap("chain-closed.png", false, rtlLoad));
 	a.addPixmap(closedPixmap, QIcon::Normal, QIcon::On);
-	a.addPixmap(IconManager::instance()->loadPixmap("chain-open.png", false, rtlLoad), QIcon::Normal, QIcon::Off);
+	a.addPixmap(IconManager::instance().loadPixmap("chain-open.png", false, rtlLoad), QIcon::Normal, QIcon::Off);
 	setIcon(a);
 	setIconSize(closedPixmap.size());
 }

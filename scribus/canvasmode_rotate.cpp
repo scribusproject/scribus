@@ -413,7 +413,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					{
 						setResizeCursor(how);
 					}
-					m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
+					m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
 				}
 				else
 				{
@@ -433,7 +433,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
-						m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
+						m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
 				}
 			}
 		}

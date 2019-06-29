@@ -201,7 +201,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 	QRect fpo;
 	if ((!Mpressed) && (m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width()-9) && (DashValues.count() < 10))
 	{
-		setCursor(IconManager::instance()->loadCursor("AddPoint.png", 1, 1));
+		setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
 		for (int yg = 0; yg < StopM.count(); ++yg)
 		{
 			fpo = QRect(static_cast<int>(StopM[yg])+6, 16, 8, 13);
@@ -244,7 +244,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 		emit currStep(StopM[ActStop] / 10.0 - startX);
 	}
 	if ((Mpressed) && (outside || m->y() > 30) && (ActStop >= 0) && (StopM.count() > 2))
-		qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
+		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 
 void DashPreview::leaveEvent(QEvent*)
@@ -252,7 +252,7 @@ void DashPreview::leaveEvent(QEvent*)
 	if (Mpressed)
 	{
 		if ((ActStop >= 0) && (StopM.count() > 2))
-			qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
+			qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 		else
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}

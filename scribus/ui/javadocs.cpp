@@ -29,7 +29,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 {
 	setModal(true);
 	setWindowTitle( tr( "Edit JavaScripts" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	m_Doc = doc;
 	m_View = vie;
 	JavaDocsLayout = new QHBoxLayout(this);

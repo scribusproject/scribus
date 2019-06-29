@@ -38,7 +38,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 {
 	setModal(true);
 	setWindowTitle( tr( "Extended Image Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	ExtImagePropsLayout = new QVBoxLayout( this );
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
@@ -146,7 +146,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layout1->addWidget( opacitySpinBox );
 		tabLayout->addLayout( layout1 );
 		layerTable = new QTableWidget(info->layerInfo.count(), 3, tab );
-		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance()->loadIcon("16/show-object.png"), ""));
+		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
 		layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
 		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
 		QHeaderView* headerH = layerTable->horizontalHeader();

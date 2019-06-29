@@ -25,7 +25,7 @@ MissingFont::MissingFont( QWidget* parent, const QString& fon, ScribusDoc* doc )
 {
 	setModal(true);
 	setWindowTitle( tr("Missing Font"));
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	missingFontLayout = new QHBoxLayout( this );
 	missingFontLayout->setMargin(10);
 	missingFontLayout->setSpacing(0);

@@ -101,7 +101,7 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 		mimeData->setText("1" + pageName);
 		QDrag *dr = new QDrag(this);
 		dr->setMimeData(mimeData);
-		const QPixmap& pm = IconManager::instance()->loadPixmap("doc.png");
+		const QPixmap& pm = IconManager::instance().loadPixmap("doc.png");
 		dr->setPixmap(pm);
 	//	dr->setDragCursor(pm, Qt::CopyAction);
 	//	dr->setDragCursor(pm, Qt::MoveAction);
@@ -216,7 +216,7 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 					mimeData->setText("2 "+tmp.setNum(p)+" "+str);
 					QDrag *dr = new QDrag(this);
 					dr->setMimeData(mimeData);
-					const QPixmap& pm = IconManager::instance()->loadPixmap("doc.png");
+					const QPixmap& pm = IconManager::instance().loadPixmap("doc.png");
 					dr->setPixmap(pm);
 				//	dr->setDragCursor(pm, Qt::CopyAction);
 				//	dr->setDragCursor(pm, Qt::MoveAction);
@@ -506,8 +506,8 @@ SeItem* SeView::GetPageItem(int pageIndex)
 /* Der Muelleimer */
 TrashBin::TrashBin(QWidget * parent) : QLabel(parent)
 {
-	Normal = IconManager::instance()->loadPixmap("trashcan.png");
-	Offen = IconManager::instance()->loadPixmap("trashcan2.png");
+	Normal = IconManager::instance().loadPixmap("trashcan.png");
+	Offen = IconManager::instance().loadPixmap("trashcan2.png");
 	setPixmap(Normal);
 	setScaledContents(false);
 	setAcceptDrops(true);

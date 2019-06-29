@@ -291,14 +291,14 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", nu
 	buttonLayout->setMargin( 0 );
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
+	importButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
 	importButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( importButton );
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(IconManager::instance()->loadIcon("16/close.png"));
+	closeButton->setIcon(IconManager::instance().loadIcon("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( closeButton );
 	vLayout->addLayout( buttonLayout );

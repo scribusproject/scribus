@@ -47,10 +47,10 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	forwardButton->setAutoDefault( false );
 	lastButton->setAutoDefault( false );
 
-	startButton->setIcon(IconManager::instance()->loadIcon("16/go-first.png"));
-	backButton->setIcon(IconManager::instance()->loadIcon("16/go-previous.png"));
-	forwardButton->setIcon(IconManager::instance()->loadIcon("16/go-next.png"));
-	lastButton->setIcon(IconManager::instance()->loadIcon("16/go-last.png"));
+	startButton->setIcon(IconManager::instance().loadIcon("16/go-first.png"));
+	backButton->setIcon(IconManager::instance().loadIcon("16/go-previous.png"));
+	forwardButton->setIcon(IconManager::instance().loadIcon("16/go-next.png"));
+	lastButton->setIcon(IconManager::instance().loadIcon("16/go-last.png"));
 
 	startButton->setFocusPolicy(Qt::NoFocus);
 	backButton->setFocusPolicy(Qt::NoFocus);
@@ -88,7 +88,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
-		QString downArrow(IconManager::instance()->pathForIcon("16/go-down.png"));
+		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
 		QByteArray da;
 		da.append(downArrow);
 		stylesheet.replace("___downArrow___", da);

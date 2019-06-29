@@ -129,7 +129,7 @@ void ShadowValues::languageChange()
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 {
-	IconManager* im = IconManager::instance();
+	IconManager& im = IconManager::instance();
 	ssLayout = new QHBoxLayout(this);
 	ssLayout->setSpacing( 0 );
 	ssLayout->setMargin( 0 );
@@ -141,14 +141,14 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	UnderlinePop->addAction(UnderlineValAct);
 	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
-	underlineButton->setIcon(im->loadIcon("unter.png"));
+	underlineButton->setIcon(im.loadIcon("unter.png"));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
 	underlineButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( underlineButton );
 	underlineWordButton = new QToolButton( this );
 	underlineWordButton->setText( "" );
-	underlineWordButton->setIcon(im->loadIcon("wordsOnly.png"));
+	underlineWordButton->setIcon(im.loadIcon("wordsOnly.png"));
 	underlineWordButton->setCheckable( true );
 	underlineWordButton->setMenu(UnderlinePop);
 	underlineWordButton->setPopupMode(QToolButton::DelayedPopup);
@@ -156,24 +156,24 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 
 	subscriptButton = new QToolButton( this );
 	subscriptButton->setText( "" );
-	subscriptButton->setIcon(im->loadIcon("tief.png"));
+	subscriptButton->setIcon(im.loadIcon("tief.png"));
 	subscriptButton->setCheckable( true );
 	ssLayout->addWidget( subscriptButton );
 	superscriptButton = new QToolButton( this );
 	superscriptButton->setText( "" );
-	superscriptButton->setIcon(im->loadIcon("hoch.png"));
+	superscriptButton->setIcon(im.loadIcon("hoch.png"));
 	superscriptButton->setCheckable( true );
 	ssLayout->addWidget( superscriptButton );
 
 	allcapsButton = new QToolButton( this );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	allcapsButton->setText("");
-	allcapsButton->setIcon(im->loadIcon("AllCaps.png"));
+	allcapsButton->setIcon(im.loadIcon("AllCaps.png"));
 	allcapsButton->setCheckable( true );
 	ssLayout->addWidget( allcapsButton );
 	smallcapsButton = new QToolButton( this );
 	smallcapsButton->setText("");
-	smallcapsButton->setIcon(im->loadIcon("kapital.png"));
+	smallcapsButton->setIcon(im.loadIcon("kapital.png"));
 	smallcapsButton->setCheckable( true );
 	ssLayout->addWidget( smallcapsButton );
 
@@ -184,7 +184,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	StrikePop->addAction(StrikeValAct);
 	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
-	strikeoutButton->setIcon(im->loadIcon("strike.png"));
+	strikeoutButton->setIcon(im.loadIcon("strike.png"));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
 	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);
@@ -197,7 +197,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	OutlinePop->addAction(OutlineValAct);
 	outlineButton = new QToolButton( this );
 	outlineButton->setText( "" );
-	outlineButton->setIcon(im->loadIcon("outlined.png"));
+	outlineButton->setIcon(im.loadIcon("outlined.png"));
 	outlineButton->setCheckable( true );
 	outlineButton->setMenu(OutlinePop);
 	outlineButton->setPopupMode(QToolButton::DelayedPopup);
@@ -210,7 +210,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ShadowPop->addAction(ShadowValAct);
 	shadowButton = new QToolButton( this );
 	shadowButton->setText( "" );
-	shadowButton->setIcon(im->loadIcon("shadow.png"));
+	shadowButton->setIcon(im.loadIcon("shadow.png"));
 	shadowButton->setCheckable( true );
 	shadowButton->setMenu(ShadowPop);
 	shadowButton->setPopupMode(QToolButton::DelayedPopup);

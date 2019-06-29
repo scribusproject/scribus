@@ -51,11 +51,11 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	textFlowDisabled->setIcon(IconManager::instance()->loadIcon("flow-none.png"));
-	textFlowUsesFrameShape->setIcon(IconManager::instance()->loadIcon("flow-frame.png"));
-	textFlowUsesBoundingBox->setIcon(IconManager::instance()->loadIcon("flow-bounding.png"));
-	textFlowUsesContourLine->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
-	textFlowUsesImageClipping->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
+	textFlowDisabled->setIcon(IconManager::instance().loadIcon("flow-none.png"));
+	textFlowUsesFrameShape->setIcon(IconManager::instance().loadIcon("flow-frame.png"));
+	textFlowUsesBoundingBox->setIcon(IconManager::instance().loadIcon("flow-bounding.png"));
+	textFlowUsesContourLine->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
+	textFlowUsesImageClipping->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
 
 	languageChange();
 

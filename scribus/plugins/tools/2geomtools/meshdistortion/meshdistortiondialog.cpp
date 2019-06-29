@@ -124,9 +124,9 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
-	buttonZoomOut->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
-	buttonZoomIn->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
+	buttonZoomOut->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-out.png")));
+	buttonZoomIn->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-in.png")));
 	m_doc = doc;
 	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	for(unsigned dim = 0; dim < 2; dim++)

@@ -48,8 +48,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = printOptions.devMode;
 	PrinterOpts = "";
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
-	pageNrButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	printEngines->addItem( CommonStrings::trPostScript1 );
 	printEngines->addItem( CommonStrings::trPostScript2 );
 	printEngines->addItem( CommonStrings::trPostScript3 );

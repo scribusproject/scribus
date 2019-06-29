@@ -62,7 +62,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 {
 	setModal(true);
 	setWindowTitle( tr( "Save as PDF" ) );
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );

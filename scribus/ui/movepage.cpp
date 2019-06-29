@@ -26,7 +26,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 {
 	move = moving;	
 	setWindowTitle (move ? tr("Move Pages") : tr("Copy Page"));
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(true);
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing( 5 );

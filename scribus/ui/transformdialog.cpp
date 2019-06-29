@@ -46,7 +46,7 @@ TransformDialog::TransformDialog(QWidget* parent, ScribusDoc *doc) : QDialog(par
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	transformStack->setCurrentIndex(0);
 	newTransformMenu = new QMenu(buttonAdd);
 	newTransformMenu->addAction( tr("Scaling"), this, SLOT(newScaling()));
@@ -56,9 +56,9 @@ TransformDialog::TransformDialog(QWidget* parent, ScribusDoc *doc) : QDialog(par
 	buttonAdd->setMenu(newTransformMenu);
 	scaleLink->setChecked(true);
 	buttonUp->setText( "" );
-	buttonUp->setIcon(IconManager::instance()->loadIcon("16/go-up.png"));
+	buttonUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
 	buttonDown->setText( "" );
-	buttonDown->setIcon(IconManager::instance()->loadIcon("16/go-down.png"));
+	buttonDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	m_doc = doc;
 	m_unitRatio = unitGetRatioFromIndex(m_doc->unitIndex());

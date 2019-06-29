@@ -63,13 +63,13 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	setupUi(this);
 
 	fontSize->setPrefix( "" );
-	fontSizeLabel->setPixmap(IconManager::instance()->loadPixmap("zeichen.png"));
-	lineSpacingLabel->setPixmap(IconManager::instance()->loadPixmap("linespacing2.png"));
+	fontSizeLabel->setPixmap(IconManager::instance().loadPixmap("zeichen.png"));
+	lineSpacingLabel->setPixmap(IconManager::instance().loadPixmap("linespacing2.png"));
 
 	paraStyleLabel->setBuddy(paraStyleCombo);
-	paraStyleClear->setIcon(IconManager::instance()->loadPixmap("16/edit-clear.png"));
+	paraStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
 	charStyleLabel->setBuddy(charStyleCombo);
-	charStyleClear->setIcon(IconManager::instance()->loadPixmap("16/edit-clear.png"));
+	charStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);
 	colorWidgetsItem = textTree->addItem( colorWidgets, tr("Color && Effects") );

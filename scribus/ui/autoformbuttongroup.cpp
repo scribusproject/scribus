@@ -681,45 +681,45 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 		if (nr < 18)
 		{
 			QString strSize=QString("%1").arg(pixmapSize);
-			IconManager* im=IconManager::instance();
+			IconManager& im=IconManager::instance();
 			switch (nr)
 			{
 				case 0:
-					return im->loadPixmap(strSize+"/draw-rectangle.png");
+					return im.loadPixmap(strSize+"/draw-rectangle.png");
 				case 1:
-					return im->loadPixmap(strSize+"/draw-ellipse.png");
+					return im.loadPixmap(strSize+"/draw-ellipse.png");
 				case 2:
-					return im->loadPixmap(strSize+"/draw-triangle.png");
+					return im.loadPixmap(strSize+"/draw-triangle.png");
 				case 3:
-					return im->loadPixmap(strSize+"/draw-cross.png");
+					return im.loadPixmap(strSize+"/draw-cross.png");
 				case 4:
-					return im->loadPixmap(strSize+"/draw-arrow-back.png");
+					return im.loadPixmap(strSize+"/draw-arrow-back.png");
 				case 5:
-					return im->loadPixmap(strSize+"/draw-arrow-forward.png");
+					return im.loadPixmap(strSize+"/draw-arrow-forward.png");
 				case 6:
-					return im->loadPixmap(strSize+"/draw-arrow-up.png");
+					return im.loadPixmap(strSize+"/draw-arrow-up.png");
 				case 7:
-					return im->loadPixmap(strSize+"/draw-arrow-down.png");
+					return im.loadPixmap(strSize+"/draw-arrow-down.png");
 				case 8:
-					return im->loadPixmap(strSize+"/draw-halfcircle1.png");
+					return im.loadPixmap(strSize+"/draw-halfcircle1.png");
 				case 9:
-					return im->loadPixmap(strSize+"/draw-halfcircle2.png");
+					return im.loadPixmap(strSize+"/draw-halfcircle2.png");
 				case 10:
-					return im->loadPixmap(strSize+"/draw-halfcircle3.png");
+					return im.loadPixmap(strSize+"/draw-halfcircle3.png");
 				case 11:
-					return im->loadPixmap(strSize+"/draw-halfcircle4.png");
+					return im.loadPixmap(strSize+"/draw-halfcircle4.png");
 				case 12:
-					return im->loadPixmap(strSize+"/draw-triangle1.png");
+					return im.loadPixmap(strSize+"/draw-triangle1.png");
 				case 13:
-					return im->loadPixmap(strSize+"/draw-triangle2.png");
+					return im.loadPixmap(strSize+"/draw-triangle2.png");
 				case 14:
-					return im->loadPixmap(strSize+"/draw-triangle3.png");
+					return im.loadPixmap(strSize+"/draw-triangle3.png");
 				case 15:
-					return im->loadPixmap(strSize+"/draw-triangle4.png");
+					return im.loadPixmap(strSize+"/draw-triangle4.png");
 				case 16:
-					return im->loadPixmap(strSize+"/draw-square-inverted-corners.png");
+					return im.loadPixmap(strSize+"/draw-square-inverted-corners.png");
 				case 17:
-					return im->loadPixmap(strSize+"/draw-donut.png");
+					return im.loadPixmap(strSize+"/draw-donut.png");
 			}
 		}
 	}

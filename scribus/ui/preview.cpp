@@ -75,7 +75,7 @@ extern bool printDinUse;
 PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent )
 {
 	setModal(true);
-	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
 	postscriptPreview = usePostscriptPreview(printer, engine);
@@ -147,7 +147,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 
 		Table = new QTableWidget(spots.count()+4, 2, devTitle );
 		inkMax = (spots.count()+4) * 255;
-		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance()->loadIcon("16/show-object.png"), ""));
+		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
 		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 		QHeaderView *header = Table->horizontalHeader();
 		header->setStretchLastSection(true);
@@ -1140,7 +1140,7 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 	{
 		pixmap = QPixmap(image.width(), image.height());
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pixmap);
 		p.fillRect(0, 0, image.width(), image.height(), b);
 		p.drawImage(0, 0, image);

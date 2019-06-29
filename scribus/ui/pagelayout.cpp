@@ -129,15 +129,15 @@ void PageLayouts::updateLayoutSelector(const QList<PageSet>& pSets)
 	{
 		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
-			layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-simple.png"), psname);
+			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 		else if (pg == 1)
-			layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-doublesided.png"), psname);
+			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-doublesided.png"), psname);
 		else if (pg == 2)
-			layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-3fold.png"), psname);
+			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-3fold.png"), psname);
 		else if (pg == 3)
-			layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-4fold.png"), psname);
+			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-4fold.png"), psname);
 		else
-			layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-simple.png"), psname);
+			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 	}
 	connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 }
@@ -234,27 +234,27 @@ void PageLayouts::languageChange()
 			QListWidgetItem *ic;
 			if (pg == 0)
 			{
-				ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-simple.png"), psname, layoutsView );
+				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
 				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			}
 			else if (pg == 1)
 			{
-				ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-doublesided.png"), psname, layoutsView );
+				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-doublesided.png"), psname, layoutsView );
 				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			}
 			else if (pg == 2)
 			{
-				ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-3fold.png"), psname, layoutsView );
+				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-3fold.png"), psname, layoutsView );
 				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			}
 			else if (pg == 3)
 			{
-				ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-4fold.png"), psname, layoutsView );
+				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-4fold.png"), psname, layoutsView );
 				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			}
 			else
 			{
-				ic = new QListWidgetItem( IconManager::instance()->loadIcon("32/page-simple.png"), psname, layoutsView );
+				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
 				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			}
 		}
@@ -269,15 +269,15 @@ void PageLayouts::languageChange()
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-simple.png"), psname);
+				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 			else if (pg == 1)
-				layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-doublesided.png"), psname);
+				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-doublesided.png"), psname);
 			else if (pg == 2)
-				layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-3fold.png"), psname);
+				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-3fold.png"), psname);
 			else if (pg == 3)
-				layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-4fold.png"), psname);
+				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-4fold.png"), psname);
 			else
-				layoutsCombo->addItem(IconManager::instance()->loadIcon("16/page-simple.png"), psname);
+				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 		}
 		layoutsCombo->setCurrentIndex(currIndex);
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
