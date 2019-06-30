@@ -34,8 +34,7 @@ cmake . -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
     -DWITH_PODOFO=1 \
     -DWANT_GRAPHICSMAGICK=1 \
     -DWANT_DEBUG=0 \
-    -DWANT_SVNVERSION=0 \
-    -DWANT_GUI_LANG=en_US;de;fr;it
+    -DWANT_SVNVERSION=0
 make -j$(nproc)
 
 make DESTDIR=appdir -j$(nproc) install
