@@ -118,7 +118,7 @@ bool ImportQxpPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importqxp");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importqxp");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.qxd *.QXD *.qxt *.QXT);;All Files (*)");
 		if (diaf.exec())
