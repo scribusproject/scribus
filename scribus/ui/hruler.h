@@ -126,7 +126,6 @@ signals:
 	void MarkerMoved(double base, double xp);
 
 private:
-	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
 };
 

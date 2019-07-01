@@ -52,7 +52,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	documentColorList->setPixmapType(ColorListBox::fancyPixmap);
 	documentColorList->setColors(m_Doc->PageColors, false);
 	// preferences
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentIndex(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorList->setPixmapType(ColorListBox::fancyPixmap);

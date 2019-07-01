@@ -34,7 +34,7 @@ or documentation
 
 SWConfig::SWConfig()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("short-words");
 	action = prefs->getUInt("action", 0);
 	//userConfig = prefs->getUInt("userConfig", 0);
 	//editor = prefs->get("editor", "");

@@ -435,7 +435,7 @@ void Annota::SetTarget(int it)
 void Annota::GetFile()
 {
 	QString fn;
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("annot_getfile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF)));
 	if (!Destfile->text().isEmpty())

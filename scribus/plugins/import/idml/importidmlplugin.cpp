@@ -142,7 +142,7 @@ bool ImportIdmlPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importidml");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importidml");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.idml *.IDML *.idms *.IDMS);;All Files (*)");
 		if (diaf.exec())

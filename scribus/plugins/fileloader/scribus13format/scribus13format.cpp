@@ -237,7 +237,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	TableIDM.clear();
 	TableItemsF.clear();
 	TableIDF.clear();
-	PrefsManager* prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 	while (!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -271,7 +271,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs().textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		//findFont will use that if it doesnt find the font:
-		m_Doc->itemToolPrefs().textFont = prefsManager->appPrefs.itemToolPrefs.textFont;
+		m_Doc->itemToolPrefs().textFont = prefsManager.appPrefs.itemToolPrefs.textFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->itemToolPrefs().textFont = Defont;
 		m_Doc->itemToolPrefs().textColumns= dc.attribute("DCOL", "1").toInt();
@@ -313,7 +313,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->cmsSettings().CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
 		m_Doc->cmsSettings().GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
 		m_Doc->cmsSettings().BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
-		m_Doc->cmsSettings().DefaultMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+		m_Doc->cmsSettings().DefaultMonitorProfile = prefsManager.appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 		m_Doc->cmsSettings().DefaultPrinterProfile = dc.attribute("DPPr","");
 		m_Doc->cmsSettings().DefaultImageRGBProfile = dc.attribute("DPIn","");
 		m_Doc->cmsSettings().DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
@@ -353,8 +353,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
 		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
-		m_Doc->guidesPrefs().minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
-		m_Doc->guidesPrefs().majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
+		m_Doc->guidesPrefs().minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager.appPrefs.guidesPrefs.minorGridSpacing);
+		m_Doc->guidesPrefs().majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager.appPrefs.guidesPrefs.majorGridSpacing);
 		m_Doc->guidesPrefs().gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		m_Doc->guidesPrefs().guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
 		m_Doc->guidesPrefs().colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
@@ -2576,12 +2576,12 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 
 QString Scribus13Format::AskForFont(const QString& fStr, ScribusDoc *doc)
 {
-	PrefsManager *prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 //	QFont fo;
 	QString tmpf = fStr;
 	if ((!(*m_AvailableFonts).contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
+		if ((!prefsManager.appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager.appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 			MissingFont *dia = new MissingFont(nullptr, tmpf, doc);
@@ -2589,10 +2589,10 @@ QString Scribus13Format::AskForFont(const QString& fStr, ScribusDoc *doc)
 			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->restoreOverrideCursor();
-			prefsManager->appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
+			prefsManager.appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
 		}
 		else
-			tmpf = prefsManager->appPrefs.fontPrefs.GFontSub[tmpf];
+			tmpf = prefsManager.appPrefs.fontPrefs.GFontSub[tmpf];
 		ReplacedFonts[fStr] = tmpf;
 	}
 	if (!doc->UsedFonts.contains(tmpf))

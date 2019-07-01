@@ -66,9 +66,9 @@ QImage PctPlug::readThumbnail(const QString& fName)
 	double b, h, x, y;
 	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	progressDialog = nullptr;
@@ -167,9 +167,9 @@ bool PctPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	}
 	parseHeader(fNameIn, x, y, b, h);
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	baseX = 0;
@@ -1410,7 +1410,7 @@ void PctPlug::handleFontName(QDataStream &ts)
 	ts.readRawData(fontRawName.data(), nameLen);
 	QString fontName = fontRawName;
 	fontName = fontName.simplified();
-	SCFonts fonts = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts;
+	SCFonts fonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 	SCFontsIterator it(fonts);
 	for ( ; it.hasNext() ; it.next())
 	{

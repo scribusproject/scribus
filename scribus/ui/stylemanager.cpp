@@ -54,7 +54,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	QString pname(name);
 	if (pname.isEmpty())
 		pname = "styleManager";
-	m_prefs = PrefsManager::instance()->prefsFile->getContext(pname);
+	m_prefs = PrefsManager::instance().prefsFile->getContext(pname);
 	m_isEditMode = true;
 	m_isStoryEditMode = false;
 	m_editPosition.setX(m_prefs->getInt("eX", x()));
@@ -335,7 +335,7 @@ void StyleManager::slotImport()
 	if (!m_doc)
 		return;
 
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 	if (dia.exec() == QDialog::Accepted)
@@ -1136,7 +1136,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 			return true;
 	}
 
-	ApplicationPrefs *prefsData=&(PrefsManager::instance()->appPrefs);
+	ApplicationPrefs *prefsData=&(PrefsManager::instance().appPrefs);
 	for (QMap<QString,Keys>::Iterator it=prefsData->keyShortcutPrefs.KeyActions.begin();
 		 it!=prefsData->keyShortcutPrefs.KeyActions.end(); ++it)
 	{

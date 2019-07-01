@@ -223,7 +223,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 
 	updateFromPrefs();
 	languageChange();
-	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
+	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));

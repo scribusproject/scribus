@@ -111,7 +111,7 @@ private:
 	QString parseColor(const QString &s);
 	QColor  parseColorN(const QString &rgbColor);
 	void finalize();
-	PrefsManager *m_prefsManager;
+	PrefsManager& m_prefsManager;
 	StoryText* m_noteStory;
 	TextNote* m_note;
 };

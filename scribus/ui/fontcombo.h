@@ -56,7 +56,7 @@ public:
 	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
 private:
-	PrefsManager* prefsManager;
+	PrefsManager& prefsManager;
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
@@ -92,7 +92,7 @@ protected:
 	QComboBox* fontStyle;
 	QLabel *fontFaceLabel;
 	QLabel *fontStyleLabel;
-	PrefsManager* prefsManager;
+	PrefsManager& prefsManager;
 	ScribusDoc *currDoc;
 	bool isForAnnotation, isForSubstitute;
 	QPixmap ttfFont;
@@ -135,8 +135,5 @@ class FontComboValidator : public QValidator
 public:
 	FontComboValidator(QObject* parent = 0);
 	virtual State validate(QString & input, int & pos) const;
-
-protected:
-	PrefsManager* prefsManager;
 };
 #endif

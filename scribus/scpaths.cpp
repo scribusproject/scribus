@@ -621,9 +621,9 @@ QString ScPaths::userPaletteFilesDir(bool createIfNotExists)
 
 QString ScPaths::userTemplateDir(bool createIfNotExists)
 {
-	if (PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates.isEmpty())
+	if (PrefsManager::instance().appPrefs.pathPrefs.documentTemplates.isEmpty())
 		return QString();
-	QDir useFilesDirectory(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
+	QDir useFilesDirectory(PrefsManager::instance().appPrefs.pathPrefs.documentTemplates);
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	return useFilesDirectory.absolutePath()+"/";

@@ -993,7 +993,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if (fmt)
 						  {
-							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -1146,7 +1146,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if (fmt)
 						  {
-							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -1288,7 +1288,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if (fmt)
 						{
-							fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
@@ -2669,7 +2669,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 					  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 					  if (fmt)
 					  {
-						  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+						  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 						  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 						  if (m_Doc->m_Selection->count() > 0)
 						  {
@@ -2817,7 +2817,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if (fmt)
 						  {
-							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -2952,7 +2952,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if (fmt)
 						{
-							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
@@ -3432,13 +3432,13 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 {
 	QString fontName;
 	bool found = false;
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{
 		if (fontBaseName.toLower() == it.current().family().toLower())
 		{
 			// found the font family, now go for the style
-			QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 			slist.sort();
 			if (slist.count() > 0)
 			{
@@ -3472,13 +3472,13 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 	if (!found)
 	{
 		if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-			fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+			fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 		else
 		{
 			QString family = fontBaseName;
 			if (!fontStyle.isEmpty())
 				family += " " + fontStyle;
-			if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
@@ -3486,10 +3486,10 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 				fontName = dia->getReplacementFont();
 				delete dia;
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-				PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 			}
 			else
-				fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
 		}
 	}
 	return fontName;

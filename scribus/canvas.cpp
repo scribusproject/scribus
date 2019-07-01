@@ -1543,7 +1543,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 	double ph = currentPage->height() + pageBleeds.bottom() + pageBleeds.top();
 	painter->setAntialiasing(false);
 	painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
+	if (PrefsManager::instance().appPrefs.displayPrefs.showPageShadow)
 		painter->drawRect(px + 5, py + 5, pw, ph);
 	painter->setBrush(m_doc->paperColor());
 	painter->drawRect(px, py, pw, ph);
@@ -1558,7 +1558,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
 	int docPagesCount=m_doc->Pages->count();
-	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
+	if (PrefsManager::instance().appPrefs.displayPrefs.showPageShadow)
 	{
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
@@ -2073,7 +2073,7 @@ void Canvas::DrawPageIndicatorSub(ScPainter *p, ScPage *page)
 	p->setFillMode(ScPainter::None);
 	p->setStrokeMode(ScPainter::Solid);
 	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(PrefsManager::instance().appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	p->setAntialiasing(true);
 	p->setFillMode(fm);
@@ -2406,7 +2406,7 @@ void Canvas::drawPixmap(QPainter& painter, double x, double y, const QPixmap& pi
 
 void Canvas::displayXYHUD(QPoint m)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx, gy, gh, gw, r;
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -2452,7 +2452,7 @@ void Canvas::displayXYHUD(QPoint m)
 
 void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx = x;
 	double gy = y;
@@ -2468,7 +2468,7 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 
 void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx = val;
 	if (isX)
@@ -2489,14 +2489,14 @@ void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 
 void Canvas::displayXYHUD(QPoint m, double x, double y)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	if (isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)), this);
@@ -2506,7 +2506,7 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 
 void Canvas::displayRotHUD(QPoint m, double rot)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double r;
 	if (rot < 0.0)
@@ -2518,14 +2518,14 @@ void Canvas::displayRotHUD(QPoint m, double rot)
 
 void Canvas::displayRealRotHUD(QPoint m, double rot)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
 }
 
 void Canvas::displayDoubleHUD(QPoint point, const QString& label, double value)
 {
-	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	QToolTip::showText(point + QPoint(5, 5), QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)), this);
 }

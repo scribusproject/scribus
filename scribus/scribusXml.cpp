@@ -145,7 +145,7 @@ bool ScriXmlDoc::readElemToLayer(const QString& fileNameOrData, SCFonts &avail, 
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT);
 	if (fmt)
 	{
-		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 		fmt->loadElements(elementData, fileDir, toLayer, xPos, yPos, loc);
 		return true;
 	}
@@ -217,7 +217,7 @@ QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 	if (fmt)
 	{
-		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 		documentStr = fmt->saveElements(xp, yp, wp, hp, selection, ba);
 	}
 	return documentStr;

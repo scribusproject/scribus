@@ -113,8 +113,8 @@ QImage VivaPlug::readThumbnail(const QString& fName)
 	progressDialog = nullptr;
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -237,8 +237,8 @@ bool VivaPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -2300,13 +2300,13 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 {
 	QString fontName = "";
 	bool found = false;
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{
 		if (fontBaseName.toLower() == it.current().family().toLower())
 		{
 			// found the font family, now go for the style
-			QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 			slist.sort();
 			if (slist.count() > 0)
 			{
@@ -2340,13 +2340,13 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 	if (!found)
 	{
 		if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-			fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+			fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 		else
 		{
 			QString family = fontBaseName;
 			if (!fontStyle.isEmpty())
 				family += " " + fontStyle;
-			if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
@@ -2354,10 +2354,10 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 				fontName = dia->getReplacementFont();
 				delete dia;
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-				PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 			}
 			else
-				fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
 		}
 	}
 	return fontName;

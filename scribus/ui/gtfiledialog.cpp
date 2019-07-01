@@ -85,7 +85,7 @@ void gtFileDialog::okClicked()
 
 void gtFileDialog::loadSettings()
 {
-	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	PrefsContext* context = PrefsManager::instance().prefsFile->getContext("textimport_dialog");
 	if (context->contains("filter"))
 	{
 		QString filter = context->get("filter");
@@ -121,7 +121,7 @@ void gtFileDialog::loadSettings()
 
 void gtFileDialog::saveSettings()
 {
-	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	PrefsContext* context = PrefsManager::instance().prefsFile->getContext("textimport_dialog");
 	context->set("filter"  , fileWidget->selectedNameFilter());
 	context->set("importer", importerCombo->currentText());
 	context->set("encoding", encodingCombo->currentText());

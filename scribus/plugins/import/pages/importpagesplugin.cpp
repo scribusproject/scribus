@@ -125,7 +125,7 @@ bool ImportPagesPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importpages");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpages");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pages *.PAGES);;All Files (*)");
 		if (diaf.exec())

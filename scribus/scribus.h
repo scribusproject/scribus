@@ -651,7 +651,7 @@ private:
 	double m_storedViewScale;
 	StyleManager *m_styleManager;
 	UndoManager *m_undoManager;
-	PrefsManager *m_prefsManager;
+	PrefsManager& m_prefsManager;
 	FormatsManager *m_formatsManager;
 
 	QPointer<HelpBrowser> m_helpBrowser;

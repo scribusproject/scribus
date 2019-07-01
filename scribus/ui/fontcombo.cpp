@@ -44,9 +44,9 @@ for which a new license (GPL+exception) is in place.
 
 extern ScribusQApp* ScQApp;
 
-FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
+FontCombo::FontCombo(QWidget* pa) : QComboBox(pa),
+									prefsManager(PrefsManager::instance())
 {
-	prefsManager = PrefsManager::instance();
 	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
 	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
 	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
@@ -63,7 +63,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 	clear();
 	QMap<QString, QString> rlist;
 	rlist.clear();
-	SCFontsIterator it(prefsManager->appPrefs.fontPrefs.AvailFonts);
+	SCFontsIterator it(prefsManager.appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{
 		if (it.current().usable())
@@ -79,7 +79,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 	}
 	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
-		ScFace fon = prefsManager->appPrefs.fontPrefs.AvailFonts[it2.value()];
+		ScFace fon = prefsManager.appPrefs.fontPrefs.AvailFonts[it2.value()];
 		if (! fon.usable() )
 			continue;
 		ScFace::FontType type = fon.type();
@@ -106,10 +106,10 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		QWidget(parent),
 		fontFaceLabel(nullptr),
 		fontStyleLabel(nullptr),
-		showLabels(labels)
+		showLabels(labels),
+		prefsManager(PrefsManager::instance())
 {
 	currDoc = nullptr;
-	prefsManager = PrefsManager::instance();
 	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
 	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
 	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
@@ -167,11 +167,11 @@ void FontComboH::familySelected(int id)
 	QString curr = fontStyle->currentText();
 	fontStyle->clear();
 	QString fntFamily = fontFamily->itemText(id);
-	QStringList slist, styleList = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[fntFamily];
+	QStringList slist, styleList = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[fntFamily];
 	for (QStringList::ConstIterator it = styleList.begin(); it != styleList.end(); ++it)
 	{
-		SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(fntFamily + " " + *it);
-		if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+		SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(fntFamily + " " + *it);
+		if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
 		{
 			if (!fIt->usable() || fIt->isReplacement())
 				continue;
@@ -204,8 +204,8 @@ QString FontComboH::currentFont()
 
 void FontComboH::setCurrentFont(const QString& f)
 {
-	QString family = prefsManager->appPrefs.fontPrefs.AvailFonts[f].family();
-	QString style = prefsManager->appPrefs.fontPrefs.AvailFonts[f].style();
+	QString family = prefsManager.appPrefs.fontPrefs.AvailFonts[f].family();
+	QString style = prefsManager.appPrefs.fontPrefs.AvailFonts[f].style();
 	// If we already have the correct font+style, nothing to do
 	if ((fontFamily->currentText() == family) && (fontStyle->currentText() == style))
 		return;
@@ -213,15 +213,15 @@ void FontComboH::setCurrentFont(const QString& f)
 	bool styleSigBlocked = fontStyle->blockSignals(true);
 	setCurrentComboItem(fontFamily, family);
 	fontStyle->clear();
-	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
+	QStringList slist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
 	if (currDoc != nullptr)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(family + " " + *it3);
-			if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it3);
+			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
 			{
 				if (!fIt->usable() || fIt->isReplacement())
 					continue;
@@ -250,20 +250,20 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	bool styleSigBlocked = fontStyle->blockSignals(true);
 	fontFamily->clear();
 	fontStyle->clear();
-	QStringList rlist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.keys();
+	QStringList rlist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.keys();
 	QMap<QString, ScFace::FontType> flist;
 	flist.clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
 		if (currentDoc != nullptr)
 		{
-			QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[*it2];
+			QStringList slist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[*it2];
 			slist.sort();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ( prefsManager->appPrefs.fontPrefs.AvailFonts.contains(*it2 + " " + *it3))
+				if ( prefsManager.appPrefs.fontPrefs.AvailFonts.contains(*it2 + " " + *it3))
 				{
-					const ScFace& fon(prefsManager->appPrefs.fontPrefs.AvailFonts[*it2 + " " + *it3]);
+					const ScFace& fon(prefsManager.appPrefs.fontPrefs.AvailFonts[*it2 + " " + *it3]);
 					ScFace::FontType type = fon.type();
 					if (!fon.usable() || fon.isReplacement() || !(currentDoc->documentFileName() == fon.localForDocument() || fon.localForDocument().isEmpty()))
 						continue;
@@ -278,13 +278,13 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		}
 		else
 		{
-			QMap<QString, QStringList>::ConstIterator fmIt = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.find(*it2);
-			if (fmIt == prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.end())
+			QMap<QString, QStringList>::ConstIterator fmIt = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.find(*it2);
+			if (fmIt == prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.end())
 				continue;
 			if (fmIt->count() <= 0)
 				continue;
 			QString fullFontName = (*it2) + " " + fmIt->at(0);
-			ScFace fon = prefsManager->appPrefs.fontPrefs.AvailFonts[fullFontName];
+			ScFace fon = prefsManager.appPrefs.fontPrefs.AvailFonts[fullFontName];
 			if ( !fon.usable() || fon.isReplacement() )
 				continue;
 			ScFace::FontType type = fon.type();
@@ -310,15 +310,15 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 			fontFamily->addItem(ttfFont, it2a.key());
 	}
 	QString family = fontFamily->currentText();
-	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
+	QStringList slist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
 	if (currentDoc != nullptr)
 	{
 		for (QStringList::ConstIterator it = slist.begin(); it != slist.end(); ++it)
 		{
-			SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(family + " " + *it);
-			if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it);
+			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
 			{
 				if (!fIt->usable() || fIt->isReplacement())
 					continue;
@@ -461,8 +461,7 @@ QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLa
 const ScFace& getScFace(const QString& className, const QString& text)
 {
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
-	PrefsManager* prefsManager = PrefsManager::instance();
-	SCFonts& availableFonts = prefsManager->appPrefs.fontPrefs.AvailFonts;
+	SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 
 	// Handle FontComboH class witch has only Family names in the combo class.
 	if (className == "FontComboH" || className == "SMFontComboH")
@@ -661,7 +660,6 @@ QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option, const QMo
 FontComboValidator::FontComboValidator(QObject* parent)
 	: QValidator(parent)
 {
-	prefsManager = PrefsManager::instance();
 }
 
 QValidator::State FontComboValidator::validate(QString & input, int & pos) const

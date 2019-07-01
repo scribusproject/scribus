@@ -80,7 +80,7 @@ UndoManager::UndoManager()
 	currentUndoObjectId_ = -1;
 	if (!UndoManager::IGuides)
 		initIcons();
-	prefs_ = PrefsManager::instance()->prefsFile->getContext("undo");
+	prefs_ = PrefsManager::instance().prefsFile->getContext("undo");
 	languageChange();
 	setUndoEnabled(prefs_->getBool("enabled", true));
 }

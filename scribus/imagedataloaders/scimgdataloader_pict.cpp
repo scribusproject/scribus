@@ -1030,7 +1030,7 @@ void ScImgDataLoader_PICT::handleFontName(QDataStream &ts)
 	ts.readRawData(fontRawName.data(), nameLen);
 	QString fontName = fontRawName;
 	fontName = fontName.simplified();
-	SCFonts fonts = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts;
+	SCFonts fonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 	SCFontsIterator it(fonts);
 	for ( ; it.hasNext() ; it.next())
 	{

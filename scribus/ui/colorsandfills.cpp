@@ -1033,7 +1033,7 @@ void ColorsAndFillsDialog::importColorItems()
 		formats += tr("Gimp Gradient Files \"*.ggr\" (*.ggr *.GGR);;");
 		formats += tr("All Files (*)");
 		allFormats += formats;
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 		QString wdir = dirs->get("gradients", ".");
 		CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles | fdDisableOk);
 		if (dia.exec() == QDialog::Accepted)
@@ -1042,7 +1042,7 @@ void ColorsAndFillsDialog::importColorItems()
 			return;
 		if (!fileName.isEmpty())
 		{
-			PrefsManager::instance()->prefsFile->getContext("dirs")->set("gradients", fileName.left(fileName.lastIndexOf("/")));
+			PrefsManager::instance().prefsFile->getContext("dirs")->set("gradients", fileName.left(fileName.lastIndexOf("/")));
 			QFileInfo fi(fileName);
 			QString ext = fi.suffix().toLower();
 			if (ext == "sgr")
@@ -1066,7 +1066,7 @@ void ColorsAndFillsDialog::importColorItems()
 		QString extra = allFormatsV.join(" *.");
 		extra.prepend(" *.");
 		QString fileName;
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 		QString wdir = dirs->get("colors", ".");
 		QString docexts("*.sla *.sla.gz *.scd *.scd.gz");
 		QString aiepsext(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0));
@@ -1186,7 +1186,7 @@ void ColorsAndFillsDialog::importColorItems()
 		imgFormats.append("ps");
 		qSort(formats);
 		allFormats += formats.join(";;");
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 		QString wdir = dirs->get("patterns", ".");
 		CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
@@ -1195,7 +1195,7 @@ void ColorsAndFillsDialog::importColorItems()
 		if (fileName.isEmpty())
 			return;
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
+		PrefsManager::instance().prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi(fileName);
 		if ((fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
 		{
@@ -1223,7 +1223,7 @@ void ColorsAndFillsDialog::importColorItems()
 
 void ColorsAndFillsDialog::loadPatternDir()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterndir", ".");
 	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), wdir);
 	if (!fileName.isEmpty())
@@ -1325,7 +1325,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 	if (fi.suffix().toLower() == "sce")
 	{
 		ScriXmlDoc ss;
-		ss.readElem(data, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, PrefsManager::instance()->appPrefs.fontPrefs.GFontSub);
+		ss.readElem(data, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, PrefsManager::instance().appPrefs.fontPrefs.GFontSub);
 	}
 	else
 	{
@@ -1337,7 +1337,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if (fmt)
 			{
-				fmt->setupTargets(m_doc, nullptr, mainWin, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+				fmt->setupTargets(m_doc, nullptr, mainWin, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns|LoadSavePlugin::lfLoadAsPattern);
 			}
 		}
@@ -1965,7 +1965,7 @@ void ColorsAndFillsDialog::doSaveDefaults(const QString& name, bool changed)
 		s_doc->PageColors = m_colorList;
 		s_doc->setGradients(dialogGradients);
 		s_doc->setPatterns(dialogPatterns);
-		fmt->setupTargets(s_doc, nullptr, mainWin, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+		fmt->setupTargets(s_doc, nullptr, mainWin, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 		fmt->savePalette(filename);
 		delete s_doc;
 	}

@@ -246,7 +246,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeDrawBezierLine:
 			{
 				setSpecialEditMode(true);
-				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools))
+				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools))
 					doc->view()->Deselect(true);
 			}
 			break;

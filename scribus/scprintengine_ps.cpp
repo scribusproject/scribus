@@ -22,13 +22,13 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 	QString filename(options.filename);
 	doc.getUsedFonts(usedFonts);
 	doc.getUsedColors(usedColors);
-	PrefsManager *prefsManager = PrefsManager::instance();
-	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, options.includePDFMarks, options.useSpotColors);
+	PrefsManager& prefsManager = PrefsManager::instance();
+	PSLib *dd = new PSLib(options, true, prefsManager.appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, options.includePDFMarks, options.useSpotColors);
 	if (dd == nullptr)
 		return false;
 
 	if (!options.toFile)
-		filename = prefsManager->preferencesLocation()+"/tmp.ps";
+		filename = prefsManager.preferencesLocation()+"/tmp.ps";
 	bool psFile = dd->PS_set_file(filename);
 	if (!psFile)
 	{

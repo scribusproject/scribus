@@ -45,8 +45,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	minResDPI(0),
 	maxResDPI(0)
 {
-	showPagesWithoutErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
-	showNonPrintingLayerErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showNonPrintingLayerErrors;
+	showPagesWithoutErrors=PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors=PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 
 	graveError = IconManager::instance().loadPixmap("22/dialog-error.png");
 	onlyWarning = IconManager::instance().loadPixmap("22/dialog-warning.png");
@@ -249,8 +249,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 
 void CheckDocument::doReScan()
 {
-	showPagesWithoutErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
-	showNonPrintingLayerErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showNonPrintingLayerErrors;
+	showPagesWithoutErrors=PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors=PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 	newScan(curCheckProfile->currentText());
 }
 

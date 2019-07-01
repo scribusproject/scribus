@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 PluginManager::PluginManager() :
 	QObject(nullptr),
-	prefs(PrefsManager::instance()->prefsFile->getPluginContext("pluginmanager"))
+	prefs(PrefsManager::instance().prefsFile->getPluginContext("pluginmanager"))
 {
 }
 

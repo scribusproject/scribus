@@ -77,8 +77,8 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	unitChange(docUnitIndex);
 
-	PrefsManager* prefsManager=PrefsManager::instance();
-	ColorList* colorList = (m_doc != nullptr) ? (&m_doc->PageColors) : prefsManager->colorSetPtr();
+	PrefsManager& prefsManager=PrefsManager::instance();
+	ColorList* colorList = (m_doc != nullptr) ? (&m_doc->PageColors) : prefsManager.colorSetPtr();
 
 	//Text Tool
 	for (int i=0; i<textFontComboBox->count(); ++i)
@@ -378,8 +378,8 @@ void Prefs_ItemTools::updateFontPreview()
 		}
 		else
 		{
-			PrefsManager* prefsManager=PrefsManager::instance();
-			ColorList* colorList=prefsManager->colorSetPtr();
+			PrefsManager& prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager.colorSetPtr();
 			si.setBgColor((*colorList)[textFrameFillColorComboBox->currentText()].getRawRGBColor());
 		}
 		si.setBgShade(textFrameFillShadingSpinBox->value());
@@ -395,8 +395,8 @@ void Prefs_ItemTools::updateFontPreview()
 		}
 		else
 		{
-			PrefsManager* prefsManager=PrefsManager::instance();
-			ColorList* colorList=prefsManager->colorSetPtr();
+			PrefsManager& prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager.colorSetPtr();
 			si.setTxColor((*colorList)[textColorComboBox->currentText()].getRawRGBColor());
 		}
 		si.setTxShade(textColorShadingSpinBox->value());

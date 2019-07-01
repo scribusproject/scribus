@@ -155,8 +155,8 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 			progressDialog = nullptr;
 			QFileInfo fi = QFileInfo(fName);
 			baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-			docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-			docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+			docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+			docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 			m_Doc = new ScribusDoc();
 			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 			m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -313,8 +313,8 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -3254,7 +3254,7 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, const QString& baseStyleN
 
 QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
-	QString fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+	QString fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 	if (fontTranslateMap.contains(fontBaseName))
 	{
 		QMap<QString, QString> styleMap = fontTranslateMap[fontBaseName];
@@ -3262,7 +3262,7 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 		{
 			QString postName = styleMap[fontStyle];
 			bool found = false;
-			SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+			SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 			for ( ; it.hasNext(); it.next())
 			{
 				if (it.current().psName() == postName)
@@ -3275,12 +3275,12 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 			if (!found)
 			{
 				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-					fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+					fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 				else
 				{
 					QString family = fontBaseName + " " + fontStyle;
 					family = family.remove("$ID/");
-					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+					if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
@@ -3288,10 +3288,10 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 						fontName = dia->getReplacementFont();
 						delete dia;
 						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+						PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 					}
 					else
-						fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+						fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
 				}
 			}
 		}

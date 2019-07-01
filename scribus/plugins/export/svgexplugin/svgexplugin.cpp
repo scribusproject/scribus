@@ -130,7 +130,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, const QString& filename)
 	QString fileName;
 	if (doc!=nullptr)
 	{
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
 		QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));

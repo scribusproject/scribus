@@ -99,7 +99,7 @@ void tfFilter::createWidget()
 // 	thirdRegexpCheck = nullptr;
 	fifthRegexpCheck = nullptr;
 
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
 	QHBoxLayout *layout = new QHBoxLayout(this);

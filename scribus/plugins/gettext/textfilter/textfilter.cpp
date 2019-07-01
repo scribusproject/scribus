@@ -46,7 +46,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 	filters = nullptr;
 	writer = w;
 	writer->setOverridePStyleFont(false);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 	tfDia* tfdia = new tfDia();
 	if (tfdia->exec())
 	{

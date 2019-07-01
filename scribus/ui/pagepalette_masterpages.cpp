@@ -135,8 +135,8 @@ void PagePalette_MasterPages::languageChange()
 
 void PagePalette_MasterPages::styleChange()
 {
-	PrefsManager* prefsManager = PrefsManager::instance();
-	if (prefsManager->appPrefs.uiPrefs.style=="Macintosh" || (os_is_osx() && prefsManager->appPrefs.uiPrefs.style==""))
+	PrefsManager& prefsManager = PrefsManager::instance();
+	if (prefsManager.appPrefs.uiPrefs.style=="Macintosh" || (os_is_osx() && prefsManager.appPrefs.uiPrefs.style==""))
 		finishButton->setMinimumHeight(32);
 	else
 		finishButton->setMinimumHeight(0);
@@ -233,7 +233,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 		masterPageNameWrong |= (masterPageName == CommonStrings::trMasterPageNormalRight);
 		masterPageNameWrong |=  masterPageName.isEmpty();
 	}
-	PrefsManager* prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	int inde = m_doc->MasterNames[m_currentPage];
 	int nr = m_doc->Pages->count();
 	ScPage* from = m_doc->Pages->at(inde);
@@ -301,7 +301,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			{
 				ScriXmlDoc ss;
 				QString buffer = ss.writeElem(m_doc, m_doc->m_Selection);
-				ss.readElemToLayer(buffer, prefsManager->appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.fontPrefs.GFontSub, it->ID);
+				ss.readElemToLayer(buffer, prefsManager.appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager.appPrefs.fontPrefs.GFontSub, it->ID);
 				m_doc->m_Selection->clear();
 			}
 		}

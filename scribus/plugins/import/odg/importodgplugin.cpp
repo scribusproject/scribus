@@ -141,7 +141,7 @@ bool ImportOdgPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importodg");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importodg");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.odg *.ODG *.fodg *.FODG *.odp *.ODP *.fodp *.FODP);;All Files (*)");
 		if (diaf.exec())

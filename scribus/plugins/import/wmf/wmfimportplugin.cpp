@@ -139,7 +139,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("WMFPlugin");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("WMFPlugin");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::WMF));
 		if (diaf.exec())

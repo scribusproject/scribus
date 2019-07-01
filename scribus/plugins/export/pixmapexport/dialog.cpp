@@ -28,7 +28,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 {
 	setupUi(this);
 	setModal(true);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("pixmapexport");
 
 	QDirModel * dirModel = new QDirModel(this);
 	dirModel->setFilter(QDir::AllDirs);

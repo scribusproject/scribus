@@ -160,7 +160,7 @@ protected:
 	QHBoxLayout* Layout6;
 	QHBoxLayout* Layout7;
 	QVBoxLayout* settingsBarLayout;
-	PrefsManager *prefsManager;
+	PrefsManager& prefsManager;
 
 	void setValues();
 	void getUserSelection(int);

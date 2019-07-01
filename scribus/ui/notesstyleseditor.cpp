@@ -17,7 +17,7 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	QString pname(name);
 	if (pname.isEmpty())
 		pname = "notesStylesEditor";
-	m_prefs = PrefsManager::instance()->prefsFile->getContext(pname);
+	m_prefs = PrefsManager::instance().prefsFile->getContext(pname);
 
 	setBlockSignals(true);
 	

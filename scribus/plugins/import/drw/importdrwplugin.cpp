@@ -125,7 +125,7 @@ bool ImportDrwPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importdrw");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importdrw");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.drw *.DRW);;All Files (*)");
 		if (diaf.exec())

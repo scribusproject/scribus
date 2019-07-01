@@ -35,7 +35,7 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 	IconManager& im=IconManager::instance();
 	setWindowIcon(im.loadIcon("AppIcon.png"));
 	view = vie;
-	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout(this);
 	EditTex = new QTextEdit(this);
 	newAct = new QAction(im.loadIcon("16/document-new.png"), tr("&New"), this);

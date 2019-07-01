@@ -124,7 +124,7 @@ bool ImportCgmPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importcgm");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importcgm");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.cgm *.CGM);;All Files (*)");
 		if (diaf.exec())

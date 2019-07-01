@@ -46,7 +46,7 @@ CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirecto
 	m_compressDoc = compressDoc;
 	m_withFonts = withFonts;
 	m_withProfiles = withProfiles;
-	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	collectedFiles.clear();
 
 	if (m_withFonts)
@@ -64,7 +64,7 @@ bool CollectForOutput::newDirDialog()
 	if (ScCore->usingGUI())
 	{
 		QString wdir = ".";
-		QString prefsDocDir = PrefsManager::instance()->documentDir();
+		QString prefsDocDir = PrefsManager::instance().documentDir();
 		if (!prefsDocDir.isEmpty())
 			wdir = dirs->get("collect", prefsDocDir);
 		else
@@ -279,7 +279,7 @@ void CollectForOutput::processItem(PageItem *ite)
 			QFileInfo itf = QFileInfo(ofName);
 			if (!itf.exists())
 			{
-				ofName = QDir::toNativeSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+				ofName = QDir::toNativeSeparators(PrefsManager::instance().documentDir() + "/" + ofName);
 				itf.setFile(ofName);
 			}
 		// end of hack
@@ -300,7 +300,7 @@ void CollectForOutput::processItem(PageItem *ite)
 		QFileInfo itf = QFileInfo(ofName);
 		if (!itf.exists())
 		{
-			ofName = QDir::toNativeSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+			ofName = QDir::toNativeSeparators(PrefsManager::instance().documentDir() + "/" + ofName);
 			itf.setFile(ofName);
 		}
 		if (itf.exists())
@@ -347,14 +347,14 @@ void CollectForOutput::processItem(PageItem *ite)
 
 bool CollectForOutput::collectFonts()
 {
-	PrefsManager *prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	QMap<QString,int>::Iterator it3;
 	QMap<QString,int>::Iterator it3end = m_Doc->UsedFonts.end();
 	int c=0;
 	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
-		QFileInfo itf(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
-		QString oldFileITF(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
+		QFileInfo itf(prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
+		QString oldFileITF(prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
 		QString outFileITF(m_outputDirectory + "fonts/" + itf.fileName());
 		bool success = copyFileAtomic(oldFileITF, outFileITF);
 		if (!success)
@@ -373,7 +373,7 @@ bool CollectForOutput::collectFonts()
 				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF<<"as the file does not exist";
 		}
 #endif
-		if (prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
+		if (prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
 			QString fontDir  = itf.absolutePath();

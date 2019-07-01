@@ -119,7 +119,7 @@ bool ImportVsdPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importvsd");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importvsd");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX);;All Files (*)");
 		if (diaf.exec())

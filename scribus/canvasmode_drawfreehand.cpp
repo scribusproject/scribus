@@ -278,7 +278,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_doc->changed();
 		}
-		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+		if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		{
 			m_view->requestMode(modeNormal);
 		}

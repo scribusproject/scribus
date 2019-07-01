@@ -125,7 +125,7 @@ bool ImportVivaPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importviva");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importviva");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.xml *.XML);;All Files (*)");
 		if (diaf.exec())

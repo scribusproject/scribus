@@ -256,7 +256,7 @@ void HelpBrowser::setupLocalUI()
 //	splitter->setStretchFactor(splitter->indexOf(tabWidget), 0);
 //	splitter->setStretchFactor(splitter->indexOf(textBrowser), 1);
 	// reset previous size
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("helpbrowser");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("helpbrowser");
 	int xsize = prefs->getUInt("xsize", 640);
 	int ysize = prefs->getUInt("ysize", 480);
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );

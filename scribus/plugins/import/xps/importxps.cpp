@@ -123,8 +123,8 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 	{
 		QFileInfo fi = QFileInfo(fName);
 		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-		docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-		docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -229,8 +229,8 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -580,8 +580,8 @@ void XpsPlug::parsePageReference(const QString& designMap)
 		return;
 
 	QDomElement docElem = designMapDom.documentElement();
-	docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
-	docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight)).toDouble() * conversionFactor;
+	docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
+	docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight)).toDouble() * conversionFactor;
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (firstPage)
@@ -1939,7 +1939,7 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	{
 		ft.write(fontData);
 		ft.close();
-		t = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.LoadScalableFont(fname);
+		t = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.LoadScalableFont(fname);
 		loadedFonts.insert(fileName, t);
 		return t;
 	}

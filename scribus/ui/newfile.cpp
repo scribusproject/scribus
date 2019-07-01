@@ -90,17 +90,17 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 	return QSize(maxX, maxY);
 }
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent ),
+	prefsManager(PrefsManager::instance())
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
-	prefsManager=PrefsManager::instance();
 	m_tabSelected = 0;
 	m_onStartup = startUp;
-	m_unitIndex = prefsManager->appPrefs.docSetupPrefs.docUnitIndex;
+	m_unitIndex = prefsManager.appPrefs.docSetupPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
-	m_orientation = prefsManager->appPrefs.docSetupPrefs.pageOrientation;
+	m_orientation = prefsManager.appPrefs.docSetupPrefs.pageOrientation;
 	setWindowTitle( tr( "New Document" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	TabbedNewDocLayout = new QVBoxLayout( this );
@@ -131,7 +131,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, co
 	if (startUp)
 	{
 		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this );
-		startUpDialog->setChecked(!prefsManager->appPrefs.uiPrefs.showStartupDialog);
+		startUpDialog->setChecked(!prefsManager.appPrefs.uiPrefs.showStartupDialog);
 		Layout1->addWidget( startUpDialog );
 	}
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -187,10 +187,10 @@ void NewDoc::createNewDocPage()
 
 	layoutsView = new PageLayoutsWidget( pageSizeGroupBox );
 	layoutsView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-	for (int pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
+	for (int pg = 0; pg < prefsManager.appPrefs.pageSets.count(); ++pg)
 	{
 		QListWidgetItem *ic;
-		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
+		QString psname=CommonStrings::translatePageSetString(prefsManager.appPrefs.pageSets[pg].Name);
 		if (pg == 0)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
@@ -201,12 +201,12 @@ void NewDoc::createNewDocPage()
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-doublesided.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 2 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 2)
+		else if (pg == 2 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 2)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-3fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 3 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 3)
+		else if (pg == 3 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 3)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-4fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -219,7 +219,7 @@ void NewDoc::createNewDocPage()
 
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
-	PageSize ps(prefsManager->appPrefs.docSetupPrefs.pageSize);
+	PageSize ps(prefsManager.appPrefs.docSetupPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( pageSizeGroupBox );
 	pageSizeComboBox->addItems(ps.activeSizeTRList());
 	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
@@ -232,7 +232,7 @@ void NewDoc::createNewDocPage()
 	pageOrientationComboBox->addItem( tr( "Portrait" ) );
 	pageOrientationComboBox->addItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
-	pageOrientationComboBox->setCurrentIndex(prefsManager->appPrefs.docSetupPrefs.pageOrientation);
+	pageOrientationComboBox->setCurrentIndex(prefsManager.appPrefs.docSetupPrefs.pageOrientation);
 	TextLabel2->setBuddy(pageOrientationComboBox);
 	pageSizeGroupBoxLayout->addWidget( pageOrientationComboBox, 1, 2 );
 
@@ -258,12 +258,12 @@ void NewDoc::createNewDocPage()
 	pageSizeGroupBoxLayout->addWidget( unitOfMeasureLabel, 4, 1 );
 	pageSizeGroupBoxLayout->addWidget( unitOfMeasureComboBox, 4, 2 );
 
-	MarginStruct marg(prefsManager->appPrefs.docSetupPrefs.margins);
+	MarginStruct marg(prefsManager.appPrefs.docSetupPrefs.margins);
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, m_unitIndex );
-	marginGroup->setPageWidthHeight(prefsManager->appPrefs.docSetupPrefs.pageWidth, prefsManager->appPrefs.docSetupPrefs.pageHeight);
-	marginGroup->setFacingPages(!(prefsManager->appPrefs.docSetupPrefs.pagePositioning == singlePage));
-	widthSpinBox->setValue(prefsManager->appPrefs.docSetupPrefs.pageWidth * m_unitRatio);
-	heightSpinBox->setValue(prefsManager->appPrefs.docSetupPrefs.pageHeight * m_unitRatio);
+	marginGroup->setPageWidthHeight(prefsManager.appPrefs.docSetupPrefs.pageWidth, prefsManager.appPrefs.docSetupPrefs.pageHeight);
+	marginGroup->setFacingPages(!(prefsManager.appPrefs.docSetupPrefs.pagePositioning == singlePage));
+	widthSpinBox->setValue(prefsManager.appPrefs.docSetupPrefs.pageWidth * m_unitRatio);
+	heightSpinBox->setValue(prefsManager.appPrefs.docSetupPrefs.pageHeight * m_unitRatio);
 	QStringList pageSizes=ps.activeSizeTRList();
 	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
@@ -271,8 +271,8 @@ void NewDoc::createNewDocPage()
 	else
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 	marginGroup->setPageSize(pageSizeComboBox->currentText());
-	marginGroup->setNewBleeds(prefsManager->appPrefs.docSetupPrefs.bleeds);
-	marginGroup->setMarginPreset(prefsManager->appPrefs.docSetupPrefs.marginPreset);
+	marginGroup->setNewBleeds(prefsManager.appPrefs.docSetupPrefs.bleeds);
+	marginGroup->setMarginPreset(prefsManager.appPrefs.docSetupPrefs.marginPreset);
 
 	optionsGroupBox = new QGroupBox( newDocFrame );
 	optionsGroupBox->setTitle( tr( "Options" ) );
@@ -294,13 +294,13 @@ void NewDoc::createNewDocPage()
 	layoutLabel1->setText( tr( "First Page is:" ) );
 	firstPage = new ScComboBox( optionsGroupBox );
 	firstPage->clear();
-	selectItem(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
+	selectItem(prefsManager.appPrefs.docSetupPrefs.pagePositioning);
 	optionsGroupBoxLayout->addRow( layoutLabel1, firstPage );
-	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.docSetupPrefs.pagePositioning].FirstPage);
+	firstPage->setCurrentIndex(prefsManager.appPrefs.pageSets[prefsManager.appPrefs.docSetupPrefs.pagePositioning].FirstPage);
 
-	setDocLayout(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
-	setSize(prefsManager->appPrefs.docSetupPrefs.pageSize);
-	setOrientation(prefsManager->appPrefs.docSetupPrefs.pageOrientation);
+	setDocLayout(prefsManager.appPrefs.docSetupPrefs.pagePositioning);
+	setSize(prefsManager.appPrefs.docSetupPrefs.pageSize);
+	setOrientation(prefsManager.appPrefs.docSetupPrefs.pageOrientation);
 
 	autoTextFrame = new QCheckBox( optionsGroupBox );
 	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
@@ -348,9 +348,9 @@ void NewDoc::createNewFromTempPage()
 
 void NewDoc::createOpenDocPage()
 {
-	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = prefsManager.prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
-	QString prefsDocDir=prefsManager->documentDir();
+	QString prefsDocDir=prefsManager.documentDir();
 	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
@@ -408,7 +408,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout->setSpacing(5);
 	recentDocListBox = new QListWidget(recentDocFrame);
 	recentDocLayout->addWidget(recentDocListBox);
-	uint max = qMin(prefsManager->appPrefs.uiPrefs.recentDocCount, recentDocList.count());
+	uint max = qMin(prefsManager.appPrefs.uiPrefs.recentDocCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
 		recentDocListBox->addItem( QDir::toNativeSeparators(recentDocList[m]) );
 	if (max>0)
@@ -460,7 +460,7 @@ void NewDoc::selectItem(uint nr)
 		firstPage->setEnabled(true);
 		firstPage->clear();
 		QStringList::Iterator pNames;
-		for (pNames = prefsManager->appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[nr].pageNames.end(); ++pNames )
+		for (pNames = prefsManager.appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager.appPrefs.pageSets[nr].pageNames.end(); ++pNames )
 		{
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
@@ -653,7 +653,7 @@ void NewDoc::setDocLayout(int layout)
 {
 	marginGroup->setFacingPages(layout != singlePage);
 	m_choosenLayout = layout;
-	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[m_choosenLayout].FirstPage);
+	firstPage->setCurrentIndex(prefsManager.appPrefs.pageSets[m_choosenLayout].FirstPage);
 }
 
 void NewDoc::recentDocListBox_doubleClicked()

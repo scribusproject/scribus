@@ -359,7 +359,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setTabOrder( DoReplace, AllReplace );
 	setTabOrder( AllReplace, Leave );
 
-	m_prefs = PrefsManager::instance()->prefsFile->getContext("SearchReplace");
+	m_prefs = PrefsManager::instance().prefsFile->getContext("SearchReplace");
 	readPrefs();
 }
 

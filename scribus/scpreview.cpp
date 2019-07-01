@@ -16,13 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 
-ScPreview::ScPreview()
-{
-}
+
 
 QImage ScPreview::createPreview(const QString& data)
 {
-	PrefsManager *prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	double gx, gy, gw, gh;
 	ScriXmlDoc ss;
 	if (ss.readElemHeader(data, false, &gx, &gy, &gw, &gh))
@@ -48,7 +46,7 @@ QImage ScPreview::createPreview(const QString& data)
 		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 		m_Doc->setLoading(true);
 		m_Doc->DoDrawing = false;
-		if (ss.readElem(data, prefsManager->appPrefs.fontPrefs.AvailFonts, m_Doc, 0, 0, false, true, prefsManager->appPrefs.fontPrefs.GFontSub))
+		if (ss.readElem(data, prefsManager.appPrefs.fontPrefs.AvailFonts, m_Doc, 0, 0, false, true, prefsManager.appPrefs.fontPrefs.GFontSub))
 		{
 			QList<PageItem*> Elements = *m_Doc->Items;
 			Selection *tmpSel = new Selection(m_Doc, false);

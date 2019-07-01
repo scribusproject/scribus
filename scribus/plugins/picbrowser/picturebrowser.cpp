@@ -2111,7 +2111,7 @@ PictureBrowserSettings::PictureBrowserSettings() :
 
 void PictureBrowserSettings::load()
 {
-	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext("picturebrowser");
+	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance().prefsFile->getPluginContext("picturebrowser");
 
 	saveSettings = pictureBrowserPluginPrefs->getBool("pb_savesettings", true);
 	showMore = pictureBrowserPluginPrefs->getBool("pb_showmore", false);
@@ -2128,7 +2128,7 @@ void PictureBrowserSettings::load()
 
 void PictureBrowserSettings::save()
 {
-	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext("picturebrowser");
+	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance().prefsFile->getPluginContext("picturebrowser");
 
 	pictureBrowserPluginPrefs->set("pb_savesettings", saveSettings);
 	pictureBrowserPluginPrefs->set("pb_showmore", showMore);

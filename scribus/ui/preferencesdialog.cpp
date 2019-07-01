@@ -177,13 +177,12 @@ PreferencesDialog::~PreferencesDialog()
 
 void PreferencesDialog::restoreDefaults()
 {
-	prefsManager->initDefaults();
+	PrefsManager::instance().initDefaults();
 	setupGui();
 }
 
 void PreferencesDialog::initPreferenceValues()
 {
-	prefsManager=PrefsManager::instance();
 	mainWin = (ScribusMainWindow*)parent();
 	docUnitIndex = localPrefs.docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);

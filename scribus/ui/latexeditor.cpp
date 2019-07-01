@@ -46,7 +46,7 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame): frame(frame)
 	//Fill application list
 	programComboBox->clear();
 
-	const QStringList configs = PrefsManager::instance()->latexConfigs();
+	const QStringList configs = PrefsManager::instance().latexConfigs();
 	for (const QString& config : configs)
 	{
 		QString name = LatexConfigCache::instance()->parser(config)->description();
@@ -131,7 +131,7 @@ void LatexEditor::extEditorClicked()
 		return;
 	}
 	
-	QString full_command = PrefsManager::instance()->latexEditorExecutable();
+	QString full_command = PrefsManager::instance().latexEditorExecutable();
 	if (full_command.isEmpty())
 	{
 		ScMessageBox::information(nullptr, tr("Information"),
@@ -239,7 +239,7 @@ void LatexEditor::extEditorError(QProcess::ProcessError error)
 	externalEditorPushButton->setText( tr("Run External Editor...") );
 	ScMessageBox::critical(nullptr, tr("Error"), "<qt>" +
 		tr("Running the editor \"%1\" failed!").
-		arg(PrefsManager::instance()->latexEditorExecutable()) +
+		arg(PrefsManager::instance().latexEditorExecutable()) +
 		"</qt>");
 }
 

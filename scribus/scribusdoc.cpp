@@ -202,8 +202,8 @@ public:
 
 
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(nullptr),
-	m_appPrefsData(PrefsManager::instance()->appPrefs),
-	m_docPrefsData(PrefsManager::instance()->appPrefs),
+	m_appPrefsData(PrefsManager::instance().appPrefs),
+	m_docPrefsData(PrefsManager::instance().appPrefs),
 	m_undoManager(UndoManager::instance()),
 	m_automaticTextFrames(false),
 	m_guardedObject(this),
@@ -240,8 +240,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
-	m_appPrefsData(PrefsManager::instance()->appPrefs),
-	m_docPrefsData(PrefsManager::instance()->appPrefs),
+	m_appPrefsData(PrefsManager::instance().appPrefs),
+	m_docPrefsData(PrefsManager::instance().appPrefs),
 	m_undoManager(UndoManager::instance()),
 	m_docUnitRatio(unitGetRatioFromIndex(m_appPrefsData.docSetupPrefs.docUnitIndex)),
 	m_automaticTextFrames(pagesSetup.autoTextFrames),
@@ -296,8 +296,8 @@ void ScribusDoc::init()
 	m_itemsChanged.connectObserver(m_docUpdater);
 	m_pagesChanged.connectObserver(m_docUpdater);
 
-	PrefsManager *prefsManager = PrefsManager::instance();
-	m_docPrefsData.colorPrefs.DCMSset = prefsManager->appPrefs.colorPrefs.DCMSset;
+	PrefsManager& prefsManager = PrefsManager::instance();
+	m_docPrefsData.colorPrefs.DCMSset = prefsManager.appPrefs.colorPrefs.DCMSset;
 	m_docPrefsData.pdfPrefs.SolidProf = m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	m_docPrefsData.pdfPrefs.ImageProf = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 	m_docPrefsData.pdfPrefs.PrintProf = m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile;
@@ -393,7 +393,7 @@ void ScribusDoc::init()
 	cstyle.setScaleH(1000);
 	cstyle.setScaleV(1000);
 	cstyle.setTracking(0);
-	cstyle.setLanguage(PrefsManager::instance()->appPrefs.docSetupPrefs.language);
+	cstyle.setLanguage(PrefsManager::instance().appPrefs.docSetupPrefs.language);
 	
 	m_docParagraphStyles.create(pstyle);
 	m_docParagraphStyles.makeDefault( &(m_docParagraphStyles[0]) );
@@ -709,9 +709,9 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	}
 
 	appMode = modeNormal;
-	PrefsManager *prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 
-	m_docPrefsData.colorPrefs.DCMSset = prefsManager->appPrefs.colorPrefs.DCMSset;
+	m_docPrefsData.colorPrefs.DCMSset = prefsManager.appPrefs.colorPrefs.DCMSset;
 	m_docPrefsData.pdfPrefs.SolidProf = m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	m_docPrefsData.pdfPrefs.ImageProf = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 	m_docPrefsData.pdfPrefs.PrintProf = m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile;
@@ -4215,9 +4215,9 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			UsedFonts.erase(itfo);
 		}
 	}
-	PrefsManager* prefsManager=PrefsManager::instance();
-	AddFont(prefsManager->appPrefs.itemToolPrefs.textFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.itemToolPrefs.textFont]->Font);
-	AddFont(m_docPrefsData.itemToolPrefs.textFont);//, prefsManager->appPrefs.AvailFonts[itemToolPrefs.textFont]->Font);
+	PrefsManager& prefsManager=PrefsManager::instance();
+	AddFont(prefsManager.appPrefs.itemToolPrefs.textFont);//, prefsManager.appPrefs.AvailFonts[prefsManager.appPrefs.itemToolPrefs.textFont]->Font);
+	AddFont(m_docPrefsData.itemToolPrefs.textFont);//, prefsManager.appPrefs.AvailFonts[itemToolPrefs.textFont]->Font);
 	return Really;
 }
 
@@ -5428,7 +5428,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			{
 				if (QFile::exists(iafData.source))
 				{
-					PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.lastIndexOf("/")));
+					PrefsManager::instance().prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.lastIndexOf("/")));
 					currItem->EmProfile = "";
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;

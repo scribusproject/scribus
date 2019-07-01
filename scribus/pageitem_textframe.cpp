@@ -3680,13 +3680,13 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 0.0;
 		if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && (no_stroke))
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((BackBox != nullptr) || (NextBox != nullptr))
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 			p->setFillMode(0);
 			p->setupSharpPolygon(&PoLine);
@@ -3724,9 +3724,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		}
 		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
 			p->drawSharpRect(0, 0, m_width, m_height);
 			no_fill = false;
@@ -4696,7 +4696,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 
 bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 {
-	QMap<QString, Keys> keyMap=PrefsManager::instance()->appPrefs.keyShortcutPrefs.KeyActions;
+	QMap<QString, Keys> keyMap=PrefsManager::instance().appPrefs.keyShortcutPrefs.KeyActions;
 
 	bool ret = false;
 	int keyCode =0;
@@ -4913,13 +4913,13 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	qreal top   = Height - sideLength;// * 1.5;
 	qreal bottom = top   + sideLength;
 
-	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
+	QColor color(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor;
 	if ((BackBox != nullptr) || (NextBox != nullptr))
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameLockColor;
 	if (m_Doc->m_Selection->containsItem(this))
 		color = Qt::red;
 

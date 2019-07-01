@@ -136,7 +136,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
 				p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 				const QFont &font = QApplication::font();
-				p->setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
+				p->setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
 				p->drawText(QRectF(0.0, 0.0, m_width, m_height), htmlText);
 			}
 		}

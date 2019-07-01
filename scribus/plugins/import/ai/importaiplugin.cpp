@@ -125,7 +125,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importai");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importai");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::AI));
 		if (diaf.exec())

@@ -124,7 +124,7 @@ void Prefs_KeyboardShortcuts::loadKeySetFile()
 
 void Prefs_KeyboardShortcuts::importKeySetFile()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ScPaths::instance().shareDir() + "keysets/");
 	QString s = QFileDialog::getOpenFileName(this, tr("Select a Key set file to read"), currentPath, tr("Key Set XML Files (*.xml)"));
 	if (!s.isEmpty())
@@ -132,7 +132,7 @@ void Prefs_KeyboardShortcuts::importKeySetFile()
 }
 void Prefs_KeyboardShortcuts::exportKeySetFile()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
 	QString s = QFileDialog::getSaveFileName(this, tr("Select a Key set file to save to"), currentPath, tr("Key Set XML Files (*.xml)") );
 	if (!s.isEmpty())

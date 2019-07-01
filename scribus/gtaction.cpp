@@ -54,10 +54,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_text.h"
 #include "ui/missing.h"
 
-gtAction::gtAction(bool append, PageItem* pageitem)
-{
-	m_prefsManager=PrefsManager::instance();
-	m_textFrame = pageitem;
+gtAction::gtAction(bool append, PageItem* pageitem) :
+	m_prefsManager(PrefsManager::instance())
+{	m_textFrame = pageitem;
 	m_ScMW=m_textFrame->doc()->scMW();
 	m_it = m_textFrame;
 	m_lastParagraphStyle = -1;
@@ -683,7 +682,7 @@ ScFace gtAction::validateFont(gtFont* font)
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
 		useFont = m_textFrame->itemText.defaultStyle().charStyle().font().scName();
-	else if (m_prefsManager->appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
+	else if (m_prefsManager.appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
 		// Do not empty otherwise user may be asked to replace an empty font 
@@ -723,23 +722,23 @@ ScFace gtAction::validateFont(gtFont* font)
 			}
 			if (!found)
 			{
-				if (!m_prefsManager->appPrefs.fontPrefs.GFontSub.contains(font->getName()))
+				if (!m_prefsManager.appPrefs.fontPrefs.GFontSub.contains(font->getName()))
 				{
 					MissingFont *dia = new MissingFont(nullptr, useFont, m_textFrame->doc());
 					dia->exec();
 					useFont = dia->getReplacementFont();
-					m_prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
+					m_prefsManager.appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
 				else
-					useFont = m_prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()];
+					useFont = m_prefsManager.appPrefs.fontPrefs.GFontSub[font->getName()];
 			}
 		}
 	}
 
 	if(!m_textFrame->doc()->UsedFonts.contains(useFont))
 		m_textFrame->doc()->AddFont(useFont);
-	return m_prefsManager->appPrefs.fontPrefs.AvailFonts[useFont];
+	return m_prefsManager.appPrefs.fontPrefs.AvailFonts[useFont];
 }
 
 QString gtAction::findFontName(gtFont* font)
@@ -748,7 +747,7 @@ QString gtAction::findFontName(gtFont* font)
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (! m_prefsManager->appPrefs.fontPrefs.AvailFonts[nname].isNone())
+		if (! m_prefsManager.appPrefs.fontPrefs.AvailFonts[nname].isNone())
 		{
 			ret = nname;
 			break;

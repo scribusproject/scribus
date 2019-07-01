@@ -1255,13 +1255,13 @@ void PageItem::drawOverflowMarker(ScPainter *p)
 	qreal top = m_height - sideLength-offset;// * 1.5;
 	qreal bottom = top + sideLength;
 
-	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
+	QColor color(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor;
 	if ((BackBox != nullptr) || (NextBox != nullptr))
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
-		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;
+		color = PrefsManager::instance().appPrefs.displayPrefs.frameLockColor;
 	if (m_Doc->m_Selection->containsItem(this))
 		color = Qt::red;
 
@@ -2153,13 +2153,13 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		{
 			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
-					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((BackBox != nullptr) || (NextBox != nullptr))
-					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
-					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(0);
 				if (itemType()==PathText)
 				{
@@ -2200,7 +2200,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
-				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance()->appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
+				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance().appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
 				double ofx = m_width - 22.0;
 				double ofy = m_height - 22.0;
@@ -2232,9 +2232,9 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		}
 		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
 			p->drawSharpRect(0, 0, m_width, m_height);
 			no_fill = false;
@@ -2315,7 +2315,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		if (style.baselineOffset() != 0)
 			p->translate(0, -cembedded->m_height * (style.baselineOffset() / 1000.0));
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->drawSharpRect(0, 0, cembedded->m_width, cembedded->m_height);
 		p->restore();
@@ -9614,7 +9614,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	int lowResTypeBack = pixm.imgInfo.lowResType;
 	int gsRes=gsResolution;
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
-		gsRes=PrefsManager::instance()->gsResolution();
+		gsRes=PrefsManager::instance().gsResolution();
 	bool dummy;
 
 	CMSettings cms(m_Doc, IProfile, IRender);

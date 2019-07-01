@@ -1443,9 +1443,9 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	fontsAction=addWidget(Fonts);
 	fontsAction->setVisible(true);
 	Size = new ScrSpinBox( 0.5, 2048, this, SC_POINTS );
-	PrefsManager* prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	Size->setSuffix( unitGetSuffixFromIndex(SC_POINTS) );
-	Size->setValue(prefsManager->appPrefs.itemToolPrefs.textSize / 10.0);
+	Size->setValue(prefsManager.appPrefs.itemToolPrefs.textSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
 	lblScaleTxtH = new QLabel("", this);
@@ -1557,10 +1557,10 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // 
 //	m_currPara(0),
 //	m_currChar(0),
 	charSelect(nullptr),
-	charSelectUsed(false)
+	charSelectUsed(false),
+	prefsManager(PrefsManager::instance())
 {
 	m_spellActive=false;
-	prefsManager=PrefsManager::instance();
 #ifdef Q_OS_MAC
 	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
@@ -1589,7 +1589,7 @@ void StoryEditor::showEvent(QShowEvent *)
 	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar,QString)), this, SLOT(slot_insertUserSpecialChar(QChar,QString)));
 
-	m_smartSelection = prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
+	m_smartSelection = prefsManager.appPrefs.storyEditorPrefs.smartTextSelection;
 	seActions["settingsSmartTextSelection"]->setChecked(m_smartSelection);
 }
 
@@ -1627,7 +1627,7 @@ void StoryEditor::savePrefs()
 
 void StoryEditor::loadPrefs()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("StoryEditor");
 	int vleft   = qMax(-80, prefs->getInt("left", 10));
 #if defined(Q_OS_MAC) || defined(_WIN32)
 	int vtop	= qMax(64, prefs->getInt("top", 10));
@@ -1850,7 +1850,7 @@ void StoryEditor::buildGUI()
 {
 	unicodeCharActionNames.clear();
 	seActions.clear();
-	m_smartSelection = prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
+	m_smartSelection = prefsManager.appPrefs.storyEditorPrefs.smartTextSelection;
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
 	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesn't work in SE yet.
@@ -1979,8 +1979,6 @@ void StoryEditor::buildGUI()
 	setCentralWidget( EdSplit );
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
-	if (prefsManager==nullptr)
-		sDebug(QString("%1").arg("prefsmgr null"));
 
 	EditorBar->editor = Editor;
 	Editor->installEventFilter(this);
@@ -1991,10 +1989,10 @@ void StoryEditor::buildGUI()
 void StoryEditor::setupEditorGUI()
 {
 	QFont fo;
-	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.guiFont);
+	fo.fromString(prefsManager.appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
 	QPalette pal;
-	QColor newColor(prefsManager->appPrefs.storyEditorPrefs.guiFontColorBackground);
+	QColor newColor(prefsManager.appPrefs.storyEditorPrefs.guiFontColorBackground);
 	pal.setColor(QPalette::Active, QPalette::Base, newColor);
 	pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
 	pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
@@ -2290,7 +2288,7 @@ void StoryEditor::setBackPref()
 		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
 		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
 		Editor->setPalette(pal);
-		prefsManager->appPrefs.storyEditorPrefs.guiFontColorBackground = newColor;
+		prefsManager.appPrefs.storyEditorPrefs.guiFontColorBackground = newColor;
 	}
 	m_blockUpdate = false;
 }
@@ -2299,7 +2297,7 @@ void StoryEditor::setFontPref()
 {
 	m_blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( nullptr, Editor->font(), this ) );
-	prefsManager->appPrefs.storyEditorPrefs.guiFont = Editor->font().toString();
+	prefsManager.appPrefs.storyEditorPrefs.guiFont = Editor->font().toString();
 	EditorBar->doRepaint();
 	m_blockUpdate = false;
 }
@@ -2336,7 +2334,7 @@ void StoryEditor::newTxFont(const QString &f)
 {
 	if (!m_doc->UsedFonts.contains(f)) {
 		if (!m_doc->AddFont(f)) {
-//, prefsManager->appPrefs.AvailFonts[f]->Font)) {
+//, prefsManager.appPrefs.AvailFonts[f]->Font)) {
 			FontTools->Fonts->RebuildList(m_doc);
 			return;
 		};
@@ -3370,8 +3368,8 @@ void StoryEditor::LoadTextFile()
 		EditorBar->setRepaint(false);
 		QString LoadEnc = "";
 		QString fileName = "";
-		PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
-		QString wdir = dirs->get("story_load", prefsManager->documentDir());
+		PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
+		QString wdir = dirs->get("story_load", prefsManager.documentDir());
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files (*)"), fdExistingFiles | fdShowCodecs | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
 			return;
@@ -3403,10 +3401,10 @@ void StoryEditor::LoadTextFile()
 void StoryEditor::SaveTextFile()
 {
 	m_blockUpdate = true;
-	QString LoadEnc = "";
-	QString fileName = "";
-	PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("story_save", prefsManager->appPrefs.pathPrefs.documents);
+	QString LoadEnc;
+	QString fileName;
+	PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
+	QString wdir = dirs->get("story_save", prefsManager.appPrefs.pathPrefs.documents);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
 	qApp->processEvents();
 	if (dia.exec() != QDialog::Accepted)

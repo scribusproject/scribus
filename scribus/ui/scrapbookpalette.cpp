@@ -502,7 +502,7 @@ void BibView::readContents(const QString& name)
 	QDir thumbs(dirPath);
 	if (thumbs.exists())
 	{
-		if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+		if ((canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 			thumbs.mkdir(".ScribusThumbs");
 		thumbs.cd(".ScribusThumbs");
 	}
@@ -584,7 +584,7 @@ void BibView::readContents(const QString& name)
 						f = cf.data();
 					ScPreview *pre = new ScPreview();
 					pm = QPixmap::fromImage(pre->createPreview(f));
-					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+					if ((canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 						pm.save(filePath + "/.ScribusThumbs/" + fi.baseName() + ".png", "PNG");
 					delete pre;
 				}
@@ -626,7 +626,7 @@ void BibView::readContents(const QString& name)
 					{
 						QImage im = fmt->readThumbnail(dirPath + "/" + d4[dc]);
 						im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-						if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+						if ((canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 							im.save(filePath + "/.ScribusThumbs/" + fi.fileName() + ".png", "PNG");
 						pm = QPixmap::fromImage(im);
 					}
@@ -667,7 +667,7 @@ void BibView::readContents(const QString& name)
 				if (im.loadPicture(dirPath + "/" + d5[dc], 1, cms, ScImage::Thumbnail, 72, &mode))
 				{
 					QImage img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+					if ((canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 						img.save(filePath + "/.ScribusThumbs/" + fi.fileName() + ".png", "PNG");
 					pm = QPixmap::fromImage(img);
 				}
@@ -787,7 +787,7 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette(parent, "Sclib", nullptr)
 	setWidget( containerWidget );
 
 	languageChange();
-	m_prefs = PrefsManager::instance()->prefsFile->getContext("Scrapbook");
+	m_prefs = PrefsManager::instance().prefsFile->getContext("Scrapbook");
 	conf_HideDirs->setChecked(m_prefs->getBool("hideDirs", false));
 	conf_HideImages->setChecked(m_prefs->getBool("hideImages", false));
 	conf_HideVectors->setChecked(m_prefs->getBool("hideVectors", false));
@@ -935,7 +935,7 @@ void Biblio::updateView()
 
 void Biblio::newLib()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Scrapbook Directory"), dirs->get("scrap_load", "."));
 	if (fileName.isEmpty())
 		return;
@@ -980,7 +980,7 @@ void Biblio::newLib()
 
 void Biblio::Import()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString s = QFileDialog::getOpenFileName(this,
 	                                         tr("Choose a scrapbook file to import"),
 	                                         dirs->get("old_scrap_load", "."),
@@ -1115,7 +1115,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 			Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("16/lock.png"));
 		ScCore->fileWatcher->addDir(d.absolutePath(), true);
 		d.cdUp();
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 		dirs->set("scrap_load", d.absolutePath());
 		activeBView->scrollToTop();
 		updateView();
@@ -1146,7 +1146,7 @@ void Biblio::goOneDirUp()
 		Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("16/lock.png"));
 	ScCore->fileWatcher->addDir(d.absolutePath(), true);
 	d.cdUp();
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	dirs->set("scrap_load", d.absolutePath());
 	activeBView->scrollToTop();
 	updateView();
@@ -1257,7 +1257,7 @@ bool Biblio::copyObj(int id)
 	QDir thumbs(bv->ScFilename);
 	if (thumbs.exists())
 	{
-		if ((bv->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+		if ((bv->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 			thumbs.mkdir(".ScribusThumbs");
 	}
 	QFileInfo fi(dt);
@@ -1301,7 +1301,7 @@ bool Biblio::copyObj(int id)
 	if (bv == tempBView)
 	{
 		m_tempCount++;
-		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
+		if (tempBView->objectMap.count() > PrefsManager::instance().appPrefs.scrapbookPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1664,12 +1664,12 @@ void Biblio::objFromFile(const QString& path, int testResult)
 	s.setDevice(&f);
 	s.writeRawData(cf.data(), cf.length());
 	f.close();
-	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
+	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
 		QDir thumbs(activeBView->ScFilename);
 		if (thumbs.exists())
 		{
-			if ((activeBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			if ((activeBView->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 				thumbs.mkdir(".ScribusThumbs");
 		}
 		img.save(QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
@@ -1690,7 +1690,7 @@ void Biblio::objFromFile(const QString& path, int testResult)
 		item->setHidden(conf_HideVectors->isChecked());
 	if (Frame3->currentIndex() == 1)
 	{
-		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
+		if (tempBView->objectMap.count() > PrefsManager::instance().appPrefs.scrapbookPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1765,12 +1765,12 @@ void Biblio::objFromMenu(QString text)
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	activeBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
-	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
+	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
 		QDir thumbs(activeBView->ScFilename);
 		if (thumbs.exists())
 		{
-			if ((activeBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			if ((activeBView->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 				thumbs.mkdir(".ScribusThumbs");
 		}
 		pm.save(QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
@@ -1789,7 +1789,7 @@ void Biblio::objFromMenu(QString text)
 
 	if (Frame3->currentIndex() == 1)
 	{
-		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
+		if (tempBView->objectMap.count() > PrefsManager::instance().appPrefs.scrapbookPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1843,12 +1843,12 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(text));
 	tempBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
-	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
+	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
 		QDir thumbs(tempBView->ScFilename);
 		if (thumbs.exists())
 		{
-			if ((tempBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			if ((tempBView->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 				thumbs.mkdir(".ScribusThumbs");
 		}
 		pm.save(QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
@@ -1864,7 +1864,7 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 	item->setToolTip(nam);
 	tempBView->objectMap[nam].widgetItem = item;
 	delete pre;
-	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
+	if (tempBView->objectMap.count() > PrefsManager::instance().appPrefs.scrapbookPrefs.numScrapbookCopies)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = tempBView->objectMap.begin();
@@ -1930,12 +1930,12 @@ void Biblio::objFromMainMenu(QString text, int scrapID)
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	actBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/" + nam + ".sce")), pm);
-	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
+	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
 		QDir thumbs(actBView->ScFilename);
 		if (thumbs.exists())
 		{
-			if ((actBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			if ((actBView->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 				thumbs.mkdir(".ScribusThumbs");
 		}
 		pm.save(QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");

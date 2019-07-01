@@ -54,8 +54,8 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	m_killed = false;
 	
 	config = nullptr;
-	if (PrefsManager::instance()->latexConfigs().count() > 0)
-		setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
+	if (PrefsManager::instance().latexConfigs().count() > 0)
+		setConfigFile(PrefsManager::instance().latexConfigs()[0]);
 
 	latex = new QProcess();
 	connect(latex, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(updateImage(int,QProcess::ExitStatus)));
@@ -137,7 +137,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		p->setPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
 		const QFont &font = QApplication::font();
-		p->setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
+		p->setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
 		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Rendering..."));
 	}
 	else if (m_err)
@@ -148,7 +148,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
 		p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 		const QFont &font = QApplication::font();
-		p->setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
+		p->setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
 		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Render Error"));
 	}
 	else
@@ -177,7 +177,7 @@ bool PageItem_LatexFrame::loadImage(const QString & filename, bool reload, int g
 	double offY = m_imageYOffset / yres;
 
 	bool imageLoaded = PageItem_ImageFrame::loadImage(imageFile, true, realDpi(), showMsg);
-	if (PrefsManager::instance()->latexForceDpi())
+	if (PrefsManager::instance().latexForceDpi())
 	{
 		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
 	}
@@ -460,7 +460,7 @@ int PageItem_LatexFrame::realDpi() const
 {
 	if (m_dpi)
 		return m_dpi;
-	return PrefsManager::instance()->latexResolution();
+	return PrefsManager::instance().latexResolution();
 }
 
 void PageItem_LatexFrame::setDpi(int newDpi)
@@ -474,7 +474,7 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	if (relative)
 	{
 		QFileInfo fi;
-		const QStringList configs = PrefsManager::instance()->latexConfigs();
+		const QStringList configs = PrefsManager::instance().latexConfigs();
 		for (const QString& config : configs)
 		{
 			fi.setFile(config);
@@ -507,7 +507,7 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	}
 	QString newFormula;
 	if (unchanged) {
-		if (PrefsManager::instance()->latexStartWithEmptyFrames()) {
+		if (PrefsManager::instance().latexStartWithEmptyFrames()) {
 			newFormula = "";
 		} else {
 			newFormula = config->emptyFrameText();

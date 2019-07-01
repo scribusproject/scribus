@@ -209,9 +209,9 @@ void FDialogPreview::genPreview(const QString& name)
 		if (im.isNull())
 			return;
 		QString desc = tr("Size:")+" ";
-		desc += value2String(im.text("XSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
+		desc += value2String(im.text("XSize").toDouble(), PrefsManager::instance().appPrefs.docSetupPrefs.docUnitIndex, true, true);
 		desc += " x ";
-		desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
+		desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance().appPrefs.docSetupPrefs.docUnitIndex, true, true);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));

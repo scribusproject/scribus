@@ -302,7 +302,7 @@ QString LatexConfigParser::executable() const
 {
 	QFileInfo f(m_filename);
 	QString fileName=f.fileName();
-	QString command = PrefsManager::instance()->latexCommands()[fileName];
+	QString command = PrefsManager::instance().latexCommands()[fileName];
 	if (command.isEmpty())
 		return m_executable;
 	return command;
@@ -310,7 +310,7 @@ QString LatexConfigParser::executable() const
 
 QString I18nXmlStreamReader::readI18nText(bool unindent)
 {
-	QString language = PrefsManager::instance()->uiLanguage();
+	QString language = PrefsManager::instance().uiLanguage();
 	QString result;
 	int matchquality = 0;
 	bool i18n = false;
@@ -476,7 +476,7 @@ QMap<QString, QString> LatexConfigCache::defaultCommands()
 {
 	QMap<QString, QString> configCmds;
 
-	const QStringList configFiles = PrefsManager::instance()->latexConfigs();
+	const QStringList configFiles = PrefsManager::instance().latexConfigs();
 	for (const QString& configFile : configFiles)
 	{
 		LatexConfigParser *config = LatexConfigCache::instance()->parser(configFile);

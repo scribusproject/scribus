@@ -191,7 +191,7 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem != nullptr)
 			finalizeItem(currItem);
-		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+		if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 			m_view->requestMode(modeNormal);
 		else
 			m_view->requestMode(m_doc->appMode);
@@ -448,7 +448,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 			finalizeItem(currItem);
 		}
 		
-		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+		if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		{
 //			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->requestMode(modeNormal);

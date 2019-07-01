@@ -930,13 +930,12 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 
 void Scribus134Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	PrefsManager* prefsManager = PrefsManager::instance();
 	doc->cmsSettings().SoftProofOn     = attrs.valueAsBool("DPSo", false);
 	doc->cmsSettings().SoftProofFullOn = attrs.valueAsBool("DPSFo", false);
 	doc->cmsSettings().CMSinUse   = attrs.valueAsBool("DPuse", false);
 	doc->cmsSettings().GamutCheck = attrs.valueAsBool("DPgam", false);
 	doc->cmsSettings().BlackPoint = attrs.valueAsBool("DPbla", true);
-	doc->cmsSettings().DefaultMonitorProfile   = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+	doc->cmsSettings().DefaultMonitorProfile   = PrefsManager::instance().appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 	doc->cmsSettings().DefaultPrinterProfile   = attrs.valueAsString("DPPr","");
 	doc->cmsSettings().DefaultImageRGBProfile  = attrs.valueAsString("DPIn","");
 	doc->cmsSettings().DefaultImageCMYKProfile = attrs.valueAsString("DPInCMYK","");
@@ -973,9 +972,9 @@ void Scribus134Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& 
 
 void Scribus134Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	PrefsManager* prefsManager = PrefsManager::instance();
-	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
-	doc->guidesPrefs().majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
+	PrefsManager& prefsManager = PrefsManager::instance();
+	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager.appPrefs.guidesPrefs.minorGridSpacing);
+	doc->guidesPrefs().majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager.appPrefs.guidesPrefs.majorGridSpacing);
 	doc->guidesPrefs().gridShown    = attrs.valueAsBool("SHOWGRID", false);
 	doc->guidesPrefs().guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
 	doc->guidesPrefs().colBordersShown  = attrs.valueAsBool("showcolborders", false);
@@ -1983,7 +1982,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		{
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PARSEP);
 			ParagraphStyle newStyle;
-//			PrefsManager* prefsManager = PrefsManager::instance();
+//			PrefsManager& prefsManager = PrefsManager::instance();
 			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
 			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
@@ -1991,7 +1990,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		else if (tName == "trail")
 		{
 			ParagraphStyle newStyle;
-//			PrefsManager* prefsManager = PrefsManager::instance();
+//			PrefsManager& prefsManager = PrefsManager::instance();
 			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
 		}

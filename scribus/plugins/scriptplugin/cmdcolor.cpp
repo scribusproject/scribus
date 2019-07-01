@@ -17,7 +17,7 @@ PyObject *scribus_colornames(PyObject* /* self */)
 	ColorList edc;
 	PyObject *l;
 	int cc = 0;
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ColorList::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
@@ -40,7 +40,7 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
@@ -66,7 +66,7 @@ PyObject *scribus_getcolorfloat(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
@@ -91,7 +91,7 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
@@ -115,7 +115,7 @@ PyObject *scribus_getcolorasrgbfloat(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
@@ -157,7 +157,7 @@ PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -196,7 +196,7 @@ PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -231,7 +231,7 @@ PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -269,7 +269,7 @@ PyObject *scribus_setcolorrgbfloat(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList = PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -307,7 +307,7 @@ PyObject *scribus_setcolorlab(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList = PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.", "python error").toLocal8Bit().constData());
@@ -347,7 +347,7 @@ PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 			colorList->insert(col, ScColor(c, m, y, k));
 		else
@@ -392,7 +392,7 @@ PyObject *scribus_newcolorcmykfloat(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList = PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			ScColor tmp;
@@ -433,7 +433,7 @@ PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 			colorList->insert(col, ScColor(r, g, b));
 		else
@@ -477,7 +477,7 @@ PyObject *scribus_newcolorrgbfloat(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList = PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			ScColor tmp;
@@ -527,7 +527,7 @@ PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList = PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			ScColor tmp;
@@ -574,7 +574,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		ColorList* colorList=PrefsManager::instance().colorSetPtr();
 		if (colorList->contains(col))
 			colorList->remove(col);
 		else

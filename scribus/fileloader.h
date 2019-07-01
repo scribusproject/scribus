@@ -60,7 +60,7 @@ private:
 	bool m_newReplacement;
 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it);
-	PrefsManager* m_prefsManager;
+	PrefsManager& m_prefsManager;
 
 	QString m_fileName;
 	int m_fileType;

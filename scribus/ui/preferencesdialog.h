@@ -43,8 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_typography.h"
 #include "ui/prefs_userinterface.h"
 
-
-class PrefsManager;
 class ScribusMainWindow;
 class ScribusDoc;
 
@@ -121,7 +119,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		double unitRatio;
 		int docUnitIndex;
 		ScribusMainWindow* mainWin;
-		PrefsManager* prefsManager;
 		ScribusDoc* m_Doc;
 		ApplicationPrefs localPrefs;
 };

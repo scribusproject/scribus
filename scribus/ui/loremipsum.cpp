@@ -165,7 +165,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 
 	paraBox = new QSpinBox( this );
 	paraBox->setMinimum( 1 );
-	paraBox->setValue(PrefsManager::instance()->appPrefs.miscPrefs.paragraphsLI);
+	paraBox->setValue(PrefsManager::instance().appPrefs.miscPrefs.paragraphsLI);
 	layout2->addWidget( paraBox );
 
 	paraSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );

@@ -138,7 +138,7 @@ void MergeDoc::changeFile()
 	QString fn;
 	int dummy;
 	count = 0;
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
 	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 	if (!fromDocData->text().isEmpty())

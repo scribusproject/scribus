@@ -91,7 +91,7 @@ void PythonConsole::setFonts()
 {
 	QFont font = QFont("Fixed");
 	font.setStyleHint(QFont::TypeWriter);
-	font.setPointSize(PrefsManager::instance()->appPrefs.uiPrefs.applicationFontSize);
+	font.setPointSize(PrefsManager::instance().appPrefs.uiPrefs.applicationFontSize);
 	commandEdit->setFont(font);	
 	outputEdit->setFont(font);
 }
@@ -368,7 +368,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
 SyntaxColors::SyntaxColors()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (prefs)
 	{
 		errorColor.setNamedColor(prefs->get("syntaxerror", "#aa0000"));
@@ -393,7 +393,7 @@ SyntaxColors::SyntaxColors()
 
 void SyntaxColors::saveToPrefs()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (prefs)
 	{
 		prefs->set("syntaxerror", qcolor2named(errorColor));

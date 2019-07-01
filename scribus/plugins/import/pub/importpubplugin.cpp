@@ -119,7 +119,7 @@ bool ImportPubPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importpub");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpub");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pub *.PUB);;All Files (*)");
 		if (diaf.exec())

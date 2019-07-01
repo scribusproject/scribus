@@ -47,7 +47,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	dockBottom(false),
 	dockLeft(false)
 {
-	m_prefs=PrefsManager::instance()->prefsFile->getContext(m_name);
+	m_prefs=PrefsManager::instance().prefsFile->getContext(m_name);
 	setObjectName(prefName);
 	setAllowedAreas(Qt::AllToolBarAreas);
 	this->setIconSize(QSize(16,16));

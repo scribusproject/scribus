@@ -76,7 +76,7 @@ void SATDialog::detailClicked(int state)
 
 void SATDialog::readPrefs()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("satemplate");
 	author = prefs->get("author", "");
 	email = prefs->get("email", "");
 	isFullDetail = prefs->getBool("isFullDetail", false);

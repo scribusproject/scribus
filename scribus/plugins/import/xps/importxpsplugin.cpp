@@ -141,7 +141,7 @@ bool ImportXpsPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importxps");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importxps");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.oxps *.OXPS *.xps *.XPS);;All Files (*)");
 		if (diaf.exec())

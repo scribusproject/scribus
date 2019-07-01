@@ -60,7 +60,7 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	destinationComboBox->addItem( tr("File"));
 
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 
 	QString selectedDest = prefs->get("CurrentPrn", "");
 	int prnIndex = destinationComboBox->findText(selectedDest);
@@ -99,7 +99,7 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 	prefs->set("CurrentPrn", destinationComboBox->currentText());
 	prefs->set("OtherCom", useAltPrinterCmdCheckBox->isChecked());
 	prefs->set("Command", altPrinterCmdLineEdit->text());

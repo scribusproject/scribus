@@ -533,7 +533,7 @@ protected:
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
 
-	PrefsManager* prefsManager;
+	PrefsManager& prefsManager;
 	PrefsContext* prefs;
 
 	QStringList unicodeCharActionNames;

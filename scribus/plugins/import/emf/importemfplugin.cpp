@@ -122,7 +122,7 @@ bool ImportEmfPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importemf");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importemf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.emf *.EMF);;All Files (*)");
 		if (diaf.exec())

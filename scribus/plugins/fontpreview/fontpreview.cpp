@@ -42,7 +42,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 
 	// scribus config
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("fontpreview");
 	uint srt = prefs->getUInt("sortColumn", 0);
 	bool extend = prefs->getBool("extendedView", false);
 	extendedCheckBox->setChecked(extend);
@@ -70,7 +70,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 		if (m_Doc->m_Selection->count() != 0)
 			searchName = m_Doc->currentStyle.charStyle().font().scName();
 		else
-			searchName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+			searchName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 	}
 	QModelIndexList found = fontModel->match(fontModel->index(0, 0),
 											 Qt::DisplayRole, searchName,

@@ -168,7 +168,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)"));
 		if (diaf.exec())

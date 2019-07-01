@@ -294,12 +294,12 @@ QString DocDir;
 extern bool emergencyActivated;
 
 
-ScribusMainWindow::ScribusMainWindow()
+ScribusMainWindow::ScribusMainWindow() :
+	m_prefsManager(PrefsManager::instance())
 {
 	actionManager=nullptr;
 	appModeHelper=nullptr;
 	scrMenuMgr=nullptr;
-	m_prefsManager=nullptr;
 	m_formatsManager=nullptr;
 	resourceManager=nullptr;
 	m_mainWindowStatusLabel=nullptr;
@@ -358,12 +358,11 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	appModeHelper = new AppModeHelper();
 	appModeHelper->setup(actionManager, &scrActions, &scrRecentFileActions, &scrWindowsActions, &scrScrapActions, &scrLayersActions, &scrRecentPasteActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
-	m_prefsManager = PrefsManager::instance();
 	m_formatsManager = FormatsManager::instance();
 	m_objectSpecificUndo = false;
 
 	m_undoManager = UndoManager::instance();
-	PrefsContext *undoPrefs = m_prefsManager->prefsFile->getContext("undo");
+	PrefsContext *undoPrefs = m_prefsManager.prefsFile->getContext("undo");
 	m_undoManager->setUndoEnabled(undoPrefs->getBool("enabled", true));
 	m_tocGenerator = new TOCGenerator();
 	m_marksCount = 0;
@@ -385,7 +384,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
-	m_prefsManager->applyLoadedShortCuts();
+	m_prefsManager.applyLoadedShortCuts();
 	initKeyboardShortcuts();
 
 	resize(610, 600);
@@ -395,30 +394,30 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
 	initPalettes();
 
-	m_prefsManager->setupMainWindow(this);
+	m_prefsManager.setupMainWindow(this);
 
-	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager->appPrefs.itemToolPrefs.imageLowResType);
+	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager.appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Story Editor") );
 	storyEditor = new StoryEditor(this);
 
-	DocDir = m_prefsManager->documentDir();
+	DocDir = m_prefsManager.documentDir();
 
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Languages") );
 	LanguageManager::instance();
 
 	initHyphenator();
-//	QString preLang(m_prefsManager->appPrefs.hyphPrefs.Language);
+//	QString preLang(m_prefsManager.appPrefs.hyphPrefs.Language);
 //	if (!LanguageManager::instance()->getHyphFilename( preLang ).isEmpty() )
-//		m_prefsManager->appPrefs.hyphPrefs.Language = preLang;
+//		m_prefsManager.appPrefs.hyphPrefs.Language = preLang;
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
 	initScrapbook();
 
-	scrActions["helpTooltips"]->setChecked(m_prefsManager->appPrefs.displayPrefs.showToolTips);
-	scrActions["showMouseCoordinates"]->setChecked(m_prefsManager->appPrefs.displayPrefs.showMouseCoordinates);
-	scrActions["stickyTools"]->setChecked(m_prefsManager->appPrefs.uiPrefs.stickyTools);
+	scrActions["helpTooltips"]->setChecked(m_prefsManager.appPrefs.displayPrefs.showToolTips);
+	scrActions["showMouseCoordinates"]->setChecked(m_prefsManager.appPrefs.displayPrefs.showMouseCoordinates);
+	scrActions["stickyTools"]->setChecked(m_prefsManager.appPrefs.uiPrefs.stickyTools);
 	ToggleTips();
 	ToggleMouseTips();
 	propertiesPalette->setFontSize();
@@ -438,18 +437,18 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
-		csm.loadPalette(Cpfad, m_doc, m_prefsManager->appPrefs.colorPrefs.DColors, m_prefsManager->appPrefs.defaultGradients, m_prefsManager->appPrefs.defaultPatterns, false);
+		csm.loadPalette(Cpfad, m_doc, m_prefsManager.appPrefs.colorPrefs.DColors, m_prefsManager.appPrefs.defaultGradients, m_prefsManager.appPrefs.defaultPatterns, false);
 	else
 	{
-		if (m_prefsManager->appPrefs.colorPrefs.DColorSet != "Scribus Small")
+		if (m_prefsManager.appPrefs.colorPrefs.DColorSet != "Scribus Small")
 		{
 			QStringList CustomColorSets = csm.userPaletteNames();
-			if (CustomColorSets.contains(m_prefsManager->appPrefs.colorPrefs.DColorSet))
-				Cpfad = csm.userPaletteFileFromName(m_prefsManager->appPrefs.colorPrefs.DColorSet);
+			if (CustomColorSets.contains(m_prefsManager.appPrefs.colorPrefs.DColorSet))
+				Cpfad = csm.userPaletteFileFromName(m_prefsManager.appPrefs.colorPrefs.DColorSet);
 			else
-				Cpfad = csm.paletteFileFromName(m_prefsManager->appPrefs.colorPrefs.DColorSet);
+				Cpfad = csm.paletteFileFromName(m_prefsManager.appPrefs.colorPrefs.DColorSet);
 			if (!Cpfad.isEmpty())
-				csm.loadPalette(Cpfad, m_doc, m_prefsManager->appPrefs.colorPrefs.DColors, m_prefsManager->appPrefs.defaultGradients, m_prefsManager->appPrefs.defaultPatterns, false);
+				csm.loadPalette(Cpfad, m_doc, m_prefsManager.appPrefs.colorPrefs.DColors, m_prefsManager.appPrefs.defaultGradients, m_prefsManager.appPrefs.defaultPatterns, false);
 		}
 	}
 	appModeHelper->setStartupActionsEnabled(false);
@@ -586,7 +585,7 @@ void ScribusMainWindow::initKeyboardShortcuts()
 		if ((ScrAction*)(it.value()) != nullptr)
 		{
 			QString accelerator = it.value()->shortcut().toString();
-			m_prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
+			m_prefsManager.setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
 		}
 		//else
 		//	qDebug() << it.key();
@@ -734,13 +733,13 @@ void ScribusMainWindow::initPalettes()
 
 void ScribusMainWindow::initScrapbook()
 {
-	QString scrapbookFileO = QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrap13.scs");
+	QString scrapbookFileO = QDir::toNativeSeparators(m_prefsManager.preferencesLocation()+"/scrap13.scs");
 	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
 	if (scrapbookFileInfoO.exists())
 	{
 		scrapbookPalette->readOldContents(scrapbookFileO, ScPaths::scrapbookDir(true) + "main");
 		QDir d = QDir();
-		d.rename(scrapbookFileO, QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrap13.backup"));
+		d.rename(scrapbookFileO, QDir::toNativeSeparators(m_prefsManager.preferencesLocation()+"/scrap13.backup"));
 	}
 	QString scrapbookTemp = QDir::toNativeSeparators(ScPaths::scrapbookDir(true) + "tmp");
 	QFileInfo scrapbookTempInfo = QFileInfo(scrapbookTemp);
@@ -752,7 +751,7 @@ void ScribusMainWindow::initScrapbook()
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
 	ScCore->fileWatcher->addDir(scrapbookFile, true);
-	scrapbookPalette->setOpenScrapbooks(m_prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks);
+	scrapbookPalette->setOpenScrapbooks(m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks);
 	rebuildRecentPasteMenu();
 	connect(scrapbookPalette, SIGNAL(updateRecentMenue()), this, SLOT(rebuildRecentPasteMenu()));
 	connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), scrapbookPalette, SLOT(reloadLib(QString )));
@@ -777,7 +776,7 @@ void ScribusMainWindow::initMdiArea()
 	mdiArea = new QMdiArea(this);
 	mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-	if (m_prefsManager->appPrefs.uiPrefs.useTabs)
+	if (m_prefsManager.appPrefs.uiPrefs.useTabs)
 	{
 		mdiArea->setViewMode(QMdiArea::TabbedView);
 		mdiArea->setTabsClosable(true);
@@ -1603,7 +1602,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
 	if (e->type() == QEvent::ToolTip)
-		return (!m_prefsManager->appPrefs.displayPrefs.showToolTips);
+		return (!m_prefsManager.appPrefs.displayPrefs.showToolTips);
 
 	if ( e->type() == QEvent::KeyPress )
 	{
@@ -1731,7 +1730,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		slotSelect();
 		if (doc->m_Selection->isEmpty())
 			HaveNewSel();
-		m_prefsManager->appPrefs.uiPrefs.stickyTools = false;
+		m_prefsManager.appPrefs.uiPrefs.stickyTools = false;
 		scrActions["stickyTools"]->setChecked(false);
 		return;
 	}
@@ -1774,7 +1773,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if ((doc->appMode != modeEdit) && (doc->m_Selection->isEmpty()))
 		{
 			int pg;
-			int wheelVal = m_prefsManager->mouseWheelJump();
+			int wheelVal = m_prefsManager.mouseWheelJump();
 			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
 			switch (kk)
@@ -1789,7 +1788,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_PageUp:
 				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
-					view->scrollBy(0, -m_prefsManager->mouseWheelJump());
+					view->scrollBy(0, -m_prefsManager.mouseWheelJump());
 				else
 				{
 					pg = doc->currentPageNumber();
@@ -1805,7 +1804,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_PageDown:
 				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
-					view->scrollBy(0, m_prefsManager->mouseWheelJump());
+					view->scrollBy(0, m_prefsManager.mouseWheelJump());
 				else
 				{
 					pg = doc->currentPageNumber();
@@ -1971,7 +1970,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	modeToolBar->connectPrefsSlot(false);
 	pdfToolBar->connectPrefsSlot(false);
 
-	m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.clear();
+	m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.clear();
 	QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
 	for (int i = 0; i < bars.count(); ++i)
 	{
@@ -1985,7 +1984,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 				currentTab.palettes.append(obj->objectName());
 		}
 		if (!currentTab.palettes.isEmpty())
-			m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
+			m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
 	}
 
 	propertiesPalette->hide();
@@ -2006,12 +2005,12 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
-	if (!m_prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook)
+	if (!m_prefsManager.appPrefs.scrapbookPrefs.persistentScrapbook)
 		scrapbookPalette->cleanUpTemp();
-	m_prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
-	m_prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
+	m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
+	m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
-		m_prefsManager->SavePrefs();
+		m_prefsManager.SavePrefs();
 	UndoManager::deleteInstance();
 	FormatsManager::deleteInstance();
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -2038,16 +2037,16 @@ QStringList ScribusMainWindow::findRecoverableFile()
 	QSet<QString> foundFiles;
 	QDir::SortFlags sortflags = QDir::Name | QDir::Time;
 	QDir::Filters filterflags = QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot;
-	if (!m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir.isEmpty())
+	if (!m_prefsManager.appPrefs.docSetupPrefs.AutoSaveDir.isEmpty())
 	{
-		QDir dirAuto(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir, "*_emergency_*.sla", sortflags, filterflags);
+		QDir dirAuto(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveDir, "*_emergency_*.sla", sortflags, filterflags);
 		QFileInfoList aList = dirAuto.entryInfoList();
 		if (aList.count() > 0)
 		{
 			for (int i = 0; i < aList.count(); i++)
 				foundFiles.insert(aList[i].absoluteFilePath());
 		}
-		QDir dirAuto2(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir, "*_autosave_*.sla", sortflags, filterflags);
+		QDir dirAuto2(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveDir, "*_autosave_*.sla", sortflags, filterflags);
 		QFileInfoList aList2 = dirAuto2.entryInfoList();
 		if (aList2.count() > 0)
 		{
@@ -2055,12 +2054,12 @@ QStringList ScribusMainWindow::findRecoverableFile()
 				foundFiles.insert(aList2[i].absoluteFilePath());
 		}
 	}
-	QDir dirDoc(m_prefsManager->documentDir(), "*_emergency_*.sla", sortflags, filterflags);
+	QDir dirDoc(m_prefsManager.documentDir(), "*_emergency_*.sla", sortflags, filterflags);
 	QFileInfoList dList = dirDoc.entryInfoList();
 	for (int i = 0; i < dList.count(); i++)
 		foundFiles.insert(dList[i].absoluteFilePath());
 
-	QDir dirDoc2(m_prefsManager->documentDir(), "*_autosave_*.sla", sortflags, filterflags);
+	QDir dirDoc2(m_prefsManager.documentDir(), "*_autosave_*.sla", sortflags, filterflags);
 	QFileInfoList dList2 = dirDoc2.entryInfoList();
 	for (int i = 0; i < dList2.count(); i++)
 		foundFiles.insert(dList2[i].absoluteFilePath());
@@ -2107,7 +2106,7 @@ bool ScribusMainWindow::recoverFile(const QStringList& foundFiles)
 void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
-	PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 	NewDoc* dia = new NewDoc(this, m_recentDocsList, true, ScCore->getGuiLanguage());
 	if (dia->exec())
 	{
@@ -2154,7 +2153,7 @@ void ScribusMainWindow::startUpDialog()
 				UndoManager::instance()->renameStack(dia->nftGui->currentDocumentTemplate->name);
 				doc->setDocumentFileName(dia->nftGui->currentDocumentTemplate->name);
 				updateActiveWindowCaption(QObject::tr("Document Template: ") + dia->nftGui->currentDocumentTemplate->name);
-				QDir::setCurrent(PrefsManager::instance()->documentDir());
+				QDir::setCurrent(PrefsManager::instance().documentDir());
 				removeRecent(fileName);
 			}
 		}
@@ -2179,7 +2178,7 @@ void ScribusMainWindow::startUpDialog()
 	{
 		appModeHelper->setStartupActionsEnabled(false);
 	}
-	m_prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
+	m_prefsManager.setShowStartupDialog(!dia->startUpDialog->isChecked());
 	delete dia;
 	m_mainWindowStatusLabel->setText( tr("Ready"));
 	if (docSet)
@@ -2274,13 +2273,13 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	}
 	else
 	{
-		if (m_prefsManager->appPrefs.colorPrefs.DColorSet != "Scribus Small")
+		if (m_prefsManager.appPrefs.colorPrefs.DColorSet != "Scribus Small")
 		{
 			QStringList CustomColorSets = csm.userPaletteNames();
-			if (CustomColorSets.contains(m_prefsManager->appPrefs.colorPrefs.DColorSet))
-				Cpfad = csm.userPaletteFileFromName(m_prefsManager->appPrefs.colorPrefs.DColorSet);
+			if (CustomColorSets.contains(m_prefsManager.appPrefs.colorPrefs.DColorSet))
+				Cpfad = csm.userPaletteFileFromName(m_prefsManager.appPrefs.colorPrefs.DColorSet);
 			else
-				Cpfad = csm.paletteFileFromName(m_prefsManager->appPrefs.colorPrefs.DColorSet);
+				Cpfad = csm.paletteFileFromName(m_prefsManager.appPrefs.colorPrefs.DColorSet);
 			if (!Cpfad.isEmpty())
 				csm.loadPalette(Cpfad, doc, colorList, gradientsList, patternsList, false);
 			doc->PageColors = colorList;
@@ -2288,7 +2287,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 			doc->docPatterns = patternsList;
 		}
 		else
-			doc->PageColors = m_prefsManager->appPrefs.colorPrefs.DColors;
+			doc->PageColors = m_prefsManager.appPrefs.colorPrefs.DColors;
 	}
 	tempDoc->PageColors.ensureDefaultColors();
 	tempDoc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
@@ -2333,13 +2332,13 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI)
 	{
 		tempDoc->createHyphenator();
-		tempDoc->docHyphenator->ignoredWords = m_prefsManager->appPrefs.hyphPrefs.ignoredWords;
-		tempDoc->docHyphenator->specialWords = m_prefsManager->appPrefs.hyphPrefs.specialWords;
+		tempDoc->docHyphenator->ignoredWords = m_prefsManager.appPrefs.hyphPrefs.ignoredWords;
+		tempDoc->docHyphenator->specialWords = m_prefsManager.appPrefs.hyphPrefs.specialWords;
 	}
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 
-	tempView->setScale(m_prefsManager->displayScale());
+	tempView->setScale(m_prefsManager.displayScale());
 	if (requiresGUI)
 	{
 		//done in newactinw actionManager->connectNewViewActions(tempView);
@@ -2403,7 +2402,7 @@ void ScribusMainWindow::newFileFromTemplate()
 			UndoManager::instance()->renameStack(currentTemplate->name);
 			doc->setDocumentFileName(currentTemplate->name);
 			updateActiveWindowCaption(QObject::tr("Document Template: ") + currentTemplate->name);
-			QDir::setCurrent(PrefsManager::instance()->documentDir());
+			QDir::setCurrent(PrefsManager::instance().documentDir());
 			removeRecent(QDir::cleanPath(currentTemplate->file));
 		}
 		qApp->restoreOverrideCursor();
@@ -2416,7 +2415,7 @@ void ScribusMainWindow::newView()
 	ScribusWin* w = new ScribusWin(mdiArea, doc);
 	w->setMainWindow(this);
 	view = new ScribusView(w, this, doc);
-	view->setScale(m_prefsManager->displayScale());
+	view->setScale(m_prefsManager.displayScale());
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
@@ -2580,7 +2579,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 	view = ActWin->view();
 	bool b = zoomSpinBox->blockSignals(true);
-	zoomSpinBox->setValue(view->scale() * 100.0 / PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
+	zoomSpinBox->setValue(view->scale() * 100.0 / PrefsManager::instance().appPrefs.displayPrefs.displayScale);
 	zoomSpinBox->blockSignals(b);
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
@@ -2978,7 +2977,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	QString strippedName, localName;
 	scrMenuMgr->clearMenuStrings("FileOpenRecent");
 	scrRecentFileActions.clear();
-	int max = qMin(m_prefsManager->appPrefs.uiPrefs.recentDocCount, m_recentDocsList.count());
+	int max = qMin(m_prefsManager.appPrefs.uiPrefs.recentDocCount, m_recentDocsList.count());
 	for (int i = 0; i < max; ++i)
 	{
 		strippedName = localName = QDir::toNativeSeparators(m_recentDocsList[i]);
@@ -2997,7 +2996,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 	scrMenuMgr->clearMenuStrings("EditPasteRecent");
 
 	scrRecentPasteActions.clear();
-	int max = qMin(m_prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
+	int max = qMin(m_prefsManager.appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
@@ -3158,7 +3157,7 @@ void ScribusMainWindow::importVectorFile()
 	formats.append("Scribus Objects (*.sce *.SCE)");
 	formats.sort(Qt::CaseInsensitive);
 	allFormats += formats.join(";;");
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles | fdDisableOk);
 	QString fileName("");
@@ -3171,7 +3170,7 @@ void ScribusMainWindow::importVectorFile()
 	else
 		return;
 
-	PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
+	PrefsManager::instance().prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
 	QFileInfo fi(fileName);
 	QString suffix = fi.suffix().toLower();
 	if ((suffix == "sce") || (suffix == "shape"))
@@ -3270,9 +3269,9 @@ void ScribusMainWindow::updateColorLists()
 
 bool ScribusMainWindow::slotFileOpen()
 {
-	PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 	QString docDir(".");
-	QString prefsDocDir(m_prefsManager->documentDir());
+	QString prefsDocDir(m_prefsManager.documentDir());
 	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
@@ -3523,17 +3522,17 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		if (docProfileDir.exists())
 			ScCore->getCMSProfilesDir(fi.absolutePath()+"/profiles", false, false);
 
-		m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", filename);
+		m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", filename);
 		QDir docFontDir(fi.absolutePath() + "/fonts");
 		if (docFontDir.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", filename);
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", filename);
 		QDir docFontDir2(fi.absolutePath() + "/Fonts");
 		if (docFontDir2.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", filename);
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", filename);
 		QDir docFontDir3(fi.absolutePath() + "/Document fonts");
 		if (docFontDir3.exists())
-			m_prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", filename);
-		m_prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", filename);
+		m_prefsManager.appPrefs.fontPrefs.AvailFonts.updateFontMap();
 		if (view != nullptr)
 		{
 			actionManager->disconnectNewViewActions();
@@ -3552,7 +3551,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		w->setMainWindow(this);
 		view = new ScribusView(w, this, doc);
 		doc->setGUI(true, this, view);
-		view->setScale(m_prefsManager->displayScale());
+		view->setScale(m_prefsManager.displayScale());
 		w->setView(view);
 		alignDistributePalette->setDoc(doc);
 		ActWin = w;
@@ -3609,10 +3608,10 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		HaveDoc++;
 		if (doc->checkerProfiles().count() == 0)
 		{
-			m_prefsManager->initDefaultCheckerPrefs(doc->checkerProfiles());
+			m_prefsManager.initDefaultCheckerPrefs(doc->checkerProfiles());
 			doc->setCurCheckProfile(CommonStrings::PDF_1_4);
 		}
-		m_prefsManager->insertMissingCheckerProfiles(doc->checkerProfiles());
+		m_prefsManager.insertMissingCheckerProfiles(doc->checkerProfiles());
 		if (doc->pdfOptions().LPISettings.count() == 0)
 		{
 			struct LPIData lpo;
@@ -3636,55 +3635,55 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultImageRGBProfile))
 			{
 				missing = doc->cmsSettings().DefaultImageRGBProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultImageRGBProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				doc->cmsSettings().DefaultImageRGBProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultImageCMYKProfile))
 			{
 				missing = doc->cmsSettings().DefaultImageCMYKProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultImageCMYKProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+				doc->cmsSettings().DefaultImageCMYKProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultSolidColorRGBProfile))
 			{
 				missing = doc->cmsSettings().DefaultSolidColorRGBProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultSolidColorRGBProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				doc->cmsSettings().DefaultSolidColorRGBProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultSolidColorCMYKProfile))
 			{
 				missing = doc->cmsSettings().DefaultSolidColorCMYKProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultSolidColorCMYKProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+				doc->cmsSettings().DefaultSolidColorCMYKProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			}
 			if (!ScCore->MonitorProfiles.contains(doc->cmsSettings().DefaultMonitorProfile))
 			{
 				missing = doc->cmsSettings().DefaultMonitorProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultMonitorProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+				doc->cmsSettings().DefaultMonitorProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->cmsSettings().DefaultPrinterProfile))
 			{
 				missing = doc->cmsSettings().DefaultPrinterProfile;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
-				doc->cmsSettings().DefaultPrinterProfile = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				doc->cmsSettings().DefaultPrinterProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->pdfOptions().PrintProf))
 			{
 				missing = doc->pdfOptions().PrintProf;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
 				doc->pdfOptions().PrintProf = doc->cmsSettings().DefaultPrinterProfile;
@@ -3692,7 +3691,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().ImageProf))
 			{
 				missing = doc->pdfOptions().ImageProf;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
 				doc->pdfOptions().ImageProf = doc->cmsSettings().DefaultImageRGBProfile;
@@ -3700,7 +3699,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().SolidProf))
 			{
 				missing = doc->pdfOptions().SolidProf;
-				replacement = m_prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				replacement = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 				if (!missingMap.contains(missing, replacement))
 					missingMap.insert(missing, replacement);
 				doc->pdfOptions().SolidProf = doc->cmsSettings().DefaultSolidColorRGBProfile;
@@ -3902,11 +3901,11 @@ void ScribusMainWindow::slotGetContent()
 		QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
 
 		QString docDir = ".";
-		QString prefsDocDir=m_prefsManager->documentDir();
+		QString prefsDocDir=m_prefsManager.documentDir();
 		if (!prefsDocDir.isEmpty())
-			docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
+			docDir = m_prefsManager.prefsFile->getContext("dirs")->get("images", prefsDocDir);
 		else
-			docDir = m_prefsManager->prefsFile->getContext("dirs")->get("images", ".");
+			docDir = m_prefsManager.prefsFile->getContext("dirs")->get("images", ".");
 
 		QStringList fileNames;
 		fileNames.clear();
@@ -3917,7 +3916,7 @@ void ScribusMainWindow::slotGetContent()
 		//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
 		if (!fileNames.isEmpty())
 		{
-			m_prefsManager->prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
+			m_prefsManager.prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
 			view->requestMode(modeImportImage);
 			CanvasMode_ImageImport* cii=dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
 			if (cii)
@@ -4085,7 +4084,7 @@ void ScribusMainWindow::toogleInlineState()
 	{
 		QFileInfo fiB(currItem->Pfile);
 
-		PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
+		PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 		QString wdir = ".";
 		if (doc->hasName)
 		{
@@ -4094,7 +4093,7 @@ void ScribusMainWindow::toogleInlineState()
 		}
 		else
 		{
-			QString prefsDocDir = m_prefsManager->documentDir();
+			QString prefsDocDir = m_prefsManager.documentDir();
 			if (!prefsDocDir.isEmpty())
 				wdir = docContext->get("place_as", prefsDocDir);
 			else
@@ -4210,7 +4209,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	doc->is12doc=false;
 	bool ret = false;
 	QString filename;
-	PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 	QString wdir = ".";
 	if (doc->hasName)
 	{
@@ -4225,7 +4224,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	}
 	else
 	{
-		QString prefsDocDir=m_prefsManager->documentDir();
+		QString prefsDocDir=m_prefsManager.documentDir();
 		if (!prefsDocDir.isEmpty())
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
@@ -4237,7 +4236,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			filename = wdir;
 		filename += doc->documentFileName() + ".sla";
 	}
-	bool saveCompressed=m_prefsManager->appPrefs.docSetupPrefs.saveCompressed;
+	bool saveCompressed=m_prefsManager.appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
 		filename.append(".gz");
 
@@ -4372,9 +4371,9 @@ bool ScribusMainWindow::DoFileClose()
 	ActWin = nullptr;
 	if ( HaveDoc == 0 )
 	{
-		QString prefsDocDir( PrefsManager::instance()->documentDir() );
+		QString prefsDocDir( PrefsManager::instance().documentDir() );
 		if ( QDir().exists(prefsDocDir) )
-			QDir::setCurrent( PrefsManager::instance()->documentDir() );
+			QDir::setCurrent( PrefsManager::instance().documentDir() );
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
@@ -4460,7 +4459,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options, m_prefsManager->appPrefs.printerPrefs.GCRMode, spots);
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options, m_prefsManager.appPrefs.printerPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4626,7 +4625,7 @@ void ScribusMainWindow::slotEditCut()
 			return;
 		ScriXmlDoc ss;
 		QString BufferS = ss.writeElem(doc, doc->m_Selection);
-		if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+		if ((m_prefsManager.appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 		{
 			scrapbookPalette->objFromCopyAction(BufferS, currItem->itemName());
 			rebuildRecentPasteMenu();
@@ -4710,7 +4709,7 @@ void ScribusMainWindow::slotEditCopy()
 		QString BufferS = ss.writeElem(doc, &tempSelection);
 		if (!internalCopy)
 		{
-			if ((m_prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+			if ((m_prefsManager.appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				scrapbookPalette->objFromCopyAction(BufferS, currItem->itemName());
 				rebuildRecentPasteMenu();
@@ -5271,27 +5270,27 @@ void ScribusMainWindow::slotResourceManager()
 
 void ScribusMainWindow::ToggleTips()
 {
-	m_prefsManager->appPrefs.displayPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
+	m_prefsManager.appPrefs.displayPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
 }
 
 void ScribusMainWindow::ToggleMouseTips()
 {
-	m_prefsManager->appPrefs.displayPrefs.showMouseCoordinates = scrActions["showMouseCoordinates"]->isChecked();
+	m_prefsManager.appPrefs.displayPrefs.showMouseCoordinates = scrActions["showMouseCoordinates"]->isChecked();
 }
 
 void ScribusMainWindow::SaveText()
 {
 	LoadEnc = "";
 	QString wdir = ".";
-	QString prefsDocDir=m_prefsManager->documentDir();
+	QString prefsDocDir=m_prefsManager.documentDir();
 	if (!prefsDocDir.isEmpty())
-		wdir = m_prefsManager->prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
+		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
 	else
-		wdir = m_prefsManager->prefsFile->getContext("dirs")->get("save_text", ".");
+		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("save_text", ".");
 	QString fn = CFileDialog( wdir, tr("Save As"), tr("Text Files (*.txt);;All Files (*)"), "", fdShowCodecs|fdHidePreviewCheckBox);
 	if (!fn.isEmpty())
 	{
-		m_prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
+		m_prefsManager.prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
 		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
 		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));
 	}
@@ -5559,7 +5558,7 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	}
 	//Zoom to %
 	else
-		finalZoomFactor = zoomFactor*m_prefsManager->displayScale()/100.0;
+		finalZoomFactor = zoomFactor*m_prefsManager.displayScale()/100.0;
 
 	if (finalZoomFactor == view->scale())
 		return;
@@ -5581,9 +5580,9 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 
 void ScribusMainWindow::ToggleStickyTools()
 {
-	m_prefsManager->appPrefs.uiPrefs.stickyTools = !m_prefsManager->appPrefs.uiPrefs.stickyTools;
-	scrActions["stickyTools"]->setChecked(m_prefsManager->appPrefs.uiPrefs.stickyTools);
-	if (HaveDoc && doc->appMode!=modeNormal && !m_prefsManager->appPrefs.uiPrefs.stickyTools)
+	m_prefsManager.appPrefs.uiPrefs.stickyTools = !m_prefsManager.appPrefs.uiPrefs.stickyTools;
+	scrActions["stickyTools"]->setChecked(m_prefsManager.appPrefs.uiPrefs.stickyTools);
+	if (HaveDoc && doc->appMode!=modeNormal && !m_prefsManager.appPrefs.uiPrefs.stickyTools)
 		view->requestMode(modeNormal);
 }
 
@@ -6049,7 +6048,7 @@ void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
 	m_keyrep=false;
 
-	if (newMode==modeDrawLatex && !m_prefsManager->renderFrameConfigured())
+	if (newMode==modeDrawLatex && !m_prefsManager.renderFrameConfigured())
 	{
 		ScMessageBox::critical(this, "Render Frames Not Configured", "Your Render Frame configuration seems to be invalid. Please check the settings in the External Tools section of the Preferences dialog.");
 		return;
@@ -6638,38 +6637,38 @@ void ScribusMainWindow::slotPrefsOrg()
 {
 	QString oldMonitorProfile(ScCore->monitorProfile.productDescription());
 	slotSelect();
-	struct ApplicationPrefs oldPrefs(m_prefsManager->appPrefs);
+	struct ApplicationPrefs oldPrefs(m_prefsManager.appPrefs);
 	PreferencesDialog prefsDialog(this, oldPrefs);
 	int prefsResult=prefsDialog.exec();
 	if (prefsResult==QDialog::Accepted)
 	{
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
-		m_prefsManager->setNewPrefs(newPrefs);
-		m_prefsManager->applyLoadedShortCuts();
+		m_prefsManager.setNewPrefs(newPrefs);
+		m_prefsManager.applyLoadedShortCuts();
 
 		//TODO: and the other dirs?
-		DocDir = m_prefsManager->documentDir();
+		DocDir = m_prefsManager.documentDir();
 		if (oldPrefs.pathPrefs.documents != newPrefs.pathPrefs.documents)
 		{
-			PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
+			PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 			docContext->set("docsopen", newPrefs.pathPrefs.documents);
 		}
 
-		ScQApp->neverSplash(!m_prefsManager->appPrefs.uiPrefs.showSplashOnStartup);
+		ScQApp->neverSplash(!m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup);
 
-		QString newUILanguage = m_prefsManager->uiLanguage();
+		QString newUILanguage = m_prefsManager.uiLanguage();
 		if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
 			ScQApp->changeGUILanguage(newUILanguage);
-		m_prefsManager->appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-		QString newUIStyle = m_prefsManager->guiStyle();
+		m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+		QString newUIStyle = m_prefsManager.guiStyle();
 		if (oldPrefs.uiPrefs.style != newUIStyle)
 		{
 			if (newUIStyle.isEmpty())
-				ScQApp->setStyle(m_prefsManager->guiSystemStyle());
+				ScQApp->setStyle(m_prefsManager.guiSystemStyle());
 			else
 				ScQApp->setStyle(QStyleFactory::create(newUIStyle));
 		}
-		int newUIFontSize = m_prefsManager->guiFontSize();
+		int newUIFontSize = m_prefsManager.guiFontSize();
 		if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
 		{
 			QFont apf = qApp->font();
@@ -6677,7 +6676,7 @@ void ScribusMainWindow::slotPrefsOrg()
 			qApp->setFont(apf);
 		}
 		emit UpdateRequest(reqDefFontListUpdate);
-		if (m_prefsManager->appPrefs.uiPrefs.useTabs)
+		if (m_prefsManager.appPrefs.uiPrefs.useTabs)
 		{
 			mdiArea->setViewMode(QMdiArea::TabbedView);
 			mdiArea->setTabsClosable(true);
@@ -6685,7 +6684,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		}
 		else
 			mdiArea->setViewMode(QMdiArea::SubWindowView);
-		bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != m_prefsManager->showPageShadow();
+		bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != m_prefsManager.showPageShadow();
 		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 		if (!windows.isEmpty())
 		{
@@ -6697,14 +6696,14 @@ void ScribusMainWindow::slotPrefsOrg()
 				if (!scw)
 					qFatal("ScribusMainWindow::slotPrefsOrg !scw");
 				ScribusView* scw_v = scw->view();
-				if (oldPrefs.displayPrefs.displayScale != m_prefsManager->displayScale())
+				if (oldPrefs.displayPrefs.displayScale != m_prefsManager.displayScale())
 				{
 					int x = qRound(qMax(scw_v->contentsX() / scw_v->scale(), 0.0));
 					int y = qRound(qMax(scw_v->contentsY() / scw_v->scale(), 0.0));
 					int w = qRound(qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width()));
 					int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
 					scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager->displayScale());
+					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager.displayScale());
 					zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
 				}
 				if (shadowChanged)
@@ -6729,7 +6728,7 @@ void ScribusMainWindow::slotPrefsOrg()
 			if (!success)
 			{
 				newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
-				m_prefsManager->setNewPrefs(newPrefs);
+				m_prefsManager.setNewPrefs(newPrefs);
 				QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
 				if (ScCore->usingGUI())
 					ScMessageBox::warning(this, CommonStrings::trWarning, message);
@@ -6743,7 +6742,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
 		icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
 
-		m_prefsManager->SavePrefs();
+		m_prefsManager.SavePrefs();
 	}
 }
 
@@ -6832,11 +6831,11 @@ int ScribusMainWindow::ShowSubs()
 	nsEditor->startup();
 	symbolPalette->startup();
 #if QT_VERSION < 0x050600
-	if (!m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.isEmpty())
+	if (!m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 	{
-		for (int a = 0; a < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); a++)
+		for (int a = 0; a < m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.count(); a++)
 		{
-			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].palettes;
+			QStringList actTab = m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].palettes;
 			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
 			if (container)
 			{
@@ -6859,9 +6858,9 @@ int ScribusMainWindow::ShowSubs()
 					{
 						if (obj->objectName() == container->objectName())
 						{
-							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
+							if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
 							{
-								bar->setCurrentIndex(m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
+								bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
 								found = true;
 								break;
 							}
@@ -6874,11 +6873,11 @@ int ScribusMainWindow::ShowSubs()
 		}
 	}
 #else
-	if (!m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.isEmpty())
+	if (!m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 	{
-		for (int i = 0; i < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); i++)
+		for (int i = 0; i < m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.count(); i++)
 		{
-			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].palettes;
+			QStringList actTab = m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].palettes;
 			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
 			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
 			bool found = false;
@@ -6892,9 +6891,9 @@ int ScribusMainWindow::ShowSubs()
 					{
 						if (obj->objectName() == container->objectName())
 						{
-							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
+							if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
 							{
-								bar->setCurrentIndex(m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
+								bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
 								found = true;
 								break;
 							}
@@ -6907,8 +6906,8 @@ int ScribusMainWindow::ShowSubs()
 		}
 	}
 #endif
-	move(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.yPosition);
-	resize(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.height);
+	move(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
+	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
 
 	// init the toolbars
 	fileToolBar->initVisibility();
@@ -6936,7 +6935,7 @@ void ScribusMainWindow::doPrintPreview()
 		scrActions["toolsPreflightVerifier"]->setChecked(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
 	}
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 	QString currentPrinter(prefs->get("CurrentPrn"));
 	PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
 	if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
@@ -6949,29 +6948,29 @@ void ScribusMainWindow::doPrintPreview()
 	previewDinUse = true;
 	connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	dia->exec();
-	PrefsManager *prefsManager=PrefsManager::instance();
-	prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-	prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
-	prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
+	PrefsManager& prefsManager=PrefsManager::instance();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
 	if (ScCore->haveTIFFSep() && dia->postscriptPreview)
 	{
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
 	}
 	disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	previewDinUse = false;
 	delete dia;
-	QFile::remove(prefsManager->preferencesLocation()+"/tmp.ps");
-	QFile::remove(prefsManager->preferencesLocation()+"/sc.png");
-	QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QFile::remove(prefsManager.preferencesLocation()+"/tmp.ps");
+	QFile::remove(prefsManager.preferencesLocation()+"/sc.png");
+	QDir d(prefsManager.preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
 		for (uint i = 0; i < d.count(); i++)
-			QFile::remove(prefsManager->preferencesLocation() +"/" + d[i]);
+			QFile::remove(prefsManager.preferencesLocation() +"/" + d[i]);
 	}
 }
 
@@ -7026,7 +7025,7 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	options.useColor = true;
 	options.mirrorH = false;
 	options.mirrorV = false;
-	options.doGCR = m_prefsManager->appPrefs.printerPrefs.GCRMode;
+	options.doGCR = m_prefsManager.appPrefs.printerPrefs.GCRMode;
 	options.setDevParam = false;
 	options.doClip = true;
 	options.cropMarks = false;
@@ -7036,7 +7035,7 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	options.markLength = 20.0;
 	options.markOffset = 0.0;
 	options.bleeds.set(0, 0, 0, 0);
-	PSLib *pslib = new PSLib(options, false, m_prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
+	PSLib *pslib = new PSLib(options, false, m_prefsManager.appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (pslib != nullptr)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -7118,15 +7117,15 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 	filename = QDir::toNativeSeparators(filename);
 	QString wdir = ".";
-	QString prefsDocDir=m_prefsManager->documentDir();
+	QString prefsDocDir=m_prefsManager.documentDir();
 	if (!prefsDocDir.isEmpty())
-		wdir = m_prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
+		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
-		wdir = m_prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
+		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("eps", ".");
 	QString fn = CFileDialog( wdir, tr("Save As"), tr("%1;;All Files (*)").arg(m_formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
 	if (!fn.isEmpty())
 	{
-		m_prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
+		m_prefsManager.prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
 		if (overwrite(this, fn))
 		{
 			QString epsError;
@@ -7221,7 +7220,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		doc->pdfOptions().SubsetList = tmpEm;
 	}
 	MarginStruct optBleeds(doc->pdfOptions().bleeds);
-	PDFExportDialog dia(this, doc->documentFileName(), ReallyUsed, view, doc->pdfOptions(), ScCore->PDFXProfiles, m_prefsManager->appPrefs.fontPrefs.AvailFonts, ScCore->PrinterProfiles);
+	PDFExportDialog dia(this, doc->documentFileName(), ReallyUsed, view, doc->pdfOptions(), ScCore->PDFXProfiles, m_prefsManager.appPrefs.fontPrefs.AvailFonts, ScCore->PrinterProfiles);
 	if (!dia.exec())
 		return;
 
@@ -7319,13 +7318,13 @@ void ScribusMainWindow::doSaveAsPDF()
 	qApp->restoreOverrideCursor();
 	if (errorMsg.isEmpty() && doc->pdfOptions().openAfterExport && !doc->pdfOptions().doMultiFile)
 	{
-		QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
+		QString pdfViewer(PrefsManager::instance().appPrefs.extToolPrefs.pdfViewerExecutable);
 		if (pdfViewer.isEmpty())
 		{
 			pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString(), QString());
 			if (!QFileInfo::exists(pdfViewer))
 				pdfViewer="";
-			PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
+			PrefsManager::instance().appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
 		}
 		if (!pdfViewer.isEmpty())
 		{
@@ -7500,7 +7499,7 @@ void ScribusMainWindow::slotElemRead(const QString& xml, double x, double y, boo
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if (ss.readElem(xml, m_prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager->appPrefs.fontPrefs.GFontSub))
+	if (ss.readElem(xml, m_prefsManager.appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager.appPrefs.fontPrefs.GFontSub))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8188,7 +8187,7 @@ void ScribusMainWindow::ModifyAnnot()
 
 void ScribusMainWindow::SetShortCut()
 {
-	for (QMap<QString,Keys>::Iterator it = m_prefsManager->appPrefs.keyShortcutPrefs.KeyActions.begin(); it != m_prefsManager->appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
+	for (QMap<QString,Keys>::Iterator it = m_prefsManager.appPrefs.keyShortcutPrefs.KeyActions.begin(); it != m_prefsManager.appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
 	{
 		if (!it.value().actionName.isEmpty())
 			if (scrActions[it.value().actionName])
@@ -8334,9 +8333,9 @@ void ScribusMainWindow::initHyphenator()
 	}
 	//For each hyphenation file, grab the strings and the hyphenation data.
 //	QString lang = QString(QLocale::system().name()).left(2);
-//	m_prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
+//	m_prefsManager.appPrefs.hyphPrefs.Language = "en_GB";
 //	if (!LanguageManager::instance()->getHyphFilename(lang).isEmpty() )
-//		m_prefsManager->appPrefs.hyphPrefs.Language = lang;
+//		m_prefsManager.appPrefs.hyphPrefs.Language = lang;
 
 /*
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
@@ -8352,10 +8351,10 @@ void ScribusMainWindow::initHyphenator()
 //IL			LangTransl.insert(fileLangAbbrev, tLang);
 			langmgr->addHyphLang(fileLangAbbrev, hyphDir[dc]);
 			if (fileLangAbbrev == lang)
-				prefsManager->appPrefs.hyphPrefs.Language = fileLangAbbrev;
+				prefsManager.appPrefs.hyphPrefs.Language = fileLangAbbrev;
 		}
 		if (tLang.isEmpty())
-			prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
+			prefsManager.appPrefs.hyphPrefs.Language = "en_GB";
 	}
 	*/
 }
@@ -8444,7 +8443,7 @@ void ScribusMainWindow::slotStoryEditor(bool fromTable)
 void ScribusMainWindow::emergencySave()
 {
 	emergencyActivated=true;
-	if (!m_prefsManager || !m_prefsManager->appPrefs.miscPrefs.saveEmergencyFile)
+	if (!m_prefsManager.appPrefs.miscPrefs.saveEmergencyFile)
 		return;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
@@ -8461,7 +8460,7 @@ void ScribusMainWindow::emergencySave()
 		doc->setMasterPageMode(false);
 		doc->setModified(false);
 		QString base = tr("Document");
-		QString path = m_prefsManager->documentDir();
+		QString path = m_prefsManager.documentDir();
 		QString fileName;
 		if (doc->hasName)
 		{
@@ -8541,7 +8540,7 @@ void ScribusMainWindow::callImageEditor()
 		return;
 	}
 #endif
-	QString imageEditorExecutable=m_prefsManager->imageEditorExecutable();
+	QString imageEditorExecutable=m_prefsManager.imageEditorExecutable();
 	if (currItem->imageIsAvailable)
 	{
 		bool startFailed=false;
@@ -8647,9 +8646,9 @@ void ScribusMainWindow::insertSampleText()
 	if (!HaveDoc)
 		return;
 	LoremManager loremMgr(doc, this);
-	if (m_prefsManager->appPrefs.miscPrefs.useStandardLI)
+	if (m_prefsManager.appPrefs.miscPrefs.useStandardLI)
 	{
-		loremMgr.insertLoremIpsum("la.xml", m_prefsManager->appPrefs.miscPrefs.paragraphsLI);
+		loremMgr.insertLoremIpsum("la.xml", m_prefsManager.appPrefs.miscPrefs.paragraphsLI);
 		return;
 	}
 
@@ -8664,7 +8663,7 @@ void ScribusMainWindow::languageChange()
 
 	//Update colours in case someone has a translated None colour in their preference settings
 	//before changing the tr_NoneColor to the new value. See #9267, #5529
-	m_prefsManager->languageChange();
+	m_prefsManager.languageChange();
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();
 	qApp->setLayoutDirection(QLocale(ScCore->getGuiLanguage()).textDirection());
@@ -9284,14 +9283,14 @@ void ScribusMainWindow::manageColorsAndFills()
 	}
 	else
 	{
-		Gradients = &m_prefsManager->appPrefs.defaultGradients;
-		edc = m_prefsManager->colorSet();
-		docPatterns = &m_prefsManager->appPrefs.defaultPatterns;
+		Gradients = &m_prefsManager.appPrefs.defaultGradients;
+		edc = m_prefsManager.colorSet();
+		docPatterns = &m_prefsManager.appPrefs.defaultPatterns;
 		tmpDoc = m_doc;
 		doc = m_doc;
 	}
 	m_undoManager->setUndoEnabled(false);
-	ColorsAndFillsDialog *dia = new ColorsAndFillsDialog(this, Gradients, edc, m_prefsManager->colorSetName(), docPatterns, tmpDoc, this);
+	ColorsAndFillsDialog *dia = new ColorsAndFillsDialog(this, Gradients, edc, m_prefsManager.colorSetName(), docPatterns, tmpDoc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -9340,11 +9339,11 @@ void ScribusMainWindow::manageColorsAndFills()
 		else
 		{
 			// Update tools colors if needed
-			m_prefsManager->replaceToolColors(dia->replaceColorMap);
-			m_prefsManager->setColorSet(dia->m_colorList);
-			propertiesPalette->Cpal->setColors(m_prefsManager->colorSet());
-			m_prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
-			m_prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
+			m_prefsManager.replaceToolColors(dia->replaceColorMap);
+			m_prefsManager.setColorSet(dia->m_colorList);
+			propertiesPalette->Cpal->setColors(m_prefsManager.colorSet());
+			m_prefsManager.appPrefs.defaultGradients = dia->dialogGradients;
+			m_prefsManager.appPrefs.defaultPatterns = dia->dialogPatterns;
 			QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
 			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 			if (fmt)
@@ -9357,11 +9356,11 @@ void ScribusMainWindow::manageColorsAndFills()
 				s_doc->PageColors = dia->m_colorList;
 				s_doc->setGradients(dia->dialogGradients);
 				s_doc->setPatterns(dia->dialogPatterns);
-				fmt->setupTargets(s_doc, nullptr, this, mainWindowProgressBar, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+				fmt->setupTargets(s_doc, nullptr, this, mainWindowProgressBar, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 				fmt->savePalette(Cpfad);
 				delete s_doc;
 			}
-			m_prefsManager->setColorSetName(dia->getColorSetName());
+			m_prefsManager.setColorSetName(dia->getColorSetName());
 			doc = nullptr;
 		}
 	}

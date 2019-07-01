@@ -74,7 +74,6 @@ public slots: // Public slots
 	void unitChange();
 
 private:
-	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
 };
 

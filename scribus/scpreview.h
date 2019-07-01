@@ -15,10 +15,12 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API ScPreview
 {
-public:
-	ScPreview();
-	~ScPreview() {};
-	QImage createPreview(const QString& data);
+	public:
+		ScPreview()
+		{
+		}
+		~ScPreview() {};
+		QImage createPreview(const QString& data);
 };
 #endif
 

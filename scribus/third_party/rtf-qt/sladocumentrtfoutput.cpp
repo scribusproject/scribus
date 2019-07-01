@@ -203,26 +203,26 @@ namespace RtfReader
 		m_item->itemText.removeChars(posC, 1);
 		if (fam.isEmpty())
 			return;
-		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[fam];
+		QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[fam];
 		if (m_isItalic)
 		{
 			if (m_isBold)
 			{
 				if (slist.contains("Bold Italic"))
-					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
+					m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
 			}
 			else if (slist.contains("Italic"))
-				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+				m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
 		}
 		else
 		{
 			if (m_isBold)
 			{
 				if (slist.contains("Bold"))
-					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+					m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
 			}
 			else if (slist.contains("Regular"))
-				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+				m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
 		}
 	}
 
@@ -237,26 +237,26 @@ namespace RtfReader
 		m_item->itemText.removeChars(posC, 1);
 		if (fam.isEmpty())
 			return;
-		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[fam];
+		QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[fam];
 		if (m_isBold)
 		{
 			if (m_isItalic)
 			{
 				if (slist.contains("Bold Italic"))
-					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
+					m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
 			}
 			else if (slist.contains("Bold"))
-				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+				m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
 		}
 		else
 		{
 			if (m_isItalic)
 			{
 				if (slist.contains("Italic"))
-					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+					m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
 			}
 			else if (slist.contains("Regular"))
-				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+				m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
 		}
 	}
 
@@ -394,7 +394,7 @@ namespace RtfReader
 	{
 		if (m_fontTableReal.contains(fontIndex))
 		{
-			m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_fontTableReal[fontIndex].fontName()]);
+			m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[m_fontTableReal[fontIndex].fontName()]);
 			if (m_fontTableReal[fontIndex].encoding() > 0)
 				setEncoding(m_fontTableReal[fontIndex].encoding());
 		}
@@ -404,7 +404,7 @@ namespace RtfReader
 			{
 				FontTableEntry fontTableEntry = m_fontTable[fontIndex];
 				QString fontName = getFontName(fontTableEntry.fontName());
-				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fontName]);
+				m_textCharStyle.top().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fontName]);
 				fontTableEntry.setFontName(fontName);
 				m_fontTableReal.insert(fontIndex, fontTableEntry);
 				if (fontTableEntry.encoding() > 0)
@@ -447,7 +447,7 @@ namespace RtfReader
 			{
 				FontTableEntry fontTableEntry = m_fontTable[fontInd];
 				QString fontName = getFontName(fontTableEntry.fontName());
-				pStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fontName]);
+				pStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fontName]);
 				fontTableEntry.setFontName(fontName);
 				m_fontTableReal.insert(fontInd, fontTableEntry);
 			}
@@ -687,7 +687,7 @@ namespace RtfReader
 					const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 					if (fmt)
 					{
-						fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+						fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 						fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 						if (m_Doc->m_Selection->count() > 0)
 						{
@@ -725,7 +725,7 @@ namespace RtfReader
 	QString SlaDocumentRtfOutput::getFontName(const QString& name)
 	{
 		QString fontName(name);
-		SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+		SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 		for ( ; it.hasNext(); it.next())
 		{
 			if (it.current().family().toLower() == fontName.toLower())
@@ -736,7 +736,7 @@ namespace RtfReader
 				}
 				else
 				{
-					QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+					QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 					slist.sort();
 					if (slist.count() > 0)
 					{
@@ -750,17 +750,17 @@ namespace RtfReader
 				}
 			}
 		}
-		if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
+		if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(fontName))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			MissingFont dia(0, fontName, m_Doc);
 			dia.exec();
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
+			PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
 			fontName = dia.getReplacementFont();
 		}
 		else
-			fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+			fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName];
 		return fontName;
 	}
 

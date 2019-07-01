@@ -47,7 +47,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 	m_palettePrefs(nullptr),
 	m_visibleOnStartup(false)
 {
-	if (PrefsManager::instance()->appPrefs.uiPrefs.useSmallWidgets)
+	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets)
 	{
 		setStyleSheet("	QToolButton { margin: 1px; padding: 0px; font-size: 10px; } \
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
@@ -68,7 +68,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	setPrefsContext(prefsContext);
 	setObjectName(prefsContext);
-	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
+	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
 void ScDockPalette::setPrefsContext(const QString& context)
@@ -78,7 +78,7 @@ void ScDockPalette::setPrefsContext(const QString& context)
 		m_prefsContextName=context;
 		if (!m_prefsContextName.isEmpty())
 		{
-			m_palettePrefs = PrefsManager::instance()->prefsFile->getContext(m_prefsContextName);
+			m_palettePrefs = PrefsManager::instance().prefsFile->getContext(m_prefsContextName);
 			if (m_palettePrefs)
 				m_visibleOnStartup = m_palettePrefs->getBool("visible");
 		}
@@ -129,7 +129,7 @@ void ScDockPalette::setPaletteShown(bool visible)
 void ScDockPalette::setFontSize()
 {
 	QFont newfont(font());
-	newfont.setPointSize(PrefsManager::instance()->appPrefs.uiPrefs.paletteFontSize);
+	newfont.setPointSize(PrefsManager::instance().appPrefs.uiPrefs.paletteFontSize);
 	setFont(newfont);
 }
 

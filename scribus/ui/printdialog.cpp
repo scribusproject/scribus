@@ -45,7 +45,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	m_doc = doc;
 	unit = doc->unitIndex();
 	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
-	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 	DevMode = printOptions.devMode;
 	PrinterOpts = "";
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
@@ -375,7 +375,7 @@ void PrintDialog::SelMode(int e)
 
 void PrintDialog::SelFile()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("printdir", ".");
 	CustomFDialog dia(this, wdir, tr("Save As"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
 	if (!LineEdit1->text().isEmpty())

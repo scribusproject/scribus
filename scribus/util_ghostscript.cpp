@@ -63,7 +63,7 @@ int callGS(const QStringList& args_in, const QString& device, const QString& fil
 {
 	QString cmd;
  	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dQUIET" );
@@ -77,13 +77,13 @@ int callGS(const QStringList& args_in, const QString& device, const QString& fil
 	else
 		args.append( "-sDEVICE=pngalpha" );
 	// and antialiasing
-	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasText)
+	if (prefsManager.appPrefs.extToolPrefs.gs_AntiAliasText)
 		args.append( "-dTextAlphaBits=4" );
-	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics)
+	if (prefsManager.appPrefs.extToolPrefs.gs_AntiAliasGraphics)
 		args.append( "-dGraphicsAlphaBits=4" );
 
 	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
+	PrefsContext *pc = PrefsManager::instance().prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
@@ -97,13 +97,13 @@ int callGS(const QStringList& args_in, const QString& device, const QString& fil
 	args.append("-c");
 	args.append("showpage");
 //	qDebug(args.join(" ").toLatin1());
-	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args, fileStdErr, fileStdOut );
+	return System( getShortPathName(prefsManager.ghostscriptExecutable()), args, fileStdErr, fileStdOut );
 }
 
 int callGS(const QString& args_in, const QString& device)
 {
-	PrefsManager* prefsManager=PrefsManager::instance();
-	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
+	PrefsManager& prefsManager=PrefsManager::instance();
+	QString cmd1 = getShortPathName(prefsManager.ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -dQUIET -dPARANOIDSAFER -dBATCH";
 	// Choose rendering device
 	if (!device.isEmpty())
@@ -114,13 +114,13 @@ int callGS(const QString& args_in, const QString& device)
 	else
 		cmd1 += " -sDEVICE=pngalpha";
 	// and antialiasing
-	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasText)
+	if (prefsManager.appPrefs.extToolPrefs.gs_AntiAliasText)
 		cmd1 += " -dTextAlphaBits=4";
-	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics)
+	if (prefsManager.appPrefs.extToolPrefs.gs_AntiAliasGraphics)
 		cmd1 += " -dGraphicsAlphaBits=4";
 
 	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
+	PrefsContext *pc = PrefsManager::instance().prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 #ifndef _WIN32
 	if (extraFonts->getRowCount() >= 1)
@@ -142,7 +142,7 @@ int callGS(const QString& args_in, const QString& device)
 
 int convertPS2PS(const QString& in, const QString& out, const QStringList& opts, int level)
 {
-	PrefsManager* prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 	QStringList args;
 	args.append( "-q" );
 	args.append( "-dQUIET" );
@@ -173,13 +173,13 @@ int convertPS2PS(const QString& in, const QString& out, const QStringList& opts,
 	args += opts;
 	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(out)) );
 	args.append( QDir::toNativeSeparators(in) );
-	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
+	int ret = System( getShortPathName(prefsManager.ghostscriptExecutable()), args );
 	return ret;
 }
 
 int convertPS2PDF(const QString& in, const QString& out, const QStringList& opts)
 {
-	PrefsManager* prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 	QStringList args;
 	args.append( "-q" );
 	args.append( "-dQUIET" );
@@ -190,15 +190,15 @@ int convertPS2PDF(const QString& in, const QString& out, const QStringList& opts
 	args += opts;
 	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(out)) );
 	args.append( QDir::toNativeSeparators(in) );
-	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
+	int ret = System( getShortPathName(prefsManager.ghostscriptExecutable()), args );
 	return ret;
 }
 
 bool testGSAvailability()
 {
 	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
-	return testGSAvailability(prefsManager->ghostscriptExecutable());
+	PrefsManager& prefsManager = PrefsManager::instance();
+	return testGSAvailability(prefsManager.ghostscriptExecutable());
 }
 
 bool testGSAvailability( const QString& gsPath )
@@ -216,12 +216,12 @@ bool testGSAvailability( const QString& gsPath )
 bool testGSDeviceAvailability( const QString& device )
 {
 	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	args.append( QString("-sDEVICE=%1").arg( device ) );
 	args.append( "-c" );
 	args.append( "quit" );
 	QProcess proc;
-	proc.start(getShortPathName(prefsManager->ghostscriptExecutable()), args);
+	proc.start(getShortPathName(prefsManager.ghostscriptExecutable()), args);
 	if (!proc.waitForStarted(5000))
 		return false;
 	proc.waitForFinished(5000);
@@ -233,7 +233,7 @@ QString getGSVersion()
 {
 	QStringList args;
 	args.append(QString("--version").toLocal8Bit());
-	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
+	QString gsExe = getShortPathName(PrefsManager::instance().ghostscriptExecutable());
 	QProcess proc;
 	proc.start(gsExe.toLocal8Bit(), args);
 	if (proc.waitForStarted(5000))
@@ -409,11 +409,11 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	}
 #else
 	int gsNumericVer, gsMajor, gsMinor;
-	PrefsManager* prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager=PrefsManager::instance();
 	if (getNumericGSVersion(gsMajor, gsMinor))
 	{
 		gsNumericVer = gsMajor * 100 + gsMinor;
-		gsVersions.insert(gsNumericVer, prefsManager->ghostscriptExecutable());
+		gsVersions.insert(gsNumericVer, prefsManager.ghostscriptExecutable());
 	}
 #endif
 	return gsVersions;

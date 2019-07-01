@@ -117,7 +117,7 @@ bool ImportCvgPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importcvg");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importcvg");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.cvg *.CVG);;All Files (*)");
 		if (diaf.exec())

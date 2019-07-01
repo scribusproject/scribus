@@ -89,8 +89,8 @@ QImage PagesPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	double b, h;
-	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	progressDialog = nullptr;
@@ -188,9 +188,9 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 		qApp->processEvents();
 	}
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	baseX = 0;
@@ -537,8 +537,8 @@ QImage PagesPlug::readThumbnail(const QString& fName)
 	{
 		QFileInfo fi = QFileInfo(fName);
 		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-		docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-		docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -642,8 +642,8 @@ bool PagesPlug::import(const QString& fNameIn, const TransactionSettings& trSett
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))

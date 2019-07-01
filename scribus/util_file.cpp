@@ -267,7 +267,7 @@ PageItem* getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QString
 
 	doc->m_Selection->clear();
 	doc->m_Selection->delaySignalsOn();
-	fmt->setupTargets(doc, nullptr, nullptr, nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+	fmt->setupTargets(doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 	fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 	if (!doc->m_Selection->isEmpty())
 	{

@@ -144,7 +144,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 {
 	m_menuMgr->clearMenuStrings("RecentScripts");
 	m_recentScriptActions.clear();
-	uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, m_recentScripts.count());
+	uint max = qMin(PrefsManager::instance().appPrefs.uiPrefs.recentDocCount, m_recentScripts.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QString strippedName=m_recentScripts[m];
@@ -483,7 +483,7 @@ void ScripterCore::slotExecute()
 
 void ScripterCore::readPlugPrefs()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");
@@ -510,7 +510,7 @@ void ScripterCore::readPlugPrefs()
 
 void ScripterCore::savePlugPrefs()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");

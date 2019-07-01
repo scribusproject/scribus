@@ -133,7 +133,7 @@ bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 	QString fileName;
 	if (doc!=nullptr)
 	{
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("xpsex");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("xpsex");
 		QString wdir = prefs->get("wdir", ".");
 		QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("Microsoft XPS (*.xps *.XPS);;All Files (*)"), fdHidePreviewCheckBox) );
 

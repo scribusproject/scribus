@@ -193,8 +193,8 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		m_painter->setupPolygon(&outline, true);
 		QColor oldBrush = m_painter->brush();
 		m_painter->setBrush(gc.hasFlag(ScLayout_SuppressSpace) ? Qt::green
-															   : PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor);
-		m_painter->setBrush(PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor);
+															   : PrefsManager::instance().appPrefs.displayPrefs.controlCharColor);
+		m_painter->setBrush(PrefsManager::instance().appPrefs.displayPrefs.controlCharColor);
 		if (stroke)
 		{
 			QColor tmp = m_painter->pen();
@@ -335,7 +335,7 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	if (m_item->m_Doc->guidesPrefs().framesShown)
 	{
 		int fm = m_painter->fillMode();
-		m_painter->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+		m_painter->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 		m_painter->setFillMode(ScPainter::None);
 		QRectF bBox = embedded->getVisualBoundingRect();
 		m_painter->drawSharpRect(0, 0, bBox.width(), bBox.height());

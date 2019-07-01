@@ -34,7 +34,7 @@ tfDia::tfDia()
 	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
 	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 
 	//Get last window geometry values
 	int vleft   = qMax(0, prefs->getInt("x", 10));

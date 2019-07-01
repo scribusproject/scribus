@@ -455,7 +455,7 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 			if (!font.isEmpty())
 			{
 				font = getFontName(font);
-				pStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
+				pStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[font]);
 			}
 			else
 			{
@@ -465,12 +465,12 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 					if (fonta == "minorHAnsi")
 					{
 						fonta = getFontName(themeFont1);
-						pStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fonta]);
+						pStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fonta]);
 					}
 					else if (fonta == "majorHAnsi")
 					{
 						fonta = getFontName(themeFont2);
-						pStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fonta]);
+						pStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[fonta]);
 					}
 				}
 			}
@@ -669,14 +669,14 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 QString DocXIm::getFontName(const QString& name)
 {
 	QString fontName = name;
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{
 		if (it.current().family().toLower() == fontName.toLower())
 		{
 			if (it.currentKey().toLower() == fontName.toLower()) // exact Match
 				return fontName;
-			QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 			if (slist.count() > 0)
 			{
 				slist.sort();
@@ -690,17 +690,17 @@ QString DocXIm::getFontName(const QString& name)
 		}
 	}
 
-	if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
+	if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		MissingFont dia(nullptr, fontName, m_Doc);
 		static_cast<void>(dia.exec());
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
+		PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
 		fontName = dia.getReplacementFont();
 	}
 	else
-		fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+		fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName];
 
 	return fontName;
 }

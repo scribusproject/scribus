@@ -44,19 +44,13 @@ class SCRIBUS_API PrefsManager : public QObject
 {
 Q_OBJECT
 public:
-	PrefsManager(QObject *parent = 0);
-	~PrefsManager();
-
+	PrefsManager(PrefsManager const&) = delete;
+	void operator=(PrefsManager const&) = delete;
 	/**
 	* @brief Returns a pointer to the PrefsManager instance
 	* @return A pointer to the PrefsManager instance
 	*/
-	static PrefsManager* instance();
-	/**
-	* @brief Deletes the PrefsManager Instance
-	* Must be called when PrefsManager is no longer needed.
-	*/
-	static void deleteInstance();
+	static PrefsManager& instance();
 
 	void setup();
 	/*!
@@ -213,13 +207,8 @@ public slots:
 	void languageChange();
 
 private:
-	/**
-	* @brief The only instance of PrefsManager available.
-	*
-	* PrefsManager is singleton and the instance can be queried with the method
-	* instance().
-	*/
-	static PrefsManager* m_instance;
+	PrefsManager(QObject *parent = nullptr);
+	~PrefsManager();
 
 	QString m_prefsLocation;
 	bool m_importingFrom12;

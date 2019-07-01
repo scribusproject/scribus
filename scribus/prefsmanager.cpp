@@ -65,8 +65,6 @@ for which a new license (GPL+exception) is in place.
 
 extern bool emergencyActivated;
 
-PrefsManager* PrefsManager::m_instance = nullptr;
-
 PrefsManager::PrefsManager(QObject *parent) : QObject(parent),
 	prefsFile(nullptr),
 	m_importingFrom12(false),
@@ -80,20 +78,11 @@ PrefsManager::~PrefsManager()
 	delete prefsFile;
 }
 
-PrefsManager* PrefsManager::instance()
+PrefsManager& PrefsManager::instance()
 {
-	if (m_instance == nullptr)
-		m_instance = new PrefsManager();
-
+	static PrefsManager m_instance;
 	return m_instance;
 }
-
-void PrefsManager::deleteInstance()
-{
-	delete m_instance;
-	m_instance = nullptr;
-}
-
 
 ApplicationPrefs* PrefsManager::applicationPrefs()
 {

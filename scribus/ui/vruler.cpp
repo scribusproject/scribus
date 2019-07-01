@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 
 #include "canvasgesture_rulermove.h"
-#include "prefsmanager.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -51,7 +50,6 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_drawMark(false),
 	m_whereToDraw(0)
 {
-	prefsManager=PrefsManager::instance();
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
 	QPalette palette;

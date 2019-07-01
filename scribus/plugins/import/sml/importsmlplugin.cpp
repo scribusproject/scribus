@@ -118,7 +118,7 @@ bool ImportSmlPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importsml");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importsml");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.sml *.SML);;All Files (*)");
 		if (diaf.exec())

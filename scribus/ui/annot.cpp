@@ -70,7 +70,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
-	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 
 	Annotation& annotation = m_annotation;
 	if ((annotation.ActionType() == Annotation::Action_GoTo) || (annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))

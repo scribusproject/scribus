@@ -157,7 +157,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importpdf");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpdf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pdf *.PDF);;All Files (*)");
 		if (diaf.exec())
@@ -205,7 +205,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 			args.append("-dCompatibilityLevel=1.4");
 			args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(cleanFile)) );
 			args.append( QDir::toNativeSeparators(fileName) );
-			System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
+			System(getShortPathName(PrefsManager::instance().ghostscriptExecutable()), args, errFile, errFile, &cancel);
 			args.clear();
 			isCleanedFile = true;
 		}

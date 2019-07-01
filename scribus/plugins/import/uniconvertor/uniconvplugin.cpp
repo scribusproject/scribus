@@ -147,12 +147,12 @@ bool UniconvImportPlugin::import(const QString& fileName, int flags)
 	//execute uniconvertor
 	QProcess uniconv;
 	uniconv.setProcessChannelMode(QProcess::MergedChannels);
-	uniconv.start(PrefsManager::instance()->uniconvExecutable(), arguments);
+	uniconv.start(PrefsManager::instance().uniconvExecutable(), arguments);
 
 	//handle errors
 	if (!uniconv.waitForStarted(120000)) {
 		qWarning() << "Uniconvertor failed:" <<
-			PrefsManager::instance()->uniconvExecutable() << arguments;
+			PrefsManager::instance().uniconvExecutable() << arguments;
 		ScMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Starting Uniconvertor failed! The executable name in "
 			"File->Preferences->External Tools may be incorrect or the "

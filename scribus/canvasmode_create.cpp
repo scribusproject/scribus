@@ -428,7 +428,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		m_createTransaction.cancel();
 		m_createTransaction.reset();
 	}
-	if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+	if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 	{
 		m_view->requestMode(modeNormal);
 	}
@@ -855,7 +855,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 	if (QApplication::keyboardModifiers() & Qt::ControlModifier)
 		return true;
 
-	PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
+	PrefsContext* sizes = PrefsManager::instance().prefsFile->getContext("ObjectSize");
 	bool doRemember     = sizes->getBool("Remember", true);
 
 	int lmode = (createObjectMode == modeDrawLine) ? 1 : 0;

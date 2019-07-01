@@ -323,7 +323,7 @@ bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *do
 		const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT);
 		if (fmt)
 		{
-			fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+			fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 			fmt->loadPalette(paletteFileName);
 		}
 		else

@@ -171,7 +171,7 @@ void SMCStyleWidget::handleUpdateRequest(int updateFlags)
 
 void SMCStyleWidget::slotEnableFontFeatures(const QString& s)
 {
-	const ScFace& font = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
+	const ScFace& font = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[s];
 	fontfeaturesSetting->enableFontFeatures(font.fontFeatures());
 }
 

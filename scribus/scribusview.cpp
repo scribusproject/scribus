@@ -139,7 +139,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	QScrollArea(win),
 	Doc(doc),
 	m_canvas(new Canvas(doc, this)),
-	Prefs(&(PrefsManager::instance()->appPrefs)),
+	Prefs(&(PrefsManager::instance().appPrefs)),
 	undoManager(UndoManager::instance()),
 	m_ScMW(mw),
 	OldScale(0),
@@ -162,7 +162,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 {
 	setObjectName("s");
 	QPalette p=palette();
-	p.setBrush(QPalette::Window, PrefsManager::instance()->appPrefs.displayPrefs.scratchColor);
+	p.setBrush(QPalette::Window, PrefsManager::instance().appPrefs.displayPrefs.scratchColor);
 	setPalette(p);
 	setAttribute(Qt::WA_StaticContents);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
@@ -407,7 +407,7 @@ void ScribusView::stopGesture()
 		m_canvasMode->deactivate(false);
 		m_canvasMode = m_canvasMode->delegate();
 		m_canvasMode->activate(true);
-		if (PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+		if (PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		{
 			m_canvas->setForcedRedraw(true);
 			//			Doc->m_Selection->clear();

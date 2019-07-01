@@ -23,7 +23,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	setupUi(this);
 
 	m_charTableModel = new CharTableModel(this, 26, m_doc);//,
-//                                           PrefsManager::instance()->appPrefs.toolSettings.defFont);
+//                                           PrefsManager::instance().appPrefs.toolSettings.defFont);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->setDragEnabled(true);
 

@@ -184,14 +184,14 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const
 	{
 		if (m_fileType == FORMATID_SLA12XIMPORT)
 		{
-			it->plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+			it->plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 			ret = it->plug->loadPage(m_fileName, PageToLoad, Mpage, renamedPageName);
 // 			if (ret)
 // 				it->plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
 		if (m_fileType == FORMATID_SLA13XIMPORT || m_fileType == FORMATID_SLA134IMPORT || m_fileType == FORMATID_SLA150IMPORT)
 		{
-			it->plug->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+			it->plug->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 			ret = it->plug->loadPage(m_fileName, PageToLoad, Mpage, renamedPageName);
 // 			if (ret)
 // 				it->plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
@@ -214,27 +214,27 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const
 bool FileLoader::loadFile(ScribusDoc* currDoc)
 {
 	m_newReplacement = false;
-	currDoc->guidesPrefs().marginsShown = m_prefsManager->appPrefs.guidesPrefs.marginsShown;
-	currDoc->guidesPrefs().framesShown = m_prefsManager->appPrefs.guidesPrefs.framesShown;
-	currDoc->guidesPrefs().layerMarkersShown = m_prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
-	currDoc->guidesPrefs().gridShown = m_prefsManager->appPrefs.guidesPrefs.gridShown;
-	currDoc->guidesPrefs().guidesShown = m_prefsManager->appPrefs.guidesPrefs.guidesShown;
-	currDoc->guidesPrefs().colBordersShown = m_prefsManager->appPrefs.guidesPrefs.colBordersShown;
-	currDoc->guidesPrefs().baselineGridShown = m_prefsManager->appPrefs.guidesPrefs.baselineGridShown;
-	currDoc->guidesPrefs().linkShown = m_prefsManager->appPrefs.guidesPrefs.linkShown;
-	currDoc->itemToolPrefs().polyCorners = m_prefsManager->appPrefs.itemToolPrefs.polyCorners;
-	currDoc->itemToolPrefs().polyFactor = m_prefsManager->appPrefs.itemToolPrefs.polyFactor;
-	currDoc->itemToolPrefs().polyRotation = m_prefsManager->appPrefs.itemToolPrefs.polyRotation;
-	currDoc->itemToolPrefs().polyCurvature = m_prefsManager->appPrefs.itemToolPrefs.polyCurvature;
-	currDoc->itemToolPrefs().polyOuterCurvature = m_prefsManager->appPrefs.itemToolPrefs.polyOuterCurvature;
-	currDoc->itemToolPrefs().polyInnerRot = m_prefsManager->appPrefs.itemToolPrefs.polyInnerRot;
-	currDoc->itemToolPrefs().polyUseFactor = m_prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
-	currDoc->setAutoSave(m_prefsManager->appPrefs.docSetupPrefs.AutoSave);
-	currDoc->setAutoSaveTime(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);
-	currDoc->setAutoSaveCount(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveCount);
-	currDoc->setAutoSaveKeep(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveKeep);
-	currDoc->setAutoSaveInDocDir(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveLocation);
-	currDoc->setAutoSaveDir(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir);
+	currDoc->guidesPrefs().marginsShown = m_prefsManager.appPrefs.guidesPrefs.marginsShown;
+	currDoc->guidesPrefs().framesShown = m_prefsManager.appPrefs.guidesPrefs.framesShown;
+	currDoc->guidesPrefs().layerMarkersShown = m_prefsManager.appPrefs.guidesPrefs.layerMarkersShown;
+	currDoc->guidesPrefs().gridShown = m_prefsManager.appPrefs.guidesPrefs.gridShown;
+	currDoc->guidesPrefs().guidesShown = m_prefsManager.appPrefs.guidesPrefs.guidesShown;
+	currDoc->guidesPrefs().colBordersShown = m_prefsManager.appPrefs.guidesPrefs.colBordersShown;
+	currDoc->guidesPrefs().baselineGridShown = m_prefsManager.appPrefs.guidesPrefs.baselineGridShown;
+	currDoc->guidesPrefs().linkShown = m_prefsManager.appPrefs.guidesPrefs.linkShown;
+	currDoc->itemToolPrefs().polyCorners = m_prefsManager.appPrefs.itemToolPrefs.polyCorners;
+	currDoc->itemToolPrefs().polyFactor = m_prefsManager.appPrefs.itemToolPrefs.polyFactor;
+	currDoc->itemToolPrefs().polyRotation = m_prefsManager.appPrefs.itemToolPrefs.polyRotation;
+	currDoc->itemToolPrefs().polyCurvature = m_prefsManager.appPrefs.itemToolPrefs.polyCurvature;
+	currDoc->itemToolPrefs().polyOuterCurvature = m_prefsManager.appPrefs.itemToolPrefs.polyOuterCurvature;
+	currDoc->itemToolPrefs().polyInnerRot = m_prefsManager.appPrefs.itemToolPrefs.polyInnerRot;
+	currDoc->itemToolPrefs().polyUseFactor = m_prefsManager.appPrefs.itemToolPrefs.polyUseFactor;
+	currDoc->setAutoSave(m_prefsManager.appPrefs.docSetupPrefs.AutoSave);
+	currDoc->setAutoSaveTime(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveTime);
+	currDoc->setAutoSaveCount(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveCount);
+	currDoc->setAutoSaveKeep(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveKeep);
+	currDoc->setAutoSaveInDocDir(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveLocation);
+	currDoc->setAutoSaveDir(m_prefsManager.appPrefs.docSetupPrefs.AutoSaveDir);
 	m_ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 	//dummyScFaces.clear();
 	bool ret = false;
@@ -246,7 +246,7 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 		{
 			case FORMATID_SLA12XIMPORT:
 				{
-					it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+					it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
@@ -256,14 +256,14 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 			case FORMATID_SLA134IMPORT:
 			case FORMATID_SLA150IMPORT:
 				{
-					it->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+					it->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
 				break;
 			default:
-				it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+				it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 				ret = it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 				break;
 		}
@@ -277,7 +277,7 @@ bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *sav
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(FORMATID_SLA150EXPORT, it))
 	{
-		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 		ret = it->saveFile(fileName);
 		if (savedFile)
 			*savedFile = it->lastSavedFile();
@@ -290,7 +290,7 @@ bool FileLoader::readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagr
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it))
 	{
-		it->plug->setupTargets(doc, nullptr, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->plug->setupTargets(doc, nullptr, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 		return it->readStyles(m_fileName, doc, docParagraphStyles);
 	}
 	return false;
@@ -301,7 +301,7 @@ bool FileLoader::readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharSty
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it))
 	{
-		it->plug->setupTargets(doc, nullptr, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->plug->setupTargets(doc, nullptr, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 		return it->readCharStyles(m_fileName, doc, docCharStyles);
 	}
 	return false;
@@ -432,7 +432,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	if (m_ReplacedFonts.isEmpty())
 		return true;
 
-	if (!(m_prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
+	if (!(m_prefsManager.appPrefs.fontPrefs.askBeforeSubstitute))
 		return true;
 
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -444,7 +444,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
 	{
 		if (dia.stickyReplacements->isChecked())
-			m_prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
+			m_prefsManager.appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
 	}
 	currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
 	ResourceCollection repl;

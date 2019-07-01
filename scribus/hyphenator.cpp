@@ -266,7 +266,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						else
 						{
 							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-							PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
+							PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("hyhpen_options");
 							int xpos = prefs->getInt("Xposition", -9999);
 							int ypos = prefs->getInt("Yposition", -9999);
 							HyAsk *dia = new HyAsk((QWidget*)parent(), outs);

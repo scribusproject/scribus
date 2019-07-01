@@ -134,7 +134,7 @@ protected:
 	ScSplashScreen *m_SplashScreen;
 	IconManager& m_iconManager;
 	UndoManager *m_undoManager;
-	PrefsManager *m_prefsManager;
+	PrefsManager& m_prefsManager;
 	bool m_ScribusInitialized;
 	bool m_UseGUI;
 	QList<QString> m_Files;

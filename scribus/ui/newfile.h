@@ -161,7 +161,7 @@ protected:
 	QVBoxLayout* openDocLayout;
 	QVBoxLayout* recentDocLayout;
 	QVBoxLayout *verticalLayout;
-	PrefsManager* prefsManager;
+	PrefsManager& prefsManager;
 	QStringList recentDocList;
 
 	double m_unitRatio;

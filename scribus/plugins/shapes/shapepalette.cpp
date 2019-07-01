@@ -315,7 +315,7 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", nu
 
 void ShapePalette::writeToPrefs()
 {
-	QString prFile = QDir::toNativeSeparators(PrefsManager::instance()->preferencesLocation()+"/scribusshapes.xml");
+	QString prFile = QDir::toNativeSeparators(PrefsManager::instance().preferencesLocation()+"/scribusshapes.xml");
 	QFile f(prFile);
 	if (!f.open(QIODevice::WriteOnly))
 		return;
@@ -351,7 +351,7 @@ void ShapePalette::writeToPrefs()
 
 void ShapePalette::readFromPrefs()
 {
-	QString prFile = QDir::toNativeSeparators(PrefsManager::instance()->preferencesLocation()+"/scribusshapes.xml");
+	QString prFile = QDir::toNativeSeparators(PrefsManager::instance().preferencesLocation()+"/scribusshapes.xml");
 	QFileInfo fi(prFile);
 	if (fi.exists())
 	{
@@ -416,7 +416,7 @@ double ShapePalette::decodePSDfloat(uint data)
 
 void ShapePalette::Import()
 {
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString s = QFileDialog::getOpenFileName(this, tr("Choose a shape file to import"), dirs->get("shape_load", "."), tr("Photoshop Custom Shape (*.csh *.CSH)"));
 	if (!s.isEmpty())
 	{

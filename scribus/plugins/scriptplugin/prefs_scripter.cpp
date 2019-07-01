@@ -67,7 +67,7 @@ void Prefs_Scripter::apply()
 	scripterCore->setExtensionsEnabled(extensionScriptsChk->isChecked());
 	scripterCore->setStartupScript(startupScriptEdit->text());
 	// colors
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (prefs)
 	{
 		prefs->set("syntaxerror", errorColor.name());

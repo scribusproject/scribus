@@ -117,7 +117,7 @@ bool ImportWpgPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importwpg");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importwpg");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.wpg *.WPG);;All Files (*)");
 		if (diaf.exec())

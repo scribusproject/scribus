@@ -160,7 +160,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::SVG));
 		if (diaf.exec())

@@ -67,9 +67,9 @@ QImage XfigPlug::readThumbnail(const QString& fName)
 	docX = x;
 	docY = y;
 	if (w == 0.0)
-		w = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		w = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = w - x;
 	docHeight = h - y;
 	progressDialog = nullptr;
@@ -295,9 +295,9 @@ bool XfigPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	docX = x;
 	docY = y;
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b - x;
 	docHeight = h - y;
 	baseX = 0;

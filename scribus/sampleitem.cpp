@@ -42,7 +42,7 @@ SampleItem::SampleItem()
 	m_tmpStyle.setRightMargin(0);
 	m_tmpStyle.setGapBefore(0);
 	m_tmpStyle.setGapAfter(0);
-	m_tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs().textFont]);
+	m_tmpStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs().textFont]);
 	m_tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs().textSize);
 //	tmpStyle.tabValues().clear();
 	m_tmpStyle.setHasDropCap(false);
@@ -154,7 +154,7 @@ void SampleItem::setGapAfter(double gapAfter)
 
 void SampleItem::setFont(const QString& font)
 {
-	m_tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
+	m_tmpStyle.charStyle().setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[font]);
 }
 
 void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
@@ -290,13 +290,13 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	double frameWidth  = width / PrefsManager::instance()->appPrefs.displayPrefs.displayScale;
-	double frameHeight = height / PrefsManager::instance()->appPrefs.displayPrefs.displayScale;
+	double frameWidth  = width / PrefsManager::instance().appPrefs.displayPrefs.displayScale;
+	double frameHeight = height / PrefsManager::instance().appPrefs.displayPrefs.displayScale;
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QImage pm(width, height, QImage::Format_ARGB32);
 	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
-	painter->setZoomFactor(PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
+	painter->setZoomFactor(PrefsManager::instance().appPrefs.displayPrefs.displayScale);
 
 	if (m_Doc->UsedFonts.contains(m_tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
