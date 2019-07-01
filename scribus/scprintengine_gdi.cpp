@@ -100,8 +100,8 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 		diaSelection = docName.right(docName.length() - docName.lastIndexOf("/") - 1);
 		diaSelection = diaSelection.left(diaSelection.indexOf("."));
 		diaSelection += ".prn";
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-		QString prefsDocDir = PrefsManager::instance()->documentDir();
+		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
+		QString prefsDocDir = PrefsManager::instance().documentDir();
 		if (!prefsDocDir.isEmpty())
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
@@ -439,8 +439,8 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	options2.pageNumbers.clear();
 	options2.pageNumbers.push_back(page->pageNr() + 1);
 
-	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors);
+	tempFilePath = PrefsManager::instance().preferencesLocation() + "/tmp.ps";
+	PSLib *dd = new PSLib(options2, false, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors);
 	dd->PS_set_file(tempFilePath);
 	ret = dd->CreatePS(doc, options2);
 	delete dd;
@@ -450,7 +450,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	{
 		QString tmp;
 		QStringList opts;
-		QString tempFilePath2 = PrefsManager::instance()->preferencesLocation() + "/tmp2.ps";
+		QString tempFilePath2 = PrefsManager::instance().preferencesLocation() + "/tmp2.ps";
 		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())));
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())));
 		if (QFile::exists(tempFilePath2))
