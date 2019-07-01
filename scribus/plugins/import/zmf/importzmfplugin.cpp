@@ -118,7 +118,7 @@ bool ImportZmfPlugin::import(QString fileName, int flags)
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importzmf");
+		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importzmf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.zmf *.ZMF);;All Files (*)");
 		if (diaf.exec())
