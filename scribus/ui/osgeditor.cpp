@@ -571,7 +571,7 @@ void OSGEditorDialog::reportCamera()
 void OSGEditorDialog::openFile()
 {
 	QString fileName;
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("models", ".");
 	CustomFDialog dia(this, wdir, tr("Import 3-D Model"), filterString, fdHidePreviewCheckBox);
 	if (dia.exec() == QDialog::Accepted)
