@@ -5802,14 +5802,36 @@ void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelecti
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
-void ScribusDoc::itemSelection_SetFont(QString fon, Selection* customSelection)
+void ScribusDoc::itemSelection_SetFont(QString font, Selection* customSelection)
 {
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+
+	uint selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	QString newFont(font);
+	if (!UsedFonts.contains(newFont))
+	{
+		if (!AddFont(font))
+		{
+			PageItem *currItem = m_Selection->itemAt(0);
+			newFont = currItem->currentCharStyle().font().scName();
+		}
+	}
+
 	CharStyle newStyle;
-	newStyle.setFont((*AllFonts)[fon]);
+	newStyle.setFont((*AllFonts)[newFont]);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
+void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setFontSize(size);
+	itemSelection_ApplyCharStyle(newStyle, customSelection);
+}
 
 void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection* customSelection)
 {
@@ -6271,34 +6293,6 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 	ParagraphStyle newStyle;
 	newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m));
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
-}
-
-void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
-{
-	if (true || appMode == modeEdit) 
-	{
-		CharStyle newStyle;
-		newStyle.setFontSize(size);
-		itemSelection_ApplyCharStyle(newStyle, customSelection);
-	}
-	else
-	{
-		ParagraphStyle storyStyle;
-		storyStyle.charStyle().setFontSize(size);
-		if (storyStyle.lineSpacingMode() == 0)
-		{
-			storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
-		}
-		else if (storyStyle.lineSpacingMode() == 1)
-		{
-			storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
-		}
-		else
-		{
-			storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
-		}
-		itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
-	}
 }
 
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
