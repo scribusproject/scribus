@@ -675,8 +675,7 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 		doc->appMode = modeEdit;
 	doc->itemSelection_SetLineSpacing(w, &tmpSelection);
 	doc->appMode = oldAppMode;
-		
-//	item->setLineSpacing(w);
+
 	Py_RETURN_NONE;
 }
 
