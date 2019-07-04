@@ -115,7 +115,6 @@ ScribusQApp::~ScribusQApp()
 {
 	delete m_ScCore;
 	delete m_scDLMgr;
-	LocaleManager::deleteInstance();
 	LanguageManager::deleteInstance();
 }
 

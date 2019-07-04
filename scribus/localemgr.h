@@ -39,9 +39,8 @@ class SCRIBUS_API LocaleDef
 			m_locale=locale;
 			m_unit=unit;
 			m_pageSize=pageSize;
-
 		}
-		~LocaleDef() {}
+		~LocaleDef() = default;
 
 	private:
 		QString m_locale;
@@ -51,23 +50,21 @@ class SCRIBUS_API LocaleDef
 
 class SCRIBUS_API LocaleManager
 {
-	LocaleManager() {}
-	~LocaleManager();
+public:
+	LocaleManager(LocaleManager const&) = delete;
+	void operator=(LocaleManager const&) = delete;
+
+	static LocaleManager& instance();
 
 	void init();
-	
-public:
-	static LocaleManager* instance();
-	static void deleteInstance();
-
 	const QString getUnitFromLocale(QString);
 	void printSelectedForLocale(const QString &locale);
 	QString pageSizeForLocale(const QString &locale);
 	QString unitForLocale(const QString &locale);
 
 private:
-	static LocaleManager* m_instance;
-
+	LocaleManager() = default;
+	~LocaleManager() = default;
 	QList <LocaleDef> m_localeTable;
 	QLocale m_sysLocale;
 	void generateLocaleList();

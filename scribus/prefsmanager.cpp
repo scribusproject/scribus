@@ -276,7 +276,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 32000;
 	appPrefs.opToolPrefs.magStep = 25;
-	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale(ScQApp->currGUILanguage()));
+	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance().unitForLocale(ScQApp->currGUILanguage()));
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
 	appPrefs.itemToolPrefs.polyUseFactor = false;
@@ -312,7 +312,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.language = LanguageManager::instance()->getShortAbbrevFromAbbrevDecomposition(ScQApp->currGUILanguage());
 	if (appPrefs.docSetupPrefs.language.isEmpty())
 		appPrefs.docSetupPrefs.language = "en_GB";
-	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale(ScQApp->currGUILanguage());
+	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance().pageSizeForLocale(ScQApp->currGUILanguage());
 	appPrefs.docSetupPrefs.pageOrientation = 0;
 	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
 	appPrefs.docSetupPrefs.pageWidth = defaultPageSize.width();

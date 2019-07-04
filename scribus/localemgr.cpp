@@ -32,23 +32,16 @@ for which a new license (GPL+exception) is in place.
 #include "localemgr.h"
 #include "scpaths.h"
 
-LocaleManager * LocaleManager::m_instance = nullptr;
-
-LocaleManager * LocaleManager::instance()
+LocaleManager& LocaleManager::instance()
 {
-	if(!m_instance)
+	static LocaleManager m_instance;
+	static bool first=true;
+	if (first)
 	{
-		m_instance = new LocaleManager;
-		Q_ASSERT(m_instance);
-		m_instance->init();
+		m_instance.init();
+		first=false;
 	}
 	return m_instance;
-}
-
-void LocaleManager::deleteInstance()
-{
-	delete m_instance;
-	m_instance = nullptr;
 }
 
 void LocaleManager::init()
@@ -129,12 +122,7 @@ QString LocaleManager::unitForLocale(const QString &locale)
 		return "mm";
 	return "in";
 //	qFatal("Unit not found in LocaleManager");
-//	return "";
-}
-
-LocaleManager::~LocaleManager()
-{
-	m_localeTable.clear();
+	//	return "";
 }
 
 
