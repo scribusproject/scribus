@@ -53,6 +53,36 @@ struct DocumentSection
 	bool active; // Is the section active, ie, if the fromindex is 10, and theres 5 pages, this should be inactive.
 	QChar pageNumberFillChar; //Prefix to be placed before page number
 	int pageNumberWidth; //Minimum width of page number string
+
+	bool operator==(const DocumentSection &other) const
+	{
+		if (number != other.number)
+			return false;
+		if (name != other.name)
+			return false;
+		if (fromindex != other.fromindex)
+			return false;
+		if (toindex != other.toindex)
+			return false;
+		if (type != other.type)
+			return false;
+		if (sectionstartindex != other.sectionstartindex)
+			return false;
+		if (reversed != other.reversed)
+			return false;
+		if (active != other.active)
+			return false;
+		if (pageNumberFillChar != other.pageNumberFillChar)
+			return false;
+		if (pageNumberWidth != other.pageNumberWidth)
+			return false;
+		return true;
+	}
+
+	inline bool operator!=(const DocumentSection &other) const
+	{
+		return (this->operator==(other) == false);
+	}
 };
 
 typedef QMap<uint, DocumentSection> DocumentSectionMap;

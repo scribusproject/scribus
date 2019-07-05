@@ -16059,13 +16059,14 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			Items->at(i)->setImageVisible(m_docPrefsData.guidesPrefs.showPic);
 	}
 
-	double oldBaseGridValue  = oldPrefsData.guidesPrefs.valueBaselineGrid;
-	double oldBaseGridOffset = oldPrefsData.guidesPrefs.offsetBaselineGrid;
-	if (oldBaseGridValue  != prefsData.guidesPrefs.valueBaselineGrid ||
-		oldBaseGridOffset != prefsData.guidesPrefs.offsetBaselineGrid )
-	{
+	bool   mustInvalidateAll = false;
+	mustInvalidateAll |= (oldPrefsData.guidesPrefs.valueBaselineGrid  != prefsData.guidesPrefs.valueBaselineGrid);
+	mustInvalidateAll |= (oldPrefsData.guidesPrefs.offsetBaselineGrid != prefsData.guidesPrefs.offsetBaselineGrid);
+	mustInvalidateAll |= (oldPrefsData.typoPrefs != prefsData.typoPrefs);
+	mustInvalidateAll |= (oldPrefsData.docSectionMap != prefsData.docSectionMap);
+
+	if (mustInvalidateAll)
 		this->invalidateAll();
-	}
 }
 
 void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins)

@@ -6763,7 +6763,7 @@ void ScribusMainWindow::slotDocSetup()
 
 	slotChangeUnit(doc->unitIndex(), false);
 
-	if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
+	if (oldDocPrefs.itemToolPrefs.imageLowResType != newDocPrefs.itemToolPrefs.imageLowResType)
 	{
 		setStatusBarInfoText( tr("Updating Images"));
 		mainWindowProgressBar->reset();
@@ -6775,10 +6775,7 @@ void ScribusMainWindow::slotDocSetup()
 		mainWindowProgressBar->reset();
 		viewToolBar->setDoc(doc);
 	}
-	if (oldDocPrefs.typoPrefs != newDocPrefs.typoPrefs)
-	{
-		doc->invalidateAll();
-	}
+
 	emit UpdateRequest(reqDocFontListUpdate);
 	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
