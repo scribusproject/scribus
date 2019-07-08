@@ -25,16 +25,16 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 	public:
 		// Standard plugin implementation
 		ScriptPlugin();
-		virtual ~ScriptPlugin();
-		virtual bool initPlugin();
-		virtual bool cleanupPlugin();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
-										 QString& caption, QPixmap& icon);
-		virtual void addToMainWindowMenu(ScribusMainWindow *);
+		~ScriptPlugin() override;
+		bool initPlugin() override;
+		bool cleanupPlugin() override;
+		const QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
+										 QString& caption, QPixmap& icon) override;
+		void addToMainWindowMenu(ScribusMainWindow *) override;
 
 		// Special features (none)
 		QByteArray pythonHome;

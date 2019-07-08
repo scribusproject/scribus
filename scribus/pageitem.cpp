@@ -1238,8 +1238,8 @@ int PageItem::maxCharsInFrame()
 /// returns true if text is ending before that frame
 bool PageItem::frameUnderflows() const
 {
-    if (BackBox == nullptr)
-        return false;
+	if (BackBox == nullptr)
+		return false;
 	//FIX ME - I have found that condition if frame is empty
 	//and has been linked with previous frame
 	//if you will find any better solution - fix that function
