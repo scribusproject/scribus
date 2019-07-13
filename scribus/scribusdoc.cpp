@@ -4281,7 +4281,7 @@ public:
 		: m_really(Really)
 	{}
 
-	void drawGlyph(const GlyphCluster& gc)
+	void drawGlyph(const GlyphCluster& gc) override
 	{
 		if (gc.isControlGlyphs())
 			return;
@@ -4300,15 +4300,15 @@ public:
 		}
 	}
 
-	void drawGlyphOutline(const GlyphCluster& gc, bool)
+	void drawGlyphOutline(const GlyphCluster& gc, bool) override
 	{
 		drawGlyph(gc);
 	}
 
 	// we don't need this one
-	void drawLine(QPointF, QPointF) {}
-	void drawRect(QRectF) {}
-	void drawObject(PageItem*) {}
+	void drawLine(QPointF, QPointF) override {}
+	void drawRect(QRectF) override {}
+	void drawObject(PageItem*) override {}
 
 private:
 	QMap<QString, QMap<uint, FPointArray> > & m_really;

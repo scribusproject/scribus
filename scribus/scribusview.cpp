@@ -2979,7 +2979,7 @@ class TextToPathPainter: public TextLayoutPainter
 			, m_counter(0)
 		{}
 
-		void drawGlyph(const GlyphCluster& gc)
+		void drawGlyph(const GlyphCluster& gc) override
 		{
 			for (const GlyphLayout& gl : gc.glyphs())
 			{
@@ -3027,7 +3027,8 @@ class TextToPathPainter: public TextLayoutPainter
 				m_group.append(m_view->Doc->Items->takeAt(z));
 			}
 		}
-		void drawGlyphOutline(const GlyphCluster& gc, bool fill)
+
+		void drawGlyphOutline(const GlyphCluster& gc, bool fill) override
 		{
 			for (const GlyphLayout& gl : gc.glyphs())
 			{
@@ -3078,7 +3079,8 @@ class TextToPathPainter: public TextLayoutPainter
 				m_group.append(m_view->Doc->Items->takeAt(z));
 			}
 		}
-		void drawLine(QPointF start, QPointF end)
+
+		void drawLine(QPointF start, QPointF end) override
 		{
 			QTransform transform = matrix();
 			transform.translate(x(), y());
@@ -3106,8 +3108,9 @@ class TextToPathPainter: public TextLayoutPainter
 			m_view->undoManager->setUndoEnabled(true);
 			m_group.append(m_view->Doc->Items->takeAt(z));
 		}
-		void drawRect(QRectF rect) {}
-		void drawObject(PageItem* item) {}
+
+		void drawRect(QRectF rect) override {}
+		void drawObject(PageItem* item) override {}
 };
 
 void ScribusView::TextToPath()

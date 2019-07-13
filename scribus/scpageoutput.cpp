@@ -950,31 +950,31 @@ public:
 		, m_scpage(scpage)
 	{}
 
-	void translate(double xp, double yp)
+	void translate(double xp, double yp) override
 	{
 		TextLayoutPainter::translate(xp, yp);
 		m_painter->translate(xp, yp);
 	}
 
-	void save()
+	void save() override
 	{
 		TextLayoutPainter::save();
 		m_painter->save();
 	}
 
-	void restore()
+	void restore() override
 	{
 		TextLayoutPainter::restore();
 		m_painter->restore();
 	}
 
-	void setScale(double h, double v)
+	void setScale(double h, double v) override
 	{
 		TextLayoutPainter::setScale(h, v);
 		m_painter->scale(h, v);
 	}
 
-	void drawGlyph(const GlyphCluster& gc)
+	void drawGlyph(const GlyphCluster& gc) override
 	{
 		if (gc.isControlGlyphs())
 			return;
@@ -1010,7 +1010,7 @@ public:
 		m_painter->restore();
 	}
 
-	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill) override
 	{
 		if (gc.isControlGlyphs())
 			return;
@@ -1049,7 +1049,7 @@ public:
 		m_painter->restore();
 	}
 
-	void drawLine(QPointF start, QPointF end)
+	void drawLine(QPointF start, QPointF end) override
 	{
 		m_painter->save();
 		setupState();
@@ -1057,7 +1057,7 @@ public:
 		m_painter->restore();
 	}
 
-	void drawRect(QRectF rect)
+	void drawRect(QRectF rect) override
 	{
 		m_painter->save();
 		setupState();
@@ -1067,7 +1067,7 @@ public:
 		m_painter->restore();
 	}
 
-	void drawObject(PageItem* embedded)
+	void drawObject(PageItem* embedded) override
 	{
 		QRect cullingArea;
 		if (!embedded)

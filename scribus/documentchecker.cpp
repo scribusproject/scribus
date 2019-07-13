@@ -48,7 +48,7 @@ public:
 //		, m_textLayout(textLayout)
 	{ }
 
-	void drawGlyph(const GlyphCluster& gc)
+	void drawGlyph(const GlyphCluster& gc) override
 	{
 		if (gc.isEmpty())
 		{
@@ -56,13 +56,13 @@ public:
 			m_itemError.insert(MissingGlyph, pos);
 		}
 	}
-	void drawGlyphOutline(const GlyphCluster& gc, bool)
+	void drawGlyphOutline(const GlyphCluster& gc, bool) override
 	{
 		drawGlyph(gc);
 	}
-	void drawLine(QPointF, QPointF) { }
-	void drawRect(QRectF) { }
-	void drawObject(PageItem*) { }
+	void drawLine(QPointF, QPointF) override { }
+	void drawRect(QRectF) override { }
+	void drawObject(PageItem*) override { }
 };
 
 bool isPartFilledImageFrame(PageItem * currItem)

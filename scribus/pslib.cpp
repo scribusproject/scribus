@@ -94,11 +94,11 @@ public:
 		m_ps(ps)
 	{}
 
-	void drawGlyph(const GlyphCluster& gc);
-	void drawGlyphOutline(const GlyphCluster& gc, bool fill);
-	void drawLine(QPointF start, QPointF end);
-	void drawRect(QRectF rect);
-	void drawObject(PageItem* item);
+	void drawGlyph(const GlyphCluster& gc) override;
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill) override;
+	void drawLine(QPointF start, QPointF end) override;
+	void drawRect(QRectF rect) override;
+	void drawObject(PageItem* item) override;
 };
 
 void PSPainter::drawGlyph(const GlyphCluster& gc)

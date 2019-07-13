@@ -144,7 +144,7 @@ public:
 
 	~PdfPainter() {}
 
-	void drawGlyph(const GlyphCluster& gc)
+	void drawGlyph(const GlyphCluster& gc) override
 	{
 		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
@@ -253,7 +253,7 @@ public:
 		}
 	}
 
-	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill) override
 	{
 		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
@@ -459,7 +459,7 @@ public:
 		}
 	}
 
-	void drawLine(QPointF start, QPointF end)
+	void drawLine(QPointF start, QPointF end) override
 	{
 		QTransform transform = matrix();
 		transform.translate(x(), y());
@@ -478,7 +478,7 @@ public:
 		return m_backBuffer + "BT\n" + m_glyphBuffer + "ET\n" + m_pathBuffer;
 	}
 
-	void drawRect(QRectF rect)
+	void drawRect(QRectF rect) override
 	{
 		QTransform transform = matrix();
 //		transform.translate(x(), y());
@@ -497,7 +497,7 @@ public:
 		m_backBuffer += "Q\n";
 	}
 
-	void drawObject(PageItem* embedded)
+	void drawObject(PageItem* embedded) override
 	{
 		m_glyphBuffer += "ET\n"+m_pathBuffer;
 		m_pathBuffer.clear();

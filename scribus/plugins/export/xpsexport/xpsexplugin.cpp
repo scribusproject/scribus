@@ -821,7 +821,7 @@ public:
 		m_relRoot(rel_root)
 	{ }
 
-	void drawGlyph(const GlyphCluster& gc)
+	void drawGlyph(const GlyphCluster& gc) override
 	{
 		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
@@ -886,7 +886,7 @@ public:
 		m_transform = transform;
 	}
 
-	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill) override
 	{
 		if (gc.isControlGlyphs())
 			return;
@@ -927,7 +927,7 @@ public:
 		m_restart = true;
 	}
 
-	void drawLine(QPointF start, QPointF end)
+	void drawLine(QPointF start, QPointF end) override
 	{
 		QTransform transform = matrix();
 		QDomElement path = m_xps->p_docu.createElement("Path");
@@ -939,7 +939,7 @@ public:
 		m_restart = true;
 	}
 
-	void drawRect(QRectF rect)
+	void drawRect(QRectF rect) override
 	{
 		QTransform transform = matrix();
 		double rx = (x() + rect.x()) * m_xps->conversionFactor;
@@ -961,7 +961,7 @@ public:
 		m_restart = true;
 	}
 
-	void drawObject(PageItem* item)
+	void drawObject(PageItem* item) override
 	{
 		QDomElement canvas = m_xps->p_docu.createElement("Canvas");
 		QTransform matrix = QTransform();
