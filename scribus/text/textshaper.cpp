@@ -174,6 +174,9 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 	
 	if (toPos > m_story.length() || toPos < 0)
 		toPos = m_story.length();
+
+	if (m_text.capacity() < (toPos - fromPos + 1))
+		m_text.reserve(toPos - fromPos + 1);
 	
 	for (int i = fromPos; i < toPos; ++i)
 	{
