@@ -852,23 +852,36 @@ public:
 		unicodeString += gc.getText();
 		m_glyphElem.setAttribute("UnicodeString", unicodeString);
 
+		QString gcMap;
 		QString indices, allIndices = m_glyphElem.attribute("Indices");
-		QString gcMap = QString("(%1:%2)").arg(gc.getText().size()).arg(gc.glyphs().size());
+
+		int gcTextSize = gc.getText().size();
+		int gcGlyphCount = gc.glyphs().size();
+		if (gcTextSize > 1 || gcGlyphCount > 1)
+			gcMap = QString("(%1:%2)").arg(gcTextSize).arg(gcGlyphCount);
 
 		double current_x = 0.0;
-		for (const GlyphLayout& gl : gc.glyphs()) 
+		double clusterWidth = gc.width();
+		const auto& glyphs = gc.glyphs();
+
+		for (int i = 0; i < glyphs.count(); ++i) 
 		{
+			const GlyphLayout& gl = glyphs.at(i);
 			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 			{
 				current_x += gl.xadvance * gl.scaleH;
 				continue;
 			}
 
+			double glWidth = gl.xadvance * gl.scaleH;
+			if (i == glyphs.count() - 1) // Clusters may have some extra width
+				glWidth = clusterWidth - current_x;
+
 			indices += QString("%1,%2,%3,%4;").arg(gl.glyph)
-					.arg(((gl.xadvance  * gl.scaleH) * m_xps->conversionFactor) / size * 100)
+					.arg((glWidth * m_xps->conversionFactor) / size * 100)
 					.arg((-gl.xoffset * m_xps->conversionFactor) / size * 100)
 					.arg((-gl.yoffset * m_xps->conversionFactor) / size * 100);
-			current_x += gl.xadvance * gl.scaleH;
+			current_x += glWidth;
 		}
 		indices.chop(1);
 		
@@ -878,7 +891,7 @@ public:
 		m_glyphElem.setAttribute("Indices", allIndices);
 
 		m_restart = false;
-		m_current_x = x() + current_x;
+		m_current_x = x() + clusterWidth;
 		m_current_y = y();
 		m_fontSize = size;
 		m_fontUri = fontUri;
