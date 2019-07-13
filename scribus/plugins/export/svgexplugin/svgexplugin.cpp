@@ -1163,7 +1163,7 @@ public:
 		{
 			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 			{
-				current_x += gl.xadvance;
+				current_x += gl.xadvance * gl.scaleH;
 				continue;
 			}
 
@@ -1178,7 +1178,7 @@ public:
 			glyph.setAttribute("style", fill + stroke);
 			m_elem.appendChild(glyph);
 
-			current_x += gl.xadvance;
+			current_x += gl.xadvance * gl.scaleH;
 		}
 	}
 
@@ -1192,7 +1192,7 @@ public:
 		{
 			if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 			{
-				current_x += gl.xadvance;
+				current_x += gl.xadvance * gl.scaleH;
 				continue;
 			}
 
@@ -1210,7 +1210,7 @@ public:
 			glyph.setAttribute("style", fill + stroke);
 			m_elem.appendChild(glyph);
 
-			current_x += gl.xadvance;
+			current_x += gl.xadvance * gl.scaleH;
 		}
 	}
 

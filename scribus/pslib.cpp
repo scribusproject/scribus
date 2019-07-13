@@ -115,7 +115,7 @@ void PSPainter::drawGlyph(const GlyphCluster& gc)
 	{
 		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 		{
-			current_x += gl.xadvance;
+			current_x += gl.xadvance * gl.scaleH;
 			continue;
 		}
 
@@ -129,7 +129,7 @@ void PSPainter::drawGlyph(const GlyphCluster& gc)
 		m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
 		m_ps->PS_restore();
 
-		current_x += gl.xadvance;
+		current_x += gl.xadvance * gl.scaleH;
 	}
 	m_ps->PS_restore();
 }
@@ -156,7 +156,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	{
 		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 		{
-			current_x += gl.xadvance;
+			current_x += gl.xadvance * gl.scaleH;
 			continue;
 		}
 
@@ -166,11 +166,17 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 		chma.scale((fontSize() * gc.scaleH()) / 10.0, (fontSize() * gc.scaleV()) / 10.0);
 		gly.map(chma);
 		m_ps->PS_translate(gl.xoffset + current_x, -(fontSize() - fontSize() * gc.scaleV()) - gl.yoffset);
-		if (gc.scaleH() != 1.0 || gc.scaleV() != 1.0)
-			m_ps->PS_scale(gc.scaleH(), gc.scaleV());
+
 		if (fill)
+		{
+			m_ps->PS_save();
+			if (gc.scaleH() != 1.0 || gc.scaleV() != 1.0)
+				m_ps->PS_scale(gc.scaleH(), gc.scaleV());
 			m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
-		m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
+			m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
+			m_ps->PS_restore();
+		}
+
 		m_ps->SetColor(strokeColor().color, strokeColor().shade, &h, &s, &v, &k);
 		m_ps->PS_setcmykcolor_stroke(h, s, v, k);
 		m_ps->SetClipPath(gly, true);
@@ -178,7 +184,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 		m_ps->putColor(strokeColor().color, strokeColor().shade, false);
 		m_ps->PS_restore();
 
-		current_x += gl.xadvance;
+		current_x += gl.xadvance * gl.scaleH;
 	}
 
 	m_ps->PS_restore();

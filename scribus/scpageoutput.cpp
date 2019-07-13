@@ -1002,7 +1002,7 @@ public:
 			if (outline.size() > 3)
 				m_painter->fillPath();
 			m_painter->restore();
-			m_painter->translate(gl.xadvance, 0.0);
+			m_painter->translate(gl.xadvance * gl.scaleH, 0.0);
 		}
 
 		m_painter->setFillMode(fm);
@@ -1030,9 +1030,11 @@ public:
 			m_painter->translate(gl.xoffset + current_x, -(fontSize() * gc.scaleV()) + gl.yoffset);
 
 			FPointArray outline = font().glyphOutline(gl.glyph);
-			double scaleH = gc.scaleH() * fontSize() / 10.0;
-			double scaleV = gc.scaleV() * fontSize() / 10.0;
-			m_painter->scale(scaleH, scaleV);
+			double scaleH = gl.scaleH * fontSize() / 10.0;
+			double scaleV = gl.scaleV * fontSize() / 10.0;
+			QTransform trans;
+			trans.scale(scaleH, scaleV);
+			outline.map(trans);
 			m_painter->setupPolygon(&outline, true);
 			if (outline.size() > 3)
 			{
@@ -1040,7 +1042,7 @@ public:
 				m_painter->strokePath();
 			}
 			m_painter->restore();
-			current_x += gl.xadvance;
+			current_x += gl.xadvance * gl.scaleH;
 		}
 
 		m_painter->setFillRule(fr);
