@@ -716,7 +716,7 @@ void PrintDialog::createPageNumberRange( )
 
 void PrintDialog::refreshPrintEngineBox()
 {
-	int index = 0, oldPDLIndex = 0;
+	int index = 0, oldPDLIndex = -1;
 	QString oldPDL  = printEngines->currentText();
 	PrintEngineMap::Iterator it, itEnd = printEngineMap.end();
 	printEngines->clear();
@@ -726,6 +726,14 @@ void PrintDialog::refreshPrintEngineBox()
 		if (it.key() == oldPDL)
 			oldPDLIndex = index;
 		index++;
+	}
+	// Try to not default on PostScript 1 when switching
+	// from a GDI printer to a Postscript printer
+	if (oldPDLIndex < 0)
+	{
+		oldPDLIndex = printEngines->findText(CommonStrings::trPostScript3);
+		if (oldPDLIndex < 0)
+			oldPDLIndex = 0;
 	}
 	printEngines->setCurrentIndex(oldPDLIndex);
 }
