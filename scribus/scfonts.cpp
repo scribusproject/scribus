@@ -1168,29 +1168,35 @@ void SCFonts::WriteCacheList(const QString& pf)
 {
 	QDomDocument docu("fontcacherc");
 	QString st="<CachedFonts></CachedFonts>";
+
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	QMap<QString, testCache>::Iterator it;
-	for (it = checkedFonts.begin(); it != checkedFonts.end(); ++it)
+	for (auto it = checkedFonts.cbegin(); it != checkedFonts.cend(); ++it)
 	{
-		if (it.value().isChecked)
-		{
-			QDomElement fosu = docu.createElement("Font");
-			fosu.setAttribute("File", it.key());
-			fosu.setAttribute("Status", static_cast<int>(it.value().isOK));
-			fosu.setAttribute("Modified", it.value().lastMod.toString(Qt::ISODate));
-			elem.appendChild(fosu);
-		}
+		const auto& checkedFont = it.value();
+
+		bool saveItem = checkedFont.isChecked;
+		if (!checkedFont.isChecked) // Font might be located in another local Scribus font folder
+			saveItem = QFile::exists(it.key());
+		if (!saveItem)
+			continue;
+
+		QDomElement fosu = docu.createElement("Font");
+		fosu.setAttribute("File", it.key());
+		fosu.setAttribute("Status", static_cast<int>(checkedFont.isOK));
+		fosu.setAttribute("Modified", checkedFont.lastMod.toString(Qt::ISODate));
+		elem.appendChild(fosu);
 	}
+
 	ScCore->setSplashStatus( QObject::tr("Writing updated Font Cache") );
-	QFile f(pf + "/checkfonts150.xml");
-	if (f.open(QIODevice::WriteOnly))
-	{
-		QTextStream s(&f);
-		s.setCodec("UTF-8");
-		s << docu.toString();
-		f.close();
-	}
+
+	QFile file(pf + "/checkfonts150.xml");
+	if (!file.open(QIODevice::WriteOnly))
+		return;
+	QTextStream s(&file);
+	s.setCodec("UTF-8");
+	s << docu.toString();
+	file.close();
 }
 
 void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
