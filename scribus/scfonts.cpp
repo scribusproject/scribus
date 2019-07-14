@@ -77,8 +77,8 @@ for which a new license (GPL+exception) is in place.
 SCFonts::SCFonts()
 {
 //	insert("", ScFace::none()); // Wtf why inserting an empty entry here ????
-	showFontInformation=false;
-	checkedFonts.clear();
+	m_showFontInfo=false;
+	m_checkedFonts.clear();
 }
 
 SCFonts::~SCFonts()
@@ -115,15 +115,15 @@ void SCFonts::updateFontMap()
    Checks to make sure this path is not already present
    before adding.
 */
-void SCFonts::AddPath(QString p)
+void SCFonts::addPath(QString p)
 {
 	if (p.right(1) != "/")
 		p += "/";
-	if (!FontPath.contains(p))
-		FontPath.insert(FontPath.count(),p);
+	if (!m_fontPaths.contains(p))
+		m_fontPaths.insert(m_fontPaths.count(),p);
 }
 
-void SCFonts::AddScalableFonts(const QString &path, const QString& DocName)
+void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 {
 	//Make sure this is not empty or we will scan the whole drive on *nix
 	//QString()+/ is / of course.
@@ -183,7 +183,7 @@ void SCFonts::AddScalableFonts(const QString &path, const QString& DocName)
 						continue;
 				}
 				if (DocName.isEmpty())
-					AddScalableFonts(pathfile);
+					addScalableFonts(pathfile);
 				continue;
 			}
 			QString ext = fi.suffix().toLower();
@@ -192,14 +192,14 @@ void SCFonts::AddScalableFonts(const QString &path, const QString& DocName)
 				ext = ext2;
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
-				AddScalableFont(pathfile, library, DocName);
+				addScalableFont(pathfile, library, DocName);
 			}
 #ifdef Q_OS_MAC
 			else if (ext.isEmpty() && DocName.isEmpty())
 			{
-				bool error = AddScalableFont(pathfile, library, DocName);
+				bool error = addScalableFont(pathfile, library, DocName);
 				if (error)
-					error = AddScalableFont(pathfile + "/..namedfork/rsrc",library, DocName);
+					error = addScalableFont(pathfile + "/..namedfork/rsrc",library, DocName);
 			}
 #endif				
 		}
@@ -489,7 +489,7 @@ static QStringList getFontFeatures(const FT_Face face)
 	return fontFeatures;
 }
 
-ScFace SCFonts::LoadScalableFont(const QString &filename)
+ScFace SCFonts::loadScalableFont(const QString &filename)
 {
 	ScFace t;
 	if (filename.isEmpty())
@@ -628,7 +628,7 @@ static QString getFtError(int code)
 }
 
 // Load a single font into the library from the passed filename. Returns true on error.
-bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, const QString& DocName)
+bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, const QString& DocName)
 {
 	static bool firstRun;
 	bool Subset = false;
@@ -649,7 +649,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	foCache.isOK = false;
 	foCache.isChecked = true;
 	foCache.lastMod = lastMod;
-	if (checkedFonts.count() == 0)
+	if (m_checkedFonts.count() == 0)
 	{
 		firstRun = true;
 		ScCore->setSplashStatus( QObject::tr("Creating Font Cache") );
@@ -659,9 +659,9 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	{
 		if (face != nullptr)
 			FT_Done_Face(face);
-		checkedFonts.insert(filename, foCache);
+		m_checkedFonts.insert(filename, foCache);
 		addRejectedFont(filename, QObject::tr("Font is broken: \"%1\"").arg(getFtError(error)));
-		if (showFontInformation)
+		if (m_showFontInfo)
 			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"").arg(filename, getFtError(error)));
 		return true;
 	}
@@ -669,10 +669,10 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	if (format == ScFace::UNKNOWN_FORMAT) 
 	{
 		addRejectedFont(filename, QObject::tr("Failed to load font: font type unknown"));
-		if (showFontInformation)
+		if (m_showFontInfo)
 			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
 		FT_Done_Face(face);
-		checkedFonts.insert(filename, foCache);
+		m_checkedFonts.insert(filename, foCache);
 		return true;
 	}
 	// Some fonts such as Noto ColorEmoji are in fact bitmap fonts
@@ -680,15 +680,15 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 	if (face->units_per_EM == 0)
 	{
 		addRejectedFont(filename, QObject::tr("Failed to load font: font is not scalable"));
-		if (showFontInformation)
+		if (m_showFontInfo)
 			sDebug(QObject::tr("Failed to load font %1 - font is not scalable").arg(filename));
 		FT_Done_Face(face);
-		checkedFonts.insert(filename, foCache);
+		m_checkedFonts.insert(filename, foCache);
 		return true;
 	}
 	bool HasNames = FT_HAS_GLYPH_NAMES(face);
 
-	if (!checkedFonts.contains(filename))
+	if (!m_checkedFonts.contains(filename))
 	{
 		if (!firstRun)
 			ScCore->setSplashStatus( QObject::tr("New Font found, checking...") );
@@ -705,10 +705,10 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 							   .arg(charcode, 4, 16, QChar('0'))
 							   .arg(getFtError(error));
 				addRejectedFont(filename, errorMessage);
-				if (showFontInformation)
+				if (m_showFontInfo)
 					sDebug(errorMessage);
 				FT_Done_Face(face);
-				checkedFonts.insert(filename, foCache);
+				m_checkedFonts.insert(filename, foCache);
 				return true;
 			}
 			FT_Get_Glyph_Name(face, gindex, buf, 50);
@@ -722,17 +722,18 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 			charcode = FT_Get_Next_Char( face, charcode, &gindex );
 		}
 		foCache.isOK = true;
-		checkedFonts.insert(filename, foCache);
+		m_checkedFonts.insert(filename, foCache);
 	}
 	else
 	{
-		if (!checkedFonts[filename].isOK)
+		auto& checkedFont = m_checkedFonts[filename];
+		if (!checkedFont.isOK)
 		{
-			checkedFonts[filename].isChecked = true;
+			checkedFont.isChecked = true;
 			FT_Done_Face(face);
 			return true;
 		}
-		if (checkedFonts[filename].lastMod != foCache.lastMod)
+		if (checkedFont.lastMod != foCache.lastMod)
 		{
 			ScCore->setSplashStatus( QObject::tr("Modified Font found, checking...") );
 			FT_UInt gindex = 0;
@@ -748,10 +749,10 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 								   .arg(charcode, 4, 16, QChar('0'))
 								   .arg(getFtError(error));
 					addRejectedFont(filename, errorMessage);
-					if (showFontInformation)
+					if (m_showFontInfo)
 						sDebug(errorMessage);
 					FT_Done_Face(face);
-					checkedFonts.insert(filename, foCache);
+					m_checkedFonts.insert(filename, foCache);
 					return true;
 				}
 				FT_Get_Glyph_Name(face, gindex, buf, 50);
@@ -765,12 +766,12 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
 			foCache.isOK = true;
-			checkedFonts[filename] = foCache;
+			checkedFont = foCache;
 		}
 		else
 		{
-			checkedFonts[filename].isOK = true;
-			checkedFonts[filename].isChecked = true;
+			checkedFont.isOK = true;
+			checkedFont.isChecked = true;
 		}
 	}
 
@@ -876,7 +877,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 				t.subset(true);
 			t.m_m->forDocument = DocName;
 			//setBestEncoding(face); //AV
-			if (showFontInformation)
+			if (m_showFontInfo)
 				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName()).arg(filename).arg(faceIndex+1));
 
 /*
@@ -892,7 +893,7 @@ bool SCFonts::AddScalableFont(const QString& filename, FT_Library &library, cons
 		}
 		else 
 		{
-			if (showFontInformation)
+			if (m_showFontInfo)
 				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceIndex+1).arg(t.fontPath()));
 			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
 			if (faceIndex > 0) {
@@ -982,7 +983,7 @@ void SCFonts::setSubstitutions(const QMap<QString,QString>& substitutes, Scribus
 
 #ifdef HAVE_FONTCONFIG
 // Use Fontconfig to locate and load fonts.
-void SCFonts::AddFontconfigFonts()
+void SCFonts::addFontconfigFonts()
 {
 	// All-in-one library setup. Perhaps this should be in
 	// the SCFonts constructor.
@@ -998,7 +999,7 @@ void SCFonts::AddFontconfigFonts()
 	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) nullptr);
 	if (!os)
 	{
-		qFatal("SCFonts::AddFontconfigFonts() FcObjectSet* os failed to build object set");
+		qFatal("SCFonts::addFontconfigFonts() FcObjectSet* os failed to build object set");
 		return;
 	}
 	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
@@ -1006,7 +1007,7 @@ void SCFonts::AddFontconfigFonts()
 	FcFontSet* fs = FcFontList(config, pat, os);
 	if (!fs)
 	{
-		qFatal("SCFonts::AddFontconfigFonts() FcFontSet* fs failed to create font list");
+		qFatal("SCFonts::addFontconfigFonts() FcFontSet* fs failed to create font list");
 		return;
 	}
 	FcConfigDestroy(config);
@@ -1022,12 +1023,12 @@ void SCFonts::AddFontconfigFonts()
 		FcChar8 *file = nullptr;
 		if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
 		{
-			if (showFontInformation)
+			if (m_showFontInfo)
 				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
-			AddScalableFont(QString((char*)file), library, "");
+			addScalableFont(QString((char*)file), library, "");
 		}
 		else
-			if (showFontInformation)
+			if (m_showFontInfo)
 			{
 				auto errorMessage = QObject::tr("Failed to load a font - freetype2 couldn't find the font file");
 				addRejectedFont(QString((char*)file), errorMessage);
@@ -1040,20 +1041,20 @@ void SCFonts::AddFontconfigFonts()
 
 #elif defined(Q_OS_LINUX)
 
-void SCFonts::AddXFontPath()
+void SCFonts::addXFontPath()
 {
 	int pathcount,i;
 	Display *display=XOpenDisplay(nullptr);
 	char **fontpath=XGetFontPath(display,&pathcount);
 	for (i=0; i<pathcount; ++i)
-		AddPath(fontpath[i]);
+		addPath(fontpath[i]);
 	XFreeFontPath(fontpath);
 }
 
-/* replacement for AddXFontServerPath() for correctly parsing
+/* replacement for addXFontServerPath() for correctly parsing
  * RedHad-Style /etc/X11/fs/config files */
 
-void SCFonts::AddXFontServerPath()
+void SCFonts::addXFontServerPath()
 {
 	QFile fs("/etc/X11/fs/config");
 	if (!(fs.exists()))
@@ -1098,7 +1099,7 @@ void SCFonts::AddXFontServerPath()
 			tmp = paths.mid(pos+1,(pos2-pos)-1);
 			pos=pos2;
 
-			AddPath(tmp);
+			addPath(tmp);
 
 		} while (pos > -1);
 	}
@@ -1109,21 +1110,21 @@ void SCFonts::AddXFontServerPath()
  * allowing a user to have extra fonts installed
  * only for this user. Can also be used also as an emergency
  * fallback if no suitable fonts are found elsewere */
-void SCFonts::AddUserPath(const QString& pf)
+void SCFonts::addUserPath(const QString& pf)
 {
 	PrefsContext *pc = PrefsManager::instance().prefsFile->getContext("Fonts");
 	PrefsTable *extraDirs = pc->getTable("ExtraFontDirs");
 	for (int i = 0; i < extraDirs->getRowCount(); ++i)
-		AddPath(extraDirs->get(i, 0));
+		addPath(extraDirs->get(i, 0));
 }
 
-void SCFonts::ReadCacheList(const QString& pf)
+void SCFonts::readFontCache(const QString& pf)
 {
 	QFile fr(pf + "/cfonts.xml");
 	QFileInfo fir(fr);
 	if (fir.exists())
 		fr.remove();
-	checkedFonts.clear();
+	m_checkedFonts.clear();
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
 	QFile f(pf + "/checkfonts150.xml");
@@ -1152,26 +1153,26 @@ void SCFonts::ReadCacheList(const QString& pf)
 			foCache.isChecked = false;
 			foCache.isOK = static_cast<bool>(dc.attribute("Status", "1").toInt());
 			foCache.lastMod = QDateTime::fromString(dc.attribute("Modified"), Qt::ISODate);
-			checkedFonts.insert(dc.attribute("File"), foCache);
+			m_checkedFonts.insert(dc.attribute("File"), foCache);
 		}
 		DOC = DOC.nextSibling();
 	}
 }
 
-void SCFonts::WriteCacheList()
+void SCFonts::writeFontCache()
 {
 	QString prefsLocation = PrefsManager::instance().preferencesLocation();
-	WriteCacheList(prefsLocation);
+	writeFontCache(prefsLocation);
 }
 
-void SCFonts::WriteCacheList(const QString& pf)
+void SCFonts::writeFontCache(const QString& pf)
 {
 	QDomDocument docu("fontcacherc");
 	QString st="<CachedFonts></CachedFonts>";
 
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	for (auto it = checkedFonts.cbegin(); it != checkedFonts.cend(); ++it)
+	for (auto it = m_checkedFonts.cbegin(); it != m_checkedFonts.cend(); ++it)
 	{
 		const auto& checkedFont = it.value();
 
@@ -1199,44 +1200,44 @@ void SCFonts::WriteCacheList(const QString& pf)
 	file.close();
 }
 
-void SCFonts::GetFonts(const QString& pf, bool showFontInfo)
+void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 {
-	showFontInformation=showFontInfo;
-	FontPath.clear();
-	ReadCacheList(pf);
+	m_showFontInfo=showFontInfo;
+	m_fontPaths.clear();
+	readFontCache(pf);
 	ScCore->setSplashStatus( QObject::tr("Searching for Fonts") );
-	AddUserPath(pf);
+	addUserPath(pf);
 	// Search the system paths
 	QStringList ftDirs = ScPaths::systemFontDirs();
 	for (int i = 0; i < ftDirs.count(); i++)
-		AddScalableFonts( ftDirs[i] );
+		addScalableFonts( ftDirs[i] );
 	// Search Scribus font path
 	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
-		AddScalableFonts( ScPaths::instance().fontDir() );
+		addScalableFonts( ScPaths::instance().fontDir() );
 	//Add downloaded user fonts
 	QString userFontDir(ScPaths::instance().userFontDir(false));
 	if (QDir(userFontDir).exists())
-		AddScalableFonts( userFontDir );
+		addScalableFonts( userFontDir );
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
 	// Search fontconfig paths
-	QStringList::iterator fpi, fpend = FontPath.end();
-	for (fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
-		AddScalableFonts(*fpi);
-	AddFontconfigFonts();
+	QStringList::iterator fpi, fpend = m_fontPaths.end();
+	for (fpi = m_fontPaths.begin() ; fpi != fpend; ++fpi) 
+		addScalableFonts(*fpi);
+	addFontconfigFonts();
 #else
 // on X11 look there:
 #ifdef Q_OS_LINUX
-	AddXFontPath();
-	AddXFontServerPath();
+	addXFontPath();
+	addXFontServerPath();
 #endif
 // add user and X11 fonts:
-	QStringList::iterator fpi, fpend = FontPath.end();
-	for (fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
-		AddScalableFonts(*fpi);
+	QStringList::iterator fpi, fpend = m_fontPaths.end();
+	for (fpi = m_fontPaths.begin() ; fpi != fpend; ++fpi) 
+		addScalableFonts(*fpi);
 #endif
 	updateFontMap();
-	WriteCacheList(pf);
+	writeFontCache(pf);
 }
 
 void SCFonts::addRejectedFont(QString fontPath, QString message)

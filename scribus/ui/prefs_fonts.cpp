@@ -132,7 +132,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 	It's just a performance vs. functionality test.
 	availFonts->clear();
 	// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
-	availFonts->GetFonts(HomeP); */
+	availFonts->getFonts(HomeP); */
 	/* Are you wondering why this condition? See the comment at
 	line #102 (or somewhere near) as reference. Hint: PathList
 	is not initialized for example... - PV */
@@ -141,7 +141,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
 			QString dir = ScPaths::separatorsToSlashes(PathList->text(a));
-			availFonts->AddScalableFonts(dir +"/"); //, docc->DocName);
+			availFonts->addScalableFonts(dir +"/"); //, docc->DocName);
 			availFonts->updateFontMap();
 		}
 	} */
@@ -360,9 +360,9 @@ void Prefs_Fonts::AddPath()
 	removeButton->setEnabled(false);
 	CurrentPath = s;
 	QString dir(QDir::fromNativeSeparators(s2));
-	m_availFonts.AddScalableFonts(dir +"/");
+	m_availFonts.addScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
-	m_availFonts.WriteCacheList();
+	m_availFonts.writeFontCache();
 
 	updateFontList();
 	updateRejectedFontList();
@@ -394,7 +394,7 @@ void Prefs_Fonts::ChangePath()
 	//writePaths();
 	CurrentPath = s;
 	QString dir = QDir::fromNativeSeparators(s2);
-	m_availFonts.AddScalableFonts(dir +"/");
+	m_availFonts.addScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
 	updateFontList();
 	updateRejectedFontList();

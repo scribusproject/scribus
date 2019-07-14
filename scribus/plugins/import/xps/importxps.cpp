@@ -1939,7 +1939,7 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	{
 		ft.write(fontData);
 		ft.close();
-		t = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.LoadScalableFont(fname);
+		t = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.loadScalableFont(fname);
 		loadedFonts.insert(fileName, t);
 		return t;
 	}

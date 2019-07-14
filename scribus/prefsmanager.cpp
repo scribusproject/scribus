@@ -1138,7 +1138,7 @@ int PrefsManager::mouseWheelJump() const
 //Changed to return false when we have no fonts
 bool PrefsManager::GetAllFonts(bool showFontInfo)
 {
-	appPrefs.fontPrefs.AvailFonts.GetFonts(m_prefsLocation, showFontInfo);
+	appPrefs.fontPrefs.AvailFonts.getFonts(m_prefsLocation, showFontInfo);
 	return !appPrefs.fontPrefs.AvailFonts.isEmpty();
 }
 

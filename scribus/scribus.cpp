@@ -3522,16 +3522,16 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		if (docProfileDir.exists())
 			ScCore->getCMSProfilesDir(fi.absolutePath()+"/profiles", false, false);
 
-		m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", filename);
+		m_prefsManager.appPrefs.fontPrefs.AvailFonts.addScalableFonts(fi.absolutePath()+"/", filename);
 		QDir docFontDir(fi.absolutePath() + "/fonts");
 		if (docFontDir.exists())
-			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", filename);
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.addScalableFonts(fi.absolutePath()+"/fonts", filename);
 		QDir docFontDir2(fi.absolutePath() + "/Fonts");
 		if (docFontDir2.exists())
-			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", filename);
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.addScalableFonts(fi.absolutePath()+"/Fonts", filename);
 		QDir docFontDir3(fi.absolutePath() + "/Document fonts");
 		if (docFontDir3.exists())
-			m_prefsManager.appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", filename);
+			m_prefsManager.appPrefs.fontPrefs.AvailFonts.addScalableFonts(fi.absolutePath()+"/Document fonts", filename);
 		m_prefsManager.appPrefs.fontPrefs.AvailFonts.updateFontMap();
 		if (view != nullptr)
 		{

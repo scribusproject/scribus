@@ -435,13 +435,6 @@ void FtFace::rawData(QByteArray & bb) const
 		bb.resize(0);
 		status = qMax(status, ScFace::BROKENGLYPHS);
 	}
-/*	
-//	 if (showFontInformation)
-	 {
-		 QFile f(fontFile);
-		 qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex).arg(bb.size()).arg(f.size()));
-	 }
-*/	 
 }
 
 
