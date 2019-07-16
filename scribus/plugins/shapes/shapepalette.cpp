@@ -418,135 +418,135 @@ void ShapePalette::Import()
 {
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString s = QFileDialog::getOpenFileName(this, tr("Choose a shape file to import"), dirs->get("shape_load", "."), tr("Photoshop Custom Shape (*.csh *.CSH)"));
-	if (!s.isEmpty())
+	if (s.isEmpty())
+		return;
+
+	QFileInfo fi(s);
+	ShapeViewWidget = new ShapeView(this);
+	int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
+	dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
+	QFile file(s);
+	if (!file.open(QFile::ReadOnly))
+		return;
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	QDataStream ds(&file);
+	ds.setByteOrder(QDataStream::BigEndian);
+	QByteArray magic;
+	magic.resize(4);
+	ds.readRawData(magic.data(), 4);
+	if (magic != "cush")
+		return;
+	quint32 version, count, shpCounter;
+	shpCounter = 1;
+	ds >> version >> count;
+	while (!ds.atEnd())
 	{
-		QFileInfo fi(s);
-		ShapeViewWidget = new ShapeView(this);
-		int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
-		dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
-		QFile file(s);
-		if (!file.open(QFile::ReadOnly))
-			return;
-		QApplication::setOverrideCursor(Qt::WaitCursor);
-		QDataStream ds(&file);
-		ds.setByteOrder(QDataStream::BigEndian);
-		QByteArray magic;
-		magic.resize(4);
-		ds.readRawData(magic.data(), 4);
-		if (magic != "cush")
-			return;
-		quint32 version, count, shpCounter;
-		shpCounter = 1;
-		ds >> version >> count;
-		while (!ds.atEnd())
+		QString  string = "";
+		quint32  length, dummy, shpLen, paDataLen;
+		ds >> length;
+		for (uint i = 0; i < length; ++i)
 		{
-			QString  string = "";
-			quint32  length, dummy, shpLen, paDataLen;
-			ds >> length;
-			for (uint i = 0; i < length; ++i)
-			{
-				quint16  ch;
-				ds >> ch;
-				if (ch > 0)
-					string += char(ch);
-			}
-			if (length % 2 != 0)
-				ds.skipRawData(2);
-			ds >> dummy;
-			ds >> shpLen;
-			qint64 posi = ds.device()->pos();
-			ds.skipRawData(1);
-			QByteArray uuid;
-			uuid.resize(36);
-			ds.readRawData(uuid.data(), 36);
-			qint32 x, y, w, h;
-			ds >> y >> x >> h >> w;
-			paDataLen = shpLen - 53;
-			QRect bounds = QRect(QPoint(x,y), QPoint(w, h));
-			bool first = false;
-			bool pathOpen = false;
-			FPoint firstPoint, firstControl;
-			FPointArray clip2;
-			short type;
-			uint data;
-			double frac1, frac2, frac3, frac4, frac5, frac6;
-			uint offset2;
-			offset2 = 0;
-			clip2.resize(0);
-			while (offset2 < paDataLen)
-			{
-				ds >> type;
-				ds >> data;
-				frac1 = decodePSDfloat(data) * bounds.height();
-				ds >> data;
-				frac2 = decodePSDfloat(data) * bounds.width();
-				ds >> data;
-				frac3 = decodePSDfloat(data) * bounds.height();
-				ds >> data;
-				frac4 = decodePSDfloat(data) * bounds.width();
-				ds >> data;
-				frac5 = decodePSDfloat(data) * bounds.height();
-				ds >> data;
-				frac6 = decodePSDfloat(data) * bounds.width();
-				switch (type)
-				{
-					case 0:
-					case 3:
-						if (pathOpen)
-						{
-							clip2.addPoint(firstPoint);
-							clip2.addPoint(firstControl);
-							clip2.setMarker();
-						}
-						pathOpen = false;
-						first = true;
-						break;
-					case 1:
-					case 2:
-					case 4:
-					case 5:
-						if (first)
-						{
-							firstControl = FPoint(frac2, frac1);
-							firstPoint = FPoint(frac4, frac3);
-							clip2.addPoint(FPoint(frac4, frac3));
-							clip2.addPoint(FPoint(frac6, frac5));
-						}
-						else
-						{
-							clip2.addPoint(frac4, frac3);
-							clip2.addPoint(frac2, frac1);
-							clip2.addPoint(frac4, frac3);
-							clip2.addPoint(frac6, frac5);
-						}
-						pathOpen = true;
-						first = false;
-						break;
-					case 6:
-						first = true;
-						break;
-					default:
-						break;
-				}
-				offset2 += 26;
-			}
-			clip2.addPoint(firstPoint);
-			clip2.addPoint(firstControl);
-			shapeData shData;
-			shData.height = bounds.height();
-			shData.width = bounds.width();
-			shData.path = clip2.copy();
-			shData.name = string;
-			ShapeViewWidget->shapes.insert(QString(uuid), shData);
-			ds.device()->seek(posi + shpLen);
-			shpCounter++;
+			quint16  ch;
+			ds >> ch;
+			if (ch > 0)
+				string += char(ch);
 		}
-		file.close();
-		Frame3->setCurrentIndex(nIndex);
-		ShapeViewWidget->updateShapeList();
-		ShapeViewWidget->scMW = m_scMW;
-		QApplication::restoreOverrideCursor();
+		if (length % 2 != 0)
+			ds.skipRawData(2);
+		ds >> dummy;
+		ds >> shpLen;
+		qint64 posi = ds.device()->pos();
+		ds.skipRawData(1);
+		QByteArray uuid;
+		uuid.resize(36);
+		ds.readRawData(uuid.data(), 36);
+		qint32 x, y, w, h;
+		ds >> y >> x >> h >> w;
+		paDataLen = shpLen - 53;
+		QRect bounds = QRect(QPoint(x,y), QPoint(w, h));
+		bool first = false;
+		bool pathOpen = false;
+		FPoint firstPoint, firstControl;
+		FPointArray clip2;
+		short type;
+		uint data;
+		double frac1, frac2, frac3, frac4, frac5, frac6;
+		uint offset2;
+		offset2 = 0;
+		clip2.resize(0);
+		while (offset2 < paDataLen)
+		{
+			ds >> type;
+			ds >> data;
+			frac1 = decodePSDfloat(data) * bounds.height();
+			ds >> data;
+			frac2 = decodePSDfloat(data) * bounds.width();
+			ds >> data;
+			frac3 = decodePSDfloat(data) * bounds.height();
+			ds >> data;
+			frac4 = decodePSDfloat(data) * bounds.width();
+			ds >> data;
+			frac5 = decodePSDfloat(data) * bounds.height();
+			ds >> data;
+			frac6 = decodePSDfloat(data) * bounds.width();
+			switch (type)
+			{
+				case 0:
+				case 3:
+					if (pathOpen)
+					{
+						clip2.addPoint(firstPoint);
+						clip2.addPoint(firstControl);
+						clip2.setMarker();
+					}
+					pathOpen = false;
+					first = true;
+					break;
+				case 1:
+				case 2:
+				case 4:
+				case 5:
+					if (first)
+					{
+						firstControl = FPoint(frac2, frac1);
+						firstPoint = FPoint(frac4, frac3);
+						clip2.addPoint(FPoint(frac4, frac3));
+						clip2.addPoint(FPoint(frac6, frac5));
+					}
+					else
+					{
+						clip2.addPoint(frac4, frac3);
+						clip2.addPoint(frac2, frac1);
+						clip2.addPoint(frac4, frac3);
+						clip2.addPoint(frac6, frac5);
+					}
+					pathOpen = true;
+					first = false;
+					break;
+				case 6:
+					first = true;
+					break;
+				default:
+					break;
+			}
+			offset2 += 26;
+		}
+		clip2.addPoint(firstPoint);
+		clip2.addPoint(firstControl);
+		shapeData shData;
+		shData.height = bounds.height();
+		shData.width = bounds.width();
+		shData.path = clip2.copy();
+		shData.name = string;
+		ShapeViewWidget->shapes.insert(QString(uuid), shData);
+		ds.device()->seek(posi + shpLen);
+		shpCounter++;
 	}
+	file.close();
+	Frame3->setCurrentIndex(nIndex);
+	ShapeViewWidget->updateShapeList();
+	ShapeViewWidget->scMW = m_scMW;
+	QApplication::restoreOverrideCursor();
 }
 
 void ShapePalette::setMainWindow(ScribusMainWindow *mw)
