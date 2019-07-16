@@ -171,9 +171,7 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 #ifdef Q_OS_OSX
-	#if QT_VERSION >= 0x050300
-		showProgress = false;
-	#endif
+	showProgress = false;
 #endif
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

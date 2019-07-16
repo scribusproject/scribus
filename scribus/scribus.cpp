@@ -6827,49 +6827,7 @@ int ScribusMainWindow::ShowSubs()
 	marksManager->startup();
 	nsEditor->startup();
 	symbolPalette->startup();
-#if QT_VERSION < 0x050600
-	if (!m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.isEmpty())
-	{
-		for (int a = 0; a < m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.count(); a++)
-		{
-			QStringList actTab = m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].palettes;
-			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
-			if (container)
-			{
-				for (int i = 1; i < actTab.count(); i++)
-				{
-					QDockWidget *content = findChild<QDockWidget *>(actTab[i]);
-					if (content)
-						tabifyDockWidget(container, content);
-				}
-			}
-			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
-			bool found = false;
-			for (int i = 0; i < bars.count(); ++i)
-			{
-				QTabBar *bar = bars[i];
-				for (int ii = 0; ii < bar->count(); ii++)
-				{
-					QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
-					if (obj != nullptr)
-					{
-						if (obj->objectName() == container->objectName())
-						{
-							if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
-							{
-								bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
-								found = true;
-								break;
-							}
-						}
-					}
-				}
-				if (found)
-					break;
-			}
-		}
-	}
-#else
+
 	if (!m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 	{
 		for (int i = 0; i < m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.count(); i++)
@@ -6902,7 +6860,7 @@ int ScribusMainWindow::ShowSubs()
 			}
 		}
 	}
-#endif
+
 	move(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
 	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
 

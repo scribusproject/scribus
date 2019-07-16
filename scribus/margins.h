@@ -18,9 +18,8 @@ for which a new license (GPL+exception) is in place.
 #define MARGINS_H
 
 #include <QDebug>
-#if QT_VERSION >= 0x050300
 #include <QMarginsF>
-#endif
+
 /** \brief Pagemargins and bleeds*/
 class MarginStruct
 {
@@ -54,7 +53,6 @@ class MarginStruct
 		double m_right {0.0};
 };
 
-#if QT_VERSION >= 0x050300
 class ScMargins : public QMarginsF
 {
 	public:
@@ -67,6 +65,5 @@ class ScMargins : public QMarginsF
 			setRight(right);
 		}
 };
-#endif
 
 #endif // MARGINS_H
