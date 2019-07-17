@@ -421,19 +421,25 @@ static int traceLineto( FT_Vector *to, FPointArray *composite )
 {
 	qreal tox = ( to->x / FTSCALE );
 	qreal toy = ( to->y / FTSCALE );
-	if ( !composite->hasLastQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy))
+	if (!composite->hasLastQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy))
 		composite->addQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy);
 	return 0;
 }
 
 static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *composite )
 {
-	qreal x1 = ( control->x / FTSCALE );
-	qreal y1 = ( control->y / FTSCALE );
-	qreal x2 = ( to->x / FTSCALE );
-	qreal y2 = ( to->y / FTSCALE );
-	if ( !composite->hasLastQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2))
-		composite->addQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2);
+	const FPoint& prev = composite->last();
+	qreal x1 = (prev.x() + 2 * control->x / FTSCALE) / 3.0;
+	qreal y1 = (prev.y() + 2 * control->y / FTSCALE) / 3.0;
+	qreal x2 = (to->x / FTSCALE + 2 * (control->x / FTSCALE)) / 3.0;
+	qreal y2 = (to->y / FTSCALE + 2 * (control->y / FTSCALE)) / 3.0;
+	qreal x3 = (to->x / FTSCALE);
+	qreal y3 = (to->y / FTSCALE);
+	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3) )
+	{
+		composite->setPoint(composite->size() - 1, FPoint(x1, y1));
+		composite->addQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3);
+	}
 	return 0;
 }
 
@@ -447,7 +453,7 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 	qreal y3 = ( to->y / FTSCALE );
 	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3) )
 	{
-		composite->setPoint(composite->size()-1, FPoint(x1, y1));
+		composite->setPoint(composite->size() - 1, FPoint(x1, y1));
 		composite->addQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3);
 	}
 	return 0;
