@@ -7,11 +7,11 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QDebug>
 #include <QMap>
-#include <QTransform>
 #include <QPainter>
 #include <QPixmap>
 #include <QRegExp>
 #include <QStringList>
+#include <QTransform>
 
 #include <ft2build.h>
 
