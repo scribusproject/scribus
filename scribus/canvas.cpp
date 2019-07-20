@@ -140,9 +140,9 @@ FPoint Canvas::localToCanvas(QPoint p) const
 // (x,y), the coordinates of the desired point relative to the canvas top-left.
 // Otherwise, simply scale the mouse coordinates.
 	double x = ( qRound(sc*(xn*xsp + xoff)) == p.x() ? 
-			xn*xsp + xoff : p.x()/sc );
+	             xn * xsp + xoff : p.x() / sc );
 	double y = ( qRound(sc*(yn*ysp + yoff)) == p.y() ? 
-			yn*ysp + yoff : p.y()/sc );
+	             yn * ysp + yoff : p.y() / sc );
 		
 // Finally, add xmin,ymin to get the absolute canvas coordinates of the
 // desired point.
@@ -161,32 +161,32 @@ FPoint Canvas::localToCanvas(QPointF p) const
 
 QPoint Canvas::canvasToLocal(const FPoint& p) const
 {
-	return 	{qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale)};
+	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
-	return {qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale)};
+	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
 
 QRect Canvas::canvasToLocal(const QRectF& p) const
 {
-	return 	{qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-			qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
-			qRound(p.width() * m_viewMode.scale),
-			qRound(p.height() * m_viewMode.scale)};
+	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
+	         qRound(p.width() * m_viewMode.scale),
+	         qRound(p.height() * m_viewMode.scale) };
 }
 
 QRectF Canvas::canvasToLocalF(const QRectF& p) const
 {
-	return 	{(p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
-			(p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
-			p.width() * m_viewMode.scale,
-			p.height() * m_viewMode.scale};
+	return { (p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
+	         (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
+	         p.width() * m_viewMode.scale,
+	         p.height() * m_viewMode.scale };
 }
 
 
@@ -204,8 +204,8 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 
 QRect Canvas::canvasToGlobal(const QRectF& p) const
 {
-	return {mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
-			QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale))};
+	return { mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
+	         QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)) };
 }
 
 
@@ -226,7 +226,7 @@ FPoint Canvas::globalToCanvas(QPointF p) const
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return {org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale};
+	return { org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale };
 }
 
 
@@ -273,7 +273,7 @@ QRect Canvas::exposedRect() const
 	int ew( (m_view->visibleWidth() * 1.2) / m_viewMode.scale);
 	int eh( (m_view->visibleHeight() * 1.2) / m_viewMode.scale);
 	
-	return {ex, ey, ew, eh};
+	return { ex, ey, ew, eh };
 }
 
 
