@@ -847,6 +847,7 @@ endif()
 
 #<< PYTHON
 #set(PythonLibs_FIND_VERSION 2)
+find_package(PythonInterp 2)
 find_package(PythonLibs 2 REQUIRED)
 if (PYTHON_LIBRARY)
 	message("Python Library Found OK")
