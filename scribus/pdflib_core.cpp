@@ -6231,7 +6231,8 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		}
 		else
 		{
-			mpa.translate(bleedDisplacementX, bleedDisplacementY);
+			// # 15747: it looks this line incorrectly offset transparency 
+			// mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			if (currItem->isImageFrame())
 			{
 				mpa.translate(currItem->imageXOffset() * currItem->imageXScale(), -currItem->imageYOffset() * currItem->imageYScale());
