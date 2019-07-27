@@ -390,6 +390,7 @@ public slots:
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
+	void slotHelpActionSearch();
 	void slotHelpCheckUpdates();
 	void slotRaiseOnlineHelp();
 	void slotOnlineHelp(const QString & jumpToSection=QString(), const QString & jumpToFile=QString());

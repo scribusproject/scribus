@@ -95,6 +95,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "actionmanager.h"
+#include "actionsearch.h"
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "canvasmode.h"
@@ -156,6 +157,7 @@ for which a new license (GPL+exception) is in place.
 #include "tocgenerator.h"
 #include "ui/about.h"
 #include "ui/aboutplugins.h"
+#include "ui/actionsearchdialog.h"
 #include "ui/adjustcmsdialog.h"
 #include "ui/aligndistribute.h"
 #include "ui/annot.h"
@@ -1151,6 +1153,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("helpManual", "Help");
 	scrMenuMgr->addMenuItemString("helpChat", "Help");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Help");
+	scrMenuMgr->addMenuItemString("helpActionSearch", "Help");
 	scrMenuMgr->addMenuItemString("helpTooltips", "Help");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Help");
 	scrMenuMgr->addMenuItemString("helpOnlineWWW", "Help");
@@ -5220,6 +5223,24 @@ void ScribusMainWindow::slotHelpAboutPlugins()
 void ScribusMainWindow::slotHelpAboutQt()
 {
 	ScMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void ScribusMainWindow::slotHelpActionSearch()
+{
+	ActionSearch actionSearch(this->menuBar());
+	actionSearch.update();
+
+	QScopedPointer<ActionSearchDialog> dialog(new ActionSearchDialog(this, actionSearch.getActionNames()));
+	dialog->setModal(true);
+
+	int result = dialog->exec();
+	if (result != QDialog::Accepted)
+		return;
+
+	QString actionName = dialog->getActionName();
+	if (actionName.isEmpty())
+		return;
+	actionSearch.execute(actionName);
 }
 
 void ScribusMainWindow::slotHelpCheckUpdates()

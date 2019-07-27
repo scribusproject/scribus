@@ -236,6 +236,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\appmodehelper.h" />
+    <ClInclude Include="..\..\..\scribus\actionsearch.h" />
     <ClInclude Include="..\..\..\scribus\appmodes.h" />
     <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\scciedata.h" />
@@ -605,6 +606,7 @@
     <moc Include="..\..\..\scribus\ui\pdfversionmodel.h" />
     <moc Include="..\..\..\scribus\ui\cxfimportdialog.h" />
     <moc Include="..\..\..\scribus\ui\numformatcombo.h" />
+    <moc Include="..\..\..\scribus\ui\actionsearchdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -843,6 +845,7 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\actionsearch.cpp" />
     <ClCompile Include="..\..\..\scribus\appmodehelper.cpp" />
     <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp" />
     <ClCompile Include="..\..\..\scribus\colormgmt\scciedata.cpp" />
@@ -902,6 +905,7 @@
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\actionsearchdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\adjustcmsdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aligndistribute.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\alignselect.cpp" />
@@ -1528,6 +1532,7 @@
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\ui\aboutplugins.ui" />
+    <uic Include="..\..\..\scribus\ui\actionsearchdialog.ui" />
     <uic Include="..\..\..\scribus\ui\aligndistribute.ui" />
     <uic Include="..\..\..\scribus\ui\annot.ui" />
     <uic Include="..\..\..\scribus\ui\arcvectorbase.ui" />

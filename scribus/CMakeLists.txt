@@ -88,6 +88,7 @@ set(SCRIBUS_ITEMSETTERS_SRC
 
 set(SCRIBUS_UI_SRC
 	ui/aboutplugins.ui
+	ui/actionsearchdialog.ui
 	ui/aligndistribute.ui
 	ui/annot.ui
 	ui/arcvectorbase.ui
@@ -307,6 +308,7 @@ set(SCRIBUS_MOC_CLASSES
 	urllauncher.h
 	ui/about.h
 	ui/aboutplugins.h
+	ui/actionsearchdialog.h
 	ui/adjustcmsdialog.h
 	ui/aligndistribute.h
 	ui/alignselect.h
@@ -564,6 +566,7 @@ set(SCRIBUS_MOC_CLASSES
 
 set(SCRIBUS_SOURCES
 	actionmanager.cpp
+	actionsearch.cpp
 	appmodehelper.cpp
 	canvas.cpp
 	canvasgesture_cellselect.cpp
@@ -808,6 +811,7 @@ set(SCRIBUS_SOURCES
 	third_party/fparser/fparser.cc
 	ui/about.cpp
 	ui/aboutplugins.cpp
+	ui/actionsearchdialog.cpp
 	ui/adjustcmsdialog.cpp
 	ui/aligndistribute.cpp
 	ui/alignselect.cpp

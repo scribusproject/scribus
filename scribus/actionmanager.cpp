@@ -991,6 +991,8 @@ void ActionManager::initHelpMenuActions()
 	name="helpAboutQt";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::AboutQtRole);
+	name="helpActionSearch";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="helpTooltips";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="helpManual";
@@ -1014,6 +1016,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpAboutScribus"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAbout()) );
 	connect( (*scrActions)["helpAboutPlugins"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAboutPlugins()) );
 	connect( (*scrActions)["helpAboutQt"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAboutQt()) );
+	connect( (*scrActions)["helpActionSearch"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpActionSearch()) );
 	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	connect( (*scrActions)["helpCheckUpdates"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpCheckUpdates()) );
@@ -1744,6 +1747,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
 	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plugins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
+	(*scrActions)["helpActionSearch"]->setTexts( tr("Action &Search"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize Value Indicator"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
@@ -1968,6 +1972,7 @@ void ActionManager::createDefaultShortcuts()
 	//Extras Menu
 	//Windows Menu
 	//Help Menu
+	defKeys.insert("helpActionSearch", Qt::CTRL+Qt::Key_Slash);
 	defKeys.insert("helpManual", Qt::Key_F1);
 
 	//GUI and specials

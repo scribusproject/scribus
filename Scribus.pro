@@ -20,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += scribus/actionmanager.h \
+           scribus/actionsearch.h \
            scribus/annotation.h \
            scribus/appmodehelper.h \
            scribus/appmodes.h \
@@ -394,6 +395,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/text/textsource.h \
            scribus/ui/about.h \
            scribus/ui/aboutplugins.h \
+           scribus/ui/actionsearchdialog.h \
            scribus/ui/AdapterWidget.h \
            scribus/ui/adjustcmsdialog.h \
            scribus/ui/aligndistribute.h \
@@ -1022,7 +1024,9 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.h \
            scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.h \
            scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.h
+
 FORMS += scribus/ui/aboutplugins.ui \
+         scribus/ui/actionsearchdialog.ui \
          scribus/ui/aligndistribute.ui \
          scribus/ui/annot.ui \
          scribus/ui/arcvectorbase.ui \
@@ -1178,7 +1182,9 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/scripter/python/sceditor/mainwindow.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
          scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
+
 SOURCES += scribus/actionmanager.cpp \
+           scribus/actionsearch.cpp \
            scribus/appmodehelper.cpp \
            scribus/canvas.cpp \
            scribus/canvasgesture_cellselect.cpp \
@@ -1514,6 +1520,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/text/textsource.cpp \
            scribus/ui/about.cpp \
            scribus/ui/aboutplugins.cpp \
+           scribus/ui/actionsearchdialog.cpp \
            scribus/ui/AdapterWidget.cpp \
            scribus/ui/adjustcmsdialog.cpp \
            scribus/ui/aligndistribute.cpp \
