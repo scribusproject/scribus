@@ -5804,8 +5804,8 @@ void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelecti
 
 void ScribusDoc::itemSelection_SetFont(QString font, Selection* customSelection)
 {
-	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
-	assert(itemSelection != nullptr);
+	Selection* itemSelection = (customSelection != NULL) ? customSelection : m_Selection;
+	assert(itemSelection != NULL);
 
 	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
