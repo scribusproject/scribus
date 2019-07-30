@@ -16983,17 +16983,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="218"/>
         <source>Inner Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Внутреннее вращение:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="251"/>
         <source>Inner C&amp;urvature:</source>
-        <translation type="unfinished"></translation>
+        <translation>Внутренняя &amp;кривизна:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="284"/>
         <source>Outer Curvature:</source>
-        <translation type="unfinished"></translation>
+        <translation>Внешняя кривизна:</translation>
     </message>
 </context>
 <context>
