@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-        <key>CFBundleGetInfoString</key>
-		<string>Scribus 1.5.5</string>
-        <key>CFBundleIdentifier</key>
-        <string>net.scribus.aqua</string>
-        <key>CFBundleName</key>
-        <string>Scribus</string>
-        <key>CFBundleShortVersionString</key>
-		<string>1.5.5</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Scribus 1.5.6.svn</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.scribus</string>
+	<key>CFBundleName</key>
+	<string>Scribus</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.5.6.svn</string>
 	<key>IFMajorVersion</key>
 	<integer>0</integer>
 	<key>IFMinorVersion</key>
