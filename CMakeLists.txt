@@ -846,10 +846,17 @@ endif()
 #<< JPEG, TIFF
 
 #<< PYTHON
-#set(PythonLibs_FIND_VERSION 2)
-find_package(PythonInterp 2)
-find_package(PythonLibs 2 REQUIRED)
-if (PYTHON_LIBRARY)
+#
+#find_package(PythonInterp 2)
+#find_package(PythonLibs 2 REQUIRED)
+#if (PYTHON_LIBRARY)
+#	message("Python Library Found OK")
+#	set(HAVE_PYTHON ON)
+#	set(COMPILE_PYTHON ON)
+#endif()
+#
+find_package (Python2 REQUIRED COMPONENTS Interpreter Development)
+if (Python2_Development_FOUND)
 	message("Python Library Found OK")
 	set(HAVE_PYTHON ON)
 	set(COMPILE_PYTHON ON)
