@@ -124,19 +124,18 @@ void ScripterCore::disableMainWindowMenu()
 void ScripterCore::buildScribusScriptsMenu()
 {
 	QString pfad = ScPaths::instance().scriptDir();
-	QString pfad2;
-	pfad2 = QDir::toNativeSeparators(pfad);
+	QString pfad2 = QDir::toNativeSeparators(pfad);
 	QDir ds(pfad2, "*.py", QDir::Name | QDir::IgnoreCase, QDir::Files | QDir::NoSymLinks);
-	if ((ds.exists()) && (ds.count() != 0))
+	if ((!ds.exists()) || (ds.count() == 0))
+		return;
+
+	for (uint dc = 0; dc < ds.count(); ++dc)
 	{
-		for (uint dc = 0; dc < ds.count(); ++dc)
-		{
-			QFileInfo fs(ds[dc]);
-			QString strippedName=fs.baseName();
-			m_scripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
-			connect( m_scripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
-			m_menuMgr->addMenuItemString(strippedName, "ScribusScripts");
-		}
+		QFileInfo fs(ds[dc]);
+		QString strippedName=fs.baseName();
+		m_scripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
+		connect( m_scripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
+		m_menuMgr->addMenuItemString(strippedName, "ScribusScripts");
 	}
 }
 

@@ -1226,77 +1226,76 @@ void ColorsAndFillsDialog::loadPatternDir()
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterndir", ".");
 	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), wdir);
-	if (!fileName.isEmpty())
+	if (fileName.isEmpty())
+		return;
+
+	QStringList formats;
+	formats += "eps";
+	formats += "epsi";
+	formats += "pdf";
+	QString form1 = "";
+	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i)
 	{
-		QStringList formats;
-		formats += "eps";
-		formats += "epsi";
-		formats += "pdf";
-		QString form1 = "";
-		for ( int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
+		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
+		if (form1 == "jpeg")
+			form1 = "jpg";
+		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+		formats += form1;
+		else if (form1 == "jpg")
 		{
-			form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
-			if (form1 == "jpeg")
-				form1 = "jpg";
-			if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-			formats += form1;
-			else if (form1 == "jpg")
-			{
-				formats += "jpg";
-				formats += "jpeg";
-			}
-		}
-		formats += "tif";
-	 	formats += "tiff";
-		formats += "psd";
-		formats += "pat";
-		QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d.exists()) && (d.count() != 0))
-		{
-			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
-			mainWin->mainWindowProgressBar->reset();
-			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-			for (uint dc = 0; dc < d.count(); ++dc)
-			{
-				mainWin->mainWindowProgressBar->setValue(dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.suffix().toLower();
-				if ((ext == "sce") || (!formats.contains(ext)))
-					loadVectors(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
-			}
-			for (uint dc = 0; dc < d.count(); ++dc)
-			{
-				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.suffix().toLower();
-				if ((ext == "sce") || (!formats.contains(ext)))
-					continue;
-				if (formats.contains(ext))
-				{
-					QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-					if (!dialogPatterns.contains(patNam))
-					{
-						ScPattern pat = ScPattern();
-						pat.setDoc(m_doc);
-						pat.setPattern(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
-						dialogPatterns.insert(patNam, pat);
-						origNamesPatterns.insert(patNam, patNam);
-					}
-				}
-				else
-					continue;
-			}
-			d.cdUp();
-			dirs->set("patterndir", d.absolutePath());
-			qApp->restoreOverrideCursor();
-			mainWin->setStatusBarInfoText("");
-			mainWin->mainWindowProgressBar->reset();
+			formats += "jpg";
+			formats += "jpeg";
 		}
 	}
+	formats += "tif";
+	formats += "tiff";
+	formats += "psd";
+	formats += "pat";
+	QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((!d.exists()) || (d.count() == 0))
+		return;
+
+	mainWin->setStatusBarInfoText( tr("Loading Patterns"));
+	mainWin->mainWindowProgressBar->reset();
+	mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	for (uint dc = 0; dc < d.count(); ++dc)
+	{
+		mainWin->mainWindowProgressBar->setValue(dc);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
+		QString ext = fi.suffix().toLower();
+		if ((ext == "sce") || (!formats.contains(ext)))
+			loadVectors(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
+	}
+	for (uint dc = 0; dc < d.count(); ++dc)
+	{
+		mainWin->mainWindowProgressBar->setValue(d.count() + dc);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+
+		QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
+		QString ext = fi.suffix().toLower();
+		if ((ext == "sce") || (!formats.contains(ext)))
+			continue;
+		if (!formats.contains(ext))
+			continue;
+
+		QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
+		if (!dialogPatterns.contains(patNam))
+		{
+			ScPattern pat = ScPattern();
+			pat.setDoc(m_doc);
+			pat.setPattern(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
+			dialogPatterns.insert(patNam, pat);
+			origNamesPatterns.insert(patNam, patNam);
+		}
+	}
+	d.cdUp();
+	dirs->set("patterndir", d.absolutePath());
+	qApp->restoreOverrideCursor();
+	mainWin->setStatusBarInfoText("");
+	mainWin->mainWindowProgressBar->reset();
 }
 
 void ColorsAndFillsDialog::loadVectors(const QString& data)

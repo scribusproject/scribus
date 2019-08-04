@@ -655,23 +655,21 @@ void LanguageManager::generateInstalledGUILangList()
 	QString langAbbrev;
 	QMap<QString, langPair>::Iterator it;
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if (dir.exists() && (dir.count() != 0))
+	if (!dir.exists() || (dir.count() == 0))
+		return;
+
+	for (uint i = 0; i < dir.count(); ++i)
 	{
-		for (uint i = 0; i < dir.count(); ++i)
-		{
-			QFileInfo file(path + dir[i]);
-			if (file.suffix().toLower() == "qm")
-			{
-				langAbbrev = file.completeSuffix().remove(".qm");
-				int j=langTableIndex(langAbbrev);
-				if (j!=-1)
-				{
-					m_langTable[j].m_transAvailable=true;
-					m_langTable[j].m_transFile=file.absoluteFilePath();
-					//qDebug()<<"Found installed GUI translation file:"<<langAbbrev<<" : "<<langTable[j].m_transFile<<langTable[j].m_transName;
-				}
-			}
-		}
+		QFileInfo file(path + dir[i]);
+		if (file.suffix().toLower() != "qm")
+			continue;
+		langAbbrev = file.completeSuffix().remove(".qm");
+		int j = langTableIndex(langAbbrev);
+		if (j < 0)
+			continue;
+		m_langTable[j].m_transAvailable = true;
+		m_langTable[j].m_transFile = file.absoluteFilePath();
+		//qDebug()<<"Found installed GUI translation file:"<<langAbbrev<<" : "<<langTable[j].m_transFile<<langTable[j].m_transName;
 	}
 }
 
