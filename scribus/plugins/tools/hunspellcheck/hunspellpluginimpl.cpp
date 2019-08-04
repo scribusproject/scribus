@@ -136,13 +136,9 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		if (wordLang.isEmpty())
 		{
 			const StyleSet<CharStyle> &tmp(m_doc->charStyles());
-			for (int i = 0; i < tmp.count(); ++i)
-				if (tmp[i].isDefaultStyle())
-				{
-					//check out why we are getting "German" back here next
-					wordLang=tmp[i].language();
-					//qDebug()<<"Default char style lang"<<tmp[i].language();
-				}
+			const CharStyle* defaultStyle = tmp.getDefault();
+			if (defaultStyle)
+				wordLang = defaultStyle->language();
 		}
 		//we now use the abbreviation
 		//wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
@@ -153,11 +149,11 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		if (!dictionaryMap.contains(wordLang))
 		{
 			//qDebug()<<"Spelling language to match style language NOT installed ("<<wordLang<<")";
-			QString altLang=LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(wordLang);
-			if (altLang!="")
+			QString altLang = LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(wordLang);
+			if (!altLang.isEmpty())
 			{
 				//qDebug()<<"altLang"<<altLang<<dictionaryMap.contains(altLang);
-				wordLang=altLang;
+				wordLang = altLang;
 			}
 		}
 		else
