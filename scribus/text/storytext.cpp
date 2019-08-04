@@ -1653,7 +1653,10 @@ int StoryText::nextWord(int pos)
 
 	it->setText((const UChar*) plainText().utf16());
 	pos = it->following(pos);
-	pos = it->next();
+	
+	int len = length();
+	while ((pos < len) && (text(pos).isSpace() || text(pos).isPunct()))
+		++pos;
 	return pos;
 }
 
