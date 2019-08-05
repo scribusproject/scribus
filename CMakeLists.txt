@@ -5,7 +5,8 @@
 #Require 2.8.9 for Qt5 and CMAKE_POSITION_INDEPENDENT_CODE property
 #Require 3.1.0 for Qt 5.7 C++ 11 easy support
 #Require 3.2.0 for add_custom_target with byproducts
-cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
+#Require 3.12 for new Find Python modules
+cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
 
 
 # Configure CCache if available and wanted
