@@ -14576,13 +14576,13 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		if (bb->isGroup() || scaleLine)				// change the LineWidth only when the item is within a real Group
 		{
 			if (bb->lineWidth() != 0)				// don't try to scale hairlines
-				bb->setLineWidth(qMax(bb->lineWidth()*((scx+scy)/2), 0.01));
+				bb->setLineWidth(qMax(bb->lineWidth() * ((scx + scy) / 2), 0.01));
 		}
 		if (bb->itemType() == PageItem::Line)
 		{
-			bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
-			bb->setWidth(sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2)));
-			bb->setXYPos(b1.x()+gx, b1.y()+gy);
+			bb->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
+			bb->setWidth(sqrt(pow(t1.x() - b1.x(), 2) + pow(t1.y() - b1.y(), 2)));
+			bb->setXYPos(b1.x() + gx, b1.y() + gy);
 		}
 		else
 		{
@@ -14591,7 +14591,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			ma.rotate(bb->rotation());
 			bb->PoLine.map(ma);
 			QTransform ma2;
-			ma2.translate(gx-bb->xPos(), gy-bb->yPos());
+			ma2.translate(gx - bb->xPos(), gy - bb->yPos());
 			ma2.scale(scx, scy);
 			bb->PoLine.map(ma2);
 			bb->setRotation(0.0);
@@ -14631,15 +14631,15 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				QTransform ma3;
 				ma3.translate(gx, gy);
 				ma3.scale(scx, scy);
-				FPoint n(gx-oldPos.x(), gy-oldPos.y());
+				FPoint n(gx - oldPos.x(), gy - oldPos.y());
 				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				//MoveItem(gx-x, gy-y, bb);
+				//moveItem(gx - x, gy - y, bb);
 				bb->moveBy(gx - x, gy - y);
 			}
 			if (oldRot != 0)
 			{
-				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
+				bb->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
 				if (!bb->isArc() && !bb->isSpiral() && !bb->isRegularPolygon())
 				{
 					QTransform ma;
