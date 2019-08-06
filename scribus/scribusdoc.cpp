@@ -14511,9 +14511,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	if (selectedItemCount == 0)
 		return;
 	
-	PageItem *bb;
+	PageItem *item;
 	double gx, gy, gh, gw; //, x, y;
-	int aa;
 	double sc = 1; //FIXME:av Scale;
 	int drm = m_rotMode;
 	m_rotMode = 0;
@@ -14530,102 +14529,102 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		bb = itemSelection->itemAt(i);
-		if ((bb->locked()) || (bb->sizeLocked()))
+		item = itemSelection->itemAt(i);
+		if ((item->locked()) || (item->sizeLocked()))
 			continue;
-		bb->OldB = bb->width();
-		bb->OldH = bb->height();
-		bb->OldB2 = bb->width();
-		bb->OldH2 = bb->height();
-		double dw = (bb->width() * scx) - bb->width();
-		double dh = (bb->height() * scy) - bb->height();
+		item->OldB = item->width();
+		item->OldH = item->height();
+		item->OldB2 = item->width();
+		item->OldH2 = item->height();
+		double dw = (item->width() * scx) - item->width();
+		double dh = (item->height() * scy) - item->height();
 		double dsch = 1.0;
 		double dscw = 1.0;
-		if (bb->isArc())
+		if (item->isArc())
 		{
-			PageItem_Arc* item = bb->asArc();
-			if (bb->height() != 0.0)
-				dsch = item->arcHeight / bb->height();
-			if (bb->width() != 0.0)
-				dscw = item->arcWidth / bb->width();
+			PageItem_Arc* arcItem = item->asArc();
+			if (arcItem->height() != 0.0)
+				dsch = arcItem->arcHeight / arcItem->height();
+			if (arcItem->width() != 0.0)
+				dscw = arcItem->arcWidth / arcItem->width();
 		}
-		bb->Sizing = false;
+		item->Sizing = false;
 		double oldRot, oldLocalX, oldLocalY;
-		oldRot = bb->rotation();
-		oldLocalX = bb->imageXOffset();
-		oldLocalY = bb->imageYOffset();
+		oldRot = item->rotation();
+		oldLocalX = item->imageXOffset();
+		oldLocalY = item->imageYOffset();
 		FPointArray gr;
-		gr.addPoint(bb->GrStartX, bb->GrStartY);
-		gr.addPoint(bb->GrEndX, bb->GrEndY);
-		gr.addPoint(bb->GrFocalX, bb->GrFocalY);
-		gr.addPoint(bb->GrControl1);
-		gr.addPoint(bb->GrControl2);
-		gr.addPoint(bb->GrControl3);
-		gr.addPoint(bb->GrControl4);
-		gr.addPoint(bb->GrControl5);
+		gr.addPoint(item->GrStartX, item->GrStartY);
+		gr.addPoint(item->GrEndX, item->GrEndY);
+		gr.addPoint(item->GrFocalX, item->GrFocalY);
+		gr.addPoint(item->GrControl1);
+		gr.addPoint(item->GrControl2);
+		gr.addPoint(item->GrControl3);
+		gr.addPoint(item->GrControl4);
+		gr.addPoint(item->GrControl5);
 		FPoint g(gx, gy);
-		FPoint b(0, 0, bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
+		FPoint b(0, 0, item->xPos(), item->yPos(), item->rotation(), 1, 1);
 		b -= g;
 		FPoint b1(b.x(), b.y(), 0, 0, 0, scx, scy);
-		FPoint t(bb->width(), 0, bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
+		FPoint t(item->width(), 0, item->xPos(), item->yPos(), item->rotation(), 1, 1);
 		t -= g;
 		FPoint t1(t.x(), t.y(), 0, 0, 0, scx, scy);
-		FPoint h(0, bb->height(), bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
+		FPoint h(0, item->height(), item->xPos(), item->yPos(), item->rotation(), 1, 1);
 		h -= g;
 		FPoint h1(h.x(), h.y(), 0, 0, 0, scx, scy);
-		if (bb->isGroup() || scaleLine)				// change the LineWidth only when the item is within a real Group
+		if (item->isGroup() || scaleLine)				// change the LineWidth only when the item is within a real Group
 		{
-			if (bb->lineWidth() != 0)				// don't try to scale hairlines
-				bb->setLineWidth(qMax(bb->lineWidth() * ((scx + scy) / 2), 0.01));
+			if (item->lineWidth() != 0)				// don't try to scale hairlines
+				item->setLineWidth(qMax(item->lineWidth() * ((scx + scy) / 2), 0.01));
 		}
-		if (bb->itemType() == PageItem::Line)
+		if (item->itemType() == PageItem::Line)
 		{
-			bb->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
-			bb->setWidth(sqrt(pow(t1.x() - b1.x(), 2) + pow(t1.y() - b1.y(), 2)));
-			bb->setXYPos(b1.x() + gx, b1.y() + gy);
+			item->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
+			item->setWidth(sqrt(pow(t1.x() - b1.x(), 2) + pow(t1.y() - b1.y(), 2)));
+			item->setXYPos(b1.x() + gx, b1.y() + gy);
 		}
 		else
 		{
-			FPoint oldPos(bb->xPos(), bb->yPos());
+			FPoint oldPos(item->xPos(), item->yPos());
 			QTransform ma;
-			ma.rotate(bb->rotation());
-			bb->PoLine.map(ma);
+			ma.rotate(item->rotation());
+			item->PoLine.map(ma);
 			QTransform ma2;
-			ma2.translate(gx - bb->xPos(), gy - bb->yPos());
+			ma2.translate(gx - item->xPos(), gy - item->yPos());
 			ma2.scale(scx, scy);
-			bb->PoLine.map(ma2);
-			bb->setRotation(0.0);
-			bb->ClipEdited = true;
-			if (bb->isArc())
+			item->PoLine.map(ma2);
+			item->setRotation(0.0);
+			item->ClipEdited = true;
+			if (item->isArc())
 			{
-				PageItem_Arc* item = bb->asArc();
-				item->arcWidth += dw * dscw;
-				item->arcHeight += dh * dsch;
-				item->recalcPath();
+				PageItem_Arc* arc = item->asArc();
+				arc->arcWidth += dw * dscw;
+				arc->arcHeight += dh * dsch;
+				arc->recalcPath();
 			}
-			if (bb->isSpiral())
+			if (item->isSpiral())
 			{
-				PageItem_Spiral* item = bb->asSpiral();
-				item->recalcPath();
+				PageItem_Spiral* spiral = item->asSpiral();
+				spiral->recalcPath();
 			}
-			else if (bb->isRegularPolygon())
+			else if (item->isRegularPolygon())
 			{
-				PageItem_RegularPolygon* item = bb->asRegularPolygon();
-				item->setWidthHeight(item->width() * scx, item->height() * scy, true);
-				item->recalcPath();
+				PageItem_RegularPolygon* poly = item->asRegularPolygon();
+				poly->setWidthHeight(poly->width() * scx, poly->height() * scy, true);
+				poly->recalcPath();
 			}
-			else if (bb->isGroup() || bb->isSymbol())
+			else if (item->isGroup() || item->isSymbol())
 			{
-				double oldGW = bb->groupWidth;
-				double oldGH = bb->groupHeight;
-				adjustItemSize(bb, true, false);
-				bb->groupWidth = oldGW;
-				bb->groupHeight = oldGH;
+				double oldGW = item->groupWidth;
+				double oldGH = item->groupHeight;
+				adjustItemSize(item, true, false);
+				item->groupWidth = oldGW;
+				item->groupHeight = oldGH;
 			}
 			else
-				adjustItemSize(bb, true, false);
-			if (bb->isArc() || bb->isSpiral() || bb->isRegularPolygon())
-				bb->setXYPos(b1.x() + gx, b1.y() + gy);
+				adjustItemSize(item, true, false);
+			if (item->isArc() || item->isSpiral() || item->isRegularPolygon())
+				item->setXYPos(b1.x() + gx, b1.y() + gy);
 			else
 			{
 				QTransform ma3;
@@ -14634,77 +14633,77 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				FPoint n(gx - oldPos.x(), gy - oldPos.y());
 				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				//moveItem(gx - x, gy - y, bb);
-				bb->moveBy(gx - x, gy - y);
+				//moveItem(gx - x, gy - y, item);
+				item->moveBy(gx - x, gy - y);
 			}
 			if (oldRot != 0)
 			{
-				bb->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
-				if (!bb->isArc() && !bb->isSpiral() && !bb->isRegularPolygon())
+				item->setRotation(atan2(t1.y() - b1.y(), t1.x() - b1.x()) * (180.0 / M_PI));
+				if (!item->isArc() && !item->isSpiral() && !item->isRegularPolygon())
 				{
 					QTransform ma;
-					ma.rotate(-bb->rotation());
-					bb->PoLine.map(ma);
+					ma.rotate(-item->rotation());
+					item->PoLine.map(ma);
 				}
-				if (bb->isGroup() || bb->isSymbol())
+				if (item->isGroup() || item->isSymbol())
 				{
-					double oldGW = bb->groupWidth;
-					double oldGH = bb->groupHeight;
-					adjustItemSize(bb, true, false);
-					bb->groupWidth = oldGW;
-					bb->groupHeight = oldGH;
+					double oldGW = item->groupWidth;
+					double oldGH = item->groupHeight;
+					adjustItemSize(item, true, false);
+					item->groupWidth = oldGW;
+					item->groupHeight = oldGH;
 				}
 				else
-					adjustItemSize(bb, true, false);
+					adjustItemSize(item, true, false);
 			}
 		}
 		if (scaleText)
 		{
-			if (bb->itemText.length() != 0)
+			if (item->itemText.length() != 0)
 			{
-				for (aa = 0; aa < bb->itemText.length(); ++aa)
+				for (int j = 0; j < item->itemText.length(); ++j)
 				{
 					CharStyle fsStyle;
-					fsStyle.setFontSize(qMax(qRound(bb->itemText.charStyle(aa).fontSize()*((scx+scy)/2)), 1));
-					bb->itemText.applyCharStyle(aa, 1, fsStyle);
+					fsStyle.setFontSize(qMax(qRound(item->itemText.charStyle(j).fontSize()*((scx+scy)/2)), 1));
+					item->itemText.applyCharStyle(j, 1, fsStyle);
 				}
-				if (bb->asPathText())
-					bb->updatePolyClip();
+				if (item->asPathText())
+					item->updatePolyClip();
 			}
 		}
 
-		bb->checkChanges();
+		item->checkChanges();
 
-		bb->setImageXYOffset(oldLocalX, oldLocalY);
-		bb->OldB2 = bb->width();
-		bb->OldH2 = bb->height();
+		item->setImageXYOffset(oldLocalX, oldLocalY);
+		item->OldB2 = item->width();
+		item->OldH2 = item->height();
 		QTransform ma4;
 		ma4.rotate(oldRot);
 		ma4.scale(scx, scy);
 		gr.map(ma4);
-		for (int grow = 0; grow < bb->meshGradientArray.count(); grow++)
+		for (int grow = 0; grow < item->meshGradientArray.count(); grow++)
 		{
-			for (int gcol = 0; gcol < bb->meshGradientArray[grow].count(); gcol++)
+			for (int gcol = 0; gcol < item->meshGradientArray[grow].count(); gcol++)
 			{
-				bb->meshGradientArray[grow][gcol].transform(ma4);
+				item->meshGradientArray[grow][gcol].transform(ma4);
 			}
 		}
-		bb->ContourLine.map(ma4);
-		bb->GrStartX = gr.point(0).x();
-		bb->GrStartY = gr.point(0).y();
-		bb->GrEndX = gr.point(1).x();
-		bb->GrEndY = gr.point(1).y();
-		bb->GrFocalX = gr.point(2).x();
-		bb->GrFocalY = gr.point(2).y();
-		bb->GrControl1 = gr.point(3);
-		bb->GrControl2 = gr.point(4);
-		bb->GrControl3 = gr.point(5);
-		bb->GrControl4 = gr.point(6);
-		bb->GrControl5 = gr.point(7);
-		bb->updateGradientVectors();
+		item->ContourLine.map(ma4);
+		item->GrStartX = gr.point(0).x();
+		item->GrStartY = gr.point(0).y();
+		item->GrEndX = gr.point(1).x();
+		item->GrEndY = gr.point(1).y();
+		item->GrFocalX = gr.point(2).x();
+		item->GrFocalY = gr.point(2).y();
+		item->GrControl1 = gr.point(3);
+		item->GrControl2 = gr.point(4);
+		item->GrControl3 = gr.point(5);
+		item->GrControl4 = gr.point(6);
+		item->GrControl5 = gr.point(7);
+		item->updateGradientVectors();
 	}
-	bb = itemSelection->itemAt(0);
-	GroupOnPage(bb);
+	item = itemSelection->itemAt(0);
+	GroupOnPage(item);
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	m_rotMode = drm;
