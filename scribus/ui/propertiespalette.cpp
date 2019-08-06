@@ -658,7 +658,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 				m_item->setGradientStrokeFocal(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
 			}
 			m_item->update();
-			upRect = QRectF(QPointF(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY()), QPointF(m_item->gradientStrokeEndX(), m_item->gradientStrokeEndY()));
+			upRect = QRectF(m_item->gradientStrokeStart(), m_item->gradientStrokeEnd());
 			double radEnd = distance(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
 			double rotEnd = xy2Deg(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
 			QTransform m;
@@ -668,8 +668,8 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			m.rotate(m_item->gradientStrokeSkew());
 			m.translate(radEnd * m_item->gradientStrokeScale(), 0);
 			QPointF shP = m.map(QPointF(0,0));
-			upRect = upRect.united(QRectF(shP, QPointF(m_item->gradientStrokeEndX(), m_item->gradientStrokeEndY())).normalized());
-			upRect = upRect.united(QRectF(shP, QPointF(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY())).normalized());
+			upRect = upRect.united(QRectF(shP, m_item->gradientStrokeEnd()).normalized());
+			upRect = upRect.united(QRectF(shP, m_item->gradientStrokeStart()).normalized());
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		}
@@ -717,7 +717,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 				undoManager->action(m_item,ss);
 			}
 			m_item->update();
-			upRect = QRectF(QPointF(m_item->gradientStartX(), m_item->gradientStartY()), QPointF(m_item->gradientEndX(), m_item->gradientEndY()));
+			upRect = QRectF(m_item->gradientStart(), m_item->gradientEnd());
 			double radEnd = distance(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
 			double rotEnd = xy2Deg(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
 			QTransform m;
@@ -727,8 +727,8 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			m.rotate(m_item->gradientSkew());
 			m.translate(radEnd * m_item->gradientScale(), 0);
 			QPointF shP = m.map(QPointF(0,0));
-			upRect |= QRectF(shP, QPointF(m_item->gradientEndX(), m_item->gradientEndY())).normalized();
-			upRect |= QRectF(shP, QPointF(m_item->gradientStartX(), m_item->gradientStartY())).normalized();
+			upRect |= QRectF(shP, m_item->gradientEnd()).normalized();
+			upRect |= QRectF(shP, m_item->gradientStart()).normalized();
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		}
@@ -796,7 +796,7 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		{
 			trans.commit();
 		}
-		upRect = QRectF(QPointF(m_item->GrMaskStartX, m_item->GrMaskStartY), QPointF(m_item->GrMaskEndX, m_item->GrMaskEndY));
+		upRect = QRectF(m_item->gradientMaskStart(), m_item->gradientMaskEnd());
 		double radEnd = distance(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
 		double rotEnd = xy2Deg(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
 		QTransform m;
@@ -806,8 +806,8 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		m.rotate(m_item->GrMaskSkew);
 		m.translate(radEnd * m_item->GrMaskScale, 0);
 		QPointF shP = m.map(QPointF(0,0));
-		upRect |= QRectF(shP, QPointF(m_item->GrMaskEndX, m_item->GrMaskEndY)).normalized();
-		upRect |= QRectF(shP, QPointF(m_item->GrMaskStartX, m_item->GrMaskStartY)).normalized();
+		upRect |= QRectF(shP, m_item->gradientMaskEnd()).normalized();
+		upRect |= QRectF(shP, m_item->gradientMaskStart()).normalized();
 		upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 		upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		upRect.translate(m_item->xPos(), m_item->yPos());
