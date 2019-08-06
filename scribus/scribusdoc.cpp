@@ -8229,42 +8229,27 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 				}
 				break;
 			case 1:
-				currItem->setGradientStartX(0);
-				currItem->setGradientStartY(currItem->height() / 2.0);
-				currItem->setGradientEndX(currItem->width());
-				currItem->setGradientEndY(currItem->height() / 2.0);
+				currItem->setGradientStart(0.0, currItem->height() / 2.0);
+				currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
 				break;
 			case 2:
-				currItem->setGradientStartX(currItem->width() / 2.0);
-				currItem->setGradientStartY(0);
-				currItem->setGradientEndX(currItem->width() / 2.0);
-				currItem->setGradientEndY(currItem->height());
+				currItem->setGradientStart(currItem->width() / 2.0, 0.0);
+				currItem->setGradientEnd(currItem->width() / 2.0, currItem->height());
 				break;
 			case 3:
-				currItem->setGradientStartX(0);
-				currItem->setGradientStartY(0);
-				currItem->setGradientEndX(currItem->width());
-				currItem->setGradientEndY(currItem->height());
+				currItem->setGradientStart(0.0, 0.0);
+				currItem->setGradientEnd(currItem->width(), currItem->height());
 				break;
 			case 4:
-				currItem->setGradientStartX(0);
-				currItem->setGradientStartY(currItem->height());
-				currItem->setGradientEndX(currItem->width());
-				currItem->setGradientEndY(0);
+				currItem->setGradientStart(0.0, currItem->height());
+				currItem->setGradientEnd(currItem->width(), 0.0);
 				break;
 			case 5:
-				currItem->setGradientStartX(currItem->width() / 2.0);
-				currItem->setGradientStartY(currItem->height() / 2.0);
+				currItem->setGradientStart(currItem->width() / 2.0, currItem->height() / 2.0);
 				if (currItem->width() >= currItem->height())
-				{
-					currItem->setGradientEndX(currItem->width());
-					currItem->setGradientEndY(currItem->height() / 2.0);
-				}
+					currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
 				else
-				{
-					currItem->setGradientEndX(currItem->width() / 2.0);
-					currItem->setGradientEndY(currItem->height());
-				}
+					currItem->setGradientEnd(currItem->width() / 2.0, currItem->height());
 				break;
 			default:
 				currItem->selectedMeshPointX = -1;
@@ -14689,17 +14674,14 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			}
 		}
 		item->ContourLine.map(ma4);
-		item->GrStartX = gr.point(0).x();
-		item->GrStartY = gr.point(0).y();
-		item->GrEndX = gr.point(1).x();
-		item->GrEndY = gr.point(1).y();
-		item->GrFocalX = gr.point(2).x();
-		item->GrFocalY = gr.point(2).y();
-		item->GrControl1 = gr.point(3);
-		item->GrControl2 = gr.point(4);
-		item->GrControl3 = gr.point(5);
-		item->GrControl4 = gr.point(6);
-		item->GrControl5 = gr.point(7);
+		item->setGradientStart(gr.point(0).x(), gr.point(0).y());
+		item->setGradientEnd(gr.point(1).x(), gr.point(1).y());
+		item->setGradientFocal(gr.point(2).x(), gr.point(2).y());
+		item->setGradientControl1(gr.point(3));
+		item->setGradientControl2(gr.point(4));
+		item->setGradientControl3(gr.point(5));
+		item->setGradientControl4(gr.point(6));
+		item->setGradientControl5(gr.point(7));
 		item->updateGradientVectors();
 	}
 	item = itemSelection->itemAt(0);

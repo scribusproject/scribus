@@ -704,18 +704,14 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 				ss->set("UNDO_UPDATE_CONICAL");
 				undoManager->action(m_item,ss);
 			}
-			m_item->setGradientStartX(x1 / m_unitRatio);
-			m_item->setGradientStartY(y1 / m_unitRatio);
-			m_item->setGradientEndX(x2 / m_unitRatio);
-			m_item->setGradientEndY(y2 / m_unitRatio);
-			m_item->setGradientFocalX(fx / m_unitRatio);
-			m_item->setGradientFocalY(fy / m_unitRatio);
+			m_item->setGradientStart(x1 / m_unitRatio, y1 / m_unitRatio);
+			m_item->setGradientEnd(x2 / m_unitRatio, y2 / m_unitRatio);
+			m_item->setGradientFocal(fx / m_unitRatio, fy / m_unitRatio);
 			m_item->setGradientScale(sg);
 			m_item->setGradientSkew(sk);
 			if (m_item->strokeGradientType() == 6)
 			{
-				m_item->setGradientFocalX(m_item->gradientStartX());
-				m_item->setGradientFocalY(m_item->gradientStartY());
+				m_item->setGradientFocal(m_item->gradientStartX(), m_item->gradientStartY());
 			}
 			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
 			{

@@ -1176,7 +1176,7 @@ void PageItem::setImageRotation(const double newRotation)
 		ss->set("IMAGE_ROTATION");
 		ss->set("OLD_ROT", m_imageRotation);
 		ss->set("NEW_ROT", newRotation);
-		undoManager->action(this,ss);
+		undoManager->action(this, ss);
 	}
 	m_imageRotation = newRotation;
 	if (m_Doc->isLoading())
@@ -2612,7 +2612,7 @@ void PageItem::setMaskGradient(const VGradient& grad)
 	{
 		ScItemState<QPair<VGradient, VGradient> >* is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("MASK_GRAD");
-		is->setItem(qMakePair(mask_gradient,grad));
+		is->setItem(qMakePair(mask_gradient, grad));
 		undoManager->action(this,is);
 	}
 	mask_gradient=grad;
@@ -2626,7 +2626,7 @@ void PageItem::setFillGradient(const VGradient& grad)
 	{
 		ScItemState<QPair<VGradient,VGradient> > *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("FILL_GRAD");
-		is->setItem(qMakePair(fill_gradient,grad));
+		is->setItem(qMakePair(fill_gradient, grad));
 		undoManager->action(this,is);
 	}
 	fill_gradient=grad;
@@ -2640,7 +2640,7 @@ void PageItem::setStrokeGradient(const VGradient& grad)
 	{
 		ScItemState<QPair<VGradient,VGradient> > *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("STROKE_GRAD");
-		is->setItem(qMakePair(stroke_gradient,grad));
+		is->setItem(qMakePair(stroke_gradient, grad));
 		undoManager->action(this,is);
 	}
 	stroke_gradient=grad;
@@ -2967,7 +2967,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 			ss->set("NEW_SHADE",shade);
 			ss->set("OLD_TRANSP",mp->transparency);
 			ss->set("NEW_TRANSP",transparency);
-			undoManager->action(this,ss);
+			undoManager->action(this, ss);
 		}
 		mp->colorName = MColor;
 		mp->color = MQColor;
@@ -2995,7 +2995,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 						ss->set("NEW_SHADE",shade);
 						ss->set("OLD_TRANSP",mp->transparency);
 						ss->set("NEW_TRANSP",transparency);
-						undoManager->action(this,ss);
+						undoManager->action(this, ss);
 					}
 					mp->colorName = MColor;
 					mp->color = MQColor;
@@ -3019,7 +3019,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 						ss->set("NEW_SHADE",shade);
 						ss->set("OLD_TRANSP",mp->transparency);
 						ss->set("NEW_TRANSP",transparency);
-						undoManager->action(this,ss);
+						undoManager->action(this, ss);
 					}
 					mp->colorName = MColor;
 					mp->color = MQColor;
@@ -3043,7 +3043,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 						ss->set("NEW_SHADE",shade);
 						ss->set("OLD_TRANSP",mp->transparency);
 						ss->set("NEW_TRANSP",transparency);
-						undoManager->action(this,ss);
+						undoManager->action(this, ss);
 					}
 					mp->colorName = MColor;
 					mp->color = MQColor;
@@ -3067,7 +3067,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 						ss->set("NEW_SHADE",shade);
 						ss->set("OLD_TRANSP",mp->transparency);
 						ss->set("NEW_TRANSP",transparency);
-						undoManager->action(this,ss);
+						undoManager->action(this, ss);
 					}
 					mp->colorName = MColor;
 					mp->color = MQColor;
@@ -3098,7 +3098,7 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 				ss->set("NEW_SHADE",shade);
 				ss->set("OLD_TRANSP",mp->transparency);
 				ss->set("NEW_TRANSP",transparency);
-				undoManager->action(this,ss);
+				undoManager->action(this, ss);
 			}
 			mp->colorName = MColor;
 			mp->color = MQColor;
@@ -3590,9 +3590,9 @@ void PageItem::setMaskType(int val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradTypeMask,"",Um::IFill);
 		ss->set("MASKTYPE");
-		ss->set("NEW",val);
-		ss->set("OLD",GrMask);
-		undoManager->action(this,ss);
+		ss->set("NEW", val);
+		ss->set("OLD", GrMask);
+		undoManager->action(this, ss);
 	}
 	GrMask = val;
 }
@@ -4163,7 +4163,7 @@ void PageItem::setStartArrowScale(int newScale)
 		ss->set("START_ARROWSCALE");
 		ss->set("OLD_SCALE",m_startArrowScale);
 		ss->set("NEW_SCALE",newScale);
-		undoManager->action(this,ss);
+		undoManager->action(this, ss);
 	}
 	m_startArrowScale = newScale;
 }
@@ -4178,7 +4178,7 @@ void PageItem::setEndArrowScale(int newScale)
 		ss->set("END_ARROWSCALE");
 		ss->set("OLD_SCALE",m_endArrowScale);
 		ss->set("NEW_SCALE",newScale);
-		undoManager->action(this,ss);
+		undoManager->action(this, ss);
 	}
 	m_endArrowScale = newScale;
 }
@@ -5471,14 +5471,14 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreGradientStrokeStartX(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("GRADSTROKE_ENDX"))
-	{
-		restoreGradientStrokeEndX(ss, isUndo);
-		return true;
-	}
 	if (ss->contains("GRADSTROKE_STARTY"))
 	{
 		restoreGradientStrokeStartY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_ENDX"))
+	{
+		restoreGradientStrokeEndX(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("GRADSTROKE_ENDY"))
@@ -5494,16 +5494,6 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 	if (ss->contains("GRADSTROKE_FOCALY"))
 	{
 		restoreGradientStrokeFocalY(ss, isUndo);
-		return true;
-	}
-	if (ss->contains("GRAD_FOCALX"))
-	{
-		restoreGradientFocalX(ss, isUndo);
-		return true;
-	}
-	if (ss->contains("GRAD_FOCALY"))
-	{
-		restoreGradientFocalY(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("GRAD_MASKFOCALX"))
@@ -5561,24 +5551,19 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreGradientSkew(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("GRAD_STARTX"))
+	if (ss->contains("GRAD_START"))
 	{
-		restoreGradientStartX(ss, isUndo);
+		restoreGradientStart(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("GRAD_ENDX"))
+	if (ss->contains("GRAD_END"))
 	{
-		restoreGradientEndX(ss, isUndo);
+		restoreGradientEnd(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("GRAD_STARTY"))
+	if (ss->contains("GRAD_FOCAL"))
 	{
-		restoreGradientStartY(ss, isUndo);
-		return true;
-	}
-	if (ss->contains("GRAD_ENDY"))
-	{
-		restoreGradientEndY(ss, isUndo);
+		restoreGradientFocal(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("GRAD_MASKSCALE"))
@@ -5596,14 +5581,14 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreGradientMaskStartX(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("GRAD_MASKENDX"))
-	{
-		restoreGradientMaskEndX(ss, isUndo);
-		return true;
-	}
 	if (ss->contains("GRAD_MASKSTARTY"))
 	{
 		restoreGradientMaskStartY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKENDX"))
+	{
+		restoreGradientMaskEndX(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("GRAD_MASKENDY"))
@@ -6232,52 +6217,46 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 	}
 }
 
-void PageItem::restoreGradientStartX(SimpleState *is, bool isUndo)
+void PageItem::restoreGradientStart(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStartX = is->getDouble("OLD");
+	{
+		GrStartX = is->getDouble("OLDX");
+		GrStartY = is->getDouble("OLDY");
+	}
 	else
-		GrStartX = is->getDouble("NEW");
+	{
+		GrStartX = is->getDouble("NEWX");
+		GrStartY = is->getDouble("NEWY");
+	}
 }
 
-void PageItem::restoreGradientStartY(SimpleState *is, bool isUndo)
+void PageItem::restoreGradientEnd(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStartY = is->getDouble("OLD");
+	{
+		GrEndX = is->getDouble("OLDX");
+		GrEndY = is->getDouble("OLDY");
+	}
 	else
-		GrStartY = is->getDouble("NEW");
+	{
+		GrEndX = is->getDouble("NEWX");
+		GrEndY = is->getDouble("NEWY");
+	}
 }
 
-void PageItem::restoreGradientEndX(SimpleState *is, bool isUndo)
+void PageItem::restoreGradientFocal(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrEndX = is->getDouble("OLD");
+	{
+		GrFocalX = is->getDouble("OLDX");
+		GrFocalY = is->getDouble("OLDY");
+	}
 	else
-		GrEndX = is->getDouble("NEW");
-}
-
-void PageItem::restoreGradientEndY(SimpleState *is, bool isUndo)
-{
-	if (isUndo)
-		GrEndY= is->getDouble("OLD");
-	else
-		GrEndY = is->getDouble("NEW");
-}
-
-void PageItem::restoreGradientFocalX(SimpleState *is, bool isUndo)
-{
-	if (isUndo)
-		GrFocalX= is->getDouble("OLD");
-	else
-		GrFocalX = is->getDouble("NEW");
-}
-
-void PageItem::restoreGradientFocalY(SimpleState *is, bool isUndo)
-{
-	if (isUndo)
-		GrFocalY= is->getDouble("OLD");
-	else
-		GrFocalY = is->getDouble("NEW");
+	{
+		GrFocalX = is->getDouble("NEWX");
+		GrFocalY = is->getDouble("NEWY");
+	}
 }
 
 void PageItem::restoreGradientScale(SimpleState *is, bool isUndo)
@@ -6366,9 +6345,9 @@ void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientControl1: dynamic cast failed");
 	if (isUndo)
-		GrControl1= is->getItem().first;
+		GrControl1 = is->getItem().first;
 	else
-		GrControl1= is->getItem().second;
+		GrControl1 = is->getItem().second;
 }
 
 void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
@@ -6377,9 +6356,9 @@ void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientControl2: dynamic cast failed");
 	if (isUndo)
-		GrControl2= is->getItem().first;
+		GrControl2 = is->getItem().first;
 	else
-		GrControl2= is->getItem().second;
+		GrControl2 = is->getItem().second;
 }
 
 void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
@@ -6388,9 +6367,9 @@ void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientControl3: dynamic cast failed");
 	if (isUndo)
-		GrControl3= is->getItem().first;
+		GrControl3 = is->getItem().first;
 	else
-		GrControl3= is->getItem().second;
+		GrControl3 = is->getItem().second;
 }
 
 void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
@@ -6399,9 +6378,9 @@ void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientControl4: dynamic cast failed");
 	if (isUndo)
-		GrControl4= is->getItem().first;
+		GrControl4 = is->getItem().first;
 	else
-		GrControl4= is->getItem().second;
+		GrControl4 = is->getItem().second;
 }
 
 void PageItem::restoreGradientControl5(SimpleState *state, bool isUndo)
@@ -6410,15 +6389,15 @@ void PageItem::restoreGradientControl5(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreGradientControl5: dynamic cast failed");
 	if (isUndo)
-		GrControl5= is->getItem().first;
+		GrControl5 = is->getItem().first;
 	else
-		GrControl5= is->getItem().second;
+		GrControl5 = is->getItem().second;
 }
 
 void PageItem::restoreGradientStrokeScale(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStrokeScale= is->getDouble("OLD");
+		GrStrokeScale = is->getDouble("OLD");
 	else
 		GrStrokeScale = is->getDouble("NEW");
 }
@@ -6426,7 +6405,7 @@ void PageItem::restoreGradientStrokeScale(SimpleState *is, bool isUndo)
 void PageItem::restoreGradientStrokeSkew(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStrokeSkew= is->getDouble("OLD");
+		GrStrokeSkew = is->getDouble("OLD");
 	else
 		GrStrokeSkew = is->getDouble("NEW");
 }
@@ -6434,7 +6413,7 @@ void PageItem::restoreGradientStrokeSkew(SimpleState *is, bool isUndo)
 void PageItem::restoreGradientStrokeFocalX(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStrokeFocalX= is->getDouble("OLD");
+		GrStrokeFocalX = is->getDouble("OLD");
 	else
 		GrStrokeFocalX = is->getDouble("NEW");
 }
@@ -6442,7 +6421,7 @@ void PageItem::restoreGradientStrokeFocalX(SimpleState *is, bool isUndo)
 void PageItem::restoreGradientStrokeFocalY(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		GrStrokeFocalY= is->getDouble("OLD");
+		GrStrokeFocalY = is->getDouble("OLD");
 	else
 		GrStrokeFocalY = is->getDouble("NEW");
 }
@@ -7947,266 +7926,266 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 
 void PageItem::setGradientType(int val)
 {
-	if (GrType==val)
+	if (GrType == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradType,"",Um::IFill);
 		ss->set("GRAD_TYPE");
-		ss->set("OLD",GrType);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrType);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrType = val;
 }
 
 void PageItem::setStrokeGradientType(int val)
 {
-	if (GrTypeStroke==val)
+	if (GrTypeStroke == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradTypeStroke,"",Um::ILineStyle);
 		ss->set("GRAD_TYPESTROKE");
-		ss->set("OLD",GrTypeStroke);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrTypeStroke);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrTypeStroke = val;
 }
 
 void PageItem::setGradientCol1(const QString& val)
 {
-	if (GrColorP1==val)
+	if (GrColorP1 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_COL1");
-		ss->set("OLD",GrColorP1);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrColorP1);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrColorP1 = val;
 }
 
 void PageItem::setGradientCol2(const QString& val)
 {
-	if (GrColorP2==val)
+	if (GrColorP2 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_COL2");
-		ss->set("OLD",GrColorP2);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrColorP2);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrColorP2 = val;
 }
 
 void PageItem::setGradientCol3(const QString& val)
 {
-	if (GrColorP3==val)
+	if (GrColorP3 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_COL3");
-		ss->set("OLD",GrColorP3);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrColorP3);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrColorP3 = val;
 }
 
 void PageItem::setGradientCol4(const QString& val)
 {
-	if (GrColorP4==val)
+	if (GrColorP4 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_COL4");
-		ss->set("OLD",GrColorP4);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrColorP4);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrColorP4 = val;
 }
 
 void PageItem::setGradientShade1(int val)
 {
-	if (GrCol1Shade==val)
+	if (GrCol1Shade == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_SHADE1");
-		ss->set("OLD",GrCol1Shade);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol1Shade);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol1Shade = val;
 }
 
 void PageItem::setGradientShade2(int val)
 {
-	if (GrCol2Shade==val)
+	if (GrCol2Shade == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_SHADE2");
-		ss->set("OLD",GrCol2Shade);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol2Shade);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol2Shade = val;
 }
 
 void PageItem::setGradientShade3(int val)
 {
-	if (GrCol3Shade==val)
+	if (GrCol3Shade == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_SHADE3");
-		ss->set("OLD",GrCol3Shade);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol3Shade);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol3Shade = val;
 }
 
 void PageItem::setGradientShade4(int val)
 {
-	if (GrCol4Shade==val)
+	if (GrCol4Shade == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_SHADE4");
-		ss->set("OLD",GrCol4Shade);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol4Shade);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol4Shade = val;
 }
 
 void PageItem::setGradientTransp1(double val)
 {
-	if (GrCol1transp==val)
+	if (GrCol1transp == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_TRANSP1");
-		ss->set("OLD",GrCol1transp);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol1transp);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol1transp = val;
 }
 
 void PageItem::setGradientTransp2(double val)
 {
-	if (GrCol2transp==val)
+	if (GrCol2transp == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_TRANSP2");
-		ss->set("OLD",GrCol2transp);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol2transp);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol2transp = val;
 }
 
 void PageItem::setGradientTransp3(double val)
 {
-	if (GrCol3transp==val)
+	if (GrCol3transp == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_TRANSP3");
-		ss->set("OLD",GrCol3transp);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol3transp);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol3transp = val;
 }
 
 void PageItem::setGradientTransp4(double val)
 {
-	if (GrCol4transp==val)
+	if (GrCol4transp == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_TRANSP4");
-		ss->set("OLD",GrCol4transp);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrCol4transp);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrCol4transp = val;
 }
 
 void PageItem::setGradientColor1(const QColor& val)
 {
-	if (m_grQColorP1 ==val)
+	if (m_grQColorP1 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR1");
-		ss->setItem(qMakePair(m_grQColorP1,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(m_grQColorP1, val));
+		undoManager->action(this, ss);
 	}
 	m_grQColorP1 = val;
 }
 
 void PageItem::setGradientColor2(const QColor& val)
 {
-	if (m_grQColorP2 ==val)
+	if (m_grQColorP2 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR2");
-		ss->setItem(qMakePair(m_grQColorP2,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(m_grQColorP2, val));
+		undoManager->action(this, ss);
 	}
 	m_grQColorP2 = val;
 }
 
 void PageItem::setGradientColor3(const QColor& val)
 {
-	if (m_grQColorP3 ==val)
+	if (m_grQColorP3 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR3");
-		ss->setItem(qMakePair(m_grQColorP3,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(m_grQColorP3, val));
+		undoManager->action(this, ss);
 	}
 	m_grQColorP3 = val;
 }
 
 void PageItem::setGradientColor4(const QColor& val)
 {
-	if (m_grQColorP4 ==val)
+	if (m_grQColorP4 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradCol,"",Um::IFill);
 		ss->set("GRAD_QCOLOR4");
-		ss->setItem(qMakePair(m_grQColorP4,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(m_grQColorP4, val));
+		undoManager->action(this, ss);
 	}
 	m_grQColorP4 = val;
 }
@@ -8238,175 +8217,139 @@ void PageItem::setSnapToPatchGrid(bool val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("SNAP_TO_PATCH");
-		ss->set("OLD",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", val);
+		undoManager->action(this, ss);
 	}
 	snapToPatchGrid = val;
 }
 
-void PageItem::setGradientStartX(double val)
+void PageItem::setGradientStart(double x, double y)
 {
-	if (GrStartX==val)
+	if ((GrStartX == x) && (GrStartY == y))
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_STARTX");
-		ss->set("OLD",GrStartX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
+		ss->set("GRAD_START");
+		ss->set("OLDX", GrStartX);
+		ss->set("OLDY", GrStartY);
+		ss->set("NEWX", x);
+		ss->set("NEWY", y);
+		undoManager->action(this, ss);
 	}
-	GrStartX = val;
+	GrStartX = x;
+	GrStartY = y;
 }
 
-void PageItem::setGradientStartY(double val)
+void PageItem::setGradientEnd(double x, double y)
 {
-	if (GrStartY==val)
+	if ((GrEndX == x) && (GrEndY == y))
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_STARTY");
-		ss->set("OLD",GrStartY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
+		ss->set("GRAD_END");
+		ss->set("OLDX", GrEndX);
+		ss->set("OLDY", GrEndY);
+		ss->set("NEWX", x);
+		ss->set("NEWY", y);
+		undoManager->action(this, ss);
 	}
-	GrStartY = val;
+	GrEndX = x;
+	GrEndY = y;
 }
 
-void PageItem::setGradientEndX(double val)
+void PageItem::setGradientFocal(double x, double y)
 {
-	if (GrEndX==val)
+	if ((GrFocalX == x) && (GrFocalY == y))
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_ENDX");
-		ss->set("OLD",GrEndX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
+		ss->set("GRAD_FOCAL");
+		ss->set("OLDX", GrFocalX);
+		ss->set("OLDY", GrFocalY);
+		ss->set("NEWX", x);
+		ss->set("NEWY", y);
+		undoManager->action(this, ss);
 	}
-	GrEndX = val;
-}
-
-void PageItem::setGradientEndY(double val)
-{
-	if (GrEndY==val)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_ENDY");
-		ss->set("OLD",GrEndY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
-	}
-	GrEndY = val;
-}
-
-void PageItem::setGradientFocalX(double val)
-{
-	if (GrFocalX==val)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_FOCALX");
-		ss->set("OLD",GrFocalX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
-	}
-	GrFocalX = val;
-}
-
-void PageItem::setGradientFocalY(double val)
-{
-	if (GrFocalY==val)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
-		ss->set("GRAD_FOCALY");
-		ss->set("OLD",GrFocalY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
-	}
-	GrFocalY = val;
+	GrFocalX = x;
+	GrFocalY = y;
 }
 
 void PageItem::setGradientScale(double val)
 {
-	if (GrScale==val)
+	if (GrScale == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_SCALE");
-		ss->set("OLD",GrScale);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrScale);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrScale = val;
 }
 
 void PageItem::setGradientSkew(double val)
 {
-	if (GrSkew==val)
+	if (GrSkew == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_SKEW");
-		ss->set("OLD",GrSkew);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrSkew);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrSkew = val;
 }
 
 void PageItem::setGradientMaskStartX(double val)
 {
-	if (GrMaskStartX==val)
+	if (GrMaskStartX == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKSTARTX");
-		ss->set("OLD",GrMaskStartX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskStartX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskStartX = val;
 }
 
 void PageItem::setGradientMaskStartY(double val)
 {
-	if (GrMaskStartY==val)
+	if (GrMaskStartY == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKSTARTY");
-		ss->set("OLD",GrMaskStartY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskStartY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskStartY = val;
 }
 
 void PageItem::setGradientMaskEndX(double val)
 {
-	if (GrMaskEndX==val)
+	if (GrMaskEndX == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKENDX");
-		ss->set("OLD",GrMaskEndX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskEndX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskEndX = val;
 }
@@ -8417,85 +8360,85 @@ void PageItem::setGradientMaskEndY(double val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKENDY");
-		ss->set("OLD",GrMaskEndY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskEndY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskEndY = val;
 }
 
 void PageItem::setGradientMaskFocalX(double val)
 {
-	if (GrMaskFocalX==val)
+	if (GrMaskFocalX == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKFOCALX");
-		ss->set("OLD",GrMaskFocalX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskFocalX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskFocalX = val;
 }
 
 void PageItem::setGradientMaskFocalY(double val)
 {
-	if (GrMaskFocalY==val)
+	if (GrMaskFocalY == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKFOCALY");
-		ss->set("OLD",GrMaskFocalY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskFocalY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskFocalY = val;
 }
 
 void PageItem::setGradientMaskScale(double val)
 {
-	if (GrMaskScale==val)
+	if (GrMaskScale == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKSCALE");
-		ss->set("OLD",GrMaskScale);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskScale);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskScale = val;
 }
 
 void PageItem::setGradientMaskSkew(double val)
 {
-	if (GrMaskSkew==val)
+	if (GrMaskSkew == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::IFill);
+		SimpleState *ss = new SimpleState(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_MASKSKEW");
-		ss->set("OLD",GrMaskSkew);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrMaskSkew);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrMaskSkew = val;
 }
 
 void PageItem::setGradientControl1(const FPoint& val)
 {
-	if (GrControl1==val)
+	if (GrControl1 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos,"",Um::IFill);
+		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_CONTROL1");
-		ss->setItem(qMakePair(GrControl1,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(GrControl1, val));
+		undoManager->action(this, ss);
 	}
 	GrControl1 = val;
 }
@@ -8506,10 +8449,10 @@ void PageItem::setGradientControl2(const FPoint& val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos,"",Um::IFill);
+		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_CONTROL2");
-		ss->setItem(qMakePair(GrControl2,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(GrControl2, val));
+		undoManager->action(this, ss);
 	}
 	GrControl2 = val;
 }
@@ -8520,10 +8463,10 @@ void PageItem::setGradientControl3(const FPoint& val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos,"",Um::IFill);
+		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_CONTROL3");
-		ss->setItem(qMakePair(GrControl3,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(GrControl3, val));
+		undoManager->action(this, ss);
 	}
 	GrControl3 = val;
 }
@@ -8534,10 +8477,10 @@ void PageItem::setGradientControl4(const FPoint& val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos,"",Um::IFill);
+		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_CONTROL4");
-		ss->setItem(qMakePair(GrControl4,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(GrControl4, val));
+		undoManager->action(this, ss);
 	}
 	GrControl4 = val;
 }
@@ -8548,10 +8491,10 @@ void PageItem::setGradientControl5(const FPoint& val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos,"",Um::IFill);
+		ScItemState<QPair<FPoint,FPoint> > *ss = new ScItemState<QPair<FPoint,FPoint> >(Um::GradPos, QString(), Um::IFill);
 		ss->set("GRAD_CONTROL5");
-		ss->setItem(qMakePair(GrControl5,val));
-		undoManager->action(this,ss);
+		ss->setItem(qMakePair(GrControl5, val));
+		undoManager->action(this, ss);
 	}
 	GrControl5 = val;
 }
@@ -8564,9 +8507,9 @@ void PageItem::setGradientStrokeScale(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_SCALE");
-		ss->set("OLD",GrStrokeScale);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeScale);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeScale = val;
 }
@@ -8579,9 +8522,9 @@ void PageItem::setGradientStrokeSkew(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_SKEW");
-		ss->set("OLD",GrStrokeSkew);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeSkew);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeSkew = val;
 }
@@ -8594,9 +8537,9 @@ void PageItem::setGradientStrokeFocalX(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_FOCALX");
-		ss->set("OLD",GrStrokeFocalX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeFocalX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeFocalX = val;
 }
@@ -8609,9 +8552,9 @@ void PageItem::setGradientStrokeFocalY(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_FOCALY");
-		ss->set("OLD",GrStrokeFocalY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeFocalY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeFocalY = val;
 }
@@ -8624,9 +8567,9 @@ void PageItem::setGradientStrokeStartX(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_STARTX");
-		ss->set("OLD",GrStrokeStartX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeStartX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeStartX = val;
 }
@@ -8639,9 +8582,9 @@ void PageItem::setGradientStrokeStartY(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_STARTY");
-		ss->set("OLD",GrStrokeStartY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeStartY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeStartY = val;
 }
@@ -8654,9 +8597,9 @@ void PageItem::setGradientStrokeEndX(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_ENDX");
-		ss->set("OLD",GrStrokeEndX);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeEndX);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeEndX = val;
 }
@@ -8669,9 +8612,9 @@ void PageItem::setGradientStrokeEndY(double val)
 	{
 		SimpleState *ss = new SimpleState(Um::GradPos,"",Um::ILine);
 		ss->set("GRADSTROKE_ENDY");
-		ss->set("OLD",GrStrokeEndY);
-		ss->set("NEW",val);
-		undoManager->action(this,ss);
+		ss->set("OLD", GrStrokeEndY);
+		ss->set("NEW", val);
+		undoManager->action(this, ss);
 	}
 	GrStrokeEndY = val;
 }
@@ -10226,42 +10169,27 @@ void PageItem::updateGradientVectors()
 	{
 		case 0:
 		case 1:
-			setGradientStartX(0);
-			setGradientStartY(m_height / 2.0);
-			setGradientEndX(m_width);
-			setGradientEndY(m_height / 2.0);
+			setGradientStart(0.0, m_height / 2.0);
+			setGradientEnd(m_width, m_height / 2.0);
 			break;
 		case 2:
-			setGradientStartX(m_width / 2.0);
-			setGradientStartY(0);
-			setGradientEndX(m_width / 2.0);
-			setGradientEndY(m_height);
+			setGradientStart(m_width / 2.0, 0.0);
+			setGradientEnd(m_width / 2.0, m_height);
 			break;
 		case 3:
-			setGradientStartX(0);
-			setGradientStartY(0);
-			setGradientEndX(m_width);
-			setGradientEndY(m_height);
+			setGradientStart(0.0, 0.0);
+			setGradientEnd(m_width, m_height);
 			break;
 		case 4:
-			setGradientStartX(0);
-			setGradientStartY(m_height);
-			setGradientEndX(m_width);
-			setGradientEndY(0);
+			setGradientStart(0.0, m_height);
+			setGradientEnd(m_width, 0.0);
 			break;
 		case 5:
-			setGradientStartX(m_width / 2.0);
-			setGradientStartY(m_height / 2.0);
+			setGradientStart(m_width / 2.0, m_height / 2.0);
 			if (m_width >= m_height)
-			{
-				setGradientEndX(m_width);
-				setGradientEndY(m_height / 2.0);
-			}
+				setGradientEnd(m_width, m_height / 2.0);
 			else
-			{
-				setGradientEndX(m_width / 2.0);
-				setGradientEndY(m_height);
-			}
+				setGradientEnd(m_width / 2.0, m_height);
 			break;
 		default:
 			break;
@@ -10427,7 +10355,8 @@ void PageItem::setIsBookMark(bool isBM)
 	isBookmark=isBM;
 }
 
-void PageItem::setResolution(int id){
+void PageItem::setResolution(int id)
+{
 	if (pixm.imgInfo.lowResType==id)
 		return;
 	if (UndoManager::undoEnabled())
@@ -10436,7 +10365,7 @@ void PageItem::setResolution(int id){
 		ss->set("RES_TYP");
 		ss->set("OLD_RES",pixm.imgInfo.lowResType);
 		ss->set("NEW_RES",id);
-		undoManager->action(this,ss);
+		undoManager->action(this, ss);
 	}
 	pixm.imgInfo.lowResType = id;
 }
@@ -10455,7 +10384,7 @@ void PageItem::setImageVisible(bool isShown)
 		SimpleState *ss = new SimpleState(Um::ResTyp,"",Um::IImageFrame);
 		ss->set("SHOW_IMAGE");
 		ss->set("OLD",m_imageVisible);
-		undoManager->action(this,ss);
+		undoManager->action(this, ss);
 	}
 	m_imageVisible=isShown;
 }
