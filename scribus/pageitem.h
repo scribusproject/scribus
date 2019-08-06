@@ -546,39 +546,39 @@ public: // Start public functions
 	void setGradientType(int val);
 
 	QPointF gradientStart() const { return QPointF(GrStartX, GrStartY); }
-	void setGradientStart(double x, double y);
 	double gradientStartX() const { return GrStartX; }
 	double gradientStartY() const { return GrStartY; }
+	void setGradientStart(double x, double y);
 
 	QPointF gradientEnd() const { return QPointF(GrEndX, GrEndY); }
-	void setGradientEnd(double x, double y);
 	double gradientEndX() const { return GrEndX; }
 	double gradientEndY() const { return GrEndY; }
+	void setGradientEnd(double x, double y);
 
 	QPointF gradientFocal() const { return QPointF(GrFocalX, GrFocalY); }
-	void setGradientFocal(double x, double y);
 	double gradientFocalX() const { return GrFocalX; }
 	double gradientFocalY() const { return GrFocalY; }
+	void setGradientFocal(double x, double y);
 
 	double gradientScale() const { return GrScale; }
 	void setGradientScale(double val);
 	double gradientSkew() const { return GrSkew; }
 	void setGradientSkew(double val);
 
-	double gradientMaskStartX() const { return GrMaskStartX; }
-	void setGradientMaskStartX(double val);
-	double gradientMaskStartY() const { return GrMaskStartY; }
-	void setGradientMaskStartY(double val);
+	QPointF gradientMaskStart() const { return QPointF(GrMaskStartX, GrMaskStartY); }
+	double  gradientMaskStartX() const { return GrMaskStartX; }
+	double  gradientMaskStartY() const { return GrMaskStartY; }
+	void setGradientMaskStart(double x, double y);
 
+	QPointF gradientMaskEnd() const { return QPointF(GrMaskEndX, GrMaskEndY); }
 	double gradientMaskEndX() const { return GrMaskEndX; }
-	void setGradientMaskEndX(double val);
 	double gradientMaskEndY() const { return GrMaskEndY; }
-	void setGradientMaskEndY(double val);
+	void setGradientMaskEnd(double x, double y);
 
+	QPointF gradientMaskFocal() const { return QPointF(GrMaskFocalX, GrMaskFocalY); }
 	double gradientMaskFocalX() const { return GrMaskFocalX; }
-	void setGradientMaskFocalX(double val);
 	double gradientMaskFocalY() const { return GrMaskFocalY; }
-	void setGradientMaskFocalY(double val);
+	void setGradientMaskFocal(double x, double y);
 
 	double gradientMaskScale() const { return GrMaskScale; }
 	void setGradientMaskScale(double val);
@@ -601,19 +601,20 @@ public: // Start public functions
 	double gradientStrokeSkew() const { return GrStrokeSkew; }
 	void setGradientStrokeSkew(double val);
 
+	QPointF gradientStrokeFocal() const { return QPointF(GrStrokeFocalX, GrStrokeFocalY); }
 	double gradientStrokeFocalX() const { return GrStrokeFocalX; }
-	void setGradientStrokeFocalX(double val);
 	double gradientStrokeFocalY() const { return GrStrokeFocalY; }
-	void setGradientStrokeFocalY(double val);
-	double gradientStrokeStartX() const { return GrStrokeStartX; }
-	void setGradientStrokeStartX(double val);
-	double gradientStrokeStartY() const { return GrStrokeStartY; }
-	void setGradientStrokeStartY(double val);
+	void setGradientStrokeFocal(double x, double y);
 
+	QPointF gradientStrokeStart() const { return QPointF(GrStrokeStartX, GrStrokeStartY); }
+	double gradientStrokeStartX() const { return GrStrokeStartX; }
+	double gradientStrokeStartY() const { return GrStrokeStartY; }
+	void setGradientStrokeStart(double x, double y);
+
+	QPointF gradientStrokeEnd() const { return QPointF(GrStrokeEndX, GrStrokeEndY); }
 	double gradientStrokeEndX() const { return GrStrokeEndX; }
-	void setGradientStrokeEndX(double val);
 	double gradientStrokeEndY() const { return GrStrokeEndY; }
-	void setGradientStrokeEndY(double val);
+	void setGradientStrokeEnd(double x, double y);
 
 	QString gradientCol1() const { return GrColorP1; }
 	void setGradientCol1(const QString& val);
@@ -1574,14 +1575,11 @@ protected: // Start protected functions
 	void restoreGradientControl5(SimpleState *state, bool isUndo);
 	void restoreGradientEnd(SimpleState *state, bool isUndo);
 	void restoreGradientFocal(SimpleState *state, bool isUndo);
-	void restoreGradientMaskEndX(SimpleState *state, bool isUndo);
-	void restoreGradientMaskEndY(SimpleState *state, bool isUndo);
-	void restoreGradientMaskFocalX(SimpleState *state, bool isUndo);
-	void restoreGradientMaskFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskEnd(SimpleState *state, bool isUndo);
+	void restoreGradientMaskFocal(SimpleState *state, bool isUndo);
 	void restoreGradientMaskScale(SimpleState *state, bool isUndo);
 	void restoreGradientMaskSkew(SimpleState *state, bool isUndo);
-	void restoreGradientMaskStartX(SimpleState *state, bool isUndo);
-	void restoreGradientMaskStartY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskStart(SimpleState *state, bool isUndo);
 	void restoreGradientMeshColor(SimpleState *state, bool isUndo);
 	void restoreGradientScale(SimpleState *state, bool isUndo);
 	void restoreGradientShade1(SimpleState *state, bool isUndo);
@@ -1590,14 +1588,11 @@ protected: // Start protected functions
 	void restoreGradientShade4(SimpleState *state, bool isUndo);
 	void restoreGradientSkew(SimpleState *state, bool isUndo);
 	void restoreGradientStart(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeEndX(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeEndY(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeFocalX(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeEnd(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeFocal(SimpleState *state, bool isUndo);
 	void restoreGradientStrokeScale(SimpleState *state, bool isUndo);
 	void restoreGradientStrokeSkew(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeStartX(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeStartY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeStart(SimpleState *state, bool isUndo);
 	void restoreGradientTrans1(SimpleState *state, bool isUndo);
 	void restoreGradientTrans2(SimpleState *state, bool isUndo);
 	void restoreGradientTrans3(SimpleState *state, bool isUndo);

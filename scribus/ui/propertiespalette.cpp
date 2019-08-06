@@ -648,18 +648,14 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			trans = undoManager->beginTransaction(Um::Selection, Um::ILine, Um::GradPos + "p", "", Um::ILine);
 		if (m_ScMW->view->editStrokeGradient == 1)
 		{
-			m_item->setGradientStrokeStartX(x1 / m_unitRatio);
-			m_item->setGradientStrokeStartY(y1 / m_unitRatio);
-			m_item->setGradientStrokeEndX(x2 / m_unitRatio);
-			m_item->setGradientStrokeEndY(y2 / m_unitRatio);
-			m_item->setGradientStrokeFocalX(fx / m_unitRatio);
-			m_item->setGradientStrokeFocalY(fy / m_unitRatio);
+			m_item->setGradientStrokeStart(x1 / m_unitRatio, y1 / m_unitRatio);
+			m_item->setGradientStrokeEnd(x2 / m_unitRatio, y2 / m_unitRatio);
+			m_item->setGradientStrokeFocal(fx / m_unitRatio, fy / m_unitRatio);
 			m_item->setGradientStrokeScale(sg);
 			m_item->setGradientStrokeSkew(sk);
 			if (m_item->strokeGradientType() == 6)
 			{
-				m_item->setGradientStrokeFocalX(m_item->gradientStrokeStartX());
-				m_item->setGradientStrokeFocalY(m_item->gradientStrokeStartY());
+				m_item->setGradientStrokeFocal(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
 			}
 			m_item->update();
 			upRect = QRectF(QPointF(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY()), QPointF(m_item->gradientStrokeEndX(), m_item->gradientStrokeEndY()));
@@ -786,18 +782,14 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		UndoTransaction trans;
 		if (UndoManager::undoEnabled())
 			trans = undoManager->beginTransaction(Um::Selection, Um::ILine, Um::GradPos + "o", "", Um::ILine);
-		m_item->setGradientMaskStartX(x1 / m_unitRatio);
-		m_item->setGradientMaskStartY(y1 / m_unitRatio);
-		m_item->setGradientMaskEndX(x2 / m_unitRatio);
-		m_item->setGradientMaskEndY(y2 / m_unitRatio);
-		m_item->setGradientMaskFocalX(fx / m_unitRatio);
-		m_item->setGradientMaskFocalY(fy / m_unitRatio);
+		m_item->setGradientMaskStart(x1 / m_unitRatio, y1 / m_unitRatio);
+		m_item->setGradientMaskEnd(x2 / m_unitRatio, y2 / m_unitRatio);
+		m_item->setGradientMaskFocal(fx / m_unitRatio, fy / m_unitRatio);
 		m_item->setGradientMaskScale(sg);
 		m_item->setGradientMaskSkew(sk);
 		if ((m_item->GrMask == 1) || (m_item->GrMask == 4))
 		{
-			m_item->setGradientMaskFocalX(m_item->GrMaskStartX);
-			m_item->setGradientMaskFocalY(m_item->GrMaskStartY);
+			m_item->setGradientMaskFocal(m_item->GrMaskStartX, m_item->GrMaskStartY);
 		}
 		m_item->update();
 		if (trans)
