@@ -14611,7 +14611,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				adjustItemSize(item, true, false);
 			if (item->isArc() || item->isSpiral() || item->isRegularPolygon())
 				item->setXYPos(b1.x() + gx, b1.y() + gy);
-			else if (!item->isGroup() && !item->isSymbol())
+			else
 			{
 				QTransform ma3;
 				ma3.translate(gx, gy);
