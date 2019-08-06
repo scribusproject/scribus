@@ -14590,6 +14590,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			if (item->isSpiral())
 			{
 				PageItem_Spiral* spiral = item->asSpiral();
+				spiral->setWidthHeight(spiral->width() * scx, spiral->height() * scy, true);
 				spiral->recalcPath();
 			}
 			else if (item->isRegularPolygon())
