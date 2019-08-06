@@ -14120,7 +14120,7 @@ void ScribusDoc::moveRotated(PageItem *currItem, const FPoint& npv)
 	moveItem(-mxc, -myc, currItem);
 }
 
-bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
+bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
 {
 	PageItem *currItem = pi;
 	if (currItem->locked())
@@ -14131,8 +14131,8 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	/*
 	if (!currItem->asLine())
 	{
-		newX = qMax(newX, 1);
-		newY = qMax(newY, 1);
+		newW = qMax(newW, 1);
+		newH = qMax(newH, 1);
 	}
 	*/
 	UndoTransaction activeTransaction;
@@ -14142,31 +14142,31 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		int unitPrecision  = unitGetPrecisionFromIndex(this->unitIndex());
 		QString owString  = QString::number(currItem->oldWidth * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString ohString  = QString::number(currItem->oldHeight * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString nwString  = QString::number(newX * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString nhString  = QString::number(newY * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nwString  = QString::number(newW * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nhString  = QString::number(newH * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString transacDesc = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
 		activeTransaction = m_undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize);
 	}
 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 	QTransform ma;
 	ma.rotate(currItem->rotation());
-	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
-	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
+	double dX = ma.m11() * (currItem->width() - newW) + ma.m21() * (currItem->height() - newH) + ma.dx();
+	double dY = ma.m22() * (currItem->height() - newH) + ma.m12() * (currItem->width() - newW) + ma.dy();
 //	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
-//	currItem->setWidthHeight(newX, newY, true);
-	currItem->setWidthHeight(newX, newY);
+//	currItem->setWidthHeight(newW, newH, true);
+	currItem->setWidthHeight(newW, newH);
 	if ((m_rotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
 	{
 		double moveX=dX, moveY=dY;
-		if (m_rotMode==2)
+		if (m_rotMode == 2)
 		{
-			moveX/=2.0;
-			moveY/=2.0;
+			moveX /= 2.0;
+			moveY /= 2.0;
 		}
-		else if (m_rotMode==3)
-			moveX=0.0;
-		else if (m_rotMode==1)
-			moveY=0.0;
+		else if (m_rotMode == 3)
+			moveX = 0.0;
+		else if (m_rotMode == 1)
+			moveY = 0.0;
 		moveItem(moveX, moveY, currItem);
 	}
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
@@ -14184,9 +14184,9 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			currItem->setWidthHeight( sqrt(pow(t.x(), 2) + pow(t.y(), 2)), 1.0);
 			//currItem->setXYPos(currItem->xPos(), currItem->yPos());
 		}
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-		                  -ph,static_cast<int>(currItem->height()+ph));
+		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width() + ph), -ph,
+		                  static_cast<int>(currItem->width() + ph), static_cast<int>(currItem->height() + ph),
+		                  -ph, static_cast<int>(currItem->height() + ph));
 	}
 	setRedrawBounding(currItem);
 	currItem->OwnPage = OnPage(currItem);
@@ -14214,16 +14214,16 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		if (fromMP)
 		{
 			if (currItem->imageFlippedH())
-				nX=-(currItem->width() - currItem->OldB2)/currItem->imageXScale();
+				nX = -(currItem->width() - currItem->OldB2) / currItem->imageXScale();
 			if (currItem->imageFlippedV())
-				nY=-(currItem->height() - currItem->OldH2)/currItem->imageYScale();
+				nY = -(currItem->height() - currItem->OldH2) / currItem->imageYScale();
 		}
 		else
 		{
 			if (!currItem->imageFlippedH())
-				nX=(currItem->width() - currItem->OldB2)/currItem->imageXScale();
+				nX = (currItem->width() - currItem->OldB2) / currItem->imageXScale();
 			if (!currItem->imageFlippedV())
-				nY=(currItem->height() - currItem->OldH2)/currItem->imageYScale();
+				nY = (currItem->height() - currItem->OldH2) / currItem->imageYScale();
 		}
 		if (nX!=0.0 || nY!=0.0)
 			currItem->moveImageInFrame(dX,dY);*/
@@ -14258,7 +14258,7 @@ bool ScribusDoc::sizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			emit widthAndHeight(gw, gh);
 		}
 	}
-	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(),currItem->height())/2));
+	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(), currItem->height()) / 2));
 	if (activeTransaction)
 	{
 		currItem->checkChanges();
@@ -14611,7 +14611,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				adjustItemSize(item, true, false);
 			if (item->isArc() || item->isSpiral() || item->isRegularPolygon())
 				item->setXYPos(b1.x() + gx, b1.y() + gy);
-			else
+			else if (!item->isGroup() && !item->isSymbol())
 			{
 				QTransform ma3;
 				ma3.translate(gx, gy);
