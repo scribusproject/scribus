@@ -170,8 +170,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 *
 		 * By default, returns 0 to indicate no prefs UI.
 		*/
-		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
-								 QString& caption, QPixmap& icon);
+		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel);
 
 		/*! @brief Return descriptive information about the plug-in
 		 *

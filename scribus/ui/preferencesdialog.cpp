@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "pluginmanager.h"
+#include "prefs_pane.h"
 #include "prefsmanager.h"
 #include "scplugin.h"
 #include "scribuscore.h"
@@ -23,44 +24,17 @@ for which a new license (GPL+exception) is in place.
 
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
 	: QDialog(parent),
-	prefs_ColorManagement(nullptr),
-	prefs_Display(nullptr),
-	prefs_DocumentInformation(nullptr),
-	prefs_DocumentItemAttributes(nullptr),
-	prefs_DocumentSections(nullptr),
-	prefs_DocumentSetup(nullptr),
-	prefs_ExternalTools(nullptr),
-	prefs_Fonts(nullptr),
-	prefs_Guides(nullptr),
-	prefs_Hyphenator(nullptr),
-	prefs_ImageCache(nullptr),
-	prefs_ItemTools(nullptr),
-	prefs_KeyboardShortcuts(nullptr),
-	prefs_Miscellaneous(nullptr),
-	prefs_OperatorTools(nullptr),
-	prefs_PDFExport(nullptr),
-	prefs_PageSizes(nullptr),
-	prefs_Paths(nullptr),
-	prefs_Plugins(nullptr),prefs_PreflightVerifier(nullptr),
-	prefs_Printer(nullptr),
-	prefs_Scrapbook(nullptr),
-//	prefs_Spelling(nullptr),
-	prefs_TableOfContents(nullptr),
-	prefs_Typography(nullptr),
-	prefs_UserInterface(nullptr),
-	counter(0),
 	m_Doc(doc)
 {
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
 	setupListWidget();
-	IconManager& im = IconManager::instance();
 	while (prefsStackWidget->currentWidget()!=nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
 	applyButton->hide();
-
 	exportButton->hide();
+
 	if(doc)
 	{
 		setWindowTitle( tr("Document Setup") );
@@ -104,47 +78,47 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	// Add Stack Widgets if required
 	if (!doc)
 	{
-		addItem( tr("User Interface"), im.loadPixmap("scribus16.png"), prefs_UserInterface);
-		addItem( tr("Paths"), im.loadPixmap("16/folder.png"), prefs_Paths);
-		addItem( tr("Keyboard Shortcuts"), im.loadPixmap("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
+		addWidget(prefs_UserInterface);
+		addWidget(prefs_Paths);
+		addWidget(prefs_KeyboardShortcuts);
 	}
-	addItem( tr("Document Setup"), im.loadPixmap("scribusdoc16.png"), prefs_DocumentSetup);
+	addWidget(prefs_DocumentSetup);
 	if (!doc)
-		addItem( tr("Page Sizes"), im.loadPixmap("16/page-simple.png"), prefs_PageSizes);
-	addItem( tr("Guides"), im.loadPixmap("16/edit-guides.png"), prefs_Guides);
+		addWidget(prefs_PageSizes);
+	addWidget(prefs_Guides);
 	if (doc)
-		addItem( tr("Document Information"), im.loadPixmap("documentinfo.png"), prefs_DocumentInformation);
+		addWidget(prefs_DocumentInformation);
 	if (doc)
-		addItem( tr("Sections"), im.loadPixmap("tabtocindex_16.png"), prefs_DocumentSections);
+		addWidget(prefs_DocumentSections);
 
-	addItem( tr("Item Tools"), im.loadPixmap("tools_16.png"), prefs_ItemTools);
-	addItem( tr("Fonts"), im.loadPixmap("16/preferences-desktop-font.png"), prefs_Fonts);
-	addItem( tr("Typography"), im.loadPixmap("16/draw-text.png"), prefs_Typography);
-	addItem( tr("Hyphenator"), im.loadPixmap("signature_16.png"), prefs_Hyphenator);
+	addWidget(prefs_ItemTools);
+	addWidget(prefs_Fonts);
+	addWidget(prefs_Typography);
+	addWidget(prefs_Hyphenator);
 	//if (!doc)
-	//	addItem( tr("Spelling"), im.loadPixmap("signature_16.png"), prefs_Spelling);
+	//	addItem(prefs_Spelling);
 
 
 
-	addItem( tr("Color Management"), im.loadPixmap("blend_16.png"), prefs_ColorManagement);
+	addWidget(prefs_ColorManagement);
 	if (!doc)
-		addItem( tr("Image Cache"), im.loadPixmap("16/image-x-generic.png"), prefs_ImageCache);
-	addItem( tr("Display"), im.loadPixmap("16/video-display.png"), prefs_Display);
-	addItem( tr("Operator Tools"), im.loadPixmap("tools_16.png"), prefs_OperatorTools);
+		addWidget(prefs_ImageCache);
+	addWidget(prefs_Display);
+	addWidget(prefs_OperatorTools);
 	if (!doc)
-		addItem( tr("External Tools"), im.loadPixmap("gear_16.png"), prefs_ExternalTools);
+		addWidget(prefs_ExternalTools);
 	if (!doc)
-		addItem( tr("Scrapbook"), im.loadPixmap("scrap_16.png"), prefs_Scrapbook);
-	addItem( tr("Preflight Verifier"), im.loadPixmap("16/preflight-verifier.png"), prefs_PreflightVerifier);
-	addItem( tr("Printer"), im.loadPixmap("16/printer.png"), prefs_Printer);
-	addItem( tr("PDF Export"), im.loadPixmap("acroread16.png"), prefs_PDFExport);
+		addWidget(prefs_Scrapbook);
+	addWidget(prefs_PreflightVerifier);
+	addWidget(prefs_Printer);
+	addWidget(prefs_PDFExport);
 	if (!doc)
-		addItem( tr("Miscellaneous"), im.loadPixmap("misc_16.png"), prefs_Miscellaneous);
-	addItem( tr("Document Item Attributes"), im.loadPixmap("docattributes_16.png"), prefs_DocumentItemAttributes);
-	addItem( tr("Tables of Contents"), im.loadPixmap("tabtocindex_16.png"), prefs_TableOfContents);
+		addWidget(prefs_Miscellaneous);
+	addWidget(prefs_DocumentItemAttributes);
+	addWidget(prefs_TableOfContents);
 
 	if (!doc)
-		addItem( tr("Plugins"), im.loadPixmap("plugins_16.png"), prefs_Plugins);
+		addWidget(prefs_Plugins);
 
 	arrangeIcons();
 
@@ -171,9 +145,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 }
 
 
-PreferencesDialog::~PreferencesDialog()
-{
-}
+PreferencesDialog::~PreferencesDialog() = default;
 
 void PreferencesDialog::restoreDefaults()
 {
@@ -183,7 +155,7 @@ void PreferencesDialog::restoreDefaults()
 
 void PreferencesDialog::initPreferenceValues()
 {
-	mainWin = (ScribusMainWindow*)parent();
+	mainWin = dynamic_cast<ScribusMainWindow*>(parent());
 	docUnitIndex = localPrefs.docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 }
@@ -287,15 +259,13 @@ void PreferencesDialog::setupListWidget()
 	preferencesTypeList->clear();
 }
 
-int PreferencesDialog::addItem(const QString& name, const QPixmap& icon, QWidget* tab)
+void PreferencesDialog::addWidget(Prefs_Pane* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
-	QListWidgetItem* newItem = new QListWidgetItem(icon, name, preferencesTypeList);
+	QListWidgetItem* newItem = new QListWidgetItem(IconManager::instance().loadIcon(tab->icon()), tab->caption(), preferencesTypeList);
 	newItem->setTextAlignment(Qt::AlignLeft);
-	prefsStackWidget->addWidget(tab);
-	stackWidgetMap.insert(newItem, counter);
-	counter++;
-	return counter-1;
+	int i = prefsStackWidget->addWidget(tab);
+	stackWidgetMap.insert(newItem, i);
 }
 
 void PreferencesDialog::newItemSelected()
@@ -365,8 +335,6 @@ void PreferencesDialog::addPlugins()
 	// For each plugin, enabled or not:
 	ScPlugin* plugin = nullptr;
 	Prefs_Pane* panel = nullptr;
-	QString panelCaption;
-	QPixmap panelIcon;
 
 	PluginManager& pluginManager = PluginManager::instance();
 	const QStringList pluginNames(pluginManager.pluginNames(true));
@@ -379,16 +347,14 @@ void PreferencesDialog::addPlugins()
 			continue;
 		// If we got a plugin (which we know is enabled):
 		// Ask the plugin for a prefs widget
-		bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel, panelCaption, panelIcon);
+		bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel);
 		// If it gave us one...
 		if (wantPanel)
 		{
 			// Ensure that we got sane return values
 			Q_ASSERT(panel);
-			Q_ASSERT(!panelIcon.isNull());
-			Q_ASSERT(!panelCaption.isNull());
 			// plug it in to the dialog,
-			addItem(panelCaption, panelIcon, panel);
+			addWidget(panel);
 			// and connect a signal to tell it to save its
 			// settings.
 			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));

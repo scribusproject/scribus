@@ -30,6 +30,10 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
+	languageChange();
+
+	m_caption = tr("Hyphenator");
+	m_icon = "signature_16.png";
 
 	exceptionAddButton->setIcon(IconManager::instance().loadIcon("16/list-add.png"));
 	exceptionEditButton->setEnabled(false);
@@ -49,9 +53,7 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	connect(exceptionListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(enableExceptButtons()));
 }
 
-Prefs_Hyphenator::~Prefs_Hyphenator()
-{
-}
+Prefs_Hyphenator::~Prefs_Hyphenator() = default;
 
 void Prefs_Hyphenator::languageChange()
 {

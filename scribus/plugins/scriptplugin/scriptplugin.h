@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdvar.h"
 #include "scplugin.h"
 #include "pluginapi.h"
-//Added by qt3to4:
+
 #include <QByteArray>
 #include <QPixmap>
 
@@ -32,8 +32,7 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;
-		bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
-										 QString& caption, QPixmap& icon) override;
+		bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel) override;
 		void addToMainWindowMenu(ScribusMainWindow *) override;
 
 		// Special features (none)

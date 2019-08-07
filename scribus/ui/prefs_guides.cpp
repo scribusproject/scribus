@@ -20,6 +20,10 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Guides");
+	m_icon = "16/edit-guides.png";
+
 	buttonUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
 	buttonUp->setEnabled(false);
 	buttonDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
@@ -43,9 +47,7 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	connect(visibilityGridCheckBox, SIGNAL(clicked()), this, SLOT(gridClicked()));
 }
 
-Prefs_Guides::~Prefs_Guides()
-{
-}
+Prefs_Guides::~Prefs_Guides() = default;
 
 void Prefs_Guides::languageChange()
 {

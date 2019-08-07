@@ -26,6 +26,9 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 
+	m_caption = tr("Document Setup");
+	m_icon = "scribusdoc16.png";
+
 	unitRatio = 1.0;
 	pageW = pageH = 1.0;
 

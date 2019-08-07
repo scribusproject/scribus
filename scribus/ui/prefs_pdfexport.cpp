@@ -32,6 +32,9 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	unitChange(0);
 	languageChange();
 
+	m_caption = tr("PDF Export");
+	m_icon = "acroread16.png";
+
 	connect(fontEmbeddingCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(EmbeddingModeChange()));
 	connect(exportChosenPagesRadioButton, SIGNAL(toggled(bool)), this, SLOT(enableRangeControls(bool)));
 	connect(exportRangeMorePushButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
@@ -104,9 +107,7 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 
 }
 
-Prefs_PDFExport::~Prefs_PDFExport()
-{
-}
+Prefs_PDFExport::~Prefs_PDFExport() = default;
 
 PDFOptions::PDFFontEmbedding Prefs_PDFExport::fontEmbeddingMode()
 {

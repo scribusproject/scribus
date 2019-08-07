@@ -20,6 +20,25 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 		~Prefs_Pane() {}
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData) = 0;
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const = 0;
+
+		const QString& caption() const
+		{
+			return m_caption;
+		}
+
+		const QString& icon() const
+		{
+			return m_icon;
+		}
+
+	protected:
+		QString m_caption;
+		QString m_icon;
 };
 
 #endif // PREFS_PANE_H
+
+
+
+
+

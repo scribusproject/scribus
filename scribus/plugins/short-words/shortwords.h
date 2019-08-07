@@ -34,8 +34,7 @@ class PLUGIN_API ShortWordsPlugin : public ScActionPlugin
 		virtual void languageChange();
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 		/*! \brief Preference widget */
-		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
-										 QString& caption, QPixmap& icon);
+		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel);
 		// Special features (none)
 };
 

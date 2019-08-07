@@ -18,15 +18,16 @@ Prefs_Paths::Prefs_Paths(QWidget* parent, ScribusDoc* doc)
 	setupUi(this);
 	languageChange();
 
+	m_caption = tr("Paths");
+	m_icon = "16/folder.png";
+
 	connect(docDirChangeButton, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(profileDirChangeButton, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(scriptDirChangeButton, SIGNAL(clicked()), this, SLOT(changeScripts()));
 	connect(templateDirChangeButton, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
 }
 
-Prefs_Paths::~Prefs_Paths()
-{
-}
+Prefs_Paths::~Prefs_Paths() = default;
 
 void Prefs_Paths::languageChange()
 {

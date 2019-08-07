@@ -15,6 +15,9 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* do
 	setupUi(this);
 	languageChange();
 
+	m_caption = tr("Preflight Verifier");
+	m_icon = "16/preflight-verifier.png";
+
 	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 
@@ -40,9 +43,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* do
 	connect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
-Prefs_PreflightVerifier::~Prefs_PreflightVerifier()
-{
-}
+Prefs_PreflightVerifier::~Prefs_PreflightVerifier() = default;
 
 void Prefs_PreflightVerifier::languageChange()
 {

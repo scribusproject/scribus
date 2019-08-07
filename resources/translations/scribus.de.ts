@@ -5236,7 +5236,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1941"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1940"/>
         <source>&amp;Name:</source>
         <translation type="unfinished">&amp;Name:</translation>
     </message>
@@ -5332,27 +5332,27 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <translation type="unfinished">Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1256"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1258"/>
         <source>Loading Patterns</source>
         <translation type="unfinished">Lade Füllmuster</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1441"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1440"/>
         <source>R: %1 G: %2 B: %3</source>
         <translation type="unfinished">R: %1 G: %2 B: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1447"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1446"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
         <translation type="unfinished">C: %1% M: %2% Y: %3% K: %4%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1453"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1452"/>
         <source>L: %1 a: %2 b: %3</source>
         <translation type="unfinished">L: %1 a: %2 b: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1941"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1940"/>
         <source>Choose a Name</source>
         <translation type="unfinished">Namen wählen</translation>
     </message>
@@ -14087,8 +14087,8 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Tabelle</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7650"/>
-        <location filename="../../scribus/pageitem.cpp" line="7651"/>
+        <location filename="../../scribus/pageitem.cpp" line="7587"/>
+        <location filename="../../scribus/pageitem.cpp" line="7588"/>
         <source>Copy of</source>
         <translation>Kopie von</translation>
     </message>
@@ -17063,7 +17063,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <name>PreferencesDialog</name>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="14"/>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/preferencesdialog.cpp" line="328"/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
@@ -17093,130 +17093,9 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="107"/>
-        <source>User Interface</source>
-        <translation>Benutzeroberfläche</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="108"/>
-        <source>Paths</source>
-        <translation>Pfade</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="66"/>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="111"/>
+        <location filename="../../scribus/ui/preferencesdialog.cpp" line="40"/>
         <source>Document Setup</source>
         <translation>Dokument einrichten</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="114"/>
-        <source>Guides</source>
-        <translation>Hilfslinien</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="122"/>
-        <source>Typography</source>
-        <translation>Typographie</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="120"/>
-        <source>Item Tools</source>
-        <translation>Objektwerkzeuge</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="133"/>
-        <source>Operator Tools</source>
-        <translation>Bearbeitungswerkzeuge</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="123"/>
-        <source>Hyphenator</source>
-        <translation>Silbentrennung</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="121"/>
-        <source>Fonts</source>
-        <translation>Schriften</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="139"/>
-        <source>Printer</source>
-        <translation>Drucker</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="129"/>
-        <source>Color Management</source>
-        <translation>Farbmanagement</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="116"/>
-        <source>Document Information</source>
-        <translation>Dokumentinformationen</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="140"/>
-        <source>PDF Export</source>
-        <translation>PDF-Export</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="138"/>
-        <source>Preflight Verifier</source>
-        <translation>Druckvorstufenüberprüfung</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="143"/>
-        <source>Document Item Attributes</source>
-        <translation>Eigenschaften des Dokumentobjekts</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="144"/>
-        <source>Tables of Contents</source>
-        <translation>Inhaltsverzeichnisse</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="118"/>
-        <source>Sections</source>
-        <translation>Abschnitte</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="109"/>
-        <source>Keyboard Shortcuts</source>
-        <translation>Tastenkürzel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="137"/>
-        <source>Scrapbook</source>
-        <translation>Bibliothek</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="132"/>
-        <source>Display</source>
-        <translation>Anzeige</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="135"/>
-        <source>External Tools</source>
-        <translation>Externe Tools</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="142"/>
-        <source>Miscellaneous</source>
-        <translation>Verschiedenes</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="113"/>
-        <source>Page Sizes</source>
-        <translation>Seitengrößen</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="147"/>
-        <source>Plugins</source>
-        <translation>Plug-Ins</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
-        <source>Image Cache</source>
-        <translation>Bild-Cache</translation>
     </message>
 </context>
 <context>
@@ -17296,6 +17175,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <name>Prefs_ColorManagement</name>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="22"/>
         <source>Color Management</source>
         <translation>Farbmanagement</translation>
     </message>
@@ -17385,32 +17265,32 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Monitor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="28"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="32"/>
         <source>Monitor profiles can only be changed when no documents are open.</source>
         <translation>Monitorprofile können nur geändert werden, wenn kein Dokument geöffnet ist.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="53"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="57"/>
         <source>&lt;qt&gt;Color Management cannot be activated due to missing color profiles.&lt;/br&gt;You need to install at least one RGB and one CMYK profile.</source>
         <translation>&lt;qt&gt;Das Farbmanagement kann wegen fehlender Farbprofile nicht aktiviert werden.&lt;/br&gt; Es müssen mindestens jeweils ein RGB- und ein CMYK-Profil installiert sein.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="66"/>
         <source>Perceptual</source>
         <translation>Wahrnehmung</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="66"/>
         <source>Relative Colorimetric</source>
         <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="67"/>
         <source>Saturation</source>
         <translation>Sättigung</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="67"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
     </message>
@@ -17419,6 +17299,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <name>Prefs_Display</name>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="26"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
@@ -17593,79 +17474,79 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Steuerzeichen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="71"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
         <source>Color for paper (onscreen)</source>
         <translation>Papierfarbe (Bildschirm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="72"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="75"/>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Zeigt den nicht druckbaren Bereich in der Farbe der Seitenrandlinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="73"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="76"/>
         <source>Enable or disable the display of linked frames</source>
         <translation>Aktiviert oder deaktiviert die Anzeige von Rahmenverkettungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="77"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation>Zeigt nicht druckbare Zeichen wie Absatzzeichen in Textrahmen an</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="75"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="78"/>
         <source>Turns the display of frames on or off</source>
         <translation>Schaltet die Anzeige von Textrahmen an oder aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="76"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="79"/>
         <source>Turns the display of layer indicators on or off</source>
         <translation>Schaltet die Ebenenmarkierungen an oder aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="77"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="80"/>
         <source>Turns the display of images on or off</source>
         <translation>Aktiviert oder deaktiviert die Anzeige von Bildern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="78"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="81"/>
         <source>Turns the page shadow on or off</source>
         <translation>Schaltet den Schlagschatten für Seiten an oder aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="79"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="82"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation>Legt den Raum links vom Dokument fest, der als Ablagefläche zur Verfügung steht</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="80"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="83"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation>Legt den Raum rechts vom Dokument fest, der als Ablagefläche zur Verfügung steht</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="81"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="84"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation>Legt den Raum oberhalb des Dokumentes fest, der als Ablagefläche zur Verfügung steht</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="82"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="85"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation>Legt den Raum unterhalb des Dokumentes fest, der als Ablagefläche zur Verfügung steht</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="83"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="86"/>
         <source>Set the default zoom level</source>
         <translation>Legt die Standard-Vergrößerungseinstellung fest</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="84"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="87"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
         <translation>Legen Sie ein Lineal auf dem Bildschirm an und verschieben Sie den Regler, um den Zoom-Level einzustellen, damit die Dokumente in der richtigen Größe angezeigt werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="185"/>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="270"/>
-        <location filename="../../scribus/ui/prefs_display.cpp" line="278"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="188"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="273"/>
+        <location filename="../../scribus/ui/prefs_display.cpp" line="281"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -17674,6 +17555,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <name>Prefs_DocumentInformation</name>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_documentinformation.cpp" line="18"/>
         <source>Document Information</source>
         <translation>Dokumentinformationen</translation>
     </message>
@@ -17773,6 +17655,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="14"/>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
         <source>Document Item Attributes</source>
         <translation>Eigenschaften des Dokumentobjekts</translation>
     </message>
@@ -17852,65 +17735,65 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="22"/>
         <source>None</source>
         <comment>relationship</comment>
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="22"/>
         <source>Relates To</source>
         <translation>Verweist auf</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Parent Of</source>
         <translation>Ist Elternobjekt von</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Child Of</source>
         <translation>Ist Kindobjekt von</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="24"/>
         <source>None</source>
         <comment>auto add</comment>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="24"/>
         <source>Text Frames</source>
         <translation>Textrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="24"/>
         <source>Image Frames</source>
         <translation>Bildrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="26"/>
         <source>None</source>
         <comment>types</comment>
         <translation>Keiner</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="26"/>
         <source>Boolean</source>
         <translation>Boolsch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="26"/>
         <source>Integer</source>
         <translation>Integer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="26"/>
         <source>Real Number</source>
         <translation>Reale Zahl</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
+        <location filename="../../scribus/ui/prefs_documentitemattributes.cpp" line="26"/>
         <source>String</source>
         <translation>String</translation>
     </message>
@@ -17918,12 +17801,17 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="174"/>
+        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="26"/>
+        <source>Sections</source>
+        <translation type="unfinished">Abschnitte</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="178"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Seitenzahl außerhalb des gültigen Bereichs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="174"/>
+        <location filename="../../scribus/ui/prefs_documentsections.cpp" line="178"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation>Der Wert, den Sie eingegeben haben, liegt außerhalb des gültigen Bereichs (%1-%2).</translation>
     </message>
@@ -18003,6 +17891,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <name>Prefs_DocumentSetup</name>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="29"/>
         <source>Document Setup</source>
         <translation>Dokument einrichten</translation>
     </message>
@@ -18194,77 +18083,77 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Anschnitt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="113"/>
         <source>Portrait</source>
         <translation>Hochformat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="111"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="114"/>
         <source>Landscape</source>
         <translation>Querformat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Breite der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="122"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Höhe der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="123"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
         <translation>Standardgröße der Seite. Weitere Standardformate können in den Dokumenteinstellungen aktiviert werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="124"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
         <translation>Weitere Standardformate unter &quot;Seitenformate&quot; aktivieren/deaktivieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
         <source>Default orientation of document pages</source>
         <translation>Standardausrichtung der Seite in neuen Dokumenten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="126"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Standardmaßeinheit</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
         <translation>Falls aktiviert, speichert Scribus Sicherungskopien Ihrer Datei im eingestellten Intervall</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="132"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation>Anzahl der während einer Sitzung angelegten Sicherungskopien. Letztere werden gelöscht, wenn Sie das Dokument schließen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="409"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="412"/>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
         <source>Time period between saving automatically</source>
         <translation>Intervall zwischen zwei automatischen Sicherungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="132"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, dass unendlich viele Aktionen aufgezeichnet werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="133"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Wendet die Größenänderung auf alle Seiten im Dokument an</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="131"/>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="134"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation>Änderungen der Seitengröße auf alle vorhandenen Musterseiten im Dokument anwenden</translation>
     </message>
@@ -18273,6 +18162,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <name>Prefs_ExternalTools</name>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="29"/>
         <source>External Tools</source>
         <translation>Externe Tools</translation>
     </message>
@@ -18486,47 +18376,47 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="98"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="103"/>
         <source>Locate Ghostscript</source>
         <translation>Tragen Sie den Pfad zu Ghostscript ein</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="106"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="111"/>
         <source>Locate your image editor</source>
         <translation>Wählen Sie Ihr Bildbearbeitungsprogramm</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="114"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="119"/>
         <source>Locate your web browser</source>
         <translation>Wählen Sie Ihren Webbrowser</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="122"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="127"/>
         <source>Locate your PDF viewer</source>
         <translation>Wählen Sie Ihren PDF-Betrachter aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="135"/>
         <source>Locate the uniconvertor executable</source>
         <translation>Tragen Sie den Pfad zu UniConvertor ein</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="138"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="143"/>
         <source>Locate your editor</source>
         <translation>Suchen Sie Ihren Editor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="167"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="172"/>
         <source>Uniconvertor executable not found!</source>
         <translation>UniConvertor nicht gefunden!</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="217"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="222"/>
         <source>LaTeX Command</source>
         <translation>LaTeX-Befehl</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="218"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="223"/>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
@@ -18535,27 +18425,27 @@ Do you want to use this?</source>
 Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="257"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="262"/>
         <source>Locate a Configuration file</source>
         <translation>Nach Konfigurationsdatei suchen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="259"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="264"/>
         <source>Configuration files</source>
         <translation>Konfigurationsdateien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="279"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="284"/>
         <source>Change Command</source>
         <translation>Befehl ändern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="280"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="285"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
         <translation>Neuen Befehl eingeben. Wenn Sie dieses Feld leer lassen, werden die Standardeinstellungen verwendet. Benutzen Sie Anführungszeichen für Parameter, die Leerzeichen enthalten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="309"/>
+        <location filename="../../scribus/ui/prefs_externaltools.cpp" line="314"/>
         <source>Command: </source>
         <translation>Befehl:</translation>
     </message>
@@ -18564,6 +18454,7 @@ Möchten Sie diesen verwenden?</translation>
     <name>Prefs_Fonts</name>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="46"/>
         <source>Fonts</source>
         <translation>Schriften</translation>
     </message>
@@ -18589,7 +18480,7 @@ Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Rejected Fonts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18610,40 +18501,40 @@ Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="45"/>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Available Fonts</source>
         <translation>Verfügbare Schriften</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="67"/>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Font Substitutions</source>
         <translation>Schriftersetzungen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="113"/>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="50"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Additional Paths</source>
         <translation>Zusätzliche Pfade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="56"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="60"/>
         <source>Font Name</source>
         <translation>Schriftname</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="57"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="61"/>
         <source>Replacement</source>
         <translation>Ersatzschrift</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="98"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="102"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schließen Sie alle geöffneten Dokumente und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="347"/>
-        <location filename="../../scribus/ui/prefs_fonts.cpp" line="374"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="351"/>
+        <location filename="../../scribus/ui/prefs_fonts.cpp" line="378"/>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
@@ -18653,8 +18544,9 @@ Möchten Sie diesen verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="27"/>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="355"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="61"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="24"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="131"/>
         <source>Guides</source>
         <translation>Hilfslinien</translation>
     </message>
@@ -18687,8 +18579,8 @@ Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="368"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="67"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="135"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="69"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
         <translation>Ränder</translation>
     </message>
@@ -18704,8 +18596,8 @@ Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="405"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="65"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="133"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="67"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
         <translation>Grundlinienraster</translation>
     </message>
@@ -18765,105 +18657,105 @@ Möchten Sie diesen verwenden?</translation>
         <translation>Grundlinienraster:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="59"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="127"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
         <translation>Objekte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="63"/>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="131"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="133"/>
         <source>Grid</source>
         <translation>Raster</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="76"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="78"/>
         <source>Lines</source>
         <translation>Linien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="77"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="79"/>
         <source>Crosses and Dots</source>
         <translation>Punkte und Kreuze</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="84"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="86"/>
         <source>Place guides in front of or behind objects on the page</source>
         <translation>Hilfslinien im Vorder- oder Hintergrund anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="85"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="87"/>
         <source>Distance between the minor grid lines</source>
         <translation>Abstand zwischen den Teillinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="86"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Distance between the major grid lines</source>
         <translation>Abstand zwischen den Hauptlinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="87"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
         <translation>Der Abstand innerhalb dessen ein Objekt ein Objekt an Hilfslinien einrastet. Sie müssen Scribus neu starten, damit diese Einstellung wirksam wird.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="90"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
         <translation>Der Radius innerhalb dessen Scribus es ermöglicht, die Anfasser von Objekten mit der Maus zu greifen. Sie müssen Scribus neu starten, damit diese Einstellung wirksam wird.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="91"/>
         <source>Color of the minor grid lines</source>
         <translation>Farbe der Teillinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="90"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="92"/>
         <source>Color of the major grid lines</source>
         <translation>Farbe der Hauptlinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="91"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="93"/>
         <source>Color of the guide lines you insert</source>
         <translation>Farbe der Hilfslinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="92"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="94"/>
         <source>Color for the margin lines</source>
         <translation>Farbe für die Seitenränder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="93"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="95"/>
         <source>Color for the baseline grid</source>
         <translation>Farbe des Grundlinienrasters</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="94"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
         <translation>Schaltet das Grundraster ein oder aus
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="95"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="97"/>
         <source>Distance between the lines of the baseline grid</source>
         <translation>Abstand der Grundlinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="96"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="98"/>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Abstand vom oberen Seitenrand bis zur ersten Grundlinie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="97"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
         <translation>Schaltet das Raster ein oder aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="98"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
         <translation>Schaltet die Hilfslinien ein oder aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="99"/>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
         <translation>Schaltet die Ränder an oder aus</translation>
     </message>
@@ -18918,26 +18810,31 @@ Möchten Sie diesen verwenden?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="157"/>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="91"/>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="103"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="93"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="105"/>
         <source>Ignore List</source>
         <translation>Liste der Auslassungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="91"/>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="132"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="35"/>
+        <source>Hyphenator</source>
+        <translation type="unfinished">Silbentrennung</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="93"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="134"/>
         <source>Add a new Entry</source>
         <translation>Neuen Eintrag hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="103"/>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="144"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="105"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="146"/>
         <source>Edit Entry</source>
         <translation>Eintrag bearbeiten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="132"/>
-        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="144"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="134"/>
+        <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="146"/>
         <source>Exception List</source>
         <translation>Ausnahmenliste</translation>
     </message>
@@ -18945,27 +18842,28 @@ Möchten Sie diesen verwenden?</translation>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="28"/>
+        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="29"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
         <translation>Das Aktivieren des Grafikcaches beschleunigt das Laden von Bildern erheblich. Sie sollten diese Funktion aktivieren, wenn Sie häufig mit großen Dokumenten, die viele Bilder enthalten, arbeiten und außerdem sehr viel freier Platz auf Ihrer Festplatte vorhanden ist.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="29"/>
+        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="30"/>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
         <translation>Begrenzt die Größe aller Dateien im Grafikcache auf den eingestellten Wert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="30"/>
+        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Limit the number of cache entries to this number</source>
         <translation>Begrenzt die Anzahl aller Dateien im Grafikcache auf den eingestellten Wert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
+        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="32"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
         <translation>Legt den Kompressionsgrad für Grafiken im Cache fest: je höher der Wert, desto kleiner die Cache-Dateien. Ein höherer Wert verlangsamt aber auch das Schreiben ins Cache.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
         <translation>Grafikcache</translation>
     </message>
@@ -18999,6 +18897,7 @@ Möchten Sie diesen verwenden?</translation>
     <name>Prefs_ItemTools</name>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="28"/>
         <source>Item Tools</source>
         <translation>Objektwerkzeuge</translation>
     </message>
@@ -19257,46 +19156,46 @@ Möchten Sie diesen verwenden?</translation>
         <translation>Spirale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="43"/>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="44"/>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="45"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="48"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="49"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="50"/>
         <source>Hairline</source>
         <translation>Haarlinie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="59"/>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="372"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="374"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="60"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="62"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Seitenverhältnisse beibehalten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="102"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="104"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Keines</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="103"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="105"/>
         <source>Dot</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="104"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="106"/>
         <source>Hyphen</source>
         <translation>Trennstrich</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="105"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="107"/>
         <source>Underscore</source>
         <translation>Unterstrich</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="106"/>
+        <location filename="../../scribus/ui/prefs_itemtools.cpp" line="108"/>
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
@@ -19306,6 +19205,7 @@ Möchten Sie diesen verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="14"/>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="36"/>
         <source>Keyboard Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -19435,33 +19335,33 @@ Möchten Sie diesen verwenden?</translation>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="129"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="130"/>
         <source>Select a Key set file to read</source>
         <translation>Wählen Sie einen Kürzelsatz aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="129"/>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="137"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="130"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="138"/>
         <source>Key Set XML Files (*.xml)</source>
         <translation>Kürzelsatz-XML-Dateien (*.xml)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="137"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="138"/>
         <source>Select a Key set file to save to</source>
         <translation>Wählen Sie eine Kürzelsatz-Datei aus, in die Sie speichern möchten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="207"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="208"/>
         <source>Export Keyboard Shortcuts to File</source>
         <translation>Tastaturkürzel in Datei exportieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="207"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="208"/>
         <source>Enter the name of the shortcut set:</source>
         <translation>Geben Sie einen Namen für den Kürzelsatz ein:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="503"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="504"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>Das Kürzel %1 wird bereits von &quot;%2&quot; verwendet</translation>
     </message>
@@ -19470,6 +19370,7 @@ Möchten Sie diesen verwenden?</translation>
     <name>Prefs_Miscellaneous</name>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
         <translation>Verschiedenes</translation>
     </message>
@@ -19503,6 +19404,7 @@ Möchten Sie diesen verwenden?</translation>
     <name>Prefs_OperatorTools</name>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="21"/>
         <source>Operator Tools</source>
         <translation>Bedienung</translation>
     </message>
@@ -19564,32 +19466,32 @@ Möchten Sie diesen verwenden?</translation>
         <translation>Beschränken auf:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="36"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="38"/>
         <source>Minimum magnification allowed</source>
         <translation>Kleinstmögliche Vergrößerungsstufe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="37"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="39"/>
         <source>Maximum magnification allowed</source>
         <translation>Größtmögliche Vergrößerungstufe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="38"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="40"/>
         <source>Change in magnification for each zoom operation</source>
         <translation>Abstand zwischen zwei Vergrößerungsstufen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="39"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="41"/>
         <source>Horizontal displacement of page items</source>
         <translation>Horizontaler Versatz beim Kopieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="40"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="42"/>
         <source>Vertical displacement of page items</source>
         <translation>Vertikaler Versatz beim Kopieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="41"/>
+        <location filename="../../scribus/ui/prefs_operatortools.cpp" line="43"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation>Schritte beim Anwenden des Rotationswerkzeuges mit gedrückter Strg-Taste</translation>
     </message>
@@ -19598,6 +19500,7 @@ Möchten Sie diesen verwenden?</translation>
     <name>Prefs_PDFExport</name>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="35"/>
         <source>PDF Export</source>
         <translation>PDF-Export</translation>
     </message>
@@ -20103,552 +20006,552 @@ Möchten Sie diesen verwenden?</translation>
         <translation>JavaScript, das beim Öffnen ausgeführt wird:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="48"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="51"/>
         <source>Automatically rotate the exported pages</source>
         <translation>Die exportierten Seiten automatisch drehen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="49"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="52"/>
         <source>Export all pages to PDF</source>
         <translation>Alle Seiten als PDF exportieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="50"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="53"/>
         <source>Export a range of pages to PDF</source>
         <translation>Einen Seitenbereich als PDF exportieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="54"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
         <source>Create a range of pages</source>
         <translation>Seitenbereich eingeben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Legt die Bindung für PDF-Dateien fest. Nur verändern, wenn Sie es wirklich brauchen. Standard: Links.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="58"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Erzeugt kleine Vorschaubilder von jeder Seite. Einige PDF-Betrachter nutzen diese Vorschaubilder zur Navigation.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="64"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Fügt die Lesezeichen mit in die PDF-Datei ein. So können Sie in langen PDF-Dateien besser navigieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="62"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="65"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="63"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="66"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
         <translation>Exportiert PDFs in Bildrahmen als eingebettete PDFs. ACHTUNG: Diese Option berücksichtigt keine Farbräume; sie sollten genau wissen, was Sie tun, wenn Sie dies aktivieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="64"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Größe der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="68"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="66"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Größe der Bilder aus, weil Größe und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Setzt die maximale Auflösung der Bitmap-Dateien auf den angegebenen Wert. Bilder mit geringerer Auflösung sind von diesen Einstellungen nicht betroffen. Falls Sie diese Methode auswählen, wird der Speicherverbrauch stark ansteigen, und der Export dauert länger.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
         <translation>Geben Sie ein Benutzerpasswort ein, das alle Sicherheitsfunktionen in der exportierten PDF-Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="51"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="54"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
         <translation>Geben Sie, durch Kommata getrennt, die Seiten ein, die verarbeitet werden sollen. * steht für alle Seiten, 1-5 für einen Bereich oder eine einzelne Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="56"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="62"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
         <translation>Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="63"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
         <translation>Ebenen werden mitexportiert. Nur in PDF-1.5-Dateien möglich.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="68"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
         <source>DPI (Dots Per Inch) for image export</source>
         <translation>DPI (Punkte pro Zoll) für den Export von Bildern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
         <source>Choose a password for users to be able to read your PDF</source>
         <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="75"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation>Drucken erlauben. Wenn nicht ausgewählt, ist das Drucken verboten.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Erlaubt das Entnehmen von Text oder Grafiken aus der PDF-Datei. Falls nicht aktiviert, können Texte oder Grafiken nicht kopiert werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="75"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="78"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Erlaubt das Hinzufügen von Anmerkungen. Falls nicht aktiviert, können keine Anmerkungen eingefügt werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="79"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Farbmodell für die Ausgabe der PDF-Datei.
 Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
 Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen Sie Graustufen, wenn Sie eine Graustufen-PDF benötigen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Die ist eine fortgeschrittene Einstellung, die standardmäßig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="78"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Farbprofil für Füllfarben einbetten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="79"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="82"/>
         <source>Color profile for solid colors</source>
         <translation>Farbprofil für Füllfarben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="83"/>
         <source>Rendering intent for solid colors</source>
         <translation>Rendermethode für Füllfarben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
         <source>Embed a color profile for images</source>
         <translation>Farbprofil für Bilder einbetten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="82"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Farbprofile der Quellbilder nicht benutzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="83"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="86"/>
         <source>Color profile for images</source>
         <translation>Farbprofil für Bilder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
         <source>Rendering intent for images</source>
         <translation>Rendermethode für Bilder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Dokument horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="86"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="89"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Dokument vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="90"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Konvertiert Schmuckfarben in Prozessfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="91"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Objekte außerhalb des Seitenrandes nicht exportieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="90"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>Erzeugt Schnittmarken in der PDF-Datei, die anzeigen, wo die Bögen nach dem Druck beschnitten werden sollen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="91"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>Hiermit werden Anschnittmarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="92"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="95"/>
         <source>Add registration marks to each separation</source>
         <translation>Registrierungsmarken zu jeder Separation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="96"/>
         <source>Add color calibration bars</source>
         <translation>Hiermit werden Farbbalken hinzugefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="97"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation>Hiermit werden Dokumentinformationen wie Name und Seitenzahl in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="95"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
         <source>Length of crop marks</source>
         <translation>Länge der Schneidemarken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="96"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="99"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Gibt den Versatz der Registrierungsmarken an</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="101"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="104"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Verwendet die Anschnittvorgabe aus den Dokumenteinstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="102"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="105"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Ausgabeprofil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="103"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="106"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation>Vorgeschriebener Text für PDF/X, ohne den die Datei nicht den PDF/X-Spezifikationen entspricht. Wir empfehlen, den Titel des Dokumentes zu verwenden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="198"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="199"/>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="199"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="200"/>
         <source>Lossy - JPEG</source>
         <translation>Verlustbehaftet - JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="200"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="201"/>
         <source>Lossless - Zip</source>
         <translation>Verlustlos - Zip</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="201"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="202"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="206"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="207"/>
         <source>Maximum</source>
         <translation>Maximal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="207"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="208"/>
         <source>High</source>
         <translation>Hoch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="208"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="209"/>
         <source>Medium</source>
         <translation>Mittel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="209"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="210"/>
         <source>Low</source>
         <translation>Niedrig</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="210"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="211"/>
         <source>Minimum</source>
         <translation>Minimal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="217"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="218"/>
         <source>Left Margin</source>
         <translation>Linker Rand</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="218"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="219"/>
         <source>Right Margin</source>
         <translation>Rechter Rand</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="223"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="224"/>
         <source>Screen / Web</source>
         <translation>Monitor / Internet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="224"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
         <source>Printer</source>
         <translation>Drucker</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="225"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="226"/>
         <source>Grayscale</source>
         <translation>Graustufen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="230"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="231"/>
         <source>Simple Dot</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="231"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="232"/>
         <source>Line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="232"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="233"/>
         <source>Round</source>
         <translation>Rund</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="233"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="234"/>
         <source>Ellipse</source>
         <translation>Ellipse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="241"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="242"/>
         <source>Perceptual</source>
         <translation>Wahrnehmung</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="241"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="242"/>
         <source>Relative Colorimetric</source>
         <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="241"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="242"/>
         <source>Saturation</source>
         <translation>Farbsättigung</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="241"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="242"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="388"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1307"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1315"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="389"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1308"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1316"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="407"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="408"/>
         <source>No Script</source>
         <translation>Kein Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="550"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="551"/>
         <source>InfoString</source>
         <translation>Infotext</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="582"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1002"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="583"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1003"/>
         <source>No Effect</source>
         <translation>Kein Effekt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="583"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1003"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="584"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1004"/>
         <source>Blinds</source>
         <translation>Jalousie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="584"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1004"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="585"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1005"/>
         <source>Box</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="585"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1005"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="586"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1006"/>
         <source>Dissolve</source>
         <translation>Auflösen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="586"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1006"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="587"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1007"/>
         <source>Glitter</source>
         <translation>Schachbrett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="587"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1007"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="588"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1008"/>
         <source>Split</source>
         <translation>Teilen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="588"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1008"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="589"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1009"/>
         <source>Wipe</source>
         <translation>Wischen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="591"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1011"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="592"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1012"/>
         <source>Push</source>
         <translation>Schieben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="592"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1012"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="593"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1013"/>
         <source>Cover</source>
         <translation>Überdecken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="593"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1013"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="594"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1014"/>
         <source>Uncover</source>
         <translation>Abdecken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="594"/>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1014"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="595"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="1015"/>
         <source>Fade</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="638"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="639"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="639"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="640"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Aktiviert die Präsentationseffekte beim Öffnen der Datei in Adobe&amp;#174; Reader&amp;#174; im Vollbildmodus und anderen PDF-Betrachtern, die diese unterstützen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="640"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="641"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Vorschau für aufgeführte Seiten anzeigen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="641"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="642"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Dauer, für die die Seite angezeigt wird, bevor die Präsenation auf der Seite startet. Bei 0 werden die Übergänge deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="642"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="643"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Länge eines Effekts. Je kürzer, desto schneller ist der Effekt, je länger, desto langsamer.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="643"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="644"/>
         <source>Type of the display effect</source>
         <translation>Auswahl des Effekts</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="644"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="645"/>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
         <translation>Richtung für die Effekte Rollen und Schachbrett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="645"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="646"/>
         <source>Starting position for the box and split effects</source>
         <translation>Startposition für die Effekte Einblenden und Teilen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="646"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="647"/>
         <source>Direction of the glitter or wipe effects</source>
         <translation>Richtung für die Effekte Jalousie und Teilen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="647"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="648"/>
         <source>Apply the selected effect to all pages</source>
         <translation>Gewählten Effekt auf alle Seiten anwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="648"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="649"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
         <translation>Bettet nur die Untermenge der verwendeten Glyphe aus einer Fontdatei in die PDF-Datei ein</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
         <translation>Blendet die Menüleiste aus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="661"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
         <translation>Passt die Dokumentgröße an die verfügbare Fläche im Betrachterfenster an</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="649"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="650"/>
         <source>Show the document in single page mode</source>
         <translation>Zeigen Sie das Dokument im Einzelseitenmodus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="650"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="651"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation>Zeigen Sie das Dokument im Einzelseitenmodus, aber mit fortlaufender Seitenanzeige</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="651"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="652"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation>Zeigen Sie das Dokument im Doppelseitenmodus, beginnend mit der ersten Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="652"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="653"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation>Zeigen Sie das Dokument im Doppelseitenmodus, wobei die erste Seite rechts dargestellt wird</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="653"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="654"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation>Verwenden Sie die Benutzereinstellungen im PDF-Betrachter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="654"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
         <source>Enables viewing the document in full screen</source>
         <translation>Ermöglicht das Betrachten im Vollbildmodus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
         <source>Display the bookmarks upon opening</source>
         <translation>Zeigt die Lesezeichen beim Öffnen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
         <source>Display the page thumbnails upon opening</source>
         <translation>Zeigt die Vorschaubilder der Seiten beim Öffnen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation>Erzwingt die Darstellung von Ebenen. Nur für PDF-Version 1.5 oder höher von Bedeutung.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Blendet die Werkzeugleiste aus</translation>
     </message>
@@ -20657,6 +20560,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <name>Prefs_PageSizes</name>
     <message>
         <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_pagesizes.cpp" line="25"/>
         <source>Page Sizes</source>
         <translation>Seitengrößen</translation>
     </message>
@@ -20675,6 +20579,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <name>Prefs_Paths</name>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
         <translation>Pfade</translation>
     </message>
@@ -20739,30 +20644,30 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="33"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="34"/>
         <source>Default documents directory</source>
         <translation>Standardverzeichnis für Dokumente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="34"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="35"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
         <translation>Verzeichnis für ICC-Profile. Kann nur geändert werden, wenn alle Dokumente geschlossen sind. Scribus sucht automatisch in den Systemverzeichnissen von Mac OSX und Windows. Unter Linux und Unix sucht Scribus in $home/.color/icc,/usr/share/color/icc und /usr/local/share/color/icc</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="35"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
         <translation>Standardverzeichnis für Scripts</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="36"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="37"/>
         <source>Additional directory for document templates</source>
         <translation>Zusätzliches Verzeichnis für Dokumentvorlagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="57"/>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="64"/>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="71"/>
-        <location filename="../../scribus/ui/prefs_paths.cpp" line="78"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="58"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="65"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="72"/>
+        <location filename="../../scribus/ui/prefs_paths.cpp" line="79"/>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
@@ -20771,6 +20676,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <name>Prefs_Plugins</name>
     <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
         <translation>Plug-Ins</translation>
     </message>
@@ -20814,6 +20720,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <name>Prefs_PreflightVerifier</name>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Druckvorstufenüberprüfung</translation>
     </message>
@@ -21112,24 +21019,29 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <translation>Anschnitteinstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="30"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="22"/>
+        <source>Printer</source>
+        <translation type="unfinished">Drucker</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="32"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="31"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Einen alternativen Druckmanager, etwa kprinter oder gtklp, für weitere Druckoptionen verwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="32"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files.</source>
         <translation>Legt die PostScript-Version fest. 
 PostScript Level 1 und 2 haben häufig sehr große Dateien zur Folge.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
@@ -21139,17 +21051,17 @@ Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
 erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Erlaubt die Umwandlung von Schmuckfarben in Prozessfarben. Falls Sie keine Schmuckfarben in einer Druckerei drucken lassen möchten, sollten Sie die Option besser aktiviert lassen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="37"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Hier können Sie die Mediengröße der PostScript-Datei einstellen. Dies sollten Sie nur tun, wenn Ihre Druckerei es ausdrücklich verlangt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="61"/>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="63"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -21158,6 +21070,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>Prefs_Scrapbook</name>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
         <translation>Bibliothek</translation>
     </message>
@@ -21182,22 +21095,22 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Anzahl der kopierten Objekte in der Bibliothek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="25"/>
+        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
         <translation>Mit dieser Funktion kann die Bibliothek als Erweiterung der Zwischenablage genutzt werden. Das einfache Kopieren eines Objekts oder einer Gruppe von Objekten sendet diese automatisch an die Bibliothek.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
+        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="27"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
         <translation>Mit dieser Funktion können kopierte Objekte dauerhaft der Bibliothek hinzugefügt werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="27"/>
+        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="28"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
         <translation>Erzeugte Vorschaubilder im Bibliotheksverzeichnis speichern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="28"/>
+        <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="29"/>
         <source>The minimum number is 1; the maximum is 100</source>
         <translation>Das Minimum ist 1, das Maximum 100</translation>
     </message>
@@ -21206,6 +21119,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>Prefs_Scripter</name>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="27"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="28"/>
         <source>Scripter</source>
         <translation>Scripter</translation>
     </message>
@@ -21270,7 +21184,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Zahlen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="158"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="160"/>
         <source>Locate Startup Script</source>
         <translation>Autostart-Script auswählen</translation>
     </message>
@@ -21288,44 +21202,45 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="27"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="30"/>
         <source>User settings</source>
         <translation>Benutzerdefinierte Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="32"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="35"/>
         <source>System wide configuration</source>
         <translation>Systemweite Einstellungen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="27"/>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="71"/>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="84"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="24"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="72"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="85"/>
         <source>Short Words</source>
         <translation>Umbruchkontrolle</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="72"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="73"/>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
         <translation>Eine Konfiguration existieret bereits. Möchten Sie diese wirklich überschreiben?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="85"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="86"/>
         <source>Cannot write file %1.</source>
         <translation>Fehler beim Schreiben der Datei %1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="91"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="92"/>
         <source>User settings saved</source>
         <translation>Benutzerdefinierte Einstellungen gespeichert</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="102"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="103"/>
         <source>System wide configuration reloaded</source>
         <translation>Globale Konfiguration wiederhergestellt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="116"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="117"/>
         <source>Cannot open file %1</source>
         <translation>Fehler beim Öffnen der Datei %1</translation>
     </message>
@@ -21334,6 +21249,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>Prefs_Spelling</name>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="40"/>
         <source>Spelling</source>
         <translation>Rechtschreibung</translation>
     </message>
@@ -21363,29 +21279,29 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Ausgewählte Dateien herunterladen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="147"/>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="322"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="149"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="324"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="147"/>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="322"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="149"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="324"/>
         <source>Code</source>
         <translation>Code</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="147"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="149"/>
         <source>Location</source>
         <translation>Pfad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="322"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="324"/>
         <source>Installed</source>
         <translation>Installiert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spelling.cpp" line="322"/>
+        <location filename="../../scribus/ui/prefs_spelling.cpp" line="324"/>
         <source>Download</source>
         <translation>Herunterladen</translation>
     </message>
@@ -21473,6 +21389,11 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Nicht druckende Einträge anzeigen</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="23"/>
+        <source>Tables of Contents</source>
+        <translation type="unfinished">Inhaltsverzeichnisse</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="81"/>
         <source>Beginning</source>
         <translation>Anfang</translation>
@@ -21497,6 +21418,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>Prefs_Typography</name>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="18"/>
         <source>Typography</source>
         <translation>Typographie</translation>
     </message>
@@ -21555,7 +21477,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="286"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="358"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="384"/>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="25"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="26"/>
         <source>Auto</source>
         <translation>Auto</translation>
     </message>
@@ -21580,48 +21502,48 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Zeilenabstand:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="31"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="32"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation>Versatz unter der Grundlinie auf einer Zeile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="32"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="33"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation>Relative Größe der hochgestellten Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="33"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="34"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation>Versatz über der Grundlinie auf einer Zeile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="34"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="35"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation>Relative Größe der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="35"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="36"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
         <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Größe des Unterbandes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="36"/>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="38"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="37"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="39"/>
         <source>Line width expressed as a percentage of the font size</source>
         <translation>Linienstärke ausgedrückt in Prozent bezogen auf die Schriftgröße</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="37"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="38"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
         <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Größe des Oberbandes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="39"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="40"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation>Relative Größe der Kapitälchen im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typography.cpp" line="40"/>
+        <location filename="../../scribus/ui/prefs_typography.cpp" line="41"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation>Prozentuale Vergrößerung des Zeilenabstandes zur Schriftgröße</translation>
     </message>
@@ -21630,6 +21552,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>Prefs_UserInterface</name>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="27"/>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="29"/>
         <source>User Interface</source>
         <translation>Benutzeroberfläche</translation>
     </message>
@@ -22241,52 +22164,52 @@ oder eine einzelne Seitennummer sein</translation>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="879"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="867"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="881"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="869"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="884"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="872"/>
         <source>&amp;Shape</source>
         <translation>&amp;Form</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="882"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="870"/>
         <source>&amp;Image</source>
         <translation>&amp;Bild</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="883"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="871"/>
         <source>Drop Shadow</source>
         <translation>Schlagschatten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="885"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="873"/>
         <source>&amp;Line</source>
         <translation>&amp;Linien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="886"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="874"/>
         <source>&amp;Colors</source>
         <translation>Fa&amp;rben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="889"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>T&amp;able</source>
         <translation>Ta&amp;belle</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="887"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="875"/>
         <source>&amp;Group</source>
         <translation>&amp;Gruppe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="888"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="876"/>
         <source>&amp;Transparency</source>
         <translation>&amp;Transparenz</translation>
     </message>
@@ -25773,26 +25696,26 @@ Datei wurde nicht gefunden.
         <translation>PDF-Präsentationen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="88"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="86"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Scripte für Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="53"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="51"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="585"/>
         <source>&amp;Execute Script...</source>
         <translation>Script &amp;ausführen...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="91"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="89"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="591"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Zuletzt verwendete Scripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="54"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="586"/>
         <source>Show &amp;Console</source>
         <translation>&amp;Konsole zeigen</translation>
     </message>
@@ -28520,13 +28443,13 @@ Externe Links</translation>
         <translation>Serbisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="55"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="53"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="587"/>
         <source>&amp;About Script...</source>
         <translation>Ü&amp;ber das Script...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="560"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="557"/>
         <source>About Script</source>
         <translation>Über das Script</translation>
     </message>
@@ -29628,13 +29551,13 @@ Externe Links</translation>
         <translation>Nur Textrahmen können auf Überfüllung geprüft werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="87"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="592"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="85"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
         <source>&amp;Script</source>
         <translation>Sc&amp;ript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="874"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="872"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -31203,7 +31126,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <translation>PUB-Importer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18057"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18039"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34701,24 +34624,24 @@ Achtung: Die Datei wird dadurch wesentlich größer!</translation>
 <context>
     <name>ScPlugin</name>
     <message>
-        <location filename="../../scribus/scplugin.cpp" line="59"/>
+        <location filename="../../scribus/scplugin.cpp" line="54"/>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>fest</translation>
     </message>
     <message>
-        <location filename="../../scribus/scplugin.cpp" line="61"/>
+        <location filename="../../scribus/scplugin.cpp" line="56"/>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation>Aktion</translation>
     </message>
     <message>
-        <location filename="../../scribus/scplugin.cpp" line="57"/>
+        <location filename="../../scribus/scplugin.cpp" line="52"/>
         <source>Load/Save/Import/Export</source>
         <translation>Öffnen/Speichern/Import/Export</translation>
     </message>
     <message>
-        <location filename="../../scribus/scplugin.cpp" line="63"/>
+        <location filename="../../scribus/scplugin.cpp" line="58"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -34904,7 +34827,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="204"/>
         <location filename="../../scribus/scribusdoc.cpp" line="215"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16408"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16390"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -34914,22 +34837,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Hintergrund</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11349"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Momentan verwendete Objekte können nicht gelöscht werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11349"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet und kann deswegen nicht gelöscht werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11952"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11937"/>
         <source>Some objects are locked.</source>
         <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13587"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13572"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34937,28 +34860,28 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16424"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16406"/>
         <source>File %1 autosaved</source>
         <translation>Datei %1 automatisch gespeichert</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17682"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17720"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17664"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17702"/>
         <source>No Style</source>
         <translation>Kein Stil</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18051"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18033"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11948"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11933"/>
         <source>&amp;Unlock All</source>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11949"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11934"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Gesperrte Objekte überspringen</translation>
     </message>
@@ -34969,12 +34892,12 @@ Vertical gap: %4</source>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="950"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15996"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15978"/>
         <source>Adjusting Colors</source>
         <translation>Farbanpassung</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13552"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13537"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34985,24 +34908,24 @@ Vertikaler Versatz %3
 Drehung: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9007"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8992"/>
         <source>remove direct paragraph formatting</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9476"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9461"/>
         <source>remove direct char formatting</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11256"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11241"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Möchten Sie wirklich alle Inhalte in den ausgewählten Rahmen entfernen?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14790"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14845"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14978"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14772"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14827"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14960"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
@@ -35814,17 +35737,17 @@ diese zu finden und zu korrigieren</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10812"/>
+        <location filename="../../scribus/pageitem.cpp" line="10627"/>
         <source>Print: </source>
         <translation>Drucken:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10814"/>
+        <location filename="../../scribus/pageitem.cpp" line="10629"/>
         <source>Enabled</source>
         <translation>ja</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10816"/>
+        <location filename="../../scribus/pageitem.cpp" line="10631"/>
         <source>Disabled</source>
         <translation>nein</translation>
     </message>
@@ -36014,73 +35937,68 @@ umgewandelt werden</translation>
         <source>Embedded Python scripting support.</source>
         <translation>Unterstützung für eingebettete Python-Scripte.</translation>
     </message>
-    <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="207"/>
-        <source>Scripter</source>
-        <translation>Scripter</translation>
-    </message>
 </context>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="354"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="451"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="615"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="448"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="612"/>
         <source>Script error</source>
         <translation>Fehler bei der Ausführung eines Scripts</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="356"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="358"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Diese Meldung befindet sich auch in Ihrer Zwischenablage. Benutzen Sie Strg+V, um sie in den Bugtracker zu kopieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="537"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="534"/>
         <source>Examine Script</source>
         <translation>Script untersuchen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="452"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="449"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ihr Befehl konnte auf Grund eines internen Fehlers nicht ausgeführt werden. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="581"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="578"/>
         <source>Startup Script error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="579"/>
         <source>Could not find script: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="613"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Konnte das Python-Plug-In nicht einrichten. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>Documentation for:</source>
         <translation>Handbuch für:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>Script</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation>enthält keinen docstring!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="537"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="534"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Python Scripts (*.py *.PY);;Alle Dateien (*)</translation>
     </message>
@@ -36471,7 +36389,6 @@ umgewandelt werden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="100"/>
-        <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="164"/>
         <source>Short Words</source>
         <translation>Umbruchkontrolle</translation>
     </message>

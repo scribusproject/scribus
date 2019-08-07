@@ -22,6 +22,10 @@ Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Sections");
+	m_icon = "tabtocindex_16.png";
+
 	connect(sectionsTable, SIGNAL(cellChanged(int,int)), this, SLOT(tableItemChanged(int,int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));

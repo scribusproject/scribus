@@ -21,15 +21,17 @@ Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Page Sizes");
+	m_icon = "16/page-simple.png";
+
 	toActiveButton->setIcon(IconManager::instance().loadIcon("22/go-next.png"));
 	fromActiveButton->setIcon(IconManager::instance().loadIcon("22/go-previous.png"));
 	connect(toActiveButton, SIGNAL(clicked()), this, SLOT(moveToActive()));
 	connect(fromActiveButton, SIGNAL(clicked()), this, SLOT(moveFromActive()));
 }
 
-Prefs_PageSizes::~Prefs_PageSizes()
-{
-}
+Prefs_PageSizes::~Prefs_PageSizes() = default;
 
 void Prefs_PageSizes::languageChange()
 {

@@ -117,7 +117,7 @@ ScriptPlugin::ScriptPlugin()
 	languageChange();
 }
 
-ScriptPlugin::~ScriptPlugin() {};
+ScriptPlugin::~ScriptPlugin() = default;
 
 void ScriptPlugin::languageChange()
 {
@@ -199,13 +199,11 @@ bool ScriptPlugin::cleanupPlugin()
 	return true;
 }
 
-bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QString& caption, QPixmap& icon)
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel)
 {
 	panel = new Prefs_Scripter(parent);
 	Q_CHECK_PTR(panel);
 	connect(panel, SIGNAL(prefsChanged()), scripterCore, SLOT(updateSyntaxHighlighter()));
-	caption = tr("Scripter");
-	icon = IconManager::instance().loadPixmap("python_16.png");
 	return true;
 }
 

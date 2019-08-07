@@ -18,6 +18,10 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
 	m_canChangeMonitorProfile = !ScCore->primaryMainWindow()->HaveDoc; 
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Color Management");
+	m_icon = "blend_16.png";
+
 	connect(activateCMCheckBox, SIGNAL(clicked(bool)), this, SLOT(cmActivated(bool)));
 	connect(simulatePrinterOnScreenCheckBox, SIGNAL(clicked(bool)), this, SLOT(simulatePrinter(bool)));
 	if (!m_canChangeMonitorProfile)

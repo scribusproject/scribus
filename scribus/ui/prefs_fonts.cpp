@@ -41,6 +41,10 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	m_doc(doc)
 {
 	setupUi(this);
+	languageChange();
+
+	m_caption = tr("Fonts");
+	m_icon = "16/preferences-desktop-font.png";
 
 	RList = PrefsManager::instance().appPrefs.fontPrefs.GFontSub;
 	UsedFonts.clear();

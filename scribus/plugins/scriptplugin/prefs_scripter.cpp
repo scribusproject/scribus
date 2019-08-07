@@ -24,6 +24,10 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Scripter");
+	m_icon = "python_16.png";
+
 	setupSyntaxColors();
 
 	// Set the state of the ext script enable checkbox
@@ -45,9 +49,7 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	connect(startupScriptChangeButton, SIGNAL(clicked()), this, SLOT(changeStartupScript()));
 }
 
-Prefs_Scripter::~Prefs_Scripter()
-{
-}
+Prefs_Scripter::~Prefs_Scripter() = default;
 
 void Prefs_Scripter::languageChange()
 {

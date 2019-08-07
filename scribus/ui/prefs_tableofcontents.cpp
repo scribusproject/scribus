@@ -19,6 +19,10 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Tables of Contents");
+	m_icon = "tabtocindex_16.png";
+
 	itemDestFrameComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemAttrComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
@@ -38,17 +42,13 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	numSelected=999;
 }
 
-Prefs_TableOfContents::~Prefs_TableOfContents()
-{
-}
+Prefs_TableOfContents::~Prefs_TableOfContents() = default;
 
 
 void Prefs_TableOfContents::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }

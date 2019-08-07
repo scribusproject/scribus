@@ -35,6 +35,10 @@ Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
+	languageChange();
+
+	m_caption = tr("Spelling");
+	m_icon = "signature_16.png";
 
 	updateDictList();
 	downloadLocation=ScPaths::downloadDir();
@@ -46,9 +50,7 @@ Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* doc)
 	connect(availListDownloadButton, SIGNAL(clicked()), this, SLOT(updateAvailDictList()));
 }
 
-Prefs_Spelling::~Prefs_Spelling()
-{
-}
+Prefs_Spelling::~Prefs_Spelling() = default;
 
 void Prefs_Spelling::languageChange()
 {

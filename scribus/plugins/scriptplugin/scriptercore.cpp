@@ -43,8 +43,6 @@ for which a new license (GPL+exception) is in place.
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
-	m_menuMgr = nullptr;
-
 	m_pyConsole = new PythonConsole(parent);
 	m_scripterActions.clear();
 	m_recentScriptActions.clear();

@@ -14,11 +14,12 @@ Prefs_Typography::Prefs_Typography(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Typography");
+	m_icon = "16/draw-text.png";
 }
 
-Prefs_Typography::~Prefs_Typography()
-{
-}
+Prefs_Typography::~Prefs_Typography() = default;
 
 void Prefs_Typography::languageChange()
 {

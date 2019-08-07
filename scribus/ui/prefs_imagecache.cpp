@@ -17,11 +17,12 @@ Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Image Cache");
+	m_icon = "16/image-x-generic.png";
 }
 
-Prefs_ImageCache::~Prefs_ImageCache()
-{
-}
+Prefs_ImageCache::~Prefs_ImageCache() = default;
 
 void Prefs_ImageCache::languageChange()
 {

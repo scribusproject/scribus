@@ -24,6 +24,11 @@ Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
+	languageChange();
+
+	m_caption = tr("External Tools");
+	m_icon = "gear_16.png";
+
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));
 	connect(webBrowserChangeButton, SIGNAL(clicked()), this, SLOT(changeWebBrowser()));

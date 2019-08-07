@@ -33,6 +33,9 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	setupUi(this);
 	languageChange();
 
+	m_caption = tr("Keyboard Shortcuts");
+	m_icon = "16/preferences-desktop-keyboard-shortcuts.png";
+
 	defMenus=ActionManager::defaultMenus();
 	defNonMenuActions=ActionManager::defaultNonMenuActions();
 
@@ -80,9 +83,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 
 }
 
-Prefs_KeyboardShortcuts::~Prefs_KeyboardShortcuts()
-{
-}
+Prefs_KeyboardShortcuts::~Prefs_KeyboardShortcuts() = default;
 
 void Prefs_KeyboardShortcuts::languageChange()
 {

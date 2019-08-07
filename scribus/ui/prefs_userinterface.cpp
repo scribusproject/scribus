@@ -26,6 +26,8 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+	m_caption = tr("User Interface");
+	m_icon = "scribus16.png";
 
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledGUIStringList(&languageList);
@@ -53,9 +55,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	connect(storyEditorFontColorPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFontColor()));
 }
 
-Prefs_UserInterface::~Prefs_UserInterface()
-{
-}
+Prefs_UserInterface::~Prefs_UserInterface() = default;
 
 void Prefs_UserInterface::languageChange()
 {

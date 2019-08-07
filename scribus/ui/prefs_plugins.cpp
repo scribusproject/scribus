@@ -23,6 +23,10 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Plugins");
+	m_icon = "plugins_16.png";
+
 	PluginManager& pluginManager(PluginManager::instance());
 	//Hide this stuff as we don't want it now we are not letting people turn plugins on or off
 	pluginTable->setColumnHidden(3, true);
@@ -111,9 +115,7 @@ void Prefs_Plugins::apply()
 	}
 }
 
-Prefs_Plugins::~Prefs_Plugins()
-{
-}
+Prefs_Plugins::~Prefs_Plugins() = default;
 
 void Prefs_Plugins::languageChange()
 {

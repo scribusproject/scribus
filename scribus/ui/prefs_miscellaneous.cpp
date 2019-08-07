@@ -14,11 +14,12 @@ Prefs_Miscellaneous::Prefs_Miscellaneous(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	languageChange();
+
+	m_caption = tr("Miscellaneous");
+	m_icon = "misc_16.png";
 }
 
-Prefs_Miscellaneous::~Prefs_Miscellaneous()
-{
-}
+Prefs_Miscellaneous::~Prefs_Miscellaneous() = default;
 
 void Prefs_Miscellaneous::languageChange()
 {

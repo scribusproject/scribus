@@ -23,6 +23,11 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	showFontPreview(false)
 {
 	setupUi(this);
+	languageChange();
+
+	m_caption = tr("Item Tools");
+	m_icon = "tools_16.png";
+
 	lineEndArrowComboBox->setStartDirection(false);
 	shapeLineWidthSpinBox->setNewUnit(0);
 	shapeLineWidthSpinBox->setMaximum(36);
@@ -46,12 +51,9 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	textSizeSpinBox->setNewUnit(0);
 	textSizeSpinBox->setMinimum(0.5);
 	textSizeSpinBox->setMaximum(2048);
-	languageChange();
 }
 
-Prefs_ItemTools::~Prefs_ItemTools()
-{
-}
+Prefs_ItemTools::~Prefs_ItemTools() = default;
 
 
 void Prefs_ItemTools::languageChange()

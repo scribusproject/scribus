@@ -21,6 +21,9 @@ Prefs_ShortWords::Prefs_ShortWords(QWidget* parent)
 	setupUi(this);
 	languageChange();
 
+	m_caption = tr("Short Words");
+	m_icon = "shortwords_16.png";
+
 	// defaults
 	if (QFile::exists(RC_PATH_USR))
 	{
@@ -42,9 +45,7 @@ Prefs_ShortWords::Prefs_ShortWords(QWidget* parent)
 	connect(cfgEdit, SIGNAL(textChanged()), this, SLOT(cfgEdit_changed()));
 }
 
-Prefs_ShortWords::~Prefs_ShortWords()
-{
-}
+Prefs_ShortWords::~Prefs_ShortWords() = default;
 
 void Prefs_ShortWords::languageChange()
 {

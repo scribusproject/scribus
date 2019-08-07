@@ -142,7 +142,7 @@ ScPaths::ScPaths()
 // 	if (!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
 }
 
-ScPaths::~ScPaths() {};
+ScPaths::~ScPaths() = default;
 
 QString ScPaths::bundleDir() const
 {

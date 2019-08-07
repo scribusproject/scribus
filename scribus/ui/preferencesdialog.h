@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_typography.h"
 #include "ui/prefs_userinterface.h"
 
+class Prefs_Pane;
 class ScribusMainWindow;
 class ScribusDoc;
 
@@ -78,7 +79,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 
 	protected:
-		int addItem(const QString& name, const QPixmap& icon, QWidget *tab);
+		void addWidget(Prefs_Pane* tab);
 		void setupListWidget();
 		void arrangeIcons();
 		void initPreferenceValues();
@@ -86,40 +87,38 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		hooks them up to the dialog. */
 		void addPlugins();
 
-		Prefs_ColorManagement *prefs_ColorManagement;
-		Prefs_Display *prefs_Display;
-		Prefs_DocumentInformation *prefs_DocumentInformation;
-		Prefs_DocumentItemAttributes *prefs_DocumentItemAttributes;
-		Prefs_DocumentSections *prefs_DocumentSections;
-		Prefs_DocumentSetup *prefs_DocumentSetup;
-		Prefs_ExternalTools *prefs_ExternalTools;
-		Prefs_Fonts *prefs_Fonts;
+		Prefs_ColorManagement *prefs_ColorManagement {nullptr};
+		Prefs_Display *prefs_Display {nullptr};
+		Prefs_DocumentInformation *prefs_DocumentInformation {nullptr};
+		Prefs_DocumentItemAttributes *prefs_DocumentItemAttributes {nullptr};
+		Prefs_DocumentSections *prefs_DocumentSections {nullptr};
+		Prefs_DocumentSetup *prefs_DocumentSetup {nullptr};
+		Prefs_ExternalTools *prefs_ExternalTools {nullptr};
+		Prefs_Fonts *prefs_Fonts {nullptr};
 		Prefs_Guides *prefs_Guides;
-		Prefs_Hyphenator *prefs_Hyphenator;
-		Prefs_ImageCache *prefs_ImageCache;
-		Prefs_ItemTools *prefs_ItemTools;
-		Prefs_KeyboardShortcuts *prefs_KeyboardShortcuts;
-		Prefs_Miscellaneous *prefs_Miscellaneous;
-		Prefs_OperatorTools *prefs_OperatorTools;
-		Prefs_PDFExport *prefs_PDFExport;
-		Prefs_PageSizes *prefs_PageSizes;
-		Prefs_Paths *prefs_Paths;
-		Prefs_Plugins *prefs_Plugins;
-		Prefs_PreflightVerifier *prefs_PreflightVerifier;
-		Prefs_Printer *prefs_Printer;
-		Prefs_Scrapbook *prefs_Scrapbook;
-		//Prefs_Spelling *prefs_Spelling;
-		Prefs_TableOfContents *prefs_TableOfContents;
-		Prefs_Typography *prefs_Typography;
-		Prefs_UserInterface *prefs_UserInterface;
-
+		Prefs_Hyphenator *prefs_Hyphenator {nullptr};
+		Prefs_ImageCache *prefs_ImageCache {nullptr};
+		Prefs_ItemTools *prefs_ItemTools {nullptr};
+		Prefs_KeyboardShortcuts *prefs_KeyboardShortcuts {nullptr};
+		Prefs_Miscellaneous *prefs_Miscellaneous {nullptr};
+		Prefs_OperatorTools *prefs_OperatorTools {nullptr};
+		Prefs_PDFExport *prefs_PDFExport {nullptr};
+		Prefs_PageSizes *prefs_PageSizes {nullptr};
+		Prefs_Paths *prefs_Paths {nullptr};
+		Prefs_Plugins *prefs_Plugins {nullptr};
+		Prefs_PreflightVerifier *prefs_PreflightVerifier {nullptr};
+		Prefs_Printer *prefs_Printer {nullptr};
+		Prefs_Scrapbook *prefs_Scrapbook {nullptr};
+		//Prefs_Spelling *prefs_Spelling {nullptr};
+		Prefs_TableOfContents *prefs_TableOfContents {nullptr};
+		Prefs_Typography *prefs_Typography {nullptr};
+		Prefs_UserInterface *prefs_UserInterface {nullptr};
 
 		QMap<QListWidgetItem*, int> stackWidgetMap;
-		int counter;
-		double unitRatio;
-		int docUnitIndex;
-		ScribusMainWindow* mainWin;
-		ScribusDoc* m_Doc;
+		double unitRatio {0.0};
+		int docUnitIndex {0};
+		ScribusMainWindow* mainWin {nullptr};
+		ScribusDoc* m_Doc {nullptr};
 		ApplicationPrefs localPrefs;
 };
 

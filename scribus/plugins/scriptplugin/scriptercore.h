@@ -75,10 +75,10 @@ protected:
 
 	//Internal members
 	//! \brief Reference to the "IDE" widget
-	PythonConsole *m_pyConsole;
-	MenuManager *m_menuMgr;
-	QStringList  m_savedRecentScripts;
-	QStringList  m_recentScripts;
+	PythonConsole *m_pyConsole {nullptr};
+	MenuManager *m_menuMgr {nullptr};
+	QStringList m_savedRecentScripts;
+	QStringList m_recentScripts;
 	QMap<QString, QPointer<ScrAction> > m_scripterActions;
 	QMap<QString, QPointer<ScrAction> > m_recentScriptActions;
 
