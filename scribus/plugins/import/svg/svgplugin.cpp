@@ -1322,6 +1322,8 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			neu->PoLine.translate(-gx + baseX, -gy + baseY);
 			clipPath.resize(0);
 			neu->Clip = flattenPath(neu->PoLine, neu->Segments);
+			neu->ClipEdited = true;
+			neu->FrameType = 3;
 		}
 		else
 			neu->SetRectFrame();

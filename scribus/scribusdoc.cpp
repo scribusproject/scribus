@@ -14345,9 +14345,9 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup, bool move
 		else
 			moveItem(tp2.x(), tp2.y(), currItem);
 		if (!currItem->imageFlippedH())
-			currItem->moveImageInFrame(-tp2.x()/currItem->imageXScale(), 0);
+			currItem->moveImageInFrame(-tp2.x() / currItem->imageXScale(), 0);
 		if (!currItem->imageFlippedV())
-			currItem->moveImageInFrame(0, -tp2.y()/currItem->imageYScale());
+			currItem->moveImageInFrame(0, -tp2.y() / currItem->imageYScale());
 		FPoint tp(clipRect.width(), clipRect.height());
 		if (currItem->imageFlippedH())
 			currItem->moveImageInFrame((currItem->width() - tp.x())/currItem->imageXScale(), 0);
@@ -14359,8 +14359,9 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup, bool move
 		{
 			currItem->groupWidth = oldgW * (currItem->width() / oldW);
 			currItem->groupHeight = oldgH * (currItem->height() / oldH);
-			double dx = (currItem->xPos() - oldX) / (currItem->width() / currItem->groupWidth);
-			double dy = (currItem->yPos() - oldY) / (currItem->height() / currItem->groupHeight);
+			// #15759: the division by item dimension looks incorrect
+			double dx = (currItem->xPos() - oldX) / (/*currItem->width() /*/ currItem->groupWidth);
+			double dy = (currItem->yPos() - oldY) / (/*currItem->height() /*/ currItem->groupHeight);
 			for (int em = 0; em < currItem->groupItemList.count(); ++em)
 			{
 				PageItem* embedded = currItem->groupItemList.at(em);
@@ -14633,11 +14634,13 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				}
 				if (item->isGroup() || item->isSymbol())
 				{
-					double oldGW = item->groupWidth;
-					double oldGH = item->groupHeight;
+					// #15759: save/restoring group dimensiosn looks unnecessary
+					// after fixing adjustItemSize() for groups
+					//double oldGW = item->groupWidth;
+					//double oldGH = item->groupHeight;
 					adjustItemSize(item, true, false);
-					item->groupWidth = oldGW;
-					item->groupHeight = oldGH;
+					//item->groupWidth = oldGW;
+					//item->groupHeight = oldGH;
 				}
 				else
 					adjustItemSize(item, true, false);
