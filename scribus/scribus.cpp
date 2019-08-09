@@ -2320,13 +2320,12 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	QMdiArea* qwsp = nullptr;
 	if (requiresGUI)
 		qwsp = mdiArea;
+
 	ScribusWin* w = new ScribusWin(qwsp, tempDoc);
 	w->setMainWindow(this);
 	if (requiresGUI && view!=nullptr)
-	{
 		actionManager->disconnectNewViewActions();
-		disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
-	}
+
 	ScribusView* tempView = new ScribusView(w, this, tempDoc);
 	if (requiresGUI)
 		view = tempView;
@@ -2358,10 +2357,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	tempView->reformPages(true);
 	//>>
 	if (requiresGUI)
-	{
 		w->setSubWin(mdiArea->addSubWindow(w));
-			connect(tempView, SIGNAL(signalGuideInformation(int,qreal)), alignDistributePalette, SLOT(setGuide(int,qreal)));
-	}
 	//Independent finishing tasks after tempDoc setup
 	if (showView)
 	{
@@ -2576,7 +2572,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	if (view!=nullptr)
 	{
 		actionManager->disconnectNewViewActions();
-		disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 		if (ScCore->usingGUI())
 			doc->m_Selection->disconnect(SIGNAL(selectionIsMultiple(bool)));
 	}
@@ -2587,7 +2582,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
-	connect(view, SIGNAL(signalGuideInformation(int,qreal)), alignDistributePalette, SLOT(setGuide(int,qreal)));
 	if (ScCore->usingGUI())
 		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), actionManager, SLOT( handleMultipleSelections(bool)));
 	pagePalette->setView(view);
@@ -2738,29 +2732,19 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ClipPo(double,double)), nodePalette, SLOT(SetXY(double,double)), Qt::UniqueConnection);
 	connect(view, SIGNAL(PolyOpen()), nodePalette, SLOT(IsOpen()), Qt::UniqueConnection);
-	connect(view, SIGNAL(PStatus(int,uint)), nodePalette, SLOT(PolyStatus(int,uint)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemGeom()), propertiesPalette->xyzPal, SLOT(handleSelectionChanged()), Qt::UniqueConnection);
 	connect(view, SIGNAL(ChBMText(PageItem*)), this, SLOT(BookMarkTxT(PageItem*)), Qt::UniqueConnection);
 	connect(view, SIGNAL(HaveSel()), this, SLOT(HaveNewSel()), Qt::UniqueConnection);
-	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()), Qt::UniqueConnection);
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()), Qt::UniqueConnection);
 	connect(view, SIGNAL(MousePos(double,double)), this, SLOT(setStatusBarMousePosition(double,double)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemCharStyle(const CharStyle&)), textPalette->textPal, SLOT(updateCharStyle(const CharStyle&)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextEffects(int)), this, SLOT(setStyleEffects(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextAlign(int)), this, SLOT(setAlignmentValue(int)), Qt::UniqueConnection);
-	connect(view, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()), Qt::UniqueConnection);
-	connect(view, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()), Qt::UniqueConnection);
-	connect(view, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()), Qt::UniqueConnection);
-	connect(view, SIGNAL(CutItem()), this, SLOT(slotEditCut()), Qt::UniqueConnection);
 	connect(view, SIGNAL(LoadPic()), this, SLOT(slotGetContent()), Qt::UniqueConnection);
 	connect(view, SIGNAL(StatusPic()), this, SLOT(StatusPic()), Qt::UniqueConnection);
-	connect(view, SIGNAL(AppendText()), this, SLOT(slotFileAppend()), Qt::UniqueConnection);
-	connect(view, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()), Qt::UniqueConnection);
 	connect(view, SIGNAL(LoadElem(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), this, SLOT(slotElemRead(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), Qt::UniqueConnection);
 	connect(view, SIGNAL(AddBM(PageItem*)), this, SLOT(AddBookMark(PageItem*)), Qt::UniqueConnection);
 	connect(view, SIGNAL(DelBM(PageItem*)), this, SLOT(DelBookMark(PageItem*)), Qt::UniqueConnection);
-	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()), Qt::UniqueConnection);
-	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()), Qt::UniqueConnection);
 }
 
 void ScribusMainWindow::HaveNewSel()
@@ -3537,11 +3521,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			m_prefsManager.appPrefs.fontPrefs.AvailFonts.addScalableFonts(fi.absolutePath()+"/Document fonts", filename);
 		m_prefsManager.appPrefs.fontPrefs.AvailFonts.updateFontMap();
 		if (view != nullptr)
-		{
 			actionManager->disconnectNewViewActions();
-			disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
-		}
-		doc=new ScribusDoc();
+		doc = new ScribusDoc();
 		doc->saveFilePermissions(QFile::permissions(fileName));
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
@@ -4303,11 +4284,10 @@ bool ScribusMainWindow::DoFileClose()
 {
 	slotEndSpecialEdit();
 	view->Deselect(false);
-	if (doc==storyEditor->currentDocument())
+	if (doc == storyEditor->currentDocument())
 		storyEditor->close();
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
-	disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	m_undoManager->removeStack(doc->documentFileName());
 	closeActiveWindowMasterPageEditor();
 	slotSelect();

@@ -4858,7 +4858,6 @@ void PageItem_TextFrame::ExpandSel(int oldPos)
 	{
 		//CB Replace with direct call for now //emit HasTextSel();
 		m_Doc->scMW()->EnableTxEdit();
-
 	}
 	else
 	{

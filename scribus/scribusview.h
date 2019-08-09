@@ -343,20 +343,11 @@ signals:
 	void DocChanged();
 	void ItemGeom();
 	void PolyOpen();
-	void PStatus(int, uint);
 	void ItemCharStyle(const CharStyle&);
 	void ItemTextAlign(int);
 	void ItemTextEffects(int);
-	void HasTextSel();
-	void HasNoTextSel();
-	void PaintingDone();
 	void LoadPic();
 	void StatusPic();
-	void AppendText();
-	void DoGroup();
-	void CutItem();
-	void CopyItem();
-	void Amode(int);
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
 	void ChBMText(PageItem *);
@@ -364,10 +355,7 @@ signals:
 	void HavePoint(bool, bool);
 	void ClipPo(double, double);
 	void PolyStatus(int, uint);
-	void AnnotProps();
 	void MousePos(double, double);
-	void callGimp();
-	void signalGuideInformation(int, qreal);
 };
 
 

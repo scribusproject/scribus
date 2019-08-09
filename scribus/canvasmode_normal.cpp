@@ -240,9 +240,6 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			// See if double click was on a frame handle
 			FPoint p = m_canvas->globalToCanvas(m->globalPos());
 			Canvas::FrameHandle fh = m_canvas->frameHitTest(QPointF(p.x(),p.y()), currItem);
-			//CB old code
-			//emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
-			//mousePressEvent(m);
 			//CB if annotation, open the annotation dialog
 			if (currItem->isAnnotation())
 			{
