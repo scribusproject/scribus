@@ -22,7 +22,9 @@ ScPlugin::ScPlugin()
 {
 }
 
-ScPlugin::~ScPlugin() = default;
+ScPlugin::~ScPlugin()
+{
+}
 
 bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */, Prefs_Pane*& /* panel */)
 {
