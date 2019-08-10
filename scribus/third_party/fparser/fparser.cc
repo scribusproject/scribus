@@ -1625,7 +1625,9 @@ inline const char* FunctionParser::CompileAddition(const char* function)
               {
                 default:
                 case '+':
-                    if(!is_unary) data->ByteCode.push_back(cAdd); break;
+                    if(!is_unary)
+                        data->ByteCode.push_back(cAdd);
+                    break;
                 case '-':
                     data->ByteCode.push_back(is_unary ? cNeg : cSub); break;
               }
