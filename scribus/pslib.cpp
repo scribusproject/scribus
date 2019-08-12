@@ -1533,7 +1533,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool farb = options.useColor;
 	bool Hm = options.mirrorH;
 	bool Vm = options.mirrorV;
-	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
 	int sepac;
 	int pagemult;

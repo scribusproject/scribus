@@ -265,7 +265,6 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 		enablePE = false;
 
 	QString numName = numComboBox->currentText();
-	int nFormat = 0;
 	dropCapLines->setValue(newPStyle.dropCapLines());
 	bulletStrEdit->setEditText(newPStyle.bulletStr());
 	numName = newPStyle.numName();
