@@ -2122,9 +2122,9 @@ void VivaPlug::applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttr
 	if (pAttrs.justification.valid)
 	{
 		if (pAttrs.justification.value == "left")
-			newStyle.setAlignment(ParagraphStyle::Leftaligned);
+			newStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (pAttrs.justification.value == "right")
-			newStyle.setAlignment(ParagraphStyle::Rightaligned);
+			newStyle.setAlignment(ParagraphStyle::RightAligned);
 		else if (pAttrs.justification.value == "center")
 			newStyle.setAlignment(ParagraphStyle::Centered);
 		else if (pAttrs.justification.value == "justified")

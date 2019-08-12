@@ -2016,9 +2016,9 @@ void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCSty
 		if (actStyle.justification.valid)
 		{
 			if (actStyle.justification.value == "0")
-				newStyle.setAlignment(ParagraphStyle::Leftaligned);
+				newStyle.setAlignment(ParagraphStyle::LeftAligned);
 			else if (actStyle.justification.value == "1")
-				newStyle.setAlignment(ParagraphStyle::Rightaligned);
+				newStyle.setAlignment(ParagraphStyle::RightAligned);
 			else if (actStyle.justification.value == "2")
 				newStyle.setAlignment(ParagraphStyle::Centered);
 			else if (actStyle.justification.value == "3")

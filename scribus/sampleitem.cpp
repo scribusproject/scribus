@@ -36,7 +36,7 @@ SampleItem::SampleItem()
 	m_tmpStyle.setName("(preview temporary)");
 	m_tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	m_tmpStyle.setLineSpacing((m_Doc->itemToolPrefs().textSize / 10.0) * (static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100));
-	m_tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
+	m_tmpStyle.setAlignment(ParagraphStyle::LeftAligned);
 	m_tmpStyle.setLeftMargin(0);
 	m_tmpStyle.setFirstIndent(0);
 	m_tmpStyle.setRightMargin(0);

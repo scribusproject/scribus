@@ -1157,11 +1157,11 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 		{
 			QString attValue = actStyle.textAlign.value;
 			if ((attValue == "left") || (attValue == "start"))
-				tmpOStyle.textAlign = ParagraphStyle::Leftaligned;
+				tmpOStyle.textAlign = ParagraphStyle::LeftAligned;
 			else if (attValue == "center")
 				tmpOStyle.textAlign = ParagraphStyle::Centered;
 			else if ((attValue == "right") || (attValue == "end"))
-				tmpOStyle.textAlign = ParagraphStyle::Rightaligned;
+				tmpOStyle.textAlign = ParagraphStyle::RightAligned;
 			else if (attValue == "justify")
 				tmpOStyle.textAlign = ParagraphStyle::Justified;
 		}

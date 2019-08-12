@@ -3126,11 +3126,11 @@ void IdmlPlug::readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDom
 	{
 		QString align = styleElem.attribute("Justification", "LeftAlign");
 		if (align == "LeftAlign")
-			newStyle.setAlignment(ParagraphStyle::Leftaligned);
+			newStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (align == "CenterAlign")
 			newStyle.setAlignment(ParagraphStyle::Centered);
 		else if (align == "RightAlign")
-			newStyle.setAlignment(ParagraphStyle::Rightaligned);
+			newStyle.setAlignment(ParagraphStyle::RightAligned);
 		else if ((align == "LeftJustified") || (align == "CenterJustified") || (align == "RightJustified"))
 			newStyle.setAlignment(ParagraphStyle::Justified);
 		else if (align == "FullyJustified")

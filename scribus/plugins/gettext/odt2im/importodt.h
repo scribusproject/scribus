@@ -41,7 +41,7 @@ public:
 	  fontWeight(""),
 	  fontSize(10.0),
 	  textIndent(0.0),
-	  textAlign(ParagraphStyle::Leftaligned),
+	  textAlign(ParagraphStyle::LeftAligned),
 	  textPos(""),
 	  textOutline(""),
 	  textUnderline(false),

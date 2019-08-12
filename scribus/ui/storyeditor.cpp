@@ -3061,10 +3061,10 @@ void StoryEditor::newAlign(int st)
 void StoryEditor::newDirection(int dir)
 {
 	Editor->CurrDirection = dir;
-	if (dir == ParagraphStyle::LTR && Editor->CurrAlign == ParagraphStyle::Rightaligned)
-		Editor->CurrAlign = ParagraphStyle::Leftaligned;
-	else if (dir == ParagraphStyle::RTL && Editor->CurrAlign == ParagraphStyle::Leftaligned)
-		Editor->CurrAlign = ParagraphStyle::Rightaligned;
+	if (dir == ParagraphStyle::LTR && Editor->CurrAlign == ParagraphStyle::RightAligned)
+		Editor->CurrAlign = ParagraphStyle::LeftAligned;
+	else if (dir == ParagraphStyle::RTL && Editor->CurrAlign == ParagraphStyle::LeftAligned)
+		Editor->CurrAlign = ParagraphStyle::RightAligned;
 	changeDirection(dir);
 }
 

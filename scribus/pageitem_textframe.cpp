@@ -2486,7 +2486,7 @@ void PageItem_TextFrame::layout()
 							current.lineData.width += current.opticalRightMargin(itemText);
 
 						OFs = 0;
-						if (style.alignment() == ParagraphStyle::Rightaligned)
+						if (style.alignment() == ParagraphStyle::RightAligned)
 							OFs = current.lineData.width - current.lineData.naturalWidth;
 						if (style.alignment() == ParagraphStyle::Centered)
 							OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;
@@ -2595,7 +2595,7 @@ void PageItem_TextFrame::layout()
 							current.line.naturalWidth += hyphWidth;*/
 
 						OFs = 0;
-						if (style.alignment() == ParagraphStyle::Rightaligned)
+						if (style.alignment() == ParagraphStyle::RightAligned)
 							OFs = current.lineData.width - current.lineData.naturalWidth;
 						if (style.alignment() == ParagraphStyle::Centered)
 							OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;
@@ -2841,7 +2841,7 @@ void PageItem_TextFrame::layout()
 				current.lineData.width += current.opticalRightMargin(itemText);
 
 			OFs = 0;
-			if (style.alignment() == ParagraphStyle::Rightaligned)
+			if (style.alignment() == ParagraphStyle::RightAligned)
 				OFs = current.lineData.width - current.lineData.naturalWidth;
 			if (style.alignment() == ParagraphStyle::Centered)
 				OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;

@@ -637,15 +637,15 @@ void PropertiesPalette_Text::handleDirection(int d)
 	tempSelection.addItem(m_item, true);
 	m_doc->itemSelection_SetDirection(d, &tempSelection);
 	// If current text alignment is left or right, change it to match direction
-	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::Leftaligned)
+	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::LeftAligned)
 	{
-		m_doc->itemSelection_SetAlignment(ParagraphStyle::Rightaligned, &tempSelection);
-		textAlignment->setTypeStyle(ParagraphStyle::Rightaligned);
+		m_doc->itemSelection_SetAlignment(ParagraphStyle::RightAligned, &tempSelection);
+		textAlignment->setTypeStyle(ParagraphStyle::RightAligned);
 	}
-	else if (d == ParagraphStyle::LTR && textAlignment->selectedId() == ParagraphStyle::Rightaligned)
+	else if (d == ParagraphStyle::LTR && textAlignment->selectedId() == ParagraphStyle::RightAligned)
 	{
-		m_doc->itemSelection_SetAlignment(ParagraphStyle::Leftaligned, &tempSelection);
-		textAlignment->setTypeStyle(ParagraphStyle::Leftaligned);
+		m_doc->itemSelection_SetAlignment(ParagraphStyle::LeftAligned, &tempSelection);
+		textAlignment->setTypeStyle(ParagraphStyle::LeftAligned);
 	}
 }
 

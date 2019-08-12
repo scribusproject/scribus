@@ -33,9 +33,9 @@ public:
 		BaselineGridLineSpacing = 2
 	};
 	enum AlignmentType {
-		Leftaligned  = 0,
+		LeftAligned  = 0,
 		Centered     = 1,
-		Rightaligned = 2,
+		RightAligned = 2,
 		Justified    = 3,
 		Extended     = 4
 	};

@@ -513,7 +513,7 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::setParagraphAlignmentLeft()
 	{
-		m_textStyle.top().setAlignment(ParagraphStyle::Leftaligned);
+		m_textStyle.top().setAlignment(ParagraphStyle::LeftAligned);
 	}
 
 	void SlaDocumentRtfOutput::setParagraphAlignmentCentred()
@@ -528,7 +528,7 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::setParagraphAlignmentRight()
 	{
-		m_textStyle.top().setAlignment(ParagraphStyle::Rightaligned);
+		m_textStyle.top().setAlignment(ParagraphStyle::RightAligned);
 	}
 
 	void SlaDocumentRtfOutput::setLeftIndent(const int twips)

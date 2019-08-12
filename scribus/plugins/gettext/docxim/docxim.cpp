@@ -378,11 +378,11 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 		{
 			QString align = spt.attribute("w:val");
 			if (align == "start")
-				pStyle.setAlignment(ParagraphStyle::Leftaligned);
+				pStyle.setAlignment(ParagraphStyle::LeftAligned);
 			else if (align == "center")
 				pStyle.setAlignment(ParagraphStyle::Centered);
 			else if (align == "end")
-				pStyle.setAlignment(ParagraphStyle::Rightaligned);
+				pStyle.setAlignment(ParagraphStyle::RightAligned);
 			else if (align == "both")
 				pStyle.setAlignment(ParagraphStyle::Justified);
 			else if (align == "distribute")

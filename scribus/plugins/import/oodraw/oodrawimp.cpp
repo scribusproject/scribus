@@ -1053,11 +1053,11 @@ void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
 	{
 		QString attValue = m_styleStack.attribute("fo:text-align");
 		if (attValue == "left")
-			style.setAlignment(ParagraphStyle::Leftaligned);
+			style.setAlignment(ParagraphStyle::LeftAligned);
 		if (attValue == "center")
 			style.setAlignment(ParagraphStyle::Centered);
 		if (attValue == "right")
-			style.setAlignment(ParagraphStyle::Rightaligned);
+			style.setAlignment(ParagraphStyle::RightAligned);
 	}
 	if (m_styleStack.hasAttribute("fo:font-size"))
 	{

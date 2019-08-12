@@ -9124,7 +9124,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
 					PutDoc("/DV " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
-					PutDoc("/Q " + Pdf::toPdf(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned)) + "\n");
+					PutDoc("/Q " + Pdf::toPdf(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::RightAligned)) + "\n");
 					appearanceObj = writer.newObject();
 					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)

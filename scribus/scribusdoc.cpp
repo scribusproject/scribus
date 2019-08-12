@@ -351,7 +351,7 @@ void ScribusDoc::init()
 	pstyle.setName(CommonStrings::DefaultParagraphStyle);
 	pstyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	pstyle.setLineSpacing(15);
-	pstyle.setAlignment(ParagraphStyle::Leftaligned);
+	pstyle.setAlignment(ParagraphStyle::LeftAligned);
 	pstyle.setDirection(ParagraphStyle::LTR);
 	pstyle.setLeftMargin(0);
 	pstyle.setFirstIndent(0);

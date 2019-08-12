@@ -183,9 +183,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}
-	if ((itemText.paragraphStyle(0).alignment() != ParagraphStyle::Leftaligned) && (totalCurveLen >= totalTextLen + m_textDistanceMargins.left()))
+	if ((itemText.paragraphStyle(0).alignment() != ParagraphStyle::LeftAligned) && (totalCurveLen >= totalTextLen + m_textDistanceMargins.left()))
 	{
-		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::Rightaligned)
+		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::RightAligned)
 		{
 			CurX = totalCurveLen - totalTextLen;
 			CurX -= m_textDistanceMargins.left();

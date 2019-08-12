@@ -1563,11 +1563,11 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 	{
 		QString align = QString(propList["fo:text-align"]->getStr().cstr());
 		if (align == "left")
-			textStyle.setAlignment(ParagraphStyle::Leftaligned);
+			textStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (align == "center")
 			textStyle.setAlignment(ParagraphStyle::Centered);
 		else if (align == "right")
-			textStyle.setAlignment(ParagraphStyle::Rightaligned);
+			textStyle.setAlignment(ParagraphStyle::RightAligned);
 		else if (align == "justify")
 			textStyle.setAlignment(ParagraphStyle::Justified);
 	}
@@ -3094,11 +3094,11 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 	{
 		QString align = QString(propList["fo:text-align"]->getStr().cstr());
 		if (align == "left")
-			textStyle.setAlignment(ParagraphStyle::Leftaligned);
+			textStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (align == "center")
 			textStyle.setAlignment(ParagraphStyle::Centered);
 		else if (align == "right")
-			textStyle.setAlignment(ParagraphStyle::Rightaligned);
+			textStyle.setAlignment(ParagraphStyle::RightAligned);
 		else if (align == "justify")
 			textStyle.setAlignment(ParagraphStyle::Justified);
 	}

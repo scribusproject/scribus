@@ -637,7 +637,7 @@ void XtgScanner::setXPresOwn()
 void XtgScanner::setAlignLeft()
 {
 	flushText();
-	m_currentParagraphStyle.setAlignment(ParagraphStyle::Leftaligned);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::LeftAligned);
 }
 
 void XtgScanner::setAlignCenter()
@@ -649,7 +649,7 @@ void XtgScanner::setAlignCenter()
 void XtgScanner::setAlignRight()
 {
 	flushText();
-	m_currentParagraphStyle.setAlignment(ParagraphStyle::Rightaligned);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::RightAligned);
 }
 
 void XtgScanner::setAlignJustify()

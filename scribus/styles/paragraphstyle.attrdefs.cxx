@@ -18,7 +18,7 @@
 
 ATTRDEF(ParagraphStyle::LineSpacingMode, lineSpacingMode, LineSpacingMode, ParagraphStyle::FixedLineSpacing)
 ATTRDEF(double, lineSpacing, LineSpacing, 0.0)
-ATTRDEF(ParagraphStyle::AlignmentType, alignment, Alignment, Leftaligned)
+ATTRDEF(ParagraphStyle::AlignmentType, alignment, Alignment, LeftAligned)
 ATTRDEF(ParagraphStyle::DirectionType, direction, Direction, LTR)
 ATTRDEF(int, opticalMargins, OpticalMargins, 0)
 ATTRDEF(int, hyphenationMode, HyphenationMode, 0)

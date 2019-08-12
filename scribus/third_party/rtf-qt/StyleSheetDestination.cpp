@@ -46,13 +46,13 @@ namespace RtfReader
 	void StyleSheetDestination::handleControlWord(const QString &controlWord, bool hasValue, const int value)
 	{
 		if (controlWord == "ql")
-			m_textStyle.setAlignment(ParagraphStyle::Leftaligned);
+			m_textStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (controlWord == "qj")
 			m_textStyle.setAlignment(ParagraphStyle::Justified);
 		else if (controlWord == "qc")
 			m_textStyle.setAlignment(ParagraphStyle::Centered);
 		else if (controlWord == "qr")
-			m_textStyle.setAlignment(ParagraphStyle::Rightaligned);
+			m_textStyle.setAlignment(ParagraphStyle::RightAligned);
 		else if ((controlWord == "li") && hasValue)
 			m_textStyle.setLeftMargin(pixelsFromTwips(value));
 		else if ((controlWord == "ri") && hasValue)
