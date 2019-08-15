@@ -5059,7 +5059,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 	actionList << "toolsEditWithStoryEditor";
 	actionList << "insertSampleText";
 	actionList << "itemPDFIsAnnotation";
-	if (doc()->currentPage()->pageName().isEmpty())
+	if (doc()->currentPage()->pageNameEmpty())
 		actionList << "itemPDFIsBookmark";
 	if (isAnnotation())
 	{

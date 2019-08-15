@@ -963,7 +963,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					//as it may not exist yet. They are applied in scribus.cpp for now.
 					m_Doc->setMasterPageMode(false);
 					m_Doc->setCurrentPage(m_Doc->addPage(a));
-					m_Doc->currentPage()->MPageNam=Mus;
+					m_Doc->currentPage()->setMasterPageName(Mus);
 				}
 				else
 				{

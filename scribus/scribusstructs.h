@@ -59,17 +59,17 @@ struct CopyContentsBuffer
 
 struct DocPagesSetup
 {
-	DocPagesSetup() : pageArrangement(0), firstPageLocation(0), firstPageNumber(0), orientation(0), autoTextFrames(false), columnDistance(0), columnCount(1) {}
+	DocPagesSetup() = default;
 	DocPagesSetup(int pa, int fpl, int fpn, int o, bool atf, double cd, double cc) :
 		pageArrangement(pa), firstPageLocation(fpl), firstPageNumber(fpn), orientation(o), autoTextFrames(atf),
 		columnDistance(cd), columnCount(cc) {}
-	int pageArrangement;
-	int firstPageLocation;
-	int firstPageNumber;
-	int orientation;
-	bool autoTextFrames;
-	double columnDistance;
-	double columnCount;
+	int pageArrangement {0};
+	int firstPageLocation {0};
+	int firstPageNumber {0};
+	int orientation {0};
+	bool autoTextFrames {false};
+	double columnDistance {0.0};
+	double columnCount {1.0};
 };
 
 struct PageSet
@@ -155,19 +155,13 @@ struct ArrowDesc
 
 struct PDFPresentationData
 {
-	PDFPresentationData()
-	{
-		pageEffectDuration = 1;
-		pageViewDuration = 1;
-		effectType = 0;
-		Dm = M = Di = 0;
-	}
-	int pageEffectDuration;
-	int pageViewDuration;
-	int effectType;
-	int Dm;
-	int M;
-	int Di;
+	PDFPresentationData() = default;
+	int pageEffectDuration {1};
+	int pageViewDuration {1};
+	int effectType {0};
+	int Dm {0};
+	int M {0};
+	int Di {0};
 };
 
 struct LPIData
@@ -293,7 +287,8 @@ enum PageOrientation
 /**
 * Flags for ScribusView PageToPixmap()
 */
-enum PageToPixmapFlag {
+enum PageToPixmapFlag
+{
 	Pixmap_NoFlags = 0,
 	Pixmap_DrawFrame = 1 << 0,
 	Pixmap_DrawBackground = 1 << 1,
@@ -335,7 +330,8 @@ struct Linked
 };
 
 // this is a quick hack to combine runs until I've thought of something better -- AV
-class LastStyles {
+class LastStyles
+{
 public:
 	CharStyle Style;
 	int StyleStart;
@@ -348,12 +344,10 @@ public:
 class AttributeValue
 {
 	public:
-		AttributeValue() : valid(false)
-		{
-		}
+		AttributeValue() = default;
 		AttributeValue(const QString& val)
 		{
-			if (val.isEmpty() || (val == ""))
+			if (val.isEmpty())
 			{
 				valid = false;
 				value.clear();
@@ -364,7 +358,7 @@ class AttributeValue
 				value = val;
 			}
 		}
-		bool valid;
+		bool valid {false};
 		QString value;
 };
 

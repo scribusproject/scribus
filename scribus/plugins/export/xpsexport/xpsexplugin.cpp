@@ -352,7 +352,7 @@ void XPSExPlug::writePage(QDomElement &doc_root, QDomElement &rel_root, ScPage *
 		m_Doc->Layers.levelToLayer(ll, i);
 		if (ll.isPrintable)
 		{
-			ScPage *mpage = m_Doc->MasterPages.at(m_Doc->MasterNames[Page->MPageNam]);
+			ScPage *mpage = m_Doc->MasterPages.at(m_Doc->MasterNames[Page->masterPageName()]);
 			writePageLayer(doc_root, rel_root, mpage, ll);
 			writePageLayer(doc_root, rel_root, Page, ll);
 		}
@@ -364,7 +364,7 @@ void XPSExPlug::writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScP
 	PageItem *Item;
 	QList<PageItem*> Items;
 	ScPage* SavedAct = m_Doc->currentPage();
-	if (page->pageName().isEmpty())
+	if (page->pageNameEmpty())
 		Items = m_Doc->DocItems;
 	else
 		Items = m_Doc->MasterItems;
@@ -393,7 +393,7 @@ void XPSExPlug::writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScP
 		double h2 = Item->BoundingH;
 		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
 			continue;
-		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
+		if ((!page->pageNameEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
 			continue;
 		writeItemOnPage(Item->xPos() - page->xOffset(), Item->yPos() - page->yOffset(), Item, layerGroup, rel_root);
 	}

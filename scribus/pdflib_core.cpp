@@ -623,7 +623,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			pageNsMpa.insert(doc.MasterNames[doc.DocPages.at(pageNs[a]-1)->MPageNam], 0);
+			pageNsMpa.insert(doc.MasterNames[doc.DocPages.at(pageNs[a]-1)->masterPageName()], 0);
 		}
 		if (usingGUI)
 		{
@@ -2690,7 +2690,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
-				if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				if ((!pag->pageNameEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
 				if ((ite->doOverprint) && (!Options.UseRGB))
@@ -2705,7 +2705,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 /* Bookmarks on Master Pages do not make any sense */
 //				if ((ite->isBookmark) && (Options.Bookmarks))
 //					PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-				if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
+				if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageNameEmpty())))
 				{
 					PutPage("Q\n");
 					continue;
@@ -3829,9 +3829,9 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 		PutPage(FToStr(-bleedLeft) +B+ FToStr(-bleedBottom) +B+
 				FToStr(bbWidth) +B+ FToStr(bbHeight) + " re W n\n");
 	}
-	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
+	if ( (Options.MirrorH) && (!pag->masterPageNameEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
-	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )
+	if ( (Options.MirrorV) && (!pag->masterPageNameEmpty()) )
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
 	{
@@ -3841,7 +3841,7 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 	//	PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	}
 	//CB *2 because the Pitems count loop runs twice.. y.. dunno.
-	if (usingGUI && pag->pageName().isEmpty())
+	if (usingGUI && pag->pageNameEmpty())
 		progressDialog->setProgress("ECPI", 0, doc.DocItems.count()*2);
 	for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
 	{
@@ -3862,11 +3862,11 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 	QByteArray content, output;
 //	QList<PageItem*> PItems;
 
-	if (pag->MPageNam.isEmpty())
+	if (pag->masterPageNameEmpty())
 		return true;
 	if (doc.MasterItems.count() <= 0)
 		return true;
-	const ScPage* mPage = doc.MasterPages.at(doc.MasterNames[doc.DocPages.at(PNr)->MPageNam]);
+	const ScPage* mPage = doc.MasterPages.at(doc.MasterNames[doc.DocPages.at(PNr)->masterPageName()]);
 	int   mPageIndex  = doc.MasterPages.indexOf((ScPage* const) mPage) + 1;
 
 	if (!Options.MirrorH)
@@ -3882,7 +3882,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				qApp->processEvents();
 			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+			if ((!pag->pageNameEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
 			QByteArray name = QByteArray("/master_page_obj_%1_%2")
 			                             .replace("%1", Pdf::toPdf(mPageIndex))
@@ -3968,7 +3968,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 	QList<PageItem*> PItems;
 
 	int pc_exportpagesitems = usingGUI ? progressDialog->progress("ECPI") : 0;
-	PItems = (pag->pageName().isEmpty()) ? doc.DocItems : doc.MasterItems;
+	PItems = (pag->pageNameEmpty()) ? doc.DocItems : doc.MasterItems;
 	if ((layer.isPrintable) || (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers)))
 	{
 		QByteArray inh;
@@ -4404,7 +4404,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			output = tmp;
 			return true;
 		}
-		if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+		if ((!pag->pageNameEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 		{
 			output = tmp;
 			return true;
@@ -4427,7 +4427,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
 	if (!pattern)
 	{
-		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
+		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageNameEmpty())))
 		{
 //			qDebug() << "Q exit";
 			tmp += "Q\n";

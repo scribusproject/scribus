@@ -811,11 +811,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
 				if (!m_Doc->masterPageMode())
-					Apage->MPageNam = Mus;
+					Apage->setMasterPageName(Mus);
 				else
-					Apage->MPageNam = "";
+					Apage->clearMasterPageName();
 				if (pg.hasAttribute("Size"))
-					Apage->m_pageSize = pg.attribute("Size");
+					Apage->setSize(pg.attribute("Size"));
 				if (pg.hasAttribute("Orientation"))
 					Apage->setOrientation(pg.attribute("Orientation").toInt());
 				Apage->setXOffset( ScCLocale::toDoubleC(pg.attribute("PAGEXPOS")) );
@@ -2209,7 +2209,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Apage->setPageName(pg.attribute("NAM",""));
 				}
 				if (pg.hasAttribute("Size"))
-					Apage->m_pageSize = pg.attribute("Size");
+					Apage->setSize(pg.attribute("Size"));
 				if (pg.hasAttribute("Orientation"))
 					Apage->setOrientation(pg.attribute("Orientation").toInt());
 				if (pg.hasAttribute("PAGEWIDTH"))

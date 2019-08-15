@@ -513,8 +513,8 @@ void RawPainter::startPage(const librevenge::RVNGPropertyList &propList)
 		m_Doc->currentPage()->setInitialHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
-		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setMasterPageNameNormal();
+		m_Doc->currentPage()->setSize("Custom");
 		m_Doc->reformPages(true);
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();

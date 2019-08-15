@@ -3350,7 +3350,7 @@ void XarPlug::handleSpreadInfo(QDataStream &ts)
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 1, 0, false, false);
 		m_Doc->setPageSize("Custom");
-		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setSize("Custom");
 		m_Doc->currentPage()->setInitialHeight(docHeight);
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
@@ -3370,13 +3370,13 @@ void XarPlug::handlePage(QDataStream &ts)
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->addPage(pagecount);
-		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setSize("Custom");
 		m_Doc->currentPage()->setInitialHeight(docHeight);
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
 		m_Doc->currentPage()->initialMargins.set(0, 0, 0, 0);
-		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+		m_Doc->currentPage()->setMasterPageNameNormal();
 		m_Doc->view()->addPage(pagecount, true);
 		pagecount++;
 	//	baseX = m_Doc->currentPage()->xOffset();

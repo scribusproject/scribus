@@ -730,8 +730,8 @@ bool PdfPlug::convert(const QString& fn)
 									m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
 								}
 							}
-							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-							m_Doc->currentPage()->m_pageSize = "Custom";
+							m_Doc->currentPage()->setMasterPageNameNormal();
+							m_Doc->currentPage()->setSize("Custom");
 							m_Doc->reformPages(true);
 							if (hasOcg)
 							{

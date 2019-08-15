@@ -1842,9 +1842,9 @@ bool Scribus134Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 	newPage->LeftPg   = attrs.valueAsInt("LEFT", 0);
 	QString mpName    = attrs.valueAsString("MNAM", "Normal");
-	newPage->MPageNam = m_Doc->masterPageMode() ? QString("") : mpName;
+	newPage->setMasterPageName(m_Doc->masterPageMode() ? QString() : mpName);
 	if (attrs.hasAttribute("Size"))
-		newPage->m_pageSize = attrs.valueAsString("Size");
+		newPage->setSize(attrs.valueAsString("Size"));
 	if (attrs.hasAttribute("Orientation"))
 		newPage->setOrientation(attrs.valueAsInt("Orientation"));
 	newPage->setXOffset(attrs.valueAsDouble("PAGEXPOS"));
@@ -3296,7 +3296,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					newPage->setPageName(attrs.valueAsString("NAM",""));
 			}
 			if (attrs.hasAttribute("Size"))
-				newPage->m_pageSize = attrs.valueAsString("Size");
+				newPage->setSize(attrs.valueAsString("Size"));
 			if (attrs.hasAttribute("Orientation"))
 				newPage->setOrientation(attrs.valueAsInt("Orientation"));
 			if (attrs.hasAttribute("PAGEWIDTH"))

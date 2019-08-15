@@ -68,8 +68,8 @@ ImIconProvider::ImIconProvider()
 	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < array; ++a)
-		fmts.append(tmp[a]);
+	for (int i = 0; i < array; ++i)
+		fmts.append(tmp[i]);
 	IconManager& im=IconManager::instance();
 	imagepm = im.loadIcon("16/image-x-generic.png");
 	pspm = im.loadIcon("postscript.png");
@@ -131,7 +131,7 @@ void FDialogPreview::updatePix()
 void FDialogPreview::genPreview(const QString& name)
 {
 	QPixmap pm;
-	QString Buffer = "";
+	QString Buffer;
 	updatePix();
 	if (name.isEmpty())
 		return;
@@ -171,8 +171,8 @@ void FDialogPreview::genPreview(const QString& name)
 		}
 		int xres = im.imgInfo.xres;
 		int yres = im.imgInfo.yres;
-		QString tmp = "";
-		QString tmp2 = "";
+		QString tmp;
+		QString tmp2;
 		QImage im2 = im.scaled(w - 5, h - 44, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));

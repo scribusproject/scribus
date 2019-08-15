@@ -891,7 +891,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 			{
 				m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, false);
 				m_Doc->setPageSize(papersize);
-				m_Doc->currentPage()->m_pageSize = papersize;
+				m_Doc->currentPage()->setSize(papersize);
 				m_Doc->currentPage()->setInitialHeight(docHeight);
 				m_Doc->currentPage()->setInitialWidth(docWidth);
 				m_Doc->currentPage()->setHeight(docHeight);
@@ -920,7 +920,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							ScPage *oldCur = m_Doc->currentPage();
 							ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam);
 							m_Doc->setCurrentPage(addedPage);
-							addedPage->MPageNam = "";
+							addedPage->clearMasterPageName();
 							m_Doc->view()->addPage(mpagecount, true);
 							baseX = addedPage->xOffset();
 							baseY = addedPage->yOffset();
@@ -970,7 +970,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							bottomMargin = m_Doc->marginsVal().bottom();
 							m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, m_Doc->PageSp, m_Doc->PageSpa, false, false);
 							m_Doc->setPageSize("Custom");
-							m_Doc->currentPage()->m_pageSize = "Custom";
+							m_Doc->currentPage()->setSize("Custom");
 							m_Doc->currentPage()->setInitialHeight(docHeight);
 							m_Doc->currentPage()->setInitialWidth(docWidth);
 							m_Doc->currentPage()->setHeight(docHeight);
@@ -984,7 +984,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 						else
 						{
 							m_Doc->addPage(pagecount);
-							m_Doc->currentPage()->m_pageSize = "Custom";
+							m_Doc->currentPage()->setSize("Custom");
 							m_Doc->currentPage()->setInitialHeight(docHeight);
 							m_Doc->currentPage()->setInitialWidth(docWidth);
 							m_Doc->currentPage()->setHeight(docHeight);
@@ -993,7 +993,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 							m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
 							m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
 							m_Doc->currentPage()->initialMargins.setRight(rightMargin);
-							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+							m_Doc->currentPage()->setMasterPageNameNormal();
 							m_Doc->view()->addPage(pagecount, true);
 							pagecount++;
 						}

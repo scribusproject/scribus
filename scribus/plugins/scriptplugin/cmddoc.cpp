@@ -411,7 +411,7 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(currentDoc->DocPages.at(e)->MPageNam.toUtf8());
+	return PyString_FromString(currentDoc->DocPages.at(e)->masterPageName().toUtf8());
 }
 
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)

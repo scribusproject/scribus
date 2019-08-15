@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QPair>
+#include <QString>
 
 #include "scribusapi.h"
 #include "undostate.h"
@@ -35,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanagercore.h"
 
 class PageItem;
-class QString;
 class UndoManager;
 class UndoState;
 class ScribusDoc;
@@ -72,13 +72,8 @@ public:
 
 	MarginStruct Margins;
 	MarginStruct initialMargins;
-  /** Nummer der Seite */
-	int LeftPg;
-	//! Name of the master page that this page uses
-	QString MPageNam;
-
-	QString m_pageSize;
-	int marginPreset;
+	int LeftPg {0};
+	int marginPreset {0};
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	int pageNr() const { return m_pageNr; }
@@ -86,8 +81,17 @@ public:
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
 	//! Return the page's name
-	const QString& pageName() const {return m_PageName;}
+	const QString& pageName() const {return m_pageName;}
+	bool pageNameEmpty() const {return m_pageName.isEmpty();}
 	void setPageName(const QString& newName);
+	void resetPageName();
+	const QString& masterPageName() const {return m_masterPageName;}
+	bool masterPageNameEmpty() const {return m_masterPageName.isEmpty();}
+	void setMasterPageName(const QString& newName);
+	void setMasterPageNameNormal();
+	void clearMasterPageName();
+	const QString& size() const {return m_pageSize;}
+	void setSize(const QString& newSize);
 	void restore(UndoState* state, bool isUndo);
 
 	/*! \brief As a bit of a dirty hack, we declare this mutable so it can be altered
@@ -101,25 +105,27 @@ public:
 	PDFPresentationData PresentVals;
 
 protected:
-	UndoManager * const undoManager;
+	UndoManager* const undoManager;
 	void restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo);
 	void restorePageAttributes(SimpleState *state, bool isUndo);
 	void restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo);
 	void restorePageItemConversionToSymbol(ScItemState<QPair<PageItem*, PageItem*> >*state, bool isUndo);
 
-	double m_xOffset;
-	double m_yOffset;
-	double m_width;
-	double m_height;
-	double m_initialWidth;
-	double m_initialHeight;
-	int m_pageNr;
-	int m_orientation;
+	double m_xOffset {0.0};
+	double m_yOffset {0.0};
+	double m_width {0.0};
+	double m_height {0.0};
+	double m_initialWidth {0.0};
+	double m_initialHeight {0.0};
+	int m_pageNr {0};
+	int m_orientation {0};
 	//! Name of this page, currently only allowed to be used by a master page
-	QString m_PageName;
-	ScribusDoc* m_Doc;	
+	QString m_pageName;
+	QString m_masterPageName;
+	QString m_pageSize;
 	QString m_pageSectionNumber;
+	ScribusDoc* m_Doc {nullptr};
 };
 
 Q_DECLARE_METATYPE(ScPage*);

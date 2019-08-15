@@ -1557,8 +1557,8 @@ void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		docu.writeAttribute("BORDERBOTTOM",page->initialMargins.bottom());
 		docu.writeAttribute("NUM",page->pageNr());
 		docu.writeAttribute("NAM",page->pageName());
-		docu.writeAttribute("MNAM",page->MPageNam);
-		docu.writeAttribute("Size", page->m_pageSize);
+		docu.writeAttribute("MNAM",page->masterPageName());
+		docu.writeAttribute("Size", page->size());
 		docu.writeAttribute("Orientation", page->orientation());
 		docu.writeAttribute("LEFT", page->LeftPg);
 		docu.writeAttribute("PRESET", page->marginPreset);

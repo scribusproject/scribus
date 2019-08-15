@@ -348,7 +348,7 @@ QImage SvmPlug::readThumbnail(const QString& fName)
 			m_Doc->setPageHeight(gh);
 			m_Doc->setPageWidth(gw);
 			m_Doc->setPageSize("Custom");
-			m_Doc->currentPage()->m_pageSize = "Custom";
+			m_Doc->currentPage()->setSize("Custom");
 			m_Doc->reformPages(true);
 		}
 		if (Elements.count() > 1)
@@ -451,8 +451,8 @@ bool SvmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->currentPage()->setInitialHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
-		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setMasterPageNameNormal();
+		m_Doc->currentPage()->setSize("Custom");
 		m_Doc->reformPages(true);
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();

@@ -2454,7 +2454,7 @@ ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, 
 	addedPage->Margins.setBottom(m_docPrefsData.docSetupPrefs.margins.bottom());
 	addedPage->initialMargins = m_docPrefsData.docSetupPrefs.margins;
 	addedPage->setPageNr(pageIndex);
-	addedPage->m_pageSize = m_docPrefsData.docSetupPrefs.pageSize;
+	addedPage->setSize(m_docPrefsData.docSetupPrefs.pageSize);
 	addedPage->setOrientation(m_docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
 	DocPages.insert(pageIndex, addedPage);
@@ -2476,10 +2476,10 @@ ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->setDocument(this);
 	addedPage->Margins = m_docPrefsData.docSetupPrefs.margins;
 	addedPage->initialMargins = m_docPrefsData.docSetupPrefs.margins;
-	addedPage->m_pageSize = m_docPrefsData.docSetupPrefs.pageSize;
+	addedPage->setSize(m_docPrefsData.docSetupPrefs.pageSize);
 	addedPage->setOrientation(m_docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
-	addedPage->MPageNam = "";
+	addedPage->clearMasterPageName();
 	int pgN = pageNumber;
 	if (pageNumber > MasterPages.count())
 		pgN = MasterPages.count();
@@ -2519,8 +2519,8 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 	for (int i=0; i < DocPages.count(); ++i )
 	{
 		docPage=DocPages[i];
-		if (docPage->MPageNam == oldPageName)
-			docPage->MPageNam = newPageName;
+		if (docPage->masterPageName() == oldPageName)
+			docPage->setMasterPageName(newPageName);
 	}
 	//Update any items that were linking to our old name
 	int masterItemsCount=MasterItems.count();
@@ -2579,35 +2579,35 @@ void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
 	while (dpIt.hasNext())
 	{
 		docPage = dpIt.next();
-		if (docPage->MPageNam == oldMasterPage)
+		if (docPage->masterPageName() == oldMasterPage)
 		{
 			PageLocation pageLoc = locationOfPage(pageIndex);
 			if (pageLoc == LeftPage)
 			{
-				if (MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
-					docPage->MPageNam = CommonStrings::trMasterPageNormalLeft;
-				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
-					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				if (MasterNames.contains(CommonStrings::trMasterPageNormalLeft))
+					docPage->setMasterPageName(CommonStrings::trMasterPageNormalLeft);
+				else if (MasterNames.contains(CommonStrings::trMasterPageNormal))
+					docPage->setMasterPageNameNormal();
 				else
-					docPage->MPageNam = it.key();
+					docPage->setMasterPageName(it.key());
 			}
 			else if (pageLoc == RightPage)
 			{
-				if (MasterNames.contains( CommonStrings::trMasterPageNormalRight))
-					docPage->MPageNam = CommonStrings::trMasterPageNormalRight;
-				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
-					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				if (MasterNames.contains(CommonStrings::trMasterPageNormalRight))
+					docPage->setMasterPageName(CommonStrings::trMasterPageNormalRight);
+				else if (MasterNames.contains(CommonStrings::trMasterPageNormal))
+					docPage->setMasterPageNameNormal();
 				else
-					docPage->MPageNam = it.key();
+					docPage->setMasterPageName(it.key());
 			}
 			else
 			{
-				if (MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
-					docPage->MPageNam = CommonStrings::trMasterPageNormalMiddle;
-				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
-					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				if (MasterNames.contains(CommonStrings::trMasterPageNormalMiddle))
+					docPage->setMasterPageName(CommonStrings::trMasterPageNormalMiddle);
+				else if (MasterNames.contains(CommonStrings::trMasterPageNormal))
+					docPage->setMasterPageNameNormal();
 				else
-					docPage->MPageNam = it.key();
+					docPage->setMasterPageName(it.key());
 			}
 		}
 		pageIndex++;
@@ -4622,17 +4622,17 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 
 	if (UndoManager::undoEnabled())
 	{
-		if (DocPages.at(pageNumber)->MPageNam != pageName)
+		if (DocPages.at(pageNumber)->masterPageName() != pageName)
 		{
-			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam, pageName));
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->masterPageName(), pageName));
 			ss->set("PAGE_NUMBER", pageNumber);
-			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->MPageNam);
+			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->masterPageName());
 			ss->set("NEW_MASTERPAGE", pageName);
 			m_undoManager->action(this, ss);
 		}
 	}
 	ScPage* Ap = DocPages.at(pageNumber);
-	Ap->MPageNam = pageName;
+	Ap->setMasterPageName(pageName);
 	const int MpNr = MasterNames[pageName];
 	ScPage* Mp = MasterPages.at(MpNr);
 	PageItem *currItem;
@@ -4701,7 +4701,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 		Ap->setHeight(Mp->height());
 		Ap->setWidth(Mp->width());
 		Ap->setOrientation(Mp->orientation());
-		Ap->m_pageSize = Mp->m_pageSize;
+		Ap->setSize(Mp->size());
 	}
 	//TODO make a return false if not possible to apply the master page
 	if (!isLoading())
@@ -4806,7 +4806,7 @@ bool ScribusDoc::changePageProperties(const double initialTop, const double init
 		ss->set("OLD_PAGE_HEIGHT", m_currentPage->height());
 		ss->set("OLD_PAGE_WIDTH", m_currentPage->width());
 		ss->set("OLD_PAGE_ORIENTATION", m_currentPage->orientation());
-		ss->set("OLD_PAGE_SIZE", m_currentPage->m_pageSize);
+		ss->set("OLD_PAGE_SIZE", m_currentPage->size());
 		ss->set("OLD_PAGE_TYPE", m_currentPage->LeftPg);
 		ss->set("OLD_PAGE_MARGINPRESET", m_currentPage->marginPreset);
 		ss->set("OLD_PAGE_MOVEOBJECTS", moveObjects);
@@ -4835,7 +4835,7 @@ bool ScribusDoc::changePageProperties(const double initialTop, const double init
 	m_currentPage->setHeight(height);
 	m_currentPage->setWidth(width);
 	m_currentPage->setOrientation(orientation);
-	m_currentPage->m_pageSize = pageSize;
+	m_currentPage->setSize(pageSize);
 	m_currentPage->LeftPg = pageType;
 	m_currentPage->marginPreset = marginPreset;
 	reformPages(moveObjects);
@@ -5116,13 +5116,13 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	//Copy the items from our current document page's applied *master* page
 	if (copyFromAppliedMaster)
 	{
-		if (!sourcePage->MPageNam.isEmpty() && MasterNames.contains(sourcePage->MPageNam))
+		if (!sourcePage->masterPageNameEmpty() && MasterNames.contains(sourcePage->masterPageName()))
 		{
 			ScPage* pageMaster = nullptr;
 			for (int i=0; i < MasterPages.count(); ++i )
 			{
 				pageMaster=MasterPages[i];
-				if (pageMaster->pageName() == sourcePage->MPageNam)
+				if (pageMaster->pageName() == sourcePage->masterPageName())
 					break;
 			}
 			if (Layers.count()!= 0 && pageMaster!=nullptr)
@@ -5189,7 +5189,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		PageItem *newItem = MasterItems.at(a);
 		newItem->setMasterPage(MasterNames[masterPageName], masterPageName);
 	}
-	targetPage->MPageNam.clear();
+	targetPage->clearMasterPageName();
 	setLoading(false);
 	GroupCounter = GrMax + 1;
 	//Reset the current page..
@@ -6240,7 +6240,7 @@ void ScribusDoc::getBleeds(const ScPage* page, const MarginStruct& baseValues, M
 	else
 	{
 		PageLocation pageLocation = MiddlePage;
-		if (page->pageName().isEmpty()) // Standard page
+		if (page->pageNameEmpty()) // Standard page
 			pageLocation = locationOfPage(page->pageNr());
 		else if (page->LeftPg == 1) // Left Master page
 			pageLocation = LeftPage;
@@ -6531,8 +6531,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, const QString& symbolName)
 		addedPage->Margins.set(0, 0, 0, 0);
 		addedPage->initialMargins.set(0, 0, 0, 0);
 		addedPage->setPageNr(0);
-		addedPage->MPageNam = "";
-		addedPage->setPageName("");
+		addedPage->clearMasterPageName();
+		addedPage->setPageName(QString());
 		TempPages.clear();
 		TempPages.append(addedPage);
 		Pages = &TempPages;
@@ -6674,8 +6674,8 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		addedPage->Margins.set(0, 0, 0, 0);
 		addedPage->initialMargins.set(0, 0, 0, 0);
 		addedPage->setPageNr(0);
-		addedPage->MPageNam = "";
-		addedPage->setPageName("");
+		addedPage->clearMasterPageName();
+		addedPage->resetPageName();
 		TempPages.clear();
 		TempPages.append(addedPage);
 		Pages = &TempPages;
@@ -7126,11 +7126,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		lastDest = destination;
 		DocPages.insert(destLocation, destination);
 		setLocationBasedPageLRMargins(destLocation);
-		applyMasterPage(from->MPageNam, destLocation);
+		applyMasterPage(from->masterPageName(), destLocation);
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
 		destination->setOrientation(from->orientation());
-		destination->m_pageSize = from->m_pageSize;
+		destination->setSize(from->size());
 		//CB: Can possibly partially use the code from applyMasterPage here instead of runnin all of this again..
 		//TODO make a function to do this margin stuff and use elsewhere too
 		destination->initialMargins.setTop(from->initialMargins.top());
@@ -16065,7 +16065,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 			pp->setInitialHeight(pageHeight());
 			pp->setHeight(pageHeight());
 			pp->setWidth(pageWidth());
-			pp->m_pageSize = pageSize();
+			pp->setSize(pageSize());
 			pp->setOrientation(pageOrientation());
 		}
 		if (resizePageMargins)
@@ -16079,7 +16079,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 			//CB #6796: find the master page (*mp) for the current page (*pp)
 			//check if *pp's margins are the same as the *mp's current margins
 			//apply new margins if same
-			const int masterPageNumber = MasterNames[pp->MPageNam];
+			const int masterPageNumber = MasterNames[pp->masterPageName()];
 			const ScPage* mp = MasterPages.at(masterPageNumber);
 			if (pp->initialMargins.left() == mp->initialMargins.left() &&
 				pp->initialMargins.top() == mp->initialMargins.top() &&
@@ -16100,7 +16100,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 			pp->setInitialHeight(pageHeight());
 			pp->setHeight(pageHeight());
 			pp->setWidth(pageWidth());
-			pp->m_pageSize = pageSize();
+			pp->setSize(pageSize());
 			pp->setOrientation(pageOrientation());
 		}
 		if (resizeMasterPageMargins)

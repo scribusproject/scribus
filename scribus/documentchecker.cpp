@@ -117,7 +117,7 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checke
 			bool error = false;
 			int masterPageNumber = -1, masterPageLocation = -1;
 			PageLocation pageLoc = currDoc->locationOfPage(i);
-			masterPageNumber = currDoc->MasterNames.value(currDoc->DocPages[i]->MPageNam, -1);
+			masterPageNumber = currDoc->MasterNames.value(currDoc->DocPages[i]->masterPageName(), -1);
 			if (masterPageNumber >= 0)
 				masterPageLocation = currDoc->MasterPages[masterPageNumber]->LeftPg;
 			if (currDoc->pagePositioning() == singlePage)

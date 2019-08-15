@@ -3740,7 +3740,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		{
 			ScPage *docPage = doc->Pages->at(0);
 			ScPage *addedPage = doc->addMasterPage(0, CommonStrings::masterPageNormal);
-			addedPage->m_pageSize = docPage->m_pageSize;
+			addedPage->setSize(docPage->size());
 			addedPage->setInitialHeight(docPage->height());
 			addedPage->setInitialWidth(docPage->width());
 			addedPage->setHeight(docPage->height());
@@ -3802,7 +3802,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		doc->setLoading(true);
 		for (int p = 0; p < doc->DocPages.count(); ++p)
 		{
-			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
+			Apply_MasterPage(doc->DocPages.at(p)->masterPageName(), p, false);
 		}
 		view->reformPages(false);
 		doc->setLoading(false);
@@ -5448,7 +5448,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 			doc->currentPage()->setInitialHeight(height);
 			doc->currentPage()->setInitialWidth(width);
 			doc->currentPage()->setOrientation(orient);
-			doc->currentPage()->m_pageSize = siz;
+			doc->currentPage()->setSize(siz);
 		}
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
 	//Apply_MasterPage(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns],
@@ -5469,9 +5469,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	m_undoManager->setUndoEnabled(true);
 
 	if (activeTransaction)
-	{
 		activeTransaction.commit();
-	}
 }
 
 void ScribusMainWindow::slotNewMasterPage(int w, const QString& name)
@@ -6218,7 +6216,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 			ss->set("DELETE_PAGE");
 			ss->set("PAGENR", a + 1);
 			ss->set("PAGENAME",   doc->Pages->at(a)->pageName());
-			ss->set("MASTERPAGE", doc->Pages->at(a)->MPageNam);
+			ss->set("MASTERPAGE", doc->Pages->at(a)->masterPageName());
 			ss->set("MASTER_PAGE_MODE",  doc->masterPageMode());
 			// replace the deleted page in the undostack by a dummy object that will
 			// replaced with the "undone" page if user choose to undo the action
@@ -6228,7 +6226,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 			ss->set("DUMMY_ID", id);
 			m_undoManager->action(this, ss);
 		}
-		bool isMasterPage = !(doc->Pages->at(a)->pageName().isEmpty());
+		bool isMasterPage = !(doc->Pages->at(a)->pageNameEmpty());
 		if (doc->masterPageMode())
 			doc->deleteMasterPage(a);
 		else
@@ -6307,7 +6305,7 @@ void ScribusMainWindow::changePageProperties()
 		return;
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	QString currPageMasterPageName(doc->currentPage()->MPageNam);
+	QString currPageMasterPageName(doc->currentPage()->masterPageName());
 	QScopedPointer<PagePropertiesDialog> dia(new PagePropertiesDialog(this, doc));
 	if (!dia->exec())
 		return;
@@ -7657,7 +7655,7 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 	m_pagePalVisible = pagePalette->isVisible();
 	QString mpName;
 	if (temp.isEmpty())
-		mpName = doc->currentPage()->MPageNam;
+		mpName = doc->currentPage()->masterPageName();
 	else
 		mpName = temp;
 	view->Deselect(true);
@@ -7710,7 +7708,7 @@ void ScribusMainWindow::editMasterPagesEnd()
 	appModeHelper->setMasterPageEditMode(false, doc);
 	int pageCount=doc->DocPages.count();
 	for (int i=0; i<pageCount; ++i)
-		Apply_MasterPage(doc->DocPages.at(i)->MPageNam, i, false);
+		Apply_MasterPage(doc->DocPages.at(i)->masterPageName(), i, false);
 
 	pagePalette->endMasterPageMode();
 	if (pagePalette->isFloating())
@@ -7738,11 +7736,11 @@ void ScribusMainWindow::ApplyMasterPage()
 	Q_ASSERT(!doc->masterPageMode());
 
 	QScopedPointer<ApplyMasterPageDialog> dia(new ApplyMasterPageDialog(this));
-	dia->setup(doc, doc->currentPage()->MPageNam);
+	dia->setup(doc, doc->currentPage()->masterPageName());
 	if (!dia->exec())
 		return;
 
-	QString masterPageName = dia->getMasterPageName();
+	QString masterPageName(dia->getMasterPageName());
 	int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
 	if (pageSelection == 0) //current page only
 		Apply_MasterPage(masterPageName, doc->currentPage()->pageNr(), false);

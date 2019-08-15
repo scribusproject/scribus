@@ -41,26 +41,15 @@ ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	SingleObservable<ScPage>(nullptr),
 	Margins(40,40,40,40),
 	initialMargins(40,40,40,40),
-	LeftPg(0),
-	MPageNam(""),
 	undoManager(UndoManager::instance()),
 	m_xOffset(x),
 	m_yOffset(y),
 	m_width(b),
 	m_height(h),
 	m_initialWidth(b),
-	m_initialHeight(h),
-	m_PageName(""),
-	m_Doc(nullptr)
+	m_initialHeight(h)
 {
 	guides.setPage(this);
-	marginPreset = 0;
-	PresentVals.pageEffectDuration = 1;
-	PresentVals.pageViewDuration = 1;
-	PresentVals.effectType = 0;
-	PresentVals.Dm = 0;
-	PresentVals.M = 0;
-	PresentVals.Di = 0;
 }
 
 ScPage::~ScPage()
@@ -86,137 +75,160 @@ void ScPage::setDocument(ScribusDoc *doc)
 void ScPage::setPageNr(int pageNr)
 {
 	m_pageNr = pageNr;
-	if (m_PageName.isEmpty())
+	if (m_pageName.isEmpty())
 		setUName(QString(QObject::tr("Page") + " %1").arg(m_Doc->FirstPnum + m_pageNr));
 	else
-		setUName(m_PageName);
+		setUName(m_pageName);
 }
 
 void ScPage::setPageName(const QString& newName)
 {
-	m_PageName = newName;
+	m_pageName = newName;
 	if (!newName.isEmpty())
 		setUName(QObject::tr("Master Page ") + newName);
 }
 
+void ScPage::resetPageName()
+{
+	m_pageName.clear();
+}
+
+void ScPage::setMasterPageName(const QString& newName)
+{
+	m_masterPageName = newName;
+}
+
+void ScPage::setMasterPageNameNormal()
+{
+	m_masterPageName = CommonStrings::trMasterPageNormal;
+}
+
+void ScPage::clearMasterPageName()
+{
+	m_masterPageName.clear();
+}
+
+void ScPage::setSize(const QString& newSize)
+{
+	m_pageSize = newSize;
+}
+
 void ScPage::restore(UndoState* state, bool isUndo)
 {
-	SimpleState* ss = dynamic_cast<SimpleState*>(state);
-	if (ss)
+	auto* ss = dynamic_cast<SimpleState*>(state);
+	if (!ss)
+		return;
+	if (ss->contains("ADD_V"))
 	{
-//		int stateCode = ss->transactionCode;
-		if (ss->contains("ADD_V"))
-		{
-			double position = ss->getDouble("ADD_V");
-			if (isUndo)
-				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
-			else
-				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("ADD_H"))
-		{
-			double position = ss->getDouble("ADD_H");
-			if (isUndo)
-				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
-			else
-				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("REMOVE_V"))
-		{
-			double position = ss->getDouble("REMOVE_V");
-			if (isUndo)
-				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
-			else
-				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("REMOVE_H"))
-		{
-			double position = ss->getDouble("REMOVE_H");
-			if (isUndo)
-				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
-			else
-				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("MOVE_H_FROM"))
-		{
-			double from = ss->getDouble("MOVE_H_FROM");
-			double to   = ss->getDouble("MOVE_H_TO");
-			if (isUndo)
-			{
-				guides.deleteHorizontal(to, GuideManagerCore::Standard);//removeYGuide(position);
-				guides.addHorizontal(from, GuideManagerCore::Standard);//addYGuide(position);
-			}
-			else
-			{
-				guides.deleteHorizontal(from, GuideManagerCore::Standard);//removeYGuide(position);
-				guides.addHorizontal(to, GuideManagerCore::Standard);//addYGuide(position);
-			}
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("MOVE_V_FROM"))
-		{
-			double from = ss->getDouble("MOVE_V_FROM");
-			double to   = ss->getDouble("MOVE_V_TO");
-			if (isUndo)
-			{
-				guides.deleteVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
-				guides.addVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
-			}
-			else
-			{
-				guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
-				guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
-			}
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		// automatic guides
-		else if (ss->contains("REMOVE_HA_GAP"))
-		{
-			if (isUndo)
-			{
-				guides.setHorizontalAutoCount(ss->getInt("REMOVE_HA_COUNT"));
-				guides.setHorizontalAutoGap(ss->getDouble("REMOVE_HA_GAP"));
-				guides.setHorizontalAutoRefer(ss->getInt("REMOVE_HA_REFER"));
-			}
-			else
-			{
-				guides.setHorizontalAutoCount(0);
-				guides.setHorizontalAutoGap(0.0);
-				guides.setHorizontalAutoRefer(0);
-			}
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("REMOVE_VA_GAP"))
-		{
-			if (isUndo)
-			{
-				guides.setVerticalAutoCount(ss->getInt("REMOVE_VA_COUNT"));
-				guides.setVerticalAutoGap(ss->getDouble("REMOVE_VA_GAP"));
-				guides.setVerticalAutoRefer(ss->getInt("REMOVE_VA_REFER"));
-			}
-			else
-			{
-				guides.setVerticalAutoCount(0);
-				guides.setVerticalAutoGap(0.0);
-				guides.setVerticalAutoRefer(0);
-			}
-			m_Doc->scMW()->guidePalette->setupGui();
-		}
-		else if (ss->contains("CREATE_ITEM"))
-			restorePageItemCreation(dynamic_cast<ScItemState<PageItem*>*>(ss), isUndo);
-		else if (ss->contains("DELETE_ITEM"))
-			restorePageItemDeletion(dynamic_cast<ScItemState< QList<PageItem*> >*>(ss), isUndo);
-		else if (ss->contains("CONVERT_ITEM"))
-			restorePageItemConversion(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
-		else if (ss->contains("CONVERT_ITEM_TO_SYMBOL"))
-			restorePageItemConversionToSymbol(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
-		else if (ss->contains("PAGE_ATTRS"))
-			restorePageAttributes(ss, isUndo);
+		double position = ss->getDouble("ADD_V");
+		if (isUndo)
+			guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
+		else
+			guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
+		m_Doc->scMW()->guidePalette->setupGui();
 	}
+	else if (ss->contains("ADD_H"))
+	{
+		double position = ss->getDouble("ADD_H");
+		if (isUndo)
+			guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
+		else
+			guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("REMOVE_V"))
+	{
+		double position = ss->getDouble("REMOVE_V");
+		if (isUndo)
+			guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
+		else
+			guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("REMOVE_H"))
+	{
+		double position = ss->getDouble("REMOVE_H");
+		if (isUndo)
+			guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
+		else
+			guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("MOVE_H_FROM"))
+	{
+		double from = ss->getDouble("MOVE_H_FROM");
+		double to   = ss->getDouble("MOVE_H_TO");
+		if (isUndo)
+		{
+			guides.deleteHorizontal(to, GuideManagerCore::Standard);//removeYGuide(position);
+			guides.addHorizontal(from, GuideManagerCore::Standard);//addYGuide(position);
+		}
+		else
+		{
+			guides.deleteHorizontal(from, GuideManagerCore::Standard);//removeYGuide(position);
+			guides.addHorizontal(to, GuideManagerCore::Standard);//addYGuide(position);
+		}
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("MOVE_V_FROM"))
+	{
+		double from = ss->getDouble("MOVE_V_FROM");
+		double to   = ss->getDouble("MOVE_V_TO");
+		if (isUndo)
+		{
+			guides.deleteVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.addVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
+		}
+		else
+		{
+			guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
+		}
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	// automatic guides
+	else if (ss->contains("REMOVE_HA_GAP"))
+	{
+		if (isUndo)
+		{
+			guides.setHorizontalAutoCount(ss->getInt("REMOVE_HA_COUNT"));
+			guides.setHorizontalAutoGap(ss->getDouble("REMOVE_HA_GAP"));
+			guides.setHorizontalAutoRefer(ss->getInt("REMOVE_HA_REFER"));
+		}
+		else
+		{
+			guides.setHorizontalAutoCount(0);
+			guides.setHorizontalAutoGap(0.0);
+			guides.setHorizontalAutoRefer(0);
+		}
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("REMOVE_VA_GAP"))
+	{
+		if (isUndo)
+		{
+			guides.setVerticalAutoCount(ss->getInt("REMOVE_VA_COUNT"));
+			guides.setVerticalAutoGap(ss->getDouble("REMOVE_VA_GAP"));
+			guides.setVerticalAutoRefer(ss->getInt("REMOVE_VA_REFER"));
+		}
+		else
+		{
+			guides.setVerticalAutoCount(0);
+			guides.setVerticalAutoGap(0.0);
+			guides.setVerticalAutoRefer(0);
+		}
+		m_Doc->scMW()->guidePalette->setupGui();
+	}
+	else if (ss->contains("CREATE_ITEM"))
+		restorePageItemCreation(dynamic_cast<ScItemState<PageItem*>*>(ss), isUndo);
+	else if (ss->contains("DELETE_ITEM"))
+		restorePageItemDeletion(dynamic_cast<ScItemState< QList<PageItem*> >*>(ss), isUndo);
+	else if (ss->contains("CONVERT_ITEM"))
+		restorePageItemConversion(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
+	else if (ss->contains("CONVERT_ITEM_TO_SYMBOL"))
+		restorePageItemConversionToSymbol(dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(ss), isUndo);
+	else if (ss->contains("PAGE_ATTRS"))
+		restorePageAttributes(ss, isUndo);
 }
 
 void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
@@ -356,6 +368,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 {
 	if (!state)
 		return;
+
 	int stateCode = state->transactionCode;
 	QList<PageItem*> itemList = state->getItem();
 	int id = state->getInt("ITEMID");

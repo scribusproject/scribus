@@ -110,17 +110,17 @@ void ScPageOutput::drawPage( ScPage* page, ScPainterExBase* painter)
 void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, QRect clip)
 {
 	PageItem* currItem;
-	if (page->MPageNam.isEmpty())
+	if (page->masterPageNameEmpty())
 		return;
 	if (page->FromMaster.count() <= 0)
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
-	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
 	uint pageFromMasterCount = page->FromMaster.count();
-	for (uint a = 0; a < pageFromMasterCount; ++a)
+	for (int i = 0; i < pageFromMasterCount; ++i)
 	{
-		currItem = page->FromMaster.at(a);
+		currItem = page->FromMaster.at(i);
 		if (currItem->m_layerID != layer.ID)
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))

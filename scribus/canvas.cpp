@@ -407,7 +407,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{
-		ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
+		ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->masterPageName()]);
 		// if itemAbove is given, we expect to find it among the masterpage items of this page
 		int currNr = itemAbove? m_doc->currentPage()->FromMaster.indexOf(itemAbove)-1 : m_doc->currentPage()->FromMaster.count()-1;
 		if (currNr < 0)
@@ -1334,7 +1334,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 		return;
 	if (!layer.isViewable)
 		return;
-	if (page->MPageNam.isEmpty())
+	if (page->masterPageNameEmpty())
 		return;
 	if (page->FromMaster.count() <= 0)
 		return;
@@ -1344,7 +1344,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
-	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
 	int layerCount = m_doc->layerCount();
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);

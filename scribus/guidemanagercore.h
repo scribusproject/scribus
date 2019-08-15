@@ -38,7 +38,7 @@ class SCRIBUS_API GuideManagerCore
 public:
 	GuideManagerCore();
 	GuideManagerCore(ScPage* parentPage);
-	~GuideManagerCore();
+	~GuideManagerCore() = default;
 
 	typedef enum {Standard, Auto} GuideType;
 
@@ -105,23 +105,26 @@ public:
 	/*! \brief Selection/group coordinates
 	It's used to simulate the original selection "freezed in time"
 	for parent page */
-	double gx, gy, gw, gh;
+	double gx {0.0};
+	double gy {0.0};
+	double gw {0.0};
+	double gh {0.0};
 
 
 private:
 	UndoManager * const m_undoManager;
-	ScPage* m_page;
+	ScPage* m_page {nullptr};
 	Guides m_horizontalStdG;
 	Guides m_verticalStdG;
 	Guides m_horizontalAutoG;
 	Guides m_verticalAutoG;
 
-	double m_horizontalAutoGap;
-	double m_verticalAutoGap;
-	int m_horizontalAutoCount;
-	int m_verticalAutoCount;
-	int m_horizontalAutoRefer;
-	int m_verticalAutoRefer;
+	double m_horizontalAutoGap {0.0};
+	double m_verticalAutoGap {0.0};
+	int m_horizontalAutoCount {0};
+	int m_verticalAutoCount {0};
+	int m_horizontalAutoRefer {0};
+	int m_verticalAutoRefer {0};
 
 	double closestHorAbove(double y);// const;
 	double closestHorBelow(double y);// const;

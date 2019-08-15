@@ -23,40 +23,13 @@ for which a new license (GPL+exception) is in place.
 #include "ui/guidemanager.h"
 
 GuideManagerCore::GuideManagerCore():
-	gx(0), gy(0), gw(0), gh(0),
-	m_undoManager(UndoManager::instance()),
-	m_page(nullptr),
-	m_horizontalAutoGap(0.0),
-	m_verticalAutoGap(0.0),
-	m_horizontalAutoCount(0),
-	m_verticalAutoCount(0),
-	m_horizontalAutoRefer(0),
-	m_verticalAutoRefer(0)
+	m_undoManager(UndoManager::instance())
 {
-	m_verticalStdG.clear();
-	m_verticalAutoG.clear();
-	m_horizontalStdG.clear();
-	m_horizontalAutoG.clear();
 }
 
 GuideManagerCore::GuideManagerCore(ScPage *parentPage):
-	gx(0), gy(0), gw(0), gh(0),
 	m_undoManager(UndoManager::instance()),
-	m_page(parentPage),
-	m_horizontalAutoGap(0.0),
-	m_verticalAutoGap(0.0),
-	m_horizontalAutoCount(0),
-	m_verticalAutoCount(0),
-	m_horizontalAutoRefer(0),
-	m_verticalAutoRefer(0)
-{
-	m_verticalStdG.clear();
-	m_verticalAutoG.clear();
-	m_horizontalStdG.clear();
-	m_horizontalAutoG.clear();
-}
-
-GuideManagerCore::~GuideManagerCore()
+	m_page(parentPage)
 {
 }
 
@@ -337,7 +310,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (m_undoManager->undoEnabled())
+			if (UndoManager::undoEnabled())
 			{
 				for (int i = 0; i < m_horizontalStdG.count(); ++i)
 				{
@@ -349,7 +322,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			m_horizontalStdG.clear();
 			break;
 		case Auto:
-			if (m_undoManager->undoEnabled())
+			if (UndoManager::undoEnabled())
 			{
 				SimpleState * ss = new SimpleState(Um::DelHAGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_HA_GAP", m_horizontalAutoGap);
@@ -371,7 +344,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (m_undoManager->undoEnabled())
+			if (UndoManager::undoEnabled())
 			{
 				for (int i = 0; i < m_verticalStdG.count(); ++i)
 				{
@@ -383,7 +356,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			m_verticalStdG.clear();
 			break;
 		case Auto:
-			if (m_undoManager->undoEnabled())
+			if (UndoManager::undoEnabled())
 			{
 				SimpleState * ss = new SimpleState(Um::DelVAGuide, nullptr, Um::IGuides);
 				ss->set("REMOVE_VA_GAP", m_verticalAutoGap);

@@ -408,9 +408,9 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout->setSpacing(5);
 	recentDocListBox = new QListWidget(recentDocFrame);
 	recentDocLayout->addWidget(recentDocListBox);
-	uint max = qMin(prefsManager.appPrefs.uiPrefs.recentDocCount, recentDocList.count());
-	for (uint m = 0; m < max; ++m)
-		recentDocListBox->addItem( QDir::toNativeSeparators(recentDocList[m]) );
+	int max = qMin(prefsManager.appPrefs.uiPrefs.recentDocCount, recentDocList.count());
+	for (int i = 0; i < max; ++i)
+		recentDocListBox->addItem(QDir::toNativeSeparators(recentDocList[i]));
 	if (max>0)
 		recentDocListBox->setCurrentRow(0);
 }

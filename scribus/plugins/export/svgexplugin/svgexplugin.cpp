@@ -257,7 +257,7 @@ bool SVGExPlug::doExport( const QString& fName, SVGOptions &Opts )
 		m_Doc->Layers.levelToLayer(ll, la);
 		if (ll.isPrintable)
 		{
-			page = m_Doc->MasterPages.at(m_Doc->MasterNames[m_Doc->currentPage()->MPageNam]);
+			page = m_Doc->MasterPages.at(m_Doc->MasterNames[m_Doc->currentPage()->masterPageName()]);
 			ProcessPageLayer(page, ll);
 			page = m_Doc->currentPage();
 			ProcessPageLayer(page, ll);
@@ -297,7 +297,7 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 	PageItem *Item;
 	QList<PageItem*> Items;
 	ScPage* SavedAct = m_Doc->currentPage();
-	if (page->pageName().isEmpty())
+	if (page->pageNameEmpty())
 		Items = m_Doc->DocItems;
 	else
 		Items = m_Doc->MasterItems;
@@ -330,7 +330,7 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 		double h2 = Item->BoundingH;
 		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
 			continue;
-		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
+		if ((!page->pageNameEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
 			continue;
 		ProcessItemOnPage(Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset(), Item, &layerGroup);
 	}

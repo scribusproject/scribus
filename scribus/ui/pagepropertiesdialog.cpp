@@ -45,7 +45,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7 );
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
 
-	PageSize ps(doc->currentPage()->m_pageSize);
+	PageSize ps(doc->currentPage()->size());
 	prefsPageSizeName=ps.name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
 	QStringList insertList(ps.activeSizeTRList());
@@ -129,7 +129,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	{
 		masterPageLabel->setText( tr( "Master Page:" ) );
 		masterPageComboBox = new QComboBox( groupMaster );
-		QString Nam = doc->currentPage()->MPageNam;
+		QString Nam = doc->currentPage()->masterPageName();
 		QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
 		int cc = 0;
 		for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)

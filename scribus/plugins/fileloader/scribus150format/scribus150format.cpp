@@ -3644,9 +3644,9 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 	newPage->LeftPg   = attrs.valueAsInt("LEFT", 0);
 	QString mpName    = attrs.valueAsString("MNAM", "Normal");
-	newPage->MPageNam = m_Doc->masterPageMode() ? QString("") : mpName;
+	newPage->setMasterPageName(m_Doc->masterPageMode() ? QString() : mpName);
 	if (attrs.hasAttribute("Size"))
-		newPage->m_pageSize = attrs.valueAsString("Size");
+		newPage->setSize(attrs.valueAsString("Size"));
 	if (attrs.hasAttribute("Orientation"))
 		newPage->setOrientation(attrs.valueAsInt("Orientation"));
 	newPage->setXOffset(attrs.valueAsDouble("PAGEXPOS"));
@@ -3663,9 +3663,9 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 		QString pageSize(attrs.valueAsString("Size"));
 		PageSize ps(pageSize);
 		if (!compareDouble(ps.width(), newPage->width()) || !compareDouble(ps.height(), newPage->height()))
-			newPage->m_pageSize = CommonStrings::customPageSize;
+			newPage->setSize(CommonStrings::customPageSize);
 		else
-			newPage->m_pageSize = pageSize;
+			newPage->setSize(pageSize);
 	}
 
 
@@ -6169,7 +6169,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ss->set("LEFT_OLD", newPage->LeftPg);
 				ss->set("NAME_OLD", newPage->pageName());
 				ss->set("ORIENTATION_OLD", newPage->orientation());
-				ss->set("SIZE_OLD", newPage->m_pageSize);
+				ss->set("SIZE_OLD", newPage->size());
 				ss->set("WIDTH_OLD", newPage->width());
 				ss->set("HEIGHT_OLD", newPage->height());
 				ss->set("INIT_HEIGHT_OLD", newPage->initialHeight());
@@ -6198,7 +6198,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					newPage->setPageName(attrs.valueAsString("NAM",""));
 			}
 			if (attrs.hasAttribute("Size"))
-				newPage->m_pageSize = attrs.valueAsString("Size");
+				newPage->setSize(attrs.valueAsString("Size"));
 			if (attrs.hasAttribute("Orientation"))
 				newPage->setOrientation(attrs.valueAsInt("Orientation"));
 			if (attrs.hasAttribute("PAGEWIDTH"))
@@ -6242,7 +6242,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ss->set("LEFT", newPage->LeftPg);
 				ss->set("NAME", newPage->pageName());
 				ss->set("ORIENTATION", newPage->orientation());
-				ss->set("SIZE", newPage->m_pageSize);
+				ss->set("SIZE", newPage->size());
 				ss->set("WIDTH", newPage->width());
 				ss->set("HEIGHT", newPage->height());
 				ss->set("INIT_HEIGHT", newPage->initialHeight());

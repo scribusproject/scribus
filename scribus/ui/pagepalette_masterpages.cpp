@@ -164,7 +164,7 @@ void PagePalette_MasterPages::deleteMasterPage()
 		{
 			for (int i=0; i < m_doc->DocPages.count(); ++i )
 			{
-				if (m_doc->DocPages[i]->MPageNam == m_currentPage)
+				if (m_doc->DocPages[i]->masterPageName() == m_currentPage)
 					extraWarn = tr("This master page is used at least once in the document.");
 			}
 			int exit = ScMessageBox::warning(this,

@@ -1492,7 +1492,7 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 		m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, facingPages);
 		m_Doc->setPageSize("Custom");
 		m_Doc->bleeds()->set(bleedTop, bleedLeft, bleedBottom, bleedRight);
-		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setSize("Custom");
 		m_Doc->currentPage()->setInitialHeight(docHeight);
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
@@ -1546,8 +1546,8 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (!firstPage))
 					{
 						m_Doc->addPage(pagecount);
-						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-						m_Doc->currentPage()->m_pageSize = "Custom";
+						m_Doc->currentPage()->setMasterPageNameNormal();
+						m_Doc->currentPage()->setSize("Custom");
 						m_Doc->currentPage()->setInitialHeight(docHeight);
 						m_Doc->currentPage()->setInitialWidth(docWidth);
 						m_Doc->currentPage()->setHeight(docHeight);
@@ -1625,7 +1625,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam + "_" + spe.attribute("Self"));
 					m_Doc->setCurrentPage(addedPage);
 					pages.append(spe.attribute("Self"));
-					addedPage->MPageNam = "";
+					addedPage->clearMasterPageName();
 					m_Doc->view()->addPage(mpagecount, true);
 					baseX = addedPage->xOffset();
 					baseY = addedPage->yOffset() + addedPage->height() / 2.0;
