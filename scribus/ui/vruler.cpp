@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "vruler.h"
 
 #include <QCursor>
-//#include <QDebug>
+#include <QDebug>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -42,13 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
-	m_offset(0.0),
-	m_oldMark(0),
-	m_mousePressed(false),
 	m_doc(doc),
-	m_view(pa),
-	m_drawMark(false),
-	m_whereToDraw(0)
+	m_view(pa)
 {
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
@@ -63,22 +58,20 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
 	m_mousePressed = true;
-	if (m_doc->guidesPrefs().guidesShown)
-	{
-		qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
-		m_view->startGesture(rulerGesture);
-		m_view->registerMousePress(m->globalPos());
-	}
+	if (!m_doc->guidesPrefs().guidesShown)
+		return;
+	qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
+	m_view->startGesture(rulerGesture);
+	m_view->registerMousePress(m->globalPos());
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (m_mousePressed)
-	{
-		rulerGesture->mouseReleaseEvent(m);
-		qApp->restoreOverrideCursor();
-		m_mousePressed = false;
-	}
+	if (!m_mousePressed)
+		return;
+	rulerGesture->mouseReleaseEvent(m);
+	qApp->restoreOverrideCursor();
+	m_mousePressed = false;
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
@@ -91,8 +84,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 {
 	if (m_doc->isLoading())
 		return;
-	QString tx = "";
-	double xl, frac;
+	QString tx;
 	double sc = m_view->scale();
 	QFont ff = font();
 	ff.setPointSize(6);
@@ -124,18 +116,20 @@ void Vruler::paintEvent(QPaintEvent *e)
 				tx = QString::number(markC * m_iter2 / (m_iter2 / 100) / m_cor);
 				break;
 			case SC_IN:
-				xl = (markC * m_iter2 / m_iter2) / m_cor;
-				tx = QString::number(static_cast<int>(xl));
-				frac = fabs(xl - static_cast<int>(xl));
-				if ((static_cast<int>(xl) == 0) && (frac > 0.1))
-					tx = "";
-				if ((frac > 0.24) && (frac < 0.26))
-					tx += QChar(0xBC);
-				if ((frac > 0.49) && (frac < 0.51))
-					tx += QChar(0xBD);
-				if ((frac > 0.74) && (frac < 0.76))
-					tx += QChar(0xBE);
-				tx = tx;
+				{
+					double xl = (markC * m_iter2 / m_iter2) / m_cor;
+					tx = QString::number(static_cast<int>(xl));
+					double frac = fabs(xl - static_cast<int>(xl));
+					if ((static_cast<int>(xl) == 0) && (frac > 0.1))
+						tx = "";
+					if ((frac > 0.24) && (frac < 0.26))
+						tx += QChar(0xBC);
+					if ((frac > 0.49) && (frac < 0.51))
+						tx += QChar(0xBD);
+					if ((frac > 0.74) && (frac < 0.76))
+						tx += QChar(0xBE);
+					tx = tx;
+				}
 				break;
 			case SC_P:
 			case SC_C:
@@ -207,10 +201,9 @@ void Vruler::paintEvent(QPaintEvent *e)
 void Vruler::drawNumber(const QString& num, int starty, QPainter *p)
 {
 	int textY = starty;
-	for (int a = 0; a < num.length(); ++a)
+	for (int i = 0; i < num.length(); ++i)
 	{
-		QString txt = num.mid(a, 1);
-		p->drawText(1, textY, txt);
+		p->drawText(1, textY, num.mid(i, 1));
 		textY += 8;
 	}
 }

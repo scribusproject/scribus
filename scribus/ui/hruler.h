@@ -42,6 +42,19 @@ class ScribusMainWindow;
 /** \brief Horizontal ruler
 \author Franz Schmid
 */
+
+
+enum ruler_code
+{
+	rc_none = 0,
+	rc_leftFrameDist = 1,
+	rc_rightFrameDist = 2,
+	rc_indentFirst = 3,
+	rc_leftMargin = 4,
+	rc_tab = 5,
+	rc_rightMargin = 6
+};
+
 class SCRIBUS_API Hruler : public QWidget
 {
 	Q_OBJECT
@@ -50,26 +63,6 @@ public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {}
 
-private:
-	bool   m_textEditMode;
-	double m_colGap;
-	double m_lineCorr;
-	int    m_cols;
-	double m_distLeft;
-	double m_distRight;
-	double m_firstIndent;
-	double m_leftMargin;
-	double m_rightMargin;
-	bool   m_reverse;
-	QList<ParagraphStyle::TabRecord> m_tabValues;
-	PageItem * m_currItem;
-
-	double m_itemPos;
-	double m_itemEndPos;
-	double m_offset;
-	double m_itemScale;
-
-public:
 	double ruleSpacing();
 	void   setItem(PageItem * item);
 	void   textMode(bool state) { m_textEditMode = state; }
@@ -98,22 +91,36 @@ private:
 	void drawNumber(const QString& num, int startx, int starty, QPainter & p);
 	void updateTabList();
 
-	int  m_oldMark;
-	int  m_currCol;
-	int  m_currTab;
-	double m_scaling;
-	int m_rulerCode;
-
-	bool m_mousePressed;
-	int  m_mouseX;
-	
-	double m_iter, m_iter2;
-	double m_cor;
-	int  m_whereToDraw;
-	bool m_drawMark;
-
-	ScribusDoc *m_doc;
-	ScribusView *m_view;
+	PageItem* m_currItem {nullptr};
+	QList<ParagraphStyle::TabRecord> m_tabValues;
+	ScribusDoc *m_doc {nullptr};
+	ScribusView *m_view {nullptr};
+	bool m_drawMark {false};
+	bool m_mousePressed {false};
+	bool m_reverse {false};
+	bool m_textEditMode {false};
+	double m_colGap {0.0};
+	double m_cor {0.0};
+	double m_distLeft {0.0};
+	double m_distRight {0.0};
+	double m_firstIndent {0.0};
+	double m_itemEndPos {0.0};
+	double m_itemPos {0.0};
+	double m_itemScale {1.0};
+	double m_iter {0.0};
+	double m_iter2 {0.0};
+	double m_leftMargin {0.0};
+	double m_lineCorr {0.0};
+	double m_offset {0.0};
+	double m_rightMargin {0.0};
+	double m_scaling {0.0};
+	int m_cols {0};
+	int m_currCol {1};
+	int m_currTab {0};
+	int m_mouseX {0};
+	int m_oldMark {0};
+	int m_rulerCode {rc_none};
+	int m_whereToDraw {0};
 	
 public slots: // Public slots
 	/** \brief draw mark

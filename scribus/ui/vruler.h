@@ -27,12 +27,14 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include "scribusapi.h"
 
-class QPaintEvent;
 class QMouseEvent;
+class QPaintEvent;
+
 class PrefsManager;
 class RulerGesture;
 class ScribusDoc;
 class ScribusView;
+
 
 /** \brief Vertical ruler
 \author Franz Schmid
@@ -46,26 +48,8 @@ public:
 	~Vruler() {}
 	
 	double ruleSpacing();
-	void   shift(double pos) { m_offset = pos; }
-	void   shiftRel(double dist) { m_offset += dist; }
-
-private: // Private attributes
-	virtual void paintEvent(QPaintEvent *e);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-
-	void drawNumber(const QString& num, int starty, QPainter *p);
-	double m_offset;
-	int   m_oldMark;
-	bool  m_mousePressed;
-	ScribusDoc *m_doc;
-	ScribusView *m_view;
-
-	double m_iter, m_iter2;
-	double m_cor;
-	bool   m_drawMark;
-	int    m_whereToDraw;
+	void shift(double pos) { m_offset = pos; }
+	void shiftRel(double dist) { m_offset += dist; }
 
 public slots: // Public slots
 	/** \brief draw mark
@@ -74,7 +58,23 @@ public slots: // Public slots
 	void unitChange();
 
 private:
-	RulerGesture* rulerGesture;
+	virtual void paintEvent(QPaintEvent *e);
+	virtual void mousePressEvent(QMouseEvent *m);
+	virtual void mouseReleaseEvent(QMouseEvent *m);
+	virtual void mouseMoveEvent(QMouseEvent *m);
+	void drawNumber(const QString& num, int starty, QPainter *p);
+
+	RulerGesture* rulerGesture {nullptr};
+	ScribusDoc* m_doc {nullptr};
+	ScribusView* m_view {nullptr};
+	bool m_drawMark {false};
+	bool m_mousePressed {false};
+	double m_cor {0.0};
+	double m_iter {0.0};
+	double m_iter2 {0.0};
+	double m_offset {0.0};
+	int m_oldMark {0};
+	int m_whereToDraw {0};
 };
 
 #endif
