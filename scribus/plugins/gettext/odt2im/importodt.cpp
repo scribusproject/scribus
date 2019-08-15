@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QScopedPointer>
 #include <QXmlInputSource>
 #include <QXmlSimpleReader>
-#include "color.h"
+
 #include "scribusdoc.h"
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 QString FileFormatName()
 {
-    return QObject::tr("ODT Document");
+	return QObject::tr("ODT Document");
 }
 
 QStringList FileExtensions()
@@ -1271,13 +1271,6 @@ double ODTIm::parseUnit(const QString &unit)
 	return value;
 }
 
-QColor ODTIm::parseColorN( const QString &rgbColor )
-{
-	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
-	return QColor( r, g, b );
-}
-
 QString ODTIm::parseColor( const QString &s )
 {
 	QColor c;
@@ -1309,13 +1302,7 @@ QString ODTIm::parseColor( const QString &s )
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-	{
-		QString rgbColor = s.trimmed();
-		if (rgbColor.startsWith( "#" ))
-			c.setNamedColor( rgbColor );
-		else
-			c = parseColorN( rgbColor );
-	}
+		c.setNamedColor( s.trimmed() );
 	ScColor tmp;
 	tmp.fromQColor(c);
 	tmp.setSpotColor(false);

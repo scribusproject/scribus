@@ -109,7 +109,6 @@ private:
 	QString findFontName(gtFont* font);
 	void    updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	QString parseColor(const QString &s);
-	QColor  parseColorN(const QString &rgbColor);
 	void finalize();
 	PrefsManager& m_prefsManager;
 	StoryText* m_noteStory;

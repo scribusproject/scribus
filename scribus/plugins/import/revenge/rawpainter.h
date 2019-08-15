@@ -99,7 +99,6 @@ public:
 	double valueAsPoint(const librevenge::RVNGProperty *prop);
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	double fromPercentage(const QString &s );
-	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData);
 	void applyFill(PageItem* ite);

@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include "color.h"
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
@@ -1355,13 +1354,6 @@ double OODPlug::parseUnit(const QString &unit)
 	return value;
 }
 
-QColor OODPlug::parseColorN( const QString &rgbColor )
-{
-	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
-	return QColor( r, g, b );
-}
-
 QString OODPlug::parseColor( const QString &s )
 {
 	QColor c;
@@ -1391,13 +1383,8 @@ QString OODPlug::parseColor( const QString &s )
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-	{
-		QString rgbColor = s.trimmed();
-		if (rgbColor.startsWith( "#" ))
-			c.setNamedColor(rgbColor);
-		else
-			c = parseColorN(rgbColor);
-	}
+		c.setNamedColor(s.trimmed());
+
 	ScColor tmp;
 	tmp.fromQColor(c);
 	tmp.setSpotColor(false);

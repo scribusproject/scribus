@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "svgplugin.h"
 
-#include "color.h"
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
@@ -2336,15 +2335,6 @@ bool SVGPlug::parseSVG(const QString &s, FPointArray *ite)
 	return ite->parseSVG(s);
 }
 
-
-QColor SVGPlug::parseColorN(const QString &rgbColor)
-{
-	int r, g, b;
-	keywordToRGB(rgbColor.toLower(), r, g, b);
-	return QColor(r, g, b);
-}
-
-
 QString SVGPlug::parseColor(const QString &s)
 {
 	QColor c;
@@ -2384,16 +2374,8 @@ QString SVGPlug::parseColor(const QString &s)
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-	{
-		QString rgbColor = s.trimmed();
-		if (rgbColor.startsWith("#"))
-		{
-			rgbColor = rgbColor.left(7);
-			c.setNamedColor(rgbColor);
-		}
-		else
-			c = parseColorN(rgbColor);
-	}
+		c.setNamedColor(s.trimmed());
+
 	ScColor tmp;
 	tmp.fromQColor(c);
 	tmp.setSpotColor(false);

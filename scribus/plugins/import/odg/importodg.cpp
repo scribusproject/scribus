@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "importodg.h"
 
-#include "color.h"
 #include "fileloader.h"
 #include "third_party/fparser/fparser.hh"
 #include "loadsaveplugin.h"
@@ -3227,13 +3226,6 @@ QString OdgPlug::modifyColor(const QString& name, bool darker, int amount)
 	return fNam;
 }
 
-QColor OdgPlug::parseColorN( const QString &rgbColor )
-{
-	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
-	return QColor( r, g, b );
-}
-
 QString OdgPlug::parseColor( const QString &s )
 {
 	QColor c;
@@ -3265,13 +3257,8 @@ QString OdgPlug::parseColor( const QString &s )
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-	{
-		QString rgbColor = s.trimmed();
-		if (rgbColor.startsWith( "#" ))
-			c.setNamedColor( rgbColor );
-		else
-			c = parseColorN( rgbColor );
-	}
+		c.setNamedColor(s.trimmed());
+
 	ScColor tmp;
 	tmp.fromQColor(c);
 	tmp.setSpotColor(false);

@@ -128,7 +128,6 @@ protected:
 	void fillStyleStack( const QDomElement& object );
 	void addStyles( const QDomElement* style );
 	void storeObjectStyles( const QDomElement& object );
-	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void parseTransform(FPointArray *composite, const QString &transform);
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );

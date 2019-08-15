@@ -351,7 +351,6 @@ private:
 	void arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry, double startAngle, double sweepAngle);
 	int arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints);
 	QString modifyColor(const QString& name, bool darker, int amount);
-	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
