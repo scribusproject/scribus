@@ -363,7 +363,6 @@
     <ClInclude Include="..\..\..\scribus\collapsedtablepainter.h" />
     <moc Include="..\..\..\scribus\collect4output.h" />
     <moc Include="..\..\..\scribus\ui\collectforoutput_ui.h" />
-    <CustomBuild Include="..\..\..\scribus\color.h" />
     <moc Include="..\..\..\scribus\colorblind.h" />
     <moc Include="..\..\..\scribus\ui\colorchart.h" />
     <moc Include="..\..\..\scribus\ui\colorcombo.h" />

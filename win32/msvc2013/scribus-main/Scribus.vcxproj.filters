@@ -4120,9 +4120,6 @@
     </moc>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\scribus\color.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\scribus\crypt.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
