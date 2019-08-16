@@ -7542,8 +7542,8 @@ void ScribusMainWindow::editSymbolStart(const QString& temp)
 	}
 	patternsDependingOnThis.prepend(temp);
 	symbolPalette->editingStart(patternsDependingOnThis);
-	propertiesPalette->Cpal->hideEditedPatterns(patternsDependingOnThis);
-	propertiesPalette->Tpal->hideEditedPatterns(patternsDependingOnThis);
+	propertiesPalette->colorPalette->hideEditedPatterns(patternsDependingOnThis);
+	propertiesPalette->transparencyPalette->hideEditedPatterns(patternsDependingOnThis);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);
 	updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
@@ -9295,7 +9295,7 @@ void ScribusMainWindow::manageColorsAndFills()
 			// Update tools colors if needed
 			m_prefsManager.replaceToolColors(dia->replaceColorMap);
 			m_prefsManager.setColorSet(dia->m_colorList);
-			propertiesPalette->Cpal->setColors(m_prefsManager.colorSet());
+			propertiesPalette->colorPalette->setColors(m_prefsManager.colorSet());
 			m_prefsManager.appPrefs.defaultGradients = dia->dialogGradients;
 			m_prefsManager.appPrefs.defaultPatterns = dia->dialogPatterns;
 			QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";

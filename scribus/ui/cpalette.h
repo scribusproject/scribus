@@ -48,15 +48,15 @@ class UndoManager;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API Cpalette : public QWidget, Ui::colorPalette
+class SCRIBUS_API ColorPalette : public QWidget, Ui::colorPalette
 {
 	Q_OBJECT
 
 	friend class PropertiesPalette;
 
 public:
-	Cpalette(QWidget* parent);
-	~Cpalette() {};
+	ColorPalette(QWidget* parent);
+	~ColorPalette() = default;
 
 	void setDocument(ScribusDoc* doc);
 
@@ -69,7 +69,7 @@ public:
 private:
 
 	PageItem* currentItemFromSelection();
-	UndoManager * undoManager;
+	UndoManager* undoManager {nullptr};
 
 public slots:
 
@@ -145,33 +145,33 @@ signals:
 	void editGradient(int);
 
 protected:
-	GradientVectorDialog* CGradDia;
-	QPointer<ScribusDoc> currentDoc;
-	PageItem* currentItem;
 	ColorList colorList;
-	QHash<QString, ScPattern> *patternList;
-	QHash<QString, VGradient> *gradientList;
-	double m_Pattern_scaleX;
-	double m_Pattern_scaleY;
-	double m_Pattern_offsetX;
-	double m_Pattern_offsetY;
-	double m_Pattern_rotation;
-	double m_Pattern_skewX;
-	double m_Pattern_skewY;
-	bool   m_Pattern_mirrorX;
-	bool   m_Pattern_mirrorY;
-	double m_Pattern_scaleXS;
-	double m_Pattern_scaleYS;
-	double m_Pattern_offsetXS;
-	double m_Pattern_offsetYS;
-	double m_Pattern_rotationS;
-	double m_Pattern_skewXS;
-	double m_Pattern_skewYS;
-	double m_Pattern_spaceS;
-	bool   m_Pattern_mirrorXS;
-	bool   m_Pattern_mirrorYS;
-	int    currentUnit;
-	int    editStrokeGradient;
+	GradientVectorDialog* CGradDia {nullptr};
+	PageItem* currentItem {nullptr};
+	QHash<QString, ScPattern> *patternList {nullptr};
+	QHash<QString, VGradient> *gradientList {nullptr};
+	QPointer<ScribusDoc> currentDoc;
+	bool   m_Pattern_mirrorX {false};
+	bool   m_Pattern_mirrorXS {false};
+	bool   m_Pattern_mirrorY {false};
+	bool   m_Pattern_mirrorYS {false};
+	double m_Pattern_offsetX {0.0};
+	double m_Pattern_offsetXS {0.0};
+	double m_Pattern_offsetY {0.0};
+	double m_Pattern_offsetYS {0.0};
+	double m_Pattern_rotation {0.0};
+	double m_Pattern_rotationS {0.0};
+	double m_Pattern_scaleX {0.0};
+	double m_Pattern_scaleXS {0.0};
+	double m_Pattern_scaleY {0.0};
+	double m_Pattern_scaleYS {0.0};
+	double m_Pattern_skewX {0.0};
+	double m_Pattern_skewXS {0.0};
+	double m_Pattern_skewY {0.0};
+	double m_Pattern_skewYS {0.0};
+	double m_Pattern_spaceS {0.0};
+	int    currentUnit {0};
+	int    editStrokeGradient {0};
 
 	void   connectSignals();
 	void   disconnectSignals();
@@ -182,7 +182,7 @@ protected:
 	void   setGradientVectorValues();
 	void   setGradientVectorStrokeValues();
 
-	int    m_blockUpdates;
+	int    m_blockUpdates {0};
 	void   blockUpdates(bool block) { if (block) ++m_blockUpdates; else --m_blockUpdates; }
 	bool   updatesBlocked() { return (m_blockUpdates > 0); }
 

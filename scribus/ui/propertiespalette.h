@@ -31,7 +31,7 @@ class QWidget;
 #include "sctreewidget.h"
 
 class ColorCombo;
-class Cpalette;
+class ColorPalette;
 class NameWidget;
 class PropertiesPalette_Group;
 class PropertiesPalette_Image;
@@ -45,7 +45,7 @@ class ScribusDoc;
 class ScribusMainWindow;
 class Selection;
 class UndoManager;
-class Tpalette;
+class TransparencyPalette;
 
 class SCRIBUS_API PropertiesPalette : public ScDockPalette
 {
@@ -70,18 +70,17 @@ public:
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 
-	PropertiesPalette_Group* groupPal;
-	PropertiesPalette_Image* imagePal;
-	PropertiesPalette_Line*  linePal;
-	PropertiesPalette_Shadow* shadowPal;
-	PropertiesPalette_Shape* shapePal;
-	PropertiesPalette_Table* tablePal;
-	PropertiesPalette_XYZ*   xyzPal;
-	Cpalette *Cpal;
-	Tpalette *Tpal;
+	PropertiesPalette_Group* groupPal {nullptr};
+	PropertiesPalette_Image* imagePal {nullptr};
+	PropertiesPalette_Line* linePal {nullptr};
+	PropertiesPalette_Shadow* shadowPal {nullptr};
+	PropertiesPalette_Shape* shapePal {nullptr};
+	PropertiesPalette_Table* tablePal {nullptr};
+	PropertiesPalette_XYZ* xyzPal {nullptr};
+	ColorPalette *colorPalette {nullptr};
+	TransparencyPalette *transparencyPalette {nullptr};
 
 private:
-
 	PageItem* currentItemFromSelection();
 	
 public slots:
@@ -113,28 +112,27 @@ private slots:
 	void handleShapeEdit();
 
 protected:
-	ScribusMainWindow *m_ScMW;
-	ScTreeWidget* TabStack;
+	ScribusMainWindow *m_ScMW {nullptr};
+	ScTreeWidget* TabStack {nullptr};
 
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	double    m_unitRatio;
-	int       m_unitIndex;
-	PageItem* m_item;
-	UndoManager *undoManager;
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {0};
+	PageItem* m_item {nullptr};
+	UndoManager *undoManager {nullptr};
 	
 	ScGuardedPtr<ScribusDoc> m_doc;
-	
-	
-	int idXYZItem;
-	int idShapeItem;
-	int idTableItem;
-	int idImageItem;
-	int idLineItem;
-	int idColorsItem;
-	int idTransparencyItem;
-	int idGroupItem;
-	int idShadowItem;
+
+	int idXYZItem {0};
+	int idShapeItem {0};
+	int idTableItem {0};
+	int idImageItem {0};
+	int idLineItem {0};
+	int idColorsItem {0};
+	int idTransparencyItem {0};
+	int idGroupItem {0};
+	int idShadowItem {0};
 };
 
 #endif

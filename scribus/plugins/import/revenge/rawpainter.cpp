@@ -69,24 +69,23 @@ void RawPainterPres::startDocument(const librevenge::RVNGPropertyList &propList)
 void RawPainterPres::endDocument()
 {
 	painter->endDocument();
-	if (pageElements.count() > 1)
+	if (pageElements.isEmpty())
+		return;
+	for (int i = 1; i < pageElements.count(); ++i)
 	{
-		for (int a = 1; a < pageElements.count(); ++a)
+		if (i < mDoc->Pages->count())
 		{
-			if (a < mDoc->Pages->count())
+			double bX = mDoc->Pages->at(i)->xOffset();
+			double bY = mDoc->Pages->at(i)->yOffset();
+			for (int j = 0; j < pageElements[i].count(); ++j)
 			{
-				double bX = mDoc->Pages->at(a)->xOffset();
-				double bY = mDoc->Pages->at(a)->yOffset();
-				for (int b = 0; b < pageElements[a].count(); ++b)
-				{
-					PageItem *item = pageElements[a][b];
-					item->setXYPos(item->xPos() + bX, item->yPos() + bY, true);
-					if (item->isGroup())
-						mDoc->GroupOnPage(item);
-					else
-						item->OwnPage = mDoc->OnPage(item);
-					item->setRedrawBounding();
-				}
+				PageItem *item = pageElements[i][j];
+				item->setXYPos(item->xPos() + bX, item->yPos() + bY, true);
+				if (item->isGroup())
+					mDoc->GroupOnPage(item);
+				else
+					item->OwnPage = mDoc->OnPage(item);
+				item->setRedrawBounding();
 			}
 		}
 	}

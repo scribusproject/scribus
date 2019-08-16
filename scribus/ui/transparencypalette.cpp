@@ -30,11 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
+TransparencyPalette::TransparencyPalette(QWidget* parent) : QWidget(parent)
 {
-	currentItem = nullptr;
-	patternList = nullptr;
-	TGradDia = nullptr;
 	TGradDia = new GradientVectorDialog(this->parentWidget());
 	TGradDia->hide();
 	setupUi(this);
@@ -44,6 +41,7 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	strokeOpacity->setDecimals(0);
 	fillOpacity->setDecimals(0);
 	editFillSelectorButton();
+
 	connect(editLineSelector, SIGNAL(clicked()), this, SLOT(editLineSelectorButton()));
 	connect(editFillSelector, SIGNAL(clicked()), this, SLOT(editFillSelectorButton()));
 	connect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
@@ -64,7 +62,7 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
-void Tpalette::connectSignals()
+void TransparencyPalette::connectSignals()
 {
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
@@ -75,7 +73,7 @@ void Tpalette::connectSignals()
 	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
-void Tpalette::disconnectSignals()
+void TransparencyPalette::disconnectSignals()
 {
 	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
@@ -86,7 +84,7 @@ void Tpalette::disconnectSignals()
 	disconnect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
-void Tpalette::setCurrentItem(PageItem* item)
+void TransparencyPalette::setCurrentItem(PageItem* item)
 {
 	currentItem = item;
 	disconnectSignals();
@@ -113,7 +111,7 @@ void Tpalette::setCurrentItem(PageItem* item)
 		tabWidget->setCurrentIndex(1);
 	else
 		tabWidget->setCurrentIndex(2);
-	if (patternList->count() == 0)
+	if (patternList->isEmpty())
 		tabWidget->setTabEnabled(2, false);
 	else
 		tabWidget->setTabEnabled(2, true);
@@ -141,7 +139,7 @@ void Tpalette::setCurrentItem(PageItem* item)
 	connectSignals();
 }
 
-void Tpalette::setDocument(ScribusDoc* doc)
+void TransparencyPalette::setDocument(ScribusDoc* doc)
 {
 	this->disconnect(SIGNAL(NewTrans(double)));
 	this->disconnect(SIGNAL(NewTransS(double)));
@@ -176,13 +174,13 @@ void Tpalette::setDocument(ScribusDoc* doc)
 	}
 }
 
-void Tpalette::handleUpdateRequest(int updateFlags)
+void TransparencyPalette::handleUpdateRequest(int updateFlags)
 {
 	if (updateFlags & reqColorsUpdate)
 		updateColorList();
 }
 
-void Tpalette::updateColorList()
+void TransparencyPalette::updateColorList()
 {
 	if (!currentDoc)
 		return;
@@ -198,7 +196,7 @@ void Tpalette::updateColorList()
 		setCurrentItem(currentItem);
 }
 
-void Tpalette::hideSelectionButtons()
+void TransparencyPalette::hideSelectionButtons()
 {
 	editLineSelector->hide();
 	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
@@ -206,17 +204,17 @@ void Tpalette::hideSelectionButtons()
 	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 }
 
-void Tpalette::updateFromItem()
+void TransparencyPalette::updateFromItem()
 {
 	setCurrentItem(currentItem);
 }
 
-void Tpalette::updateCList()
+void TransparencyPalette::updateCList()
 {
 	gradEdit->setColors(colorList);
 }
 
-void Tpalette::updateGradientList()
+void TransparencyPalette::updateGradientList()
 {
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	namedGradient->clear();
@@ -224,9 +222,9 @@ void Tpalette::updateGradientList()
 	namedGradient->addItem( tr("Custom"));
 	QStringList patK = gradientList->keys();
 	qSort(patK);
-	for (int a = 0; a < patK.count(); a++)
+	for (int i = 0; i < patK.count(); i++)
 	{
-		VGradient gr = gradientList->value(patK[a]);
+		VGradient gr = gradientList->value(patK[i]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
@@ -243,25 +241,25 @@ void Tpalette::updateGradientList()
 		delete p;
 		QPixmap pm;
 		pm = QPixmap::fromImage(pixm);
-		namedGradient->addItem(pm, patK[a]);
+		namedGradient->addItem(pm, patK[i]);
 	}
 	connect(namedGradient, SIGNAL(activated(const QString&)), this, SLOT(setNamedGradient(const QString&)));
 }
 
-void Tpalette::setGradients(QHash<QString, VGradient> *docGradients)
+void TransparencyPalette::setGradients(QHash<QString, VGradient> *docGradients)
 {
 	gradientList = docGradients;
 	updateGradientList();
 }
 
-void Tpalette::setColors(const ColorList& newColorList)
+void TransparencyPalette::setColors(const ColorList& newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
 	updateCList();
 }
 
-void Tpalette::slotGrad(int number)
+void TransparencyPalette::slotGrad(int number)
 {
 	if (number == 1)
 	{
@@ -315,7 +313,7 @@ void Tpalette::slotGrad(int number)
 		emit NewGradient(0);
 }
 
-void Tpalette::slotGradType(int type)
+void TransparencyPalette::slotGradType(int type)
 {
 	if (type == 0)
 	{
@@ -333,7 +331,7 @@ void Tpalette::slotGradType(int type)
 	}
 }
 
-void Tpalette::setNamedGradient(const QString &name)
+void TransparencyPalette::setNamedGradient(const QString &name)
 {
 	if (namedGradient->currentIndex() == 0)
 	{
@@ -363,7 +361,7 @@ void Tpalette::setNamedGradient(const QString &name)
 	}
 }
 
-void Tpalette::switchGradientMode()
+void TransparencyPalette::switchGradientMode()
 {
 	if (gradientType->currentIndex() == 0)
 	{
@@ -381,7 +379,7 @@ void Tpalette::switchGradientMode()
 	}
 }
 
-void Tpalette::switchPatternMode()
+void TransparencyPalette::switchPatternMode()
 {
 	if (transpCalcPattern->isChecked())
 	{
@@ -399,7 +397,7 @@ void Tpalette::switchPatternMode()
 	}
 }
 
-void Tpalette::editGradientVector()
+void TransparencyPalette::editGradientVector()
 {
 	if (gradEditButton->isChecked())
 	{
@@ -418,7 +416,7 @@ void Tpalette::editGradientVector()
 	emit editGradient();
 }
 
-void Tpalette::setActiveGradDia(bool active)
+void TransparencyPalette::setActiveGradDia(bool active)
 {
 	if (!active)
 	{
@@ -427,13 +425,13 @@ void Tpalette::setActiveGradDia(bool active)
 	}
 }
 
-void Tpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+void TransparencyPalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	if (TGradDia)
 		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, 0, 0);
 }
 
-void Tpalette::hideEditedPatterns(QStringList names)
+void TransparencyPalette::hideEditedPatterns(QStringList names)
 {
 	for (int a = 0; a < names.count(); a++)
 	{
@@ -443,7 +441,7 @@ void Tpalette::hideEditedPatterns(QStringList names)
 	}
 }
 
-void Tpalette::updatePatternList()
+void TransparencyPalette::updatePatternList()
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	patternBox->clear();
@@ -471,20 +469,20 @@ void Tpalette::updatePatternList()
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
-void Tpalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
+void TransparencyPalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;
 	updatePatternList();
 }
 
-void Tpalette::selectPattern(QListWidgetItem *c)
+void TransparencyPalette::selectPattern(QListWidgetItem *c)
 {
 	if (c == nullptr)
 		return;
 	emit NewPattern(c->text());
 }
 
-void Tpalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void TransparencyPalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -507,7 +505,7 @@ void Tpalette::setActPattern(const QString& pattern, double scaleX, double scale
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
-void Tpalette::changePatternProps()
+void TransparencyPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
@@ -541,7 +539,7 @@ void Tpalette::changePatternProps()
 	delete dia;
 }
 
-void Tpalette::setActTrans(double val, double val2)
+void TransparencyPalette::setActTrans(double val, double val2)
 {
 	disconnect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
 	disconnect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
@@ -551,7 +549,7 @@ void Tpalette::setActTrans(double val, double val2)
 	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 }
 
-void Tpalette::setActBlend(int val, int val2)
+void TransparencyPalette::setActBlend(int val, int val2)
 {
 	disconnect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	disconnect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
@@ -561,17 +559,17 @@ void Tpalette::setActBlend(int val, int val2)
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 }
 
-void Tpalette::slotTransS(double val)
+void TransparencyPalette::slotTransS(double val)
 {
 	emit NewTransS((100 - val) / 100.0);
 }
 
-void Tpalette::slotTransF(double val)
+void TransparencyPalette::slotTransF(double val)
 {
 	emit NewTrans((100 - val) / 100.0);
 }
 
-void Tpalette::editLineSelectorButton()
+void TransparencyPalette::editLineSelectorButton()
 {
 	if (editLineSelector->isChecked())
 	{
@@ -581,7 +579,7 @@ void Tpalette::editLineSelectorButton()
 	updateFromItem();
 }
 
-void Tpalette::editFillSelectorButton()
+void TransparencyPalette::editFillSelectorButton()
 {
 	if (editFillSelector->isChecked())
 	{
@@ -591,7 +589,7 @@ void Tpalette::editFillSelectorButton()
 	updateFromItem();
 }
 
-void Tpalette::unitChange(double, double, int unitIndex)
+void TransparencyPalette::unitChange(double, double, int unitIndex)
 {
 	if (TGradDia)
 		TGradDia->unitChange(unitIndex);

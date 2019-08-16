@@ -66,13 +66,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
+ColorPalette::ColorPalette(QWidget* parent) : QWidget(parent)
 {
 	undoManager = UndoManager::instance();
-	m_blockUpdates = 0;
-	currentItem = nullptr;
-	patternList = nullptr;
-	CGradDia = nullptr;
 	CGradDia = new GradientVectorDialog(this->parentWidget());
 	CGradDia->hide();
 
@@ -127,7 +123,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	editFillColorSelectorButton();*/
 }
 
-void Cpalette::connectSignals()
+void ColorPalette::connectSignals()
 {
 	connect(CGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
@@ -187,7 +183,7 @@ void Cpalette::connectSignals()
 	connect(GradientExtendS  , SIGNAL(activated(int)), this, SLOT(handleStrokeGradientExtend(int)));
 }
 
-void Cpalette::disconnectSignals()
+void ColorPalette::disconnectSignals()
 {
 	disconnect(CGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
 	disconnect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
@@ -247,7 +243,7 @@ void Cpalette::disconnectSignals()
 	disconnect(GradientExtendS  , SIGNAL(activated(int)), this, SLOT(handleStrokeGradientExtend(int)));
 }
 
-void Cpalette::setCurrentItem(PageItem* item)
+void ColorPalette::setCurrentItem(PageItem* item)
 {
 	if ((item == nullptr) || (currentItem != item))
 	{
@@ -343,12 +339,12 @@ void Cpalette::setCurrentItem(PageItem* item)
 	connectSignals();
 }
 
-void Cpalette::updateFromItem()
+void ColorPalette::updateFromItem()
 {
 	setCurrentItem(currentItem);
 }
 
-void Cpalette::setDocument(ScribusDoc* doc)
+void ColorPalette::setDocument(ScribusDoc* doc)
 {
 	this->disconnect(SIGNAL(NewPen(QString)));
 	this->disconnect(SIGNAL(NewBrush(QString)));
@@ -415,7 +411,7 @@ void Cpalette::setDocument(ScribusDoc* doc)
 	}
 }
 
-PageItem* Cpalette::currentItemFromSelection()
+PageItem* ColorPalette::currentItemFromSelection()
 {
 	PageItem *currentItem = nullptr;
 	if (currentDoc)
@@ -423,7 +419,7 @@ PageItem* Cpalette::currentItemFromSelection()
 	return currentItem;
 }
 
-void Cpalette::enablePatterns(bool enable)
+void ColorPalette::enablePatterns(bool enable)
 {
 	if (enable)
 	{
@@ -441,7 +437,7 @@ void Cpalette::enablePatterns(bool enable)
 	}
 }
 
-void Cpalette::handleSelectionChanged()
+void ColorPalette::handleSelectionChanged()
 {
 	if (currentDoc && !updatesBlocked())
 	{
@@ -450,13 +446,13 @@ void Cpalette::handleSelectionChanged()
 	}
 }
 
-void Cpalette::handleUpdateRequest(int updateFlags)
+void ColorPalette::handleUpdateRequest(int updateFlags)
 {
 	if (updateFlags & reqColorsUpdate)
 		updateColorList();
 }
 
-void Cpalette::updateColorList()
+void ColorPalette::updateColorList()
 {
 	if (!currentDoc)
 		return;
@@ -472,7 +468,7 @@ void Cpalette::updateColorList()
 		setCurrentItem(currentItem);
 }
 
-void Cpalette::updateCList()
+void ColorPalette::updateCList()
 {
 	bool sigBlocked1 = colorListStroke->blockSignals(true);
 	bool sigBlocked2 = colorListFill->blockSignals(true);
@@ -500,108 +496,100 @@ void Cpalette::updateCList()
 	colorListFill->blockSignals(sigBlocked2);
 }
 
-void Cpalette::toggleColorDisplay()
+void ColorPalette::toggleColorDisplay()
 {
-	if (currentDoc != nullptr)
-	{
-		colorListStroke->cList = &currentDoc->PageColors;
-		colorListFill->cList = &currentDoc->PageColors;
-		colorList = currentDoc->PageColors;
-		updateColorList();
-	}
+	if (!currentDoc)
+		return;
+	colorListStroke->cList = &currentDoc->PageColors;
+	colorListFill->cList = &currentDoc->PageColors;
+	colorList = currentDoc->PageColors;
+	updateColorList();
 }
 
-void Cpalette::showOverprint(int val)
+void ColorPalette::showOverprint(int val)
 {
 	bool sigBlocked = overPrintCombo->blockSignals(true);
 	overPrintCombo->setCurrentIndex(val);
 	overPrintCombo->blockSignals(sigBlocked);
 }
 
-void Cpalette::handleFillShade(double val)
+void ColorPalette::handleFillShade(double val)
 {
-	if (currentDoc)
-	{
-		blockUpdates(true);
-		currentDoc->itemSelection_SetItemBrushShade(static_cast<int>(val));
-		blockUpdates(false);
-	}
+	if (!currentDoc)
+		return;
+	blockUpdates(true);
+	currentDoc->itemSelection_SetItemBrushShade(static_cast<int>(val));
+	blockUpdates(false);
 }
 
-void Cpalette::handleStrokeShade(double val)
+void ColorPalette::handleStrokeShade(double val)
 {
-	if (currentDoc)
-	{
-		blockUpdates(true);
-		currentDoc->itemSelection_SetItemPenShade(static_cast<int>(val));
-		blockUpdates(false);
-	}
+	if (!currentDoc)
+		return;
+	blockUpdates(true);
+	currentDoc->itemSelection_SetItemPenShade(static_cast<int>(val));
+	blockUpdates(false);
 }
 
-void Cpalette::handleOverprint(int val)
+void ColorPalette::handleOverprint(int val)
 {
-	if (currentDoc)
-	{
-		bool setter = true;
-		if (val == 0)
-			setter = false;
-		currentDoc->itemSelection_SetOverprint(setter);
-	}
+	if (!currentDoc)
+		return;
+	bool setter = true;
+	if (val == 0)
+		setter = false;
+	currentDoc->itemSelection_SetOverprint(setter);
 }
 
-void Cpalette::handleFillGradient()
+void ColorPalette::handleFillGradient()
 {
-	if (currentDoc)
-	{
-		VGradient gradient(gradEdit->gradient());
-		blockUpdates(true);
-		currentDoc->updateManager()->setUpdatesDisabled();
-		currentDoc->itemSelection_SetFillGradient(gradient);
-		currentDoc->updateManager()->setUpdatesEnabled();
-		blockUpdates(false);
-	}
+	if (!currentDoc)
+		return;
+	VGradient gradient(gradEdit->gradient());
+	blockUpdates(true);
+	currentDoc->updateManager()->setUpdatesDisabled();
+	currentDoc->itemSelection_SetFillGradient(gradient);
+	currentDoc->updateManager()->setUpdatesEnabled();
+	blockUpdates(false);
 }
 
-void Cpalette::handleStrokeGradient()
+void ColorPalette::handleStrokeGradient()
 {
-	if (currentDoc)
-	{
-		VGradient gradient(gradEditStroke->gradient());
-		blockUpdates(true);
-		currentDoc->updateManager()->setUpdatesDisabled();
-		currentDoc->itemSelection_SetLineGradient(gradient);
-		currentDoc->updateManager()->setUpdatesEnabled();
-		blockUpdates(false);
-	}
+	if (!currentDoc)
+		return;
+	VGradient gradient(gradEditStroke->gradient());
+	blockUpdates(true);
+	currentDoc->updateManager()->setUpdatesDisabled();
+	currentDoc->itemSelection_SetLineGradient(gradient);
+	currentDoc->updateManager()->setUpdatesEnabled();
+	blockUpdates(false);
 }
 
-void Cpalette::handleStrokeGradientExtend(int val)
+void ColorPalette::handleStrokeGradientExtend(int val)
 {
-	if (currentDoc)
-	{
-		if (val == 0)
-			currentItem->setStrokeGradientExtend(VGradient::none);
-		else
-			currentItem->setStrokeGradientExtend(VGradient::pad);
-		currentItem->update();
-		currentDoc->regionsChanged()->update(QRect());
-	}
+	if (!currentDoc)
+		return;
+	if (val == 0)
+		currentItem->setStrokeGradientExtend(VGradient::none);
+	else
+		currentItem->setStrokeGradientExtend(VGradient::pad);
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::handleGradientExtend(int val)
+void ColorPalette::handleGradientExtend(int val)
 {
-	if (currentDoc)
-	{
-		if (val == 0)
-			currentItem->setGradientExtend(VGradient::none);
-		else
-			currentItem->setGradientExtend(VGradient::pad);
-		currentItem->update();
-		currentDoc->regionsChanged()->update(QRect());
-	}
+	if (!currentDoc)
+		return;
+	if (val == 0)
+		currentItem->setGradientExtend(VGradient::none);
+	else
+		currentItem->setGradientExtend(VGradient::pad);
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::showColorValues(const QString& stroke, const QString& fill, int sShade, int fShade)
+void ColorPalette::showColorValues(const QString& stroke, const QString& fill, int sShade, int fShade)
 {
 	bool sigBlocked1 = fillShade->blockSignals(true);
 	bool sigBlocked2 = strokeShade->blockSignals(true);
@@ -625,7 +613,7 @@ void Cpalette::showColorValues(const QString& stroke, const QString& fill, int s
 	colorListFill->blockSignals(sigBlocked4);
 }
 
-void Cpalette::selectColorS(int row)
+void ColorPalette::selectColorS(int row)
 {
 	QString colorName;
 	QVariant varValue = colorListStroke->data(row, Qt::UserRole);
@@ -643,7 +631,7 @@ void Cpalette::selectColorS(int row)
 	emit NewPen(colorName);
 }
 
-void Cpalette::selectColorF(int row)
+void ColorPalette::selectColorF(int row)
 {
 	QString colorName;
 	QVariant varValue = colorListFill->data(row, Qt::UserRole);
@@ -661,14 +649,14 @@ void Cpalette::selectColorF(int row)
 	emit NewBrush(colorName);
 }
 
-void Cpalette::setColors(const ColorList& newColorList)
+void ColorPalette::setColors(const ColorList& newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
 	updateCList();
 }
 
-void Cpalette::fillStrokeSelector(int /*index*/)
+void ColorPalette::fillStrokeSelector(int /*index*/)
 {
 	if (gradEditButton->isChecked() || editMeshColors->isChecked())
 	{
@@ -703,7 +691,7 @@ void Cpalette::editFillColorSelectorButton()
 	updateFromItem();
 }*/
 
-void Cpalette::updateGradientList()
+void ColorPalette::updateGradientList()
 {
 	bool sigBlocked1 = namedGradient->blockSignals(true);
 	bool sigBlocked2 = namedGradientStroke->blockSignals(true);
@@ -742,13 +730,13 @@ void Cpalette::updateGradientList()
 	namedGradientStroke->blockSignals(sigBlocked2);
 }
 
-void Cpalette::setGradients(QHash<QString, VGradient> *docGradients)
+void ColorPalette::setGradients(QHash<QString, VGradient> *docGradients)
 {
 	gradientList = docGradients;
 	updateGradientList();
 }
 
-void Cpalette::setGradientColors()
+void ColorPalette::setGradientColors()
 {
 	QString color1 = colorPoint1->currentText();
 	if (color1 == CommonStrings::tr_NoneColor)
@@ -777,7 +765,7 @@ void Cpalette::setGradientColors()
 	currentItem->update();
 }
 
-void Cpalette::setNamedGradient(const QString &name)
+void ColorPalette::setNamedGradient(const QString &name)
 {
 	if (namedGradient->currentIndex() == 0)
 	{
@@ -808,7 +796,7 @@ void Cpalette::setNamedGradient(const QString &name)
 		emit NewGradient(11);
 }
 
-void Cpalette::setNamedGradientStroke(const QString &name)
+void ColorPalette::setNamedGradientStroke(const QString &name)
 {
 	if (namedGradientStroke->currentIndex() == 0)
 	{
@@ -828,7 +816,7 @@ void Cpalette::setNamedGradientStroke(const QString &name)
 		emit NewGradientS(7);
 }
 
-void Cpalette::updatePatternList()
+void ColorPalette::updatePatternList()
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	patternBox->clear();
@@ -861,40 +849,40 @@ void Cpalette::updatePatternList()
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
-void Cpalette::hideEditedPatterns(QStringList names)
+void ColorPalette::hideEditedPatterns(QStringList names)
 {
-	for (int a = 0; a < names.count(); a++)
+	for (int i = 0; i < names.count(); i++)
 	{
-		QList<QListWidgetItem*> items = patternBox->findItems(names[a], Qt::MatchExactly);
+		QList<QListWidgetItem*> items = patternBox->findItems(names[i], Qt::MatchExactly);
 		if (items.count() > 0)
 			items[0]->setHidden(true);
-		items = patternBoxStroke->findItems(names[a], Qt::MatchExactly);
+		items = patternBoxStroke->findItems(names[i], Qt::MatchExactly);
 		if (items.count() > 0)
 			items[0]->setHidden(true);
 	}
 }
 
-void Cpalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
+void ColorPalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;
 	updatePatternList();
 }
 
-void Cpalette::selectPattern(QListWidgetItem *c)
+void ColorPalette::selectPattern(QListWidgetItem *c)
 {
 	if (c == nullptr)
 		return;
 	emit NewPattern(c->text());
 }
 
-void Cpalette::selectPatternS(QListWidgetItem *c)
+void ColorPalette::selectPatternS(QListWidgetItem *c)
 {
 	if (c == nullptr)
 		return;
 	emit NewPatternS(c->text());
 }
 
-void Cpalette::setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
+void ColorPalette::setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
 {
 	bool sigBlocked = patternBoxStroke->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -919,7 +907,7 @@ void Cpalette::setActPatternStroke(const QString& pattern, double scaleX, double
 	patternBoxStroke->blockSignals(sigBlocked);
 }
 
-void Cpalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ColorPalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	bool sigBlocked = patternBox->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -942,7 +930,7 @@ void Cpalette::setActPattern(const QString& pattern, double scaleX, double scale
 	patternBox->blockSignals(sigBlocked);
 }
 
-void Cpalette::slotGradStroke(int number)
+void ColorPalette::slotGradStroke(int number)
 {
 	if (number == 1)
 	{
@@ -980,7 +968,7 @@ void Cpalette::slotGradStroke(int number)
 	strokeModeStack->setCurrentIndex(number);
 }
 
-void Cpalette::showGradient(int number)
+void ColorPalette::showGradient(int number)
 {
 	bool sigBlocked = fillModeCombo->blockSignals(true);
 	if (number==-1)
@@ -1091,7 +1079,7 @@ void Cpalette::showGradient(int number)
 	fillModeCombo->blockSignals(sigBlocked);
 }
 
-void Cpalette::showGradientStroke(int number)
+void ColorPalette::showGradientStroke(int number)
 {
 	bool sigBlocked = strokeModeCombo->blockSignals(true);
 	if (number==-1 || number == 0)
@@ -1122,7 +1110,7 @@ void Cpalette::showGradientStroke(int number)
 	strokeModeCombo->blockSignals(sigBlocked);
 }
 
-void Cpalette::slotGrad(int number)
+void ColorPalette::slotGrad(int number)
 {
 	if (number == 1)
 	{
@@ -1234,7 +1222,7 @@ void Cpalette::slotGrad(int number)
 	fillModeStack->setCurrentIndex(number);
 }
 
-void Cpalette::slotGradType(int type)
+void ColorPalette::slotGradType(int type)
 {
 	if (type == 0)
 	{
@@ -1304,7 +1292,7 @@ void Cpalette::slotGradType(int type)
 	}
 }
 
-void Cpalette::slotGradTypeStroke(int type)
+void ColorPalette::slotGradTypeStroke(int type)
 {
 	if (type == 0)
 		emit NewGradientS(6);
@@ -1312,7 +1300,7 @@ void Cpalette::slotGradTypeStroke(int type)
 		emit NewGradientS(7);
 }
 
-void Cpalette::editMeshPointColor()
+void ColorPalette::editMeshPointColor()
 {
 	if (editMeshColors->isChecked())
 	{
@@ -1336,7 +1324,7 @@ void Cpalette::editMeshPointColor()
 	emit editGradient(editStrokeGradient);
 }
 
-void Cpalette::createNewMeshGradient()
+void ColorPalette::createNewMeshGradient()
 {
 	InsertTable* dia = new InsertTable(this, 255, 255);
 	dia->setWindowTitle( tr( "Create Mesh" ) );
@@ -1349,21 +1337,21 @@ void Cpalette::createNewMeshGradient()
 	delete dia;
 }
 
-void Cpalette::resetMeshGradient()
+void ColorPalette::resetMeshGradient()
 {
 	currentItem->resetGradientMesh();
 	currentItem->update();
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::meshGradientToShape()
+void ColorPalette::meshGradientToShape()
 {
 	currentItem->meshToShape();
 	currentItem->update();
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::resetOneControlPoint()
+void ColorPalette::resetOneControlPoint()
 {
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
@@ -1459,7 +1447,7 @@ void Cpalette::resetOneControlPoint()
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::resetAllControlPoints()
+void ColorPalette::resetAllControlPoints()
 {
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
@@ -1548,7 +1536,7 @@ void Cpalette::resetAllControlPoints()
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::editGradientVector()
+void ColorPalette::editGradientVector()
 {
 	if (gradEditButton->isChecked())
 	{
@@ -1575,7 +1563,7 @@ void Cpalette::editGradientVector()
 	emit editGradient(editStrokeGradient);
 }
 
-void Cpalette::editGradientVectorStroke()
+void ColorPalette::editGradientVectorStroke()
 {
 	if (gradEditButtonStroke->isChecked())
 	{
@@ -1592,78 +1580,75 @@ void Cpalette::editGradientVectorStroke()
 	emit editGradient(editStrokeGradient);
 }
 
-void Cpalette::setGradientVectorValues()
+void ColorPalette::setGradientVectorValues()
 {
-	if (gradEditButton->isChecked())
+	if (!gradEditButton->isChecked())
+		return;
+	CGradDia->unitChange(currentDoc->unitIndex());
+	CGradDia->setValues(currentItem->gradientStartX(), currentItem->gradientStartY(), currentItem->gradientEndX(), currentItem->gradientEndY(), currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew, 0, 0);
+	if (currentItem->gradientType() == 6)
+		CGradDia->selectLinear();
+	else if (currentItem->gradientType() == 7)
+		CGradDia->selectRadial();
+	else if (currentItem->gradientType() == 9)
 	{
-		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->gradientStartX(), currentItem->gradientStartY(), currentItem->gradientEndX(), currentItem->gradientEndY(), currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew, 0, 0);
-		if (currentItem->gradientType() == 6)
-			CGradDia->selectLinear();
-		else if (currentItem->gradientType() == 7)
-			CGradDia->selectRadial();
-		else if (currentItem->gradientType() == 9)
-		{
-			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), 0, 0);
-			CGradDia->selectFourColor();
-		}
-		else if (currentItem->gradientType() == 10)
-		{
-			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), currentItem->GrControl5.x(), currentItem->GrControl5.y());
-			CGradDia->selectDiamond();
-		}
-		else if (currentItem->gradientType() == 11)
-		{
-			CGradDia->selectMesh();
-			editMeshColors->setEnabled(false);
-		}
-		else if (currentItem->gradientType() == 12)
-		{
-			CGradDia->selectPatchMesh();
-			editMeshColors->setEnabled(false);
-		}
-		else if (currentItem->gradientType() == 13)
-			CGradDia->selectConical();
+		CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), 0, 0);
+		CGradDia->selectFourColor();
 	}
+	else if (currentItem->gradientType() == 10)
+	{
+		CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), currentItem->GrControl5.x(), currentItem->GrControl5.y());
+		CGradDia->selectDiamond();
+	}
+	else if (currentItem->gradientType() == 11)
+	{
+		CGradDia->selectMesh();
+		editMeshColors->setEnabled(false);
+	}
+	else if (currentItem->gradientType() == 12)
+	{
+		CGradDia->selectPatchMesh();
+		editMeshColors->setEnabled(false);
+	}
+	else if (currentItem->gradientType() == 13)
+		CGradDia->selectConical();
 }
 
-void Cpalette::setGradientVectorStrokeValues()
+void ColorPalette::setGradientVectorStrokeValues()
 {
-	if (gradEditButtonStroke->isChecked())
-	{
-		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew, 0, 0);
-		if (currentItem->strokeGradientType() == 6)
-			CGradDia->selectLinear();
-		else
-			CGradDia->selectRadial();
-	}
+	if (!gradEditButtonStroke->isChecked())
+		return;
+	CGradDia->unitChange(currentDoc->unitIndex());
+	CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew, 0, 0);
+	if (currentItem->strokeGradientType() == 6)
+		CGradDia->selectLinear();
+	else
+		CGradDia->selectRadial();
 }
 
-void Cpalette::setActiveGradDia(bool active)
+void ColorPalette::setActiveGradDia(bool active)
 {
-	if (!active)
-	{
-		if (editStrokeGradient == 1)
-			gradEditButtonStroke->setChecked(false);
-		else
-			gradEditButton->setChecked(false);
-		emit editGradient(editStrokeGradient);
-		fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
-		gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
-		strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
-		gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
-		editMeshColors->setEnabled(true);
-	}
+	if (active)
+		return;
+	if (editStrokeGradient == 1)
+		gradEditButtonStroke->setChecked(false);
+	else
+		gradEditButton->setChecked(false);
+	emit editGradient(editStrokeGradient);
+	fillModeCombo->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	gradientType->setEnabled(!gradEditButton->isChecked() && !editMeshColors->isChecked());
+	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
+	editMeshColors->setEnabled(true);
 }
 
-void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
+void ColorPalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
 {
 	if (CGradDia)
 		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, cx, cy);
 }
 
-void Cpalette::setMeshPoint()
+void ColorPalette::setMeshPoint()
 {
 	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1))
 	{
@@ -1683,17 +1668,17 @@ void Cpalette::setMeshPoint()
 	}
 }
 
-void Cpalette::endPatchAdd()
+void ColorPalette::endPatchAdd()
 {
 	CGradDia->endPAddButton();
 }
 
-void Cpalette::snapToPatchGrid(bool val)
+void ColorPalette::snapToPatchGrid(bool val)
 {
 	currentItem->setSnapToPatchGrid(val);
 }
 
-void Cpalette::handleRemovePatch()
+void ColorPalette::handleRemovePatch()
 {
 	if ((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1))
 	{
@@ -1714,7 +1699,7 @@ void Cpalette::handleRemovePatch()
 	}
 }
 
-void Cpalette::updateMeshPoint()
+void ColorPalette::updateMeshPoint()
 {
 	QString color = colorMeshPoint->currentText();
 	if (color == CommonStrings::tr_NoneColor)
@@ -1725,7 +1710,7 @@ void Cpalette::updateMeshPoint()
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::setMeshPatchPoint()
+void ColorPalette::setMeshPatchPoint()
 {
 	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > 0))
 	{
@@ -1761,12 +1746,12 @@ void Cpalette::setMeshPatchPoint()
 	}
 }
 
-void Cpalette::setMeshPatch()
+void ColorPalette::setMeshPatch()
 {
 	CGradDia->changebuttonRemovePatch((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1));
 }
 
-void Cpalette::changePatternProps()
+void ColorPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
@@ -1821,7 +1806,7 @@ void Cpalette::changePatternProps()
 	emit NewGradient(8);
 }
 
-void Cpalette::changePatternPropsStroke()
+void ColorPalette::changePatternPropsStroke()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, true);
 	dia->spinXscaling->setValue(m_Pattern_scaleXS);
@@ -1876,7 +1861,7 @@ void Cpalette::changePatternPropsStroke()
 	delete dia;
 }
 
-void Cpalette::changeHatchProps()
+void ColorPalette::changeHatchProps()
 {
 	QString color1 = hatchLineColor->currentText();
 	if (color1 == CommonStrings::tr_NoneColor)
@@ -1892,12 +1877,12 @@ void Cpalette::changeHatchProps()
 	currentDoc->regionsChanged()->update(QRect());
 }
 
-void Cpalette::toggleStrokePattern()
+void ColorPalette::toggleStrokePattern()
 {
 	emit NewPatternTypeS(followsPath->isChecked());
 }
 
-void Cpalette::unitChange(double, double, int unitIndex)
+void ColorPalette::unitChange(double, double, int unitIndex)
 {
 	if (CGradDia)
 		CGradDia->unitChange(unitIndex);
@@ -1905,7 +1890,7 @@ void Cpalette::unitChange(double, double, int unitIndex)
 	currentUnit = unitIndex;
 }
 
-void Cpalette::languageChange()
+void ColorPalette::languageChange()
 {
 	// Needed to avoid issues if an item is selected and patterns are available
 	if (currentItem)

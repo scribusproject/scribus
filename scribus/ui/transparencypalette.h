@@ -48,7 +48,7 @@ class LinkButton;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API Tpalette : public QWidget, Ui::transparencyPalette
+class SCRIBUS_API TransparencyPalette : public QWidget, Ui::transparencyPalette
 {
 	Q_OBJECT
 
@@ -56,8 +56,8 @@ class SCRIBUS_API Tpalette : public QWidget, Ui::transparencyPalette
 	friend class PropertiesPalette_Group;
 
 public:
-	Tpalette(QWidget* parent);
-	~Tpalette() {};
+	TransparencyPalette(QWidget* parent);
+	~TransparencyPalette() = default;
 
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
@@ -106,26 +106,25 @@ signals:
 	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 
 protected:
-	GradientVectorDialog* TGradDia;
+	GradientVectorDialog* TGradDia {nullptr};
 	QPointer<ScribusDoc> currentDoc;
-	PageItem* currentItem;
+	PageItem* currentItem {nullptr};
 	ColorList colorList;
-	int currentUnit;
-	QHash<QString, ScPattern> *patternList;
-	QHash<QString, VGradient> *gradientList;
-	double m_Pattern_scaleX;
-	double m_Pattern_scaleY;
-	double m_Pattern_offsetX;
-	double m_Pattern_offsetY;
-	double m_Pattern_rotation;
-	double m_Pattern_skewX;
-	double m_Pattern_skewY;
-	bool m_Pattern_mirrorX;
-	bool m_Pattern_mirrorY;
+	int currentUnit {0};
+	QHash<QString, ScPattern> *patternList {nullptr};
+	QHash<QString, VGradient> *gradientList {nullptr};
+	double m_Pattern_scaleX {0.0};
+	double m_Pattern_scaleY {0.0};
+	double m_Pattern_offsetX {0.0};
+	double m_Pattern_offsetY {0.0};
+	double m_Pattern_rotation {0.0};
+	double m_Pattern_skewX {0.0};
+	double m_Pattern_skewY {0.0};
+	bool m_Pattern_mirrorX {false};
+	bool m_Pattern_mirrorY {false};
 
 	void connectSignals();
 	void disconnectSignals();
-
 	void updateCList();
 	void updateGradientList();
 	void updatePatternList();
