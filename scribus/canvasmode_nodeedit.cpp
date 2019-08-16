@@ -53,7 +53,7 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
 	double x, y;
-	if (m_doc->m_Selection->count() == 0)
+	if (m_doc->m_Selection->isEmpty())
 		return;
 	if (m_doc->nodeEdit.previewMode())
 		return;

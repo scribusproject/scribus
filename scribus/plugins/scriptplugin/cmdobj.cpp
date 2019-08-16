@@ -665,7 +665,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	// for current item only
-	if (currentDoc->m_Selection->count() == 0 || (strlen(name) > 0))
+	if (currentDoc->m_Selection->isEmpty() || (strlen(name) > 0))
 	{
 		// Store text selection as clearing object selection
 		// will also clear text selection
@@ -748,7 +748,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	// for current item only
-	if (currentDoc->m_Selection->count() == 0 || (strlen(name) > 0))
+	if (currentDoc->m_Selection->isEmpty() || (strlen(name) > 0))
 	{
 		// Store text selection as clearing object selection
 		// will also clear text selection

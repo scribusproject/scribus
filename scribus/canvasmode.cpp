@@ -1097,7 +1097,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		m_doc->SubMode = -1;
 		m_doc->ElemToLink = nullptr;
 		mainWindow->slotSelect();
-		if (m_doc->m_Selection->count() == 0)
+		if (m_doc->m_Selection->isEmpty())
 			mainWindow->HaveNewSel();
 		prefsManager.appPrefs.uiPrefs.stickyTools = false;
 		scrActions["stickyTools"]->setChecked(false);
@@ -1115,7 +1115,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		{
 			ContextMenu* cmen=nullptr;
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
-			if (m_doc->m_Selection->count() == 0)
+			if (m_doc->m_Selection->isEmpty())
 			{
 				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
 				FPoint fp = m_canvas->globalToCanvas(QCursor::pos());
@@ -1141,7 +1141,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		 * - With Tab, change active document windowActivated
 		 */
 
-		if (m_doc->m_Selection->count() == 0)
+		if (m_doc->m_Selection->isEmpty())
 		{
 			int wheelVal = prefsManager.mouseWheelJump();
 			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))

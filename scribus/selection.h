@@ -125,7 +125,7 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * \brief Check if the selection is empty.
 		 */
-		bool isEmpty() const { return m_SelList.count()==0; }
+		bool isEmpty() const { return m_SelList.count() == 0; }
 		/**
 		 * \brief Clear a list
 		 */

@@ -2846,7 +2846,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 
 void ScribusView::editExtendedImageProperties()
 {
-	if (Doc->m_Selection->count() == 0)
+	if (Doc->m_Selection->isEmpty())
 		return;
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	if (!currItem->pixm.imgInfo.valid)

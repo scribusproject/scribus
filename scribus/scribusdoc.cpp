@@ -11042,7 +11042,8 @@ void ScribusDoc::itemSelection_Rotate(double angle, Selection* customSelection)
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
 
-	if (itemSelection->count() == 0) return;
+	if (itemSelection->isEmpty())
+		return;
 	
 	if (itemSelection->count() > 1)
 		rotateGroup(angle, itemSelection);
@@ -11449,7 +11450,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 
 	if (itemSelection->isGUISelection() && !itemSelection->signalsDelayed())
 	{
-		if (itemSelection->count() == 0)
+		if (itemSelection->isEmpty())
 			emit firstSelectedItemType(-1);
 		else
 			itemSelection->itemAt(0)->emitAllToGUI();
@@ -15003,7 +15004,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
-	if (itemSelection->count() == 0)
+	if (itemSelection->isEmpty())
 		return;
 
 	uint docSelectionCount = itemSelection->count();
@@ -15330,7 +15331,7 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 void ScribusDoc::itemSelection_resizeGroupToContents(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
-	if (itemSelection->count() == 0)
+	if (itemSelection->isEmpty())
 		return;
 	int docSelectionCount = itemSelection->count();
 	for (int a = 0; a < docSelectionCount; ++a)

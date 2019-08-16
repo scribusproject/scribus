@@ -900,7 +900,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			m_view->updatesOn(true);
 			m_doc->m_Selection->delaySignalsOff();
 		}
-		if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
+		if (((m_doc->m_Selection->isEmpty()) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 		{
 			m_shiftSelItems = true;
 			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
@@ -913,7 +913,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	else // !GetItem()
 	{
 		SeleItem(m);
-		if (m_doc->m_Selection->count() == 0)
+		if (m_doc->m_Selection->isEmpty())
 		{
 			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
@@ -1125,7 +1125,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 
 
 	//CB Drag selection performed here
-	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((m_shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
+	if (((m_doc->m_Selection->isEmpty()) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((m_shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
 	{
 		// get newly selection rectangle
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();

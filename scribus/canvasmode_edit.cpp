@@ -854,7 +854,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	//CB Drag selection performed here
-	if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
+	if ((m_doc->m_Selection->isEmpty()) && (m_view->HaveSelRect) && (!m_view->MidButt))
 	{
 		QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 		if (!m_doc->masterPageMode())

@@ -52,7 +52,7 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 	if (framehandle > 0)
 		m_handle = framehandle;
 	
-	if (m_doc->m_Selection->count() == 0)
+	if (m_doc->m_Selection->isEmpty())
 	{
 		m_handle = Canvas::OUTSIDE;
 		return;
@@ -962,7 +962,7 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {
 	FPoint point = m_canvas->globalToCanvas(m->globalPos());
 	m_mousePressPoint = m->globalPos();
-	if (m_doc->m_Selection->count() == 0)
+	if (m_doc->m_Selection->isEmpty())
 	{
 		m_handle = Canvas::OUTSIDE;
 	}

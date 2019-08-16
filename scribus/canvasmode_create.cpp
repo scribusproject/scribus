@@ -775,7 +775,7 @@ PageItem* CreateMode::doCreateNewObject()
 		break;
 	case modeDrawTable2:
 		// TODO: Figure out what these conditions actually do.
-		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
+		if ((m_doc->m_Selection->isEmpty()) && (m_view->HaveSelRect) && (!m_view->MidButt))
 		{
 			m_view->HaveSelRect = false;
 			// Calculate table rectangle.
