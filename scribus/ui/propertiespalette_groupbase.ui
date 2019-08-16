@@ -374,7 +374,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="Tpalette" name="transPalWidget" native="true"/>
+       <widget class="TransparencyPalette" name="transPalWidget" native="true"/>
       </item>
      </layout>
     </widget>
