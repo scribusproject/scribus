@@ -55,10 +55,10 @@ public:
 
 	PageItem_TextFrame * asTextFrame() override { return this; }
 	bool isTextFrame() const override { return true; }
-	
+
 	void clearContents() override;
 	void truncateContents() override;
-	
+
 	/**
 	* \brief Handle keyboard interaction with the text frame while in edit mode
 	* @param k key event
@@ -68,7 +68,7 @@ public:
 	void deleteSelectedTextFromFrame();
 	void ExpandSel(int oldPos);
 	void deselectAll();
-	
+
 	//for speed up updates when changed was only one frame from chain
 	virtual void invalidateLayout(bool wholeChain);
 	using PageItem::invalidateLayout;
@@ -79,7 +79,7 @@ public:
 
 	double columnWidth();
 
-    //enable/disable marks inserting actions depending on editMode
+	//enable/disable marks inserting actions depending on editMode
 	void toggleEditModeActions();
 	QRegion availableRegion() { return m_availableRegion; }
 
@@ -92,7 +92,7 @@ protected:
 	//void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
-	
+
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
 	QString unicodeInputString;
@@ -119,7 +119,7 @@ private:
 	bool checkKeyIsShortcut(QKeyEvent *k);
 	QRectF m_origAnnotPos;
 	void updateBulletsNum();
-	
+
 private slots:
 	void slotInvalidateLayout(int firstItem, int endItem);
 
@@ -149,7 +149,7 @@ private:
 	NotesInFrameMap updateNotesFrames(QMap<int, Mark*> noteMarksPosMap); //update notes frames content
 	void updateNotesMarks(NotesInFrameMap notesMap);
 	Mark* selectedMark(bool onlySelection = true);
-    TextNote* selectedNoteMark(int& foundPos, bool onlySelection = true);
+	TextNote* selectedNoteMark(int& foundPos, bool onlySelection = true);
 	TextNote* selectedNoteMark(bool onlySelection = true);
 protected:
 	// set text frame height to last line of text
