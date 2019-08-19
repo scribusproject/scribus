@@ -66,7 +66,6 @@ BezierMode::BezierMode(ScribusView* view) : CanvasMode(view)
 	MoveGX = MoveGY = false;
 	inItemCreation = false;
 	m_MouseButtonPressed = false;
-	shiftSelItems = false;
 	FirstPoly = true;
 }
 
@@ -126,7 +125,6 @@ void BezierMode::activate(bool /*flag*/)
 	Mxp = Myp = -1;
 	MoveGX = MoveGY = false;
 	inItemCreation = false;
-	shiftSelItems = false;
 	FirstPoly = true;
 	setModeCursor();
 }
@@ -219,7 +217,6 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m_view->MidButt = false;
-	shiftSelItems = false;
 	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
@@ -270,7 +267,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	
 	if (inItemCreation)
 	{
-		if ((GetItem(&currItem)) && (!shiftSelItems))
+		if (GetItem(&currItem))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
@@ -290,7 +287,6 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 				Mxp = newX;
 				Myp = newY;
 			}
-			
 		}
 		else
 		{
@@ -482,7 +478,6 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 //	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	shiftSelItems = false;
 //	m_doc->SubMode = -1;
 	if (m_view->groupTransactionStarted())
 	{
