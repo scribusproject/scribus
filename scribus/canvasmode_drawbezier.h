@@ -56,7 +56,6 @@ private:
 	bool m_MouseButtonPressed;
 	double Mxp, Myp;
 	double SeRx, SeRy;
-	bool MoveGX, MoveGY;
 	FPointArray RecordP;
 };
 

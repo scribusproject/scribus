@@ -63,7 +63,6 @@ BezierMode::BezierMode(ScribusView* view) : CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	SeRx = SeRy = -1;
-	MoveGX = MoveGY = false;
 	inItemCreation = false;
 	m_MouseButtonPressed = false;
 	FirstPoly = true;
@@ -123,7 +122,6 @@ void BezierMode::activate(bool /*flag*/)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
 	Mxp = Myp = -1;
-	MoveGX = MoveGY = false;
 	inItemCreation = false;
 	FirstPoly = true;
 	setModeCursor();
@@ -247,21 +245,6 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
-/*	if (m_doc->guidesPrefs().guidesShown)
-	{
-		if (MoveGY)
-		{
-			m_view->FromHRuler(m);
-			return;
-		}
-		if (MoveGX)
-		{
-			m_view->FromVRuler(m);
-			return;
-		}
-	}
-*/
-	
 	if (commonMouseMove(m))
 		return;
 	
@@ -316,23 +299,16 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	double Rxpd = 0;
 	double Rypd = 0;
 	PageItem *currItem;
-//	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
-//	QRect tx;
 	QTransform pm;
 	m_MouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-	MoveGX = MoveGY = false;
-//	inItemCreation = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-//	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Rxpd = Mxp - Rxp;
 	Mxp = qRound(Rxp);
