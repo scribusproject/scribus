@@ -152,6 +152,12 @@ void BezierMode::deactivate(bool /*flag*/)
 		}
 	}
 
+	if (inItemCreation)
+	{
+		undoManager->setUndoEnabled(true);
+		inItemCreation = false;
+	}
+
 	if (currItem && UndoManager::undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
@@ -354,7 +360,6 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		inItemCreation = true;
 	}
 	currItem = m_doc->m_Selection->itemAt(0);
-	//			pm.translate(-m_doc->minCanvasCoordinate.x()*m_canvas->scale(), -m_doc->minCanvasCoordinate.y()*m_canvas->scale());
 	pm = currItem->getTransform();
 	npf = m_doc->ApplyGridF(mousePointDoc).transformPoint(pm, true);
 	currItem->PoLine.addPoint(npf);
