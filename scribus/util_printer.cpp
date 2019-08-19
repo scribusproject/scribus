@@ -90,7 +90,18 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QSize
 		return false;
 
 	QPrinter printer(pInfo, QPrinter::HighResolution);
-	margins = printer.pageLayout().margins(QPageLayout::Point);
+	margins = printer.pageLayout().margins();
+
+	// Unfortunately margin values are not updated when calling QPrinter or QPageLayout's setOrientation()
+	// so we have to adapt margin values according to orientation ourselves
+	if (pageSize.width() > pageSize.height())
+	{
+		double l = margins.left();
+		double r = margins.right();
+		double b = margins.bottom();
+		double t = margins.top();
+		margins = QMarginsF(b, l, t, r);
+	}
 	return true;
 }
 
