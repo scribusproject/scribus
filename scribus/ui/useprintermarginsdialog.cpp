@@ -27,23 +27,27 @@ for which a new license (GPL+exception) is in place.
 // useprintermarginsdialog.ui if you need to modify the layout,
 // widget properties, etc.
 
-UsePrinterMarginsDialog::UsePrinterMarginsDialog( QWidget* parent, const QString& pageSize, double unitRatio, const QString& suffix )
+UsePrinterMarginsDialog::UsePrinterMarginsDialog(QWidget* parent, const QSizeF& pageSize, const QString& pageSizeName, double unitRatio, const QString& suffix )
 	: QDialog(parent)
 {
 	setupUi(this);
-	m_ptsTopMargin=m_ptsBottomMargin=m_ptsLeftMargin=m_ptsRightMargin=0.0;
-	m_pageSize=pageSize;
-	m_unitRatio=unitRatio;
-	m_suffix=suffix;
-	QStringList printerNames=PrinterUtil::getPrinterNames();
+
+	m_margins = QMarginsF(0.0, 0.0, 0.0, 0.0);
+	m_pageSize = pageSize;
+	m_pageSizeName = pageSizeName;
+	m_unitRatio = unitRatio;
+	m_suffix = suffix;
+
+	QStringList printerNames = PrinterUtil::getPrinterNames();
 	printerComboBox->clear();
-	if (printerNames.count()>0 && !pageSize.isEmpty())
+	if (printerNames.count() > 0 && !pageSize.isEmpty())
 	{
 		printerComboBox->insertItems(0, printerNames);
 		getPrinterMarginValues(printerNames.first());
-		marginsGroupBox->setTitle( tr("Minimum Margins for Page Size %1").arg(pageSize));
+		marginsGroupBox->setTitle( tr("Minimum Margins for Page Size %1").arg(pageSizeName));
 		connect(printerComboBox, SIGNAL(activated(const QString&)), this, SLOT(getPrinterMarginValues(const QString&)));
 	}
+
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
@@ -52,18 +56,18 @@ UsePrinterMarginsDialog::~UsePrinterMarginsDialog()
 {
 }
 
-void UsePrinterMarginsDialog::getNewPrinterMargins(double &topMargin,double &bottomMargin,double &leftMargin,double &rightMargin)
+void UsePrinterMarginsDialog::getNewPrinterMargins(double &topMargin, double &bottomMargin, double &leftMargin, double &rightMargin)
 {
-	topMargin=m_ptsTopMargin;
-	bottomMargin=m_ptsBottomMargin;
-	leftMargin=m_ptsLeftMargin;
-	rightMargin=m_ptsRightMargin;
+	topMargin = m_margins.top();
+	bottomMargin = m_margins.bottom();
+	leftMargin = m_margins.left();
+	rightMargin = m_margins.right();
 }
 
 void UsePrinterMarginsDialog::getPrinterMarginValues(const QString& printerName)
 {
-	m_ptsTopMargin=m_ptsBottomMargin=m_ptsLeftMargin=m_ptsRightMargin=0.0;
-	bool foundSize=PrinterUtil::getPrinterMarginValues(printerName, m_pageSize, m_ptsTopMargin, m_ptsBottomMargin, m_ptsLeftMargin, m_ptsRightMargin);
+	m_margins = QMarginsF(0.0, 0.0, 0.0, 0.0);
+	bool foundSize = PrinterUtil::getPrinterMarginValues(printerName, m_pageSize, m_margins);
 
 	topLineEdit->setEnabled(foundSize);
 	bottomLineEdit->setEnabled(foundSize);
@@ -71,8 +75,8 @@ void UsePrinterMarginsDialog::getPrinterMarginValues(const QString& printerName)
 	rightLineEdit->setEnabled(foundSize);
 	okButton->setEnabled(foundSize);
 	
-	topLineEdit->setText(QString::number(m_ptsTopMargin * m_unitRatio,'g',4)+m_suffix);
-	bottomLineEdit->setText(QString::number(m_ptsBottomMargin * m_unitRatio,'g',4)+m_suffix);
-	leftLineEdit->setText(QString::number(m_ptsLeftMargin * m_unitRatio,'g',4)+m_suffix);
-	rightLineEdit->setText(QString::number(m_ptsRightMargin * m_unitRatio,'g',4)+m_suffix);	
+	topLineEdit->setText(QString::number(m_margins.top() * m_unitRatio,'g', 4) + m_suffix);
+	bottomLineEdit->setText(QString::number(m_margins.bottom() * m_unitRatio,'g', 4) + m_suffix);
+	leftLineEdit->setText(QString::number(m_margins.left() * m_unitRatio,'g', 4) + m_suffix);
+	rightLineEdit->setText(QString::number(m_margins.right() * m_unitRatio,'g', 4) + m_suffix);	
 }

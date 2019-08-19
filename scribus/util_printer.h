@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include <QMap>
+#include <QMarginsF>
+#include <QSizeF>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -60,7 +62,7 @@ class SCRIBUS_API PrinterUtil
 		 * @param m_ptsRightMargin the page's right margin in points
 		\retval bool true on success
 		 */
-		static bool getPrinterMarginValues( const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& m_ptsBottomMargin, double& m_ptsLeftMargin, double& m_ptsRightMargin);
+		static bool getPrinterMarginValues(const QString& printerName, const QSizeF& pageSize, QMarginsF& margins);
 		/**
 		 * @brief Get default print engine for a specific printer
 		 * @param printerName the printer name

@@ -14,6 +14,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef USEPRINTERMARGINSDIALOG_H
 #define USEPRINTERMARGINSDIALOG_H
 
+#include <QMarginsF>
+#include <QSizeF>
+
 #include "ui_useprintermarginsdialog.h"
 
 #include "scribusapi.h"
@@ -23,8 +26,9 @@ class SCRIBUS_API UsePrinterMarginsDialog : public QDialog, Ui::UsePrinterMargin
 	Q_OBJECT
 
 	public:
-		UsePrinterMarginsDialog(QWidget* parent, const QString& pageSize, double unitRatio, const QString& suffix);
+		UsePrinterMarginsDialog(QWidget* parent, const QSizeF& pageSize, const QString& pageSizeName, double unitRatio, const QString& suffix);
 		~UsePrinterMarginsDialog();
+
 		/**
 		 * Return the new printer sourced margins in PostScript points (72dpi).
 		 * @param topMargin 
@@ -32,15 +36,17 @@ class SCRIBUS_API UsePrinterMarginsDialog : public QDialog, Ui::UsePrinterMargin
 		 * @param leftMargin 
 		 * @param rightMargin 
 		 */
-		void getNewPrinterMargins(double &topMargin,double &bottomMargin,double &leftMargin,double &rightMargin);
+		void getNewPrinterMargins(double &topMargin, double &bottomMargin, double &leftMargin, double &rightMargin);
+
 	protected slots:
 		void getPrinterMarginValues(const QString& printerName);
 		
 	protected:
-		QString m_pageSize;
-		double m_unitRatio;
+		QSizeF  m_pageSize;
+		QString m_pageSizeName;
+		double  m_unitRatio;
 		QString m_suffix;
-		double m_ptsTopMargin,m_ptsBottomMargin,m_ptsLeftMargin,m_ptsRightMargin;
+		QMarginsF m_margins;
 };
 
 #endif

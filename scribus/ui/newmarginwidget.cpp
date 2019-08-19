@@ -13,8 +13,8 @@ for which a new license (GPL+exception) is in place.
 
 NewMarginWidget::NewMarginWidget(QWidget* parent)
 	: QWidget(parent),
-	savedPresetItem(PresetLayout::none),
-	facingPages(false),
+	m_savedPresetItem(PresetLayout::none),
+	m_facingPages(false),
 	m_flags(MarginWidgetFlags)
 {
 	setupUi(this);
@@ -22,9 +22,9 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 	m_unitIndex = 0;
 	m_unitRatio = 1.0;
 
-	pageWidth  = 0;
-	pageHeight = 0;
-	pageType = 0;
+	m_pageWidth  = 0;
+	m_pageHeight = 0;
+	m_pageType = 0;
 }
 
 NewMarginWidget::~NewMarginWidget()
@@ -33,10 +33,10 @@ NewMarginWidget::~NewMarginWidget()
 
 void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags)
 {
-	marginData=savedMarginData=margs;
-	m_unitIndex=unitIndex;
-	m_unitRatio=unitGetRatioFromIndex(unitIndex);
-	m_flags=flags;
+	m_marginData = m_savedMarginData=margs;
+	m_unitIndex = unitIndex;
+	m_unitRatio = unitGetRatioFromIndex(unitIndex);
+	m_flags = flags;
 	leftMarginSpinBox->setMaximum(1000);
 	rightMarginSpinBox->setMaximum(1000);
 	topMarginSpinBox->setMaximum(1000);
@@ -101,7 +101,7 @@ void NewMarginWidget::languageChange()
 
 void NewMarginWidget::setNewValues(const MarginStruct& margs)
 {
-	marginData=savedMarginData=margs;
+	m_marginData = m_savedMarginData = margs;
 	updateMarginSpinValues();
 }
 
@@ -109,7 +109,7 @@ void NewMarginWidget::setPageWidth(double newWidth)
 {
 	leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - rightMarginSpinBox->value()));
 	rightMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
-	pageWidth = newWidth;
+	m_pageWidth = newWidth;
 	setPreset();
 }
 
@@ -117,63 +117,63 @@ void NewMarginWidget::setPageHeight(double newHeight)
 {
 	topMarginSpinBox->setMaximum(qMax(0.0, newHeight * m_unitRatio - bottomMarginSpinBox->value()));
 	bottomMarginSpinBox->setMaximum(qMax(0.0,newHeight * m_unitRatio - topMarginSpinBox->value()));
-	pageHeight = newHeight;
+	m_pageHeight = newHeight;
 	setPreset();
 }
 
 void NewMarginWidget::setTop()
 {
 	double newVal=topMarginSpinBox->value() / m_unitRatio;
-	bottomMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topMarginSpinBox->value()));
-	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
+	bottomMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - topMarginSpinBox->value()));
+	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
-		marginData.set(newVal, newVal, newVal, newVal);
+		m_marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
 	}
 	else
-		marginData.setTop(newVal);
+		m_marginData.setTop(newVal);
 	setPreset();
 }
 
 void NewMarginWidget::setBottom()
 {
 	double newVal = bottomMarginSpinBox->value() / m_unitRatio;
-	topMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
-	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
+	topMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
+	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
-		marginData.set(newVal, newVal, newVal, newVal);
+		m_marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
 	}
 	else
-		marginData.setBottom(newVal);
+		m_marginData.setBottom(newVal);
 	setPreset();
 }
 
 void NewMarginWidget::setLeft()
 {
 	double newVal = leftMarginSpinBox->value() / m_unitRatio;
-	rightMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftMarginSpinBox->value()));
-	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
+	rightMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - leftMarginSpinBox->value()));
+	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
-		marginData.set(newVal, newVal, newVal, newVal);
+		m_marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
 	}
 	else
-		marginData.setLeft(newVal);
+		m_marginData.setLeft(newVal);
 	setPreset();
 }
 
 void NewMarginWidget::setRight()
 {
 	double newVal = rightMarginSpinBox->value() / m_unitRatio;
-	leftMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightMarginSpinBox->value()));
-	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
+	leftMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - rightMarginSpinBox->value()));
+	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
-		marginData.set(newVal, newVal, newVal, newVal);
+		m_marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
 	}
 	else
-		marginData.setRight(newVal);
+		m_marginData.setRight(newVal);
 	setPreset();
 }
 
@@ -205,27 +205,28 @@ void NewMarginWidget::setPreset()
 	rightMarginSpinBox->blockSignals(true);
 	topMarginSpinBox->blockSignals(true);
 	bottomMarginSpinBox->blockSignals(true);
-	if (savedPresetItem==PresetLayout::none)
-		savedMarginData=marginData;
+	if (m_savedPresetItem == PresetLayout::none)
+		m_savedMarginData = m_marginData;
 	int item = presetLayoutComboBox->currentIndex();
 
-	MarginStruct marg = presetLayoutComboBox->getMargins(item, pageWidth, pageHeight, leftMarginSpinBox->value() / m_unitRatio);
-	facingPages ? presetLayoutComboBox->setEnabled(true) : presetLayoutComboBox->setEnabled(false);
-	bool restoringValues=false;
-	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
+	MarginStruct marg = presetLayoutComboBox->getMargins(item, m_pageWidth, m_pageHeight, leftMarginSpinBox->value() / m_unitRatio);
+	presetLayoutComboBox->setEnabled(m_facingPages);
+
+	bool restoringValues = false;
+	if (item == PresetLayout::none && m_savedPresetItem != PresetLayout::none)
 	{
-		marg=savedMarginData;
-		restoringValues=true;
+		marg = m_savedMarginData;
+		restoringValues = true;
 	}
-	if (restoringValues || (presetLayoutComboBox->needUpdate() && facingPages))
+	if (restoringValues || (presetLayoutComboBox->needUpdate() && m_facingPages))
 	{
-		marginData.set(qMax(0.0, marg.top()), qMax(0.0, marg.left()), qMax(0.0, marg.bottom()), qMax(0.0, marg.right()));
+		m_marginData.set(qMax(0.0, marg.top()), qMax(0.0, marg.left()), qMax(0.0, marg.bottom()), qMax(0.0, marg.right()));
 		updateMarginSpinValues();
 
-		bottomMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topMarginSpinBox->value()));
-		topMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
-		rightMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftMarginSpinBox->value()));
-		leftMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightMarginSpinBox->value()));
+		bottomMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - topMarginSpinBox->value()));
+		topMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
+		rightMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - leftMarginSpinBox->value()));
+		leftMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - rightMarginSpinBox->value()));
 		rightMarginSpinBox->setEnabled(restoringValues);
 		topMarginSpinBox->setEnabled(restoringValues);
 		bottomMarginSpinBox->setEnabled(restoringValues);
@@ -236,22 +237,22 @@ void NewMarginWidget::setPreset()
 		topMarginSpinBox->setEnabled(true);
 		bottomMarginSpinBox->setEnabled(true);
 	}
-	if (pageType == 1)
+	if (m_pageType == 1)
 		rightMarginSpinBox->setEnabled(false);
 	leftMarginSpinBox->setEnabled(item != PresetLayout::nineparts);
-	if (item!=PresetLayout::none)
+	if (item != PresetLayout::none)
 		marginLinkButton->setChecked(false);
-	marginLinkButton->setEnabled(item==PresetLayout::none || !presetLayoutComboBox->isEnabled());
+	marginLinkButton->setEnabled(item == PresetLayout::none || !presetLayoutComboBox->isEnabled());
 	leftMarginSpinBox->blockSignals(false);
 	rightMarginSpinBox->blockSignals(false);
 	topMarginSpinBox->blockSignals(false);
 	bottomMarginSpinBox->blockSignals(false);
-	savedPresetItem=item;
+	m_savedPresetItem = item;
 }
 
 void NewMarginWidget::setPageSize(const QString& pageSize)
 {
-	m_pageSize=pageSize;
+	m_pageSize = pageSize;
 }
 
 
@@ -262,10 +263,10 @@ void NewMarginWidget::updateMarginSpinValues()
 	bool topBlocked = topMarginSpinBox->blockSignals(true);
 	bool bottomBlocked = bottomMarginSpinBox->blockSignals(true);
 
-	topMarginSpinBox->setValue(marginData.top() * m_unitRatio);
-	rightMarginSpinBox->setValue(marginData.right() * m_unitRatio);
-	bottomMarginSpinBox->setValue(marginData.bottom() * m_unitRatio);
-	leftMarginSpinBox->setValue(marginData.left() * m_unitRatio);
+	topMarginSpinBox->setValue(m_marginData.top() * m_unitRatio);
+	rightMarginSpinBox->setValue(m_marginData.right() * m_unitRatio);
+	bottomMarginSpinBox->setValue(m_marginData.bottom() * m_unitRatio);
+	leftMarginSpinBox->setValue(m_marginData.left() * m_unitRatio);
 
 	leftMarginSpinBox->blockSignals(leftBlocked);
 	rightMarginSpinBox->blockSignals(rightBlocked);
@@ -285,8 +286,8 @@ void NewMarginWidget::slotLinkMargins()
 		bottomMarginSpinBox->setValue(leftMarginSpinBox->value());
 		topMarginSpinBox->setValue(leftMarginSpinBox->value());
 		rightMarginSpinBox->setValue(leftMarginSpinBox->value());
-		double newVal=leftMarginSpinBox->value() / m_unitRatio;
-		marginData.set(newVal, newVal, newVal, newVal);
+		double newVal = leftMarginSpinBox->value() / m_unitRatio;
+		m_marginData.set(newVal, newVal, newVal, newVal);
 	}
 
 	leftMarginSpinBox->blockSignals(leftBlocked);
@@ -300,18 +301,19 @@ void NewMarginWidget::setMarginPreset(int p)
 	if ((m_flags & ShowPreset) == 0)
 		return;
 	presetLayoutComboBox->blockSignals(true);
-	savedPresetItem = p;
+	m_savedPresetItem = p;
 	presetLayoutComboBox->setCurrentIndex(p);
-	if (savedPresetItem==PresetLayout::none)
-		savedMarginData=marginData;
+	if (m_savedPresetItem == PresetLayout::none)
+		m_savedMarginData = m_marginData;
 	int item = presetLayoutComboBox->currentIndex();
-	facingPages ? presetLayoutComboBox->setEnabled(true) : presetLayoutComboBox->setEnabled(false);
-	bool restoringValues=false;
-	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
+	presetLayoutComboBox->setEnabled(m_facingPages);
+
+	bool restoringValues = false;
+	if ((item == PresetLayout::none) && (m_savedPresetItem != PresetLayout::none))
 	{
-		restoringValues=true;
+		restoringValues = true;
 	}
-	if (restoringValues || (presetLayoutComboBox->needUpdate() && facingPages))
+	if (restoringValues || (presetLayoutComboBox->needUpdate() && m_facingPages))
 	{
 		rightMarginSpinBox->setEnabled(restoringValues);
 		topMarginSpinBox->setEnabled(restoringValues);
@@ -323,19 +325,19 @@ void NewMarginWidget::setMarginPreset(int p)
 		topMarginSpinBox->setEnabled(true);
 		bottomMarginSpinBox->setEnabled(true);
 	}
-	if (pageType == 1)
+	if (m_pageType == 1)
 		rightMarginSpinBox->setEnabled(false);
 	leftMarginSpinBox->setEnabled(item != PresetLayout::nineparts);
-	if (item!=PresetLayout::none)
+	if (item != PresetLayout::none)
 		marginLinkButton->setChecked(false);
-	marginLinkButton->setEnabled(item==PresetLayout::none);
+	marginLinkButton->setEnabled(item == PresetLayout::none);
 	presetLayoutComboBox->blockSignals(false);
 }
 
-void NewMarginWidget::setFacingPages(bool facing, int pagetype)
+void NewMarginWidget::setFacingPages(bool facing, int pageType)
 {
-	facingPages = facing;
-	pageType = pagetype;
+	m_facingPages = facing;
+	m_pageType = pageType;
 	leftMarginLabel->setText(facing ? tr( "&Inside:" ) : tr( "&Left:" ));
 	rightMarginLabel->setText(facing ? tr( "O&utside:" ) : tr( "&Right:" ));
 	setPreset();
@@ -343,24 +345,25 @@ void NewMarginWidget::setFacingPages(bool facing, int pagetype)
 
 void NewMarginWidget::setMarginsToPrinterMargins()
 {
-	UsePrinterMarginsDialog upm(parentWidget(), m_pageSize, unitGetRatioFromIndex(m_unitIndex), unitGetSuffixFromIndex(m_unitIndex));
-	if (upm.exec())
-	{
-		double t,b,l,r;
-		upm.getNewPrinterMargins(t,b,l,r);
-		presetLayoutComboBox->setCurrentIndex(PresetLayout::none);
-		marginData.set(t,l,b,r);
+	QSizeF pageDimensions(m_pageWidth, m_pageHeight);
+	UsePrinterMarginsDialog upm(parentWidget(), pageDimensions, m_pageSize, unitGetRatioFromIndex(m_unitIndex), unitGetSuffixFromIndex(m_unitIndex));
+	if (upm.exec() != QDialog::Accepted)
+		return;
 
-		updateMarginSpinValues();
+	double t, b, l, r;
+	upm.getNewPrinterMargins(t, b, l, r);
+	presetLayoutComboBox->setCurrentIndex(PresetLayout::none);
+	m_marginData.set(t, l, b, r);
 
-		bottomMarginSpinBox->setMaximum((qMax(0.0, pageHeight - t) * m_unitRatio));
-		topMarginSpinBox->setMaximum((qMax(0.0, pageHeight - b) * m_unitRatio));
-		rightMarginSpinBox->setMaximum((qMax(0.0, pageWidth - l) * m_unitRatio));
-		leftMarginSpinBox->setMaximum((qMax(0.0, pageWidth - r) * m_unitRatio));
+	updateMarginSpinValues();
 
-		rightMarginSpinBox->setEnabled(true);
-		topMarginSpinBox->setEnabled(true);
-		bottomMarginSpinBox->setEnabled(true);
-	}
+	bottomMarginSpinBox->setMaximum((qMax(0.0, m_pageHeight - t) * m_unitRatio));
+	topMarginSpinBox->setMaximum((qMax(0.0, m_pageHeight - b) * m_unitRatio));
+	rightMarginSpinBox->setMaximum((qMax(0.0, m_pageWidth - l) * m_unitRatio));
+	leftMarginSpinBox->setMaximum((qMax(0.0, m_pageWidth - r) * m_unitRatio));
+
+	rightMarginSpinBox->setEnabled(true);
+	topMarginSpinBox->setEnabled(true);
+	bottomMarginSpinBox->setEnabled(true);
 }
 

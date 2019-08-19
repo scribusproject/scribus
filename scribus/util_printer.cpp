@@ -83,21 +83,15 @@ bool PrinterUtil::initDeviceSettings(QString printerName, QByteArray& devModeA)
 }
 #endif
 
-bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& ptsBottomMargin, double& ptsLeftMargin, double& ptsRightMargin)
+bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QSizeF& pageSize, QMarginsF& margins)
 {
-	bool retVal = false;
 	QPrinterInfo pInfo = QPrinterInfo::printerInfo(printerName);
-	if (!pInfo.isNull())
-	{
-		QPrinter printer(pInfo, QPrinter::HighResolution);
-		QMarginsF margs = printer.pageLayout().margins(QPageLayout::Point);
-		ptsTopMargin = margs.top();
-		ptsBottomMargin = margs.bottom();
-		ptsLeftMargin = margs.left();
-		ptsRightMargin = margs.right();
-		retVal = true;
-	}
-	return retVal;
+	if (pInfo.isNull())
+		return false;
+
+	QPrinter printer(pInfo, QPrinter::HighResolution);
+	margins = printer.pageLayout().margins(QPageLayout::Point);
+	return true;
 }
 
 PrintEngine PrinterUtil::getDefaultPrintEngine(const QString& printerName, bool toFile)

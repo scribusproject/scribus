@@ -145,9 +145,9 @@ private:
 	double RandR;
 	*/
 	/*! \brief Internally used page width */
-	double pageWidth;
+	double m_pageWidth;
 	/*! \brief Internally used page height */
-	double pageHeight;
+	double m_pageHeight;
 
 public slots:
 	/*! \brief Recompute the values after spinbox change */
@@ -166,18 +166,20 @@ protected slots:
 
 protected:
 	void updateMarginSpinValues();
+
 	QGridLayout* GroupLayout;
 	QHBoxLayout* marginsForPagesLayout;
 	QGridLayout* BleedGroupLayout;
+
 	QString m_pageSize;
-	int m_unitIndex;
-	double m_unitRatio;
+	int     m_unitIndex;
+	double  m_unitRatio;
 	//! \brief if the outer facing palette points to the facing pages item
-	bool facingPages;
-	bool useBleeds;
-	int pageType;
-	MarginStruct savedMargins;
-	int savedPresetItem;
+	bool m_facingPages;
+	bool m_useBleeds;
+	int  m_pageType;
+	MarginStruct m_savedMargins;
+	int m_savedPresetItem;
 };
 
 #endif
