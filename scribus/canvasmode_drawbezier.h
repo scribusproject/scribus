@@ -52,11 +52,10 @@ private:
 	void finalizeItem(PageItem* item);
 	void selectPage(QMouseEvent *m);
 
-	bool inItemCreation, FirstPoly;
-	bool m_MouseButtonPressed;
-	double Mxp, Myp;
-	double SeRx, SeRy;
-	FPointArray RecordP;
+	bool m_inItemCreation;
+	bool m_firstPoly;
+	bool m_mouseButtonPressed;
+	double m_xp, m_yp;
 };
 
 

@@ -61,11 +61,10 @@
 
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
-	Mxp = Myp = -1;
-	SeRx = SeRy = -1;
-	inItemCreation = false;
-	m_MouseButtonPressed = false;
-	FirstPoly = true;
+	m_xp = m_yp = -1;
+	m_inItemCreation = false;
+	m_mouseButtonPressed = false;
+	m_firstPoly = true;
 }
 
 
@@ -106,7 +105,7 @@ void BezierMode::finalizeItem(PageItem* currItem)
 
 void BezierMode::enterEvent(QEvent *)
 {
-	if (!m_MouseButtonPressed)
+	if (!m_mouseButtonPressed)
 	{
 		setModeCursor();
 	}
@@ -121,9 +120,9 @@ void BezierMode::leaveEvent(QEvent *e)
 void BezierMode::activate(bool /*flag*/)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
-	Mxp = Myp = -1;
-	inItemCreation = false;
-	FirstPoly = true;
+	m_xp = m_yp = -1;
+	m_inItemCreation = false;
+	m_firstPoly = true;
 	setModeCursor();
 }
 
@@ -148,10 +147,10 @@ void BezierMode::deactivate(bool /*flag*/)
 		}
 	}
 
-	if (inItemCreation)
+	if (m_inItemCreation)
 	{
 		undoManager->setUndoEnabled(true);
-		inItemCreation = false;
+		m_inItemCreation = false;
 	}
 
 	UndoTransaction undoTrans;
@@ -191,7 +190,7 @@ void BezierMode::deactivate(bool /*flag*/)
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
-	m_MouseButtonPressed = false;
+	m_mouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	mousePressEvent(m);
 	mouseReleaseEvent(m);
@@ -208,8 +207,8 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 		else
 			m_view->requestMode(m_doc->appMode);
 		m_doc->changed();
-		FirstPoly = true;
-		inItemCreation = false;
+		m_firstPoly = true;
+		m_inItemCreation = false;
 		m_canvas->setRenderModeUseBuffer(false);
 	}
 	m_doc->DragP = false;
@@ -248,7 +247,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	if (commonMouseMove(m))
 		return;
 	
-	if (inItemCreation)
+	if (m_inItemCreation)
 	{
 		if (GetItem(&currItem))
 		{
@@ -267,19 +266,17 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
 				m_view->updateCanvas();
-				Mxp = newX;
-				Myp = newY;
+				m_xp = newX;
+				m_yp = newY;
 			}
 		}
 		else
 		{
-			if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
+			if ((m_mouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 			{
 				newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-				SeRx = newX;
-				SeRy = newY;
-				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
+				QPoint startP = m_canvas->canvasToGlobal(QPointF(m_xp, m_yp));
 				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 				m_view->setRedrawMarkerShown(true);
 				m_view->HaveSelRect = true;
@@ -301,22 +298,22 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem;
 	FPoint npf, npf2;
 	QTransform pm;
-	m_MouseButtonPressed = true;
+
+	m_mouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
+
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Rxpd = Mxp - Rxp;
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Rypd = Myp - Ryp;
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_xp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_yp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Rxp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).x();
+	Rxpd = m_xp - Rxp;
+	m_xp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).y();
+	Rypd = m_yp - Ryp;
+	m_yp = qRound(Ryp);
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -329,7 +326,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		m_view->stopGesture();
 		return;
 	}
-	if (FirstPoly)
+	if (m_firstPoly)
 	{
 		selectPage(m);
 		undoManager->setUndoEnabled(false);
@@ -339,7 +336,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		m_doc->m_Selection->addItem(currItem);
 		m_view->setCursor(QCursor(Qt::CrossCursor));
 		m_canvas->setRenderModeFillBuffer();
-		inItemCreation = true;
+		m_inItemCreation = true;
 	}
 	currItem = m_doc->m_Selection->itemAt(0);
 	pm = currItem->getTransform();
@@ -369,7 +366,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	PageItem *currItem;
-	m_MouseButtonPressed = false;
+	m_mouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_canvas->setRenderModeUseBuffer(false);
@@ -406,9 +403,9 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->PoLine.translate(0, -np2.y());
 			m_doc->moveItem(0, np2.y(), currItem);
 		}
-		if (FirstPoly)
+		if (m_firstPoly)
 		{
-			FirstPoly = false;
+			m_firstPoly = false;
 			currItem->Sizing = ssiz;
 		}
 		else
@@ -445,8 +442,8 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 			m_view->requestMode(m_doc->appMode);
 		m_doc->changed();
 //		emit DocChanged();
-		FirstPoly = true;
-		inItemCreation = false;
+		m_firstPoly = true;
+		m_inItemCreation = false;
 		m_canvas->setRenderModeUseBuffer(false);
 //		m_view->updateContents();
 	}
@@ -484,17 +481,17 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 
 void BezierMode::selectPage(QMouseEvent *m)
 {
-	m_MouseButtonPressed = true;
+	m_mouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
+	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 //	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(Mxp, Myp);
+		int i = m_doc->OnPage(m_xp, m_yp);
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();
