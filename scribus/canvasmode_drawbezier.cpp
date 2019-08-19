@@ -158,8 +158,10 @@ void BezierMode::deactivate(bool /*flag*/)
 		inItemCreation = false;
 	}
 
+	UndoTransaction undoTrans;
 	if (currItem && UndoManager::undoEnabled())
 	{
+		undoTrans = undoManager->beginTransaction("creating");
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM");
 		is->setItem(currItem);
@@ -180,6 +182,14 @@ void BezierMode::deactivate(bool /*flag*/)
 	currItem->ContourLine = currItem->PoLine.copy();
 	currItem->ClipEdited = true;
 	currItem->FrameType = 3;
+
+	if (undoTrans)
+	{
+		QString targetName = Um::ScratchSpace;
+		if (currItem->OwnPage > -1)
+			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+		undoTrans.commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+	}
 }
 
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
