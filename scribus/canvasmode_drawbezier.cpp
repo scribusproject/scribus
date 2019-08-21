@@ -485,45 +485,23 @@ void BezierMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-//	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-//	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
-	if (!m_doc->masterPageMode())
-	{
-		int i = m_doc->OnPage(m_xp, m_yp);
-		if (i!=-1)
-		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
-			if (docCurrPageNo != j)
-			{
-				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->m_ScMW->slotSetCurrentPage(j);
-				m_view->DrawNew();
-			}
-		}
-/*		uint docPagesCount=m_doc->Pages->count();
-		uint docCurrPageNo=m_doc->currentPageNumber();
-		for (uint i = 0; i < docPagesCount; ++i)
-		{
-			int x = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
-			int y = static_cast<int>(m_doc->Pages->at(i)->yOffset() * m_canvas->scale());
-			int w = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
-			int h = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
-			if (QRect(x, y, w, h).intersects(mpo))
-			{
-				if (docCurrPageNo != i)
-				{
-					m_doc->setCurrentPage(m_doc->Pages->at(i));
-					setMenTxt(i);
-					DrawNew();
-				}
-				break;
-			}
-		} */
 
-		//FIXME m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+	if (m_doc->masterPageMode())
+		return;
+
+	int i = m_doc->OnPage(m_xp, m_yp);
+	if (i < 0)
+		return;
+
+	uint docCurrPageNo = m_doc->currentPageNumber();
+	uint j = static_cast<uint>(i);
+	if (docCurrPageNo != j)
+	{
+		m_doc->setCurrentPage(m_doc->Pages->at(j));
+		m_view->m_ScMW->slotSetCurrentPage(j);
+		m_view->DrawNew();
 	}
 }
 

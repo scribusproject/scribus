@@ -328,22 +328,22 @@ void CalligraphicMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-//	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
-	if (!m_doc->masterPageMode())
+
+	if (m_doc->masterPageMode())
+		return;
+
+	int i = m_doc->OnPage(m_xp, m_yp);
+	if (i < 0)
+		return;
+
+	uint docCurrPageNo = m_doc->currentPageNumber();
+	uint j = static_cast<uint>(i);
+	if (docCurrPageNo != j)
 	{
-		int i = m_doc->OnPage(m_xp, m_yp);
-		if (i!=-1)
-		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
-			if (docCurrPageNo != j)
-			{
-				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->m_ScMW->slotSetCurrentPage(j);
-				m_view->DrawNew();
-			}
-		}
+		m_doc->setCurrentPage(m_doc->Pages->at(j));
+		m_view->m_ScMW->slotSetCurrentPage(j);
+		m_view->DrawNew();
 	}
 }
