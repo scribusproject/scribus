@@ -50,10 +50,9 @@ private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
 
-	bool   m_MouseButtonPressed;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
-	FPointArray RecordP;
+	bool   m_mouseButtonPressed;
+	double m_xp, m_yp;
+	FPointArray m_poly;
 };
 
 

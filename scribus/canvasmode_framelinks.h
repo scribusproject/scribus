@@ -64,7 +64,7 @@ private:
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
 	int    m_frameResizeHandle;
-	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 };
 

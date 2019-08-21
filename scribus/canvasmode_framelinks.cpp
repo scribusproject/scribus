@@ -55,7 +55,6 @@
 CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	m_Mxp = m_Myp = -1;
-	m_Dxp = m_Dyp = -1;
 	m_frameResizeHandle = -1;
 }
 
@@ -116,7 +115,6 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	m_Mxp = m_Myp = -1;
-	m_Dxp = m_Dyp = -1;
 	m_frameResizeHandle = -1;
 	setModeCursor();
 	if (fromGesture)
@@ -149,7 +147,7 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(m_Dxp, m_Dyp) : QPointF(m_Mxp, m_Myp));
+		QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
