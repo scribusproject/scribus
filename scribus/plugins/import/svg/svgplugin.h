@@ -276,7 +276,6 @@ public:
 	double  parseFontSize(const QString& fsize);
 	double  parseUnit(const QString &unit);
 	QTransform parseTransform(const QString &transform);
-	bool    parseSVG( const QString &s, FPointArray *ite );
 	QString parseColor( const QString &s );
 	QString parseIccColor( const QString &s );
 	QString parseTagName( const QDomElement &e );

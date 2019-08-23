@@ -1100,7 +1100,7 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 		while (b2.nodeName() == "use")
 			b2 = getReferencedNode(b2);
 		if (b2.nodeName() == "path")
-			parseSVG(b2.attribute("d"), &clip);
+			clip.parseSVG(b2.attribute("d"));
 		else if (b2.nodeName() == "rect")
 		{
 			double x = parseUnit(b2.attribute("x", "0.0"));
@@ -1688,18 +1688,15 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 	double baseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
+	PageItem::ItemType itype = pArray.parseSVG(e.attribute("d")) ? PageItem::PolyLine : PageItem::Polygon; 
 	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->fillRule = (gc->fillRule != "nonzero");
 	ite->PoLine = pArray;
 	if (ite->PoLine.size() < 4)
 	{
-// 			m_Doc->m_Selection->addItem(ite);
 		tmpSel->addItem(ite);
-// 			m_Doc->itemSelection_DeleteItem();
 		m_Doc->itemSelection_DeleteItem(tmpSel);
-// 			m_Doc->m_Selection->clear();
 	}
 	else
 	{
@@ -2328,11 +2325,6 @@ const char * SVGPlug::getCoord(const char *ptr, double &number)
 		ptr++;
 
 	return ptr;
-}
-
-bool SVGPlug::parseSVG(const QString &s, FPointArray *ite)
-{
-	return ite->parseSVG(s);
 }
 
 QString SVGPlug::parseColor(const QString &s)
