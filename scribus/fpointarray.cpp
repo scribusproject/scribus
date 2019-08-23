@@ -1108,7 +1108,9 @@ bool FPointArray::parseSVG(const QString& svgPath)
 		ret = true;
 	if (size() > 2)
 	{
-		if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()) && (moveCount == 1))
+		const FPoint& p0 = point(0);
+		const FPoint& p2 = point(size() - 2);
+		if ((p0.x() == p2.x()) && (p0.y() == p2.y()) && (moveCount == 1))
 			ret = false;
 	}
 
