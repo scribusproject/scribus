@@ -890,226 +890,228 @@ bool FPointArray::parseSVG(const QString& svgPath)
 {
 	QString d = svgPath;
 	d = d.replace( QRegExp( "," ), " ");
-	bool ret = false;
-	if (!d.isEmpty())
-	{
-		d = d.simplified();
-		QByteArray pathData = d.toLatin1();
-		const char *ptr = pathData.constData();
-		const char *end = pathData.constData() + pathData.length() + 1;
-		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
-		double px1, py1, px2, py2, px3, py3;
-		bool relative;
-		int moveCount = 0;
-		svgInit();
-		char command = *(ptr++), lastCommand = ' ';
-		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
-		while (ptr < end)
-		{
-			if (*ptr == ' ')
-				ptr++;
-			relative = false;
-			switch (command)
-			{
-			case 'f':
-			case 'F':
-				{
-					ptr = getCoord( ptr, tox );
-					break;
-				}
-			case 'm':
-				relative = true;
-			case 'M':
-				{
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					m_svgState->WasM = true;
-					subpathx = curx = relative ? curx + tox : tox;
-					subpathy = cury = relative ? cury + toy : toy;
-					svgMoveTo(curx, cury );
-					moveCount++;
-					break;
-				}
-			case 'l':
-				relative = true;
-			case 'L':
-				{
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					svgLineTo( curx, cury );
-					break;
-				}
-			case 'h':
-				{
-					ptr = getCoord( ptr, tox );
-					curx = curx + tox;
-					svgLineTo( curx, cury );
-					break;
-				}
-			case 'H':
-				{
-					ptr = getCoord( ptr, tox );
-					curx = tox;
-					svgLineTo( curx, cury );
-					break;
-				}
-			case 'v':
-				{
-					ptr = getCoord( ptr, toy );
-					cury = cury + toy;
-					svgLineTo( curx, cury );
-					break;
-				}
-			case 'V':
-				{
-					ptr = getCoord( ptr, toy );
-					cury = toy;
-					svgLineTo(  curx, cury );
-					break;
-				}
-			case 'z':
-			case 'Z':
-				{
-					curx = subpathx;
-					cury = subpathy;
-					svgClosePath();
-					break;
-				}
-			case 'c':
-				relative = true;
-			case 'C':
-				{
-					ptr = getCoord( ptr, x1 );
-					ptr = getCoord( ptr, y1 );
-					ptr = getCoord( ptr, x2 );
-					ptr = getCoord( ptr, y2 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = relative ? curx + x1 : x1;
-					py1 = relative ? cury + y1 : y1;
-					px2 = relative ? curx + x2 : x2;
-					py2 = relative ? cury + y2 : y2;
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x2 : x2;
-					contrly = relative ? cury + y2 : y2;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 's':
-				relative = true;
-			case 'S':
-				{
-					ptr = getCoord( ptr, x2 );
-					ptr = getCoord( ptr, y2 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = 2 * curx - contrlx;
-					py1 = 2 * cury - contrly;
-					px2 = relative ? curx + x2 : x2;
-					py2 = relative ? cury + y2 : y2;
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x2 : x2;
-					contrly = relative ? cury + y2 : y2;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 'q':
-				relative = true;
-			case 'Q':
-				{
-					ptr = getCoord( ptr, x1 );
-					ptr = getCoord( ptr, y1 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
-					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
-					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
-					py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
-					contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 't':
-				relative = true;
-			case 'T':
-				{
-					ptr = getCoord(ptr, tox);
-					ptr = getCoord(ptr, toy);
-					xc = 2 * curx - contrlx;
-					yc = 2 * cury - contrly;
-					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
-					py1 = relative ? (cury + 2 * yc) * (1.0 / 3.0) : (cury + 2 * yc) * (1.0 / 3.0);
-					px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
-					py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
-					contrlx = xc;
-					contrly = yc;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 'a':
-				relative = true;
-			case 'A':
-				{
-					bool largeArc, sweep;
-					double angle, rx, ry;
-					ptr = getCoord( ptr, rx );
-					ptr = getCoord( ptr, ry );
-					ptr = getCoord( ptr, angle );
-					ptr = getCoord( ptr, tox );
-					largeArc = tox == 1;
-					ptr = getCoord( ptr, tox );
-					sweep = tox == 1;
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					calculateArc( relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
-				}
-			}
-			lastCommand = command;
-			if (*ptr == '+' || *ptr == '-' || *ptr == '.' || (*ptr >= '0' && *ptr <= '9'))
-			{
-				// there are still coords in this command
-				if (command == 'M')
-					command = 'L';
-				else if (command == 'm')
-					command = 'l';
-			}
-			else
-				command = *(ptr++);
 
-			if (lastCommand != 'C' && lastCommand != 'c' &&
-			        lastCommand != 'S' && lastCommand != 's' &&
-			        lastCommand != 'Q' && lastCommand != 'q' &&
-			        lastCommand != 'T' && lastCommand != 't')
+	bool ret = false;
+	if (d.isEmpty())
+		return false;
+
+	d = d.simplified();
+	QByteArray pathData = d.toLatin1();
+	const char *ptr = pathData.constData();
+	const char *end = pathData.constData() + pathData.length() + 1;
+	double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+	double px1, py1, px2, py2, px3, py3;
+	bool relative;
+	int moveCount = 0;
+	svgInit();
+	char command = *(ptr++), lastCommand = ' ';
+	subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
+	while (ptr < end)
+	{
+		if (*ptr == ' ')
+			ptr++;
+		relative = false;
+		switch (command)
+		{
+		case 'f':
+		case 'F':
 			{
-				contrlx = curx;
-				contrly = cury;
+				ptr = getCoord( ptr, tox );
+				break;
+			}
+		case 'm':
+			relative = true;
+		case 'M':
+			{
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				m_svgState->WasM = true;
+				subpathx = curx = relative ? curx + tox : tox;
+				subpathy = cury = relative ? cury + toy : toy;
+				svgMoveTo(curx, cury );
+				moveCount++;
+				break;
+			}
+		case 'l':
+			relative = true;
+		case 'L':
+			{
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				svgLineTo( curx, cury );
+				break;
+			}
+		case 'h':
+			{
+				ptr = getCoord( ptr, tox );
+				curx = curx + tox;
+				svgLineTo( curx, cury );
+				break;
+			}
+		case 'H':
+			{
+				ptr = getCoord( ptr, tox );
+				curx = tox;
+				svgLineTo( curx, cury );
+				break;
+			}
+		case 'v':
+			{
+				ptr = getCoord( ptr, toy );
+				cury = cury + toy;
+				svgLineTo( curx, cury );
+				break;
+			}
+		case 'V':
+			{
+				ptr = getCoord( ptr, toy );
+				cury = toy;
+				svgLineTo(  curx, cury );
+				break;
+			}
+		case 'z':
+		case 'Z':
+			{
+				curx = subpathx;
+				cury = subpathy;
+				svgClosePath();
+				break;
+			}
+		case 'c':
+			relative = true;
+		case 'C':
+			{
+				ptr = getCoord( ptr, x1 );
+				ptr = getCoord( ptr, y1 );
+				ptr = getCoord( ptr, x2 );
+				ptr = getCoord( ptr, y2 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = relative ? curx + x1 : x1;
+				py1 = relative ? cury + y1 : y1;
+				px2 = relative ? curx + x2 : x2;
+				py2 = relative ? cury + y2 : y2;
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x2 : x2;
+				contrly = relative ? cury + y2 : y2;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 's':
+			relative = true;
+		case 'S':
+			{
+				ptr = getCoord( ptr, x2 );
+				ptr = getCoord( ptr, y2 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = 2 * curx - contrlx;
+				py1 = 2 * cury - contrly;
+				px2 = relative ? curx + x2 : x2;
+				py2 = relative ? cury + y2 : y2;
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x2 : x2;
+				contrly = relative ? cury + y2 : y2;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 'q':
+			relative = true;
+		case 'Q':
+			{
+				ptr = getCoord( ptr, x1 );
+				ptr = getCoord( ptr, y1 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
+				py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
+				px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
+				py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
+				contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 't':
+			relative = true;
+		case 'T':
+			{
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
+				xc = 2 * curx - contrlx;
+				yc = 2 * cury - contrly;
+				px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
+				py1 = relative ? (cury + 2 * yc) * (1.0 / 3.0) : (cury + 2 * yc) * (1.0 / 3.0);
+				px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
+				py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				contrlx = xc;
+				contrly = yc;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 'a':
+			relative = true;
+		case 'A':
+			{
+				bool largeArc, sweep;
+				double angle, rx, ry;
+				ptr = getCoord( ptr, rx );
+				ptr = getCoord( ptr, ry );
+				ptr = getCoord( ptr, angle );
+				ptr = getCoord( ptr, tox );
+				largeArc = tox == 1;
+				ptr = getCoord( ptr, tox );
+				sweep = tox == 1;
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				calculateArc( relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
 			}
 		}
-		if (((lastCommand != 'z') && (lastCommand != 'Z')) || (moveCount > 1))
-			ret = true;
-		if (size() > 2)
+		lastCommand = command;
+		if (*ptr == '+' || *ptr == '-' || *ptr == '.' || (*ptr >= '0' && *ptr <= '9'))
 		{
-			if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()) && (moveCount == 1))
-				ret = false;
+			// there are still coords in this command
+			if (command == 'M')
+				command = 'L';
+			else if (command == 'm')
+				command = 'l';
+		}
+		else
+			command = *(ptr++);
+
+		if (lastCommand != 'C' && lastCommand != 'c' &&
+			    lastCommand != 'S' && lastCommand != 's' &&
+			    lastCommand != 'Q' && lastCommand != 'q' &&
+			    lastCommand != 'T' && lastCommand != 't')
+		{
+			contrlx = curx;
+			contrly = cury;
 		}
 	}
+	if (((lastCommand != 'z') && (lastCommand != 'Z')) || (moveCount > 1))
+		ret = true;
+	if (size() > 2)
+	{
+		if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()) && (moveCount == 1))
+			ret = false;
+	}
+
 	return ret;
 }
 
