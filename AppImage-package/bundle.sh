@@ -6,6 +6,8 @@ cat /proc/1/cgroup # Check if we run in Docker; https://github.com/AppImage/AppI
 # if qt is not in the standard path, load its environment variables
 . /opt/qt*/bin/qt*-env.sh || true
 
+SCRIBUS_VERSION=nightly
+
 ########################################################################
 # Build Plaform Theme for Gtk+
 # https://askubuntu.com/a/910143
@@ -120,6 +122,6 @@ EOF
 # Finalize AppDir but do not turn into AppImage just yet
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-ARCH=x86_64 VERSION=nightly ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
+ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
 -appimage -unsupported-bundle-everything \
 -executable=appdir/usr/bin/python2.7 -executable=appdir/usr/_tkinter.so -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
