@@ -164,7 +164,6 @@ public:
 		StrokeOpacity(1.0),
 		textAnchor("start"),
 		clipPath(),
-		forGroup(false),
 		endMarker(""),
 		startMarker("")
 		{
@@ -215,7 +214,6 @@ public:
 	QString textAnchor;
 	QString textDecoration;
 	FPointArray clipPath;
-	bool forGroup;
 	QString filter;
 	QString endMarker;
 	QString startMarker;

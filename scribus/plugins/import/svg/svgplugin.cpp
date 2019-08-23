@@ -566,13 +566,7 @@ void SVGPlug::addGraphicContext()
 	if (m_gc.top())
 	{
 		*gc = *(m_gc.top());
-		if (m_gc.top()->forGroup)
-		{
-			gc->forGroup = false;
-			gc->Opacity = 1.0;
-			gc->FillOpacity = 1.0;
-			gc->StrokeOpacity = 1.0;
-		}
+		gc->Opacity = 1.0; // opacity is not inheritable contrary to fill-opacity or stroke-opacity
 		gc->filter.clear(); // filter is not inheritable
 	}
 	m_gc.push(gc);
@@ -1248,7 +1242,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	groupLevel++;
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	m_gc.top()->forGroup = true;
 	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *neu = m_Doc->Items->at(z);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
