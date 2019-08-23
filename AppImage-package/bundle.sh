@@ -120,6 +120,6 @@ EOF
 # Finalize AppDir but do not turn into AppImage just yet
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-ARCH=x86_64 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
+ARCH=x86_64 VERSION=nightly ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
 -appimage -unsupported-bundle-everything \
 -executable=appdir/usr/bin/python2.7 -executable=appdir/usr/_tkinter.so -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
