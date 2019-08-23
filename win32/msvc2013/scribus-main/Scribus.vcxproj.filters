@@ -800,9 +800,6 @@
     <ClInclude Include="..\..\..\scribus\actionsearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\actionsearchdialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -4118,11 +4115,11 @@
     <moc Include="..\..\..\scribus\ui\smnumformatcombo.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\actionsearchdialog.h">
+      <Filter>Header Files</Filter>
+    </moc>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\scribus\crypt.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\scribus\documentchecker.h">
       <Filter>Header Files</Filter>
     </CustomBuild>

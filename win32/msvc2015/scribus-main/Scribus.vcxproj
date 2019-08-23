@@ -373,7 +373,6 @@
     <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h" />
     <moc Include="..\..\..\scribus\ui\cpalette.h" />
     <moc Include="..\..\..\scribus\ui\createrange.h" />
-    <CustomBuild Include="..\..\..\scribus\crypt.h" />
     <moc Include="..\..\..\scribus\ui\cupsoptions.h" />
     <moc Include="..\..\..\scribus\ui\curvewidget.h" />
     <moc Include="..\..\..\scribus\ui\customfdialog.h" />
