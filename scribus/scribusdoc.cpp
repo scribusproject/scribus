@@ -13864,12 +13864,14 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		if (item.at(i)->Parent != parentI)
 			continue;
-		if (fabs(item.at(i)->visualYPos() - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() - yin), i * 3);
-		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin), i * 3 + 1);
-		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() / 2 - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() / 2 - yin), i * 3 + 2);
+		double visualYPos = item.at(i)->visualYPos();
+		double visualHeight = item.at(i)->visualHeight();
+		if (fabs(visualYPos - yin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualYPos - yin), i * 3);
+		else if (fabs(visualYPos + visualHeight - yin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualYPos + visualHeight - yin), i * 3 + 1);
+		else if (fabs(visualYPos + visualHeight / 2 - yin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualYPos + visualHeight / 2 - yin), i * 3 + 2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -13891,12 +13893,14 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		if (item.at(i)->Parent != parentI)
 			continue;
-		if (fabs(item.at(i)->visualXPos() - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() - xin), i * 3);
-		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin), i * 3 + 1);
-		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() / 2 - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() / 2 - xin), i * 3 + 2);
+		double visualXPos = item.at(i)->visualXPos();
+		double visualWidth = item.at(i)->visualWidth();
+		if (fabs(visualXPos - xin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualXPos - xin), i * 3);
+		else if (fabs(visualXPos + visualWidth - xin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualXPos + visualWidth - xin), i * 3 + 1);
+		else if (fabs(visualXPos + visualWidth / 2 - xin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(visualXPos + visualWidth / 2 - xin), i * 3 + 2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
