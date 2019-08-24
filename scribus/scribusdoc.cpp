@@ -13898,81 +13898,57 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	}
 }
 
-void ScribusDoc::getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, int &GxM, int &GyM, ScPage* refPage)
+void ScribusDoc::getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, ScPage* refPage)
 {
 	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 
 	MarginStruct bleedValues;
 	getBleeds(page, m_docPrefsData.docSetupPrefs.bleeds, bleedValues);
 
-	GxM = GyM = -1;
-
 	const double snapDistance = m_docPrefsData.guidesPrefs.guideRad / m_View->scale();
+
+	xout = xin;
+	yout = yin;
 
 	// Left
 	if (fabs(page->xOffset() - bleedValues.left() - xin) < snapDistance)
-	{
-		xout = - bleedValues.left();
-		GxM = 1;
-	}
+		xout = page->xOffset() - bleedValues.left();
+
 	if (fabs(page->Margins.left() + page->xOffset() - xin) < snapDistance)
-	{
-		xout = page->Margins.left();
-		GxM = 1;
-	}
+		xout = page->xOffset() + page->Margins.left();
+
 	if (fabs(page->xOffset() - xin) < snapDistance)
-	{
-		xout = 0;
-		GxM = 1;
-	}
+		xout = page->xOffset();
+
 	// Right
 	if (fabs(page->width() + bleedValues.right() + page->xOffset() - xin) < snapDistance)
-	{
-		xout = page->width() + bleedValues.right();
-		GxM = 1;
-	}
+		xout = page->xOffset() + page->width() + bleedValues.right();
+
 	if (fabs((page->width() - page->Margins.right()) + page->xOffset() - xin) < snapDistance)
-	{
-		xout = page->width() - page->Margins.right();
-		GxM = 1;
-	}
+		xout = page->xOffset() + page->width() - page->Margins.right();
+
 	if (fabs((page->width() + page->xOffset()) - xin) < snapDistance)
-	{
-		xout = page->width();
-		GxM = 1;
-	}
+		xout = page->xOffset() + page->width();
+
 	// Top side
 	if (fabs(page->height() + bleedValues.bottom() + page->yOffset() - yin) < snapDistance)
-	{
-		yout = page->height() + bleedValues.bottom();
-		GyM = 1;
-	}
+		yout = page->yOffset() + page->height() + bleedValues.bottom();
+
 	if (fabs(page->Margins.top() + page->yOffset() - yin) < snapDistance)
-	{
-		yout = page->Margins.top();
-		GyM = 1;
-	}
+		yout = page->yOffset() + page->Margins.top();
+
 	if (fabs(page->yOffset() - yin) < snapDistance)
-	{
-		yout = 0.0;
-		GyM = 1;
-	}
+		yout = page->yOffset();
+
 	// Bottom
 	if (fabs(page->yOffset() - bleedValues.top() - yin) < snapDistance)
-	{
-		yout = - bleeds()->top();
-		GyM = 1;
-	}
+		yout = page->yOffset() - bleeds()->top();
+
 	if (fabs((page->height() - page->Margins.bottom()) + page->yOffset() - yin) < snapDistance)
-	{
-		yout = page->height() - page->Margins.bottom();
-		GyM = 1;
-	}
+		yout = page->yOffset() + page->height() - page->Margins.bottom();
+
 	if (fabs((page->height() + page->yOffset()) - yin) < snapDistance)
-	{
-		yout = page->height();
-		GyM = 1;
-	}
+		yout =  page->yOffset() + page->height();
 }
 
 void ScribusDoc::SnapToGuides(PageItem *currItem)
@@ -14056,17 +14032,11 @@ bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 			ret = true;
 		}
 
-		getClosestPageBoundaries(*x, *y, xout, yout, GxM, GyM, page);
-		if (GxM != -1)
-		{
-			*x = xout + page->xOffset();
+		getClosestPageBoundaries(*x, *y, xout, yout, page);
+		if ((*x != xout) || (*y != yout))
 			ret = true;
-		}
-		if (GyM != -1)
-		{
-			*y = yout + page->yOffset();
-			ret = true;
-		}
+		*x = xout;
+		*y = yout;
 	}
 	return ret;
 }

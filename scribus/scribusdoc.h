@@ -1179,7 +1179,7 @@ public:
 	//! \brief Get the closest border of another element to the given point
 	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = nullptr, SelectionSkipBehavior behavior = IncludeSelection);
 	//! \brief Get the closest page margin or bleed
-	void getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, int &GxM, int &GyM, ScPage* refPage);
+	void getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, ScPage* refPage);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y, bool elementSnap = false);
