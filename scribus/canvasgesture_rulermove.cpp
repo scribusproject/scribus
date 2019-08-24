@@ -207,11 +207,10 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				{
 					double xout = 0;
 					double yout = 0;
-					int GxM = -1, GyM = -1;
-					m_doc->getClosestElementBorder(x, y, &xout, &yout, &GxM, &GyM, currentPage, ScribusDoc::IncludeSelection);
-					if (GyM != -1)
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, currentPage, ScribusDoc::IncludeSelection);
+					if (yout != y)
 					{
-						y = yout + currentPage->yOffset();
+						y = yout;
 						newMousePoint = m_canvas->canvasToLocal(QPointF(x, y));
 					}
 				}
@@ -276,11 +275,10 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				{
 					double xout = 0;
 					double yout = 0;
-					int GxM = -1, GyM = -1;
-					m_doc->getClosestElementBorder(x, y, &xout, &yout, &GxM, &GyM, currentPage, ScribusDoc::IncludeSelection);
-					if (GxM != -1)
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, currentPage, ScribusDoc::IncludeSelection);
+					if (xout != x)
 					{
-						x = xout + currentPage->xOffset();
+						x = xout;
 						newMousePoint = m_canvas->canvasToLocal(QPointF(x, y));
 					}
 				}

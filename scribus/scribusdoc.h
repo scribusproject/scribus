@@ -1175,9 +1175,9 @@ public:
 	};
 
 	//! \brief Get the closest guide to the given point
-	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = nullptr);
+	void getClosestGuides(double xin, double yin, double *xout, double *yout, ScPage* refPage = nullptr);
 	//! \brief Get the closest border of another element to the given point
-	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = nullptr, SelectionSkipBehavior behavior = IncludeSelection);
+	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, ScPage* refPage = nullptr, SelectionSkipBehavior behavior = IncludeSelection);
 	//! \brief Get the closest page margin or bleed
 	void getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, ScPage* refPage);
 	//! \brief Snap an item to the guides

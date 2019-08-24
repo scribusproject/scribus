@@ -13773,38 +13773,43 @@ void ScribusDoc::createNewDocPages(int pageCount)
 }
 
 
-void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage)
+void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, ScPage* refPage)
 {
-	*GxM = -1;
-	*GyM = -1;
+	int gxM = -1;
+	int gyM = -1;
 	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
-	double viewScale=m_View->scale();
-	uint yg = 0;
+	double viewScale = m_View->scale();
+	const double snappingDistance = prefsData().guidesPrefs.guideRad / viewScale;
+
+	*xout = xin;
+	*yout = yin;
+
 	uint xg = 0;
+	uint yg = 0;
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it) + page->yOffset() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs((*it) + page->yOffset() - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GyM = tmpGuidesSel.begin().value();
-		*yout = tmpGuides[*GyM];
+		gyM = tmpGuidesSel.begin().value();
+		*yout = tmpGuides[gyM] + page->yOffset();
 	}
 	tmpGuidesSel.clear();
 	tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + page->xOffset() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs((*it) + page->xOffset() - xin) < snappingDistance)
 			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GxM = tmpGuidesSel.begin().value();
-		*xout = tmpGuides[*GxM];
+		gxM = tmpGuidesSel.begin().value();
+		*xout = tmpGuides[gxM] + page->xOffset();
 	}
 	yg = 0;
 	xg = 0;
@@ -13812,39 +13817,45 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = page->guides.horizontals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it) + page->yOffset() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs((*it) + page->yOffset() - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GyM = tmpGuidesSel.begin().value();
-		*yout = tmpGuides[*GyM];
+		gyM = tmpGuidesSel.begin().value();
+		*yout = tmpGuides[gyM] + page->yOffset();
 	}
 	tmpGuidesSel.clear();
 	tmpGuides = page->guides.verticals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + page->xOffset() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs((*it) + page->xOffset() - xin) < snappingDistance)
 			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GxM = tmpGuidesSel.begin().value();
-		*xout = tmpGuides[*GxM];
+		gxM = tmpGuidesSel.begin().value();
+		*xout = tmpGuides[gxM] + page->xOffset();
 	}
 }
 
-void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage, SelectionSkipBehavior behavior)
+void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, double *yout, ScPage* refPage, SelectionSkipBehavior behavior)
 {
-	*GxM = -1;
-	*GyM = -1;
+	int gxM = -1;
+	int gyM = -1;
 	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	double viewScale = m_View->scale();
+	const double snappingDistance = prefsData().guidesPrefs.guideRad / viewScale;
+
+	*xout = xin;
+	*yout = yin;
+
 	QList<PageItem*> item = getAllItems(*Items);
 	PageItem *parentI = nullptr;
 	if (m_Selection->count() > 0)
 		parentI = m_Selection->itemAt(0)->Parent;
+
 	for (int i = 0; i < item.size(); ++i)
 	{
 		if ((behavior == ExcludeSelection) && m_Selection->containsItem(item.at(i)))
@@ -13853,24 +13864,25 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		if (item.at(i)->Parent != parentI)
 			continue;
-		if (fabs(item.at(i)->visualYPos() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs(item.at(i)->visualYPos() - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() - yin), i * 3);
-		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin), i * 3 + 1);
-		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() / 2 - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() / 2 - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() / 2 - yin), i * 3 + 2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GyM = tmpGuidesSel.begin().value();
-		if (*GyM % 3 == 0)
-			*yout = item.at(*GyM / 3)->visualYPos() - page->yOffset();
-		else if (*GyM %3 == 1)
-			*yout = item.at(*GyM / 3)->visualYPos() + item.at(*GyM / 3)->visualHeight() -page->yOffset();
-		else if (*GyM %3 == 2)
-			*yout = item.at(*GyM / 3)->visualYPos() + item.at(*GyM / 3)->visualHeight() / 2 -page->yOffset();
+		gyM = tmpGuidesSel.begin().value();
+		if (gyM % 3 == 0)
+			*yout = item.at(gyM / 3)->visualYPos();
+		else if (gyM %3 == 1)
+			*yout = item.at(gyM / 3)->visualYPos() + item.at(gyM / 3)->visualHeight();
+		else if (gyM %3 == 2)
+			*yout = item.at(gyM / 3)->visualYPos() + item.at(gyM / 3)->visualHeight() / 2;
 	}
 	tmpGuidesSel.clear();
+
 	for (int i = 0; i < item.size(); ++i)
 	{
 		if ((behavior == ExcludeSelection) && m_Selection->containsItem(item.at(i)))
@@ -13879,22 +13891,22 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		if (item.at(i)->Parent != parentI)
 			continue;
-		if (fabs(item.at(i)->visualXPos() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		if (fabs(item.at(i)->visualXPos() - xin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() - xin), i * 3);
-		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin), i * 3 + 1);
-		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() / 2 - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth()/2 - xin), i * 3 + 2);
+		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() / 2 - xin) < snappingDistance)
+			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() / 2 - xin), i * 3 + 2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		*GxM = tmpGuidesSel.begin().value();
-		if (*GxM % 3 == 0)
-			*xout = item.at(*GxM / 3)->visualXPos() - page->xOffset();
-		else if (*GxM %3 == 1)
-			*xout = item.at(*GxM / 3)->visualXPos() + item.at(*GxM / 3)->visualWidth() - page->xOffset();
-		else if (*GxM %3 == 2)
-			*xout = item.at(*GxM / 3)->visualXPos() + item.at(*GxM / 3)->visualWidth() / 2 -page->xOffset();
+		gxM = tmpGuidesSel.begin().value();
+		if (gxM % 3 == 0)
+			*xout = item.at(gxM / 3)->visualXPos();
+		else if (gxM %3 == 1)
+			*xout = item.at(gxM / 3)->visualXPos() + item.at(gxM / 3)->visualWidth();
+		else if (gxM %3 == 2)
+			*xout = item.at(gxM / 3)->visualXPos() + item.at(gxM / 3)->visualWidth() / 2;
 	}
 }
 
@@ -13958,47 +13970,44 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	if (pg == -1)
 		return;
 	ScPage* page = Pages->at(pg);
-	int GxM, GyM;
 
-	getClosestGuides(0, currItem->yPos(), &xout, &yout, &GxM, &GyM);
-	if (GyM != -1)
-		currItem->setYPos(yout+page->yOffset());
+	getClosestGuides(0, currItem->yPos(), &xout, &yout);
+	if (currItem->yPos() != yout)
+		currItem->setYPos(yout);
 	if (currItem->asLine())
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
-//		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
 		double my = ma.m12() * currItem->width() + ma.dy();
-		getClosestGuides(0, my, &xout, &yout, &GxM, &GyM);
-		if (GyM != -1)
-			currItem->moveBy(0.0, yout - my + page->yOffset());
+		getClosestGuides(0, my, &xout, &yout);
+		if (my != yout)
+			currItem->moveBy(0.0, yout - my);
 	}
 	else
 	{
-		getClosestGuides(0, currItem->yPos()+currItem->height(), &xout, &yout, &GxM, &GyM);
-		if (GyM != -1)
-			currItem->setYPos(yout-currItem->height()+page->yOffset());
+		getClosestGuides(0, currItem->yPos() + currItem->height(), &xout, &yout);
+		if (currItem->yPos() + currItem->height() != yout)
+			currItem->setYPos(yout - currItem->height());
 	}
-	getClosestGuides(currItem->xPos(), 0, &xout, &yout, &GxM, &GyM);
-	if (GxM != -1)
-		currItem->setXPos(xout+page->xOffset());
+	getClosestGuides(currItem->xPos(), 0, &xout, &yout);
+	if (currItem->xPos() != xout)
+		currItem->setXPos(xout);
 	if (currItem->asLine())
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
-//		double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
-		getClosestGuides(mx,  0, &xout, &yout, &GxM, &GyM);
-		if (GxM != -1)
-			currItem->moveBy(xout - mx + page->xOffset(), 0.0);
+		getClosestGuides(mx,  0, &xout, &yout);
+		if (mx != xout)
+			currItem->moveBy(xout - mx, 0.0);
 	}
 	else
 	{
-		getClosestGuides(currItem->xPos()+currItem->width(), 0, &xout, &yout, &GxM, &GyM);
-		if (GxM != -1)
-			currItem->setXPos(xout-currItem->width()+page->xOffset());
+		getClosestGuides(currItem->xPos() + currItem->width(), 0, &xout, &yout);
+		if (currItem->xPos() + currItem->width() != xout)
+			currItem->setXPos(xout - currItem->width());
 	}
 }
 
@@ -14006,31 +14015,24 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 {
 	bool ret = false;
-	double xout, yout;
+	double xout = *x, yout = *y;
 	int pg = OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
 	ScPage* page = Pages->at(pg);
-	int GxM = -1, GyM = -1;
 
 	//	if ((SnapGuides) && (m_SnapCounter > 1))
 	if ((SnapGuides && !elementSnap) || (SnapElement && elementSnap))
 	{
 		if (!elementSnap)
-			getClosestGuides(*x, *y, &xout, &yout, &GxM, &GyM, page);
+			getClosestGuides(*x, *y, &xout, &yout, page);
 		else
-			getClosestElementBorder(*x, *y, &xout, &yout, &GxM, &GyM, page, ExcludeSelection);
+			getClosestElementBorder(*x, *y, &xout, &yout, page, ExcludeSelection);
 
-		if (GxM != -1)
-		{
-			*x = xout + page->xOffset();
+		if ((*x != xout) || (*y != yout))
 			ret = true;
-		}
-		if (GyM != -1)
-		{
-			*y = yout + page->yOffset();
-			ret = true;
-		}
+		*x = xout;
+		*y = yout;
 
 		getClosestPageBoundaries(*x, *y, xout, yout, page);
 		if ((*x != xout) || (*y != yout))
