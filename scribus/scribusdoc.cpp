@@ -13851,21 +13851,21 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	*xout = xin;
 	*yout = yin;
 
-	QList<PageItem*> item = getAllItems(*Items);
+	QList<PageItem*> items = getAllItems(*Items);
 	PageItem *parentI = nullptr;
 	if (m_Selection->count() > 0)
 		parentI = m_Selection->itemAt(0)->Parent;
 
-	for (int i = 0; i < item.size(); ++i)
+	for (int i = 0; i < items.size(); ++i)
 	{
-		if ((behavior == ExcludeSelection) && m_Selection->containsItem(item.at(i)))
+		if ((behavior == ExcludeSelection) && m_Selection->containsItem(items.at(i)))
 			continue;
-		if (item.at(i)->OwnPage != OnPage(xin, yin))
+		if (items.at(i)->OwnPage != OnPage(xin, yin))
 			continue;
-		if (item.at(i)->Parent != parentI)
+		if (items.at(i)->Parent != parentI)
 			continue;
-		double visualYPos = item.at(i)->visualYPos();
-		double visualHeight = item.at(i)->visualHeight();
+		double visualYPos = items.at(i)->visualYPos();
+		double visualHeight = items.at(i)->visualHeight();
 		if (fabs(visualYPos - yin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(visualYPos - yin), i * 3);
 		else if (fabs(visualYPos + visualHeight - yin) < snappingDistance)
@@ -13877,24 +13877,24 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	{
 		gyM = tmpGuidesSel.begin().value();
 		if (gyM % 3 == 0)
-			*yout = item.at(gyM / 3)->visualYPos();
+			*yout = items.at(gyM / 3)->visualYPos();
 		else if (gyM %3 == 1)
-			*yout = item.at(gyM / 3)->visualYPos() + item.at(gyM / 3)->visualHeight();
+			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight();
 		else if (gyM %3 == 2)
-			*yout = item.at(gyM / 3)->visualYPos() + item.at(gyM / 3)->visualHeight() / 2;
+			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight() / 2;
 	}
 	tmpGuidesSel.clear();
 
-	for (int i = 0; i < item.size(); ++i)
+	for (int i = 0; i < items.size(); ++i)
 	{
-		if ((behavior == ExcludeSelection) && m_Selection->containsItem(item.at(i)))
+		if ((behavior == ExcludeSelection) && m_Selection->containsItem(items.at(i)))
 			continue;
-		if (item.at(i)->OwnPage != OnPage(xin, yin))
+		if (items.at(i)->OwnPage != OnPage(xin, yin))
 			continue;
-		if (item.at(i)->Parent != parentI)
+		if (items.at(i)->Parent != parentI)
 			continue;
-		double visualXPos = item.at(i)->visualXPos();
-		double visualWidth = item.at(i)->visualWidth();
+		double visualXPos = items.at(i)->visualXPos();
+		double visualWidth = items.at(i)->visualWidth();
 		if (fabs(visualXPos - xin) < snappingDistance)
 			tmpGuidesSel.insert(fabs(visualXPos - xin), i * 3);
 		else if (fabs(visualXPos + visualWidth - xin) < snappingDistance)
@@ -13906,11 +13906,11 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	{
 		gxM = tmpGuidesSel.begin().value();
 		if (gxM % 3 == 0)
-			*xout = item.at(gxM / 3)->visualXPos();
+			*xout = items.at(gxM / 3)->visualXPos();
 		else if (gxM %3 == 1)
-			*xout = item.at(gxM / 3)->visualXPos() + item.at(gxM / 3)->visualWidth();
+			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth();
 		else if (gxM %3 == 2)
-			*xout = item.at(gxM / 3)->visualXPos() + item.at(gxM / 3)->visualWidth() / 2;
+			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth() / 2;
 	}
 }
 
