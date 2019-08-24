@@ -21,13 +21,12 @@ class SCRIBUS_API Prefs_Plugins : public Prefs_Pane, Ui::Prefs_Plugins
 	public:
 		Prefs_Plugins(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Plugins();
+
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 
 	public slots:
 		void languageChange();
-		//! \brief Apply changes to each plugin's PluginSettings
-		void apply();
 };
 
 //! \brief Non editable QTableWidgetItem

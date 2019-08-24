@@ -95,26 +95,6 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 	pluginTable->resizeColumnsToContents();
 }
 
-
-void Prefs_Plugins::apply()
-{
-	QString plugName;
-	//	PluginManager& pluginManager(PluginManager::instance());
-	//	bool enable;
-	for (int i = 0; i < pluginTable->rowCount(); ++i)
-	{
-		plugName = pluginTable->item(i, 4)->text();
-		/* Don't need this  at all now we are not allowing users to turn plugins on or off
-		QCheckBox* onStartCheck=qobject_cast<QCheckBox*>(pluginTable->cellWidget(i, 3));
-		if (onStartCheck)
-		{
-			enable = onStartCheck->isChecked();
-			pluginManager.enableOnStartup(plugName) = enable;
-		}
-	*/
-	}
-}
-
 Prefs_Plugins::~Prefs_Plugins() = default;
 
 void Prefs_Plugins::languageChange()

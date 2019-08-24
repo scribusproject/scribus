@@ -18,13 +18,14 @@ class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 	public:
 		Prefs_ShortWords(QWidget* parent=0);
 		~Prefs_ShortWords();
+
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 
 	public slots:
 		void languageChange();
 		//! \brief Apply changes to prefs. Auto connected.
-		void apply();
+		void apply() override;
 
 	protected slots:
 		/*! \brief Save the content into user file. */

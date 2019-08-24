@@ -18,6 +18,7 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 	public:
 		Prefs_Pane(QWidget* parent) : QWidget(parent) {}
 		~Prefs_Pane() {}
+
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData) = 0;
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const = 0;
 
@@ -30,6 +31,9 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 		{
 			return m_icon;
 		}
+
+	public slots:
+		virtual void apply() {}; // For plugin prefs panels
 
 	protected:
 		QString m_caption;
