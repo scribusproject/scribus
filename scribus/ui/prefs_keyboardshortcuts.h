@@ -28,8 +28,9 @@ class SCRIBUS_API Prefs_KeyboardShortcuts : public Prefs_Pane, Ui::Prefs_Keyboar
 	public:
 		Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_KeyboardShortcuts();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
 		bool event( QEvent* ev );
 		void keyPressEvent(QKeyEvent *k);

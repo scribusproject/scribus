@@ -21,8 +21,9 @@ class SCRIBUS_API Prefs_Miscellaneous : public Prefs_Pane, Ui::Prefs_Miscellaneo
 	public:
 		Prefs_Miscellaneous(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Miscellaneous();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
 	public slots:
 		void languageChange();

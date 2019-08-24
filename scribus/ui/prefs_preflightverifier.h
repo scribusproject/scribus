@@ -23,12 +23,12 @@ class SCRIBUS_API Prefs_PreflightVerifier : public Prefs_Pane, Ui::Prefs_Preflig
 	public:
 		Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_PreflightVerifier();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
+
 	public slots:
 		void languageChange();
-
-
 
 	protected slots:
 		void putProfile();

@@ -19,8 +19,8 @@ class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 		Prefs_ShortWords(QWidget* parent=0);
 		~Prefs_ShortWords();
 
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
 	public slots:
 		void languageChange();

@@ -21,8 +21,9 @@ class SCRIBUS_API Prefs_Paths : public Prefs_Pane, Ui::Prefs_Paths
 	public:
 		Prefs_Paths(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Paths();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
 	public slots:
 		void languageChange();

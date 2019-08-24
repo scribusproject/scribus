@@ -24,10 +24,10 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		Prefs_PDFExport(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_PDFExport();
 
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		void restoreDefaults(struct ApplicationPrefs *prefsData)  override;
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles,
 									 bool exporting=false);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 		void enableCMS(bool);
 
 		PDFOptions::PDFFontEmbedding fontEmbeddingMode();

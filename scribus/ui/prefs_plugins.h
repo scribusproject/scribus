@@ -22,8 +22,8 @@ class SCRIBUS_API Prefs_Plugins : public Prefs_Pane, Ui::Prefs_Plugins
 		Prefs_Plugins(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_Plugins();
 
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
 	public slots:
 		void languageChange();

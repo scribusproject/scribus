@@ -19,6 +19,7 @@ class SCRIBUS_API SpiralWidget : public QWidget, Ui::SpiralWidgetBase
 	public:
 		SpiralWidget(QWidget* parent);
 		~SpiralWidget() {};
+
 		void restoreDefaults(struct ItemToolPrefs *prefsData);
 		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
 

@@ -26,8 +26,10 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 	public:
 		Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_TableOfContents();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
+
 		virtual void changeEvent(QEvent *e);
 		virtual void enableGUIWidgets();
 

@@ -23,10 +23,13 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 	public:
 		Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc=nullptr);
 		~Prefs_ColorManagement();
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+
+		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
+		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
+
 		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);
-		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 		bool cmActive();
+
 	protected:
 		bool m_canChangeMonitorProfile;
 		ScribusDoc *m_Doc;
