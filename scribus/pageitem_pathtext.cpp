@@ -153,15 +153,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 		}
 	}
+
 	double totalTextLen = 0.0;
 	double totalCurveLen = 0.0;
 	double extraOffset = 0.0;
-	if (itemText.length() != 0)
-	{
-		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
-	}
-	else
+	if (itemText.length() <= 0)
 		return;
+	CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 
 	textLayout.setStory(&itemText);
 	int spaceCount = 0;
@@ -171,6 +169,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	const QList<GlyphCluster> glyphRuns = textShaper.shape(0, itemText.length()).glyphs();
 	if (glyphRuns.isEmpty())
 		return;
+
+	// enable seamless crossing past the endpoint for closed curve
+	bool curveClosed = PoLine.isBezierClosed();
+	bool canWrapAround = curveClosed;
 
 	for (const GlyphCluster& run : glyphRuns)
 	{
@@ -209,7 +211,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			extraOffset = (totalCurveLen - m_textDistanceMargins.left() - totalTextLen) / static_cast<double>(itemText.length());
 	}
 	int firstRun = 0;
-	if (totalTextLen + m_textDistanceMargins.left() > totalCurveLen && itemText.paragraphStyle(0).direction() == ParagraphStyle::RTL)
+	if (!curveClosed && (totalTextLen + m_textDistanceMargins.left() > totalCurveLen) && (itemText.paragraphStyle(0).direction() == ParagraphStyle::RTL))
 	{
 		double totalLenDiff = totalTextLen + m_textDistanceMargins.left() - totalCurveLen;
 		while (firstRun < glyphRuns.count())
@@ -221,11 +223,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				break;
 		}
 	}
+
+	int currPathIndex = 0;
 	QPainterPath guidePath = PoLine.toQPainterPath(false);
 	QList<QPainterPath> pathList = decomposePath(guidePath);
 	QPainterPath currPath = pathList[0];
-	int currPathIndex = 0;
 	PathLineBox* linebox = new PathLineBox();
+
+	double lastPathPerc = currPath.percentAtLength(CurX);
+	double totalPathPerc = 0.0;
+
 	for (int i = firstRun; i < glyphRuns.length(); i++)
 	{
 		const GlyphCluster &run = glyphRuns.at(i);
@@ -235,16 +242,35 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		double currPerc = currPath.percentAtLength(CurX);
 		if (currPerc >= 0.9999999)
 		{
+			// sticks out to the next segment
 			currPathIndex++;
 			if (currPathIndex == pathList.count())
 			{
-				m_maxChars = run.firstChar();
-				break;
+				if (!curveClosed || !canWrapAround)
+				{
+					m_maxChars = run.firstChar();
+					break;
+				}
+				canWrapAround = false;
+				currPathIndex = 0;
 			}
+			CurX -= currPath.length();
 			currPath = pathList[currPathIndex];
-			CurX = dx;
 			currPerc = currPath.percentAtLength(CurX);
+			lastPathPerc = 0.0;
 		}
+
+		// Prevent total text length to exceed the length of path
+		totalPathPerc += (currPerc - lastPathPerc);
+		if (lastPathPerc > currPerc)
+			totalPathPerc -= 1.0;
+		if (totalPathPerc >= pathList.count() - 1e-7)
+		{
+			m_maxChars = run.firstChar();
+			break;
+		}
+		lastPathPerc = currPerc;
+
 		double currAngle = currPath.angleAtPercent(currPerc);
 		if (currAngle <= 180.0)
 			currAngle *= -1.0;
