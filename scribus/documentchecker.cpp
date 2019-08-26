@@ -43,7 +43,7 @@ class MissingGlyphsPainter: public TextLayoutPainter
 //	const TextLayout& m_textLayout;
 
 public:
-	MissingGlyphsPainter(errorCodes& itemError, const TextLayout& textLayout)
+	MissingGlyphsPainter(errorCodes& itemError, const TextLayout&  /*textLayout*/)
 		: m_itemError(itemError)
 //		, m_textLayout(textLayout)
 	{ }

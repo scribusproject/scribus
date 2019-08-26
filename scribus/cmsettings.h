@@ -91,9 +91,9 @@ public:
 
 protected:
 	ScribusDoc*    m_Doc;
-	bool           m_colorManagementAllowed;
-	bool           m_softProofingAllowed;
-	bool           m_useEmbeddedProfile;
+	bool           m_colorManagementAllowed {true};
+	bool           m_softProofingAllowed {false};
+	bool           m_useEmbeddedProfile {false};
 	QString        m_ProfileName;
 	eRenderIntent  m_Intent;
 	ScColorProfile m_outputProfile;

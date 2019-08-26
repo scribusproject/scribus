@@ -23,12 +23,12 @@ class SCRIBUS_API ActionSearch
 {
 public:
 	ActionSearch(QMenuBar *menuBar);
-	~ActionSearch() {}
+	~ActionSearch() = default;
 	
 	QList<QString> getActionNames() const { return m_actions.keys(); }
 
 	void update();
-	void execute(QString actionName);
+	void execute(const QString& actionName);
 
 private:
 	QMenuBar* menuBar;

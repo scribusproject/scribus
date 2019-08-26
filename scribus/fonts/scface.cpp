@@ -19,25 +19,12 @@ for which a new license (GPL+exception) is in place.
 
 static const QString NONE_LITERAL("(None)");
 
-ScFace::ScFaceData::ScFaceData() : 
-	refs(0), 
-	usage(0), 
+ScFace::ScFaceData::ScFaceData() :
 	fontFile(NONE_LITERAL),
-	faceIndex(-1),
 	status(ScFace::NULLFACE),
 	typeCode(ScFace::UNKNOWN_TYPE),
 	formatCode(ScFace::UNKNOWN_FORMAT),
-	usable(false),
-	embedPs(false),
-	subset(false),
-	outline(false),
-	isCIDFont(false),
-	isStroked(false),
-	isFixedPitch(false),
-	hasGlyphNames(false),
-	maxGlyph(0),
-	m_cachedStatus(ScFace::UNKNOWN),
-	m_hbFont(nullptr)
+	m_cachedStatus(ScFace::UNKNOWN)
 {
 }
 
@@ -154,27 +141,27 @@ qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 }
 
 
-FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal sz) const
+FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal size) const
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
 	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
 	FPointArray res = m_glyphOutline[gl].Outlines.copy();
-	if (sz != 1.0)
-		res.scale(sz, sz);
+	if (size != 1.0)
+		res.scale(size, size);
 	return res;
 }
 
 
-FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
+FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
 	if (! m_glyphWidth.contains(gl))
 		loadGlyph(gl);
 	const struct GlyphData & res(m_glyphOutline[gl]);
-	return FPoint(res.x, res.y) * sz; 
+	return FPoint(res.x, res.y) * size;
 }
 
 

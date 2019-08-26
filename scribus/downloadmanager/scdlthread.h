@@ -14,7 +14,7 @@ class ScDLThread : public QThread
 {
 	Q_OBJECT
 	public:
-		ScDLThread(QObject * parent = 0);
+		ScDLThread(QObject * parent = nullptr);
 		~ScDLThread();
 		void run();
 
@@ -43,9 +43,9 @@ class ScDLThread : public QThread
 		QStringList m_urlList;
 		QFile m_output;
 		QQueue<QPair<QUrl, QString> > m_downloadQueue;
-		int m_downloadedCount;
-		int m_totalCount;
-		QNetworkReply *m_currentDownload;
+		int m_downloadedCount {0};
+		int m_totalCount {0};
+		QNetworkReply *m_currentDownload {nullptr};
 		QNetworkAccessManager m_manager;
 };
 #endif

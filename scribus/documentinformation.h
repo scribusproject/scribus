@@ -29,7 +29,7 @@ class SCRIBUS_API DocumentInformation
 {
 	public:
 		DocumentInformation();
-		~DocumentInformation() {};
+		~DocumentInformation() = default;
 		const QString& author();
 		const QString& comments();
 		const QString& contrib();

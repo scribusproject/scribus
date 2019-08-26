@@ -11,10 +11,8 @@
 #include <QUrl>
 
 
-ScDLThread::ScDLThread(QObject *parent) : QThread(parent),
-	m_downloadedCount(0), m_totalCount(0)
+ScDLThread::ScDLThread(QObject *parent) : QThread(parent)
 {
-	m_currentDownload = nullptr;
 	connect(this, SIGNAL(runSignal()), this, SLOT(runSlot()));
 }
 

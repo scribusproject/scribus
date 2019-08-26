@@ -14,7 +14,6 @@
 ScDLManager::ScDLManager(QObject *parent)
 	: QObject(parent)
 {
-	m_dlID=0;
 	m_thread=new ScDLThread();
 	connect(m_thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
 	connect(m_thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));

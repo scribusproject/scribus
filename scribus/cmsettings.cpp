@@ -28,12 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 
 CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent) :
-m_Doc(doc),
-m_colorManagementAllowed(true),
-m_softProofingAllowed(false),
-m_useEmbeddedProfile(false),
-m_ProfileName(profileName), 
-m_Intent(intent)
+	m_Doc(doc),
+	m_ProfileName(profileName),
+	m_Intent(intent)
 {
 }
 

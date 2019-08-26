@@ -30,7 +30,7 @@ void ActionSearch::update()
 		readMenuActions(menuAction->menu());
 }
 
-void ActionSearch::execute(QString actionName)
+void ActionSearch::execute(const QString& actionName)
 {
 	if (!m_actions.contains(actionName))
 		return;

@@ -27,9 +27,7 @@ ScFace_ttf::ScFace_ttf (const QString& fam, const QString& sty, const QString& a
 	formatCode = ScFace::SFNT;
 }
 
-ScFace_ttf::~ ScFace_ttf()
-{
-}
+ScFace_ttf::~ScFace_ttf() = default;
 
 bool ScFace_ttf::isSymbolic() const
 {

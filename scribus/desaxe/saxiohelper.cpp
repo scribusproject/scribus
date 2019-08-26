@@ -116,9 +116,9 @@ float parseFloat(const Xml_string& str)
 }
 
 
-Xml_string toXMLString(bool what)
+Xml_string toXMLString(bool val)
 {
-	return what? "yes" : "no";
+	return val ? "yes" : "no";
 }
 
 

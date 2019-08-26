@@ -26,15 +26,15 @@ enum MarkType
 struct MarkData
 {
 	QString strtxt;
-	PageItem* itemPtr;
+	PageItem* itemPtr {nullptr};
 	QString destmarkName;
-	MarkType destmarkType;
-	TextNote* notePtr;
+	MarkType destmarkType {MARKNoType};
+	TextNote* notePtr {nullptr};
 	//fields used for resolving to pointers for load and copy
 	QString itemName;
-	MarkType markTyp;
+	MarkType markTyp {MARKNoType};
 	
-	MarkData() : itemPtr(nullptr), destmarkType(MARKNoType), notePtr(nullptr), markTyp(MARKNoType) {}
+	MarkData() {}
 };
 
 class SCRIBUS_API Mark
@@ -44,12 +44,12 @@ class SCRIBUS_API Mark
 	friend class BulNumMark;
 	//only ScribusDoc && ScribusMainWindow can create and delete marks
 private:
-	Mark() : OwnPage(-1), typ(MARKNoType), data() {}
+	Mark() : data() {}
 	Mark(const Mark& other);
 
 public:
 	QString label;
-	int OwnPage;
+	int OwnPage {-1};
 
 	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
 	MarkType getType() { return typ; }
@@ -95,7 +95,7 @@ public:
     virtual ~Mark() {}
 
 protected:
-	MarkType typ;
+	MarkType typ {MARKNoType};
 	MarkData data;
 };
 

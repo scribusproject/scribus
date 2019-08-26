@@ -70,7 +70,7 @@ public:
 	VisionDefectColor();
 
 	/*! \brief Actual defect type. One of the 'defectMode' */
-	int deficiency;
+	int deficiency {0};
 
 	/*! \brief Perform conversion itself.
 	Gama removing, RGB2LSM, matrix operation for selected deficiency,
@@ -104,21 +104,27 @@ public:
 
 private:
 	/*! \brief Convert matrix */
-	double m_rgb2lms[9];
+	double m_rgb2lms[9] {0.0};
 	/*! \brief Convert matrix */
-	double m_lms2rgb[9];
+	double m_lms2rgb[9] {0.0};
 	/*! \brief Gamma matrix */
-	double m_gammaRGB[3];
+	double m_gammaRGB[3] {0.0};
 
 	/*! \brief cross products with transform matrixes for actual defect */
-	double m_a1, m_b1, m_c1;
+	double m_a1 {0.0};
+	double m_b1 {0.0};
+	double m_c1 {0.0};
 	/*! \brief cross products with transform matrixes for actual defect */
-	double m_a2, m_b2, m_c2;
+	double m_a2 {0.0};
+	double m_b2 {0.0};
+	double m_c2 {0.0};
 	/*! \brief Inflection border line */
-	double m_inflection;
+	double m_inflection {0.0};
 
 	/*! \brief Internal RGB color parts */
-	double m_red, m_green, m_blue;
+	double m_red {0.0};
+	double m_green {0.0};
+	double m_blue {0.0};
 
 	/*! \brief original color */
 	QColor m_originalColor;

@@ -99,13 +99,13 @@ public:
 
 	struct GlyphData { 
 		FPointArray Outlines;
-		qreal x;
-		qreal y;
-		qreal bbox_width;
-		qreal bbox_ascent;
-		qreal bbox_descent;
-		bool broken;
-		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
+		qreal x {0.0};
+		qreal y {0.0};
+		qreal bbox_width {1.0};
+		qreal bbox_ascent {1.0};
+		qreal bbox_descent {0.0};
+		bool broken {true};
+		GlyphData() {}
 	};
 
     
@@ -113,13 +113,13 @@ public:
 	class ScFaceData {
 	public:
 		/// controls destruction
-		mutable int refs;
+	mutable int refs {0};
 		/// controls load()
-		mutable int usage;
+	mutable int usage {0};
 
 		QString scName;
 		QString fontFile;
-		int     faceIndex;
+		int     faceIndex {-1};
 		QString psName;
 		QString family;
 		QString style;
@@ -132,16 +132,16 @@ public:
 		ScFace::FontType typeCode;
 		ScFace::FontFormat formatCode;
 
-		bool usable;
-		bool embedPs;
-		bool subset;
-		bool outline;
+		bool usable {false};
+		bool embedPs {false};
+		bool subset {false};
+		bool outline {false};
 
-		bool isCIDFont;
-		bool isStroked;
-		bool isFixedPitch;
-		bool hasGlyphNames;
-		gid_type maxGlyph;
+		bool isCIDFont {false};
+		bool isStroked {false};
+		bool isFixedPitch {false};
+		bool hasGlyphNames {false};
+		gid_type maxGlyph {0};
 
 		ScFaceData();
 		virtual ~ScFaceData();
@@ -154,7 +154,7 @@ public:
 		mutable QHash<gid_type, qreal>     m_glyphWidth;
 		mutable QHash<gid_type, GlyphData> m_glyphOutline;
 		//mutable QHash<gid_type, uint>      m_cMap;
-		void* m_hbFont;
+		void* m_hbFont {nullptr};
 
 		// fill caches & members
 
@@ -209,9 +209,9 @@ public:
 		virtual bool glyphNames(ScFace::FaceEncoding& gList) const;
 
 		// these use the cache:
-		virtual qreal       glyphWidth(gid_type gl, qreal sz)   const;
-		virtual FPointArray glyphOutline(gid_type gl, qreal sz) const;
-		virtual FPoint      glyphOrigin (gid_type gl, qreal sz) const;
+		virtual qreal       glyphWidth(gid_type gl, qreal size)   const;
+		virtual FPointArray glyphOutline(gid_type gl, qreal size) const;
+		virtual FPoint      glyphOrigin (gid_type gl, qreal size) const;
 
 		virtual bool isSymbolic() const { return false; }
 	};
@@ -272,7 +272,7 @@ public:
 		return result; 
 	}
 
-	void chReplacementTo(ScFace& other, QString doc) { 
+	void chReplacementTo(ScFace& other, const QString& doc) {
 		QString oldName = m_replacedName;
 		(*this) = other;
 		m_replacedName = oldName;

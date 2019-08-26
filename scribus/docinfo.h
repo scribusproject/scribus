@@ -28,7 +28,7 @@ class SCRIBUS_API DocInfos : public QTabWidget
 
 public:
 	DocInfos( QWidget* parent, DocumentInformation& docInfo );
-	~DocInfos() {};
+	~DocInfos() = default;
 
 	/*! \brief Class wide DocumentInformation& docInfo reference. */
 	DocumentInformation infos;

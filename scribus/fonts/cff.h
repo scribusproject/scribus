@@ -152,13 +152,13 @@ namespace cff {
 	
 	struct CFF_Number
 	{
-		long long   card;
-		int         exponent;
-		uchar       type;
+		long long   card {0};
+		int         exponent {0};
+		uchar       type {0};
 		bool        isCardinal() const;
 		double      toDouble() const;
 		int         toCardinal() const;
-		CFF_Number() : card(0),exponent(0),type(0) {};
+		CFF_Number() {};
 	};
 	
 
@@ -167,8 +167,8 @@ namespace cff {
 		uchar type;
 		QList<CFF_Number> array;
 		CFF_Variant()                      : type(cff_varnt_Error) {}
-		CFF_Variant(CFF_Number val)        : type(val.type), array() { array.append(val); }
-		CFF_Variant(QList<CFF_Number> arr) : type(cff_varnt_Array), array(arr) {}
+		CFF_Variant(CFF_Number val)        : type(val.type) { array.append(val); }
+		CFF_Variant(const QList<CFF_Number>& arr) : type(cff_varnt_Array), array(arr) {}
 	};
 	
 	

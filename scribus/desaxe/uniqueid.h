@@ -18,15 +18,16 @@
 /**
  *  This filter suppresses the output of   
  */
-class UniqueID : public SaxFilter {
+class UniqueID : public SaxFilter
+{
 public:
-	UniqueID(SaxHandler* delegate) : SaxFilter(delegate), m_seenIDs(), m_level(0)  {}
-	virtual void begin(const Xml_string& tag, Xml_attr attr);
-	virtual void end(const Xml_string& tag);
-	virtual void chars(const Xml_string& text);
+	UniqueID(SaxHandler* delegate) : SaxFilter(delegate) {}
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+	void end(const Xml_string& tag) override;
+	void chars(const Xml_string& text) override;
 private:
 	std::set<Xml_string> m_seenIDs;
-	int m_level;
+	int m_level {0};
 };
 
 #endif

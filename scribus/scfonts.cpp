@@ -580,11 +580,11 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 		switch (format)
 		{
 			case ScFace::PFA:
-				t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+				t = ScFace(new ScFace_PFA(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::PFB:
-				t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+				t = ScFace(new ScFace_PFB(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::SFNT:
@@ -825,11 +825,11 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 			switch (format) 
 			{
 				case ScFace::PFA:
-					t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_PFA(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::PFB:
-					t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_PFB(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::SFNT:

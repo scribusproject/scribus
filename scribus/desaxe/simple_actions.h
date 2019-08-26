@@ -55,8 +55,8 @@ class Factory_body : public Generator_body<Obj_Type>
 public:
 	typedef Obj_Type* (*FunType)();
 
-	Factory_body() 
-	: create_(NULL) 
+	Factory_body()
+	: create_(nullptr)
 	{}
 
 	Factory_body(FunType create) 
