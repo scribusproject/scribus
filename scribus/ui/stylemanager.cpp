@@ -338,151 +338,149 @@ void StyleManager::slotImport()
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-	if (dia.exec() == QDialog::Accepted)
-	{
-		QString selectedFile = dia.selectedFile();
-		dirs->set("editformats", selectedFile.left(selectedFile.lastIndexOf("/")));
+	if (dia.exec() != QDialog::Accepted)
+		return;
 
-		StyleSet<ParagraphStyle> tmpParaStyles;
-		StyleSet<CharStyle> tmpCharStyles;
-		QHash<QString, multiLine> tmpLineStyles;
+	QString selectedFile = dia.selectedFile();
+	dirs->set("editformats", selectedFile.left(selectedFile.lastIndexOf("/")));
 
-		m_doc->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
+	StyleSet<ParagraphStyle> tmpParaStyles;
+	StyleSet<CharStyle> tmpCharStyles;
+	QHash<QString, multiLine> tmpLineStyles;
+
+	m_doc->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 
 // FIXME Once all styles are derived from Style remove this and make a proper
 //       implementation
 // Start hack
 
-		SMParagraphStyle *pstyle = nullptr;
-		SMCharacterStyle *cstyle = nullptr;
-		SMLineStyle      *lstyle = nullptr;
-		for (int i = 0; i < m_items.count(); ++i)
-		{
-			pstyle = dynamic_cast<SMParagraphStyle*>(m_items.at(i));
-			if (pstyle)
-				break;
-		}
-		for (int i = 0; i < m_items.count(); ++i)
-		{
-			cstyle = dynamic_cast<SMCharacterStyle*>(m_items.at(i));
-			if (cstyle)
-				break;
-		}
-		for (int i = 0; i < m_items.count(); ++i)
-		{
-			lstyle = dynamic_cast<SMLineStyle*>(m_items.at(i));
-			if (lstyle)
-				break;
-		}
+	SMParagraphStyle *pstyle = nullptr;
+	SMCharacterStyle *cstyle = nullptr;
+	SMLineStyle      *lstyle = nullptr;
+	for (int i = 0; i < m_items.count(); ++i)
+	{
+		pstyle = dynamic_cast<SMParagraphStyle*>(m_items.at(i));
+		if (pstyle)
+			break;
+	}
+	for (int i = 0; i < m_items.count(); ++i)
+	{
+		cstyle = dynamic_cast<SMCharacterStyle*>(m_items.at(i));
+		if (cstyle)
+			break;
+	}
+	for (int i = 0; i < m_items.count(); ++i)
+	{
+		lstyle = dynamic_cast<SMLineStyle*>(m_items.at(i));
+		if (lstyle)
+			break;
+	}
 
-		Q_ASSERT(pstyle && cstyle && lstyle);
+	Q_ASSERT(pstyle && cstyle && lstyle);
 
-		SMStyleImport *dia2 = new SMStyleImport(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
+	SMStyleImport *dia2 = new SMStyleImport(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
 //#7315 		QList<QPair<QString, QString> > selected;
-		if (dia2->exec())
-		{
+	if (dia2->exec())
+	{
 //#7385 			if (!m_isEditMode)
 //#7385 				slotOk();
-			QStringList neededColors;
-			neededColors.clear();
+		QStringList neededColors;
+		neededColors.clear();
 
-			foreach (const QString& aStyle, dia2->paragraphStyles())
+		foreach (const QString& aStyle, dia2->paragraphStyles())
+		{
+			ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(aStyle)]);
+			if (dia2->clashRename())
 			{
-				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(aStyle)]);
-				if (dia2->clashRename())
-				{
-					sty.setName(pstyle->getUniqueName(sty.name()));
+				sty.setName(pstyle->getUniqueName(sty.name()));
+				pstyle->tmpStyles()->create(sty);
+			}
+			else
+			{
+				if (pstyle->tmpStyles()->find(sty.name()) >= 0)
+					(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
+				else
 					pstyle->tmpStyles()->create(sty);
-				}
-				else
-				{
-					if (pstyle->tmpStyles()->find(sty.name()) >= 0)
-						(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
-					else
-						pstyle->tmpStyles()->create(sty);
-				}
+			}
 //#7315 				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
-				if ((!m_doc->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
-					neededColors.append(sty.charStyle().strokeColor());
-				if ((!m_doc->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
-					neededColors.append(sty.charStyle().fillColor());
-			}
+			if ((!m_doc->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+				neededColors.append(sty.charStyle().strokeColor());
+			if ((!m_doc->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+				neededColors.append(sty.charStyle().fillColor());
+		}
 
-			foreach (const QString& aStyle, dia2->characterStyles())
+		foreach (const QString& aStyle, dia2->characterStyles())
+		{
+			CharStyle& sty(tmpCharStyles[tmpCharStyles.find(/*it.data()*/aStyle)]);
+			if (dia2->clashRename())
 			{
-				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(/*it.data()*/aStyle)]);
-				if (dia2->clashRename())
-				{
-					sty.setName(cstyle->getUniqueName(sty.name()));
-					cstyle->tmpStyles()->create(sty);
-				}
+				sty.setName(cstyle->getUniqueName(sty.name()));
+				cstyle->tmpStyles()->create(sty);
+			}
+			else
+			{
+				if (cstyle->tmpStyles()->find(sty.name()) >= 0)
+					(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
 				else
-				{
-					if (cstyle->tmpStyles()->find(sty.name()) >= 0)
-						(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
-					else
-						cstyle->tmpStyles()->create(sty);
-				}
-//#7315 				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
-				if ((!m_doc->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
-					neededColors.append(sty.strokeColor());
-				if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
-					neededColors.append(sty.fillColor());
+					cstyle->tmpStyles()->create(sty);
 			}
+//#7315 				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
+			if ((!m_doc->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
+				neededColors.append(sty.strokeColor());
+			if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
+				neededColors.append(sty.fillColor());
+		}
 
-			foreach (const QString& aStyle, dia2->lineStyles())
-			{
-				multiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
-				QString styName = aStyle;
+		foreach (const QString& aStyle, dia2->lineStyles())
+		{
+			multiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
+			QString styName = aStyle;
 
-				if (dia2->clashRename())
-					styName = lstyle->getUniqueName(aStyle);
+			if (dia2->clashRename())
+				styName = lstyle->getUniqueName(aStyle);
 
-				lstyle->m_tmpLines[styName] = sty;
+			lstyle->m_tmpLines[styName] = sty;
 //#7315 				selected << QPair<QString, QString>(lstyle->typeName(), styName);
 
-				for (int i = 0; i < sty.count(); ++i)
-				{
-					if ((!m_doc->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
-						neededColors.append(sty[i].Color);
-				}
-			}
-
-			if (!neededColors.isEmpty())
+			for (int i = 0; i < sty.count(); ++i)
 			{
-				FileLoader fl(selectedFile);
-				if (fl.testFile() == -1)
-				{ //TODO put in nice user warning
-					delete dia2;
-					return;
-				}
-				ColorList LColors;
-				if (fl.readColors(LColors))
+				if ((!m_doc->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
+					neededColors.append(sty[i].Color);
+			}
+		}
+
+		if (!neededColors.isEmpty())
+		{
+			FileLoader fl(selectedFile);
+			if (fl.testFile() == -1)
+			{ //TODO put in nice user warning
+				delete dia2;
+				return;
+			}
+			ColorList LColors;
+			if (fl.readColors(LColors))
+			{
+				ColorList::Iterator itc;
+				for (itc = LColors.begin(); itc != LColors.end(); ++itc)
 				{
-					ColorList::Iterator itc;
-					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
-					{
-						if (neededColors.contains(itc.key()))
-							m_doc->PageColors.insert(itc.key(), itc.value());
-					}
+					if (neededColors.contains(itc.key()))
+						m_doc->PageColors.insert(itc.key(), itc.value());
 				}
 			}
 		}
-		delete dia2;
-// Start hack part 2
-		pstyle->setCurrentDoc(m_doc);
-		cstyle->setCurrentDoc(m_doc);
-// end hack part 2
-		reloadStyleView(false);
-//#7315 		setSelection(selected);
-		slotDirty();
-//#7315		slotSetupWidget();
-		slotApply();//#7315
 	}
-	else
-		return;
+	delete dia2;
+// Start hack part 2
+	pstyle->setCurrentDoc(m_doc);
+	cstyle->setCurrentDoc(m_doc);
+// end hack part 2
+	reloadStyleView(false);
+//#7315 		setSelection(selected);
+	slotDirty();
+//#7315		slotSetupWidget();
+	slotApply();//#7315
 }
 
 void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
@@ -515,27 +513,27 @@ void StyleManager::slotEdit()
 	if (!m_isEditMode)
 		slotOk(); // switch to edit mode for cloning
 
-	if (!m_rcStyle.isNull())
+	if (m_rcStyle.isNull())
+		return;
+
+	QTreeWidgetItemIterator it(styleView);
+	while (*it)
 	{
-		QTreeWidgetItemIterator it(styleView);
-		while (*it)
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
+		if (item && !item->isRoot())
 		{
-			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
-			if (item && !item->isRoot())
+			if (item->rootName() == m_styleClassesSP[m_rcType] &&
+				item->text(0) == m_rcStyle)
 			{
-				if (item->rootName() == m_styleClassesSP[m_rcType] &&
-				    item->text(0) == m_rcStyle)
-				{
-					styleView->setCurrentItem(item);
-					item->setSelected(true);
-					break;
-				}
+				styleView->setCurrentItem(item);
+				item->setSelected(true);
+				break;
 			}
-			++it;
 		}
-		m_rcStyle.clear();
-		m_rcType.clear();
+		++it;
 	}
+	m_rcStyle.clear();
+	m_rcType.clear();
 }
 
 
@@ -873,56 +871,57 @@ void StyleManager::slotOk()
 
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 {
-	if (item) {
-		m_item = item;
+	if (!item)
+		return;
 
-		QList<StyleName> styles = m_item->styles(loadFromDoc);
-		StyleViewItem *rootItem = new StyleViewItem(styleView, m_item->typeName());
-		styleView->expandItem(rootItem);
-		QMap<QString, StyleViewItem*> sitems;
+	m_item = item;
 
-		for (int i = 0; i < styles.count(); ++i) // set the list of styles of this type
+	QList<StyleName> styles = m_item->styles(loadFromDoc);
+	StyleViewItem *rootItem = new StyleViewItem(styleView, m_item->typeName());
+	styleView->expandItem(rootItem);
+	QMap<QString, StyleViewItem*> sitems;
+
+	for (int i = 0; i < styles.count(); ++i) // set the list of styles of this type
+	{
+		StyleViewItem *sitem;
+		if (styles[i].second.isNull())
 		{
-			StyleViewItem *sitem;
-			if (styles[i].second.isNull())
-			{
-				sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
-			}
-			else if (sitems.contains(styles[i].second))
-			{
-				StyleViewItem *parent = sitems[styles[i].second];
-				sitem = new StyleViewItem(parent, styles[i].first, m_item->typeName());
-				styleView->expandItem(parent);
-			}
-			else 
-			{
-				bool postpone = false;
-				// search if parent is in remaining styles
-				for (int j = i+1; j < styles.count(); ++j)
-				{
-					if (styles[j].first == styles[i].second)
-					{
-						styles.append(styles[i]); // postpone
-						postpone = true;
-					}
-				}
-				if (postpone)
-					continue;
-				qDebug() << QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second, m_item->typeName(), styles[i].first);
-				sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
-			}
-			
-			sitems[styles[i].first] = sitem;
-			QString shortcutValue(m_item->shortcut(sitem->text(NAME_COL)));
-			sitem->setText(SHORTCUT_COL, shortcutValue);
-			
-			QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
-			if (m_styleActions.contains(key))
-				continue;
-
-			m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcutValue, m_doc->view(), key);
-			connect(m_styleActions[key], SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
+			sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
 		}
+		else if (sitems.contains(styles[i].second))
+		{
+			StyleViewItem *parent = sitems[styles[i].second];
+			sitem = new StyleViewItem(parent, styles[i].first, m_item->typeName());
+			styleView->expandItem(parent);
+		}
+		else 
+		{
+			bool postpone = false;
+			// search if parent is in remaining styles
+			for (int j = i+1; j < styles.count(); ++j)
+			{
+				if (styles[j].first == styles[i].second)
+				{
+					styles.append(styles[i]); // postpone
+					postpone = true;
+				}
+			}
+			if (postpone)
+				continue;
+			qDebug() << QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second, m_item->typeName(), styles[i].first);
+			sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
+		}
+			
+		sitems[styles[i].first] = sitem;
+		QString shortcutValue(m_item->shortcut(sitem->text(NAME_COL)));
+		sitem->setText(SHORTCUT_COL, shortcutValue);
+			
+		QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
+		if (m_styleActions.contains(key))
+			continue;
+
+		m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcutValue, m_doc->view(), key);
+		connect(m_styleActions[key], SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 	}
 }
 
@@ -1022,17 +1021,17 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 
 void StyleManager::insertShortcutPage(QTabWidget *twidget)
 {
-	if (twidget)
+	if (!twidget)
+		return;
+
+	if (!m_shortcutWidget)
 	{
-		if (!m_shortcutWidget)
-		{
-			m_shortcutWidget = new ShortcutWidget(nullptr);
-			m_shortcutWidget->setAllowedModifiers(Qt::META|Qt::CTRL|Qt::SHIFT|Qt::ALT,0);
-			connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
-					this, SLOT(slotShortcutChanged(const QString&)));
-		}
-		twidget->addTab(m_shortcutWidget, tr("Shortcut"));
+		m_shortcutWidget = new ShortcutWidget(nullptr);
+		m_shortcutWidget->setAllowedModifiers(Qt::META|Qt::CTRL|Qt::SHIFT|Qt::ALT,0);
+		connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
+				this, SLOT(slotShortcutChanged(const QString&)));
 	}
+	twidget->addTab(m_shortcutWidget, tr("Shortcut"));
 }
 
 void StyleManager::slotNameChanged(const QString& name)
