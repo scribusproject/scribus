@@ -833,6 +833,9 @@ void StyleManager::slotOk()
 			m_isStoryEditMode=false;
 			hide();
 		}
+
+		m_rcStyle.clear();
+		m_rcType.clear();
 	}
 	else
 	{
