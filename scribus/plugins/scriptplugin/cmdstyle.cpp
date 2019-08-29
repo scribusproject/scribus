@@ -69,23 +69,33 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	tmpParagraphStyle.setRightMargin(rightMargin);
 	tmpParagraphStyle.setGapBefore(gapBefore);
 	tmpParagraphStyle.setGapAfter(gapAfter);
-	if (hasDropCap == 0)
-		tmpParagraphStyle.setHasDropCap(false);
-	else if (hasDropCap == 1)
+
+	if (hasDropCap == 1)
+	{
+		tmpParagraphStyle.setDropCapLines(dropCapLines);
 		tmpParagraphStyle.setHasDropCap(true);
+		tmpParagraphStyle.setHasBullet(false);
+		tmpParagraphStyle.setHasNum(false);
+	}
 	else
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap has to be 0 or 1.","python error").toLocal8Bit().constData());
-		return nullptr;
+		tmpParagraphStyle.setHasDropCap(false);
 	}
-	tmpParagraphStyle.setDropCapLines(dropCapLines);
+
+	if (strlen(bullet) > 0)
+	{
+		tmpParagraphStyle.setBulletStr(bullet);
+		tmpParagraphStyle.setHasDropCap(false);
+		tmpParagraphStyle.setHasBullet(true);
+		tmpParagraphStyle.setHasNum(false);
+	}
+	else
+	{
+		tmpParagraphStyle.setHasBullet(false);
+	}
+
 	tmpParagraphStyle.setParEffectOffset(peOffset);
 	tmpParagraphStyle.charStyle().setParent(charStyle);
-
-	if (strlen(bullet) > 0) {
-		tmpParagraphStyle.setHasBullet(true);
-		tmpParagraphStyle.setBulletStr(bullet);
-	}
 
 	StyleSet<ParagraphStyle> tmpStyleSet;
 	tmpStyleSet.create(tmpParagraphStyle);
