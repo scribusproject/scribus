@@ -38,15 +38,18 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("dropcaplines"),
 			const_cast<char*>("dropcapoffset"),
 			const_cast<char*>("charstyle"),
+			const_cast<char*>("bullet"),
 			nullptr};
 	char *name = const_cast<char*>(""), *charStyle = const_cast<char*>("");
+	char *bullet = const_cast<char*>("");
 	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
 	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
 	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiides",
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiideses",
 		 keywordargs, "utf-8", &name, &lineSpacingMode, &lineSpacing, &alignment,
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
-		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle))
+		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle,
+		"utf-8", &bullet))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -78,6 +81,11 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	tmpParagraphStyle.setDropCapLines(dropCapLines);
 	tmpParagraphStyle.setParEffectOffset(peOffset);
 	tmpParagraphStyle.charStyle().setParent(charStyle);
+
+	if (strlen(bullet) > 0) {
+		tmpParagraphStyle.setHasBullet(true);
+		tmpParagraphStyle.setBulletStr(bullet);
+	}
 
 	StyleSet<ParagraphStyle> tmpStyleSet;
 	tmpStyleSet.create(tmpParagraphStyle);
