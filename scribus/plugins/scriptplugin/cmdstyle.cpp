@@ -97,6 +97,12 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	tmpParagraphStyle.setParEffectOffset(peOffset);
 	tmpParagraphStyle.charStyle().setParent(charStyle);
 
+	if (strlen(bullet) > 0 && hasDropCap == 1)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap and bullet are not allowed to be specified together.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
 	StyleSet<ParagraphStyle> tmpStyleSet;
 	tmpStyleSet.create(tmpParagraphStyle);
 	ScCore->primaryMainWindow()->doc->redefineStyles(tmpStyleSet, false);
