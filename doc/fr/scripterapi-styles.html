@@ -159,12 +159,17 @@
 <li>dropcaplines [optionnel] -> la hauteur des lettrines en nombre de lignes si l'utilisation de lettrines est activée</li>
 <li>dropcapoffset [optionnel] -> décalage horizontal des lettrines si l'utilisation de lettrines est activée</li>
 <li>"charstyle" [optionnel] -> nom du style de caractère à utiliser</li>
+<li>"bullet" [optionnel] -> chaîne de caractère à utiliser pour les puces</li>
 </ul>
 </p>
-<p>Si vous désirez omettre un certain nombre d'éléments, cette fonction n'acceptera pas de valeurs null, i.e., une série de virgule. Vous <i>devez</i> spécifier un paramètre entier pour chacun des paramètres omis. Par example, si vous désirez spécifier uniquement un nom de style de paragraphe et un nom de style de caractère, votre appel de fonction ressemblera à ceci:</p>
-<p><strong>scribus.createParagraphStyle("MyNewStyle",0,0,0,0,0,0,0,0,0,"MyCharStyle")</strong></p>
-<p>Cependant, si vous désirez spécifier uniquement un nom de style et un mode d'interlignage, vous pouvez alors limiter le nombre d'argument passé dans votre appel de fonction:</p>
-<p><strong>scribus.createParagraphStyle("MyOtherNewStyle", 1)</strong></p>
+<p>Si vous désirez omettre un certain nombre d'éléments, cette fonction n'acceptera pas de valeurs null, i.e., une série de virgule. Vous <i>devez</i> spécifier un paramètre entier pour chacun des paramètres omis. Par example, si vous désirez spécifier uniquement un nom de style de paragraphe et un nom de style de caractère, votre appel de fonction ressemblera à ceci:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyNewStyle",0,0,0,0,0,0,0,0,0,"MyCharStyle")</code></li>
+</ul></p>
+<p>Cependant, si vous désirez spécifier uniquement un nom de style et un mode d'interlignage, vous pouvez alors limiter le nombre d'argument passé dans votre appel de fonction:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyOtherNewStyle", 1)</code></li>
+</ul></p>
 </dd>
 
 <dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>

@@ -38,15 +38,18 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("dropcaplines"),
 			const_cast<char*>("dropcapoffset"),
 			const_cast<char*>("charstyle"),
+			const_cast<char*>("bullet"),
 			nullptr};
 	char *name = const_cast<char*>(""), *charStyle = const_cast<char*>("");
+	char *bullet = const_cast<char*>("");
 	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
 	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
 	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiides",
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiideses",
 		 keywordargs, "utf-8", &name, &lineSpacingMode, &lineSpacing, &alignment,
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
-		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle))
+		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle,
+		"utf-8", &bullet))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -55,27 +58,54 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+	
+	if ((hasDropCap != 0) && (dropCapLines <= 1) )
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap is true but dropcaplines value is invalid","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	
+	if (strlen(bullet) > 0 && (hasDropCap  != 0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap and bullet are not allowed to be specified together.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
 
 	ParagraphStyle tmpParagraphStyle;
 	tmpParagraphStyle.setName(name);
-	tmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode)lineSpacingMode);
+	tmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode) lineSpacingMode);
 	tmpParagraphStyle.setLineSpacing(lineSpacing);
-	tmpParagraphStyle.setAlignment((ParagraphStyle::AlignmentType)alignment);
+	tmpParagraphStyle.setAlignment((ParagraphStyle::AlignmentType) alignment);
 	tmpParagraphStyle.setLeftMargin(leftMargin);
 	tmpParagraphStyle.setFirstIndent(firstIndent);
 	tmpParagraphStyle.setRightMargin(rightMargin);
 	tmpParagraphStyle.setGapBefore(gapBefore);
 	tmpParagraphStyle.setGapAfter(gapAfter);
-	if (hasDropCap == 0)
-		tmpParagraphStyle.setHasDropCap(false);
-	else if (hasDropCap == 1)
+	
+	if (hasDropCap != 0)
+	{
+		tmpParagraphStyle.setDropCapLines(dropCapLines);
 		tmpParagraphStyle.setHasDropCap(true);
+		tmpParagraphStyle.setHasBullet(false);
+		tmpParagraphStyle.setHasNum(false);
+	}
 	else
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap has to be 0 or 1.","python error").toLocal8Bit().constData());
-		return nullptr;
+		tmpParagraphStyle.setHasDropCap(false);
 	}
-	tmpParagraphStyle.setDropCapLines(dropCapLines);
+	
+	if (strlen(bullet) > 0)
+	{
+		tmpParagraphStyle.setBulletStr(QString::fromUtf8(bullet));
+		tmpParagraphStyle.setHasDropCap(false);
+		tmpParagraphStyle.setHasBullet(true);
+		tmpParagraphStyle.setHasNum(false);
+	}
+	else
+	{
+		tmpParagraphStyle.setHasBullet(false);
+	}
+	
 	tmpParagraphStyle.setParEffectOffset(peOffset);
 	tmpParagraphStyle.charStyle().setParent(charStyle);
 

@@ -40,6 +40,7 @@ hasdropcap [optional] -> specifies if there are caps (1 = yes, 0 = no)\n\n\
 dropcaplines [optional] -> height (in lines) of the caps if used\n\n\
 dropcapoffset [optional] -> offset of the caps if used\n\n\
 \"charstyle\" [optional] -> char style to use\n\n\
+\"bullet\" [optional] -> string to use as bullet\n\n\
 "));
 /*! 02.01.2007 - 05.01.2007 : Joachim Neu : Create a paragraph style.
   		Special thanks go to avox for helping me! */
