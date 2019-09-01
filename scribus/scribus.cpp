@@ -93,7 +93,6 @@ for which a new license (GPL+exception) is in place.
 #include <csignal>
 #include <string>
 
-
 #include "actionmanager.h"
 #include "actionsearch.h"
 #include "appmodehelper.h"
@@ -261,6 +260,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "units.h"
 #include "urllauncher.h"
+#include "usertaskstructs.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
@@ -6456,7 +6456,6 @@ void ScribusMainWindow::duplicateItem()
 		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Duplicate, "", Um::IMultipleDuplicate);
 
 	ItemMultipleDuplicateData mdData;
-	memset(&mdData, 0, sizeof(mdData));
 	mdData.type = 0;
 	mdData.copyCount = 1;
 	mdData.copyShiftOrGap = 0;
@@ -6492,7 +6491,7 @@ void ScribusMainWindow::duplicateItemMulti()
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	internalCopy = true;
-	QScopedPointer<MultipleDuplicate> dia(new MultipleDuplicate(doc->unitIndex(), this));
+	QScopedPointer<MultipleDuplicate> dia(new MultipleDuplicate(this, doc));
 	if (dia->exec())
 	{
 		ItemMultipleDuplicateData mdData;

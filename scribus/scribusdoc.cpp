@@ -13442,10 +13442,13 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	return nr;
 }
 
-void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdData)
+void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData& mdData)
 {
 	if ((mdData.type==0 && mdData.copyCount<1) || (mdData.type==1 && (mdData.gridRows==1 && mdData.gridCols==1)))
 		return;
+	if ((mdData.type == 2) && (Pages->count() == 1))
+		return;
+
 	QString tooltip;
 	UndoTransaction activeTransaction;
 
@@ -13572,6 +13575,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		QString vString = QString::number(mdData.gridGapV, 'f', unitPrecision) + " " + unitSuffix;
 		tooltip = tr("Number of rows: %1\nNumber of columns: %2\nHorizontal gap: %3\nVertical gap: %4").arg(mdData.gridRows).arg(mdData.gridCols).arg(hString).arg(vString).arg(unitSuffix);
 	}
+	else if (mdData.type == 2)
+	{
+		multipleDuplicateByPage(mdData, selection, tooltip);
+	}
 	if (activeTransaction)
 	{
 		activeTransaction.commit("", nullptr, "", tooltip, nullptr);
@@ -13582,6 +13589,92 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	m_View->Deselect(true);
 	view()->DrawNew();
 	changed();
+}
+
+void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialogData, Selection& selection, QString& tooltip)
+{
+	int currPageNumber = currentPageNumber();
+	std::vector<int> pages;
+	QString pageRange;
+
+	if (dialogData.pageSelection == 1)
+		pageRange = QString("%1-%2").arg(1).arg(Pages->count());
+	else if ((dialogData.pageSelection == 2) || dialogData.pageSelection == 3)
+	{
+		int start = currentPageNumber() + 2;
+		// round to the next odd / even number
+		if (dialogData.pageSelection == 2)
+			start += start % 2;
+		else
+			start += 1 - (start % 2);
+
+		QStringList pageList;
+		for (int i = start; i <= Pages->count(); i += 2)
+			pageList << QString::number(i);
+		pageRange = pageList.join(',');
+	}
+	else if (dialogData.pageSelection == 4)
+	{
+		pageRange = dialogData.pageRange;
+	}
+	parsePagesString(pageRange, &pages, Pages->count());
+
+	PageItem* lastInChain = nullptr;
+	if (dialogData.pageLinkText)
+	{
+		for (auto item: selection.items())
+		{
+			// get the first text frame in the selection, the first frame in the chain
+			if (item->itemType() != PageItem::TextFrame)
+				continue;
+			if (item->isInChain() && item->areNextInChainOnSamePage())
+			{
+				lastInChain = item->lastInChain();
+				assert( !lastInChain->nextInChain() );
+			}
+			else
+			{
+				lastInChain = item;
+			}
+			break;
+		}
+	}
+
+	ScPage* oldCurrentPage = currentPage();
+	ScriXmlDoc xmlStream;
+	QString buffer = xmlStream.writeElem(this, &selection);
+	for (const auto page: pages)
+	{
+		if (currPageNumber == page - 1)
+			continue;
+		ScPage* targetPage = Pages->at(page - 1);
+		setCurrentPage(targetPage);
+		int countBeforeInsert = Items->count();
+		xmlStream.readElem(buffer, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+		if (!lastInChain)
+			continue;
+		for (int i = countBeforeInsert; i < Items->count(); ++i)
+		{
+			PageItem* item = Items->at(i);
+			if (item->itemType() != PageItem::TextFrame)
+				continue;
+			if (item->isInChain())
+			{
+				lastInChain->link(item->firstInChain());
+				lastInChain = item->lastInChain();
+			}
+			else
+			{
+				lastInChain->link(item);
+				lastInChain = item;
+			}
+			break;
+		}
+	}
+
+	setCurrentPage(oldCurrentPage);
+
+	tooltip = tr("Copied %1 items on %2 pages").arg(selection.count()).arg(pages.size());
 }
 
 

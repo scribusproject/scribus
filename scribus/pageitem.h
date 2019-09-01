@@ -467,11 +467,13 @@ public: // Start public functions
 	//you can change all code for search first or last item in chain
 	PageItem* firstInChain();
 	PageItem* lastInChain();
+	PageItem* lastInChainSamePage();
 	PageItem* prevInChain() { return BackBox; }
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
 	bool isInChain() const { return ((BackBox != nullptr) || (NextBox != nullptr)); }
+	bool areNextInChainOnSamePage() const;
 
 	bool canBeLinkedTo(const PageItem* nextFrame) const;
 	void unlink(bool createUndo = true);
