@@ -6637,111 +6637,111 @@ void ScribusMainWindow::slotPrefsOrg()
 	slotSelect();
 	struct ApplicationPrefs oldPrefs(m_prefsManager.appPrefs);
 	PreferencesDialog prefsDialog(this, oldPrefs);
-	int prefsResult=prefsDialog.exec();
-	if (prefsResult==QDialog::Accepted)
+	int prefsResult = prefsDialog.exec();
+	if (prefsResult != QDialog::Accepted)
+		return;
+
+	struct ApplicationPrefs newPrefs(prefsDialog.prefs());
+	m_prefsManager.setNewPrefs(newPrefs);
+	m_prefsManager.applyLoadedShortCuts();
+
+	//TODO: and the other dirs?
+	DocDir = m_prefsManager.documentDir();
+	if (oldPrefs.pathPrefs.documents != newPrefs.pathPrefs.documents)
 	{
-		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
-		m_prefsManager.setNewPrefs(newPrefs);
-		m_prefsManager.applyLoadedShortCuts();
-
-		//TODO: and the other dirs?
-		DocDir = m_prefsManager.documentDir();
-		if (oldPrefs.pathPrefs.documents != newPrefs.pathPrefs.documents)
-		{
-			PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
-			docContext->set("docsopen", newPrefs.pathPrefs.documents);
-		}
-
-		ScQApp->neverSplash(!m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup);
-
-		QString newUILanguage = m_prefsManager.uiLanguage();
-		if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
-			ScQApp->changeGUILanguage(newUILanguage);
-		m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-		QString newUIStyle = m_prefsManager.guiStyle();
-		if (oldPrefs.uiPrefs.style != newUIStyle)
-		{
-			if (newUIStyle.isEmpty())
-				ScQApp->setStyle(m_prefsManager.guiSystemStyle());
-			else
-				ScQApp->setStyle(QStyleFactory::create(newUIStyle));
-		}
-		int newUIFontSize = m_prefsManager.guiFontSize();
-		if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
-		{
-			QFont apf = qApp->font();
-			apf.setPointSize(newUIFontSize);
-			qApp->setFont(apf);
-		}
-		emit UpdateRequest(reqDefFontListUpdate);
-		if (m_prefsManager.appPrefs.uiPrefs.useTabs)
-		{
-			mdiArea->setViewMode(QMdiArea::TabbedView);
-			mdiArea->setTabsClosable(true);
-			mdiArea->setDocumentMode(true);
-		}
-		else
-			mdiArea->setViewMode(QMdiArea::SubWindowView);
-		bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != m_prefsManager.showPageShadow();
-		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-		if (!windows.isEmpty())
-		{
-			int windowCount=windows.count();
-			for ( int i = 0; i < windowCount; ++i )
-			{
-				QWidget* w = windows.at(i)->widget();
-				ScribusWin* scw = dynamic_cast<ScribusWin *>(w);
-				if (!scw)
-					qFatal("ScribusMainWindow::slotPrefsOrg !scw");
-				ScribusView* scw_v = scw->view();
-				if (oldPrefs.displayPrefs.displayScale != m_prefsManager.displayScale())
-				{
-					int x = qRound(qMax(scw_v->contentsX() / scw_v->scale(), 0.0));
-					int y = qRound(qMax(scw_v->contentsY() / scw_v->scale(), 0.0));
-					int w = qRound(qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width()));
-					int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
-					scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager.displayScale());
-					zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
-				}
-				if (shadowChanged)
-					scw->view()->DrawNew();
-			}
-		}
-
-		QString newMonitorProfile(newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
-		if (oldMonitorProfile != newMonitorProfile)
-		{
-			bool success = false;
-			if (ScCore->MonitorProfiles.contains(newMonitorProfile))
-			{
-				QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
-				ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
-				if (!newProfile.isNull())
-				{
-					ScCore->monitorProfile = newProfile;
-					success = true;
-				}
-			}
-			if (!success)
-			{
-				newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
-				m_prefsManager.setNewPrefs(newPrefs);
-				QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
-				if (ScCore->usingGUI())
-					ScMessageBox::warning(this, CommonStrings::trWarning, message);
-				else
-					qWarning( "%s", message.toLocal8Bit().data() );
-			}
-		}
-		ScImageCacheManager & icm = ScImageCacheManager::instance();
-		icm.setEnabled(newPrefs.imageCachePrefs.cacheEnabled);
-		icm.setMaxCacheSizeMiB(newPrefs.imageCachePrefs.maxCacheSizeMiB);
-		icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
-		icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
-
-		m_prefsManager.SavePrefs();
+		PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
+		docContext->set("docsopen", newPrefs.pathPrefs.documents);
 	}
+
+	ScQApp->neverSplash(!m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup);
+
+	QString newUILanguage = m_prefsManager.uiLanguage();
+	if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
+		ScQApp->changeGUILanguage(newUILanguage);
+	m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+	QString newUIStyle = m_prefsManager.guiStyle();
+	if (oldPrefs.uiPrefs.style != newUIStyle)
+	{
+		if (newUIStyle.isEmpty())
+			ScQApp->setStyle(m_prefsManager.guiSystemStyle());
+		else
+			ScQApp->setStyle(QStyleFactory::create(newUIStyle));
+	}
+	int newUIFontSize = m_prefsManager.guiFontSize();
+	if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
+	{
+		QFont apf = qApp->font();
+		apf.setPointSize(newUIFontSize);
+		qApp->setFont(apf);
+	}
+	emit UpdateRequest(reqDefFontListUpdate);
+	if (m_prefsManager.appPrefs.uiPrefs.useTabs)
+	{
+		mdiArea->setViewMode(QMdiArea::TabbedView);
+		mdiArea->setTabsClosable(true);
+		mdiArea->setDocumentMode(true);
+	}
+	else
+		mdiArea->setViewMode(QMdiArea::SubWindowView);
+	bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != m_prefsManager.showPageShadow();
+	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+	if (!windows.isEmpty())
+	{
+		int windowCount=windows.count();
+		for ( int i = 0; i < windowCount; ++i )
+		{
+			QWidget* w = windows.at(i)->widget();
+			ScribusWin* scw = dynamic_cast<ScribusWin *>(w);
+			if (!scw)
+				qFatal("ScribusMainWindow::slotPrefsOrg !scw");
+			ScribusView* scw_v = scw->view();
+			if (oldPrefs.displayPrefs.displayScale != m_prefsManager.displayScale())
+			{
+				int x = qRound(qMax(scw_v->contentsX() / scw_v->scale(), 0.0));
+				int y = qRound(qMax(scw_v->contentsY() / scw_v->scale(), 0.0));
+				int w = qRound(qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width()));
+				int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
+				scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
+				scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager.displayScale());
+				zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
+			}
+			if (shadowChanged)
+				scw->view()->DrawNew();
+		}
+	}
+
+	QString newMonitorProfile(newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
+	if (oldMonitorProfile != newMonitorProfile)
+	{
+		bool success = false;
+		if (ScCore->MonitorProfiles.contains(newMonitorProfile))
+		{
+			QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
+			ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
+			if (!newProfile.isNull())
+			{
+				ScCore->monitorProfile = newProfile;
+				success = true;
+			}
+		}
+		if (!success)
+		{
+			newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
+			m_prefsManager.setNewPrefs(newPrefs);
+			QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
+			if (ScCore->usingGUI())
+				ScMessageBox::warning(this, CommonStrings::trWarning, message);
+			else
+				qWarning( "%s", message.toLocal8Bit().data() );
+		}
+	}
+	ScImageCacheManager & icm = ScImageCacheManager::instance();
+	icm.setEnabled(newPrefs.imageCachePrefs.cacheEnabled);
+	icm.setMaxCacheSizeMiB(newPrefs.imageCachePrefs.maxCacheSizeMiB);
+	icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
+	icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
+
+	m_prefsManager.SavePrefs();
 }
 
 void ScribusMainWindow::slotDocSetup()
