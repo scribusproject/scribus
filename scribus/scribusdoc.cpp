@@ -13598,10 +13598,10 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 	QString pageRange;
 
 	if (dialogData.pageSelection == 1)
-		pageRange = QString("%1-%2").arg(1).arg(Pages->count());
+		pageRange = QString("%1-%2").arg(currPageNumber + 2).arg(Pages->count());
 	else if ((dialogData.pageSelection == 2) || dialogData.pageSelection == 3)
 	{
-		int start = currentPageNumber() + 2;
+		int start = currPageNumber + 2;
 		// round to the next odd / even number
 		if (dialogData.pageSelection == 2)
 			start += start % 2;
