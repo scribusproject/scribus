@@ -9435,15 +9435,15 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	QFileInfo fi(filename);
 	QString clPath(pixm.imgInfo.usedPath);
 	pixm.imgInfo.valid = false;
-	pixm.imgInfo.clipPath="";
+	pixm.imgInfo.clipPath.clear();
 	pixm.imgInfo.PDSpathData.clear();
 	pixm.imgInfo.layerInfo.clear();
 	pixm.imgInfo.usedPath="";
 	imageClip.resize(0);
 	int lowResTypeBack = pixm.imgInfo.lowResType;
-	int gsRes=gsResolution;
-	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
-		gsRes=PrefsManager::instance().gsResolution();
+	int gsRes = gsResolution;
+	if (gsResolution == -1) //If it wasn't supplied, get it from PrefsManager.
+		gsRes = PrefsManager::instance().gsResolution();
 	bool dummy;
 
 	CMSettings cms(m_Doc, IProfile, IRender);
@@ -9460,7 +9460,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	{
 		Pfile = fi.absoluteFilePath();
 		imageIsAvailable = false;
-//		PicArt = false;
 		return false;
 	}
 
@@ -9487,7 +9486,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	double xres = pixm.imgInfo.xres;
 	double yres = pixm.imgInfo.yres;
 	imageIsAvailable = true;
-//	PicArt = true;
 		
 	if (Pfile != filename)
 	{
