@@ -888,7 +888,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				QRect apr2(docItem->getRedrawBounding(1.0));
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && ((docItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->m_layerID))) && (!m_doc->layerLocked(docItem->m_layerID)))
+				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && m_doc->canSelectItemOnLayer(docItem->m_layerID))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);

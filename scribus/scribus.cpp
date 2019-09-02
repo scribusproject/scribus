@@ -5111,12 +5111,12 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		PageItem *currItem;
 		view->Deselect();
 		doc->m_Selection->delaySignalsOn();
-		int docItemsCount=doc->Items->count();
-		int docCurrentPage=doc->currentPageNumber();
+		int docItemsCount = doc->Items->count();
+		int docCurrentPage = doc->currentPageNumber();
 		for (int i = 0; i < docItemsCount; ++i)
 		{
 			currItem = doc->Items->at(i);
-			if (((currItem->m_layerID == doc->activeLayer()) || (doc->layerSelectable(currItem->m_layerID))) && (!doc->layerLocked(currItem->m_layerID)))
+			if (doc->canSelectItemOnLayer(currItem->m_layerID))
 			{
 				if (docWideSelect)
 					doc->m_Selection->addItem(currItem);

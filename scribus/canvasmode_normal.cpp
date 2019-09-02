@@ -1166,7 +1166,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				PageItem* docItem = m_doc->Items->at(a);
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				if (((docItem->m_layerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->m_layerID))) && (!m_doc->layerLocked(docItem->m_layerID)))
+				if (m_doc->canSelectItemOnLayer(docItem->m_layerID))
 				{
 					// get current item rect/bounding box
 					QRect apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );

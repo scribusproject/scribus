@@ -486,11 +486,21 @@ public:
 	 */
 	bool changeLayerName(const int layerID, const QString& newName);
 	/**
+	 * @brief Test if items can be selected on a specific layer
+	 * 
+	 * This function check if items can be selected on the specified layer
+	 * by checking layer visibility and selectable property etc...
+	 *
+	 * @param layerID ID of the layer
+	 * @return a boolean
+	 */
+	bool canSelectItemOnLayer(int layerID) const;
+	/**
 	 * @brief Does the layer have items on it?
 	 * @param layerID ID of the layer
 	 * @return Layer contains items bool
 	 */
-	bool layerContainsItems(const int layerID);
+	bool layerContainsItems(const int layerID) const;
 	/**
 	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
 	 * @param layerID old layer ID

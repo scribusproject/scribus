@@ -2871,7 +2871,7 @@ bool ScribusDoc::setActiveLayer(const int layerToActivate)
 	const ScLayer* ll = Layers.layerByID(layerToActivate);
 	Q_ASSERT(ll);
 	if (ll)
-		m_ActiveLayer=layerToActivate;
+		m_ActiveLayer = layerToActivate;
 	return (ll != nullptr);
 }
 
@@ -3395,11 +3395,22 @@ bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 	return found;
 }
 
+bool ScribusDoc::canSelectItemOnLayer(int layerID) const
+{
+	if ((m_ActiveLayer != layerID) && !layerSelectable(layerID))
+		return false;
 
-bool ScribusDoc::layerContainsItems(const int layerID)
+	bool canSelect = layerVisible(layerID);
+	if (!canSelect)
+		return false;
+	canSelect = !layerLocked(layerID);
+	return canSelect;
+}
+
+bool ScribusDoc::layerContainsItems(const int layerID) const
 {
 	QList<PageItem*> allItems;
-	int masterItemsCount=MasterItems.count();
+	int masterItemsCount = MasterItems.count();
 	for (int i = 0; i < masterItemsCount; ++i)
 	{
 		PageItem* currItem = MasterItems.at(i);
@@ -3415,7 +3426,8 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 		}
 		allItems.clear();
 	}
-	int docItemsCount=DocItems.count();
+
+	int docItemsCount = DocItems.count();
 	for (int i = 0; i < docItemsCount; ++i)
 	{
 		PageItem* currItem = DocItems.at(i);
