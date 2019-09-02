@@ -41,6 +41,11 @@ dropcaplines [optional] -> height (in lines) of the caps if used\n\n\
 dropcapoffset [optional] -> offset of the caps if used\n\n\
 \"charstyle\" [optional] -> char style to use\n\n\
 \"bullet\" [optional] -> string to use as bullet\n\n\
+\"tabs\" [optional] -> a comma seperated list of tab definitions\n\n\
+-> a tab is defined with the following format \"type|position|fillchar\"\n\n\
+-> type [required] -> left: 1, right: 2, fullstop: 3, comma: 4, center: 5\n\n\
+-> position [required] -> float value for the position\n\n\
+-> fillchar [optional] -> the char to fill the space; default is none\n\n\
 "));
 /*! 02.01.2007 - 05.01.2007 : Joachim Neu : Create a paragraph style.
   		Special thanks go to avox for helping me! */
