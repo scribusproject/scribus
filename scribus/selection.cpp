@@ -276,49 +276,81 @@ bool Selection::removeFirst()
 
 bool Selection::removeItem(PageItem *item)
 {
-    bool removeOk(false);
-	if (!m_SelList.isEmpty() && m_SelList.contains(item))
-	{
-		removeOk = (m_SelList.removeAll(item)==1);
-		if (removeOk)
-		{
-			if (m_isGUISelection)
-			{
-				item->setSelected(false);
-				item->disconnectFromGUI();
-			}
-			item->isSingleSel = false;
-		}
+	if (m_SelList.isEmpty() || !m_SelList.contains(item))
+		return false;
 
+	bool removeOk = (m_SelList.removeAll(item) == 1);
+	if (removeOk)
+	{
 		if (m_isGUISelection)
 		{
-			m_sigSelectionChanged = true;
-			sendSignals();
+			item->setSelected(false);
+			item->disconnectFromGUI();
 		}
-		return removeOk;
+		item->isSingleSel = false;
+	}
+
+	if (m_isGUISelection)
+	{
+		m_sigSelectionChanged = true;
+		sendSignals();
 	}
 	return removeOk;
 }
 
+bool Selection::removeItemsOfLayer(int layedID)
+{
+	if (m_SelList.isEmpty())
+		return false;
+
+	int oldSelCount = m_SelList.count();
+
+	delaySignalsOn();
+	
+	int selIndex = 0;
+	while (selIndex < m_SelList.count())
+	{
+		QPointer<PageItem> pi = m_SelList.at(selIndex);
+		if (pi.isNull())
+		{
+			removeItem(itemAt(selIndex));
+			continue;
+		}
+
+		if (pi->m_layerID != layedID)
+		{
+			++selIndex;
+			continue;
+		}
+
+		removeItem(itemAt(selIndex));
+	}
+
+	delaySignalsOff();
+
+	bool itemsRemoved = (oldSelCount != m_SelList.count());
+	return itemsRemoved;
+}
+
 PageItem* Selection::takeItem(int itemIndex)
 {
-	if (!m_SelList.isEmpty() && itemIndex<m_SelList.count())
+	if (m_SelList.isEmpty() || itemIndex >= m_SelList.count())
+		return nullptr;
+
+	PageItem *item =  m_SelList[itemIndex];
+	bool removeOk = (m_SelList.removeAll(item) == 1);
+	if (removeOk)
 	{
-		PageItem *item =  m_SelList[itemIndex];
-		bool removeOk = (m_SelList.removeAll(item) == 1);
-		if (removeOk)
+		item->isSingleSel = false;
+		if (m_isGUISelection)
 		{
-			item->isSingleSel = false;
-			if (m_isGUISelection)
-			{
-				item->setSelected(false);
-				m_sigSelectionChanged = true;
-				if (itemIndex == 0)
-					item->disconnectFromGUI();
-			}
-			sendSignals();
-			return item;
+			item->setSelected(false);
+			m_sigSelectionChanged = true;
+			if (itemIndex == 0)
+				item->disconnectFromGUI();
 		}
+		sendSignals();
+		return item;
 	}
 	return nullptr;
 }

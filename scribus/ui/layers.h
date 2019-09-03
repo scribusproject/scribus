@@ -61,7 +61,7 @@ public slots:
 	void changeOpacity();
 	void changeBlendMode(int blend);
 	void setActiveLayer(int row, int col);
-	void ClearInhalt();
+	void clearContent();
 	void markActiveLayer(int layerID=-1);
 	void languageChange();
 

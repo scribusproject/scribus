@@ -98,6 +98,10 @@ class SCRIBUS_API Selection : public QObject
 		 */
 		bool removeItem(PageItem *item);
 		/**
+		 * \briefRemove items from specified layer
+		 */
+		bool removeItemsOfLayer(int layedID);
+		/**
 		 * \brief Remove the first item from the list
 		 * @return If the remove was successful
 		 */

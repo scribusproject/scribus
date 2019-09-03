@@ -624,7 +624,10 @@ void OutlinePalette::setActiveLayer(int layerID)
 
 void OutlinePalette::setLayerVisible(int layerID)
 {
-	currDoc->setLayerVisible(layerID, !currDoc->layerVisible(layerID));
+	bool isLayerVisible = !currDoc->layerVisible(layerID);
+	currDoc->setLayerVisible(layerID, isLayerVisible);
+	if (!isLayerVisible)
+		currDoc->m_Selection->removeItemsOfLayer(layerID);
 	currDoc->scMW()->showLayer();
 	currDoc->scMW()->layerPalette->rebuildList();
 	currDoc->scMW()->layerPalette->markActiveLayer();
@@ -632,7 +635,10 @@ void OutlinePalette::setLayerVisible(int layerID)
 
 void OutlinePalette::setLayerLocked(int layerID)
 {
-	currDoc->setLayerLocked(layerID, !currDoc->layerLocked(layerID));
+	bool isLayerLocked = !currDoc->layerLocked(layerID);
+	currDoc->setLayerLocked(layerID, isLayerLocked);
+	if (isLayerLocked)
+		currDoc->m_Selection->removeItemsOfLayer(layerID);
 	currDoc->scMW()->layerPalette->rebuildList();
 	currDoc->scMW()->layerPalette->markActiveLayer();
 }

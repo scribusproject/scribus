@@ -4346,13 +4346,13 @@ bool ScribusMainWindow::DoFileClose()
 	m_styleManager->setDoc(nullptr);
 	marksManager->setDoc(nullptr);
 	nsEditor->setDoc(nullptr);
-	layerPalette->ClearInhalt();
+	layerPalette->clearContent();
 	docCheckerPalette->buildErrorList(nullptr);
 	HaveDoc--;
 	delete doc;
 	doc = nullptr;
 	ActWin = nullptr;
-	if ( HaveDoc == 0 )
+	if (HaveDoc == 0)
 	{
 		QString prefsDocDir( PrefsManager::instance().documentDir() );
 		if ( QDir().exists(prefsDocDir) )
