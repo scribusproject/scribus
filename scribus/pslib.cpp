@@ -1578,7 +1578,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScQApp->processEvents();
 		}
 	}
-	uint docSelectionCount=Doc->m_Selection->count();
+	uint docSelectionCount = Doc->m_Selection->count();
 	if ((!psExport) && (docSelectionCount != 0))
 	{
 		double minx =  std::numeric_limits<double>::max();
@@ -1617,21 +1617,20 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		gy = miny;
 		gw = maxx - minx;
 		gh = maxy - miny;
-		int pgNum = pageNs[0]-1;
+		int pgNum = pageNs[0] - 1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
 		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight() - (gy+gh), gx + gw, Doc->pageHeight() - gy, 1*pagemult, sep, farb);
 	}
 	else
 	{
-		int a;
 		double maxWidth = 0.0;
 		double maxHeight = 0.0;
-		for (int i = 0; i < pageNs.size(); ++i)
+		for (size_t i = 0; i < pageNs.size(); ++i)
 		{
-			a = pageNs[i]-1;
-			maxWidth = qMax(Doc->Pages->at(a)->width(), maxWidth);
-			maxHeight = qMax(Doc->Pages->at(a)->height(), maxHeight);
+			int pgNum = pageNs[i] - 1;
+			maxWidth = qMax(Doc->Pages->at(pgNum)->width(), maxWidth);
+			maxHeight = qMax(Doc->Pages->at(pgNum)->height(), maxHeight);
 		}
 		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, sep, farb);
 	}
