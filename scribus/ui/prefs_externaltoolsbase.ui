@@ -259,7 +259,7 @@
          <item>
           <widget class="QLineEdit" name="imageToolLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;File system location for graphics editor.&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
