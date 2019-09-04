@@ -207,7 +207,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				{
 					double xout = 0;
 					double yout = 0;
-					m_doc->getClosestElementBorder(x, y, &xout, &yout, currentPage, ScribusDoc::IncludeSelection);
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, ScribusDoc::IncludeSelection);
 					if (yout != y)
 					{
 						y = yout;
@@ -275,7 +275,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				{
 					double xout = 0;
 					double yout = 0;
-					m_doc->getClosestElementBorder(x, y, &xout, &yout, currentPage, ScribusDoc::IncludeSelection);
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, ScribusDoc::IncludeSelection);
 					if (xout != x)
 					{
 						x = xout;

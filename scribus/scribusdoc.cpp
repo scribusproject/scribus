@@ -13944,11 +13944,10 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	}
 }
 
-void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, double *yout, ScPage* refPage, SelectionSkipBehavior behavior)
+void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, double *yout, SelectionSkipBehavior behavior)
 {
 	int gxM = -1;
 	int gyM = -1;
-	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	double viewScale = m_View->scale();
 	const double snappingDistance = prefsData().guidesPrefs.guideRad / viewScale;
@@ -14075,10 +14074,10 @@ void ScribusDoc::getClosestPageBoundaries(const double xin, const double yin, do
 void ScribusDoc::SnapToGuides(PageItem *currItem)
 {
 	int pg = OnPage(currItem);
-	double xout, yout;
 	if (pg == -1)
 		return;
-	ScPage* page = Pages->at(pg);
+
+	double xout, yout;
 
 	getClosestGuides(0, currItem->yPos(), &xout, &yout);
 	if (currItem->yPos() != yout)
@@ -14136,7 +14135,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 		if (!elementSnap)
 			getClosestGuides(*x, *y, &xout, &yout, page);
 		else
-			getClosestElementBorder(*x, *y, &xout, &yout, page, ExcludeSelection);
+			getClosestElementBorder(*x, *y, &xout, &yout, ExcludeSelection);
 
 		if ((*x != xout) || (*y != yout))
 			ret = true;

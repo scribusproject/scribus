@@ -99,7 +99,6 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	double newX, newY;
 	PageItem *currItem;
 	FPoint npf, npf2;
 //	QRect tx;
@@ -139,9 +138,6 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	
 	if (GetItem(&currItem))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		
 		if (m_doc->DragP)
 			return;
 				
@@ -165,8 +161,6 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_mouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(m_xp, m_yp));
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			m_view->setRedrawMarkerShown(true);
@@ -182,7 +176,6 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	double Rxp = 0;
 	double Ryp = 0;
 	FPoint npf, npf2;
-//	QRect tx;
 	QTransform pm;
 
 	m_mouseButtonPressed = true;
