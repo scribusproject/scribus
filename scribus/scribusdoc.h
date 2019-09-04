@@ -1860,7 +1860,7 @@ public:
 	void ImportData();
 	void ResetFormFields();
 	QString documentFileName() const;
-	void setDocumentFileName(const QString& m_documentFileName);
+	void setDocumentFileName(const QString& documentFileName);
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);
