@@ -28241,7 +28241,7 @@ Ligazóns externas</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
         <source>Norwegian (Nynorsk)</source>
-        <translation>Noruegués (nnyorsk)</translation>
+        <translation>Noruegués (nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>
