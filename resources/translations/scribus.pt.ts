@@ -27433,8 +27433,8 @@ Verifique o caminho e o nome do ficheiro.</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norueguês (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norueguês (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>
