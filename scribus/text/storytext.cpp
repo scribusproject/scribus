@@ -555,7 +555,7 @@ void StoryText::removeChars(int pos, uint len)
 	if (pos + static_cast<int>(len) > length())
 		len = length() - pos;
 
-	if (pos == 0 && len > 0 && len == length())
+	if ((pos == 0) && (len > 0) && (static_cast<int>(len) == length()))
 	{
 		int lastChar = length() - 1;
 		while (lastChar > 0 && text(lastChar) == SpecialChars::PARSEP)
@@ -576,7 +576,7 @@ void StoryText::removeChars(int pos, uint len)
 			--m_selLast;
 		if (i < m_selFirst)
 			--m_selFirst;
-		if (static_cast<uint>(i + 1 ) <= d->cursorPosition && d->cursorPosition > 0)
+		if (static_cast<uint>(i + 1) <= d->cursorPosition && d->cursorPosition > 0)
 			d->cursorPosition -= 1;
 	}
 
