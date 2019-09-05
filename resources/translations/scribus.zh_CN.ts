@@ -28180,8 +28180,8 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>挪威语 (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>挪威语 (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

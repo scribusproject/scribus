@@ -28197,8 +28197,8 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>norveški (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>norveški (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

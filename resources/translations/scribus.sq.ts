@@ -28149,8 +28149,8 @@ Lidhje të Jashtme
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norvegjeze (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norvegjeze (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>
