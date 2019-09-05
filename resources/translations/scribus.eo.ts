@@ -28247,8 +28247,8 @@ Eksteraj ligiloj</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norvega (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norvega (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

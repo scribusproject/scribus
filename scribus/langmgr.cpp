@@ -473,7 +473,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("nog",      "",         "Nogai",                   QObject::tr("Nogai")));
 	m_langTable.append(LangDef("no",       "no_NO",    "Norwegian",               QObject::tr("Norwegian")));
 	m_langTable.append(LangDef("nb",       "nb_NO",    "Norwegian (Bokmål)",      QObject::trUtf8("Norwegian (Bokm\303\245l)")));
-	m_langTable.append(LangDef("nn",       "nn_NO",    "Norwegian (Nnyorsk)",     QObject::tr("Norwegian (Nnyorsk)")));
+	m_langTable.append(LangDef("nn",       "nn_NO",    "Norwegian (Nynorsk)",     QObject::tr("Norwegian (Nynorsk)")));
 	m_langTable.append(LangDef("nov",      "",         "Novial",                  QObject::tr("Novial")));
 	m_langTable.append(LangDef("nym",      "",         "Nyamwezi",                QObject::tr("Nyamwezi")));
 	m_langTable.append(LangDef("nyn",      "",         "Nyankole",                QObject::tr("Nyankole")));

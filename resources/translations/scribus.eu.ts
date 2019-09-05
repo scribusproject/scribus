@@ -28265,8 +28265,8 @@ Kanpoko estekak
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norvegiera (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norvegiera (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

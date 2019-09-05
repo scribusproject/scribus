@@ -28248,8 +28248,8 @@ Vanjske poveznice
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norveški (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norveški (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

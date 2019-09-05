@@ -28162,8 +28162,8 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>Norwegian (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>Norwegian (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>

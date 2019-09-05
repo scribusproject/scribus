@@ -28190,8 +28190,8 @@ Odkazy ven
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="476"/>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation>norština (Nnyorsk)</translation>
+        <source>Norwegian (Nynorsk)</source>
+        <translation>norština (Nynorsk)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="474"/>
