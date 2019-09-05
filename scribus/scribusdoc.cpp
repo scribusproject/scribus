@@ -681,7 +681,7 @@ QList<PageItem*> *ScribusDoc::parentGroup(PageItem* item, QList<PageItem*> *list
 	return retList;
 }
 
-void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
+void ScribusDoc::setup(int unitIndex, int fp, int firstLeft, int orientation, int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
 	m_docPrefsData.docSetupPrefs.docUnitIndex=unitIndex;
 	setPageSetFirstPage(fp, firstLeft);
@@ -760,7 +760,7 @@ void ScribusDoc::createHyphenator()
 }
 
 
-void ScribusDoc::setLoading(const bool docLoading)
+void ScribusDoc::setLoading(bool docLoading)
 {
 	m_loading = docLoading;
 }
@@ -1954,7 +1954,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					Q_ASSERT(pos >= 0);
 					Q_ASSERT(currItem != nullptr);
 					Q_ASSERT(mrk != nullptr);
-					currItem->itemText.removeChars(pos,1);
+					currItem->itemText.removeChars(pos, 1);
 					if (is->contains("strOLD"))
 					{
 						mrk->setString(is->get("strOLD"));
@@ -2089,7 +2089,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				{
 					Q_ASSERT(currItem != nullptr);
 					Q_ASSERT(pos >= 0);
-					currItem->itemText.removeChars(pos,1);
+					currItem->itemText.removeChars(pos, 1);
 				}
 				else if (is->get("MARK") == "delete")
 				{
@@ -2097,7 +2097,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					{
 						Q_ASSERT(currItem != nullptr);
 						Q_ASSERT(pos >= 0);
-						currItem->itemText.removeChars(pos,1);
+						currItem->itemText.removeChars(pos, 1);
 					}
 					else
 					{
@@ -2281,7 +2281,7 @@ void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 	m_Selection->delaySignalsOff();
 }
 
-void ScribusDoc::setModified(const bool isModified)
+void ScribusDoc::setModified(bool isModified)
 {
 	if (m_modified != isModified)
 	{
@@ -2444,7 +2444,7 @@ void ScribusDoc::addSymbols()
 }
 
 
-ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
+ScPage* ScribusDoc::addPage(int pageIndex, const QString& masterPageName, bool addAutoFrame)
 {
 	assert(masterPageMode()==false);
 	ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count()*(m_docPrefsData.docSetupPrefs.pageHeight+m_docPrefsData.displayPrefs.scratch.bottom()+m_docPrefsData.displayPrefs.scratch.top())+m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
@@ -2469,7 +2469,7 @@ ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, 
 }
 
 
-ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
+ScPage* ScribusDoc::addMasterPage(int pageNumber, const QString& pageName)
 {
 	ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=nullptr);
@@ -2542,7 +2542,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 }
 
 
-void ScribusDoc::deleteMasterPage(const int pageNumber)
+void ScribusDoc::deleteMasterPage(int pageNumber)
 {
 	assert(masterPageMode());
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
@@ -2615,7 +2615,7 @@ void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
 }
 
 
-void ScribusDoc::deletePage(const int pageNumber)
+void ScribusDoc::deletePage(int pageNumber)
 {
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	//#5561: If we are going to delete the first page, do not set the current page to it
@@ -2626,7 +2626,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 	changed();
 }
 
-void ScribusDoc::swapPage(const int a, const int b)
+void ScribusDoc::swapPage(int a, int b)
 {
 	if (UndoManager::undoEnabled())
 	{
@@ -2652,7 +2652,7 @@ void ScribusDoc::restoreSwapPage(SimpleState* ss, bool isUndo)
 		swapPage(a,b);
 }
 
-void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, const int position)
+void ScribusDoc::movePage(int fromPage, int toPage, int dest, int position)
 {
 	QList<ScPage*> pageList;
 	int numPages = dest;
@@ -2736,7 +2736,7 @@ void ScribusDoc::restoreMovePage(SimpleState* ss, bool isUndo)
 }
 
 
-int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
+int ScribusDoc::addAutomaticTextFrame(int pageNumber)
 {
 	if (!m_automaticTextFrames)
 		return -1;
@@ -2764,7 +2764,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 }
 
 
-int ScribusDoc::addLayer(const QString& layerName, const bool activate)
+int ScribusDoc::addLayer(const QString& layerName, bool activate)
 {
 	int lId = Layers.addLayer(layerName);
 	if (lId==-1)
@@ -2814,7 +2814,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 }
 
 
-bool ScribusDoc::deleteLayer(const int layerID, const bool deleteItems)
+bool ScribusDoc::deleteLayer(int layerID, bool deleteItems)
 {
 	if (Layers.count() < 2)
 		return false;
@@ -2866,7 +2866,7 @@ const QString& ScribusDoc::activeLayerName()
 }
 
 
-bool ScribusDoc::setActiveLayer(const int layerToActivate)
+bool ScribusDoc::setActiveLayer(int layerToActivate)
 {
 	const ScLayer* ll = Layers.layerByID(layerToActivate);
 	Q_ASSERT(ll);
@@ -2886,7 +2886,7 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 }
 
 
-bool ScribusDoc::setLayerPrintable(const int layerID, const bool isPrintable)
+bool ScribusDoc::setLayerPrintable(int layerID, bool isPrintable)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -2913,7 +2913,7 @@ bool ScribusDoc::setLayerPrintable(const int layerID, const bool isPrintable)
 }
 
 
-bool ScribusDoc::layerPrintable(const int layerID) const
+bool ScribusDoc::layerPrintable(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -2925,7 +2925,7 @@ bool ScribusDoc::layerPrintable(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerVisible(const int layerID, const bool isViewable)
+bool ScribusDoc::setLayerVisible(int layerID, bool isViewable)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -2944,7 +2944,7 @@ bool ScribusDoc::setLayerVisible(const int layerID, const bool isViewable)
 }
 
 
-bool ScribusDoc::layerVisible(const int layerID) const
+bool ScribusDoc::layerVisible(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -2955,7 +2955,7 @@ bool ScribusDoc::layerVisible(const int layerID) const
 	return false;
 }
 
-bool ScribusDoc::setLayerSelectable(const int layerID, const bool isSelectable)
+bool ScribusDoc::setLayerSelectable(int layerID, bool isSelectable)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -2974,7 +2974,7 @@ bool ScribusDoc::setLayerSelectable(const int layerID, const bool isSelectable)
 }
 
 
-bool ScribusDoc::layerSelectable(const int layerID) const
+bool ScribusDoc::layerSelectable(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -2986,7 +2986,7 @@ bool ScribusDoc::layerSelectable(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
+bool ScribusDoc::setLayerLocked(int layerID, bool isLocked)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3014,7 +3014,7 @@ bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 }
 
 
-bool ScribusDoc::layerLocked(const int layerID) const
+bool ScribusDoc::layerLocked(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3026,7 +3026,7 @@ bool ScribusDoc::layerLocked(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
+bool ScribusDoc::setLayerFlow(int layerID, bool flow)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3062,7 +3062,7 @@ bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
 }
 
 
-bool ScribusDoc::layerFlow(const int layerID) const
+bool ScribusDoc::layerFlow(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3074,7 +3074,7 @@ bool ScribusDoc::layerFlow(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerTransparency(const int layerID, double trans)
+bool ScribusDoc::setLayerTransparency(int layerID, double trans)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3102,7 +3102,7 @@ bool ScribusDoc::setLayerTransparency(const int layerID, double trans)
 }
 
 
-double ScribusDoc::layerTransparency(const int layerID) const
+double ScribusDoc::layerTransparency(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3114,7 +3114,7 @@ double ScribusDoc::layerTransparency(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerBlendMode(const int layerID, int blend)
+bool ScribusDoc::setLayerBlendMode(int layerID, int blend)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3142,7 +3142,7 @@ bool ScribusDoc::setLayerBlendMode(const int layerID, int blend)
 }
 
 
-int ScribusDoc::layerBlendMode(const int layerID) const
+int ScribusDoc::layerBlendMode(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3154,7 +3154,7 @@ int ScribusDoc::layerBlendMode(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerOutline(const int layerID, const bool outline)
+bool ScribusDoc::setLayerOutline(int layerID, bool outline)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3173,7 +3173,7 @@ bool ScribusDoc::setLayerOutline(const int layerID, const bool outline)
 }
 
 
-bool ScribusDoc::layerOutline(const int layerID) const
+bool ScribusDoc::layerOutline(int layerID) const
 {
 	auto  itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3185,7 +3185,7 @@ bool ScribusDoc::layerOutline(const int layerID) const
 }
 
 
-bool ScribusDoc::setLayerMarker(const int layerID, const QColor& color)
+bool ScribusDoc::setLayerMarker(int layerID, const QColor& color)
 {
 	bool found = false;
 	auto itend = Layers.end();
@@ -3204,7 +3204,7 @@ bool ScribusDoc::setLayerMarker(const int layerID, const QColor& color)
 }
 
 
-QColor ScribusDoc::layerMarker(const int layerID) const
+QColor ScribusDoc::layerMarker(int layerID) const
 {
 	auto itend = Layers.cend();
 	for (auto it = Layers.cbegin(); it != itend; ++it)
@@ -3216,7 +3216,7 @@ QColor ScribusDoc::layerMarker(const int layerID) const
 }
 
 
-int ScribusDoc::layerLevelFromID(const int layerID) const
+int ScribusDoc::layerLevelFromID(int layerID) const
 {
 	int layerCount = Layers.count();
 	for (int i=0; i < layerCount; ++i)
@@ -3235,7 +3235,7 @@ int ScribusDoc::layerCount() const
 }
 
 
-int ScribusDoc::layerIDFromLevel(const int layerLevel) const
+int ScribusDoc::layerIDFromLevel(int layerLevel) const
 {
 	int layerCount = Layers.count();
 	for (int i = 0; i < layerCount; ++i)
@@ -3258,13 +3258,13 @@ int ScribusDoc::layerIDFromName(const QString& name) const
 	return -1;
 }
 
-bool ScribusDoc::lowerLayer(const int layerID)
+bool ScribusDoc::lowerLayer(int layerID)
 {
 	return lowerLayerByLevel(layerLevelFromID(layerID));
 }
 
 
-bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
+bool ScribusDoc::lowerLayerByLevel(int layerLevel)
 {
 	if (Layers.count() < 2)
 		return false;
@@ -3305,13 +3305,13 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 }
 
 
-bool ScribusDoc::raiseLayer(const int layerID)
+bool ScribusDoc::raiseLayer(int layerID)
 {
 	return raiseLayerByLevel(layerLevelFromID(layerID));
 }
 
 
-bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
+bool ScribusDoc::raiseLayerByLevel(int layerLevel)
 {
 	if (Layers.count() < 2)
 		return false;
@@ -3352,7 +3352,7 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 }
 
 
-QString ScribusDoc::layerName(const int layerID) const
+QString ScribusDoc::layerName(int layerID) const
 {
 	int layerCount = Layers.count();
 	for (int i=0; i < layerCount; ++i)
@@ -3365,7 +3365,7 @@ QString ScribusDoc::layerName(const int layerID) const
 }
 
 
-bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
+bool ScribusDoc::changeLayerName(int layerID, const QString& newName)
 {
 	int layerCount=Layers.count();
 	bool found=false;
@@ -3407,7 +3407,7 @@ bool ScribusDoc::canSelectItemOnLayer(int layerID) const
 	return canSelect;
 }
 
-bool ScribusDoc::layerContainsItems(const int layerID) const
+bool ScribusDoc::layerContainsItems(int layerID) const
 {
 	QList<PageItem*> allItems;
 	int masterItemsCount = MasterItems.count();
@@ -3473,7 +3473,7 @@ int ScribusDoc::firstLayerID() const
 	return layerIDFromName(newNames.first());
 }
 
-bool ScribusDoc::renumberLayer(const int layerID, const int newLayerID)
+bool ScribusDoc::renumberLayer(int layerID, int newLayerID)
 {
 	int layerCount=Layers.count();
 	int foundIndex = 0;
@@ -4608,7 +4608,7 @@ bool ScribusDoc::useAnnotations() const
 	return false;
 }
 
-void ScribusDoc::setUnitIndex(const int newIndex)
+void ScribusDoc::setUnitIndex(int newIndex)
 {
 	m_docPrefsData.docSetupPrefs.docUnitIndex=newIndex;
 	m_docUnitRatio = unitGetRatioFromIndex( newIndex );
@@ -4627,7 +4627,7 @@ double ScribusDoc::unitRatio() const
 }
 
 
-bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
+bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 {
 	if (!MasterNames.contains(pageName))
 		return false;
@@ -4798,7 +4798,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 }
 
 
-bool ScribusDoc::changePageProperties(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber, const int pageType)
+bool ScribusDoc::changePageProperties(double initialTop, double initialBottom, double initialLeft, double initialRight, double initialHeight, double initialWidth, double height, double width, int orientation, const QString& pageSize, int marginPreset, bool moveObjects, int pageNumber, int pageType)
 {
 	if (pageNumber == -1 || m_currentPage ==nullptr)
 		return false;
@@ -5093,7 +5093,7 @@ void ScribusDoc::recalculateColors()
 	m_undoManager->setUndoEnabled(true);
 }
 
-bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName, bool copyFromAppliedMaster)
+bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftPage,  const QString& masterPageName, bool copyFromAppliedMaster)
 {
 	assert(!masterPageMode());
 	if (masterPageMode())
@@ -5293,7 +5293,7 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 	return newItem;
 }
 
-int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
 {
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
@@ -5343,7 +5343,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 }
 
 
-int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
+int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
 {
 	double xo = m_currentPage->xOffset();
 	double yo = m_currentPage->yOffset();
@@ -5664,9 +5664,9 @@ bool ScribusDoc::usesAutomaticTextFrames() const
 	return m_automaticTextFrames;
 }
 
-void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
+void ScribusDoc::setUsesAutomaticTextFrames(bool atf)
 {
-	m_automaticTextFrames=atf;
+	m_automaticTextFrames = atf;
 }
 
 bool ScribusDoc::loadPict(const QString& fn, PageItem *pageItem, bool reload, bool showMsg)
@@ -6213,14 +6213,14 @@ void ScribusDoc::refreshGuides()
 	}
 }
 
-double ScribusDoc::getXOffsetForPage(const int pageNumber)
+double ScribusDoc::getXOffsetForPage(int pageNumber)
 {
 	if (Pages->at(pageNumber)!=nullptr)
 		return Pages->at(pageNumber)->xOffset();
 	return -1.0;
 }
 
-double ScribusDoc::getYOffsetForPage(const int pageNumber)
+double ScribusDoc::getYOffsetForPage(int pageNumber)
 {
 	if (Pages->at(pageNumber)!=nullptr)
 		return Pages->at(pageNumber)->yOffset();
@@ -6798,7 +6798,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 	}
 }
 
-void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const NumFormat type, const uint sectionstartindex, const bool reversed, const bool active, const QChar fillChar, int fieldWidth)
+void ScribusDoc::addSection(int number, const QString& name, const uint fromindex, const uint toindex, const NumFormat type, const uint sectionstartindex, bool reversed, bool active, const QChar fillChar, int fieldWidth)
 {
 	struct DocumentSection newSection;
 	int docPageCount=DocPages.count();
@@ -6867,7 +6867,7 @@ bool ScribusDoc::deleteSection(const uint number)
 }
 
 
-int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
+int ScribusDoc::getSectionKeyForPageIndex(uint pageIndex) const
 {
 	int retVal = -1;
 	DocumentSectionMap::ConstIterator it = m_docPrefsData.docSectionMap.begin();
@@ -6882,7 +6882,7 @@ int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 	return retVal;
 }
 
-QString ScribusDoc::getSectionNameForPageIndex(const uint pageIndex) const
+QString ScribusDoc::getSectionNameForPageIndex(uint pageIndex) const
 {
 	DocumentSectionMap::ConstIterator it = m_docPrefsData.docSectionMap.begin();
 	for (; it != m_docPrefsData.docSectionMap.end(); ++it)
@@ -6894,7 +6894,7 @@ QString ScribusDoc::getSectionNameForPageIndex(const uint pageIndex) const
 }
 
 
-const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
+const QString ScribusDoc::getSectionPageNumberForPageIndex(uint pageIndex) const
 {
 	QString retVal;
 	int key=getSectionKeyForPageIndex(pageIndex);
@@ -6907,16 +6907,16 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	if (!m_docPrefsData.docSectionMap[key].reversed)
 		sectionIndexOffset = pageIndex - m_docPrefsData.docSectionMap[key].fromindex + m_docPrefsData.docSectionMap[key].sectionstartindex;
 	else
-		sectionIndexOffset = -pageIndex + m_docPrefsData.docSectionMap[key].toindex  + m_docPrefsData.docSectionMap[key].sectionstartindex;
-	retVal=getStringFromSequence(m_docPrefsData.docSectionMap[key].type, sectionIndexOffset);
+		sectionIndexOffset = - static_cast<int>(pageIndex) + m_docPrefsData.docSectionMap[key].toindex  + m_docPrefsData.docSectionMap[key].sectionstartindex;
+	retVal = getStringFromSequence(m_docPrefsData.docSectionMap[key].type, sectionIndexOffset);
 	return retVal;
 }
 
-const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(const uint pageIndex) const
+const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(uint pageIndex) const
 {
 	QChar retVal;
-	int key=getSectionKeyForPageIndex(pageIndex);
-	if (key==-1)
+	int key = getSectionKeyForPageIndex(pageIndex);
+	if (key == -1)
 		return retVal;
 
 	//If a section is inactive, theres no page numbers printed
@@ -6928,11 +6928,11 @@ const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(const uint page
 	return retVal;
 }
 
-int ScribusDoc::getSectionPageNumberWidthForPageIndex(const uint pageIndex) const
+int ScribusDoc::getSectionPageNumberWidthForPageIndex(uint pageIndex) const
 {
-	int retVal=0;
-	int key=getSectionKeyForPageIndex(pageIndex);
-	if (key==-1)
+	int retVal = 0;
+	int key = getSectionKeyForPageIndex(pageIndex);
+	if (key == -1)
 		return retVal;
 
 	//If a section is inactive, theres no page numbers printed
@@ -7221,7 +7221,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 }
 
 
-void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
+void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 {
 	int setcol=pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	if (setcol==1)
@@ -11929,10 +11929,10 @@ bool ScribusDoc::startAlign(uint minObjects)
 {
 	buildAlignItemList();
 	int alignObjectsCount = AObjects.count();
-	if (alignObjectsCount < minObjects)
+	if (alignObjectsCount < static_cast<int>(minObjects))
 		return false;
 		
-	bool oneLocked=false;
+	bool oneLocked = false;
 	for (int i = 0; i < alignObjectsCount && !oneLocked; ++i)
 	{
 		if (AObjects[i].Object->locked())
@@ -13845,7 +13845,7 @@ void ScribusDoc::createDefaultMasterPages()
 void ScribusDoc::createNewDocPages(int pageCount)
 {
 	int setcol = pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
-	int createCount=qMax(pageCount,1);
+	int createCount=qMax(pageCount, 1);
 	if (setcol == 1)
 	{
 		for (int i = 0; i < createCount; ++i)
@@ -14018,7 +14018,7 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	}
 }
 
-void ScribusDoc::getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, ScPage* refPage)
+void ScribusDoc::getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, ScPage* refPage)
 {
 	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 
@@ -16051,7 +16051,7 @@ Serializer *ScribusDoc::textSerializer()
 }
 
 
-void ScribusDoc::setRotationMode(const int val)
+void ScribusDoc::setRotationMode(int val)
 {
 	if (m_rotMode == val)
 		return;
@@ -16200,8 +16200,8 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 		}
 		if (resizePageMargins)
 		{
-			pp->initialMargins=m_docPrefsData.docSetupPrefs.margins;
-			pp->marginPreset=m_docPrefsData.docSetupPrefs.marginPreset;
+			pp->initialMargins = m_docPrefsData.docSetupPrefs.margins;
+			pp->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
 		}
 		else
 		if (resizeMasterPageMargins)
@@ -16216,8 +16216,8 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 				pp->initialMargins.right() == mp->initialMargins.right() &&
 				pp->initialMargins.bottom() == mp->initialMargins.bottom())
 			{
-				pp->initialMargins=m_docPrefsData.docSetupPrefs.margins;
-				pp->marginPreset=m_docPrefsData.docSetupPrefs.marginPreset;
+				pp->initialMargins = m_docPrefsData.docSetupPrefs.margins;
+				pp->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
 			}
 		}
 	}
@@ -17023,7 +17023,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 				if (mrk->isType(MARKNoteFrameType) && MPos > 1 && item->itemText.text(MPos -1) == SpecialChars::PARSEP)
 					item->itemText.removeChars(MPos-1,2);
 				else
-					item->itemText.removeChars(MPos,1);
+					item->itemText.removeChars(MPos, 1);
 				found = true;
 				MPos = findMarkCPos(mrk, item);
 			}
@@ -17039,7 +17039,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 				MPos = findMarkCPos(mrk, item);
 				while (MPos > -1)
 				{
-					item->itemText.removeChars(MPos,1);
+					item->itemText.removeChars(MPos, 1);
 					MPos = findMarkCPos(mrk, item);
 				}
 				found = true;

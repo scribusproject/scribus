@@ -209,7 +209,7 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int layerID) const;
+	bool layerPrintable(int layerID) const;
 
 	/**
 	 * @brief Set the layer printable via the layer ID
@@ -217,14 +217,14 @@ public:
 	 * @param isPrintable bool true = layer is prantable
 	 * @return Success or failure
 	 */
-	bool setLayerPrintable(const int layerID, const bool isPrintable);
+	bool setLayerPrintable(int layerID, bool isPrintable);
 
 	/**
 	 * @brief Is the layer visible
 	 * @param layerID ID of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int layerID) const;
+	bool layerVisible(int layerID) const;
 
 	/**
 	 * @brief Set the layer visible via the layer ID
@@ -232,14 +232,14 @@ public:
 	 * @param isViewable true = layer is visible
 	 * @return Success or failure
 	 */
-	bool setLayerVisible(const int layerID, const bool isViewable);
+	bool setLayerVisible(int layerID, bool isViewable);
 
 	/**
 	 * @brief Is the layer locked
 	 * @param layerID ID of the layer
 	 * @return Locked or not
 	 */
-	bool layerLocked(const int layerID) const;
+	bool layerLocked(int layerID) const;
 
 	/**
 	 * @brief Set the layer locked via the layer ID
@@ -247,14 +247,14 @@ public:
 	 * @param isViewable true = layer is locked
 	 * @return bool Success or failure
 	 */
-	bool setLayerLocked(const int layerID, const bool isViewable);
+	bool setLayerLocked(int layerID, bool isViewable);
 
 	/**
 	 * @brief does text flow around objects on this layer
 	 * @param layerID ID of the layer
 	 * @return flow or not
 	 */
-	bool layerFlow(const int layerID) const;
+	bool layerFlow(int layerID) const;
 
 	/**
 	 * @brief Set the layer flow via the layer ID
@@ -262,14 +262,14 @@ public:
 	 * @param flow true = Text flows around objects on this layer
 	 * @return Success or failure
 	 */
-	bool setLayerFlow(const int layerID, const bool flow);
+	bool setLayerFlow(int layerID, bool flow);
 
 	/**
 	 * @brief is this layer in outline mode
 	 * @param layerID ID of the layer
 	 * @return outline or not
 	 */
-	bool layerOutline(const int layerID) const;
+	bool layerOutline(int layerID) const;
 
 	/**
 	 * @brief Set the layer outline mode via the layer ID
@@ -277,14 +277,14 @@ public:
 	 * @param outline true = layer is displayed in outlines only
 	 * @return Success or failure
 	 */
-	bool setLayerOutline(const int layerID, const bool outline);
+	bool setLayerOutline(int layerID, bool outline);
 
 	/**
 	 * @brief returns the layer transparency
 	 * @param layerID ID of the layer
 	 * @return transparency value 0.0 - 1.0
 	 */
-	double layerTransparency(const int layerID) const;
+	double layerTransparency(int layerID) const;
 
 	/**
 	 * @brief Set the layer transparency via the layer ID
@@ -292,14 +292,14 @@ public:
 	 * @param trans transparency value 0.0 - 1.0
 	 * @return Success or failure
 	 */
-	bool setLayerTransparency(const int layerID, double trans);
+	bool setLayerTransparency(int layerID, double trans);
 
 	/**
 	 * @brief returns the layer BlendMode
 	 * @param layerID ID of the layer
 	 * @return layerBlendMode
 	 */
-	int layerBlendMode(const int layerID) const;
+	int layerBlendMode(int layerID) const;
 
 	/**
 	 * @brief Set the layer layerBlendMode via the layer ID
@@ -307,14 +307,14 @@ public:
 	 * @param trans layerBlendMode
 	 * @return Success or failure
 	 */
-	bool setLayerBlendMode(const int layerID, int blend);
+	bool setLayerBlendMode(int layerID, int blend);
 
 	/**
 	 * @brief returns the layer marker color
 	 * @param layerID ID of the layer
 	 * @return marker color
 	 */
-	QColor layerMarker(const int layerID) const;
+	QColor layerMarker(int layerID) const;
 
 	/**
 	 * @brief Set the layer marker color
@@ -322,14 +322,14 @@ public:
 	 * @param color color of the marker
 	 * @return Success or failure
 	 */
-	 bool setLayerMarker(const int layerID, QColor color);
+	 bool setLayerMarker(int layerID, QColor color);
 
 	 /**
 	  * @brief are objects on the layer selectable
 	  * @param layerID ID of the layer
 	  * @return Items selectable or not
 	  */
-	 bool layerSelectable(const int layerID) const;
+	 bool layerSelectable(int layerID) const;
 
 	 /**
 	  * @brief Set objects on the layer selectable via the layer ID
@@ -337,7 +337,7 @@ public:
 	  * @param isSelectable true = layer objects are selectable
 	  * @return bool Success or failure
 	  */
-	 bool setLayerSelectable(const int layerID, const bool isSelectable);
+	 bool setLayerSelectable(int layerID, bool isSelectable);
 };
 
 uint qHash(const ScLayer& layer);

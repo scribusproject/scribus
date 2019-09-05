@@ -102,9 +102,9 @@ public:
 	QList<PageItem*> getAllItems(QList<PageItem*> &items);
 	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
 	void setup(int, int, int, int, int, const QString&, const QString&);
-	void setLoading(const bool);
+	void setLoading(bool);
 	bool isLoading() const;
-	void setModified(const bool);
+	void setModified(bool);
 	bool isModified() const;
 /** Setzt die Seitenattribute */
 	void setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp);
@@ -218,7 +218,7 @@ public:
 
 	// Add, delete and move pages
 	
-	ScPage* addPage(int pageNumber, const QString& masterPageName=QString(), const bool addAutoFrame=false);
+	ScPage* addPage(int pageNumber, const QString& masterPageName=QString(), bool addAutoFrame=false);
 	void deletePage(int);
 	//! @brief Add a master page with this function, do not use addPage
 	ScPage* addMasterPage(int, const QString&);
@@ -238,7 +238,7 @@ public:
 	 * @param pageNumber page number
 	 * @return number of frame
 	 */
-	int addAutomaticTextFrame(const int pageNumber);
+	int addAutomaticTextFrame(int pageNumber);
 	/**
 	 * Set the left and right margins based on the location of the page
 	 * @param pageIndex 
@@ -249,7 +249,7 @@ public:
 	 * @param a page index
 	 * @param b page index
 	 */
-	void swapPage(const int a, const int b);
+	void swapPage(int a, int b);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param fromPage page index
@@ -257,7 +257,7 @@ public:
 	 * @param count target to move to (page index)
 	 * @param position Before, After or at the end
 	 */
-	void movePage(const int fromPage, const int toPage, const int dest, const int position);
+	void movePage(int fromPage, int toPage, int dest, int position);
 	
 	/**
 	 * @brief Copy a page (pageNumberToCopy) copyCount times, whereToInsert(before or after) the existingPage or at the end.
@@ -275,7 +275,7 @@ public:
 	 * @param activate the layer active
 	 * @return Number of the layer created
 	 */
-	int addLayer(const QString& layerName, const bool activate=false);
+	int addLayer(const QString& layerName, bool activate=false);
 	/**
 	 * @brief Copies a layer from the current document
 	 * @param layerIDToCopy source layer
@@ -289,7 +289,7 @@ public:
 	 * @param deleteItems the items on the layer too?
 	 * @return Success or failure
 	 */
-	bool deleteLayer(const int layerID, const bool deleteItems);
+	bool deleteLayer(int layerID, bool deleteItems);
 	/**
 	 * @brief Return the number of the current layer
 	 * @return Active layer number
@@ -306,7 +306,7 @@ public:
 	 * @param layerToActivate Number of the layer
 	 * @return Success or failure
 	 */
-	bool setActiveLayer(const int layerToActivate);
+	bool setActiveLayer(int layerToActivate);
 	/**
 	 * @brief Set the active layer via the layer name
 	 * @param layerNameToActivate Name of the layer
@@ -319,129 +319,129 @@ public:
 	 * @param isPrintable bool true = layer is prantable
 	 * @return Success or failure
 	 */
-	bool setLayerPrintable(const int layerID, const bool isPrintable);
+	bool setLayerPrintable(int layerID, bool isPrintable);
 	/**
 	 * @brief Is the layer printable
 	 * @param layerID ID of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int layerID) const;
+	bool layerPrintable(int layerID) const;
 	/**
 	 * @brief Set the layer visible via the layer number
 	 * @param layerID ID of the layer
 	 * @param isViewable true = layer is visible
 	 * @return Success or failure
 	 */
-	bool setLayerVisible(const int layerID, const bool isViewable);
+	bool setLayerVisible(int layerID, bool isViewable);
 	/**
 	 * @brief Is the layer visible
 	 * @param layerID ID of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int layerID) const;
+	bool layerVisible(int layerID) const;
 	/**
 	 * @brief are objects on the layer selectable
 	 * @param layerID ID of the layer
 	 * @return Items selectable or not
 	 */
-	bool layerSelectable(const int layerID) const;
+	bool layerSelectable(int layerID) const;
 	/**
 	 * @brief Set objects on the layer selectable via the layer ID
 	 * @param layerID ID of the layer
 	 * @param isSelectable true = layer objects are selectable
 	 * @return bool Success or failure
 	 */
-	bool setLayerSelectable(const int layerID, const bool isSelectable);
+	bool setLayerSelectable(int layerID, bool isSelectable);
 	/**
 	 * @brief Set the layer locked via the layer number
 	 * @param layerID ID of the layer
 	 * @param isLocked true = layer is locked
 	 * @return Success or failure
 	 */
-	bool setLayerLocked(const int layerID, const bool isLocked);
+	bool setLayerLocked(int layerID, bool isLocked);
 	/**
 	 * @brief Is the layer locked
 	 * @param layerID ID of the layer
 	 * @return Locked or not
 	 */
-	bool layerLocked(const int layerID) const;
+	bool layerLocked(int layerID) const;
 	/**
 	 * @brief Set the layer flow via the layer number
 	 * @param layerID ID of the layer
 	 * @param flow true = Text flows around objects on this layer
 	 * @return Success or failure
 	 */
-	bool setLayerFlow(const int layerID, const bool flow);
+	bool setLayerFlow(int layerID, bool flow);
 	/**
 	 * @brief does text flow around objects on this layer
 	 * @param layerID ID of the layer
 	 * @return flow or not
 	 */
-	bool layerFlow(const int layerID) const;
+	bool layerFlow(int layerID) const;
 	/**
 	 * @brief Set the layer transparency via the layer number
 	 * @param layerID ID of the layer
 	 * @param trans transparency value 0.0 - 1.0
 	 * @return Success or failure
 	 */
-	bool setLayerTransparency(const int layerID, double trans);
+	bool setLayerTransparency(int layerID, double trans);
 	/**
 	 * @brief returns the layer transparency
 	 * @param layerID ID of the layer
 	 * @return transparency value 0.0 - 1.0
 	 */
-	double layerTransparency(const int layerID) const;
+	double layerTransparency(int layerID) const;
 	/**
 	 * @brief Set the layer layerBlendMode via the layer number
 	 * @param layerID ID of the layer
 	 * @param blend layerBlendMode
 	 * @return Success or failure
 	 */
-	bool setLayerBlendMode(const int ID, int blend);
+	bool setLayerBlendMode(int ID, int blend);
 	/**
 	 * @brief returns the layer BlendMode
 	 * @param layerID ID of the layer
 	 * @return layerBlendMode
 	 */
-	int layerBlendMode(const int ID) const;
+	int layerBlendMode(int ID) const;
 	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerID ID of the layer
 	 * @return Level of the layer
 	 */
-	int layerLevelFromID(const int layerID) const;
+	int layerLevelFromID(int layerID) const;
 	/**
 	 * @brief Set the layer marker color
 	 * @param ID Number of the layer
 	 * @param color color of the marker
 	 * @return Success or failure
 	 */
-	bool setLayerMarker(const int layerID, const QColor& color);
+	bool setLayerMarker(int layerID, const QColor& color);
 	/**
 	 * @brief returns the layer marker color
 	 * @param layerID ID of the layer
 	 * @return marker color
 	 */
-	QColor layerMarker(const int layerID) const;
+	QColor layerMarker(int layerID) const;
 	/**
 	 * @brief Set the layer outline mode via the layer number
 	 * @param layerID ID of the layer
 	 * @param outline true = layer is displayed in outlines only
 	 * @return Success or failure
 	 */
-	bool setLayerOutline(const int layerID, const bool outline);
+	bool setLayerOutline(int layerID, bool outline);
 	/**
 	 * @brief is this layer in outline mode
 	 * @param layerID ID of the layer
 	 * @return outline or not
 	 */
-	bool layerOutline(const int layerID) const;
+	bool layerOutline(int layerID) const;
 	/**
 	 * @brief Return the number of the layer at a certain level
 	 * @param layerLevel Layer level
 	 * @return Layer ID
 	 */
-	int layerIDFromLevel(const int layerLevel) const;
+	int layerIDFromLevel(int layerLevel) const;
 	/**
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
@@ -453,38 +453,38 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Success or failure
 	 */
-	bool lowerLayer(const int layerID);
+	bool lowerLayer(int layerID);
 	/**
 	 * @brief Lower a layer using the level
 	 * @param layerLevel Level of the layer
 	 * @return Success or failure
 	 */
-	bool lowerLayerByLevel(const int layerLevel);
+	bool lowerLayerByLevel(int layerLevel);
 	/**
 	 * @brief Raise a layer
 	 * @param layerID ID of the layer
 	 * @return Success or failure
 	 */
-	bool raiseLayer(const int layerID);
+	bool raiseLayer(int layerID);
 	/**
 	 * @brief Raise a layer using the level
 	 * @param layerLevel Level of the layer
 	 * @return Success or failure
 	 */
-	bool raiseLayerByLevel(const int layerLevel);
+	bool raiseLayerByLevel(int layerLevel);
 	/**
 	 * @brief Return the layer name
 	 * @param layerID ID of the layer
 	 * @return Name of the layer
 	 */
-	QString layerName(const int layerID) const;
+	QString layerName(int layerID) const;
 	/**
 	 * @brief Change the name of a layer
 	 * @param layerID ID of the layer
 	 * @param newName new name of the layer
 	 * @return Success or failure
 	 */
-	bool changeLayerName(const int layerID, const QString& newName);
+	bool changeLayerName(int layerID, const QString& newName);
 	/**
 	 * @brief Test if items can be selected on a specific layer
 	 * 
@@ -500,14 +500,14 @@ public:
 	 * @param layerID ID of the layer
 	 * @return Layer contains items bool
 	 */
-	bool layerContainsItems(const int layerID) const;
+	bool layerContainsItems(int layerID) const;
 	/**
 	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
 	 * @param layerID old layer ID
 	 * @param newLayerID New layer ID
 	 * @return Success or failure
 	 */
-	bool renumberLayer(const int layerID, const int newLayerID);
+	bool renumberLayer(int layerID, int newLayerID);
 	/**
 	 * @brief Return a list of the layers in their order
 	 * @param list QStringList to insert the layer names into
@@ -732,13 +732,13 @@ public:
 	/**
 	 * @brief Set and get the document's unit index
 	 */
-	void setUnitIndex(const int);
+	void setUnitIndex(int);
 	int unitIndex() const;
 	double unitRatio() const;
 	/**
 	 * @brief Apply a master page
 	 */
-	bool applyMasterPage(const QString& pageName, const int pageNumber);
+	bool applyMasterPage(const QString& pageName, int pageNumber);
 	/**
 	 * @brief Undo function for applying a master page
 	 */
@@ -766,7 +766,7 @@ public:
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
-	bool changePageProperties(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber=-1, const int pageType = 0);
+	bool changePageProperties(double initialTop, double initialBottom, double initialLeft, double initialRight, double initialHeight, double initialWidth, double Height, double width, int orientation, const QString& pageSize, int marginPreset, bool moveObjects, int pageNumber=-1, int pageType = 0);
 	/**
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
@@ -776,7 +776,7 @@ public:
 	/**
 	 * @brief Copies a normal page to be a master pages
 	 */
-	bool copyPageToMasterPage(const int, const int, const int, const QString&, bool);
+	bool copyPageToMasterPage(int, int, int, const QString&, bool);
 	
 	
 	/**
@@ -802,10 +802,10 @@ public:
 	\param outline outline color name
 	\param noteFrame optional (default false) indicates that noteframes should be created, not text frame
 	*/
-	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind = PageItem::StandardItem);
+	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind = PageItem::StandardItem);
 
 	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
-	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind = PageItem::StandardItem);
+	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind = PageItem::StandardItem);
 	
 	/**
 	 * @brief Allow the user to create a frame easily with some simple placement and sizing options
@@ -844,7 +844,7 @@ public:
 	 * @brief Doc uses automatic text frames?
 	 */
 	bool usesAutomaticTextFrames() const;
-	void setUsesAutomaticTextFrames(const bool);
+	void setUsesAutomaticTextFrames(bool);
 	
 	/**
 	 * 
@@ -902,8 +902,8 @@ public:
 	 * @retval double containing the offset. Returns -1.0 if page not in Pages list (as -ve is not possible).
 	 * Mostly saves bringing in extra includes into files that already have scribusdoc.h
 	 */
-	double getXOffsetForPage(const int);
-	double getYOffsetForPage(const int);
+	double getXOffsetForPage(int);
+	double getYOffsetForPage(int);
 	void getBleeds(int pageNumber, MarginStruct& bleedData);
 	void getBleeds(const ScPage* page, MarginStruct& bleedData);
 	void getBleeds(const ScPage* page, const MarginStruct& baseValues, MarginStruct& bleedData);
@@ -957,31 +957,31 @@ public:
 	 * @brief Add a section to the document sections list
 	 * Set number to -1 to add in the default section if the map is empty
 	 */
-	void addSection(const int number=0, const QString& name=QString(), const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
+	void addSection(int number=0, const QString& name=QString(), const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, bool reversed=false, bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
-	bool deleteSection(const uint);
+	bool deleteSection(uint);
 	/**
 	 * @brief Gets the page number to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	const QString getSectionPageNumberForPageIndex(const uint) const;
+	const QString getSectionPageNumberForPageIndex(uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	const QChar getSectionPageNumberFillCharForPageIndex(const uint) const;
+	const QChar getSectionPageNumberFillCharForPageIndex(uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	int getSectionPageNumberWidthForPageIndex(const uint) const;
+	int getSectionPageNumberWidthForPageIndex(uint) const;
 	/**
 	 * @brief Gets the key of the sections map based on the section the page index is in.
 	 * Returns -1 on failure to find the pageIndex
 	 */
-	int getSectionKeyForPageIndex(const uint pageIndex) const;
+	int getSectionKeyForPageIndex(uint pageIndex) const;
 	/**
 	 *
 	 *
@@ -997,7 +997,7 @@ public:
 	 * 
 	 * @param pageIndex 
 	 */
-	void removePageFromSection(const uint pageIndex);
+	void removePageFromSection(uint pageIndex);
 	/**
 	 * 
 	 */
@@ -1006,7 +1006,7 @@ public:
 	 * @param pageIndex page nr
 	 * @brief Returns name of section where page is located
 	 */
-	QString getSectionNameForPageIndex(const uint pageIndex) const;
+	QString getSectionNameForPageIndex(uint pageIndex) const;
 
 	/**
 	 * Update annotation links when a page is added
@@ -1189,11 +1189,12 @@ public:
 	//! \brief Get the closest border of another element to the given point
 	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, SelectionSkipBehavior behavior = IncludeSelection);
 	//! \brief Get the closest page margin or bleed
-	void getClosestPageBoundaries(const double xin, const double yin, double &xout, double &yout, ScPage* refPage);
+	void getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, ScPage* refPage);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y, bool elementSnap = false);
 	bool ApplyGuides(FPoint* point, bool elementSnap = false);
+
 	bool moveItem(double newX, double newY, PageItem* ite);
 	void rotateItem(double win, PageItem *currItem);
 	void moveRotated(PageItem *currItem, const FPoint& npv);
@@ -1214,7 +1215,7 @@ public:
 	//! \brief Get rotation mode
 	int rotationMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
-	void setRotationMode(const int val);
+	void setRotationMode(int val);
 
 	//! \brief Fonctions which avoid doc updater and update manager to send too much
 	// unncessary signals when doing updates on multiple items

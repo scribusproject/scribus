@@ -143,7 +143,7 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 	}
 }
 
-ScLayer* ScLayers::byLevel(const int level)
+ScLayer* ScLayers::byLevel(int level)
 {
 	ScLayers::Iterator itend = end();
 	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
@@ -154,7 +154,7 @@ ScLayer* ScLayers::byLevel(const int level)
 	return nullptr;
 }
 
-ScLayer* ScLayers::byID(const int nr)
+ScLayer* ScLayers::byID(int nr)
 {
 	ScLayers::Iterator itend = end();
 	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
@@ -484,7 +484,7 @@ void ScLayers::sort()
 		it->Level = level;
 }
 
-bool ScLayers::layerPrintable(const int layerID) const
+bool ScLayers::layerPrintable(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -492,7 +492,7 @@ bool ScLayers::layerPrintable(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerPrintable(const int layerID, const bool isPrintable)
+bool ScLayers::setLayerPrintable(int layerID, bool isPrintable)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -503,7 +503,7 @@ bool ScLayers::setLayerPrintable(const int layerID, const bool isPrintable)
 	return false;
 }
 
-bool ScLayers::layerVisible(const int layerID) const
+bool ScLayers::layerVisible(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -511,7 +511,7 @@ bool ScLayers::layerVisible(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerVisible(const int layerID, const bool isViewable)
+bool ScLayers::setLayerVisible(int layerID, bool isViewable)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -522,7 +522,7 @@ bool ScLayers::setLayerVisible(const int layerID, const bool isViewable)
 	return false;
 }
 
-bool ScLayers::layerLocked(const int layerID) const
+bool ScLayers::layerLocked(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -530,7 +530,7 @@ bool ScLayers::layerLocked(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerLocked(const int layerID, const bool isLocked)
+bool ScLayers::setLayerLocked(int layerID, bool isLocked)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -541,7 +541,7 @@ bool ScLayers::setLayerLocked(const int layerID, const bool isLocked)
 	return false;
 }
 
-bool ScLayers::layerFlow(const int layerID) const
+bool ScLayers::layerFlow(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -549,7 +549,7 @@ bool ScLayers::layerFlow(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerFlow(const int layerID, const bool flow)
+bool ScLayers::setLayerFlow(int layerID, bool flow)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -560,7 +560,7 @@ bool ScLayers::setLayerFlow(const int layerID, const bool flow)
 	return false;
 }
 
-bool ScLayers::layerOutline(const int layerID) const
+bool ScLayers::layerOutline(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -568,7 +568,7 @@ bool ScLayers::layerOutline(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerOutline(const int layerID, const bool outline)
+bool ScLayers::setLayerOutline(int layerID, bool outline)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -579,7 +579,7 @@ bool ScLayers::setLayerOutline(const int layerID, const bool outline)
 	return false;
 }
 
-double ScLayers::layerTransparency(const int layerID) const
+double ScLayers::layerTransparency(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -587,7 +587,7 @@ double ScLayers::layerTransparency(const int layerID) const
 	return 1.0;
 }
 
-bool ScLayers::setLayerTransparency(const int layerID, double trans)
+bool ScLayers::setLayerTransparency(int layerID, double trans)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -598,7 +598,7 @@ bool ScLayers::setLayerTransparency(const int layerID, double trans)
 	return false;
 }
 
-int ScLayers::layerBlendMode(const int layerID) const
+int ScLayers::layerBlendMode(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -606,7 +606,7 @@ int ScLayers::layerBlendMode(const int layerID) const
 	return 0;
 }
 
-bool ScLayers::setLayerBlendMode(const int layerID, int blend)
+bool ScLayers::setLayerBlendMode(int layerID, int blend)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -617,7 +617,7 @@ bool ScLayers::setLayerBlendMode(const int layerID, int blend)
 	return false;
 }
 
-QColor ScLayers::layerMarker(const int layerID) const
+QColor ScLayers::layerMarker(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -625,7 +625,7 @@ QColor ScLayers::layerMarker(const int layerID) const
 	return Qt::black;
 }
 
-bool ScLayers::setLayerMarker(const int layerID, QColor color)
+bool ScLayers::setLayerMarker(int layerID, QColor color)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
@@ -636,7 +636,7 @@ bool ScLayers::setLayerMarker(const int layerID, QColor color)
 	return false;
 }
 
-bool ScLayers::layerSelectable(const int layerID) const
+bool ScLayers::layerSelectable(int layerID) const
 {
 	const ScLayer* layer = layerByID(layerID);
 	if (layer)
@@ -644,7 +644,7 @@ bool ScLayers::layerSelectable(const int layerID) const
 	return false;
 }
 
-bool ScLayers::setLayerSelectable(const int layerID, const bool isSelectable)
+bool ScLayers::setLayerSelectable(int layerID, bool isSelectable)
 {
 	ScLayer* layer = byID(layerID);
 	if (layer)
