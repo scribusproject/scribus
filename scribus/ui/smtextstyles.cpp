@@ -2987,7 +2987,8 @@ void SMCharacterStyle::slotHyphenChar()
 			m_selection[i]->resetHyphenChar();
 	else
 	{
-		uint ch = m_page->hyphenCharLineEdit->text().toUcs4()[0];
+		QString hypenText = m_page->hyphenCharLineEdit->text();
+		uint ch = hypenText.isEmpty() ? 0 : hypenText.toUcs4()[0];
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setHyphenChar(ch);
 	}
