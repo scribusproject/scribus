@@ -117,7 +117,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
 	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
-	uint pageFromMasterCount = page->FromMaster.count();
+	int pageFromMasterCount = page->FromMaster.count();
 	for (int i = 0; i < pageFromMasterCount; ++i)
 	{
 		currItem = page->FromMaster.at(i);
