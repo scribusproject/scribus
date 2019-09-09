@@ -280,7 +280,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	psx->setClipping(true);
-	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
+	psx->setClipRegion(QRegion(m_canvas->exposedRect()));
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(nullptr);
@@ -527,9 +527,9 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 //			QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 			QImage *pixItem(0);
-			if ( m_pixmapCache.contains(currItem) )
+			if (m_pixmapCache.contains(currItem))
 			{
-				if ( m_pixmapCache.value(currItem)->isReady() )
+				if (m_pixmapCache.value(currItem)->isReady())
 					pixItem = m_pixmapCache.value(currItem)->getImage();
 			}
 			else
@@ -542,7 +542,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 				p->save();
 				p->translate(br.x(),br.y());
 				p->translate(deltax, deltay);
-				p->drawImage( br.toRect(), *pixItem, pixItem->rect() );
+				p->drawImage(br.toRect(), *pixItem, pixItem->rect());
 				p->restore();
 			}
 #endif // GESTURE_FRAME_PREVIEW
@@ -686,9 +686,9 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 //						QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 						QImage *pixItem(0);
-						if ( m_pixmapCache.contains(currItem) )
+						if (m_pixmapCache.contains(currItem))
 						{
-							if ( m_pixmapCache.value(currItem)->isReady() )
+							if (m_pixmapCache.value(currItem)->isReady())
 								pixItem = m_pixmapCache.value(currItem)->getImage();
 						}
 						else
@@ -701,7 +701,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						{
 							p->save();
 //							p->translate(br.x() /*- x*/, br.y() /*- y*/);
-							p->drawImage( br.toRect(), *pixItem, pixItem->rect() );
+							p->drawImage(br.toRect(), *pixItem, pixItem->rect());
 							p->restore();
 						}
 #endif  // GESTURE_FRAME_PREVIEW
@@ -1031,19 +1031,19 @@ void CanvasMode::commonDrawControls(QPainter* p, bool drawHandles)
 void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe, const QPointF& offset)
 {
 	QLineF cursor;
-	QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+	QPen cPen (Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 	// normalize Current Position
 	textframe->itemText.normalizeCursorPosition();
-	int textCursorPos ( textframe->itemText.cursorPosition() );
+	int textCursorPos (textframe->itemText.cursorPosition());
 	cursor = textframe->textLayout.positionToPoint(textCursorPos);
 
 	cPen.setColor(ScColorEngine::getRGBColor(m_doc->PageColors[textframe->itemText.charStyle(textCursorPos).fillColor()], m_doc));
 
 	p->save();
 	p->setTransform(textframe->getTransform(), true);
-	p->setPen ( cPen );
-	p->setRenderHint ( QPainter::Antialiasing, true );
+	p->setPen(cPen);
+	p->setRenderHint(QPainter::Antialiasing, true);
 	p->drawLine(cursor.translated(offset));
 	p->restore();
 }
@@ -1196,7 +1196,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						}
 						outlinePalette->buildReopenVals();
 						docCheckerPalette->clearErrorList();
-						if ( w )
+						if (w)
 							w->showNormal();
 						mainWindow->newActWin(w);
 					}
