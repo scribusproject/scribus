@@ -350,7 +350,7 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
 	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
-	//if (m_item == i)
+	//if (m_item == item)
 	//	return;
 
 	if (!item)
