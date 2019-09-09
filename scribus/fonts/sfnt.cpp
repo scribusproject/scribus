@@ -946,7 +946,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			/* flags */
 			flags = word16(srcGlyf, pos);
 			pos += 2;
-			haveInstructions |= (flags & ttf_glyf_ComponentFlag_WE_HAVE_INSTRUCTIONS);
+			haveInstructions |= ((flags & ttf_glyf_ComponentFlag_WE_HAVE_INSTRUCTIONS) != 0);
 			appendWord16(destGlyf, flags);
 			
 			/* glyphindex */
