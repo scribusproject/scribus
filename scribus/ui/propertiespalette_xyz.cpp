@@ -274,7 +274,7 @@ PageItem* PropertiesPalette_XYZ::currentItemFromSelection()
 	return currentItem;
 }
 
-void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
+void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -286,12 +286,12 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	//	return;
 
 	if (!m_doc)
-		setDoc(i->doc());
+		setDoc(item->doc());
 
 	disconnect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
 
 	m_haveItem = false;
-	m_item = i;
+	m_item = item;
 
 	nameEdit->setText(m_item->itemName());
 	levelLabel->setText( QString::number(m_item->level()) );
@@ -319,15 +319,15 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 //	showXY(selX, selY);
 //	showWH(selW, selH);
 	
-	bool checkableFlip = (i->isImageFrame() || i->isTextFrame() || i->isLatexFrame() || i->isOSGFrame() || i->isSymbol() || i->isGroup() || i->isSpiral());
+	bool checkableFlip = (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral());
 	flipH->setCheckable(checkableFlip);
 	flipV->setCheckable(checkableFlip);
 
-	noPrint->setChecked(!i->printEnabled());
-	showFlippedH(i->imageFlippedH());
-	showFlippedV(i->imageFlippedV());
-	double rr = i->rotation();
-	if (i->rotation() > 0)
+	noPrint->setChecked(!item->printEnabled());
+	showFlippedH(item->imageFlippedH());
+	showFlippedV(item->imageFlippedV());
+	double rr = item->rotation();
+	if (item->rotation() > 0)
 		rr = 360 - rr;
 	m_oldRotation = fabs(rr);
 	rotationSpin->setValue(fabs(rr));
@@ -348,7 +348,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	xposSpin->setEnabled(!setter);
 	yposSpin->setEnabled(!setter);
 	bool haveSameParent = m_doc->m_Selection->objectsHaveSameParent();
-	levelGroup->setEnabled(haveSameParent && !i->locked());
+	levelGroup->setEnabled(haveSameParent && !item->locked());
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
 		setEnabled(true);
@@ -382,10 +382,10 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	}
 	showXY(selX, selY);
 	showWH(selW, selH);
-	showLocked(i->locked());
-	showSizeLocked(i->sizeLocked());
-	double rrR = i->imageRotation();
-	if (i->imageRotation() > 0)
+	showLocked(item->locked());
+	showSizeLocked(item->sizeLocked());
+	double rrR = item->imageRotation();
+	if (item->imageRotation() > 0)
 		rrR = 360 - rrR;
 	noResize->setEnabled(!m_item->isArc());
 	

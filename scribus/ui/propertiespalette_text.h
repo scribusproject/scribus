@@ -67,7 +67,7 @@ public slots:
 	void setMainWindow(ScribusMainWindow *mw);
 	
 	void setDoc(ScribusDoc *d);
-	void setCurrentItem(PageItem *i);
+	void setCurrentItem(PageItem *item);
 	void unsetDoc();
 	void unsetItem();
 

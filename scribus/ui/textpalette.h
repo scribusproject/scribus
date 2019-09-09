@@ -58,7 +58,7 @@ public slots:
 	
 	void setDoc(ScribusDoc *d);
 	void AppModeChanged();
-	void setCurrentItem(PageItem *i);
+	void setCurrentItem(PageItem *item);
 	void unsetDoc();
 	void unsetItem();
 

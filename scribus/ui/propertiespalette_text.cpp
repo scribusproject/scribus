@@ -311,7 +311,7 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	}
 }
 
-void PropertiesPalette_Text::setCurrentItem(PageItem *i)
+void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -323,10 +323,10 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	//	return;
 
 	if (!m_doc)
-		setDoc(i->doc());
+		setDoc(item->doc());
 
 	m_haveItem = false;
-	m_item = i;
+	m_item = item;
 
 	showFirstLinePolicy(m_item->firstLineOffset());
 

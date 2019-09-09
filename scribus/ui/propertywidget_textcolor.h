@@ -24,7 +24,7 @@ public:
 	~PropertyWidget_TextColor() {};
 
 	void updateColorList();
-	void setCurrentItem(PageItem *i);
+	void setCurrentItem(PageItem *item);
 
 protected:
 	PageItem *         m_item;

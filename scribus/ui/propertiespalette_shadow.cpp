@@ -185,24 +185,24 @@ PageItem* PropertiesPalette_Shadow::currentItemFromSelection()
 	return currentItem;
 }
 
-void PropertiesPalette_Shadow::setCurrentItem(PageItem *i)
+void PropertiesPalette_Shadow::setCurrentItem(PageItem *item)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if (!m_doc)
-		setDoc(i->doc());
+		setDoc(item->doc());
 	m_haveItem = false;
-	m_item = i;
-	hasSoftShadow->setBoolValue(i->hasSoftShadow());
-	softShadowXOffset->setDoubleValue(i->softShadowXOffset() * m_unitRatio);
-	softShadowYOffset->setDoubleValue(i->softShadowYOffset() * m_unitRatio);
-	softShadowBlurRadius->setDoubleValue(i->softShadowBlurRadius() * m_unitRatio);
-	softShadowColor->setStringValue(i->softShadowColor());
-	softShadowShade->setIntValue(i->softShadowShade());
-	softShadowOpacity->setDoubleValue(qRound(100 - (i->softShadowOpacity() * 100)));
-	softShadowBlendMode->setIntValue(i->softShadowBlendMode());
-	softShadowErase->setBoolValue(i->softShadowErasedByObject());
-	softShadowObjTrans->setBoolValue(i->softShadowHasObjectTransparency());
+	m_item = item;
+	hasSoftShadow->setBoolValue(item->hasSoftShadow());
+	softShadowXOffset->setDoubleValue(item->softShadowXOffset() * m_unitRatio);
+	softShadowYOffset->setDoubleValue(item->softShadowYOffset() * m_unitRatio);
+	softShadowBlurRadius->setDoubleValue(item->softShadowBlurRadius() * m_unitRatio);
+	softShadowColor->setStringValue(item->softShadowColor());
+	softShadowShade->setIntValue(item->softShadowShade());
+	softShadowOpacity->setDoubleValue(qRound(100 - (item->softShadowOpacity() * 100)));
+	softShadowBlendMode->setIntValue(item->softShadowBlendMode());
+	softShadowErase->setBoolValue(item->softShadowErasedByObject());
+	softShadowObjTrans->setBoolValue(item->softShadowHasObjectTransparency());
 	m_haveItem = true;
 	updateSpinBoxConstants();
 }

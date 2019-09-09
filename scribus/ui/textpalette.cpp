@@ -193,7 +193,7 @@ void TextPalette::AppModeChanged()
 	}
 }
 
-void TextPalette::setCurrentItem(PageItem *i)
+void TextPalette::setCurrentItem(PageItem *item)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -201,20 +201,20 @@ void TextPalette::setCurrentItem(PageItem *i)
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
 	//FIXME: This won't work until when a canvas deselect happens, m_item must be nullptr.
-	//if (m_item == i)
+	//if (m_item == item)
 	//	return;
 
-	if (!i)
+	if (!item)
 	{
 		unsetItem();
 		return;
 	}
 
 	if (!m_doc)
-		setDoc(i->doc());
+		setDoc(item->doc());
 
 	m_haveItem = false;
-	m_item = i;
+	m_item = item;
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 		textPal->setEnabled(false);
