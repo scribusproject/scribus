@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "scribusdoc.h"
+#include "selection.h"
 #include "scrspinbox.h"
 #include "units.h"
 #include "ui/createrange.h"
@@ -43,6 +44,12 @@ MultipleDuplicate::MultipleDuplicate(QWidget* parent, ScribusDoc *doc) : QDialog
 	rotationSpinBox->setValues(-180.0, 180.0, 6, 0.0);
 	rotationSpinBox->setDecimals(1);
 	rotationSpinBox->setNewUnit(6);
+
+	if (!m_Doc->m_Selection->itemsAreOnSamePage())
+	{
+		radioButtonPageOdd->setEnabled(false);
+		radioButtonPageEven->setEnabled(false);
+	}
 	
 	createGapRadioButton->setChecked(true);
 	setCopiesGap();

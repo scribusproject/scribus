@@ -532,6 +532,24 @@ bool Selection::itemsAreSameType() const
 	return true;
 }
 
+bool Selection::itemsAreOnSamePage() const
+{
+	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.
+	if (m_SelList.count() == 1)
+		return true;
+	if (m_SelList.isEmpty())
+		return false;
+	auto it = m_SelList.begin();
+	auto itend = m_SelList.end();
+	auto ownPage = (*it)->OwnPage;
+	for ( ; it!=itend ; ++it)
+	{
+		if ((*it)->OwnPage != ownPage)
+			return false;
+	}
+	return true;
+}
+
 int Selection::objectsLayer() const
 {
 	if (m_SelList.isEmpty())

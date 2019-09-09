@@ -158,6 +158,8 @@ class SCRIBUS_API Selection : public QObject
 		bool containsItemType(PageItem::ItemType type) const;
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
+		//!\brief Test to see if all items in the selection are on same page
+		bool itemsAreOnSamePage() const;
 
 		/**
 		 * \brief get the layer ID of items in the selection

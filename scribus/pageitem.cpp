@@ -10032,18 +10032,6 @@ PageItem* PageItem::lastInChainSamePage()
 	return last;
 }
 
-bool PageItem::areNextInChainOnSamePage() const
-{
-	const PageItem* next = this;
-	while (next->nextInChain() != nullptr)
-	{
-		next = next->nextInChain();
-		if (next->OwnPage != this->OwnPage)
-			return false;
-	}
-	return true;
-}
-
 QRect PageItem::getRedrawBounding(double viewScale) const
 {
 	int x = qRound(floor(BoundingX - m_oldLineWidth / 2.0 - 5) * viewScale);

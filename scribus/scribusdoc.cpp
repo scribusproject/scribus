@@ -13609,7 +13609,30 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 	std::vector<int> pages;
 	QString pageRange;
 
-	if (dialogData.pageSelection == 1)
+	if (!m_Selection->itemsAreOnSamePage())
+	{
+		int firstPage = Pages->count(), lastPage = 0;
+		for (auto item: selection.items())
+		{
+			if ((item->OwnPage >= 0) && (item->OwnPage < firstPage))
+				firstPage = item->OwnPage;
+			if ((item->OwnPage) >= 0 && (item->OwnPage > lastPage))
+				lastPage = item->OwnPage;
+		}
+		setCurrentPage(Pages->at(firstPage));
+		int pageSpread = lastPage - firstPage + 1;
+		QStringList pageList;
+		if (dialogData.pageSelection == 1)
+			for (int i = lastPage + 2; i < Pages->count(); i += pageSpread)
+				pageList << QString::number(i);
+		else if (dialogData.pageSelection == 4)
+		{
+			// TODO: what to do with manual selections?
+			pageRange = dialogData.pageRange;
+		}
+		pageRange = pageList.join(',');
+	}
+	else if (dialogData.pageSelection == 1)
 		pageRange = QString("%1-%2").arg(currPageNumber + 2).arg(Pages->count());
 	else if ((dialogData.pageSelection == 2) || dialogData.pageSelection == 3)
 	{
@@ -13639,15 +13662,10 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 			// get the first text frame in the selection, the first frame in the chain
 			if (item->itemType() != PageItem::TextFrame)
 				continue;
-			if (item->isInChain() && item->areNextInChainOnSamePage())
-			{
+			if (item->isInChain())
 				lastInChain = item->lastInChain();
-				assert( !lastInChain->nextInChain() );
-			}
 			else
-			{
 				lastInChain = item;
-			}
 			break;
 		}
 	}

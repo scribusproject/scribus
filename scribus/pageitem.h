@@ -473,7 +473,6 @@ public: // Start public functions
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
 	bool isInChain() const { return ((BackBox != nullptr) || (NextBox != nullptr)); }
-	bool areNextInChainOnSamePage() const;
 
 	bool canBeLinkedTo(const PageItem* nextFrame) const;
 	void unlink(bool createUndo = true);
@@ -1691,8 +1690,8 @@ protected: // Start protected functions
 protected: // Start protected variables
 	PageItem *BackBox;
 	PageItem *NextBox;
-	uint firstChar;
-	uint m_maxChars;
+	int  firstChar;
+	int  m_maxChars;
 	bool m_sampleItem; ///< Used to not draw the frame for sample items
 	MarginStruct m_textDistanceMargins; ///< Left, Top, Bottom, Right distances of text from the frame
 	int verticalAlign;
