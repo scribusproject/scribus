@@ -1209,11 +1209,11 @@ bool PageItem::frameOverflows() const
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == nullptr && itemText.length() > static_cast<int>(MaxChars);*/
 	return ( NextBox == nullptr )
-		   && ( static_cast<int> ( firstChar ) < itemText.length() )
+		   && ( firstChar < itemText.length() )
 		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
 		   /*&& ( firstChar < MaxChars )*/
 		   && ( firstChar <= m_maxChars )
-		   && ( itemText.length() > static_cast<int> ( m_maxChars ) );
+		   && ( itemText.length() > m_maxChars );
 }
 
 int PageItem::frameOverflowCount() const

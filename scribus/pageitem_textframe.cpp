@@ -3109,7 +3109,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		QString cc;
 		if (!((itemText.length() == 1) && (itemText.text(0, 1) == QChar(13))))
 		{
-			for (uint d = 0; d < static_cast<uint>(itemText.length()); ++d)
+			for (int d = 0; d < itemText.length(); ++d)
 			{
 				if (d == 0)
 				{

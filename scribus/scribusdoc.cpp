@@ -5176,7 +5176,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 			for (int ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
-				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->ID == itemToCopy->m_layerID))
+				if ((itemToCopy->OwnPage == sourcePage->pageNr()) && (it->ID == itemToCopy->m_layerID))
 					tempSelection.addItem(itemToCopy, true);
 			}
 			if (tempSelection.count() != 0)
@@ -7105,7 +7105,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				for (int ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
-					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->ID == itemToCopy->m_layerID))
+					if ((itemToCopy->OwnPage == from->pageNr()) && (it->ID == itemToCopy->m_layerID))
 						tempSelection.addItem(itemToCopy, true);
 				}
 				if (tempSelection.count() != 0)
