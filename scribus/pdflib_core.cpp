@@ -6185,7 +6185,7 @@ void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, doub
 
 QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 {
-	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+	QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
 	QByteArray tmp;
 	QByteArray GXName;
@@ -6221,7 +6221,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		QTransform mpa;
 		if (currItem->isGroup())
 		{
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), currItem->height());
+			mpa.translate(0, currItem->height());
 			mpa.rotate(-currItem->rotation());
 		}
 		else if (currItem->itemType() == PageItem::Symbol)
@@ -6371,7 +6371,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		if (currItem->isGroup())
 		{
 			QTransform mpa;
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), currItem->height());
+			mpa.translate(0, currItem->height());
 			mpa.rotate(-currItem->rotation());
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
@@ -6438,11 +6438,10 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("\n");
 		
 		QByteArray stre = "q\n";
-		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
+		if (currItem->isGroup() || (currItem->itemType() == PageItem::Symbol))
 		{
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
-			mpa.rotate(-currItem->rotation());
 			mpa.scale(scaleX, scaleY);
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
