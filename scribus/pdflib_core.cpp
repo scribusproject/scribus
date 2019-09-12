@@ -6295,7 +6295,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
+		PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
 		if ((GType == 1) || (GType == 4))
@@ -6308,9 +6308,9 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		else
 			PutDoc("/Extend [true true]\n");
 		if ((GType == 1) || (GType == 4))
-			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
+			PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 		else
-			PutDoc("/Coords ["+FToStr(FocalX)+" "+FToStr(-FocalY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
+			PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
 		PutDoc("/Function\n");
 		PutDoc("<<\n");
 		PutDoc("/FunctionType 3\n");
@@ -6336,18 +6336,18 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("<<\n");
 			PutDoc("/FunctionType 2\n");
 			PutDoc("/Domain [0 1]\n");
-			PutDoc("/C0 ["+FToStr(TransVec.at(cc))+"]\n");
-			PutDoc("/C1 ["+FToStr(TransVec.at(cc+1))+"]\n");
+			PutDoc("/C0 [" + FToStr(TransVec.at(cc)) + "]\n");
+			PutDoc("/C1 [" + FToStr(TransVec.at(cc + 1)) + "]\n");
 			PutDoc("/N 1\n");
 			PutDoc(">>\n");
 		}
 		PutDoc("]\n");
-		PutDoc("/Encode ["+entx.trimmed()+"]\n");
+		PutDoc("/Encode [" + entx.trimmed() + "]\n");
 		PutDoc(">>\n");
 		PutDoc(">>\n");
 		PutDoc(">>\n");
 		writer.endObj(patObject);
-		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		Patterns.insert("Pattern" + Pdf::toPdf(patObject), patObject);
 		
 		PdfId formObject = writer.newObject();
 		writer.startObj(formObject);
@@ -6356,9 +6356,9 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = currItem->lineWidth();
 		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
-			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+			PutDoc("/BBox [0 0 " + FToStr(ActPageP->width()) + " " + FToStr(ActPageP->height()) + " ]\n");
 		else
-			PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
+			PutDoc("/BBox [" + FToStr(-lw / 2.0) + " " + FToStr(lw / 2.0) + " " + FToStr(currItem->width() + lw) + " " + FToStr(-(currItem->height() + lw)) + " ]\n");
 		PutDoc("/Resources ");
 		Pdf::ResourceDictionary dict;
 		dict.Pattern = Patterns;
@@ -6373,32 +6373,32 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			QTransform mpa;
 			mpa.translate(0, currItem->height());
 			mpa.rotate(-currItem->rotation());
-			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
 		}
 		else if (currItem->itemType() == PageItem::Symbol)
 		{
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
-			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
 		}
-		stre += SetClipPath(currItem)+"h\n";
-		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
+		stre += SetClipPath(currItem) + "h\n";
+		stre += FToStr(fabs(currItem->lineWidth())) + " w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
+		stre += "/Pattern" + Pdf::toPdf(patObject) + " scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
 			stre = CompressArray(stre);
-		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
+		PutDoc("/Length " + Pdf::toPdf(stre.length()) + "\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
 		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
 		GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
 	}
 	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6) || (currItem->GrMask == 7) || (currItem->GrMask == 8))
@@ -6419,16 +6419,16 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			else
 			{
 				if ((doc.HasCMS) && (Options.UseProfiles))
-					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray);
+					PutDoc("/CS " + ICCProfiles[Options.SolidProf].ICCArray);
 				else
 					PutDoc("/CS /DeviceCMYK");
 			}
 		}
 		PutDoc(" >>\n");
 		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
-			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+			PutDoc("/BBox [0 0 " + FToStr(ActPageP->width()) + " " + FToStr(ActPageP->height()) + " ]\n");
 		else
-			PutDoc("/BBox [0 0 "+FToStr(currItem->width())+" "+FToStr(-(currItem->height()))+" ]\n");
+			PutDoc("/BBox [0 0 " + FToStr(currItem->width()) + " " + FToStr(-(currItem->height())) + " ]\n");
 		PutDoc("/Resources ");
 		Pdf::ResourceDictionary dict;
 		dict.Pattern = Patterns;
@@ -6443,39 +6443,39 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
-			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
 		}
-		stre += SetClipPath(currItem)+"h\n";
-		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
-		stre += tmpOut+" f*\n";
+		stre += SetClipPath(currItem) + "h\n";
+		stre += FToStr(fabs(currItem->lineWidth())) + " w\n";
+		stre += tmpOut + " f*\n";
 		stre += "Q\n";
 		if (Options.Compress)
 			stre = CompressArray(stre);
-		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
+		PutDoc("/Length " + Pdf::toPdf(stre.length()) + "\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
 		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		GXName = ResNam+Pdf::toPdf(ResCount);
+		GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		if (currItem->GrMask == 6)
-			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else if (currItem->GrMask == 7)
-			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
 		else if (currItem->GrMask == 3)
-			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else if (currItem->GrMask == 8)
-			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+Pdf::toPdf(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		tmp = Pdf::toName(GXName)+" gs\n";
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		tmp = Pdf::toName(GXName) + " gs\n";
 	}
 	else
 	{
 		if (currItem->GrType == 14)
-			Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - currItem->fillTransparency())+"\n/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - currItem->fillTransparency()) + "\n/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else
-			Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[ShName] = writeGState("/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(ShName) + " gs\n";
 	}
 	return tmp;
