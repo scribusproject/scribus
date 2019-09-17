@@ -79,10 +79,10 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	virtual void keyPressEvent(QKeyEvent* e);	
 	
-	QPoint Mpos;
-	QListWidgetItem *CurItem;
-	bool Mpressed;
-	bool Thumb;
+	QPoint m_mousePos;
+	bool   m_mousePressed;
+	QListWidgetItem *m_currItem;
+	bool   m_thumb;
 
 };
 
@@ -97,12 +97,9 @@ public:
 	SeView(QWidget* parent);
 	~SeView() {};
 
-	void ClearPix();
-	int GetPage(int r, int c, bool *last);
-	SeItem* GetPageItem(int pageIndex);
-
-public slots:
-	void ToggleNam();
+	void clearPix();
+	int  getPage(int r, int c, bool *last);
+	SeItem* getPageItem(int pageIndex);
 
 signals:
 	void UseTemp(QString, int);
@@ -121,16 +118,15 @@ protected:
 	virtual void mouseMoveEvent(QMouseEvent* e);
 	virtual void keyPressEvent(QKeyEvent* e);
 	
-	QPoint Mpos;
-	bool Mpressed;
-	bool Namen;
-	int MaxC;
-	int colmult;
-	int rowmult;
-	int coladd;
-	int rowadd;
-	int cols;
-	int firstP;
+	QPoint m_mousePos;
+	bool   m_mousePressed;
+	int    m_pageCount;
+	int    m_colmult;
+	int    m_rowmult;
+	int    m_coladd;
+	int    m_rowadd;
+	int    m_cols;
+	int    m_firstPage;
 };
 
 class SCRIBUS_API TrashBin : public QLabel
@@ -140,6 +136,7 @@ class SCRIBUS_API TrashBin : public QLabel
 public:
 	TrashBin( QWidget * parent );
 	~TrashBin() {};
+
 	void dragEnterEvent( QDragEnterEvent *e );
 	void dragLeaveEvent( QDragLeaveEvent * );
 	void dropEvent( QDropEvent * e );

@@ -44,22 +44,22 @@ const QString& SeItem::getPageName()
 /* ListBox Subclass */
 SeList::SeList(QWidget* parent) : QListWidget(parent)
 {
-	CurItem = nullptr;
-	Mpressed = false;
-	Thumb = false;
+	m_currItem = nullptr;
+	m_mousePressed = false;
+	m_thumb = false;
 	setAcceptDrops(true);
 }
 
 void SeList::mouseReleaseEvent(QMouseEvent *m)
 {
-	Mpressed = false;
+	m_mousePressed = false;
 	if (m->button() == Qt::RightButton)
 	{
 		QMenu *pmen = new QMenu();
 //		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
 		px->setCheckable(true);
-		if (Thumb)
+		if (m_thumb)
 			px->setChecked(true);
 		pmen->exec(QCursor::pos());
 		delete pmen;
@@ -69,30 +69,30 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 
 void SeList::toggleThumbnail()
 {
-	Thumb = !Thumb;
+	m_thumb = !m_thumb;
 	emit thumbnailChanged();
 }
 
 void SeList::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
-	CurItem = nullptr;
+	m_currItem = nullptr;
 	QListWidgetItem *i = itemAt(e->pos());
 	if (i)
 	{
-		CurItem = i;
-		Mpos = e->pos();
-		Mpressed = true;
+		m_currItem = i;
+		m_mousePos = e->pos();
+		m_mousePressed = true;
 	}
 	QListWidget::mousePressEvent(e);
 }
 
 void SeList::mouseMoveEvent(QMouseEvent* e)
 {
-	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
+	if ((m_mousePressed) && ((m_mousePos - e->pos()).manhattanLength() > 4))
 	{
-		Mpressed = false;
-		QListWidgetItem *item = itemAt(Mpos);
+		m_mousePressed = false;
+		QListWidgetItem *item = itemAt(m_mousePos);
 		if (!item)
 			return;
 		QMimeData *mimeData = new QMimeData;
@@ -142,61 +142,39 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 //	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	setWordWrap(true);
-	Mpressed = false;
-	Namen = true;
-	MaxC  = -1;
-	colmult = 1;
-	coladd = 0;
-	rowmult = 2;
-	rowadd = 1;
-	cols = 1;
-	firstP = 0;
+	m_mousePressed = false;
+	m_pageCount = 0;
+	m_colmult = 1;
+	m_coladd = 0;
+	m_rowmult = 2;
+	m_rowadd = 1;
+	m_cols = 1;
+	m_firstPage = 0;
 // 	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
-	Mpos = e->pos();
-	Mpressed = true;
+	m_mousePos = e->pos();
+	m_mousePressed = true;
 	QTableWidget::mousePressEvent(e);
 }
 
 void SeView::mouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
-	Mpressed = false;
-/*	if (e->button() == RightButton)
-	{
-		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-		int px = pmen->insertItem( tr("Show Master Page Names"), this, SLOT(ToggleNam()));
-		if (Namen)
-			pmen->setItemChecked(px, true);
-		pmen->exec(QCursor::pos());
-		delete pmen;
-	} */
+	m_mousePressed = false;
+
 	emit Click(rowAt(e->pos().y()), columnAt(e->pos().x()), e->button());
 	QTableWidget::mouseReleaseEvent(e);
 }
 
-void SeView::ToggleNam()
-{
-/*	Namen = !Namen;
-	int val = 35;
-	if (Namen)
-		val = 100;
-	setColumnWidth(1, val);
-	setColumnWidth(3, val);
-	hide();
-	show(); */
-}
-
 void SeView::mouseMoveEvent(QMouseEvent* e)
 {
-	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
+	if ((m_mousePressed) && ((m_mousePos - e->pos()).manhattanLength() > 4))
 	{
-		Mpressed = false;
+		m_mousePressed = false;
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());
 		if ((a != -1) && (b != -1))
@@ -209,11 +187,11 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 					SeItem* it = (SeItem*)ite;
 					QString str(it->pageName);
 					bool dummy;
-					int p = GetPage(a, b, &dummy);
+					int p = getPage(a, b, &dummy);
 					QString tmp;
 					QMimeData *mimeData = new QMimeData;
-					mimeData->setData("page/magic", "2 "+tmp.setNum(p).toLocal8Bit()+" "+str.toLocal8Bit());
-					mimeData->setText("2 "+tmp.setNum(p)+" "+str);
+					mimeData->setData("page/magic", "2 " + tmp.setNum(p).toLocal8Bit() + " " + str.toLocal8Bit());
+					mimeData->setText("2 " + tmp.setNum(p) + " " + str);
 					QDrag *dr = new QDrag(this);
 					dr->setMimeData(mimeData);
 					const QPixmap& pm = IconManager::instance().loadPixmap("doc.png");
@@ -243,7 +221,7 @@ void SeView::dropEvent(QDropEvent * e)
 		// Fixed at least in Qt-4.4.2
 //		QApplication::restoreOverrideCursor();
 		str = e->mimeData()->text();
-		ClearPix();
+		clearPix();
 		if (str.startsWith("1"))
 		{
 			int a = rowAt(e->pos().y());
@@ -252,12 +230,12 @@ void SeView::dropEvent(QDropEvent * e)
 			tmp = str.remove(0,1);
 			if ((a == -1) || (b == -1))
 				return;
-			if (a == rowCount()-1)
+			if (a == rowCount() - 1)
 			{
-				emit NewPage(MaxC+1, tmp);
+				emit NewPage(m_pageCount, tmp);
 				return;
 			}
-			p = GetPage(a, b, &lastPage);
+			p = getPage(a, b, &lastPage);
 			if (columnCount() == 1)
 			{
 				if ((a % 2) == 0)
@@ -279,7 +257,7 @@ void SeView::dropEvent(QDropEvent * e)
 			if ((b % 2) == 0)
 			{
 				if (lastPage)
-					emit NewPage(p+1, tmp);
+					emit NewPage(p + 1, tmp);
 				else
 					emit NewPage(p, tmp);
 			}
@@ -300,7 +278,7 @@ void SeView::dropEvent(QDropEvent * e)
 		if (str.startsWith("2"))
 		{
 			int st = str.indexOf(" ");
-			int en = str.indexOf(" ", st+1);
+			int en = str.indexOf(" ", st + 1);
 			tmp = str.mid(en+1);
 			int dr = str.midRef(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
@@ -308,8 +286,8 @@ void SeView::dropEvent(QDropEvent * e)
 			if ((a == -1) || (b == -1))
 				return;
 			QTableWidgetItem* ite = item(a, b);
-			int p = GetPage(a, b, &lastPage);
-			if (a == rowCount()-1)
+			int p = getPage(a, b, &lastPage);
+			if (a == rowCount() - 1)
 			{
 				emit movePage(dr, p+1);
 				return;
@@ -354,7 +332,7 @@ void SeView::dragEnterEvent(QDragEnterEvent *e)
 
 void SeView::dragLeaveEvent(QDragLeaveEvent *)
 {
-	ClearPix();
+	clearPix();
 }
 
 void SeView::dragMoveEvent(QDragMoveEvent *e)
@@ -364,7 +342,7 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 		e->acceptProposedAction();
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());
-		ClearPix();
+		clearPix();
 		if ((a == -1) || (b == -1))
 			return;
 		if (columnCount() == 1)
@@ -396,7 +374,7 @@ void SeView::keyPressEvent(QKeyEvent * e)
 			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
 		{
 			bool dummy;
-			int pageToDelete=GetPage(currentRow(), currentColumn(), &dummy);
+			int pageToDelete = getPage(currentRow(), currentColumn(), &dummy);
 			emit DelPage(pageToDelete);
 		}
 		accepted = true;
@@ -405,7 +383,7 @@ void SeView::keyPressEvent(QKeyEvent * e)
 		QTableWidget::keyPressEvent(e);
 }
 
-void SeView::ClearPix()
+void SeView::clearPix()
 {
 	int counter = 0;
 	int rowcounter = 0;
@@ -439,29 +417,29 @@ void SeView::ClearPix()
 	}
 }
 
-int SeView::GetPage(int r, int c, bool *last)
+int SeView::getPage(int r, int c, bool *last)
 {
-	int counter = firstP;
+	int counter = m_firstPage;
 	int rowcounter = 0;
-	int ret = MaxC;
+	int ret = m_pageCount - 1;
 	*last = false;
-	if (r == rowCount()-1)
+	if (r == rowCount() - 1)
 	{
 		*last = true;
 		return ret;
 	}
-	if ((r == 0) && (c < firstP*colmult+coladd))
+	if ((r == 0) && (c < m_firstPage * m_colmult + m_coladd))
 		return 0;
-	for (int a = 0; a < MaxC+1; ++a)
+	for (int a = 0; a < m_pageCount; ++a)
 	{
-		if ((rowcounter*rowmult+rowadd == r) && (counter*colmult+coladd == c))
+		if ((rowcounter * m_rowmult + m_rowadd == r) && (counter * m_colmult + m_coladd == c))
 		{
 			ret = a;
 			return ret;
 		}
 		if (columnCount() == 1)
 		{
-			if ((rowcounter*rowmult) == r)
+			if ((rowcounter * m_rowmult) == r)
 			{
 				ret = a;
 				return ret;
@@ -469,14 +447,14 @@ int SeView::GetPage(int r, int c, bool *last)
 		}
 		else
 		{
-			if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
+			if ((counter * m_colmult == c) && (rowcounter * m_rowmult + m_rowadd == r))
 			{
 				ret = a;
 				return ret;
 			}
 		}
 		counter++;
-		if (counter > cols-1)
+		if (counter > m_cols - 1)
 		{
 			counter = 0;
 			rowcounter++;
@@ -486,7 +464,7 @@ int SeView::GetPage(int r, int c, bool *last)
 	return ret;
 }
 
-SeItem* SeView::GetPageItem(int pageIndex)
+SeItem* SeView::getPageItem(int pageIndex)
 {
 	int rows = this->rowCount();
 	int columns = this->columnCount();
