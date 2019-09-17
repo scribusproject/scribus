@@ -135,7 +135,7 @@ void PagePalette_Pages::pageView_applyMasterPage(const QString& masterpageName, 
 
 void PagePalette_Pages::pageView_movePage(int r, int c)
 {
-	if (r == c || r == pageView->m_pageCount - 1)
+	if ((r == c) || (r >= pageView->m_pageCount))
 		return;
 	if (c >= pageView->m_pageCount)
 		currView->Doc->movePage(r, r + 1, c, 2);
