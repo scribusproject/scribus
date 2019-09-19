@@ -1,5 +1,11 @@
-<body>
-<head><TITLE>Render Frames</TITLE></head>
+<html dir="ltr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Блоки визуализации</title>
+</head>
+<style>
+@import "manual.css";
+</style>
 <body>
 <h2>Introduction</h2>
 <p>Since version 1.3.5 Scribus offers a powerful new feature called Render Frames. Originally planned as a means to insert formulas into
@@ -117,14 +123,14 @@ and copying the resulting archive to another machine, Render Frames require the 
 <p><code>&lt;postamble&gt;</code> If the markup language you want to use requires a postamble, you can enter it here. It will not be displayed in the editor.</p>
 <p><code>&lt;tab type="settings"&gt;</code> Here&rsquo;s where translations to existing GUI strings as well as new tabs or other UI elements can be added via simple XML entries, for example:</p>
 <p><code>&lt;title&gt;&lt;i18n&gt;</code>
-<p6><code>
+<p><code>
 <ul>
 <li>&lt;en&gt;Ranges&lt;/en&gt;
 <li>&lt;de&gt;Bereiche&lt;/de&gt;.org.org.org
 <li>&lt;fr&gt;Rangées&lt;/fr&gt;
 <li>&lt;pl&gt;Zakresy&lt;/pl&gt;
 <li>&lt;ru&gt;&#1044;&#1080;&#1072;&#1087;&#1072;&#1079;&#1086;&#1085;&#1099;&lt;/ru&gt;
-</ul></code></p6>
+</ul></code></p>
 
 <p>To add a new configuration file, click on the &ldquo;Add&nbsp;&hellip;&rdquo; button, which will bring up a file dialog. Select your file and click &ldquo;Open.&rdquo; The file will then be added to your Render Frame configuration.</p>
 <p>By moving entries of XML configuration files in the list up or down, you can change the order of entries in the editor&rsquo;s drop down list. If you want to use a different XML configuration file for a particular markup language (for example, if you need another default preamble for LaTeX frames in a project), you can change the path to the alternative file by clicking on &ldquo;Change&nbsp;&hellip;&rdquo; or simply add a new configuration file with an appropriate name, like &ldquo;MyLateX.&rdquo;</p>
