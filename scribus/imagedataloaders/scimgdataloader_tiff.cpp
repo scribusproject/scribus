@@ -118,7 +118,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 
 	do
 	{
-		char *layerName=nullptr;
+		char *layerName = nullptr;
 		TIFFGetField(tif, TIFFTAG_PAGENAME, &layerName);
 		QString name = QString(layerName);
 		if (name.isEmpty())
@@ -353,42 +353,44 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 
 bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 samplesperpixel)
 {
-	bool gotData = false;
 	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+	if (!bits)
+		return false;
+
 	uint16  extrasamples(0), *extratypes(nullptr);
 	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 		extrasamples = 0;
-	if (bits)
+	
+	bool gotData = false;
+	if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 	{
-		if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
+		for (unsigned int y = 0; y < heightt; y++)
 		{
-			for (unsigned int y = 0; y < heightt; y++)
+			memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
+			if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 			{
-				memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
-				if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
+				unsigned char *s = image->scanLine( heightt - 1 - y );
+				unsigned char r, g, b, a;
+				for (uint xi=0; xi < widtht; ++xi)
 				{
-					unsigned char *s = image->scanLine( heightt - 1 - y );
-					unsigned char r, g, b, a;
-					for (uint xi=0; xi < widtht; ++xi)
-					{
-						r = s[0];
-						g = s[1];
-						b = s[2];
-						a = s[3];
-						s[0] = a;
-						s[1] = b;
-						s[2] = g;
-						s[3] = r;
-						s += image->channels();
-					}
+					r = s[0];
+					g = s[1];
+					b = s[2];
+					a = s[3];
+					s[0] = a;
+					s[1] = b;
+					s[2] = g;
+					s[3] = r;
+					s += image->channels();
 				}
 			}
-			if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
-				unmultiplyRGBA(image);
-			gotData = true;
 		}
-		_TIFFfree(bits);
+		if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
+			unmultiplyRGBA(image);
+		gotData = true;
 	}
+	_TIFFfree(bits);
+
 	return gotData;
 }
 
