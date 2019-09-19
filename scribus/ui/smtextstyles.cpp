@@ -1807,13 +1807,13 @@ void SMParagraphStyle::slotHyphenChar()
 {
 	if (m_pwidget->cpage->hyphenCharLineEdit->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetHyphenWordMin();
+			m_selection[i]->charStyle().resetHyphenChar();
 	else
 	{
-		int wm = m_pwidget->cpage->smallestWordSpinBox->value();
-
+		QString hyphenText = m_pwidget->cpage->hyphenCharLineEdit->text();
+		uint ch = hyphenText.isEmpty() ? 0 : hyphenText.toUcs4()[0];
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().setHyphenWordMin(wm);
+			m_selection[i]->charStyle().setHyphenChar(ch);
 	}
 
 	if (!m_selectionIsDirty)
@@ -2987,8 +2987,8 @@ void SMCharacterStyle::slotHyphenChar()
 			m_selection[i]->resetHyphenChar();
 	else
 	{
-		QString hypenText = m_page->hyphenCharLineEdit->text();
-		uint ch = hypenText.isEmpty() ? 0 : hypenText.toUcs4()[0];
+		QString hyphenText = m_page->hyphenCharLineEdit->text();
+		uint ch = hyphenText.isEmpty() ? 0 : hyphenText.toUcs4()[0];
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setHyphenChar(ch);
 	}
