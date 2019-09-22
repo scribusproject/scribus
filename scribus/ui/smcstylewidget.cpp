@@ -52,6 +52,8 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) :
 	strokeColor_->setEnabled(false);
 	fontfeaturesSetting->resetFontFeatures();
 
+	hyphenCharLineEdit->setMaxLength(1);
+
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	connect(fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotEnableFontFeatures(QString)));
 }
