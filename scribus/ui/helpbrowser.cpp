@@ -138,7 +138,7 @@ bool HelpBrowser::firstRun = true;
 HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QString& guiLanguage, const QString& jumpToSection, const QString& jumpToFile)
 	: QMainWindow( parent )
 {
-	firstRun=true;
+	firstRun = true;
 	setupUi(this);
 	helpNav = new HelpNavigation(this);
 #if defined(Q_OS_MAC) && defined(HELP_NAV_AS_DRAWER)
@@ -156,9 +156,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
-	menuModel=nullptr;
+	menuModel = nullptr;
 	loadMenu();
-	if (menuModel!=nullptr)
+	if (menuModel != nullptr)
 	{
 		readBookmarks();
 		readHistory();
@@ -173,7 +173,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 
 HelpBrowser::~HelpBrowser()
 {
-	firstRun=true;
+	firstRun = true;
 }
 
 void HelpBrowser::closeEvent(QCloseEvent * event)
@@ -227,26 +227,26 @@ void HelpBrowser::setupLocalUI()
 {
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	//Add Menus
-	fileMenu=menuBar()->addMenu("");
-	editMenu=menuBar()->addMenu("");
-	bookMenu=menuBar()->addMenu("");
-	histMenu=new QMenu(this);
+	fileMenu = menuBar()->addMenu("");
+	editMenu = menuBar()->addMenu("");
+	bookMenu = menuBar()->addMenu("");
+	histMenu = new QMenu(this);
 
 	//Add Menu items
-	filePrint=fileMenu->addAction(IconManager::instance().loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
+	filePrint = fileMenu->addAction(IconManager::instance().loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->addSeparator();
-	fileExit=fileMenu->addAction(IconManager::instance().loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL+Qt::Key_W);
-	editFind=editMenu->addAction(IconManager::instance().loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
-	editFindNext=editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
-	editFindPrev=editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
-	bookAdd=bookMenu->addAction( "", this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
-	bookDel=bookMenu->addAction( "", this, SLOT(deleteBookmarkButton_clicked()));
-	bookDelAll=bookMenu->addAction( "", this, SLOT(deleteAllBookmarkButton_clicked()));
+	fileExit = fileMenu->addAction(IconManager::instance().loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL+Qt::Key_W);
+	editFind = editMenu->addAction(IconManager::instance().loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
+	editFindNext = editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
+	editFindPrev = editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
+	bookAdd = bookMenu->addAction( "", this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
+	bookDel = bookMenu->addAction( "", this, SLOT(deleteBookmarkButton_clicked()));
+	bookDelAll = bookMenu->addAction( "", this, SLOT(deleteAllBookmarkButton_clicked()));
 
 	//Add Toolbar items
-	goHome=toolBar->addAction(IconManager::instance().loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
-	goBack=toolBar->addAction(IconManager::instance().loadIcon("16/go-previous.png"), "", textBrowser, SLOT(backward()));
-	goFwd=toolBar->addAction(IconManager::instance().loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
+	goHome = toolBar->addAction(IconManager::instance().loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
+	goBack = toolBar->addAction(IconManager::instance().loadIcon("16/go-previous.png"), "", textBrowser, SLOT(backward()));
+	goFwd = toolBar->addAction(IconManager::instance().loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
 	goBack->setMenu(histMenu);
 	
 	helpNav->listView->header()->hide();
@@ -318,21 +318,23 @@ void HelpBrowser::languageChange()
 	bookDel->setText(tr("&Delete"));
 	bookDelAll->setText(tr("D&elete All"));
 	Ui::HelpBrowser::retranslateUi(this);
-	if (!firstRun)
+
+	if (firstRun)
 	{
-		QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
-		QFileInfo fi(fname);
-		QString filename(fi.fileName());
-		if (ScCore->getGuiLanguage().isEmpty())
-			language="en";
-		else
-			language=ScCore->getGuiLanguage();
-		loadMenu();
-		if (menuModel!=nullptr)
-			loadHelp(finalBaseDir + "/" + filename);
+		firstRun = false;
+		return;
 	}
+
+	QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
+	QFileInfo fi(fname);
+	QString filename(fi.fileName());
+	if (ScCore->getGuiLanguage().isEmpty())
+		language = "en";
 	else
-		firstRun=false;
+		language = ScCore->getGuiLanguage();
+	loadMenu();
+	if (menuModel != nullptr)
+		loadHelp(finalBaseDir + "/" + filename);
 }
 
 void HelpBrowser::print()
@@ -375,7 +377,7 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 				while (i.hasNext())
 				{
 					i.next();
-					if (i.value()==toFind)
+					if (i.value() == toFind)
 						helpNav->searchingView->addTopLevelItem(new QTreeWidgetItem(helpNav->searchingView, QStringList() << i.key()));
 				}
 			}
@@ -436,7 +438,7 @@ void HelpBrowser::bookmarkButton_clicked()
 	while (i.hasNext())
 	{
 		i.next();
-		if (i.value()==toFind)
+		if (i.value() == toFind)
 		{
 			bookmarkIndex.insert(title, qMakePair(i.key(), i.value()));
 			helpNav->bookmarksView->addTopLevelItem(new QTreeWidgetItem(helpNav->bookmarksView, QStringList() << title));
@@ -448,7 +450,7 @@ void HelpBrowser::bookmarkButton_clicked()
 void HelpBrowser::deleteBookmarkButton_clicked()
 {
 	QTreeWidgetItem *twi=helpNav->bookmarksView->currentItem();
-	if (twi!=nullptr)
+	if (twi != nullptr)
 	{
 		if (bookmarkIndex.contains(twi->text(0)))
 			bookmarkIndex.remove(twi->text(0));
@@ -466,19 +468,18 @@ void HelpBrowser::histChosen(QAction* i)
 {
 	if (mHistory.contains(i))
 		textBrowser->setSource( QUrl::fromLocalFile(mHistory[i].url) );
-
 }
 
 void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile, bool dontChangeIfAlreadyLoaded)
 {
 	QString toLoad;
-	bool noDocs=false;
+	bool noDocs = false;
 	if (jumpToFile.isEmpty())
 	{
 		toLoad = finalBaseDir + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection.isEmpty())
 		{
-			QModelIndex index=menuModel->index(0,1);
+			QModelIndex index = menuModel->index(0,1);
 			if (index.isValid())
 			{
 				helpNav->listView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
@@ -489,18 +490,17 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 		}
 		else if (jumpToSection=="scripter")
 		{
- 			toLoad+="scripter1.html";
+ 			toLoad += "scripter1.html";
 		}
 	}
 	else
 	{
-		toLoad=finalBaseDir + "/" + jumpToFile;
+		toLoad = finalBaseDir + "/" + jumpToFile;
 	}
 	if (!noDocs)
 		loadHelp(toLoad);
-	else
-		if (!dontChangeIfAlreadyLoaded)
-			displayNoHelp();
+	else if (!dontChangeIfAlreadyLoaded)
+		displayNoHelp();
 }
 
 void HelpBrowser::loadHelp(const QString& filename)
@@ -510,7 +510,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 	QString toLoad;
 	QFileInfo fi;
 	fi = QFileInfo(filename);
-	if (fi.fileName().length()>0)
+	if (fi.fileName().length() > 0)
 	{
 		if (fi.exists())
 			toLoad = filename;
@@ -537,7 +537,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 	}
 	if (mHistory.count() > 15)
 	{
-		QAction* first=histMenu->actions().first();
+		QAction* first = histMenu->actions().first();
 		mHistory.remove(first);
 		histMenu->removeAction(first);
 	}
@@ -559,8 +559,8 @@ void HelpBrowser::loadMenu()
 	{
 		if (installFi.exists())
 		{
-			toLoad=installHelpMenuFile;
-			baseFi=installFi;
+			toLoad = installHelpMenuFile;
+			baseFi = installFi;
 		}
 		else		
 		{
@@ -573,19 +573,19 @@ void HelpBrowser::loadMenu()
 				QFileInfo altfi3(altHelpMenuFile3);
 				if (fi3.exists())
 				{
-					language=language.left(2);
+					language = language.left(2);
 					toLoad = QDir::toNativeSeparators(baseHelpMenuFile3);
 				}
 				else if (altfi3.exists())
 				{
-					language=language.left(2);
+					language = language.left(2);
 					toLoad = QDir::toNativeSeparators(altHelpMenuFile3);
 				}
 				else
 				{
 					//Fall back to English
 					sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
-					language="en";
+					language = "en";
 					if (QFile::exists(baseHelpDir + language + "/menu.xml"))
 						toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
 					else
@@ -594,7 +594,7 @@ void HelpBrowser::loadMenu()
 			}
 			else
 			{
-				language="en";
+				language = "en";
 				toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
 			}
 			baseFi = QFileInfo(toLoad);
@@ -603,15 +603,15 @@ void HelpBrowser::loadMenu()
 	else
 	{
 		if (installFi.exists())
-			baseFi=installFi;
+			baseFi = installFi;
 	}
 	//Set our final location for loading the help files
-	finalBaseDir=baseFi.path();
+	finalBaseDir = baseFi.path();
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
 	if (baseFi.exists())
 	{
 		delete menuModel;
-		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
+		menuModel = new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
 	
 		helpNav->listView->setModel(menuModel);
 		helpNav->listView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -622,15 +622,15 @@ void HelpBrowser::loadMenu()
 		helpNav->listView->setColumnHidden(1,true);
 	}
 	else
-		menuModel=nullptr;
+		menuModel = nullptr;
 }
 
 void HelpBrowser::readBookmarks()
 {
 	BookmarkParser2 handler;
 	handler.view = helpNav->bookmarksView;
-	handler.quickHelpIndex=&quickHelpIndex;
-	handler.bookmarkIndex=&bookmarkIndex;
+	handler.quickHelpIndex = &quickHelpIndex;
+	handler.bookmarkIndex = &bookmarkIndex;
 	QFile xmlFile(bookmarkFile());
 	QXmlInputSource source(&xmlFile);
 	QXmlSimpleReader reader;
