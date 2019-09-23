@@ -18,7 +18,7 @@ class ColorList;
 class SCRIBUS_API PaletteLoader
 {
 public:
-	PaletteLoader();
+	PaletteLoader() {};
 	virtual	~PaletteLoader() {}
 	
 	// Examine the passed file and test to see whether it appears to be
@@ -34,8 +34,8 @@ public:
 	virtual void setupTargets(ColorList* colors, QHash<QString, VGradient> *gradients);
 
 protected:
-	ColorList*     m_colors;
-	QHash<QString, VGradient>* m_gradients;
+	ColorList* m_colors {nullptr};
+	QHash<QString, VGradient>* m_gradients {nullptr};
 };
 
 #endif

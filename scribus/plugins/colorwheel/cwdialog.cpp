@@ -31,7 +31,6 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	setupUi(this);
 	setObjectName(name);
 	setModal(modal);
-	int h, s, v;
 	ScColor color;
 	QString colorName;
 	connectSlots(false);
@@ -72,6 +71,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	}
 	// Handle achromatic colors
 	QColor rgb = ScColorEngine::getRGBColor(color, m_Doc);
+	int h, s, v;
 	rgb.getHsv(&h, &s, &v);
 	if (h == -1)
 	{   // Reset to defaults

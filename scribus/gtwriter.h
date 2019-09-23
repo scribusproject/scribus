@@ -60,13 +60,13 @@ public:
 	void setUpdateParagraphStyles(bool newUPS);
 	bool getOverridePStyleFont();
 	void setOverridePStyleFont(bool newOPSF);
-	bool inNote;
-	bool inNoteBody;
+	bool inNote {false};
+	bool inNoteBody {false};
 
 private:
-	gtAction *m_action;
-	gtFrameStyle* m_defaultStyle;
-	gtStyle* m_currentStyle;
+	gtAction *m_action {nullptr};
+	gtFrameStyle* m_defaultStyle {nullptr};
+	gtStyle* m_currentStyle {nullptr};
 
 /* 
    Frame style is the default style for text. Styles will be used in order so
@@ -74,10 +74,10 @@ private:
    style if no paragraph style is found frame style will be used. Last set 
    frame style will be left to the default style for the text frame.
 */
-	gtFrameStyle* m_frameStyle;
-	gtStyle* m_paragraphStyle;
-	gtStyle* m_characterStyle;
-	bool m_errorSet;
+	gtFrameStyle* m_frameStyle {nullptr};
+	gtStyle* m_paragraphStyle {nullptr};
+	gtStyle* m_characterStyle {nullptr};
+	bool m_errorSet {false};
 	void setDefaultStyle();
 };
 

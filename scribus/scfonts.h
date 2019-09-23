@@ -65,7 +65,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		void writeFontCache(const QString& pf);
 		void addPath(QString p);
 		bool addScalableFont(const QString& filename, FT_Library &library, const QString& DocName);
-		void addRejectedFont(QString fontPath, QString message);
+		void addRejectedFont(const QString& fontPath, const QString& message);
 		void addUserPath(const QString& pf);
 #ifdef HAVE_FONTCONFIG
 		void addFontconfigFonts();

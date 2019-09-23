@@ -221,7 +221,7 @@ void TransparencyPalette::updateGradientList()
 	namedGradient->setIconSize(QSize(48, 12));
 	namedGradient->addItem( tr("Custom"));
 	QStringList patK = gradientList->keys();
-	qSort(patK);
+	patK.sort();
 	for (int i = 0; i < patK.count(); i++)
 	{
 		VGradient gr = gradientList->value(patK[i]);
@@ -447,7 +447,7 @@ void TransparencyPalette::updatePatternList()
 	patternBox->clear();
 	patternBox->setIconSize(QSize(48, 48));
 	QStringList patK = patternList->keys();
-	qSort(patK);
+	patK.sort();
 	for (int a = 0; a < patK.count(); a++)
 	{
 		ScPattern sp = patternList->value(patK[a]);

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolormgmtimplelem.h"
 
 ScColorProfileImplBase::ScColorProfileImplBase(const ScColorMgmtEngine& engine)
-                      : m_engine(engine)
+	: m_engine(engine)
 {
 
 }
@@ -24,7 +24,7 @@ const ScColorMgmtEngine& ScColorProfileImplBase::engine() const
 }
 
 ScColorTransformImplBase::ScColorTransformImplBase(const ScColorMgmtEngine& engine)
-                        : m_engine(engine)
+	: m_engine(engine)
 {
 
 }

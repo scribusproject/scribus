@@ -66,7 +66,7 @@ void PictView::startDrag(Qt::DropActions supportedActions)
 		{
 			drag->setPixmap(icn.pixmap(64,64));
 		}
-		drag->start();
+		drag->exec(Qt::CopyAction);
 	}
 
 }

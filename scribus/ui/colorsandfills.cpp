@@ -179,13 +179,13 @@ void ColorsAndFillsDialog::leaveDialog()
 QTreeWidgetItem* ColorsAndFillsDialog::updatePatternList(const QString& addedName)
 {
 	QList<QTreeWidgetItem*> lg = patternItems->takeChildren();
-	for (int a = 0; a < lg.count(); a++)
+	for (int i = 0; i < lg.count(); i++)
 	{
-		delete lg[a];
+		delete lg[i];
 	}
 	QTreeWidgetItem* ret = nullptr;
 	QStringList patK = dialogPatterns.keys();
-	qSort(patK);
+	patK.sort();
 	for (int a = 0; a < patK.count(); a++)
 	{
 		ScPattern sp = dialogPatterns.value(patK[a]);
@@ -213,13 +213,13 @@ QTreeWidgetItem* ColorsAndFillsDialog::updatePatternList(const QString& addedNam
 QTreeWidgetItem* ColorsAndFillsDialog::updateGradientList(const QString& addedName)
 {
 	QList<QTreeWidgetItem*> lg = gradientItems->takeChildren();
-	for (int a = 0; a < lg.count(); a++)
+	for (int i = 0; i < lg.count(); i++)
 	{
-		delete lg[a];
+		delete lg[i];
 	}
 	QTreeWidgetItem* ret = nullptr;
 	QStringList patK = dialogGradients.keys();
-	qSort(patK);
+	patK.sort();
 	for (int a = 0; a < patK.count(); a++)
 	{
 		VGradient gr = dialogGradients.value(patK[a]);
@@ -1184,7 +1184,7 @@ void ColorsAndFillsDialog::importColorItems()
 		imgFormats.append("eps");
 		imgFormats.append("epsi");
 		imgFormats.append("ps");
-		qSort(formats);
+		formats.sort();
 		allFormats += formats.join(";;");
 		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 		QString wdir = dirs->get("patterns", ".");

@@ -51,9 +51,9 @@ class SCRIBUS_API ScCLocale
 	public:
 		static inline bool isDigit(ushort ch);
 		static double toDoubleC(const QChar *&str);
-		static double toDoubleC(const QString& str, bool * ok = 0);
+		static double toDoubleC(const QString& str, bool* ok = nullptr);
 		static double toDoubleC(const QString& str, double defValue);
-		static float toFloatC(const QString& str, bool * ok = 0);
+		static float toFloatC(const QString& str, bool* ok = nullptr);
 		static float toFloatC(const QString& str, float defValue);
 		static QString toQStringC(double d, int prec = 3);
 		static double strtod(const char * str, char ** endptr);

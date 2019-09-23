@@ -478,8 +478,9 @@ bool ScLayers::lowerLayer(int nr)
 void ScLayers::sort()
 {
 	int level = 0;
-	ScLayers::Iterator it, itend = end();
-	qStableSort(begin(), end());
+	ScLayers::Iterator it;
+	ScLayers::Iterator itend = end();
+	std::stable_sort(begin(), end());
 	for (it = begin(); it != itend; ++it, ++level)
 		it->Level = level;
 }

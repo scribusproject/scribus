@@ -39,12 +39,12 @@ class PLUGIN_API PathConnectDialog : public QDialog, Ui::PathConnectDialogBase
 
 public:
 	PathConnectDialog(QWidget* parent);
-	~PathConnectDialog() {};
+	~PathConnectDialog() = default;
 	int getFirstLinePoint();
 	int getSecondLinePoint();
 	int getMode();
 signals:
-	void updateValues(int, int, int, int);
+	void updateValues(int,int,int,int);
 private slots:
 	void pointsChanged();
 	void togglePreview();

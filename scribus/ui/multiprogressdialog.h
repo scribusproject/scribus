@@ -46,7 +46,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 	Q_OBJECT
 
 	public:
-		MultiProgressDialog(QWidget* parent=0);
+		MultiProgressDialog(QWidget* parent=nullptr);
 		/**
 		 * Create a multi progress bar dialog for long operations with multiple steps. The dialog includes
 		 * one standard progress bar, typically for the overall progress and others may be added easily.
@@ -55,8 +55,8 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param parent Parent widget for the dialog, commonly ScribusMainWindow
 		 * @param f Qt GUI flags
 		 */
-		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0);
-		~MultiProgressDialog();
+		MultiProgressDialog(const QString& titleText, const QString& cancelButtonText, QWidget* parent=nullptr);
+		~MultiProgressDialog() = default;
 		
 		/**
 		 * Remove all progress bars other than the main one
@@ -84,34 +84,34 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param barName 
 		 * @return progress for specified user bar
 		 */
-		int progress(const QString &barName) const;
+		int progress(const QString& barName) const;
 		/**
 		 * Set a new label for a user defined progress bar
 		 * @param barName Progress bar name
 		 * @param newLabel New label
 		 * @return Success
 		 */
-		bool setLabel(const QString &barName, const QString & newLabel);
+		bool setLabel(const QString& barName, const QString& newLabel);
 		/**
 		 * Sets a user defined progress bar to a busy bar
 		 * @param barName
 		 * @return Success
 		 */
-		bool setBusyIndicator(const QString &barName);
+		bool setBusyIndicator(const QString& barName);
 		/**
 		 * Set the total steps for a user defined progress bar
 		 * @param barName 
 		 * @param totalSteps 
 		 * @return Success
 		 */
-		bool setTotalSteps(const QString &barName, int totalSteps);
+		bool setTotalSteps(const QString& barName, int totalSteps);
 		/**
 		 * Set the progress for a user defined progress bar
 		 * @param barName 
 		 * @param progress 
 		 * @return 
 		 */
-		bool setProgress(const QString &barName, int progress);
+		bool setProgress(const QString& barName, int progress);
 		/**
 		 * Set the prgress and total steps for a user defined progress bar
 		 * @param barName 
@@ -119,7 +119,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param totalSteps 
 		 * @return 
 		 */
-		bool setProgress(const QString &barName, int progress, int totalSteps);
+		bool setProgress(const QString& barName, int progress, int totalSteps);
 		/**
 		 * Set the overall total steps for the dialog
 		 * @param totalSteps 
@@ -144,12 +144,12 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param totalSteps 
 		 * @return 
 		 */
-		bool setupBar(const QString &barName, const QString &barText, int progress, int totalSteps);
+		bool setupBar(const QString&barName, const QString&barText, int progress, int totalSteps);
 		/**
 		 * Set the cancel button text
 		 * @param cancelButtonText 
 		 */
-		void setCancelButtonText(const QString & cancelButtonText);
+		void setCancelButtonText(const QString& cancelButtonText);
 
 	signals:
 		void canceled();

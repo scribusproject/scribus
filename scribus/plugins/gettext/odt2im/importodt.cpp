@@ -49,7 +49,6 @@ void GetText2(const QString& filename, const QString& encoding, bool textOnly, b
 
 ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
-	uz=nullptr;
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;

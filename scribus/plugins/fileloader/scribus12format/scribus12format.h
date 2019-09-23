@@ -57,8 +57,8 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		/**
 		 * @brief Paste an item to the document.
 		 * The bulk of a paste item process runs here for want of a better place, but its a better place
-		 * than the view where it used to be. 
-		 * TODO Once the pageitem restructure is done, this is probably unnecessary but it removes the 
+		 * than the view where it used to be.
+		 * TODO Once the pageitem restructure is done, this is probably unnecessary but it removes the
 		 * unnecessary part from the view for now which is overloaded with non ScrollView code.
 		 */
 		//TODO: void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
@@ -259,7 +259,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		};
 		void PasteItem(struct CopyPasteBuffer *Buffer, bool drag = false, bool noResize = true);
 		void GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
-		
+
 };
 
 extern "C" PLUGIN_API int scribus12format_getPluginAPIVersion();

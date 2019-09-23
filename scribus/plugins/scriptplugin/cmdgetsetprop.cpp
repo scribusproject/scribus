@@ -226,10 +226,8 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	QStringList propertyNames;
 	int propertyOffset = includesuper ? 0 : objmeta->propertyOffset();
 	for (int i = propertyOffset; i < objmeta->propertyCount(); ++i)
-	{
-		QString propName = objmeta->property(i).name();
 		propertyNames << QString::fromLatin1(objmeta->property(i).name());
-	}
+
 	return convert_QStringList_to_PyListObject(propertyNames);
 }
 

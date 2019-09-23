@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScDocOutput
 {
 protected:
-	ScDocOutput() {}
+	ScDocOutput() = default;
 
 	virtual bool begin(void) { return true; }
 	virtual void end(void) {}
@@ -26,7 +26,7 @@ protected:
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return nullptr; }
 
 public:
-	virtual ~ScDocOutput() {}
+virtual ~ScDocOutput() = default;
 
 	virtual bool makeOutput(ScribusDoc* doc, std::vector<int>& pageNumbers);
 };

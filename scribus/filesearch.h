@@ -40,7 +40,7 @@ public:
 	\warning It's useless to set caseSensitive on MS Windows! This will be set to
 	false on windows automatically because Windows are case insensitive already.
 	*/
-	FileSearch(QObject* parent, const QString & fileName, const QString & searchBase = QString::null, int depthLimit = -1, bool caseSensitive=true);
+FileSearch(QObject* parent, const QString& fileName, const QString& searchBase = QString(), int depthLimit = -1, bool caseSensitive=true);
 
 	~FileSearch();
 

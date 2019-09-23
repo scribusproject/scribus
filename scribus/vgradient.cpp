@@ -23,8 +23,8 @@ for which a new license (GPL+exception) is in place.
    Boston, MA 02110-1301, USA.
 */
 
+#include <algorithm>
 #include <QMutableListIterator>
-#include <QtAlgorithms>
 
 #include "vgradient.h"
 
@@ -83,7 +83,7 @@ VGradient::VGradient(const VGradient& gradient)
 	clearStops();
 
 	QList<VColorStop*> cs = gradient.colorStops();
-	qStableSort(cs.begin(), cs.end(), compareStops);
+	std::stable_sort(cs.begin(), cs.end(), compareStops);
 	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop(*cs[i]) );
 }
@@ -107,7 +107,7 @@ VGradient& VGradient::operator=(const VGradient& gradient)
 	clearStops();
 
 	QList<VColorStop*> cs = gradient.colorStops();
-	qStableSort(cs.begin(), cs.end(), compareStops);
+	std::stable_sort(cs.begin(), cs.end(), compareStops);
 	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	return *this;

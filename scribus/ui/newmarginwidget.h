@@ -17,8 +17,8 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 	Q_OBJECT
 
 	public:
-		NewMarginWidget(QWidget* parent=0);
-		~NewMarginWidget();
+		NewMarginWidget(QWidget* parent = nullptr);
+		~NewMarginWidget() = default;
 
 		enum SetupFlags
 		{
@@ -60,15 +60,15 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 
 		MarginStruct m_marginData;
 		MarginStruct m_savedMarginData;
-		int    m_savedPresetItem;
-		bool   m_facingPages;
-		int    m_flags;
-		int    m_unitIndex;
-		double m_unitRatio;
 		QString m_pageSize;
-		double m_pageWidth;
-		double m_pageHeight;
-		int    m_pageType;
+		bool   m_facingPages {false};
+		double m_pageHeight {0.0};
+		double m_pageWidth {0.0};
+		double m_unitRatio {1.0};
+		int    m_flags {MarginWidgetFlags};
+		int    m_pageType {0};
+		int    m_savedPresetItem {PresetLayout::none};
+		int    m_unitIndex {0};
 };
 
 #endif // NEWMARGINWIDGET_H

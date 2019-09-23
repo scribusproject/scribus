@@ -30,7 +30,7 @@ class SCRIBUS_API ScGTPlugin : public ScPlugin
 	Q_OBJECT
 public:
 	ScGTPlugin();
-	~ScGTPlugin() {};
+	~ScGTPlugin() = default;
 
 	/**
 	  @brief Returns the file format's name that this plugin can import or QString()
@@ -57,7 +57,7 @@ public:
 	  @param filename name of the file that is wanted to be imported
 	  @param encoding encoding as selected by a user in the import file dialog
 	 */
-	virtual void run(const QString &filename, const QString &encoding = QString()) {};
+	virtual void run(const QString&filename, const QString&encoding = QString()) {};
 
 	/**
 	  @brief Run the plugin and do the magic with the <code>text</code> and
@@ -66,7 +66,7 @@ public:
 	  This function is ment to be overriden by all text and style handler plugins.
 	  @param text text to work with
 	 */
-	virtual void run(const QString &text /*, insert style stuff here */) {};
+	virtual void run(const QString&text /*, insert style stuff here */) {};
 
 };
 
@@ -94,9 +94,9 @@ public:
 	void run();
 
 private:
-	static ScGTPluginManager *instance_;
+	static ScGTPluginManager *m_instance;
 
-	QList<ScGTPlugin*> plugins_;
+	QList<ScGTPlugin*> m_plugins;
 
 	ScGTPluginManager();
 	~ScGTPluginManager();
@@ -113,18 +113,17 @@ private:
 class SCRIBUS_API ScGTFileDialog : public CustomFDialog {
 	Q_OBJECT
 public:
-	ScGTFileDialog(const QString & dirName,
-	               const QString & filters,
-	               QWidget * parent = 0, const char * name = 0);
+	ScGTFileDialog(const QString& dirName, const QString& filters,
+				QWidget* parent = nullptr, const char* name = nullptr);
 	~ScGTFileDialog();
 
 	bool showOptions() const;
 	bool append() const;
 
 private:
-	QWidget   *diaExtension_;
-	QCheckBox *showOptionsBox_;
-	QCheckBox *appendBox_;
+	QWidget   *m_diaExtension {nullptr};
+	QCheckBox *m_showOptionsBox {nullptr};
+	QCheckBox *m_appendBox {nullptr};
 	void customize();
 };
 

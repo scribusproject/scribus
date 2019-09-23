@@ -46,7 +46,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	action_Run->setShortcut(Qt::Key_F9);
 	actionRun_As_Console->setShortcut(Qt::CTRL + Qt::Key_F9);
 
-	commandEdit->setTabStopWidth(qRound(commandEdit->fontPointSize() * 4));
+	commandEdit->setTabStopDistance(qRound(commandEdit->fontPointSize() * 4));
 
 	// install syntax highlighter.
 	new SyntaxHighlighter(commandEdit);
@@ -55,7 +55,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	commandEdit_cursorPositionChanged();
 
 	// welcome note
-	QString welcomeText("\"\"\"");
+	QString welcomeText(R"(""")");
 	welcomeText += tr("Scribus Python Console");
 	welcomeText += "\n\n";
 	welcomeText += tr(
@@ -78,9 +78,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	connect(action_Save_Output, SIGNAL(triggered()), this, SLOT(slot_saveOutput()));
 }
 
-PythonConsole::~PythonConsole()
-{
-}
+PythonConsole::~PythonConsole() = default;
 
 void PythonConsole::updateSyntaxHighlighter()
 {
@@ -394,21 +392,22 @@ SyntaxColors::SyntaxColors()
 void SyntaxColors::saveToPrefs()
 {
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
-	if (prefs)
-	{
-		prefs->set("syntaxerror", qcolor2named(errorColor));
-		prefs->set("syntaxcomment", qcolor2named(commentColor));
-		prefs->set("syntaxkeyword", qcolor2named(keywordColor));
-		prefs->set("syntaxsign", qcolor2named(signColor));
-		prefs->set("syntaxnumber", qcolor2named(numberColor));
-		prefs->set("syntaxstring", qcolor2named(stringColor));
-		prefs->set("syntaxtext", qcolor2named(textColor));
-	}
+	if (!prefs)
+		return;
+	prefs->set("syntaxerror", qcolor2named(errorColor));
+	prefs->set("syntaxcomment", qcolor2named(commentColor));
+	prefs->set("syntaxkeyword", qcolor2named(keywordColor));
+	prefs->set("syntaxsign", qcolor2named(signColor));
+	prefs->set("syntaxnumber", qcolor2named(numberColor));
+	prefs->set("syntaxstring", qcolor2named(stringColor));
+	prefs->set("syntaxtext", qcolor2named(textColor));
 }
 
 QString SyntaxColors::qcolor2named(const QColor& color)
 {
-	int r, g, b;
+	int r;
+	int g;
+	int b;
 	QString retval("#");
 	QString oct;
 	color.getRgb(&r, &g, &b);

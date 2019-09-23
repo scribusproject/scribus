@@ -25,7 +25,7 @@ class SCRIBUS_API MovePages : public QDialog
 
 public:
 	MovePages( QWidget* parent, int currentPage, int maxPages, bool moving );
-	~MovePages() {};
+	~MovePages() = default;
 
 	const int getFromPage();
 	const int getToPage();

@@ -33,16 +33,10 @@ for which a new license (GPL+exception) is in place.
 gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
 	m_action = new gtAction(append, pageitem);
-	m_defaultStyle = nullptr;
-	m_currentStyle = nullptr;
-	m_errorSet = false;
-
 	m_action->setProgressInfo();
 	setDefaultStyle();
 	unsetCharacterStyle();
 	unsetParagraphStyle();
-	inNote = false;
-	inNoteBody = false;
 }
 
 gtFrameStyle* gtWriter::getDefaultStyle()

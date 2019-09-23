@@ -62,7 +62,4 @@ QString gtStyle::target()
 	return QString("character");
 }
 
-gtStyle::~gtStyle()
-{
-
-}
+gtStyle::~gtStyle() = default;

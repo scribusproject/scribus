@@ -284,7 +284,7 @@ void SymbolPalette::updateSymbolList()
 		return;
 
 	QStringList patK = m_doc->docPatterns.keys();
-	qSort(patK);
+	patK.sort();
 	for (int a = 0; a < patK.count(); a++)
 	{
 		ScPattern sp = m_doc->docPatterns.value(patK[a]);

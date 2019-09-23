@@ -1828,7 +1828,7 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 		{
 			QColor back = ScColorEngine::getRGBColor(m_Doc->PageColors[fillColor], m_Doc);
 			QColor fore = ScColorEngine::getRGBColor(m_Doc->PageColors[backColor], m_Doc);
-			QString patNa = QString("%1%2%3").arg(back.name()).arg(fore.name()).arg(ind);
+			QString patNa = QString("%1%2%3").arg(back.name(), fore.name()).arg(ind);
 			QString patternName;
 			if (!patternMap.contains(patNa))
 			{
@@ -1950,7 +1950,10 @@ void DrwPlug::getCommonData(QDataStream &ds)
 
 QString DrwPlug::getColor(QDataStream &ds)
 {
-	quint8 r, g, b, a;
+	quint8 r;
+	quint8 g;
+	quint8 b;
+	quint8 a;
 	ds >> r >> g >> b >> a;
 	ScColor color = ScColor(r, g, b);
 	return handleColor(color, "FromDRW"+color.name());

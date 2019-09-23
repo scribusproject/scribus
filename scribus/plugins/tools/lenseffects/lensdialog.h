@@ -47,7 +47,7 @@ class PLUGIN_API LensItem : public QGraphicsRectItem
 {
 public:
 	LensItem(QRectF geom, LensDialog *parent);
-	~LensItem() {};
+	~LensItem() = default;
 	
 	void setStrength(double s);
 	void updateEffect();

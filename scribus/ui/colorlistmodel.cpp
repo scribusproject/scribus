@@ -187,9 +187,9 @@ void ColorListModel::setColorList(const ColorList& colorList, bool showNone)
 	if (m_sortRule != SortByName)
 	{
 		if (m_sortRule == SortByValues)
-			qSort(m_colors.begin(), m_colors.end(), compareColorValues);
+			std::sort(m_colors.begin(), m_colors.end(), compareColorValues);
 		else if (m_sortRule == SortByType)
-			qSort(m_colors.begin(), m_colors.end(), compareColorTypes);
+			std::sort(m_colors.begin(), m_colors.end(), compareColorTypes);
 	}
 
 	endResetModel();
@@ -214,11 +214,11 @@ void ColorListModel::setSortRule(SortRule sortRule)
 
 	m_sortRule = sortRule;
 	if (m_sortRule == SortByValues)
-		qSort(m_colors.begin(), m_colors.end(), compareColorValues);
+		std::sort(m_colors.begin(), m_colors.end(), compareColorValues);
 	else if (m_sortRule == SortByType)
-		qSort(m_colors.begin(), m_colors.end(), compareColorTypes);
+		std::sort(m_colors.begin(), m_colors.end(), compareColorTypes);
 	else
-		qSort(m_colors.begin(), m_colors.end(), compareColorNames);
+		std::sort(m_colors.begin(), m_colors.end(), compareColorNames);
 
 	endResetModel();
 }

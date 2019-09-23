@@ -541,7 +541,7 @@ void ScripterCore::aboutScript()
 		return;
 	QTextStream intputstream(&input);
 	QString content = intputstream.readAll();
-	QString docstring = content.section("\"\"\"", 1, 1);
+	QString docstring = content.section(R"(""")", 1, 1);
 	if (!docstring.isEmpty())
 	{
 		html += QString("<h1>%1 %2</h1>").arg( tr("Documentation for:"), fi.fileName());
@@ -549,7 +549,7 @@ void ScripterCore::aboutScript()
 	}
 	else
 	{
-		html += QString("<p><b>%1 %2 %3</b></p>").arg( tr("Script")).arg(fi.fileName(), tr(" doesn't contain any docstring!"));
+		html += QString("<p><b>%1 %2 %3</b></p>").arg( tr("Script"), fi.fileName(), tr(" doesn't contain any docstring!"));
 		html += QString("<pre>%4</pre>").arg(content);
 	}
 	html += "</body></html>";

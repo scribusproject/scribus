@@ -21,7 +21,7 @@ HunspellPlugin::HunspellPlugin()
 	languageChange();
 }
 
-HunspellPlugin::~HunspellPlugin() {};
+HunspellPlugin::~HunspellPlugin() = default;
 
 void HunspellPlugin::languageChange()
 {

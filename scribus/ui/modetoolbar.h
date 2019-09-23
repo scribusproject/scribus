@@ -55,7 +55,7 @@ public:
 	ModeToolBar(ScribusMainWindow* parent);
 	~ModeToolBar();
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 	void setDoc(ScribusDoc* doc);
 	int SubMode;
 	int ValCount;

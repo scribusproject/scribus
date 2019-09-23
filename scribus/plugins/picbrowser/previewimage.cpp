@@ -16,15 +16,17 @@
 *
 ******************************************************************/
 
+#include <algorithm>
+
+#include <QPainter>
+#include <QUrl>
+
 #include "previewimage.h"
 #include "picturebrowser.h"
 #include "collection.h"
 
 #include "iconmanager.h"
 #include "util.h"
-
-#include <QPainter>
-#include <QUrl>
 
 // //functions for comparing attributes of previewimages (used for sorting)
 bool comparePreviewImageFileName ( const previewImage *i1, const previewImage *i2 );
@@ -304,40 +306,40 @@ void previewImages::clearFilters()
 
 void previewImages::sortPreviewImages ( const int sort )
 {
-	if(0 == previewImagesList.count())
+	if(previewImagesList.isEmpty())
 		return;
 	
 	switch ( sort )
 	{
 			//sort by filename
 		case 0:
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
 			break;
 
 		case 1:
 			//sort by filedate
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileType );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileType );
 			break;
 
 		case 2:
 			//sort by filetype
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileDate );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileDate );
 			break;
 
 		case 3:
 			//sort by filesize
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileSize );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileSize );
 			break;
 
 		case 4:
 			//sort by imageresolution
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageResolution );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageResolution );
 			break;
 
 		default:
 			break;
 			//if a wrong argument was specified, sort by name
-			qSort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
+			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
 	}
 }
 

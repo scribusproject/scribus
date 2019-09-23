@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API UrlLauncher : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 	public:
 		UrlLauncher(UrlLauncher const&) = delete;

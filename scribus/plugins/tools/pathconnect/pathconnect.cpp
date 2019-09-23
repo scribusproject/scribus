@@ -50,20 +50,14 @@ void pathconnect_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathConnectPlugin::PathConnectPlugin() :
-	m_item1(nullptr),
-	m_item2(nullptr),
-	m_doc(nullptr),
-	originalXPos(0.0),
-	originalYPos(0.0),
-	firstUpdate(false)
+PathConnectPlugin::PathConnectPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
 }
 
-PathConnectPlugin::~PathConnectPlugin() {}
+PathConnectPlugin::~PathConnectPlugin() = default;
 
 void PathConnectPlugin::languageChange()
 {
@@ -132,7 +126,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, const QString&)
 		originalXPos = m_item1->xPos();
 		originalYPos = m_item1->yPos();
 		PathConnectDialog *dia = new PathConnectDialog(m_doc->scMW());
-		connect(dia, SIGNAL(updateValues(int, int, int, int)), this, SLOT(updateEffect(int, int, int, int)));
+		connect(dia, SIGNAL(updateValues(int,int,int,int)), this, SLOT(updateEffect(int,int,int,int)));
 		if (dia->exec())
 		{
 			int pointOne = dia->getFirstLinePoint();

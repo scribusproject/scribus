@@ -32,7 +32,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 {
 	Q_OBJECT
 	public:
-		CWDialog(QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = false);
+		CWDialog(QWidget* parent = nullptr, ScribusDoc* doc = nullptr, const char* name = nullptr, bool modal = false);
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */
@@ -108,16 +108,16 @@ class CWDialog : public QDialog, Ui::CWDialog
 		void cancelButton_clicked();
 		void colorList_currentChanged(const QString& text);
 
-		void cSpin_valueChanged( int );
-		void mSpin_valueChanged( int );
-		void ySpin_valueChanged( int );
-		void kSpin_valueChanged( int );
-		void rSpin_valueChanged( int );
-		void gSpin_valueChanged( int );
-		void bSpin_valueChanged( int );
-		void hSpin_valueChanged( int );
-		void sSpin_valueChanged( int );
-		void vSpin_valueChanged( int );
+		void cSpin_valueChanged(int);
+		void mSpin_valueChanged(int);
+		void ySpin_valueChanged(int);
+		void kSpin_valueChanged(int);
+		void rSpin_valueChanged(int);
+		void gSpin_valueChanged(int);
+		void bSpin_valueChanged(int);
+		void hSpin_valueChanged(int);
+		void sSpin_valueChanged(int);
+		void vSpin_valueChanged(int);
 };
 
 #endif // CWDIALOG_H

@@ -276,8 +276,8 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& 
 		transInfo.inputProfile.clear();
 		transInfo.outputProfile.clear();
 		transInfo.proofingProfile.clear();
-		transInfo.renderIntent    = (eRenderIntent) 0;
-		transInfo.proofingIntent  = (eRenderIntent) 0;
+		transInfo.renderIntent    = Intent_Perceptual;
+		transInfo.proofingIntent  = Intent_Perceptual;
 		transInfo.flags = 0;
 		nullTransform = true;
 	}

@@ -112,7 +112,7 @@ void MultipleDuplicate::selectRangeOfPages()
 
 void MultipleDuplicate::createPageNumberRange()
 {
-	if (m_Doc!=0)
+	if (m_Doc != nullptr)
 	{
 		CreateRange cr(lineEditPageRange->text(), m_Doc->Pages->count(), this);
 		if (cr.exec())
@@ -123,5 +123,5 @@ void MultipleDuplicate::createPageNumberRange()
 			return;
 		}
 	}
-	lineEditPageRange->setText(QString::null);
+	lineEditPageRange->clear();
 }

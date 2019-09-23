@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
 	: QObject(ScCore),
 	m_Doc(nullptr),
-	m_outputDirectory(QString::null),
 	profileCount(0),
 	itemCount(0),
 	fontCount(0),
@@ -41,7 +40,7 @@ CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirecto
 	uiCollect(false)
 {
 	m_Doc=doc;
-	if (outputDirectory!=QString::null)
+	if (!outputDirectory.isEmpty())
 		m_outputDirectory=outputDirectory;
 	m_compressDoc = compressDoc;
 	m_withFonts = withFonts;
@@ -148,7 +147,7 @@ QString CollectForOutput::collect(QString &newFileName)
 	collectedFiles.clear();
 	newFileName = newName;
 
-	return QString::null;
+	return QString();
 }
 
 bool CollectForOutput::collectDocument()

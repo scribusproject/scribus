@@ -72,7 +72,7 @@ typedef struct
 	Word	numRecords;
 } pdb_header;
 
-/*! \brief Some compilers pad structures out to DWord boundaries so using 
+/*! \brief Some compilers pad structures out to DWord boundaries so using
 sizeof() doesn't give the intended result.
 */
 #define PDB_HEADER_SIZE 78
@@ -136,7 +136,7 @@ private:
 	bool m_littlendian;
 	//! \brief A "document uses that strange compress algorithm" flag.
 	bool bCompressed;
-	
+
 	/*! \brief Parse the PDB file.
 	\param fname a filename to open */
 	void loadFile(const QString& fname);

@@ -41,7 +41,6 @@ for which a new license (GPL+exception) is in place.
 #include <exception>
 using namespace std;
 
-#define BASE_QM "scribus"
 #define MAX_LINES 500
 
 #include "scribusapp.h"

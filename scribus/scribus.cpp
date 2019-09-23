@@ -1433,7 +1433,7 @@ void ScribusMainWindow::setStatusBarTextSelectedItemInfo()
 	}
 	else
 	{
-		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt).arg(heightTxt));
+		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt, heightTxt));
 	}
 }
 
@@ -4675,7 +4675,7 @@ void ScribusMainWindow::slotEditCopy()
 		
 		// Sort items in Z-order
 		QList<PageItem*> selectedItems = doc->m_Selection->items();
-		qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+		std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
 
 		Selection tempSelection(this, false);
 		for (int i = 0; i < selectedItems.count(); ++i)

@@ -19,7 +19,7 @@ class PP_Proxy : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit PP_Proxy(QObject *parent = 0);
+		explicit PP_Proxy(QObject *parent = nullptr);
 
 	signals:
 
@@ -28,8 +28,8 @@ class PP_Proxy : public QObject
 		void setDoc(ScribusDoc* doc);
 
 	protected:
-		PageItem *m_pageItem;
-		ScribusDoc *m_scribusDoc;
+		PageItem *m_pageItem {nullptr};
+		ScribusDoc *m_scribusDoc {nullptr};
 
 		void connectDoc();
 		void connectItem();

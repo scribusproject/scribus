@@ -134,8 +134,7 @@ public:
 	 * \sa getPluginNamesT
 	 * \sa getPlugin
 	 */
-	QStringList pluginNames(bool includeDisabled = false,
-									 const char* inherits = 0) const;
+	QStringList pluginNames(bool includeDisabled = false, const char* inherits = nullptr) const;
 	
 	virtual void changeEvent(QEvent *e);
 

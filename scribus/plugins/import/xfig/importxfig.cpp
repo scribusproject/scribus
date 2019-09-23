@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <algorithm>
+
 #include <QByteArray>
 #include <QCursor>
 #include <QDrag>
@@ -1563,7 +1565,7 @@ void XfigPlug::resortItems()
 		if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
 			currentLayer = m_Doc->addLayer(QString("Layer %1").arg(it), true);
 		QList<int> elems = depthMap.values(keylist.at(it));
-		qSort(elems);
+		std::sort(elems.begin(), elems.end());
 		int itemsCount = elems.count();
 		for (int i = 0; i < itemsCount; ++i)
 		{

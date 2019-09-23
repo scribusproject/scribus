@@ -12,23 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/useprintermarginsdialog.h"
 
 NewMarginWidget::NewMarginWidget(QWidget* parent)
-	: QWidget(parent),
-	m_savedPresetItem(PresetLayout::none),
-	m_facingPages(false),
-	m_flags(MarginWidgetFlags)
+	: QWidget(parent)
 {
 	setupUi(this);
-
-	m_unitIndex = 0;
-	m_unitRatio = 1.0;
-
-	m_pageWidth  = 0;
-	m_pageHeight = 0;
-	m_pageType = 0;
-}
-
-NewMarginWidget::~NewMarginWidget()
-{
 }
 
 void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags)

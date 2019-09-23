@@ -158,7 +158,7 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 		int ecol;
 		if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol ))
 		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename, errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 			file1.close();
 			return;
 		}
@@ -267,7 +267,7 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 
 		if (!doc.setContent( &file, &errorMsg, &eline, &ecol ))
 		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter], errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 			file.close();
 			continue;
 		}

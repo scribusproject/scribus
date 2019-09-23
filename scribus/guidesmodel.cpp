@@ -4,26 +4,19 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <algorithm>
 #include <QLocale>
 
 #include "guidesmodel.h"
 #include "units.h"
 
 
-GuidesModel::GuidesModel(QObject * /*parent*/) :
-	m_docUnitIndex(0),
-	m_docUnitDecimals(0)
-{
-	m_rule = 0.0;
-	// debug
-// 	m_values << 1.0 << 10.1 << 6.3 << 4.1;
-// 	qSort(m_values);
-}
-
-
-GuidesModel::~GuidesModel()
+GuidesModel::GuidesModel(QObject * /*parent*/)
 {
 }
+
+GuidesModel::~GuidesModel() = default;
 
 int GuidesModel::rowCount(const QModelIndex & /*parent*/) const
 {
@@ -71,7 +64,7 @@ bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int
 	if (!ok)
 		return false;
 	m_values[index.row()] = value2pts(newVal, m_docUnitIndex) + m_rule;
-	qSort(m_values);
+	std::sort(m_values.begin(), m_values.end());
 	emit dataChanged(index, index);
 	emit valueChanged();
 	return true;
@@ -125,7 +118,7 @@ void GuidesModel::insertRow()
 	if (m_values.contains(0.0))
 		return;
 	m_values.append(0.0);
-	qSort(m_values);
+	std::sort(m_values.begin(), m_values.end());
 	endResetModel();
 }
 
@@ -133,7 +126,7 @@ void GuidesModel::setValues(const Guides& values)
 {
 	beginResetModel();
 	m_values = values;
-	qSort(m_values);
+	std::sort(m_values.begin(), m_values.end());
 	endResetModel();
 }
 

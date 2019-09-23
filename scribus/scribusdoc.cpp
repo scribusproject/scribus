@@ -3377,7 +3377,7 @@ bool ScribusDoc::changeLayerName(int layerID, const QString& newName)
 			{
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState *ss = new SimpleState(Um::SetLayerName, QString(Um::FromTo).arg(Layers[i].Name).arg(newName), Um::IDown);
+					SimpleState *ss = new SimpleState(Um::SetLayerName, QString(Um::FromTo).arg(Layers[i].Name, newName), Um::IDown);
 					ss->set("CHANGE_NAME");
 					ss->set("ACTIVE", m_ActiveLayer);
 					ss->set("NEW_NAME", newName);
@@ -5779,7 +5779,6 @@ QRectF ScribusDoc::canvasOptimalRect()
 {
 	double x, y, width, height;
 	QRectF canvasRect;
-	QRectF pageRect;
 	MarginStruct pageBleeds;
 	PageItem *currItem;
 	ScPage* page;
@@ -8503,7 +8502,7 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 	{
 		// Remove selected row(s).
 		QList<int> selectedRows = table->selectedRows().toList();
-		qSort(selectedRows.begin(), selectedRows.end(), qGreater<int>());
+		std::sort(selectedRows.begin(), selectedRows.end(), std::greater<int>());
 
 		int index = 0;
 		int numRows = 1;
@@ -8559,7 +8558,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 	{
 		// Remove selected column(s).
 		QList<int> selectedColumns = table->selectedColumns().toList();
-		qSort(selectedColumns.begin(), selectedColumns.end(), qGreater<int>());
+		std::sort(selectedColumns.begin(), selectedColumns.end(), std::greater<int>());
 
 		int index = 0;
 		int numColumns = 1;
@@ -8606,8 +8605,8 @@ void ScribusDoc::itemSelection_MergeTableCells()
 
 	QList<int> selectedRows = table->selectedRows().toList();
 	QList<int> selectedColumns = table->selectedColumns().toList();
-	qSort(selectedRows);
-	qSort(selectedColumns);
+	std::sort(selectedRows.begin(), selectedRows.end());
+	std::sort(selectedColumns.begin(), selectedColumns.end());
 
 	const int row = selectedRows.first();
 	const int column = selectedColumns.first();
@@ -8736,7 +8735,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	{
 		// Distribute each contigous range of selected rows.
 		QList<int> selectedRows = table->selectedRows().toList();
-		qSort(selectedRows);
+		std::sort(selectedRows.begin(), selectedRows.end());
 		int startRow = selectedRows.first();
 		int endRow = startRow;
 		for (int i = 0; i < selectedRows.size() - 1; ++i)
@@ -8779,7 +8778,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	{
 		// Distribute each contigous range of selected columns.
 		QList<int> selectedColumns = table->selectedColumns().toList();
-		qSort(selectedColumns);
+		std::sort(selectedColumns.begin(), selectedColumns.end());
 		int startColumn = selectedColumns.first();
 		int endColumn = startColumn;
 		for (int i = 0; i < selectedColumns.size() - 1; ++i)
@@ -12059,7 +12058,7 @@ void ScribusDoc::itemSelection_AlignItemTop(int i, double newY, AlignMethod how)
 	}
 }
 
-void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignLeftOut(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12097,7 +12096,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod cur
 }
 
 
-void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignLeftIn(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12135,7 +12134,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod curr
 }
 
 
-void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignCenterHor(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12188,7 +12187,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 }
 
 
-void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignRightIn(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12228,7 +12227,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod cur
 }
 
 
-void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignRightOut(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12268,7 +12267,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod cu
 }
 
 
-void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignTopOut(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12306,12 +12305,13 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod curr
 }
 
 
-void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignTopIn(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newY = std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12344,7 +12344,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currA
 }
 
 
-void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignCenterVer(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12397,7 +12397,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod c
 }
 
 
-void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignBottomIn(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -12437,7 +12437,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod cu
 }
 
 
-void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
+void ScribusDoc::itemSelection_AlignBottomOut(ScribusDoc::AlignTo currAlignTo, ScribusDoc::AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -13478,7 +13478,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 	view()->updatesOn(false);
 
 	QList<PageItem*> selectedItems = m_Selection->items();
-	qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+	std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
 
 	Selection selection(this, false);
 	for (int i = 0; i < selectedItems.count(); ++i)
@@ -15060,7 +15060,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::Group, "", Um::IGroup);
 	QList<PageItem*> selectedItems = itemSelection->items();
-	qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+	std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
 	int selectedItemCount = selectedItems.count();
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
@@ -18036,7 +18036,7 @@ void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalid
 		NotesStyle* currNS = nF->notesStyle();
 		if (currNS->isAutoNotesHeight() || currNS->isAutoNotesWidth())
 			nF->invalidateLayout(false);
-		qSort(nList.begin(), nList.end(), ascendingSort);
+		std::sort(nList.begin(), nList.end(), ascendingSort);
 		if (nList == m_docNotesInFrameMap.value(nF))
 			return;
 

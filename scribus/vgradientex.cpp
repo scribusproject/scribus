@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
    Boston, MA 02110-1301, USA.
 */
 
-#include <QtAlgorithms>
+#include <algorithm>
 
 #include "vgradientex.h"
 #include "vgradient.h"
@@ -80,7 +80,7 @@ VGradientEx::VGradientEx(const VGradientEx& gradient)
 	clearStops();
 
 	QList<VColorStopEx*> cs = gradient.colorStops();
-	qStableSort( cs.begin(), cs.end(), compareStopsEx);
+	std::stable_sort( cs.begin(), cs.end(), compareStopsEx);
 	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx(*cs[i]) );
 }
@@ -96,7 +96,7 @@ VGradientEx::VGradientEx(const VGradient& gradient, ScribusDoc& doc)
 	while (!m_colorStops.isEmpty())
 		delete m_colorStops.takeFirst();
 	QList<VColorStop*> stops = gradient.colorStops();
-	qStableSort( stops.begin(), stops.end(), compareStops);
+	std::stable_sort( stops.begin(), stops.end(), compareStops);
 	for (int i = 0; i < stops.count(); ++i)
 	{
 		VColorStop stop( *stops[i] );
@@ -124,7 +124,7 @@ VGradientEx& VGradientEx::operator=(const VGradientEx& gradient)
 	clearStops();
 
 	QList<VColorStopEx*> cs = gradient.colorStops();
-	qStableSort( cs.begin(), cs.end(), compareStopsEx);
+	std::stable_sort( cs.begin(), cs.end(), compareStopsEx);
 	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 	return *this;

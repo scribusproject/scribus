@@ -39,11 +39,6 @@ MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString
 	buttonCancel->setText(cancelButtonText);
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }
-
-MultiProgressDialog::~MultiProgressDialog()
-{
-}
-
 void MultiProgressDialog::emitCancel()
 {
 	emit canceled();

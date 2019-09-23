@@ -32,68 +32,40 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class ObjStyleODT
 {
 public:
-	ObjStyleODT() :
-	  CurrColorText("Black"),
-	  CurrColorBText(CommonStrings::None),
-	  CurrColorBPara(CommonStrings::None),
-	  fontName(""),
-	  fontStyle(""),
-	  fontWeight(""),
-	  fontSize(10.0),
-	  textIndent(0.0),
-	  textAlign(ParagraphStyle::LeftAligned),
-	  textPos(""),
-	  textOutline(""),
-	  textUnderline(false),
-	  textUnderlineWords(false),
-	  textUnderlineColor(CommonStrings::None),
-	  textStrikeThrough(false),
-	  textShadow(false),
-	  textSmallCaps(false),
-	  lineHeight(1.0),
-	  absLineHeight(false),
-	  margin_top(0.0),
-	  margin_bottom(0.0),
-	  margin_left(0.0),
-	  margin_right(0.0),
-	  verticalAlignment(0),
-	  tabStops(),
-	  breakBefore("auto"),
-	  breakAfter("auto")
-	  {}
-	QString							CurrColorText;
-	QString							CurrColorBText;
-	QString							CurrColorBPara;
-	QString							fontName;
-	QString							fontStyle;
-	QString							fontWeight;
-	double							fontSize;
-	double							textIndent;
-	ParagraphStyle::AlignmentType	textAlign;    // 0 = left
-	QString							textPos;
-	QString							textOutline;
-	bool							textUnderline;
-	bool							textUnderlineWords;
-	QString							textUnderlineColor;
-	bool							textStrikeThrough;
-	bool							textShadow;
-	bool							textSmallCaps;
-	double							lineHeight;
-	bool							absLineHeight;
-	double							margin_top;
-	double							margin_bottom;
-	double							margin_left;
-	double							margin_right;
-	int								verticalAlignment;
+	ObjStyleODT() {}
+	QString CurrColorText {"Black"};
+	QString CurrColorBText {CommonStrings::None};
+	QString CurrColorBPara {CommonStrings::None};
+	QString fontName;
+	QString fontStyle;
+	QString fontWeight;
+	double fontSize {10.0};
+	double textIndent {0.0};
+	ParagraphStyle::AlignmentType	textAlign {ParagraphStyle::LeftAligned};
+	QString textPos;
+	QString textOutline;
+	bool textUnderline {false};
+	bool textUnderlineWords {false};
+	QString textUnderlineColor {CommonStrings::None};
+	bool textStrikeThrough {false};
+	bool textShadow {false};
+	bool textSmallCaps {false};
+	double lineHeight {1.0};
+	bool absLineHeight {false};
+	double margin_top {0.0};
+	double margin_bottom {0.0};
+	double margin_left {0.0};
+	double margin_right {0.0};
+	int verticalAlignment {0};
 	QList<ParagraphStyle::TabRecord> tabStops;
-	QString							breakBefore;
-	QString							breakAfter;
+	QString breakBefore {"auto"};
+	QString breakAfter {"auto"};
 };
 
 class ODTIm
 {
 	public:
-		ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
+	ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
 		~ODTIm();
 	private:
 		struct DrawStyle
@@ -152,11 +124,11 @@ class ODTIm
 		QString parseColor( const QString &s );
 		QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 		void setFontstyle(CharStyle &tmpCStyle, int kind);
-		ScZipHandler *uz;
-		ScribusDoc* m_Doc;
-		PageItem* m_item;
-		bool m_prefixName;
-		bool m_append;
+		ScZipHandler *uz {nullptr};
+		ScribusDoc* m_Doc {nullptr};
+		PageItem* m_item {nullptr};
+		bool m_prefixName {false};
+		bool m_append {false};
 		QHash<QString, QString> map_ID_to_Name;
 		QHash<QString, QString> m_fontMap;
 		QHash<QString, DrawStyle> m_Styles;

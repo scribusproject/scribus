@@ -19,8 +19,8 @@ protected:
 public:
 	ScColorProfileImplBase(const ScColorMgmtEngine& engine);
 
-	virtual ScColorMgmtEngine& engine();
-	virtual const ScColorMgmtEngine& engine() const;
+	ScColorMgmtEngine& engine() override;
+	const ScColorMgmtEngine& engine() const override;
 };
 
 class ScColorTransformImplBase : public ScColorTransformData
@@ -31,8 +31,8 @@ protected:
 public:
 	ScColorTransformImplBase(const ScColorMgmtEngine& engine);
 
-	virtual ScColorMgmtEngine& engine();
-	virtual const ScColorMgmtEngine& engine() const;
+	ScColorMgmtEngine& engine() override;
+	const ScColorMgmtEngine& engine() const override;
 };
 
 #endif

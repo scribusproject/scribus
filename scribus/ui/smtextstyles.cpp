@@ -121,7 +121,7 @@ QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 			tmpList << StyleName(styleName, parentName);
 		}
 	}
-	qSort(tmpList.begin(), tmpList.end(), sortingQPairOfStrings);
+	std::sort(tmpList.begin(), tmpList.end(), sortingQPairOfStrings);
 
 	return tmpList;
 }

@@ -313,7 +313,7 @@ void PropertiesPalette_Table::updateBorderLineList()
 	borderLineList->clear();
 	for (const TableBorderLine& borderLine : m_currentBorder.borderLines())
 	{
-		QString text = QString(" %1%2 %3").arg(borderLine.width()).arg(borderLineWidth->suffix()).arg(CommonStrings::translatePenStyleName(borderLine.style()));
+		QString text = QString(" %1%2 %3").arg(borderLine.width()).arg(borderLineWidth->suffix(), CommonStrings::translatePenStyleName(borderLine.style()));
 		if (borderLine.color() != CommonStrings::None)
 		{
 			QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
@@ -344,7 +344,7 @@ void PropertiesPalette_Table::updateBorderLineList(const TableBorderLine& curren
 void PropertiesPalette_Table::updateBorderLineListItem()
 {
 	QListWidgetItem* item = borderLineList->currentItem();
-	QString text = QString(" %1%2 %3").arg(borderLineWidth->getValue()).arg(borderLineWidth->suffix()).arg(CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
+	QString text = QString(" %1%2 %3").arg(borderLineWidth->getValue()).arg(borderLineWidth->suffix(), CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
 	if (borderLineColor->currentColor() != CommonStrings::None)
 	{
 		QPixmap *icon = getWidePixmap(getColor(borderLineColor->currentColor(), borderLineShade->value()));

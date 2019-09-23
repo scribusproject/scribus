@@ -140,8 +140,8 @@ the documents.
 class SCRIBUS_API GuideManagerIO
 {
 	public:
-		GuideManagerIO(){};
-		~GuideManagerIO(){};
+		GuideManagerIO() = default;
+		~GuideManagerIO() = default;
 
 		/*! \brief Read the guides from XML attribute (file opening).
 		It's statis method sou you can call it without instance initialized:

@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <algorithm>
 #include <QApplication>
 #include <QCursor>
 #include <QEvent>
@@ -274,7 +275,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				StopM[ActStop] = m->x();
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
 				cstops.at(ActStop)->rampPoint = newStop;
-				qSort(cstops.begin(), cstops.end());
+				std::sort(cstops.begin(), cstops.end());
 				onlyselect = false;
 				repaint();
 			}

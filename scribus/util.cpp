@@ -522,7 +522,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& exten
 		QFileInfo fi(defaultName);
 		defaultName = fi.completeBaseName();
 	}
-	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
+	return QString("%1-%2%3.%4").arg(defaultName, QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
 }
 
 const QString getStringFromSequence(NumFormat type, uint position, const QString& asterix)

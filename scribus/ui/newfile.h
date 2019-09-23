@@ -42,11 +42,11 @@ class SCRIBUS_API PageLayoutsWidget : public QListWidget
 
 public:
 	PageLayoutsWidget(QWidget* parent);
-	~PageLayoutsWidget() {}
+	~PageLayoutsWidget() = default;
 	void arrangeIcons();
-	QSize minimumSizeHint() const;
-	int maxX;
-	int maxY;
+	QSize minimumSizeHint() const override;
+	int maxX {0};
+	int maxY {0};
 };
 
 
@@ -65,7 +65,7 @@ public:
 	} ActionSelected;
 
 	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, const QString& lang = "");
-	~NewDoc() {}
+	~NewDoc() = default;
 	void createNewDocPage();
 	void createNewFromTempPage();
 	void createOpenDocPage();
@@ -108,24 +108,24 @@ public:
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 
-	bool onStartup(void) const { return m_onStartup;}
-	int  tabSelected(void) const { return m_tabSelected;}
-	QString selectedFile(void) const { return m_selectedFile; }
+	bool onStartup() const { return m_onStartup;}
+	int  tabSelected() const { return m_tabSelected;}
+	QString selectedFile() const { return m_selectedFile; }
 
-	int    unitIndex(void)   const { return m_unitIndex;}
-	QString unitSuffix(void) const { return m_unitSuffix;}
-	double unitRatio(void)   const { return m_unitRatio; }
+	int    unitIndex()   const { return m_unitIndex;}
+	QString unitSuffix() const { return m_unitSuffix;}
+	double unitRatio()   const { return m_unitRatio; }
 
-	int    orientation(void) const { return m_orientation;} 
-	int    precision(void) const { return m_precision;}
-	int    choosenLayout(void) const { return m_choosenLayout;}
-	double pageWidth(void) const { return m_pageWidth;}
-	double pageHeight(void) const { return m_pageHeight;}
-	double distance(void) const { return m_distance;}
-	double bleedBottom(void) const { return m_bleedBottom;}
-	double bleedTop(void)    const { return m_bleedTop;}
-	double bleedLeft(void)   const { return m_bleedLeft;}
-	double bleedRight(void)  const { return m_bleedRight;}
+	int    orientation() const { return m_orientation;}
+	int    precision() const { return m_precision;}
+	int    choosenLayout() const { return m_choosenLayout;}
+	double pageWidth() const { return m_pageWidth;}
+	double pageHeight() const { return m_pageHeight;}
+	double distance() const { return m_distance;}
+	double bleedBottom() const { return m_bleedBottom;}
+	double bleedTop()    const { return m_bleedTop;}
+	double bleedLeft()   const { return m_bleedLeft;}
+	double bleedRight()  const { return m_bleedRight;}
 
 public slots:
 	void setHeight(double v);

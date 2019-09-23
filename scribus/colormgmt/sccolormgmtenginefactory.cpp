@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 ScColorMgmtEngineFactory colorMgmtEngineFactory;
 
-ScColorMgmtEngine ScColorMgmtEngineFactory::createEngine(int engineID)
+ScColorMgmtEngine ScColorMgmtEngineFactory::createEngine(int  /*engineID*/)
 {
 	// for now just return default engine
 	return createDefaultEngine();

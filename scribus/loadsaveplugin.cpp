@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <algorithm>
+
 #include "loadsaveplugin.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
@@ -101,7 +104,7 @@ const QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 	// Avoid duplicate entries in the list
 	QSet<QString> fSet = filterList.toSet();
 	filterList = fSet.toList();
-	qSort(filterList);
+	std::sort(filterList.begin(), filterList.end());
 	return filterList;
 }
 
@@ -137,7 +140,7 @@ const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 	// Avoid duplicate entries in the list
 	QSet<QString> fSet = filterList.toSet();
 	filterList = fSet.toList();
-	qSort(filterList);
+	std::sort(filterList.begin(), filterList.end());
 	return filterList;
 }
 
@@ -173,7 +176,7 @@ const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 	// Avoid duplicate entries in the list
 	QSet<QString> fSet = filterList.toSet();
 	filterList = fSet.toList();
-	qSort(filterList);
+	std::sort(filterList.begin(), filterList.end());
 	return filterList;
 }
 

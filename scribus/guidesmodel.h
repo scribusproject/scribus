@@ -24,7 +24,7 @@ class GuidesModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		GuidesModel(QObject * parent = 0);
+		GuidesModel(QObject * parent = nullptr);
 		~GuidesModel();
 
 		int rowCount(const QModelIndex & parent = QModelIndex()) const;
@@ -62,9 +62,9 @@ class GuidesModel : public QAbstractTableModel
 
 	private:
 		Guides m_values;
-		int m_docUnitIndex;
-		int m_docUnitDecimals;
-		double m_rule;
+		int m_docUnitIndex {0};
+		int m_docUnitDecimals {0};
+		double m_rule {0.0};
 };
 
 #endif

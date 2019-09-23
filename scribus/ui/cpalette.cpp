@@ -703,10 +703,10 @@ void ColorPalette::updateGradientList()
 	namedGradientStroke->setIconSize(QSize(48, 12));
 	namedGradientStroke->addItem( tr("Custom"));
 	QStringList patK = gradientList->keys();
-	qSort(patK);
-	for (int a = 0; a < patK.count(); a++)
+	patK.sort();
+	for (int i = 0; i < patK.count(); i++)
 	{
-		VGradient gr = gradientList->value(patK[a]);
+		VGradient gr = gradientList->value(patK[i]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
@@ -723,8 +723,8 @@ void ColorPalette::updateGradientList()
 		delete p;
 		QPixmap pm;
 		pm = QPixmap::fromImage(pixm);
-		namedGradient->addItem(pm, patK[a]);
-		namedGradientStroke->addItem(pm, patK[a]);
+		namedGradient->addItem(pm, patK[i]);
+		namedGradientStroke->addItem(pm, patK[i]);
 	}
 	namedGradient->blockSignals(sigBlocked1);
 	namedGradientStroke->blockSignals(sigBlocked2);
@@ -824,7 +824,7 @@ void ColorPalette::updatePatternList()
 	patternBoxStroke->clear();
 	patternBoxStroke->setIconSize(QSize(48, 48));
 	QStringList patK = patternList->keys();
-	qSort(patK);
+	patK.sort();
 	for (int a = 0; a < patK.count(); a++)
 	{
 		ScPattern sp = patternList->value(patK[a]);

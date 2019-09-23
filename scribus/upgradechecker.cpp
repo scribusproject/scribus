@@ -149,7 +149,7 @@ bool UpgradeChecker::process()
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
-			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), errorMsg).arg(eline).arg(ecol)+"</b>");
 		return false;
 	}
 	

@@ -1938,10 +1938,11 @@ bool PrefsManager::ReadPref(const QString& ho)
 	QTextStream ts(&f);
 	ts.setCodec("UTF-8");
 	QString errorMsg;
-	int errorLine = 0, errorColumn = 0;
+	int errorLine = 0;
+	int errorColumn = 0;
 	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
-		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(ho).arg(errorMsg).arg(errorLine).arg(errorColumn);
+		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(ho, errorMsg).arg(errorLine).arg(errorColumn);
 		f.close();
 		return false;
 	}

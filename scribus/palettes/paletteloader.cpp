@@ -8,13 +8,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "paletteloader.h"
 #include "sccolor.h"
-#include "scribusdoc.h"
-
-PaletteLoader::PaletteLoader()
-{
-	m_colors = nullptr;
-	m_gradients = nullptr;
-}
 
 void PaletteLoader::setupTargets(ColorList* colors, QHash<QString, VGradient> *gradients)
 {

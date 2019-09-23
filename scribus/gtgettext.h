@@ -86,7 +86,7 @@ public:
 	~gtGetText();								// Destructor
 	QStringList getSupportedTypes();			// get all Fileextensions we support
 	ImportSetup run();							// Creates the dialog for the user to import a file based on the supported file formats.
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, bool prefix, PageItem* target=0);
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, bool prefix, PageItem* target=nullptr);
 												// Look at the results of the file selection dialog and figure out if you need to use an importer.
 												// Prompt the user if the importer to use isn't obvious.
 };

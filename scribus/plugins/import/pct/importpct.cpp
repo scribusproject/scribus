@@ -2163,7 +2163,7 @@ void PctPlug::setFillPattern(PageItem* ite)
 	quint32 patDat1, patDat2;
 	QDataStream bu(&patternData, QIODevice::ReadOnly);
 	bu >> patDat1 >> patDat2;
-	QString patNa = QString("%1%2%3%4").arg(backColor.name()).arg(foreColor.name()).arg(patDat1, 8, 16, QLatin1Char('0')).arg(patDat2, 8, 16, QLatin1Char('0'));
+	QString patNa = QString("%1%2%3%4").arg(backColor.name(), foreColor.name()).arg(patDat1, 8, 16, QLatin1Char('0')).arg(patDat2, 8, 16, QLatin1Char('0'));
 	if (!patternMap.contains(patNa))
 	{
 		QImage image = QImage(8, 8, QImage::Format_Mono);

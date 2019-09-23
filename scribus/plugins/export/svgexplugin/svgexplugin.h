@@ -42,7 +42,7 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	virtual bool run(ScribusDoc* doc=0, const QString& filename = QString());
+	virtual bool run(ScribusDoc* doc=nullptr, const QString& filename = QString());
 	virtual const QString fullTrName() const;
 	virtual const AboutData* getAboutData() const;
 	virtual void deleteAboutData(const AboutData* about) const;
@@ -105,7 +105,7 @@ private:
 	\retval QString Clipping Path
 	*/
 	QString SetClipPath(FPointArray *ite, bool closed);
-	QDomElement createClipPathElement(FPointArray *ite, QDomElement* pathElem = 0);
+	QDomElement createClipPathElement(FPointArray *ite, QDomElement* pathElem = nullptr);
 	/*!
 	\author Franz Schmid
 	\brief Converts double to string

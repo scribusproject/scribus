@@ -201,10 +201,10 @@ void ColorWheel::makeMonochromatic()
 	baseColor();
 	QColor col(ScColorEngine::getRGBColor(actualColor, currentDoc));
 	ScColor l;
-	l.fromQColor(col.light());
+	l.fromQColor(col.lighter());
 	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Light")] = l;
-	l.fromQColor(col.dark());
+	l.fromQColor(col.darker());
 	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Dark")] = l;
 	currentType = Monochromatic;

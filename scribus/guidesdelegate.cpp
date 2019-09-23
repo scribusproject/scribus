@@ -13,8 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 
 GuidesDelegate::GuidesDelegate(QObject *parent)
-	: QItemDelegate(parent),
-		m_doc(nullptr)
+	: QItemDelegate(parent)
 {
 }
 

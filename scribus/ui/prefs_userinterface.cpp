@@ -39,7 +39,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 		else
 			languageList << LanguageManager::instance()->getLangFromAbbrev("en_GB");
 	}
-	qSort(languageList.begin(), languageList.end(), localeAwareLessThan);
+	std::sort(languageList.begin(), languageList.end(), localeAwareLessThan);
 	languageComboBox->addItems(languageList);
 
 	// qt styles

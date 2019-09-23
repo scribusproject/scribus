@@ -878,7 +878,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 			t.m_m->forDocument = DocName;
 			//setBestEncoding(face); //AV
 			if (m_showFontInfo)
-				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName()).arg(filename).arg(faceIndex+1));
+				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName(), filename).arg(faceIndex+1));
 
 /*
 //debug
@@ -1240,7 +1240,7 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 	writeFontCache(pf);
 }
 
-void SCFonts::addRejectedFont(QString fontPath, QString message)
+void SCFonts::addRejectedFont(const QString& fontPath, const QString& message)
 {
 	rejectedFonts.insert(fontPath, message);
 }

@@ -18,7 +18,7 @@ class GuidesView : public QTableView
 	Q_OBJECT
 
 	public:
-		GuidesView(QWidget * parent = 0);
+		GuidesView(QWidget * parent = nullptr);
 
 	signals:
 		void deleteKeyPressed();
