@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QString>
 #include <QStringList>
-#include <QtAlgorithms>S
+#include <QtAlgorithms>
 
 #include "commonstrings.h"
 
