@@ -92,8 +92,8 @@ typedef struct {
 /*! \brief Binary buffer */
 typedef struct {
 	Byte buf[BUFFER_SIZE];
-	UT_uint32   len;
-	UT_uint32   position;
+	size_t   len;
+	size_t   position;
 } buffer;
 
 #define GET_Word(f,n)   { size_t result = fread( &n, 2, 1, f ); if (result == 1) n = swap_Word ( n ); }
