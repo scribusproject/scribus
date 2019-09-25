@@ -26,9 +26,9 @@ protected:
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return nullptr; }
 
 public:
-virtual ~ScDocOutput() = default;
+	virtual ~ScDocOutput() = default;
 
-	virtual bool makeOutput(ScribusDoc* doc, std::vector<int>& pageNumbers);
+	virtual bool makeOutput(ScribusDoc* doc, const std::vector<int>& pageNumbers);
 };
 
 #endif
