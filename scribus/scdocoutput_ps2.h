@@ -40,10 +40,10 @@ protected:
 
 	QRect   m_clip;
 
-	virtual bool begin();
-	virtual void end();
+	bool begin() override;
+	void end() override;
 
-	virtual ScPageOutput* createPageOutputComponent(int pageIndex);
+	ScPageOutput* createPageOutputComponent(int pageIndex) override;
 
 	bool initializeCmsTransforms();
 
