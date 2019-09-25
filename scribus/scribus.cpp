@@ -6665,7 +6665,13 @@ void ScribusMainWindow::slotPrefsOrg()
 		if (newUIStyle.isEmpty())
 			ScQApp->setStyle(m_prefsManager.guiSystemStyle());
 		else
-			ScQApp->setStyle(QStyleFactory::create(newUIStyle));
+		{
+			QStyle * newStyle = QStyleFactory::create(newUIStyle);
+			if (newStyle)
+				ScQApp->setStyle(newStyle);
+			else
+				m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
+		}
 	}
 	int newUIFontSize = m_prefsManager.guiFontSize();
 	if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
