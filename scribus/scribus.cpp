@@ -3492,9 +3492,9 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>";
 			ScMessageBox msgBox(QMessageBox::Critical, title, msg, QMessageBox::Ok | QMessageBox::Help, this);
 			msgBox.setInformativeText(infoMsg);
-			int i=msgBox.exec();
-			if (i==QMessageBox::Help)
-					slotOnlineHelp("", "fileproblems.html");
+			int i = msgBox.exec();
+			if (i == QMessageBox::Help)
+				slotOnlineHelp("", "fileproblems.html");
 			return false;
 		}
 		bool is12doc=false;
@@ -5262,10 +5262,10 @@ void ScribusMainWindow::slotResourceManager()
 {
 	if (!resourceManager) // in case its allocated???? maybe can remove in future
 	{
-		resourceManager=new ResourceManager(this);
+		resourceManager = new ResourceManager(this);
 		resourceManager->exec();
 		resourceManager->deleteLater();
-		resourceManager=nullptr;
+		resourceManager = nullptr;
 	}
 }
 
