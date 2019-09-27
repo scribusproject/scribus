@@ -85,7 +85,7 @@ class HistoryParser2 : public QXmlDefaultHandler
 				struct histd2 his;
 				his.title = attrs.value(0);
 				his.url = attrs.value(1);
-				helpBrowser->mHistory[helpBrowser->histMenu->addAction(his.title)] = his;
+				helpBrowser->addHistoryItem(his);
 			}
 			return true;
 		}
@@ -154,13 +154,13 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	statusBar()->addPermanentWidget(progressBar);
 
 	setupLocalUI();
-	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
-	defaultBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
-	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
-	textBrowser->setSearchPaths(QStringList(finalBaseDir));
+	m_language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
+	m_defaultBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
+	m_finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
+	textBrowser->setSearchPaths(QStringList(m_finalBaseDir));
 
 	loadMenu();
-	if (menuModel != nullptr)
+	if (m_menuModel != nullptr)
 	{
 		readBookmarks();
 		readHistory();
@@ -180,7 +180,7 @@ HelpBrowser::~HelpBrowser()
 
 void HelpBrowser::closeEvent(QCloseEvent * event)
 {
-	delete menuModel;
+	delete m_menuModel;
 
 	// no need to delete child widgets, Qt does it all for us
 	// bookmarks
@@ -194,10 +194,10 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 		QTreeWidgetItemIterator it(helpNav->bookmarksView);
 		while (*it) 
 		{
-			if (bookmarkIndex.contains((*it)->text(0)))
+			if (m_bookmarkIndex.contains((*it)->text(0)))
 			{
-				QString pageTitle(bookmarkIndex.value((*it)->text(0)).first);
-				QString fileName(bookmarkIndex.value((*it)->text(0)).second);
+				QString pageTitle(m_bookmarkIndex.value((*it)->text(0)).first);
+				QString fileName(m_bookmarkIndex.value((*it)->text(0)).second);
 				stream << "\t<item title=\"" << (*it)->text(0) << "\" pagetitle=\"" << pageTitle << "\" url=\"" << fileName << "\" />\n";
 			}
 			++it;
@@ -213,14 +213,14 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<history>\n";
-		for (QMap<QAction*,histd2>::Iterator it = mHistory.begin() ; it != mHistory.end(); ++it)
+		for (QMap<QAction*,histd2>::Iterator it = m_history.begin() ; it != m_history.end(); ++it)
 			stream << "\t<item title=\"" << it.value().title << "\" url=\"" << it.value().url << "\" />\n";
 		stream << "</history>\n";
 		histFile.close();
 	}
 	// size
-	prefs->set("xsize", width());
-	prefs->set("ysize", height());
+	m_prefs->set("xsize", width());
+	m_prefs->set("ysize", height());
 
 	emit closed();
 }
@@ -258,9 +258,9 @@ void HelpBrowser::setupLocalUI()
 //	splitter->setStretchFactor(splitter->indexOf(tabWidget), 0);
 //	splitter->setStretchFactor(splitter->indexOf(textBrowser), 1);
 	// reset previous size
-	prefs = PrefsManager::instance().prefsFile->getPluginContext("helpbrowser");
-	int xsize = prefs->getUInt("xsize", 640);
-	int ysize = prefs->getUInt("ysize", 480);
+	m_prefs = PrefsManager::instance().prefsFile->getPluginContext("helpbrowser");
+	int xsize = m_prefs->getUInt("xsize", 640);
+	int ysize = m_prefs->getUInt("ysize", 480);
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
 
 	//basic ui
@@ -287,6 +287,11 @@ void HelpBrowser::setupLocalUI()
 //{
 //	statusBar()->showMessage(link);
 //}
+
+void HelpBrowser::addHistoryItem(const histd2& histItem)
+{
+	m_history[histMenu->addAction(histItem.title)] = histItem;
+}
 
 void HelpBrowser::changeEvent(QEvent *e)
 {
@@ -331,11 +336,11 @@ void HelpBrowser::languageChange()
 	QFileInfo fi(fname);
 	QString fileName(fi.fileName());
 	if (ScCore->getGuiLanguage().isEmpty())
-		language = "en";
+		m_language = "en";
 	else
-		language = ScCore->getGuiLanguage();
+		m_language = ScCore->getGuiLanguage();
 	loadMenu();
-	if (menuModel != nullptr)
+	if (m_menuModel != nullptr)
 		loadHelp(fileName);
 }
 
@@ -353,7 +358,7 @@ void HelpBrowser::searchingButton_clicked()
 	// root files
 	helpNav->searchingView->clear();
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
-	searchingInDirectory(finalBaseDir);
+	searchingInDirectory(m_finalBaseDir);
 	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 }
 
@@ -374,8 +379,8 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 			int cnt = str.count(helpNav->searchingEdit->text(), Qt::CaseInsensitive);
 			if (cnt > 0)
 			{
-				QString toFind(fname.remove(finalBaseDir + "/"));
-				QMapIterator<QString, QString> i(quickHelpIndex);
+				QString toFind(fname.remove(m_finalBaseDir + "/"));
+				QMapIterator<QString, QString> i(m_quickHelpIndex);
 				while (i.hasNext())
 				{
 					i.next();
@@ -397,32 +402,32 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 
 void HelpBrowser::find()
 {
-	findText = QInputDialog::getText( this, tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, nullptr);
-	if (findText.isNull())
+	m_findText = QInputDialog::getText( this, tr("Find"), tr("Search Term:"), QLineEdit::Normal, m_findText, nullptr);
+	if (m_findText.isNull())
 		return;
 	findNext();
 }
 
 void HelpBrowser::findNext()
 {
-	if (findText.isNull())
+	if (m_findText.isNull())
 	{
 		find();
 		return;
 	}
 	// find it. finally
-	textBrowser->find(findText, 0);
+	textBrowser->find(m_findText, 0);
 }
 
 void HelpBrowser::findPrevious()
 {
-	if (findText.isNull())
+	if (m_findText.isNull())
 	{
 		find();
 		return;
 	}
 	// find it. finally
-	textBrowser->find(findText);
+	textBrowser->find(m_findText);
 }
 
 void HelpBrowser::bookmarkButton_clicked()
@@ -434,15 +439,15 @@ void HelpBrowser::bookmarkButton_clicked()
 	if (title.isNull())
 		return;
 	//TODO: start storing full paths
- 	QString toFind(fname.remove(QDir::toNativeSeparators(finalBaseDir)));
+ 	QString toFind(fname.remove(QDir::toNativeSeparators(m_finalBaseDir)));
 	toFind=toFind.mid(1, toFind.length()-1);
-	QMapIterator<QString, QString> i(quickHelpIndex);
+	QMapIterator<QString, QString> i(m_quickHelpIndex);
 	while (i.hasNext())
 	{
 		i.next();
 		if (i.value() == toFind)
 		{
-			bookmarkIndex.insert(title, qMakePair(i.key(), i.value()));
+			m_bookmarkIndex.insert(title, qMakePair(i.key(), i.value()));
 			helpNav->bookmarksView->addTopLevelItem(new QTreeWidgetItem(helpNav->bookmarksView, QStringList() << title));
 		}
 	}
@@ -454,22 +459,22 @@ void HelpBrowser::deleteBookmarkButton_clicked()
 	QTreeWidgetItem *twi = helpNav->bookmarksView->currentItem();
 	if (twi != nullptr)
 	{
-		if (bookmarkIndex.contains(twi->text(0)))
-			bookmarkIndex.remove(twi->text(0));
+		if (m_bookmarkIndex.contains(twi->text(0)))
+			m_bookmarkIndex.remove(twi->text(0));
 		delete twi;
 	}
 }
 
 void HelpBrowser::deleteAllBookmarkButton_clicked()
 {
-	bookmarkIndex.clear();
+	m_bookmarkIndex.clear();
 	helpNav->bookmarksView->clear();
 }
 
 void HelpBrowser::histChosen(QAction* i)
 {
-	if (mHistory.contains(i))
-		textBrowser->setSource( QUrl::fromLocalFile(mHistory[i].url) );
+	if (m_history.contains(i))
+		textBrowser->setSource( QUrl::fromLocalFile(m_history[i].url) );
 }
 
 void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile, bool dontChangeIfAlreadyLoaded)
@@ -479,11 +484,11 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 	{
 		if (jumpToSection.isEmpty())
 		{
-			QModelIndex index = menuModel->index(0, 1);
+			QModelIndex index = m_menuModel->index(0, 1);
 			if (index.isValid())
 			{
 				helpNav->listView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-				toLoad = menuModel->data(index, Qt::DisplayRole).toString();
+				toLoad = m_menuModel->data(index, Qt::DisplayRole).toString();
 			}
 		}
 		else if (jumpToSection == "scripter")
@@ -550,16 +555,16 @@ void HelpBrowser::loadHelp(const QString& fileName)
 		if (his.title.isEmpty())
 			his.title = toLoad;
 		his.url = toLoad;
-		mHistory[histMenu->addAction(his.title)] = his;
+		m_history[histMenu->addAction(his.title)] = his;
 	}
 	else
 	{
 		displayNoHelp();
 	}
-	if (mHistory.count() > 15)
+	if (m_history.count() > 15)
 	{
 		QAction* first = histMenu->actions().first();
-		mHistory.remove(first);
+		m_history.remove(first);
 		histMenu->removeAction(first);
 	}
 }
@@ -571,11 +576,11 @@ void HelpBrowser::loadMenu()
 
 	QVector<QPair<QString, QString> > helpMenuFiles;
 	helpMenuFiles.reserve(6);
-	helpMenuFiles.append(qMakePair(baseHelpDir, language));
-	helpMenuFiles.append(qMakePair(installHelpDir, language));
-	if (!language.isEmpty())
+	helpMenuFiles.append(qMakePair(baseHelpDir, m_language));
+	helpMenuFiles.append(qMakePair(installHelpDir, m_language));
+	if (!m_language.isEmpty())
 	{
-		QStringList langDecomp = language.split(QChar('_'), QString::SkipEmptyParts);
+		QStringList langDecomp = m_language.split(QChar('_'), QString::SkipEmptyParts);
 		QString altLanguage = langDecomp.first();
 		helpMenuFiles.append(qMakePair(baseHelpDir, altLanguage));
 		helpMenuFiles.append(qMakePair(installHelpDir, altLanguage));
@@ -593,34 +598,34 @@ void HelpBrowser::loadMenu()
 		if (helpInfo.exists())
 		{
 			toLoad = helpFile;
-			language = helpPair.second;
+			m_language = helpPair.second;
 			break;
 		}
 	}
 
 	if (toLoad.isEmpty())
 	{
-		language = "en";
-		toLoad = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
+		m_language = "en";
+		toLoad = QDir::toNativeSeparators(installHelpDir + m_language + "/menu.xml");
 	}
 
 	//Set our final location for loading the help files
 	QFileInfo baseFi = QFileInfo(toLoad);
-	finalBaseDir = baseFi.path();
+	m_finalBaseDir = baseFi.path();
 	QStringList searchPaths;
-	searchPaths << finalBaseDir << defaultBaseDir;
+	searchPaths << m_finalBaseDir << m_defaultBaseDir;
 	textBrowser->setSearchPaths(searchPaths);
 
-	delete menuModel;
-	menuModel = nullptr;
+	delete m_menuModel;
+	m_menuModel = nullptr;
 
 	if (baseFi.exists())
 	{
-		menuModel = new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
+		m_menuModel = new ScHelpTreeModel(toLoad, "Topic", "Location", &m_quickHelpIndex);
 	
-		helpNav->listView->setModel(menuModel);
+		helpNav->listView->setModel(m_menuModel);
 		helpNav->listView->setSelectionMode(QAbstractItemView::SingleSelection);
-		QItemSelectionModel *selectionModel = new QItemSelectionModel(menuModel);
+		QItemSelectionModel *selectionModel = new QItemSelectionModel(m_menuModel);
 		helpNav->listView->setSelectionModel(selectionModel);
 		connect(helpNav->listView->selectionModel(), SIGNAL(selectionChanged( const QItemSelection &, const QItemSelection &)), this, SLOT(itemSelected( const QItemSelection &, const QItemSelection &)));
 	
@@ -632,8 +637,8 @@ void HelpBrowser::readBookmarks()
 {
 	BookmarkParser2 handler;
 	handler.view = helpNav->bookmarksView;
-	handler.quickHelpIndex = &quickHelpIndex;
-	handler.bookmarkIndex = &bookmarkIndex;
+	handler.quickHelpIndex = &m_quickHelpIndex;
+	handler.bookmarkIndex = &m_bookmarkIndex;
 	QFile xmlFile(bookmarkFile());
 	QXmlInputSource source(&xmlFile);
 	QXmlSimpleReader reader;
@@ -662,7 +667,7 @@ void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelec
 	{
 		if (i == 1) // skip 0, as this is always the rootitem, even if we are selecting the rootitem. hmm
 		{
-			QString fileName(menuModel->data(index, Qt::DisplayRole).toString());
+			QString fileName(m_menuModel->data(index, Qt::DisplayRole).toString());
 			if (!fileName.isEmpty())
 			{
 				loadHelp(fileName);
@@ -677,13 +682,13 @@ void HelpBrowser::itemSearchSelected(QTreeWidgetItem *twi, int i)
 	Q_UNUSED(i);
 	if (!twi)
 		return;
-	if (quickHelpIndex.contains(twi->text(0)))
+	if (m_quickHelpIndex.contains(twi->text(0)))
 	{
-		QString fileName(quickHelpIndex.value(twi->text(0)));
+		QString fileName(m_quickHelpIndex.value(twi->text(0)));
 		if (!fileName.isEmpty())
 		{
 			loadHelp(fileName);
-			findText = helpNav->searchingEdit->text();
+			m_findText = helpNav->searchingEdit->text();
 			findNext();
 		}
 	}
@@ -694,9 +699,9 @@ void HelpBrowser::itemBookmarkSelected(QTreeWidgetItem *twi, int i)
 	Q_UNUSED(i);
 	if (!twi)
 		return;
-	if (bookmarkIndex.contains(twi->text(0)))
+	if (m_bookmarkIndex.contains(twi->text(0)))
 	{
-		QString fileName(bookmarkIndex.value(twi->text(0)).second);
+		QString fileName(m_bookmarkIndex.value(twi->text(0)).second);
 		if (!fileName.isEmpty())
 			loadHelp(fileName);
 	}

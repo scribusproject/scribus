@@ -70,12 +70,11 @@ public:
 	HelpBrowser(QWidget* parent, const QString& caption, const QString& guiLangage="en", const QString& jumpToSection="", const QString& jumpToFile="");
 	~HelpBrowser();
 	
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
-	/*! \brief History menu. It's public because of history reader - separate class */
-	QMenu* histMenu;
-	/*! \brief Mapping the documents for history. */
-	QMap<QAction*, histd2> mHistory;
+	/*! \brief Add history item. */
+	void addHistoryItem(const histd2& histItem);
+	
 	/*! \brief Set text to the browser
 	\param str a QString with text (html) */
 	void setHtml(const QString& str);
@@ -120,21 +119,25 @@ protected:
 	QAction* goBack;
 	QAction* goFwd;
 
-	QProgressBar * progressBar;
+	QProgressBar * progressBar { nullptr };
+	QMenu* histMenu { nullptr };
 
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
-	QString language;
+	QString m_language;
 	//! \brief QString holding location of menu.xml we are using, we load the help files from here
-	QString defaultBaseDir;
+	QString m_defaultBaseDir;
 	//! \brief QString holding location of menu.xml we are using, we load the help files from here
-	QString finalBaseDir;
+	QString m_finalBaseDir;
 	/*! \brief Text to be found in document */
-	QString findText;
+	QString m_findText;
 	/** \brief Configuration structure */
-	PrefsContext* prefs { nullptr };
-	ScHelpTreeModel* menuModel { nullptr };
-	QMap<QString, QString> quickHelpIndex;
-	QMap<QString, QPair<QString, QString> > bookmarkIndex;
+	PrefsContext* m_prefs { nullptr };
+	ScHelpTreeModel* m_menuModel { nullptr };
+	QMap<QString, QString> m_quickHelpIndex;
+	QMap<QString, QPair<QString, QString> > m_bookmarkIndex;
+
+	/*! \brief Mapping the documents for history. */
+	QMap<QAction*, histd2> m_history;
 	
 protected slots:
 	virtual void languageChange();
