@@ -521,7 +521,7 @@ void HelpBrowser::loadHelp(const QString& fileName)
 				fi = QFileInfo(searchPath + "/" + fi.fileName());
 				if (fi.exists())
 				{
-					toLoad = searchPath + "/" + fi.fileName();
+					toLoad = fi.fileName();
 					break;
 				}
 			}
@@ -535,7 +535,7 @@ void HelpBrowser::loadHelp(const QString& fileName)
 				fi = QFileInfo(searchPath + "/index.html");
 				if (fi.exists())
 				{
-					toLoad = searchPath + "/index.html";
+					toLoad = "index.html";
 					break;
 				}
 			}
