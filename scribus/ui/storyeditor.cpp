@@ -3366,22 +3366,22 @@ void StoryEditor::LoadTextFile()
 	if (Do_new())
 	{
 		EditorBar->setRepaint(false);
-		QString LoadEnc = "";
-		QString fileName = "";
+		QString loadEnc;
+		QString fileName;
 		PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
 		QString wdir = dirs->get("story_load", prefsManager.documentDir());
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files (*)"), fdExistingFiles | fdShowCodecs | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
 			return;
-		LoadEnc = dia.optionCombo->currentText();
-		if (LoadEnc == "UTF-16")
-			LoadEnc = "ISO-10646-UCS-2";
+		loadEnc = dia.optionCombo->currentText();
+		if (loadEnc == "UTF-16")
+			loadEnc = "ISO-10646-UCS-2";
 		fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
 			dirs->set("story_load", fileName.left(fileName.lastIndexOf("/")));
 			QString txt;
-			if (Serializer::readWithEncoding(fileName, LoadEnc, txt))
+			if (Serializer::readWithEncoding(fileName, loadEnc, txt))
 			{
 				txt.replace(QRegExp("\r"), "");
 				txt.replace(QRegExp("\n"), QChar(13));
@@ -3401,7 +3401,7 @@ void StoryEditor::LoadTextFile()
 void StoryEditor::SaveTextFile()
 {
 	m_blockUpdate = true;
-	QString LoadEnc;
+	QString loadEnc;
 	QString fileName;
 	PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
 	QString wdir = dirs->get("story_save", prefsManager.appPrefs.pathPrefs.documents);
@@ -3412,14 +3412,14 @@ void StoryEditor::SaveTextFile()
 		m_blockUpdate = false;
 		return;
 	}
-	LoadEnc = dia.optionCombo->currentText();
-	if (LoadEnc == "UTF-16")
-		LoadEnc = "ISO-10646-UCS-2";
-	fileName =  dia.selectedFile();
+	loadEnc = dia.optionCombo->currentText();
+	if (loadEnc == "UTF-16")
+		loadEnc = "ISO-10646-UCS-2";
+	fileName = dia.selectedFile();
 	if (!fileName.isEmpty())
 	{
 		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
-		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->StyledText.plainText());
+		Serializer::writeWithEncoding(fileName, loadEnc, Editor->StyledText.plainText());
 	}
 	m_blockUpdate = false;
 }
@@ -3441,37 +3441,37 @@ ScribusDoc* StoryEditor::currentDocument() const
 
 void StoryEditor::specialActionKeyEvent(int unicodevalue)
 {
-	QString guiInsertString=QChar(unicodevalue);
-	bool setColor=false;
+	QString guiInsertString = QChar(unicodevalue);
+	bool setColor = false;
 	if (unicodevalue == seActions["unicodePageNumber"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="#";
+		setColor = true;
+		guiInsertString = "#";
 	}
 	if (unicodevalue == seActions["unicodeNonBreakingSpace"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="_";
+		setColor = true;
+		guiInsertString = "_";
 	}
 	if (unicodevalue == seActions["unicodeFrameBreak"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="|";
+		setColor = true;
+		guiInsertString = "|";
 	}
 	if (unicodevalue == seActions["unicodeNewLine"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="*";
+		setColor = true;
+		guiInsertString = "*";
 	}
 	if (unicodevalue == seActions["unicodeColumnBreak"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="^";
+		setColor = true;
+		guiInsertString = "^";
 	}
 	if (unicodevalue == seActions["unicodeNonBreakingHyphen"]->actionInt())
 	{
-		setColor=true;
-		guiInsertString="=";
+		setColor = true;
+		guiInsertString = "=";
 	}
 	if (setColor)
 		Editor->setColor(true);
@@ -3485,6 +3485,6 @@ void StoryEditor::specialActionKeyEvent(int unicodevalue)
 
 void StoryEditor::updateUnicodeActions()
 {
-	if (Editor->prevFont!=Editor->CurrFont)
+	if (Editor->prevFont != Editor->CurrFont)
 		ScCore->primaryMainWindow()->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);
 }

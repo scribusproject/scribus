@@ -47,12 +47,12 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	themeComboBox->addItem("");
 	themeComboBox->addItems(styleList);
 	QStringList iconSetList;
-	iconSetList=IconManager::instance().nameList(ScQApp->currGUILanguage());
+	iconSetList = IconManager::instance().nameList(ScQApp->currGUILanguage());
 	iconSetComboBox->addItems(iconSetList);
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
-	connect(storyEditorFontColorPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFontColor()));
+	connect(storyEditorFontColorPushButton, SIGNAL(clicked()) , this, SLOT(changeStoryEditorFontColor()));
 }
 
 Prefs_UserInterface::~Prefs_UserInterface() = default;
