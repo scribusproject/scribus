@@ -125,19 +125,21 @@ protected:
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
 	//! \brief QString holding location of menu.xml we are using, we load the help files from here
+	QString defaultBaseDir;
+	//! \brief QString holding location of menu.xml we are using, we load the help files from here
 	QString finalBaseDir;
 	/*! \brief Text to be found in document */
 	QString findText;
 	/** \brief Configuration structure */
-	PrefsContext* prefs;
-	ScHelpTreeModel* menuModel;
+	PrefsContext* prefs { nullptr };
+	ScHelpTreeModel* menuModel { nullptr };
 	QMap<QString, QString> quickHelpIndex;
 	QMap<QString, QPair<QString, QString> > bookmarkIndex;
 	
 protected slots:
 	virtual void languageChange();
 	void histChosen(QAction* i);
-	void loadHelp(const QString& filename);
+	void loadHelp(const QString& fileName);
 	void loadMenu();
 //	void showLinkContents(const QString &link);
 	QString bookmarkFile();

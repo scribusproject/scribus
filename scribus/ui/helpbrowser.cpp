@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStandardItem>
 #include <QTextEdit>
 #include <QTreeView>
+#include <QVector>
 #include <QXmlDefaultHandler>
 
 #include "prefsmanager.h"
@@ -154,9 +155,10 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 
 	setupLocalUI();
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
+	defaultBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
 	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
 	textBrowser->setSearchPaths(QStringList(finalBaseDir));
-	menuModel = nullptr;
+
 	loadMenu();
 	if (menuModel != nullptr)
 	{
@@ -194,9 +196,9 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 		{
 			if (bookmarkIndex.contains((*it)->text(0)))
 			{
-				QString pagetitle(bookmarkIndex.value((*it)->text(0)).first);
-				QString filename(bookmarkIndex.value((*it)->text(0)).second);
-				stream << "\t<item title=\"" << (*it)->text(0) << "\" pagetitle=\"" << pagetitle << "\" url=\"" << filename << "\" />\n";
+				QString pageTitle(bookmarkIndex.value((*it)->text(0)).first);
+				QString fileName(bookmarkIndex.value((*it)->text(0)).second);
+				stream << "\t<item title=\"" << (*it)->text(0) << "\" pagetitle=\"" << pageTitle << "\" url=\"" << fileName << "\" />\n";
 			}
 			++it;
 		}
@@ -327,14 +329,14 @@ void HelpBrowser::languageChange()
 
 	QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
 	QFileInfo fi(fname);
-	QString filename(fi.fileName());
+	QString fileName(fi.fileName());
 	if (ScCore->getGuiLanguage().isEmpty())
 		language = "en";
 	else
 		language = ScCore->getGuiLanguage();
 	loadMenu();
 	if (menuModel != nullptr)
-		loadHelp(finalBaseDir + "/" + filename);
+		loadHelp(fileName);
 }
 
 void HelpBrowser::print()
@@ -449,7 +451,7 @@ void HelpBrowser::bookmarkButton_clicked()
 
 void HelpBrowser::deleteBookmarkButton_clicked()
 {
-	QTreeWidgetItem *twi=helpNav->bookmarksView->currentItem();
+	QTreeWidgetItem *twi = helpNav->bookmarksView->currentItem();
 	if (twi != nullptr)
 	{
 		if (bookmarkIndex.contains(twi->text(0)))
@@ -473,55 +475,74 @@ void HelpBrowser::histChosen(QAction* i)
 void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile, bool dontChangeIfAlreadyLoaded)
 {
 	QString toLoad;
-	bool noDocs = false;
 	if (jumpToFile.isEmpty())
 	{
-		toLoad = finalBaseDir + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection.isEmpty())
 		{
-			QModelIndex index = menuModel->index(0,1);
+			QModelIndex index = menuModel->index(0, 1);
 			if (index.isValid())
 			{
 				helpNav->listView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-				toLoad += menuModel->data(index, Qt::DisplayRole).toString();
+				toLoad = menuModel->data(index, Qt::DisplayRole).toString();
 			}
-			else
-				noDocs=true;
 		}
-		else if (jumpToSection=="scripter")
+		else if (jumpToSection == "scripter")
 		{
  			toLoad += "scripter1.html";
 		}
 	}
 	else
 	{
-		toLoad = finalBaseDir + "/" + jumpToFile;
+		toLoad = jumpToFile;
 	}
-	if (!noDocs)
+	if (!toLoad.isEmpty())
 		loadHelp(toLoad);
 	else if (!dontChangeIfAlreadyLoaded)
 		displayNoHelp();
 }
 
-void HelpBrowser::loadHelp(const QString& filename)
+void HelpBrowser::loadHelp(const QString& fileName)
 {
 	struct histd2 his;
-	bool Avail = false;
+	bool isAvail = false;
 	QString toLoad;
-	QFileInfo fi;
-	fi = QFileInfo(filename);
+
+	QFileInfo fi(fileName);
 	if (fi.fileName().length() > 0)
 	{
-		if (fi.exists())
-			toLoad = filename;
-		else
+		if (fi.isAbsolute() && fi.exists())
+			toLoad = fileName;
+		if (toLoad.isEmpty())
 		{
-			toLoad = finalBaseDir + "/index.html";
-			fi = QFileInfo(toLoad);
+			QStringList searchPaths = textBrowser->searchPaths();
+			for (int i = 0; i < searchPaths.count(); ++i)
+			{
+				const QString& searchPath = searchPaths.at(i);
+				fi = QFileInfo(searchPath + "/" + fi.fileName());
+				if (fi.exists())
+				{
+					toLoad = searchPath + "/" + fi.fileName();
+					break;
+				}
+			}
 		}
-		Avail = fi.exists();
+		if (toLoad.isEmpty())
+		{
+			QStringList searchPaths = textBrowser->searchPaths();
+			for (int i = 0; i < searchPaths.count(); ++i)
+			{
+				const QString& searchPath = searchPaths.at(i);
+				fi = QFileInfo(searchPath + "/index.html");
+				if (fi.exists())
+				{
+					toLoad = searchPath + "/index.html";
+					break;
+				}
+			}
+		}
+		isAvail = fi.exists();
 	}
-	if (Avail)
+	if (isAvail)
 	{
 		textBrowser->setSource(QUrl::fromLocalFile(toLoad));
 		
@@ -545,72 +566,56 @@ void HelpBrowser::loadHelp(const QString& filename)
 
 void HelpBrowser::loadMenu()
 {
-//	QString baseHelpDir = ScPaths::instance().docDir();
-//	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
 	QString baseHelpDir = ScPaths::instance().userHelpFilesDir(false);
 	QString installHelpDir  = ScPaths::instance().docDir();
 
-	QString baseHelpMenuFile = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
-	QString installHelpMenuFile = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
-	QFileInfo baseFi = QFileInfo(baseHelpMenuFile);
-	QFileInfo installFi = QFileInfo(installHelpMenuFile);
-	QString toLoad = baseHelpMenuFile;
-	if (!baseFi.exists())
+	QVector<QPair<QString, QString> > helpMenuFiles;
+	helpMenuFiles.reserve(6);
+	helpMenuFiles.append(qMakePair(baseHelpDir, language));
+	helpMenuFiles.append(qMakePair(installHelpDir, language));
+	if (!language.isEmpty())
 	{
-		if (installFi.exists())
+		QStringList langDecomp = language.split(QChar('_'), QString::SkipEmptyParts);
+		QString altLanguage = langDecomp.first();
+		helpMenuFiles.append(qMakePair(baseHelpDir, altLanguage));
+		helpMenuFiles.append(qMakePair(installHelpDir, altLanguage));
+	}
+	QString enLanguage("en");
+	helpMenuFiles.append(qMakePair(baseHelpDir, enLanguage));
+	helpMenuFiles.append(qMakePair(installHelpDir, enLanguage));
+
+	QString toLoad;;
+	for (int i = 0; i < helpMenuFiles.count(); ++i)
+	{
+		auto helpPair = helpMenuFiles.at(i);
+		QString helpFile = QDir::toNativeSeparators(helpPair.first + helpPair.second + "/menu.xml");
+		QFileInfo helpInfo(helpFile);
+		if (helpInfo.exists())
 		{
-			toLoad = installHelpMenuFile;
-			baseFi = installFi;
-		}
-		else		
-		{
-			if (!language.isEmpty())
-			{
-				//Check if we can load, eg "de" when "de_CH" docs don't exist
-				QString baseHelpMenuFile3(QDir::toNativeSeparators(baseHelpDir + language.left(2) + "/menu.xml"));
-				QString altHelpMenuFile3(QDir::toNativeSeparators(installHelpDir + language.left(2) + "/menu.xml"));
-				QFileInfo fi3(baseHelpMenuFile3);
-				QFileInfo altfi3(altHelpMenuFile3);
-				if (fi3.exists())
-				{
-					language = language.left(2);
-					toLoad = QDir::toNativeSeparators(baseHelpMenuFile3);
-				}
-				else if (altfi3.exists())
-				{
-					language = language.left(2);
-					toLoad = QDir::toNativeSeparators(altHelpMenuFile3);
-				}
-				else
-				{
-					//Fall back to English
-					sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
-					language = "en";
-					if (QFile::exists(baseHelpDir + language + "/menu.xml"))
-						toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
-					else
-						toLoad = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
-				}
-			}
-			else
-			{
-				language = "en";
-				toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
-			}
-			baseFi = QFileInfo(toLoad);
+			toLoad = helpFile;
+			language = helpPair.second;
+			break;
 		}
 	}
-	else
+
+	if (toLoad.isEmpty())
 	{
-		if (installFi.exists())
-			baseFi = installFi;
+		language = "en";
+		toLoad = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
 	}
+
 	//Set our final location for loading the help files
+	QFileInfo baseFi = QFileInfo(toLoad);
 	finalBaseDir = baseFi.path();
-	textBrowser->setSearchPaths(QStringList(finalBaseDir));
+	QStringList searchPaths;
+	searchPaths << finalBaseDir << defaultBaseDir;
+	textBrowser->setSearchPaths(searchPaths);
+
+	delete menuModel;
+	menuModel = nullptr;
+
 	if (baseFi.exists())
 	{
-		delete menuModel;
 		menuModel = new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
 	
 		helpNav->listView->setModel(menuModel);
@@ -621,8 +626,6 @@ void HelpBrowser::loadMenu()
 	
 		helpNav->listView->setColumnHidden(1,true);
 	}
-	else
-		menuModel = nullptr;
 }
 
 void HelpBrowser::readBookmarks()
@@ -659,10 +662,10 @@ void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelec
 	{
 		if (i == 1) // skip 0, as this is always the rootitem, even if we are selecting the rootitem. hmm
 		{
-			QString filename(menuModel->data(index, Qt::DisplayRole).toString());
-			if (!filename.isEmpty())
+			QString fileName(menuModel->data(index, Qt::DisplayRole).toString());
+			if (!fileName.isEmpty())
 			{
-				loadHelp(finalBaseDir + "/" + filename);
+				loadHelp(fileName);
 			}
 		}
 		++i;
@@ -676,10 +679,10 @@ void HelpBrowser::itemSearchSelected(QTreeWidgetItem *twi, int i)
 		return;
 	if (quickHelpIndex.contains(twi->text(0)))
 	{
-		QString filename(quickHelpIndex.value(twi->text(0)));
-		if (!filename.isEmpty())
+		QString fileName(quickHelpIndex.value(twi->text(0)));
+		if (!fileName.isEmpty())
 		{
-			loadHelp(finalBaseDir + "/" + filename);
+			loadHelp(fileName);
 			findText = helpNav->searchingEdit->text();
 			findNext();
 		}
@@ -693,9 +696,9 @@ void HelpBrowser::itemBookmarkSelected(QTreeWidgetItem *twi, int i)
 		return;
 	if (bookmarkIndex.contains(twi->text(0)))
 	{
-		QString filename(bookmarkIndex.value(twi->text(0)).second);
-		if (!filename.isEmpty())
-			loadHelp(finalBaseDir + "/" + filename);
+		QString fileName(bookmarkIndex.value(twi->text(0)).second);
+		if (!fileName.isEmpty())
+			loadHelp(fileName);
 	}
 }
 
