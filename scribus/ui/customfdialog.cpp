@@ -67,8 +67,8 @@ ImIconProvider::ImIconProvider()
 {
 	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};
-	size_t array = sizeof(tmp) / sizeof(*tmp);
-	for (int i = 0; i < array; ++i)
+	size_t arraySize = sizeof(tmp) / sizeof(*tmp);
+	for (size_t i = 0; i < arraySize; ++i)
 		fmts.append(tmp[i]);
 	IconManager& im=IconManager::instance();
 	imagepm = im.loadIcon("16/image-x-generic.png");
