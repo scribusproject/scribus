@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="scribus-manual.xsl"?>
+<menu>
+	<area text="Приветствие" file="index.html">
+		<submenuitem text="Новое в версии 1.5" file="readme.html"/>
+		<submenuitem text="Спецификация" file="specs.html"/>
+	</area>
+	<area text="Документация" file="intro.html">
+		<submenuitem text="Введение" file="documentation.html">
+			<submenuitem text="От редакции" file="editorial.html"/>
+			<submenuitem text="О команде" file="about1.html"/>
+		</submenuitem>
+		<submenuitem text="Настройка" file="config.html">
+			<submenuitem text="Настройка программы" file="settings1.html"/>
+			<submenuitem text="Расстановка переносов и проверка орфографии" file="hyphenator.html"/>
+			<submenuitem text="Настройка шрифтов" file="fonts1.html"/>
+			<submenuitem text="Подробнее о шрифтах" file="fonts2.html"/>
+		</submenuitem>
+		<submenuitem text="Основы Scribus" file="about2.html">
+			<submenuitem text="Краткое руководство" file="qsg.html" />
+			<submenuitem text="Справочник по командной строке" file="cli.html" />
+			<submenuitem text="Сочетания клавиш" file="keys.html"/>
+			<submenuitem text="Щелчки мышью" file="mouse.html"/>
+			<submenuitem text="Информация о документе" file="docinfo.html" />
+			<submenuitem text="Работа с блоками" file="WwFrames.html" />
+			<submenuitem text="Работа с текстом" file="WwText.html" />
+			<submenuitem text="Свойства текста" file="TextProp.html" />
+			<submenuitem text="Поиск и замена" file="SearchReplace.html" />
+			<submenuitem text="Работа со стилями" file="WwStyles.html" />
+			<submenuitem text="Работа с изображениями" file="WwImages.html" />
+			<submenuitem text="Работа с блоками визуализации" file="WwRenderframes.html" />
+			<submenuitem text="Работа с фигурами" file="WwShapes.html" />
+			<submenuitem text="Множественное дублирование и преобразование" file="multiple_transform.html" />
+			<submenuitem text="Отбрасывание теней" file="DropShadows.html" />
+			<submenuitem text="Изменение фигур" file="EditingShapes.html" />
+			<submenuitem text="Работа с линиями и стилями линий" file="WwLines.html" />
+			<submenuitem text="Работа с заливкой: цвета, градиенты и текстуры" file="WwFill.html" />
+			<submenuitem text="Работа со слоями" file="layers.html" />
+			<submenuitem text="Работа с мастер-страницами" file="pagetemplate1.html" />
+			<submenuitem text="Нумерация страниц" file="pagenumber.html" />
+			<submenuitem text="Подключаемый модуль коротких слов" file="short-words.html" />
+		</submenuitem>
+		<submenuitem text="Сбор для вывода" file="collect4output.html"/>
+                <submenuitem text="Изменение цветов" file="color_editing.html">
+			<submenuitem text="Добавление и изменение цветов" file="add_colors.html" />
+			<submenuitem text="Цветовой круг" file="colorwheel.html" />
+			<submenuitem text="Управление наборами цветов" file="color2.html" />
+		</submenuitem>
+		<submenuitem text="Включённые наборы цветов" file="color1.html">
+			<submenuitem text="Наборы цветов с открытым исходным кодом" file="color3.html" />
+			<submenuitem text="Национальные стандарты цвета" file="color4.html" />
+			<submenuitem text="Наборы цветов Resene" file="color5.html" />
+			<submenuitem text="Наборы цветов dtp studio" file="color6.html" />
+			<submenuitem text="Цветовая система Galaxy Gauge" file="color7a.html" />
+			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
+			<submenuitem text="Цвета специального назначения" file="color8.html" />
+		</submenuitem>
+		<submenuitem text="Импорт" file="importhints.html">
+			<submenuitem text="Импорт форматов вывода" file="importoutput.html" />
+			<submenuitem text="Импорт растровых файлов" file="importbitmap1.html" />
+			<submenuitem text="Импорт файлов Photoshop" file="psd.html" />
+			<submenuitem text="Импорт векторных рисунков" file="importhints2.html"/>
+			<submenuitem text="Импорт SVG" file="scribus-svg.html" />
+			<submenuitem text="Импорт иллюстраций" file="importclipart.html" />
+			<submenuitem text="Импорт файлов OpenOffice.org и ODF" file="importhints3.html" />
+			<submenuitem text="Импорт HTML-файлов" file="importhints4.html" />
+		</submenuitem>
+		<submenuitem text="Экспорт" file="export.html">
+			<submenuitem text="Экспорт в PDF" file="pdfexport1.html"/>
+			<submenuitem text="Разновидности PDF" file="pdflavor.html"/>
+			<submenuitem text="Цели экспорта в PDF" file="pdfexport2.html"/>
+			<submenuitem text="Экспорт в PDF: сжатие изображений" file="pdfexport_image.html"/>
+			<submenuitem text="Экспорт в PDF для просмотра с монитора/веб" file="pdfexport3.html"/>
+			<submenuitem text="PDF-презентации" file="pdfexport4.html"/>
+			<submenuitem text="Создание ссылок на документы" file="createlinks.html"/>
+			<submenuitem text="PDF-формы" file="pdf_form.html"/>
+		</submenuitem>
+		<submenuitem text="Печать в Scribus" file="print1.html">
+			<submenuitem text="Инструменты печати (1)" file="print2.html"/>
+			<submenuitem text="Инструменты печати (2)" file="print3.html"/>
+			<submenuitem text="Промышленная печать" file="print4.html"/>
+		</submenuitem>
+		<submenuitem text="Управление цветом" file="cms.html">
+			<submenuitem text="Настройка управления цветом" file="cms2.html"/>
+			<submenuitem text="Схемы цветопередачи" file="cms3.html"/>
+		</submenuitem>
+		<submenuitem text="Панель инструментов НИС" file="toolbox.html">
+			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
+			<submenuitem text="Инструменты PDF/PostScript" file="toolbox2.html"/>
+			<submenuitem text="Ghostscript" file="toolbox5.html"/>
+			<submenuitem text="GSview" file="toolbox6.html"/>
+			<submenuitem text="GIMP" file="toolbox4.html"/>
+			<submenuitem text="Krita" file="toolbox15.html"/>
+			<submenuitem text="XnView" file="toolbox13.html"/>
+			<submenuitem text="ImageMagick" file="toolbox8.html"/>
+			<submenuitem text="Inkscape" file="toolbox9.html"/>
+			<submenuitem text="Squiggle" file="toolbox3.html"/>
+			<submenuitem text="DrawView" file="toolbox20.html"/>
+			<submenuitem text="LProf" file="toolbox14.html"/>
+			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
+			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
+			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
+			<submenuitem text="Инструменты командной строки" file="toolbox19.html"/>
+		</submenuitem>
+		<area text="Решение проблем" file="help.html" >
+		</area>
+		<area text="Файлы конфигурации" file="configfiles.html" >
+		</area>
+		<area text="Проблемы с файлами" file="fileproblems.html" >
+		</area>
+	</area>
+	<area text="Руководства" file="tutorials.html" section="tutorials">
+	</area>
+	<area text="Для разработчиков" file="developers.html">
+		<submenuitem text="Формат документов Scribus" file="scribusfileformat.html"/>
+		<submenuitem text="Модуль сценариев Scripter" file="scripter1.html"/>
+		<submenuitem text="Сценарии, включённые в Scribus" file="scripter2.html"/>
+		<submenuitem text="Вопросы и ответы по Scripter" file="scripter-faq.html"/>
+		<submenuitem text="API модуля Scripter" file="scripterapi.html">
+			<submenuitem text="Команды по работе с документами" file="scripterapi-doc.html"/>
+			<submenuitem text="Команды по работе со страницами" file="scripterapi-page.html"/>
+			<submenuitem text="Команды по работе с мастер-страницами" file="scripterapi-masterpages.html"/>
+			<submenuitem text="Создание и удаление объектов" file="scripterapi-object.html"/>
+			<submenuitem text="Выделение объектов" file="scripterapi-select.html"/>
+			<submenuitem text="Настройка свойств объектов" file="scripterapi-setobjprop.html"/>
+			<submenuitem text="Получение свойств объектов" file="scripterapi-getobjprop.html"/>
+			<submenuitem text="Управление объектами" file="scripterapi-manobj.html"/>
+			<submenuitem text="Создание и управление стилями" file="scripterapi-styles.html"/>
+			<submenuitem text="Обработка текстовых блоков" file="scripterapi-textframes.html"/>
+			<submenuitem text="Команды для изображений и векторов" file="scripterapi-images.html"/>
+			<submenuitem text="Команды для линий" file="scripterapi-lines.html"/>
+			<submenuitem text="Команды по работе с цветом" file="scripterapi-color.html"/>
+			<submenuitem text="Команды по работе со шрифтами" file="scripterapi-font.html"/>
+			<submenuitem text="Команды по работе со слоями" file="scripterapi-layer.html"/>
+			<submenuitem text="Использование диалоговых окон" file="scripterapi-dialogs.html"/>
+			<submenuitem text="PDF-аннотации" file="scripterapi-pdfannotations.html"/>
+			<submenuitem text="Экспорт в PDF" file="scripterapi-PDFfile.html"/>
+			<submenuitem text="Печать" file="scripterapi-Printer.html"/>
+			<submenuitem text="Экспорт изображений" file="scripterapi-ImageExport.html"/>
+			<submenuitem text="Предопределённые константы" file="scripterapi-constants.html"/>
+			<submenuitem text="Расширения модуля Scripter" file="scripter-extensions.html"/>
+			<submenuitem text="API расширений модуля Scripter" file="scripterapi-extensions.html"/>
+		</submenuitem>
+		<submenuitem text="Использование Lorem ipsum" file="lipsum.html"/>
+	</area>
+	<area text="Другие сведения" file="otherinfo.html">
+		<submenuitem text="Сообщество" file="resources.html"/>
+		<submenuitem text="Отчёты об ошибках" file="bugreport.html"/>
+		<submenuitem text="Списки рассылок" file="mailing_lists.html"/>
+		<submenuitem text="IRC" file="irc.html"/>
+		<submenuitem text="История выпусков" file="releases.html"/>
+		<submenuitem text="Авторские права на Scribus" file="scribuscopyright.html"/>
+		<submenuitem text="Авторские права на документацию" file="doccopyright.html"/>
+	</area>
+</menu>

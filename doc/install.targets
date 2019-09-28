@@ -3,4 +3,5 @@
 	<Import Project="en\install.targets" />
 	<Import Project="de\install.targets" />
 	<Import Project="it\install.targets" />
+	<Import Project="ru\install.targets" />
 </Project>

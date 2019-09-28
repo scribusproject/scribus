@@ -1,0 +1,130 @@
+<html dir="ltr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Page related Commands</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Page related Commands</h2>
+
+<dl>
+
+<dt><a name="-applyMasterPage"><strong>applyMasterPage</strong>(...)</a></dt>
+<dd><code>applyMasterPage(Master Page name, page nr)</code>
+<p>Applies the named master page to the indicated page. Some examples of usage are on the wiki..</p></dd>
+
+<dt><a name="-closeMasterPage"><strong>closeMasterPage</strong>(...)</a></dt>
+<dd><code>closeMasterPage()</code>
+<p>Closes the currently active master page, if any, and returns editing to normal. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-createMasterPage"><strong>createMasterPage</strong>(...)</a></dt>
+<dd><code>createMasterPage(pageName)</code>
+<p>Creates a new master page named pageName. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+<dd><code>currentPage() -&gt; integer</code>
+<p>Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.</p>
+<p>If you want to enter into a text frame the special character for the current page number, it is decimal 30 or hex 0x1e. For example, either of the following would be equivalent:</p></dd>
+<dd><p><b>scribus.setText(&#39;Page &#39; + chr(30), textframe)</b></p></dd>
+<dd><p><b>scribus.setText(&#39;Page \x1e&#39;, textframe)</b></p></dd>
+<dd><p>See also <strong>pageCount()</strong></dd>
+
+<dt><a name="-deleteMasterPage"><strong>deleteMasterPage</strong>(...)</a></dt>
+<dd><code>deleteMasterPage(pageName)</code>
+<p>Delete the named master page.</p></dd>
+
+<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+<dd><code>deletePage(nr)</code>
+<p>Deletes the given page. Does nothing if the document contains only one page. Page numbers are counted from 1 upwards, no matter what the displayed first page number is.</p>
+<p>May raise IndexError if the page number is out of range</p></dd>
+
+<dt><a name="-editMasterPage"><strong>editMasterPage</strong>(...)</a></dt>
+<dd><code>editMasterPage(pageName)</code>
+<p>Enables master page editing and opens the named master page for editing. Finish editing with <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
+
+<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+<dd><code>getAllObjects() -&gt; list</code>
+<p>Returns a list containing the names of all objects on the current page.</p></dd>
+
+<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+<dd><code>getHGuides() -&gt; list</code>
+<p>Returns a list containing positions of the horizontal guides. Values are in the document&#39;s current units - see UNIT_&lt;type&gt; constants.</p></dd>
+
+<dt><a name="-getPageType"><strong>getPageType</strong>(...)</a></dt>
+<dd><code>getPageType() -&gt; integer</code>
+<p>Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code>getVGuides()</code>
+<p>See <a href="#-getHGuides">getHGuides</a>.</p></dd>
+
+<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+<dd><code>getPageItems() -&gt; list</code>
+<p>Returns a list of tuples with items on the current page. The tuple is: (name, objectType, order) E.g. [(&#39;Text1&#39;, 4, 0), (&#39;Image1&#39;, 2, 1)] means that object named &#39;Text1&#39; is a text frame (type 4) and is the first at the page...</p></dd>
+
+<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+<dd><code>getPageMargins()</code>
+<p>Returns the document page margins as a (top, left, right, bottom) tuple in the document&#39;s current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageNMargins"><strong>getPageNMargins</strong></a>(...)</dt>
+<dd><code>getPageNMargins(nr)</code>
+<p>Returns a tuple with a particular page&#39;s margins measured in the document&#39;s current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+<dd><code>getPageSize() -&gt; tuple</code>
+<p>Returns a tuple with document page dimensions measured in the document&#39;s current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getPageNSize"><strong>getPageNSize</strong></a>(...)</dt>
+<dd><code>getPageNSize(nr) -&gt; tuple</code>
+<p>Returns a tuple with a particular page&#39;s size measured in the document&#39;s current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+<dd><code>gotoPage(nr)</code>
+<p>Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that gotoPage doesn&#39;t (currently) change the page the user&#39;s view is displaying, it just sets the page that script commands will operates on.</p>
+<p>May raise IndexError if the page number is out of range.</p></dd>
+
+<dt><a name="-importPage"><strong>importPage</strong>(...)</a></dt>
+<dd><code></code>
+<p>importPage(&quot;fromDoc&quot;, (pageList), [create, importwhere, importwherePage]) Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function. fromDoc: string; the filename of the document to import pages from pageList: tuple with page numbers of pages to import create: number; 0 to replace existing pages, 1 (default) to insert new pages importWhere: number; the page number (of the current document) at which import the pages importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document</p></dd>
+
+<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+<dd><code>newPage(where [,&quot;masterpage&quot;])</code>
+<p>Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is. The optional parameter &quot;masterpage&quot; specifies the name of the master page for the new page.</p>
+<p>May raise IndexError if the page number is out of range</p></dd>
+	
+<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+<dd><code>pageCount() -&gt; integer</code>
+<p>Returns the number of pages in the document.</p>
+<p>There is also a special character for page count, in decimal 23, and in hex 0x17. You might combine this with the special character for current page in a text frame (on a Master Page for example) as follows. Either of these is equivalent:</p></dd>
+<dd><p><b>scribus.setText(&#39;Page &#39; + chr(30) + &#39; of &#39; + chr(23), textframe)</b></p>
+<p><b>scribus.setText(&#39;Page \x1e of \x17&#39;, textframe)<p></b></dd>
+
+<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+<dd><code>redrawAll()</code>
+<p>Redraws all pages.</p></dd>
+
+<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+<dd><code>savePageAsEPS(&quot;name&quot;)</code>
+<p>Saves the current page as an EPS to the file &quot;name&quot;.</p>
+<p>May raise ScribusError if the save failed.</p></dd>
+
+<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+<dd><code>setHGuides(list)</code>
+<p>Sets horizontal guides. Input parameter must be a list of guide positions measured in the current document units - see UNIT_&lt;type&gt; constants.</p>
+<p>Например:</p>
+<p><b>setHGuides(getHGuides() + [200.0, 210.0])</b> # this will add new guides while saving existing guides</p>
+<p><b>setHGuides([90,250])</b> # this will replace current guides entirely</p></dd>
+
+<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+<dd><code>setRedraw(bool)</code>
+<p>Disables page redraw when bool = False, otherwise redrawing is enabled. This change will persist even after the script exits, so make sure to call <a href="#-setRedraw">setRedraw</a>(True) in a finally: clause at the top level of your script.</p></dd>
+
+<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+<dd><code>setVGuides()</code>
+<p>The usage is analagous to that of <a href="#-setHGuides">setHGuides</a> for either adding to existing guides or replacing them.</p></dd>
+
+</dl>
+</body>
+</html>
