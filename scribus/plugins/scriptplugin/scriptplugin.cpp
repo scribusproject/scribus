@@ -57,7 +57,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "ui/scmwmenumanager.h"
 #include "units.h"
-#include "styles/paragraphstyle.h"
 
 
 #include <QApplication>
