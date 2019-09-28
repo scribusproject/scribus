@@ -163,11 +163,11 @@
 <li>dropcapoffset [optional] -> offset of the caps if used</li>
 <li>"charstyle" [optional] -> char style to use</li>
 <li>"bullet" [optional] -> string to use as bullet</li>
-<li>"tabs" [optional] -> a comma seperated list of tab definitions
+<li>"tabs" [optional] -> a list of tab definitions
 <ul>
-    <li>a tab is defined with the following format "type|position|fillchar"</li>
-    <li>type [required] -> left: 1, right: 2, fullstop: 3, comma: 4, center: 5</li>
+    <li>a tab is defined as a tuple with the following format (position,type,fillchar)</li>
     <li>position [required] -> float value for the position</li>
+    <li>type [optional] -> left: 0 [default], right: 1, period: 2, comma: 3, center: 4</li>
     <li>fillchar [optional] -> the char to fill the space; default is none</li>
 </ul>
 </li>
