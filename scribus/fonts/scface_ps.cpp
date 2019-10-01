@@ -232,10 +232,10 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 		posi += 6;
 		for (int j = posi; j < bb.size(); ++j)
 		{
-			if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
+			if ((bb[j] == '\x80') && (j + 1 < bb.size()) && (static_cast<int>(bb[j + 1]) == 3))
 				break;
-			if (bb[j]=='\r')
-				str+="\n";
+			if (bb[j] == '\r')
+				str += "\n";
 			else
 				str += bb[j];
 		}
