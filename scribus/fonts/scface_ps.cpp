@@ -183,12 +183,12 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 {
 	QByteArray bb;
 	rawData(bb);
-	if ((bb.size() > 2) &&  (bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
+	if ((bb.size() > 2) &&  (bb[0] == '\x80') && (static_cast<int>(bb[1]) == 1))
 	{
 		int posi,cxxc=0;
 		for (posi = 6; posi < bb.size(); ++posi)
 		{
-			if ((bb[posi] == char(0x80)) && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
+			if ((bb[posi] == '\x80') && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
 				break;
 			str += bb[posi];
 		}
@@ -203,7 +203,7 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 			if (posi + ulen > bb.size())
 				ulen = bb.size() - posi - 1;
 			char linebuf[80];
-			cxxc=0;
+			cxxc = 0;
 			for (int j = 0; j < ulen; ++j)
 			{
 				unsigned char u = bb[posi];
@@ -211,8 +211,8 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 				if (u>0x9f)
 					linebuf[cxxc] += 'a'-':';
 				++cxxc;
-				u&=15;
-				linebuf[cxxc]=u + '0';
+				u &= 15;
+				linebuf[cxxc] = u + '0';
 				if (u>0x9)
 					linebuf[cxxc] += 'a'-':';
 				++posi;
@@ -225,7 +225,7 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 					cxxc = 0;
 				}
 			}
-			linebuf[cxxc]=0;
+			linebuf[cxxc] = 0;
 			str += linebuf;
 			str += "\n";
 		}
