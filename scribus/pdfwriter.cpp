@@ -275,8 +275,8 @@ namespace Pdf
 	QByteArray toUTF16(QString s)
 	{
 		QByteArray result;
-		result.append(0xfe);
-		result.append(0xff);
+		result.append('\xfe');
+		result.append('\xff');
 		for (int i = 0; i < s.length(); ++i)
 		{
 			result.append(s[i].row());
