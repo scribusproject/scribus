@@ -17,8 +17,6 @@ class ScribusDoc;
 
 class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 {
-
-
 	Q_OBJECT
 
 	public:
