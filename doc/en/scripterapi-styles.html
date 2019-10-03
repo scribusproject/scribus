@@ -163,6 +163,14 @@
 <li>dropcapoffset [optional] -> offset of the caps if used</li>
 <li>"charstyle" [optional] -> char style to use</li>
 <li>"bullet" [optional] -> string to use as bullet</li>
+<li>"tabs" [optional] -> a list of tab definitions
+<ul>
+    <li>a tab is defined as a tuple with the following format (position,type,fillchar)</li>
+    <li>position [required] -> float value for the position</li>
+    <li>type [optional] -> left: 0 [default], right: 1, period: 2, comma: 3, center: 4</li>
+    <li>fillchar [optional] -> the char to fill the space; default is none</li>
+</ul>
+</li>
 </ul>
 </p>
 <p>If you wish to skip a number of settings, unfortunately, this command will not accept null values, i.e., a series of commas. You <i>must</i> put some integer value for each of the potential parameters. For example, imagine you wish to only specify a name for the Paragraph Style, and the Character Style. Your command should be something like:

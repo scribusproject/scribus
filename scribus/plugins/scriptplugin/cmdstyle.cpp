@@ -39,17 +39,19 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("dropcapoffset"),
 			const_cast<char*>("charstyle"),
 			const_cast<char*>("bullet"),
+			const_cast<char*>("tabs"),
 			nullptr};
 	char *name = const_cast<char*>(""), *charStyle = const_cast<char*>("");
 	char *bullet = const_cast<char*>("");
 	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
 	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
 	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiideses",
+	PyObject *tabDefinitions = nullptr;
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiidesesO",
 		 keywordargs, "utf-8", &name, &lineSpacingMode, &lineSpacing, &alignment,
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
 		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle,
-		"utf-8", &bullet))
+		"utf-8", &bullet, &tabDefinitions))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -105,9 +107,45 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	{
 		tmpParagraphStyle.setHasBullet(false);
 	}
-	
+
 	tmpParagraphStyle.setParEffectOffset(peOffset);
 	tmpParagraphStyle.charStyle().setParent(charStyle);
+
+	if (tabDefinitions != nullptr)
+	{
+		int n = PyList_Size(tabDefinitions);
+		for (int i = 0; i < n; i++)
+		{
+			PyObject* tabDefinition = PyList_GetItem(tabDefinitions, i);
+			int size = PyTuple_Check(tabDefinition) ? PyTuple_Size(tabDefinition) : 1;
+			PyObject* tabPositionDefinition = PyTuple_Check(tabDefinition) ? PyTuple_GetItem(tabDefinition, 0) : tabDefinition;
+
+			float tabPosition = 0.0;
+			if (!PyArg_Parse(tabPositionDefinition, "f", &tabPosition))
+			{
+				PyErr_SetString(PyExc_TypeError, QObject::tr("invalid tab-position specified.","python error").toLocal8Bit().constData());
+				return nullptr;
+			}
+
+			int tabType = 0;
+			if (size >= 2) {
+				PyArg_Parse(PyTuple_GetItem(tabDefinition, 1), "i", &tabType);
+			}
+
+			char *fillChar = const_cast<char*>("");
+			if (size == 3) {
+				PyArg_Parse(PyTuple_GetItem(tabDefinition, 2), "es", "utf-8", &fillChar);
+			}
+
+			QString fillCharString = QString::fromUtf8(fillChar).trimmed();
+
+			ParagraphStyle::TabRecord tr;
+			tr.tabFillChar = (fillCharString.size() > 0) ? fillCharString.at(0) : QChar();
+			tr.tabPosition = static_cast<qreal>(tabPosition);
+			tr.tabType = tabType;
+			tmpParagraphStyle.appendTabValue(tr);
+		}
+	}
 
 	StyleSet<ParagraphStyle> tmpStyleSet;
 	tmpStyleSet.create(tmpParagraphStyle);

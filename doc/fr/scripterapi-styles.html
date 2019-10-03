@@ -160,6 +160,14 @@
 <li>dropcapoffset [optionnel] -> décalage horizontal des lettrines si l'utilisation de lettrines est activée</li>
 <li>"charstyle" [optionnel] -> nom du style de caractère à utiliser</li>
 <li>"bullet" [optionnel] -> chaîne de caractère à utiliser pour les puces</li>
+<li>"tabs" [optional] -> a list of tab definitions
+<ul>
+    <li>un tab est défini par un triplet de valeur sous la forme suivante (position, type, fillchar)</li>
+    <li>position [requis] -> nombre réel représentant la position</li>
+    <li>type [optionnel] -> gauche: 0 [default], droit: 1, point: 2, virgule: 3, centré: 4</li>
+    <li>fillchar [optionnel] -> le caractère utilisé pour remplir l'espace occupé par le TAB, aucun par défaut.</li>
+</ul>
+</li>
 </ul>
 </p>
 <p>Si vous désirez omettre un certain nombre d'éléments, cette fonction n'acceptera pas de valeurs null, i.e., une série de virgule. Vous <i>devez</i> spécifier un paramètre entier pour chacun des paramètres omis. Par example, si vous désirez spécifier uniquement un nom de style de paragraphe et un nom de style de caractère, votre appel de fonction ressemblera à ceci:

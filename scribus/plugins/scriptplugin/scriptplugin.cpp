@@ -784,6 +784,12 @@ void initscribus(ScribusMainWindow *mainWin)
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_3"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_4"), Py_BuildValue(const_cast<char*>("i"), 3));
+	// tab alignment
+	PyDict_SetItemString(d, const_cast<char*>("TAB_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, const_cast<char*>("TAB_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("TAB_PERIOD"), Py_BuildValue(const_cast<char*>("i"), 2));
+	PyDict_SetItemString(d, const_cast<char*>("TAB_COMMA"), Py_BuildValue(const_cast<char*>("i"), 3));
+	PyDict_SetItemString(d, const_cast<char*>("TAB_CENTER"), Py_BuildValue(const_cast<char*>("i"), 4));
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.
