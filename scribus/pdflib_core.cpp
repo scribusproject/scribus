@@ -8853,9 +8853,14 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 	PutDoc(xb[ite->annotation().borderStyle()]);
 	PutDoc(" >>\n");
 	PutDoc("/MK << ");
-	PutDoc("/BG [ 1 1 1 ] ");
+	if (ite->fillColor() != CommonStrings::None)
+		PutDoc("/BG [ " + SetColor(ite->fillColor(), ite->fillShade()) + " ] ");
+	else
+		PutDoc("/BG [ 1 1 1 ] "); // Display problem in Adobe Reader if background is transparent
 	if (ite->annotation().borderColor() != CommonStrings::None)
-		PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
+		PutDoc("/BC [ " + SetColor(ite->annotation().borderColor(), 100) + " ] ");
+	else
+		PutDoc("/BC [ ] ");
 	if (ite->rotation() != 0)
 	{
 		int rot = -(static_cast<int>(ite->rotation()) / 90) * 90;
@@ -9156,20 +9161,18 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					break;
 			}
+
 			PutDoc("/MK << ");
-			if ((ite->annotation().Type() == Annotation::Combobox) || (ite->annotation().Type() == Annotation::Listbox))
-			{
-				PutDoc("/BG [ 1 1 1 ] ");
-				if (ite->annotation().borderColor() != CommonStrings::None)
-					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
-			}
+			if (ite->fillColor() != CommonStrings::None)
+				PutDoc("/BG [ " + SetColor(ite->fillColor(), ite->fillShade()) + " ] ");
+			else if ((ite->annotation().Type() == Annotation::Combobox) || (ite->annotation().Type() == Annotation::Listbox))
+				PutDoc("/BG [ 1 1 1 ] "); // Display problem in Adobe Reader if background is transparent
 			else
-			{
-				if (ite->fillColor() != CommonStrings::None)
-					PutDoc("/BG [ "+SetColor(ite->fillColor(), ite->fillShade())+" ] ");
-				if (ite->annotation().borderColor() != CommonStrings::None)
-					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
-			}
+				PutDoc("/BG [ ] ");
+			if (ite->annotation().borderColor() != CommonStrings::None)
+				PutDoc("/BC [ " + SetColor(ite->annotation().borderColor(), 100) + " ] ");
+			else
+				PutDoc("/BC [ ] ");
 			PdfId IconOb = 0;
 			switch (ite->annotation().Type())
 			{
@@ -9257,6 +9260,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				PutDoc("/R " + Pdf::toPdf(rot) + " ");
 			}
 			PutDoc(">>\n");
+
 			if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 			{
 				if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
