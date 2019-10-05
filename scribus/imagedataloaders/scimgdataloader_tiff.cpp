@@ -652,7 +652,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	bool bilevel = false;
 	bool failedPS = false;
 	bool foundPS = false;
-	short resolutionunit = 0;
+	short resolutionunit = RESUNIT_INCH; // Default unit is inch
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
