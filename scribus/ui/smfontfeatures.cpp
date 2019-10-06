@@ -115,6 +115,8 @@ void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesL
 
 	resetFontFeatures();
 	enableFontFeatures(fontFeaturesList);
+	SlashedZeroCheck->setEnabled(true);
+
 	QStringList fontFeatures = s.split(',');
 	for (int i = 0; i < fontFeatures.count(); i++)
 	{
@@ -206,6 +208,12 @@ void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesL
 			styleSetsMenu->actions().at(18)->setChecked(true);
 		else if (fontFeatures[i] == "+ss20")
 			styleSetsMenu->actions().at(19)->setChecked(true);
+	}
+
+	if (numeralComboBox->currentData().toString() == "+onum")
+	{
+		SlashedZeroCheck->setChecked(false);
+		SlashedZeroCheck->setEnabled(false);
 	}
 }
 
@@ -621,6 +629,12 @@ void SMFontFeatures::slotNumeralComboBox()
 		f.setBold(true);
 		numeralComboBox->setFont(f);
 	}
+
+	// Old Style numerals do not support slashed zero
+	bool oldStyleNumeral = (numeralComboBox->currentData().toString() == "+onum");
+	if (oldStyleNumeral)
+		SlashedZeroCheck->setChecked(false);
+	SlashedZeroCheck->setEnabled(!oldStyleNumeral);
 }
 
 void SMFontFeatures::slotWidthComboBox()
