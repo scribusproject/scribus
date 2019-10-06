@@ -58,6 +58,7 @@ void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStri
 	QStringList fontFeatures = s.split(',');
 	ContextualCheck->setChecked(true);
 	CommonCheck->setChecked(true);
+	SlashedZeroCheck->setEnabled(true);
 	for (int i = 0; i < fontFeatures.count(); i++)
 	{
 		if (fontFeatures[i] == "-clig")
@@ -140,6 +141,11 @@ void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStri
 			StyleSet19->setChecked(true);
 		else if (fontFeatures[i] == "+ss20")
 			StyleSet20->setChecked(true);
+	}
+	if (OldStyleRadio->isChecked())
+	{
+		SlashedZeroCheck->setChecked(false);
+		SlashedZeroCheck->setEnabled(false);
 	}
 }
 
