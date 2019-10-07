@@ -378,6 +378,7 @@ struct LineControl {
 	bool     addLeftIndent;
 	bool     wasFirstInRow;
 	double   leftIndent;
+	double   rightIndent;
 	double   rightMargin;
 	double   mustLineEnd;
 	int      restartIndex;  //index of glyph run where line computing should be restarted
@@ -419,6 +420,7 @@ struct LineControl {
 		addLeftIndent = false;
 		wasFirstInRow = false;
 		leftIndent = 0.0;
+		rightIndent = 0.0;
 		rightMargin = 0.0;
 		mustLineEnd = false;
 		restartIndex = 0;
@@ -478,6 +480,7 @@ struct LineControl {
 		maxShrink = 0.0;
 		maxStretch = 0.0;
 		leftIndent = 0.0;
+		rightIndent = 0.0;
 		rightMargin = 0.0;
 		rowDesc = 0.0;
 	}
@@ -1365,7 +1368,7 @@ void PageItem_TextFrame::layout()
 		ITextContext* context = this;
 		//TextShaper textShaper(this, itemText, firstInFrame());
 		ShapedTextFeed shapedText(&itemText, firstInFrame(), context);
-		
+
 		QList<GlyphCluster> glyphClusters; // = textShaper.shape();
 		// std::sort(glyphClusters.begin(), glyphClusters.end(), logicalGlyphRunComp);
 
@@ -1418,7 +1421,8 @@ void PageItem_TextFrame::layout()
 		current.lastInRowLine = false;
 		current.addLeftIndent = true;
 		current.wasFirstInRow = false;
-		current.leftIndent = 0;
+		current.leftIndent = 0.0;
+		current.rightIndent = 0.0;
 		current.rightMargin = 0.0;
 		current.mustLineEnd = current.colRight;
 		current.restartX = 0;
@@ -1797,7 +1801,16 @@ void PageItem_TextFrame::layout()
 					current.leftIndent = style.leftMargin() + autoLeftIndent;
 					if (itemText.isBlockStart(a))
 					{
-						current.leftIndent += style.firstIndent();
+						if (style.direction() == ParagraphStyle::RTL)
+						{
+							//use rightIndent to not miss with old behavior
+							current.rightIndent = style.firstIndent();
+							// line width should consider RTL indent when it breaks the line.
+							current.mustLineEnd = current.colRight - style.firstIndent();
+
+						}
+						else
+							current.leftIndent += style.firstIndent();
 						if (BulNumMode || DropCmode)
 						{
 							if (style.parEffectIndent())
@@ -2552,7 +2565,7 @@ void PageItem_TextFrame::layout()
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
 						EndX = current.endOfLine(m_availableRegion, current.rightMargin, regionMinY, regionMaxY);
-						current.finishLine(EndX);
+						current.finishLine(EndX - current.rightIndent);
 
 						hyphWidth = 0.0;
 						if (current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
