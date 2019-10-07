@@ -332,7 +332,7 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 		return;
 	int stateCode = state->transactionCode;
 	PageItem *ite = state->getItem();
-	bool oldMPMode=m_Doc->masterPageMode();
+	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (m_Doc->inAnEditMode())
 		m_Doc->view()->requestMode(modeNormal);
@@ -419,9 +419,9 @@ void ScPage::restorePageItemConversion(ScItemState<QPair<PageItem*, PageItem*> >
 	if (!state)
 		return;
 
-	PageItem *oldItem=state->getItem().first;
-	PageItem *newItem=state->getItem().second;
-	bool oldMPMode=m_Doc->masterPageMode();
+	PageItem *oldItem = state->getItem().first;
+	PageItem *newItem = state->getItem().second;
+	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
@@ -442,10 +442,10 @@ void ScPage::restorePageItemConversionToSymbol(ScItemState<QPair<PageItem*, Page
 	if (!state)
 		return;
 
-	PageItem *oldItem=state->getItem().first;
-	PageItem *newItem=state->getItem().second;
-	QString patternName=state->getDescription();
-	bool oldMPMode=m_Doc->masterPageMode();
+	PageItem *oldItem = state->getItem().first;
+	PageItem *newItem = state->getItem().second;
+	QString patternName = state->getDescription();
+	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
@@ -504,7 +504,7 @@ void ScPage::setPageSectionNumber(const QString& newPageSectionNumber)
 
 void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMargins)
 {
-	if (sourcePage==nullptr)
+	if (sourcePage == nullptr)
 		return;
 	m_pageSize = sourcePage->m_pageSize;
 	m_orientation = sourcePage->m_orientation;
