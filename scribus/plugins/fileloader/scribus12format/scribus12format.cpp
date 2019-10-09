@@ -2252,8 +2252,9 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	QString fColor, sColor;
 	QString tmpf;
 	double xf, xf2;
-	bool fou = false;
+	bool found = false;
 	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
+
 	vg->setName(pg->attribute("NAME"));
 	vg->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg->attribute("LINESPMode", "0").toInt()));
 	vg->setLineSpacing(ScCLocale::toDoubleC(pg->attribute("LINESP")));
@@ -2313,7 +2314,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			tbs.append(tb);
 		}
 		vg->setTabValues(tbs);
-		tmp = "";
+		tmp.clear();
 	}
 	else
 	{
@@ -2336,49 +2337,51 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				tbs.append(tb);
 			}
 			vg->setTabValues(tbs);
-			IT=IT.nextSibling();
+			IT = IT.nextSibling();
 		}
 	}
-	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int i = 0; i < docParagraphStyles.count(); ++i)
 	{
-		if (vg->name() == docParagraphStyles[xx].name())
+		const ParagraphStyle& paraStyle = docParagraphStyles[i];
+		if (vg->name() == paraStyle.name())
 		{
 			//Compare the attributes of the pasted styles vs existing ones
-			if (vg->equiv(docParagraphStyles[xx]))
+			if (vg->equiv(paraStyle))
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = docParagraphStyles[xx].name();
+					DoVorl[VorlC] = paraStyle.name();
 					VorlC++;
 				}
-				fou = true;
+				found = true;
 			}
 			else
 			{
-				vg->setName("Copy of "+docParagraphStyles[xx].name());
-				fou = false;
+				vg->setName(docParagraphStyles.getUniqueCopyName(paraStyle.name()));
+				found = false;
 			}
 			break;
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
-		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int i = 0; i < docParagraphStyles.count(); ++i)
 		{
-			if (vg->equiv(docParagraphStyles[xx]))
+			const ParagraphStyle& paraStyle = docParagraphStyles[i];
+			if (vg->equiv(paraStyle))
 			{
-				vg->setName(docParagraphStyles[xx].name());
-				fou = true;
+				vg->setName(paraStyle.name());
+				found = true;
 				if (fl)
 				{
-					DoVorl[VorlC] = docParagraphStyles[xx].name();
+					DoVorl[VorlC] = paraStyle.name();
 					VorlC++;
 				}
 				break;
 			}
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
 		if (tempParagraphStyles)
 			tempParagraphStyles->create(*vg);

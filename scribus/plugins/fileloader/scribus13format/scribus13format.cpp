@@ -2516,38 +2516,40 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou = false;
+	bool found = false;
 	readParagraphStyle(*vg, *pg, doc);
-	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
-	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
+	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles ? *tempParagraphStyles : doc->paragraphStyles());
+	for (int i = 0; i < docParagraphStyles.count(); ++i)
 	{
-		if (vg->name() == docParagraphStyles[xx].name())
+		const ParagraphStyle& paraStyle = docParagraphStyles[i];
+		if (vg->name() == paraStyle.name())
 		{
-			if (vg->equiv(docParagraphStyles[xx]))
+			if (vg->equiv(paraStyle))
 			{
 				if (fl)
 				{
 					DoVorl[VorlC] = vg->name();
 					++VorlC;
 				}
-				fou = true;
+				found = true;
 			}
 			else
 			{
-				vg->setName("Copy of "+docParagraphStyles[xx].name());
-				fou = false;
+				vg->setName(docParagraphStyles.getUniqueCopyName(paraStyle.name()));
+				found = false;
 			}
 			break;
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
-		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int i = 0; i < docParagraphStyles.count(); ++i)
 		{
-			if (vg->equiv(docParagraphStyles[xx]))
+			const ParagraphStyle& paraStyle = docParagraphStyles[i];
+			if (vg->equiv(paraStyle))
 			{
-				vg->setName(docParagraphStyles[xx].name());
-				fou = true;
+				vg->setName(paraStyle.name());
+				found = true;
 				if (fl)
 				{
 					DoVorl[VorlC] = vg->name();
@@ -2557,7 +2559,7 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			}
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
 		if (tempParagraphStyles)
 			tempParagraphStyles->create(*vg);

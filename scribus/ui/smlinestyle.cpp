@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QEvent>
+#include <QRegExp>
 
 #include "colorcombo.h"
 #include "smlinestyle.h"
@@ -199,26 +200,46 @@ QString SMLineStyle::newStyle(const QString &fromStyle)
 	Q_ASSERT(m_tmpLines.contains(fromStyle));
 
 	multiLine ml(m_tmpLines[fromStyle]);
-	QString name = getUniqueName( tr("Clone of %1").arg(fromStyle));
+	QString name = getUniqueName(fromStyle);
 	m_tmpLines[name] = ml;
 	return name;
 }
 
 QString SMLineStyle::getUniqueName(const QString &name)
 {
-	int id = 0;
-	QString s = name;
+	// Unfortunately we have to copy the logic from StyleSet::generateUniqueCopyName
+	if (!m_tmpLines.contains(name))
+		return name;
 
-	while (m_tmpLines.contains(s))
+	QString newName(name);
+
+	// Search the string for (number) at the end and capture
+	// both the number and the text leading up to it sans brackets.
+	//     Copy of fred (5)
+	//     ^^^^^^^^^^^^  ^   (where ^ means captured)
+	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+	int numMatches = rx.lastIndexIn(name);
+	// Add a (number) suffix to the end of the name. We start at the
+	// old suffix's value if there was one, or at 2 if there was not.
+	int suffixNum = 1;
+	QString prefix(newName);
+	if (numMatches != -1)
 	{
-		++id;
-		s = tr("%1 (%2)", "This for unique name when creating "
-			"a new character style. %1 will be the name "
-			"of the style and %2 will be a number forming "
-			"a style name like: New Style (2)").arg(name).arg(id);
+		// Already had a suffix; use the name w/o suffix for prefix and
+		// grab the old suffix value as a starting point.
+		QStringList matches = rx.capturedTexts();
+		prefix = matches[1];
+		suffixNum = matches[2].toInt();
 	}
+	// Keep on incrementing the suffix 'till we find a free name
+	do
+	{
+		suffixNum ++;
+		newName = prefix + " (" + QString::number(suffixNum) + ")";
+	}
+	while (m_tmpLines.contains(newName));
 
-	return s;
+	return newName;
 }
 
 void SMLineStyle::apply()

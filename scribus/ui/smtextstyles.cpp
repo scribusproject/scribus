@@ -249,7 +249,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 		return QString();
 
 	//Copy the style with the original name
-	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
+	QString s(getUniqueName(fromStyle));
 	ParagraphStyle p(m_tmpStyles.get(copiedStyleName));
 	p.setDefaultStyle(false);
 	p.setName(s);
@@ -262,29 +262,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 // helper function to find a unique name to a new style or a clone
 QString SMParagraphStyle::getUniqueName(const QString &name)
 {
-	int id = 0;
-	bool done = false;
-	QString s(name);
-
-	while (!done)
-	{
-start:
-		++id;
-		for (int i = 0; i < m_tmpStyles.count(); ++i)
-		{
-			if (m_tmpStyles[i].name() == s)
-			{
-				s = tr("%1 (%2)", "This for unique name when creating "
-						"a new character style. %1 will be the name "
-								"of the style and %2 will be a number forming "
-								"a style name like: New Style (2)").arg(name).arg(id);
-				goto start;
-			}
-		}
-		done = true;
-	}
-
-	return s;
+	return m_tmpStyles.getUniqueCopyName(name);
 }
 
 void SMParagraphStyle::apply()
@@ -2266,7 +2244,7 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 	if (!m_tmpStyles.resolve(copiedStyleName))
 		return QString();
 	//Copy the style with the original name
-	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
+	QString s(getUniqueName(fromStyle));
 	CharStyle c(m_tmpStyles.get(copiedStyleName));
 	c.setDefaultStyle(false);
 	c.setName(s);
@@ -2278,29 +2256,7 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 
 QString SMCharacterStyle::getUniqueName(const QString &name)
 {
-	int id = 0;
-	bool done = false;
-	QString s(name);
-
-	while (!done)
-	{
-start:
-		++id;
-		for (int i = 0; i < m_tmpStyles.count(); ++i)
-		{
-			if (m_tmpStyles[i].name() == s)
-			{
-				s = tr("%1 (%2)", "This for unique name when creating "
-						"a new character style. %1 will be the name "
-								"of the style and %2 will be a number forming "
-								"a style name like: New Style (2)").arg(name).arg(id);
-				goto start;
-			}
-		}
-		done = true;
-	}
-
-	return s;
+	return m_tmpStyles.getUniqueCopyName(name);
 }
 
 void SMCharacterStyle::apply()

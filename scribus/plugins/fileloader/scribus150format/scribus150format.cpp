@@ -6599,20 +6599,20 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool fl)
 {
 	bool  found(false);
-	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-	//UNUSED: PrefsManager& prefsManager = PrefsManager::instance();
+	const StyleSet<ParagraphStyle> &docParagraphStyles = tempStyles ? *tempStyles : doc->paragraphStyles();
 	readParagraphStyle(doc, reader, style);
-	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
+	for (int xx = 0; xx < docParagraphStyles.count(); ++xx)
 	{
-		if (style.name() == (*docParagraphStyles)[xx].name())
+		const ParagraphStyle& paraStyle = docParagraphStyles[xx];
+		if (style.name() == paraStyle.name())
 		{
-			if (style.equiv((*docParagraphStyles)[xx]))
+			if (style.equiv(paraStyle))
 			{
 				found = true;
 			}
 			else
 			{
-				style.setName("Copy of "+(*docParagraphStyles)[xx].name());
+				style.setName(docParagraphStyles.getUniqueCopyName(paraStyle.name()));
 				found = false;
 			}
 			break;
@@ -6620,12 +6620,13 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 	}
 	if (!found && fl)
 	{
-		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
+		for (int xx = 0; xx < docParagraphStyles.count(); ++xx)
 		{
-			if (style.equiv((*docParagraphStyles)[xx]))
+			const ParagraphStyle& paraStyle = docParagraphStyles[xx];
+			if (style.equiv(paraStyle))
 			{
-				parStyleMap[style.name()] = (*docParagraphStyles)[xx].name();
-				style.setName((*docParagraphStyles)[xx].name());
+				parStyleMap[style.name()] = paraStyle.name();
+				style.setName(paraStyle.name());
 				found = true;
 				break;
 			}

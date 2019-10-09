@@ -163,7 +163,7 @@ QString SMTableStyle::newStyle(const QString &fromStyle)
 		return QString();
 
 	// Copy the style with name constructed from the original name.
-	QString styleName(getUniqueName(tr("Clone of %1").arg(fromStyle)));
+	QString styleName(getUniqueName(fromStyle));
 	TableStyle tableStyle(m_cachedStyles.get(fromStyleName));
 	tableStyle.setDefaultStyle(false);
 	tableStyle.setName(styleName);
@@ -375,29 +375,7 @@ void SMTableStyle::nameChanged(const QString &newName)
 
 QString SMTableStyle::getUniqueName(const QString &name)
 {
-	int id = 0;
-	bool done = false;
-	QString s(name);
-
-	while (!done)
-	{
-start:
-		++id;
-		for (int i = 0; i < m_cachedStyles.count(); ++i)
-		{
-			if (m_cachedStyles[i].name() == s)
-			{
-				s = tr("%1 (%2)", "This for unique name when creating "
-						"a new character style. %1 will be the name "
-								"of the style and %2 will be a number forming "
-								"a style name like: New Style (2)").arg(name).arg(id);
-				goto start;
-			}
-		}
-		done = true;
-	}
-
-	return s;
+	return m_cachedStyles.getUniqueCopyName(name);
 }
 
 void SMTableStyle::languageChange()
