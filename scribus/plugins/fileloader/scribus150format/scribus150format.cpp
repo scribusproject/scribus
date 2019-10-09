@@ -2577,7 +2577,7 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
-		if (LanguageManager::instance()->langTableIndex(l)!=-1)
+		if (LanguageManager::instance()->langTableIndex(l) != -1)
 			newStyle.setLanguage(l); //new style storage
 		else
 		{ //old style storage

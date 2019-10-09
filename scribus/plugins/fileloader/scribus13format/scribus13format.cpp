@@ -176,7 +176,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
-	QString tmp, PgNam, Defont;
+	QString tmp, pageName, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	QMap<int,int> TableIDM;
@@ -184,7 +184,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QMap<int,int> TableIDF;
 	QList<PageItem*> TableItemsF;
 	int a;
-	PageItem *Neu;
+	PageItem *newItem;
 	ScPage* Apage;
 	FrameItems.clear();
 	itemRemap.clear();
@@ -221,10 +221,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
+	QDomNode docNode = elem.firstChild();
 	if (m_mwProgressBar!=nullptr)
 	{
-		m_mwProgressBar->setMaximum(DOC.childNodes().count());
+		m_mwProgressBar->setMaximum(docNode.childNodes().count());
 		m_mwProgressBar->setValue(0);
 	}
 	// Stop  autosave timer,it will be started only if doc has autosave feature is enabled
@@ -238,9 +238,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	TableItemsF.clear();
 	TableIDF.clear();
 	PrefsManager& prefsManager=PrefsManager::instance();
-	while (!DOC.isNull())
+	while (!docNode.isNull())
 	{
-		QDomElement dc=DOC.toElement();
+		QDomElement dc = docNode.toElement();
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
@@ -260,21 +260,21 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			else
 				fp = 1;
 		}
-		if (DOC.namedItem("PageSets").isNull())
+		if (docNode.namedItem("PageSets").isNull())
 		{
 			m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), fp);
 		}
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
 		m_Doc->PageSp = dc.attribute("AUTOSPALTEN").toInt();
-		m_Doc->PageSpa= ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
+		m_Doc->PageSpa = ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
-		m_Doc->itemToolPrefs().textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
-		Defont=dc.attribute("DFONT");
+		m_Doc->itemToolPrefs().textSize = qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
+		Defont = dc.attribute("DFONT");
 		//findFont will use that if it doesnt find the font:
 		m_Doc->itemToolPrefs().textFont = prefsManager.appPrefs.itemToolPrefs.textFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->itemToolPrefs().textFont = Defont;
-		m_Doc->itemToolPrefs().textColumns= dc.attribute("DCOL", "1").toInt();
+		m_Doc->itemToolPrefs().textColumns = dc.attribute("DCOL", "1").toInt();
 		m_Doc->itemToolPrefs().textColumnGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
 		DocumentInformation di;
 		di.setAuthor(dc.attribute("AUTHOR"));
@@ -328,7 +328,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		//m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
 		static const QString LANGUAGE("LANGUAGE");
 		QString l(dc.attribute(LANGUAGE, "en"));
-		if (LanguageManager::instance()->langTableIndex(l)!=-1)
+		if (LanguageManager::instance()->langTableIndex(l) != -1)
 			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
@@ -450,17 +450,17 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->setCurCheckProfile(dc.attribute("currentProfile"));
 		}
 		m_Doc->LastAuto = nullptr;
-		QDomNode PAGE=DOC.firstChild();
+		QDomNode pageNode = docNode.firstChild();
 		counter = 0;
-		while (!PAGE.isNull())
+		while (!pageNode.isNull())
 		{
 			ObCount++;
 			if (m_mwProgressBar!=nullptr)
 				m_mwProgressBar->setValue(ObCount);
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="PageSets")
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "PageSets")
 			{
-				QDomNode PGS = PAGE.firstChild();
+				QDomNode PGS = pageNode.firstChild();
 				m_Doc->clearPageSets();
 				while (!PGS.isNull())
 				{
@@ -491,7 +491,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					PGS = PGS.nextSibling();
 				}
 			}
-			if (pg.tagName()=="CheckProfile")
+			if (pg.tagName() == "CheckProfile")
 			{
 				struct CheckerPrefs checkerSettings;
 				checkerSettings.ignoreErrors = static_cast<bool>(pg.attribute("ignoreErrors", "0").toInt());
@@ -512,7 +512,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->set1CheckerProfile(pg.attribute("Name"), checkerSettings);
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -529,7 +529,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				QString name = pg.attribute("NAME");
 				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
-			if (pg.tagName()=="STYLE")
+			if (pg.tagName() == "STYLE")
 			{
 				readParagraphStyle(vg, pg, m_Doc);
 				StyleSet<ParagraphStyle> temp;
@@ -538,9 +538,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				DoVorl[VorlC] = vg.name();
 				++VorlC;
 			}
-			if (pg.tagName()=="JAVA")
+			if (pg.tagName() == "JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
-			if (pg.tagName()=="LAYERS")
+			if (pg.tagName() == "LAYERS")
 			{
 				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
@@ -556,7 +556,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
 				m_Doc->Layers.append(la);
 			}
-/*			if (pg.tagName()=="Bookmark")
+/*			if (pg.tagName() == "Bookmark")
 			{
 				bok.Title = pg.attribute("Title");
 				bok.Text = pg.attribute("Text");
@@ -571,10 +571,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				bok.Parent = pg.attribute("Parent").toInt();
 				m_Doc->BookMarks.append(bok);
 			} */
-			if (pg.tagName()=="MultiLine")
+			if (pg.tagName() == "MultiLine")
 			{
 				multiLine ml;
-				QDomNode MuLn = PAGE.firstChild();
+				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
@@ -590,7 +590,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				}
 				m_Doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
-			if (pg.tagName()=="Arrows")
+			if (pg.tagName() == "Arrows")
 			{
 				struct ArrowDesc arrow;
 				arrow.name = pg.attribute("Name");
@@ -606,7 +606,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				}
 				m_Doc->appendToArrowStyles(arrow);
 			}
-			if (pg.tagName()=="PDF")
+			if (pg.tagName() == "PDF")
 			{
 				m_Doc->pdfOptions().Articles = static_cast<bool>(pg.attribute("Articles").toInt());
 				m_Doc->pdfOptions().Thumbnails = static_cast<bool>(pg.attribute("Thumbnails").toInt());
@@ -671,7 +671,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->pdfOptions().fitWindow = static_cast<bool>(pg.attribute("fitWindow", "0").toInt());
 				m_Doc->pdfOptions().PageLayout = pg.attribute("PageLayout", "0").toInt();
 				m_Doc->pdfOptions().openAction = pg.attribute("openAction", "");
-				QDomNode PFO = PAGE.firstChild();
+				QDomNode PFO = pageNode.firstChild();
 				while (!PFO.isNull())
 				{
 					QDomElement pdfF = PFO.toElement();
@@ -707,9 +707,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					PFO = PFO.nextSibling();
 				}
 			}
-			if (pg.tagName()=="DocItemAttributes")
+			if (pg.tagName() == "DocItemAttributes")
 			{
-				QDomNode DIA = PAGE.firstChild();
+				QDomNode DIA = pageNode.firstChild();
 				m_Doc->clearItemAttributes();
 				while (!DIA.isNull())
 				{
@@ -729,9 +729,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					DIA = DIA.nextSibling();
 				}
 			}
-			if (pg.tagName()=="TablesOfContents")
+			if (pg.tagName() == "TablesOfContents")
 			{
-				QDomNode TOC = PAGE.firstChild();
+				QDomNode TOC = pageNode.firstChild();
 				m_Doc->clearTocSetups();
 				while (!TOC.isNull())
 				{
@@ -756,9 +756,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					TOC = TOC.nextSibling();
 				}
 			}
-			if (pg.tagName()=="Sections")
+			if (pg.tagName() == "Sections")
 			{
-				QDomNode Section = PAGE.firstChild();
+				QDomNode Section = pageNode.firstChild();
 				while (!Section.isNull())
 				{
 					QDomElement sectionElem = Section.toElement();
@@ -769,15 +769,15 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						newSection.name=sectionElem.attribute("Name");
 						newSection.fromindex=sectionElem.attribute("From").toInt();
 						newSection.toindex=sectionElem.attribute("To").toInt();
-						if (sectionElem.attribute("Type")=="Type_1_2_3")
+						if (sectionElem.attribute("Type") == "Type_1_2_3")
 							newSection.type=Type_1_2_3;
-						if (sectionElem.attribute("Type")=="Type_i_ii_iii")
+						if (sectionElem.attribute("Type") == "Type_i_ii_iii")
 							newSection.type=Type_i_ii_iii;
-						if (sectionElem.attribute("Type")=="Type_I_II_III")
+						if (sectionElem.attribute("Type") == "Type_I_II_III")
 							newSection.type=Type_I_II_III;
-						if (sectionElem.attribute("Type")=="Type_a_b_c")
+						if (sectionElem.attribute("Type") == "Type_a_b_c")
 							newSection.type=Type_a_b_c;
-						if (sectionElem.attribute("Type")=="Type_A_B_C")
+						if (sectionElem.attribute("Type") == "Type_A_B_C")
 							newSection.type=Type_A_B_C;
 						newSection.sectionstartindex=sectionElem.attribute("Start").toInt();
 						newSection.reversed=static_cast<bool>(sectionElem.attribute("Reversed").toInt());
@@ -788,25 +788,25 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Section = Section.nextSibling();
 				}
 			}
-			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))
+			if ((pg.tagName() == "PAGE") || (pg.tagName() == "MASTERPAGE"))
 			{
 				a = pg.attribute("NUM").toInt();
-				PgNam = "";
-				PgNam = pg.attribute("NAM", "");
-				if (pg.tagName()=="MASTERPAGE" && PgNam.isEmpty())
+				pageName = "";
+				pageName = pg.attribute("NAM", "");
+				if (pg.tagName() == "MASTERPAGE" && pageName.isEmpty())
 				{
 					qDebug() << "scribus13format: corrupted masterpage with empty name detected";
-					PAGE=PAGE.nextSibling();
+					pageNode = pageNode.nextSibling();
 					continue;
 				}
-				if (PgNam.isEmpty())
+				if (pageName.isEmpty())
 					m_Doc->setMasterPageMode(false);
 				else
 					m_Doc->setMasterPageMode(true);
-				if (PgNam.isEmpty())
+				if (pageName.isEmpty())
 					Apage = m_Doc->addPage(a);
 				else
-					Apage = m_Doc->addMasterPage(a, PgNam);
+					Apage = m_Doc->addMasterPage(a, pageName);
 				Apage->LeftPg=pg.attribute("LEFT", "0").toInt();
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
@@ -852,20 +852,20 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));
 			}
-			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+			if ((pg.tagName() == "PAGEOBJECT") || (pg.tagName() == "MASTEROBJECT") || (pg.tagName() == "FRAMEOBJECT"))
 			{
-				if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+				if ((pg.tagName() == "PAGEOBJECT") || (pg.tagName() == "FRAMEOBJECT"))
 					m_Doc->setMasterPageMode(false);
 				else
 					m_Doc->setMasterPageMode(true);
 				int pagenr = -1;
-				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
+				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName() == "MASTEROBJECT"))
 				{
 					m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
 					pagenr = -2;
 				}
 
-				if (pg.tagName()=="PAGEOBJECT")
+				if (pg.tagName() == "PAGEOBJECT")
 				{
 					itemRemap[itemCount++] = m_Doc->Items->count();
 					// member of linked chain?
@@ -877,106 +877,106 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				PageItem::ItemKind itemKind = PageItem::StandardItem;
 				if (pg.tagName() == "FRAMEOBJECT")
 					itemKind = PageItem::InlineItem;
-				Neu = PasteItem(&pg, m_Doc, fileDir, itemKind, pagenr);
-				Neu->setRedrawBounding();
-				if (pg.tagName()=="MASTEROBJECT")
-					Neu->setOwnerPage(m_Doc->OnPage(Neu));
+				newItem = PasteItem(&pg, m_Doc, fileDir, itemKind, pagenr);
+				newItem->setRedrawBounding();
+				if (pg.tagName() == "MASTEROBJECT")
+					newItem->setOwnerPage(m_Doc->OnPage(newItem));
 				else
-					Neu->setOwnerPage(pg.attribute("OwnPage").toInt());
+					newItem->setOwnerPage(pg.attribute("OwnPage").toInt());
 				if (pg.tagName() == "PAGEOBJECT")
-					Neu->setMasterPageName(QString());
-				QDomNode IT=pg.firstChild();
+					newItem->setMasterPageName(QString());
+				QDomNode node = pg.firstChild();
 				LastStyles * last = new LastStyles();
-				while (!IT.isNull())
+				while (!node.isNull())
 				{
-					QDomElement it=IT.toElement();
-					if (it.tagName()=="CSTOP")
+					QDomElement it = node.toElement();
+					if (it.tagName() == "CSTOP")
 					{
 						QString name = it.attribute("NAME");
 						double ramp = ScCLocale::toDoubleC(it.attribute("RAMP"), 0.0);
 						int shade   = it.attribute("SHADE", "100").toInt();
 						double opa  = ScCLocale::toDoubleC(it.attribute("TRANS"), 1.0);
 						handleOldColorShade(m_Doc, name, shade);
-						Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
+						newItem->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 					}
-					if (it.tagName()=="ITEXT")
-						GetItemText(&it, m_Doc, Neu, last);
+					if (it.tagName() == "ITEXT")
+						GetItemText(&it, m_Doc, newItem, last);
 
 					//CB PageItemAttributes
-					if (it.tagName()=="PageItemAttributes")
+					if (it.tagName() == "PageItemAttributes")
 					{
-						QDomNode PIA = it.firstChild();
+						QDomNode pia = it.firstChild();
 						ObjAttrVector pageItemAttributes;
-						while (!PIA.isNull())
+						while (!pia.isNull())
 						{
-							QDomElement itemAttr = PIA.toElement();
+							QDomElement itemAttr = pia.toElement();
 							if (itemAttr.tagName() == "ItemAttribute")
 							{
 								ObjectAttribute objattr;
-								objattr.name=itemAttr.attribute("Name");
-								objattr.type=itemAttr.attribute("Type");
-								objattr.value=itemAttr.attribute("Value");
-								objattr.parameter=itemAttr.attribute("Parameter");
-								objattr.relationship=itemAttr.attribute("Relationship");
-								objattr.relationshipto=itemAttr.attribute("RelationshipTo");
-								objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+								objattr.name = itemAttr.attribute("Name");
+								objattr.type = itemAttr.attribute("Type");
+								objattr.value = itemAttr.attribute("Value");
+								objattr.parameter = itemAttr.attribute("Parameter");
+								objattr.relationship = itemAttr.attribute("Relationship");
+								objattr.relationshipto = itemAttr.attribute("RelationshipTo");
+								objattr.autoaddto = itemAttr.attribute("AutoAddTo");
 								pageItemAttributes.append(objattr);
 							}
-							PIA = PIA.nextSibling();
+							pia = pia.nextSibling();
 						}
-						Neu->setObjectAttributes(&pageItemAttributes);
+						newItem->setObjectAttributes(&pageItemAttributes);
 					}
-					IT=IT.nextSibling();
+					node = node.nextSibling();
 				}
 				delete last;
-				if (Neu->fill_gradient.stops() == 0)
+				if (newItem->fill_gradient.stops() == 0)
 				{
 					const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 					const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
+					newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+					newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 				}
-				Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
-				Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-				Neu->gXpos = ScCLocale::toDoubleC(pg.attribute("gXpos"), 0.0);
-				Neu->gYpos = ScCLocale::toDoubleC(pg.attribute("gYpos"), 0.0);
-				Neu->gWidth  = ScCLocale::toDoubleC(pg.attribute("gWidth"), Neu->width());
-				Neu->gHeight = ScCLocale::toDoubleC(pg.attribute("gHeight"), Neu->height());
-				if (Neu->isAutoText)
-					m_Doc->LastAuto = Neu;
-				if (pg.tagName()=="FRAMEOBJECT")
+				newItem->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
+				newItem->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
+				newItem->gXpos = ScCLocale::toDoubleC(pg.attribute("gXpos"), 0.0);
+				newItem->gYpos = ScCLocale::toDoubleC(pg.attribute("gYpos"), 0.0);
+				newItem->gWidth  = ScCLocale::toDoubleC(pg.attribute("gWidth"), newItem->width());
+				newItem->gHeight = ScCLocale::toDoubleC(pg.attribute("gHeight"), newItem->height());
+				if (newItem->isAutoText)
+					m_Doc->LastAuto = newItem;
+				if (pg.tagName() == "FRAMEOBJECT")
 				{
-					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
-					Neu->setLayer(m_Doc->firstLayerID());
+					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					newItem->setLayer(m_Doc->firstLayerID());
 				}
-				if (Neu->isTableItem)
+				if (newItem->isTableItem)
 				{
-					if (pg.tagName()=="PAGEOBJECT")
+					if (pg.tagName() == "PAGEOBJECT")
 					{
-						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->DocItems.indexOf(Neu));
+						TableItems.append(newItem);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->DocItems.indexOf(newItem));
 					}
-					else if (pg.tagName()=="FRAMEOBJECT")
+					else if (pg.tagName() == "FRAMEOBJECT")
 					{
-						TableItemsF.append(Neu);
-						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), FrameItems.indexOf(Neu));
+						TableItemsF.append(newItem);
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), FrameItems.indexOf(newItem));
 					}
 					else
 					{
-						TableItemsM.append(Neu);
-						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->MasterItems.indexOf(Neu));
+						TableItemsM.append(newItem);
+						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->MasterItems.indexOf(newItem));
 					}
 				}
 				m_Doc->setMasterPageMode(false);
 				counter++;
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="Bookmark")
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "Bookmark")
 			{
 				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
@@ -994,9 +994,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_Doc->BookMarks.append(bok);
 				}
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	if (TableItemsF.count() != 0)
 	{
@@ -1190,7 +1190,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 //		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 
 	if (m_mwProgressBar!=nullptr)
-		m_mwProgressBar->setValue(DOC.childNodes().count());
+		m_mwProgressBar->setValue(docNode.childNodes().count());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
 						  CommonStrings::trWarning,
@@ -1449,11 +1449,11 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
 		vg.setTabValues(tbs);
-		QDomNode IT = pg.firstChild();
-		while (!IT.isNull())
+		QDomNode node = pg.firstChild();
+		while (!node.isNull())
 		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="Tabs")
+			QDomElement it = node.toElement();
+			if (it.tagName() == "Tabs")
 			{
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
@@ -1467,7 +1467,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 				tbs.append(tb);
 			}
 // 			vg.setTabValues(tbs);
-			IT=IT.nextSibling();
+			node = node.nextSibling();
 		}
 		if (tbs.count() > 0)
 			vg.setTabValues(tbs);
@@ -1504,7 +1504,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	QString tmp;
 	double xf, yf, xf2;
 	QString clPath;
-	QDomNode IT;
+	QDomNode node;
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -1532,18 +1532,18 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->pixm.imgInfo.lowResType = obj->attribute("ImageRes", "1").toInt();
-		IT = obj->firstChild();
-		while (!IT.isNull())
+		node = obj->firstChild();
+		while (!node.isNull())
 		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="ImageEffect")
+			QDomElement it = node.toElement();
+			if (it.tagName() == "ImageEffect")
 			{
 				struct ImageEffect ef;
 				ef.effectParameters = it.attribute("Param");
 				ef.effectCode = it.attribute("Code").toInt();
 				currItem->effectsInUse.append(ef);
 			}
-			IT=IT.nextSibling();
+			node = node.nextSibling();
 		}
 		if (!currItem->Pfile.isEmpty())
 			doc->loadPict(currItem->Pfile, currItem, false);
@@ -1569,10 +1569,10 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		if (currItem->pixm.imgInfo.layerInfo.count() != 0)
 		{
 			bool found = false;
-			IT = obj->firstChild();
-			while (!IT.isNull())
+			node = obj->firstChild();
+			while (!node.isNull())
 			{
-				QDomElement it = IT.toElement();
+				QDomElement it = node.toElement();
 				if (it.tagName() == "PSDLayer")
 				{
 					found = true;
@@ -1582,7 +1582,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 					loadingInfo.useMask = static_cast<bool>(it.attribute("useMask", "1").toInt());
 					currItem->pixm.imgInfo.RequestProps.insert(it.attribute("Layer").toInt(), loadingInfo);
 				}
-				IT=IT.nextSibling();
+				node = node.nextSibling();
 			}
 			if (found)
 			{
@@ -1724,11 +1724,11 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	}
 	else
 	{
-		IT = obj->firstChild();
-		while (!IT.isNull())
+		node = obj->firstChild();
+		while (!node.isNull())
 		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="Tabs")
+			QDomElement it = node.toElement();
+			if (it.tagName() == "Tabs")
 			{
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
@@ -1741,7 +1741,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 					tb.tabFillChar = tbCh[0];
 				tbValues.append(tb);
 			}
-			IT=IT.nextSibling();
+			node = node.nextSibling();
 		}
 	}
 	if (!tbValues.empty())
@@ -2033,7 +2033,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	}
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
-	PageItem *Neu;
+	PageItem *newItem;
 	ScPage* Apage = nullptr;
 	FrameItems.clear();
 	itemRemap.clear();
@@ -2080,19 +2080,19 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf = ScColor();
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
+	QDomNode docNode = elem.firstChild();
 	counter = m_Doc->Items->count();
-	while (!DOC.isNull())
+	while (!docNode.isNull())
 	{
-		QDomElement dc=DOC.toElement();
-		QDomNode PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		QDomElement dc = docNode.toElement();
+		QDomNode pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -2109,14 +2109,14 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString name = pg.attribute("NAME");
 				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
-			if (pg.tagName()=="STYLE")
+			if (pg.tagName() == "STYLE")
 			{
 				GetStyle(&pg, &vg, nullptr, m_Doc, true);
 				VorLFound = true;
 			}
-			if (pg.tagName()=="JAVA")
+			if (pg.tagName() == "JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
-			if (pg.tagName()=="LAYERS")
+			if (pg.tagName() == "LAYERS")
 			{
 				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
@@ -2143,10 +2143,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_Doc->Layers.append(la);
 				}
 			}
-			if (pg.tagName()=="MultiLine")
+			if (pg.tagName() == "MultiLine")
 			{
 				multiLine ml;
-				QDomNode MuLn = PAGE.firstChild();
+				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
@@ -2174,7 +2174,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				m_Doc->MLineStyles.insert(Nam2, ml);
 			}
-			if (pg.tagName()=="Arrows")
+			if (pg.tagName() == "Arrows")
 			{
 				struct ArrowDesc arrow;
 				arrow.name = pg.attribute("Name");
@@ -2190,13 +2190,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				m_Doc->appendToArrowStyles(arrow);
 			}
-			if (((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE")) && (pg.attribute("NUM").toInt() == pageNumber))
+			if (((pg.tagName() == "PAGE") || (pg.tagName() == "MASTERPAGE")) && (pg.attribute("NUM").toInt() == pageNumber))
 			{
 				a = m_Doc->currentPage()->pageNr();
 				Apage = m_Doc->Pages->at(a);
-				if ((pg.tagName()!="MASTERPAGE") && (Mpage))
+				if ((pg.tagName() != "MASTERPAGE") && (Mpage))
 				{
-					PAGE=PAGE.nextSibling();
+					pageNode = pageNode.nextSibling();
 					continue;
 				}
 				if (Mpage)
@@ -2239,13 +2239,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumHGuides"));
 			}
-			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+			if ((pg.tagName() == "PAGEOBJECT") || (pg.tagName() == "MASTEROBJECT") || (pg.tagName() == "FRAMEOBJECT"))
 			{
 				if (Mpage)
 				{
 					if (pg.tagName() != "MASTEROBJECT")
 					{
-						PAGE=PAGE.nextSibling();
+						pageNode = pageNode.nextSibling();
 						continue;
 					}
 				}
@@ -2253,20 +2253,20 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				{
 					if (pg.tagName() == "MASTEROBJECT")
 					{
-						PAGE=PAGE.nextSibling();
+						pageNode = pageNode.nextSibling();
 						continue;
 					}
 				}
 				
 				if (pg.attribute("OwnPage").toInt() != pageNumber)
 				{			
-					if (pg.tagName()=="PAGEOBJECT")
+					if (pg.tagName() == "PAGEOBJECT")
 						itemRemap[itemCount++] = -1;
 				}
 				else
 				{
 					// first of linked chain?
-					if (pg.tagName()=="PAGEOBJECT")
+					if (pg.tagName() == "PAGEOBJECT")
 					{
 						itemRemap[itemCount++] = m_Doc->Items->count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
@@ -2279,99 +2279,99 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						itemKind = PageItem::InlineItem;
 					/*int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;*/
-					Neu = PasteItem(&pg, m_Doc, fileDir, itemKind);
-					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
-					Neu->setRedrawBounding();
+					newItem = PasteItem(&pg, m_Doc, fileDir, itemKind);
+					newItem->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
+					newItem->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
 					//CB TODO Make this accept a page to place onto.
-					//Neu->OwnPage = m_Doc->OnPage(Neu);
-					//Neu->OwnPage = PageToLoad;
-					Neu->setOwnerPage(m_Doc->currentPageNumber());
+					//newItem->OwnPage = m_Doc->OnPage(newItem);
+					//newItem->OwnPage = PageToLoad;
+					newItem->setOwnerPage(m_Doc->currentPageNumber());
 					if (pg.tagName() == "PAGEOBJECT")
-						Neu->setMasterPageName(QString());
+						newItem->setMasterPageName(QString());
 					else if (Mpage && !renamedPageName.isEmpty())
-						Neu->setMasterPageName(renamedPageName);
-					Neu->setLayer(layerTrans.value(Neu->m_layerID, Neu->m_layerID));
+						newItem->setMasterPageName(renamedPageName);
+					newItem->setLayer(layerTrans.value(newItem->m_layerID, newItem->m_layerID));
 					/*m_Doc->GroupCounter = docGc;*/
-					QDomNode IT=pg.firstChild();
+					QDomNode node = pg.firstChild();
 					LastStyles * last = new LastStyles();
-					while (!IT.isNull())
+					while (!node.isNull())
 					{
-						QDomElement it=IT.toElement();
-						if (it.tagName()=="CSTOP")
+						QDomElement it = node.toElement();
+						if (it.tagName() == "CSTOP")
 						{
 							QString name = it.attribute("NAME");
 							double ramp  = ScCLocale::toDoubleC(it.attribute("RAMP"), 0.0);
 							int shade  = it.attribute("SHADE", "100").toInt();
 							double opa = ScCLocale::toDoubleC(it.attribute("TRANS"), 1.0);
 							handleOldColorShade(m_Doc, name, shade);
-							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
+							newItem->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
-						if (it.tagName()=="ITEXT")
-							GetItemText(&it, m_Doc, Neu, last, true, VorLFound);
-						if (it.tagName()=="PageItemAttributes")
+						if (it.tagName() == "ITEXT")
+							GetItemText(&it, m_Doc, newItem, last, true, VorLFound);
+						if (it.tagName() == "PageItemAttributes")
 						{
-							QDomNode PIA = it.firstChild();
+							QDomNode pia = it.firstChild();
 							ObjAttrVector pageItemAttributes;
-							while (!PIA.isNull())
+							while (!pia.isNull())
 							{
-								QDomElement itemAttr = PIA.toElement();
+								QDomElement itemAttr = pia.toElement();
 								if (itemAttr.tagName() == "ItemAttribute")
 								{
 									ObjectAttribute objattr;
-									objattr.name=itemAttr.attribute("Name");
-									objattr.type=itemAttr.attribute("Type");
-									objattr.value=itemAttr.attribute("Value");
-									objattr.parameter=itemAttr.attribute("Parameter");
-									objattr.relationship=itemAttr.attribute("Relationship");
-									objattr.relationshipto=itemAttr.attribute("RelationshipTo");
-									objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+									objattr.name = itemAttr.attribute("Name");
+									objattr.type = itemAttr.attribute("Type");
+									objattr.value = itemAttr.attribute("Value");
+									objattr.parameter = itemAttr.attribute("Parameter");
+									objattr.relationship = itemAttr.attribute("Relationship");
+									objattr.relationshipto = itemAttr.attribute("RelationshipTo");
+									objattr.autoaddto = itemAttr.attribute("AutoAddTo");
 									pageItemAttributes.append(objattr);
 								}
-								PIA = PIA.nextSibling();
+								pia = pia.nextSibling();
 							}
-							Neu->setObjectAttributes(&pageItemAttributes);
+							newItem->setObjectAttributes(&pageItemAttributes);
 						}
-						IT=IT.nextSibling();
+						node = node.nextSibling();
 					}
 					delete last;
-					if (Neu->fill_gradient.stops() == 0)
+					if (newItem->fill_gradient.stops() == 0)
 					{
 						const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 						const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
+						newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+						newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 					}
-//					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
-//					Neu->Language = m_Doc->Language;
-					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
-					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-					Neu->gXpos = ScCLocale::toDoubleC(pg.attribute("gXpos"), 0.0);
-					Neu->gYpos = ScCLocale::toDoubleC(pg.attribute("gYpos"), 0.0);
-					Neu->gWidth  = ScCLocale::toDoubleC(pg.attribute("gWidth"), Neu->width());
-					Neu->gHeight = ScCLocale::toDoubleC(pg.attribute("gHeight"),Neu->height());
-					if (Neu->isAutoText)
-						m_Doc->LastAuto = Neu;
-					if (Neu->isTableItem)
+//					newItem->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
+//					newItem->Language = m_Doc->Language;
+					newItem->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
+					newItem->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
+					newItem->gXpos = ScCLocale::toDoubleC(pg.attribute("gXpos"), 0.0);
+					newItem->gYpos = ScCLocale::toDoubleC(pg.attribute("gYpos"), 0.0);
+					newItem->gWidth  = ScCLocale::toDoubleC(pg.attribute("gWidth"), newItem->width());
+					newItem->gHeight = ScCLocale::toDoubleC(pg.attribute("gHeight"),newItem->height());
+					if (newItem->isAutoText)
+						m_Doc->LastAuto = newItem;
+					if (newItem->isTableItem)
 					{
-						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->Items->indexOf(Neu));
+						TableItems.append(newItem);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->Items->indexOf(newItem));
 					}
-					if (pg.tagName()=="FRAMEOBJECT")
+					if (pg.tagName() == "FRAMEOBJECT")
 					{
-						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
-						Neu->setLayer(m_Doc->firstLayerID());
+						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+						newItem->setLayer(m_Doc->firstLayerID());
 					}
 				}
 				counter++;
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="Bookmark")
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "Bookmark")
 			{
 				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
@@ -2389,9 +2389,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_Doc->BookMarks.append(bok);
 				}
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	if (TableItems.count() != 0)
 	{
@@ -2617,22 +2617,22 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
-	while (!DOC.isNull())
+	QDomNode docNode = elem.firstChild();
+	while (!docNode.isNull())
 	{
-		QDomElement dc=DOC.toElement();
-		QDomNode PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		QDomElement dc = docNode.toElement();
+		QDomNode pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="STYLE")
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "STYLE")
 			{
 				pstyle.erase();
 				GetStyle(&pg, &pstyle, &docParagraphStyles, doc, false);
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	return true;
 }
@@ -2648,18 +2648,18 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
-	while (!DOC.isNull())
+	QDomNode docNode = elem.firstChild();
+	while (!docNode.isNull())
 	{
-		QDomElement dc=DOC.toElement();
-		QDomNode PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		QDomElement dc = docNode.toElement();
+		QDomNode pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			if (pg.tagName()=="MultiLine")
+			QDomElement pg = pageNode.toElement();
+			if (pg.tagName() == "MultiLine")
 			{
 				multiLine ml;
-				QDomNode MuLn = PAGE.firstChild();
+				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
@@ -2687,9 +2687,9 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 				}
 				Sty->insert(Nam2, ml);
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	return true;
 }
@@ -2707,16 +2707,16 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
-	while (!DOC.isNull())
+	QDomNode docNode = elem.firstChild();
+	while (!docNode.isNull())
 	{
-		QDomElement dc=DOC.toElement();
-		QDomNode PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		QDomElement dc = docNode.toElement();
+		QDomNode pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
+			QDomElement pg = pageNode.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+			if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -2733,16 +2733,16 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 				QString name = pg.attribute("NAME");
 				colors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	return true;
 }
 
 bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)
 {
-	QString PgNam;
+	QString pageName;
 	int counter = 0;
 	int counter2 = 0;
 	QDomDocument docu("scridoc");
@@ -2751,27 +2751,27 @@ bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num
 		return false;
 	if (!docu.setContent(f))
 		return false;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	QDomNode DOC=elem.firstChild();
-	while (!DOC.isNull())
+	QDomNode docNode = elem.firstChild();
+	while (!docNode.isNull())
 	{
-		QDomNode PAGE=DOC.firstChild();
-		while (!PAGE.isNull())
+		QDomNode pageNode = docNode.firstChild();
+		while (!pageNode.isNull())
 		{
-			QDomElement pg=PAGE.toElement();
-			PgNam = pg.attribute("NAM", "");
-			if (pg.tagName()=="PAGE")
+			QDomElement pg = pageNode.toElement();
+			pageName = pg.attribute("NAM", "");
+			if (pg.tagName() == "PAGE")
 				counter++;
-			if (pg.tagName()=="MASTERPAGE")
+			if (pg.tagName() == "MASTERPAGE")
 			{
 				counter2++;
-				masterPageNames.append(PgNam);
+				masterPageNames.append(pageName);
 			}
-			PAGE=PAGE.nextSibling();
+			pageNode = pageNode.nextSibling();
 		}
-		DOC=DOC.nextSibling();
+		docNode = docNode.nextSibling();
 	}
 	*num1 = counter;
 	*num2 = counter2;
