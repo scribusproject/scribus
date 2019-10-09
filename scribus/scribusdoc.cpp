@@ -2446,7 +2446,7 @@ void ScribusDoc::addSymbols()
 
 ScPage* ScribusDoc::addPage(int pageIndex, const QString& masterPageName, bool addAutoFrame)
 {
-	assert(masterPageMode()==false);
+	assert(masterPageMode() == false);
 	ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count()*(m_docPrefsData.docSetupPrefs.pageHeight+m_docPrefsData.displayPrefs.scratch.bottom()+m_docPrefsData.displayPrefs.scratch.top())+m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=nullptr);
 	addedPage->setDocument(this);
@@ -2512,7 +2512,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 	int number = MasterNames[oldPageName];
 	MasterNames.insert(newPageName, number);
 	MasterNames.remove(oldPageName);
-	Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
+	Q_ASSERT(MasterPages.at(number)->pageName() == oldPageName);
 	MasterPages.at(number)->setPageName(newPageName);
 	//Update any pages that were linking to our old name
 	ScPage* docPage=nullptr;
@@ -5370,7 +5370,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	int z=-2;
 	PageItem *prevItem=nullptr; //Previous item for text frame linking
 	if (iafData.linkToExistingFrame && iafData.linkToExistingFramePtr!=nullptr &&
-			iafData.linkToExistingFramePtr->itemType()==PageItem::TextFrame &&
+			iafData.linkToExistingFramePtr->itemType() == PageItem::TextFrame &&
 			DocItems.contains(iafData.linkToExistingFramePtr))
 		prevItem=iafData.linkToExistingFramePtr;
 	UndoTransaction transaction;
@@ -5497,7 +5497,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem)
 {
 	ParagraphStyle defaultParagraphStyle;
-	Q_ASSERT(newItem->realItemType()==itemType);
+	Q_ASSERT(newItem->realItemType() == itemType);
 	switch (itemType)
 	{
 		case PageItem::ImageFrame:
@@ -6306,7 +6306,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 		case PageItem::TextFrame:
 			newItem = new PageItem_TextFrame(*oldItem);
-			if (UndoManager::undoEnabled() && oldItem->itemType()==PageItem::PathText)
+			if (UndoManager::undoEnabled() && oldItem->itemType() == PageItem::PathText)
 				transactionConversion = m_undoManager->beginTransaction(m_currentPage->getUName(), nullptr, Um::TextFrame, "", Um::ITextFrame);
 			break;
 		//We don't allow this
@@ -6327,13 +6327,13 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem = new PageItem_PathText(*oldItem);
 			break;
 		default:
-			newItem=nullptr;
+			newItem = nullptr;
 			break;
 	}
-	Q_ASSERT(newItem!=nullptr);
+	Q_ASSERT(newItem != nullptr);
 	//If the new item is null, return. If converting Text to Path, start a transaction
 	//as the old bezier will be deleted
-	if (newItem==nullptr)
+	if (newItem == nullptr)
 	{
 		if (transactionConversion)
 		{
@@ -6351,7 +6351,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 		case PageItem::TextFrame:
 			newItem->convertTo(PageItem::TextFrame);
-			if (oldItem->itemType()==PageItem::PathText)
+			if (oldItem->itemType() == PageItem::PathText)
 			{
 				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
 				PageItem *polyLineItem = Items->at(newPolyItemNo);
@@ -6374,7 +6374,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->convertTo(PageItem::Polygon);
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
-			if (oldItem->itemType()==PageItem::PolyLine)
+			if (oldItem->itemType() == PageItem::PolyLine)
 			{
 				newItem->PoLine.addPoint(newItem->PoLine.point(newItem->PoLine.size()-2));
 				newItem->PoLine.addPoint(newItem->PoLine.point(newItem->PoLine.size()-3));
@@ -6388,7 +6388,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
-			if (oldItem->itemType()==PageItem::Line)
+			if (oldItem->itemType() == PageItem::Line)
 			{
 				QTransform ma;
 				newItem->FrameType = 3;
@@ -6423,7 +6423,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			}
 			break;
 		default:
-			newItem=nullptr;
+			newItem = nullptr;
 			break;
 	}
 	newItem->uniqueNr = oldItem->uniqueNr;
@@ -14588,7 +14588,7 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection != nullptr);
-	if (itemSelection->count()==0)
+	if (itemSelection->count() == 0)
 		return;
 	double gx, gy, gh, gw;
 	FPoint rotationPoint(0, 0);
@@ -14610,7 +14610,7 @@ void ScribusDoc::rotateGroup(double angle, const FPoint& RCenter, Selection* cus
 {
 	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection != nullptr);
-	if (itemSelection->count()==0)
+	if (itemSelection->count() == 0)
 		return;
 	double gxS, gyS, ghS, gwS;
 	double sc = 1; // FIXME:av Scale;
@@ -16041,7 +16041,7 @@ QHash<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemTyp
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			ite = allItems.at(ii);
-			if (ite->itemType() == itemType && ite->nextInChain()==nullptr && !ite->isAutoFrame())
+			if (ite->itemType() == itemType && ite->nextInChain() == nullptr && !ite->isAutoFrame())
 				namesMap.insert(ite, ite->itemName());
 		}
 		allItems.clear();

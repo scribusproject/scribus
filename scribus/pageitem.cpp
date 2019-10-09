@@ -1607,14 +1607,14 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
-	if (m_textDistanceMargins.left()==newLeft)
+	if (m_textDistanceMargins.left() == newLeft)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("LEFT_TEXTFRAMEDIST");
-		ss->set("OLD_DIST",m_textDistanceMargins.left());
-		ss->set("NEW_DIST",newLeft);
+		ss->set("OLD_DIST", m_textDistanceMargins.left());
+		ss->set("NEW_DIST", newLeft);
 		undoManager->action(this, ss);
 	}
 	m_textDistanceMargins.setLeft(newLeft);
@@ -1623,14 +1623,14 @@ void PageItem::setTextToFrameDistLeft(double newLeft)
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
-	if (m_textDistanceMargins.right()==newRight)
+	if (m_textDistanceMargins.right() == newRight)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("RIGHT_TEXTFRAMEDIST");
-		ss->set("OLD_DIST",m_textDistanceMargins.right());
-		ss->set("NEW_DIST",newRight);
+		ss->set("OLD_DIST", m_textDistanceMargins.right());
+		ss->set("NEW_DIST", newRight);
 		undoManager->action(this, ss);
 	}
 	m_textDistanceMargins.setRight(newRight);
@@ -1639,14 +1639,14 @@ void PageItem::setTextToFrameDistRight(double newRight)
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
-	if (m_textDistanceMargins.top()==newTop)
+	if (m_textDistanceMargins.top() == newTop)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("TOP_TEXTFRAMEDIST");
-		ss->set("OLD_DIST",m_textDistanceMargins.top());
-		ss->set("NEW_DIST",newTop);
+		ss->set("OLD_DIST", m_textDistanceMargins.top());
+		ss->set("NEW_DIST", newTop);
 		undoManager->action(this, ss);
 	}
 	m_textDistanceMargins.setTop(newTop);
@@ -1655,14 +1655,14 @@ void PageItem::setTextToFrameDistTop(double newTop)
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
-	if (m_textDistanceMargins.bottom()==newBottom)
+	if (m_textDistanceMargins.bottom() == newBottom)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("BOTTOM_TEXTFRAMEDIST");
-		ss->set("OLD_DIST",m_textDistanceMargins.bottom());
-		ss->set("NEW_DIST",newBottom);
+		ss->set("OLD_DIST", m_textDistanceMargins.bottom());
+		ss->set("NEW_DIST", newBottom);
 		undoManager->action(this, ss);
 	}
 	m_textDistanceMargins.setBottom(newBottom);
@@ -1753,8 +1753,8 @@ void PageItem::setCornerRadius(double newRadius)
 	{
 		SimpleState *state = new SimpleState(Um::RoundCorner,"",Um::IBorder);
 		state->set("CORNER_RADIUS");
-		state->set("OLD_RADIUS",m_roundedCorderRadius);
-		state->set("NEW_RADIUS",newRadius);
+		state->set("OLD_RADIUS", m_roundedCorderRadius);
+		state->set("NEW_RADIUS", newRadius);
 		undoManager->action(this,state);
 	}
 	m_roundedCorderRadius=newRadius;
@@ -1784,7 +1784,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(m_layerID))
 	{
-		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine || itemType()==Group || itemType()==Symbol))
+		if ((itemType() == TextFrame || itemType() == ImageFrame || itemType() == PathText || itemType() == Line || itemType() == PolyLine || itemType() == Group || itemType() == Symbol))
 			DrawObj_Item(p, cullingArea);
 	}
 	else
@@ -2004,7 +2004,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setFillMode(ScPainter::None);
 			p->setBrushOpacity(1.0);
 			p->setPenOpacity(1.0);
-			if (itemType()==PolyLine)
+			if (itemType() == PolyLine)
 				p->setupPolygon(&PoLine, false);
 			else if (itemType() == PathText)
 			{
@@ -2017,7 +2017,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setupPolygon(&PoLine);
 			if (doStroke)
 				p->strokePath();
-			if (itemType()==ImageFrame)
+			if (itemType() == ImageFrame)
 			{
 				if (!imageClip.empty())
 				{
@@ -2033,8 +2033,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			p->setBlendModeFill(0);
 			p->setMaskMode(0);
-			// TODO: Investigate whether itemType()==Table should really be here. I got artifacts without it so keeping it here for now. /estan
-			if (itemType()==PathText || itemType()==PolyLine || itemType()==Spiral || itemType()==Line || itemType()==Symbol || itemType()==Group || itemType()==Table)
+			// TODO: Investigate whether itemType() == Table should really be here. I got artifacts without it so keeping it here for now. /estan
+			if (itemType() == PathText || itemType() == PolyLine || itemType() == Spiral || itemType() == Line || itemType() == Symbol || itemType() == Group || itemType() == Table)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
@@ -2161,7 +2161,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				if (m_Locked)
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(0);
-				if (itemType()==PathText)
+				if (itemType() == PathText)
 				{
 					if (Clip.count() != 0)
 					{
@@ -2191,7 +2191,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			p->setupSharpPolygon(&ContourLine);
 			p->strokePath();
 		}
-		if (itemType()==ImageFrame)
+		if (itemType() == ImageFrame)
 		{
 			double minres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].minResolution;
 			double maxres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].maxResolution;
@@ -3584,7 +3584,7 @@ void PageItem::patternFlip(bool &flipX, bool &flipY)
 
 void PageItem::setMaskType(int val)
 {
-	if (GrMask==val)
+	if (GrMask == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -4161,8 +4161,8 @@ void PageItem::setStartArrowScale(int newScale)
 	{
 		SimpleState *ss = new SimpleState(Um::StartArrowScale,"",Um::IArrow);
 		ss->set("START_ARROWSCALE");
-		ss->set("OLD_SCALE",m_startArrowScale);
-		ss->set("NEW_SCALE",newScale);
+		ss->set("OLD_SCALE", m_startArrowScale);
+		ss->set("NEW_SCALE", newScale);
 		undoManager->action(this, ss);
 	}
 	m_startArrowScale = newScale;
@@ -4176,8 +4176,8 @@ void PageItem::setEndArrowScale(int newScale)
 	{
 		SimpleState *ss = new SimpleState(Um::EndArrowScale,"",Um::IArrow);
 		ss->set("END_ARROWSCALE");
-		ss->set("OLD_SCALE",m_endArrowScale);
-		ss->set("NEW_SCALE",newScale);
+		ss->set("OLD_SCALE", m_endArrowScale);
+		ss->set("NEW_SCALE", newScale);
 		undoManager->action(this, ss);
 	}
 	m_endArrowScale = newScale;
@@ -4256,7 +4256,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 
 void PageItem::setOverprint(bool val)
 {
-	if (doOverprint==val)
+	if (doOverprint == val)
 		return;
 
 	if (UndoManager::undoEnabled())
@@ -6110,7 +6110,7 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 		fill_gradient = is->getItem().first;
 	else
 		fill_gradient = is->getItem().second;
-	if (gradientType()==13)
+	if (gradientType() == 13)
 		createConicalMesh();
 	update();
 }
@@ -8171,7 +8171,7 @@ VGradient::VGradientRepeatMethod PageItem::getStrokeGradientExtend()
 
 void PageItem::setSnapToPatchGrid(bool val)
 {
-	if (snapToPatchGrid ==val)
+	if (snapToPatchGrid == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8367,7 +8367,7 @@ void PageItem::setGradientControl1(const FPoint& val)
 
 void PageItem::setGradientControl2(const FPoint& val)
 {
-	if (GrControl2==val)
+	if (GrControl2 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8381,7 +8381,7 @@ void PageItem::setGradientControl2(const FPoint& val)
 
 void PageItem::setGradientControl3(const FPoint& val)
 {
-	if (GrControl3==val)
+	if (GrControl3 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8395,7 +8395,7 @@ void PageItem::setGradientControl3(const FPoint& val)
 
 void PageItem::setGradientControl4(const FPoint& val)
 {
-	if (GrControl4==val)
+	if (GrControl4 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8409,7 +8409,7 @@ void PageItem::setGradientControl4(const FPoint& val)
 
 void PageItem::setGradientControl5(const FPoint& val)
 {
-	if (GrControl5==val)
+	if (GrControl5 == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8423,7 +8423,7 @@ void PageItem::setGradientControl5(const FPoint& val)
 
 void PageItem::setGradientStrokeScale(double val)
 {
-	if (GrStrokeScale==val)
+	if (GrStrokeScale == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -8438,7 +8438,7 @@ void PageItem::setGradientStrokeScale(double val)
 
 void PageItem::setGradientStrokeSkew(double val)
 {
-	if (GrStrokeSkew==val)
+	if (GrStrokeSkew == val)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -10276,7 +10276,7 @@ void PageItem::setImageVisible(bool isShown)
 	{
 		SimpleState *ss = new SimpleState(Um::ResTyp,"",Um::IImageFrame);
 		ss->set("SHOW_IMAGE");
-		ss->set("OLD",m_imageVisible);
+		ss->set("OLD", m_imageVisible);
 		undoManager->action(this, ss);
 	}
 	m_imageVisible=isShown;
