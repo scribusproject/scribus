@@ -2581,12 +2581,11 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 			newStyle.setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			newStyle.setLanguage(lnew);
 		}
-
 	}
 
 	static const QString SHORTCUT("SHORTCUT");
