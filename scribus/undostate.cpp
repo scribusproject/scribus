@@ -171,7 +171,7 @@ void* SimpleState::getVoidPtr(const QString& key, void* def)
 {
 	void* ret = nullptr;
 	QVariant retVar = variant(key, QVariant::fromValue(def));
-	if (!retVar.canConvert<void*>())
+	if (retVar.canConvert<void*>())
 		ret = retVar.value<void*>();
 	return ret;
 }
