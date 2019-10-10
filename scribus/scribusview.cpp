@@ -3165,8 +3165,13 @@ void ScribusView::TextToPath()
 			continue;
 		}
 
+		// We don't need any of the undo actions created by TextToPathPainter. If we did take them into account,
+		// the created items woud reappear when redoing an undone TextToPath action
+		undoManager->setUndoEnabled(false);
 		TextToPathPainter p(this, currItem, newGroupedItems);
 		currItem->textLayout.render(&p);
+		undoManager->setUndoEnabled(true);
+
 		if ((currItem->asPathText()) && (currItem->PoShow))
 		{
 			int z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
