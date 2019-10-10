@@ -426,8 +426,8 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		{
 			if (m_doc->currentPageNumber() != pgNum)
 			{
-				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->m_ScMW->slotSetCurrentPage(unsigned(pgNum));
+				m_doc->setCurrentPage(m_doc->Pages->at(pgNum));
+				m_view->m_ScMW->slotSetCurrentPage(pgNum);
 				m_view->DrawNew();
 			}
 		}
