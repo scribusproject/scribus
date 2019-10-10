@@ -9129,14 +9129,13 @@ void ScribusMainWindow::PutToPatterns()
 		patternsDependingOnThis.prepend(temp);
 	}
 	allItems.clear();
+
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
 	dia.setForbiddenList(patternsDependingOnThis);
 	dia.setTestList(doc->docPatterns.keys());
 	dia.setCheckMode(true);
-	if (dia.exec())
-		patternName = dia.getEditText();
-	else
+	if (dia.exec() != QDialog::Accepted)
 	{
 		doc->m_Selection->clear();
 		doc->m_Selection->delaySignalsOff();
@@ -9149,6 +9148,8 @@ void ScribusMainWindow::PutToPatterns()
 		m_undoManager->setUndoEnabled(true);
 		return;
 	}
+	patternName = dia.getEditText();
+
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
 	double minx =  std::numeric_limits<double>::max();
