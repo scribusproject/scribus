@@ -79,6 +79,13 @@ class SCRIBUS_API Selection : public QObject
 		 */
 		bool addItem(PageItem *item, bool ignoreGUI=false);
 		/**
+		 * @brief Add items to the selection. 
+		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
+		 * @param item Item to add
+		 * @return If any item was added
+		 */
+		bool addItems(QList<PageItem *> items);
+		/**
 		 * @brief Prepend an item to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add

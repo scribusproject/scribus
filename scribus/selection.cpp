@@ -210,6 +210,35 @@ bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
 	return false;
 }
 
+bool Selection::addItems(const QList<PageItem *> items)
+{
+	if (items.isEmpty())
+		return false;
+
+	QList< QPointer<PageItem> > toAdd;
+	toAdd.reserve(items.count());
+	for (int i = 0; i < items.count(); ++i)
+	{
+		PageItem* item = items.at(i);
+		if (m_SelList.contains(item))
+			continue;
+		toAdd.append(item);
+		item->setSelected(true);
+	}
+
+	if (toAdd.count() <= 0)
+		return false;
+
+	m_SelList.append(toAdd);
+	if (m_isGUISelection)
+	{
+		m_sigSelectionChanged = true;
+		m_sigSelectionIsMultiple = true;
+	}
+	sendSignals();
+	return true;
+}
+
 bool Selection::prependItem(PageItem *item, bool /*doEmit*/)
 {
 	if (item == nullptr)
