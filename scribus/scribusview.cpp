@@ -2929,17 +2929,17 @@ void ScribusView::ToPathText()
 	PageItem* currItem = Doc->m_Selection->itemAt(0);
 	PageItem *polyLineItem;
 	if (currItem->asTextFrame())
-		polyLineItem=Doc->m_Selection->itemAt(1);
+		polyLineItem = Doc->m_Selection->itemAt(1);
 	else
 	{
-		polyLineItem=Doc->m_Selection->itemAt(0);
-		currItem=Doc->m_Selection->itemAt(1);
+		polyLineItem = Doc->m_Selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(1);
 	}
 	ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 	if (polyLineItem->asPolyLine() || polyLineItem->asPolygon() || polyLineItem->asSpiral() || polyLineItem->asArc() || polyLineItem->asRegularPolygon())
 	{
 		Deselect(true);
-		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
+		PageItem* newItem = Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
 		newItem->itemText.setDefaultStyle(dstyle);
 		newItem->itemText.applyCharStyle(0, newItem->itemText.length(), dstyle.charStyle());
 		newItem->invalid = true;
@@ -2956,7 +2956,7 @@ void ScribusView::FromPathText()
 		return;
 
 	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
+	PageItem* newItem = Doc->convertItemTo(currItem, PageItem::TextFrame);
 	SelectItem(newItem);
 	Doc->bringItemSelectionToFront();
 	update();
