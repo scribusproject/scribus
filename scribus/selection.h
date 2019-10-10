@@ -88,10 +88,7 @@ class SCRIBUS_API Selection : public QObject
 		bool prependItem(PageItem *item, bool doEmit=true);
 
 		bool containsItem(PageItem *item) const { return m_SelList.contains(item); }
-		/**
-		 * \brief Unused
-		 */
-		bool addGroup();
+
 		/**
 		 * \brief Remove an item from list
 		 * @param item page item
