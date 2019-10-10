@@ -1073,10 +1073,10 @@ public:
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa);
-	void itemSelection_SetLineWidth(double w);
-	void itemSelection_SetLineArt(Qt::PenStyle w);
-	void itemSelection_SetLineJoin(Qt::PenJoinStyle w);
-	void itemSelection_SetLineEnd(Qt::PenCapStyle w);
+	void itemSelection_SetLineWidth(double w, Selection* customSelection = nullptr);
+	void itemSelection_SetLineArt(Qt::PenStyle w, Selection* customSelection = nullptr);
+	void itemSelection_SetLineJoin(Qt::PenJoinStyle w, Selection* customSelection = nullptr);
+	void itemSelection_SetLineEnd(Qt::PenCapStyle w, Selection* customSelection = nullptr);
 	void itemSelection_SetAlignment(int w, Selection* customSelection = nullptr);
 	void itemSelection_SetDirection(int w, Selection* customSelection = nullptr);
 	void itemSelection_SetLineSpacing(double w, Selection* customSelection = nullptr);
@@ -1484,11 +1484,11 @@ public slots:
 	void itemSelection_TruncateItem(Selection* customSelection = nullptr);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion=false);
-	void itemSelection_SetItemFillTransparency(double t);
+	void itemSelection_SetItemFillTransparency(double t, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenChar(uint hyphenChar, Selection* customSelection = nullptr);
-	void itemSelection_SetItemLineTransparency(double t);
+	void itemSelection_SetItemLineTransparency(double t, Selection* customSelection = nullptr);
 	void itemSelection_SetItemFillBlend(int t);
 	void itemSelection_SetItemLineBlend(int t);
 	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection = nullptr);
@@ -1554,20 +1554,20 @@ public slots:
 	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection = nullptr);
 	void itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection);
 
-	void itemSelection_SetItemPen(QString farbe);
-	void itemSelection_SetItemPenShade(int sha);
-	void itemSelection_SetItemGradStroke(int typ);
-	void itemSelection_SetItemBrush(QString farbe);
-	void itemSelection_SetItemBrushShade(int sha);
-	void itemSelection_SetItemGradMask(int typ);
-	void itemSelection_SetItemGradFill(int typ);
-	void itemSelection_SetItemPatternFill(const QString& pattern);
+	void itemSelection_SetItemPen(QString color, Selection* customSelection = nullptr);
+	void itemSelection_SetItemPenShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetItemGradStroke(int typ, Selection* customSelection = nullptr);
+	void itemSelection_SetItemBrush(QString colorName, Selection* customSelection = nullptr);
+	void itemSelection_SetItemBrushShade(int sha, Selection* customSelection = nullptr);
+	void itemSelection_SetItemGradMask(int typ, Selection* customSelection = nullptr);
+	void itemSelection_SetItemGradFill(int typp, Selection* customSelection = nullptr);
+	void itemSelection_SetItemPatternFill(const QString& pattern, Selection* customSelection = nullptr);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void itemSelection_SetItemStrokePattern(const QString& pattern);
-	void itemSelection_SetItemStrokePatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY);
-	void itemSelection_SetItemStrokePatternType(bool type);
-	void itemSelection_SetItemPatternMask(const QString& pattern);
-	void itemSelection_SetItemPatternMaskProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void itemSelection_SetItemStrokePattern(const QString& pattern, Selection* customSelection = nullptr);
+	void itemSelection_SetItemStrokePatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY, Selection* customSelection = nullptr);
+	void itemSelection_SetItemStrokePatternType(bool type, Selection* customSelection = nullptr);
+	void itemSelection_SetItemPatternMask(const QString& pattern, Selection* customSelection = nullptr);
+	void itemSelection_SetItemPatternMaskProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, Selection* customSelection = nullptr);
 
 	// Table related slots.
 

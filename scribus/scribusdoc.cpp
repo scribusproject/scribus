@@ -7694,11 +7694,13 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 
 }
 
-void ScribusDoc::itemSelection_SetLineWidth(double w)
+void ScribusDoc::itemSelection_SetLineWidth(double w, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection *itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
@@ -7706,7 +7708,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 														  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = m_Selection->itemAt(i);
+		PageItem *currItem = itemSelection->itemAt(i);
 		QRectF oldRect = currItem->getVisualBoundingRect();
 		//cb moved to setlinewidth
 		//currItem->m_oldLineWidth = currItem->lineWidth();
@@ -7733,9 +7735,10 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 
 
 
-void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
+void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7744,8 +7747,9 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(i)->setLineStyle(w);
-		m_Selection->itemAt(i)->update();
+		PageItem* item = itemSelection->itemAt(i);
+		item->setLineStyle(w);
+		item->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -7755,19 +7759,22 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 
 
 
-void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
+void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(i)->setLineJoin(w);
-		m_Selection->itemAt(i)->update();
+		PageItem* item = itemSelection->itemAt(i);
+		item->setLineJoin(w);
+		item->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -7777,19 +7784,22 @@ void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 
 
 
-void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
+void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(i)->setLineEnd(w);
-		m_Selection->itemAt(i)->update();
+		PageItem* item = itemSelection->itemAt(i);
+		item->setLineEnd(w);
+		item->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -7818,7 +7828,7 @@ void ScribusDoc::itemSelection_SetFont(const QString& font, Selection* customSel
 	{
 		if (!AddFont(font))
 		{
-			PageItem *currItem = m_Selection->itemAt(0);
+			PageItem *currItem = itemSelection->itemAt(0);
 			newFont = currItem->currentCharStyle().font().scName();
 		}
 	}
@@ -7904,27 +7914,28 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 }
 
 
-void ScribusDoc::itemSelection_SetItemPen(QString farbe)
+void ScribusDoc::itemSelection_SetItemPen(QString color, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount <= 0)
 		return;
 
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
-	if (farbe == CommonStrings::tr_NoneColor)
-		farbe = CommonStrings::None;
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
 	if (selectedItemCount > 1 && UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
+															Um::IGroup, Um::SetLineColor, color, Um::IFill);
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
-		if ((currItem->asLine()) && (farbe == CommonStrings::None))
+		currItem = itemSelection->itemAt(i);
+		if ((currItem->asLine()) && (color == CommonStrings::None))
 			continue;
 
-		currItem->setLineColor(farbe);
+		currItem->setLineColor(color);
 		currItem->update();
 	}
 	if (activeTransaction)
@@ -8049,37 +8060,41 @@ void ScribusDoc::itemSelection_SetOutlineWidth(int wid, Selection* customSelecti
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "OUTLINE_WIDTH");
 }
 
-void ScribusDoc::itemSelection_SetItemBrush(QString farbe)
+void ScribusDoc::itemSelection_SetItemBrush(QString colorName, Selection* customSelection)
 {
-	if (farbe == CommonStrings::tr_NoneColor)
-		farbe = CommonStrings::None;
-	int selectedItemCount = m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (selectedItemCount > 1 && UndoManager::undoEnabled())
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::SetFill, farbe, Um::IFill);
-		PageItem *currItem;
-		for (int i = 0; i < selectedItemCount; ++i)
-		{
-			currItem = m_Selection->itemAt(i);
-			currItem->setFillColor(farbe);
-			currItem->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
-		changed();
-	}
-}
-
-void ScribusDoc::itemSelection_SetItemBrushShade(int sha)
-{
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
+	if (colorName == CommonStrings::tr_NoneColor)
+		colorName = CommonStrings::None;
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+															Um::IGroup, Um::SetFill, colorName, Um::IFill);
+	PageItem *currItem;
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = itemSelection->itemAt(i);
+		currItem->setFillColor(colorName);
+		currItem->update();
+	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetItemBrushShade(int sha, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
@@ -8089,7 +8104,7 @@ void ScribusDoc::itemSelection_SetItemBrushShade(int sha)
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setFillShade(sha);
 		currItem->update();
 	}
@@ -8099,11 +8114,13 @@ void ScribusDoc::itemSelection_SetItemBrushShade(int sha)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemPenShade(int sha)
+void ScribusDoc::itemSelection_SetItemPenShade(int sha, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (selectedItemCount > 1 && UndoManager::undoEnabled())
@@ -8112,7 +8129,7 @@ void ScribusDoc::itemSelection_SetItemPenShade(int sha)
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setLineShade(sha);
 		currItem->update();
 	}
@@ -8122,11 +8139,13 @@ void ScribusDoc::itemSelection_SetItemPenShade(int sha)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemGradMask(int typ)
+void ScribusDoc::itemSelection_SetItemGradMask(int typ, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
@@ -8134,7 +8153,7 @@ void ScribusDoc::itemSelection_SetItemGradMask(int typ)
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradTypeMask,"",Um::IFill);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setMaskType(typ);
 		if ((typ > 0) && (typ < 9))
 			currItem->updateGradientVectors();
@@ -8146,19 +8165,21 @@ void ScribusDoc::itemSelection_SetItemGradMask(int typ)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
+void ScribusDoc::itemSelection_SetItemGradStroke(int typ, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradTypeMask,"",Um::IFill);
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IFill, Um::GradTypeMask, "", Um::IFill);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setStrokeGradientType(typ);
 		if (currItem->strokeGradientType() == 0)
 		{
@@ -8196,11 +8217,13 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemGradFill(int typ)
+void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	UndoTransaction trans;
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
@@ -8208,7 +8231,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 		trans = m_undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::SetFill,"",Um::IFill);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setGradientType(typ);
 		switch (currItem->gradientType())
 		{
@@ -8279,16 +8302,18 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemPatternFill(const QString& pattern)
+void ScribusDoc::itemSelection_SetItemPatternFill(const QString& pattern, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setPattern(pattern);
 		currItem->update();
 	}
@@ -8314,16 +8339,18 @@ void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double im
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern)
+void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setStrokePattern(pattern);
 		currItem->update();
 	}
@@ -8331,16 +8358,18 @@ void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY)
+void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setStrokePatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY, space);
 		currItem->setStrokePatternFlip(mirrorX, mirrorY);
 		currItem->update();
@@ -8349,16 +8378,18 @@ void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, dou
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemStrokePatternType(bool type)
+void ScribusDoc::itemSelection_SetItemStrokePatternType(bool type, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setStrokePatternToPath(type);
 		currItem->update();
 	}
@@ -8366,16 +8397,18 @@ void ScribusDoc::itemSelection_SetItemStrokePatternType(bool type)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemPatternMask(const QString& pattern)
+void ScribusDoc::itemSelection_SetItemPatternMask(const QString& pattern, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setPatternMask(pattern);
 		currItem->update();
 	}
@@ -8383,16 +8416,18 @@ void ScribusDoc::itemSelection_SetItemPatternMask(const QString& pattern)
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	m_updateManager.setUpdatesDisabled();
 	PageItem *currItem;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		currItem->setMaskTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
 		currItem->setMaskFlip(mirrorX, mirrorY);
 		currItem->update();
@@ -11470,14 +11505,16 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 }
 
 
-void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
+void ScribusDoc::itemSelection_SetItemFillTransparency(double t, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = m_Selection->itemAt(i);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem->isGroup())
 			continue;
 		currItem->setFillTransparency(t);
@@ -11487,14 +11524,16 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 }
 
 
-void ScribusDoc::itemSelection_SetItemLineTransparency(double t)
+void ScribusDoc::itemSelection_SetItemLineTransparency(double t, Selection* customSelection)
 {
-	int selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = m_Selection->itemAt(i);
+		PageItem *currItem = itemSelection->itemAt(i);
 		currItem->setLineTransparency(t);
 	}
 	regionsChanged()->update(QRectF());
