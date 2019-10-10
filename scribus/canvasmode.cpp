@@ -302,7 +302,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
-				double lineAdjust(psx->pen().width()/m_canvas->scale());
+				double lineAdjust(psx->pen().width() / m_canvas->scale());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
 				h = currItem->visualHeight() ;
@@ -331,7 +331,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		psx->save();
 		psx->setPen(m_pen["selection-group"]);
-		double lineAdjust(psx->pen().width()/m_canvas->scale());
+		double lineAdjust(psx->pen().width() / m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
@@ -362,7 +362,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
-			double lineAdjust(psx->pen().width()/m_canvas->scale());
+			double lineAdjust(psx->pen().width() / m_canvas->scale());
 			double x, y, w, h;
 			if (currItem->isGroupChild())
 			{
