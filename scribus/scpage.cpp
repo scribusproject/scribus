@@ -389,17 +389,13 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 			oldItem->Parent->asGroupFrame()->groupItemList.insert(id, oldItem);
 		else
 			m_Doc->Items->insert(id, oldItem);
-		for (int i = 0; i < itemList.count(); ++i)
-		{
-			PageItem* ite = itemList.at(i);
-			m_Doc->view()->SelectItem(ite);
-		}
+		m_Doc->m_Selection->addItems(itemList);
 	}
 	else
 	{
 		Selection tmpSelection(m_Doc, false);
 		PageItem* ite = itemList.at(id2);
-		if (m_Doc->m_Selection->findItem(ite)!=-1)
+		if (m_Doc->m_Selection->findItem(ite) != -1)
 		{
 			if (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable)
 				m_Doc->view()->requestMode(modeNormal);
