@@ -14334,40 +14334,46 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		QString transacDesc = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
 		activeTransaction = m_undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize);
 	}
-	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
-	QTransform ma;
-	ma.rotate(currItem->rotation());
-	double dX = ma.m11() * (currItem->width() - newW) + ma.m21() * (currItem->height() - newH) + ma.dx();
-	double dY = ma.m22() * (currItem->height() - newH) + ma.m12() * (currItem->width() - newW) + ma.dy();
-//	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
-//	currItem->setWidthHeight(newW, newH, true);
-	currItem->setWidthHeight(newW, newH);
 	if ((m_rotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
 	{
-		double moveX=dX, moveY=dY;
+		QTransform ma;
+		ma.rotate(currItem->rotation());
+		double moveX = ma.m11() * (currItem->width() - newW) + ma.m21() * (currItem->height() - newH) + ma.dx();
+		double moveY = ma.m22() * (currItem->height() - newH) + ma.m12() * (currItem->width() - newW) + ma.dy();
 		if (m_rotMode == 2)
 		{
 			moveX /= 2.0;
 			moveY /= 2.0;
 		}
-		else if (m_rotMode == 3)
-			moveX = 0.0;
 		else if (m_rotMode == 1)
-			moveY = 0.0;
+		{
+			moveX = ma.m11() * (currItem->width() - newW);
+			moveY = ma.m12() * (currItem->width() - newW);
+		}
+		else if (m_rotMode == 3)
+		{
+			moveX = ma.m21() * (currItem->height() - newH);
+			moveY = ma.m22() * (currItem->height() - newH);
+		}
 		moveItem(moveX, moveY, currItem);
 	}
+	//	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
+//	currItem->setWidthHeight(newW, newH, true);
+	currItem->setWidthHeight(newW, newH);
+
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
 	{
 		currItem->adjustPictScale();
 	}
 	if (currItem->asLine())
 	{
+		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		if (!fromMP)
 		{
 			FPoint g(currItem->xPos(), currItem->yPos());
 			FPoint t(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 			t -= g;
-			currItem->setRotation( atan2(t.y(), t.x()) * (180.0/M_PI));
+			currItem->setRotation( atan2(t.y(), t.x()) * (180.0 / M_PI));
 			currItem->setWidthHeight( sqrt(pow(t.x(), 2) + pow(t.y(), 2)), 1.0);
 			//currItem->setXYPos(currItem->xPos(), currItem->yPos());
 		}
