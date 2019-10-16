@@ -286,7 +286,7 @@ void ResizeGesture::doResize(bool scaleContent)
 	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		int RotModeBack = m_doc->rotationMode();
+		int oldRotMode = m_doc->rotationMode();
 		m_doc->setRotationMode ( 0 );
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -302,7 +302,7 @@ void ResizeGesture::doResize(bool scaleContent)
 		double dy = newBounds.y() - oldBounds.y();
 		if (dx != 0 || dy != 0)
 			m_doc->moveGroup(dx + m_extraX, dy + m_extraY);
-		m_doc->setRotationMode ( RotModeBack );
+		m_doc->setRotationMode(oldRotMode);
 	}
 	else
 	{
