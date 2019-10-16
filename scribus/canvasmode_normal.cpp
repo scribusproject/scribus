@@ -519,7 +519,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
 				if (!m_doc->m_Selection->isMultipleSelection())
 				{
-					erf=true;
+					erf = true;
 					currItem = m_doc->m_Selection->itemAt(0);
 					//Control Alt drag image in frame without being in edit mode
 					if ((currItem->asImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
@@ -533,13 +533,12 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						if ((m->modifiers() & Qt::ControlModifier) && !(m->modifiers() & Qt::ShiftModifier) && !(m->modifiers() & Qt::AltModifier))
 						{
 							if (abs(dX) > abs(dY))
-								dY=0;
-							else
-								if (abs(dY) > abs(dX))
-									dX=0;
-							erf=false;
-							dX+=qRound(m_dragConstrainInitPtX-currItem->xPos());
-							dY+=qRound(m_dragConstrainInitPtY-currItem->yPos());
+								dY = 0;
+							else if (abs(dY) > abs(dX))
+								dX = 0;
+							erf = false;
+							dX += qRound(m_dragConstrainInitPtX - currItem->xPos());
+							dY += qRound(m_dragConstrainInitPtY - currItem->yPos());
 						}
 						double gx, gy, gh, gw;
 						m_objectDeltaPos.setXY(dX, dY);
@@ -567,27 +566,27 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							nx = nxo = gx + gw + m_objectDeltaPos.x();
 							ny = nyo = gy + gh + m_objectDeltaPos.y();
 							m_doc->ApplyGuides(&nx, &ny);
-							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+							m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 							if (false)
 							{
-								nx = nxo = gx + gw/2 + m_objectDeltaPos.x();
-								ny = nyo = gy + gh/2 + m_objectDeltaPos.y();
+								nx = nxo = gx + gw / 2 + m_objectDeltaPos.x();
+								ny = nyo = gy + gh / 2 + m_objectDeltaPos.y();
 								m_doc->ApplyGuides(&nx, &ny);
-								m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 							}
 						}
 						if (m_doc->SnapElement)
 						{
 							xSnap = 0;
 							ySnap = 0;
-							double snapWidth[] = {0,gw,gw/2};
-							double snapHeight[] = {0,gh,gh/2};
+							double snapWidth[] = { 0, gw, gw / 2 };
+							double snapHeight[] = { 0, gh, gh / 2 };
 							if (m_objectDeltaPos.x() < 0)
-								std::swap(snapWidth[0],snapWidth[2]);
+								std::swap(snapWidth[0], snapWidth[2]);
 							if (m_objectDeltaPos.y() < 0)
-								std::swap(snapHeight[0],snapHeight[2]);
+								std::swap(snapHeight[0], snapHeight[2]);
 							double nx,ny,nyo,nxo;
-							for (int i = 0;i<3;i++)
+							for (int i = 0; i < 3; i++)
 							{
 								nx = gx + snapWidth[i] + m_objectDeltaPos.x();
 								ny = gy + snapHeight[i] + m_objectDeltaPos.y();
@@ -613,7 +612,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							gx = nr.x();
 							gy = nr.y();
 							if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
-								m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
+								m_objectDeltaPos += FPoint(gx - gxo, gy - gyo);
 						}
 					}
 				}
@@ -623,18 +622,17 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_doc->m_Selection->setGroupRect();
 				//	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-					int dX=qRound(newX - m_mousePressPoint.x()), dY=qRound(newY - m_mousePressPoint.y());
+					int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
 					erf = true;
 					if (m->modifiers() & Qt::ControlModifier)
 					{
-						if (abs(dX)>abs(dY))
-							dY=0;
-						else
-							if (abs(dY)>abs(dX))
-								dX=0;
-						erf=false;
-						dX+=m_dragConstrainInitPtX-qRound(gx);
-						dY+=m_dragConstrainInitPtY-qRound(gy);
+						if (abs(dX) > abs(dY))
+							dY = 0;
+						else if (abs(dY) > abs(dX))
+							dX = 0;
+						erf = false;
+						dX += m_dragConstrainInitPtX-qRound(gx);
+						dY += m_dragConstrainInitPtY-qRound(gy);
 					}
 					m_objectDeltaPos.setXY(dX, dY);
 					if (m_doc->SnapGuides)
@@ -660,14 +658,14 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					{
 						xSnap = 0;
 						ySnap = 0;
-						double snapWidth[] = {0,gw,gw/2};
-						double snapHeight[] = {0,gh,gh/2};
+						double snapWidth[] = { 0, gw, gw / 2 };
+						double snapHeight[] = { 0, gh, gh / 2 };
 						if (m_objectDeltaPos.x() <0 )
-							std::swap(snapWidth[0],snapWidth[2]);
+							std::swap(snapWidth[0], snapWidth[2]);
 						if (m_objectDeltaPos.y() < 0)
-							std::swap(snapHeight[0],snapHeight[2]);
+							std::swap(snapHeight[0], snapHeight[2]);
 						double nx,ny,nyo,nxo;
-						for (int i = 0;i<3;i++)
+						for (int i = 0; i < 3; i++)
 						{
 							nx = gx + snapWidth[i] + m_objectDeltaPos.x();
 							ny = gy + snapHeight[i] + m_objectDeltaPos.y();
@@ -692,7 +690,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						gx = nr.x();
 						gy = nr.y();
 						if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
-							m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
+							m_objectDeltaPos += FPoint(gx - gxo, gy - gyo);
 					}
 				}
 				if (erf)

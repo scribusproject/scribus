@@ -1037,12 +1037,12 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 
 void PageItem::resizeBy(const double dH, const double dW)
 {
-	if (dH==0.0 && dW==0.0)
+	if (dH == 0.0 && dW == 0.0)
 		return;
-	if (dH!=0.0)
-		m_width+=dH;
-	if (dW!=0.0)
-		m_height+=dW;
+	if (dH != 0.0)
+		m_width += dH;
+	if (dW != 0.0)
+		m_height += dW;
 	updateConstants();
 	if (m_Doc->isLoading())
 		return;
