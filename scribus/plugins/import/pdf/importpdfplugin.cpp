@@ -160,15 +160,12 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpdf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pdf *.PDF);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return false;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	m_Doc =ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
@@ -188,34 +185,32 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	QStringList exts = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept" << "ps" << "ai";
 	if (exts.contains(fi.suffix().toLower()))
 	{
-		if (ScCore->haveGS())
-		{
-			// Destill the eps/ps with ghostscript to get a clean pdf file
-			bool cancel = false;
-			QString errFile = getShortPathName(ScPaths::tempFileDir())+ "/ps.err";
-			cleanFile = getShortPathName(ScPaths::tempFileDir()) + "/" + fi.baseName() + ".pdf";
-			QStringList args;
-			args.append( "-q" );
-			args.append( "-dNOPAUSE" );
-			args.append( "-sDEVICE=pdfwrite" );
-			args.append( "-dBATCH" );
-			args.append( "-dSAFER" );
-			if (extensionIndicatesEPS(fi.suffix().toLower()))
-				args.append("-dEPSCrop");
-			args.append("-dCompatibilityLevel=1.4");
-			args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(cleanFile)) );
-			args.append( QDir::toNativeSeparators(fileName) );
-			System(getShortPathName(PrefsManager::instance().ghostscriptExecutable()), args, errFile, errFile, &cancel);
-			args.clear();
-			isCleanedFile = true;
-		}
-		else
+		if (!ScCore->haveGS())
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle Postscript files"));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			return false;
 		}
+
+		// Destill the eps/ps with ghostscript to get a clean pdf file
+		bool cancel = false;
+		QString errFile = getShortPathName(ScPaths::tempFileDir())+ "/ps.err";
+		cleanFile = getShortPathName(ScPaths::tempFileDir()) + "/" + fi.baseName() + ".pdf";
+		QStringList args;
+		args.append( "-q" );
+		args.append( "-dNOPAUSE" );
+		args.append( "-sDEVICE=pdfwrite" );
+		args.append( "-dBATCH" );
+		args.append( "-dSAFER" );
+		if (extensionIndicatesEPS(fi.suffix().toLower()))
+			args.append("-dEPSCrop");
+		args.append("-dCompatibilityLevel=1.4");
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(cleanFile)) );
+		args.append( QDir::toNativeSeparators(fileName) );
+		System(getShortPathName(PrefsManager::instance().ghostscriptExecutable()), args, errFile, errFile, &cancel);
+		args.clear();
+		isCleanedFile = true;
 	}
 	bool ret = false;
 	PdfPlug *dia = new PdfPlug(m_Doc, flags);
