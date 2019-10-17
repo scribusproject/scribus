@@ -63,7 +63,7 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		m_doc->m_Selection->getGroupRect(&ex, &ey, &ew, &eh);
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-		m_bounds = QRectF(QPointF(gx,gy), QSizeF(gw, gh));
+		m_bounds = QRectF(QPointF(gx, gy), QSizeF(gw, gh));
 		m_rotation = 0.0;
 		m_extraX = ex - gx;
 		m_extraY = ey - gy;
@@ -467,7 +467,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	QTransform rotation;
 	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
-	QPointF oldXY = m_bounds.topLeft();
+	QPointF oldXY = m_bounds.normalized().topLeft();
 
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
@@ -514,9 +514,10 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	if (m_rotation != 0)
 	{
 		// rotate point around item position
-		rotation.translate(m_bounds.x(), m_bounds.y());
+		QRectF normalizedBounds = m_bounds.normalized();
+		rotation.translate(normalizedBounds.x(), normalizedBounds.y());
 		rotation.rotate(m_rotation);
-		rotation.translate(-m_bounds.x(), -m_bounds.y());
+		rotation.translate(-normalizedBounds.x(), -normalizedBounds.y());
 //		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << rotation << ":" << point-globalBounds.topLeft() << "-->" << rotation.map(point)-globalBounds.topLeft();
 		QPointF qp = QPointF(docPoint.x(), docPoint.y());
 		qp = rotation.inverted().map(qp);
@@ -579,7 +580,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 //				qDebug() << "NORTHWEST" << point << m_origBounds.topLeft() << m_origRatio
 //				<< (point.x() - m_origBounds.left() < (point.y()-m_origBounds.top()) * m_origRatio);
 				
-				if (docPoint.x() - m_origBounds.left() < (docPoint.y()-m_origBounds.top()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() < (docPoint.y() - m_origBounds.top()) * m_origRatio)
 					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
 				else
 					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
@@ -608,7 +609,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 				break;
 			case Canvas::SOUTHEAST:
 				// cf. NORTHWEST
-				if (docPoint.x() - m_origBounds.left() > (docPoint.y()-m_origBounds.top()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() > (docPoint.y() - m_origBounds.top()) * m_origRatio)
 					m_bounds.setHeight(newHeight);
 				else
 					m_bounds.setWidth(newWidth);
@@ -681,40 +682,41 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 				newFixPoint = m_bounds.bottomRight();
 				break;
 			case Canvas::WEST:
-				origFixPoint = m_origBounds.topRight() + QPointF(0, m_origBounds.height()/2);
-				newFixPoint = m_bounds.topRight() + QPointF(0, m_bounds.height()/2);
+				origFixPoint = m_origBounds.topRight() + QPointF(0, m_origBounds.height() / 2);
+				newFixPoint = m_bounds.topRight() + QPointF(0, m_bounds.height() / 2);
 				break;
 			case Canvas::SOUTHWEST:
 				origFixPoint = m_origBounds.topRight();
 				newFixPoint = m_bounds.topRight();
 				break;
 			case Canvas::SOUTH:
-				origFixPoint = m_origBounds.topLeft() + QPointF(m_origBounds.width()/2, 0);
-				newFixPoint = m_bounds.topLeft() + QPointF(m_bounds.width()/2, 0);
+				origFixPoint = m_origBounds.topLeft() + QPointF(m_origBounds.width() / 2, 0);
+				newFixPoint = m_bounds.topLeft() + QPointF(m_bounds.width() / 2, 0);
 				break;
 			case Canvas::SOUTHEAST:
 				origFixPoint = m_origBounds.topLeft();
 				newFixPoint = m_bounds.topLeft();
 				break;
 			case Canvas::EAST:
-				origFixPoint = m_origBounds.topLeft() + QPointF(0, m_origBounds.height()/2);
-				newFixPoint = m_bounds.topLeft() + QPointF(0, m_bounds.height()/2);
+				origFixPoint = m_origBounds.topLeft() + QPointF(0, m_origBounds.height() / 2);
+				newFixPoint = m_bounds.topLeft() + QPointF(0, m_bounds.height() / 2);
 				break;
 			case Canvas::NORTHEAST:
 				origFixPoint = m_origBounds.bottomLeft();
 				newFixPoint = m_bounds.bottomLeft();
 				break;
 			case Canvas::NORTH:
-				origFixPoint = m_origBounds.bottomLeft() + QPointF(m_origBounds.width()/2, 0);
-				newFixPoint = m_bounds.bottomLeft() + QPointF(m_bounds.width()/2, 0);
+				origFixPoint = m_origBounds.bottomLeft() + QPointF(m_origBounds.width() / 2, 0);
+				newFixPoint = m_bounds.bottomLeft() + QPointF(m_bounds.width() / 2, 0);
 				break;
 			default:
 				origFixPoint = m_origBounds.topLeft();
 				newFixPoint = m_bounds.topLeft();
 				break;
 		}
+		QRectF normalizedBounds = m_bounds.normalized();
 		origFixPoint = m_origBounds.topLeft() + rotation.map(origFixPoint - m_origBounds.topLeft());
-		newFixPoint = m_bounds.topLeft() + rotation.map(newFixPoint - m_bounds.topLeft());
+		newFixPoint = normalizedBounds.topLeft() + rotation.map(newFixPoint - normalizedBounds.topLeft());
 		if (origFixPoint != newFixPoint)
 			m_bounds.translate(origFixPoint - newFixPoint);
 	}
