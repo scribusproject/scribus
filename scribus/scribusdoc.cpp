@@ -14846,7 +14846,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				for (int j = 0; j < item->itemText.length(); ++j)
 				{
 					CharStyle fsStyle;
-					fsStyle.setFontSize(qMax(qRound(item->itemText.charStyle(j).fontSize()*((scx+scy)/2)), 1));
+					fsStyle.setFontSize(qMax(qRound(item->itemText.charStyle(j).fontSize() * ((scx + scy) / 2)), 1));
 					item->itemText.applyCharStyle(j, 1, fsStyle);
 				}
 				if (item->asPathText())
@@ -14891,21 +14891,21 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		switch (m_rotMode)
 		{
 		case 2:
-			moveGroup((origGW-gw) / 2.0, (origGH-gh) / 2.0);
+			moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
 			break;
 		case 4:
-			moveGroup(origGW-gw, origGH-gh);
+			moveGroup(origGW - gw, origGH - gh);
 			break;
 		case 3:
-			moveGroup(0.0, origGH-gh);
+			moveGroup(0.0, origGH - gh);
 			break;
 		case 1:
-			moveGroup(origGW-gw, 0.0);
+			moveGroup(origGW - gw, 0.0);
 			break;
 		}
 	}
 	updateManager()->setUpdatesEnabled();
-	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10).united(oldR));
+	regionsChanged()->update(QRectF(gx - 5, gy - 5, gw + 10, gh + 10).united(oldR));
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (int i = 0; i < selectedItemCount; ++i)
