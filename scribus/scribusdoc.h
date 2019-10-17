@@ -1453,8 +1453,6 @@ signals:
 	//! Temporary signal for SizeItem
 	void widthAndHeight(double, double);
 
-	//! Signal a change in rotation mode (aka basepoint)
-	void rotationMode(int);
 	void updateEditItem();
 	void updateAutoSaveClock();
 	void addBookmark(PageItem *);

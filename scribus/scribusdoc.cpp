@@ -14810,11 +14810,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				QTransform ma3;
 				ma3.translate(gx, gy);
 				ma3.scale(scx, scy);
-				FPoint n(gx - oldPos.x(), gy - oldPos.y());
+				FPoint n(oldPos.x() - gx, oldPos.y() - gy);
 				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				//moveItem(gx - x, gy - y, item);
-				item->moveBy(gx - x, gy - y);
+				item->moveBy(x - gx, y - gy);
 			}
 			if (oldRot != 0)
 			{
@@ -16113,13 +16112,11 @@ Serializer *ScribusDoc::textSerializer()
 	return m_tserializer;
 }
 
-
 void ScribusDoc::setRotationMode(int val)
 {
 	if (m_rotMode == val)
 		return;
 	m_rotMode = val;
-	emit rotationMode(m_rotMode);
 }
 
 void ScribusDoc::setPageSetFirstPage(int layout, int fp)
