@@ -174,15 +174,15 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	}
 	if (m_startArrowIndex != 0)
 	{
-		FPoint Start = PoLine.point(0);
+		FPoint start = PoLine.point(0);
 		for (int xx = 1; xx < PoLine.size(); xx += 2)
 		{
-			FPoint Vector = PoLine.point(xx);
-			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+			const FPoint& point = PoLine.point(xx);
+			if ((start.x() != point.x()) || (start.y() != point.y()))
 			{
-				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(start.y() - point.y(), start.x() - point.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
-				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.translate(start.x(), start.y());
 				arrowTrans.rotate(r);
 				arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 				drawArrow(p, arrowTrans, m_startArrowIndex);
@@ -192,15 +192,15 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	}
 	if (m_endArrowIndex != 0)
 	{
-		FPoint End = PoLine.point(PoLine.size()-2);
+		FPoint end = PoLine.point(PoLine.size()-2);
 		for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
 		{
-			FPoint Vector = PoLine.point(xx);
-			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			const FPoint& point = PoLine.point(xx);
+			if ((end.x() != point.x()) || (end.y() != point.y()))
 			{
-				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(end.y() - point.y(), end.x() - point.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
-				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.translate(end.x(), end.y());
 				arrowTrans.rotate(r);
 				arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 				drawArrow(p, arrowTrans, m_endArrowIndex);
