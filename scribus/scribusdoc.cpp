@@ -14827,7 +14827,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				}
 				if (item->isGroup() || item->isSymbol())
 				{
-					// #15759: save/restoring group dimensiosn looks unnecessary
+					// #15759: save/restoring group dimensions looks unnecessary
 					// after fixing adjustItemSize() for groups
 					//double oldGW = item->groupWidth;
 					//double oldGH = item->groupHeight;
