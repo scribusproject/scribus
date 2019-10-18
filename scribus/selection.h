@@ -209,7 +209,6 @@ class SCRIBUS_API Selection : public QObject
 		
 	signals:
 		void selectionIsMultiple(bool);
-		void empty();
 		void selectionChanged();
 };
 
