@@ -467,7 +467,6 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	QTransform rotation;
 	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
-	QPointF oldXY = m_bounds.normalized().topLeft();
 
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
@@ -670,7 +669,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	}
 
 	// re-rotate: if top left has changed, then it needs rotation
-	if (m_rotation != 0 && oldXY != m_bounds.topLeft())
+	if (m_rotation != 0)
 	{
 		m_bounds.moveTo(rotation.map(m_bounds.topLeft()));
 		// fix opposite corner to avoid aggregating rounding errors
