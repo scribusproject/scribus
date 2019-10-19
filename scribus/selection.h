@@ -203,12 +203,10 @@ class SCRIBUS_API Selection : public QObject
 
 		int  m_delaySignals;
 		bool m_sigSelectionChanged;
-		bool m_sigSelectionIsMultiple;
 
 		void sendSignals(bool guiConnect = true);
 		
 	signals:
-		void selectionIsMultiple(bool);
 		void selectionChanged();
 };
 

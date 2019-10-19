@@ -89,7 +89,7 @@ class SCRIBUS_API ActionManager : public QObject
 		
 	public slots:
 		void languageChange();
-		void handleMultipleSelections(bool isMultiple);
+		void handleMultipleSelections();
 		
 	protected:
 		void initFileMenuActions();

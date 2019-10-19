@@ -2528,8 +2528,11 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeLigature_st";
 }
 
-void ActionManager::handleMultipleSelections(bool isMultiple)
+void ActionManager::handleMultipleSelections()
 {
+	bool isMultiple = true;
+	if (mainWindow->HaveDoc && (mainWindow->doc->m_Selection->count() <= 1))
+		isMultiple = false;
 	(*scrActions)["itemAttributes"]->setEnabled(!isMultiple);
 }
 

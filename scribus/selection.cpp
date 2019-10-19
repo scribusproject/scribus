@@ -27,8 +27,7 @@ Selection::Selection(QObject* parent) :
 	QObject(parent),
 	m_isGUISelection(false),
 	m_delaySignals(0),
-	m_sigSelectionChanged(false),
-	m_sigSelectionIsMultiple(false)
+	m_sigSelectionChanged(false)
 {
 	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
 	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
@@ -38,8 +37,7 @@ Selection::Selection(QObject* parent, bool guiSelection) :
 	QObject(parent),
 	m_isGUISelection(guiSelection),
 	m_delaySignals(0),
-	m_sigSelectionChanged(false),
-	m_sigSelectionIsMultiple(false)
+	m_sigSelectionChanged(false)
 {
 	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
 	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
@@ -55,15 +53,14 @@ Selection::Selection(const Selection& other) :
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_delaySignals(0), 
-	m_sigSelectionChanged(other.m_sigSelectionChanged),
-	m_sigSelectionIsMultiple(other.m_sigSelectionIsMultiple)
+	m_sigSelectionChanged(other.m_sigSelectionChanged)
 {
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_SelList.count() > 1);
+		emit selectionChanged();
 	}
 	m_groupX = other.m_groupX;
 	m_groupY = other.m_groupY;
@@ -85,19 +82,18 @@ Selection& Selection::operator=(const Selection &other)
 		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
 			(*it)->setSelected(false);
 	}
-	m_SelList=other.m_SelList;
+	m_SelList = other.m_SelList;
 	// Do not copy m_isGUISelection for consistency with cpy ctor
 	/* m_isGUISelection = other.m_isGUISelection; */
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_sigSelectionChanged = other.m_sigSelectionChanged;
-	m_sigSelectionIsMultiple = other.m_sigSelectionIsMultiple;
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_SelList.count() > 1);
+		emit selectionChanged();
 	}
 	return *this;
 }
@@ -114,7 +110,7 @@ void Selection::copy(Selection& other, bool emptyOther)
 	}
 	m_SelList = other.m_SelList;
 	if (m_isGUISelection && !m_SelList.isEmpty())
-		m_sigSelectionIsMultiple = true;
+		m_sigSelectionChanged = true;
 	if (emptyOther)
 		other.clear();
 	sendSignals();
@@ -128,9 +124,9 @@ bool Selection::clear()
 {
 	if (!m_SelList.isEmpty())
 	{
-		SelectionList::Iterator itend=m_SelList.end();
-		SelectionList::Iterator it=m_SelList.begin();
-		while (it!=itend)
+		SelectionList::Iterator itend = m_SelList.end();
+		SelectionList::Iterator it = m_SelList.begin();
+		while (it != itend)
 		{
 			(*it)->isSingleSel=false;
 			if (m_isGUISelection)
@@ -170,7 +166,6 @@ bool Selection::connectItemToGUI()
 		ret = m_SelList.first()->connectToGUI();
 		m_SelList.first()->emitAllToGUI();
 		m_sigSelectionChanged  = true;
-		m_sigSelectionIsMultiple = true;
 	}
 	sendSignals(false);
 	return ret;
@@ -202,7 +197,6 @@ bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
 		{
 			item->setSelected(true);
 			m_sigSelectionChanged = true;
-			m_sigSelectionIsMultiple = true;
 		}
 		sendSignals();
 		return true;
@@ -231,10 +225,7 @@ bool Selection::addItems(const QList<PageItem *> items)
 
 	m_SelList.append(toAdd);
 	if (m_isGUISelection)
-	{
 		m_sigSelectionChanged = true;
-		m_sigSelectionIsMultiple = true;
-	}
 	sendSignals();
 	return true;
 }
@@ -252,7 +243,6 @@ bool Selection::prependItem(PageItem *item, bool /*doEmit*/)
 		{
 			item->setSelected(true);
 			m_sigSelectionChanged = true;
-			m_sigSelectionIsMultiple = true;
 		}	
 		sendSignals();
 		return true;
@@ -262,7 +252,7 @@ bool Selection::prependItem(PageItem *item, bool /*doEmit*/)
 
 PageItem *Selection::itemAt_(int index)
 {
-	if (!m_SelList.isEmpty() && index<m_SelList.count())
+	if (!m_SelList.isEmpty() && index < m_SelList.count())
 	{
 		QPointer<PageItem> pi = m_SelList[index];
 		//If not nullptr return it, otherwise remove from the list and return nullptr
@@ -654,10 +644,7 @@ void Selection::sendSignals(bool guiConnect)
 			connectItemToGUI();
 		if (m_sigSelectionChanged)
 			emit selectionChanged();
-		if (m_sigSelectionIsMultiple)
-			emit selectionIsMultiple(m_SelList.count() > 1);
 		m_sigSelectionChanged = false;
-		m_sigSelectionIsMultiple = false;
 	}
 }
 

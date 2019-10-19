@@ -2569,11 +2569,11 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
 		pageSelector->setEnabled(true);
 	}
-	if (view!=nullptr)
+	if (view != nullptr)
 	{
 		actionManager->disconnectNewViewActions();
 		if (ScCore->usingGUI())
-			doc->m_Selection->disconnect(SIGNAL(selectionIsMultiple(bool)));
+			doc->m_Selection->disconnect(SIGNAL(selectionChanged()));
 	}
 	view = ActWin->view();
 	bool b = zoomSpinBox->blockSignals(true);
@@ -2583,7 +2583,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
 	if (ScCore->usingGUI())
-		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), actionManager, SLOT( handleMultipleSelections(bool)));
+		connect(doc->m_Selection, SIGNAL(selectionChanged()), actionManager, SLOT(handleMultipleSelections()));
 	pagePalette->setView(view);
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
