@@ -109,7 +109,7 @@ void Selection::copy(Selection& other, bool emptyOther)
 			(*it)->setSelected(false);
 	}
 	m_SelList = other.m_SelList;
-	if (m_isGUISelection && !m_SelList.isEmpty())
+	if (m_isGUISelection)
 		m_sigSelectionChanged = true;
 	if (emptyOther)
 		other.clear();
@@ -145,28 +145,26 @@ bool Selection::clear()
 
 bool Selection::connectItemToGUI()
 {
-	bool ret = false;
 	if (!m_isGUISelection || m_SelList.isEmpty())
-		return ret;
-	if (m_SelList.count() == 1)
+		return false;
+
+	QPointer<PageItem> pi = m_SelList.first();
+	//Quick check to see if the pointer is nullptr, if its nullptr, we should remove it from the list now
+	while (pi.isNull())
 	{
-		QPointer<PageItem> pi = m_SelList.first();
-		//Quick check to see if the pointer is nullptr, if its nullptr, we should remove it from the list now
-		if (pi.isNull())
-		{
-			m_SelList.removeAll(pi);
-			return ret;
-		}
-		ret = pi->connectToGUI();
-		pi->emitAllToGUI();
-		m_sigSelectionChanged = true;
+		m_SelList.removeAll(pi);
+		if (m_SelList.isEmpty())
+			break;
+		pi = m_SelList.first();
 	}
-	else
-	{
-		ret = m_SelList.first()->connectToGUI();
-		m_SelList.first()->emitAllToGUI();
-		m_sigSelectionChanged  = true;
-	}
+
+	if (pi.isNull())
+		return false;
+
+	bool ret = pi->connectToGUI();
+	pi->emitAllToGUI();
+	m_sigSelectionChanged = true;
+
 	sendSignals(false);
 	return ret;
 }
@@ -230,24 +228,23 @@ bool Selection::addItems(const QList<PageItem *> items)
 	return true;
 }
 
-bool Selection::prependItem(PageItem *item, bool /*doEmit*/)
+bool Selection::prependItem(PageItem *item)
 {
 	if (item == nullptr)
 		return false;
-	if (!m_SelList.contains(item))
+	if (m_SelList.contains(item))
+		return false;
+
+	if (m_isGUISelection && !m_SelList.isEmpty())
+		m_SelList[0]->disconnectFromGUI();
+	m_SelList.prepend(item);
+	if (m_isGUISelection)
 	{
-		if (m_isGUISelection && !m_SelList.isEmpty())
-			m_SelList[0]->disconnectFromGUI();
-		m_SelList.prepend(item);
-		if (m_isGUISelection /*&& doEmit*/)
-		{
-			item->setSelected(true);
-			m_sigSelectionChanged = true;
-		}	
-		sendSignals();
-		return true;
-	}
-	return false;
+		item->setSelected(true);
+		m_sigSelectionChanged = true;
+	}	
+	sendSignals();
+	return true;
 }
 
 PageItem *Selection::itemAt_(int index)

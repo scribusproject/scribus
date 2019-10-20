@@ -92,7 +92,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param doEmit call emitAllToGUI()
 		 * @return If the item was added
 		 */
-		bool prependItem(PageItem *item, bool doEmit=true);
+		bool prependItem(PageItem *item);
 
 		bool containsItem(PageItem *item) const { return m_SelList.contains(item); }
 
