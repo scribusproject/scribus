@@ -7014,8 +7014,6 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	bool   found = false;
 	bool   alphaM = false;
 	bool   realCMYK = false;
-	bool   bitmapFromGS = false;
-	bool   isEmbeddedPDF = false;
 	bool   hasGrayProfile = false;
 	QString profInUse = Profil;
 	int    afl = Options.Resolution;
@@ -7037,6 +7035,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	ImInfo.ya = y;
 	ImInfo.origXsc = c->imageXScale();
 	ImInfo.origYsc = c->imageYScale();
+	ImInfo.isBitmapFromGS = false;
+	ImInfo.isEmbeddedPDF = false;
 	ShIm   ImInfo2;
 	ImInfo2.origXsc = c->imageXScale();
 	ImInfo2.origYsc = c->imageYScale();
@@ -7075,7 +7075,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 			else
 				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
-			isEmbeddedPDF = true;
+			ImInfo.isEmbeddedPDF = true;
 			ImInfo.Page = c->pixm.imgInfo.actualPageNumber;
 		}
 		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
@@ -7085,7 +7085,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		{ 
 			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
 			{
-				bitmapFromGS = true;
+				ImInfo.isBitmapFromGS = true;
 				if (Options.RecalcPic)
 				{
 					afl = qMin(Options.PicRes, Options.Resolution);
@@ -7588,27 +7588,12 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ImInfo = SharedImages[fn];
 		ImInfo.sxa *= sx / ImInfo.xa;
 		ImInfo.sya *= sy / ImInfo.ya;
-		/*
-		ImRes = SharedImages[fn].ResNum;
-		ImWid = SharedImages[fn].Width;
-		ImHei = SharedImages[fn].Height;
-		aufl = SharedImages[fn].reso;
-		sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
-		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
-		*/
 	}
 	QString embedPre = "";
-	if ((bitmapFromGS) || (isEmbeddedPDF)) // compensate gsResolution setting
+	if ((ImInfo.isBitmapFromGS) || (ImInfo.isEmbeddedPDF)) // compensate gsResolution setting
 	{
-		if (isEmbeddedPDF)
+		if (ImInfo.isEmbeddedPDF)
 		{
-			// #9268 : per specs default color space is grayscale
-			/*if (Options.isGrayscale)
-				embedPre = "0 g 0 G";
-			else if (Options.UseRGB)
-				embedPre = "0 0 0 rg 0 0 0 RG";
-			else
-				embedPre = "0 0 0 0 k 0 0 0 0 K";*/
 			embedPre  = "0 g 0 G";
 			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
 		}

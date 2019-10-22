@@ -66,10 +66,10 @@ public:
 private:
 	struct ShIm
 	{
-		int ResNum;
-		int Width;
-		int Height;
-		int Page;
+		int  ResNum;
+		int  Width;
+		int  Height;
+		int  Page;
 		double reso;
 		double sxa;
 		double sya;
@@ -77,6 +77,8 @@ private:
 		double ya;
 		double origXsc;
 		double origYsc;
+		bool isBitmapFromGS;
+		bool isEmbeddedPDF;
 		QMap<int, ImageLoadRequest> RequestProps;
 	};
 
