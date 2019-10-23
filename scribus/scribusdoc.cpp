@@ -822,15 +822,15 @@ void ScribusDoc::SetDefaultCMSParams()
 	stdProofLabGC         = ScCore->defaultLabToRGBTrans;
 }
 
-bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
+bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  /*MoPo*/, ProfilesL PrPo)
 {
 	HasCMS = false;
 	ScColorProfile inputProf;
 
 	colorEngine = colorMgmtEngineFactory.createDefaultEngine();
 	ScColorMgmtStrategy colorStrategy;
-	colorStrategy.useBlackPointCompensation = m_docPrefsData.colorPrefs.DCMSset.BlackPoint;
-	colorStrategy.useBlackPreservation      = false;
+	colorStrategy.setUseBlackPointCompensation(m_docPrefsData.colorPrefs.DCMSset.BlackPoint);
+	colorStrategy.setUseBlackPreservation(false);
 	colorEngine.setStrategy(colorStrategy);
 
 	DocDisplayProf   = ScCore->monitorProfile;

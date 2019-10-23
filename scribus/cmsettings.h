@@ -36,67 +36,67 @@ class ScribusDoc;
 
 class SCRIBUS_API CMSettings
 {
-public:
-	CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent);
-	~CMSettings();
-	
-	ScribusDoc* doc() const {return m_Doc;}
-	QString profileName() const {return m_ProfileName;}
-	eRenderIntent intent() const { return m_Intent; }
+	public:
+		CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent);
+		~CMSettings();
 
-	bool colorManagementAllowed() const { return m_colorManagementAllowed; }
-	void allowColorManagement(bool allowed) { m_colorManagementAllowed = allowed; }
+		ScribusDoc* doc() const {return m_Doc;}
+		QString profileName() const {return m_ProfileName;}
+		eRenderIntent intent() const { return m_Intent; }
 
-	bool softProofingAllowed() const { return m_softProofingAllowed; }
-	void allowSoftProofing(bool allowed) { m_softProofingAllowed = allowed; }
+		bool colorManagementAllowed() const { return m_colorManagementAllowed; }
+		void allowColorManagement(bool allowed) { m_colorManagementAllowed = allowed; }
 
-	bool useEmbeddedProfile() const { return m_useEmbeddedProfile; }
-	void setUseEmbeddedProfile(bool useEmbedded) { m_useEmbeddedProfile = useEmbedded; }
+		bool softProofingAllowed() const { return m_softProofingAllowed; }
+		void allowSoftProofing(bool allowed) { m_softProofingAllowed = allowed; }
 
-	bool useOutputProfile() const { return !m_outputProfile.isNull(); }
-	void setOutputProfile(const ScColorProfile& prof) { m_outputProfile = prof; }
+		bool useEmbeddedProfile() const { return m_useEmbeddedProfile; }
+		void setUseEmbeddedProfile(bool useEmbedded) { m_useEmbeddedProfile = useEmbedded; }
 
-	bool useColorManagement() const;
+		bool useOutputProfile() const { return !m_outputProfile.isNull(); }
+		void setOutputProfile(const ScColorProfile& prof) { m_outputProfile = prof; }
 
-	QString defaultMonitorProfile() const;
-	QString defaultPrinterProfile() const;
-	QString defaultImageRGBProfile() const;
-	QString defaultImageCMYKProfile() const;
-	QString defaultSolidColorRGBProfile() const;
-	QString defaultSolidColorCMYKProfile() const;
+		bool useColorManagement() const;
 
-	eRenderIntent colorRenderingIntent() const;
-	eRenderIntent imageRenderingIntent() const;
+		QString defaultMonitorProfile() const;
+		QString defaultPrinterProfile() const;
+		QString defaultImageRGBProfile() const;
+		QString defaultImageCMYKProfile() const;
+		QString defaultSolidColorRGBProfile() const;
+		QString defaultSolidColorCMYKProfile() const;
 
-	bool useBlackPoint() const;
-	bool doSoftProofing() const;
-	bool doGamutCheck() const;
+		eRenderIntent colorRenderingIntent() const;
+		eRenderIntent imageRenderingIntent() const;
 
-	ScColorProfile monitorProfile() const;
-	ScColorProfile printerProfile() const;
-	ScColorProfile outputProfile() const;
+		bool useBlackPoint() const;
+		bool doSoftProofing() const;
+		bool doGamutCheck() const;
 
-	ScColorTransform rgbColorDisplayTransform() const;   // stdTransRGBMonG
-	ScColorTransform rgbColorProofingTransform() const;  // stdProofG
-	ScColorTransform rgbImageDisplayTransform() const;   // stdTransImgG
-	ScColorTransform rgbImageProofingTransform() const;  // stdProofImgG
-	ScColorTransform rgbToCymkColorTransform() const;    // stdTransCMYKG
-	ScColorTransform rgbGamutCheckTransform() const;     // stdProofGCG
+		ScColorProfile monitorProfile() const;
+		ScColorProfile printerProfile() const;
+		ScColorProfile outputProfile() const;
 
-	ScColorTransform cmykColorDisplayTransform() const;  // stdTransCMYKMonG
-	ScColorTransform cmykColorProofingTransform() const; // stdProofCMYKG
-	ScColorTransform cmykImageProofingTransform() const; // stdProofImgCMYK
-	ScColorTransform cmykToRgbColorTransform() const;    // stdTransRGBG
-	ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+		ScColorTransform rgbColorDisplayTransform() const;   // stdTransRGBMonG
+		ScColorTransform rgbColorProofingTransform() const;  // stdProofG
+		ScColorTransform rgbImageDisplayTransform() const;   // stdTransImgG
+		ScColorTransform rgbImageProofingTransform() const;  // stdProofImgG
+		ScColorTransform rgbToCymkColorTransform() const;    // stdTransCMYKG
+		ScColorTransform rgbGamutCheckTransform() const;     // stdProofGCG
 
-protected:
-	ScribusDoc*    m_Doc;
-	bool           m_colorManagementAllowed {true};
-	bool           m_softProofingAllowed {false};
-	bool           m_useEmbeddedProfile {false};
-	QString        m_ProfileName;
-	eRenderIntent  m_Intent;
-	ScColorProfile m_outputProfile;
+		ScColorTransform cmykColorDisplayTransform() const;  // stdTransCMYKMonG
+		ScColorTransform cmykColorProofingTransform() const; // stdProofCMYKG
+		ScColorTransform cmykImageProofingTransform() const; // stdProofImgCMYK
+		ScColorTransform cmykToRgbColorTransform() const;    // stdTransRGBG
+		ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+
+	private:
+		ScribusDoc*    m_Doc;
+		bool           m_colorManagementAllowed {true};
+		bool           m_softProofingAllowed {false};
+		bool           m_useEmbeddedProfile {false};
+		QString        m_ProfileName;
+		eRenderIntent  m_Intent;
+		ScColorProfile m_outputProfile;
 };
 
 #endif

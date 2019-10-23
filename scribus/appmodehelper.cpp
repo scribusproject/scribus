@@ -44,13 +44,6 @@ for which a new license (GPL+exception) is in place.
 AppModeHelper::AppModeHelper(QObject *parent) :
     QObject(parent)
 {
-	a_actMgr=nullptr;
-	a_scrActions=nullptr;
-	a_scrRecentFileActions=nullptr;
-	a_scrWindowsActions=nullptr;
-	a_scrScrapActions=nullptr;
-	a_scrLayersActions=nullptr;
-	a_scrRecentPasteActions=nullptr;
 }
 
 void AppModeHelper::setup(ActionManager* am,

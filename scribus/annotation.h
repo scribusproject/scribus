@@ -109,96 +109,96 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Flag_CommitOnSelChange	=	67108864	// Bit 27
 		};
 
-	bool isAcroFormField() const
-	{
-		return m_type == Annotation::Button ||
-			m_type == Annotation::Textfield ||
-			m_type == Annotation::Checkbox ||
-			m_type == Annotation::Combobox ||
-			m_type == Annotation::Listbox ||
-			m_type == Annotation::RadioButton;
-	}
+		bool isAcroFormField() const
+		{
+			return m_type == Annotation::Button ||
+				m_type == Annotation::Textfield ||
+				m_type == Annotation::Checkbox ||
+				m_type == Annotation::Combobox ||
+				m_type == Annotation::Listbox ||
+				m_type == Annotation::RadioButton;
+		}
 
-	void setType(int newType) { m_type = newType; }
-	void setAction(const QString& newAction) { m_action = newAction; }
-	void setE_act(const QString& newE_act) { m_E_act = newE_act; }
-	void setX_act(const QString& newX_act) { m_X_act = newX_act; }
-	void setD_act(const QString& newD_act) { m_D_act = newD_act; }
-	void setFo_act(const QString& newFo_act) { m_Fo_act = newFo_act; }
-	void setBl_act(const QString& newBl_act) { m_Bl_act = newBl_act; }
-	void setK_act(const QString& newK_act) { m_K_act = newK_act; }
-	void setF_act(const QString& newF_act) { m_F_act = newF_act; }
-	void setV_act(const QString& newV_act) { m_V_act = newV_act; }
-	void setC_act(const QString& newC_act) { m_C_act = newC_act; }
-	void setExtern(const QString& newExtern) { m_extern = newExtern; }
-	void setZiel(int newZiel) { m_ziel = newZiel; }
-	void setActionType(int newActType) { m_actType = newActType; }
-	void setToolTip(const QString& newToolTip) { m_toolTip = newToolTip; }
-	void setRollOver(const QString& newRollOver) { m_rollOver = newRollOver; }
-	void setDown(const QString& newDown) { m_down = newDown; }
-	void setBorderColor(const QString& newBorderColor) { m_borderColor = newBorderColor; }
-	void setBorderWidth(int newBorderWidth) { m_borderWidth = newBorderWidth; }
-	void setBorderStyle(int newBorderStyle) { m_borderStyle = newBorderStyle; }
-	void setFeed(int newFeed) { m_feed = newFeed; }
-	void setFlag(int newFlag) { m_flag = newFlag; }
-	void addToFlag(int dFlag) { m_flag += dFlag; }
-	void setMaxChar(int newMaxChar) { m_maxChar = newMaxChar; }
-	void setVis(int newVis) { m_vis = newVis; }
-	void setFont(int newFont) { m_font = newFont; }
-	void setChkStil(int newChkStil) { m_chkStil = newChkStil; }
-	void setFormat(int newFormat) { m_format = newFormat; }
-	void setIsChk(bool newIsChk) { m_isChk = newIsChk; }
-	void setCheckState(bool newCheckState) { tmp_Chk = newCheckState; }
-	void setOpen(bool newIsOpen) { is_Open = newIsOpen; }
-	void setOnState(bool newOnState) { on_State = newOnState; }
-	void setAAact(bool newAAct) { m_aAact = newAAct; }
-	void setHTML(int newHTML) { m_html = newHTML; }
-	void setUseIcons(bool newUseIcons) { m_useIcons = newUseIcons; }
-	void setIPlace(int newIPlace) { m_iPlace = newIPlace; }
-	void setScaleW(int newScaleW) { m_scaleW = newScaleW; }
-	void setAnOpen(bool newIsOpen) { m_isOpen = newIsOpen; }
-	void setIcon(int newIcon) { m_icon = newIcon; }
+		void setType(int newType) { m_type = newType; }
+		void setAction(const QString& newAction) { m_action = newAction; }
+		void setE_act(const QString& newE_act) { m_E_act = newE_act; }
+		void setX_act(const QString& newX_act) { m_X_act = newX_act; }
+		void setD_act(const QString& newD_act) { m_D_act = newD_act; }
+		void setFo_act(const QString& newFo_act) { m_Fo_act = newFo_act; }
+		void setBl_act(const QString& newBl_act) { m_Bl_act = newBl_act; }
+		void setK_act(const QString& newK_act) { m_K_act = newK_act; }
+		void setF_act(const QString& newF_act) { m_F_act = newF_act; }
+		void setV_act(const QString& newV_act) { m_V_act = newV_act; }
+		void setC_act(const QString& newC_act) { m_C_act = newC_act; }
+		void setExtern(const QString& newExtern) { m_extern = newExtern; }
+		void setZiel(int newZiel) { m_ziel = newZiel; }
+		void setActionType(int newActType) { m_actType = newActType; }
+		void setToolTip(const QString& newToolTip) { m_toolTip = newToolTip; }
+		void setRollOver(const QString& newRollOver) { m_rollOver = newRollOver; }
+		void setDown(const QString& newDown) { m_down = newDown; }
+		void setBorderColor(const QString& newBorderColor) { m_borderColor = newBorderColor; }
+		void setBorderWidth(int newBorderWidth) { m_borderWidth = newBorderWidth; }
+		void setBorderStyle(int newBorderStyle) { m_borderStyle = newBorderStyle; }
+		void setFeed(int newFeed) { m_feed = newFeed; }
+		void setFlag(int newFlag) { m_flag = newFlag; }
+		void addToFlag(int dFlag) { m_flag += dFlag; }
+		void setMaxChar(int newMaxChar) { m_maxChar = newMaxChar; }
+		void setVis(int newVis) { m_vis = newVis; }
+		void setFont(int newFont) { m_font = newFont; }
+		void setChkStil(int newChkStil) { m_chkStil = newChkStil; }
+		void setFormat(int newFormat) { m_format = newFormat; }
+		void setIsChk(bool newIsChk) { m_isChk = newIsChk; }
+		void setCheckState(bool newCheckState) { tmp_Chk = newCheckState; }
+		void setOpen(bool newIsOpen) { is_Open = newIsOpen; }
+		void setOnState(bool newOnState) { on_State = newOnState; }
+		void setAAact(bool newAAct) { m_aAact = newAAct; }
+		void setHTML(int newHTML) { m_html = newHTML; }
+		void setUseIcons(bool newUseIcons) { m_useIcons = newUseIcons; }
+		void setIPlace(int newIPlace) { m_iPlace = newIPlace; }
+		void setScaleW(int newScaleW) { m_scaleW = newScaleW; }
+		void setAnOpen(bool newIsOpen) { m_isOpen = newIsOpen; }
+		void setIcon(int newIcon) { m_icon = newIcon; }
 
-	int Type() const { return m_type; }
-	QString Action() const { return m_action; }
-	QString E_act() const { return m_E_act; }
-	QString X_act() const { return m_X_act; }
-	QString D_act() const { return m_D_act; }
-	QString Fo_act() const { return m_Fo_act; }
-	QString Bl_act() const { return m_Bl_act; }
-	QString K_act() const { return m_K_act; }
-	QString F_act() const { return m_F_act; }
-	QString V_act() const { return m_V_act; }
-	QString C_act() const { return m_C_act; }
-	QString Extern() const { return m_extern; }
-	int Ziel() const { return m_ziel; }
-	int ActionType() const { return m_actType; }
-	QString ToolTip() const { return m_toolTip; }
-	QString RollOver() const { return m_rollOver; }
-	QString Down() const { return m_down; }
-	QString borderColor() const { return m_borderColor; }
-	int borderWidth() const { return m_borderWidth; }
-	int borderStyle() const { return m_borderStyle; }
-	int Feed() const { return m_feed; }
-	int Flag() const { return m_flag; }
-	int MaxChar() const { return m_maxChar; }
-	int Vis() const { return m_vis; }
-	int Font() const { return m_font; }
-	int ChkStil() const { return m_chkStil; }
-	int Format() const { return m_format; }
-	bool IsChk() const { return m_isChk; }
-	bool IsChecked() const { return tmp_Chk; }
-	bool IsOpen() const { return is_Open; }
-	bool IsOn() const { return on_State; }
-	bool AAact() const { return m_aAact; }
-	int HTML() const { return m_html; }
-	bool UseIcons() const { return m_useIcons; }
-	int IPlace() const { return m_iPlace; }
-	int ScaleW() const { return m_scaleW; }
-	bool IsAnOpen() const { return m_isOpen; }
-	int Icon() const { return m_icon; }
+		int Type() const { return m_type; }
+		QString Action() const { return m_action; }
+		QString E_act() const { return m_E_act; }
+		QString X_act() const { return m_X_act; }
+		QString D_act() const { return m_D_act; }
+		QString Fo_act() const { return m_Fo_act; }
+		QString Bl_act() const { return m_Bl_act; }
+		QString K_act() const { return m_K_act; }
+		QString F_act() const { return m_F_act; }
+		QString V_act() const { return m_V_act; }
+		QString C_act() const { return m_C_act; }
+		QString Extern() const { return m_extern; }
+		int Ziel() const { return m_ziel; }
+		int ActionType() const { return m_actType; }
+		QString ToolTip() const { return m_toolTip; }
+		QString RollOver() const { return m_rollOver; }
+		QString Down() const { return m_down; }
+		QString borderColor() const { return m_borderColor; }
+		int borderWidth() const { return m_borderWidth; }
+		int borderStyle() const { return m_borderStyle; }
+		int Feed() const { return m_feed; }
+		int Flag() const { return m_flag; }
+		int MaxChar() const { return m_maxChar; }
+		int Vis() const { return m_vis; }
+		int Font() const { return m_font; }
+		int ChkStil() const { return m_chkStil; }
+		int Format() const { return m_format; }
+		bool IsChk() const { return m_isChk; }
+		bool IsChecked() const { return tmp_Chk; }
+		bool IsOpen() const { return is_Open; }
+		bool IsOn() const { return on_State; }
+		bool AAact() const { return m_aAact; }
+		int HTML() const { return m_html; }
+		bool UseIcons() const { return m_useIcons; }
+		int IPlace() const { return m_iPlace; }
+		int ScaleW() const { return m_scaleW; }
+		bool IsAnOpen() const { return m_isOpen; }
+		int Icon() const { return m_icon; }
 
-	protected:
+	private:
 		QString m_Bl_act;
 		QString m_C_act;
 		QString m_D_act;

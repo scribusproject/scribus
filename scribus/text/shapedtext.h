@@ -40,7 +40,7 @@ class ShapedText
 	friend class ShapedTextImplementation;
 
 public:
-	ShapedText(ITextSource* src, int firstChar, int lastChar, ITextContext* ctx = 0);
+	ShapedText(ITextSource* src, int firstChar, int lastChar, ITextContext* ctx = nullptr);
 	ShapedText(const ShapedText& other);
 	
 	static ShapedText Invalid;

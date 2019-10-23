@@ -8451,7 +8451,7 @@ void ScribusMainWindow::EditTabs()
 	if (dia->exec())
 	{
 		ParagraphStyle newTabs(currItem->itemText.defaultStyle());
-		newTabs.setTabValues(dia->tmpTab);
+		newTabs.setTabValues(dia->tabList());
 		currItem->itemText.setDefaultStyle(newTabs);
 		currItem->update();
 		slotDocCh();

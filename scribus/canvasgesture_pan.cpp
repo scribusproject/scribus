@@ -27,13 +27,13 @@ PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
 }
 
-void PanGesture::activate(bool fromGesture)
+void PanGesture::activate(bool /*fromGesture*/)
 {
 	m_cursor = m_view->cursor();
 	m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
 }
 
-void PanGesture::deactivate(bool forgesture)
+void PanGesture::deactivate(bool /*forgesture*/)
 {
 	m_view->setCursor(m_cursor);
 }
@@ -58,7 +58,7 @@ void PanGesture::mouseMoveEvent(QMouseEvent* m)
 	m_view->scrollBy(dx, dy);
 }
 
-void PanGesture::mouseReleaseEvent(QMouseEvent* m)
+void PanGesture::mouseReleaseEvent(QMouseEvent* /*m*/)
 {
 	m_view->stopGesture();
 }

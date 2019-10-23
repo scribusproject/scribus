@@ -23,7 +23,7 @@ class TablePainter
 public:
 	/// Creates a new table painter configured to paint @a table.
 	explicit TablePainter(PageItem_Table *table) : m_table(table) {};
-	virtual ~TablePainter() {};
+	virtual ~TablePainter() = default;
 
 	/// Paints the table using @a p.
 	virtual void paintTable(ScPainter* p) = 0;

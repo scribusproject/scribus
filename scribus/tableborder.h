@@ -68,13 +68,13 @@ public:
 
 private:
 	/// The width of the table border line.
-	double m_width;
+	double m_width {0.0};
 	/// The pen style of the table border line.
-	Qt::PenStyle m_style;
+	Qt::PenStyle m_style {Qt::SolidLine};
 	/// The color of the table border line.
-	QString m_color;
+	QString m_color {"Black"};
 	/// The shade of the table border line
-	double m_shade;
+	double m_shade {100};
 };
 Q_DECLARE_TYPEINFO(TableBorderLine, Q_MOVABLE_TYPE);
 
@@ -126,7 +126,7 @@ public:
 	bool joinsWith(const TableBorder& other) const { return !isNull() && !other.isNull() && borderLines() == other.borderLines(); }
 
 	/// Returns <code>true</code> if this border has no border lines.
-	bool isNull() const { return m_borderLines.size() == 0; }
+	bool isNull() const { return m_borderLines.empty(); }
 
 	/// Returns a string representation of the border.
 	QString asString() const;

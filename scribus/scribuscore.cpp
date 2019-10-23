@@ -68,8 +68,8 @@ ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultE
 	m_HaveTiffSep = false;
 
 	ScColorMgmtStrategy strategy;
-	strategy.useBlackPointCompensation = true;
-	strategy.useBlackPreservation      = false;
+	strategy.setUseBlackPointCompensation(true);
+	strategy.setUseBlackPreservation(false);
 	defaultEngine.setStrategy(strategy);
 }
 

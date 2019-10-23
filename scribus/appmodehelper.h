@@ -63,16 +63,14 @@ class AppModeHelper : public QObject
 		void AppModeChanged(int oldMode, int newMode);
 		void UpdateRequest(int updateFlags);
 
-	public slots:
-
-	protected:
-		QMap<QString, QPointer<ScrAction> > *a_scrActions;
-		QMap<QString, QPointer<ScrAction> > *a_scrRecentFileActions;
-		QMap<QString, QPointer<ScrAction> > *a_scrWindowsActions;
-		QMap<QString, QPointer<ScrAction> > *a_scrScrapActions;
-		QMap<QString, QPointer<ScrAction> > *a_scrLayersActions;
-		QMap<QString, QPointer<ScrAction> > *a_scrRecentPasteActions;
-		ActionManager* a_actMgr;
+	private:
+		QMap<QString, QPointer<ScrAction> > *a_scrActions {nullptr};
+		QMap<QString, QPointer<ScrAction> > *a_scrRecentFileActions {nullptr};
+		QMap<QString, QPointer<ScrAction> > *a_scrWindowsActions {nullptr};
+		QMap<QString, QPointer<ScrAction> > *a_scrScrapActions {nullptr};
+		QMap<QString, QPointer<ScrAction> > *a_scrLayersActions {nullptr};
+		QMap<QString, QPointer<ScrAction> > *a_scrRecentPasteActions {nullptr};
+		ActionManager* a_actMgr {nullptr};
 };
 
 #endif // APPMODEHELPER_H

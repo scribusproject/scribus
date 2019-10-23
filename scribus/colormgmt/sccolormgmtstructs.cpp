@@ -159,3 +159,23 @@ bool colorFormatHasAlpha(eColorFormat format)
 	}
 	return hasAlpha;
 }
+
+bool ScColorMgmtStrategy::useBlackPointCompensation() const
+{
+	return m_useBlackPointCompensation;
+}
+
+void ScColorMgmtStrategy::setUseBlackPointCompensation(bool useBlackPointCompensation)
+{
+	m_useBlackPointCompensation = useBlackPointCompensation;
+}
+
+bool ScColorMgmtStrategy::useBlackPreservation() const
+{
+	return m_useBlackPreservation;
+}
+
+void ScColorMgmtStrategy::setUseBlackPreservation(bool useBlackPreservation)
+{
+	m_useBlackPreservation = useBlackPreservation;
+}

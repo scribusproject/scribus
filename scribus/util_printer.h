@@ -21,8 +21,8 @@ class QStringList;
 class SCRIBUS_API PrinterUtil
 {
 	public:
-		PrinterUtil() {};
-		~PrinterUtil() {};
+		PrinterUtil() = default;
+		~PrinterUtil() = default;
 		QStringList static getPrinterNames();
 
 #if defined(_WIN32)

@@ -45,7 +45,7 @@ class CollectForOutput : public QObject
 
 	protected:
 		/*! Doc to collect */
-		ScribusDoc* m_Doc;
+	ScribusDoc* m_Doc {nullptr};
 		/*! Use compressed document. See the constructor */
 		bool m_compressDoc;
 		/*! Collect fonts too. See the constructor */
@@ -94,11 +94,11 @@ class CollectForOutput : public QObject
 
 		ProfilesL docProfiles;
 		QStringList patterns;
-		int profileCount;
-		int itemCount;
-		int fontCount;
-		int patternCount;
-		bool uiCollect;
+		int profileCount {0};
+		int itemCount {0};
+		int fontCount {0};
+		int patternCount {0};
+		bool uiCollect {false};
 
 	signals:
 		void fontsCollected(int);

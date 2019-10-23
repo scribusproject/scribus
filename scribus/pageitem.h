@@ -426,9 +426,9 @@ public: // Start public functions
 	virtual void currentTextProps(ParagraphStyle& parStyle) const;
 	void SetQColor(QColor *tmp, const QString& farbe, double shad);
 	void DrawPolyL(QPainter *p, const QPolygon& pts);
-	const FPointArray shape() const { return PoLine; }
+	FPointArray shape() const { return PoLine; }
 	void setShape(const FPointArray& val) { PoLine = val; }
-	const FPointArray contour() const { return ContourLine; }
+	FPointArray contour() const { return ContourLine; }
 	void setContour(const FPointArray& val) { ContourLine = val; }
 	bool flipPathText() const { return textPathFlipped; }
 	void setFlipPathText(bool val) { textPathFlipped = val; }

@@ -7,6 +7,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <algorithm>
 #include <QList>
 #include <QString>
 #include <QStringList>
@@ -20,20 +21,14 @@ for which a new license (GPL+exception) is in place.
  * TableBorderLine definitions.
  */
 
-TableBorderLine::TableBorderLine()
-{
-	setWidth(0.0);
-	setStyle(Qt::SolidLine);
-	setColor("Black");
-	setShade(100);
-}
+TableBorderLine::TableBorderLine() = default;
 
 TableBorderLine::TableBorderLine(double width, Qt::PenStyle style, const QString& color, double shade)
 {
-	setWidth(width);
-	setStyle(style);
-	setColor(color);
-	setShade(shade);
+	m_width = width;
+	m_style = style;
+	m_color = color;
+	m_shade = shade;
 }
 
 QString TableBorderLine::asString() const
@@ -66,7 +61,7 @@ TableBorderLine TableBorder::borderLine(int index) const
 void TableBorder::addBorderLine(const TableBorderLine& borderLine)
 {
 	m_borderLines.append(borderLine);
-	qStableSort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
+	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
 }
 
 void TableBorder::removeBorderLine(int index)
@@ -83,7 +78,7 @@ void TableBorder::replaceBorderLine(int index, const TableBorderLine& borderLine
 		return;
 
 	m_borderLines.replace(index, borderLine);
-	qStableSort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
+	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
 }
 
 QString TableBorder::asString() const

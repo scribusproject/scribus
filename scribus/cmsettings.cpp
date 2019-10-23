@@ -34,9 +34,7 @@ CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, eRenderInten
 {
 }
 
-CMSettings::~CMSettings()
-{
-}
+CMSettings::~CMSettings() = default;
 
 bool CMSettings::useColorManagement() const
 {

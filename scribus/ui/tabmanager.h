@@ -23,20 +23,22 @@ class SCRIBUS_API TabManager : public QDialog
 
 public:
 	TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double wid);
-	~TabManager() {};
-	Tabruler* TabList;
-	QPushButton* OKButton;
-	QPushButton* CancelButton;
-	QList<ParagraphStyle::TabRecord> tmpTab;
+	~TabManager() = default;
 
 public slots:
 	void exitOK();
 
-protected:
-	QVBoxLayout* TabManagerLayout;
+	QList<ParagraphStyle::TabRecord> tabList() const;
+	void setTabList(const QList<ParagraphStyle::TabRecord>& tabList);
+
+	private:
 	QHBoxLayout* layout10;
-	
-	double docUnitRatio;
+	QList<ParagraphStyle::TabRecord> m_tabList;
+	QPushButton* CancelButton;
+	QPushButton* OKButton;
+	QVBoxLayout* TabManagerLayout;
+	Tabruler* TabList;
+	double m_docUnitRatio {1.0};
 };
 
 #endif // TABMANAGER_H

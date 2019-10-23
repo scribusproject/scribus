@@ -254,9 +254,9 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& 
 	transformFlags &= (~Ctf_Softproofing);
 	transformFlags &= (~Ctf_GamutCheck);
 	long strategyFlags = 0;
-	if (m_strategy.useBlackPointCompensation)
+	if (m_strategy.useBlackPointCompensation())
 		strategyFlags |= Ctf_BlackPointCompensation;
-	if (m_strategy.useBlackPreservation)
+	if (m_strategy.useBlackPreservation())
 		strategyFlags |= Ctf_BlackPreservation;
 
 	ScColorTransformInfo transInfo;
@@ -328,9 +328,9 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createProofingTransform(ScColorMgmt
 		return transform;
 
 	long strategyFlags = 0;
-	if (m_strategy.useBlackPointCompensation)
+	if (m_strategy.useBlackPointCompensation())
 		strategyFlags |= Ctf_BlackPointCompensation;
-	if (m_strategy.useBlackPreservation)
+	if (m_strategy.useBlackPreservation())
 		strategyFlags |= Ctf_BlackPreservation;
 
 	ScColorTransformInfo transInfo;

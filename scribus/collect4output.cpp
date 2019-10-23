@@ -31,13 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
-	: QObject(ScCore),
-	m_Doc(nullptr),
-	profileCount(0),
-	itemCount(0),
-	fontCount(0),
-	patternCount(0),
-	uiCollect(false)
+	: QObject(ScCore)
 {
 	m_Doc=doc;
 	if (!outputDirectory.isEmpty())

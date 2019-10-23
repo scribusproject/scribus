@@ -32,14 +32,7 @@ class TableCellData : public QSharedData
 {
 public:
 	/// Constructs data for an invalid cell.
-	TableCellData() :
-		isValid(false),
-		row(-1),
-		column(-1),
-		rowSpan(-1),
-		columnSpan(-1),
-		textFrame(0),
-		table(0) {}
+	TableCellData() = default;
 	/// Constructs data from data in @a other.
 	TableCellData(const TableCellData& other) : QSharedData(other),
 		isValid(other.isValid),
@@ -58,22 +51,22 @@ public:
 
 public:
 	/// Cell valid state.
-	bool isValid;
+	bool isValid {false};
 	/// Row of the table the cell is in.
-	int row;
+	int row {-1};
 	/// Column of the table the cell is in.
-	int column;
+	int column {-1};
 	/// Number of rows the cell spans.
-	int rowSpan;
+	int rowSpan {-1};
 	/// Number of columns the cell spans.
-	int columnSpan;
+	int columnSpan {-1};
 
 	/// Text frame of the cell.
-	PageItem_TextFrame *textFrame;
+	PageItem_TextFrame *textFrame {nullptr};
 	/// Style of the cell.
 	CellStyle style;
 	/// Table containing the cell.
-	PageItem_Table *table;
+	PageItem_Table *table {nullptr};
 };
 
 /**

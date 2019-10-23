@@ -47,7 +47,7 @@ public:
 					const ProfilesL & PDFXProfiles,
 					const QMap<QString, int> & DocFonts,
 					ScribusDoc *doc);
-	~TabPDFOptions() {};
+	~TabPDFOptions() = default;
 
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
@@ -120,7 +120,7 @@ private:
 	ScribusDoc* const m_Doc;
 	const SCFonts & AllFonts;
 	PDFOptions & Opts;
-	bool cms;
+	bool cms {false};
 
 	QStringList m_docFonts;
 	QMap<QString, QString> m_annotationFonts;

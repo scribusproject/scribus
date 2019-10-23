@@ -58,8 +58,7 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	unitRatio(unitGetRatioFromIndex(doc->unitIndex())),
 	m_Doc(doc),
 	AllFonts(AllFonts),
-	Opts(Optionen),
-	cms(false)
+	Opts(Optionen)
 {
 	setupUi(this);
 

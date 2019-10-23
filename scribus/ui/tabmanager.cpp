@@ -22,8 +22,8 @@ TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabReco
 	setModal(true);
 	setWindowTitle( tr( "Manage Tabulators" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	docUnitRatio = unitGetRatioFromIndex(dEin);
-	tmpTab = inTab;
+	m_docUnitRatio = unitGetRatioFromIndex(dEin);
+	m_tabList = inTab;
 	TabManagerLayout = new QVBoxLayout( this );
 	TabManagerLayout->setMargin(5);
 	TabManagerLayout->setSpacing(5);
@@ -47,6 +47,16 @@ TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabReco
 
 void TabManager::exitOK()
 {
-	tmpTab = TabList->getTabVals();
+	m_tabList = TabList->getTabVals();
 	accept();
+}
+
+QList<ParagraphStyle::TabRecord> TabManager::tabList() const
+{
+	return m_tabList;
+}
+
+void TabManager::setTabList(const QList<ParagraphStyle::TabRecord>& tabList)
+{
+	m_tabList = tabList;
 }

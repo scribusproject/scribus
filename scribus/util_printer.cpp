@@ -105,7 +105,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QSize
 	return true;
 }
 
-PrintEngine PrinterUtil::getDefaultPrintEngine(const QString& printerName, bool toFile)
+PrintEngine PrinterUtil::getDefaultPrintEngine(const QString&  /*printerName*/, bool toFile)
 {
 	if (!toFile)
 	{
@@ -156,7 +156,7 @@ bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngin
 }
 
 //Parameter needed on win32..
-bool PrinterUtil::isPostscriptPrinter(const QString& printerName)
+bool PrinterUtil::isPostscriptPrinter(const QString&  /*printerName*/)
 {
 #ifdef _WIN32
 	HDC dc;

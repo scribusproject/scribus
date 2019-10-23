@@ -41,7 +41,7 @@ public slots:
 	//! \brief Calculate height of the last row to fit image size
 	void resizeLastRow();
 
-protected:
+private:
 	//! \brief Magnify dialog reference
 	CharZoom* zoom {nullptr};
 

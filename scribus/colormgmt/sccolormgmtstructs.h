@@ -103,15 +103,15 @@ enum eObserver
 
 class ScColorMgmtStrategy
 {
-public:
-	bool useBlackPointCompensation;
-	bool useBlackPreservation;
+	public:
+		bool useBlackPointCompensation() const;
+		void setUseBlackPointCompensation(bool useBlackPointCompensation);
+		bool useBlackPreservation() const;
+		void setUseBlackPreservation(bool useBlackPreservation);
 
-	ScColorMgmtStrategy ()
-	{
-		useBlackPointCompensation = true;
-		useBlackPreservation      = false;
-	}
+	private:
+		bool m_useBlackPointCompensation {true};
+		bool m_useBlackPreservation {false};
 };
 
 struct ScColorProfileInfo
