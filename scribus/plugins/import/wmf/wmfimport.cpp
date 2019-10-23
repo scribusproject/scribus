@@ -1203,7 +1203,8 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	int    textAlign    = m_context.textAlign();
 	double textRotation = m_context.textRotation();
 	if ( textAlign & 0x01 )
-	{       // (left, top) position = current logical position
+	{
+		// (left, top) position = current logical position
 		QPoint pos = m_context.position();
 		startX = pos.x();
 		startY = pos.y();

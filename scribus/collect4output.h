@@ -45,7 +45,7 @@ class CollectForOutput : public QObject
 
 	protected:
 		/*! Doc to collect */
-	ScribusDoc* m_Doc {nullptr};
+		ScribusDoc* m_Doc {nullptr};
 		/*! Use compressed document. See the constructor */
 		bool m_compressDoc;
 		/*! Collect fonts too. See the constructor */
