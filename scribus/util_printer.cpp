@@ -156,7 +156,7 @@ bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngin
 }
 
 //Parameter needed on win32..
-bool PrinterUtil::isPostscriptPrinter(const QString&  /*printerName*/)
+bool PrinterUtil::isPostscriptPrinter(const QString& printerName)
 {
 #ifdef _WIN32
 	HDC dc;
