@@ -2573,7 +2573,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	{
 		actionManager->disconnectNewViewActions();
 		if (ScCore->usingGUI())
-			doc->m_Selection->disconnect(SIGNAL(selectionChanged()));
+			doc->m_Selection->disconnect(SIGNAL(selectionChanged()), actionManager, SLOT(handleMultipleSelections()));
 	}
 	view = ActWin->view();
 	bool b = zoomSpinBox->blockSignals(true);
