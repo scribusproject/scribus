@@ -542,21 +542,20 @@ bool PdfPlug::convert(const QString& fn)
 							}
 						}
 					}
-					bool rotated = false;
+
+					const int zeroRotate = 0;
 					dev->startDoc(pdfDoc, pdfDoc->getXRef(), pdfDoc->getCatalog());
-					int rotate = pdfDoc->getPageRotate(firstPage);
-					if ((rotate == 90) || (rotate == 270))
-						rotated = true;
-					dev->rotate = rotate;
-					rotate = 0;
+					dev->rotate = pdfDoc->getPageRotate(firstPage);
+					bool rotated = dev->rotate == 90 || dev->rotate == 270;
+
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
 						if (hasOcg)
 						{
-							QString actL = m_Doc->activeLayerName();
-							for (int a = 0; a < ocgGroups.count(); a++)
+							QString actL(m_Doc->activeLayerName());
+							for (int i = 0; i < ocgGroups.count(); i++)
 							{
-								OptionalContentGroup *oc = ocgGroups[a];
+								OptionalContentGroup *oc = ocgGroups[i];
 								if (actL != UnicodeParsedString(oc->getName()))
 									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
 								else
@@ -634,14 +633,14 @@ bool PdfPlug::convert(const QString& fn)
 						}
 						m_Doc->setPageSize("Custom");
 					//	m_Doc->pdfOptions().PresentVals.clear();
-						for (uint ap = 0; ap < pageNs.size(); ++ap)
+						for (int i = 0; i < pageNs.size(); ++i)
 						{
-							int pp = pageNs[ap];
+							int pp = pageNs[i];
 							m_Doc->setActiveLayer(baseLayer);
 							if (firstPg)
 								firstPg = false;
 							else
-								m_Doc->addPage(ap);
+								m_Doc->addPage(i);
 							QRectF mdBox = getCBox(0, pp);
 							QRectF crBox = getCBox(contentRect, pp);
 							if (cropped)
@@ -687,38 +686,23 @@ bool PdfPlug::convert(const QString& fn)
 							m_Doc->reformPages(true);
 							if (hasOcg)
 							{
-							//	int numObj = m_Doc->Items->count();
-							//	if (cropped)
-							//		pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
-							//	else
-							//		pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
-							//	int numObj2 = m_Doc->Items->count();
-							//	int countObj = numObj2 - numObj;
-								for (int a = 0; a < ocgGroups.count(); a++)
+								for (int j = 0; j < ocgGroups.count(); j++)
 								{
-									OptionalContentGroup *oc = ocgGroups[a];
-							//		m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
-							//		currentLayer = m_Doc->activeLayer();
+									OptionalContentGroup *oc = ocgGroups[j];
 									oc->setState(OptionalContentGroup::On);
 									if (cropped)
-										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
+										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
 									else
-										pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
+										pdfDoc->displayPage(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 									oc->setState(OptionalContentGroup::Off);
-							//		for (int dd = 0; dd < countObj; dd++)
-							//		{
-							//			PageItem *iteD = m_Doc->Items->takeAt(numObj2);
-							//			delete iteD;
-							//		}
-							//		numObj2 = m_Doc->Items->count();
 								}
 							}
 							else
 							{
 								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
+									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
 								else
-									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
+									pdfDoc->displayPage(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 							}
 
 							PDFPresentationData ef;
@@ -852,7 +836,7 @@ bool PdfPlug::convert(const QString& fn)
 								ocgGroups[a]->setState(OptionalContentGroup::On);
 							}
 						}
-						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
+						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
 					}
 				}
 				delete dev;
@@ -870,9 +854,9 @@ bool PdfPlug::convert(const QString& fn)
 	{
 		if (importedColors.count() != 0)
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
+			for (int i = 0; i < importedColors.count(); i++)
 			{
-				m_Doc->PageColors.remove(importedColors[cd]);
+				m_Doc->PageColors.remove(importedColors[i]);
 			}
 		}
 	}
