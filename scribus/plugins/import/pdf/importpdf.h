@@ -84,10 +84,6 @@ private:
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	qreal scPg;
 
 	QStringList importedColors;
 
