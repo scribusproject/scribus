@@ -625,7 +625,7 @@ void NodePalette::MovePoint()
 			np -= zp;
 		}
 		m_doc->nodeEdit.moveClipPoint(currItem, np);
-		m_doc->adjustItemSize(currItem, true, true);
+		m_doc->adjustItemSize(currItem, true);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 		m_doc->regionsChanged()->update(QRectF());

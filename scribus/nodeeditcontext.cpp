@@ -391,7 +391,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	{
 		currItem->PoLine.setPoint(Doc->nodeEdit.m_ClRe, np);
 	//	if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->adjustItemSize(currItem, true, true);
+			Doc->adjustItemSize(currItem, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	undoManager->setUndoEnabled(true);
@@ -484,7 +484,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	{
 		currItem->PoLine = Clip.copy();
 	//	if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->adjustItemSize(currItem, true, true);
+			Doc->adjustItemSize(currItem, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	else

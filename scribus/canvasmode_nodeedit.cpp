@@ -459,7 +459,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
-		m_doc->adjustItemSize(currItem, true, true);
+		m_doc->adjustItemSize(currItem, true);
 		if (!m_doc->nodeEdit.isContourLine())
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 		m_doc->regionsChanged()->update(QRectF());
@@ -727,7 +727,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 						bb->setRotation(currItem->rotation());
 						bb->ClipEdited = true;
 						m_doc->Items->insert(m_doc->Items->indexOf(currItem), bb);
-						m_doc->adjustItemSize(bb, true, true);
+						m_doc->adjustItemSize(bb, true);
 					}
 					currItem->PoLine = cli.copy();
 				}
@@ -754,7 +754,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 						else
 							bb->PoLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.clre()+2), Clip, m_doc->nodeEdit.clre()+2);
 						bb->setRotation(currItem->rotation());
-						m_doc->adjustItemSize(bb, true, true);
+						m_doc->adjustItemSize(bb, true);
 						bb->ClipEdited = true;
 						bb->setFrameType(currItem->frameType());
 						cli.resize(0);
@@ -930,7 +930,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		yp = currItem->yPos();
 		w = currItem->width();
 		h = currItem->height();
-		m_doc->adjustItemSize(currItem, true, true);
+		m_doc->adjustItemSize(currItem, true);
 		xp2 = currItem->xPos();
 		yp2 = currItem->yPos();
 		w2 = currItem->width();

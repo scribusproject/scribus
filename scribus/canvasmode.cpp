@@ -1734,7 +1734,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 					PageItem *currItem = m_doc->m_Selection->itemAt(0);
 					double xposOrig = currItem->xPos();
 					double yposOrig = currItem->yPos();
-					m_doc->adjustItemSize(currItem, true, true);
+					m_doc->adjustItemSize(currItem, true);
 					if (!m_doc->nodeEdit.isContourLine())
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					currItem->update();

@@ -14508,7 +14508,7 @@ bool ScribusDoc::moveSizeItem(const FPoint& newX, const FPoint& newY, PageItem* 
 }
 
 
-void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup, bool moveInGroup)
+void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 {
 	if (currItem->isArc())
 		return;
@@ -14797,12 +14797,12 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			{
 				double oldGW = item->groupWidth;
 				double oldGH = item->groupHeight;
-				adjustItemSize(item, true, false);
+				adjustItemSize(item, true);
 				item->groupWidth = oldGW;
 				item->groupHeight = oldGH;
 			}
 			else
-				adjustItemSize(item, true, false);
+				adjustItemSize(item, true);
 			if (item->isArc() || item->isSpiral() || item->isRegularPolygon())
 				item->setXYPos(b1.x() + gx, b1.y() + gy);
 			else
@@ -14830,12 +14830,12 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 					// after fixing adjustItemSize() for groups
 					//double oldGW = item->groupWidth;
 					//double oldGH = item->groupHeight;
-					adjustItemSize(item, true, false);
+					adjustItemSize(item, true);
 					//item->groupWidth = oldGW;
 					//item->groupHeight = oldGH;
 				}
 				else
-					adjustItemSize(item, true, false);
+					adjustItemSize(item, true);
 			}
 		}
 		if (scaleText)
