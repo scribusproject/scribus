@@ -47,13 +47,13 @@ import sys
 try:
     import scribus
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 
 try:
     import MySQLdb
 except ImportError:
-    print "You must have 'MySQLdb' installed."
+    print ("You must have 'MySQLdb' installed.")
     sys.exit(1)
 
 

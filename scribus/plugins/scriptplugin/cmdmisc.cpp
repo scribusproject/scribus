@@ -47,7 +47,7 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 	{
 		if (it.current().usable())
 		{
-			PyList_SetItem(l, cc, PyString_FromString(it.currentKey().toUtf8()));
+			PyList_SetItem(l, cc, PyUnicode_FromString(it.currentKey().toUtf8()));
 			cc++;
 		}
 	}
@@ -110,8 +110,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		// User specified no format, so use the historical default of PPM format.
 		format =  const_cast<char*>("PPM");
 	QPixmap pm = FontSample(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
-	// If the user specified an empty filename, return the image data as
-	// a string. Otherwise, save it to disk.
+	// If the user specified an empty filename, return the image data as bytes. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName).isEmpty())
 	{
 		QByteArray buffer_string = "";
@@ -126,7 +125,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		int bufferSize = buffer.size();
 		buffer.close();
 		// Now make a Python string from the data we generated
-		PyObject* stringPython = PyString_FromStringAndSize(buffer_string,bufferSize);
+		PyObject* stringPython = PyBytes_FromStringAndSize(buffer_string, bufferSize);
 		// Return even if the result is nullptr (error) since an exception will have been
 		// set in that case.
 		return stringPython;
@@ -150,10 +149,10 @@ PyObject *scribus_getlayers(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	PyObject *l;
-	l = PyList_New(ScCore->primaryMainWindow()->doc->Layers.count());
-	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
-		PyList_SetItem(l, lam, PyString_FromString(ScCore->primaryMainWindow()->doc->Layers[lam].Name.toUtf8()));
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	PyObject *l = PyList_New(doc->Layers.count());
+	for (int i = 0; i < doc->Layers.count(); i++)
+		PyList_SetItem(l, i, PyUnicode_FromString(doc->Layers[i].Name.toUtf8()));
 	return l;
 }
 
@@ -184,7 +183,7 @@ PyObject *scribus_getactlayer(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
 }
 
 PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
@@ -474,7 +473,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
@@ -505,7 +504,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
@@ -536,7 +535,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
@@ -567,7 +566,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
@@ -598,7 +597,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
@@ -629,7 +628,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(i));
+	return PyLong_FromLong(static_cast<long>(i));
 }
 
 PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
@@ -735,7 +734,7 @@ PyObject *scribus_filequit(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getlanguage(PyObject* /* self */)
 {
-	return PyString_FromString(ScCore->getGuiLanguage().toUtf8());
+	return PyUnicode_FromString(ScCore->getGuiLanguage().toUtf8());
 }
 
 /*! 04.01.2007 : Joachim Neu : Moves item selection to front. */

@@ -47,9 +47,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 ####################
@@ -168,7 +168,7 @@ def prepareDocument():
         y = int(color[3])
         k = int(color[4])
         scribus.defineColorCMYK(cname,  c, m, y, k )
-        if spotDict.has_key(cname):
+        if cname in spotDict:
             scribus.setSpotColor(cname, spotDict[cname])
 
     #get the pageTitle form user and store it in PageTitle

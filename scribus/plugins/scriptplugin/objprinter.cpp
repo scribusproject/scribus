@@ -59,7 +59,7 @@ static void Printer_dealloc(Printer* self)
 	Py_XDECREF(self->cmd);
 	Py_XDECREF(self->pages);
 	Py_XDECREF(self->separation);
-	self->ob_type->tp_free((PyObject *)self);
+	Py_TYPE(self)->tp_free((PyObject *)self);
 }
 
 static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
@@ -78,19 +78,19 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 			return nullptr;
 		}
 // set printer attribute
-		self->printer = PyString_FromString("");
+		self->printer = PyUnicode_FromString("");
 		if (self->printer == nullptr){
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set file attribute
-		self->file = PyString_FromString("");
+		self->file = PyUnicode_FromString("");
 		if (self->file == nullptr){
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set cmd attribute
-		self->cmd = PyString_FromString("");
+		self->cmd = PyUnicode_FromString("");
 		if (self->cmd == nullptr){
 			Py_DECREF(self);
 			return nullptr;
@@ -102,7 +102,7 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 			return nullptr;
 		}
 // set separation attribute
-		self->separation = PyString_FromString("No");
+		self->separation = PyUnicode_FromString("No");
 		if (self->separation == nullptr){
 			Py_DECREF(self);
 			return nullptr;
@@ -143,18 +143,18 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		QString prn = printers[i];
 		if (prn.isEmpty())
 			continue;
-		PyObject *tmppr = PyString_FromString(prn.toLocal8Bit().constData());
+		PyObject *tmppr = PyUnicode_FromString(prn.toUtf8().constData());
 		if (tmppr){
 			PyList_Append(self->allPrinters, tmppr);
 			Py_DECREF(tmppr);
 		}
 	}
-	PyObject *tmp2 = PyString_FromString("File");
+	PyObject *tmp2 = PyUnicode_FromString("File");
 	PyList_Append(self->allPrinters, tmp2);
 	Py_DECREF(tmp2);
 // as defaut set to print into file
 	PyObject *printer = nullptr;
-	printer = PyString_FromString("File");
+	printer = PyUnicode_FromString("File");
 	if (printer){
 		Py_DECREF(self->printer);
 		self->printer = printer;
@@ -166,7 +166,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = nullptr;
-	file = PyString_FromString(tf.toLatin1());
+	file = PyUnicode_FromString(tf.toUtf8());
 	if (file){
 		Py_DECREF(self->file);
 		self->file = file;
@@ -176,7 +176,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 // alternative printer commands default to ""
 	PyObject *cmd = nullptr;
-	cmd = PyString_FromString("");
+	cmd = PyUnicode_FromString("");
 	if (cmd){
 		Py_DECREF(self->cmd);
 		self->cmd = cmd;
@@ -192,13 +192,13 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	for (int i = 0; i<num; i++) {
 		PyObject *tmp=nullptr;
-		tmp = PyInt_FromLong((long)i+1L); // instead of 1 put here first page number
+		tmp = PyLong_FromLong((long)i+1L); // instead of 1 put here first page number
 		if (tmp)
 			PyList_SetItem(self->pages, i, tmp);
 	}
 // do not print separation
 	PyObject *separation = nullptr;
-	separation = PyString_FromString("No");
+	separation = PyUnicode_FromString("No");
 	if (separation){
 		Py_DECREF(self->separation);
 		self->separation = separation;
@@ -257,7 +257,7 @@ static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, "The 'printer' attribute value must be string.");
 		return -1;
 	}
@@ -288,7 +288,7 @@ static int Printer_setfile(Printer *self, PyObject *value, void * /*closure*/)
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, "The 'file' attribute value must be string.");
 		return -1;
 	}
@@ -310,7 +310,7 @@ static int Printer_setcmd(Printer *self, PyObject *value, void * /*closure*/)
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, "The 'cmd' attribute value must be string.");
 		return -1;
 	}
@@ -339,11 +339,11 @@ static int Printer_setpages(Printer *self, PyObject *value, void * /*closure*/)
 	int len = PyList_Size(value);
 	for (int i = 0; i<len; i++){
 		PyObject *tmp = PyList_GetItem(value, i);
-		if (!PyInt_Check(tmp)){
+		if (!PyLong_Check(tmp)){
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
+		if (PyLong_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyLong_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -366,7 +366,7 @@ static int Printer_setseparation(Printer *self, PyObject *value, void * /*closur
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, "The 'separation' attribute value must be string.");
 		return -1;
 	}
@@ -400,16 +400,16 @@ static PyObject *Printer_print(Printer *self)
 	PSfile = false;
 
 //    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
-	prn = QString(PyString_AsString(self->printer));
-	fna = QString(PyString_AsString(self->file));
-	fil = QString(PyString_AsString(self->printer)) == QString("File");
+	prn = PyUnicode_asQString(self->printer);
+	fna = PyUnicode_asQString(self->file);
+	fil = PyUnicode_asQString(self->printer) == QString("File");
 	std::vector<int> pageNs;
 	PrintOptions options;
 	for (int i = 0; i < PyList_Size(self->pages); ++i) {
-		options.pageNumbers.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
+		options.pageNumbers.push_back((int) PyLong_AsLong(PyList_GetItem(self->pages, i)));
 	}
 	int copyCount = (self->copies < 1) ? 1 : self->copies;
-	SepName = QString(PyString_AsString(self->separation));
+	SepName = PyUnicode_asQString(self->separation);
 	options.printer   = prn;
 	options.prnEngine = (PrintEngine) self->pslevel;
 	options.toFile    = fil;
@@ -427,7 +427,7 @@ static PyObject *Printer_print(Printer *self)
 	options.bleeds.set(0, 0, 0, 0);
 	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
 		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
-	printcomm = QString(PyString_AsString(self->cmd));
+	printcomm = PyUnicode_asQString(self->cmd);
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
 	ScCore->primaryMainWindow()->doc->getUsedFonts(ReallyUsed);
@@ -509,8 +509,7 @@ static PyMethodDef Printer_methods[] = {
 };
 
 PyTypeObject Printer_Type = {
-	PyObject_HEAD_INIT(nullptr)   // PyObject_VAR_HEAD
-	0,			 //
+	PyVarObject_HEAD_INIT(nullptr, 0)   // PyObject_VAR_HEAD	 //
 	const_cast<char*>("scribus.Printer"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(Printer),   // int tp_basicsize, /* For allocation */
 	0,		       // int tp_itemsize; /* For allocation */
@@ -585,6 +584,8 @@ PyTypeObject Printer_Type = {
 	nullptr, //     PyObject *tp_subclasses;
 	nullptr, //     PyObject *tp_weaklist;
 	nullptr, //     destructor tp_del;
+	0, //	 unsigned int tp_version_tag;
+	0, //	 destructor tp_finalize;
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */

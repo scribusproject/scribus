@@ -21,7 +21,7 @@ PyObject *scribus_newdocdia(PyObject* /* self */)
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = ScCore->primaryMainWindow()->slotFileNew();
 	QApplication::changeOverrideCursor(Qt::ArrowCursor);
-	return PyInt_FromLong(static_cast<long>(ret));
+	return PyLong_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
@@ -68,7 +68,7 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 										);
 //	QApplication::restoreOverrideCursor();
 	// FIXME: filename return unicode OK?
-	return PyString_FromString(fName.toUtf8());
+	return PyUnicode_FromString(fName.toUtf8());
 }
 
 PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
@@ -103,7 +103,7 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	}
 	result = mb.exec();
 //	QApplication::restoreOverrideCursor();
-	return PyInt_FromLong(static_cast<long>(result));
+	return PyLong_FromLong(static_cast<long>(result));
 }
 
 PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
@@ -120,7 +120,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 										QLineEdit::Normal,
 										QString::fromUtf8(value));
 //	QApplication::restoreOverrideCursor();
-	return PyString_FromString(txt.toUtf8());
+	return PyUnicode_FromString(txt.toUtf8());
 }
 
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
@@ -143,7 +143,7 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 		st.create(p);
 		d->redefineStyles(st, false);
 		ScCore->primaryMainWindow()->styleMgr()->setDoc(d);
-		return PyString_FromString(s.toUtf8());
+		return PyUnicode_FromString(s.toUtf8());
 	}
 	Py_RETURN_NONE;
 }

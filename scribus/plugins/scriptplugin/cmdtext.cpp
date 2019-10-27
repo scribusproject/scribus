@@ -92,10 +92,10 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	{
 		for (int i = 0; i < item->itemText.length(); i++)
 			if (item->itemText.selected(i))
-				return PyString_FromString(item->itemText.charStyle(i).font().scName().toUtf8());
+				return PyUnicode_FromString(item->itemText.charStyle(i).font().scName().toUtf8());
 		return nullptr;
 	}
-	return PyString_FromString(item->currentCharStyle().font().scName().toUtf8());
+	return PyUnicode_FromString(item->currentCharStyle().font().scName().toUtf8());
 }
 
 PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
@@ -118,11 +118,11 @@ PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyString_FromString(item->itemText.charStyle(i).fillColor().toUtf8());
+				return PyUnicode_FromString(item->itemText.charStyle(i).fillColor().toUtf8());
 		}
         return nullptr;
 	}
-    return PyString_FromString(item->currentCharStyle().fillColor().toUtf8());
+    return PyUnicode_FromString(item->currentCharStyle().fillColor().toUtf8());
 }
 
 PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
@@ -145,11 +145,11 @@ PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyInt_FromLong(item->itemText.charStyle(i).fillShade());
+				return PyLong_FromLong(item->itemText.charStyle(i).fillShade());
 		}
 		return nullptr;
 	}
-	return PyInt_FromLong(item->currentCharStyle().fillShade());
+	return PyLong_FromLong(item->currentCharStyle().fillShade());
 }
 
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
@@ -167,7 +167,7 @@ PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(item->itemText.length()));
+	return PyLong_FromLong(static_cast<long>(item->itemText.length()));
 }
 
 PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
@@ -185,7 +185,7 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get number of lines of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(item->textLayout.lines()));
+	return PyLong_FromLong(static_cast<long>(item->textLayout.lines()));
 }
 
 PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
@@ -203,7 +203,7 @@ PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get vertical alignment of non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(item->verticalAlignment()));
+	return PyLong_FromLong(static_cast<long>(item->verticalAlignment()));
 }
 
 PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
@@ -221,7 +221,7 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column count of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(item->m_columns));
+	return PyLong_FromLong(static_cast<long>(item->m_columns));
 }
 
 PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
@@ -261,10 +261,10 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 	{
 		for (int i = 0; i < item->itemText.length(); i++)
 			if (item->itemText.selected(i))
-				return PyString_FromString(item->itemText.charStyle(i).fontFeatures().toUtf8());
+				return PyUnicode_FromString(item->itemText.charStyle(i).fontFeatures().toUtf8());
 		return nullptr;
 	}
-	return PyString_FromString(item->currentCharStyle().fontFeatures().toUtf8());
+	return PyUnicode_FromString(item->currentCharStyle().fontFeatures().toUtf8());
 }
 
 PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
@@ -335,7 +335,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 			text += item->itemText.text(i);
 		}
 	}
-	return PyString_FromString(text.toUtf8());
+	return PyUnicode_FromString(text.toUtf8());
 }
 
 PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
@@ -368,7 +368,7 @@ PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 			text += item->itemText.text(i);
 		}
 	} // for
-	return PyString_FromString(text.toUtf8());
+	return PyUnicode_FromString(text.toUtf8());
 }
 
 PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
@@ -1235,17 +1235,17 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	}
 	// no overrun
 	if (nolinks)
-		return PyInt_FromLong(maxchars - firstFrame);
+		return PyLong_FromLong(maxchars - firstFrame);
 
 	if (maxchars > chars)
-		return PyInt_FromLong(0);
+		return PyLong_FromLong(0);
 	// number of overrunning letters
-	return PyInt_FromLong(static_cast<long>(chars - maxchars));
+	return PyLong_FromLong(static_cast<long>(chars - maxchars));
 	 */
 	// refresh overflow information
 	item->invalidateLayout();
 	item->layout();
-	return PyInt_FromLong(static_cast<long>(item->frameOverflows()));
+	return PyLong_FromLong(static_cast<long>(item->frameOverflows()));
 }
 
 /*

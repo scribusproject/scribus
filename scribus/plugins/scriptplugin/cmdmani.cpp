@@ -350,7 +350,7 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	const char *Name = const_cast<char*>("");
 	PyObject *il = nullptr;
 	if (!PyArg_ParseTuple(args, "|O", &il))
 		return nullptr;
@@ -361,8 +361,8 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	Selection *tempSelection=nullptr;
-	Selection *finalSelection=nullptr;
+	Selection *tempSelection = nullptr;
+	Selection *finalSelection = nullptr;
 	//uint ap = ScCore->primaryMainWindow()->doc->currentPage()->pageNr();
 	// If we were passed a list of items to group...
 	if (il != nullptr)
@@ -374,7 +374,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 			// FIXME: We might need to explicitly get this string as utf8
 			// but as sysdefaultencoding is utf8 it should be a no-op to do
 			// so anyway.
-			Name = PyString_AsString(PyList_GetItem(il, i));
+			Name = PyUnicode_AsUTF8(PyList_GetItem(il, i));
 			PageItem *ic = GetUniqueItem(QString::fromUtf8(Name));
 			if (ic == nullptr)
 			{
@@ -383,10 +383,10 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 			}
 			tempSelection->addItem (ic, true);
 		}
-		finalSelection=tempSelection;
+		finalSelection = tempSelection;
 	}
 	else
-		finalSelection=ScCore->primaryMainWindow()->doc->m_Selection;
+		finalSelection = ScCore->primaryMainWindow()->doc->m_Selection;
 	if (finalSelection->count() < 2)
 	{
 		// We can't very well group only one item
@@ -400,7 +400,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 	finalSelection=nullptr;
 	delete tempSelection;
 	
-	return (group ? PyString_FromString(group->itemName().toUtf8()) : nullptr);
+	return (group ? PyUnicode_FromString(group->itemName().toUtf8()) : nullptr);
 }
 
 PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
@@ -460,17 +460,18 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
-		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
+	Selection * selection = ScCore->primaryMainWindow()->doc->m_Selection;
+	if ((i < selection->count()) && (i > -1))
+		return PyUnicode_FromString(selection->itemAt(i)->itemName().toUtf8());
 	// FIXME: Should probably return None if no selection?
-	return PyString_FromString("");
+	return PyUnicode_FromString("");
 }
 
 PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->m_Selection->count()));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->m_Selection->count()));
 }
 
 PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
@@ -507,8 +508,8 @@ PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	item->toggleLock();
 	if (item->locked())
-		return PyInt_FromLong(1);
-	return PyInt_FromLong(0);
+		return PyLong_FromLong(1);
+	return PyLong_FromLong(0);
 }
 
 PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)

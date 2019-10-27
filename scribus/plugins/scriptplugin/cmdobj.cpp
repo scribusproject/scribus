@@ -31,19 +31,20 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 //		return nullptr;
 //	}
-	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle,
-								pageUnitXToDocX(x), pageUnitYToDocY(y),
-								ValueToPoint(w), ValueToPoint(h),
-								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int i = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle,
+						pageUnitXToDocX(x), pageUnitYToDocY(y),
+						ValueToPoint(w), ValueToPoint(h),
+						doc->itemToolPrefs().shapeLineWidth,
+						doc->itemToolPrefs().shapeFillColor, doc->itemToolPrefs().shapeLineColor);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
 	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
+			doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
+	return PyUnicode_FromString(doc->Items->at(i)->itemName().toUtf8());
 }
 
 
@@ -69,7 +70,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
 
 
@@ -94,7 +95,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
 
 
@@ -119,7 +120,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
 
 PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
@@ -155,7 +156,7 @@ PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(table->itemName().toUtf8());
+	return PyUnicode_FromString(table->itemName().toUtf8());
 }
 
 PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
@@ -215,7 +216,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
-	return PyString_FromString(it->itemName().toUtf8());
+	return PyUnicode_FromString(it->itemName().toUtf8());
 }
 
 
@@ -292,7 +293,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
-	return PyString_FromString(it->itemName().toUtf8());
+	return PyUnicode_FromString(it->itemName().toUtf8());
 }
 
 
@@ -374,7 +375,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
-	return PyString_FromString(it->itemName().toUtf8());
+	return PyUnicode_FromString(it->itemName().toUtf8());
 }
 
 PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
@@ -465,7 +466,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
-	return PyString_FromString(it->itemName().toUtf8());
+	return PyUnicode_FromString(it->itemName().toUtf8());
 }
 
 
@@ -506,7 +507,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 		if (!ItemExists(objName))
 			i->setItemName(objName);
 	}
-	return PyString_FromString(i->itemName().toUtf8());
+	return PyUnicode_FromString(i->itemName().toUtf8());
 }
 
 
@@ -605,13 +606,13 @@ PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
 		int selectionStart = item->itemText.startOfSelection();
 		const ParagraphStyle& currentStyle = item->itemText.paragraphStyle(selectionStart);
 		if (currentStyle.hasParent())
-			return PyString_FromString(currentStyle.parentStyle()->name().toUtf8());
+			return PyUnicode_FromString(currentStyle.parentStyle()->name().toUtf8());
 	}
 	else
 	{
 		const ParagraphStyle& itemDefaultStyle = item->itemText.defaultStyle();
 		if (itemDefaultStyle.hasParent())
-			return PyString_FromString(itemDefaultStyle.parentStyle()->name().toUtf8());
+			return PyUnicode_FromString(itemDefaultStyle.parentStyle()->name().toUtf8());
 	}
 	Py_RETURN_NONE;
 };
@@ -798,7 +799,7 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	styleList = PyList_New(0);
 	for (int i = 0; i < paragraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(paragraphStyles[i].name().toUtf8())))
+		if (PyList_Append(styleList, PyUnicode_FromString(paragraphStyles[i].name().toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;
@@ -817,7 +818,7 @@ PyObject *scribus_getcharstylenames(PyObject* /* self */)
 	charStyleList = PyList_New(0);
 	for (int i = 0; i < charStyles.count(); ++i)
 	{
-		if (PyList_Append(charStyleList, PyString_FromString(charStyles[i].name().toUtf8())))
+		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyles[i].name().toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;

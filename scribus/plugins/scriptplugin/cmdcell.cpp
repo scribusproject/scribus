@@ -61,7 +61,7 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(table->cellAt(row, column).styleName().toUtf8());
+	return PyUnicode_FromString(table->cellAt(row, column).styleName().toUtf8());
 }
 
 PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
@@ -108,7 +108,7 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell row span from non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(table->cellAt(row, column).rowSpan()));
+	return PyLong_FromLong(static_cast<long>(table->cellAt(row, column).rowSpan()));
 }
 
 PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
@@ -128,7 +128,7 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell column span from non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(table->cellAt(row, column).columnSpan()));
+	return PyLong_FromLong(static_cast<long>(table->cellAt(row, column).columnSpan()));
 }
 
 PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
@@ -153,7 +153,7 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(table->cellAt(row, column).fillColor().toUtf8());
+	return PyUnicode_FromString(table->cellAt(row, column).fillColor().toUtf8());
 }
 
 PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)

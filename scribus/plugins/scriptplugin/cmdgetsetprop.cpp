@@ -15,16 +15,16 @@ for which a new license (GPL+exception) is in place.
 
 QObject* getQObjectFromPyArg(PyObject* arg)
 {
-	if (PyString_Check(arg))
+	if (PyUnicode_Check(arg))
 		// It's a string. Look for a pageItem by that name. Do NOT accept a
 		// selection.
-		return getPageItemByName(QString::fromUtf8(PyString_AsString(arg)));
-	if (PyCObject_Check(arg))
+		return getPageItemByName(PyUnicode_asQString(arg));
+	if (PyCapsule_CheckExact(arg))
 	{
 		// It's a PyCObject, ie a wrapped pointer. Check it's not nullptr
 		// and return it.
 		// FIXME: Try to check that its a pointer to a QObject instance
-		QObject* tempObject = (QObject*)PyCObject_AsVoidPtr(arg);
+		QObject* tempObject = (QObject*) PyCapsule_GetPointer(arg, nullptr);
 		if (!tempObject)
 		{
 			PyErr_SetString(PyExc_TypeError, "INTERNAL: Passed nullptr PyCObject");
@@ -40,7 +40,7 @@ QObject* getQObjectFromPyArg(PyObject* arg)
 
 PyObject* wrapQObject(QObject* obj)
 {
-	return PyCObject_FromVoidPtr((void*)obj, nullptr);
+	return PyCapsule_New((void*) obj, nullptr, nullptr);
 }
 
 
@@ -78,13 +78,13 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	objArg = nullptr; // no need to decref, it's borrowed
 
 	// Look up the property and retrive its type information
-	const char* type = getpropertytype( (QObject*)obj, propertyname, includesuper);
+	const char* type = getpropertytype( (QObject*) obj, propertyname, includesuper);
 	if (type == nullptr)
 	{
 		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(type);
+	return PyUnicode_FromString(type);
 }
 
 PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
@@ -94,7 +94,7 @@ PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
 		return nullptr;
 
 	for ( QStringList::Iterator it = origlist.begin(); it != origlist.end(); ++it )
-		if (PyList_Append(resultList, PyString_FromString((*it).toUtf8().data())) == -1)
+		if (PyList_Append(resultList, PyUnicode_FromString((*it).toUtf8().data())) == -1)
 			return nullptr;
 
 	return resultList;
@@ -283,9 +283,12 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		resultobj = PyBool_FromLong(prop.toBool());
 	// STRING TYPES
 	else if (prop.type() == QVariant::ByteArray)
-		resultobj = PyString_FromString(prop.toByteArray().data());
+	{
+		QByteArray ba = prop.toByteArray();
+		resultobj = PyBytes_FromStringAndSize(ba.data(), ba.size());
+	}
 	else if (prop.type() == QVariant::String)
-		resultobj = PyString_FromString(prop.toString().toUtf8().data());
+		resultobj = PyUnicode_FromString(prop.toString().toUtf8().data());
 	// HIGHER ORDER TYPES
 	else if (prop.type() == QVariant::Point)
 	{
@@ -372,8 +375,8 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			success = obj->setProperty(propertyName, 0);
 		else if (PyObject_IsTrue(objValue) == 1)
 			success = obj->setProperty(propertyName, 1);
-		else if (PyInt_Check(objValue))
-			success = obj->setProperty(propertyName, PyInt_AsLong(objValue) == 0);
+		else if (PyLong_Check(objValue))
+			success = obj->setProperty(propertyName, PyLong_AsLong(objValue) == 0);
 		else if (PyLong_Check(objValue))
 			success = obj->setProperty(propertyName, PyLong_AsLong(objValue) == 0);
 		else
@@ -382,10 +385,10 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else if (propertyType == "int")
 	{
 		matched = true;
-		if (PyInt_Check(objValue))
-			success = obj->setProperty(propertyName, (int)PyInt_AsLong(objValue));
+		if (PyLong_Check(objValue))
+			success = obj->setProperty(propertyName, (int) PyLong_AsLong(objValue));
 		else if (PyLong_Check(objValue))
-			success = obj->setProperty(propertyName, (int)PyLong_AsLong(objValue));
+			success = obj->setProperty(propertyName, (int) PyLong_AsLong(objValue));
 		else
 			matched = false;
 	}
@@ -402,8 +405,8 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else if (propertyType == "QString")
 	{
 		matched = true;
-		if (PyString_Check(objValue))
-			success = obj->setProperty(propertyName, QString::fromUtf8(PyString_AsString(objValue)));
+		if (PyBytes_Check(objValue))
+			success = obj->setProperty(propertyName, QString::fromUtf8(PyBytes_AsString(objValue)));
 		else if (PyUnicode_Check(objValue))
 		{
 			// Get a pointer to the internal buffer of the Py_Unicode object, which is UCS2 formatted
@@ -417,11 +420,11 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else if (propertyType == "QCString")
 	{
 		matched = true;
-		if (PyString_Check(objValue))
+		if (PyBytes_Check(objValue))
 		{
 			// FIXME: should raise an exception instead of mangling the string when
 			// out of charset chars present.
-			QString utfString = QString::fromUtf8(PyString_AsString(objValue));
+			QString utfString = QString::fromUtf8(PyBytes_AsString(objValue));
 			success = obj->setProperty(propertyName, utfString.toLatin1());
 		}
 		else if (PyUnicode_Check(objValue))
@@ -454,7 +457,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		if (!objRepr)
 			return nullptr;
 		// Extract the repr() string
-		QString reprString = QString::fromUtf8(PyString_AsString(objRepr));
+		QString reprString = PyUnicode_asQString(objRepr);
 		Py_DECREF(objRepr);
 
 		// And return an error

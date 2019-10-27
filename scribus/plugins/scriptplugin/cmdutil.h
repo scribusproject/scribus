@@ -29,6 +29,7 @@ double docUnitYToPageY(double pageUnitY);
 
 PageItem *GetItem(const QString& Name);
 void ReplaceColor(const QString& col, const QString& rep);
+
 /*!
  * @brief Returns named PageItem, or selection if name '', or exception and NULL if no item.
  *
@@ -60,6 +61,7 @@ bool ItemExists(const QString& name);
  * @brief Returns a list of the names of all selected PageItems
  */
 QStringList getSelectedItemsByName();
+
 /*!
  * @brief Replaces the current selection by selecting all the items named in the passed QStringList
  *
@@ -68,8 +70,14 @@ QStringList getSelectedItemsByName();
  */
 bool setSelectedItemsByName(QStringList& itemNames);
 
-/// Helper method to parse a border from a list of tuples.
+/*!
+ * @brief Helper method to parse a border from a list of tuples.
+ */
 TableBorder parseBorder(PyObject* borderLines, bool* ok);
 
+/*!
+ * @brief Helper method to convert a PyUnicode object to a QString
+ */
+QString PyUnicode_asQString(PyObject* arg);
 
 #endif

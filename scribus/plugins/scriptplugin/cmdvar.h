@@ -18,10 +18,19 @@ for which a new license (GPL+exception) is in place.
 	#undef _POSIX_C_SOURCE
 #endif
 
+#if defined(_MSC_VER)
+#pragma push_macro("slots")
+#undef slots
+#endif
+
 #if defined(HAVE_BOOST_PYTHON)
 #include <boost/python.hpp>
 #else
 #include <Python.h>
+#endif
+
+#if defined(_MSC_VER)
+#pragma pop_macro("slots")
 #endif
 
 #ifndef Py_RETURN_NONE
@@ -51,6 +60,8 @@ extern ScripterCore* scripterCore;
 
 /** @brief Initialize the 'scribus' Python module in the currently active interpreter */
 extern "C" void initscribus(ScribusMainWindow *pl);
+
+extern "C" PyObject* PyInit_scribus(void);
 
 /* Exceptions */
 /*! Common scribus Exception */

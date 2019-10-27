@@ -3,6 +3,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Scripting Scribus with Python</title>
 </head>
+<style>
+@import "manual.css";
+</style>
 <body>
 <h2>Scripting Scribus with Python</h2>
 
@@ -11,6 +14,9 @@
 
 <p>Note that additions to the Scripter are being made frequently, which means that the available documentation may be incomplete.</p>
 
+<h3>Scripter and Windows</h3>
+<p>If you installed your Windows version of Scribus using the installer at Sourceforge, the installation includes Python 3.7 in a directory labeled python\. This will suffice for most uses. You may find or write some Python script which requires an additional Python package not included, and there is no way to add these to the Scribus directory. Chances are, your system is not even aware of this Python.</p>
+<p>Should you need to use some additional packages, the answer comes from installing Python 3.7 on your system, then also the desired additional packages. The next and important step is to use a file manager to go to C:\Program Files\Scribus 1.5.6\ and look for a directory named python\. Simply rename this to anything else, such as oldpython\, and the next time Scribus starts, it will use the system Python and its packages.</p>
 
 <h3>Using the Plug-in</h3>
 <p>Scribus is being shipped with some &ldquo;hard-wired&rdquo; scripts, which are available via <i>Scripter&nbsp;&gt; Scribus Scripts</i>:</p>

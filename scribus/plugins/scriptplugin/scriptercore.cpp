@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <cstdlib>
 
+#include "cmdutil.h"
 #include "runscriptdialog.h"
 #include "ui/helpbrowser.h"
 #include "ui/marksmanager.h"
@@ -256,20 +257,20 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		global_state = PyThreadState_Get();
 		state = Py_NewInterpreter();
 		// Init the scripter module in the sub-interpreter
-		initscribus(ScCore->primaryMainWindow());
+		//initscribus(ScCore->primaryMainWindow());
 	}
 
 	// Make sure sys.argv[0] is the path to the script
 	arguments.prepend(na.data());
 	//convert arguments (QListString) to char** for Python bridge
 	/* typically arguments == ['path/to/script.py','--argument1','valueforarg1','--flag']*/
-	char **comm = new char*[arguments.size()];
+	wchar_t **comm = new wchar_t*[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
-		QByteArray localStr = arguments.at(i).toLocal8Bit();
-		comm[i] = new char[localStr.size() + 1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
-		comm[i][localStr.size()] = 0;
-		strncpy(comm[i], localStr.data(), localStr.size());
+		const QString& argStr = arguments.at(i);
+		comm[i] = new wchar_t[argStr.size() + 1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
+		comm[i][argStr.size()] = 0;
+		argStr.toWCharArray(comm[i]);
 	}
 	PySys_SetArgv(arguments.size(), comm);
 
@@ -291,7 +292,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		// Build the Python code to run the script
 		//QString cm = QString("from __future__ import division\n"); removed due #5252 PV
 		QString cm = QString("import sys\n");
-		cm        += QString("import cStringIO\n");
+		cm        += QString("import io\n");
 		/* Implementation of the help() in pydoc.py reads some OS variables
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
@@ -299,7 +300,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		cm        += QString("sys.path[0] = \"%1\"\n").arg(escapedAbsPath);
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
-		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
+		cm        += QString("sys.stdin = io.StringIO()\n");
 		// tell the script if it's running in the main intepreter or a subinterpreter
 		cm        += QString("import scribus\n");
 		if (inMainInterpreter)
@@ -307,7 +308,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		else
 			cm+= QString("scribus.mainInterpreter = False\n");
 		cm        += QString("try:\n");
-		cm        += QString("    execfile(\"%1\")\n").arg(escapedFileName);
+		cm        += QString("    exec(open(\"%1\", \"rb\").read())\n").arg(escapedFileName);
 		cm        += QString("except SystemExit:\n");
 		cm        += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
@@ -341,7 +342,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 			}
 			else if (ScCore->usingGUI())
 			{
-				QString errorMsg = PyString_AsString(errorMsgPyStr);
+				QString errorMsg = PyUnicode_asQString(errorMsgPyStr);
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
@@ -399,7 +400,7 @@ void ScripterCore::slotRunScript(const QString& Script)
 	cm = "# -*- coding: utf8 -*- \n";
 	if (PyThreadState_Get() != nullptr)
 	{
-		initscribus(ScCore->primaryMainWindow());
+		//initscribus(ScCore->primaryMainWindow());
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
 		handle docstrings right.
@@ -408,8 +409,8 @@ void ScripterCore::slotRunScript(const QString& Script)
 		works fine in plain Python. Not here. WTF? */
 		cm += (
 				"try:\n"
-				"    import cStringIO\n"
-				"    scribus._bu = cStringIO.StringIO()\n"
+				"    import io\n"
+				"    scribus._bu = io.StringIO()\n"
 				"    sys.stdout = scribus._bu\n"
 				"    sys.stderr = scribus._bu\n"
 				"    sys.argv = ['scribus']\n" // this is the PySys_SetArgv replacement
@@ -420,9 +421,9 @@ void ScripterCore::slotRunScript(const QString& Script)
 				"    sys.stdout = sys.__stdout__\n"
 				"    sys.stderr = sys.__stderr__\n"
 				"except SystemExit:\n"
-				"    print 'Catched SystemExit - it is not good for Scribus'\n"
+				"    print ('Catched SystemExit - it is not good for Scribus')\n"
 				"except KeyboardInterrupt:\n"
-				"    print 'Catched KeyboardInterrupt - it is not good for Scribus'\n"
+				"    print ('Catched KeyboardInterrupt - it is not good for Scribus')\n"
 			  );
 	}
 	// Set up sys.argv
@@ -599,8 +600,8 @@ bool ScripterCore::setupMainInterpreter()
 		"import sys\n"
 		"import code\n"
 		"sys.path.insert(0, \"%1\")\n"
-		"import cStringIO\n"
-		"sys.stdin = cStringIO.StringIO()\n"
+		"import io\n"
+		"sys.stdin = io.StringIO()\n"
 		"scribus._ia = code.InteractiveConsole(globals())\n"
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)

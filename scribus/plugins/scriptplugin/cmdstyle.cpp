@@ -344,31 +344,31 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 
 		val = PyDict_GetItemString(line, "Color");
 		if (val)
-			sl.Color = PyString_AsString(val);
+			sl.Color = PyUnicode_asQString(val);
 		else 
 			sl.Color = currentDoc->itemToolPrefs().lineColor;
 
 		val = PyDict_GetItemString(line, "Dash");
 		if (val)
-			sl.Dash = PyInt_AsLong(val);
+			sl.Dash = PyLong_AsLong(val);
 		else 
 			sl.Dash = Qt::SolidLine;
 
 		val = PyDict_GetItemString(line, "LineEnd");
 		if (val)
-			sl.LineEnd = PyInt_AsLong(val);
+			sl.LineEnd = PyLong_AsLong(val);
 		else 
 			sl.LineEnd = Qt::FlatCap;
 
 		val = PyDict_GetItemString(line, "LineJoin");
 		if (val)
-			sl.LineJoin = PyInt_AsLong(val);
+			sl.LineJoin = PyLong_AsLong(val);
 		else 
 			sl.LineJoin = Qt::MiterJoin;
 
 		val = PyDict_GetItemString(line, "Shade");
 		if (val)
-			sl.Shade = PyInt_AsLong(val);
+			sl.Shade = PyLong_AsLong(val);
 		else 
 			sl.Shade = currentDoc->itemToolPrefs().lineColorShade;
 
@@ -380,7 +380,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 
 		val = PyDict_GetItemString(line, "Shortcut");
 		if (val)
-			ml.shortcut = PyString_AsString(val);
+			ml.shortcut = PyUnicode_asQString(val);
 		else 
 			ml.shortcut = "";
 

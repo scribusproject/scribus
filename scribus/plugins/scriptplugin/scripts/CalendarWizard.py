@@ -54,16 +54,16 @@ import datetime
 try:
     from scribus import *
 except ImportError:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 try:
     # I wish PyQt installed everywhere :-/
-    from Tkinter import *
-    from tkFont import Font
+    from tkinter import *
+    from tkinter import font
 except ImportError:
-    print "This script requires Python's Tkinter properly installed."
+    print ("This script requires Python's Tkinter properly installed.")
     messageBox('Script failed',
                'This script requires Python\'s Tkinter properly installed.',
                ICON_CRITICAL)
@@ -307,14 +307,14 @@ class ScEventCalendar(ScCalendar):
         ScCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
 
     def printMonth(self, cal, month, week):
-	    """ Print the month name(s) """
-	    if week[6].day < 7:
-		    if (week == cal[len(cal)-1]):
-			    self.createHeader(localization[self.lang][0][month] + self.sepMonths + localization[self.lang][0][(month+1)%12])
-		    elif ((month-1) not in self.months):
-			    self.createHeader(localization[self.lang][0][(month-1)%12] + self.sepMonths + localization[self.lang][0][month])
-	    else:
-		    self.createHeader(localization[self.lang][0][month])
+        """ Print the month name(s) """
+        if week[6].day < 7:
+            if (week == cal[len(cal)-1]):
+                self.createHeader(localization[self.lang][0][month] + self.sepMonths + localization[self.lang][0][(month+1)%12])
+            elif ((month-1) not in self.months):
+                self.createHeader(localization[self.lang][0][(month-1)%12] + self.sepMonths + localization[self.lang][0][month])
+        else:
+            self.createHeader(localization[self.lang][0][month])
 
     def createMonthCalendar(self, month, cal):
         """ Draw one week calendar per page """
@@ -325,12 +325,12 @@ class ScEventCalendar(ScCalendar):
             # * If it starts on the first weekday
             # * If the month before it isn't included
             if (week != cal[0]) or (week[0].day == 1) or ((month-1) not in self.months):
-				self.createLayout()
-				self.printMonth(cal, month, week)
-				self.printWeekNo(week)
+                self.createLayout()
+                self.printMonth(cal, month, week)
+                self.printWeekNo(week)
 
-				for day in week:
-				    self.printDay(day)
+                for day in week:
+                    self.printDay(day)
 
 class ScHorizontalEventCalendar(ScEventCalendar):
     """ One day = one row calendar. I suggest LANDSCAPE orientation.\
@@ -445,11 +445,11 @@ class ScClassicCalendar(ScVerticalCalendar):
                 cel = createText(self.marginl + colCnt * self.colSize,
                                  self.calHeight + rowCnt * self.rowSize,
                                  self.colSize, self.rowSize)
-		setLineColor("Black", cel)  # comment this out if you do not want border to cells
+                setLineColor("Black", cel)  # comment this out if you do not want border to cells
                 colCnt += 1
                 if day.month == month + 1:
-					setText(str(day.day), cel)
-					setStyle(self.pStyleDate, cel)
+                    setText(str(day.day), cel)
+                    setStyle(self.pStyleDate, cel)
             rowCnt += 1
 
 class ScVerticalEventCalendar(ScVerticalCalendar, ScEventCalendar):
@@ -507,7 +507,7 @@ class TkCalendar(Frame):
         self.langScrollbar.config(command=self.langListbox.yview)
 
         keys = localization.keys()
-        keys.sort()
+        sorted(keys)
         for i in keys:
             self.langListbox.insert(END, i)
         self.langButton = Button(self, text='Change language', command=self.languageChange)

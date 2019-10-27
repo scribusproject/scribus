@@ -153,11 +153,13 @@ void setPythonEnvironment(const QString& appPath)
 	QString pythonHome = appPath + "/python";
 	if (!QDir(pythonHome).exists())
 		return; //assume a custom python
+	pythonHome = QFileInfo(pythonHome).canonicalFilePath();
 
 	QString tmp = "PYTHONHOME=" + QDir::toNativeSeparators(pythonHome);
 	_wputenv((const wchar_t*) tmp.utf16());
 
-	QString nativePath = QDir::toNativeSeparators(appPath);
+	QString nativePath = QFileInfo(appPath).canonicalFilePath();
+	nativePath = QDir::toNativeSeparators(nativePath);
 	tmp = "PYTHONPATH=";
 	tmp += nativePath;
 	tmp += "\\python;";

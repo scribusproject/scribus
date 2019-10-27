@@ -73,8 +73,8 @@ if scribus.haveDoc():
         if textfile == '':
             raise Exception
         exportText(textfile)
-    except Exception, e:
-        print e
+    except Exception as e:
+        print (e)
 
 else:
     scribus.messageBox('Export Error', 'You need a Document open, and a frame selected.', \

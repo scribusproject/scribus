@@ -3,36 +3,39 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Voraussetzungen</title>
 </head>
+<style>
+@import "manual.css";
+</style>
 <body>
 <h2>Voraussetzungen</h2>
 <p>Die Programme, die Sie ben&ouml;tigen, um Scribus zu kompilieren, sind:</p>
 <ol>
-	<li><strong>F&uuml;r Scribus 1.4.x wird mindestens GCC 3.x+ ben&ouml;tigt und GCC 3.3+ dringend empfohlen</strong>. Das Scribus-Team hat GCC 4.1+ getestet. Wir empfehlen, jeweils die aktuelle GCC 4.x-Version zu verwenden, da sich dadurch Performance-Vorteile ergeben k&ouml;nnen.</li>
-	<li>CMake</li>
+	<li><strong>F&uuml;r Scribus 1.5.x wird mindestens GCC 4.8+ ben&ouml;tigt und GCC 7+ dringend empfohlen</strong>. Wir empfehlen, jeweils die aktuelle GCC Version zu verwenden, da sich dadurch Performance-Vorteile ergeben k&ouml;nnen.</li>
+	<li>CMake 3.12+</li>
 	<li>GNU make</li>
 </ol>
 <p>Die Abh&auml;ngigkeiten zum Kompilieren und zur Verwendung von Scribus sind:</p>
 <ol>
-<li>Qt 4.6.0+, sowohl die Laufzeit- als auch die Entwicklerbibliotheken.</li>
-<li>Python und Python-devel 2.3+. Python 2.2 wird nicht unterst&uuml;tzt.</li>
-<li>Freetype2 2.1.7+. Wegen verschiedener Fehler in Freetype2 empfehlen wir, wenn m&ouml;glich, die Verwendung von Version 2.3.x</li>
-<li>Cairo 1.4.x. We empfehlen 1.4.10 oder h&ouml;her.</li>
-<li>libxml2 2.6+.</li>
-<li>Ghostscript 8.60+ wird dringend empfohlen.</li>
-<li>littleCMS &ndash; in einigen Distributionen auch lcms genannt. Das Minimum ist 1.12, aber wir empfehlen 1.17 oder h&ouml;her. lcms 1.12+ bietet Unterst&uuml;tzung von Tiefenkompensierung.</li>
-<li>libtiff 3.6.0+</li>
-<li>libjpeg</li>
-<li>CUPS-devel &ndash; Scribus unterst&uuml;tzt die direkte Druckausgabe mit CUPS. (Linux/UNIX/Mac&nbsp;OS&nbsp;X).</li>
-<li>tkinter &ndash; f&uuml;r das &raquo;Font Sampler&laquo;- und das &raquo;Calendar Wizard&laquo;-Script.</li>
-<li>Python-imaging f&uuml;r einige Funktionen des Scripters.</li>
-<li>openssl-devel (einige Linux-Distributionen, insbesondere OpenSUSE, erm&ouml;glichen SSL-Unterst&uuml;tzung f&uuml;r CUPS)</li>
-<li>fontconfig-devel &ndash; um das automatische Auffinden von Schriftdateien unter Linux, Mac&nbsp;OS&nbsp;X und UNIX zu erm&ouml;glichen. Nicht erforderlich unter Windows, OS/2 und eComStation.</li>
-<li>Podofo 0.6 oder h&ouml;her &ndash; wird vom AI-Importfilter ben&ouml;tigt.</li>
+	<li>Qt 5.10.0+, sowohl die Laufzeit- als auch die Entwicklerbibliotheken.</li>
+	<li>Cairo 1.14.x. We empfehlen 1.16.0 oder h&ouml;her.</li>
+	<li>CUPS-devel &ndash; Scribus unterst&uuml;tzt die direkte Druckausgabe mit CUPS. (Linux/UNIX/Mac&nbsp;OS&nbsp;X).</li>
+	<li>fontconfig-devel &ndash; um das automatische Auffinden von Schriftdateien unter Linux, Mac&nbsp;OS&nbsp;X und UNIX zu erm&ouml;glichen. Nicht erforderlich unter Windows, OS/2 und eComStation.</li>
+	<li>Freetype2 2.1.7+. Wegen verschiedener Fehler in Freetype2 empfehlen wir, wenn m&ouml;glich, die Verwendung von Version 2.3.x</li>
+	<li>Ghostscript 9.0+ wird dringend empfohlen.</li>
+	<li>littleCMS &ndash; in einigen Distributionen auch lcms genannt. Das Minimum ist 2.1, aber wir empfehlen 2.9 oder h&ouml;her.</li>
+	<li>libjpeg</li>
+	<li>libtiff 3.6.0+</li>
+	<li>libxml2 2.6+.</li>
+	<li>Podofo 0.9 oder h&ouml;her &ndash; wird vom AI-Importfilter ben&ouml;tigt.</li>
+	<li>Python und Python-devel 3.3+. Python 3.2 wird nicht unterst&uuml;tzt.</li>
+	<li>Python-imaging f&uuml;r einige Funktionen des Scripters.</li>
+	<li>tkinter &ndash; f&uuml;r das &raquo;Font Sampler&laquo;- und das &raquo;Calendar Wizard&laquo;-Script.</li>
+	<li>openssl-devel (einige Linux-Distributionen, insbesondere OpenSUSE, erm&ouml;glichen SSL-Unterst&uuml;tzung f&uuml;r CUPS)</li>
 </ol>
 <h3>Optional:</h3>
 <ul>
-<li>antiword &ndash; ben&ouml;tigt f&uuml;r dem Import von MS-Word-Dateien, ist aber unn&ouml;tig beim Kompilieren. Scribus wird ein installiertes Antiword sp&auml;ter automatisch finden.</li>
-<li>Um <a href="WwRenderframes.html">Renderrahmen</a> verwenden zu k&ouml;nnen, ben&ouml;tigen Sie zus&auml;tzliche Programme wie LaTeX oder Lilypond.</li>
+	<li>antiword &ndash; ben&ouml;tigt f&uuml;r dem Import von MS-Word-Dateien, ist aber unn&ouml;tig beim Kompilieren. Scribus wird ein installiertes Antiword sp&auml;ter automatisch finden.</li>
+	<li>Um <a href="WwRenderframes.html">Renderrahmen</a> verwenden zu k&ouml;nnen, ben&ouml;tigen Sie zus&auml;tzliche Programme wie LaTeX oder Lilypond.</li>
 </ul>
 <p>Scribus l&auml;uft in jeder Desktopumgebung und ben&ouml;tigt kein KDE, aber Drag&rsquo;n&rsquo;drop funktioniert nur in KDE.</p>
 <p>Falls das Farbmanagement nicht funktioniert, m&uuml;ssen Sie zus&auml;tzlich mindestens ein RGB- und ein CMYK-Profil installieren. Anderenfalls werden die Farbmanagement-Optionen ausgeblendet oder ausgegraut. Normalerweise installiert Scribus ein RGB- and ein CMYK-Profil, und zwar nur, um das Farbmanagement zu aktivieren, aber aufgrund ihrer Lizenzpolitik (v.a. Debian) befinden sich die Profile u.U. in einem separaten Paket. </p>

@@ -25,7 +25,7 @@ matrix:
 before_install:
 # Linux
 -   if [ $TRAVIS_OS_NAME == linux ]; then
-      sudo apt-add-repository ppa:beineri/opt-qt597-xenial -y;
+      sudo apt-add-repository ppa:beineri/opt-qt5.10.1-xenial -y;
       sudo apt-add-repository ppa:as-bahanta/raqm -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
       sudo apt-get update -qq;
@@ -40,11 +40,11 @@ install:
 -   if [ $TRAVIS_OS_NAME == linux ]; then
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-      python-all-dev zlib1g-dev qt59base qt59declarative
-      qt59tools libgraphicsmagick++1-dev
+      python3-all-dev zlib1g-dev qt510base qt510declarative
+      qt510tools libgraphicsmagick++1-dev
       libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
       libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
-      coreutils binutils python-tk;
+      coreutils binutils python3-tk;
 #     Build a more recent poppler than Ubuntu Xenial's poppler 0.41.0
       mkdir deps && pushd deps;
       sudo apt-get install --force-yes libopenjpeg-dev;
@@ -60,6 +60,7 @@ install:
       brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib;
       brew install icu4c && brew link --force icu4c;
       brew install xz little-cms2 cairo qt5 hunspell ghostscript graphicsmagick poppler podofo harfbuzz;
+      brew install python3 --with-tcl-tk;
       brew outdated jpeg --verbose || brew upgrade jpeg;
       brew outdated libtiff --verbose || brew upgrade libtiff; 
       brew outdated fontconfig --verbose || brew upgrade fontconfig; 
@@ -67,14 +68,14 @@ install:
       brew outdated pkg-config --verbose || brew upgrade pkg-config; 
       brew outdated boost || brew upgrade boost; 
       brew outdated freetype || brew upgrade freetype; 
-      brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; 
+      brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph;
     fi
   # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
   # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
   
 script:
   - if [ $TRAVIS_OS_NAME == linux ]; then
-      source /opt/qt59/bin/qt59-env.sh;
+      source /opt/qt510/bin/qt510-env.sh;
       if [[ $CC == gcc ]]; then
         export NPROC=8;
       else

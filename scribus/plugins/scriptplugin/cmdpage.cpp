@@ -18,7 +18,7 @@ PyObject *scribus_actualpage(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
 PyObject *scribus_redraw(PyObject* /* self */)
@@ -45,7 +45,7 @@ PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->locationOfPage(e)));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->locationOfPage(e)));
 }
 
 PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
@@ -167,7 +167,7 @@ PyObject *scribus_pagecount(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->Pages->count()));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->Pages->count()));
 }
 
 PyObject *scribus_pagedimension(PyObject* /* self */)

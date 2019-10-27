@@ -137,7 +137,7 @@ class Hyphenator:
         Postcondition: Constructs a hyphenator object for the
         given patterns.
         """
-        if type(patterns) is not unicode:
+        if type(patterns) is not str:
             raise TypeError("The “patterns” parameter must be of type "
                             "“unicode”, but it isn’t.")
         self.tree = {}
@@ -170,7 +170,7 @@ class Hyphenator:
             the word might get wrong hyphenation because the
             upper-case-letters are not recognized).
         """
-        if type(word) is not unicode:
+        if type(word) is not str:
             raise TypeError("The word must have the data type “unicode”, "
                             "but it doesn’t.")
         else:
@@ -289,7 +289,7 @@ class GermanLigatureSupport:
         WARNING This function must be kept
         in synch with isWordCharacter().
         """
-        if type(my_unicode_string) is not unicode:
+        if type(my_unicode_string) is not str:
             raise TypeError("The “my_unicode_string” parameter must be of "
                             "type “unicode”, but it isn’t.")
         return my_unicode_string.lower().replace("ſ", "s")
@@ -22283,7 +22283,7 @@ class InstructionProvider(GermanLigatureSupport):
         šâäéóöü
         :rtype: list
         """
-        if type(my_word) is not unicode:
+        if type(my_word) is not str:
             raise TypeError("myWord must be of type “unicode”, but it isn’t.")
         stripped_word = u""
         stripped_word_index = []
@@ -22367,7 +22367,7 @@ def is_bmp_scalar_only(my_string):
     Unicode scalar values consists of the ranges 0 to D7FF (16) and E000 (16)
     to 10FFFF (16), inclusive.”
     """
-    if type(my_string) is not unicode:
+    if type(my_string) is not str:
         raise TypeError(
             "“my_string” must be of type “unicode”, but it isn’t.")
     return re.search(u"[^\u0000-\uD7FF\uE000-\uFFFF]", my_string) is None
@@ -22460,7 +22460,7 @@ class StoryInterface:
                 raise IndexError("“first” is out of range.")
             return u""
         scribus.selectText(first, count, self.__identifier)
-        return scribus.getAllText(self.__identifier).decode("utf8", "strict")
+        return scribus.getAllText(self.__identifier)
 
     def delete_text(self, first, count):
         """Precondition: The object with the unique identifier “textFrame”
@@ -22514,7 +22514,7 @@ class StoryInterface:
         “story”, that means the common text content that is shared between
         this text frame and all linked text frames. Note that this function
         will (likely) change the current text selection of the story."""
-        if (type(first) is not int) or (type(text) is not unicode):
+        if (type(first) is not int) or (type(text) is not str):
             raise TypeError("“first” must be “integer” and “text” must "
                             "be “unicode”, but they aren’t.")
         if first < 0:
@@ -22528,7 +22528,7 @@ class StoryInterface:
                                "the constructor does currently not refer to "
                                "a text frame in the current document.")
         scribus.insertText(
-            text.encode("utf8", "strict"),
+            text,
             first,
             self.__identifier)
 
@@ -22560,9 +22560,9 @@ def show_messagebox(
     Preconditions: “caption” and “message” are of type “unicode”. icon,
     button1, button2 and button3 are either not used or of type int.
     Postcondition: Calls show_messagebox and returns the result."""
-    if type(caption) is not unicode:
+    if type(caption) is not str:
         raise TypeError("“caption” must be of type “unicode”, but it isn’t.")
-    if type(message) is not unicode:
+    if type(message) is not str:
         raise TypeError("“message” must be of type “unicode”, but it isn’t.")
     if type(icon) is not int:
         raise TypeError("“icon” must be of type “int”, but it isn’t.")
@@ -22573,8 +22573,8 @@ def show_messagebox(
     if type(button3) is not int:
         raise TypeError("“button3” must be of type “int”, but it isn’t.")
     return scribus.messageBox(
-        caption.encode("utf8", "strict"),
-        message.encode("utf8", "strict"),
+        caption,
+        message,
         icon,
         button1,
         button2,

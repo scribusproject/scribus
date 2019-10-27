@@ -241,3 +241,11 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 	return border;
 }
 
+QString PyUnicode_asQString(PyObject* arg)
+{
+	const char* utf8Str = PyUnicode_AsUTF8(arg);
+	if (!utf8Str)
+		return QString();
+	return QString::fromUtf8(utf8Str);
+}
+

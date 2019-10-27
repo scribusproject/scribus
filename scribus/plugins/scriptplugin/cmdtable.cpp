@@ -28,7 +28,7 @@ PyObject *scribus_gettablerows(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table row count of non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(table->rows()));
+	return PyLong_FromLong(static_cast<long>(table->rows()));
 }
 
 PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
@@ -48,7 +48,7 @@ PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table column count of non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyInt_FromLong(static_cast<long>(table->columns()));
+	return PyLong_FromLong(static_cast<long>(table->columns()));
 }
 
 PyObject *scribus_inserttablerows(PyObject* /* self */, PyObject* args)
@@ -338,7 +338,7 @@ PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table style on a non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(table->styleName().toUtf8());
+	return PyUnicode_FromString(table->styleName().toUtf8());
 }
 
 PyObject *scribus_settablestyle(PyObject* /* self */, PyObject* args)
@@ -378,7 +378,7 @@ PyObject *scribus_gettablefillcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table fill color on a non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(table->fillColor().toUtf8());
+	return PyUnicode_FromString(table->fillColor().toUtf8());
 }
 
 PyObject *scribus_settablefillcolor(PyObject* /* self */, PyObject* args)

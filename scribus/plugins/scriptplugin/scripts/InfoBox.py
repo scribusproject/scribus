@@ -60,8 +60,8 @@ but this can be changed.
 try:
     import scribus
 except ImportError:
-    print "Unable to import the 'scribus' module. This script will only run within"
-    print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
+    print ("Unable to import the 'scribus' module. This script will only run within")
+    print ("the Python interpreter embedded in Scribus. Try Script->Execute Script.")
     sys.exit(1)
 
 def main(argv):
@@ -116,7 +116,7 @@ def main(argv):
                                          str(o_cols) + ')?','1')
             column_pos = int(column_pos) - 1 
     if (o_cols == 1):
-	columns_width = 1
+        columns_width = 1
     new_height = 0
     while (new_height <= 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +

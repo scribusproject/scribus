@@ -47,8 +47,8 @@ of 24 points. Right and Left caption frames sized to 150 points width and
 try:
     import scribus
 except ImportError:
-    print "Unable to import the 'scribus' module. This script will only run within"
-    print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
+    print ("Unable to import the 'scribus' module. This script will only run within")
+    print ("the Python interpreter embedded in Scribus. Try Script->Execute Script.")
     sys.exit(1)
 
 numselect = scribus.selectionCount()

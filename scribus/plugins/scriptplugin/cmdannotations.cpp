@@ -169,7 +169,7 @@ PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
 		break;
 	}
 
-	PyObject *rstr = PyString_FromString(rv.toUtf8());
+	PyObject *rstr = PyUnicode_FromString(rv.toUtf8());
 	return rstr;
 }
 
@@ -211,8 +211,8 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 
 			getLinkData(drv, a.Ziel(), a.Action());
 			const char path[] = "path";
-			PyObject *pathkey = PyString_FromString(path);
-			PyObject *pathvalue = PyString_FromString(a.Extern().toUtf8());
+			PyObject *pathkey = PyUnicode_FromString(path);
+			PyObject *pathvalue = PyUnicode_FromString(a.Extern().toUtf8());
 			PyDict_SetItem(drv, pathkey, pathvalue);
 			add_text_to_dict(drv, item);
 			PyObject *rv = Py_BuildValue("(sO)", name3, drv);
@@ -221,8 +221,8 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 		if (atype == Annotation::Link && actype == Annotation::Action_URI)
 		{
 			const char uri[] = "uri";
-			PyObject *ukey = PyString_FromString(uri);
-			PyObject *uval = PyString_FromString(a.Extern().toUtf8());
+			PyObject *ukey = PyUnicode_FromString(uri);
+			PyObject *uval = PyUnicode_FromString(a.Extern().toUtf8());
 			PyDict_SetItem(drv, ukey, uval);
 			add_text_to_dict(drv, item);
 			char *name4= const_cast<char*>("Link URI");
@@ -295,12 +295,12 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 			};
 			if (icon >= 0 && icon < 9)
 			{
-				PyObject *iconkey = PyString_FromString("icon");
-				PyObject *iconvalue = PyString_FromString(icons[icon]);
+				PyObject *iconkey = PyUnicode_FromString("icon");
+				PyObject *iconvalue = PyUnicode_FromString(icons[icon]);
 				PyDict_SetItem(drv, iconkey, iconvalue);
 			}
 
-			PyObject *openkey = PyString_FromString("open");
+			PyObject *openkey = PyUnicode_FromString("open");
 			PyObject *open = Py_False;
 			if (a.IsAnOpen())
 				open = Py_True;
@@ -585,7 +585,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 			break;
 	}
 	
-	return PyString_FromString(m_doc->Items->at(i)->itemName().toUtf8());
+	return PyUnicode_FromString(m_doc->Items->at(i)->itemName().toUtf8());
 }
 
 
@@ -613,23 +613,23 @@ PyObject *getLinkData(PyObject *rv,int page, const QString& action)
 	int x, y;
 
 	const char pagenum[] = "page";
-	PyObject *pagekey = PyString_FromString(pagenum);
-	PyObject *pagevalue = PyInt_FromLong((long)page);
+	PyObject *pagekey = PyUnicode_FromString(pagenum);
+	PyObject *pagevalue = PyLong_FromLong((long)page);
 	PyDict_SetItem(rv, pagekey, pagevalue);
 	
 	QStringList qsl = action.split(" ", QString::SkipEmptyParts);
 
 	x = qsl[0].toInt();
 	const char x2[] = "x";
-	PyObject *xkey = PyString_FromString(x2);
-	PyObject *xvalue = PyInt_FromLong((long)x);
+	PyObject *xkey = PyUnicode_FromString(x2);
+	PyObject *xvalue = PyLong_FromLong((long)x);
 	PyDict_SetItem(rv, xkey, xvalue);
 
 	int height =ScCore->primaryMainWindow()->doc->pageHeight();
 	y = height - qsl[1].toInt();
 	const char y2[] = "y";
-	PyObject *ykey = PyString_FromString(y2);
-	PyObject *yvalue = PyInt_FromLong((long)y);
+	PyObject *ykey = PyUnicode_FromString(y2);
+	PyObject *yvalue = PyLong_FromLong((long)y);
 	PyDict_SetItem(rv, ykey, yvalue);
 
 	return rv;
@@ -670,9 +670,9 @@ static bool testPageItem(PageItem *item)
 static void add_text_to_dict(PyObject *drv, PageItem * item)
 {
 	const char text[] = "text";
-	PyObject *textkey = PyString_FromString(text);
+	PyObject *textkey = PyUnicode_FromString(text);
 	QString txt = item->itemText.text(0, item->itemText.length());
-	PyObject *textvalue = PyString_FromString(txt.toUtf8());
+	PyObject *textvalue = PyUnicode_FromString(txt.toUtf8());
 	PyDict_SetItem(drv, textkey, textvalue);
 
 	Annotation &a = item->annotation();
@@ -681,8 +681,8 @@ static void add_text_to_dict(PyObject *drv, PageItem * item)
 	if (actype == Annotation::Action_JavaScript)
 	{
 		const char text[] = "javascript";
-		PyObject *jskey = PyString_FromString(text);
-		PyObject *jsvalue = PyString_FromString(item->annotation().Action().toUtf8());
+		PyObject *jskey = PyUnicode_FromString(text);
+		PyObject *jsvalue = PyUnicode_FromString(item->annotation().Action().toUtf8());
 		PyDict_SetItem(drv, jskey, jsvalue);
 	}
 
@@ -694,17 +694,17 @@ static void add_text_to_dict(PyObject *drv, PageItem * item)
 						"Named", nullptr };
 
 	const char action[] = "action";
-	PyObject *akey = PyString_FromString(action);
+	PyObject *akey = PyUnicode_FromString(action);
 	if (actype > 10)
 		actype = 6;
-	PyObject *avalue = PyString_FromString(aactions[actype]);
+	PyObject *avalue = PyUnicode_FromString(aactions[actype]);
 	PyDict_SetItem(drv, akey, avalue);
 
 	int atype = a.Type();
 	if (atype == Annotation::Checkbox || atype == Annotation::RadioButton)
 	{
 		const char checked[] = "checked";
-		PyObject *checkkey = PyString_FromString(checked);
+		PyObject *checkkey = PyUnicode_FromString(checked);
 		PyObject *checkvalue = Py_False;
 		if (a.IsChk())
 			checkvalue = Py_True;
@@ -714,7 +714,7 @@ static void add_text_to_dict(PyObject *drv, PageItem * item)
 	if (atype == Annotation::Combobox || atype == Annotation::Listbox)
 	{
 		const char editable[] = "editable";
-		PyObject *ekey = PyString_FromString(editable);
+		PyObject *ekey = PyUnicode_FromString(editable);
 
 		PyObject *edit = Py_False;
 		int result = Annotation::Flag_Edit & a.Flag();

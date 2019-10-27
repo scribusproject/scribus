@@ -22,10 +22,9 @@ wiki.scribus.net/canvas/Align_an_Image_in_its_Frame
 import scribus
  
 try:
-    from Tkinter import *
-    from tkFont import Font
+    from tkinter import *
 except ImportError:
-    print "This script requires Python's Tkinter properly installed."
+    print ("This script requires Python's Tkinter properly installed.")
     scribus.messageBox('Script failed',
                'This script requires Python\'s Tkinter properly installed.',
                scribus.ICON_CRITICAL)
@@ -83,8 +82,8 @@ class TkImageAlignmentWizard(Frame):
  
     def alignImage(self):
         if scribus.haveDoc():
-	    restore_units = scribus.getUnit()   # since there is an issue with units other than points,
-	    scribus.setUnit(0)			# we switch to points then restore later.
+            restore_units = scribus.getUnit()   # since there is an issue with units other than points,
+            scribus.setUnit(0)			# we switch to points then restore later.
             nbrSelected = scribus.selectionCount()
             objList = []
             for i in range(nbrSelected):
@@ -124,9 +123,9 @@ class TkImageAlignmentWizard(Frame):
                     scribus.deselectAll()
                 except:
                     nothing = "nothing"
-	    scribus.setUnit(restore_units)
-	    
-	    self.master.destroy()
+            scribus.setUnit(restore_units)
+            
+            self.master.destroy()
  
  
 def main():

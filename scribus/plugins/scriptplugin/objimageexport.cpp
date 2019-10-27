@@ -34,7 +34,7 @@ static void ImageExport_dealloc(ImageExport* self)
 	Py_XDECREF(self->name);
 	Py_XDECREF(self->type);
 	Py_XDECREF(self->allTypes);
-	self->ob_type->tp_free((PyObject *)self);
+	Py_TYPE(self)->tp_free((PyObject *)self);
 }
 
 static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
@@ -45,8 +45,8 @@ static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObj
 	ImageExport *self;
 	self = (ImageExport *)type->tp_alloc(type, 0);
 	if (self != nullptr) {
-		self->name = PyString_FromString("ImageExport.png");
-		self->type = PyString_FromString("PNG");
+		self->name = PyUnicode_FromString("ImageExport.png");
+		self->type = PyUnicode_FromString("PNG");
 		self->allTypes = PyList_New(0);
 		self->dpi = 72;
 		self->scale = 100;
@@ -77,11 +77,11 @@ static PyObject *ImageExport_getName(ImageExport *self, void * /*closure*/)
 
 static int ImageExport_setName(ImageExport *self, PyObject *value, void * /*closure*/)
 {
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
-	if (PyString_Size(value) < 1)
+	if (PyUnicode_GET_LENGTH(value) < 1)
 	{
 		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename should not be empty string.", "python error").toLocal8Bit().constData());
 		return -1;
@@ -104,7 +104,7 @@ static int ImageExport_setType(ImageExport *self, PyObject *value, void * /*clos
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyUnicode_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("The image type must be a string.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
@@ -122,7 +122,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport * /*self*/, void * /*closur
 	l = PyList_New(list.count());
 	for (QList<QByteArray>::Iterator it = list.begin(); it != list.end(); ++it)
 	{
-		PyList_SetItem(l, pos, PyString_FromString(QString((*it)).toLatin1().constData()));
+		PyList_SetItem(l, pos, PyUnicode_FromString(QString((*it)).toLatin1().constData()));
 		++pos;
 	}
 	return l;
@@ -160,7 +160,9 @@ static PyObject *ImageExport_save(ImageExport *self)
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
-	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type)))
+
+	QString imgFileName = PyUnicode_asQString(self->name);
+	if (!im.save(imgFileName, PyUnicode_AsUTF8(self->type)))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
@@ -194,7 +196,9 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
-	if (!im.save(value, PyString_AsString(self->type)))
+
+	QString outputFileName = QString::fromUtf8(value);
+	if (!im.save(outputFileName, PyUnicode_AsUTF8(self->type)))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
@@ -212,8 +216,7 @@ static PyMethodDef ImageExport_methods[] = {
 };
 
 PyTypeObject ImageExport_Type = {
-	PyObject_HEAD_INIT(nullptr)   // PyObject_VAR_HEAD
-	0,
+	PyVarObject_HEAD_INIT(nullptr, 0)   // PyObject_VAR_HEAD
 	const_cast<char*>("scribus.ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */
 	0,  // int tp_itemsize; /* For allocation */
@@ -259,6 +262,8 @@ PyTypeObject ImageExport_Type = {
 	nullptr, //	 PyObject *tp_subclasses;
 	nullptr, //	 PyObject *tp_weaklist;
 	nullptr, //	 destructor tp_del;
+	0, //	 unsigned int tp_version_tag;
+	0, //	 destructor tp_finalize;
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */

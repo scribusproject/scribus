@@ -54,7 +54,7 @@ try:
     from scribus import *
     
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 try:
     from PIL import Image
@@ -77,8 +77,8 @@ def main():
 
 # for images taller than they are wide we want to limit height of frame to 80% of page height
     if (Hoehe > pageY * 0.8):
-	Hoehe = pageY * 0.8
-	Breite = Hoehe * xsize/ysize
+        Hoehe = pageY * 0.8
+        Breite = Hoehe * xsize/ysize
 
     ImageFrame = createImage(pageX/2 - Breite/2, pageY/2 - Hoehe/2, Breite, Hoehe)
     loadImage(ImageFileName, ImageFrame)

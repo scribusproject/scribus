@@ -44,7 +44,7 @@ PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 		result = "Multiple";
 	}
 
-	return PyString_FromString(result.toUtf8());
+	return PyUnicode_FromString(result.toUtf8());
 }
 
 PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
@@ -57,7 +57,7 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyString_FromString(item->fillColor().toUtf8());
+	return PyUnicode_FromString(item->fillColor().toUtf8());
 }
 
 PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
@@ -83,7 +83,7 @@ PyObject *scribus_getfillblend(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->fillBlendmode()));
+	return PyLong_FromLong(static_cast<long>(item->fillBlendmode()));
 }
 
 PyObject *scribus_getcustomlinestyle(PyObject* /* self */, PyObject* args)
@@ -96,7 +96,7 @@ PyObject *scribus_getcustomlinestyle(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyString_FromString(item->customLineStyle().toUtf8());
+	return PyUnicode_FromString(item->customLineStyle().toUtf8());
 }
 
 PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
@@ -109,7 +109,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyString_FromString(item->lineColor().toUtf8());
+	return PyUnicode_FromString(item->lineColor().toUtf8());
 }
 
 PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
@@ -135,7 +135,7 @@ PyObject *scribus_getlineblend(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->lineBlendmode()));
+	return PyLong_FromLong(static_cast<long>(item->lineBlendmode()));
 }
 
 PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)
@@ -161,7 +161,7 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->lineShade()));
+	return PyLong_FromLong(static_cast<long>(item->lineShade()));
 }
 
 PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
@@ -174,7 +174,7 @@ PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->PLineJoin));
+	return PyLong_FromLong(static_cast<long>(item->PLineJoin));
 }
 
 PyObject *scribus_getlinecap(PyObject* /* self */, PyObject* args)
@@ -187,7 +187,7 @@ PyObject *scribus_getlinecap(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->PLineEnd));
+	return PyLong_FromLong(static_cast<long>(item->PLineEnd));
 }
 
 PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
@@ -200,7 +200,7 @@ PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->PLineArt));
+	return PyLong_FromLong(static_cast<long>(item->PLineArt));
 }
 
 PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
@@ -213,7 +213,7 @@ PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->fillShade()));
+	return PyLong_FromLong(static_cast<long>(item->fillShade()));
 }
 
 PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
@@ -226,7 +226,7 @@ PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(item->cornerRadius()));
+	return PyLong_FromLong(static_cast<long>(item->cornerRadius()));
 }
 
 PyObject *scribus_getimgoffset(PyObject* /* self */, PyObject* args)
@@ -265,7 +265,7 @@ PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	return PyString_FromString(item->Pfile.toUtf8());
+	return PyUnicode_FromString(item->Pfile.toUtf8());
 }
 
 PyObject *scribus_getposi(PyObject* /* self */, PyObject* args)
@@ -358,13 +358,13 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keyw
 			{
 				if (currentDoc->Items->at(lam)->itemType() == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
+					PyList_SetItem(l, counter2, PyUnicode_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
 					counter2++;
 				}
 			}
 			else
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
+				PyList_SetItem(l, counter2, PyUnicode_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
 				counter2++;
 			}
 		}
@@ -431,7 +431,7 @@ PyObject *scribus_getimagecolorspace(PyObject* /* self */, PyObject* args)
 
 	const ScImage& pixm = item->pixm;
 	if (pixm.width() == 0 || pixm.height() == 0)
-		return PyInt_FromLong(static_cast<long>(-1));
+		return PyLong_FromLong(static_cast<long>(-1));
 
 	const ImageInfoRecord& iir = pixm.imgInfo;
 	int cspace = iir.colorspace;
@@ -442,7 +442,7 @@ PyObject *scribus_getimagecolorspace(PyObject* /* self */, PyObject* args)
 	Duotone = 3,
 	Monochrome = 4
 	*/
-	return PyInt_FromLong(static_cast<long>(cspace));
+	return PyLong_FromLong(static_cast<long>(cspace));
 }
 
 

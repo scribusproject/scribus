@@ -447,77 +447,77 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		}
 		ObjectAttribute blank;
 		PyObject *val;
-		char* data;
+		const char* data;
 
 		val = PyDict_GetItemString(tmp, "Name");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Name' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.name = QString(data);
+		blank.name = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "Type");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Type' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.type = QString(data);
+		blank.type = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "Value");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Value' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.value = QString(data);
+		blank.value = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "Parameter");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Parameter' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.parameter = QString(data);
+		blank.parameter = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "Relationship");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Relationship' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.relationship = QString(data);
+		blank.relationship = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "RelationshipTo");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'RelationshipTo' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.relationshipto = QString(data);
+		blank.relationshipto = QString::fromUtf8(data);
 
 		val = PyDict_GetItemString(tmp, "AutoAddTo");
 		if (!val) {
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'AutoAddTo' key.");
 			return nullptr;
 		}
-		data = PyString_AsString(val);
+		data = PyUnicode_AsUTF8(val);
 		if (!data)
 			return nullptr;
-		blank.autoaddto = QString(data);
+		blank.autoaddto = QString::fromUtf8(data);
 
 		attributes.append(blank);
 	}

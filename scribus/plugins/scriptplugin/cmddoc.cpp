@@ -74,7 +74,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 								orientation, firstPageNr, "Custom", true, numPages);
 	ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
 
-	return PyInt_FromLong(static_cast<long>(ret));
+	return PyLong_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
@@ -109,7 +109,7 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	btr = value2pts(btr, unit);
 	bool ret = ScCore->primaryMainWindow()->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom", true);
 	//	qApp->processEvents();
-	return PyInt_FromLong(static_cast<long>(ret));
+	return PyLong_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
@@ -160,12 +160,12 @@ PyObject *scribus_closedoc(PyObject* /* self */)
 	ScCore->primaryMainWindow()->doc->setModified(false);
 	bool ret = ScCore->primaryMainWindow()->slotFileClose();
 	qApp->processEvents();
-	return PyInt_FromLong(static_cast<long>(ret));
+	return PyLong_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_havedoc(PyObject* /* self */)
 {
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->HaveDoc));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->HaveDoc));
 }
 
 PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
@@ -199,9 +199,9 @@ PyObject *scribus_getdocname(PyObject* /* self */)
 		return nullptr;
 	if (! ScCore->primaryMainWindow()->doc->hasName)
 	{
-		return PyString_FromString("");
+		return PyUnicode_FromString("");
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->documentFileName().toUtf8());
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->documentFileName().toUtf8());
 }
 
 PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
@@ -265,7 +265,7 @@ PyObject *scribus_getunit(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->unitIndex()));
+	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->unitIndex()));
 }
 
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
@@ -323,7 +323,7 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 	int n = 0;
 	for ( ; it != itEnd; ++it )
 	{
-		PyList_SET_ITEM(names, n++, PyString_FromString(it.key().toUtf8().data()) );
+		PyList_SET_ITEM(names, n++, PyUnicode_FromString(it.key().toUtf8().data()) );
 	}
 	return names;
 }
@@ -411,7 +411,7 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyString_FromString(currentDoc->DocPages.at(e)->masterPageName().toUtf8());
+	return PyUnicode_FromString(currentDoc->DocPages.at(e)->masterPageName().toUtf8());
 }
 
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
