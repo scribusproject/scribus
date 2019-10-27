@@ -88,19 +88,20 @@ protected slots:
 	void styleSelected(int id);
 
 protected:
-	QComboBox* fontFamily;
-	QComboBox* fontStyle;
-	QLabel *fontFaceLabel;
-	QLabel *fontStyleLabel;
+	QComboBox* fontFamily { nullptr };
+	QComboBox* fontStyle { nullptr };
+	QLabel *fontFaceLabel { nullptr };
+	QLabel *fontStyleLabel { nullptr };
+	QGridLayout* fontComboLayout { nullptr };
 	PrefsManager& prefsManager;
-	ScribusDoc *currDoc;
-	bool isForAnnotation, isForSubstitute;
+	ScribusDoc *currDoc { nullptr };
+	bool showLabels { false };
+	bool isForAnnotation { true };  // this is merely to ensure that the list is rebuilt
+	bool isForSubstitute { false };
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
 	QPixmap substFont;
-	QGridLayout* fontComboLayout;
-	bool showLabels;
 };
 
 // based on Qfontcombobox class from Qt project

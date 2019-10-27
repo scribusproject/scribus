@@ -104,10 +104,8 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 
 FontComboH::FontComboH(QWidget* parent, bool labels) :
 		QWidget(parent),
-		fontFaceLabel(nullptr),
-		fontStyleLabel(nullptr),
-		showLabels(labels),
-		prefsManager(PrefsManager::instance())
+		prefsManager(PrefsManager::instance()),
+		showLabels(labels)
 {
 	currDoc = nullptr;
 	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
