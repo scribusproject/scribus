@@ -1,7 +1,7 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-	${Python2_INCLUDE_DIRS}
+	${Python3_INCLUDE_DIRS}
 )
 
 # Gentoo has an option for no examples. Let's make the ebuild simpler and open up the option to others, but leave as a default for us
@@ -65,7 +65,7 @@ add_library(${SCRIBUS_SCRIPTER_PLUGIN} MODULE
 )
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
-	${Python2_LIBRARIES}
+	${Python3_LIBRARIES}
 )
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
