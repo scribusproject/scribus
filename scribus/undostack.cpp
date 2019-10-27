@@ -171,9 +171,9 @@ bool UndoStack::checkSize() {
 
 void UndoStack::clear()
 {
-	for (int i = 0; i < m_undoActions_.size(); ++i)
+	for (size_t i = 0; i < m_undoActions_.size(); ++i)
 		delete m_undoActions_[i];
-	for (int i = 0; i < m_redoActions_.size(); ++i)
+	for (size_t i = 0; i < m_redoActions_.size(); ++i)
 		delete m_redoActions_[i];
 	m_undoActions_.clear();
 	m_redoActions_.clear();
