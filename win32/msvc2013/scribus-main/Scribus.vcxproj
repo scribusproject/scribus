@@ -605,6 +605,7 @@
     <moc Include="..\..\..\scribus\ui\cxfimportdialog.h" />
     <moc Include="..\..\..\scribus\ui\numformatcombo.h" />
     <moc Include="..\..\..\scribus\ui\actionsearchdialog.h" />
+    <moc Include="..\..\..\scribus\ui\contentpalette.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -980,6 +981,7 @@
     <ClCompile Include="..\..\..\scribus\commonstrings.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp" />
