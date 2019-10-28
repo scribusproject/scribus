@@ -17,24 +17,14 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scface.h"
 #include "text/storytext.h"
 
-static const QString NONE_LITERAL("(None)");
-
-ScFace::ScFaceData::ScFaceData() :
-	fontFile(NONE_LITERAL),
-	status(ScFace::NULLFACE),
-	typeCode(ScFace::UNKNOWN_TYPE),
-	formatCode(ScFace::UNKNOWN_FORMAT),
-	m_cachedStatus(ScFace::UNKNOWN)
-{
-}
+ScFace::ScFaceData::ScFaceData() = default;
 
 ScFace::ScFaceData::~ScFaceData()
 {
-	if (m_hbFont)
-	{
-		hb_font_destroy(reinterpret_cast<hb_font_t*>(m_hbFont));
-		m_hbFont = nullptr;
-	}
+	if (!m_hbFont)
+		return;
+	hb_font_destroy(reinterpret_cast<hb_font_t*>(m_hbFont));
+	m_hbFont = nullptr;
 }
 
 
@@ -113,7 +103,7 @@ QMap<QString,QString> ScFace::ScFaceData::fontDictionary(qreal /*sz*/) const
 
 GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 {
-	GlyphMetrics res;
+	GlyphMetrics res{};
 	if (gl >= CONTROL_GLYPHS)
 	{
 		res.width   = glyphWidth(gl, sz);

@@ -75,7 +75,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/storytext.h"
 #include "ui/guidemanager.h"
 #include "ui/propertiespalette.h"
-#include "ui/textpalette.h"
+#include "ui/contentpalette.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
@@ -9578,7 +9578,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += pixm.imgInfo.duotoneColors[cc].Name+"\n";
 			}
 			m_Doc->scMW()->propertiesPalette->updateColorList();
-			m_Doc->scMW()->textPalette->updateColorList();
+			m_Doc->scMW()->contentPalette->updateColorList();
 			struct ImageEffect ef;
 			if (pixm.imgInfo.duotoneColors.count() == 1)
 			{

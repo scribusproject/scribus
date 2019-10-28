@@ -118,7 +118,7 @@ public:
 	mutable int usage {0};
 
 		QString scName;
-		QString fontFile;
+		QString fontFile {"(None)"};
 		int     faceIndex {-1};
 		QString psName;
 		QString family;
@@ -128,9 +128,9 @@ public:
 
 		QString forDocument;
 
-		mutable ScFace::Status status;
-		ScFace::FontType typeCode;
-		ScFace::FontFormat formatCode;
+		mutable ScFace::Status status {ScFace::NULLFACE};
+		ScFace::FontType typeCode {ScFace::UNKNOWN_TYPE};
+		ScFace::FontFormat formatCode {ScFace::UNKNOWN_FORMAT};
 
 		bool usable {false};
 		bool embedPs {false};
@@ -148,7 +148,7 @@ public:
 	protected:
 
 		friend class ScFace;
-		Status m_cachedStatus;
+		Status m_cachedStatus {ScFace::UNKNOWN};
 
 		// caches
 		mutable QHash<gid_type, qreal>     m_glyphWidth;

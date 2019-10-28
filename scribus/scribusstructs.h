@@ -408,6 +408,7 @@ enum
 	GS_MAX
 };
 
+//Always add new at the end, leave existing and deprecated items in the list
 enum
 {
 	PAL_ALL,
@@ -422,6 +423,7 @@ enum
 	PAL_VERIFIER,
 	PAL_DOWNLOADS,
 	PAL_TEXT,
+	PAL_CONTENT,
 	PAL_MAX
 };
 

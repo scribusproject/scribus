@@ -221,14 +221,18 @@ QStringList FormatsManager::mimetypeOfFormat(int type)
 
 QString FormatsManager::extensionsForFormat(int type)
 {
-	QString a,b,c;
+	QString a;
+	QString b;
+	QString c;
 	fileTypeStrings(type, a, b, c);
 	return b;
 }
 
 QString FormatsManager::fileDialogFormatList(int type)
 {
-	QString a,b,c;
+	QString a;
+	QString b;
+	QString c;
 	fileTypeStrings(type, a, b, c);
 	return a + b + ";;" +c;
 }

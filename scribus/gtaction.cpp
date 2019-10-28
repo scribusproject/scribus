@@ -49,8 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "util_text.h"
-#include "ui/textpalette.h"
-#include "ui/propertiespalette_text.h"
+#include "ui/contentpalette.h"
 #include "ui/missing.h"
 
 gtAction::gtAction(bool append, PageItem* pageitem) :
@@ -536,7 +535,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	tmp.create(vg);
 	m_textFrame->doc()->redefineStyles(tmp, false);
 	
-	m_ScMW->textPalette->textPal->updateParagraphStyles();
+	m_ScMW->contentPalette->updateTextStyles();
 }
 
 void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)
@@ -847,7 +846,7 @@ QString gtAction::parseColor(const QString &s)
 			ScColor tmp;
 			tmp.fromQColor(c);
 			m_textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
-			m_ScMW->textPalette->updateColorList();
+			m_ScMW->contentPalette->updateColorList();
 			ret = "FromGetText"+c.name();
 		}
 	}

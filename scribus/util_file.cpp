@@ -123,7 +123,6 @@ bool copyFileAtomic(const QString& source, const QString& target)
 bool copyFileToFilter(const QString& source, ScStreamFilter& target)
 {
 	bool copySucceed = true;
-	int  bytesread = 0;
 	if (source.isEmpty())
 		return false;
 	if (!QFile::exists(source))
@@ -134,7 +133,7 @@ bool copyFileToFilter(const QString& source, ScStreamFilter& target)
 		return false;
 	if (s.open(QIODevice::ReadOnly))
 	{
-		bytesread = s.read( bb.data(), bb.size() );
+		int bytesread = s.read( bb.data(), bb.size() );
 		while (bytesread > 0)
 		{
 			copySucceed &= target.writeData(bb.data(), bytesread);
@@ -149,7 +148,6 @@ bool copyFileToFilter(const QString& source, ScStreamFilter& target)
 bool copyFileToStream(const QString& source, QDataStream& target)
 {
 	bool copySucceed = true;
-	int  bytesread, byteswrite;
 	if (source.isEmpty())
 		return false;
 	if (!QFile::exists(source))
@@ -162,12 +160,13 @@ bool copyFileToStream(const QString& source, QDataStream& target)
 		return false;
 	if (s.open(QIODevice::ReadOnly))
 	{
-		bytesread = s.read( bb.data(), bb.size() );
+		int byteswrite = 0;
+		int bytesread = s.read( bb.data(), bb.size() );
 		while (bytesread > 0)
 		{
-			byteswrite   = target.writeRawData(bb.data(), bytesread);
+			byteswrite = target.writeRawData(bb.data(), bytesread);
 			copySucceed &= (byteswrite == bytesread);
-			bytesread    = s.read( bb.data(), bb.size() );
+			bytesread = s.read( bb.data(), bb.size() );
 		}
 		copySucceed &= (s.error() == QFile::NoError);
 		s.close();

@@ -23,12 +23,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/marksmanager.h"
 #include "ui/notesstyleseditor.h"
 #include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
+#include "ui/contentpalette.h" //TODO Move the calls to this to a signal
 #include "ui/pagepalette.h" //TODO Move the calls to this to a signal
 #include "ui/layers.h" //TODO Move the calls to this to a signal
 #include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
 #include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
-#include "ui/textpalette.h"
 #include "pconsole.h"
 #include "scraction.h"
 #include "scribuscore.h"
@@ -161,7 +161,7 @@ void ScripterCore::finishScriptRun()
 		return;
 
 	mainWin->propertiesPalette->setDoc(mainWin->doc);
-	mainWin->textPalette->setDoc(mainWin->doc);
+	mainWin->contentPalette->setDoc(mainWin->doc);
 	mainWin->marksManager->setDoc(mainWin->doc);
 	mainWin->nsEditor->setDoc(mainWin->doc);
 	mainWin->layerPalette->setDoc(mainWin->doc);
@@ -247,7 +247,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 	if (!inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
-		ScCore->primaryMainWindow()->textPalette->unsetDoc();
+		ScCore->primaryMainWindow()->contentPalette->unsetDoc();
 		ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 		ScCore->primaryMainWindow()->setScriptRunning(true);
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -392,7 +392,7 @@ void ScripterCore::slotRunScript(const QString& Script)
 	disableMainWindowMenu();
 
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
-	ScCore->primaryMainWindow()->textPalette->unsetDoc();
+	ScCore->primaryMainWindow()->contentPalette->unsetDoc();
 	ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;

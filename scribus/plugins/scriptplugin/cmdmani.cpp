@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstream.h"
 #include "selection.h"
 #include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
-#include "ui/propertiespalette_image.h"
 #include "undomanager.h"
 
 

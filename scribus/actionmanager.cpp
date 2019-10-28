@@ -789,7 +789,7 @@ void ActionManager::initToolsMenuActions()
 	//Tool menu
 	name = "toolsProperties";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name = "toolsText";
+	name="toolsContent";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "toolsOutline";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -897,7 +897,7 @@ void ActionManager::initToolsMenuActions()
 #endif
 	//Set the applicaton wide palette shortcuts
 	(*scrActions)["toolsProperties"]->setShortcutContext(Qt::ApplicationShortcut);
-	(*scrActions)["toolsText"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsContent"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsScrapbook"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsLayers"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsPages"]->setShortcutContext(Qt::ApplicationShortcut);
@@ -911,7 +911,7 @@ void ActionManager::initToolsMenuActions()
 
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
-	(*scrActions)["toolsText"]->setToggleAction(true);
+	(*scrActions)["toolsContent"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
 	(*scrActions)["toolsScrapbook"]->setToggleAction(true);
 	(*scrActions)["toolsLayers"]->setToggleAction(true);
@@ -1679,7 +1679,7 @@ void ActionManager::languageChange()
 
 	//Tool menu
 	(*scrActions)["toolsProperties"]->setTexts( tr("&Properties"));
-	(*scrActions)["toolsText"]->setTexts( tr("Text Properties"));
+	(*scrActions)["toolsContent"]->setTexts( tr("Content Properties"));
 	(*scrActions)["toolsOutline"]->setTexts( tr("&Outline", "Document Outline Palette"));
 	(*scrActions)["toolsScrapbook"]->setTexts( tr("&Scrapbook"));
 	(*scrActions)["toolsLayers"]->setTexts( tr("&Layers"));
@@ -1947,7 +1947,7 @@ void ActionManager::createDefaultShortcuts()
 
 	//Tool menu
 	defKeys.insert("toolsProperties", Qt::Key_F2);
-	defKeys.insert("toolsText", Qt::Key_F3);
+	defKeys.insert("toolsContent", Qt::Key_F3);
 	defKeys.insert("toolsLayers", Qt::Key_F6);
 
 	//toolbar only items
@@ -2354,7 +2354,7 @@ void ActionManager::createDefaultMenus()
 		<< "windowsCascade"
 		<< "windowsTile"
 		<< "toolsProperties"
-		<< "toolsText"
+		<< "toolsContent"
 		<< "toolsOutline"
 		<< "toolsScrapbook"
 		<< "toolsLayers"

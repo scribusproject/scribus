@@ -34,7 +34,6 @@ class ColorCombo;
 class ColorPalette;
 class NameWidget;
 class PropertiesPalette_Group;
-class PropertiesPalette_Image;
 class PropertiesPalette_Line;
 class PropertiesPalette_Shadow;
 class PropertiesPalette_Shape;
@@ -71,7 +70,6 @@ public:
                          // commmited
 
 	PropertiesPalette_Group* groupPal {nullptr};
-	PropertiesPalette_Image* imagePal {nullptr};
 	PropertiesPalette_Line* linePal {nullptr};
 	PropertiesPalette_Shadow* shadowPal {nullptr};
 	PropertiesPalette_Shape* shapePal {nullptr};
@@ -127,7 +125,6 @@ protected:
 	int idXYZItem {0};
 	int idShapeItem {0};
 	int idTableItem {0};
-	int idImageItem {0};
 	int idLineItem {0};
 	int idColorsItem {0};
 	int idTransparencyItem {0};

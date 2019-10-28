@@ -46,7 +46,6 @@
 #include "pageitem_arc.h"
 #include "pageitem_line.h"
 #include "pageitem_regularpolygon.h"
-#include "pageitem_textframe.h"
 #include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

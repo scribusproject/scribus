@@ -153,7 +153,7 @@ void gtGetText::loadImporterPlugins()
 QStringList gtGetText::getSupportedTypes()
 {
 	QStringList result;
-	for (uint i = 0; i < m_importers.size(); ++i)
+	for (int i = 0; i < m_importers.size(); ++i)
 	{
 		if (m_importers[i].fileEndings.count() != 0)
 		{
@@ -170,7 +170,7 @@ QStringList gtGetText::getSupportedTypes()
 ImportSetup gtGetText::run()
 {
 	// Initialize a filters list.
-	QString filters = "";
+	QString filters;
 	// Create a string for the "All supported files filter". Start with the label then loop through
 	// the importers vector and add all of the file extensions supported.
 	QString allSupported = QObject::tr("All Supported Formats") + " (";

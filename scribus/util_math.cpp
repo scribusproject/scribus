@@ -35,11 +35,6 @@ uint getDouble(const QByteArray& in, bool raw)
 	QByteArray bb(4, ' ');
 	if (raw)
 	{
-		// Qt4
-/*		bb[3] = static_cast<uchar>(QChar(in.at(0)));
-		bb[2] = static_cast<uchar>(QChar(in.at(1)));
-		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
 		bb[3] = in.at(0);
 		bb[2] = in.at(1);
 		bb[1] = in.at(2);
@@ -47,11 +42,6 @@ uint getDouble(const QByteArray& in, bool raw)
 	}
 	else
 	{
-		// Qt4
-// 		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-// 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-// 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-// 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
 		bb[0] = in.at(0);
 		bb[1] = in.at(1);
 		bb[2] = in.at(2);
@@ -104,31 +94,34 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 	if (star)
 	{
 		pts.moveTo(cornerPoints[0]);
-		double mxc1, myc1, mxc2, myc2;
-		for (int a = 0; a < cornerPoints.count() - 2; a++)
+		double mxc1 = 0.0;
+		double myc1 = 0.0;
+		double mxc2 = 0.0;
+		double myc2 = 0.0;
+		for (int i = 0; i < cornerPoints.count() - 2; i++)
 		{
-			sc = seg * a + 180.0 + rota;
-			if (a % 2 != 0)
+			sc = seg * i + 180.0 + rota;
+			if (i % 2 != 0)
 			{
 				// outer control point
-				QLineF oline = QLineF(cornerPoints[a+1], cornerPoints[a-1]);
+				QLineF oline = QLineF(cornerPoints[i+1], cornerPoints[i-1]);
 				mxc1 = oline.pointAt(factor3).x();
 				myc1 = oline.pointAt(factor3).y();
 				// inner control point
-				mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a].x();
-				myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a].y();
-				pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[a+1]);
+				mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i].x();
+				myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i].y();
+				pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[i+1]);
 			}
 			else
 			{
 				// outer control point
-				QLineF oline = QLineF(cornerPoints[a], cornerPoints[a+2]);
+				QLineF oline = QLineF(cornerPoints[i], cornerPoints[i+2]);
 				mxc1 = oline.pointAt(factor3).x();
 				myc1 = oline.pointAt(factor3).y();
 				// inner control point
-				mxc2 = sin((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a+1].x();
-				myc2 = cos((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a+1].y();
-				pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[a+1]);
+				mxc2 = sin((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i+1].x();
+				myc2 = cos((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i+1].y();
+				pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[i+1]);
 			}
 		}
 		// outer control point
@@ -152,10 +145,8 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 	else
 	{
 		pts.moveTo(cornerPoints[0]);
-		for (int a = 1; a < cornerPoints.count(); a++)
-		{
-			pts.lineTo(cornerPoints[a]);
-		}
+		for (int i = 1; i < cornerPoints.count(); i++)
+			pts.lineTo(cornerPoints[i]);
 		pts.closeSubpath();
 	}
 	return pts;
@@ -167,7 +158,8 @@ QPainterPath spiralPath(double spiralWidth, double spiralHeight, double spiralSt
 		return QPainterPath();
 	double startAngleK = spiralStartAngle;
 	double endAngleK = spiralEndAngle;
-	QPainterPath path, path2;
+	QPainterPath path;
+	QPainterPath path2;
 	double sh = spiralHeight / (spiralFactor + 1.0);
 	double sw = 0.0;
 	double ww = spiralWidth;
@@ -349,7 +341,8 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 		if (pbox->bottom() < ry)
 			continue;
 
-		if (pbox->top() > ry) {
+		if (pbox->top() > ry)
+		{
 			partOut = true;
 			if (partIn || pbox->top() > prect->bottom())
 				break;
@@ -359,24 +352,29 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 		if (pbox->right() < rx)
 			continue;            /* not far enough over yet */
 
-		if (pbox->left() > rx) {
+		if (pbox->left() > rx)
+		{
 			partOut = true;      /* missed part of rectangle to left */
 			if (partIn)
 				break;
 		}
 
-		if (pbox->left() <= prect->right()) {
+		if (pbox->left() <= prect->right())
+		{
 			partIn = true;      /* definitely overlap */
 			if (partOut)
 				break;
 		}
 
-		if (pbox->right() >= prect->right()) {
+		if (pbox->right() >= prect->right())
+		{
 			ry = pbox->bottom() + 1;     /* finished with this band */
 			if (ry > prect->bottom())
 				break;
 			rx = prect->left();  /* reset x out to left again */
-		} else {
+		}
+		else
+		{
 			/*
 			 * Because boxes in a band are maximal width, if the first box
 			 * to overlap the rectangle doesn't completely cover it in that
@@ -395,7 +393,8 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 
 QPolygon flattenPath(const FPointArray& ina, QList<uint> &Segs)
 {
-	QPolygon cli, outa;
+	QPolygon cli;
+	QPolygon outa;
 	Segs.clear();
 	if (ina.size() <= 3)
 		return outa;
@@ -426,7 +425,8 @@ QPolygon flattenPath(const FPointArray& ina, QList<uint> &Segs)
 
 FPoint getMaxClipF(const FPointArray* clip)
 {
-	FPoint np, rp;
+	FPoint np;
+	FPoint rp;
 	double mx = 0;
 	double my = 0;
 	int clipSize = clip->size();
@@ -446,7 +446,8 @@ FPoint getMaxClipF(const FPointArray* clip)
 
 FPoint getMinClipF(const FPointArray* clip)
 {
-	FPoint np, rp;
+	FPoint np;
+	FPoint rp;
 	double mx = std::numeric_limits<double>::max();
 	double my = std::numeric_limits<double>::max();
 	int clipSize = clip->size();

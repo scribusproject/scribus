@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_line.h"
-#include "ui/propertiespalette_text.h"
 
 #include <QString>
 

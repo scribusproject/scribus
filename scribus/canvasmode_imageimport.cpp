@@ -35,8 +35,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/propertiespalette.h"
-#include "ui/propertiespalette_image.h"
+#include "ui/contentpalette.h"
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
@@ -238,7 +237,7 @@ void CanvasMode_ImageImport::setImage(PageItem *currItem)
 	m_doc->loadPict(fileName, currItem, false, true);
 	// Call to showScaleAndOffset() is now very likely unnecessary
 	// due to mecanisms used to update properties in PP in 1.5.x+
-	//m_ScMW->propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+	// m_ScMW->contentPalette->update(currItem->asImageFrame());
 	m_ScMW->repaint();
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	m_view->DrawNew();
