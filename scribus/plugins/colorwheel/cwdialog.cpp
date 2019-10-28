@@ -18,8 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "ui/cmykfw.h"
 #include "ui/colorlistbox.h"
-#include "ui/propertiespalette.h"
 #include "ui/contentpalette.h"
+#include "ui/propertiespalette.h"
 #include "util_color.h"
 
 
