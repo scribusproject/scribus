@@ -626,7 +626,7 @@ private:
 	int m_viewBopal;
 	int m_viewUndoPalette;
 
-	bool m_palettesStatus[12];
+	bool m_palettesStatus[13];
 	bool m_guidesStatus[13];
 
 	bool m_keyrep;
