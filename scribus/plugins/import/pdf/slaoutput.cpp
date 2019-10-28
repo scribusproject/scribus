@@ -2784,7 +2784,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	delete[] mbuffer;
 }
 
-void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg)
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
+void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int* maskColors, GBool inlineImg)
+#else
+void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, const int* maskColors, GBool inlineImg)
+#endif
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 //	qDebug() << "Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
@@ -3365,7 +3369,11 @@ err1:
 		fontsrc->unref();
 }
 
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
 void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode *u, int uLen)
+#else
+void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode *u, int uLen)
+#endif
 {
 	double x1, y1, x2, y2;
 	int render;
@@ -3452,7 +3460,11 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 	}
 }
 
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, Unicode *u, int uLen)
+#else
+GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, const Unicode *u, int uLen)
+#endif
 {
 //	qDebug() << "beginType3Char";
 	GfxFont *gfxFont;
