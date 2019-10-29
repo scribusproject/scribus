@@ -511,6 +511,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCut"]->setEnabled(false);
 			(*a_scrActions)["editCopy"]->setEnabled(false);
 			(*a_scrActions)["editCopyContents"]->setEnabled(false);
+			(*a_scrActions)["editClearContents"]->setEnabled(false);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
 			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
