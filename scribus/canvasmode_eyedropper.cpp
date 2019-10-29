@@ -149,7 +149,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	QColor selectedColor=i.pixel(0, 0);
 
 	bool found=false;
-    ColorList::Iterator it;
+	ColorList::Iterator it;
 	for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
 	{
 		if (selectedColor== ScColorEngine::getRGBColor(it.value(), m_doc))
@@ -158,6 +158,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			break;
 		}
 	}
+
 	QString colorName;
 	if (found)
 		colorName=it.key();
@@ -168,7 +169,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		QString questionString="<qt>" + tr("The selected color does not exist in the document's color set. Please enter a name for this new color.") + "</qt>";
 		do
 		{
-			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, QString(), &ok);
+			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, tr("RGB %1").arg(selectedColor.name()), &ok);
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
@@ -187,6 +188,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		else
 			colorName.clear();
 	}
+
 	uint docSelectionCount=m_doc->m_Selection->count();
 	if (!colorName.isNull() && docSelectionCount > 0)
 	{
