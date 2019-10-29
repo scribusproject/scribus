@@ -206,11 +206,11 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	double strikethruOffset = dbl_min, strikethruWidth = dbl_min;
 	double tracking = dbl_min;
 	
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddeses", keywordargs,
 									"utf-8", &name, "utf-8", &font, &fontSize, "utf-8", &features,
 									"utf-8", &fillColor, &fillShade, "utf-8", &strokeColor, &strokeShade, &baselineOffset, &shadowXOffset,
 									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
-									&scaleH, &scaleV, &tracking, "utf-8", &language))
+									&scaleH, &scaleV, &tracking, "utf-8", &language, "utf-8", &fontFeatures))
 		return nullptr;
 	
 	if (strlen(name) == 0)
