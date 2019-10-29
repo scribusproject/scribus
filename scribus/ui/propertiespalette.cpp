@@ -460,6 +460,7 @@ void  PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(idXYZItem, false);
 			colorPalette->showGradient(0);
 			break;
+		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
 			if (currItem->asOSGFrame())
