@@ -218,7 +218,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				(*a_scrActions)["editCopy"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editClearContents"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editPaste"]->setEnabled(ScMimeData::clipboardHasScribusData());
-				(*a_scrActions)["editTruncateContents"]->setEnabled(currItem != nullptr);
+				(*a_scrActions)["editTruncateContents"]->setEnabled((currItem != nullptr) && currItem->isTextFrame());
 
 				scmw->propertiesPalette->setGradientEditMode(false);
 				scmw->outlinePalette->setEnabled(true);
@@ -299,7 +299,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					(*a_scrActions)["editCut"]->setEnabled(currItem->HasSel);
 					(*a_scrActions)["editCopy"]->setEnabled(currItem->HasSel);
 					(*a_scrActions)["editClearContents"]->setEnabled(currItem->HasSel);
-					(*a_scrActions)["editTruncateContents"]->setEnabled(currItem->HasSel);
+					(*a_scrActions)["editTruncateContents"]->setEnabled(currItem->HasSel && currItem->isTextFrame());
 					(*a_scrActions)["editSearchReplace"]->setEnabled(true);
 				}
 			}
@@ -537,7 +537,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
-			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
 			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
