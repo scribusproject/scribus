@@ -124,5 +124,5 @@ chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
                                                -appimage -unsupported-bundle-everything \
                                                -executable=appdir/usr/bin/python3.6 \
-                                               -executable=appdir/usr/_tkinter.cpython-36m-x86_64-linux-gnu.so \
+                                               -executable=appdir/usr/lib/python3.6/lib-dynload/_tkinter.cpython-36m-x86_64-linux-gnu.so \
                                                -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
