@@ -1606,7 +1606,7 @@ void SlaOutputDev::stroke(GfxState *state)
 			ite->PoLine = out.copy();
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
-			ite->setWidthHeight(wh.x(),wh.y());
+			ite->setWidthHeight(wh.x(), wh.y());
 			m_doc->adjustItemSize(ite);
 			if (m_Elements->count() != 0)
 			{
@@ -2471,7 +2471,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 				out.translate(-ite->xPos(), -ite->yPos());
 				ite->PoLine = out.copy();
 				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setWidthHeight(wh.x(), wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
 				m_doc->adjustItemSize(ite);
@@ -2613,7 +2613,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 				out.translate(-ite->xPos(), -ite->yPos());
 				ite->PoLine = out.copy();
 				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setWidthHeight(wh.x(), wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
 				m_doc->adjustItemSize(ite);
@@ -2762,7 +2762,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 				out.translate(-ite->xPos(), -ite->yPos());
 				ite->PoLine = out.copy();
 				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setWidthHeight(wh.x(), wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
 				m_doc->adjustItemSize(ite);
@@ -2784,11 +2784,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	delete[] mbuffer;
 }
 
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
-void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int* maskColors, GBool inlineImg)
-#else
-void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, const int* maskColors, GBool inlineImg)
-#endif
+void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int* maskColors, GBool inlineImg)
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 //	qDebug() << "Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
@@ -3369,11 +3365,7 @@ err1:
 		fontsrc->unref();
 }
 
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode *u, int uLen)
-#else
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode *u, int uLen)
-#endif
+void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
 {
 	double x1, y1, x2, y2;
 	int render;
@@ -3460,11 +3452,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 	}
 }
 
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 82, 0)
-GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, Unicode *u, int uLen)
-#else
-GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, const Unicode *u, int uLen)
-#endif
+GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
 	GfxFont *gfxFont;
