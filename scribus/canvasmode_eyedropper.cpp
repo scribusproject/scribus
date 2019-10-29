@@ -148,13 +148,13 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	QImage i = pm.toImage();
 	QColor selectedColor = i.pixel(0, 0);
 
-	bool found=false;
+	bool found = false;
 	ColorList::Iterator it;
 	for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
 	{
 		if (selectedColor == ScColorEngine::getRGBColor(it.value(), m_doc))
 		{
-			found=true;
+			found = true;
 			break;
 		}
 	}
