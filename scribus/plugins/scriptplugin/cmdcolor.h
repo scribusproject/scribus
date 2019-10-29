@@ -235,7 +235,7 @@ PyObject *scribus_newcolorrgbfloat(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newcolorlab__doc__,
-QT_TR_NOOP("defineColorLab(\"name\", r, g, b)\n\
+QT_TR_NOOP("defineColorLab(\"name\", L, a, b)\n\
 \n\
 Defines a new color \"name\" using CIELab values. The color value is defined\n\
 via three components: L = luminosity, a = green/red, b = blue/yellow. Color components\n\
