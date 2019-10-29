@@ -146,13 +146,13 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	if (screen)
 		pm = screen->grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
 	QImage i = pm.toImage();
-	QColor selectedColor=i.pixel(0, 0);
+	QColor selectedColor = i.pixel(0, 0);
 
 	bool found=false;
 	ColorList::Iterator it;
 	for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
 	{
-		if (selectedColor== ScColorEngine::getRGBColor(it.value(), m_doc))
+		if (selectedColor == ScColorEngine::getRGBColor(it.value(), m_doc))
 		{
 			found=true;
 			break;
@@ -161,50 +161,48 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 
 	QString colorName;
 	if (found)
-		colorName=it.key();
+		colorName = it.key();
 	else
 	{
 		bool ok;
-		bool nameFound=false;
-		QString questionString="<qt>" + tr("The selected color does not exist in the document's color set. Please enter a name for this new color.") + "</qt>";
+		bool nameFound = false;
+		QString questionString = "<qt>" + tr("The selected color does not exist in the document's color set. Please enter a name for this new color.") + "</qt>";
 		do
 		{
 			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, tr("RGB %1").arg(selectedColor.name()), &ok);
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
-					questionString="<qt>" + tr("The name you have selected already exists. Please enter a different name for this new color.") + "</qt>";
+					questionString = "<qt>" + tr("The name you have selected already exists. Please enter a different name for this new color.") + "</qt>";
 				else
-					nameFound=true;
+					nameFound = true;
 			}
 		} while (!nameFound && ok);
-		if ( ok && !colorName.isEmpty() )
+		if (!ok)
+			colorName.clear();
+		if (!colorName.isEmpty())
 		{
 			ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
-			m_doc->PageColors[colorName]=newColor;
+			m_doc->PageColors[colorName] = newColor;
 			m_doc->changed();
 			m_ScMW->updateColorLists();
 		}
-		else
-			colorName.clear();
 	}
 
-	uint docSelectionCount=m_doc->m_Selection->count();
-	if (!colorName.isNull() && docSelectionCount > 0)
+	uint docSelectionCount = m_doc->m_Selection->count();
+	if (!colorName.isEmpty() && docSelectionCount > 0)
 	{
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem *currItem=m_doc->m_Selection->itemAt(i);
-			if (currItem!=nullptr)
-			{
-				if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
-					m_doc->itemSelection_SetFillColor(colorName); //Text colour
-				else
-				if (m->modifiers() & Qt::AltModifier) //Line colour
-					m_doc->itemSelection_SetItemPen(colorName);
-				else
-					m_doc->itemSelection_SetItemBrush(colorName); //Fill colour
-			}
+			PageItem *currItem = m_doc->m_Selection->itemAt(i);
+			if (!currItem)
+				continue;
+			if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
+				m_doc->itemSelection_SetFillColor(colorName); //Text colour
+			else if (m->modifiers() & Qt::AltModifier) //Line colour
+				m_doc->itemSelection_SetItemPen(colorName);
+			else
+				m_doc->itemSelection_SetItemBrush(colorName); //Fill colour
 		}
 	}
 	m_view->requestMode(modeNormal);
