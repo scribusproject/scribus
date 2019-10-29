@@ -153,15 +153,13 @@ void gtGetText::loadImporterPlugins()
 QStringList gtGetText::getSupportedTypes()
 {
 	QStringList result;
-	for (int i = 0; i < m_importers.size(); ++i)
+	for (size_t i = 0; i < m_importers.size(); ++i)
 	{
-		if (m_importers[i].fileEndings.count() != 0)
-		{
-			for (int j = 0; j < m_importers[i].fileEndings.count(); ++j)
-			{
-				result.append(m_importers[i].fileEndings[j].toLower());
-			}
-		}
+		const ImporterData& importerData = m_importers[i];
+		if (importerData.fileEndings.count() <= 0)
+			continue;
+		for (int j = 0; j < importerData.fileEndings.count(); ++j)
+			result.append(importerData.fileEndings[j].toLower());
 	}
 	return result;
 }
@@ -171,40 +169,44 @@ ImportSetup gtGetText::run()
 {
 	// Initialize a filters list.
 	QString filters;
+
 	// Create a string for the "All supported files filter". Start with the label then loop through
 	// the importers vector and add all of the file extensions supported.
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
 	// Loop through the importers vector.
-	for (uint i = 0; i < m_importers.size(); ++i)
+	for (size_t i = 0; i < m_importers.size(); ++i)
 	{
+		const ImporterData& importerData = m_importers[i];
 		// If there are any file extnsions declared by the importer
-		if (m_importers[i].fileEndings.count() != 0)
+		if (importerData.fileEndings.count() <= 0)
+			continue;
+		// Add the importer name to the filters list
+		filters += importerData.fileFormatName + " (";
+		// Loop though the extensions supported by the importer
+		for (int j = 0; j < importerData.fileEndings.count(); ++j)
 		{
-			// Add the importer name to the filters list
-			filters += m_importers[i].fileFormatName + " (";
-			// Loop though the extensions supported by the importer
-			for (int j = 0; j < m_importers[i].fileEndings.count(); ++j)
-			{
-				// Add the extension to both the filter and allSupported strings
-				filters += "*." + m_importers[i].fileEndings[j] + " ";
-				allSupported += "*." + m_importers[i].fileEndings[j] + " ";
-			}  // for (int j = 0; j < importers[i].fileEndings.count(); ++j)
-			// Trim the Qstring
-			filters = filters.trimmed();
-			// Append "entry of entry" information to the end of the filter.
-			filters += ");;";
-		}  // if (importers[i].fileEndings.count() != 0)
-	}  // for (uint i = 0; i < importers.size(); ++i)
+			// Add the extension to both the filter and allSupported strings
+			filters += "*." + importerData.fileEndings[j] + " ";
+			allSupported += "*." + importerData.fileEndings[j] + " ";
+		}
+		// Trim the Qstring
+		filters = filters.trimmed();
+		// Append "entry of entry" information to the end of the filter.
+		filters += ");;";
+	}
+
 	// Trim the allSupported QString and append "end of entry" data to the end of it.
 	allSupported = allSupported.trimmed();
 	allSupported += ");;";
+
 	// Prepend allSupported to the filters Qstring.
 	filters = allSupported + filters;
 	// Add an "all files" entry to the end of the filters QString
 	filters += QObject::tr("All Files (*)");
 	// Populate ilist with the file importer names.
-	for (uint i = 0;  i < m_importers.size(); ++i)
+	for (size_t i = 0;  i < m_importers.size(); ++i)
 		m_ilist.append(m_importers[i].fileFormatName);
+
 	// Create a new dialog.
 	m_dias = new gtDialogs();
 	// Create a new ImportSetup struct
