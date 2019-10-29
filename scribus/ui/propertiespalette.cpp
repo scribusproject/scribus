@@ -291,13 +291,8 @@ void PropertiesPalette::setTextFlowMode(PageItem::TextFlowMode mode)
 
 PageItem* PropertiesPalette::currentItemFromSelection()
 {
-	PageItem *currentItem = nullptr;
-
 	if (m_doc && m_doc->m_Selection->count() > 0)
-	{
-			return m_doc->m_Selection->itemAt(0);
-	}
-
+		return m_doc->m_Selection->itemAt(0);
 	return nullptr;
 }
 
