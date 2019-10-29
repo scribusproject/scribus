@@ -73,7 +73,7 @@ mkdir -p etc/fonts/
 cp /etc/fonts/fonts.conf etc/fonts/
 
 # Bundle Python
-apt-get download libpython3.6-stdlib python3.6 python3.6-minimal libpython3.6-minimal
+apt-get download python3.6 python3.6-minimal libpython3.6-minimal libpython3.6-stdlib python3-tk
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
 cd -
@@ -96,7 +96,6 @@ cd -
 ########################################################################
 
 mkdir -p appdir/usr/lib appdir/usr/share
-cp /usr/li*/python3.6/lib-dynload/_tkinter.cpython-36m-x86_64-linux-gnu.so appdir/usr/ # It is indeed picked up here because we cd there at runtime
 cp -r /usr/lib/tcltk appdir/usr/lib/
 cp -r /usr/share/tcltk appdir/usr/share/
 
@@ -123,5 +122,7 @@ EOF
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
--appimage -unsupported-bundle-everything \
--executable=appdir/usr/bin/python3.6 -executable=appdir/usr/_tkinter.cpython-36m-x86_64-linux-gnu.so -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
+                                               -appimage -unsupported-bundle-everything \
+                                               -executable=appdir/usr/bin/python3.6 \
+                                               -executable=appdir/usr/_tkinter.cpython-36m-x86_64-linux-gnu.so \
+                                               -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
