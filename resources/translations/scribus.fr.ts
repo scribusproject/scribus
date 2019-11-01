@@ -4021,17 +4021,22 @@ Hauteur : %2</translation>
 <context>
     <name>CanvasMode_EyeDropper</name>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="168"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="169"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>La couleur choisie n&apos;existe pas dans le jeu de couleurs du document. Veuillez entrer un nom pour cette nouvelle couleur.</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="171"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="172"/>
         <source>Color Not Found</source>
         <translation>Couleur introuvable</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="175"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="172"/>
+        <source>RGB %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="176"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Le nom que vous avez choisi existe déjà. Veuillez entrer un nom différent pour cette nouvelle couleur.</translation>
     </message>
@@ -22086,47 +22091,47 @@ une gamme de pages ou un seul numéro de page</translation>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="813"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="809"/>
         <source>Properties</source>
         <translation>Propriétés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="815"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="811"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="816"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="812"/>
         <source>Drop Shadow</source>
         <translation>Ombre Portée</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="817"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="813"/>
         <source>&amp;Shape</source>
         <translation>&amp;Forme</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="818"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="814"/>
         <source>&amp;Line</source>
         <translation>Fi&amp;let</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="819"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="815"/>
         <source>&amp;Colors</source>
         <translation>&amp;Couleurs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="822"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="818"/>
         <source>T&amp;able</source>
         <translation>T&amp;ableau</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="821"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="817"/>
         <source>&amp;Transparency</source>
         <translation>&amp;Transparence</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="820"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="816"/>
         <source>&amp;Group</source>
         <translation>&amp;Groupes</translation>
     </message>
@@ -23029,17 +23034,17 @@ de l&apos;objet</translation>
         <translation>Forme</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="61"/>
         <source>Choose the shape of frame...</source>
         <translation type="unfinished">Choisir la forme du cadre...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="64"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="71"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Modifier...</translation>
     </message>
@@ -25421,14 +25426,14 @@ Vérifiez le chemin et le nom du fichier.</translation>
     </message>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="83"/>
-        <location filename="../../scribus/gtgettext.cpp" line="176"/>
+        <location filename="../../scribus/gtgettext.cpp" line="175"/>
         <location filename="../../scribus/scgtplugin.cpp" line="66"/>
         <location filename="../../scribus/util_formats.cpp" line="282"/>
         <source>All Supported Formats</source>
         <translation>Tous les formats pris en charge</translation>
     </message>
     <message>
-        <location filename="../../scribus/gtgettext.cpp" line="204"/>
+        <location filename="../../scribus/gtgettext.cpp" line="205"/>
         <location filename="../../scribus/scgtplugin.cpp" line="85"/>
         <location filename="../../scribus/util_formats.cpp" line="329"/>
         <source>All Files (*)</source>

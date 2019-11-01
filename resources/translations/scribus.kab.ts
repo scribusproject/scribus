@@ -4007,17 +4007,22 @@ Height: %2</source>
 <context>
     <name>CanvasMode_EyeDropper</name>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="168"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="169"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="171"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="172"/>
         <source>Color Not Found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="175"/>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="172"/>
+        <source>RGB %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="176"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6839,44 +6844,6 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
 </context>
 <context>
-    <name>DockWidget</name>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="32"/>
-        <source>XYZ</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="68"/>
-        <source>Position [X,Y]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="87"/>
-        <source>Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="168"/>
-        <source>Scale [X,Y]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="251"/>
-        <source>Proportional</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="270"/>
-        <source>Autofit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz_dw.ui" line="315"/>
-        <source>DPI [X,Y]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DownloadsPalette</name>
     <message>
         <location filename="../../scribus/ui/downloadspalette.cpp" line="12"/>
@@ -8189,63 +8156,6 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="44"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Form</name>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="32"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="32"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="70"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="70"/>
-        <source>Position:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="89"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="89"/>
-        <source>X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="134"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="134"/>
-        <source>Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="169"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="169"/>
-        <source>Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="231"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="231"/>
-        <source>Scale [X,Y]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="314"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="314"/>
-        <source>Proportional</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="333"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="333"/>
-        <source>Autofit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz.ui" line="378"/>
-        <location filename="../../scribus/ui/xyz_vert.ui" line="378"/>
-        <source>DPI [X,Y]:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22088,47 +21998,47 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="813"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="809"/>
         <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="815"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="811"/>
         <source>X, Y, &amp;Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="817"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="813"/>
         <source>&amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="818"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="814"/>
         <source>&amp;Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="819"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="815"/>
         <source>&amp;Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="820"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="816"/>
         <source>&amp;Group</source>
         <translation>Agraw</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="821"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="817"/>
         <source>&amp;Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="822"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="818"/>
         <source>T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="816"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="812"/>
         <source>Drop Shadow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23029,17 +22939,17 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="61"/>
         <source>Choose the shape of frame...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="64"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="71"/>
         <source>&amp;Edit...</source>
         <translation>Ẓreg</translation>
     </message>
@@ -25444,7 +25354,7 @@ Check path and filename.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/gtgettext.cpp" line="204"/>
+        <location filename="../../scribus/gtgettext.cpp" line="205"/>
         <location filename="../../scribus/scgtplugin.cpp" line="85"/>
         <location filename="../../scribus/util_formats.cpp" line="329"/>
         <source>All Files (*)</source>
@@ -25612,7 +25522,7 @@ Check path and filename.</source>
     </message>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="83"/>
-        <location filename="../../scribus/gtgettext.cpp" line="176"/>
+        <location filename="../../scribus/gtgettext.cpp" line="175"/>
         <location filename="../../scribus/scgtplugin.cpp" line="66"/>
         <location filename="../../scribus/util_formats.cpp" line="282"/>
         <source>All Supported Formats</source>
@@ -38398,75 +38308,6 @@ when PDF document is opened:</source>
     </message>
 </context>
 <context>
-    <name>Test_XYZBase</name>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="20"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="20"/>
-        <source>X, Y, Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="53"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="53"/>
-        <source>Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="106"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="116"/>
-        <source>X:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="129"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="139"/>
-        <source>W:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="152"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="162"/>
-        <source>Lock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="171"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="181"/>
-        <source>Y:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="194"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="204"/>
-        <source>H:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="222"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="232"/>
-        <source>Flip:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="267"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="277"/>
-        <source>Lock:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="335"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="345"/>
-        <source>Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/test_xyz.ui" line="361"/>
-        <location filename="../../scribus/ui/test_xyzbase.ui" line="371"/>
-        <source>Level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>TextPalette</name>
     <message>
         <location filename="../../scribus/ui/textpalette.cpp" line="351"/>
@@ -40287,99 +40128,6 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="118"/>
         <source>Exports the current document into an XPS file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XYZ</name>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="20"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="20"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="20"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="20"/>
-        <source>X, Y, Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="41"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="41"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="70"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="53"/>
-        <source>Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="67"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="365"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="103"/>
-        <source>Position [X,Y]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="173"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="310"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="156"/>
-        <source>Size [W,H]:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="241"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="352"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="366"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="335"/>
-        <source>Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="303"/>
-        <location filename="../../scribus/ui/xyz3.ui" line="372"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="412"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="361"/>
-        <source>Level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz2.ui" line="386"/>
-        <source>99</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz3.ui" line="145"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="216"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="222"/>
-        <source>Flip:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz3.ui" line="197"/>
-        <location filename="../../scribus/ui/xyz4.ui" line="285"/>
-        <location filename="../../scribus/ui/xyz5.ui" line="267"/>
-        <source>Lock:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz5.ui" line="106"/>
-        <source>X:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz5.ui" line="129"/>
-        <source>W:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz5.ui" line="152"/>
-        <source>Lock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz5.ui" line="171"/>
-        <source>Y:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/xyz5.ui" line="194"/>
-        <source>H:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
