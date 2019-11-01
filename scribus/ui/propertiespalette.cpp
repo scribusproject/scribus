@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_table.h"
 #include "propertiespalette_utils.h"
 #include "propertiespalette_xyz.h"
+#include "transparencypalette.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -100,8 +101,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	languageChange();
 
 	connect(linePal, SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
-	connect(groupPal, SIGNAL(shapeChanged(int)) , this, SLOT(handleNewShape(int)));
-	connect(groupPal, SIGNAL(shapeEditStarted()), this, SLOT(handleShapeEdit()));
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradient(double,double,double,double,double,double,double,double,double,double )));
@@ -286,7 +285,6 @@ void PropertiesPalette::setTextFlowMode(PageItem::TextFlowMode mode)
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveItem)
 		return;
 	shapePal->showTextFlowMode(mode);
-	groupPal->showTextFlowMode(mode);
 }
 
 PageItem* PropertiesPalette::currentItemFromSelection()
@@ -354,10 +352,11 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);
-		TabStack->setItemEnabled(idShapeItem, false);
+		TabStack->setItemEnabled(idShapeItem, true);
 		TabStack->setItemEnabled(idGroupItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, false);
+		TabStack->setItemEnabled(idTransparencyItem, true);
 		TabStack->setItemEnabled(idTableItem, false);
 	}
 	else
@@ -409,7 +408,7 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 }
 
-void  PropertiesPalette::handleSelectionChanged()
+void PropertiesPalette::handleSelectionChanged()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -509,7 +508,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		case PageItem::Symbol:
 		case PageItem::Group:
 			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, false);
+			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idLineItem, false);
 			TabStack->setItemEnabled(idGroupItem, true);
 			TabStack->setItemEnabled(idColorsItem, false);
@@ -522,7 +521,7 @@ void  PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(idLineItem, false);
 			TabStack->setItemEnabled(idGroupItem, false);
 			TabStack->setItemEnabled(idColorsItem, false);
-			TabStack->setItemEnabled(idTransparencyItem, false);
+			TabStack->setItemEnabled(idTransparencyItem, true);
 			break;
 		}
 	}
@@ -780,7 +779,6 @@ void PropertiesPalette::updateColorList()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	groupPal->updateColorList();
 	tablePal->updateColorList();
 	colorPalette->updateColorList();
 	transparencyPalette->updateColorList();
@@ -843,8 +841,6 @@ void PropertiesPalette::updateColorSpecialGradient()
 	if(m_doc->m_Selection->isEmpty())
 		return;
 
-	groupPal->updateColorSpecialGradient();
-
 	PageItem *currItem=m_doc->m_Selection->itemAt(0);
 	if (currItem)
 	{
@@ -862,7 +858,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 			colorPalette->setMeshPatchPoint();
 		else if (m_ScMW->view->editStrokeGradient == 9)
 			colorPalette->setMeshPatch();
-		else if (!currItem->isGroup())
+		else if (currItem->isGroup())
 			transparencyPalette->setSpecialGradient(currItem->GrMaskStartX, currItem->GrMaskStartY, currItem->GrMaskEndX, currItem->GrMaskEndY, currItem->GrMaskFocalX, currItem->GrMaskFocalY, currItem->GrMaskScale, currItem->GrMaskSkew);
 	}
 }

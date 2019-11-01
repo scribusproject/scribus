@@ -30,341 +30,334 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="shapeGroup">
-     <property name="title">
-      <string>Shape</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="spacing">
-       <number>5</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="Autoforms" name="customShape">
-          <property name="toolTip">
-           <string>Choose the shape of frame...</string>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="editShape">
-          <property name="text">
-           <string>&amp;Edit...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="roundRectLabel">
-          <property name="text">
-           <string>R&amp;ound Corners:</string>
-          </property>
-          <property name="buddy">
-           <cstring>roundRect</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="ScrSpinBox" name="roundRect">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Set radius of corner rounding</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="textFlowGroup">
-     <property name="title">
-      <string>Text &amp;Flow Around Frame</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <property name="spacing">
-       <number>5</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <widget class="QToolButton" name="textFlowDisabled">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Disabled</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-        <attribute name="buttonGroup">
-         <string notr="true">textFlowBtnGroup</string>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="textFlowUsesFrameShape">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Use Frame &amp;Shape</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-        <attribute name="buttonGroup">
-         <string notr="true">textFlowBtnGroup</string>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="textFlowUsesBoundingBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Use &amp;Bounding Box</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-        <attribute name="buttonGroup">
-         <string notr="true">textFlowBtnGroup</string>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="textFlowUsesContourLine">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>&amp;Use Contour Line</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-        <attribute name="buttonGroup">
-         <string notr="true">textFlowBtnGroup</string>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="textFlowUsesImageClipping">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Use Image Clip Path</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-        <attribute name="buttonGroup">
-         <string notr="true">textFlowBtnGroup</string>
-        </attribute>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QStackedWidget" name="stackedWidget">
-     <property name="currentIndex">
-      <number>1</number>
-     </property>
-     <widget class="QWidget" name="page"/>
-     <widget class="QWidget" name="page_2">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Shape:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QGroupBox" name="fillRuleGroup">
-         <property name="title">
-          <string>Fill Rule</string>
+        <widget class="QToolButton" name="textFlowUsesBoundingBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="flat">
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Text flow around bounding box</string>
+         </property>
+         <property name="text">
+          <string>Use &amp;Bounding Box</string>
+         </property>
+         <property name="checkable">
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <property name="spacing">
-           <number>5</number>
-          </property>
-          <property name="leftMargin">
-           <number>2</number>
-          </property>
-          <property name="topMargin">
-           <number>2</number>
-          </property>
-          <property name="rightMargin">
-           <number>2</number>
-          </property>
-          <property name="bottomMargin">
-           <number>2</number>
-          </property>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="evenOdd">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</string>
-            </property>
-            <property name="text">
-             <string>Even-Odd</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="nonZero">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</string>
-            </property>
-            <property name="text">
-             <string>Non Zero</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">textFlowBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="textFlowUsesFrameShape">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Text flow around  frame shape</string>
+         </property>
+         <property name="text">
+          <string>Use Frame &amp;Shape</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">textFlowBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="textFlowDisabled">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Text flow around frame disabled</string>
+         </property>
+         <property name="text">
+          <string>Disabled</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">textFlowBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="textFlowUsesContourLine">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Text Flow around contour line</string>
+         </property>
+         <property name="text">
+          <string>&amp;Use Contour Line</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">textFlowBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="textFlowUsesImageClipping">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Text flow around image clip path</string>
+         </property>
+         <property name="text">
+          <string>Use Image Clip Path</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">textFlowBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="Autoforms" name="customShape">
+         <property name="toolTip">
+          <string>Choose the shape of frame...</string>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="editShape">
+         <property name="text">
+          <string>&amp;Edit...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="roundRectIcon">
+         <property name="minimumSize">
+          <size>
+           <width>10</width>
+           <height>10</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ScrSpinBox" name="roundRect">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Set radius of corner rounding</string>
+         </property>
         </widget>
        </item>
       </layout>
-     </widget>
-    </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Text Flow:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Fill Rule:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QToolButton" name="evenOdd">
+         <property name="toolTip">
+          <string>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</string>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">fillRuleBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="nonZero">
+         <property name="toolTip">
+          <string>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</string>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">fillRuleBtnGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">
@@ -396,6 +389,7 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="fillRuleBtnGroup"/>
   <buttongroup name="textFlowBtnGroup"/>
  </buttongroups>
 </ui>

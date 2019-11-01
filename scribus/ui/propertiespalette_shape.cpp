@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-
 PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	: QWidget(parent),
 	  m_haveDoc(false),
@@ -51,11 +50,16 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
+	roundRectIcon->setPixmap(IconManager::instance().loadPixmap("round-corners.png"));
+
 	textFlowDisabled->setIcon(IconManager::instance().loadIcon("flow-none.png"));
 	textFlowUsesFrameShape->setIcon(IconManager::instance().loadIcon("flow-frame.png"));
 	textFlowUsesBoundingBox->setIcon(IconManager::instance().loadIcon("flow-bounding.png"));
 	textFlowUsesContourLine->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
 	textFlowUsesImageClipping->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
+
+	evenOdd->setIcon(IconManager::instance().loadIcon("fill-rule-even-odd.png"));
+	nonZero->setIcon(IconManager::instance().loadIcon("fill-rule-nonzero.png"));
 
 	languageChange();
 
@@ -67,7 +71,6 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	connect(customShape, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(handleNewShape(int, int, qreal *)));
 
 	roundRect->showValue(0);
-	stackedWidget->setCurrentIndex(0);
 }
 
 void PropertiesPalette_Shape::changeEvent(QEvent *e)
@@ -350,23 +353,21 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 	showTextFlowMode(m_item->textFlowMode());
 
-	if (m_item->asPathText())
+	if (m_item->asPathText() || m_item->asTextFrame() || m_item->asImageFrame())
 	{
-		stackedWidget->setCurrentIndex(0);
-	}
-	else if (m_item->asTextFrame())
-	{
-		stackedWidget->setCurrentIndex(0);
+		nonZero->setChecked(false);
+		nonZero->setEnabled(false);
+		evenOdd->setChecked(false);
+		evenOdd->setEnabled(false);
 	}
 	else
 	{
-		stackedWidget->setCurrentIndex(1);
-		fillRuleGroup->setVisible(m_item->itemType() != PageItem::ImageFrame);
+		nonZero->setEnabled(true);
+		evenOdd->setEnabled(true);
+		nonZero->setChecked(!m_item->fillRule);
 	}
 	setLocked(m_item->locked());
 	setSizeLocked(m_item->sizeLocked());
-	nonZero->setChecked(!m_item->fillRule);
-	evenOdd->setChecked(m_item->fillRule);
 
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
@@ -405,19 +406,16 @@ void PropertiesPalette_Shape::handleTextFlow()
 		return;
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		if (!m_item->isGroup())
-		{
-			if (textFlowDisabled->isChecked())
-				mode = PageItem::TextFlowDisabled;
-			if (textFlowUsesFrameShape->isChecked())
-				mode = PageItem::TextFlowUsesFrameShape;
-			if (textFlowUsesBoundingBox->isChecked())
-				mode = PageItem::TextFlowUsesBoundingBox;
-			if (textFlowUsesContourLine->isChecked())
-				mode = PageItem::TextFlowUsesContourLine;
-			if (textFlowUsesImageClipping->isChecked())
-				mode = PageItem::TextFlowUsesImageClipping;
-		}
+		if (textFlowDisabled->isChecked())
+			mode = PageItem::TextFlowDisabled;
+		if (textFlowUsesFrameShape->isChecked())
+			mode = PageItem::TextFlowUsesFrameShape;
+		if (textFlowUsesBoundingBox->isChecked())
+			mode = PageItem::TextFlowUsesBoundingBox;
+		if (textFlowUsesContourLine->isChecked())
+			mode = PageItem::TextFlowUsesContourLine;
+		if (textFlowUsesImageClipping->isChecked())
+			mode = PageItem::TextFlowUsesImageClipping;
 		m_item->setTextFlowMode(mode);
 		m_doc->changed();
 		m_doc->invalidateAll();
@@ -516,8 +514,6 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveItem)
-		return;
-	if (m_item->isGroup())
 		return;
 	if (mode == PageItem::TextFlowDisabled)
 		textFlowDisabled->setChecked(true);

@@ -11515,9 +11515,9 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t, Selection* cust
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem->isGroup())
-			continue;
 		currItem->setFillTransparency(t);
+		if (currItem->isGroup())
+			currItem->update(); // FIXME: not sure this is needed
 	}
 	regionsChanged()->update(QRectF());
 	changed();

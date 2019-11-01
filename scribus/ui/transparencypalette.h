@@ -61,6 +61,7 @@ public:
 
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
+	void showSelectionButtons();
 	void hideSelectionButtons();
 	void updateFromItem();
 

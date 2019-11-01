@@ -92,6 +92,11 @@ void TransparencyPalette::setCurrentItem(PageItem* item)
 	if (!currentItem || !currentDoc)
 		return;
 
+	if (currentItem->isGroup())
+		hideSelectionButtons();
+	else
+		showSelectionButtons();
+
 	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
 	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
 	gradEdit->setGradient(currentItem->mask_gradient);
@@ -196,12 +201,21 @@ void TransparencyPalette::updateColorList()
 		setCurrentItem(currentItem);
 }
 
+void TransparencyPalette::showSelectionButtons()
+{
+	editLineSelector->show();
+	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	editFillSelector->show();
+	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+}
 void TransparencyPalette::hideSelectionButtons()
 {
 	editLineSelector->hide();
 	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	editFillSelector->hide();
 	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	stackedWidget->setCurrentIndex(1);
+	editFillSelector->setChecked(true);
 }
 
 void TransparencyPalette::updateFromItem()

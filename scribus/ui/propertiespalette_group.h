@@ -36,7 +36,6 @@ protected:
 
 	bool      m_haveDoc;
 	bool      m_haveItem;
-	bool      m_userActionOn;
 	double    m_unitRatio;
 	int       m_unitIndex;
 
@@ -64,28 +63,7 @@ public slots:
 	void unitChange();
 
 private slots:
-
-	void handleGradientChanged();
-	void handleGroupTransparency(double trans);
-	void handleGroupBlending(int blend);
-	void handleGroupGradMask(int typ);
-	void handleGroupPatternMask(const QString& pattern);
-	void handleGroupPatternMaskProps(double, double, double, double, double, double, double, bool, bool);
-
-	void handleTextFlow();
-	void handleNewShape(int f, int c, qreal *vals);
-
-	void handleFillRule();
 	void handleClipping();
-	void handleShapeEdit();
-	void handleShapeEditEnded();
-
-	void handleSpecialGradient(double, double, double, double, double, double, double, double );
-	void handleGradientEdit();
-
-signals:
-	void shapeChanged(int);
-	void shapeEditStarted();
 };
 
 #endif
