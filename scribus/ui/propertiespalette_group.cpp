@@ -53,7 +53,6 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scraction.h"
 #include "scribuscore.h"
-#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/autoform.h"

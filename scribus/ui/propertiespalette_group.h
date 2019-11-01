@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "pageitem.h"
 #include "scguardedptr.h"
+#include "scribusdoc.h"
 
 class ScribusDoc;
 class ScribusMainWindow;
