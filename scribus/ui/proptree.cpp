@@ -37,10 +37,9 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 
-PropTreeItemDelegate::PropTreeItemDelegate(PropTreeWidget *parent) : QItemDelegate(parent)
+PropTreeItemDelegate::PropTreeItemDelegate(PropTreeWidget *parent) : QItemDelegate(parent),
+	m_parent(parent)
 {
-	m_parent = parent;
-	m_edit = nullptr;
 }
 
 void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -445,7 +444,7 @@ void PropTreeWidget::handleMousePress(QTreeWidgetItem *item)
 	if (item->parent() == nullptr)
 	{
 		if (!(item->flags() & Qt::ItemIsEditable))
-			setItemExpanded(item, !isItemExpanded(item));
+			item->setExpanded(!item->isExpanded());
 	}
 }
 

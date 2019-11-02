@@ -51,7 +51,7 @@ private slots:
 	void valueHasChanged();
 private:
 	PropTreeWidget *m_parent;
-	mutable QWidget *m_edit;
+	mutable QWidget *m_edit {nullptr};
 };
 
 class SCRIBUS_API PropTreeItem : public QObject, public QTreeWidgetItem
