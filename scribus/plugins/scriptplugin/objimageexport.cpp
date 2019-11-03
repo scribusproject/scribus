@@ -220,29 +220,62 @@ PyTypeObject ImageExport_Type = {
 	const_cast<char*>("scribus.ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */
 	0,  // int tp_itemsize; /* For allocation */
+
+	/* Methods to implement standard operations */
+
 	(destructor) ImageExport_dealloc, //	 destructor tp_dealloc;
-	nullptr, //	 printfunc tp_print;
+#if PY_VERSION_HEX >= 0x03080000
+	0,       //     Py_ssize_t tp_vectorcall_offset
+#else
+	nullptr, //     printfunc tp_print;
+#endif
 	nullptr, //	 getattrfunc tp_getattr;
 	nullptr, //	 setattrfunc tp_setattr;
-	nullptr, //	 cmpfunc tp_compare;
+	nullptr, //	 cmpfunc tp_as_async;
 	nullptr, //	 reprfunc tp_repr;
+
+	/* Method suites for standard classes */
+
 	nullptr, //	 PyNumberMethods *tp_as_number;
 	nullptr, //	 PySequenceMethods *tp_as_sequence;
 	nullptr, //	 PyMappingMethods *tp_as_mapping;
+
+	/* More standard operations (here for binary compatibility) */
+
 	nullptr, //	 hashfunc tp_hash;
 	nullptr, //	 ternaryfunc tp_call;
 	nullptr, //	 reprfunc tp_str;
 	nullptr, //	 getattrofunc tp_getattro;
 	nullptr, //	 setattrofunc tp_setattro;
+
+	/* Functions to access object as input/output buffer */
 	nullptr, //	 PyBufferProcs *tp_as_buffer;
+
+	/* Flags to define presence of optional/expanded features */
 	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,	// long tp_flags;
+
 	imgexp__doc__, // char *tp_doc; /* Documentation string */
+
+	/* Assigned meaning in release 2.0 */
+	/* call function for all accessible objects */
 	nullptr, //	 traverseproc tp_traverse;
+
+	/* delete references to contained objects */
 	nullptr, //	 inquiry tp_clear;
+
+	/* Assigned meaning in release 2.1 */
+	/* rich comparisons */
 	nullptr, //	 richcmpfunc tp_richcompare;
+
+	/* weak reference enabler */
 	0, //	 long tp_weaklistoffset;
+
+	/* Added in release 2.2 */
+	/* Iterators */
 	nullptr, //	 getiterfunc tp_iter;
 	nullptr, //	 iternextfunc tp_iternext;
+
+	/* Attribute descriptor and subclassing stuff */
 	ImageExport_methods, //	 struct PyMethodDef *tp_methods;
 	ImageExport_members, //	 struct PyMemberDef *tp_members;
 	ImageExport_getseters, //	 struct PyGetSetDef *tp_getset;
@@ -264,12 +297,19 @@ PyTypeObject ImageExport_Type = {
 	nullptr, //	 destructor tp_del;
 	0, //	 unsigned int tp_version_tag;
 	0, //	 destructor tp_finalize;
+#if PY_VERSION_HEX >= 0x03080000
+	nullptr, // tp_vectorcall
+#endif
+#if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x03090000
+	nullptr, //deprecated tp_print
+#endif
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */
-	//	int tp_allocs;
-	//	int tp_frees;
-	//	int tp_maxalloc;
-	//	struct _typeobject *tp_next;
+	//    int tp_allocs;
+	//    int tp_frees;
+	//    int tp_maxalloc;
+	//    struct _typeobject *tp_prev;
+	//    struct _typeobject *tp_next;
 #endif
 };

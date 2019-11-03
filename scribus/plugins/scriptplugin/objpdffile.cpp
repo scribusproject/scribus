@@ -1555,10 +1555,14 @@ PyTypeObject PDFfile_Type = {
 	/* Methods to implement standard operations */
 
 	(destructor) PDFfile_dealloc, //     destructor tp_dealloc;
+#if PY_VERSION_HEX >= 0x03080000
+	0,       //     Py_ssize_t tp_vectorcall_offset
+#else
 	nullptr, //     printfunc tp_print;
+#endif
 	nullptr, //     getattrfunc tp_getattr;
 	nullptr, //     setattrfunc tp_setattr;
-	nullptr, //     cmpfunc tp_compare;
+	nullptr, //     cmpfunc tp_as_async;
 	nullptr, //     reprfunc tp_repr;
 
 	/* Method suites for standard classes */
@@ -1624,12 +1628,19 @@ PyTypeObject PDFfile_Type = {
 	nullptr, //     destructor tp_del;
 	0, //	 unsigned int tp_version_tag;
 	0, //	 destructor tp_finalize;
+#if PY_VERSION_HEX >= 0x03080000
+	nullptr, // tp_vectorcall
+#endif
+#if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x03090000
+	nullptr, //deprecated tp_print
+#endif
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */
 	//    int tp_allocs;
 	//    int tp_frees;
 	//    int tp_maxalloc;
+	//    struct _typeobject *tp_prev;
 	//    struct _typeobject *tp_next;
 #endif
 };
