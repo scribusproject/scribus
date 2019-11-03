@@ -506,13 +506,13 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 	QTextCursor tc(textCursor());
 	if (tc.hasSelection())
 	{
-		QPair<int, int> selPair = qMakePair(tc.selectionStart(), tc.selectionEnd());
-		SelStack.push(selPair);
+		auto selTuple = std::make_tuple(tc.selectionStart(), tc.selectionEnd(), verticalScrollBar()->value());
+		SelStack.push(selTuple);
 	}
 	else
 	{
-		QPair<int, int> selPair = qMakePair(tc.position(), -1);
-		SelStack.push(selPair);
+		auto selTuple = std::make_tuple(tc.position(), -1, verticalScrollBar()->value());
+		SelStack.push(selTuple);
 	}
 	QTextEdit::focusOutEvent(e);
 }
@@ -522,11 +522,13 @@ void SEditor::focusInEvent(QFocusEvent *e)
 	if (SelStack.count() > 0)
 	{
 		QTextCursor tc(textCursor());
-		QPair<int, int> selPair = SelStack.pop();
-		tc.setPosition(qMin(selPair.first, StyledText.length()));
-		if (selPair.second >= 0)
-			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+		int selFirst, selSecond, selThird;
+		std::tie(selFirst, selSecond, selThird) = SelStack.pop();
+		tc.setPosition(qMin(selFirst, StyledText.length()));
+		if (selSecond >= 0)
+			tc.setPosition(selSecond, QTextCursor::KeepAnchor);
 		setTextCursor(tc);
+		verticalScrollBar()->setValue(selThird);
 	}
 	QTextEdit::focusInEvent(e);
 }
@@ -710,7 +712,7 @@ void SEditor::loadItemText(PageItem *currItem)
 		SelCharStart = currItem->itemText.cursorPosition();
 	SelCharStart -= currItem->itemText.startOfParagraph(newSelParaStart);
 	if (SelStack.count())
-		SelStack.top().second = -1;
+		std::get<1>(SelStack.top()) = -1;
 	//qDebug() << "SE::loadItemText: cursor";
 //	setCursorPosition(SelParaStart, SelCharStart);
 	emit setProps(newSelParaStart, SelCharStart);
@@ -911,11 +913,12 @@ void SEditor::updateSel(const ParagraphStyle& newStyle)
 	if (SelStack.count())
 	{
 		QTextCursor tc(textCursor());
-		QPair<int, int> selPair = SelStack.pop();
-		if (selPair.second >= 0)
+		int selFirst, selSecond, selThird;
+		std::tie(selFirst, selSecond, selThird) = SelStack.pop();
+		if (selSecond >= 0)
 		{
-			tc.setPosition(selPair.first);
-			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+			tc.setPosition(selFirst);
+			tc.setPosition(selSecond, QTextCursor::KeepAnchor);
 			setTextCursor(tc);
 		}
 	}
@@ -935,11 +938,12 @@ void SEditor::updateSel(const CharStyle& newStyle)
 	if (SelStack.count())
 	{
 		QTextCursor tc(textCursor());
-		QPair<int, int> selPair = SelStack.pop();
-		if (selPair.second >= 0)
+		int selFirst, selSecond, selThird;
+		std::tie(selFirst, selSecond, selThird) = SelStack.pop();
+		if (selSecond >= 0)
 		{
-			tc.setPosition(selPair.first);
-			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+			tc.setPosition(selFirst);
+			tc.setPosition(selSecond, QTextCursor::KeepAnchor);
 			setTextCursor(tc);
 		}
 	}
@@ -3038,7 +3042,7 @@ void StoryEditor::SearchText()
 			QTextCursor tCursor = Editor->textCursor();
 			tCursor.setPosition(pos);
 			Editor->setTextCursor(tCursor);
-			Editor->SelStack.push(qMakePair(pos, -1));
+			Editor->SelStack.push(std::make_tuple(pos, -1, Editor->verticalScrollBar()->value()));
 		}
 	}
 	qApp->processEvents();

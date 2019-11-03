@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef STORYEDITOR_H
 #define STORYEDITOR_H
 
+#include <tuple>
+
 #include <QTextEdit>
 #include <QAction>
 #include <QCheckBox>
@@ -163,7 +165,7 @@ protected:
 	QString CurrFont;
 	QString unicodeInputString;
 
-	QStack< QPair<int, int> > SelStack;
+	QStack< std::tuple<int, int, int> > SelStack;
 
 	int SelCharStart;
 	int SelCharEnd;
