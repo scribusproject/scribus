@@ -176,8 +176,6 @@ void ResizeGesture::drawControls(QPainter* p)
 			}
 			QPainterPath clip = m.map(currItem->PoLine.toQPainterPath(false));
 			p->drawPath(clip);
-		//	QPolygon clip = m.map(currItem->Clip);
-		//	currItem->DrawPolyL(p, clip);
 		}
 		else if (m_doc->m_Selection->isMultipleSelection())
 		{
@@ -203,8 +201,6 @@ void ResizeGesture::drawControls(QPainter* p)
 						m.rotate(currItem->rotation());
 					QPainterPath clip = m.map(currItem->PoLine.toQPainterPath(false));
 					p->drawPath(clip);
-				//	QPolygon clip = m.map(currItem->Clip);
-				//	currItem->DrawPolyL(p, clip);
 				}
 			}
 		}
