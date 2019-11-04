@@ -1304,14 +1304,16 @@ void SlaOutputDev::restoreState(GfxState *state)
 				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
 				if (ite)
 				{
-					ite->ClipEdited = true;
-					ite->FrameType = 3;
 					FPointArray out = m_currentClipPath.copy();
 					out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 					out.translate(-ite->xPos(), -ite->yPos());
 					ite->PoLine = out.copy();
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					m_doc->adjustItemSize(ite, true);
+					// Comment out temporarily, there are some bad interactions between adjustItemSize() and
+					// resizeGroupToContents() since fixing resizing of multiple selections
+					//m_doc->adjustItemSize(ite, true);
 					m_doc->resizeGroupToContents(ite);
 					ite->OldB2 = ite->width();
 					ite->OldH2 = ite->height();
@@ -1434,8 +1436,12 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 			out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 			out.translate(-ite->xPos(), -ite->yPos());
 			ite->PoLine = out.copy();
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_doc->adjustItemSize(ite, true);
+			// Comment out temporarily, there are some bad interactions between adjustItemSize() and
+			// resizeGroupToContents() since fixing resizing of multiple selections
+			//m_doc->adjustItemSize(ite, true);
 			m_doc->resizeGroupToContents(ite);
 			ite->OldB2 = ite->width();
 			ite->OldH2 = ite->height();
@@ -1823,8 +1829,8 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	if (checkClip())
 	{
 		FPointArray out = m_currentClipPath.copy();
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
+		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+		out.translate(-ite->xPos(), -ite->yPos());
 		ite->PoLine = out.copy();
 	}
 	ite->ClipEdited = true;
@@ -1943,8 +1949,8 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	if (checkClip())
 	{
 		FPointArray out = m_currentClipPath.copy();
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
+		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+		out.translate(-ite->xPos(), -ite->yPos());
 		ite->PoLine = out.copy();
 	}
 	ite->ClipEdited = true;
@@ -2299,8 +2305,8 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	if (checkClip())
 	{
 		FPointArray out = m_currentClipPath.copy();
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
+		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+		out.translate(-ite->xPos(), -ite->yPos());
 		ite->PoLine = out.copy();
 	}
 	ite->ClipEdited = true;
@@ -2981,8 +2987,10 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		out.translate(-ite->xPos(), -ite->yPos());
 		ite->PoLine = out.copy();
+		ite->ClipEdited = true;
+		ite->FrameType = 3;
 		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(),wh.y());
+		ite->setWidthHeight(wh.x(), wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		ite->ScaleType   = true;
 		m_doc->adjustItemSize(ite);
