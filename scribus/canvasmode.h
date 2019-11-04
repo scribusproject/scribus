@@ -128,7 +128,7 @@ public:
 	/** Draws an outline of selected items */
 	void drawSnapLine(QPainter* psx);
 	/** Draws an outline of selected items */
-	void drawOutline(QPainter* p, double scalex=1.0, double scaley=1.0, double deltax=0.0, double deltay=0.0);
+	void drawOutline(QPainter* p, double deltax=0.0, double deltay=0.0);
 #ifdef GESTURE_FRAME_PREVIEW
 	// I don’t know why the methods above have been implemented here and left non-virtual.
 	// I need to setup some companion members - pm

@@ -100,7 +100,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 {
 //	qDebug() << "CanvasMode_Normal::drawControls";
 	if (m_canvas->m_viewMode.operItemMoving)
-		drawOutline(p, 1.0, 1.0, m_objectDeltaPos.x(), m_objectDeltaPos.y());
+		drawOutline(p, m_objectDeltaPos.x(), m_objectDeltaPos.y());
 	else
 		drawSelection(p, !m_doc->drawAsPreview);
 }
