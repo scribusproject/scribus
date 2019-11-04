@@ -14229,6 +14229,15 @@ bool ScribusDoc::moveItem(double newX, double newY, PageItem* currItem)
 	currItem->moveBy(newX, newY);
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
+	// In the future, it may be good to adjust embedded group items position here
+	/*if (currItem->isGroup() || currItem->isSymbol())
+	{
+		for (int em = 0; em < currItem->groupItemList.count(); ++em)
+		{
+			PageItem* embedded = currItem->groupItemList.at(em);
+			embedded->setXYPos(currItem->xPos() + embedded->gXpos, currItem->yPos() + embedded->gYpos, true);
+		}
+	}*/
 	setRedrawBounding(currItem);
 	if (currItem->isGroup())
 		GroupOnPage(currItem);
@@ -14381,6 +14390,15 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		                  static_cast<int>(currItem->width() + ph), static_cast<int>(currItem->height() + ph),
 		                  -ph, static_cast<int>(currItem->height() + ph));
 	}
+	// In the future, it may be good to adjust embedded group items position here
+	/*if (currItem->isGroup() || currItem->isSymbol())
+	{
+		for (int em = 0; em < currItem->groupItemList.count(); ++em)
+		{
+			PageItem* embedded = currItem->groupItemList.at(em);
+			embedded->setXYPos(currItem->xPos() + embedded->gXpos, currItem->yPos() + embedded->gYpos, true);
+		}
+	}*/
 	setRedrawBounding(currItem);
 	currItem->OwnPage = OnPage(currItem);
 	if (currItem->Sizing)
@@ -14524,12 +14542,11 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 		double oldH = currItem->height();
 		double oldgW = currItem->groupWidth;
 		double oldgH = currItem->groupHeight;
-		FPointArray Clip;
-		Clip = currItem->PoLine;
-		QRectF clipRect = Clip.toQPainterPath(false).boundingRect();
+		FPointArray clip = currItem->PoLine;
+		QRectF clipRect = clip.toQPainterPath(false).boundingRect();
 		FPoint tp2(clipRect.left(), clipRect.top());
-		sizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem, true, false, false);
-		Clip.translate(-tp2.x(), -tp2.y());
+		//sizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem, true, false, false);
+		clip.translate(-tp2.x(), -tp2.y());
 		if (currItem->rotation() != 0)
 		{
 			FPoint npv(tp2.x(), tp2.y());
@@ -14547,20 +14564,26 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 		if (currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
 		sizeItem(clipRect.width(), clipRect.height(), currItem, true, false, false);
-		currItem->PoLine = Clip.copy();
+		currItem->PoLine = clip.copy();
 		if ((currItem->isGroup() || currItem->isSymbol()) && includeGroup)
 		{
-			currItem->groupWidth = oldgW * (currItem->width() / oldW);
-			currItem->groupHeight = oldgH * (currItem->height() / oldH);
+			//currItem->groupWidth = oldgW * (currItem->width() / oldW);
+			//currItem->groupHeight = oldgH * (currItem->height() / oldH);
 			// #15759: the division by item dimension looks incorrect
-			double dx = (currItem->xPos() - oldX) / (/*currItem->width() /*/ currItem->groupWidth);
-			double dy = (currItem->yPos() - oldY) / (/*currItem->height() /*/ currItem->groupHeight);
+			//double dx = (currItem->xPos() - oldX) / (currItem->width() / currItem->groupWidth);
+			//double dy = (currItem->yPos() - oldY) / (currItem->height() / currItem->groupHeight);
 			for (int em = 0; em < currItem->groupItemList.count(); ++em)
 			{
 				PageItem* embedded = currItem->groupItemList.at(em);
-				moveItem(-dx, -dy, embedded);
+				//moveItem(-dx, -dy, embedded);
+				embedded->setXYPos(currItem->xPos() + embedded->gXpos, currItem->yPos() + embedded->gYpos, true);
+				embedded->gWidth = currItem->groupWidth;
+				embedded->gHeight = currItem->groupHeight;
+				if (embedded->isGroup())
+					embedded->asGroupFrame()->adjustXYPosition();
 			}
-			if (currItem->imageFlippedH())
+			// JG : Break flipped group positionning when resizing on canvas
+			/*if (currItem->imageFlippedH())
 			{
 				if (oldX - currItem->xPos() == 0)
 					moveItem(oldW - currItem->width(), 0, currItem);
@@ -14573,7 +14596,7 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 					moveItem(0, oldH - currItem->height(), currItem);
 				else
 					moveItem(0, oldY - currItem->yPos(), currItem);
-			}
+			}*/
 		}
 	}
 	currItem->ClipEdited = true;
@@ -14795,11 +14818,11 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			}
 			else if (item->isGroup() || item->isSymbol())
 			{
-				double oldGW = item->groupWidth;
-				double oldGH = item->groupHeight;
+				//double oldGW = item->groupWidth;
+				//double oldGH = item->groupHeight;
 				adjustItemSize(item, true);
-				item->groupWidth = oldGW;
-				item->groupHeight = oldGH;
+				//item->groupWidth = oldGW;
+				//item->groupHeight = oldGH;
 			}
 			else
 				adjustItemSize(item, true);
@@ -14910,10 +14933,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		currItem->gXpos = currItem->xPos() - gx;
-		currItem->gYpos = currItem->yPos() - gy;
-		currItem->gWidth = gw;
-		currItem->gHeight = gh;
+		currItem->gXpos = currItem->xPos() - ((currItem->Parent) ? currItem->Parent->xPos() : 0.0);
+		currItem->gYpos = currItem->yPos() - ((currItem->Parent) ? currItem->Parent->yPos() : 0.0);
+		currItem->gWidth = (currItem->Parent) ? currItem->Parent->width() : currItem->width();
+		currItem->gHeight = (currItem->Parent) ? currItem->Parent->height() : currItem->height();
 	}
 
 	if (activeTransaction)
