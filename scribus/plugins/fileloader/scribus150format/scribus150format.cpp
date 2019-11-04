@@ -5398,6 +5398,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	else if (currItem->asSpiral())
 	{
 		PageItem_Spiral *arcitem = currItem->asSpiral();
+		arcitem->FrameType = 3; // Workaround for old docs, otherwise undo breaks spirals
 		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
 		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
 		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
