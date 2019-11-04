@@ -4979,15 +4979,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			else if (ss->contains("CORNER_RADIUS"))
 				restoreCornerRadius(ss, isUndo);
 			else if (ss->contains("IMAGEFLIPH"))
-			{
-				select();
-				m_Doc->itemSelection_FlipH();
-			}
+				flipImageH();
 			else if (ss->contains("IMAGEFLIPV"))
-			{
-				select();
-				m_Doc->itemSelection_FlipV();
-			}
+				flipImageV();
 			else if (ss->contains("OVERPRINT"))
 			{
 				if (isUndo)
