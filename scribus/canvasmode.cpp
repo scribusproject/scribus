@@ -597,6 +597,13 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 					continue;
 				if (currItem->Parent && !currItem->Parent->groupItemList.contains(currItem))
 					continue;
+
+				QTransform itemTrans = currItem->getTransform(deltax, deltay);
+				double visualWidth = currItem->visualWidth();
+				double visualHeight = currItem->visualHeight();
+				double visualLineWidth = currItem->visualLineWidth();
+				double matRot = getRotationDFromMatrix(itemTrans);
+
 				p->save();
 				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold)
 				{
@@ -623,12 +630,6 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 					}
 #endif  // GESTURE_FRAME_PREVIEW
 					{
-						QTransform itemTrans = currItem->getTransform(deltax, deltay);
-						double visualWidth = currItem->visualWidth();
-						double visualHeight = currItem->visualHeight();
-						double visualLineWidth = currItem->visualLineWidth();
-						double matRot = getRotationDFromMatrix(itemTrans);
-
 						p->save();
 						p->setBrush(m_brush["outline"]);
 						p->setPen(m_pen["outline"]);
@@ -653,12 +654,6 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 				}
 				else
 				{
-					QTransform itemTrans = currItem->getTransform(deltax, deltay);
-					double visualWidth = currItem->visualWidth();
-					double visualHeight = currItem->visualHeight();
-					double visualLineWidth = currItem->visualLineWidth();
-					double matRot = getRotationDFromMatrix(itemTrans);
-
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
 					p->setWorldTransform(itemTrans, true);
