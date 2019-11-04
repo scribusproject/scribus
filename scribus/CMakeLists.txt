@@ -405,7 +405,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/nodeeditpalette.h
 	ui/notesstyleseditor.h
 	ui/numformatcombo.h
-	ui/oneclick.h
 	ui/outlinepalette.h
 	ui/pageitemattributes.h
 	ui/pagelayout.h
@@ -906,7 +905,6 @@ set(SCRIBUS_SOURCES
 	ui/nodeeditpalette.cpp
 	ui/notesstyleseditor.cpp
 	ui/numformatcombo.cpp
-	ui/oneclick.cpp
 	ui/outlinepalette.cpp
 	ui/pageitemattributes.cpp
 	ui/pagelayout.cpp

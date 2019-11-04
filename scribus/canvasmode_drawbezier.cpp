@@ -46,7 +46,6 @@
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/insertTable.h"
-#include "ui/oneclick.h"
 #include "ui/pageselector.h"
 #include "ui/propertiespalette.h"
 #include "ui/scrapbookpalette.h"

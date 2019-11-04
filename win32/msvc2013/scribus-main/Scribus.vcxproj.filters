@@ -800,9 +800,6 @@
     <ClInclude Include="..\..\..\scribus\actionsearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\contentpalette.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -1385,9 +1382,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\observable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\oneclick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\outlinepalette.cpp">
@@ -3455,9 +3449,6 @@
     <moc Include="..\..\..\scribus\observable.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\oneclick.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\outlinepalette.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4122,6 +4113,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\actionsearchdialog.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\contentpalette.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

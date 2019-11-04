@@ -48,7 +48,6 @@
 #include "ui/basepointwidget.h"
 #include "ui/hruler.h"
 #include "ui/insertTable.h"
-#include "ui/oneclick.h"
 #include "ui/pageselector.h"
 #include "ui/propertiespalette.h"
 #include "ui/scrapbookpalette.h"
@@ -871,76 +870,66 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		ySize = sizes->getDouble("defAngle", 0.0);
 		originPoint = sizes->getInt("OriginL", 0);
 	}
-	//#12577 Remove one click dialog
-	//#12577 OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
-	//#12577 if (dia->exec())
+
+	if (lmode == 0)
 	{
-		//#12577 doRemember = dia->checkRemember->isChecked();
-		if (lmode == 0)
+		if (doRemember)
 		{
-			//#12577 xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			//#12577 ySize = dia->spinHeight->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			//#12577 originPoint = dia->RotationGroup->checkedId();
-			if (doRemember)
-			{
-				sizes->set("defWidth", xSize);
-				sizes->set("defHeight", ySize);
-				sizes->set("Origin", originPoint);
-			}
-			endPoint.setXY(startPoint.x() + xSize, startPoint.y() + ySize);
-			switch (originPoint)
-			{
-				case 0:
-					break;
-				case 1:
-					startPoint.setX(startPoint.x() - xSize);
-					endPoint.setX(endPoint.x() - xSize);
-					break;
-				case 2:
-					startPoint.setXY(startPoint.x() - xSize / 2.0, startPoint.y() - ySize / 2.0);
-					endPoint.setXY(endPoint.x() - xSize / 2.0, endPoint.y() - ySize / 2.0);
-					break;
-				case 3:
-					startPoint.setY(startPoint.y() - ySize);
-					endPoint.setY(endPoint.y() - ySize);
-					break;
-				case 4:
-					startPoint.setXY(startPoint.x() - xSize, startPoint.y() - ySize);
-					endPoint.setXY(endPoint.x() - xSize, endPoint.y() - ySize);
-					break;
-			}
+			sizes->set("defWidth", xSize);
+			sizes->set("defHeight", ySize);
+			sizes->set("Origin", originPoint);
 		}
-		else
+		endPoint.setXY(startPoint.x() + xSize, startPoint.y() + ySize);
+		switch (originPoint)
 		{
-			FPoint oldStart = startPoint;
-			//#12577 xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			//#12577 ySize = dia->spinHeight->value();
-			//#12577 originPoint = dia->RotationGroup->checkedId();
-			if (doRemember)
-			{
-				sizes->set("defLength", xSize);
-				sizes->set("defAngle", ySize);
-				sizes->set("OriginL", originPoint);
-			}
-			double angle = -ySize * M_PI / 180.0;
-			switch (originPoint)
-			{
-				case 0:
-					endPoint = FPoint(startPoint.x() + xSize * cos(angle), startPoint.y() + xSize * sin(angle));
-					break;
-				case 1:
-					startPoint = FPoint(oldStart.x() - xSize * cos(angle), oldStart.y() - xSize * sin(angle));
-					endPoint   = oldStart;
-					break;
-				case 2:
-					startPoint = FPoint(oldStart.x() - xSize / 2.0 * cos(angle), oldStart.y() - xSize / 2.0 * sin(angle));
-					endPoint   = FPoint(oldStart.x() + xSize / 2.0 * cos(angle), oldStart.y() + xSize / 2.0 * sin(angle));
-					break;
-			}
+			case 0:
+				break;
+			case 1:
+				startPoint.setX(startPoint.x() - xSize);
+				endPoint.setX(endPoint.x() - xSize);
+				break;
+			case 2:
+				startPoint.setXY(startPoint.x() - xSize / 2.0, startPoint.y() - ySize / 2.0);
+				endPoint.setXY(endPoint.x() - xSize / 2.0, endPoint.y() - ySize / 2.0);
+				break;
+			case 3:
+				startPoint.setY(startPoint.y() - ySize);
+				endPoint.setY(endPoint.y() - ySize);
+				break;
+			case 4:
+				startPoint.setXY(startPoint.x() - xSize, startPoint.y() - ySize);
+				endPoint.setXY(endPoint.x() - xSize, endPoint.y() - ySize);
+				break;
 		}
-		sizes->set("Remember", doRemember);
-		doCreate = true;
 	}
+	else
+	{
+		FPoint oldStart = startPoint;
+		if (doRemember)
+		{
+			sizes->set("defLength", xSize);
+			sizes->set("defAngle", ySize);
+			sizes->set("OriginL", originPoint);
+		}
+		double angle = -ySize * M_PI / 180.0;
+		switch (originPoint)
+		{
+			case 0:
+				endPoint = FPoint(startPoint.x() + xSize * cos(angle), startPoint.y() + xSize * sin(angle));
+				break;
+			case 1:
+				startPoint = FPoint(oldStart.x() - xSize * cos(angle), oldStart.y() - xSize * sin(angle));
+				endPoint   = oldStart;
+				break;
+			case 2:
+				startPoint = FPoint(oldStart.x() - xSize / 2.0 * cos(angle), oldStart.y() - xSize / 2.0 * sin(angle));
+				endPoint   = FPoint(oldStart.x() + xSize / 2.0 * cos(angle), oldStart.y() + xSize / 2.0 * sin(angle));
+				break;
+		}
+	}
+	sizes->set("Remember", doRemember);
+	doCreate = true;
+
 	//delete dia;
 	return doCreate;
 }

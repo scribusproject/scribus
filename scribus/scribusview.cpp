@@ -110,7 +110,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/guidemanager.h"
 #include "ui/hruler.h"
 #include "ui/insertTable.h"
-#include "ui/oneclick.h"
 #include "ui/pageitemattributes.h"
 #include "ui/pageselector.h"
 #include "ui/propertiespalette.h"
@@ -127,9 +126,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 #include "util_math.h"
-
-
-
 
 using namespace std;
 
