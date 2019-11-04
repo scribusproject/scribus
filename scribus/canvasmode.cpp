@@ -284,9 +284,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(nullptr);
-		for(int a=0; a<m_doc->m_Selection->count(); ++a)
+		for(int i = 0; i < m_doc->m_Selection->count(); ++i)
 		{
-			curItem = m_doc->m_Selection->itemAt(a);
+			curItem = m_doc->m_Selection->itemAt(i);
 			
 			if (drawHandles)
 				drawHandles = !curItem->locked();
@@ -296,9 +296,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		{
 			int docSelectionCount = m_doc->m_Selection->count();
 			PageItem *currItem;
-			for (int a=0; a<docSelectionCount; ++a)
+			for (int i = 0; i < docSelectionCount; ++i)
 			{
-				currItem = m_doc->m_Selection->itemAt(a);
+				currItem = m_doc->m_Selection->itemAt(i);
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
@@ -476,7 +476,6 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->save();
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-	
 			
 	if (m_doc->m_Selection->count() == 1)
 	{
@@ -547,34 +546,26 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 			}
 #endif // GESTURE_FRAME_PREVIEW
 			{
-//				QRect vr(m_canvas->exposedRect());
-//				QImage img(vr.width(), vr.height(), QImage::Format_ARGB32);
-//				ScPainter scp(&img,vr. width(), vr.height());
-//				scp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-////				scp.translate(currItem->xPos(), currItem->yPos());
-////				scp.translate(deltax, deltay);
-////				scp.scale(scalex, scaley);
-////				scp.scale(m_canvas->scale(), m_canvas->scale());
-//				currItem->invalid = false;
-//				currItem->DrawObj(&scp, vr);
-//				p->drawImage(vr, img, img.rect() );
-				
+				QTransform itemTrans = currItem->getTransform(deltax, deltay);
+				double visualWidth = currItem->visualWidth();
+				double visualHeight = currItem->visualHeight();
+				double visualLineWidth = currItem->visualLineWidth();
+				double matRot = getRotationDFromMatrix(itemTrans);
+				double matScaleX, matScaleY;
+				getScaleFromMatrix(itemTrans, matScaleX, matScaleY);
+
 				if (currItem->isGroup())
 				{
 					p->save();
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
-					p->translate(currItem->xPos(), currItem->yPos());
-					p->translate(deltax, deltay);
-					if (currItem->rotation() != 0)
-					{
+					p->setWorldTransform(itemTrans, true);
+					if (matRot != 0)
 						p->setRenderHint(QPainter::Antialiasing);
-						p->rotate(currItem->rotation());
-					}
 					p->scale(scalex, scaley);
-					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
+					p->drawRect(QRectF(0.0, 0.0, visualWidth, visualHeight));
 					p->setClipping(true);
-					p->setClipRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
+					p->setClipRect(QRectF(0.0, 0.0, visualWidth, visualHeight));
 					PageItem_Group* gItem = currItem->asGroupFrame();
 					int itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
@@ -601,7 +592,6 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 								p->rotate(currItem->rotation());
 							}
 							p->drawPath(currItem->PoLine.toQPainterPath(false));
-						//	currItem->DrawPolyL(p, currItem->Clip);
 							p->restore();
 						}
 					}
@@ -616,34 +606,24 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					p->save();
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
-					p->translate(currItem->xPos(), currItem->yPos());
-					p->translate(deltax, deltay);
-					if (currItem->rotation() != 0)
-					{
+					p->setWorldTransform(itemTrans, true);
+					if (matRot != 0)
 						p->setRenderHint(QPainter::Antialiasing);
-						p->rotate(currItem->rotation());
-					}
+					p->scale(scalex /** matScaleX*/, scaley /** matScaleY*/);
 					if (currItem->isLine())
-						p->translate(0, -currItem->visualLineWidth() / 2.0);
+						p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
 					else
-						p->translate(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0);
-					p->scale(scalex, scaley);
-					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
+						p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
 					p->restore();
 
 					p->save();
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
-					p->translate(currItem->xPos(), currItem->yPos());
-					p->translate(deltax, deltay);
-					if (currItem->rotation() != 0)
-					{
+					p->setWorldTransform(itemTrans, true);
+					if (matRot != 0)
 						p->setRenderHint(QPainter::Antialiasing);
-						p->rotate(currItem->rotation());
-					}
-					p->scale(scalex, scaley);
+					p->scale(scalex /** matScaleX*/, scaley /** matScaleY*/);
 					p->drawPath(currItem->PoLine.toQPainterPath(false));
-				//	currItem->DrawPolyL(p, currItem->Clip);
 					p->restore();
 				}
 			}

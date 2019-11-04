@@ -8769,6 +8769,71 @@ QTransform PageItem::getTransform() const
 	return result;
 }
 
+QTransform PageItem::getTransform(double deltaX, double deltaY) const
+{
+	QTransform result;
+	if (isGroupChild())
+	{
+		QList<const PageItem*> itList;
+		const PageItem* ite = this;
+		while (ite->isGroupChild())
+		{
+			itList.prepend(ite);
+			ite = ite->Parent;
+		}
+		result.translate(ite->xPos(), ite->yPos());
+		result.rotate(ite->rotation());
+	/*	if (ite->isGroup() || ite->isSymbol())
+		{
+			if (ite->imageFlippedH())
+			{
+				result.translate(ite->width(), 0);
+				result.scale(-1, 1);
+			}
+			if (ite->imageFlippedV())
+			{
+				result.translate(0, ite->height());
+				result.scale(1, -1);
+			}
+		}*/
+		if (ite == this)
+			return result;
+		if (ite->isGroup())
+			result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
+		for (int i = 0; i < itList.count(); i++)
+		{
+			ite = itList.at(i);
+			result.translate(ite->gXpos, ite->gYpos);
+			if (ite == this)
+				result.translate(deltaX, deltaY);
+			result.rotate(ite->rotation());
+		/*	if (ite->isGroup() || ite->isSymbol())
+			{
+				if (ite->imageFlippedH())
+				{
+					result.translate(ite->width(), 0);
+					result.scale(-1, 1);
+				}
+				if (ite->imageFlippedV())
+				{
+					result.translate(0, ite->height());
+					result.scale(1, -1);
+				}
+			}*/
+			if (ite == this)
+				return result;
+			if (ite->isGroup())
+				result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
+		}
+	}
+	else
+	{
+		result.translate(m_xPos + deltaX, m_yPos + deltaY);
+		result.rotate(m_rotation);
+	}
+	return result;
+}
+
 QRectF PageItem::getBoundingRect() const
 {
 	double x,y,x2,y2;

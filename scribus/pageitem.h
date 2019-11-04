@@ -398,6 +398,7 @@ public: // Start public functions
 	QTransform getGroupTransform() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;
+	QTransform getTransform(double deltaX, double deltaY) const;
 
 	/// invalidates current layout information
 	virtual void invalidateLayout() { invalid = true; }
