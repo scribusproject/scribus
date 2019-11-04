@@ -41,15 +41,12 @@ protected:
 template<unsigned int pixWidth, unsigned int pixHeight> 
 QScopedPointer<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
 
-
 template<unsigned int pixWidth, unsigned int pixHeight>
 ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDelegate()
 {
 	if (pmap.isNull())
-	{
-		pmap.reset( new QPixmap(pixWidth, pixHeight) );
-	}
-};
+		pmap.reset(new QPixmap(pixWidth, pixHeight));
+}
 
 
 template<unsigned int pixWidth, unsigned int pixHeight>
@@ -66,17 +63,16 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 	else
 	{
 		h = qMax( pmap->height(), metrics.lineSpacing() + 2 );
+		//FIXME: metrics.width replacement by horizontalAdvance requires Qt 5.11+
 		w = pmap->width() + metrics.width(text(data)) + 6;
 	}
 	return QSize(qMax(w, QApplication::globalStrut().width()), qMax( h, QApplication::globalStrut().height()));
-};
+}
 
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-	int yPos;
-	
 	const QVariant data(index.data(Qt::UserRole));
 	redraw(data);
 	
@@ -89,8 +85,9 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 	qpainter->setRenderHint(QPainter::Antialiasing, true);
 	qpainter->setPen(Qt::NoPen);
 
-	if ( !pmap->isNull() ) {
-		yPos = ( itemHeight - pmap->height() ) / 2;
+	if ( !pmap->isNull() )
+	{
+		int yPos = ( itemHeight - pmap->height() ) / 2;
 		qpainter->drawPixmap( option.rect.x() + 3, option.rect.y() + yPos, *pmap);
 	}
 	if (option.state & QStyle::State_Selected)
@@ -99,14 +96,15 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 		qpainter->setBrush(QBrush(Qt::black));
 	qpainter->setPen(Qt::black);
 	
-	QString txt = index.data(Qt::DisplayRole).toString();
+	QString txt(index.data(Qt::DisplayRole).toString());
 
-	if ( !txt.isEmpty() ) {
+	if ( !txt.isEmpty() )
+	{
 		QFontMetrics fm = qpainter->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
+		int yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
 		qpainter->drawText( option.rect.x() + pmap->width() + 5, option.rect.y() + yPos, txt );
 	}
 	qpainter->restore();
-};
+}
 
 #endif

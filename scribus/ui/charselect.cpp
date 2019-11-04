@@ -288,7 +288,7 @@ void CharSelect::loadUserContent(const QString& f)
 		else
 		{
 			ScMessageBox::warning(this, tr("Error"),
-				                    "<qt>" + tr("Error reading file %1 - file is corrupted propably.").arg(f) + "</qt>",
+				                    "<qt>" + tr("Error reading file %1 - file is probably corrupted.").arg(f) + "</qt>",
 				                    QMessageBox::Ok, QMessageBox::NoButton);
 			break;
 		}
