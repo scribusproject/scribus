@@ -10851,21 +10851,23 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 }
 
 
-void ScribusDoc::itemSelection_FlipH()
+void ScribusDoc::itemSelection_FlipH(Selection* customSelection)
 {
-	int docSelectionCount=m_Selection->count();
-	if (docSelectionCount == 0)
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	if (itemSelection->isEmpty())
 		return;
+	int docSelectionCount = itemSelection->count();
+
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, nullptr, Um::IFlipH);
 	if (docSelectionCount > 1)
 	{
 		double gx, gy, gh, gw, ix, iy, iw, ih;
-		m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 		for (int i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem* currItem=m_Selection->itemAt(i);
+			PageItem* currItem = itemSelection->itemAt(i);
 			currItem->getBoundingRect(&ix, &iy, &iw, &ih);
 			double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
 			if (currItem->rotation() != 0.0)
@@ -10881,7 +10883,7 @@ void ScribusDoc::itemSelection_FlipH()
 				currItem->setRotation(newRotation);
 				currItem->setRedrawBounding();
 				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-				currItem->moveBy(ix-ix2, iy-iy2, false);
+				currItem->moveBy(ix - ix2, iy - iy2, false);
 				currItem->setRedrawBounding();
 			}
 			if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
@@ -10918,7 +10920,7 @@ void ScribusDoc::itemSelection_FlipH()
 	}
 	else
 	{
-		PageItem* currItem=m_Selection->itemAt(0);
+		PageItem* currItem = itemSelection->itemAt(0);
 		if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
 			currItem->flipImageH();
 		if (currItem->itemType() != PageItem::Line)
@@ -10935,7 +10937,7 @@ void ScribusDoc::itemSelection_FlipH()
 			currItem->setRotation(newRotation);
 			currItem->setRedrawBounding();
 			currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-			currItem->moveBy(ix-ix2, iy-iy2, false);
+			currItem->moveBy(ix - ix2, iy - iy2, false);
 			currItem->setRedrawBounding();
 		}
 		currItem->GrStartX = currItem->width() - currItem->GrStartX;
@@ -10967,25 +10969,27 @@ void ScribusDoc::itemSelection_FlipH()
 		trans.commit();
 	regionsChanged()->update(QRectF());
 	changed();
-	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+	emit firstSelectedItemType(itemSelection->itemAt(0)->itemType());
 }
 
 
-void ScribusDoc::itemSelection_FlipV()
+void ScribusDoc::itemSelection_FlipV(Selection* customSelection)
 {
-	int docSelectionCount=m_Selection->count();
-	if (docSelectionCount == 0)
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	if (itemSelection->isEmpty())
 		return;
+	int docSelectionCount = itemSelection->count();
+
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, nullptr, Um::IFlipV);
 	if (docSelectionCount > 1)
 	{
 		double gx, gy, gh, gw, ix, iy, iw, ih;
-		m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 		for (int i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem* currItem=m_Selection->itemAt(i);
+			PageItem* currItem = itemSelection->itemAt(i);
 			currItem->getBoundingRect(&ix, &iy, &iw, &ih);
 			double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
 			if (currItem->rotation() != 0.0)
@@ -11034,7 +11038,7 @@ void ScribusDoc::itemSelection_FlipV()
 	}
 	else
 	{
-		PageItem* currItem=m_Selection->itemAt(0);
+		PageItem* currItem = itemSelection->itemAt(0);
 		if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
 			currItem->flipImageV();
 		if (currItem->itemType() != PageItem::Line)

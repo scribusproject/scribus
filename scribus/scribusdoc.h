@@ -1494,8 +1494,8 @@ public slots:
 	void itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection = nullptr);
 	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);
 	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
-	void itemSelection_FlipH();
-	void itemSelection_FlipV();
+	void itemSelection_FlipH(Selection* customSelection = nullptr);
+	void itemSelection_FlipV(Selection* customSelection = nullptr);
 	void itemSelection_Rotate(double angle, Selection* customSelection = nullptr);
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
