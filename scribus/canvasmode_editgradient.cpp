@@ -923,7 +923,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 void CanvasMode_EditGradient::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();

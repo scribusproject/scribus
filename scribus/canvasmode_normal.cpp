@@ -964,7 +964,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 {
 //	qDebug("CanvasMode_Normal::mouseReleaseEvent");
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;

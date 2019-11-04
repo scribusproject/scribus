@@ -295,7 +295,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;

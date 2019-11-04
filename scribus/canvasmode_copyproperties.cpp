@@ -210,7 +210,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 void CanvasMode_CopyProperties::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;

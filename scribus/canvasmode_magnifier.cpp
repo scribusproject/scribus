@@ -182,7 +182,7 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
