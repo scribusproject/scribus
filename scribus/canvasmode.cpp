@@ -638,11 +638,12 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
 		{
 			PageItem *currItem;
-// 			p->translate(x, y);
-			for (int a=0; a<docSelectionCount; ++a)
+			for (int i = 0; i < docSelectionCount; ++i)
 			{
-				currItem = m_doc->m_Selection->itemAt(a);
-				if (!m_doc->Items->contains(currItem))
+				currItem = m_doc->m_Selection->itemAt(i);
+				if (!currItem->Parent && !m_doc->Items->contains(currItem))
+					continue;
+				if (currItem->Parent && !currItem->Parent->groupItemList.contains(currItem))
 					continue;
 				p->save();
 				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold /*&& currItem->rotation() == 0*/)
@@ -686,36 +687,35 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						}
 #endif  // GESTURE_FRAME_PREVIEW
 						{
+							QTransform itemTrans = currItem->getTransform(deltax, deltay);
+							double visualWidth = currItem->visualWidth();
+							double visualHeight = currItem->visualHeight();
+							double visualLineWidth = currItem->visualLineWidth();
+							double matRot = getRotationDFromMatrix(itemTrans);
+							double matScaleX, matScaleY;
+							getScaleFromMatrix(itemTrans, matScaleX, matScaleY);
+
 							p->save();
 							p->setBrush(m_brush["outline"]);
 							p->setPen(m_pen["outline"]);
-							p->translate(currItem->xPos(), currItem->yPos());
-							p->translate(deltax, deltay);
-							if (currItem->rotation() != 0)
-							{
+							p->setWorldTransform(itemTrans, true);
+							if (matRot != 0)
 								p->setRenderHint(QPainter::Antialiasing);
-								p->rotate(currItem->rotation());
-							}
+							p->scale(scalex /** matScaleX*/, scaley /** matScaleY*/);
 							if (currItem->isLine())
-								p->translate(0, -currItem->visualLineWidth() / 2.0);
+								p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
 							else
-								p->translate(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0);
-							p->scale(scalex, scaley);
-							p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
+								p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
 							p->restore();
+
 							p->save();
 							p->setBrush(m_brush["outline"]);
 							p->setPen(m_pen["outline"]);
-							p->translate(currItem->xPos(), currItem->yPos());
-							p->translate(deltax, deltay);
-							if (currItem->rotation() != 0)
-							{
+							p->setWorldTransform(itemTrans, true);
+							if (matRot != 0)
 								p->setRenderHint(QPainter::Antialiasing);
-								p->rotate(currItem->rotation());
-							}
-							p->scale(scalex, scaley);
+							p->scale(scalex /** matScaleX*/, scaley /** matScaleY*/);
 							p->drawPath(currItem->PoLine.toQPainterPath(false));
-							//currItem->DrawPolyL(p, currItem->Clip);
 							p->restore();
 						}
 					}
