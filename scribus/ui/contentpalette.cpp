@@ -30,7 +30,6 @@ ContentPalette::ContentPalette(QWidget* parent) :
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-
 	stackedWidget = new QStackedWidget(this);
 
 	auto emptyPal = new QWidget();
@@ -200,9 +199,11 @@ void  ContentPalette::handleSelectionChanged()
 	{
 		newPanel = Panel::empty;
 		m_haveItem = false;
-	} else if (m_doc->m_Selection->count() > 1)
+	}
+	else if (m_doc->m_Selection->count() > 1)
 	{
 		newPanel = Panel::empty;
+		m_haveItem = false;
 	}
 	else
 	{
