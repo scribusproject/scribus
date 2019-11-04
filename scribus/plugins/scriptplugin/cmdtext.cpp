@@ -394,7 +394,6 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	currItem->itemText.clear();
 	currItem->itemText.insertChars(0, Daten);
 	currItem->invalidateLayout();
-	currItem->Dirty = false;
 
 	Py_RETURN_NONE;
 }
@@ -428,12 +427,8 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	if (pos == -1)
 		pos = item->itemText.length();
 	item->itemText.insertChars(pos, textData, true);
-	item->Dirty = true;
-	if (ScCore->primaryMainWindow()->doc->DoDrawing)
-	{
-		// FIXME adapt to Qt-4 painting style
-		item->Dirty = false;
-	}
+	item->invalidateLayout();
+
 	Py_RETURN_NONE;
 }
 

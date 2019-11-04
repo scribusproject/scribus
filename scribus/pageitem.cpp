@@ -849,7 +849,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BottomLine = false;
 	isTableItem = false;
 	isSingleSel = false;
-	Dirty = false;
 	invalid = true;
 	ChangedMasterItem = false;
 	isEmbedded = false;
@@ -2273,7 +2272,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			embedded->m_yPos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		embedded->Dirty = Dirty;
 		embedded->invalid = true;
 		double pws = embedded->m_lineWidth;
 		embedded->DrawObj_Pre(p);

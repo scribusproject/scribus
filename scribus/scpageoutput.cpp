@@ -139,8 +139,6 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 		}
-		/*if (evSpon)
-			currItem->Dirty = true;*/
 		QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
 		if (clip.intersects(oldR.toRect()))
 		{
@@ -1078,7 +1076,6 @@ public:
 		m_painter->save();
 		double pws = embedded->m_lineWidth;
 
-		embedded->Dirty = m_item->Dirty;
 		embedded->invalid = true;
 		m_scpage->drawItem_Pre(embedded, m_painter);
 

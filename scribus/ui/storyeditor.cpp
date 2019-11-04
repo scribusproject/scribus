@@ -2985,7 +2985,6 @@ void StoryEditor::updateTextFrame()
 		}
 		nb2->itemText.clear();
 			nb2->CPos = 0;
-			nb2->Dirty = false;
 			nb2 = nb2->nextInChain();
 		}
 	}

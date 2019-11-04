@@ -300,7 +300,6 @@ void ScreenPainter::drawObject(PageItem* embedded)
 
 	double pws = embedded->m_lineWidth;
 
-	embedded->Dirty = m_item->Dirty;
 	embedded->invalid = true;
 	embedded->DrawObj_Pre(m_painter);
 
