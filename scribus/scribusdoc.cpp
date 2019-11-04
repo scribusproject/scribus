@@ -5538,7 +5538,6 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			}
 			break;
 		case PageItem::PolyLine:
-		case PageItem::Spiral:
 			newItem->ClipEdited = true;
 			break;
 		case PageItem::PathText:
@@ -5547,6 +5546,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		case PageItem::Group:
 		case PageItem::RegularPolygon:
 		case PageItem::Arc:
+		case PageItem::Spiral:
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
 		//At this point, we cannot create a PathText item like this, only by conversion, do nothing
