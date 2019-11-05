@@ -205,6 +205,16 @@ not given the currently selected Item is used.\n\
 PyObject *scribus_inserthtmltext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_layouttext__doc__,
+QT_TR_NOOP("layoutText([\"name\"])\n\
+\n\
+Relayout text in the text frame \"name\". If \"name\" is not given the currently\n\
+selected item is used.\n\
+"));
+/*! Delete text */
+PyObject *scribus_layouttext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfont__doc__,
 QT_TR_NOOP("setFont(\"font\", [\"name\"])\n\
 \n\
