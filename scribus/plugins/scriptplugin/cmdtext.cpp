@@ -478,10 +478,43 @@ PyObject *scribus_layouttext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot delete text from a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text for a non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	item->layout();
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_layouttextchain(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame() && !item->isPathText())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text chain for a non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (item->isPathText())
+	{
+		item->layout();
+		Py_RETURN_NONE;
+	}
+	
+	PageItem* firstFrame = item->firstInChain();
+	PageItem* nextFrame = firstFrame;
+	while (nextFrame)
+	{
+		nextFrame->layout();
+		nextFrame = nextFrame->nextInChain();
+	}
 
 	Py_RETURN_NONE;
 }

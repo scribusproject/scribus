@@ -215,6 +215,16 @@ selected item is used.\n\
 PyObject *scribus_layouttext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_layouttextchain__doc__,
+QT_TR_NOOP("layoutTextChain([\"name\"])\n\
+\n\
+Relayout the whole text chain whom the text frame \"name\" belongs.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Delete text */
+PyObject *scribus_layouttextchain(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfont__doc__,
 QT_TR_NOOP("setFont(\"font\", [\"name\"])\n\
 \n\

@@ -421,6 +421,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("isLayerFlow"), scribus_glayerflow, METH_VARARGS, tr(scribus_glayerflow__doc__)},
 	{const_cast<char*>("isLocked"), scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
 	{const_cast<char*>("layoutText"), scribus_layouttext, METH_VARARGS, tr(scribus_layouttext__doc__)},
+	{const_cast<char*>("layoutTextChain"), scribus_layouttextchain, METH_VARARGS, tr(scribus_layouttextchain__doc__)},
 	{const_cast<char*>("linkTextFrames"), scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
 	{const_cast<char*>("loadImage"), scribus_loadimage, METH_VARARGS, tr(scribus_loadimage__doc__)},
 	{const_cast<char*>("loadStylesFromFile"), scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
