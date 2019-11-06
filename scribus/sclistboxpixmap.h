@@ -55,14 +55,14 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 	int h,w;
 	QFontMetrics metrics(option.font);
 	const QVariant data(index.data(Qt::DisplayRole));
-	if ( text(data).isEmpty() )
+	if (text(data).isEmpty())
 	{
 		h = pmap->height();
 		w = pmap->width() + 6;
 	}
 	else
 	{
-		h = qMax( pmap->height(), metrics.lineSpacing() + 2 );
+		h = qMax(pmap->height(), metrics.lineSpacing() + 2);
 		//FIXME: metrics.width replacement by horizontalAdvance requires Qt 5.11+
 		w = pmap->width() + metrics.width(text(data)) + 6;
 	}
@@ -76,7 +76,7 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 	const QVariant data(index.data(Qt::UserRole));
 	redraw(data);
 	
-	int itemHeight = sizeHint( option, index ).height();
+	int itemHeight = sizeHint(option, index).height();
 
 	if (option.state & QStyle::State_Selected)
 		qpainter->fillRect(option.rect, option.palette.highlight());
@@ -85,10 +85,10 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 	qpainter->setRenderHint(QPainter::Antialiasing, true);
 	qpainter->setPen(Qt::NoPen);
 
-	if ( !pmap->isNull() )
+	if (!pmap->isNull())
 	{
-		int yPos = ( itemHeight - pmap->height() ) / 2;
-		qpainter->drawPixmap( option.rect.x() + 3, option.rect.y() + yPos, *pmap);
+		int yPos = (itemHeight - pmap->height()) / 2;
+		qpainter->drawPixmap(option.rect.x() + 3, option.rect.y() + yPos, *pmap);
 	}
 	if (option.state & QStyle::State_Selected)
 		qpainter->setBrush(option.palette.highlightedText());
@@ -98,11 +98,11 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 	
 	QString txt(index.data(Qt::DisplayRole).toString());
 
-	if ( !txt.isEmpty() )
+	if (!txt.isEmpty())
 	{
 		QFontMetrics fm = qpainter->fontMetrics();
-		int yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		qpainter->drawText( option.rect.x() + pmap->width() + 5, option.rect.y() + yPos, txt );
+		int yPos = (itemHeight - fm.height()) / 2 + fm.ascent();
+		qpainter->drawText(option.rect.x() + pmap->width() + 5, option.rect.y() + yPos, txt);
 	}
 	qpainter->restore();
 }
