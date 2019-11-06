@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_arc.h"
 #include "pageitem_group.h"
+#include "pageitem_line.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
@@ -638,9 +639,12 @@ void PropertiesPalette_XYZ::showWH(double x, double y)
 	if ((m_lineMode) && (m_item->asLine()))
 	{
 		QTransform ma;
-		ma.translate(xposSpin->value() / m_unitRatio, yposSpin->value() / m_unitRatio);
-		ma.rotate(rotationSpin->value() * (-1));
+		ma.translate(m_item->xPos(), m_item->yPos());
+		ma.rotate(m_item->rotation());
 		QPointF dp = QPointF(x, 0.0) * ma;
+		dp -= QPointF(m_doc->rulerXoffset, m_doc->rulerYoffset);
+		if (m_doc->guidesPrefs().rulerMode)
+			dp -= QPointF(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		widthSpin->setValue(dp.x() * m_unitRatio);
 		heightSpin->setValue(dp.y() * m_unitRatio);
 	}
@@ -709,18 +713,12 @@ void PropertiesPalette_XYZ::handleNewX()
 		{
 			if ((m_item->asLine()) && (m_lineMode))
 			{
-				w += m_doc->rulerXoffset;
-				h += m_doc->rulerYoffset;
-				if (m_doc->guidesPrefs().rulerMode)
-				{
-					w += m_doc->currentPage()->xOffset();
-					h += m_doc->currentPage()->yOffset();
-				}
-				double r = atan2(h - y, w - x) * (180.0 / M_PI);
-				w = sqrt(pow(w - x, 2) + pow(h - y, 2));
+				QPointF endPoint = m_item->asLine()->endPoint();
+				double r = atan2(endPoint.y() - m_item->yPos(), endPoint.x() - x) * (180.0 / M_PI);
+				double length = sqrt(pow(endPoint.x() - x, 2) + pow(endPoint.y() - m_item->yPos(), 2));
 				m_item->setXYPos(x, m_item->yPos(), true);
 				m_item->setRotation(r, true);
-				m_doc->sizeItem(w, m_item->height(), m_item, true);
+				m_doc->sizeItem(length, m_item->height(), m_item, true);
 			}
 			else
 			{
@@ -788,20 +786,12 @@ void PropertiesPalette_XYZ::handleNewY()
 	{
 		if ((m_item->asLine()) && (m_lineMode))
 		{
-			w += m_doc->rulerXoffset;
-			h += m_doc->rulerYoffset;
-			if (m_doc->guidesPrefs().rulerMode)
-			{
-				w += m_doc->currentPage()->xOffset();
-				h += m_doc->currentPage()->yOffset();
-			}
-			double r = atan2(h - y, w - x) * (180.0 / M_PI);
-			w = sqrt(pow(w - x, 2) + pow(h - y, 2));
-			m_doc->moveItem(0, y - m_item->yPos(), m_item);
+			QPointF endPoint = m_item->asLine()->endPoint();
+			double r = atan2(endPoint.y() - y, endPoint.x() - m_item->xPos()) * (180.0 / M_PI);
+			double length = sqrt(pow(endPoint.x() - m_item->xPos(), 2) + pow(endPoint.y() - y, 2));
 			m_item->setXYPos(m_item->xPos(), y, true);
 			m_item->setRotation(r, true);
-			m_doc->sizeItem(w, m_item->height(), m_item, true);
-			m_doc->rotateItem(r, m_item);
+			m_doc->sizeItem(length, m_item->height(), m_item, true);
 		}
 		else
 		{
