@@ -478,7 +478,7 @@ PyObject *scribus_layouttext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text for a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text of a non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	item->layout();
