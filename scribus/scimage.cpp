@@ -1612,8 +1612,8 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 	}
 	xscale = (double) newcols / (double) cols;
 	yscale = (double) newrows / (double) rows;
-	sxscale = (long)(xscale * SCALE);
-	syscale = (long)(yscale * SCALE);
+	sxscale = (long) (xscale * SCALE);
+	syscale = (long) (yscale * SCALE);
 	if ( newrows != rows )	/* shortcut Y scaling if possible */
 		tempxelrow = new QRgb[cols];
 	as = new long[cols];
@@ -1623,19 +1623,19 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 	rowsread = 0;
 	fracrowleft = syscale;
 	needtoreadrow = 1;
-	for ( col = 0; col < cols; ++col )
+	for (col = 0; col < cols; ++col)
 		rs[col] = gs[col] =  as[col] = bs[col] = HALFSCALE;
 	fracrowtofill = SCALE;
-	for ( row = 0; row < newrows; ++row )
+	for (row = 0; row < newrows; ++row)
 	{
 		if ( newrows == rows )
-			tempxelrow = xelrow = (QRgb*)scanLine(rowsread++);
+			tempxelrow = xelrow = (QRgb*) scanLine(rowsread++);
 		else
 		{
 			while ( fracrowleft < fracrowtofill )
 			{
 				if ( needtoreadrow && rowsread < rows )
-					xelrow = (QRgb*)scanLine(rowsread++);
+					xelrow = (QRgb*) scanLine(rowsread++);
 				for ( col = 0, xP = xelrow; col < cols; ++col, ++xP )
 				{
 					as[col] += fracrowleft * qAlpha( *xP );
@@ -1647,13 +1647,13 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 				fracrowleft = syscale;
 				needtoreadrow = 1;
 			}
-			if ( needtoreadrow && rowsread < rows )
+			if (needtoreadrow && rowsread < rows)
 			{
-				xelrow = (QRgb*)scanLine(rowsread++);
+				xelrow = (QRgb*) scanLine(rowsread++);
 				needtoreadrow = 0;
 			}
-			long a=0;
-			for ( col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP )
+			long a = 0;
+			for (col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP)
 			{
 				long r, g, b;
 				a = as[col] + fracrowtofill * qAlpha( *xP );
@@ -1661,114 +1661,126 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 				g = gs[col] + fracrowtofill * qGreen( *xP );
 				b = bs[col] + fracrowtofill * qBlue( *xP );
 				r /= SCALE;
-				if ( r > maxval ) r = maxval;
+				if (r > maxval)
+					r = maxval;
 				g /= SCALE;
-				if ( g > maxval ) g = maxval;
+				if (g > maxval)
+					g = maxval;
 				b /= SCALE;
-				if ( b > maxval ) b = maxval;
+				if (b > maxval)
+					b = maxval;
 				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b , (int)a);
+				if (a > maxval)
+					a = maxval;
+				*nxP = qRgba((int) r, (int) g, (int) b , (int) a);
 				rs[col] = as[col] = gs[col] = bs[col] = HALFSCALE;
 			}
 			fracrowleft -= fracrowtofill;
-			if ( fracrowleft == 0 )
+			if (fracrowleft == 0)
 			{
 				fracrowleft = syscale;
 				needtoreadrow = 1;
 			}
 			fracrowtofill = SCALE;
 		}
-		if ( newcols == cols )
+		if (newcols == cols)
 			memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols*4);
 		else
 		{
 			long a, r, g, b;
 			long fraccoltofill, fraccolleft = 0;
 			int needcol;
-			nxP = (QRgb*)dst.scanLine(rowswritten++);
+			nxP = (QRgb*) dst.scanLine(rowswritten++);
 			QRgb *nxPEnd = nxP + newcols;
 			fraccoltofill = SCALE;
 			a = r = g = b = HALFSCALE;
 			needcol = 0;
-			for ( col = 0, xP = tempxelrow; col < cols; ++col, ++xP )
+			for (col = 0, xP = tempxelrow; col < cols; ++col, ++xP)
 			{
 				fraccolleft = sxscale;
-				while ( fraccolleft >= fraccoltofill )
+				while (fraccolleft >= fraccoltofill)
 				{
-					if ( needcol )
+					if (needcol)
 					{
 						++nxP;
 						a = r = g = b = HALFSCALE;
 					}
-					a += fraccoltofill * qAlpha( *xP );
-					r += fraccoltofill * qRed( *xP );
-					g += fraccoltofill * qGreen( *xP );
-					b += fraccoltofill * qBlue( *xP );
+					a += fraccoltofill * qAlpha(*xP);
+					r += fraccoltofill * qRed(*xP);
+					g += fraccoltofill * qGreen(*xP);
+					b += fraccoltofill * qBlue(*xP);
 					r /= SCALE;
-					if ( r > maxval ) r = maxval;
+					if (r > maxval)
+						r = maxval;
 					g /= SCALE;
-					if ( g > maxval ) g = maxval;
+					if (g > maxval)
+						g = maxval;
 					b /= SCALE;
-					if ( b > maxval ) b = maxval;
+					if (b > maxval)
+						b = maxval;
 					a /= SCALE;
-					if ( a > maxval ) a = maxval;
-					*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
+					if (a > maxval)
+						a = maxval;
+					*nxP = qRgba((int) r, (int) g, (int) b, (int) a);
 					fraccolleft -= fraccoltofill;
 					fraccoltofill = SCALE;
 					needcol = 1;
 				}
-				if ( fraccolleft > 0 )
+				if (fraccolleft > 0)
 				{
-					if ( needcol )
+					if (needcol)
 					{
 						++nxP;
 						a = r = g = b = HALFSCALE;
 						needcol = 0;
 					}
-					a += fraccolleft * qAlpha( *xP );
-					r += fraccolleft * qRed( *xP );
-					g += fraccolleft * qGreen( *xP );
-					b += fraccolleft * qBlue( *xP );
+					a += fraccolleft * qAlpha(*xP);
+					r += fraccolleft * qRed(*xP);
+					g += fraccolleft * qGreen(*xP);
+					b += fraccolleft * qBlue(*xP);
 					fraccoltofill -= fraccolleft;
 				}
 			}
-			if ( fraccoltofill > 0 )
+			if (fraccoltofill > 0)
 			{
 				--xP;
-				a += fraccoltofill * qAlpha( *xP );
-				r += fraccoltofill * qRed( *xP );
-				g += fraccoltofill * qGreen( *xP );
-				b += fraccoltofill * qBlue( *xP );
+				a += fraccoltofill * qAlpha(*xP);
+				r += fraccoltofill * qRed(*xP);
+				g += fraccoltofill * qGreen(*xP);
+				b += fraccoltofill * qBlue(*xP);
 			}
 			if (nxP < nxPEnd)
 			{
 				r /= SCALE;
-				if ( r > maxval ) r = maxval;
+				if (r > maxval)
+					r = maxval;
 				g /= SCALE;
-				if ( g > maxval ) g = maxval;
+				if (g > maxval)
+					g = maxval;
 				b /= SCALE;
-				if ( b > maxval ) b = maxval;
+				if (b > maxval)
+					b = maxval;
 				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
+				if (a > maxval)
+					a = maxval;
+				*nxP = qRgba((int) r, (int) g, (int) b, (int) a);
 				while (++nxP != nxPEnd)
 					nxP[0] = nxP[-1];
 			}
 		}
 	}
-	if ( newrows != rows && tempxelrow )// Robust, tempxelrow might be 0 1 day
+	if (newrows != rows && tempxelrow) // Robust, tempxelrow might be 0 1 day
 		delete [] tempxelrow;
 	delete [] as;
 	delete [] rs;
 	delete [] gs;
 	delete [] bs;
 	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
-	for (int yi=0; yi < dst.height(); ++yi)
+	for (int yi = 0; yi < dst.height(); ++yi)
 	{
-		QRgb *s = (QRgb*)(dst.scanLine( yi ));
-		QRgb *d = (QRgb*)(scanLine( yi ));
-		for (int xi=0; xi < dst.width(); ++xi)
+		QRgb *s = (QRgb*) dst.scanLine(yi);
+		QRgb *d = (QRgb*) scanLine(yi);
+		for (int xi = 0; xi < dst.width(); ++xi)
 		{
 			(*d) = (*s);
 			s++;
@@ -1833,7 +1845,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 	yscale = (double) newrows / (double) rows;
 	sxscale = (long)(xscale * SCALE);
 	syscale = (long)(yscale * SCALE);
-	if ( newrows != rows )	/* shortcut Y scaling if possible */
+	if (newrows != rows)	/* shortcut Y scaling if possible */
 		tempxelrow = new unsigned char[cols * nChannels];
 	ps = new long[cols];
 
@@ -1874,12 +1886,13 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 				{
 					p = ps[col] + fracrowtofill * (*xP);
 					p /= SCALE;
-					if ( p > maxval ) p = maxval;
+					if (p > maxval)
+						p = maxval;
 					*nxP = (unsigned char) p;
 					ps[col] = HALFSCALE;
 				}
 				fracrowleft -= fracrowtofill;
-				if ( fracrowleft == 0 )
+				if (fracrowleft == 0)
 				{
 					fracrowleft = syscale;
 					needtoreadrow = 1;
@@ -1903,16 +1916,17 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 				for (col = 0, xP = tempxelrow + chIndex; col < cols; ++col, xP += nChannels)
 				{
 					fraccolleft = sxscale;
-					while ( fraccolleft >= fraccoltofill )
+					while (fraccolleft >= fraccoltofill)
 					{
-						if ( needcol )
+						if (needcol)
 						{
 							nxP += nChannels;
 							p = HALFSCALE;
 						}
-						p += fraccoltofill * ( *xP );
+						p += fraccoltofill * (*xP);
 						p /= SCALE;
-						if ( p > maxval ) p = maxval;
+						if (p > maxval)
+							p = maxval;
 						*nxP = (unsigned char) p;
 						fraccolleft -= fraccoltofill;
 						fraccoltofill = SCALE;
@@ -1938,7 +1952,8 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 				if (nxP < nxPEnd)
 				{
 					p /= SCALE;
-					if ( p > maxval ) p = maxval;
+					if (p > maxval)
+						p = maxval;
 					*nxP = (unsigned char) p;
 					while ((nxP += nChannels) != nxPEnd)
 						nxP[0] = nxP[-nChannels];
@@ -1952,10 +1967,10 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 
 	int scanWidth = dst.width() * nChannels;
 	QImage::operator=(QImage(nwidth, nheight, this->format()));
-	for (int yi=0; yi < dst.height(); ++yi)
+	for (int yi = 0; yi < dst.height(); ++yi)
 	{
-		uchar *s = (dst.scanLine( yi ));
-		uchar *d = (scanLine( yi ));
+		uchar *s = dst.scanLine(yi);
+		uchar *d = scanLine(yi);
 		memcpy(d, s, scanWidth);
 	}
 }
@@ -2068,10 +2083,10 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 			alpha.resize(hm * wm);
 			if (alpha.size() > 0) // 
 			{
-				for (int yi=0; yi < hm; ++yi)
+				for (int yi = 0; yi < hm; ++yi)
 				{
-					s = (QRgb*)(rImage.scanLine( yi ));
-					for (int xi=0; xi < wm; ++xi)
+					s = (QRgb*) rImage.scanLine(yi);
+					for (int xi = 0; xi < wm; ++xi)
 					{
 						r = *s++;
 						u = qAlpha(r);
@@ -2094,12 +2109,12 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 			alpha.resize(hm * w2);
 			if (alpha.size() > 0)
 			{
-				for (int yi=0; yi < hm; ++yi)
+				for (int yi = 0; yi < hm; ++yi)
 				{
 					s = iMask.scanLine( yi );
-					for (int xi=0; xi < w2; ++xi)
+					for (int xi = 0; xi < w2; ++xi)
 					{
-						u = *(s+xi);
+						u = *(s + xi);
 						if (PDF) u = ~u;
 						alpha[i++] = u;
 					}

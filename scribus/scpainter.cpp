@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int blendmode )
 {
-	Q_ASSERT(w>=0);
-	Q_ASSERT(h>=0);
+	Q_ASSERT(w >= 0);
+	Q_ASSERT(h >= 0);
 	m_maskPattern = nullptr;
 	m_pattern = nullptr;
 	m_imageMask = nullptr;
@@ -675,10 +675,10 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			int k;
 			QRgb *s;
 			QRgb r;
-			for (int yi=0; yi < h; ++yi)
+			for (int yi = 0; yi < h; ++yi)
 			{
 				s = (QRgb*)(m_imageQ.scanLine( yi ));
-				for (int xi=0; xi < w; ++xi)
+				for (int xi = 0; xi < w; ++xi)
 				{
 					r = *s;
 					if (qAlpha(r) == 0)
@@ -1471,7 +1471,7 @@ void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 		return;
 
 	newPath();
-	for (int poi=0; poi<points->size()-3; poi += 4)
+	for (int poi = 0; poi < points->size() - 3; poi += 4)
 	{
 		if (points->isMarker(poi))
 		{
@@ -1513,7 +1513,7 @@ void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 		return;
 
 	newPath();
-	for (int poi=0; poi<points->size()-3; poi += 4)
+	for (int poi = 0; poi < points->size() - 3; poi += 4)
 	{
 		if (points->isMarker(poi))
 		{
@@ -1952,9 +1952,9 @@ void ScPainter::blurAlpha(int radius)
 	int divsum = (div+1)>>1;
 	divsum *= divsum;
 	int *dv = new int[256*divsum];
-	for (i=0; i < 256*divsum; ++i)
+	for (i = 0; i < 256 * divsum; ++i)
 	{
-		dv[i] = (i/divsum);
+		dv[i] = (i / divsum);
 	}
 	yw = yi = 0;
 	int **stack = new int*[div];
@@ -1985,38 +1985,38 @@ void ScPainter::blurAlpha(int radius)
 				aoutsum += sir[0];
 		}
 		stackpointer = radius;
-		for (x=0; x < w; ++x)
+		for (x = 0; x < w; ++x)
 		{
 			a[yi] = dv[asum];
 			asum -= aoutsum;
 			stackstart = stackpointer-radius+div;
-			sir = stack[stackstart%div];
+			sir = stack[stackstart % div];
 			aoutsum -= sir[0];
 			if (y == 0)
-				vmin[x] = qMin(x+radius+1,wm);
-			p = pix[yw+vmin[x]];
+				vmin[x] = qMin(x + radius + 1, wm);
+			p = pix[yw + vmin[x]];
 			sir[0] = qAlpha(p);
 			ainsum += sir[0];
 			asum += ainsum;
-			stackpointer = (stackpointer+1)%div;
-			sir = stack[(stackpointer)%div];
+			stackpointer = (stackpointer + 1) % div;
+			sir = stack[(stackpointer) % div];
 			aoutsum += sir[0];
 			ainsum -= sir[0];
 			++yi;
 		}
 		yw += w;
 	}
-	for (x=0; x < w; ++x)
+	for (x = 0; x < w; ++x)
 	{
 		ainsum = aoutsum = asum = 0;
 		yp = -radius * w;
 		for (i = -radius; i <= radius; ++i)
 		{
-			yi=qMax(0,yp)+x;
-			sir = stack[i+radius];
+			yi = qMax(0, yp) + x;
+			sir = stack[i + radius];
 			sir[0] = a[yi];
-			rbs = r1-abs(i);
-			asum += a[yi]*rbs;
+			rbs = r1 - abs(i);
+			asum += a[yi] * rbs;
 			if (i > 0)
 				ainsum += sir[0];
 			else
@@ -2028,18 +2028,18 @@ void ScPainter::blurAlpha(int radius)
 		}
 		yi = x;
 		stackpointer = radius;
-		for (y=0; y < h; ++y)
+		for (y = 0; y < h; ++y)
 		{
 			pix[yi] = qRgba(qRed(pix[yi]), qGreen(pix[yi]), qBlue(pix[yi]), dv[asum]);
 			asum -= aoutsum;
-			stackstart = stackpointer-radius+div;
+			stackstart = stackpointer - radius + div;
 			sir = stack[stackstart%div];
 			aoutsum -= sir[0];
-			if (x==0)
+			if (x == 0)
 			{
-				vmin[y] = qMin(y+r1,hm)*w;
+				vmin[y] = qMin(y + r1, hm) * w;
 			}
-			p = x+vmin[y];
+			p = x + vmin[y];
 			sir[0] = a[p];
 			ainsum += sir[0];
 			asum += ainsum;
@@ -2083,9 +2083,9 @@ void ScPainter::blur(int radius)
 	int divsum = (div+1)>>1;
 	divsum *= divsum;
 	int *dv = new int[256*divsum];
-	for (i=0; i < 256*divsum; ++i)
+	for (i = 0; i < 256 * divsum; ++i)
 	{
-		dv[i] = (i/divsum);
+		dv[i] = (i / divsum);
 	}
 	yw = yi = 0;
 	int **stack = new int*[div];
@@ -2105,17 +2105,17 @@ void ScPainter::blur(int radius)
 		rinsum = ginsum = binsum = ainsum = routsum = goutsum = boutsum = aoutsum = rsum = gsum = bsum = asum = 0;
 		for (i = -radius; i <= radius; ++i)
 		{
-			p = pix[yi+qMin(wm,qMax(i,0))];
-			sir = stack[i+radius];
+			p = pix[yi + qMin(wm, qMax(i, 0))];
+			sir = stack[i + radius];
 			sir[0] = qRed(p);
 			sir[1] = qGreen(p);
 			sir[2] = qBlue(p);
 			sir[3] = qAlpha(p);
-			rbs = r1-abs(i);
-			rsum += sir[0]*rbs;
-			gsum += sir[1]*rbs;
-			bsum += sir[2]*rbs;
-			asum += sir[3]*rbs;
+			rbs = r1 - abs(i);
+			rsum += sir[0] * rbs;
+			gsum += sir[1] * rbs;
+			bsum += sir[2] * rbs;
+			asum += sir[3] * rbs;
 			if (i > 0)
 			{
 				rinsum += sir[0];
@@ -2132,7 +2132,7 @@ void ScPainter::blur(int radius)
 			}
 		}
 		stackpointer = radius;
-		for (x=0; x < w; ++x)
+		for (x = 0; x < w; ++x)
 		{
 			r[yi] = dv[rsum];
 			g[yi] = dv[gsum];
@@ -2142,17 +2142,17 @@ void ScPainter::blur(int radius)
 			gsum -= goutsum;
 			bsum -= boutsum;
 			asum -= aoutsum;
-			stackstart = stackpointer-radius+div;
-			sir = stack[stackstart%div];
+			stackstart = stackpointer - radius + div;
+			sir = stack[stackstart % div];
 			routsum -= sir[0];
 			goutsum -= sir[1];
 			boutsum -= sir[2];
 			aoutsum -= sir[3];
 			if (y == 0)
 			{
-				vmin[x] = qMin(x+radius+1,wm);
+				vmin[x] = qMin(x + radius + 1,wm);
 			}
-			p = pix[yw+vmin[x]];
+			p = pix[yw + vmin[x]];
 			sir[0] = qRed(p);
 			sir[1] = qGreen(p);
 			sir[2] = qBlue(p);
@@ -2179,23 +2179,23 @@ void ScPainter::blur(int radius)
 		}
 		yw += w;
 	}
-	for (x=0; x < w; ++x)
+	for (x = 0; x < w; ++x)
 	{
 		rinsum = ginsum = binsum = ainsum = routsum = goutsum = boutsum = aoutsum = rsum = gsum = bsum = asum = 0;
 		yp =- radius * w;
-		for (i=-radius; i <= radius; ++i)
+		for (i = -radius; i <= radius; ++i)
 		{
-			yi=qMax(0,yp)+x;
-			sir = stack[i+radius];
+			yi = qMax(0, yp) + x;
+			sir = stack[i + radius];
 			sir[0] = r[yi];
 			sir[1] = g[yi];
 			sir[2] = b[yi];
 			sir[3] = a[yi];
 			rbs = r1-abs(i);
-			rsum += r[yi]*rbs;
-			gsum += g[yi]*rbs;
-			bsum += b[yi]*rbs;
-			asum += a[yi]*rbs;
+			rsum += r[yi] * rbs;
+			gsum += g[yi] * rbs;
+			bsum += b[yi] * rbs;
+			asum += a[yi] * rbs;
 			if (i > 0)
 			{
 				rinsum += sir[0];
@@ -2217,24 +2217,24 @@ void ScPainter::blur(int radius)
 		}
 		yi = x;
 		stackpointer = radius;
-		for (y=0; y < h; ++y)
+		for (y = 0; y < h; ++y)
 		{
 			pix[yi] = qRgba(dv[rsum], dv[gsum], dv[bsum], dv[asum]);
 			rsum -= routsum;
 			gsum -= goutsum;
 			bsum -= boutsum;
 			asum -= aoutsum;
-			stackstart = stackpointer-radius+div;
-			sir = stack[stackstart%div];
+			stackstart = stackpointer - radius + div;
+			sir = stack[stackstart % div];
 			routsum -= sir[0];
 			goutsum -= sir[1];
 			boutsum -= sir[2];
 			aoutsum -= sir[3];
-			if (x==0)
+			if (x == 0)
 			{
-				vmin[y] = qMin(y+r1,hm)*w;
+				vmin[y] = qMin(y + r1, hm) * w;
 			}
-			p = x+vmin[y];
+			p = x + vmin[y];
 			sir[0] = r[p];
 			sir[1] = g[p];
 			sir[2] = b[p];
@@ -2247,7 +2247,7 @@ void ScPainter::blur(int radius)
 			gsum += ginsum;
 			bsum += binsum;
 			asum += ainsum;
-			stackpointer = (stackpointer+1)%div;
+			stackpointer = (stackpointer + 1) % div;
 			sir = stack[stackpointer];
 			routsum += sir[0];
 			goutsum += sir[1];
