@@ -637,9 +637,9 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 						if (matRot != 0)
 							p->setRenderHint(QPainter::Antialiasing);
 						if (currItem->isLine())
-							p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
+							p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, visualWidth, visualHeight));
 						else
-							p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
+							p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, visualWidth, visualHeight));
 						p->restore();
 
 						p->save();
@@ -660,9 +660,9 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 					if (matRot != 0)
 						p->setRenderHint(QPainter::Antialiasing);
 					if (currItem->isLine())
-						p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
+						p->drawRect(QRectF(0.0, -visualLineWidth / 2.0, visualWidth, visualHeight));
 					else
-						p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, currItem->visualWidth(), currItem->visualHeight()));
+						p->drawRect(QRectF(-visualLineWidth / 2.0, -visualLineWidth / 2.0, visualWidth, visualHeight));
 				}
 				p->restore();
 			}
