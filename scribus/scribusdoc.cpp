@@ -13731,6 +13731,7 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 			PageItem* item = Items->at(i);
 			if (item->itemType() != PageItem::TextFrame)
 				continue;
+			item->clearContents();
 			if (item->isInChain())
 			{
 				lastInChain->link(item->firstInChain());
