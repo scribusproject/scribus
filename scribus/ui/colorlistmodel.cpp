@@ -10,6 +10,27 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 
+ColorPixmapValue::ColorPixmapValue() : m_doc(nullptr), m_name("invalid")
+{}
+
+ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)
+{}
+
+ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
+{
+	m_color = other.m_color;
+	m_doc = other.m_doc;
+	m_name = other.m_name;
+	return *this;
+}
+
+ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName )
+{
+	m_doc = (doc) ? doc->guardedPtr() : nullptr;
+	m_color = col;
+	m_name = colName;
+}
+
 ColorPixmapValue ColorListModel::m_NoneColor(ScColor(), nullptr, CommonStrings::None);
 
 ColorListModel::ColorListModel(QObject *parent)
