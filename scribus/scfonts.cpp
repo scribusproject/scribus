@@ -26,6 +26,11 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QRegExp>
 #include <QRawFont>
+#ifdef Q_OS_WIN32
+#include <QSet>
+#include <QSettings>
+#include <QStandardPaths>
+#endif
 #include <QString>
 #include <QTextCodec>
 
@@ -77,7 +82,7 @@ for which a new license (GPL+exception) is in place.
 SCFonts::SCFonts()
 {
 //	insert("", ScFace::none()); // Wtf why inserting an empty entry here ????
-	m_showFontInfo=false;
+	m_showFontInfo = false;
 	m_checkedFonts.clear();
 }
 
@@ -120,7 +125,7 @@ void SCFonts::addPath(QString p)
 	if (p.right(1) != "/")
 		p += "/";
 	if (!m_fontPaths.contains(p))
-		m_fontPaths.insert(m_fontPaths.count(),p);
+		m_fontPaths.insert(m_fontPaths.count(), p);
 }
 
 void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
@@ -137,17 +142,17 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 	QString pathname(path);
 	if ( !pathname.endsWith("/") )
 		pathname += "/";
-	pathname=QDir::toNativeSeparators(pathname);
+	pathname = QDir::toNativeSeparators(pathname);
 	QDir d(pathname, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 	{
-		for (uint dc = 0; dc < d.count(); ++dc)
+		for (uint i = 0; i < d.count(); ++i)
 		{
 			// readdir may return . or .., which we don't want to recurse
 			// over. Skip 'em.
-			if (d[dc] == "." || d[dc] == "..")
+			if (d[i] == "." || d[i] == "..")
 				continue;
-			fullpath = pathname+d[dc];
+			fullpath = pathname + d[i];
 			QFileInfo fi(fullpath);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
@@ -159,7 +164,7 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 			{
 				QFileInfo fi3(fi.readLink());
 				if (fi3.isRelative())
-					pathfile = pathname+fi.readLink();
+					pathfile = pathname + fi.readLink();
 				else
 					pathfile = fi3.absoluteFilePath();
 			}
@@ -1039,6 +1044,152 @@ void SCFonts::addFontconfigFonts()
 	FcFontSetDestroy(fs);
 }
 
+#elif defined(Q_OS_WIN32)
+
+void SCFonts::addRegistryFonts()
+{
+	const QStringList keys = { QStringLiteral("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts"),
+		                       QStringLiteral("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts"),
+#if defined(Q_OS_WIN64)
+	                           QStringLiteral("HKEY_CURRENT_USER\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Fonts"),
+		                       QStringLiteral("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Fonts"),
+#endif
+	                         };
+	QSet<QString> foundFonts;
+
+	FT_Library library = nullptr;
+	FT_Init_FreeType( &library );
+
+	for (const auto key : keys)
+	{
+		const QSettings fontRegistry(key, QSettings::NativeFormat);
+		const QStringList allKeys = fontRegistry.allKeys();
+
+		int size = allKeys.size();
+		for (int i = 0; i < size; ++i)
+		{
+			const QString &fontKey = allKeys.at(i);
+			const QString fileName = fontRegistry.value(fontKey).toString();
+
+			QFileInfo fontInfo(fileName);
+			if (fontInfo.isRelative())
+				continue; // Font located in system font directory, nothing to do
+			if (!fontInfo.exists())
+				continue; // Sanity check for broken Symlinks
+			QString fontPath = fontInfo.absoluteFilePath();
+			QString pathName = fontInfo.absolutePath();
+
+			qApp->processEvents();
+			
+			bool isSymlink = fontInfo.isSymLink();
+			if (isSymlink)
+			{
+				QFileInfo symlinkInfo(fontInfo.readLink());
+				if (symlinkInfo.isRelative())
+					fontPath = pathName + fontInfo.readLink();
+				else
+					fontPath = symlinkInfo.absoluteFilePath();
+			}
+
+			fontPath = QDir::toNativeSeparators(fontPath);
+			if (foundFonts.contains(fontPath))
+				continue;
+
+			QFileInfo fontInfo2(fontPath);
+			QString ext = fontInfo.suffix().toLower();
+			QString ext2 = fontInfo2.suffix().toLower();
+			if ((ext != ext2) && (ext.isEmpty())) 
+				ext = ext2;
+			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
+			{
+				foundFonts.insert(fontPath);
+				addScalableFont(fontPath, library, QString());
+			}
+		}
+	}
+
+	FT_Done_FreeType(library);
+}
+
+void SCFonts::addType1RegistryFonts()
+{
+	const QStringList keys = { QStringLiteral("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Type 1 Installer\\Type 1 Fonts"),
+		                       QStringLiteral("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Type 1 Installer\\Type 1 Fonts"),
+#if defined(Q_OS_WIN64)
+	                           QStringLiteral("HKEY_CURRENT_USER\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Type 1 Installer\\Type 1 Fonts"),
+		                       QStringLiteral("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Type 1 Installer\\Type 1 Fonts"),
+#endif
+	                         };
+	QSet<QString> foundFonts;
+
+	FT_Library library = nullptr;
+	FT_Init_FreeType( &library );
+
+	for (const auto key : keys)
+	{
+		const QSettings fontRegistry(key, QSettings::NativeFormat);
+		const QStringList allKeys = fontRegistry.allKeys();
+
+		int size = allKeys.size();
+		for (int i = 0; i < size; ++i)
+		{
+			const QString &fontKey = allKeys.at(i);
+			const QStringList fileNames = fontRegistry.value(fontKey).toStringList();
+			if (fileNames.size() <= 0)
+				continue;
+			if (fileNames.at(0) != "T")
+				continue;
+
+			for (int j = 1; j < fileNames.count(); ++j)
+			{
+				QString fileName = fileNames.at(j);
+
+				QFileInfo fontInfo(fileName);
+				if (fontInfo.isRelative())
+					continue; // Font located in system font directory, nothing to do
+				if (!fontInfo.exists())
+					continue; // Sanity check for broken Symlinks
+
+				QString ext = fontInfo.suffix().toLower();
+				if ((ext != "pfa") && (ext != "pfb"))
+					continue;
+
+				QString fontPath = fontInfo.absoluteFilePath();
+				QString pathName = fontInfo.absolutePath();
+
+				qApp->processEvents();
+			
+				bool isSymlink = fontInfo.isSymLink();
+				if (isSymlink)
+				{
+					QFileInfo symlinkInfo(fontInfo.readLink());
+					if (symlinkInfo.isRelative())
+						fontPath = pathName + fontInfo.readLink();
+					else
+						fontPath = symlinkInfo.absoluteFilePath();
+				}
+
+				fontPath = QDir::toNativeSeparators(fontPath);
+				if (foundFonts.contains(fontPath))
+					continue;
+
+				QFileInfo fontInfo2(fontPath);
+				QString ext2 = fontInfo2.suffix().toLower();
+				if ((ext != ext2) && (ext.isEmpty())) 
+					ext = ext2;
+				if ((ext == "pfa") || (ext == "pfb"))
+				{
+					foundFonts.insert(fontPath);
+					addScalableFont(fontPath, library, QString());
+					break;
+				}
+			}
+		}
+	}
+
+	FT_Done_FreeType(library);
+}
+
 #elif defined(Q_OS_LINUX)
 
 void SCFonts::addXFontPath()
@@ -1207,17 +1358,27 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 	readFontCache(pf);
 	ScCore->setSplashStatus( QObject::tr("Searching for Fonts") );
 	addUserPath(pf);
+
 	// Search the system paths
 	QStringList ftDirs = ScPaths::systemFontDirs();
 	for (int i = 0; i < ftDirs.count(); i++)
 		addScalableFonts( ftDirs[i] );
+
+#ifdef Q_OS_WIN32
+	// Search fonts outside system paths using Windows Registry
+	addRegistryFonts();
+	addType1RegistryFonts();
+#endif
+
 	// Search Scribus font path
 	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
 		addScalableFonts( ScPaths::instance().fontDir() );
+
 	//Add downloaded user fonts
 	QString userFontDir(ScPaths::instance().userFontDir(false));
 	if (QDir(userFontDir).exists())
 		addScalableFonts( userFontDir );
+
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
 	// Search fontconfig paths
