@@ -48,6 +48,10 @@ public:
 	void mousePressEvent(QMouseEvent *m) override;
 	void mouseReleaseEvent(QMouseEvent *m) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
+	void keyPressEvent(QKeyEvent *e) override;
+
+	bool handleKeyEvents() override { return true; }
 
 private:
 	inline bool GetItem(PageItem** pi);

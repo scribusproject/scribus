@@ -25,6 +25,9 @@
 #include "iconmanager.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
+#include "ui/propertiespalette.h"
+#include "ui/propertiespalette_xyz.h"
+#include "ui/basepointwidget.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -448,6 +451,77 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 			m_view->HaveSelRect = true;
 		}
 	}
+}
+
+void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
+{
+	if (e->key() == Qt::Key_Up)
+	{
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
+		id = id > 0 ? id - 1 : 4;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		m_doc->setRotationMode(id);
+		return;
+	}
+	else if (e->key() == Qt::Key_Down)
+	{
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
+		id = (id + 1) % 5;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		m_doc->setRotationMode(id);
+		return;
+	}
+
+	double increment = 0.0;
+	if (e->key() == Qt::Key_Left)
+		increment = 1.0;
+	if (e->key() == Qt::Key_Right)
+		increment = -1.0;
+	if (e->modifiers() & Qt::ControlModifier) {
+		increment *= 10;
+	}
+	if (e->modifiers() & Qt::ShiftModifier) {
+		increment /= 10;
+	}
+	PageItem *currItem;
+	if (increment != 0)
+	{ 
+		if (GetItem(&currItem)) {
+			if (!m_view->groupTransactionStarted())
+			{
+				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+			}
+			m_doc->itemSelection_Rotate(currItem->rotation() + increment);
+			m_canvas->setRenderModeUseBuffer(false);
+			if (!m_doc->m_Selection->isMultipleSelection())
+			{
+				m_doc->setRedrawBounding(currItem);
+				currItem->OwnPage = m_doc->OnPage(currItem);
+				if (currItem->asLine())
+					m_view->updateContents();
+			}
+
+			if (m_doc->m_Selection->count() > 1)
+			{
+				m_doc->m_Selection->setGroupRect();
+				double x, y, w, h;
+				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+				m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			}
+		}
+		if (m_view->groupTransactionStarted())
+		{
+			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+				m_doc->m_Selection->itemAt(i)->checkChanges(true);
+			m_view->endGroupTransaction();
+		}
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+	}
+}
+
+void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
+{
 }
 
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)
