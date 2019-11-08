@@ -612,16 +612,24 @@ void PropertiesPalette_Table::updateBorders()
 	}
 	else
 	{
-		TableCell cell = table->activeCell();
-		if (selectedSides & TableSideSelector::Left)
-			cell.setLeftBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Right)
-			cell.setRightBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Top)
-			cell.setTopBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Bottom)
-			cell.setBottomBorder(m_currentBorder);
+		QSet<TableCell> cells = table->selectedCells();
+		if (cells.isEmpty())
+			cells.insert(table->activeCell());
+		QSet<TableCell>::Iterator cellIter;
+		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			if (selectedSides & TableSideSelector::Left)
+				currentCell.setLeftBorder(m_currentBorder);
+			if (selectedSides & TableSideSelector::Right)
+				currentCell.setRightBorder(m_currentBorder);
+			if (selectedSides & TableSideSelector::Top)
+				currentCell.setTopBorder(m_currentBorder);
+			if (selectedSides & TableSideSelector::Bottom)
+				currentCell.setBottomBorder(m_currentBorder);
+		}
 	}
+
 	table->adjustTable();
 	table->update();
 }
