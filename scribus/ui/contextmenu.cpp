@@ -547,10 +547,10 @@ void ContextMenu::createMenuItems_Selection()
 	
 	//<-- Add Properties
 	addSeparator();
-	addAction(m_ScMW->scrActions["toolsContent"]);
-	addAction(m_ScMW->scrActions["toolsProperties"]);
-	//-->
 
+	addAction(m_ScMW->scrActions["toolsProperties"]);
+	addAction(m_ScMW->scrActions["toolsContent"]);
+	//-->
 }
 
 void ContextMenu::createMenuItems_NoSelection(double mx, double my)
