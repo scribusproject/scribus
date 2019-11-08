@@ -41,11 +41,9 @@ for which a new license (GPL+exception) is in place.
 #include "cpalette.h"
 #include "dasheditor.h"
 #include "pageitem_table.h"
-#include "propertiespalette_group.h"
 #include "propertiespalette_line.h"
 #include "propertiespalette_shadow.h"
 #include "propertiespalette_shape.h"
-#include "propertiespalette_table.h"
 #include "propertiespalette_utils.h"
 #include "propertiespalette_xyz.h"
 #include "transparencypalette.h"
@@ -81,9 +79,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	shapePal = new PropertiesPalette_Shape( this );
 	idShapeItem = TabStack->addItem( shapePal, "&Shape" );
 
-	groupPal = new PropertiesPalette_Group( this );
-	idGroupItem = TabStack->addItem(groupPal, "Groups");
-
 	linePal = new PropertiesPalette_Line(this);
 	idLineItem=TabStack->addItem( linePal, "&Line" );
 
@@ -92,9 +87,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 
 	transparencyPalette = new TransparencyPalette(this);
 	idTransparencyItem = TabStack->addItem(transparencyPalette, "&Transparency" );
-
-	tablePal = new PropertiesPalette_Table(this);
-	idTableItem = TabStack->addItem(tablePal, "T&able" );
 
 	setWidget( TabStack );
 
@@ -145,9 +137,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	this->xyzPal->setMainWindow(mw);
 	this->shadowPal->setMainWindow(mw);
 	this->shapePal->setMainWindow(mw);
-	this->groupPal->setMainWindow(mw);
 	this->linePal->setMainWindow(mw);
-	this->tablePal->setMainWindow(mw);
 
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
@@ -215,9 +205,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	xyzPal->setDoc(m_doc);
 	shadowPal->setDoc(m_doc);
 	shapePal->setDoc(m_doc);
-	groupPal->setDoc(m_doc);
 	linePal->setDoc(m_doc);
-	tablePal->setDocument(m_doc);
 
 	updateColorList();
 
@@ -247,12 +235,8 @@ void PropertiesPalette::unsetDoc()
 	shadowPal->unsetDoc();
 	shapePal->unsetItem();
 	shapePal->unsetDoc();
-	groupPal->unsetItem();
-	groupPal->unsetDoc();
 	linePal->unsetItem();
 	linePal->unsetDoc();
-	tablePal->unsetItem();
-	tablePal->unsetDocument();
 
 	colorPalette->setCurrentItem(nullptr);
 	colorPalette->setDocument(nullptr);
@@ -272,10 +256,7 @@ void PropertiesPalette::unsetItem()
 	m_item = nullptr;
 	colorPalette->setCurrentItem(nullptr);
 	transparencyPalette->setCurrentItem(nullptr);
-	tablePal->unsetItem();
 	shapePal->unsetItem();
-	groupPal->unsetItem();
-	shadowPal->unsetItem();
 	linePal->unsetItem();
 	handleSelectionChanged();
 }
@@ -300,6 +281,7 @@ void PropertiesPalette::AppModeChanged()
 		return;
 	if ((m_haveDoc) && (m_haveItem))
 	{
+		// TODO: not sure that this is still needed...
 		if (m_item->isTable())
 		{
 			if (m_doc->appMode == modeEditTable)
@@ -338,7 +320,6 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	tablePal->setItem(m_item);
 	transparencyPalette->setCurrentItem(m_item);
 
 	setTextFlowMode(m_item->textFlowMode());
@@ -353,14 +334,10 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);
 		TabStack->setItemEnabled(idShapeItem, true);
-		TabStack->setItemEnabled(idGroupItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTransparencyItem, true);
-		TabStack->setItemEnabled(idTableItem, false);
 	}
-	else
-		TabStack->setItemEnabled(idGroupItem, false);
 
 	m_haveItem = true;
 
@@ -376,9 +353,7 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		xyzPal->handleSelectionChanged();
 		shadowPal->handleSelectionChanged();
 		shapePal->handleSelectionChanged();
-		groupPal->handleSelectionChanged();
 		linePal->handleSelectionChanged();
-		tablePal->handleSelectionChanged();
 		colorPalette->handleSelectionChanged();
 	}
 
@@ -387,23 +362,18 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);
 		TabStack->setItemEnabled(idShapeItem, true);
-		TabStack->setItemEnabled(idGroupItem, false);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
-		TabStack->setItemEnabled(idTableItem, false);
 		TabStack->setItemEnabled(idTransparencyItem, false);
-		TabStack->setItemEnabled(idTableItem, false);
 	}
 	if (m_item->asSymbolFrame())
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);
 		TabStack->setItemEnabled(idShapeItem, false);
-		TabStack->setItemEnabled(idGroupItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTransparencyItem, false);
-		TabStack->setItemEnabled(idTableItem, false);
 	}
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 }
@@ -426,12 +396,6 @@ void PropertiesPalette::handleSelectionChanged()
 		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, true);
-		TabStack->setItemEnabled(idTableItem, false); // At least not for now.
-		if (m_haveItem && m_item)
-		{
-			if ((m_item->isGroup()) && (!m_item->isSingleSel))
-				TabStack->setItemEnabled(idGroupItem, true);
-		}
 	}
 	else
 	{
@@ -443,7 +407,6 @@ void PropertiesPalette::handleSelectionChanged()
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, true);
-		TabStack->setItemEnabled(idTableItem, false);
 		switch (itemType)
 		{
 		case -1:
@@ -462,7 +425,6 @@ void PropertiesPalette::handleSelectionChanged()
 				TabStack->setItemEnabled(idXYZItem, true);
 				TabStack->setItemEnabled(idShadowItem, true);
 				TabStack->setItemEnabled(idShapeItem, true);
-				TabStack->setItemEnabled(idGroupItem, false);
 				TabStack->setItemEnabled(idLineItem, false);
 				TabStack->setItemEnabled(idColorsItem, true);
 				TabStack->setItemEnabled(idTransparencyItem, false);
@@ -475,6 +437,9 @@ void PropertiesPalette::handleSelectionChanged()
 				TabStack->setItemEnabled(idLineItem, true);
 			}
 			break;
+		case PageItem::Group:
+		case PageItem::Symbol:
+		case PageItem::Table:
 		case PageItem::TextFrame:
 			TabStack->setItemEnabled(idShadowItem, true);
 			TabStack->setItemEnabled(idShapeItem, true);
@@ -505,24 +470,6 @@ void PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idLineItem, true);
 			break;
-		case PageItem::Symbol:
-		case PageItem::Group:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, false);
-			TabStack->setItemEnabled(idGroupItem, true);
-			TabStack->setItemEnabled(idColorsItem, false);
-			TabStack->setItemEnabled(idTransparencyItem, false);
-			break;
-		case PageItem::Table:
-			TabStack->setItemEnabled(idTableItem, true);
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, false);
-			TabStack->setItemEnabled(idGroupItem, false);
-			TabStack->setItemEnabled(idColorsItem, false);
-			TabStack->setItemEnabled(idTransparencyItem, true);
-			break;
 		}
 	}
 	if (TabStack->isItemEnabled(currentTab) && (TabStack->currentIndex() != currentTab))
@@ -550,7 +497,6 @@ void PropertiesPalette::unitChange()
 	xyzPal->unitChange();
 	shadowPal->unitChange();
 	shapePal->unitChange();
-	groupPal->unitChange();
 	linePal->unitChange();
 
 	colorPalette->unitChange(oldRatio, m_unitRatio, m_doc->unitIndex());
@@ -779,7 +725,6 @@ void PropertiesPalette::updateColorList()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	tablePal->updateColorList();
 	colorPalette->updateColorList();
 	transparencyPalette->updateColorList();
 	shadowPal->updateColorList();
@@ -811,17 +756,13 @@ void PropertiesPalette::languageChange()
 	TabStack->setItemText(idShapeItem, tr("&Shape"));
 	TabStack->setItemText(idLineItem, tr("&Line"));
 	TabStack->setItemText(idColorsItem, tr("&Colors"));
-	TabStack->setItemText(idGroupItem, tr("&Group"));
 	TabStack->setItemText(idTransparencyItem, tr("&Transparency"));
-	TabStack->setItemText(idTableItem, tr("T&able"));
 
 	xyzPal->languageChange();
 	shadowPal->languageChange();
 	shapePal->languageChange();
-	groupPal->languageChange();
 	colorPalette->languageChange();
 	linePal->languageChange();
-	tablePal->languageChange();
 }
 
 void PropertiesPalette::setGradientEditMode(bool on)

@@ -605,6 +605,8 @@
     <moc Include="..\..\..\scribus\ui\numformatcombo.h" />
     <moc Include="..\..\..\scribus\ui\actionsearchdialog.h" />
     <moc Include="..\..\..\scribus\ui\contentpalette.h" />
+    <moc Include="..\..\..\scribus\ui\contentpalette_page.h" />
+    <moc Include="..\..\..\scribus\ui\contentpalette_default.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -981,6 +983,8 @@
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contentpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette_default.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette_page.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp" />
@@ -1541,6 +1545,8 @@
     <uic Include="..\..\..\scribus\ui\cmykfwbase.ui" />
     <uic Include="..\..\..\scribus\ui\colorpalette.ui" />
     <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui" />
+    <uic Include="..\..\..\scribus\ui\contentpalette_defaultbase.ui" />
+    <uic Include="..\..\..\scribus\ui\contentpalette_pagebase.ui" />
     <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui" />
     <uic Include="..\..\..\scribus\ui\createrange.ui" />
     <uic Include="..\..\..\scribus\ui\cxfimportdialogbase.ui" />

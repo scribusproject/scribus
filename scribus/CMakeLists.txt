@@ -99,6 +99,8 @@ set(SCRIBUS_UI_SRC
 	ui/cmykfwbase.ui
 	ui/colorpalette.ui
 	ui/colorsandfillsbase.ui
+	ui/contentpalette_defaultbase.ui
+	ui/contentpalette_pagebase.ui
 	ui/cxfimportdialogbase.ui
 	ui/downloadspalettebase.ui
 	ui/gradientaddedit.ui
@@ -339,6 +341,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/colorlistmodel.h
 	ui/colorsandfills.h
 	ui/contentpalette.h
+	ui/contentpalette_default.h
+	ui/contentpalette_page.h
 	ui/contextmenu.h
 	ui/cpalette.h
 	ui/cupsoptions.h
@@ -841,6 +845,8 @@ set(SCRIBUS_SOURCES
 	ui/colorlistmodel.cpp
 	ui/colorsandfills.cpp
 	ui/contentpalette.cpp
+	ui/contentpalette_default.cpp
+	ui/contentpalette_page.cpp
 	ui/contextmenu.cpp
 	ui/cpalette.cpp
 	ui/cupsoptions.cpp

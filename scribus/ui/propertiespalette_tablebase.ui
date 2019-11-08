@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>352</width>
-    <height>464</height>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -96,19 +96,107 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="fillLayout">
+     <property name="title">
+      <string>Fill</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QHBoxLayout" name="fillLayout1" stretch="0,0">
+        <item>
+         <layout class="QFormLayout" name="fillLayout1_1">
+          <item row="0" column="0">
+           <widget class="QLabel" name="fillColorLabel">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Color:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="ColorCombo" name="fillColor">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QFormLayout" name="fillLayout1_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="fillShadeLabel">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Shade:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="ScrSpinBox" name="fillShade">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="suffix">
+             <string> %</string>
+            </property>
+            <property name="decimals">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>100.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="bordersLayout">
      <property name="title">
       <string>Borders</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="bordesLayout1">
         <item>
          <layout class="QVBoxLayout" name="bordersLayout1_1">
-          <item>
+          <item alignment="Qt::AlignTop">
            <widget class="QPushButton" name="addBorderLineButton">
             <property name="enabled">
              <bool>true</bool>
@@ -136,7 +224,7 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignTop">
            <widget class="QPushButton" name="removeBorderLineButton">
             <property name="enabled">
              <bool>true</bool>
@@ -168,6 +256,9 @@
            <spacer name="buttonSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -381,104 +472,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="fillLayout">
-     <property name="title">
-      <string>Fill</string>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QHBoxLayout" name="fillLayout1" stretch="0,0">
-        <item>
-         <layout class="QFormLayout" name="fillLayout1_1">
-          <item row="0" column="0">
-           <widget class="QLabel" name="fillColorLabel">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Color:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="ColorCombo" name="fillColor">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QFormLayout" name="fillLayout1_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="fillShadeLabel">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Shade:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="ScrSpinBox" name="fillShade">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="suffix">
-             <string> %</string>
-            </property>
-            <property name="decimals">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>100.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TableSideSelector</class>
-   <extends>QFrame</extends>
-   <header>ui/tablesideselector.h</header>
-   <container>1</container>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LineCombo</class>
@@ -486,14 +498,15 @@
    <header>ui/linecombo.h</header>
   </customwidget>
   <customwidget>
+   <class>TableSideSelector</class>
+   <extends>QFrame</extends>
+   <header>ui/tablesideselector.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>ColorCombo</class>
    <extends>QComboBox</extends>
    <header>ui/colorcombo.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>TableStyleComboBox</class>

@@ -11,7 +11,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodehelper.h" // for AppModeChanged (if needed)
 
+#include "propertiespalette_group.h"
 #include "propertiespalette_image.h"
+#include "contentpalette_default.h"
+#include "contentpalette_page.h"
+#include "propertiespalette_table.h"
 #include "propertiespalette_text.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_table.h"
@@ -32,14 +36,23 @@ ContentPalette::ContentPalette(QWidget* parent) :
 
 	stackedWidget = new QStackedWidget(this);
 
-	auto emptyPal = new QWidget();
-	stackedWidget->addWidget(emptyPal);
+	defaultPal = new ContentPalette_Default(this);
+	stackedWidget->addWidget(defaultPal);
 
-	textPal = new PropertiesPalette_Text(this);
-	stackedWidget->addWidget(textPal);
+	groupPal = new PropertiesPalette_Group(this);
+	stackedWidget->addWidget(groupPal);
 
 	imagePal = new PropertiesPalette_Image(this);
 	stackedWidget->addWidget(imagePal);
+
+	pagePal = new ContentPalette_Page(this);
+	stackedWidget->addWidget(pagePal);
+
+	tablePal = new PropertiesPalette_Table(this);
+	stackedWidget->addWidget(tablePal);
+
+	textPal = new PropertiesPalette_Text(this);
+	stackedWidget->addWidget(textPal);
 
 	setWidget(stackedWidget);
 
@@ -52,8 +65,11 @@ void ContentPalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_ScMW = mw;
 
-	textPal->setMainWindow(mw);
+	defaultPal->setMainWindow(mw);
+	groupPal->setMainWindow(mw);
 	imagePal->setMainWindow(mw);
+	tablePal->setMainWindow(mw);
+	textPal->setMainWindow(mw);
 
 	connect(m_ScMW->appModeHelper, &AppModeHelper::AppModeChanged, this, &ContentPalette::AppModeChanged);
 }
@@ -78,8 +94,11 @@ void ContentPalette::setDoc(ScribusDoc *doc)
 	m_haveDoc = true;
 	m_haveItem = false;
 
-	textPal->setDoc(m_doc);
+	defaultPal->setDoc(m_doc);
+	groupPal->setDoc(m_doc);
 	imagePal->setDoc(m_doc);
+	tablePal->setDocument(m_doc);
+	textPal->setDoc(m_doc);
 
 	updateColorList();
 
@@ -104,12 +123,19 @@ void ContentPalette::unsetDoc()
 	m_doc=nullptr;
 	m_item = nullptr;
 
-	textPal->unsetItem();
-	textPal->unsetDoc();
+	defaultPal->unsetItem();
+	defaultPal->unsetDoc();
+	groupPal->unsetItem();
+	groupPal->unsetDoc();
 	imagePal->unsetItem();
 	imagePal->unsetDoc();
+	tablePal->unsetItem();
+	tablePal->unsetDocument();
+	textPal->unsetItem();
+	textPal->unsetDoc();
 
 	stackedWidget->setCurrentIndex((int) Panel::empty);
+	updatePanelTitle();
 }
 
 void ContentPalette::unsetItem()
@@ -117,7 +143,10 @@ void ContentPalette::unsetItem()
 	m_haveItem = false;
 	m_item = nullptr;
 
+	defaultPal->unsetItem();
+	groupPal->unsetItem();
 	imagePal->unsetItem();
+	tablePal->unsetItem();
 	textPal->unsetItem();
 
 	handleSelectionChanged();
@@ -142,6 +171,12 @@ void ContentPalette::AppModeChanged()
 	{
 		if (m_item->isTable())
 		{
+			// TODO: a.l.e: fix the table selection
+			// when a cell is selected it should show the table pane for now
+			// you need to enter the text edit mode to format text.
+			// in the future we will probably add a multiple panes at once
+			// (on top of each other? switching?)
+			// tablePal->setEnabled(m_doc->appMode == modeEditTable);
 			textPal->setEnabled(m_doc->appMode == modeEditTable);
 			if (m_doc->appMode == modeEditTable)
 			{
@@ -175,12 +210,17 @@ void ContentPalette::setCurrentItem(PageItem *item)
 	m_haveItem = true;
 	m_item = item;
 
+	tablePal->setItem(m_item);
+
 	// TODO: in PropertiesPalette there is a a funny if for the groups: take care of it when adding the group panel
 
 	if (!sender() || (m_doc->appMode == modeEditTable))
 	{
-		textPal->handleSelectionChanged();
+		defaultPal->handleSelectionChanged();
+		groupPal->handleSelectionChanged();
 		imagePal->handleSelectionChanged();
+		tablePal->handleSelectionChanged();
+		textPal->handleSelectionChanged();
 	}
 }
 
@@ -219,7 +259,10 @@ void  ContentPalette::handleSelectionChanged()
 			newPanel = Panel::text;
 			break;
 		case PageItem::Table:
-			newPanel = m_doc->appMode == modeEditTable ? Panel::text : Panel::empty;
+			newPanel = m_doc->appMode == modeEditTable && !static_cast<PageItem_Table*>(currItem)->hasSelection() ? Panel::text : Panel::table;
+			break;
+		case PageItem::Group:
+			newPanel = Panel::group;
 			break;
 		default:
 			newPanel = Panel::empty;
@@ -247,8 +290,9 @@ void ContentPalette::unitChange()
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	textPal->unitChange();
+	groupPal->unitChange();
 	imagePal->unitChange();
+	textPal->unitChange();
 
 	m_haveItem = tmp;
 }
@@ -258,6 +302,7 @@ void ContentPalette::updateColorList()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
+	tablePal->updateColorList();
 	textPal->updateColorList();
 
 	assert (m_doc->PageColors.document());
@@ -285,11 +330,20 @@ void ContentPalette::updatePanelTitle()
 		case Panel::empty:
 			setWindowTitle( tr("Content Properties"));
 			break;
-		case Panel::text:
-			setWindowTitle( tr("Text Properties"));
+		case Panel::group:
+			setWindowTitle( tr("Group Properties"));
 			break;
 		case Panel::image:
 			setWindowTitle( tr("Image Properties"));
+			break;
+		case Panel::page:
+			setWindowTitle( tr("Page Properties"));
+			break;
+		case Panel::table:
+			setWindowTitle( tr("Table Properties"));
+			break;
+		case Panel::text:
+			setWindowTitle( tr("Text Properties"));
 			break;
 	}
 }
@@ -297,8 +351,11 @@ void ContentPalette::updatePanelTitle()
 void ContentPalette::languageChange()
 {
 	updatePanelTitle();
-	textPal->languageChange();
+	defaultPal->languageChange();
+	groupPal->languageChange();
 	imagePal->languageChange();
+	tablePal->languageChange();
+	textPal->languageChange();
 }
 
 void ContentPalette::update(PageItem_ImageFrame* image)

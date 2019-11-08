@@ -17,8 +17,12 @@ class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
 
-class PropertiesPalette_Text;
+class ContentPalette_Default;
+class ContentPalette_Page;
+class PropertiesPalette_Group;
 class PropertiesPalette_Image;
+class PropertiesPalette_Table;
+class PropertiesPalette_Text;
 class PageItem_TextFrame;
 class PageItem_ImageFrame;
 class ParagraphStyle;
@@ -70,17 +74,24 @@ class SCRIBUS_API ContentPalette : public ScDockPalette
 		double m_unitRatio{1.0};
 		int m_unitIndex{0};
 
-		QStackedWidget* stackedWidget;
-		PropertiesPalette_Text* textPal;
-		PropertiesPalette_Image* imagePal;
+		QStackedWidget* stackedWidget{nullptr};
+		ContentPalette_Default* defaultPal{nullptr};
+		PropertiesPalette_Group* groupPal{nullptr};
+		PropertiesPalette_Image* imagePal{nullptr};
+		ContentPalette_Page* pagePal{nullptr};
+		PropertiesPalette_Table* tablePal{nullptr};
+		PropertiesPalette_Text* textPal{nullptr};
 
 		void updatePanelTitle();
 		
 		// the order must match the insertion of the widgets in the constructor
 		enum class Panel {
 			empty,
-			text,
-			image
+			group,
+			image,
+			page,
+			table,
+			text
 		};
 };
 
