@@ -11,7 +11,11 @@ if(NOT WANT_SCRIPTER2)
   #scripter1
   if(NOT WIN32)
     message(STATUS "Building with Scripter 1")
-    add_subdirectory(scriptplugin)
+    if(NOT WANT_PYTHON_2X)
+      add_subdirectory(scriptplugin)
+    else()
+      add_subdirectory(scriptplugin_py2x)
+    endif()
   endif()
 else()
   #scripter2

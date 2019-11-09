@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_plugins_scriptplugin_samples Include="$(MSBuildThisFileDirectory)\samples\*.py" />
+		<FilesToInstall_plugins_scriptplugin_scripts Include="$(MSBuildThisFileDirectory)\scripts\*.py" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_plugins_scriptplugin;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_plugins_scriptplugin">  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_scriptplugin_samples)"  
+			DestinationFiles="@(FilesToInstall_plugins_scriptplugin_samples-&gt;'$(OutDir)\share\samples\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_scriptplugin_scripts)"  
+			DestinationFiles="@(FilesToInstall_plugins_scriptplugin_scripts-&gt;'$(OutDir)\share\scripts\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

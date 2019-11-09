@@ -1,0 +1,129 @@
+<ui version="4.0" >
+ <class>PythonConsole</class>
+ <widget class="QMainWindow" name="PythonConsole" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>535</width>
+    <height>471</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Script Console</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="leftMargin" >
+     <number>9</number>
+    </property>
+    <property name="topMargin" >
+     <number>9</number>
+    </property>
+    <property name="rightMargin" >
+     <number>9</number>
+    </property>
+    <property name="bottomMargin" >
+     <number>9</number>
+    </property>
+    <property name="horizontalSpacing" >
+     <number>6</number>
+    </property>
+    <property name="verticalSpacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="0" >
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QTextEdit" name="commandEdit" >
+       <property name="lineWrapMode" >
+        <enum>QTextEdit::NoWrap</enum>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="outputEdit" >
+       <property name="lineWrapMode" >
+        <enum>QTextEdit::NoWrap</enum>
+       </property>
+       <property name="readOnly" >
+        <bool>true</bool>
+       </property>
+       <property name="acceptRichText" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>535</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Open" />
+    <addaction name="action_Save" />
+    <addaction name="actionSave_As" />
+    <addaction name="separator" />
+    <addaction name="action_Exit" />
+   </widget>
+   <widget class="QMenu" name="menu_Script" >
+    <property name="title" >
+     <string>&amp;Script</string>
+    </property>
+    <addaction name="action_Run" />
+    <addaction name="actionRun_As_Console" />
+    <addaction name="action_Save_Output" />
+   </widget>
+   <addaction name="menu_File" />
+   <addaction name="menu_Script" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="action_Open" >
+   <property name="text" >
+    <string>&amp;Open...</string>
+   </property>
+  </action>
+  <action name="action_Save" >
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As" >
+   <property name="text" >
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="action_Exit" >
+   <property name="text" >
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="action_Run" >
+   <property name="text" >
+    <string>&amp;Run</string>
+   </property>
+  </action>
+  <action name="actionRun_As_Console" >
+   <property name="text" >
+    <string>Run As &amp;Console</string>
+   </property>
+  </action>
+  <action name="action_Save_Output" >
+   <property name="text" >
+    <string>&amp;Save Output...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

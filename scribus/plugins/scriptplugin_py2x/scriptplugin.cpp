@@ -144,7 +144,7 @@ const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
 			"Petr Van\xc4\x9bk <petr@scribus.info>, "
 			"Franz Schmid <franz@scribus.info>, "
 			"Craig Ringer <craig@scribus.info>");
-	about->shortDescription = tr("Embedded Python scripting support for Python 3.x.");
+	about->shortDescription = tr("Embedded Python scripting support for Python 2.x.");
 	// about->description = tr("Write me!")
 	// about->version
 	// about->releaseDate
@@ -166,20 +166,20 @@ bool ScriptPlugin::initPlugin()
 	if (QDir(pyHome).exists())
 	{
 		QString ph = QDir::toNativeSeparators(pyHome);
-		pythonHome.resize(2 * ph.length() + 2);
-		memcpy(pythonHome.data(), ph.utf16(), 2 * ph.length() + 2);
-		Py_SetPythonHome((const wchar_t*) pythonHome.constData());
+		pythonHome = ph.toLocal8Bit();
+		Py_SetPythonHome(pythonHome.data());
 	}
 #endif
+	Py_Initialize();
+	if (PyUnicode_SetDefaultEncoding("utf-8"))
+	{
+		qDebug("Failed to set default encoding to utf-8.\n");
+		PyErr_Clear();
+	}
 
 	scripterCore = new ScripterCore(ScCore->primaryMainWindow());
 	Q_CHECK_PTR(scripterCore);
-
-	PyImport_AppendInittab("scribus", &PyInit_scribus);
-	Py_Initialize();
-
-	//initscribus(ScCore->primaryMainWindow());
-	
+	initscribus(ScCore->primaryMainWindow());
 #ifdef HAVE_SCRIPTER2
 	scripter2_init();
 #endif
@@ -228,7 +228,7 @@ void run()
 /*static */PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = nullptr;
-	if (!PyArg_ParseTuple(args, (char*) "s", &Name))
+	if (!PyArg_ParseTuple(args, (char*)"s", &Name))
 		return nullptr;
 	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
 	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
@@ -236,12 +236,12 @@ void run()
 	/*RetString = QString::fromUtf8(Name);
 	RetVal = retV;*/
 	scripterCore->returnString = QString::fromUtf8(Name);
-	return PyLong_FromLong(0L);
+	return PyInt_FromLong(0L);
 }
 
 /*static */PyObject *scribus_getval(PyObject* /*self*/)
 {
-	return PyUnicode_FromString(scripterCore->inValue.toUtf8().data());
+	return PyString_FromString(scripterCore->inValue.toUtf8().data());
 }
 
 /*! \brief Translate a docstring. Small helper function for use with the
@@ -307,8 +307,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("createRect"), scribus_newrect, METH_VARARGS, tr(scribus_newrect__doc__)},
 	{const_cast<char*>("createText"), scribus_newtext, METH_VARARGS, tr(scribus_newtext__doc__)},
 	{const_cast<char*>("createTable"), scribus_newtable, METH_VARARGS, tr(scribus_newtable__doc__)},
-	{const_cast<char*>("createParagraphStyle"), (PyCFunction)scribus_createparagraphstyle, METH_VARARGS|METH_KEYWORDS, tr(scribus_createparagraphstyle__doc__)},
-	{const_cast<char*>("createCharStyle"), (PyCFunction)scribus_createcharstyle, METH_VARARGS|METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
+	{const_cast<char*>("createParagraphStyle"), (PyCFunction)scribus_createparagraphstyle, METH_KEYWORDS, tr(scribus_createparagraphstyle__doc__)},
+	{const_cast<char*>("createCharStyle"), (PyCFunction)scribus_createcharstyle, METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
 	{const_cast<char*>("createCustomLineStyle"), scribus_createcustomlinestyle, METH_VARARGS, tr(scribus_createcustomlinestyle__doc__)},
 	{const_cast<char*>("currentPage"), (PyCFunction)scribus_actualpage, METH_NOARGS, tr(scribus_actualpage__doc__)},
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
@@ -420,8 +420,6 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("isLayerOutlined"), scribus_glayeroutline, METH_VARARGS, tr(scribus_glayeroutline__doc__)},
 	{const_cast<char*>("isLayerFlow"), scribus_glayerflow, METH_VARARGS, tr(scribus_glayerflow__doc__)},
 	{const_cast<char*>("isLocked"), scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
-	{const_cast<char*>("layoutText"), scribus_layouttext, METH_VARARGS, tr(scribus_layouttext__doc__)},
-	{const_cast<char*>("layoutTextChain"), scribus_layouttextchain, METH_VARARGS, tr(scribus_layouttextchain__doc__)},
 	{const_cast<char*>("linkTextFrames"), scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
 	{const_cast<char*>("loadImage"), scribus_loadimage, METH_VARARGS, tr(scribus_loadimage__doc__)},
 	{const_cast<char*>("loadStylesFromFile"), scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
@@ -455,7 +453,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("redrawAll"), (PyCFunction)scribus_redraw, METH_NOARGS, tr(scribus_redraw__doc__)},
 	{const_cast<char*>("removeTableRows"), scribus_removetablerows, METH_VARARGS, tr(scribus_removetablerows__doc__)},
 	{const_cast<char*>("removeTableColumns"), scribus_removetablecolumns, METH_VARARGS, tr(scribus_removetablecolumns__doc__)},
-	{const_cast<char*>("renderFont"), (PyCFunction)scribus_renderfont, METH_VARARGS|METH_KEYWORDS, tr(scribus_renderfont__doc__)},
+	{const_cast<char*>("renderFont"), (PyCFunction)scribus_renderfont, METH_KEYWORDS, tr(scribus_renderfont__doc__)},
 	{const_cast<char*>("replaceColor"), scribus_replcolor, METH_VARARGS, tr(scribus_replcolor__doc__)},
 	{const_cast<char*>("resizeTableColumn"), scribus_resizetablecolumn, METH_VARARGS, tr(scribus_resizetablecolumn__doc__)},
 	{const_cast<char*>("resizeTableRow"), scribus_resizetablerow, METH_VARARGS, tr(scribus_resizetablerow__doc__)},
@@ -537,7 +535,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("dehyphenateText"), scribus_dehyphenatetext, METH_VARARGS, tr(scribus_dehyphenatetext__doc__)},
 	{const_cast<char*>("scrollDocument"), scribus_scrolldocument, METH_VARARGS, tr(scribus_scrolldocument__doc__) },
 	{const_cast<char*>("setScaleFrameToImage"), (PyCFunction)scribus_setscaleframetoimage, METH_VARARGS, tr(scribus_setscaleframetoimage__doc__)},
-	{const_cast<char*>("setScaleImageToFrame"), (PyCFunction)scribus_setscaleimagetoframe, METH_VARARGS|METH_KEYWORDS, tr(scribus_setscaleimagetoframe__doc__)},
+	{const_cast<char*>("setScaleImageToFrame"), (PyCFunction)scribus_setscaleimagetoframe, METH_KEYWORDS, tr(scribus_setscaleimagetoframe__doc__)},
 	{const_cast<char*>("setStyle"), scribus_setstyle, METH_VARARGS, tr(scribus_setstyle__doc__)},
 	{const_cast<char*>("setCharacterStyle"), scribus_setcharstyle, METH_VARARGS, tr(scribus_setcharstyle__doc__) },
 	{const_cast<char*>("setTableStyle"), scribus_settablestyle, METH_VARARGS, tr(scribus_settablestyle__doc__)},
@@ -560,19 +558,19 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("sizeObject"), scribus_sizeobjabs, METH_VARARGS, tr(scribus_sizeobjabs__doc__)},
 	{const_cast<char*>("statusMessage"), scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
 	{const_cast<char*>("textFlowMode"), scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
-	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_VARARGS|METH_KEYWORDS, tr(scribus_istextoverflowing__doc__) },
+	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_KEYWORDS, tr(scribus_istextoverflowing__doc__) },
 	{const_cast<char*>("traceText"), scribus_tracetext, METH_VARARGS, tr(scribus_tracetext__doc__)},
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
 	{const_cast<char*>("zoomDocument"), scribus_zoomdocument, METH_VARARGS, tr(scribus_zoomdocument__doc__)},
 	// Property magic
-	{const_cast<char*>("getPropertyCType"), (PyCFunction)scribus_propertyctype, METH_VARARGS|METH_KEYWORDS, tr(scribus_propertyctype__doc__)},
-	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_VARARGS|METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},
-	{const_cast<char*>("getProperty"), (PyCFunction)scribus_getproperty, METH_VARARGS|METH_KEYWORDS, tr(scribus_getproperty__doc__)},
-	{const_cast<char*>("setProperty"), (PyCFunction)scribus_setproperty, METH_VARARGS|METH_KEYWORDS, tr(scribus_setproperty__doc__)},
-// 	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_VARARGS|METH_KEYWORDS, tr(scribus_getchildren__doc__)},
-// 	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_VARARGS|METH_KEYWORDS, tr(scribus_getchild__doc__)},
+	{const_cast<char*>("getPropertyCType"), (PyCFunction)scribus_propertyctype, METH_KEYWORDS, tr(scribus_propertyctype__doc__)},
+	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},
+	{const_cast<char*>("getProperty"), (PyCFunction)scribus_getproperty, METH_KEYWORDS, tr(scribus_getproperty__doc__)},
+	{const_cast<char*>("setProperty"), (PyCFunction)scribus_setproperty, METH_KEYWORDS, tr(scribus_setproperty__doc__)},
+// 	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
+// 	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
 	// by Christian Hausknecht
 	{const_cast<char*>("duplicateObject"), scribus_duplicateobject, METH_VARARGS, tr(scribus_duplicateobject__doc__)},
 	{const_cast<char*>("copyObject"), scribus_copyobject, METH_VARARGS, tr(scribus_copyobject__doc__)},
@@ -593,36 +591,6 @@ PyMethodDef scribus_methods[] = {
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} /* sentinel */
 };
 
-struct scribus_module_state
-{
-    PyObject *error;
-};
-#define GETSTATE(m) ((struct scribus_module_state*) PyModule_GetState(m))
-
-static int scribus_extension_traverse(PyObject *m, visitproc visit, void *arg)
-{
-	Py_VISIT(GETSTATE(m)->error);
-	return 0;
-}
-
-static int scribus_extension_clear(PyObject *m)
-{
-	Py_CLEAR(GETSTATE(m)->error);
-	return 0;
-}
-
-static struct PyModuleDef scribus_module_def = {
-        PyModuleDef_HEAD_INIT,
-        "scribus",
-        NULL,
-        sizeof(struct scribus_module_state),
-        scribus_methods,
-        NULL,
-        scribus_extension_traverse,
-        scribus_extension_clear,
-        NULL
-};
-
 void initscribus_failed(const char* fileName, int lineNo)
 {
 	qDebug("Scripter setup failed (%s:%i)", fileName, lineNo);
@@ -630,78 +598,68 @@ void initscribus_failed(const char* fileName, int lineNo)
 		PyErr_Print();
 }
 
-PyObject* PyInit_scribus(void)
+void initscribus(ScribusMainWindow *mainWin)
 {
-	ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
 	if (!scripterCore)
 	{
 		qWarning("scriptplugin: Tried to init scribus module, but no scripter core. Aborting.");
-		return nullptr;
+		return;
 	}
-
-	int result;
 	PyObject *m, *d;
+	PyImport_AddModule((char*)"scribus");
 
 	PyType_Ready(&Printer_Type);
 	PyType_Ready(&PDFfile_Type);
 	PyType_Ready(&ImageExport_Type);
-
-	m = PyModule_Create(&scribus_module_def);
-
+	m = Py_InitModule((char*)"scribus", scribus_methods);
 	Py_INCREF(&Printer_Type);
-	result = PyModule_AddObject(m, (char*) "Printer", (PyObject *) &Printer_Type);
-	if (result != 0)
-		qDebug("scriptplugin: Could not create scribus.Printer module");
+	PyModule_AddObject(m, (char*)"Printer", (PyObject *) &Printer_Type);
 	Py_INCREF(&PDFfile_Type);
-	result = PyModule_AddObject(m, (char*) "PDFfile", (PyObject *) &PDFfile_Type);
-	if (result != 0)
-		qDebug("scriptplugin: Could not create scribus.PDFfile module");
+	PyModule_AddObject(m, (char*)"PDFfile", (PyObject *) &PDFfile_Type);
 	Py_INCREF(&ImageExport_Type);
-	PyModule_AddObject(m, (char*) "ImageExport", (PyObject *) &ImageExport_Type);
-	if (result != 0)
-		qDebug("scriptplugin: Could not create scribus.ImageExport module");
+	PyModule_AddObject(m, (char*)"ImageExport", (PyObject *) &ImageExport_Type);
 	d = PyModule_GetDict(m);
 
 	// Set up the module exceptions
 	// common exc.
-	ScribusException = PyErr_NewException((char*) "scribus.ScribusException", nullptr, nullptr);
+	ScribusException = PyErr_NewException((char*)"scribus.ScribusException", nullptr, nullptr);
 	Py_INCREF(ScribusException);
-	PyModule_AddObject(m, (char*) "ScribusException", ScribusException);
+	PyModule_AddObject(m, (char*)"ScribusException", ScribusException);
 	// no doc open
-	NoDocOpenError = PyErr_NewException((char*) "scribus.NoDocOpenError", ScribusException, nullptr);
+	NoDocOpenError = PyErr_NewException((char*)"scribus.NoDocOpenError", ScribusException, nullptr);
 	Py_INCREF(NoDocOpenError);
-	PyModule_AddObject(m, (char*) "NoDocOpenError", NoDocOpenError);
+	PyModule_AddObject(m, (char*)"NoDocOpenError", NoDocOpenError);
 	// wrong type of frame for operation
-	WrongFrameTypeError = PyErr_NewException((char*) "scribus.WrongFrameTypeError", ScribusException, nullptr);
+	WrongFrameTypeError = PyErr_NewException((char*)"scribus.WrongFrameTypeError", ScribusException, nullptr);
 	Py_INCREF(WrongFrameTypeError);
-	PyModule_AddObject(m, (char*) "WrongFrameTypeError", WrongFrameTypeError);
+	PyModule_AddObject(m, (char*)"WrongFrameTypeError", WrongFrameTypeError);
 	// Couldn't find named object, or no named object and no selection
-	NoValidObjectError = PyErr_NewException((char*) "scribus.NoValidObjectError", ScribusException, nullptr);
+	NoValidObjectError = PyErr_NewException((char*)"scribus.NoValidObjectError", ScribusException, nullptr);
 	Py_INCREF(NoValidObjectError);
-	PyModule_AddObject(m, (char*) "NoValidObjectError", NoValidObjectError);
+	PyModule_AddObject(m, (char*)"NoValidObjectError", NoValidObjectError);
 	// Couldn't find the specified resource - font, color, etc.
-	NotFoundError = PyErr_NewException((char*) "scribus.NotFoundError", ScribusException, nullptr);
+	NotFoundError = PyErr_NewException((char*)"scribus.NotFoundError", ScribusException, nullptr);
 	Py_INCREF(NotFoundError);
-	PyModule_AddObject(m, (char*) "NotFoundError", NotFoundError);
+	PyModule_AddObject(m, (char*)"NotFoundError", NotFoundError);
 	// Tried to create an object with the same name as one that already exists
-	NameExistsError = PyErr_NewException((char*) "scribus.NameExistsError", ScribusException, nullptr);
+	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, nullptr);
 	Py_INCREF(NameExistsError);
-	PyModule_AddObject(m, (char*) "NameExistsError", NameExistsError);
+	PyModule_AddObject(m, (char*)"NameExistsError", NameExistsError);
 	// Done with exception setup
 
 	// CONSTANTS
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyLong_FromLong(unitIndexFromString("pt")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyLong_FromLong(unitIndexFromString("mm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyLong_FromLong(unitIndexFromString("in")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), PyLong_FromLong(unitIndexFromString("p")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CENTIMETRES"), PyLong_FromLong(unitIndexFromString("cm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CICERO"), PyLong_FromLong(unitIndexFromString("c")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PT"), PyLong_FromLong(unitIndexFromString("pt")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MM"), PyLong_FromLong(unitIndexFromString("mm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_IN"), PyLong_FromLong(unitIndexFromString("in")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_P"), PyLong_FromLong(unitIndexFromString("p")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CM"), PyLong_FromLong(unitIndexFromString("cm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_C"), PyLong_FromLong(unitIndexFromString("c")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyInt_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyInt_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyInt_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), PyInt_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CENTIMETRES"), PyInt_FromLong(unitIndexFromString("cm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CICERO"), PyInt_FromLong(unitIndexFromString("c")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_PT"), PyInt_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_MM"), PyInt_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_IN"), PyInt_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_P"), PyInt_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CM"), PyInt_FromLong(unitIndexFromString("cm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_C"), PyInt_FromLong(unitIndexFromString("c")));
 	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), portraitPage));
 	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), landscapePage));
 	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
@@ -841,28 +799,28 @@ PyObject* PyInit_scribus(void)
 		if (!value)
 		{
 			initscribus_failed(__FILE__, __LINE__);
-			return nullptr;
+			return;
 		}
 		// `in' is a reserved word in Python so we must replace it
 		PyObject* name;
 		if (unitGetUntranslatedStrFromIndex(i) == "in")
-			name = PyUnicode_FromString("inch");
+			name = PyString_FromString("inch");
 		else
-			name = PyUnicode_FromString(unitGetUntranslatedStrFromIndex(i).toUtf8().constData());
+			name = PyString_FromString(unitGetUntranslatedStrFromIndex(i).toLatin1().constData());
 		if (!name)
 		{
 			initscribus_failed(__FILE__, __LINE__);
-			return nullptr;
+			return;
 		}
 		if (PyDict_SetItem(d, name, value))
 		{
 			initscribus_failed(__FILE__, __LINE__);
-			return nullptr;
+			return;
 		}
 	}
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
-	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyUnicode_FromString(const_cast<char*>(VERSION)));
+	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));
 	// Now build a version tuple like that provided by Python in sys.version_info
 	// The tuple is of the form (major, minor, patchlevel, extraversion, reserved)
 	QRegExp version_re("(\\d+)\\.(\\d+)\\.(\\d+)(.*)");
@@ -890,20 +848,28 @@ PyObject* PyInit_scribus(void)
 	// the generated Python functions from inside the `scribus' module's context.
 	// This code makes it possible to extend the `scribus' module by running Python code
 	// from C in other ways too.
-	PyObject* builtinModule = PyImport_ImportModuleEx(const_cast<char*>("builtins"),
+	PyObject* builtinModule = PyImport_ImportModuleEx(const_cast<char*>("__builtin__"),
 			d, d, Py_BuildValue(const_cast<char*>("[]")));
 	if (builtinModule == nullptr)
 	{
-		qDebug("Failed to import builtins module. Something is probably broken with your Python.");
-		return nullptr;
+		qDebug("Failed to import __builtin__ module. Something is probably broken with your Python.");
+		return;
 	}
-	PyDict_SetItemString(d, const_cast<char*>("builtins"), builtinModule);
+	PyDict_SetItemString(d, const_cast<char*>("__builtin__"), builtinModule);
+	PyObject* exceptionsModule = PyImport_ImportModuleEx(const_cast<char*>("exceptions"),
+			d, d, Py_BuildValue(const_cast<char*>("[]")));
+	if (exceptionsModule == nullptr)
+	{
+		qDebug("Failed to import exceptions module. Something is probably broken with your Python.");
+		return;
+	}
+	PyDict_SetItemString(d, const_cast<char*>("exceptions"), exceptionsModule);
 	PyObject* warningsModule = PyImport_ImportModuleEx(const_cast<char*>("warnings"),
 			d, d, Py_BuildValue(const_cast<char*>("[]")));
 	if (warningsModule == nullptr)
 	{
 		qDebug("Failed to import warnings module. Something is probably broken with your Python.");
-		return nullptr;
+		return;
 	}
 	PyDict_SetItemString(d, const_cast<char*>("warnings"), warningsModule);
 	// Create the module-level docstring. This can be a proper unicode string, unlike
@@ -941,11 +907,21 @@ function's documentation, though as with most Python code this list\n\
 is not exhaustive due to exceptions from called functions.\n\
 ");
 
-	PyObject* docStr = PyUnicode_FromString(docstring.toUtf8().data());
+	PyObject* docStr = PyString_FromString(docstring.toUtf8().data());
 	if (!docStr)
 		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else
-		PyDict_SetItemString(d, const_cast<char*>("__doc__"), docStr);
+	{
+		PyObject* uniDocStr = PyUnicode_FromEncodedObject(docStr, "utf-8", nullptr);
+		Py_DECREF(docStr);
+		docStr = nullptr;
+		if (!uniDocStr)
+			qDebug("Failed to create module-level docstring object (couldn't make unicode)");
+		else
+			PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
+		Py_DECREF(uniDocStr);
+		uniDocStr = nullptr;
+	}
 
 	// Wrap up pointers to the the QApp and main window and push them out
 	// to Python.
@@ -970,8 +946,6 @@ is not exhaustive due to exceptions from called functions.\n\
 	PyDict_SetItemString(d, const_cast<char*>("mainWindow"), wrappedMainWindow);
 	Py_DECREF(wrappedMainWindow);
 	wrappedMainWindow = nullptr;
-
-	return m;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
