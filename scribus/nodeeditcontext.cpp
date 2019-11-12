@@ -75,13 +75,11 @@ FPointArray NodeEditContext::beginTransaction(PageItem* currItem)
 	if (Doc->nodeEdit.m_isContourLine)
 	{
 		Clip = currItem->ContourLine;
-		//					m_isContourLine = true;
 		uAction = Um::EditContour;
 	}
 	else
 	{
 		Clip = currItem->PoLine;
-		//					m_isContourLine = false;
 		uAction = Um::EditShape;
 	}
 
@@ -96,7 +94,6 @@ FPointArray NodeEditContext::beginTransaction(PageItem* currItem)
 	m_oldItemY = currItem->yPos();
 	if (UndoManager::undoEnabled())
 		nodeTransaction = undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
-	Doc->nodeEdit.deselect();
 	return Clip;
 }
 

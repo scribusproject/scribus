@@ -1252,8 +1252,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
+								m_doc->nodeEdit.beginTransaction(currItem);
 								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
+								undoManager->setUndoEnabled(false); // Record only core points action
 								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
@@ -1267,6 +1269,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
 								}
+								undoManager->setUndoEnabled(true); // Record only core points action
 								QTransform m = currItem->getTransform();
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
@@ -1343,8 +1346,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
+								m_doc->nodeEdit.beginTransaction(currItem);
 								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
+								undoManager->setUndoEnabled(false); // Record only core points action
 								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
@@ -1358,6 +1363,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
 								}
+								undoManager->setUndoEnabled(true); // Record only core points action
 								QTransform m = currItem->getTransform();
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
@@ -1434,8 +1440,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
+								m_doc->nodeEdit.beginTransaction(currItem);
 								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
+								undoManager->setUndoEnabled(false); // Record only core points action
 								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
@@ -1449,6 +1457,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
 								}
+								undoManager->setUndoEnabled(true); // Record only core points action
 								QTransform m = currItem->getTransform();
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
@@ -1525,8 +1534,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
+								m_doc->nodeEdit.beginTransaction(currItem);
 								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
+								undoManager->setUndoEnabled(false); // Record only core points action
 								for (int itm = 0; itm < nodeSelection.count(); ++itm)
 								{
 									FPoint np;
@@ -1540,6 +1551,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
 								}
+								undoManager->setUndoEnabled(true); // Record only core points action
 								QTransform m = currItem->getTransform();
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
@@ -1638,7 +1650,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 			m_arrowKeyDown = false;
 			if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 			{
-				int docSelectionCount=m_doc->m_Selection->count();
+				int docSelectionCount = m_doc->m_Selection->count();
 				if ((docSelectionCount != 0) && (m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 				{
 					PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -1647,6 +1659,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 					m_doc->adjustItemSize(currItem, true);
 					if (!m_doc->nodeEdit.isContourLine())
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
+					m_doc->nodeEdit.finishTransaction(currItem);
 					currItem->update();
 					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 				}

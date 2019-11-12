@@ -508,11 +508,13 @@ void CanvasMode_NodeEdit::keyReleaseEvent(QKeyEvent *e)
 void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 {
 	FPoint npf2;
+	bool edited = false;
+	bool pfound = false;
 	
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray Clip = m_doc->nodeEdit.beginTransaction(currItem);
-	bool edited = false;
-	bool pfound = false;
+	m_doc->nodeEdit.deselect();
+
 	QTransform pm2 = currItem->getTransform();
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(pm2, true);
 	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
@@ -1132,7 +1134,8 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				}
 
 				//Control Modifier to have parallele shape
-				if (m->modifiers() == Qt::ControlModifier){
+				if (m->modifiers() == Qt::ControlModifier)
+				{
 					FPointArray cli;
 					if (m_doc->nodeEdit.isContourLine())
 						cli = currItem->ContourLine;
