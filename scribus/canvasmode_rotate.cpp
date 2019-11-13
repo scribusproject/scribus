@@ -243,13 +243,13 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 			{
 				m_rotMode   = 2;
-				m_rotCenter = FPoint(gxR+gwR/2.0, gyR+ghR/2.0);
-				if (QRect(static_cast<int>(gx + gw)-6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
+				m_rotCenter = FPoint(gxR + gwR / 2.0, gyR + ghR / 2.0);
+				if (QRect(static_cast<int>(gx + gw) - 6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
 				{
 					m_rotCenter = FPoint(gxR, gyR);
 					m_rotMode   = 0;
 				}
-				m_doc->setRotationMode  ( m_rotMode );
+				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
 			}
 			m_startAngle = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
@@ -286,7 +286,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 						m_rotMode   = 1;
 					}	
 				}
-				m_doc->setRotationMode  ( m_rotMode );
+				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
 //			}
 			m_view->RCenter = m_rotCenter = FPoint(currItem->xPos()+ m_view->RCenter.x(), currItem->yPos()+ m_view->RCenter.y()); //?????
@@ -445,6 +445,29 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	}
 }
 
+void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
+{
+	if (e->isAutoRepeat())
+		return;
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		double gx, gy, gh, gw;
+		m_oldRotMode   = m_rotMode   = m_doc->rotationMode();
+		m_oldRotCenter = m_rotCenter = m_view->RCenter;
+		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+		m_rotMode   = m_doc->rotationMode();
+		m_rotCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+		if (m_rotMode == 0)
+			m_rotCenter = FPoint(gx, gy);
+		else if (m_rotMode == 1)
+			m_rotCenter = FPoint(gx + gw, gy);
+		else if (m_rotMode == 3)
+			m_rotCenter = FPoint(gx, gy + gh);
+		else if (m_rotMode == 4)
+			m_rotCenter = FPoint(gx + gw, gy + gh);
+	}
+}
+
 void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 {
 	if (e->key() == Qt::Key_Up)
@@ -484,22 +507,28 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 			{
 				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 			}
-			m_doc->itemSelection_Rotate(currItem->rotation() + increment);
+			if (m_doc->m_Selection->isMultipleSelection())
+			{
+				m_doc->setRotationMode(m_rotMode);
+				m_view->RCenter = m_rotCenter;
+			}
+			m_doc->itemSelection_Rotate(m_doc->m_Selection->isMultipleSelection() ? increment : (currItem->rotation() + increment));
 			m_canvas->setRenderModeUseBuffer(false);
-			if (!m_doc->m_Selection->isMultipleSelection())
+			if (m_doc->m_Selection->isMultipleSelection())
+			{
+				double x, y, w, h;
+				m_doc->setRotationMode(m_oldRotMode);
+				m_view->RCenter = m_oldRotCenter;
+				m_doc->m_Selection->setGroupRect();
+				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+				m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
+			}
+			else
 			{
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);
 				if (currItem->asLine())
 					m_view->updateContents();
-			}
-
-			if (m_doc->m_Selection->count() > 1)
-			{
-				m_doc->m_Selection->setGroupRect();
-				double x, y, w, h;
-				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-				m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			}
 		}
 		if (m_view->groupTransactionStarted())
@@ -513,16 +542,12 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 	}
 }
 
-void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
-{
-}
-
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 	m_view->setObjectUndoMode();
 	m_canvasPressCoord.setXY(mx, my);
-	if (currItem!=nullptr)
+	if (currItem != nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_view->m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_view->m_ScMW, m_doc, mx, my);
