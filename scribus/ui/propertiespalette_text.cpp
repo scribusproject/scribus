@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_pareffect.h"
 #include "propertywidget_pathtext.h"
 #include "propertywidget_textcolor.h"
-#include "sccombobox.h"
 #include "scfonts.h"
 #include "scraction.h"
 #include "scribuscore.h"

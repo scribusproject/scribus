@@ -10,14 +10,14 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QListWidget>
 #include <QList>
-class QVBoxLayout;
-class QListWidgetItem;
+
+class QComboBox;
 class QLabel;
+class QListWidgetItem;
+class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-class ScComboBox;
-
 
 /*! \brief A widget containing pages layout schema */
 class SCRIBUS_API PageListWidget : public QListWidget
@@ -47,9 +47,9 @@ public:
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
 	PageListWidget* layoutsView;
-	ScComboBox* layoutsCombo;
+	QComboBox* layoutsCombo;
 	QLabel* layoutLabel1;
-	ScComboBox* firstPage;
+	QComboBox* firstPage;
 	QList<PageSet> pageSets;
 
 public slots:

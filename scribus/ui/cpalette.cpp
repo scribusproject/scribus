@@ -51,7 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include "insertTable.h"
 #include "pageitem.h"
 #include "sccolorengine.h"
-#include "sccombobox.h"
 #include "sclistwidgetdelegate.h"
 #include "scpage.h"
 #include "scpainter.h"

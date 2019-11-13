@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "sccolorengine.h"
-#include "sccombobox.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "selection.h"

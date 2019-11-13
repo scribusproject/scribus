@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include "commonstrings.h"
 #include "sccolorengine.h"
-#include "sccombobox.h"
 #include "scraction.h"
 #include "scribusdoc.h"
 #include "selection.h"

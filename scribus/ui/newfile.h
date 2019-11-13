@@ -13,17 +13,20 @@ for which a new license (GPL+exception) is in place.
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QListWidget>
+
+class QCheckBox;
+class QComboBox;
 class QFormLayout;
 class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
 class QFrame;
-class QListWidgetItem;
 class QGroupBox;
-class QSpinBox;
 class QLabel;
-class QCheckBox;
+class QListWidgetItem;
 class QPushButton;
+class QSpinBox;
+
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -33,7 +36,6 @@ class QPushButton;
 class PrefsManager;
 class MarginWidget;
 class ScrSpinBox;
-class ScComboBox;
 class QFileDialog;
 
 class SCRIBUS_API PageLayoutsWidget : public QListWidget
@@ -75,7 +77,7 @@ public:
 	QFrame* newDocFrame;
 	PageLayoutsWidget* layoutsView;
 	QLabel* layoutLabel1;
-	ScComboBox* firstPage;
+	QComboBox* firstPage;
 	QGroupBox* pageSizeGroupBox;
 	MarginWidget* marginGroup;
 	QGroupBox* optionsGroupBox;

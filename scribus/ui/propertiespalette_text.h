@@ -27,7 +27,6 @@ class PropertyWidget_OptMargins;
 class PropertyWidget_Orphans;
 class PropertyWidget_PathText;
 class PropertyWidget_TextColor;
-class ScComboBox;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;

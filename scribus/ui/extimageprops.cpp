@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include <QLabel>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QPushButton>
 #include <QToolTip>
 #include <QPainter>
@@ -24,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "pageitem.h"
-#include "sccombobox.h"
 #include "scpainter.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -111,7 +111,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		textLabel1 = new QLabel( tab );
 		textLabel1->setText( tr( "Blend Mode:" ) );
 		layout1->addWidget( textLabel1 );
-		blendMode = new ScComboBox( tab );
+		blendMode = new QComboBox( tab );
 		blendMode->clear();
 		blendMode->addItem( tr("Normal"));
 		blendMode->addItem( tr("Darken"));

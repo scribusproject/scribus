@@ -639,7 +639,6 @@
     <ClInclude Include="..\..\..\scribus\sccolor.h" />
     <ClInclude Include="..\..\..\scribus\sccolorengine.h" />
     <ClInclude Include="..\..\..\scribus\sccolorshade.h" />
-    <moc Include="..\..\..\scribus\ui\sccombobox.h" />
     <ClInclude Include="..\..\..\scribus\scconfig.h" />
     <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h" />
     <moc Include="..\..\..\scribus\downloadmanager\scdlthread.h" />
@@ -1318,7 +1317,6 @@
     <ClCompile Include="..\..\..\scribus\sccolorengine.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorshade.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\sccombobox.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlthread.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\scdockpalette.cpp" />

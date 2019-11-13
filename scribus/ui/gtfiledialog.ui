@@ -28,7 +28,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="ScComboBox" name="importerCombo"/>
+    <widget class="QComboBox" name="importerCombo"/>
    </item>
    <item row="1" column="2">
     <widget class="QCheckBox" name="textOnlyCheckBox">
@@ -48,7 +48,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="ScComboBox" name="encodingCombo"/>
+    <widget class="QComboBox" name="encodingCombo"/>
    </item>
    <item row="2" column="2">
     <widget class="QCheckBox" name="prefixStylesCheckBox">
@@ -78,11 +78,6 @@
    <extends>QWidget</extends>
    <header>ui/scfilewidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

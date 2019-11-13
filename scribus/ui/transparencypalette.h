@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 class PageItem;
 class ColorListBox;
 class ScrSpinBox;
-class ScComboBox;
 class ScPattern;
 class LinkButton;
 

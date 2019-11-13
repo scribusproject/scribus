@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 class ArrowChooser;
 class DashEditor;
 class PageItem;
-class ScComboBox;
 class ScribusDoc;
 class ScribusMainWindow;
 

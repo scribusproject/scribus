@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMScComboBox::SMScComboBox(QWidget *parent)
-: ScComboBox(parent),
+: QComboBox(parent),
   m_hasParent(false),
   m_useParentValue(false),
   m_pItem(0)
@@ -23,7 +23,7 @@ void SMScComboBox::setCurrentItem(int i)
 	setFont(false);
 	m_hasParent = false;
 	m_pItem = 0;
-	ScComboBox::setCurrentIndex(i);
+	QComboBox::setCurrentIndex(i);
 }
 
 void SMScComboBox::setCurrentItem(int i, bool isParentValue)
@@ -38,7 +38,7 @@ void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 		addItem( tr("Use Parent Value"));
 	}
 
-	ScComboBox::setCurrentIndex(i);
+	QComboBox::setCurrentIndex(i);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
 
@@ -51,7 +51,7 @@ void SMScComboBox::setCurrentItemByData(int i)
 	for (int idx(0); idx < count(); ++idx)
 	{
 		if (itemData(idx).toInt() == i)
-			ScComboBox::setCurrentIndex(idx);
+			QComboBox::setCurrentIndex(idx);
 	}
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
@@ -71,7 +71,7 @@ void SMScComboBox::setCurrentItemByData(int i, bool isParentValue)
 	{
 		if (itemData(idx).toInt() == i)
 		{
-			ScComboBox::setCurrentIndex(idx);
+			QComboBox::setCurrentIndex(idx);
 			m_pItem = idx;
 		}
 	}
@@ -87,7 +87,7 @@ void SMScComboBox::setCurrentItemByData(double d)
 	for (int idx(0); idx < count(); ++idx)
 	{
 		if (itemData(idx).toDouble() == d)
-			ScComboBox::setCurrentIndex(idx);
+			QComboBox::setCurrentIndex(idx);
 	}
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
@@ -107,7 +107,7 @@ void SMScComboBox::setCurrentItemByData(double d, bool isParentValue)
 	{
 		if (itemData(idx).toDouble() == d)
 		{
-			ScComboBox::setCurrentIndex(idx);
+			QComboBox::setCurrentIndex(idx);
 			m_pItem = idx;
 		}
 	}
@@ -169,7 +169,7 @@ void SMScComboBox::setFont(bool wantBold)
 {
 	QFont f(font());
 	f.setBold(wantBold);
-	ScComboBox::setFont(f);
+	QComboBox::setFont(f);
 }
 
 void SMScComboBox::currentChanged()

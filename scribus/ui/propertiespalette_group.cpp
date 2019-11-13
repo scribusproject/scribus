@@ -50,7 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
-#include "sccombobox.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusview.h"

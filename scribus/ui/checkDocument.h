@@ -26,8 +26,8 @@ class QVBoxLayout;
 #include "scribusstructs.h"
 #include "ui/scrpalettebase.h"
 
+class QComboBox;
 class ScribusDoc;
-class ScComboBox;
 class ScPage;
 
 /*! \brief Preflight Verifier GUI (P.V.)
@@ -162,7 +162,7 @@ protected:
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
-	ScComboBox* curCheckProfile;
+	QComboBox* curCheckProfile;
 	QLabel* textLabel1;
 	QTreeWidget* reportDisplay;
 	QPushButton* ignoreErrors;

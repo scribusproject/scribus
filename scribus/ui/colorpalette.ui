@@ -201,7 +201,7 @@
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="ScComboBox" name="namedGradient"/>
+                <widget class="QComboBox" name="namedGradient"/>
                </item>
                <item>
                 <widget class="GradientEditor" name="gradEdit">
@@ -889,7 +889,7 @@
             </layout>
            </item>
            <item>
-            <widget class="ScComboBox" name="namedGradientStroke"/>
+            <widget class="QComboBox" name="namedGradientStroke"/>
            </item>
            <item>
             <widget class="GradientEditor" name="gradEditStroke">
@@ -1060,11 +1060,6 @@
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>GradientEditor</class>

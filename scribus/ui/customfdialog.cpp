@@ -47,7 +47,6 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "scfilewidget.h"
 #include "scimage.h"
 #include "scpreview.h"
@@ -408,7 +407,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 			optionLabel = new QLabel(this);
 			optionLabel->setText( tr("Encoding:"));
 			Layout1C->addWidget(optionLabel);
-			optionCombo = new ScComboBox(LayoutC);
+			optionCombo = new QComboBox(LayoutC);
 			optionCombo->setEditable(false);
 			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3",
 								"ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
@@ -454,7 +453,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 			optionLabel = new QLabel(this);
 			optionLabel->setText( tr("Import Option:"));
 			Layout1C->addWidget(optionLabel);
-			optionCombo = new ScComboBox(LayoutC);
+			optionCombo = new QComboBox(LayoutC);
 			optionCombo->setEditable(false);
 			optionCombo->addItem( tr("Keep original size"));
 			optionCombo->addItem( tr("Downscale to page size"));

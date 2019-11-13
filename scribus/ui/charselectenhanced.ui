@@ -50,7 +50,7 @@
     </widget>
    </item>
    <item row="0" column="4" >
-    <widget class="ScComboBox" name="rangeSelector" />
+    <widget class="QComboBox" name="rangeSelector" />
    </item>
    <item row="0" column="5" >
     <spacer>
@@ -200,11 +200,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
    <class>FontCombo</class>
    <extends>QComboBox</extends>
    <header>ui/fontcombo.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>CharTableView</class>

@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "pagelayout.h"
 #include "pagepalette_widgets.h"
-#include "sccombobox.h"
 #include "scpage.h"
 #include "ui/scmessagebox.h"
 

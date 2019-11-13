@@ -7,10 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMSCCOMBOBOX_H
 #define SMSCCOMBOBOX_H
 
-#include "sccombobox.h"
+#include <QComboBox>
 
-
-class SMScComboBox  : public ScComboBox
+class SMScComboBox  : public QComboBox
 {
 	Q_OBJECT
 public:

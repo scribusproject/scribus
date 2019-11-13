@@ -42,7 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "scfonts.h"
 #include "scimage.h"
 #include "scribusstructs.h"

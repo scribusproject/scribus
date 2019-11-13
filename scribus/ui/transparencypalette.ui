@@ -118,7 +118,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="ScComboBox" name="blendModeStroke">
+          <widget class="QComboBox" name="blendModeStroke">
            <item>
             <property name="text">
              <string>Normal</string>
@@ -346,7 +346,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScComboBox" name="namedGradient"/>
+            <widget class="QComboBox" name="namedGradient"/>
            </item>
            <item>
             <widget class="QCheckBox" name="transpCalcGradient">
@@ -439,7 +439,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScComboBox" name="blendModeFill">
+          <widget class="QComboBox" name="blendModeFill">
            <item>
             <property name="text">
              <string>Normal</string>
@@ -535,11 +535,6 @@
    <class>ScrSpinBox</class>
    <extends>QSpinBox</extends>
    <header location="global">ui/scrspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>GradientEditor</class>

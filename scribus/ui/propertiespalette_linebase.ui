@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item row="0" column="2" colspan="2">
-    <widget class="ScComboBox" name="lineMode"/>
+    <widget class="QComboBox" name="lineMode"/>
    </item>
    <item row="1" column="0" colspan="2">
     <widget class="QLabel" name="lineTypeLabel">
@@ -123,7 +123,7 @@
     </widget>
    </item>
    <item row="7" column="2" colspan="2">
-    <widget class="ScComboBox" name="lineJoinStyle"/>
+    <widget class="QComboBox" name="lineJoinStyle"/>
    </item>
    <item row="8" column="0">
     <widget class="QLabel" name="lineEndLabel">
@@ -133,7 +133,7 @@
     </widget>
    </item>
    <item row="8" column="2" colspan="2">
-    <widget class="ScComboBox" name="lineEndStyle"/>
+    <widget class="QComboBox" name="lineEndStyle"/>
    </item>
    <item row="9" column="0" colspan="4">
     <widget class="QListWidget" name="lineStyles"/>
@@ -145,11 +145,6 @@
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>LineCombo</class>

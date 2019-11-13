@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCheckBox>
 #include <QColorDialog>
+#include <QComboBox>
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -32,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "iconmanager.h"
-#include "sccombobox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
@@ -54,7 +54,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", n
 	layout1->setSpacing(2);
 	textLabel1 = new QLabel( this);
 	layout1->addWidget( textLabel1 );
-	blendMode = new ScComboBox( this);
+	blendMode = new QComboBox( this);
 	layout1->addWidget( blendMode );
 	textLabel2 = new QLabel( this);
 	textLabel2->setText( tr( "Opacity:" ) );

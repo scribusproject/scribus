@@ -11,13 +11,13 @@ for which a new license (GPL+exception) is in place.
 #include "mergedoc.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "ui/customfdialog.h"
 
 #include <QApplication>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QCursor>
 #include <QDir>
 #include <QGridLayout>
@@ -65,7 +65,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	if (masterPages)
 	{
 		importPageLabel->setText( tr("&Import Master Page") );
-		masterPageNameData = new ScComboBox(this);
+		masterPageNameData = new QComboBox(this);
 		masterPageNameData->setEnabled(false);
 		importPageLabel->setBuddy( masterPageNameData );
 		fromInfoLayout->addWidget( masterPageNameData, 1, 1, 1, 2);
@@ -85,7 +85,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		createPageData = new QCheckBox( this );
 		createPageData->setText( tr("Create Page(s)"));
 		fromInfoLayout->addWidget( createPageData, 2, 0 );
-		importWhereData = new ScComboBox( this );
+		importWhereData = new QComboBox( this );
 		importWhereData->setEnabled(false);
 		importWhereData->addItem( tr("Before Page"));
 		importWhereData->addItem( tr("After Page"));

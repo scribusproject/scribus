@@ -9,16 +9,17 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include "scribusapi.h"
-class QPushButton;
+
+class QCheckBox;
+class QComboBox;
 class QLabel;
 class QLineEdit;
+class QPushButton;
 class QSpinBox;
 class QString;
-class QCheckBox;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class ScComboBox;
 
 
 class SCRIBUS_API MergeDoc : public QDialog
@@ -48,8 +49,8 @@ private:
 	QPushButton* cancelButton;
 	QPushButton* changeButton;
 	QCheckBox* createPageData;
-	ScComboBox* masterPageNameData;
-	ScComboBox* importWhereData;
+	QComboBox* masterPageNameData;
+	QComboBox* importWhereData;
 	QSpinBox* importWherePageData;
 	QVBoxLayout* dialogLayout;
 	QGridLayout* fromInfoLayout;

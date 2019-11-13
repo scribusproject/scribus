@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "checkDocument.h"
 
+#include <QComboBox>
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -23,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "documentchecker.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -60,7 +60,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	layout1->setSpacing(5);
 	textLabel1 = new QLabel( this );
 	layout1->addWidget( textLabel1 );
-	curCheckProfile = new ScComboBox( this );
+	curCheckProfile = new QComboBox( this );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
 

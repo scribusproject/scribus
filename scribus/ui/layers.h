@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclayer.h"
 
 class CheckBox;
+class QComboBox;
 class QEvent;
 class QHBoxLayout;
 class QHeaderView;
@@ -24,7 +25,6 @@ class QTableWidget;
 class QTableWidgetItem;
 class QToolButton;
 class QVBoxLayout;
-class ScComboBox;
 class ScrSpinBox;
 class ScribusDoc;
 
@@ -76,7 +76,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QHBoxLayout* layout1;
 	QLabel* textLabel1;
-	ScComboBox* blendMode;
+	QComboBox* blendMode;
 	QLabel* textLabel2;
 	ScrSpinBox* opacitySpinBox;
 	QHeaderView* Header;

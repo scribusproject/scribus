@@ -15,8 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class QComboBox;
 class ScribusDoc;
-class ScComboBox;
 
 class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 {
@@ -47,7 +47,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 		void updateRejectedFontList();
 
 		QMap<QString,QString> RList;
-		QList<ScComboBox*> FlagsRepl;
+		QList<QComboBox*> FlagsRepl;
 		//! List of font names of allowed fonts for substitutions
 		QStringList UsedFonts;
 		QString CurrentPath;

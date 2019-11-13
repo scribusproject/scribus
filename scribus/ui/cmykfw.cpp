@@ -38,7 +38,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 #include "sccolorengine.h"
-#include "sccombobox.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribusdoc.h"

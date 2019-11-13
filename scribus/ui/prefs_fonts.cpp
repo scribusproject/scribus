@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 
 
+#include <QComboBox>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QTreeWidget>
@@ -25,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "sccombobox.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "prefsmanager.h"
@@ -200,7 +200,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
 		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
 		fontSubstitutionsTableWidget->setItem(a, 0, tWidgetItem);
-		ScComboBox *item = new ScComboBox(fontSubstitutionsTableWidget);
+		auto item = new QComboBox(fontSubstitutionsTableWidget);
 		fontSubstitutionsTableWidget->setCellWidget(a, 1, item);
 		item->setEditable(false);
 		item->addItem(itfsu.value());

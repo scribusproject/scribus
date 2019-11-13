@@ -231,7 +231,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/recoverdialog.h"
 #include "ui/replacecolors.h"
 #include "ui/resourcemanager.h"
-#include "ui/sccombobox.h"
 #include "ui/scfilewidget.h"
 #include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"

@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "polyprops.h"
 #include "sccolorengine.h"
-#include "sccombobox.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"

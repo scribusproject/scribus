@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "scguardedptr.h"
 
 class PageItem;
-class ScComboBox;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;

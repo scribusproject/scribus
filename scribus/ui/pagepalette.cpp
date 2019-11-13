@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "pagepalette_masterpages.h"
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
-#include "sccombobox.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "scribusdoc.h"

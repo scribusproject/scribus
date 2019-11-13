@@ -6,13 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pagelayout.h"
 
+#include <QComboBox>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QPixmap>
 #include <QList>
 
-#include "sccombobox.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
 
@@ -75,12 +75,12 @@ PageLayouts::PageLayouts(QWidget* parent)  : QGroupBox( parent )
 	layoutGroupLayout->setSpacing( 5 );
 	layoutGroupLayout->setMargin( 10 );
 
-	layoutsCombo = new ScComboBox( this );
+	layoutsCombo = new QComboBox( this );
 	layoutGroupLayout->addWidget( layoutsCombo );
 
 	layoutLabel1 = new QLabel( this );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new ScComboBox( this );
+	firstPage = new QComboBox( this );
 	layoutGroupLayout->addWidget( firstPage );
 
 	languageChange();
@@ -103,12 +103,12 @@ PageLayouts::PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode
 	}
 	else
 	{
-		layoutsCombo = new ScComboBox( this );
+		layoutsCombo = new QComboBox( this );
 		layoutGroupLayout->addWidget( layoutsCombo );
 	}
 	layoutLabel1 = new QLabel( this );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new ScComboBox( this );
+	firstPage = new QComboBox( this );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
 // 	We need change combos width setMaximumWidth(minimumSizeHint().width());

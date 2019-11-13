@@ -74,7 +74,7 @@
       </widget>
      </item>
      <item>
-      <widget class="ScComboBox" name="ComboBox1"/>
+      <widget class="QComboBox" name="ComboBox1"/>
      </item>
      <item>
       <widget class="QCheckBox" name="Separations">
@@ -585,11 +585,6 @@
    <class>SwatchCombo</class>
    <extends>QToolButton</extends>
    <header>ui/swatchcombo.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>ColorChart</class>

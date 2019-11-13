@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QAbstractItemModel>
+#include <QComboBox>
 #include <QStyle>
 #include <QPainter>
 #include <QHeaderView>
@@ -31,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorcombo.h"
 #include "scrspinbox.h"
-#include "sccombobox.h"
 #include <QCheckBox>
 #include <QApplication>
 #include "units.h"
@@ -140,7 +140,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 	}
 	else if (item->m_type == PropTreeItem::ComboBox)
 	{
-		ScComboBox *editor = new ScComboBox(parent);
+		auto editor = new QComboBox(parent);
 		editor->addItems(index.model()->data(index, Qt::UserRole+1).toStringList());
 		edito = editor;
 		edito->setAutoFillBackground(true);
@@ -189,7 +189,7 @@ void PropTreeItemDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 	}
 	else if (item->m_type == PropTreeItem::ComboBox)
 	{
-		ScComboBox *comboBox = static_cast<ScComboBox*>(editor);
+		auto comboBox = static_cast<QComboBox*>(editor);
 		setCurrentComboItem(comboBox ,index.model()->data(index, Qt::UserRole).toString());
 	}
 	else if (item->m_type == PropTreeItem::CheckBox)
@@ -227,7 +227,7 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 	}
 	else if (item->m_type == PropTreeItem::ComboBox)
 	{
-		ScComboBox *comboBox = static_cast<ScComboBox*>(editor);
+		auto comboBox = static_cast<QComboBox*>(editor);
 		QString value = comboBox->currentText();
 		int val = comboBox->currentIndex();
 		item->m_comboIndex = val;

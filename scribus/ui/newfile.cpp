@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDir>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGroupBox>
@@ -39,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "filedialogeventcatcher.h"
 #include "scrspinbox.h"
 #include "units.h"
@@ -291,7 +291,7 @@ void NewDoc::createNewDocPage()
 
 	layoutLabel1 = new QLabel( optionsGroupBox );
 	layoutLabel1->setText( tr( "First Page is:" ) );
-	firstPage = new ScComboBox( optionsGroupBox );
+	firstPage = new QComboBox( optionsGroupBox );
 	firstPage->clear();
 	selectItem(prefsManager.appPrefs.docSetupPrefs.pagePositioning);
 	optionsGroupBoxLayout->addRow( layoutLabel1, firstPage );

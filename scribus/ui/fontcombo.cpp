@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "fontcombo.h"
 #include "iconmanager.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "scpage.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
@@ -125,13 +124,13 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		fontComboLayout->setColumnStretch(1,10);
 		col=1;
 	}
-	fontFamily = new ScComboBox(this);
+	fontFamily = new QComboBox(this);
 	fontFamily->setEditable(true);
 	fontFamily->setValidator(new FontComboValidator(fontFamily));
 	fontFamily->setInsertPolicy(QComboBox::NoInsert);
 	fontFamily->setItemDelegate(new FontFamilyDelegate(this));
 	fontComboLayout->addWidget(fontFamily,0,col);
-	fontStyle = new ScComboBox(this);
+	fontStyle = new QComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
 	isForAnnotation = true;  // this is merely to ensure that the list is rebuilt
 	rebuildList(nullptr);

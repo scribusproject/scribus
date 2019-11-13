@@ -486,7 +486,6 @@ set(SCRIBUS_MOC_CLASSES
 	ui/resourcemanagerlicense.h
 	ui/rulermover.h
 	ui/sccolorslider.h
-	ui/sccombobox.h
 	ui/scdockpalette.h
 	ui/scescapecatcher.h
 	ui/scfilewidget.h
@@ -988,7 +987,6 @@ set(SCRIBUS_SOURCES
 	ui/resourcemanagerlicense.cpp
 	ui/rulermover.cpp
 	ui/sccolorslider.cpp
-	ui/sccombobox.cpp
 	ui/scdockpalette.cpp
 	ui/scescapecatcher.cpp
 	ui/scfilewidget.cpp

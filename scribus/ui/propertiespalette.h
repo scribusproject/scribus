@@ -39,7 +39,6 @@ class PropertiesPalette_Shadow;
 class PropertiesPalette_Shape;
 class PropertiesPalette_Table;
 class PropertiesPalette_XYZ;
-class ScComboBox;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;

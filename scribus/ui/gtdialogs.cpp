@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "sccombobox.h"
 #include "ui/gtfiledialog.h"
 
 #include <QFileInfo>
@@ -73,7 +72,7 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 	QBoxLayout* ilayout = new QHBoxLayout;
 	ilayout->setMargin(5);
 	ilayout->setSpacing(5);
-	importerCombo = new ScComboBox(this);
+	importerCombo = new QComboBox(this);
 	importerCombo->setMinimumSize(QSize(150, 0));
 	importerCombo->setToolTip( tr("Choose the importer to use"));
 	importerCombo->addItems(importers);

@@ -82,7 +82,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="ScComboBox" name="columnGapLabel">
+    <widget class="QComboBox" name="columnGapLabel">
      <property name="toolTip">
       <string>Switches between Gap or Column width</string>
      </property>
@@ -184,11 +184,6 @@
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>ui/sccombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "curvewidget.h"
 #include "iconmanager.h"
 #include "scclocale.h"
-#include "sccombobox.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"

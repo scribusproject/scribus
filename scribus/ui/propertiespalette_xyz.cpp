@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
-#include "sccombobox.h"
 
 #include "scribuscore.h"
 #include "scraction.h"
