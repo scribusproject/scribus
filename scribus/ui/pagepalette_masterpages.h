@@ -51,7 +51,14 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
+
+	bool isReservedName(const QString& name) const;
+	QString getNonReservedName(const QString& name) const;
+	/*!
+	 * \retval the current name or, if it's a standard one, the translated version
+	*/
+	QString getTranslatedReservedName(const QString& name) const;
 
 private slots:
 	void duplicateMasterPage();

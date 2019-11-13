@@ -157,6 +157,45 @@ void SCRIBUS_API setWidgetBoldFont(QWidget* w, bool wantBold);
 /*!
  *\brief
  * check if name exists in list
+ * if it exists then return "name (#)", where # counts up from
+ * existing "name (#)"s (starting from 2)
+ * \retval the current name or a new unique name
+*/
+template<class STRINGLIST>
+QString getUniqueName(const QString& name, const STRINGLIST& list)
+{
+	if (!list.contains(name))
+		return name;
+
+	QString newName(name);
+
+	QString prefix(newName);
+	int suffixNum = 1;
+
+	// capture the name and the index, if any
+	// fred (5)
+	// ^^^^  ^   (where ^ means captured)
+	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+	if (rx.indexIn(newName) != -1)
+	{
+		QStringList matches = rx.capturedTexts();
+		prefix = matches[1];
+		suffixNum = matches[2].toInt();
+	}
+
+	do
+	{
+		suffixNum++;
+		newName = prefix + " (" + QString::number(suffixNum) + ")";
+	}
+	while (list.contains(newName));
+
+	return newName;
+}
+
+/*!
+ *\brief
+ * check if name exists in list
  * if exist then seprator and numbers are pre/append to name while it will be unique
 */
 void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = "", bool prepend = false);

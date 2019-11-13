@@ -1160,6 +1160,7 @@ void setWidgetBoldFont(QWidget* w, bool wantBold)
 	w->setFont(f);
 }
 
+
 void getUniqueName(QString &name, const QStringList& list, const QString& separator, bool prepend)
 {
 	if (!list.contains(name))
