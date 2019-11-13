@@ -244,7 +244,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			{
 				m_rotMode   = 2;
 				m_rotCenter = FPoint(gxR+gwR/2.0, gyR+ghR/2.0);
-				if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+				if (QRect(static_cast<int>(gx + gw)-6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
 				{
 					m_rotCenter = FPoint(gxR, gyR);
 					m_rotMode   = 0;
@@ -260,7 +260,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			QTransform mat;
 			m_canvas->Transform(currItem, mat);
 			m_rotMode   = 2;
-			m_rotCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
+			m_rotCenter = FPoint(currItem->width() / 2, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
 //			if (!currItem->asLine())
 //			{
 				if (QRegion(mat.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
@@ -270,17 +270,17 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 						m_rotCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 4;
 					}
-					else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, 0, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 3;
 					}
-					else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, 0);
 						m_rotMode   = 0;
 					}
-					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 1;
@@ -322,13 +322,13 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		}
 		double angle = 0;
-		double newW  = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
+		double newW  = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
-			newW=constrainAngle(newW, m_doc->opToolPrefs().constrain);
-			m_view->oldW=constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
+			newW = constrainAngle(newW, m_doc->opToolPrefs().constrain);
+			m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 			//RotateGroup uses MoveBy so its pretty hard to constrain the result
-			angle = m_doc->m_Selection->isMultipleSelection() ? (newW-m_view->oldW) : newW;
+			angle = m_doc->m_Selection->isMultipleSelection() ? (newW - m_view->oldW) : newW;
 		}
 		else
 		{
@@ -345,7 +345,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 				m_view->updateContents();
 		}
 	}
-	m_doc->setRotationMode( m_oldRotMode );
+	m_doc->setRotationMode(m_oldRotMode);
 	m_view->RCenter = m_oldRotCenter;
 	if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		m_view->requestMode(modeNormal);
@@ -361,7 +361,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}
 		// Handled normally automatically by Selection in sendSignals()
 		/*else
@@ -411,17 +411,9 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 				if (how >= 0)
-				{
-					if (how > 0)
-					{
-						setResizeCursor(how);
-					}
 					m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
-				}
 				else
-				{
 					setModeCursor();
-				}
 				return;
 			}
 			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
@@ -486,7 +478,8 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 	PageItem *currItem;
 	if (increment != 0)
 	{ 
-		if (GetItem(&currItem)) {
+		if (GetItem(&currItem))
+		{
 			if (!m_view->groupTransactionStarted())
 			{
 				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
