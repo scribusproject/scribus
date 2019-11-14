@@ -512,7 +512,10 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
 			}
-			m_doc->itemSelection_Rotate(m_doc->m_Selection->isMultipleSelection() ? increment : (currItem->rotation() + increment));
+			if (m_doc->m_Selection->isMultipleSelection())
+				m_doc->rotateGroup(increment, m_view->RCenter);
+			else
+				m_doc->itemSelection_Rotate(currItem->rotation() + increment);
 			m_canvas->setRenderModeUseBuffer(false);
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
