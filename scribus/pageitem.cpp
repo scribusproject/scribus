@@ -1298,6 +1298,10 @@ bool PageItem::canBeLinkedTo(const PageItem* nxt) const
 		if (ff == this)
 			return false;
 	}
+	// If object is placed on a master page, it can be linked only to objects placed on same master page
+	// Same for objects placed on standard pages : they can only be linked to objects placed on standard pages
+	if (OnMasterPage != nxt->OnMasterPage)
+		return false;
 	return true;
 }
 
