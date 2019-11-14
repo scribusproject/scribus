@@ -91,15 +91,15 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	const double onePerScale = 1 / scale;
 	if (cli.size() > 3)
 	{
-		for (int poi=0; poi<cli.size()-3; poi += 4)
+		for (int i = 0; i < cli.size() - 3; i += 4)
 		{
-			if (cli.isMarker(poi))
+			if (cli.isMarker(i))
 				continue;
 			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			const FPoint& a1 = cli.point(poi);
-			const FPoint& a2 = cli.point(poi+1);
-			const FPoint& a3 = cli.point(poi+3);
-			const FPoint& a4 =	cli.point(poi+2);
+			const FPoint& a1 = cli.point(i);
+			const FPoint& a2 = cli.point(i + 1);
+			const FPoint& a3 = cli.point(i + 3);
+			const FPoint& a4 =	cli.point(i + 2);
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
@@ -110,38 +110,38 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 		}
 	}
 	// draw points
-	for (int a = 0; a < cli.size()-1; a += 2)
+	for (int i = 0; i < cli.size() - 1; i += 2)
 	{
-		if (cli.isMarker(a))
+		if (cli.isMarker(i))
 			continue;
 		if (m_doc->nodeEdit.edPoints())
 		{
-			if (m_doc->nodeEdit.clre() == static_cast<int>(a+1))
+			if (m_doc->nodeEdit.clre() == (i + 1))
 				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
 				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
+			cli.point(i + 1, &x, &y);
 			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.clre() == static_cast<int>(a))
+			if (m_doc->nodeEdit.clre() == i)
 				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
 				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
+			cli.point(i, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 		else
 		{
-			if (m_doc->nodeEdit.clre() == static_cast<int>(a))
+			if (m_doc->nodeEdit.clre() == i)
 				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
 				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
+			cli.point(i, &x, &y);
 			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.clre() == static_cast<int>(a+1))
+			if (m_doc->nodeEdit.clre() == (i + 1))
 				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
 				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
+			cli.point(i + 1, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 	}
