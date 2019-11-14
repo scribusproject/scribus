@@ -203,7 +203,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/modetoolbar.h"
 #include "ui/movepage.h"
 #include "ui/multipleduplicate.h"
-#include "ui/newfile.h"
+#include "ui/newdocdialog.h"
 #include "ui/newtemp.h"
 #include "ui/nftdialog.h"
 #include "ui/nftwidget.h"
@@ -1933,7 +1933,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
 	//Do not quit if Preferences or new doc window is open
 	PreferencesDialog *prefsDialog = findChild<PreferencesDialog *>(QString::fromLocal8Bit("PreferencesDialog"));
-	NewDoc *newDocWin = findChild<NewDoc *>(QString::fromLocal8Bit("NewDocumentWindow"));
+	NewDocDialog *newDocWin = findChild<NewDocDialog *>(QString::fromLocal8Bit("NewDocumentWindow"));
 	if (prefsDialog!=nullptr || newDocWin!=nullptr)
 	{
 		ce->ignore();
@@ -2107,10 +2107,10 @@ void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, m_recentDocsList, true, ScCore->getGuiLanguage());
+	NewDocDialog* dia = new NewDocDialog(this, m_recentDocsList, true, ScCore->getGuiLanguage());
 	if (dia->exec())
 	{
-		if (dia->tabSelected() == NewDoc::NewDocumentTab)
+		if (dia->tabSelected() == NewDocDialog::NewDocumentTab)
 		{
 			int facingPages = dia->choosenLayout();
 			int firstPage = dia->firstPage->currentIndex();
@@ -2144,7 +2144,7 @@ void ScribusMainWindow::startUpDialog()
 			doc->setModified(false);
 			updateActiveWindowCaption(doc->documentFileName());
 		}
-		else if (dia->tabSelected() == NewDoc::NewFromTemplateTab)
+		else if (dia->tabSelected() == NewDocDialog::NewFromTemplateTab)
 		{
 			QString fileName = QDir::cleanPath(dia->selectedFile());
 			if (!fileName.isEmpty() && loadDoc(fileName))
@@ -2157,7 +2157,7 @@ void ScribusMainWindow::startUpDialog()
 				removeRecent(fileName);
 			}
 		}
-		else if (dia->tabSelected() == NewDoc::OpenExistingTab)
+		else if (dia->tabSelected() == NewDocDialog::OpenExistingTab)
 		{
 			QString fileName = dia->selectedFile();
 			if (!fileName.isEmpty())
@@ -2167,7 +2167,7 @@ void ScribusMainWindow::startUpDialog()
 				loadDoc(fileName);
 			}
 		}
-		else // NewDoc::OpenRecentTab
+		else // NewDocDialog::OpenRecentTab
 		{
 			QString fileName = dia->selectedFile();
 			if (!fileName.isEmpty())
@@ -2191,7 +2191,7 @@ bool ScribusMainWindow::slotFileNew()
 		view->requestMode(submodeEndNodeEdit);
 	bool retVal = false;
 	bool docSet = false;
-	NewDoc* dia = new NewDoc(this, m_recentDocsList);
+	NewDocDialog* dia = new NewDocDialog(this, m_recentDocsList);
 	if (dia->exec())
 	{
 		int facingPages = dia->choosenLayout();

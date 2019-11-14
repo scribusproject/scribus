@@ -488,7 +488,7 @@
     <moc Include="..\..\..\scribus\ui\multipleduplicate.h" />
     <moc Include="..\..\..\scribus\ui\multiprogressdialog.h" />
     <moc Include="..\..\..\scribus\navigator.h" />
-    <moc Include="..\..\..\scribus\ui\newfile.h" />
+    <moc Include="..\..\..\scribus\ui\newdocdialog.h" />
     <moc Include="..\..\..\scribus\ui\newmarginwidget.h" />
     <moc Include="..\..\..\scribus\ui\newtemp.h" />
     <moc Include="..\..\..\scribus\ui\nftdialog.h" />
@@ -1163,7 +1163,7 @@
     <ClCompile Include="..\..\..\scribus\ui\multipleduplicate.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\multiprogressdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\navigator.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\newfile.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\newdocdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\newmarginwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\newtemp.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\nftdialog.cpp" />

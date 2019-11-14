@@ -487,7 +487,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/movepage.h \
            scribus/ui/multipleduplicate.h \
            scribus/ui/multiprogressdialog.h \
-           scribus/ui/newfile.h \
+           scribus/ui/newdocdialog.h \
            scribus/ui/newmarginwidget.h \
            scribus/ui/newtemp.h \
            scribus/ui/nftdialog.h \
@@ -1613,7 +1613,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/movepage.cpp \
            scribus/ui/multipleduplicate.cpp \
            scribus/ui/multiprogressdialog.cpp \
-           scribus/ui/newfile.cpp \
+           scribus/ui/newdocdialog.cpp \
            scribus/ui/newmarginwidget.cpp \
            scribus/ui/newtemp.cpp \
            scribus/ui/nftdialog.cpp \

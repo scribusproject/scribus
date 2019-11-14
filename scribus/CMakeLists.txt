@@ -402,7 +402,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/movepage.h
 	ui/multipleduplicate.h
 	ui/multiprogressdialog.h
-	ui/newfile.h
+	ui/newdocdialog.h
 	ui/newtemp.h
 	ui/nftdialog.h
 	ui/nftwidget.h
@@ -903,7 +903,7 @@ set(SCRIBUS_SOURCES
 	ui/multipleduplicate.cpp
 	ui/multiprogressdialog.cpp
 	ui/measurements.cpp
-	ui/newfile.cpp
+	ui/newdocdialog.cpp
 	ui/newtemp.cpp
 	ui/nftdialog.cpp
 	ui/nftwidget.cpp

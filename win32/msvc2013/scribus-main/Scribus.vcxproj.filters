@@ -1345,7 +1345,7 @@
     <ClCompile Include="..\..\..\scribus\navigator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\newfile.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\newdocdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\newmarginwidget.cpp">
@@ -3431,7 +3431,7 @@
     <moc Include="..\..\..\scribus\navigator.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\newfile.h">
+    <moc Include="..\..\..\scribus\ui\newdocdialog.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\newmarginwidget.h">

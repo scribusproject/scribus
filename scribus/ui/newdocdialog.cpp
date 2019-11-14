@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "newfile.h"
+#include "newdocdialog.h"
 
 #include <QFormLayout>
 #include <QGridLayout>
@@ -89,7 +89,7 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 	return QSize(maxX, maxY);
 }
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent ),
+NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent ),
 	prefsManager(PrefsManager::instance())
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
@@ -173,7 +173,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, co
 	}
 }
 
-void NewDoc::createNewDocPage()
+void NewDocDialog::createNewDocPage()
 {
 	newDocFrame = new QFrame(this);
 
@@ -337,7 +337,7 @@ void NewDoc::createNewDocPage()
 	NewDocLayout->addWidget( pageSizeGroupBox, 0, 0, 1, 2);
 }
 
-void NewDoc::createNewFromTempPage()
+void NewDocDialog::createNewFromTempPage()
 {
 	newFromTempFrame = new QFrame(this);
 	verticalLayout = new QVBoxLayout(newFromTempFrame);
@@ -345,7 +345,7 @@ void NewDoc::createNewFromTempPage()
 	verticalLayout->addWidget(nftGui);
 }
 
-void NewDoc::createOpenDocPage()
+void NewDocDialog::createOpenDocPage()
 {
 	PrefsContext* docContext = prefsManager.prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
@@ -394,12 +394,12 @@ void NewDoc::createOpenDocPage()
 	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
-void NewDoc::openFile()
+void NewDocDialog::openFile()
 {
 	ExitOK();
 }
 
-void NewDoc::createRecentDocPage()
+void NewDocDialog::createRecentDocPage()
 {
 	recentDocFrame = new QFrame(this);
 	recentDocLayout = new QVBoxLayout(recentDocFrame);
@@ -414,7 +414,7 @@ void NewDoc::createRecentDocPage()
 		recentDocListBox->setCurrentRow(0);
 }
 
-void NewDoc::setWidth(double)
+void NewDocDialog::setWidth(double)
 {
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	marginGroup->setPageWidth(m_pageWidth);
@@ -431,7 +431,7 @@ void NewDoc::setWidth(double)
 	}
 }
 
-void NewDoc::setHeight(double)
+void NewDocDialog::setHeight(double)
 {
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
 	marginGroup->setPageHeight(m_pageHeight);
@@ -448,7 +448,7 @@ void NewDoc::setHeight(double)
 	}
 }
 
-void NewDoc::selectItem(uint nr)
+void NewDocDialog::selectItem(uint nr)
 {
 	disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	disconnect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
@@ -478,7 +478,7 @@ void NewDoc::selectItem(uint nr)
 	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 }
 
-void NewDoc::itemSelected(QListWidgetItem* ic)
+void NewDocDialog::itemSelected(QListWidgetItem* ic)
 {
 	if (ic == nullptr)
 		return;
@@ -486,7 +486,7 @@ void NewDoc::itemSelected(QListWidgetItem* ic)
 	setDocLayout(layoutsView->row(ic));
 }
 
-void NewDoc::handleAutoFrame()
+void NewDocDialog::handleAutoFrame()
 {
 	if (autoTextFrame->isChecked())
 	{
@@ -504,12 +504,12 @@ void NewDoc::handleAutoFrame()
 	}
 }
 
-void NewDoc::setDistance(double)
+void NewDocDialog::setDistance(double)
 {
 	m_distance = Distance->value() / m_unitRatio;
 }
 
-void NewDoc::setUnit(int newUnitIndex)
+void NewDocDialog::setUnit(int newUnitIndex)
 {
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
@@ -528,7 +528,7 @@ void NewDoc::setUnit(int newUnitIndex)
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
-void NewDoc::ExitOK()
+void NewDocDialog::ExitOK()
 {
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
@@ -539,7 +539,7 @@ void NewDoc::ExitOK()
 	if (m_onStartup)
 	{
 		m_tabSelected = tabWidget->currentIndex();
-		if (m_tabSelected == NewDoc::NewFromTemplateTab) // new doc from template
+		if (m_tabSelected == NewDocDialog::NewFromTemplateTab) // new doc from template
 		{
 			if (nftGui->currentDocumentTemplate)
 			{
@@ -547,7 +547,7 @@ void NewDoc::ExitOK()
 				m_selectedFile = QDir::cleanPath(m_selectedFile);
 			}
 		}
-		else if (m_tabSelected == NewDoc::OpenExistingTab) // open existing doc
+		else if (m_tabSelected == NewDocDialog::OpenExistingTab) // open existing doc
 		{
 			QStringList files = fileDialog->selectedFiles();
 			if (files.count() != 0)
@@ -559,7 +559,7 @@ void NewDoc::ExitOK()
 				return;
 			}
 		}
-		else if (m_tabSelected == NewDoc::OpenRecentTab) // open recent doc
+		else if (m_tabSelected == NewDocDialog::OpenRecentTab) // open recent doc
 		{
 			if (recentDocListBox->currentItem() != nullptr)
 			{
@@ -570,11 +570,11 @@ void NewDoc::ExitOK()
 		}
 	}
 	else
-		m_tabSelected = NewDoc::NewDocumentTab;
+		m_tabSelected = NewDocDialog::NewDocumentTab;
 	accept();
 }
 
-void NewDoc::setOrientation(int ori)
+void NewDocDialog::setOrientation(int ori)
 {
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
@@ -603,7 +603,7 @@ void NewDoc::setOrientation(int ori)
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
-void NewDoc::setPageSize(const QString &size)
+void NewDocDialog::setPageSize(const QString &size)
 {
 	if (size == CommonStrings::trCustomPageSize)
 		setSize(size);
@@ -615,7 +615,7 @@ void NewDoc::setPageSize(const QString &size)
 	marginGroup->setPageSize(size);
 }
 
-void NewDoc::setSize(const QString& gr)
+void NewDocDialog::setSize(const QString& gr)
 {
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
@@ -648,21 +648,21 @@ void NewDoc::setSize(const QString& gr)
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
-void NewDoc::setDocLayout(int layout)
+void NewDocDialog::setDocLayout(int layout)
 {
 	marginGroup->setFacingPages(layout != singlePage);
 	m_choosenLayout = layout;
 	firstPage->setCurrentIndex(prefsManager.appPrefs.pageSets[m_choosenLayout].FirstPage);
 }
 
-void NewDoc::recentDocListBox_doubleClicked()
+void NewDocDialog::recentDocListBox_doubleClicked()
 {
 	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */
 	ExitOK();
 }
 
-void NewDoc::adjustTitles(int tab)
+void NewDocDialog::adjustTitles(int tab)
 {
 	if (tab == 0)
 		setWindowTitle(tr("New Document"));
@@ -677,7 +677,7 @@ void NewDoc::adjustTitles(int tab)
 	OKButton->setEnabled(tab!=2);
 }
 
-void NewDoc::locationDropped(const QString& fileUrl)
+void NewDocDialog::locationDropped(const QString& fileUrl)
 {
 	QFileInfo fi(fileUrl);
 	if (fi.isDir())
@@ -689,7 +689,7 @@ void NewDoc::locationDropped(const QString& fileUrl)
 	}
 }
 
-void NewDoc::gotoParentDirectory()
+void NewDocDialog::gotoParentDirectory()
 {
 	QDir d(fileDialog->directory());
 	d.cdUp();
@@ -697,7 +697,7 @@ void NewDoc::gotoParentDirectory()
 }
 
 
-void NewDoc::gotoSelectedDirectory()
+void NewDocDialog::gotoSelectedDirectory()
 {
 	QStringList s(fileDialog->selectedFiles());
 	if (s.count()>0)
@@ -708,7 +708,7 @@ void NewDoc::gotoSelectedDirectory()
 	}
 }
 
-void NewDoc::gotoDesktopDirectory()
+void NewDocDialog::gotoDesktopDirectory()
 {
 	QString dp=QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 	QFileInfo fi(dp);
@@ -717,7 +717,7 @@ void NewDoc::gotoDesktopDirectory()
 }
 
 
-void NewDoc::gotoHomeDirectory()
+void NewDocDialog::gotoHomeDirectory()
 {
 	QString dp=QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 	QFileInfo fi(dp);
@@ -725,7 +725,7 @@ void NewDoc::gotoHomeDirectory()
 		fileDialog->setDirectory(dp);
 }
 
-void NewDoc::openFileDialogFileClicked(const QString& path)
+void NewDocDialog::openFileDialogFileClicked(const QString& path)
 {
 	OKButton->setEnabled(!path.isEmpty());
 }

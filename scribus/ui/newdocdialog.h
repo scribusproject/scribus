@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef NEWDOC_H
-#define NEWDOC_H
+#ifndef NEWDOCDIALOG_H
+#define NEWDOCDIALOG_H
 
 #include <QDialog>
 #include <QDropEvent>
@@ -52,7 +52,7 @@ public:
 };
 
 
-class SCRIBUS_API NewDoc : public QDialog
+class SCRIBUS_API NewDocDialog : public QDialog
 {
 	Q_OBJECT
 
@@ -66,8 +66,9 @@ public:
 		OpenRecentTab
 	} ActionSelected;
 
-	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, const QString& lang = "");
-	~NewDoc() = default;
+	NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool startUp = false, const QString& lang = "");
+	~NewDocDialog() = default;
+
 	void createNewDocPage();
 	void createNewFromTempPage();
 	void createOpenDocPage();
