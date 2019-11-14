@@ -154,7 +154,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 		const auto& selectedNodes = m_doc->nodeEdit.selNode();
 		for (int i = 0; i < selectedNodes.count(); ++i)
 		{
-			cli.point(i, &x, &y);
+			int selectedNode = selectedNodes.at(i);
+			cli.point(selectedNode, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 	}
