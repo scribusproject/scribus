@@ -633,7 +633,7 @@ bool PdfPlug::convert(const QString& fn)
 						}
 						m_Doc->setPageSize("Custom");
 					//	m_Doc->pdfOptions().PresentVals.clear();
-						for (int i = 0; i < pageNs.size(); ++i)
+						for (size_t i = 0; i < pageNs.size(); ++i)
 						{
 							int pp = pageNs[i];
 							m_Doc->setActiveLayer(baseLayer);
