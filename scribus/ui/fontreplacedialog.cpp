@@ -38,30 +38,30 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	textLabel1->setAlignment(Qt::AlignVCenter);
 	textLabel1->setWordWrap(true);
 	textLabel1->setText( "<qt>" + tr("This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.") + "</qt>" );
-	FontReplaceDialogLayout->addWidget( textLabel1 );
+	FontReplaceDialogLayout->addWidget(textLabel1);
 	
-	
-	replacementTable = new QTableWidget(0, 2, this );
+	replacementTable = new QTableWidget(0, 2, this);
 	replacementTable->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Original Font")));
 	replacementTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Substitution Font")));
 	replacementTable->setSortingEnabled(false);
-	replacementTable->setSelectionBehavior( QAbstractItemView::SelectRows );
+	replacementTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	QHeaderView *header = replacementTable->horizontalHeader();
-	header->setSectionsClickable(false );
-	header->setSectionsMovable( false );
-	header->setSectionResizeMode(QHeaderView::Stretch);
+	header->setSectionsClickable(false);
+	header->setSectionsMovable(false);
+	header->setSectionResizeMode(0, QHeaderView::Stretch);
+	header->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 	replacementTable->verticalHeader()->hide();
 	replacementTable->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	replacementTable->setRowCount(RList->count());
-	int a = 0;
-	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = RList->begin(); itfsu != RList->end(); ++itfsu)
+
+	int i = 0;
+	for (auto itfsu = RList->begin(); itfsu != RList->end(); ++itfsu)
 	{
-		replacementTable->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
+		replacementTable->setItem(i, 0, new QTableWidgetItem(itfsu.key()));
 		FontCombo* item = new FontCombo(this);
 		setCurrentComboItem(item, itfsu.value());
-		replacementTable->setCellWidget(a, 1, item);
-		a++;
+		replacementTable->setCellWidget(i, 1, item);
+		i++;
 	}
 	FontReplaceDialogLayout->addWidget( replacementTable );
 
@@ -70,14 +70,14 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	layout1->setSpacing(5);
 	stickyReplacements = new QCheckBox( this );
 	stickyReplacements->setText( tr( "Make these substitutions permanent" ) );
-	layout1->addWidget( stickyReplacements );
-	QSpacerItem* spacer1 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout1->addItem( spacer1 );
-	okButton = new QPushButton( CommonStrings::tr_OK, this );
-	layout1->addWidget( okButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
-	layout1->addWidget( cancelButton );
-	FontReplaceDialogLayout->addLayout( layout1 );
+	layout1->addWidget(stickyReplacements);
+	QSpacerItem* spacer1 = new QSpacerItem(2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	layout1->addItem(spacer1);
+	okButton = new QPushButton(CommonStrings::tr_OK, this);
+	layout1->addWidget(okButton);
+	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this);
+	layout1->addWidget(cancelButton);
+	FontReplaceDialogLayout->addLayout(layout1);
 	resize( QSize(450, 250) );
 
 	cancelButton->setToolTip( "<qt>" + tr( "Cancels these font substitutions and stops loading the document") + "</qt>" );
@@ -95,11 +95,11 @@ void FontReplaceDialog::closeEvent(QCloseEvent *closeEvent)
 
 void FontReplaceDialog::leaveOK()
 {
-	for (int a = 0; a < replacementTable->rowCount(); ++a)
+	for (int i = 0; i < replacementTable->rowCount(); ++i)
 	{
-		FontCombo* item = (FontCombo*)replacementTable->cellWidget(a, 1);
-		ReplaceList->remove(replacementTable->item(a, 0)->text());
-		ReplaceList->insert(replacementTable->item(a, 0)->text(), item->currentText());
+		FontCombo* item = (FontCombo*)replacementTable->cellWidget(i, 1);
+		ReplaceList->remove(replacementTable->item(i, 0)->text());
+		ReplaceList->insert(replacementTable->item(i, 0)->text(), item->currentText());
 	}
 	if (okButton == sender())
 		accept();
