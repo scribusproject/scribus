@@ -275,6 +275,13 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					ScMessageBox::warning(m_view, tr("Linking Text Frames"),
 										"<qt>" + tr("You are trying to link a frame to itself.") + "</qt>");
 				}
+				else if (currItem->nextInChain() != nullptr)
+				{
+					//CB Mouse is released when this messagebox takes focus
+					m_canvas->m_viewMode.m_MouseButtonPressed = false;
+					ScMessageBox::warning(m_view, tr("Linking Text Frames"),
+										 "<qt>" + tr("Frame is already linked. Unlink it before linking it to another frame.") + "</qt>");
+				}
 				else
 				{
 					//CB Mouse is released when this messagebox takes focus
