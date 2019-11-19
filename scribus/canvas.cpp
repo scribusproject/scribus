@@ -2117,48 +2117,24 @@ void Canvas::DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master)
  */
 void Canvas::drawFrameLinks(ScPainter* painter)
 {
-	painter->save();
-	PageItem *currItem;
-	if ((m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents) && (m_viewMode.linkedFramesToShow.count() != 0))
-		currItem = m_viewMode.linkedFramesToShow.at(0);
-	else
+	PageItem *currItem = nullptr;
+	if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 	{
-		if (m_viewMode.linkedFramesToShow.count() != 0)
-			currItem = m_viewMode.linkedFramesToShow.at(0);
-		else
+		if (m_doc->m_Selection->count() > 0)
 			currItem = m_doc->m_Selection->itemAt(0);
+		else if (m_viewMode.linkedFramesToShow.count() > 0)
+			currItem = m_viewMode.linkedFramesToShow.at(0);
+		if (currItem && (currItem->itemType() != PageItem::TextFrame))
+			currItem = nullptr;
 	}
+
 	//Draw the frame links
-	if ((((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		 && (currItem->itemType() == PageItem::TextFrame)) || (m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents))
+	painter->save();
+	if (m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents)
 	{
-		PageItem *nextItem = currItem;
-		if (m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents)
+		for (int i = 0; i < m_viewMode.linkedFramesToShow.count(); ++i)
 		{
-			for (int lks = 0; lks < m_viewMode.linkedFramesToShow.count(); ++lks)
-			{
-				nextItem = m_viewMode.linkedFramesToShow.at(lks);
-				while (nextItem != nullptr)
-				{
-					if (nextItem->nextInChain() != nullptr)
-					{
-						FPoint start, end;
-						calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
-						drawLinkFrameLine(painter, start, end);
-					}
-					nextItem = nextItem->nextInChain();
-				}
-			}
-		}
-		else
-		{
-			while (nextItem != nullptr)
-			{
-				if (nextItem->prevInChain() != nullptr)
-					nextItem = nextItem->prevInChain();
-				else
-					break;
-			}
+			PageItem* nextItem = m_viewMode.linkedFramesToShow.at(i);
 			while (nextItem != nullptr)
 			{
 				if (nextItem->nextInChain() != nullptr)
@@ -2169,6 +2145,20 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 				}
 				nextItem = nextItem->nextInChain();
 			}
+		}
+	}
+	else if ((((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames)) && (currItem != nullptr)))
+	{
+		PageItem *nextItem = currItem->firstInChain();
+		while (nextItem != nullptr)
+		{
+			if (nextItem->nextInChain() != nullptr)
+			{
+				FPoint start, end;
+				calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
+				drawLinkFrameLine(painter, start, end);
+			}
+			nextItem = nextItem->nextInChain();
 		}
 	}
 	painter->setLineWidth(1);
