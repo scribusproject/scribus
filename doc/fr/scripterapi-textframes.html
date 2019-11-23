@@ -78,6 +78,11 @@ Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si 
 <dd><code>layoutTextChain(["nom"])</code>
 <p>Actualise la mise en page du texte pour l'intégralité de la chaîne de texte à laquelle le cadre de texte "nom" appartient. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
+<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><code>linkTextFrames("nomDepart", "nomArrivee")</code>
+<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
+<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
+
 <dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
 <dd><code>selectText(depart, compte, ["nom"])</code>
 <p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est &agrave; zéro, tout le texte sera effacé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
@@ -143,8 +148,12 @@ Voir les FAQ pour plus de détails. Si "nom" n'est pas fourni, l'élément séle
 cadre de texte "nom", 0 sinon. Si sansLiens est une valeur non nulle, il prend
 seulement un cadre - il n'utilise pas les liens de cadre. Sans
 ce paramètre, il cherche toute les chaînes liées.</p>
-<p>Peut générer WrongFrameTypeError si le cadre cible n'est pas un
-cadre de texte. </p></dd>
+<p>Peut générer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte. </p></dd>
+
+<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><code>unlinkTextFrames("nom")</code>
+<p>Retire l'objet désigné de la séquence de liens du cadre de texte. Si le cadre se trouvait au milieu d'une chaîne de liens, les cadres précédent et suivant seront connectés, par exemple 'a-&gt;b-&gt;c' devient 'a-&gt;c' lorsque vous déconnectez <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
 
 </dl>
 </body>

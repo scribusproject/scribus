@@ -8,11 +8,6 @@
 
 <dl>
 
-<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
-<dd><code>linkTextFrames("nomDepart", "nomArrivee")</code>
-<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
-<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
-
 <dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
 <dd><code>loadImage("nomFichier" [, "nom"])</code>
 <p>Charge l'image "nomFichier" dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
@@ -125,11 +120,6 @@ exprimée en points. Si le "nom" n'est pas fourni, l'élément sélectionné est
 <dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
 <dd><code>traceText(["nom"])</code>
 <p>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
-	
-<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
-<dd><code>unlinkTextFrames("nom")</code>
-<p>Retire l'objet désigné de la séquence de liens du cadre de texte. Si le cadre se trouvait au milieu d'une chaîne de liens, les cadres précédent et suivant seront connectés, par exemple 'a-&gt;b-&gt;c' devient 'a-&gt;c' lorsque vous déconnectez <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
-<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
 
 </dl>
 </body>
