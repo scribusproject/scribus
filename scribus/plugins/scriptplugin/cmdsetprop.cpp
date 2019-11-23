@@ -405,7 +405,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setitemname(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *newName = const_cast<char*>("");
@@ -413,11 +413,13 @@ PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
+
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == nullptr)
 		return nullptr;
 	currItem->setItemName(newName);
-	Py_RETURN_NONE;
+
+	return PyUnicode_FromString(currItem->itemName().toUtf8());
 }
 
 PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
@@ -541,5 +543,5 @@ void cmdsetpropdocwarnings()
 	  << scribus_setlinejoin__doc__  << scribus_setlinecap__doc__   
 	  << scribus_setlinestyle__doc__ << scribus_setfillshade__doc__ 
 	  << scribus_setcornerrad__doc__ << scribus_setmultiline__doc__
-	  << scribus_setnewname__doc__   << scribus_setobjectattributes__doc__;
+	  << scribus_setitemname__doc__   << scribus_setobjectattributes__doc__;
 }

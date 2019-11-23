@@ -67,6 +67,11 @@
 <p>Sets the position of the picture in the image frame "name". If "name" is not given the currently selected item is used. The specified offset values are equal to the values shown on properties palette when point unit is used.</p>
 <p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
 
+<dt><a name="-setItemName"><strong>setItemName</strong></a>(...)</dt>
+<dd><code>setItemName(newName, [, "name"])</code>
+<p>Sets the name of the object "name" to "newName" and returns the name applied. If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the object doesn't exist.</p></dd>
+
 <dt><a name="-setLineBlendmode"><strong>setLineBlendmode</strong>(...)</a></dt>
 <dd><code>setLineBlendmode(blendmode, ["name"])</code>
 <p>Sets the line blendmode of the object "name" to blendmode is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>

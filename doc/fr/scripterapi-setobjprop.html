@@ -66,6 +66,11 @@ les constantes pour les types disponibles (FILL_&lt;type&gt;).</p></dd>
 <p>Définit la position de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. Les coordonnées spécifiées sont égales aux valeurs indiquées dans la palette des propriétés lorsque l'unité utilisée est le point.</p>
 <p>Peut générer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
 
+<dt><a name="-setItemName"><strong>setItemName</strong></a>(...)</dt>
+<dd><code>setItemName(nouveauNom, [, "nom"])</code>
+<p>Définit le nom de l'objet "nom" à la valeur "nouveauNom" et retourne le nom effectivement appliqué. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si l'objet n'existe pas.</p></dd>
+
 <dt><a name="-setLineBlendmode"><strong>setLineBlendmode</strong>(...)</a></dt>
 <dd><code>setLineBlendmode(modeFusion, ["nom"])</code>
 <p>Définit le mode de fusion appliqué à au filet de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
@@ -110,9 +115,7 @@ exprimée en points. Si le "nom" n'est pas fourni, l'élément sélectionné est
 <dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
 <dd><code>setMultiLine("styleNomme", ["nom"])</code>
 <p>Définit le style de filet de l'objet "nom" à la valeur "styleNomme". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
-<p>Peut générer
-<a href="scripterapi.html#NotFoundError">NotFoundError</a> si le
-style de filet n'existe pas.</p></dd>
+<p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le style de filet n'existe pas.</p></dd>
 
 <dt><a name="-setObjectAttributes"><strong>setObjectAttributes</strong></a>(...)</dt>
 <dd><code>setObjectAttributes(attributs, ["nom"])</code>
