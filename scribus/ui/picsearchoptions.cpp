@@ -89,7 +89,7 @@ void PicSearchOptions::slotChangeSearchDir()
 #else 
 	// TODO: and on _WIN32 workDir is ... ?
 #endif
-	QString searchBase = QFileDialog::getExistingDirectory(this, tr("Select a base directory for search"), workDir);
+	QString searchBase = QFileDialog::getExistingDirectory(this, tr("Select a base directory to search for ") + fileEdit->text(), workDir);
 	if (searchBase.isEmpty() || !QDir().exists(searchBase))
 		return;
 	m_strLastDirSearched = searchBase;

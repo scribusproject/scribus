@@ -20,7 +20,8 @@ for which a new license (GPL+exception) is in place.
 
 
 
-PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles) : QDialog(parent), currentImage(QString())
+PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles, bool brokenLinksOnly) :
+	QDialog(parent), brokenLinksOnly{brokenLinksOnly}
 {
 	setupUi(this);
 	setModal(true);
@@ -28,13 +29,18 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
 	previewLabel->hide();
 	fileNameLabel->setText(fileName);
 
-	for (int i = 0; i < avalableFiles.count(); ++i)
-		foundFilesBox->addItem( QDir::toNativeSeparators(avalableFiles[i]) );
+	for (const auto& file: avalableFiles)
+		foundFilesBox->addItem(QDir::toNativeSeparators(file));
+
+	foundFilesBox->setCurrentRow(0);
+
+	matchWarningLabel->setVisible(false);
 
 	// signals and slots connections
 	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(useButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect(previewCheckBox, SIGNAL( clicked() ), this, SLOT( previewCheckBox_clicked() ) );
+	connect(matchCheckBox, SIGNAL( clicked() ), this, SLOT( matchCheckBox_clicked() ) );
 	connect(foundFilesBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(foundFilesBox_clicked(QListWidgetItem*)));
 }
 
@@ -43,25 +49,28 @@ void PicSearch::previewCheckBox_clicked()
 	if (previewCheckBox->isChecked())
 	{
 		previewLabel->show();
-		if (!currentImage.isEmpty())
-			createPreview();
+		createPreview();
 	}
 	else
 		previewLabel->hide();
+}
+
+void PicSearch::matchCheckBox_clicked()
+{
+	matchWarningLabel->setVisible(brokenLinksOnly && matchCheckBox->isChecked());
 }
 
 void PicSearch::foundFilesBox_clicked(QListWidgetItem *c)
 {
 	if (c == nullptr)
 		return;
-	currentImage = QDir::fromNativeSeparators(c->text());
 	if (previewCheckBox->isChecked())
 		createPreview();
-	useButton->setEnabled(true);
 }
 
 void PicSearch::createPreview()
 {
+	const auto currentImage = foundFilesBox->currentItem()->text();
 	QPixmap pm(200, 200);
 	QFileInfo fi = QFileInfo(currentImage);
 	int w = 200;

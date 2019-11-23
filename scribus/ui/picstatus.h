@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui_picstatus.h"
 #include <QListWidgetItem>
 
+class QFileInfo;
+
 class ScribusDoc;
 class PageItem;
 
@@ -82,6 +84,11 @@ private slots:
 	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();
+	/*!
+	\author Ale Rimoldi
+	\brief Relink all images matching pattern.
+	*/
+	void relinkMatchingImages(const QFileInfo& source, const QFileInfo& target, bool brokenLink);
 	void doEditImage();
 
 signals:
@@ -96,7 +103,7 @@ protected:
 
 	/*! \brief Load the image specified into the PageItem
 	\param newFilePath a file path */
-	bool loadPict(const QString & newFilePath);
+	bool loadPict(PageItem* item, const QString & newFilePath);
 
 private:
 	ScribusDoc *m_Doc;

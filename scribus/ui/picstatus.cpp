@@ -36,8 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <QScopedPointer>
 #include <QToolButton>
 
-#include <cstdio>
-
 #include "commonstrings.h"
 #include "effectsdialog.h"
 #include "extimageprops.h"
@@ -201,14 +199,13 @@ void PicStatus::fillTable()
 
 void PicStatus::sortByName()
 {
-	QListWidgetItem *firstItem = nullptr;
 	QMap<QString, PicItem*> sorted;
 
 	int num = imageViewArea->count();
 	if (num == 0)
 		return;
 
-	firstItem = imageViewArea->currentItem();
+	auto firstItem = imageViewArea->currentItem();
 	for (int a = num-1; a > -1; --a)
 	{
 		QListWidgetItem *ite = imageViewArea->takeItem(a);
@@ -233,14 +230,13 @@ void PicStatus::sortByName()
 
 void PicStatus::sortByPage()
 {
-	QListWidgetItem *firstItem = nullptr;
 	QMap<int, PicItem*> sorted;
 
 	int num = imageViewArea->count();
 	if (num == 0)
 		return;
 
-	firstItem = imageViewArea->currentItem();
+	auto firstItem = imageViewArea->currentItem();
 	for (int a = num-1; a > -1; --a)
 	{
 		QListWidgetItem *ite = imageViewArea->takeItem(a);
@@ -446,18 +442,18 @@ void PicStatus::SelectPic()
 	emit selectElementByItem(currItem, true, 1);
 }
 
-bool PicStatus::loadPict(const QString & newFilePath)
+bool PicStatus::loadPict(PageItem* item, const QString & newFilePath)
 {
 	// Hack to fool the LoadPict function
-	currItem->Pfile = newFilePath;
-	bool masterPageMode = !currItem->OnMasterPage.isEmpty();
+	item->Pfile = newFilePath;
+	bool masterPageMode = !item->OnMasterPage.isEmpty();
 	bool oldMasterPageMode = m_Doc->masterPageMode();
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(masterPageMode);
-	m_Doc->loadPict(newFilePath, currItem, true);
+	m_Doc->loadPict(newFilePath, item, true);
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(oldMasterPageMode);
-	return currItem->imageIsAvailable;
+	return item->imageIsAvailable;
 }
 
 void PicStatus::SearchPic()
@@ -483,16 +479,24 @@ void PicStatus::SearchPic()
 		return;
 	}
 
-	QScopedPointer<PicSearch> dia2(new PicSearch(this, dia->getFileName(), dia->getMatches()));
+	auto item = static_cast<PicItem*>(imageViewArea->currentItem());
+	bool brokenLink = !(item->PageItemObject->imageIsAvailable);
+
+	QScopedPointer<PicSearch> dia2(new PicSearch(this, dia->getFileName(), dia->getMatches(), brokenLink));
 	if (dia2->exec() != QDialog::Accepted)
 		return;
-	Q_ASSERT(!dia2->currentImage.isEmpty());
-	loadPict(dia2->currentImage);
+
+	auto source = QFileInfo(currItem->Pfile);
+
+	loadPict(currItem, dia2->getSelectedImage());
 	refreshItem(currItem);
-	QFileInfo fi = QFileInfo(currItem->Pfile);
-	imageViewArea->currentItem()->setText(fi.fileName());
-	imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
+	auto target = QFileInfo(currItem->Pfile);
+	item->setText(target.fileName());
+	item->setIcon(createImgIcon(currItem));
 	imageSelected(imageViewArea->currentItem());
+
+	if (dia2->isApplyToMatchingImages())
+		relinkMatchingImages(source, target, brokenLink);
 }
 
 void PicStatus::FileManager()
@@ -515,7 +519,7 @@ void PicStatus::doImageEffects()
 	if (dia->exec())
 	{
 		currItem->effectsInUse = dia->effectsList;
-		loadPict(currItem->Pfile);
+		loadPict(currItem, currItem->Pfile);
 		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 	}
@@ -530,7 +534,7 @@ void PicStatus::doImageExtProp()
 	ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
 	if (dia.exec())
 	{
-		loadPict(currItem->Pfile);
+		loadPict(currItem, currItem->Pfile);
 		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 	}
@@ -542,4 +546,32 @@ void PicStatus::doEditImage()
 		return;
 	SelectPic();
 	ScCore->primaryMainWindow()->callImageEditor();
+}
+
+/**
+ * Relink all matching images.
+ * Images match if they have the same path as the pattern.
+ * If the "pattern" was a broken link, only images with broken links will match.
+ */
+void PicStatus::relinkMatchingImages(const QFileInfo& source, const QFileInfo& target, bool brokenLink)
+{
+	for (int i = 0; i < imageViewArea->count(); i++)
+	{
+		auto item = static_cast<PicItem*>(imageViewArea->item(i));
+
+		if (brokenLink && item->PageItemObject->imageIsAvailable)
+			continue;
+
+		auto fi = QFileInfo(item->PageItemObject->Pfile);
+
+		if (fi.path() != source.path())
+			continue;
+		if (fi.fileName() == target.fileName())
+			continue;
+
+		loadPict(item->PageItemObject, QDir(target.path()).filePath(fi.fileName()));
+		refreshItem(item->PageItemObject);
+		item->setText(fi.fileName());
+		item->setIcon(createImgIcon(item->PageItemObject));
+	}
 }
