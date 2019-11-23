@@ -105,35 +105,35 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
 	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
-	Q_PROPERTY(bool m_Locked READ locked WRITE setLocked DESIGNABLE false)
-	Q_PROPERTY(bool m_SizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
+	Q_PROPERTY(bool locked READ locked WRITE setLocked DESIGNABLE false)
+	Q_PROPERTY(bool sizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
 	//used for notes frames
-	Q_PROPERTY(bool m_SizeHLocked READ sizeHLocked WRITE setSizeHLocked DESIGNABLE false)
-	Q_PROPERTY(bool m_SizeVLocked READ sizeVLocked WRITE setSizeVLocked DESIGNABLE false)
-	Q_PROPERTY(bool m_ImageIsFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
-	Q_PROPERTY(bool m_ImageIsFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
+	Q_PROPERTY(bool sizeHLocked READ sizeHLocked WRITE setSizeHLocked DESIGNABLE false)
+	Q_PROPERTY(bool sizeVLocked READ sizeVLocked WRITE setSizeVLocked DESIGNABLE false)
+	Q_PROPERTY(bool imageFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
+	Q_PROPERTY(bool imageFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
 	Q_PROPERTY(double lineWidth READ lineWidth WRITE setLineWidth DESIGNABLE false)
 	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
 	Q_PROPERTY(int startArrowIndex READ startArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
 	Q_PROPERTY(int endArrowIndex READ endArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
 
-	Q_PROPERTY(bool m_PrintEnabled READ printEnabled WRITE setPrintEnabled DESIGNABLE false)
+	Q_PROPERTY(bool printEnabled READ printEnabled WRITE setPrintEnabled DESIGNABLE false)
 	Q_PROPERTY(double xPos READ xPos WRITE setXPos DESIGNABLE false)
 	Q_PROPERTY(double yPos READ yPos WRITE setYPos DESIGNABLE false)
 	Q_PROPERTY(double width READ width WRITE setWidth DESIGNABLE false)
 	Q_PROPERTY(double height READ height WRITE setHeight DESIGNABLE false)
-	Q_PROPERTY(double m_rotation READ rotation WRITE setRotation DESIGNABLE false)
-	Q_PROPERTY(double m_imageXScale READ imageXScale WRITE setImageXScale DESIGNABLE false)
-	Q_PROPERTY(double m_imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
+	Q_PROPERTY(double rotation READ rotation WRITE setRotation DESIGNABLE false)
+	Q_PROPERTY(double imageXScale READ imageXScale WRITE setImageXScale DESIGNABLE false)
+	Q_PROPERTY(double imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
 	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset DESIGNABLE false)
 	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset DESIGNABLE false)
-	Q_PROPERTY(double m_roundedCorderRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
+	Q_PROPERTY(double cornerRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistLeft READ textToFrameDistLeft WRITE setTextToFrameDistLeft DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistRight READ textToFrameDistRight WRITE setTextToFrameDistRight DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistTop READ textToFrameDistTop WRITE setTextToFrameDistTop DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistBottom READ textToFrameDistBottom WRITE setTextToFrameDistBottom DESIGNABLE false)
-	Q_PROPERTY(double ColGap READ columnGap WRITE setColumnGap DESIGNABLE false)
-	Q_PROPERTY(int Cols READ columns WRITE setColumns DESIGNABLE false)
+	Q_PROPERTY(double columnGap READ columnGap WRITE setColumnGap DESIGNABLE false)
+	Q_PROPERTY(int columns READ columns WRITE setColumns DESIGNABLE false)
 	Q_ENUM(FirstLineOffsetPolicy)
 	Q_PROPERTY(FirstLineOffsetPolicy firstLineOffset READ firstLineOffset WRITE setFirstLineOffset DESIGNABLE false)
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
@@ -538,7 +538,7 @@ public: // Start public functions
 	double imageRotation() const { return m_imageRotation; }
 	void setImageRotation(double newRotation);
 	//Rounded Corners
-	double cornerRadius() const { return m_roundedCorderRadius; }
+	double cornerRadius() const { return m_roundedCornerRadius; }
 	void setCornerRadius(double);
 	// PDF bookmark
 	bool isPDFBookmark() const { return isBookmark; }
@@ -1411,7 +1411,7 @@ public:	// Start public variables
 	int inlineCharID;
 	QString inlineExt;
 	/** Radius of rounded corners */
-	double m_roundedCorderRadius;
+	double m_roundedCornerRadius;
 
 	//Undo Data
 	double oldXpos; ///< Stores the old X-position for undo action. Is used to detect move actions.

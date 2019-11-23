@@ -233,7 +233,7 @@ PageItem::PageItem(const PageItem & other)
 	ChangedMasterItem(other.ChangedMasterItem),
 	OnMasterPage(other.OnMasterPage),
 	isEmbedded(other.isEmbedded),
-	m_roundedCorderRadius(other.m_roundedCorderRadius),
+	m_roundedCornerRadius(other.m_roundedCornerRadius),
 	oldXpos(other.oldXpos),
 	oldYpos(other.oldYpos),
 	oldWidth(other.oldWidth),
@@ -533,7 +533,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_imageRotation = 0;
 	BBoxX = 0;
 	BBoxH = 0;
-	m_roundedCorderRadius = 0;
+	m_roundedCornerRadius = 0;
 	switch (m_itemType)
 	{
 		case Polygon:
@@ -1750,17 +1750,17 @@ void PageItem::setVerticalAlignment(int val)
 
 void PageItem::setCornerRadius(double newRadius)
 {
-	if (m_roundedCorderRadius==newRadius)
+	if (m_roundedCornerRadius == newRadius)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *state = new SimpleState(Um::RoundCorner,"",Um::IBorder);
 		state->set("CORNER_RADIUS");
-		state->set("OLD_RADIUS", m_roundedCorderRadius);
+		state->set("OLD_RADIUS", m_roundedCornerRadius);
 		state->set("NEW_RADIUS", newRadius);
 		undoManager->action(this,state);
 	}
-	m_roundedCorderRadius=newRadius;
+	m_roundedCornerRadius=newRadius;
 	//emit cornerRadius(RadRect);
 }
 
@@ -6729,9 +6729,9 @@ void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
 void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)
 {
 	if (isUndo)
-		m_roundedCorderRadius=state->getDouble("OLD_RADIUS");
+		m_roundedCornerRadius = state->getDouble("OLD_RADIUS");
 	else
-		m_roundedCorderRadius=state->getDouble("NEW_RADIUS");
+		m_roundedCornerRadius = state->getDouble("NEW_RADIUS");
 	Selection tmpSelection = *(doc()->m_Selection);
 	doc()->m_Selection->clear();
 	doc()->m_Selection->addItem(this);
@@ -8659,10 +8659,10 @@ void PageItem::SetOvalFrame()
 
 void PageItem::SetFrameRound()
 {
-	setCornerRadius(qMin(m_roundedCorderRadius, qMin(m_width, m_height)/2));
+	setCornerRadius(qMin(m_roundedCornerRadius, qMin(m_width, m_height)/2));
 	PoLine.resize(0);
-	double rr = fabs(m_roundedCorderRadius);
-	if (m_roundedCorderRadius > 0.0)
+	double rr = fabs(m_roundedCornerRadius);
+	if (m_roundedCornerRadius > 0.0)
 	{
 		QPainterPath path;
 		path.addRoundedRect(0, 0, m_width, m_height, rr, rr);
