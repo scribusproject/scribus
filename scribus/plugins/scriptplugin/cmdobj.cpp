@@ -849,7 +849,7 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	currentWin->slotEditCopy();
 	currentWin->slotEditPaste();
 
-	Py_RETURN_NONE;
+	return PyUnicode_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 }
 
 PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)

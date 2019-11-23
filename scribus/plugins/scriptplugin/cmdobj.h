@@ -306,7 +306,7 @@ PyObject *scribus_getcharstylenames(PyObject * /*self*/);
 PyDoc_STRVAR(scribus_duplicateobject__doc__,
 QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
 \n\
-creates a Duplicate of the selected Object (or Selection Group).\n\
+creates a duplicate of the selected object (or Selection Group). Returns name of new object.\n\
 "));
 /**
  Christian Hausknecht, 2006-07-12
