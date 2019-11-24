@@ -11327,7 +11327,7 @@ void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
 	changed();
 }
 
-QList<PageItem*>* ScribusDoc::GroupOfItem(QList<PageItem*>* itemList, PageItem* item)
+QList<PageItem*>* ScribusDoc::groupOfItem(QList<PageItem*>* itemList, PageItem* item)
 {
 	if (itemList->contains(item))
 		return itemList;
@@ -11335,7 +11335,7 @@ QList<PageItem*>* ScribusDoc::GroupOfItem(QList<PageItem*>* itemList, PageItem* 
 	{
 		if (itemList->at(i)->isGroup())
 		{
-			QList<PageItem*>* ite = GroupOfItem(&itemList->at(i)->groupItemList, item);
+			QList<PageItem*>* ite = groupOfItem(&itemList->at(i)->groupItemList, item);
 			if (ite != nullptr)
 				return ite;
 		}
@@ -11420,7 +11420,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (int de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = delItems.at(selectedItemCount - (de + 1));
-		itemList = GroupOfItem(Items, currItem);
+		itemList = groupOfItem(Items, currItem);
 		if (itemList == nullptr)
 			continue;
 		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable)))

@@ -1050,7 +1050,7 @@ public:
 	int columnOfPage(int pageIndex) const;
 
 
-	QList<PageItem*>* GroupOfItem(QList<PageItem*>* itemList, PageItem* item);
+	QList<PageItem*>* groupOfItem(QList<PageItem*>* itemList, PageItem* item);
 	PageItem* groupObjectsSelection(Selection* customSelection = nullptr);
 	PageItem* groupObjectsList(QList<PageItem*> &itemList);
 	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);
