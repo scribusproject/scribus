@@ -1437,27 +1437,12 @@ signals:
 	void updateContents();
 	void updateContents(const QRect &r);
 	void refreshItem(PageItem *);
-	void canvasAdjusted(double width, double height, double dX, double dY);
 	void firstSelectedItemType(int);
-	void setApplicationMode(int);
-	/**
-	 * @brief A signal for when the outline palette needs to rebuild itself
-	 * Emit when:
-	 * - An item is created or deleted
-	 * - An item changes page
-	 * - An page is created or deleted
-	 * - Some items are grouped or a group is ungrouped
-	 * This also applies to Master Pages
-	 */
-	void signalRebuildOutLinePalette();
-	//! Temporary signal for SizeItem
-	void widthAndHeight(double, double);
 
 	void updateEditItem();
 	void updateAutoSaveClock();
 	void addBookmark(PageItem *);
 	void deleteBookmark(PageItem *);
-	void changeLayers(int);
 	
 public slots:
 	void selectionChanged();

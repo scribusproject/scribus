@@ -14470,8 +14470,6 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 			double gx, gy, gh, gw;
 			m_Selection->setGroupRect();
 			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-//			qDebug() << "doc, emit w&h, when was this used?";
-			emit widthAndHeight(gw, gh);
 		}
 	}
 	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(), currItem->height()) / 2));
