@@ -521,6 +521,9 @@ public:
 	/// Collect named resource of table and its cells
 	void getNamedResources(ResourceCollection& lists) const override;
 
+	/// Replace named resource of table and its cells
+	void replaceNamedResources(ResourceCollection& newNames) override;
+
 	/// creates valid layout information
 	void layout() override;
 

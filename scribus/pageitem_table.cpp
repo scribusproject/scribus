@@ -195,6 +195,198 @@ void PageItem_Table::getNamedResources(ResourceCollection& lists) const
 	PageItem::getNamedResources(lists);
 }
 
+void PageItem_Table::replaceNamedResources(ResourceCollection& newNames)
+{
+	QMap<QString, QString>::ConstIterator it;
+
+	PageItem::replaceNamedResources(newNames);
+
+	bool lborderChanged = false;
+	TableBorder lborder = leftBorder();
+	auto lborderLines = lborder.borderLines();
+	for (int i = 0; i < lborderLines.count(); ++i)
+	{
+		TableBorderLine line = lborderLines.at(i);
+		if (line.color() == CommonStrings::None)
+			continue;
+		it = newNames.colors().find(line.color());
+		if (it != newNames.colors().end())
+		{
+			line.setColor(*it);
+			lborder.replaceBorderLine(i, line);
+			lborderChanged = true;
+		}
+	}
+
+	if (lborderChanged)
+		setLeftBorder(lborder);
+
+	bool rborderChanged = false;
+	TableBorder rborder = rightBorder();
+	auto rborderLines = rborder.borderLines();
+	for (int i = 0; i < rborderLines.count(); ++i)
+	{
+		TableBorderLine line = rborderLines.at(i);
+		if (line.color() == CommonStrings::None)
+			continue;
+		it = newNames.colors().find(line.color());
+		if (it != newNames.colors().end())
+		{
+			line.setColor(*it);
+			rborder.replaceBorderLine(i, line);
+			rborderChanged = true;
+		}
+	}
+
+	if (rborderChanged)
+		setRightBorder(rborder);
+
+	bool bborderChanged = false;
+	TableBorder bborder = bottomBorder();
+	auto bborderLines = bborder.borderLines();
+	for (int i = 0; i < bborderLines.count(); ++i)
+	{
+		TableBorderLine line = bborderLines.at(i);
+		if (line.color() == CommonStrings::None)
+			continue;
+		it = newNames.colors().find(line.color());
+		if (it != newNames.colors().end())
+		{
+			line.setColor(*it);
+			bborder.replaceBorderLine(i, line);
+			bborderChanged = true;
+		}
+	}
+
+	if (bborderChanged)
+		setBottomBorder(bborder);
+
+	bool tborderChanged = false;
+	TableBorder tborder = topBorder();
+	auto tborderLines = tborder.borderLines();
+	for (int i = 0; i < tborderLines.count(); ++i)
+	{
+		TableBorderLine line = tborderLines.at(i);
+		if (line.color() == CommonStrings::None)
+			continue;
+		it = newNames.colors().find(line.color());
+		if (it != newNames.colors().end())
+		{
+			line.setColor(*it);
+			tborder.replaceBorderLine(i, line);
+			tborderChanged = true;
+		}
+	}
+
+	if (tborderChanged)
+		setTopBorder(tborder);
+
+	it = newNames.tableStyles().find(this->styleName());
+	if (it != newNames.tableStyles().end())
+		this->setStyle(*it);
+
+	for (int row = 0; row < rows(); ++row)
+	{
+		int colSpan = 0;
+		for (int col = 0; col < columns(); col += colSpan)
+		{
+			TableCell cell = cellAt(row, col);
+			PageItem_TextFrame* textFrame = cell.textFrame();
+			textFrame->replaceNamedResources(newNames);
+
+			it = newNames.cellStyles().find(cell.styleName());
+			if (it != newNames.cellStyles().end())
+				cell.setStyle(*it);
+
+			it = newNames.colors().find(cell.fillColor());
+			if (it != newNames.colors().end())
+				cell.setFillColor(*it);
+
+			lborderChanged = false;
+			lborder = cell.leftBorder();
+			lborderLines = lborder.borderLines();
+			for (int i = 0; i < lborderLines.count(); ++i)
+			{
+				TableBorderLine line = lborderLines.at(i);
+				if (line.color() == CommonStrings::None)
+					continue;
+				it = newNames.colors().find(line.color());
+				if (it != newNames.colors().end())
+				{
+					line.setColor(*it);
+					lborder.replaceBorderLine(i, line);
+					lborderChanged = true;
+				}
+			}
+
+			if (lborderChanged)
+				setLeftBorder(lborder);
+
+			rborderChanged = false;
+			rborder = cell.rightBorder();
+			rborderLines = rborder.borderLines();
+			for (int i = 0; i < rborderLines.count(); ++i)
+			{
+				TableBorderLine line = rborderLines.at(i);
+				if (line.color() == CommonStrings::None)
+					continue;
+				it = newNames.colors().find(line.color());
+				if (it != newNames.colors().end())
+				{
+					line.setColor(*it);
+					rborder.replaceBorderLine(i, line);
+					rborderChanged = true;
+				}
+			}
+
+			if (rborderChanged)
+				setRightBorder(rborder);
+
+			bborderChanged = false;
+			bborder = cell.bottomBorder();
+			bborderLines = bborder.borderLines();
+			for (int i = 0; i < bborderLines.count(); ++i)
+			{
+				TableBorderLine line = bborderLines.at(i);
+				if (line.color() == CommonStrings::None)
+					continue;
+				it = newNames.colors().find(line.color());
+				if (it != newNames.colors().end())
+				{
+					line.setColor(*it);
+					bborder.replaceBorderLine(i, line);
+					bborderChanged = true;
+				}
+			}
+
+			if (bborderChanged)
+				setBottomBorder(bborder);
+
+			tborderChanged = false;
+			tborder = cell.topBorder();
+			tborderLines = tborder.borderLines();
+			for (int i = 0; i < tborderLines.count(); ++i)
+			{
+				TableBorderLine line = tborderLines.at(i);
+				if (line.color() == CommonStrings::None)
+					continue;
+				it = newNames.colors().find(line.color());
+				if (it != newNames.colors().end())
+				{
+					line.setColor(*it);
+					tborder.replaceBorderLine(i, line);
+					tborderChanged = true;
+				}
+			}
+
+			if (tborderChanged)
+				setTopBorder(tborder);
+
+			colSpan = cell.columnSpan();
+		}
+	}
+}
+
 void PageItem_Table::layout()
 {
 	int rowCount = rows();
