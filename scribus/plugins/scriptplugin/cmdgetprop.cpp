@@ -255,6 +255,28 @@ PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(ff)", item->imageXScale() / 72.0 * item->pixm.imgInfo.xres, item->imageYScale() / 72.0 * item->pixm.imgInfo.yres);
 }
 
+PyObject *scribus_getimageexiffield(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	char *Field;
+	if (!PyArg_ParseTuple(args, "es|es", &Field, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (item->itemType() != PageItem::ImageFrame)
+		return nullptr;
+
+	// ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo);
+	// timeInfo = new QLabel( info->exifInfo.dateTime, GenGroup);
+	ExifValues exif = item->pixm.imgInfo.exifInfo;
+
+	// return PyUnicode_FromString(item->Pfile.toUtf8());
+	return PyUnicode_FromString("abcd");
+}
+
 PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -460,6 +482,7 @@ void cmdgetpropdocwarnings()
 	  << scribus_getlineshade__doc__ << scribus_getlinejoin__doc__ 
 	  << scribus_getlinecap__doc__ << scribus_getlinestyle__doc__ 
 	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
+	  << scribus_getimageexiffield__doc__ 
 	  << scribus_getimgscale__doc__ << scribus_getimagefile__doc__ 
 	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
 	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__

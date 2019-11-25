@@ -91,7 +91,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void languageChange();
 		void handleMultipleSelections();
 		
-	protected:
+	private:
 		void initFileMenuActions();
 		void initEditMenuActions();
 		void initStyleMenuActions();

@@ -363,6 +363,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getHGuides"), (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
 	{const_cast<char*>("getImageColorSpace"), scribus_getimagecolorspace, METH_VARARGS, tr(scribus_getimagecolorspace__doc__) },
 	{const_cast<char*>("getImageFile"), scribus_getimagefile, METH_VARARGS, tr(scribus_getimagefile__doc__)},
+	{const_cast<char*>("getImageExifField"), scribus_getimageexiffield, METH_VARARGS, tr(scribus_getimageexiffield__doc__)},
 	{const_cast<char*>("getImageOffset"), scribus_getimgoffset, METH_VARARGS, tr(scribus_getimgoffset__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimgscale, METH_VARARGS, tr(scribus_getimgscale__doc__)},
 	{const_cast<char*>("getLayers"), (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
@@ -980,5 +981,5 @@ PV */
 void scriptplugindocwarnings()
 {
 	QStringList s;
-	s <<printer__doc__<<pdffile__doc__<<imgexp__doc__<<imgexp_dpi__doc__<<imgexp_scale__doc__ <<imgexp_quality__doc__<<imgexp_filename__doc__<<imgexp_type__doc__<<imgexp_alltypes__doc__ << imgexp_save__doc__ << imgexp_saveas__doc__;
+	s <<printer__doc__<<pdffile__doc__<<imgexp__doc__<<imgexp_dpi__doc__<<imgexp_scale__doc__ << imgexp_transparentBkgnd__doc__ <<imgexp_quality__doc__<<imgexp_filename__doc__<<imgexp_type__doc__<<imgexp_alltypes__doc__ << imgexp_save__doc__ << imgexp_saveas__doc__;
 }
