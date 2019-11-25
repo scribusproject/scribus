@@ -73,8 +73,8 @@ public:
 	int getFlags() { return m_flags; }
 
 private:
-	GooString *fileName;		// file name
-	int m_flags;
+GooString *fileName {nullptr};		// file name
+int m_flags {0};
 };
 
 //------------------------------------------------------------------------
@@ -96,7 +96,7 @@ public:
 	GooString *getFileName() { return fileName; }
 
 private:
-	GooString *fileName;		// file name
+GooString *fileName {nullptr};		// file name
 };
 //------------------------------------------------------------------------
 // SplashOutFontFileID
@@ -141,9 +141,9 @@ public:
 	QString CurrColorText;
 	QString CurrColorFill;
 	QString CurrColorStroke;
-	double m_fontSize;
-	GooString *m_fontName;
-	GooString *m_itemText;
+	double m_fontSize {12};
+	GooString *m_fontName {nullptr};
+	GooString *m_itemText {nullptr};
 
 private:
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
@@ -274,8 +274,8 @@ public:
 	void processLink(AnnotLink * /*link*/) override { qDebug() << "Draw Link"; }
 
 	bool layersSetByOCG;
-	double cropOffsetX;
-	double cropOffsetY;
+	double cropOffsetX {0.0};
+	double cropOffsetY {0.0};
 	int rotate;
 
 private:
@@ -288,15 +288,15 @@ private:
 	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	bool checkClip();
-	bool pathIsClosed;
+	bool pathIsClosed {false};
 	QString CurrColorFill;
-	int CurrFillShade;
+	int CurrFillShade {100};
 	QString CurrColorStroke;
-	int CurrStrokeShade;
-	Qt::PenCapStyle PLineEnd;
-	Qt::PenJoinStyle PLineJoin;
+	int CurrStrokeShade {100};
+	Qt::PenCapStyle PLineEnd {Qt::FlatCap};
+	Qt::PenJoinStyle PLineJoin {Qt::MiterJoin};
 	QVector<double> DashValues;
-	double DashOffset;
+	double DashOffset {0.0};
 	QString Coords;
 	FPointArray m_currentClipPath;
 	QStack<FPointArray> m_clipPaths;
@@ -327,18 +327,18 @@ private:
 		QString ocgName;
 	};
 	QStack<mContent> m_mcStack;
-	int inPattern;
-	int layerNum;
+	int inPattern {0};
+	int layerNum {1};
 	int currentLayer;
-	bool firstLayer;
+	bool firstLayer {true};
 	int importerFlags;
-	int updateGUICounter;
-	XRef *xref;		// xref table for current document
-	PDFDoc *pdfDoc;
-	Catalog *catalog;
-	SplashFontEngine *m_fontEngine;
-	SplashFont *m_font;
-	FormPageWidgets *m_formWidgets;
+	int updateGUICounter {0};
+	XRef *xref {nullptr};		// xref table for current document
+	PDFDoc *pdfDoc {nullptr};
+	Catalog *catalog {nullptr};
+	SplashFontEngine *m_fontEngine {nullptr};
+	SplashFont *m_font {nullptr};
+	FormPageWidgets *m_formWidgets {nullptr};
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;

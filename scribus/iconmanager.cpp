@@ -141,20 +141,18 @@ void IconManager::readIconConfigFiles()
 			if (isd.activeversion.isEmpty())
 				continue;
 
-			int av_major, av_minor, av_patch, curr_major, curr_minor, curr_patch, ver_major, ver_minor, ver_patch;
-			int av_fullver, curr_fullver, ver_fullver;
-			av_major = isd.activeversion.section(".", 0, 0).toInt();
-			av_minor = isd.activeversion.section(".", 1, 1).toInt();
-			av_patch = isd.activeversion.section(".", 2, 2).toInt();
-			av_fullver = av_major * 10000 + av_minor * 100 + av_patch;
-			curr_major = m_activeSetVersion.section(".", 0, 0).toInt();
-			curr_minor = m_activeSetVersion.section(".", 1, 1).toInt();
-			curr_patch = m_activeSetVersion.section(".", 2, 2).toInt();
-			curr_fullver = curr_major * 10000 + curr_minor * 100 + curr_patch;
-			ver_major = QString(VERSION).section(".", 0, 0).toInt();
-			ver_minor = QString(VERSION).section(".", 1, 1).toInt();
-			ver_patch = QString(VERSION).section(".", 2, 2).toInt();
-			ver_fullver = ver_major * 10000 + ver_minor * 100 + ver_patch;
+			int av_major = isd.activeversion.section(".", 0, 0).toInt();
+			int av_minor = isd.activeversion.section(".", 1, 1).toInt();
+			int av_patch = isd.activeversion.section(".", 2, 2).toInt();
+			int av_fullver = av_major * 10000 + av_minor * 100 + av_patch;
+			int curr_major = m_activeSetVersion.section(".", 0, 0).toInt();
+			int curr_minor = m_activeSetVersion.section(".", 1, 1).toInt();
+			int curr_patch = m_activeSetVersion.section(".", 2, 2).toInt();
+			int curr_fullver = curr_major * 10000 + curr_minor * 100 + curr_patch;
+			int ver_major = QString(VERSION).section(".", 0, 0).toInt();
+			int ver_minor = QString(VERSION).section(".", 1, 1).toInt();
+			int ver_patch = QString(VERSION).section(".", 2, 2).toInt();
+			int ver_fullver = ver_major * 10000 + ver_minor * 100 + ver_patch;
 			//If iconset version <= app version, and iconset version >= current active iconset version
 			if ((av_fullver <= ver_fullver) && (av_fullver >= curr_fullver))
 			{

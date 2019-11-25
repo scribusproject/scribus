@@ -621,9 +621,8 @@ bool PagesPlug::import(const QString& fNameIn, const TransactionSettings& trSett
 	{
 		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
-		QStringList barNames, barTexts;
-		barNames << "GI";
-		barTexts << tr("Analyzing File:");
+		QStringList barNames("GI");
+		QStringList barTexts(tr("Analyzing File:"));
 		QList<bool> barsNumeric;
 		barsNumeric << false;
 		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
@@ -799,11 +798,10 @@ PagesPlug::~PagesPlug()
 
 bool PagesPlug::convert(const QString& fn)
 {
-	bool retVal = true;
 	importedColors.clear();
 	importedPatterns.clear();
 	m_StyleSheets.clear();
-	m_currentStyleSheet = "";
+	m_currentStyleSheet.clear();
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -819,7 +817,7 @@ bool PagesPlug::convert(const QString& fn)
 			progressDialog->close();
 		return false;
 	}
-	retVal = false;
+	bool retVal = false;
 	if (uz->contains("index.xml"))
 		retVal = parseDocReference("index.xml", false);
 	else if (uz->contains("index.xml.gz"))
@@ -1549,34 +1547,6 @@ void PagesPlug::parsePageReference(QDomElement &drawPag)
 PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 {
 	ObjState obState;
-	obState.currentPath = QPainterPath();
-	obState.currentPathClosed = false;
-	obState.clipPath = QPainterPath();
-	obState.transform = QTransform();
-	obState.CurrColorFill = CommonStrings::None;
-	obState.fillOpacity = 0.0;
-	obState.CurrColorStroke = CommonStrings::None;
-	obState.strokeOpacity = 0.0;
-	obState.LineW = 1.0;
-	obState.fillGradientTyp = 0;
-	obState.gradientScale = 1.0;
-	obState.maskTyp = 0;
-	obState.strokeTyp = 0;
-	obState.imagePath = "";
-	obState.itemType = 0;
-	obState.patternName = "";
-	obState.patternMask = "";
-	obState.CapStyle = Qt::FlatCap;
-	obState.JoinStyle = Qt::MiterJoin;
-	obState.DashOffset = 0;
-	obState.DashPattern.clear();
-	obState.xPos = 0.0;
-	obState.yPos = 0.0;
-	obState.width = 0.0;
-	obState.height = 0.0;
-	obState.rotation = 0.0;
-	obState.styleRef = "";
-	obState.layoutStyleRef = "";
 	StoryText itemText;
 	itemText.clear();
 	itemText.setDoc(m_Doc);

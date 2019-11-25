@@ -88,10 +88,9 @@ public:
 	typedef uint ucs4_type;
 	struct GlyphEncoding
 	{
-		GlyphEncoding() { charcode = 0; toUnicode = "0000"; }
-		ucs4_type charcode;
-		QString   glyphName;
-		QString   toUnicode;
+		ucs4_type charcode {0};
+		QString glyphName;
+		QString toUnicode {"0000"};
 	};
 	typedef QMap<gid_type, GlyphEncoding> FaceEncoding;
 
@@ -117,16 +116,15 @@ public:
 		/// controls load()
 	mutable int usage {0};
 
-		QString scName;
-		QString fontFile {"(None)"};
-		int     faceIndex {-1};
-		QString psName;
 		QString family;
+		QString fontFile {"(None)"};
+		QString forDocument;
+		QString psName;
+		QString scName;
 		QString style;
 		QString variant;
 		QStringList fontFeatures;
-
-		QString forDocument;
+		int     faceIndex {-1};
 
 		mutable ScFace::Status status {ScFace::NULLFACE};
 		ScFace::FontType typeCode {ScFace::UNKNOWN_TYPE};

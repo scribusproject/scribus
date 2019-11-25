@@ -204,8 +204,6 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvasPressCoord = mousePointDoc;
 	
-	double Rxp = 0,  Ryp = 0;
-	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 //	QRect tx;
 	QTransform pm;
@@ -216,9 +214,9 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-	Rxp  = m_doc->ApplyGridF(m_canvasPressCoord).x();
+	double Rxp = m_doc->ApplyGridF(m_canvasPressCoord).x();
 	m_canvasPressCoord.setX( qRound(Rxp) );
-	Ryp  = m_doc->ApplyGridF(m_canvasPressCoord).y();
+	double Ryp = m_doc->ApplyGridF(m_canvasPressCoord).y();
 	m_canvasPressCoord.setY( qRound(Ryp) );
 	if (m->button() == Qt::MidButton)
 	{
@@ -229,6 +227,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	}
 	if (m->button() != Qt::LeftButton)
 		return;
+	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
 		m_inItemRotation = true;
@@ -478,7 +477,7 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 		m_doc->setRotationMode(id);
 		return;
 	}
-	else if (e->key() == Qt::Key_Down)
+	if (e->key() == Qt::Key_Down)
 	{
 		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
 		id = (id + 1) % 5;
@@ -492,57 +491,54 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 		increment = 1.0;
 	if (e->key() == Qt::Key_Right)
 		increment = -1.0;
-	if (e->modifiers() & Qt::ControlModifier) {
+	if (e->modifiers() & Qt::ControlModifier)
 		increment *= 10;
-	}
-	if (e->modifiers() & Qt::ShiftModifier) {
+	if (e->modifiers() & Qt::ShiftModifier)
 		increment /= 10;
-	}
+
+	if (increment = 0.0)
+		return;
 	PageItem *currItem;
-	if (increment != 0)
-	{ 
-		if (GetItem(&currItem))
+	if (GetItem(&currItem))
+	{
+		if (!m_view->groupTransactionStarted())
+			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+
+		if (m_doc->m_Selection->isMultipleSelection())
 		{
-			if (!m_view->groupTransactionStarted())
-			{
-				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
-			}
-			if (m_doc->m_Selection->isMultipleSelection())
-			{
-				m_doc->setRotationMode(m_rotMode);
-				m_view->RCenter = m_rotCenter;
-			}
-			if (m_doc->m_Selection->isMultipleSelection())
-				m_doc->rotateGroup(increment, m_view->RCenter);
-			else
-				m_doc->itemSelection_Rotate(currItem->rotation() + increment);
-			m_canvas->setRenderModeUseBuffer(false);
-			if (m_doc->m_Selection->isMultipleSelection())
-			{
-				double x, y, w, h;
-				m_doc->setRotationMode(m_oldRotMode);
-				m_view->RCenter = m_oldRotCenter;
-				m_doc->m_Selection->setGroupRect();
-				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-				m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
-			}
-			else
-			{
-				m_doc->setRedrawBounding(currItem);
-				currItem->OwnPage = m_doc->OnPage(currItem);
-				if (currItem->asLine())
-					m_view->updateContents();
-			}
+			m_doc->setRotationMode(m_rotMode);
+			m_view->RCenter = m_rotCenter;
 		}
-		if (m_view->groupTransactionStarted())
+		if (m_doc->m_Selection->isMultipleSelection())
+			m_doc->rotateGroup(increment, m_view->RCenter);
+		else
+			m_doc->itemSelection_Rotate(currItem->rotation() + increment);
+		m_canvas->setRenderModeUseBuffer(false);
+		if (m_doc->m_Selection->isMultipleSelection())
 		{
-			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-				m_doc->m_Selection->itemAt(i)->checkChanges(true);
-			m_view->endGroupTransaction();
+			double x, y, w, h;
+			m_doc->setRotationMode(m_oldRotMode);
+			m_view->RCenter = m_oldRotCenter;
+			m_doc->m_Selection->setGroupRect();
+			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}
+		else
+		{
+			m_doc->setRedrawBounding(currItem);
+			currItem->OwnPage = m_doc->OnPage(currItem);
+			if (currItem->asLine())
+				m_view->updateContents();
+		}
+	}
+	if (m_view->groupTransactionStarted())
+	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_view->endGroupTransaction();
 	}
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 }
 
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)

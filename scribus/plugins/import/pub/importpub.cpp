@@ -70,11 +70,8 @@ PubPlug::PubPlug(ScribusDoc* doc, int flags)
 QImage PubPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	double b, h;
-	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
@@ -130,7 +127,6 @@ bool PubPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
@@ -158,18 +154,18 @@ bool PubPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
+	double w = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	if (b == 0.0)
-		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	if (w == 0.0)
+		w = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
+	docWidth = w;
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;

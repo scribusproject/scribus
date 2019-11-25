@@ -21,22 +21,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "langdef.h"
 
-LangDef::LangDef()
-{
-	m_hyphAvailable=false;
-	m_spellAvailable=false;
-	m_transAvailable=false;
-};
+LangDef::LangDef() = default;;
 
 LangDef::LangDef(const QString& pri,
 			 const QString& alt,
 			 const QString& name,
 			 const QString& transName)
 {
-	m_hyphAvailable=false;
-	m_spellAvailable=false;
-	m_transAvailable=false;
-
 	m_priAbbrev=pri;
 	m_altAbbrev=alt;
 	m_name=name;

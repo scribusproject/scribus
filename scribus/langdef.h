@@ -33,16 +33,16 @@ class SCRIBUS_API LangDef
 		LangDef(const QString& pri, const QString& alt, const QString& name, const QString& transName);
 		~LangDef() {}
 
-		QString m_priAbbrev;
 		QString m_altAbbrev;
-		QString m_name;
-		QString m_transName;
-		bool m_hyphAvailable;
 		QString m_hyphFile;
-		bool m_spellAvailable;
+		QString m_name;
+		QString m_priAbbrev;
 		QString m_spellFile;
-		bool m_transAvailable;
 		QString m_transFile;
+		QString m_transName;
+		bool m_hyphAvailable {false};
+		bool m_spellAvailable {false};
+		bool m_transAvailable {false};
 };
 
 #endif // LANGDEF_H

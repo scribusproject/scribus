@@ -88,14 +88,14 @@ private:
 	QStringList importedColors;
 
 	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSele;
+	MultiProgressDialog *progressDialog {nullptr};
+	bool cancel {false};
+	ScribusDoc* m_Doc {nullptr};
+	Selection* tmpSele {nullptr};
 	int importerFlags;
 	int oldDocItemCount;
 	QString baseFile;
-	PDFDoc *m_pdfDoc;
+	PDFDoc *m_pdfDoc {nullptr};
 
 public slots:
 	void cancelRequested() { cancel = true; }

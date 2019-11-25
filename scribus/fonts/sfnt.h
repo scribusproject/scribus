@@ -21,8 +21,8 @@
 
 
 
-namespace sfnt {
-	
+namespace sfnt
+{
 	uchar byte(QByteArray const & bb, uint pos);
 	quint32  word(QByteArray const & bb, uint pos);
 	void  putWord(QByteArray & bb, uint pos, quint32 val);
@@ -41,16 +41,22 @@ namespace sfnt {
 /**
  This class checks the post table of a ttf font.
  */
-class SCRIBUS_API PostTable {
+class SCRIBUS_API PostTable
+{
 	public:
-		PostTable() {usable=false;}
-		bool usable;
-		QString errorMsg;
+		PostTable() = default;
 		uint numberOfGlyphs() const;
 		QString nameFor(uint glyphId) const;
 		void readFrom(FT_Face face);
+		bool usable() const;
+		void setUsable(bool usable);
+		QString errorMsg() const;
+		void setErrorMsg(const QString& errorMsg);
+
 	private:
 		QList<QString> m_names;
+		bool m_usable {false};
+		QString m_errorMsg;
 };
 
 } //namespace

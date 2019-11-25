@@ -68,8 +68,7 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	m_pdfDoc = nullptr;
+
 }
 
 QImage PdfPlug::readThumbnail(const QString& fName)

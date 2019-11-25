@@ -22,39 +22,35 @@ for which a new license (GPL+exception) is in place.
 
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
-	Object obj1, obj2, obj3;
-	fileName = nullptr;
-	m_flags = 0;
+	if (!actionObj->isDict())
+		return;
 
-	if (actionObj->isDict())
+	Object obj1 = actionObj->dictLookup("F");
+	if (!obj1.isNull())
 	{
-		obj1 = actionObj->dictLookup("F");
-		if (!obj1.isNull())
+		if (obj1.isDict())
 		{
-			if (obj1.isDict())
+			Object obj3 = obj1.dictLookup("FS");
+			if (!obj3.isNull())
 			{
-				obj3 = obj1.dictLookup("FS");
-				if (!obj3.isNull())
+				if (obj3.isName())
 				{
-					if (obj3.isName())
+					POPPLER_CONST char *name = obj3.getName();
+					if (!strcmp(name, "URL"))
 					{
-						POPPLER_CONST char *name = obj3.getName();
-						if (!strcmp(name, "URL"))
-						{
-							obj2 = obj1.dictLookup("F");
-							if (!obj2.isNull())
-								fileName = obj2.getString()->copy();
-						}
+						Object obj2 = obj1.dictLookup("F");
+						if (!obj2.isNull())
+							fileName = obj2.getString()->copy();
 					}
 				}
 			}
 		}
-		obj1 = actionObj->dictLookup("Flags");
-		if (!obj1.isNull())
-		{
-			if (obj1.isNum())
-				m_flags = obj1.getInt();
-		}
+	}
+	obj1 = actionObj->dictLookup("Flags");
+	if (!obj1.isNull())
+	{
+		if (obj1.isNum())
+			m_flags = obj1.getInt();
 	}
 }
 
@@ -65,21 +61,15 @@ LinkSubmitForm::~LinkSubmitForm()
 
 LinkImportData::LinkImportData(Object *actionObj)
 {
-	Object obj1, obj3;
-	fileName = nullptr;
+	if (!actionObj->isDict())
+		return;
+	Object obj1 = actionObj->dictLookup("F");
+	if (obj1.isNull())
+		return;
 
-	if (actionObj->isDict())
-	{
-		obj1 = actionObj->dictLookup("F");
-		if (!obj1.isNull())
-		{
-			obj3 = getFileSpecNameForPlatform(&obj1);
-			if (!obj3.isNull())
-			{
-				fileName = obj3.getString()->copy();
-			}
-		}
-	}
+	Object obj3 = getFileSpecNameForPlatform(&obj1);
+	if (!obj3.isNull())
+		fileName = obj3.getString()->copy();
 }
 
 LinkImportData::~LinkImportData()
@@ -97,12 +87,9 @@ AnoOutputDev::AnoOutputDev(ScribusDoc* doc, QStringList *importedColors)
 {
 	m_doc = doc;
 	m_importedColors = importedColors;
-	CurrColorStroke = CommonStrings::None;
-	CurrColorFill = CommonStrings::None;
 	CurrColorText = "Black";
-	m_fontSize = 12.0;
-	m_fontName = nullptr;
-	m_itemText = nullptr;
+	CurrColorFill = CommonStrings::None;
+	CurrColorStroke = CommonStrings::None;
 }
 
 void AnoOutputDev::eoFill(GfxState *state)
@@ -238,36 +225,14 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 {
 	m_doc = doc;
 	m_Elements = Elements;
-	m_groupStack.clear();
 	pushGroup();
-	m_clipPaths.clear();
-	m_currentMask = "";
 	m_importedColors = importedColors;
 	CurrColorStroke = "Black";
-	CurrFillShade = 100;
 	CurrColorFill = "Black";
-	CurrStrokeShade = 100;
-	PLineEnd = Qt::FlatCap;
-	PLineJoin = Qt::MiterJoin;
-	DashOffset = 0.0;
-	Coords = "";
-	pathIsClosed = false;
 	tmpSel = new Selection(m_doc, false);
-	firstLayer = true;
-	layerNum = 1;
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
-	xref = nullptr;
-	pdfDoc = nullptr;
-	catalog = nullptr;
-	m_fontEngine = nullptr;
-	m_font = nullptr;
-	m_formWidgets = nullptr;
-	updateGUICounter = 0;
 	layersSetByOCG = false;
-	cropOffsetX = 0;
-	cropOffsetY = 0;
-	inPattern = 0;
 }
 
 SlaOutputDev::~SlaOutputDev()

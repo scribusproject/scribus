@@ -307,11 +307,31 @@ static const char* post_format10_names[] = {
 
 
 
+bool PostTable::usable() const
+{
+    return m_usable;
+}
+
+void PostTable::setUsable(bool usable)
+{
+    m_usable = usable;
+}
+
+QString PostTable::errorMsg() const
+{
+    return m_errorMsg;
+}
+
+void PostTable::setErrorMsg(const QString& errorMsg)
+{
+    m_errorMsg = errorMsg;
+}
+
 uint PostTable::numberOfGlyphs() const
 {
-	if (m_names.length() > 0)
-		return m_names.length();
-	return post_format10_names_count;
+    if (m_names.length() > 0)
+        return m_names.length();
+    return post_format10_names_count;
 }
 
 QString PostTable::nameFor(uint glyph) const
@@ -332,36 +352,36 @@ void PostTable::readFrom(FT_Face face)
 	//qDebug() << "load post" << error << size;
 	if (error || size == 0)
 	{
-		errorMsg = "no post table";
-		usable = false;
+		m_errorMsg = "no post table";
+		m_usable = false;
 		return;
 	}
 	postData.resize(size);
 	error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, reinterpret_cast<FT_Byte*>(postData.data()), &size );
 	if (error)
 	{
-		errorMsg = "can't load post table";
-		usable = false;
+		m_errorMsg = "can't load post table";
+		m_usable = false;
 		return;
 	}
 	
 	switch (sfnt::word(postData, ttf_post_format))
 	{
 		case sfnt::post_format10:
-			usable = true;
+			m_usable = true;
 			m_names.clear();
 			return;
 		case sfnt::post_format20:
 			break;
 		case sfnt::post_format30:
-			errorMsg = QString("post table has no glyph names");
-			usable = false;
+			m_errorMsg = QString("post table has no glyph names");
+			m_usable = false;
 			return;
 		case sfnt::post_format25:
 		case sfnt::post_format40:
 		default:
-			errorMsg = QString("unsupported post format %1").arg(sfnt::word(postData,0));
-			usable = false;
+			m_errorMsg = QString("unsupported post format %1").arg(sfnt::word(postData,0));
+			m_usable = false;
 			return;
 			
 	}
@@ -388,21 +408,21 @@ void PostTable::readFrom(FT_Face face)
 		else if (nameIndex < pascalStrings.length() + sfnt::post_format10_names_count)
 			name = pascalStrings[nameIndex - sfnt::post_format10_names_count];
 		else {
-			usable = false;
-			errorMsg = QString("missing name %1 for glyph %2").arg(nameIndex).arg(gid);
+			m_usable = false;
+			m_errorMsg = QString("missing name %1 for glyph %2").arg(nameIndex).arg(gid);
 			return;
 		}
 		if (name != ".notdef" && name[0] != QChar(0) && usedNames.contains(name))
 		{
-			usable = false;
-			errorMsg = QString("duplicate name %1 used for glyphs %2 and %3").arg(name).arg(gid).arg(usedNames[name]);
+			m_usable = false;
+			m_errorMsg = QString("duplicate name %1 used for glyphs %2 and %3").arg(name).arg(gid).arg(usedNames[name]);
 			return;
 		}
 		usedNames[name] = gid;
 		m_names.append(name);
 	}
-	errorMsg = "";
-	usable = true;
+	m_errorMsg = "";
+	m_usable = true;
 }
 
 
