@@ -78,7 +78,41 @@ LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
 <dd><code>openDoc("nom")</code>
 <p>Ouvre le document "nom".</p>
 <p>Peut générer ScribusError si le document ne peut pas être ouvert.</p></dd>
-	
+
+<dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
+<dd><code>placeEPS("nomFichier", x, y)</code>
+<p>Importe le fichier EPS "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier EPS une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier EPS importé.</p></dd>
+
+<dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
+<dd><code>placeODG("nomFichier", x, y)</code>
+<p>Importe le fichier ODG "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier ODG une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier ODG importé.</p></dd>
+
+<dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
+<dd><code>placeSVG("nomFichier", x, y)</code>
+<p>Importe le fichier SVG "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier SVG une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier SVG importé.</p></dd>
+
+<dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
+<dd><code>placeSXD("nomFichier", x, y)</code>
+<p>Importe le fichier SXD "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier SXD une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier SXD importé.</p></dd>
+
+<dt><a name="-placeVectorFile"><strong>placeVectorFile</strong>(...)</a></dt>
+<dd><code>placeVectorFile("nomFichier", x, y)</code>
+<p>Importe le fichier vectoriel "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier vectoriel une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier vectoriel importé.</p></dd>
+
+<dt><a name="-revertDoc"><strong>revertDoc</strong></a>(...)</dt>
+<dd><code>revertDoc()</code>
+<p>Restaure le document à l'état de sa dernière sauvergarde.</p></dd>
+
 <dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
 <dd><code>saveDoc()</code>
 <p>Enregistre le document ouvert sous son nom courant, et retourne la valeur True si l'opération réussit. Si le document n'a pas déjà été enregistré, le système peut afficher le dialogue interactif Enregistrer sous.Si l'enregistrement échoue, il n'y a actuellement aucun moyen de le savoir.</p></dd>

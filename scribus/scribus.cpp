@@ -4136,13 +4136,16 @@ void ScribusMainWindow::slotFileRevert()
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()) && (!doc->isConverted))
 	{
 		ScribusWin* tw = ActWin;
-		int t = ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
-								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
-								 QMessageBox::Yes | QMessageBox::No,
-								 QMessageBox::No,	// GUI default
-								 QMessageBox::Yes);	// batch default
-		if (t == QMessageBox::No)
-			return;
+		if (!scriptIsRunning())
+		{
+			int t = ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
+									 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
+									 QMessageBox::Yes | QMessageBox::No,
+									 QMessageBox::No,	// GUI default
+									 QMessageBox::Yes);	// batch default
+			if (t == QMessageBox::No)
+				return;
+		}
 
 		mdiArea->setActiveSubWindow(tw->getSubWin());
 		ActWin = tw;

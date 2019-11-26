@@ -142,6 +142,14 @@ If the save fails, there is currently no way to tell.\n\
 PyObject *scribus_savedoc(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_revertdoc__doc__,
+QT_TR_NOOP("revertDoc()\n\
+\n\
+Revert the current document to its last saved state.\n\
+"));
+PyObject *scribus_revertdoc(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getdocname__doc__,
 QT_TR_NOOP("getDocName() -> string\n\
 \n\
