@@ -2008,11 +2008,16 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			else
 				docu.writeAttribute("NEXTITEM", -1);
 
-			PageItem* prevTopParent = item->prevInChain();
-			while (prevTopParent && prevTopParent->Parent)
-				prevTopParent = prevTopParent->Parent;
-			
-			if (item->prevInChain() != nullptr && items->contains(prevTopParent))
+			bool prevTopParentCheck = (master == ItemSelectionGroup);
+			if (master != ItemSelectionGroup)
+			{
+				PageItem* prevTopParent = item->prevInChain();
+				while (prevTopParent && prevTopParent->Parent)
+					prevTopParent = prevTopParent->Parent;
+				prevTopParentCheck = items->contains(prevTopParent);
+			}
+
+			if (item->prevInChain() != nullptr && prevTopParentCheck)
 				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()) & 0x7FFFFFFF);
 			else
 			{
