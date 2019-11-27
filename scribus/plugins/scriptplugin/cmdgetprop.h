@@ -197,27 +197,27 @@ given the currently selected item is used.\n\
 PyObject *scribus_getimagefile(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getimgoffset__doc__,
+PyDoc_STRVAR(scribus_getimageoffset__doc__,
 	QT_TR_NOOP("getImageOffset([\"name\"]) -> (x,y)\n\
 \n\
 Returns a (x, y) tuple containing the offset values in point unit of the image\n\
 frame \"name\".  If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Returns image scale of the object */
-PyObject *scribus_getimgoffset(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getimageoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getimgscale__doc__,
+PyDoc_STRVAR(scribus_getimagescale__doc__,
 	QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
 \n\
 Returns a (x, y) tuple containing the scaling values of the image frame\n\
 \"name\".  If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Returns image scale of the object */
-PyObject *scribus_getimgscale(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getimagescale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getposi__doc__,
+PyDoc_STRVAR(scribus_getposition__doc__,
 QT_TR_NOOP("getPosition([\"name\"]) -> (x,y)\n\
 \n\
 Returns a (x, y) tuple with the position of the object \"name\".\n\
@@ -226,7 +226,7 @@ The position is expressed in the actual measurement unit of the document\n\
 - see UNIT_<type> for reference.\n\
 "));
 /*! Returns position of the object */
-PyObject *scribus_getposi(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getposition(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getsize__doc__,
