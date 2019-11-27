@@ -8,6 +8,10 @@
 
 <dl>
 
+<dt><a name="-applyMasterPage"><strong>applyMasterPage</strong>(...)</a></dt>
+<dd><code>applyMasterPage(nomGabarit, pageNr)</code>
+<p>Applique le gabarit "nomGabarit" à la page donnée. Vous trouverez des exemples d'utilisation sur le wiki.</a>.</p></dd>
+
 <dt><a name="-closeMasterPage"><strong>closeMasterPage</strong>(...)</a></dt>
 <dd><code>closeMasterPage()</code>
 <p>Termine l'édition du gabarit actif et retourne à l'édition des pages standards. 
@@ -42,6 +46,10 @@ Lorsque l'édition du gabarit est achevée, appelez la fonction <a href="#-close
 <dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
 <dd><code>getHGuides() -&gt; liste</code>
 <p>Retourne une liste contenant les positions des guides horizontaux. Les valeurs sont dans les unités courantes du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-getPageType"><strong>getPageType</strong>(...)</a></dt>
+<dd><code>getPageType() -&gt; entier</code>
+<p>Retourne le type de page : 0 indique une page gauche, 1 une page centrale et 2 une page droite</p></dd>
 
 <dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
 <dd><code>getVGuides()</code>
