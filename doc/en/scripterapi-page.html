@@ -55,13 +55,14 @@ for editing. Finish editing with <a href="#-closeMasterPage">closeMasterPage()</
 <p>Returns a list containing positions of the horizontal guides. Values are in the
 document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
 
+<dt><a name="-getMasterPage"><strong>getMasterPage</strong>(...)</a></dt>
+<dd><code>getMasterPage(nr) -&gt; string</code>
+<p>Returns the name of master page applied to page "nr".</p>
+<p>May raise IndexError if the page number is out of range.</p></dd>
+
 <dt><a name="-getPageType"><strong>getPageType</strong>(...)</a></dt>
 <dd><code>getPageType() -&gt; integer</code>
 <p>Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</p></dd>
-
-<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
-<dd><code>getVGuides()</code>
-<p>See <a href="#-getHGuides">getHGuides</a>.</p></dd>
 
 <dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
 <dd><code>getPageItems() -&gt; list</code>
@@ -82,6 +83,10 @@ document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
 <dt><a name="-getPageNSize"><strong>getPageNSize</strong></a>(...)</dt>
 <dd><code>getPageNSize(nr) -&gt; tuple</code>
 <p>Returns a tuple with a particular page's size measured in the document's current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code>getVGuides()</code>
+<p>See <a href="#-getHGuides">getHGuides</a>.</p></dd>
 
 <dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
 <dd><code>gotoPage(nr)</code>

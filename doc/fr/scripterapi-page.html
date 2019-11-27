@@ -47,13 +47,14 @@ Lorsque l'édition du gabarit est achevée, appelez la fonction <a href="#-close
 <dd><code>getHGuides() -&gt; liste</code>
 <p>Retourne une liste contenant les positions des guides horizontaux. Les valeurs sont dans les unités courantes du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
 
+<dt><a name="-getMasterPage"><strong>getMasterPage</strong>(...)</a></dt>
+<dd><code>getMasterPage(nr) -&gt; chaîne</code>
+<p>Retourne le nom du gabarit appliqué à la page "nr".</p>
+<p>Peut générer IndexError si le numéro de page est hors limites.</p></dd>
+
 <dt><a name="-getPageType"><strong>getPageType</strong>(...)</a></dt>
 <dd><code>getPageType() -&gt; entier</code>
 <p>Retourne le type de page : 0 indique une page gauche, 1 une page centrale et 2 une page droite</p></dd>
-
-<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
-<dd><code>getVGuides()</code>
-<p>Voir <a href="#-getHGuides">getHGuides</a>.</p></dd>
 
 <dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
 <dd><code>getPageItems() -&gt; liste</code>
@@ -74,6 +75,10 @@ Lorsque l'édition du gabarit est achevée, appelez la fonction <a href="#-close
 <dt><a name="-getPageNSize"><strong>getPageNSize</strong></a>(...)</dt>
 <dd><code>getPageNSize(nr) -&gt; vecteur</code>
 <p>Retourne un vecteur avec les dimensions d'une page donnée mesurées dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code>getVGuides()</code>
+<p>Voir <a href="#-getHGuides">getHGuides</a>.</p></dd>
 
 <dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
 <dd><code>gotoPage(nr)</code>

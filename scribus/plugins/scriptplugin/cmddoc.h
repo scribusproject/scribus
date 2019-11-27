@@ -286,9 +286,9 @@ Delete the named master page.\n\
 PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
 
 PyDoc_STRVAR(scribus_getmasterpage__doc__,
-QT_TR_NOOP("getMasterPage(nr)\n\
+QT_TR_NOOP("getMasterPage(pageNr)\n\
 \n\
-Get Master Page of the page \"nr\".\n\
+Returns the name of master page applied to page \"nr\".\n\
 \n\
 May raise IndexError if the page number is out of range.\n\
 "));
