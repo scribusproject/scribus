@@ -757,7 +757,7 @@ void SearchReplace::slotDoReplace()
 			m_doc->itemSelection_SetFont(RFontVal->currentText());
 		if (RSize->isChecked())
 			m_doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
-		if (REffect->isChecked() && (m_item->itemText.selectionLength() > 0))
+		if (REffect->isChecked() && (m_item->itemText.isSelected()))
 		{
 			int s = REffVal->getStyle() & ScStyle_UserStyles;
 			m_doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
@@ -1055,7 +1055,7 @@ void SearchReplace::updateReplaceButtonsState()
 	}
 	replaceEnabled |= RText->isChecked();
 	if (m_itemMode)
-		replaceEnabled &= (m_item->itemText.selectionLength() > 0);
+		replaceEnabled &= (m_item->itemText.isSelected());
 	else if (m_doc->scMW()->CurrStED != nullptr)
 		replaceEnabled &= m_doc->scMW()->CurrStED->Editor->textCursor().hasSelection();
 	else

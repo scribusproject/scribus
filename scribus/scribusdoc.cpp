@@ -9304,7 +9304,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.selectionLength() > 0)
+				if (currItem->itemText.isSelected())
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -9435,7 +9435,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.selectionLength() > 0)
+				if (currItem->itemText.isSelected())
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -9515,7 +9515,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 			int length = currItem->lastInFrame() - start + 1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
-				if (currItem->itemText.selectionLength() > 0)
+				if (currItem->itemText.isSelected())
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
@@ -14539,12 +14539,12 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 	currItem->Sizing = false;
 	if ((!(currItem->isGroup() || currItem->isSymbol())) || includeGroup)
 	{
-		double oldX = currItem->xPos();
-		double oldY = currItem->yPos();
-		double oldW = currItem->width();
-		double oldH = currItem->height();
-		double oldgW = currItem->groupWidth;
-		double oldgH = currItem->groupHeight;
+//		double oldX = currItem->xPos();
+//		double oldY = currItem->yPos();
+//		double oldW = currItem->width();
+//		double oldH = currItem->height();
+//		double oldgW = currItem->groupWidth;
+//		double oldgH = currItem->groupHeight;
 		FPointArray clip = currItem->PoLine;
 		QRectF clipRect = clip.toQPainterPath(false).boundingRect();
 		FPoint tp2(clipRect.left(), clipRect.top());

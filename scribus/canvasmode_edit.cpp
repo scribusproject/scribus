@@ -382,7 +382,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 					currItem->itemText.setCursorPosition(newPos);
 				}
 			}
-			currItem->HasSel = (currItem->itemText.selectionLength() > 0);
+			currItem->HasSel = currItem->itemText.isSelected();
 		}
 	}
 	else
@@ -459,9 +459,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
+				m_ScMW->setCopyCutEnabled(currItem->HasSel);
 				if (currItem->HasSel)
 				{
-					m_ScMW->EnableTxEdit();
 					m_canvas->m_viewMode.operTextSelecting = true;
 					if ((refStartSel != currItem->asTextFrame()->itemText.startOfSelection()) ||
 						(refEndSel   != currItem->asTextFrame()->itemText.endOfSelection()))
@@ -470,8 +470,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
 					}
 				}
-				else
-					m_ScMW->DisableTxEdit();
 			}
 		}
 		if (!m_canvas->m_viewMode.m_MouseButtonPressed)
@@ -642,7 +640,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				//<<CB Add in shift select to text frames
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					if (currItem->itemText.selectionLength() > 0)
+					if (currItem->itemText.isSelected())
 					{
 						if (currItem->itemText.cursorPosition() < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
 						{
@@ -949,12 +947,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
 	if (GetItem(&currItem) && currItem->asTextFrame())
-	{
-		if (currItem->itemText.selectionLength() > 0)
-			m_ScMW->EnableTxEdit();
-		else
-			m_ScMW->DisableTxEdit();
-	}
+		m_ScMW->setCopyCutEnabled(currItem->itemText.isSelected());
 }
 
 //CB-->Doc/Fix

@@ -246,6 +246,7 @@ public:
 	int startOfSelection() const;
 	int endOfSelection() const;
 	int selectionLength() const;
+	bool isSelected() const;
 
 	// break iterators
 	static BreakIterator* getGraphemeIterator();

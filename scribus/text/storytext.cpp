@@ -1759,6 +1759,11 @@ int StoryText::selectionLength() const
 	return m_selFirst <= last? last - m_selFirst + 1 : 0;
 }
 
+bool StoryText::isSelected() const
+{
+	return selectionLength() > 0;
+}
+
 
 bool StoryText::selected(int pos) const
 {

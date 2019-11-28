@@ -380,12 +380,11 @@ public slots:
 	void slotEditPaste();
 	void slotEditCopyContents();
 	void slotEditPasteContents(int absolute=0);
-	void EnableTxEdit();
-	void DisableTxEdit();
 	void SelectAll(bool docWideSelect=false);
 	void SelectAllOnLayer();
 	void deselectAll();
 	void ClipChange();
+	void setCopyCutEnabled(bool b);
 	/** \brief shows an about dialog*/
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();

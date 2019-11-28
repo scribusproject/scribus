@@ -5102,7 +5102,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 			nextItem->HasSel = true;
 			nextItem = nextItem->nextInChain();
 		}
-		EnableTxEdit();
+		setCopyCutEnabled(true);
 	}
 	else
 	{
@@ -5174,16 +5174,11 @@ void ScribusMainWindow::ClipChange()
 	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
 }
 
-void ScribusMainWindow::EnableTxEdit()
-{
-	scrActions["editCut"]->setEnabled(true);
-	scrActions["editCopy"]->setEnabled(true);
-}
 
-void ScribusMainWindow::DisableTxEdit()
+void ScribusMainWindow::setCopyCutEnabled(bool b)
 {
-	scrActions["editCut"]->setEnabled(false);
-	scrActions["editCopy"]->setEnabled(false);
+	scrActions["editCut"]->setEnabled(b);
+	scrActions["editCopy"]->setEnabled(b);
 }
 
 void ScribusMainWindow::slotHelpAbout()

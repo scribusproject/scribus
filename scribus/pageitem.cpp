@@ -1543,7 +1543,7 @@ bool PageItem::frameDisplays(int textpos) const
 const ParagraphStyle& PageItem::currentStyle() const
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.selectionLength() > 0)
+	if (itemText.isSelected())
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1559,7 +1559,7 @@ const ParagraphStyle& PageItem::currentStyle() const
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.selectionLength() > 0)
+	if (itemText.isSelected())
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1575,7 +1575,7 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 const CharStyle& PageItem::currentCharStyle() const
 {
 	int cursorPosition = itemText.cursorPosition();
-	if (itemText.selectionLength() > 0)
+	if (itemText.isSelected())
 	{
 		int firstSelected = itemText.startOfSelection();
 		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
@@ -1594,7 +1594,7 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 	parStyle = curStyle;
 
 	int position = itemText.cursorPosition();
-	if (itemText.selectionLength() > 0)
+	if (itemText.isSelected())
 		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
 
 	// Note: cursor position can be past last characters, don't use frameDisplays() here

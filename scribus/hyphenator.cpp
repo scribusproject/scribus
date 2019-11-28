@@ -137,7 +137,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString text = "";
 
 	int startC = 0;
-	if (it->itemText.selectionLength() > 0)
+	if (it->itemText.isSelected())
 	{
 		startC = it->itemText.startOfSelection();
 		text = it->itemText.text(startC, it->itemText.selectionLength());
@@ -340,7 +340,7 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 	if (!(it->asTextFrame()) || (it ->itemText.length() == 0))
 		return;
 
-	if (it->itemText.selectionLength() > 0)
+	if (it->itemText.isSelected())
 		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.selectionLength(), nullptr);
 	else
 	{
