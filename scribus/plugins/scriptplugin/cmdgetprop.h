@@ -177,16 +177,6 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getimagecolorspace(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getimageexiffield__doc__,
-QT_TR_NOOP("getImageExifField(fiel, [\"name\"]) -> string\n\
-\n\
-Returns the exif field for the image in the image frame. If \"name\" is not\n\
-given the currently selected item is used.\n\
-"));
-/*! Returns image name of the object */
-PyObject *scribus_getimageexiffield(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
 PyDoc_STRVAR(scribus_getimagefile__doc__,
 QT_TR_NOOP("getImageFile([\"name\"]) -> string\n\
 \n\

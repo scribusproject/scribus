@@ -363,7 +363,6 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getHGuides"), (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
 	{const_cast<char*>("getImageColorSpace"), scribus_getimagecolorspace, METH_VARARGS, tr(scribus_getimagecolorspace__doc__) },
 	{const_cast<char*>("getImageFile"), scribus_getimagefile, METH_VARARGS, tr(scribus_getimagefile__doc__)},
-	{const_cast<char*>("getImageExifField"), scribus_getimageexiffield, METH_VARARGS, tr(scribus_getimageexiffield__doc__)},
 	{const_cast<char*>("getImageOffset"), scribus_getimageoffset, METH_VARARGS, tr(scribus_getimageoffset__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimagescale, METH_VARARGS, tr(scribus_getimagescale__doc__)},
 	{const_cast<char*>("getLayers"), (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
