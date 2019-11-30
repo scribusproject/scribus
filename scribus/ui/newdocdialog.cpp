@@ -367,7 +367,7 @@ void NewDocDialog::createOpenDocPage()
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
 	fileDialog->setOption(QFileDialog::DontUseNativeDialog);
 	fileDialog->setIconProvider(new ImIconProvider());
-	fileDialog->setNameFilterDetailsVisible(false);
+	fileDialog->setOption(QFileDialog::HideNameFilterDetails, true);
 	fileDialog->setReadOnly(true);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);

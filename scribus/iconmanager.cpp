@@ -160,7 +160,7 @@ void IconManager::readIconConfigFiles()
 				if ((av_fullver == curr_fullver) && !isd.variant.isEmpty())
 					continue;
 				m_backupSetBasename = m_activeSetBasename;
-				m_backupSetVersion = m_backupSetVersion;
+//				m_backupSetVersion = m_backupSetVersion;
 				m_activeSetBasename = isd.baseName;
 				m_activeSetVersion = isd.activeversion;
 				//qDebug()<<"backupSetBasename"<<m_backupSetBasename<<"activeSetBasename"<<m_activeSetBasename;

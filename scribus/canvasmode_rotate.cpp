@@ -496,7 +496,7 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 	if (e->modifiers() & Qt::ShiftModifier)
 		increment /= 10;
 
-	if (increment = 0.0)
+	if (increment == 0.0)
 		return;
 	PageItem *currItem;
 	if (GetItem(&currItem))

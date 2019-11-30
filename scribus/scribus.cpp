@@ -5174,7 +5174,6 @@ void ScribusMainWindow::ClipChange()
 	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
 }
 
-
 void ScribusMainWindow::setCopyCutEnabled(bool b)
 {
 	scrActions["editCut"]->setEnabled(b);

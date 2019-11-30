@@ -104,7 +104,7 @@ void MarksManager::updateListView()
 		addListItem(MARK2MarkType, tr("Marks to Anchors"), m_Doc->marksList(), index);
 		addListItem(MARKNoteMasterType, tr("Notes marks"), m_Doc->marksList(), index);
 	//	addListItem(MARKIndexType, tr("Index entries");, marks, index);
-		listView->sortByColumn(0);
+		listView->sortByColumn(0, Qt::AscendingOrder);
 	}
 	restoreColaption();
 	m_Doc->flag_updateMarksLabels = false;

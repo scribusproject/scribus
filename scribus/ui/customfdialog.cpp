@@ -483,7 +483,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 			connect(saveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
 	fileDialog->forceDoubleClickActivation(m_previewIsShown);
-	fileDialog->setNameFilterDetailsVisible(false);
+	fileDialog->setOption(QFileDialog::HideNameFilterDetails, true);
 	m_extZip = "gz";
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okClicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
