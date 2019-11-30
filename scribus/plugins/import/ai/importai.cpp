@@ -468,7 +468,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		}
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
-		m_Doc->view()->Deselect();
+		m_Doc->view()->deselectItems();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;

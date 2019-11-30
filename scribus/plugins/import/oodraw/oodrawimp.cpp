@@ -490,7 +490,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		}
 	}
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
-		m_Doc->view()->Deselect();
+		m_Doc->view()->deselectItems();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;

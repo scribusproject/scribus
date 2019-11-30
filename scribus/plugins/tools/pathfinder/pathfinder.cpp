@@ -427,7 +427,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			}
 		}
 		currDoc->m_Selection->clear();
-		currDoc->view()->Deselect(true);
+		currDoc->view()->deselectItems(true);
 	}
 
 	currDoc->changed();

@@ -972,7 +972,7 @@ void OutlinePalette::slotMultiSelect()
 		if (currDoc->appMode == modeEditClip)
 			currDoc->view()->requestMode(submodeEndNodeEdit);
 		currDoc->m_Selection->delaySignalsOn();
-		currDoc->view()->Deselect(true);
+		currDoc->view()->deselectItems(true);
 		for (int a = 0; a < items.count(); a++)
 		{
 			QTreeWidgetItem* ite = items[a];
@@ -994,7 +994,7 @@ void OutlinePalette::slotMultiSelect()
 					if (!pgItem->isSelected())
 					{
 						m_MainWindow->closeActiveWindowMasterPageEditor();
-						currDoc->view()->SelectItem(pgItem, false, false);
+						currDoc->view()->selectItem(pgItem, false, false);
 					}
 					break;
 				default:

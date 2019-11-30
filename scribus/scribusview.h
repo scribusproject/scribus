@@ -178,9 +178,9 @@ public:
 	bool slotSetCurs(int x, int y);
 	// \brief return a resize cursor if the mouse is on a handle.
 	Qt::CursorShape getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor);
-	void Deselect(bool prop = true);
-	void SelectItemNr(uint nr, bool draw = true, bool single = false);
-	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
+	void deselectItems(bool prop = true);
+	void selectItemByNumber(int nr, bool draw = true, bool single = false);
+	void selectItem(PageItem *pi, bool draw = true, bool single = false);
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }
 	void startGroupTransaction(const QString &actionName = "",

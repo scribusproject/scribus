@@ -346,7 +346,7 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 			m_Doc->m_Selection->removeItem(ite);
 		}
 		if ((stateCode == 0) || (stateCode == 1))
-			m_Doc->view()->Deselect(true);
+			m_Doc->view()->deselectItems(true);
 		Selection tmpSelection(m_Doc, false);
 		tmpSelection.addItem(ite);
 		m_Doc->itemSelection_DeleteItem(&tmpSelection);
@@ -354,7 +354,7 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 	else
 	{
 		if ((stateCode == 0) || (stateCode == 1))
-			m_Doc->view()->Deselect(true);
+			m_Doc->view()->deselectItems(true);
 		m_Doc->Items->append(ite);
 		ite->OwnPage = m_Doc->OnPage(ite);
 	}
@@ -375,7 +375,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	int id2 = state->getInt("ID");
 	if (itemList.count() <= 0) 
 		return;
-	m_Doc->view()->Deselect(true);
+	m_Doc->view()->deselectItems(true);
 	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!itemList.at(0)->OnMasterPage.isEmpty());
 	if (m_Doc->appMode == modeEditClip) // switch off from edit shape

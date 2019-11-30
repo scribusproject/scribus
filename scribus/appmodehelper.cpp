@@ -229,7 +229,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (!doc->m_Selection->isEmpty())
 				{
 					doc->ElemToLink = doc->m_Selection->itemAt(0);
-					doc->view()->Deselect(true);
+					doc->view()->deselectItems(true);
 					(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
 				}
 			}
@@ -240,7 +240,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			{
 				setSpecialEditMode(true);
 				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools))
-					doc->view()->Deselect(true);
+					doc->view()->deselectItems(true);
 			}
 			break;
 		case modeDrawCalligraphicLine:

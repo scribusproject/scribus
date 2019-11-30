@@ -211,7 +211,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	// If no name have been specified in args, process whole selection
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 	if (strlen(Name) == 0)
 	{
 		for (int i = 0; i < currentDoc->m_Selection->count(); ++i)

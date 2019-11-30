@@ -387,7 +387,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	switch (m_doc->appMode)
 	{
 		case modeDrawTable2:
-			m_view->Deselect(false);
+			m_view->deselectItems(false);
 			break;
 	}
 
@@ -450,7 +450,7 @@ void CreateMode::selectPage(QMouseEvent *m)
 //	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 	if (!m_doc->masterPageMode())
 	{
 		int i = m_doc->OnPage(canvasPressCoord.x(), canvasPressCoord.y());

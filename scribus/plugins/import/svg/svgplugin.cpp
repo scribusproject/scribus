@@ -393,7 +393,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->setPageSize("Custom");
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
-		m_Doc->view()->Deselect();
+		m_Doc->view()->deselectItems();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))

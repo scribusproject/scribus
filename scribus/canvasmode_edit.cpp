@@ -583,7 +583,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
 			{
 				m_doc->m_Selection->delaySignalsOn();
-				m_view->Deselect(true);
+				m_view->deselectItems(true);
 				bool wantNormal = true;
 				if (SeleItem(m))
 				{
@@ -627,7 +627,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 			if (!inText)
 			{
 				currItem->invalidateLayout();
-				m_view->Deselect(true);
+				m_view->deselectItems(true);
 				//m_view->slotDoCurs(true);
 				m_view->requestMode(modeNormal);
 				m_view->canvasMode()->mousePressEvent(m);
@@ -708,7 +708,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		}
 		else if (!currItem->asImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
-			m_view->Deselect(true);
+			m_view->deselectItems(true);
 			if (SeleItem(m))
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
@@ -889,7 +889,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && m_doc->canSelectItemOnLayer(docItem->m_layerID))
 				{
 					bool redrawSelection=false;
-					m_view->SelectItemNr(a, redrawSelection);
+					m_view->selectItemByNumber(a, redrawSelection);
 				}
 			}
 			m_doc->m_Selection->delaySignalsOff();
@@ -1034,7 +1034,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier)
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
@@ -1081,7 +1081,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	}
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	return false;
 }
 

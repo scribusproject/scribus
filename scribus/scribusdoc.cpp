@@ -6445,10 +6445,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (newType == PageItem::PathText)
 	{
 		//FIXME: Stop using the view here
-		m_View->SelectItem(secondaryItem);
+		m_View->selectItem(secondaryItem);
 		itemSelection_DeleteItem();
 		regionsChanged()->update(QRectF());
-		m_View->Deselect(true);
+		m_View->deselectItems(true);
 	}
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
@@ -10475,7 +10475,7 @@ void ScribusDoc::updatePic()
 void ScribusDoc::removeLayer(int l, bool dl)
 {
 	//FIXME: stop using m_View
-	m_View->Deselect();
+	m_View->deselectItems();
 	Selection tmpSelection(this, false);
 	int newLayerID = 0;
 	// Find the new layer identifier
@@ -10749,7 +10749,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		setRotationMode ( 0 );
 		ScriXmlDoc xmlDoc;
 		QString copyBuffer = xmlDoc.writeElem(this, m_Selection);
-		view()->Deselect(true);
+		view()->deselectItems(true);
 		for (int b = 0; b < nrOfCopies; b++)
 		{
 			uint ac = Items->count();
@@ -11745,7 +11745,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerID)
 									 Um::ILayerAction);
 		}
 	}
-	m_View->Deselect(true);
+	m_View->deselectItems(true);
 	regionsChanged()->update(QRectF());
 	changed();
 }
@@ -13545,7 +13545,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		ScriXmlDoc ss;
 		QString BufferS = ss.writeElem(this, &selection);
 		//FIXME: stop using m_View
-		m_View->Deselect(true);
+		m_View->deselectItems(true);
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			uint ac = Items->count();
@@ -13641,7 +13641,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 	DoDrawing = true;
 	view()->updatesOn(true);
 	//FIXME: stop using m_View
-	m_View->Deselect(true);
+	m_View->deselectItems(true);
 	view()->DrawNew();
 	changed();
 }
@@ -15621,9 +15621,9 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		is->set("CLIPEDITED",currClipEdited);
 		m_undoManager->action(currItem, is);
 	}
-	m_View->Deselect(true);
+	m_View->deselectItems(true);
 	for (int c = 0; c < toDel.count(); ++c)
-		m_View->SelectItem(toDel.at(c));
+		m_View->selectItem(toDel.at(c));
 	m_Selection->delaySignalsOff();
 	itemSelection_DeleteItem();
 	regionsChanged()->update(QRectF());
@@ -15693,7 +15693,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	m_rotMode = oldRotMode;
 	m_undoManager->setUndoEnabled(true);
 	m_Selection->delaySignalsOff();
-	view()->Deselect(true);
+	view()->deselectItems(true);
 	regionsChanged()->update(QRectF());
 	if (transaction)
 		transaction.commit();
@@ -15753,7 +15753,7 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 	PageItem* currItem;
 	Selection itemSelection(this, false);
 	itemSelection.copy(*m_Selection, false);
-	m_View->Deselect(true);
+	m_View->deselectItems(true);
 	if (docSelectionCount > 1)
 		currItem = groupObjectsSelection(&itemSelection);
 	else
@@ -18170,9 +18170,9 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 		
 	if (appMode == modeEdit && nF->isSelected())
 	{
-		view()->Deselect(true);
+		view()->deselectItems(true);
 		if (!nF->isEndNotesFrame())
-			view()->SelectItem(nF->masterFrame());
+			view()->selectItem(nF->masterFrame());
 	}
 	if (m_docEndNotesFramesMap.contains(nF))
 	{

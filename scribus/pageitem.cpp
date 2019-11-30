@@ -6999,8 +6999,8 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
 	ScribusView* view = m_Doc->view();
-	view->Deselect(false);
-	view->SelectItem(item, false);
+	view->deselectItems(false);
+	view->selectItem(item, false);
 	switch (type)
 	{
 		case ImageFrame: view->ToPicFrame(); break;
@@ -7344,7 +7344,7 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 	if (!is)
 		qFatal("PageItem::restoreUniteItem: dynamic cast failed");
 
-	m_Doc->view()->Deselect(true);
+	m_Doc->view()->deselectItems(true);
 	if (isUndo)
 	{
 		int pts = 0;
@@ -7370,7 +7370,7 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 	{
 		select();
 		for (int i = 0; i < is->getItem().first.size(); ++i)
-			doc()->view()->SelectItem(is->getItem().first.at(i));
+			doc()->view()->selectItem(is->getItem().first.at(i));
 		doc()->itemSelection_UniteItems();
 		select();
 	}
@@ -7387,7 +7387,7 @@ void PageItem::restoreSplitItem(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		for (int i = 0; i < itemsList.size(); ++i)
-			doc()->view()->SelectItem(doc()->Items->at(itemsList.at(i)));
+			doc()->view()->selectItem(doc()->Items->at(itemsList.at(i)));
 		doc()->itemSelection_UniteItems();
 		select();
 	}
@@ -7436,7 +7436,7 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 {
 	ScribusView* view = m_Doc->view();
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
-	view->Deselect(true);
+	view->deselectItems(true);
 	m_Doc->regionsChanged()->update(QRectF());
 }
 
@@ -7534,7 +7534,7 @@ void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 
 void PageItem::select()
 {
-	m_Doc->view()->Deselect(false);
+	m_Doc->view()->deselectItems(false);
 	//CB #2969 add this true parm to addItem so we don't connectToGUI, the rest of view->SelectItem isn't needed anyway
 	m_Doc->m_Selection->addItem(this, true);
 }

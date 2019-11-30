@@ -3807,7 +3807,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		PageItem * jumpFrame = frameTextEnd();
 		if (jumpFrame)
 		{
-			m_Doc->view()->Deselect(true);
+			m_Doc->view()->deselectItems(true);
 			m_Doc->scMW()->selectItemsFromOutlines(jumpFrame);
 			m_Doc->scMW()->setTBvals(jumpFrame);
 			jumpFrame->update();
@@ -4055,7 +4055,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						if (NextBox->frameDisplays(itemText.cursorPosition()))
 						{
-							view->Deselect(true);
+							view->deselectItems(true);
 							// we position the cursor at the beginning of the next frame
 							// TODO position at the right place in next frame
 							m_Doc->scMW()->selectItemsFromOutlines(NextBox);
@@ -4068,7 +4068,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (NextBox->frameDisplays(lastInFrame()+1))
 					{
-						view->Deselect(true);
+						view->deselectItems(true);
 						m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 					}
 				}
@@ -4104,7 +4104,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				else
 					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != nullptr))
 					{
-						view->Deselect(true);
+						view->deselectItems(true);
 						// TODO position at the right place in previous frame
 						BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 						m_Doc->scMW()->selectItemsFromOutlines(BackBox);
@@ -4115,7 +4115,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				itemText.setCursorPosition( firstInFrame() );
 				if (BackBox != nullptr)
 				{
-					view->Deselect(true);
+					view->deselectItems(true);
 					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 				}
@@ -4128,7 +4128,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_PageUp:
 		if (itemText.cursorPosition() == firstInFrame() && BackBox != nullptr)
 		{
-			view->Deselect(true);
+			view->deselectItems(true);
 			BackBox->itemText.setCursorPosition( BackBox->firstInFrame() );
 			m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 			//currItem = currItem->BackBox;
@@ -4142,7 +4142,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_PageDown:
 		if (!frameDisplays(itemText.length()-1) && itemText.cursorPosition() >= lastInFrame() && NextBox != nullptr)
 		{
-			view->Deselect(true);
+			view->deselectItems(true);
 			itemText.setCursorPosition( NextBox->lastInFrame() );
 			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 			//currItem = currItem->BackBox;
@@ -4173,7 +4173,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				itemText.setCursorPosition( firstInFrame() );
 				if (BackBox != nullptr)
 				{
-					view->Deselect(true);
+					view->deselectItems(true);
 					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 					//currItem = currItem->BackBox;
@@ -4215,7 +4215,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (NextBox->frameDisplays(itemText.cursorPosition()))
 					{
-						view->Deselect(true);
+						view->deselectItems(true);
 						m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 						//currItem = currItem->NextBox;
 					}
@@ -4337,7 +4337,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.setCursorPosition( firstInFrame() );
 			if (BackBox != nullptr)
 			{
-				view->Deselect(true);
+				view->deselectItems(true);
 				if (BackBox->invalid)
 					BackBox->updateLayout();
 				itemText.setCursorPosition( BackBox->lastInFrame() );
@@ -4503,7 +4503,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		//but not for notes frames can`t be updated as may disapper during update
 		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != nullptr)
 		{
-			view->Deselect(true);
+			view->deselectItems(true);
 			NextBox->update();
 			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 		}

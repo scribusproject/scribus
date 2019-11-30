@@ -300,7 +300,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	}
 	from->guides.copy(&destination->guides);
 	m_doc->GroupCounter = GrMax + 1;
-	m_view->Deselect(true);
+	m_view->deselectItems(true);
 	m_doc->setLoading(false);
 	m_view->reformPages();
 	m_view->DrawNew();

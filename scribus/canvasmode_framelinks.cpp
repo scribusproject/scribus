@@ -358,7 +358,7 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 	m_Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	m_Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 	if (!m_doc->masterPageMode())
 	{
 		int i = m_doc->OnPage(m_Mxp, m_Myp);
@@ -456,7 +456,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
@@ -508,7 +508,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	}
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	return false;
 }
 

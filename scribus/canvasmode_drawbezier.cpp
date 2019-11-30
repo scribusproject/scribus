@@ -138,7 +138,7 @@ void BezierMode::deactivate(bool /*flag*/)
 			currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
 		if (currItem->PoLine.size() < 4)
 		{
-			m_view->Deselect(false);
+			m_view->deselectItems(false);
 			Selection tempSelection(m_doc, false);
 			tempSelection.addItem(currItem);
 			m_doc->itemSelection_DeleteItem(&tempSelection, true);
@@ -485,7 +485,7 @@ void BezierMode::selectPage(QMouseEvent *m)
 	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 
 	if (m_doc->masterPageMode())
 		return;

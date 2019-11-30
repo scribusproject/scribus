@@ -301,7 +301,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
@@ -353,7 +353,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	}
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	return false;
 }
 

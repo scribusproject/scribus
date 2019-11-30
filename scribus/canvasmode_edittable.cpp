@@ -281,7 +281,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				activeFrame->itemText.deselectAll();
 				activeFrame->HasSel = false;
 				// Deselect the table and go back to normal mode.
-				m_view->Deselect(true);
+				m_view->deselectItems(true);
 				m_view->requestMode(modeNormal);
 				m_view->canvasMode()->mousePressEvent(event);
 				break;

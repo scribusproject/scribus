@@ -190,7 +190,7 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 		return;
 	}
 	m_poly.resize(0);
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 	m_xp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	m_yp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_canvas->setRenderModeFillBuffer();
@@ -307,7 +307,7 @@ void FreehandMode::selectPage(QMouseEvent *m)
 	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 
 	if (m_doc->masterPageMode())
 		return;

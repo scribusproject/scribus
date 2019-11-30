@@ -994,11 +994,11 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			currItem->Sizing = false;
 			if (m_doc->SubMode != -1)
 			{
-				m_view->Deselect(false);
+				m_view->deselectItems(false);
 				m_doc->Items->removeOne(currItem);
 			}
 			else
-				m_view->Deselect(false);
+				m_view->deselectItems(false);
 			m_view->cancelGroupTransaction();
 		}
 		m_doc->DragP = false;

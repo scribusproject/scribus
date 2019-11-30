@@ -1221,7 +1221,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			currItem->emitAllToGUI();*/
 	}
 	else
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 
 	xSnap = ySnap = 0;
 	m_canvas->setRenderModeUseBuffer(false);
@@ -1475,7 +1475,7 @@ void CanvasMode_Normal::handleJavaAction(PageItem* currItem, int event)
 
 void CanvasMode_Normal::handleNamedAction(PageItem* currItem)
 {
-	m_view->Deselect(true);
+	m_view->deselectItems(true);
 	QString name = currItem->annotation().Action();
 	if (name == "FirstPage")
 		m_view->GotoPage(0);
@@ -1501,7 +1501,7 @@ void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
 {
 	if (currItem->annotation().ActionType() == Annotation::Action_GoTo)
 	{
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 		if (currItem->annotation().Ziel() < m_doc->Pages->count())
 			m_view->GotoPage(currItem->annotation().Ziel());
 		else
@@ -1680,7 +1680,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier)
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, ((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)));
 	if (currItem)
@@ -1768,7 +1768,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_canvas->update();
 		}
 		else
-			m_view->Deselect(true);
+			m_view->deselectItems(true);
 	}
 	if (previousSelectedItem != nullptr)
 		handleFocusOut(previousSelectedItem);

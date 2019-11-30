@@ -176,7 +176,7 @@ QStringList getSelectedItemsByName()
 
 bool setSelectedItemsByName(QStringList& itemNames)
 {
-	ScCore->primaryMainWindow()->view->Deselect();
+	ScCore->primaryMainWindow()->view->deselectItems();
 	// For each named item
 	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
@@ -188,7 +188,7 @@ bool setSelectedItemsByName(QStringList& itemNames)
 		if (!item)
 			return false;
 		// and select it
-		ScCore->primaryMainWindow()->view->SelectItem(item);
+		ScCore->primaryMainWindow()->view->selectItem(item);
 	}
 	return true;
 }

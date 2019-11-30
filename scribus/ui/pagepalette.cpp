@@ -173,7 +173,7 @@ void PagePalette::startMasterPageMode(const QString& masterPage)
 		// fallback to normal mode by precaution
 		if (doc->appMode != modeNormal)
 			m_view->requestMode(modeNormal);
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	}
 
 	QStackedWidget* stackedWidget = this->stackedWidget();
