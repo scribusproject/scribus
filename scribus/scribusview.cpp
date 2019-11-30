@@ -1737,21 +1737,19 @@ void ScribusView::dragTimerTimeOut()
 	// 	qApp->changeOverrideCursor(QCursor(loadIcon("dragpix.png")));
 }
 
-void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
+Qt::CursorShape ScribusView::getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape)
 {
-	QPoint tx, tx2;
 	QTransform ma;
-	//	ma.translate(-Doc->minCanvasCoordinate.x()*m_canvas->scale(), -Doc->minCanvasCoordinate.y()*m_canvas->scale());
 	m_canvas->Transform(currItem, ma);
-	tx = ma.map(QPoint(static_cast<int>(currItem->width()), 0));
-	tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())));
+	QPoint tx = ma.map(QPoint(static_cast<int>(currItem->width()), 0));
+	QPoint tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())));
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		double rr = fabs(currItem->rotation());
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >=315.0) && (rr <= 360.0)))
-			setCursor(QCursor(Qt::SizeBDiagCursor));
+			cursorShape = Qt::SizeBDiagCursor;
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-			setCursor(QCursor(Qt::SizeFDiagCursor));
+			cursorShape = Qt::SizeFDiagCursor;
 	}
 	tx = ma.map(QPoint(static_cast<int>(currItem->width()), static_cast<int>(currItem->height())/2));
 	tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())/2));
@@ -1759,9 +1757,9 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	{
 		double rr = fabs(currItem->rotation());
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
-			setCursor(QCursor(Qt::SizeHorCursor));
+			cursorShape = Qt::SizeHorCursor;
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-			setCursor(QCursor(Qt::SizeVerCursor));
+			cursorShape = Qt::SizeVerCursor;
 	}
 	tx = ma.map(QPoint(static_cast<int>(currItem->width())/2, 0));
 	tx2 = ma.map(QPoint(static_cast<int>(currItem->width())/2, static_cast<int>(currItem->height())));
@@ -1769,9 +1767,9 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	{
 		double rr = fabs(currItem->rotation());
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
-			setCursor(QCursor(Qt::SizeVerCursor));
+			cursorShape = Qt::SizeVerCursor;
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-			setCursor(QCursor(Qt::SizeHorCursor));
+			cursorShape = Qt::SizeHorCursor;
 	}
 	tx = ma.map(QPoint(static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 	tx2 = ma.map(QPoint(0, 0));
@@ -1782,11 +1780,12 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 			double rr = fabs(currItem->rotation());
 			if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) ||
 					((rr >= 315.0) && (rr <= 360.0)))
-				setCursor(QCursor(Qt::SizeFDiagCursor));
+				cursorShape = Qt::SizeFDiagCursor;
 			if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-				setCursor(QCursor(Qt::SizeBDiagCursor));
+				cursorShape = Qt::SizeBDiagCursor;
 		}
 	}
+	return cursorShape;
 }
 
 void ScribusView::SelectItemNr(uint nr, bool draw, bool single)

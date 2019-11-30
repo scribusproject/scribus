@@ -765,9 +765,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
-						m_view->setCursor(QCursor(Qt::OpenHandCursor));
+						Qt::CursorShape cursorShape = Qt::OpenHandCursor;
 						if (!currItem->sizeLocked())
-							m_view->HandleCurs(currItem, mpo);
+							cursorShape = m_view->getResizeCursor(currItem, mpo, cursorShape);
+						m_view->setCursor(QCursor(cursorShape));
 					}
 				}
 			}
