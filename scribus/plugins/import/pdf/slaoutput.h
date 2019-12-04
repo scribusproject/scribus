@@ -282,7 +282,7 @@ private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
-	QString convertPath(GfxPath *path);
+	QString convertPath(POPPLER_CONST_083 GfxPath *path);
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
 	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);

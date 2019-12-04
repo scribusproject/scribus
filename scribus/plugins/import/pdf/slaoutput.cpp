@@ -3678,7 +3678,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	return fNam;
 }
 
-QString SlaOutputDev::convertPath(GfxPath *path)
+QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
 {
 	if (! path)
 		return QString();
@@ -3688,7 +3688,7 @@ QString SlaOutputDev::convertPath(GfxPath *path)
 
 	for (int i = 0; i < path->getNumSubpaths(); ++i)
 	{
-		GfxSubpath * subpath = path->getSubpath(i);
+		POPPLER_CONST_083 GfxSubpath * subpath = path->getSubpath(i);
 		if (subpath->getNumPoints() > 0)
 		{
 			output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));
